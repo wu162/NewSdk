@@ -1,6 +1,6 @@
 {
-  "succeeded": true,
-  "sourceCommit": "af7d05d90350d5e207789b07aa25d795f370e089",
   "scope": "ArmorTemplate full ProcessInstance buffers; not replacement DLLs",
-  "exitCode": 0
+  "sourceCommit": "53133954ad07d2ff3d87a5469a6a2099bbf1c616",
+  "exitCode": 0,
+  "succeeded": true
 }
