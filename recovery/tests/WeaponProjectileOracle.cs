@@ -6,29 +6,44 @@ using Recovered;
 
 unsafe partial class WeaponOracle
 {
-    static readonly uint[] ReferenceIds={2278014412u,4131529406u,3322313791u};
+    static readonly uint[] ReferenceIds={2278014412u,4131529406u,3322313791u,1757028425u};
     static string ReferenceNugget(int kind,string attrs,string children) {
-        string name=new[] {"ProjectileNugget","ScatterProjectileNugget","WeaponOCLNugget"}[kind];
+        string name=new[] {"ProjectileNugget","ScatterProjectileNugget","WeaponOCLNugget","SeedTiberiumNugget"}[kind];
         return "<"+name+" TypeId='"+ReferenceIds[kind]+"' "+attrs+">"+children+"</"+name+">";
     }
     static void ReferenceLayout(TargetPlatform platform,int kind) {
         var xml=new XmlDocument();xml.LoadXml(NuggetXml(ReferenceNugget(kind,"",""),""));
         var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",AssetNamespace);
         var result=WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);bool big=platform!=TargetPlatform.Win32;
-        int tokens=kind==0?1560:1500,size=kind==0?68:48,at=tokens+332;
+        int tokens=kind==0?1560:kind==3?1548:1500,size=kind==0?68:kind==3?56:48,at=tokens+332;
         if(result.InstanceData.Length!=at+size || Word(result.InstanceData,tokens+256,big)!=1 ||
             Word(result.InstanceData,tokens+260,big)!=tokens+328 || Word(result.InstanceData,tokens+328,big)!=at ||
             Word(result.InstanceData,at,big)!=ReferenceIds[kind] || Word(result.InstanceData,at+4,big)!=4 ||
             Word(result.InstanceData,1284,big)!=2 || Word(result.InstanceData,1288,big)!=ReferenceIds[kind] ||
-            Word(result.InstanceData,1296,big)!=1 || Word(result.InstanceData,1300,big)!=3351432196u ||
+            Word(result.InstanceData,1296,big)!=1 || Word(result.InstanceData,1300,big)!=(kind==3?3322313791u:3351432196u) ||
             result.RelocationData.Length!=12 || Word(result.RelocationData,0,big)!=tokens+260 ||
             Word(result.RelocationData,4,big)!=tokens+328 || Word(result.RelocationData,8,big)!=uint.MaxValue || result.ImportsData.Length!=0)
             throw new Exception("Independent reference nugget layout: "+kind);
         for(int j=40;j<size;j+=4) if(Word(result.InstanceData,at+j,big)!=(kind==0 && j==48?5u:0u)) throw new Exception("Reference defaults/padding: "+kind+"/"+j);
         if(kind==0 && (Word(result.InstanceData,1304,big)!=1392 || Word(result.InstanceData,1352,big)!=0 || Word(result.InstanceData,1376,big)!=0)) throw new Exception("Projectile optional pointer token defaults");
     }
+    static void ProjectileNestedLayout(TargetPlatform platform) {
+        var xml=new XmlDocument();xml.LoadXml(NuggetXml(ReferenceNugget(0,"WarheadTemplate='w\\2' ProjectileTemplate='p\\3'", "<AttackOffset x='1' y='-2' z='3'/><VeterancyProjectiles VeterancyLevel='HEROIC' ProjectileTemplate='p\\7'/><SpecificBarrelOverride>-7</SpecificBarrelOverride>"),""));
+        var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",AssetNamespace);
+        var result=WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);bool big=platform!=TargetPlatform.Win32;
+        const int tokens=1608,at=1940;
+        if(result.InstanceData.Length!=2032 || Word(result.InstanceData,tokens+328,big)!=at ||
+            Word(result.InstanceData,at+52,big)!=2008 || Word(result.InstanceData,at+56,big)!=1 ||
+            Word(result.InstanceData,at+60,big)!=2020 || Word(result.InstanceData,at+64,big)!=2028 ||
+            Word(result.InstanceData,2008,big)!=0x3f800000u || Word(result.InstanceData,2012,big)!=0xc0000000u ||
+            Word(result.InstanceData,2016,big)!=0x40400000u || Word(result.InstanceData,2020,big)!=3 ||
+            Word(result.InstanceData,2028,big)!=0xfffffff9u || Word(result.InstanceData,1352,big)!=2008 ||
+            Word(result.InstanceData,1376,big)!=2028)
+            throw new Exception("Independent projectile nested allocation/count/token/endian layout");
+    }
     static void ProjectileNuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
-        for(int kind=0;kind<3;++kind) {
+        ProjectileNestedLayout(platform);
+        for(int kind=0;kind<4;++kind) {
             ReferenceLayout(platform,kind);
             NuggetFixture(plugin,platform,"reference-default-"+kind,ReferenceNugget(kind,"",""),"");
             foreach(string field in new[] {"PartitionFilterTestType","Radius","ForbiddenTargetObjectStatus","ForbiddenTargetModelCondition"})
@@ -49,6 +64,12 @@ unsafe partial class WeaponOracle
             foreach(string value in new[] {"", "resource", "r\\0", "r\\7", "r\\-1", "r\\2147483648", "r\\-2147483649", "r\\ 12tail", "a\\9\\2"})
                 NuggetFixture(plugin,platform,"reference-"+field+"/"+value,ReferenceNugget(kind,Attribute(field,value),""),"");
         }
+        foreach(string field in new[] {"FieldAmount","SpawnedInFieldBonus"}) foreach(string value in new[] {"", "-0", "-17.25", "2d1", "1e-40", "1e40", "NaN", "garbage"})
+            NuggetFixture(plugin,platform,"seed-"+field+"/"+value,ReferenceNugget(3,Attribute(field,value)+" WeaponOCL='ocl\\7' TargetAsPrimaryObject='true'", ""),"");
+        foreach(string value in new[] {"", "false", "true", "1", "0", "ocl\\0", "ocl\\-1", "ocl\\2147483648"}) {
+            NuggetFixture(plugin,platform,"seed-ocl-"+value,ReferenceNugget(3,Attribute("WeaponOCL",value),""),"");
+            NuggetFixture(plugin,platform,"seed-bool-"+value,ReferenceNugget(3,Attribute("TargetAsPrimaryObject",value),""),"");
+        }
         foreach(string value in new[] {"NO_WEAPON","PRIMARY_WEAPON","QUATERNARY_WEAPON","QUINARY_WEAPON","SECONDARY_WEAPON","TERTIARY_WEAPON","primary_weapon","", "unknown"})
             NuggetFixture(plugin,platform,"slot-"+value,ReferenceNugget(0,Attribute("WeaponLaunchBoneSlotOverride",value),""),"");
         foreach(string field in new[] {"ScatterMin","ScatterMax"}) foreach(string value in new[] {"", "-0", "-17.25", "2d1", "1e-40", "1e40", "NaN", "garbage"})
@@ -61,13 +82,13 @@ unsafe partial class WeaponOracle
             NuggetFixture(plugin,platform,"barrel-"+value,ReferenceNugget(0,"","<SpecificBarrelOverride>"+value+"</SpecificBarrelOverride>"),"");
         foreach(string level in new[] {"ELITE","HEROIC","INVALID","REGULAR","VETERAN","elite","", "unknown"})
             foreach(string reference in new[] {"", "Obj", "o\\0", "o\\7", "o\\-1", "o\\2147483648"})
-                NuggetFixture(plugin,platform,"veteran-"+level+"/"+reference,ReferenceNugget(0,"","<VeterancyProjectiles "+Attribute("VeterancyLevel",level)+Attribute("ProjectileTemplate",reference)+"/>"),"");
+                NuggetFixture(plugin,platform,"veteran-"+level+"/"+reference,ReferenceNugget(0,"","<VeterancyProjectiles "+Attribute("VeterancyLevel",level)+" "+Attribute("ProjectileTemplate",reference)+"/>"),"");
         foreach(int count in new[] {0,1,2,3,7,17,33,129,255,256,257}) {
             var child=new StringBuilder("<AttackOffset x='1' y='-2' z='3'/><SpecificBarrelOverride>-7</SpecificBarrelOverride>");
             for(int j=0;j<count;++j) child.Append("<VeterancyProjectiles VeterancyLevel='"+new[] {"REGULAR","VETERAN","ELITE","HEROIC","INVALID"}[j%5]+"' ProjectileTemplate='Obj\\"+(j%7)+"'/>");
             child.Append("<SpecialObjectFilter StatusBitFlags='ALL'/><RequiredUpgrade>Base</RequiredUpgrade><ForbiddenUpgrade>Down</ForbiddenUpgrade>");
             NuggetFixture(plugin,platform,"veteran-list-"+count,ReferenceNugget(0,"WarheadTemplate='w\\4' ProjectileTemplate='p\\2' ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL'",child.ToString()),"");
-            var list=new StringBuilder();for(int j=0;j<count;++j) list.Append(ReferenceNugget(j%3,"Radius='"+j+"'",""));
+            var list=new StringBuilder();for(int j=0;j<count;++j) list.Append(ReferenceNugget(j%4,"Radius='"+j+"'",""));
             NuggetFixture(plugin,platform,"reference-list-"+count,list.ToString(),"");
         }
         for(int mask=0;mask<8;++mask) {
@@ -80,7 +101,7 @@ unsafe partial class WeaponOracle
             string content=ReferenceNugget(2,"WeaponOCL='ocl\\3' TargetAsPrimaryObject='true'","<RequiredUpgrade>Up</RequiredUpgrade>")+Nugget(j%9,"Damage='12.5'","<SpecialObjectFilter StatusBitFlags='ALL'/>")+ReferenceNugget(0,"WarheadTemplate='w\\2' ProjectileTemplate='p\\4'","<AttackOffset x='1' y='2'/><VeterancyProjectiles ProjectileTemplate='p\\7'/><SpecificBarrelOverride>-2</SpecificBarrelOverride>")+ReferenceNugget(1,"ScatterMin='-2' ScatterMax='3'","");
             NuggetFixture(plugin,platform,"reference-damage-mixed-"+j,content,"FireSound='snd\\1' RequiredFiringObjectStatus='ALL'");
         }
-        foreach(int kind in new[] {1,2}) foreach(string child in new[] {"<AttackOffset/>","<VeterancyProjectiles/>","<SpecificBarrelOverride/>"}) Reject(NuggetXml(ReferenceNugget(kind,"",child),""));
+        foreach(int kind in new[] {1,2,3}) foreach(string child in new[] {"<AttackOffset/>","<VeterancyProjectiles/>","<SpecificBarrelOverride/>"}) Reject(NuggetXml(ReferenceNugget(kind,"",child),""));
         foreach(string child in new[] {"<AttackOffset Unknown='1'/>","<AttackOffset><Nested/></AttackOffset>","<VeterancyProjectiles Unknown='1'/>","<SpecificBarrelOverride Unknown='1'/>"}) Reject(NuggetXml(ReferenceNugget(0,"",child),""));
         Reject(NuggetXml(Nugget(0,"","<AttackOffset/>"),""));
     }

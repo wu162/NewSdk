@@ -17,8 +17,8 @@ constexpr U32 DamageId = 3237297817u, DotId = 4022030886u, GrapplingId = 1093138
 constexpr U32 ContainedId = 2459653016u;
 constexpr U32 SpawnId = 3266020104u, FireId = 2014632688u;
 constexpr U32 LeechPercentId = 921679887u, LeechHealthId = 4012276286u, LineId = 4021248832u;
-constexpr U32 ProjectileId=2278014412u, ScatterProjectileId=4131529406u, OclId=3322313791u;
-bool ReferenceFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId; }
+constexpr U32 ProjectileId=2278014412u, ScatterProjectileId=4131529406u, OclId=3322313791u, SeedId=1757028425u;
+bool ReferenceFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId; }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
     U32 type, partition; U32* status; U32* model;
@@ -46,6 +46,8 @@ struct FireNugget { DamageNugget damage; U32 weapon; ObjectFilter* filter; unsig
 struct LineNugget { DamageNugget damage; float angle, width, leadIn, leadOut, overshoot; unsigned char dynamicLength, padding[3]; };
 struct PercentNugget { DamageNugget damage; float percentage; };
 struct DotNugget { DamageNugget damage; float interval, duration; unsigned char removeIfHealed, padding[3]; };
+struct SeedNugget { OclNugget ocl; float amount, bonus; };
+static_assert(sizeof(SeedNugget)==56, "Original SeedTiberium layout");
 struct Procedure { U32 name, type; void* offset; };
 struct TokenKey { U32 name, type; };
 static_assert(sizeof(BaseNugget)==40 && sizeof(DamageNugget)==152 && sizeof(DotNugget)==164 && sizeof(PercentNugget)==156 && sizeof(LineNugget)==176 && sizeof(SpawnNugget)==220 && sizeof(FireNugget)==164 && sizeof(ContainedNugget)==272, "Original x86 nugget layouts");
@@ -403,7 +405,8 @@ void ValidateReference(const WeaponNuggetInput& input) {
         bool known=attr.first=="PartitionFilterTestType" || attr.first=="Radius" || attr.first=="ForbiddenTargetObjectStatus" || attr.first=="ForbiddenTargetModelCondition";
         if(input.typeId==ProjectileId && (attr.first=="WarheadTemplate" || attr.first=="ProjectileTemplate" || attr.first=="WeaponLaunchBoneSlotOverride")) known=true;
         if(input.typeId==ScatterProjectileId && (attr.first=="ScatterMin" || attr.first=="ScatterMax")) known=true;
-        if(input.typeId==OclId && (attr.first=="WeaponOCL" || attr.first=="TargetAsPrimaryObject")) known=true;
+        if((input.typeId==OclId || input.typeId==SeedId) && (attr.first=="WeaponOCL" || attr.first=="TargetAsPrimaryObject")) known=true;
+        if(input.typeId==SeedId && (attr.first=="FieldAmount" || attr.first=="SpawnedInFieldBonus")) known=true;
         if(!known) throw std::invalid_argument("Unsupported reference nugget attribute: "+attr.first);
     }
     for(const auto& attr:input.attackOffset) if(attr.first!="x" && attr.first!="y" && attr.first!="z") throw std::invalid_argument("Unsupported AttackOffset attribute");
@@ -414,7 +417,8 @@ void MarshalReferenceNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
     if(src.typeId==ScatterProjectileId) {
         auto object=reinterpret_cast<ScatterProjectileNugget*>(base);
         object->min=ParseFloat(Text(src,"ScatterMin","0"));object->max=ParseFloat(Text(src,"ScatterMax","0"));
-    } else if(src.typeId==OclId) {
+    } else if(src.typeId==OclId || src.typeId==SeedId) {
+        if(src.typeId==SeedId) {auto seed=reinterpret_cast<SeedNugget*>(base);seed->amount=ParseFloat(Text(src,"FieldAmount","0"));seed->bonus=ParseFloat(Text(src,"SpawnedInFieldBonus","0"));}
         auto object=reinterpret_cast<OclNugget*>(base);
         if(src.attributes.count("WeaponOCL")) MarshalReference(data,&object->ocl,Text(src,"WeaponOCL",""));
         object->target=ParseBoolean(Text(src,"TargetAsPrimaryObject","false"));
@@ -443,7 +447,13 @@ void MarshalReferenceNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
     }
     MarshalBase(src,*base,data);base->type=src.typeId;
 }
-void TokenReferenceNugget(BaseNugget* base,void** table,Relo::Tracker& tokens) {
+void TokenReferenceNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bool oclParent=false) {
+    if(base->type==SeedId && !oclParent) {
+        auto t=static_cast<Procedure*>(tokens.Push(table,12,4));
+        t[0].name=1;t[0].type=OclId;TokenReferenceNugget(base,&t[0].offset,tokens,true);
+        t[1].name=2531751936u;t[1].type=1683514611u;Member(base,48,t[1],tokens);
+        t[2].name=644933238u;t[2].type=1683514611u;Member(base,52,t[2],tokens);tokens.Pop();return;
+    }
     bool projectile=base->type==ProjectileId,scatter=base->type==ScatterProjectileId;
     auto t=static_cast<Procedure*>(tokens.Push(table,12,projectile?8:4));
     t[0].name=1;t[0].type=3351432196u;TokenBase(*base,&t[0].offset,tokens);
@@ -472,6 +482,7 @@ void TokenReferenceNugget(BaseNugget* base,void** table,Relo::Tracker& tokens) {
     tokens.Pop();
 }
 void EndianReferenceNugget(BaseNugget* base) {
+    if(base->type==SeedId) {auto seed=reinterpret_cast<SeedNugget*>(base);Swap(&seed->amount);Swap(&seed->bonus);}
     if(base->type==ScatterProjectileId) {auto object=reinterpret_cast<ScatterProjectileNugget*>(base);Swap(&object->min);Swap(&object->max);}
     if(base->type==ProjectileId) {
         auto object=reinterpret_cast<ProjectileNugget*>(base);Swap(&object->slot);
@@ -567,7 +578,7 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     for(U32 i=0;i<list->count;++i) {
         const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
         if(ReferenceFamily(src.typeId)) {
-            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],src.typeId==ProjectileId?68:48,1));
+            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],src.typeId==ProjectileId?68:src.typeId==SeedId?56:48,1));
             MarshalReferenceNugget(src,base,data);data.Pop();continue;
         }
         auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],src.typeId==ContainedId?272:src.typeId==SpawnId?220:src.typeId==FireId?164:dot?164:percent?156:line?176:152,1));

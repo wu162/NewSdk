@@ -34,6 +34,8 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'SeedTiberium Marshal and endian'; Start = 16688; End = 16735 }
+            @{ Name = 'SeedTiberium Tokenize'; Start = 79302; End = 79324 }
             @{ Name = 'Projectile Marshal and endian'; Start = 16865; End = 16960 }
             @{ Name = 'Projectile Tokenize'; Start = 79393; End = 79449 }
             @{ Name = 'ScatterProjectile Marshal and endian'; Start = 15757; End = 15802 }
@@ -125,7 +127,7 @@ jobs:
           $validation | Add-Member -Force NoteProperty runId ([long]$env:GITHUB_RUN_ID)
           $validation | Add-Member -Force NoteProperty runUrl "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
           $validation | ConvertTo-Json -Depth 10 | Set-Content $validationPath
-          if ($validation.sdkProbeStatus -like 'not run*') {
+          if ($validation.sdkProbeSucceeded -ne $true) {
             Remove-Item "$evidence/nugget-sdk.json", "$evidence/nugget-sdk-output.zip" -ErrorAction SilentlyContinue
           }
           $files = @(Get-ChildItem $evidence -File | Where-Object { $_.Extension -eq '.txt' -or $_.Name -eq 'validation.json' -or $_.Name -eq 'enums.json' -or $_.Name -eq 'nugget-sdk.json' -or $_.Name -eq 'nugget-sdk-output.zip' })
