@@ -1,0 +1,1 @@
+cl : Command line error D8016 : '/clr' and '/fp:strict' command-line options are incompatible
