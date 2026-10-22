@@ -6,6 +6,12 @@ Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` h
 
 Recover both `SDK/tools/BinaryAssetBuilder.XmlCompiler.dll` and `BinaryAssetBuilder.Tokenizer.dll`, including managed/C++/CLI logic. Work directly from this repository, without assumptions from earlier projects. Do not create a microtask scheduler. Commit meaningful milestones. Windows Actions are authorized. Validate using the example MOD's basic-data build (the GUI invokes BAB through `defaultscript.cs` case 5). Continue across sessions at substantial milestones to avoid context exhaustion.
 
+## Repository-wide standing authorization — 2026-10-22
+
+The user explicitly states: “这个仓库以后所有任务，仅仅不允许强推，其他都授权”.
+
+For all future tasks in `wu162/NewSdk`, all task-related repository operations except force-push are authorized without repeated confirmation, including workflow configuration and automatic commits/pushes. Force-push, force-with-lease and forced API ref updates are prohibited. Read the root `AGENTS.md` for the persistent instruction. This supersedes earlier narrower authorization notes; the task scope, verification and approximately-25-minute implementation-stage rules continue unchanged.
+
 ## Stage size rule — user update, 2026-10-22
 
 Future implementation sessions should contain about **25 minutes of effective work** (normally estimated at 20–30 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 25 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
