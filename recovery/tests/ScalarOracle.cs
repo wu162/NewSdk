@@ -43,7 +43,7 @@ unsafe class ScalarOracle
             IntPtr navHandle = GCHandle.ToIntPtr(GCHandle.Alloc(xml.DocumentElement.CreateNavigator()));
             IntPtr nsHandle = GCHandle.ToIntPtr(GCHandle.Alloc(ns));
             Call("Node.{ctor}", node, new IntPtr(&navHandle), new IntPtr(&nsHandle));
-            int count = 0;
+            int count = 0, failures = 0;
             try {
                 string[] integers = { "0", "1", "-1", "+42", " 17tail", "010", "08", "0x1f", "-0x20", "0b11", "2147483647", "2147483648", "-2147483648", "-2147483649", "4294967295", "4294967296", "-4294967295", "999999999999999999999999", "-999999999999999999999999", "", "garbage", "12.5", "65536", "257" };
                 string[] reals = { "0", "-0", "1", "+1", "12.5", " 12.5", "12,5", "garbage", "2d1", "2D-1", "1e-40", "1e38", "-1e38", "16777217", "0x10", "0x1p2", "INF", "NaN", "1.#INF", "1e39", "1e-50" };
@@ -61,11 +61,12 @@ unsafe class ScalarOracle
                             default: float number = kind == "percent" ? ScalarParser.Percentage(text) : ScalarParser.Float(text); actual = *(uint*)&number; break;
                         }
                         Console.WriteLine("{0}\t{1}\t{2:X8}\t{3:X8}", kind, text, expected, actual);
-                        if (expected != actual) throw new Exception(kind + " mismatch for " + text);
+                        if (expected != actual) { Console.WriteLine("MISMATCH " + kind + " for " + text); failures++; }
                         count++;
                     }
                 }
             } finally { Call("Node.{dtor}", node); Marshal.FreeHGlobal(node); }
+            if (failures != 0) throw new Exception(failures + " scalar comparisons failed out of " + count);
             Console.WriteLine("PASS scalar parsing: " + count + " original/recovered bit comparisons.");
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }

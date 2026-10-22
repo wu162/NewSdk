@@ -1,5 +1,6 @@
 #include "ScalarParsing.h"
 #include <cstdlib>
+#include <cctype>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -9,7 +10,14 @@ bool ParseBoolean(const std::string& text) {
     return !text.empty() && (text[0] == '1' || text[0] == 't' || text[0] == 'T');
 }
 std::uint32_t ParseUnsigned(const std::string& text) {
-    return static_cast<std::uint32_t>(std::strtoul(text.c_str(), nullptr, 0));
+    const char* at = text.c_str();
+    while (std::isspace(static_cast<unsigned char>(*at))) ++at;
+    const bool negative = *at == '-';
+    if (*at == '-' || *at == '+') ++at;
+    // VC8 saturates magnitude before applying the unsigned negation, even on
+    // overflow. Current UCRT instead returns ULONG_MAX for negative overflow.
+    const std::uint32_t magnitude = static_cast<std::uint32_t>(std::strtoul(at, nullptr, 0));
+    return negative ? 0u - magnitude : magnitude;
 }
 std::int32_t ParseSigned(const std::string& text) {
     return static_cast<std::int32_t>(std::strtol(text.c_str(), nullptr, 0));
