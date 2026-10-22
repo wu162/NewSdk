@@ -37,9 +37,18 @@ foreach ($mode in @('Original','Recovered')) {
     Get-ChildItem $sdk -Directory -Recurse | Where-Object { $_.Name -in @('cache','buildcache','sessioncache') } | Remove-Item -Recurse -Force
     $output = Join-Path $sdk 'builtmods'
     New-Item -ItemType Directory -Force $output | Out-Null
+    # Exercise reversibility and idempotence before the actual build.
+    & "$PSScriptRoot/SetArmorPlugin.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode Recovered
+    & "$PSScriptRoot/SetArmorPlugin.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode Original
+    & "$PSScriptRoot/SetArmorPlugin.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode $mode
     & "$PSScriptRoot/SetArmorPlugin.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode $mode
     $cfg = Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'
     [xml]$xml = Get-Content -Raw $cfg
+    $handlers = @($xml.configuration.assetbuilder.plugins.plugin | Where-Object { $_.assetTypes.Split(',') -contains 'ArmorTemplate' })
+    $expectedHandler = if ($mode -eq 'Recovered') { 'Recovered.Compiler.Plugin, Recovered.Compiler' } else { 'BinaryAssetBuilder.Tokenizer.Plugin, BinaryAssetBuilder.Tokenizer' }
+    if ($handlers.Count -ne 1 -or $handlers[0].targetType -ne $expectedHandler) { throw "$mode Armor routing is ambiguous or incorrect" }
+    if ($mode -eq 'Recovered' -and $handlers[0].useBuildCache -ne 'false') { throw 'Recovered build cache must be disabled' }
+    "PASS reversible/idempotent $mode routing: $expectedHandler" | Set-Content "$report/$mode-routing.txt"
     $startup = $xml.CreateElement('startup'); $startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
     $runtime = $xml.CreateElement('supportedRuntime'); $runtime.SetAttribute('version','v4.0')
     $startup.AppendChild($runtime) | Out-Null; $xml.configuration.AppendChild($startup) | Out-Null; $xml.Save($cfg)
@@ -67,4 +76,12 @@ foreach ($ext in @('bin','manifest','imp','relo')) {
 & "$build/ArmorSdkOracle.exe" buffers "$build/BinaryAssetBuilder.Tokenizer.dll" $trace "$report/Recovered-mod.bin" *> "$report/sdk-buffer-oracle.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/sdk-buffer-oracle.txt"; throw 'SDK buffer/routing verification failed' }
 Get-Content "$report/sdk-buffer-oracle.txt"
-@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; status = 'Formal Armor plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified'; scope = 'ArmorTemplate only; original plugins retained for other types' } | ConvertTo-Json | Set-Content "$report/validation.json"
+# Prove the recovered plugin can replay the verified SDK buffers with both
+# original compiler DLLs physically absent from the process directory.
+$isolated = Join-Path $work 'isolated'
+New-Item -ItemType Directory -Force $isolated | Out-Null
+Get-ChildItem $build -File | Where-Object { $_.Extension -in @('.dll','.exe','.config') -and $_.Name -notin @('BinaryAssetBuilder.Tokenizer.dll','BinaryAssetBuilder.XmlCompiler.dll') } | Copy-Item -Destination $isolated
+& "$isolated/ArmorSdkOracle.exe" isolated "$isolated/Recovered.Compiler.dll" $trace "$report/Recovered-mod.bin" *> "$report/isolated-oracle.txt"
+if ($LASTEXITCODE -ne 0) { Get-Content "$report/isolated-oracle.txt"; throw 'Original-free plugin replay failed' }
+Get-Content "$report/isolated-oracle.txt"
+@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; status = 'Formal Armor plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified; original-free replay; three XSD negative cases; reversible/idempotent routing'; scope = 'ArmorTemplate only; original plugins retained for other types' } | ConvertTo-Json | Set-Content "$report/validation.json"

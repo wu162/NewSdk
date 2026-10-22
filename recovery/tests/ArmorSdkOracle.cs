@@ -28,7 +28,27 @@ class ArmorSdkOracle
                 while (reader.Read()) { }
             ++files;
         }
-        File.WriteAllText(report, "PASS " + files + " documents validated against CnC3Types.xsd with relative includes/imports.\n");
+        int rejected = 0;
+        foreach (string attribute in new[] { "Damage", "Percent", "id" }) {
+            var invalid = new XmlDocument();
+            invalid.Load(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
+            invalid.Schemas = schemas;
+            if (attribute == "id") {
+                var manager = new XmlNamespaceManager(invalid.NameTable); manager.AddNamespace("ea", "uri:ea.com:eala:asset");
+                ((XmlElement)invalid.SelectSingleNode("//ea:ArmorTemplate", manager)).RemoveAttribute("id");
+            }
+            else {
+                var manager = new XmlNamespaceManager(invalid.NameTable); manager.AddNamespace("ea", "uri:ea.com:eala:asset");
+                var armor = (XmlElement)invalid.SelectSingleNode("//ea:Armor", manager);
+                armor.SetAttribute(attribute, "INVALID_RECOVERY_PROBE");
+            }
+            bool failed = false;
+            try { invalid.Validate(delegate(object sender, ValidationEventArgs e) { throw new Exception(e.Message); }); }
+            catch (Exception) { failed = true; }
+            if (!failed) throw new Exception("Schema accepted intentionally invalid " + attribute);
+            ++rejected;
+        }
+        File.WriteAllText(report, "PASS " + files + " documents validated against CnC3Types.xsd with relative includes/imports; " + rejected + " invalid fixtures rejected.\n");
     }
     static InstanceDeclaration Declaration(XmlDocument xml)
     {
@@ -59,7 +79,12 @@ class ArmorSdkOracle
     {
         try {
             if (args[0] == "schema") { Validate(args[1], args[2]); return 0; }
-            var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+            bool isolated = args[0] == "isolated";
+            if (isolated) {
+                foreach (string name in new[] { "BinaryAssetBuilder.Tokenizer.dll", "BinaryAssetBuilder.XmlCompiler.dll" })
+                    if (File.Exists(Path.Combine(Path.GetDirectoryName(args[1]), name))) throw new Exception("Original compiler present in isolated host: " + name);
+            }
+            var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType(isolated ? "Recovered.Compiler.Plugin" : "BinaryAssetBuilder.Tokenizer.Plugin"));
             plugin.Initialize(null, TargetPlatform.Win32);
             var seen = new HashSet<string>();
             byte[] mod = File.ReadAllBytes(args[3]); int calls = 0;
@@ -76,12 +101,16 @@ class ArmorSdkOracle
                     if (!Contains(mod, data)) throw new Exception(id + " not present in final mod.bin");
                     seen.Add(id);
                 }
-                Console.WriteLine("PASS SDK call {0}: original buffers equal, bytes={1}", id, data.Length);
+                Console.WriteLine("PASS {0} call {1}: verified buffers equal, bytes={2}", isolated ? "isolated recovered" : "original SDK replay", id, data.Length);
                 ++calls;
             }
             foreach (string id in new[] { "RecoveryArmorProbe_Defaults", "RecoveryArmorProbe_NonDefault", "RecoveryArmorProbe_Inherited" })
                 if (!seen.Contains(id)) throw new Exception("No recovered plugin call for " + id);
-            Console.WriteLine("PASS {0} actual SDK plugin calls, all three probe assets emitted; inherited XML tested after BAB preprocessing.", calls);
+            if (isolated) foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                string name = assembly.GetName().Name;
+                if (name == "BinaryAssetBuilder.Tokenizer" || name == "BinaryAssetBuilder.XmlCompiler") throw new Exception("Original compiler loaded in isolation: " + name);
+            }
+            Console.WriteLine("PASS {0} verified calls, all three probe assets emitted; inherited XML tested after BAB preprocessing; isolated={1}.", calls, isolated);
             return 0;
         } catch (Exception e) { Console.Error.WriteLine(e); return 1; }
     }
