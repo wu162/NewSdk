@@ -3,6 +3,7 @@ Set-Location (Resolve-Path "$PSScriptRoot/../..")
 $out = Join-Path $env:RUNNER_TEMP 'ra3-recovered-armor'
 $evidence = 'recovery/evidence/armor'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
+@{ succeeded = $false; sourceCommit = $env:GITHUB_SHA; status = 'validation started; consult individual results' } | ConvertTo-Json | Set-Content "$evidence/validation.json"
 Copy-Item SDK/tools/*.dll $out
 cl /nologo /clr /LD /MD /EHa /Od /fp:precise /AI"$out" /Fo"$out/" /Fe"$out/Recovered.Armor.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ArmorTemplate.cpp recovery/src/Bridge/ArmorCompiler.cpp *> "$evidence/build.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/build.txt"; throw 'Armor C++/CLI build failed' }
@@ -35,3 +36,14 @@ foreach ($name in @('Tokenizer', 'XmlCompiler')) {
     @{ exitCode = $scalarCode; succeeded = ($scalarCode -eq 0); sourceCommit = $env:GITHUB_SHA } | ConvertTo-Json | Set-Content "$evidence/$name-scalar-result.json"
     if ($scalarCode -ne 0) { throw "$name scalar differential test failed" }
 }
+# Rebuild the serializer with production optimization, then start fresh oracle
+# processes so none can retain the preceding debug-mode assembly in memory.
+cl /nologo /clr /LD /MD /EHa /O2 /fp:precise /AI"$out" /Fo"$out/" /Fe"$out/Recovered.Armor.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ArmorTemplate.cpp recovery/src/Bridge/ArmorCompiler.cpp *> "$evidence/release-build.txt"
+if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/release-build.txt"; throw 'Optimized Armor C++/CLI build failed' }
+& "$out/ArmorOracle.exe" (Resolve-Path 'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').Path *> "$evidence/release-oracle.txt"
+if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/release-oracle.txt"; throw 'Optimized Armor differential test failed' }
+foreach ($name in @('Tokenizer', 'XmlCompiler')) {
+    & "$out/ScalarOracle.exe" (Resolve-Path "SDK/tools/BinaryAssetBuilder.$name.dll").Path *> "$evidence/$name-release-scalar-oracle.txt"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$name-release-scalar-oracle.txt"; throw "$name optimized scalar differential test failed" }
+}
+@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; status = 'Armor and scalars passed Od and O2; Node passed against both original DLLs'; scope = 'components only; SDK compiler binaries unchanged' } | ConvertTo-Json | Set-Content "$evidence/validation.json"

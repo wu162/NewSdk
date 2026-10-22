@@ -42,3 +42,8 @@ jobs:
           git commit -m 'recovery: record ArmorTemplate ProcessInstance differential results'
           git pull --rebase origin recovery/compiler-source
           git push origin HEAD:recovery/compiler-source
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: recovered-armor-component-x86
+          path: ${{ runner.temp }}/ra3-recovered-armor/Recovered.Armor.dll

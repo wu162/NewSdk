@@ -45,8 +45,8 @@ unsafe class ScalarOracle
             Call("Node.{ctor}", node, new IntPtr(&navHandle), new IntPtr(&nsHandle));
             int count = 0, failures = 0;
             try {
-                string[] integers = { "0", "1", "-1", "+42", " 17tail", "010", "08", "0x1f", "-0x20", "0b11", "2147483647", "2147483648", "-2147483648", "-2147483649", "4294967295", "4294967296", "-4294967295", "999999999999999999999999", "-999999999999999999999999", "", "garbage", "12.5", "65536", "257" };
-                string[] reals = { "0", "-0", "1", "+1", "12.5", " 12.5", "12,5", "garbage", "2d1", "2D-1", "1e-40", "1e38", "-1e38", "16777217", "0x10", "0x1p2", "INF", "NaN", "1.#INF", "1e39", "1e-50" };
+                string[] integers = { "0", "1", "-1", "+42", " 17tail", "010", "08", "0x1f", "-0x20", "0b11", "2147483647", "2147483648", "-2147483648", "-2147483649", "4294967295", "4294967296", "-4294967295", "999999999999999999999999", "-999999999999999999999999", "", "garbage", "12.5", "65536", "257", "--1", "+-1", "++1", "-+1", "- 1", "-4294967296" };
+                string[] reals = { "0", "-0", "1", "+1", "12.5", " 12.5", "12,5", "garbage", "2d1", "2D-1", "1e-40", "1e38", "-1e38", "16777217", "0x10", "0x1p2", "INF", "NaN", "1.#INF", "1e39", "1e-50", "-INF", "-NaN", "-garbage", "-0x10", ".25", "-.25", "1e", "1d+", "1d-2tail", "- 1", "++1" };
                 foreach (string kind in new[] { "unsigned int", "int", "unsigned char", "unsigned short", "bool", "float", "percent" }) {
                     string methodName = kind == "percent" ? "Marshaler.Marshal<float,class Relo::Tracker,struct PercentageTag>" : "Marshaler.Marshal<" + kind + ",class Relo::Tracker>";
                     string[] values = kind == "float" || kind == "percent" ? reals : kind == "bool" ? new[] { "true", "True", "TRUE", "turtle", "false", "False", "1", "10", "2", "-1", " 1", " true", "", "yes", "T" } : integers;
