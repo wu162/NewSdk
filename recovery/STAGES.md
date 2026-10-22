@@ -29,4 +29,6 @@
 
 ## 下一轮的具体起点
 
-读取 `STATUS.md`、本文件及当前分支提交，直接进入阶段 1。复用已经通过 700 项差分比较的 Relocation 实现，不重做提取或原版基线。把 XML 节点适配、ArmorTemplate 的布局/序列化和差分宿主视为同一阶段的连续工作，优先在一轮约 25 分钟内形成首条完整类型链路；如果提前完成，继续扩展该类型的边界样例或开始 WeaponTemplate 可复用解析部分，再统一提交交接。
+阶段 1 已完成 XML 节点适配和 ArmorTemplate 首条完整差分链路，详见 `ARMOR_TEMPLATE.md` 与 `STATUS.md` 的实际验证记录。额外提取了可复用标量解析，并依据原 DLL 修复旧 CRT 与新 CRT 的差异；不要再次从 ArmorTemplate 起步。
+
+下一轮进入阶段 2：读取 WeaponTemplate Marshal/Tokenize/EndianCorrect 的证据，成组恢复其布局、默认值、标量及依赖枚举，接入节点层和已经验证的重定位运行时，建立原 `Plugin.ProcessInstance` 的差分宿主。以约 25 分钟为一轮，若完整路径涉及过多可选结构，则交接可编译、有差分证据的连贯字段组，并明确未覆盖的可选块、列表和弹头。不能把未实现分支清零后返回成功，也不能把默认 XML 通过解释为完整 WeaponTemplate 恢复。
