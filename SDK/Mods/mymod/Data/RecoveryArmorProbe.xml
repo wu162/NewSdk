@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Legal SDK integration fixtures; malformed inputs remain in the oracle. -->
+  <ArmorTemplate id="RecoveryArmorProbe_Defaults" />
+  <ArmorTemplate id="RecoveryArmorProbe_NonDefault" Default="72.5%"
+      DamageScalar="83.25" SideDamageScalar="117.5%"
+      RearDamageScalar="136.75" FlankedPenalty="42.125%">
+    <Armor Damage="CANNON" Percent="35.5%" />
+    <Armor Damage="TESLA" Percent="62.75" />
+    <Armor Damage="GUN" Percent="123.125%" />
+    <Armor Damage="ALL" Percent="91.25" />
+  </ArmorTemplate>
+  <ArmorTemplate id="RecoveryArmorProbe_Inherited"
+      inheritFrom="RecoveryArmorProbe_NonDefault" Default="61.25%" />
+</AssetDeclaration>

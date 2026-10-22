@@ -12,5 +12,6 @@
 		<!-- 同目录下的文件直接填写文件名即可。-->
 		<Include type="all" source="CommandData.xml" />
 		<Include type="all" source="mytank.xml" />
+		<Include type="all" source="RecoveryArmorProbe.xml" />
       </Includes>
 </AssetDeclaration>

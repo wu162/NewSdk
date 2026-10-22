@@ -1,0 +1,48 @@
+name: Recovered ArmorTemplate SDK integration
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-armor-sdk.yml'
+      - 'recovery/src/Plugin/ArmorPlugin.cs'
+      - 'recovery/scripts/TestArmorSdk.ps1'
+      - 'recovery/scripts/SetArmorPlugin.ps1'
+      - 'recovery/tests/ArmorSdkOracle.cs'
+      - 'SDK/Mods/mymod/Data/RecoveryArmorProbe.xml'
+permissions:
+  contents: write
+jobs:
+  integration:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build plugin and compare actual SDK output
+        shell: pwsh
+        run: ./recovery/scripts/TestArmorSdk.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-armor-sdk-evidence
+          path: recovery/evidence/armor-sdk
+      - name: Persist integration evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/armor-sdk
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m 'recovery: record ArmorTemplate SDK integration results'
+          git pull --rebase origin recovery/compiler-source
+          git push origin HEAD:recovery/compiler-source
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: recovered-armor-sdk-plugin-x86
+          path: |
+            ${{ runner.temp }}/ra3-armor-sdk/build/Recovered.Armor.dll
+            ${{ runner.temp }}/ra3-armor-sdk/build/Recovered.Compiler.dll

@@ -12,6 +12,7 @@ class ArmorOracle
 {
     const string AssetNamespace = "uri:ea.com:eala:asset";
     static int comparisons;
+    static IAssetBuilderPlugin recoveredPlugin;
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
         // Supply the same Node and namespace manager that BAB supplies after
@@ -45,7 +46,9 @@ class ArmorOracle
         var namespaces = new XmlNamespaceManager(xml.NameTable); namespaces.AddNamespace("ea", AssetNamespace);
         var declaration = Declaration(xml, namespaces);
         AssetBuffer original = plugin.ProcessInstance(declaration);
-        AssetBuffer recovered = ArmorCompiler.ProcessInstance(declaration, platform);
+        AssetBuffer recovered;
+        if (recoveredPlugin == null) recovered = ArmorCompiler.ProcessInstance(declaration, platform);
+        else { recoveredPlugin.ReInitialize(null, platform); recovered = recoveredPlugin.ProcessInstance(declaration); }
         Equal(label + "/instance", original.InstanceData, recovered.InstanceData);
         Equal(label + "/relocations", original.RelocationData, recovered.RelocationData);
         Equal(label + "/imports", original.ImportsData, recovered.ImportsData);
@@ -75,6 +78,17 @@ class ArmorOracle
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+            if (args.Length > 1) {
+                recoveredPlugin = (IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("Recovered.Compiler.Plugin"));
+                foreach (TargetPlatform target in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                    plugin.Initialize(null, target); recoveredPlugin.Initialize(null, target);
+                    if (plugin.GetVersionNumber() != recoveredPlugin.GetVersionNumber() || plugin.GetAllTypesHash() != recoveredPlugin.GetAllTypesHash()) throw new Exception("Plugin versions differ");
+                    var originalInfo = plugin.GetExtendedTypeInformation(980180622u);
+                    var recoveredInfo = recoveredPlugin.GetExtendedTypeInformation(980180622u);
+                    foreach (var field in typeof(ExtendedTypeInformation).GetFields())
+                        if (!Object.Equals(field.GetValue(originalInfo), field.GetValue(recoveredInfo))) throw new Exception("Plugin metadata differs: " + field.Name);
+                }
+            }
             string[] damages = { "FORCE", "CRUSH", "SLASH", "PIERCE", "FLAME", "HEALING", "UNRESISTABLE", "WATER", "PENALTY", "FALLING", "BLAST", "REFLECTED", "PASSENGER", "MAGIC", "UNDEFINED", "LOGICAL_FIRE", "POISON", "LASER", "PLASMA", "FIRE", "ROCKET", "GUN", "CANNON", "GRENADE", "SNIPER", "MINE", "TIBERIUM", "STORM_SHIELD", "MELEE", "AUTO_CANNON", "IMPACT", "EXPLOSIVE", "CONCUSSIVE", "FLAK", "PRISM", "TESLA", "KI", "RADIATION", "ALL" };
             string[] numbers = { "0", "-0", "-25.5%", "33.3333333333", "16777217", "2d1", "2D-1", "1e-7", "", "garbage", " 25.75junk", "25,5", "100%", "1e30", "1e-30" };
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {

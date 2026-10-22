@@ -36,7 +36,7 @@
 		</GameDependency>
 		
 		<ArmorSet
-			Armor="AlliedAntiVehicleVehicleTech1Armor"
+			Armor="RecoveryArmorProbe_NonDefault"
 			DamageFX="VehicleDamageFX" />
 		<LocomotorSet
 			Locomotor="TestReactiveLocomotorTANK"
