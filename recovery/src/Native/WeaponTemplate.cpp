@@ -225,7 +225,8 @@ const WeaponField* WeaponFields() { return fields; }
 unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
-    const std::map<std::string, WeaponOptionalInput>& optionalBlocks, bool bigEndian) {
+    const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
+    const std::vector<std::string>& incompatibleModifiers, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
     for (const auto& duration : durations) {
         bool known = false;
@@ -336,6 +337,14 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (warhead != attrs.end()) MarshalReference(data, &ai->warhead, warhead->second);
         data.Pop();
     }
+    // Final Marshal allocation in the original: repeated prepared references.
+    U32* modifiers = nullptr;
+    *reinterpret_cast<U32*>(root->bytes+284) = static_cast<U32>(incompatibleModifiers.size());
+    if (!incompatibleModifiers.empty()) {
+        modifiers = static_cast<U32*>(data.Push(reinterpret_cast<void**>(root->bytes+288), 4, static_cast<U32>(incompatibleModifiers.size())));
+        for (unsigned i = 0; i < incompatibleModifiers.size(); ++i) MarshalReference(data, modifiers+i, incompatibleModifiers[i]);
+        data.Pop();
+    }
     Procedure* table = nullptr;
     tokens.Push(reinterpret_cast<void**>(&table), sizeof(Procedure), 105);
     for (unsigned i = 0; i < WeaponFieldCount(); ++i) {
@@ -374,10 +383,14 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         } else if (field.token == WeaponToken::Member) {
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
         } else if (field.token == WeaponToken::List) {
-            // Empty lists still have a count table; no list payload allocation.
-            Procedure* list = static_cast<Procedure*>(tokens.Push(&table[i].offset, sizeof(Procedure), 1));
+            unsigned count = field.offset == 284 ? static_cast<unsigned>(incompatibleModifiers.size()) : 0;
+            Procedure* list = static_cast<Procedure*>(tokens.Push(&table[i].offset, sizeof(Procedure), count+1));
             list->name = 1820487795u; list->type = 1564774360u;
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &list->offset);
+            for (unsigned index = 0; index < count; ++index) {
+                list[index+1].name = 2974916843u; list[index+1].type = 0;
+                tokens.BookmarkMemberOffset(modifiers+index, &list[index+1].offset);
+            }
             tokens.Pop();
         }
         // Absent optional pointers have zero token offsets, as in the original.

@@ -465,6 +465,38 @@ unsafe class WeaponOracle
         }
     }
 
+    static void ModifierLists(IAssetBuilderPlugin plugin, TargetPlatform platform) {
+        string[] values = { "", "none", "mod\\0", "mod\\7", "mod\\-1", "mod\\2147483648", "mod\\-2147483649", "mod\\12tail", "mod\\garbage", "mod\\+4", " mod\\ 3", "mod\\2\\9" };
+        uint[] expected = { 0,0,1,8,0,0x80000000,0x80000001,13,1,5,4,3 };
+        foreach (int count in new[] { 0,1,2,3,7,16,17,31,32,33,64,127,128,129,255,256,257 }) {
+            string xmlText = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Modifiers'>";
+            for (int i = 0; i < count; ++i) xmlText += "<IncompatibleAttributeModifier>"+System.Security.SecurityElement.Escape(values[i%values.Length])+"</IncompatibleAttributeModifier>";
+            xmlText += "</WeaponTemplate>";
+            Test(plugin, "modifier-list-"+count, xmlText, platform, -1); ++fixtures;
+            var xml = new XmlDocument(); xml.LoadXml(xmlText);
+            var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea", AssetNamespace);
+            var buffer = WeaponCompiler.ProcessInstance(Declaration(xml, ns), platform);
+            bool big = platform != TargetPlatform.Win32;
+            int tokens = 1296+12*count, payload = tokens+328;
+            if (buffer.InstanceData.Length != 1624+16*count || Word(buffer.InstanceData, tokens+284, big) != count ||
+                Word(buffer.InstanceData, 103*12+8, big) != 1284 || Word(buffer.InstanceData, 1292, big) != tokens+284 ||
+                Word(buffer.InstanceData, tokens+288, big) != (count == 0 ? 0 : payload) ||
+                buffer.RelocationData.Length != (count == 0 ? 0 : 8) || buffer.ImportsData.Length != 0)
+                throw new Exception("Modifier list independent layout");
+            if (count != 0 && (Word(buffer.RelocationData, 0, big) != tokens+288 || Word(buffer.RelocationData, 4, big) != uint.MaxValue))
+                throw new Exception("Modifier list pointer relocation");
+            for (int i = 0; i < count; ++i) {
+                int entry = 1296+12*i;
+                if (Word(buffer.InstanceData, entry, big) != 2974916843u || Word(buffer.InstanceData, entry+4, big) != 0 || Word(buffer.InstanceData, entry+8, big) != payload+4*i ||
+                    Word(buffer.InstanceData, payload+4*i, big) != expected[i%expected.Length]) throw new Exception("Modifier element token/value/order");
+            }
+        }
+        foreach (string value in values) {
+            string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='MixedModifiers' RequiredFiringObjectStatus='ALL' ForbiddenFiringObjectStatus='AFLAME' FireSound='s\\0' PreferredTargetBone='bone'><IncompatibleAttributeModifier>"+System.Security.SecurityElement.Escape(value)+"</IncompatibleAttributeModifier><PreAttackDelay MinSeconds='1s'/><WeaponAiHintInfo MaxSpeedOfTarget='2'/><IncompatibleAttributeModifier><![CDATA[mod\\3]]></IncompatibleAttributeModifier></WeaponTemplate>";
+            Test(plugin, "modifier-mixed-"+value, xml, platform, -1); ++fixtures;
+        }
+    }
+
     static int directStatusComparisons;
     static void DirectStatus(Assembly original) {
         MethodInfo parser = null;
@@ -498,6 +530,7 @@ unsafe class WeaponOracle
             DirectStatus(assembly);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
                 Resources(plugin, platform);
@@ -1272,7 +1305,8 @@ unsafe class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CombinedAttackObjectFilter/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><HitStoredObjectFilter/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ScatterRadiusVsType/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><IncompatibleAttributeModifier/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier Unknown='1'/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier><Unknown/></IncompatibleAttributeModifier></WeaponTemplate>");
             Reject(Weapon("UnknownField='1'"));
             Reject("<WeaponTemplate xmlns='" + AssetNamespace + "' id='Reject'><Unknown/></WeaponTemplate>");
             foreach (string name in new[] { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "WeaponAiHintInfo" }) {

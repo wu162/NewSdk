@@ -30,6 +30,8 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'AttributeModifier list Marshal'; Start = 53677; End = 53725 }
+            @{ Name = 'AttributeModifier list Tokenize'; Start = 99234; End = 99281 }
             @{ Name = 'Enum token splitting'; Start = 12996; End = 13072 }
             @{ Name = 'ObjectStatus pointer Marshal'; Start = 51212; End = 51225 }
             @{ Name = 'ObjectStatus inline Marshal and endian'; Start = 51592; End = 51740 }

@@ -39,13 +39,14 @@ public:
             bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;
             bool sound = Array::IndexOf<String^>(soundNames, child->LocalName) >= 0;
             bool hint = child->LocalName == "WeaponAiHintInfo";
-            if (child->NamespaceURI != node->NamespaceURI || (!duration && !sound && !hint))
+            bool modifier = child->LocalName == "IncompatibleAttributeModifier";
+            if (child->NamespaceURI != node->NamespaceURI || (!duration && !sound && !hint && !modifier))
                 throw gcnew NotSupportedException("WeaponTemplate child structure is not reconstructed: " + child->LocalName);
             auto attributes = child->Clone();
             if (attributes->MoveToFirstAttribute()) do {
                 if (attributes->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-                bool known = duration ? (attributes->LocalName == "MinSeconds" || attributes->LocalName == "MaxSeconds") :
-                    sound ? (attributes->LocalName == "Sound" || attributes->LocalName == "EvaEvent") : Array::IndexOf<String^>(hintAttributes, attributes->LocalName) >= 0;
+                bool known = !modifier && (duration ? (attributes->LocalName == "MinSeconds" || attributes->LocalName == "MaxSeconds") :
+                    sound ? (attributes->LocalName == "Sound" || attributes->LocalName == "EvaEvent") : Array::IndexOf<String^>(hintAttributes, attributes->LocalName) >= 0);
                 if (attributes->NamespaceURI->Length != 0 || !known)
                     throw gcnew NotSupportedException("Unsupported WeaponTemplate child attribute: " + attributes->Name);
             } while (attributes->MoveToNextAttribute());
@@ -74,6 +75,9 @@ public:
             }
             optionalBlocks[marshal_as<std::string>(name)] = input;
         }
+        std::vector<std::string> incompatibleModifiers;
+        auto modifierList = adapter->Children("IncompatibleAttributeModifier");
+        while (modifierList->MoveNext()) incompatibleModifiers.push_back(marshal_as<std::string>(modifierList->Current->Value));
         std::map<std::string, std::string> attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
@@ -82,7 +86,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);
