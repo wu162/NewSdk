@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 using Recovered;
 
-class WeaponOracle
+unsafe class WeaponOracle
 {
     const string AssetNamespace = "uri:ea.com:eala:asset";
     static int comparisons;
@@ -464,10 +465,37 @@ class WeaponOracle
         }
     }
 
+    static int directStatusComparisons;
+    static void DirectStatus(Assembly original) {
+        MethodInfo parser = null;
+        foreach (var method in original.GetModules()[0].GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            if (method.Name == "Marshaler.Marshal<enum ObjectStatusType,223>") parser = method;
+        if (parser == null) throw new Exception("Original ObjectStatus inline parser missing");
+        var values = new List<string>(StatusNames);
+        foreach (string name in StatusNames) { values.Add("-"+name); values.Add(name+" -"+name); }
+        values.AddRange(new[] { "", " ", "\v\f\t\r\n", "AFLAME\vATTACHED\fANTI_GARRISON", "AFLAME\0ATTACHED", "\0ALL", "ALL", "all -AFLAME", "-ALL unknown", "AFLAME -ALL -ATTACHED", "+", "-", "unknown", "unknown -unknown", "AFLAME,ATTACHED", "++AFLAME", "--AFLAME", "ＡＬＬ", "é", "状态", "AFLAME\u00a0ATTACHED" });
+        uint[][] seeds = { new uint[7], new uint[] { 0x01234567,0x89abcdef,0x80000000,1,0xaaaaaaaa,0x55555555,0xffffffff }, new uint[] { 0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff,0xffffffff } };
+        foreach (var seed in seeds) foreach (string text in values) {
+            var expected = (uint[])seed.Clone();
+            IntPtr ansi = Marshal.StringToHGlobalAnsi(text);
+            try {
+                fixed (uint* target = expected) {
+                    var types = parser.GetParameters();
+                    parser.Invoke(null, new object[] { Pointer.Box(ansi.ToPointer(), types[0].ParameterType), Pointer.Box(target, types[1].ParameterType), Pointer.Box(null, types[2].ParameterType) });
+                }
+            } finally { Marshal.FreeHGlobal(ansi); }
+            var actual = WeaponCompiler.MarshalObjectStatus(text, seed);
+            for (int i = 0; i < 7; ++i) if (expected[i] != actual[i]) throw new Exception("Direct ObjectStatus mismatch: "+text+" word="+i);
+            ++directStatusComparisons;
+        }
+        Console.WriteLine("PASS direct ObjectStatus inline parsing: "+directStatusComparisons+" seven-word comparisons");
+    }
+
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
+            DirectStatus(assembly);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
                 StatusMasks(plugin, platform);
@@ -1253,7 +1281,7 @@ class WeaponOracle
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
                 Reject(Weapon(Attribute(name, "")));
             }
-            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

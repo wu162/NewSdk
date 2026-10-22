@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "XmlNodeAdapter.h"
 #include "../Native/WeaponTemplate.h"
+#include "../Native/EnumBitset.h"
 #using <BinaryAssetBuilder.Core.dll>
 using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
@@ -14,6 +15,17 @@ public ref class WeaponCompiler abstract sealed {
         return result;
     }
 public:
+    // Direct inline helper, including accumulation into a previously populated mask.
+    static array<UInt32>^ MarshalObjectStatus(String^ text, array<UInt32>^ initial) {
+        if (text == nullptr) throw gcnew ArgumentNullException("text");
+        if (initial == nullptr || initial->Length != 7) throw gcnew ArgumentException("ObjectStatus requires seven words.", "initial");
+        std::uint32_t words[7];
+        for (int i = 0; i < 7; ++i) words[i] = initial[i];
+        Native::MarshalObjectStatus(marshal_as<std::string>(text), words);
+        auto result = gcnew array<UInt32>(7);
+        for (int i = 0; i < 7; ++i) result[i] = words[i];
+        return result;
+    }
     // Partial WeaponTemplate entry point. Unsupported structures are rejected.
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
@@ -87,4 +99,5 @@ public:
     }
 };
 }
+
 
