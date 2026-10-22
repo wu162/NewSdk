@@ -37,3 +37,17 @@ WeaponTemplate 尚缺 ScatterRadiusVsType 和 Nuggets，暂不切换整类 SDK �
 现有 /Od、/O2 多平台差分是回归层；按类型配置运行 SDK 是集成层；两个完整替代 DLL 是最终验收。分别报告实际通过范围。
 
 下一轮约 25 分钟优先完成 ArmorTemplate 正式插件、配置分派和 SDK 原版/恢复版编译对照。之后继续 ModelCondition / ScatterRadiusVsType，再推进 Nuggets。遇到实际插件加载、元数据或预处理差异时记录具体阻塞，不通过原 DLL 转发绕过。
+
+## mymod 验证源码与 XSD（用户补充，2026-10-22）
+
+用户明确要求：为触发特定类型的真实 SDK 编译，可以且需要修改 mymod 源码；新增源码必须符合仓库 schema 规则。
+
+- 样例工程为 `SDK/Mods/mymod`，实际 schema 目录为 `SDK/Schemas/xsd`，总入口 `CnC3Types.xsd`；例如 ArmorTemplate / WeaponTemplate 分别读取 `AssetTypeArmorTemplate.xsd` / `AssetTypeWeaponTemplate.xsd` 及其 include/import 依赖。
+- 每接入一种类型，先读取该类型的 XSD、继承/共享定义和引用约束，再为 mymod 增加有独立 ID、明确非默认字段和必要依赖的合法 XML。不能仅照着反编译出的解析器推测可接受的 XML。
+- 必须将新文件接入 mymod 实际基础数据入口的 Include/引用链；仅把文件放入目录不算触发编译。检查编译日志/新插件调用和产物，证明目标样例确实进入对应类型的 ProcessInstance。
+- 先用原版插件配置验证同一份修改后的 mymod 可成功构建，再切换对应类型到恢复插件；两个配置必须使用相同的样例源码和隔离缓存/全新输出。
+- 按真实入口执行 schema 校验，正确解析相对 include/import、命名空间、元素顺序、必填项、枚举和引用。保留校验/构建结果；不能为迁就样例放宽 XSD、关闭校验或把校验失败当作正常通过。
+- 直接 ProcessInstance 差分中的畸形输入、未知枚举和溢出样例用于刻画底层行为；它们不自动成为合法 mymod 集成样例。集成样例须独立满足 XSD。
+- 验证样例及入口修改应随源码和配置工具一并提交，便于后续重复运行；保留原有示例内容，使用清晰的验证文件/资产 ID。
+
+下一轮 ArmorTemplate 接入验收必须同时包含上述 mymod/XSD 工作，不能只完成插件加载或运行未触发 ArmorTemplate 的旧示例。

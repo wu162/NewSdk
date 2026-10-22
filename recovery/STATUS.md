@@ -294,3 +294,17 @@ main integration path, in addition to original-DLL differential tests. See
 criteria. Prioritize ArmorTemplate formal plugin + SDK integration before the next
 Weapon field group. Current recovered components are not yet registered SDK plugins;
 this documentation update does not claim an SDK run using them has already passed.
+
+
+## mymod / XSD validation requirement — 2026-10-22
+
+The user explicitly requires modifying `SDK/Mods/mymod` source as needed to
+trigger each recovered type during real SDK compilation. New integration XML
+must conform to `SDK/Schemas/xsd`, its `CnC3Types.xsd` entry point, the concrete
+type XSD and all referenced shared definitions. Read those files before authoring
+fixtures; wire new assets into the actual basic-data include/reference chain.
+Compare original/recovered plugin configurations using identical modified mymod
+source and fresh output/isolated caches, and prove actual recovered-plugin calls.
+Do not bypass schema validation or confuse malformed direct-ProcessInstance
+oracle inputs with legal SDK XML. Commit the fixtures and entry modifications.
+See `SDK_TYPE_INTEGRATION.md`; the next ArmorTemplate SDK stage includes this work.
