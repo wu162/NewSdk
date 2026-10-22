@@ -1,8 +1,115 @@
 BinaryAssetBuilder.XmlCompiler, Version=1.0.3492.22406, Culture=neutral, PublicKeyToken=null
-
-Unhandled Exception: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
-   at RelocationOracle.Runtime.Call(String name, Object[] args)
-   at RelocationOracle.Runtime.Offset(IntPtr member, UInt32& offset)
-   at RelocationOracle.Offsets(Assembly original)
-   at RelocationOracle.Main(String[] args)
+INFO: XmlCompiler has no GetMemberOffset/BookmarkMemberOffset/FixupMemberOffsets methods; token-table-only cases apply to Tokenizer.
+PASS graph 0 big=False base=0: instance=0 relocations=0 imports=0
+PASS graph 0 big=False base=1260: instance=0 relocations=0 imports=0
+PASS graph 1 big=False base=0: instance=160 relocations=36 imports=68
+PASS graph 1 big=False base=1260: instance=160 relocations=36 imports=68
+PASS graph 2 big=False base=0: instance=172 relocations=36 imports=68
+PASS graph 2 big=False base=1260: instance=172 relocations=36 imports=68
+PASS graph 3 big=False base=0: instance=180 relocations=36 imports=68
+PASS graph 3 big=False base=1260: instance=180 relocations=36 imports=68
+PASS graph 4 big=False base=0: instance=180 relocations=36 imports=68
+PASS graph 4 big=False base=1260: instance=180 relocations=36 imports=68
+PASS graph 5 big=False base=0: instance=168 relocations=36 imports=68
+PASS graph 5 big=False base=1260: instance=168 relocations=36 imports=68
+PASS graph 6 big=False base=0: instance=204 relocations=36 imports=68
+PASS graph 6 big=False base=1260: instance=204 relocations=36 imports=68
+PASS graph 7 big=False base=0: instance=180 relocations=36 imports=68
+PASS graph 7 big=False base=1260: instance=180 relocations=36 imports=68
+PASS graph 8 big=False base=0: instance=184 relocations=36 imports=68
+PASS graph 8 big=False base=1260: instance=184 relocations=36 imports=68
+PASS graph 9 big=False base=0: instance=180 relocations=36 imports=68
+PASS graph 9 big=False base=1260: instance=180 relocations=36 imports=68
+PASS graph 10 big=False base=0: instance=196 relocations=36 imports=68
+PASS graph 10 big=False base=1260: instance=196 relocations=36 imports=68
+PASS graph 11 big=False base=0: instance=168 relocations=36 imports=68
+PASS graph 11 big=False base=1260: instance=168 relocations=36 imports=68
+PASS graph 12 big=False base=0: instance=176 relocations=36 imports=68
+PASS graph 12 big=False base=1260: instance=176 relocations=36 imports=68
+PASS graph 13 big=False base=0: instance=188 relocations=36 imports=68
+PASS graph 13 big=False base=1260: instance=188 relocations=36 imports=68
+PASS graph 14 big=False base=0: instance=180 relocations=36 imports=68
+PASS graph 14 big=False base=1260: instance=180 relocations=36 imports=68
+PASS graph 15 big=False base=0: instance=196 relocations=36 imports=68
+PASS graph 15 big=False base=1260: instance=196 relocations=36 imports=68
+PASS graph 16 big=False base=0: instance=168 relocations=36 imports=68
+PASS graph 16 big=False base=1260: instance=168 relocations=36 imports=68
+PASS graph 17 big=False base=0: instance=196 relocations=36 imports=68
+PASS graph 17 big=False base=1260: instance=196 relocations=36 imports=68
+PASS graph 18 big=False base=0: instance=168 relocations=36 imports=68
+PASS graph 18 big=False base=1260: instance=168 relocations=36 imports=68
+PASS graph 19 big=False base=0: instance=176 relocations=36 imports=68
+PASS graph 19 big=False base=1260: instance=176 relocations=36 imports=68
+PASS graph 20 big=False base=0: instance=172 relocations=36 imports=68
+PASS graph 20 big=False base=1260: instance=172 relocations=36 imports=68
+PASS graph 21 big=False base=0: instance=184 relocations=36 imports=68
+PASS graph 21 big=False base=1260: instance=184 relocations=36 imports=68
+PASS graph 22 big=False base=0: instance=172 relocations=36 imports=68
+PASS graph 22 big=False base=1260: instance=172 relocations=36 imports=68
+PASS graph 23 big=False base=0: instance=176 relocations=36 imports=68
+PASS graph 23 big=False base=1260: instance=176 relocations=36 imports=68
+PASS duplicate reference sort 1 big=False: instance=4 relocations=0 imports=8
+PASS duplicate reference sort 2 big=False: instance=8 relocations=0 imports=12
+PASS duplicate reference sort 27 big=False: instance=108 relocations=0 imports=112
+PASS duplicate reference sort 28 big=False: instance=112 relocations=0 imports=116
+PASS duplicate reference sort 29 big=False: instance=116 relocations=0 imports=120
+PASS duplicate reference sort 64 big=False: instance=256 relocations=0 imports=260
+PASS duplicate reference sort 257 big=False: instance=1028 relocations=0 imports=1032
+PASS exchange pointer/reference big=False: instance=32 relocations=12 imports=12
+PASS graph 0 big=True base=0: instance=0 relocations=0 imports=0
+PASS graph 0 big=True base=1260: instance=0 relocations=0 imports=0
+PASS graph 1 big=True base=0: instance=160 relocations=36 imports=68
+PASS graph 1 big=True base=1260: instance=160 relocations=36 imports=68
+PASS graph 2 big=True base=0: instance=172 relocations=36 imports=68
+PASS graph 2 big=True base=1260: instance=172 relocations=36 imports=68
+PASS graph 3 big=True base=0: instance=180 relocations=36 imports=68
+PASS graph 3 big=True base=1260: instance=180 relocations=36 imports=68
+PASS graph 4 big=True base=0: instance=180 relocations=36 imports=68
+PASS graph 4 big=True base=1260: instance=180 relocations=36 imports=68
+PASS graph 5 big=True base=0: instance=168 relocations=36 imports=68
+PASS graph 5 big=True base=1260: instance=168 relocations=36 imports=68
+PASS graph 6 big=True base=0: instance=204 relocations=36 imports=68
+PASS graph 6 big=True base=1260: instance=204 relocations=36 imports=68
+PASS graph 7 big=True base=0: instance=180 relocations=36 imports=68
+PASS graph 7 big=True base=1260: instance=180 relocations=36 imports=68
+PASS graph 8 big=True base=0: instance=184 relocations=36 imports=68
+PASS graph 8 big=True base=1260: instance=184 relocations=36 imports=68
+PASS graph 9 big=True base=0: instance=180 relocations=36 imports=68
+PASS graph 9 big=True base=1260: instance=180 relocations=36 imports=68
+PASS graph 10 big=True base=0: instance=196 relocations=36 imports=68
+PASS graph 10 big=True base=1260: instance=196 relocations=36 imports=68
+PASS graph 11 big=True base=0: instance=168 relocations=36 imports=68
+PASS graph 11 big=True base=1260: instance=168 relocations=36 imports=68
+PASS graph 12 big=True base=0: instance=176 relocations=36 imports=68
+PASS graph 12 big=True base=1260: instance=176 relocations=36 imports=68
+PASS graph 13 big=True base=0: instance=188 relocations=36 imports=68
+PASS graph 13 big=True base=1260: instance=188 relocations=36 imports=68
+PASS graph 14 big=True base=0: instance=180 relocations=36 imports=68
+PASS graph 14 big=True base=1260: instance=180 relocations=36 imports=68
+PASS graph 15 big=True base=0: instance=196 relocations=36 imports=68
+PASS graph 15 big=True base=1260: instance=196 relocations=36 imports=68
+PASS graph 16 big=True base=0: instance=168 relocations=36 imports=68
+PASS graph 16 big=True base=1260: instance=168 relocations=36 imports=68
+PASS graph 17 big=True base=0: instance=196 relocations=36 imports=68
+PASS graph 17 big=True base=1260: instance=196 relocations=36 imports=68
+PASS graph 18 big=True base=0: instance=168 relocations=36 imports=68
+PASS graph 18 big=True base=1260: instance=168 relocations=36 imports=68
+PASS graph 19 big=True base=0: instance=176 relocations=36 imports=68
+PASS graph 19 big=True base=1260: instance=176 relocations=36 imports=68
+PASS graph 20 big=True base=0: instance=172 relocations=36 imports=68
+PASS graph 20 big=True base=1260: instance=172 relocations=36 imports=68
+PASS graph 21 big=True base=0: instance=184 relocations=36 imports=68
+PASS graph 21 big=True base=1260: instance=184 relocations=36 imports=68
+PASS graph 22 big=True base=0: instance=172 relocations=36 imports=68
+PASS graph 22 big=True base=1260: instance=172 relocations=36 imports=68
+PASS graph 23 big=True base=0: instance=176 relocations=36 imports=68
+PASS graph 23 big=True base=1260: instance=176 relocations=36 imports=68
+PASS duplicate reference sort 1 big=True: instance=4 relocations=0 imports=8
+PASS duplicate reference sort 2 big=True: instance=8 relocations=0 imports=12
+PASS duplicate reference sort 27 big=True: instance=108 relocations=0 imports=112
+PASS duplicate reference sort 28 big=True: instance=112 relocations=0 imports=116
+PASS duplicate reference sort 29 big=True: instance=116 relocations=0 imports=120
+PASS duplicate reference sort 64 big=True: instance=256 relocations=0 imports=260
+PASS duplicate reference sort 257 big=True: instance=1028 relocations=0 imports=1032
+PASS exchange pointer/reference big=True: instance=32 relocations=12 imports=12
+PASS: 336 original/recovered comparisons
