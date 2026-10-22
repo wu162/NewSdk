@@ -1,11 +1,11 @@
 {
-  "sourceCommit": "09f5b6d71786bdc16691ec011d27b0ee8932f5ea",
-  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; Nuggets and ScatterRadiusVsType absent",
+  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets absent",
   "modes": [
     "Od",
     "O2"
   ],
+  "sourceCommit": "6e5d09ec43784f8fb47557e72438462b18cb7286",
   "succeeded": true,
-  "runId": 39790728845,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39790728845"
+  "runId": 39859937000,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39859937000"
 }

@@ -2366,5 +2366,1835 @@
       "name": "WORLDBUILDER_SNAP_TO_GRID",
       "value": 156
     }
+  ],
+  "ModelConditionFlagType": [
+    {
+      "name": "ABOUT_TO_HIT",
+      "value": 233
+    },
+    {
+      "name": "ACCELERATE",
+      "value": 236
+    },
+    {
+      "name": "ACTIVELY_BEING_CONSTRUCTED",
+      "value": 169
+    },
+    {
+      "name": "ACTIVELY_CONSTRUCTING",
+      "value": 171
+    },
+    {
+      "name": "AFFECTED_BY_EMP",
+      "value": 380
+    },
+    {
+      "name": "AFLAME",
+      "value": 175
+    },
+    {
+      "name": "AIM_FAR",
+      "value": 282
+    },
+    {
+      "name": "AIM_HIGH",
+      "value": 278
+    },
+    {
+      "name": "AIM_LOW",
+      "value": 280
+    },
+    {
+      "name": "AIM_NEAR",
+      "value": 281
+    },
+    {
+      "name": "AIM_STRAIGHT",
+      "value": 279
+    },
+    {
+      "name": "AIR_POWER_EFFECT",
+      "value": 425
+    },
+    {
+      "name": "ALL",
+      "value": 454
+    },
+    {
+      "name": "ALTERNATE_FORMATION",
+      "value": 323
+    },
+    {
+      "name": "ARMORSET_ALTERNATE_FORMATION",
+      "value": 345
+    },
+    {
+      "name": "ARMORSET_ELITE",
+      "value": 342
+    },
+    {
+      "name": "ARMORSET_HERO",
+      "value": 343
+    },
+    {
+      "name": "ARMORSET_MOUNTED",
+      "value": 346
+    },
+    {
+      "name": "ARMORSET_PLAYER_UPGRADE",
+      "value": 347
+    },
+    {
+      "name": "ARMORSET_PLAYER_UPGRADE_2",
+      "value": 348
+    },
+    {
+      "name": "ARMORSET_PLAYER_UPGRADE_3",
+      "value": 349
+    },
+    {
+      "name": "ARMORSET_UNBESIEGEABLE",
+      "value": 350
+    },
+    {
+      "name": "ARMORSET_VETERAN",
+      "value": 341
+    },
+    {
+      "name": "ARMORSET_WEAK_VERSUS_BASEDEFENSES",
+      "value": 344
+    },
+    {
+      "name": "ATTACHED",
+      "value": 261
+    },
+    {
+      "name": "ATTACKING",
+      "value": 64
+    },
+    {
+      "name": "ATTACKING_POSITION",
+      "value": 66
+    },
+    {
+      "name": "ATTACKING_STRUCTURE",
+      "value": 65
+    },
+    {
+      "name": "ATTACK_MOVING",
+      "value": 153
+    },
+    {
+      "name": "AWAITING_CONSTRUCTION",
+      "value": 167
+    },
+    {
+      "name": "BACKCRUSHED",
+      "value": 2
+    },
+    {
+      "name": "BACKING_UP",
+      "value": 157
+    },
+    {
+      "name": "BASE_BUILD",
+      "value": 267
+    },
+    {
+      "name": "BEING_MAULED",
+      "value": 427
+    },
+    {
+      "name": "BETWEEN_FIRING_SHOTS_A",
+      "value": 93
+    },
+    {
+      "name": "BETWEEN_FIRING_SHOTS_B",
+      "value": 94
+    },
+    {
+      "name": "BETWEEN_FIRING_SHOTS_C",
+      "value": 95
+    },
+    {
+      "name": "BETWEEN_FIRING_SHOTS_D",
+      "value": 96
+    },
+    {
+      "name": "BETWEEN_FIRING_SHOTS_E",
+      "value": 97
+    },
+    {
+      "name": "BUILD_PLACEMENT_CURSOR",
+      "value": 211
+    },
+    {
+      "name": "BUILD_PLACEMENT_HINT",
+      "value": 443
+    },
+    {
+      "name": "BUILD_VARIATION_ONE",
+      "value": 377
+    },
+    {
+      "name": "BUILD_VARIATION_TWO",
+      "value": 378
+    },
+    {
+      "name": "BURNED",
+      "value": 177
+    },
+    {
+      "name": "BURNINGDEATH",
+      "value": 180
+    },
+    {
+      "name": "BURNT_MODEL",
+      "value": 178
+    },
+    {
+      "name": "BURNT_TEXTURE",
+      "value": 179
+    },
+    {
+      "name": "CANCEL_CAPTURE",
+      "value": 217
+    },
+    {
+      "name": "CAPTURED",
+      "value": 219
+    },
+    {
+      "name": "CAPTURE_0",
+      "value": 328
+    },
+    {
+      "name": "CAPTURE_100",
+      "value": 324
+    },
+    {
+      "name": "CAPTURE_25",
+      "value": 327
+    },
+    {
+      "name": "CAPTURE_50",
+      "value": 326
+    },
+    {
+      "name": "CAPTURE_75",
+      "value": 325
+    },
+    {
+      "name": "CAPTURING",
+      "value": 218
+    },
+    {
+      "name": "CARRYING",
+      "value": 192
+    },
+    {
+      "name": "CHARGING",
+      "value": 149
+    },
+    {
+      "name": "CHRONORIFT",
+      "value": 430
+    },
+    {
+      "name": "CLIMBING",
+      "value": 158
+    },
+    {
+      "name": "COLLAPSING",
+      "value": 10
+    },
+    {
+      "name": "COMBINED_CHILD",
+      "value": 420
+    },
+    {
+      "name": "COMBINED_PARENT",
+      "value": 419
+    },
+    {
+      "name": "COMING_OUT_OF_FACTORY",
+      "value": 152
+    },
+    {
+      "name": "CONTINUOUS_FIRE_FAST",
+      "value": 223
+    },
+    {
+      "name": "CONTINUOUS_FIRE_MEAN",
+      "value": 222
+    },
+    {
+      "name": "CONTINUOUS_FIRE_SLOW",
+      "value": 221
+    },
+    {
+      "name": "COVER",
+      "value": 334
+    },
+    {
+      "name": "DAMAGED",
+      "value": 3
+    },
+    {
+      "name": "DEATH_1",
+      "value": 251
+    },
+    {
+      "name": "DEATH_10",
+      "value": 448
+    },
+    {
+      "name": "DEATH_11",
+      "value": 449
+    },
+    {
+      "name": "DEATH_12",
+      "value": 450
+    },
+    {
+      "name": "DEATH_13",
+      "value": 451
+    },
+    {
+      "name": "DEATH_14",
+      "value": 452
+    },
+    {
+      "name": "DEATH_15",
+      "value": 453
+    },
+    {
+      "name": "DEATH_2",
+      "value": 252
+    },
+    {
+      "name": "DEATH_3",
+      "value": 253
+    },
+    {
+      "name": "DEATH_4",
+      "value": 254
+    },
+    {
+      "name": "DEATH_5",
+      "value": 255
+    },
+    {
+      "name": "DEATH_6",
+      "value": 444
+    },
+    {
+      "name": "DEATH_7",
+      "value": 445
+    },
+    {
+      "name": "DEATH_8",
+      "value": 446
+    },
+    {
+      "name": "DEATH_9",
+      "value": 447
+    },
+    {
+      "name": "DEBUG",
+      "value": 215
+    },
+    {
+      "name": "DECAY",
+      "value": 8
+    },
+    {
+      "name": "DECELERATE",
+      "value": 237
+    },
+    {
+      "name": "DEFLECT_SPECIAL_POWER",
+      "value": 311
+    },
+    {
+      "name": "DEPLOYED",
+      "value": 265
+    },
+    {
+      "name": "DESTROYED_BACK",
+      "value": 244
+    },
+    {
+      "name": "DESTROYED_FRONT",
+      "value": 242
+    },
+    {
+      "name": "DESTROYED_LEFT",
+      "value": 245
+    },
+    {
+      "name": "DESTROYED_RIGHT",
+      "value": 243
+    },
+    {
+      "name": "DESTROYED_WEAPON",
+      "value": 62
+    },
+    {
+      "name": "DESTROYED_WHILST_BEING_CONSTRUCTED",
+      "value": 9
+    },
+    {
+      "name": "DISGUISED",
+      "value": 329
+    },
+    {
+      "name": "DIVING",
+      "value": 154
+    },
+    {
+      "name": "DOCKING",
+      "value": 181
+    },
+    {
+      "name": "DOCKING_ACTIVE",
+      "value": 183
+    },
+    {
+      "name": "DOCKING_BEGINNING",
+      "value": 182
+    },
+    {
+      "name": "DOCKING_ENDING",
+      "value": 188
+    },
+    {
+      "name": "DOCKING_EXTRACT",
+      "value": 187
+    },
+    {
+      "name": "DOCKING_FILL",
+      "value": 186
+    },
+    {
+      "name": "DOCKING_MOVEBACK",
+      "value": 185
+    },
+    {
+      "name": "DOCKING_PRE_DOCK",
+      "value": 189
+    },
+    {
+      "name": "DOCKING_RETURN",
+      "value": 184
+    },
+    {
+      "name": "DOOR_1_CLOSING",
+      "value": 104
+    },
+    {
+      "name": "DOOR_1_OPENING",
+      "value": 103
+    },
+    {
+      "name": "DOOR_1_WAITING_OPEN",
+      "value": 105
+    },
+    {
+      "name": "DOOR_1_WAITING_TO_CLOSE",
+      "value": 106
+    },
+    {
+      "name": "DOOR_2_CLOSING",
+      "value": 108
+    },
+    {
+      "name": "DOOR_2_OPENING",
+      "value": 107
+    },
+    {
+      "name": "DOOR_2_WAITING_OPEN",
+      "value": 109
+    },
+    {
+      "name": "DOOR_2_WAITING_TO_CLOSE",
+      "value": 110
+    },
+    {
+      "name": "DOOR_3_CLOSING",
+      "value": 112
+    },
+    {
+      "name": "DOOR_3_OPENING",
+      "value": 111
+    },
+    {
+      "name": "DOOR_3_WAITING_OPEN",
+      "value": 113
+    },
+    {
+      "name": "DOOR_3_WAITING_TO_CLOSE",
+      "value": 114
+    },
+    {
+      "name": "DOOR_4_CLOSING",
+      "value": 116
+    },
+    {
+      "name": "DOOR_4_OPENING",
+      "value": 115
+    },
+    {
+      "name": "DOOR_4_WAITING_OPEN",
+      "value": 117
+    },
+    {
+      "name": "DOOR_4_WAITING_TO_CLOSE",
+      "value": 118
+    },
+    {
+      "name": "DOOR_HELIPAD_CLOSING",
+      "value": 120
+    },
+    {
+      "name": "DOOR_HELIPAD_OPENING",
+      "value": 119
+    },
+    {
+      "name": "DOOR_HELIPAD_WAITING_OPEN",
+      "value": 121
+    },
+    {
+      "name": "DOOR_HELIPAD_WAITING_TO_CLOSE",
+      "value": 122
+    },
+    {
+      "name": "DRAFTED",
+      "value": 262
+    },
+    {
+      "name": "DYING",
+      "value": 144
+    },
+    {
+      "name": "DYING_WASATTACKING",
+      "value": 146
+    },
+    {
+      "name": "DYING_WASMOVING",
+      "value": 145
+    },
+    {
+      "name": "EATING",
+      "value": 227
+    },
+    {
+      "name": "EMOTION_AFRAID",
+      "value": 367
+    },
+    {
+      "name": "EMOTION_ALERT",
+      "value": 366
+    },
+    {
+      "name": "EMOTION_AMUSED",
+      "value": 358
+    },
+    {
+      "name": "EMOTION_BRACE_FOR_BEING_CRUSHED",
+      "value": 364
+    },
+    {
+      "name": "EMOTION_CELEBRATING",
+      "value": 357
+    },
+    {
+      "name": "EMOTION_CHEER_FOR_ABOUT_TO_CRUSH",
+      "value": 365
+    },
+    {
+      "name": "EMOTION_COWER",
+      "value": 361
+    },
+    {
+      "name": "EMOTION_DISSIDENT",
+      "value": 362
+    },
+    {
+      "name": "EMOTION_DOOM",
+      "value": 353
+    },
+    {
+      "name": "EMOTION_GUNG_HO",
+      "value": 355
+    },
+    {
+      "name": "EMOTION_LOOK_TO_SKY",
+      "value": 356
+    },
+    {
+      "name": "EMOTION_MORALE_HIGH",
+      "value": 359
+    },
+    {
+      "name": "EMOTION_MORALE_LOW",
+      "value": 360
+    },
+    {
+      "name": "EMOTION_PANIC",
+      "value": 369
+    },
+    {
+      "name": "EMOTION_POINTING",
+      "value": 354
+    },
+    {
+      "name": "EMOTION_TAUNTING",
+      "value": 352
+    },
+    {
+      "name": "EMOTION_TERROR",
+      "value": 368
+    },
+    {
+      "name": "EMOTION_UNCONTROLLABLY_AFRAID",
+      "value": 363
+    },
+    {
+      "name": "ENGAGED",
+      "value": 67
+    },
+    {
+      "name": "EXPLODED_BOUNCING",
+      "value": 235
+    },
+    {
+      "name": "EXPLODED_FLAILING",
+      "value": 234
+    },
+    {
+      "name": "FIRING_A",
+      "value": 78
+    },
+    {
+      "name": "FIRING_B",
+      "value": 79
+    },
+    {
+      "name": "FIRING_C",
+      "value": 80
+    },
+    {
+      "name": "FIRING_D",
+      "value": 81
+    },
+    {
+      "name": "FIRING_E",
+      "value": 82
+    },
+    {
+      "name": "FIRING_OR_PREATTACK_A",
+      "value": 73
+    },
+    {
+      "name": "FIRING_OR_PREATTACK_B",
+      "value": 74
+    },
+    {
+      "name": "FIRING_OR_PREATTACK_C",
+      "value": 75
+    },
+    {
+      "name": "FIRING_OR_PREATTACK_D",
+      "value": 76
+    },
+    {
+      "name": "FIRING_OR_PREATTACK_E",
+      "value": 77
+    },
+    {
+      "name": "FIRING_OR_RELOADING_A",
+      "value": 83
+    },
+    {
+      "name": "FIRING_OR_RELOADING_B",
+      "value": 84
+    },
+    {
+      "name": "FIRING_OR_RELOADING_C",
+      "value": 85
+    },
+    {
+      "name": "FIRING_OR_RELOADING_D",
+      "value": 86
+    },
+    {
+      "name": "FIRING_OR_RELOADING_E",
+      "value": 87
+    },
+    {
+      "name": "FLOODED",
+      "value": 263
+    },
+    {
+      "name": "FLYING",
+      "value": 164
+    },
+    {
+      "name": "FORMATION_PREVIEW",
+      "value": 213
+    },
+    {
+      "name": "FREEFALL",
+      "value": 16
+    },
+    {
+      "name": "FRONTCRUSHED",
+      "value": 1
+    },
+    {
+      "name": "FROZEN",
+      "value": 428
+    },
+    {
+      "name": "GARRISONED",
+      "value": 20
+    },
+    {
+      "name": "GUARDING",
+      "value": 257
+    },
+    {
+      "name": "HARVEST_ACTION",
+      "value": 191
+    },
+    {
+      "name": "HARVEST_PREPARATION",
+      "value": 190
+    },
+    {
+      "name": "HEALTH_PERCENT_0",
+      "value": 414
+    },
+    {
+      "name": "HEALTH_PERCENT_100",
+      "value": 418
+    },
+    {
+      "name": "HEALTH_PERCENT_25",
+      "value": 415
+    },
+    {
+      "name": "HEALTH_PERCENT_50",
+      "value": 416
+    },
+    {
+      "name": "HEALTH_PERCENT_75",
+      "value": 417
+    },
+    {
+      "name": "HIDDEN",
+      "value": 330
+    },
+    {
+      "name": "HIGH_TECH_EFFECT",
+      "value": 424
+    },
+    {
+      "name": "HIT_LEVEL_1",
+      "value": 275
+    },
+    {
+      "name": "HIT_LEVEL_2",
+      "value": 276
+    },
+    {
+      "name": "HIT_LEVEL_3",
+      "value": 277
+    },
+    {
+      "name": "HIT_REACTION",
+      "value": 274
+    },
+    {
+      "name": "HORDE_EMPTY",
+      "value": 321
+    },
+    {
+      "name": "IMPENDING_DOOM",
+      "value": 226
+    },
+    {
+      "name": "INFILTRATED_DISABLE",
+      "value": 431
+    },
+    {
+      "name": "INFILTRATED_ENERGY",
+      "value": 435
+    },
+    {
+      "name": "INFILTRATED_RADAR_FREEZE",
+      "value": 432
+    },
+    {
+      "name": "INFILTRATED_RESET",
+      "value": 436
+    },
+    {
+      "name": "INFILTRATED_STEAL_MONEY",
+      "value": 433
+    },
+    {
+      "name": "INFILTRATED_VISION",
+      "value": 434
+    },
+    {
+      "name": "INFILTRATED_VISION_UNITS",
+      "value": 437
+    },
+    {
+      "name": "INSIDE_GARRISON",
+      "value": 21
+    },
+    {
+      "name": "INVALID",
+      "value": -1
+    },
+    {
+      "name": "INVISIBLE_CAMOUFLAGE",
+      "value": 332
+    },
+    {
+      "name": "INVISIBLE_STEALTH",
+      "value": 331
+    },
+    {
+      "name": "INVULNERABLE",
+      "value": 370
+    },
+    {
+      "name": "IRONCURTAIN",
+      "value": 429
+    },
+    {
+      "name": "JETAFTERBURNER",
+      "value": 197
+    },
+    {
+      "name": "JETEXHAUST",
+      "value": 198
+    },
+    {
+      "name": "JUST_BUILT",
+      "value": 266
+    },
+    {
+      "name": "LANDING",
+      "value": 166
+    },
+    {
+      "name": "LAUNCHED",
+      "value": 19
+    },
+    {
+      "name": "LEASHED_RETURNING",
+      "value": 373
+    },
+    {
+      "name": "LEVELED",
+      "value": 258
+    },
+    {
+      "name": "LOADED",
+      "value": 264
+    },
+    {
+      "name": "LOCOMOTOR_BURNINGDEATH",
+      "value": 405
+    },
+    {
+      "name": "LOCOMOTOR_CHANGING_FIRINGARC",
+      "value": 404
+    },
+    {
+      "name": "LOCOMOTOR_COMBO",
+      "value": 400
+    },
+    {
+      "name": "LOCOMOTOR_COMBO2",
+      "value": 401
+    },
+    {
+      "name": "LOCOMOTOR_COMBO3",
+      "value": 402
+    },
+    {
+      "name": "LOCOMOTOR_CONTAINED",
+      "value": 399
+    },
+    {
+      "name": "LOCOMOTOR_ENRAGED",
+      "value": 397
+    },
+    {
+      "name": "LOCOMOTOR_FREEFALL",
+      "value": 391
+    },
+    {
+      "name": "LOCOMOTOR_MOUNTED",
+      "value": 396
+    },
+    {
+      "name": "LOCOMOTOR_NORMAL_UPGRADED",
+      "value": 390
+    },
+    {
+      "name": "LOCOMOTOR_PANIC",
+      "value": 393
+    },
+    {
+      "name": "LOCOMOTOR_SCARED",
+      "value": 398
+    },
+    {
+      "name": "LOCOMOTOR_SUPERSONIC",
+      "value": 395
+    },
+    {
+      "name": "LOCOMOTOR_TAXIING",
+      "value": 394
+    },
+    {
+      "name": "LOCOMOTOR_WALL_SCALING",
+      "value": 403
+    },
+    {
+      "name": "LOCOMOTOR_WANDER",
+      "value": 392
+    },
+    {
+      "name": "MARCHING",
+      "value": 156
+    },
+    {
+      "name": "MARKED_FOR_HUNT_TACTIC",
+      "value": 388
+    },
+    {
+      "name": "MARKED_FOR_NO_SKIRMISH_RECRUIT",
+      "value": 389
+    },
+    {
+      "name": "MONEY_STORED_AMOUNT_1",
+      "value": 407
+    },
+    {
+      "name": "MONEY_STORED_AMOUNT_2",
+      "value": 408
+    },
+    {
+      "name": "MONEY_STORED_AMOUNT_3",
+      "value": 409
+    },
+    {
+      "name": "MONEY_STORED_AMOUNT_4",
+      "value": 410
+    },
+    {
+      "name": "MOUNTED",
+      "value": 259
+    },
+    {
+      "name": "MOVING",
+      "value": 143
+    },
+    {
+      "name": "MOVING_OUT_OF_THE_WAY",
+      "value": 150
+    },
+    {
+      "name": "NIGHT",
+      "value": 14
+    },
+    {
+      "name": "OVER_WATER",
+      "value": 208
+    },
+    {
+      "name": "PACKING",
+      "value": 199
+    },
+    {
+      "name": "PACKING_TYPE_1",
+      "value": 202
+    },
+    {
+      "name": "PACKING_TYPE_2",
+      "value": 203
+    },
+    {
+      "name": "PACKING_TYPE_3",
+      "value": 204
+    },
+    {
+      "name": "PACKING_TYPE_4",
+      "value": 205
+    },
+    {
+      "name": "PACKING_TYPE_5",
+      "value": 206
+    },
+    {
+      "name": "PACKING_TYPE_6",
+      "value": 207
+    },
+    {
+      "name": "PANICKING",
+      "value": 174
+    },
+    {
+      "name": "PARACHUTE_LAND",
+      "value": 18
+    },
+    {
+      "name": "PARACHUTING",
+      "value": 17
+    },
+    {
+      "name": "PARALYZED",
+      "value": 379
+    },
+    {
+      "name": "PARKINGPLACE_1_DOOR_CLOSED",
+      "value": 126
+    },
+    {
+      "name": "PARKINGPLACE_1_DOOR_CLOSING",
+      "value": 125
+    },
+    {
+      "name": "PARKINGPLACE_1_DOOR_OPEN",
+      "value": 124
+    },
+    {
+      "name": "PARKINGPLACE_1_DOOR_OPENING",
+      "value": 123
+    },
+    {
+      "name": "PARKINGPLACE_2_DOOR_CLOSED",
+      "value": 130
+    },
+    {
+      "name": "PARKINGPLACE_2_DOOR_CLOSING",
+      "value": 129
+    },
+    {
+      "name": "PARKINGPLACE_2_DOOR_OPEN",
+      "value": 128
+    },
+    {
+      "name": "PARKINGPLACE_2_DOOR_OPENING",
+      "value": 127
+    },
+    {
+      "name": "PARKINGPLACE_3_DOOR_CLOSED",
+      "value": 134
+    },
+    {
+      "name": "PARKINGPLACE_3_DOOR_CLOSING",
+      "value": 133
+    },
+    {
+      "name": "PARKINGPLACE_3_DOOR_OPEN",
+      "value": 132
+    },
+    {
+      "name": "PARKINGPLACE_3_DOOR_OPENING",
+      "value": 131
+    },
+    {
+      "name": "PARKINGPLACE_4_DOOR_CLOSED",
+      "value": 138
+    },
+    {
+      "name": "PARKINGPLACE_4_DOOR_CLOSING",
+      "value": 137
+    },
+    {
+      "name": "PARKINGPLACE_4_DOOR_OPEN",
+      "value": 136
+    },
+    {
+      "name": "PARKINGPLACE_4_DOOR_OPENING",
+      "value": 135
+    },
+    {
+      "name": "PARKINGPLACE_HELIPAD_DOOR_CLOSED",
+      "value": 142
+    },
+    {
+      "name": "PARKINGPLACE_HELIPAD_DOOR_CLOSING",
+      "value": 141
+    },
+    {
+      "name": "PARKINGPLACE_HELIPAD_DOOR_OPEN",
+      "value": 140
+    },
+    {
+      "name": "PARKINGPLACE_HELIPAD_DOOR_OPENING",
+      "value": 139
+    },
+    {
+      "name": "PARTIALLY_CONSTRUCTED",
+      "value": 168
+    },
+    {
+      "name": "PASSENGER",
+      "value": 193
+    },
+    {
+      "name": "PASSENGER_VARIATION_1",
+      "value": 293
+    },
+    {
+      "name": "PASSENGER_VARIATION_2",
+      "value": 294
+    },
+    {
+      "name": "PASSENGER_VARIATION_3",
+      "value": 295
+    },
+    {
+      "name": "PASSENGER_VARIATION_4",
+      "value": 296
+    },
+    {
+      "name": "PASSENGER_VARIATION_5",
+      "value": 297
+    },
+    {
+      "name": "PHANTOM_STRUCTURE",
+      "value": 212
+    },
+    {
+      "name": "PLAYER_POWER_1",
+      "value": 426
+    },
+    {
+      "name": "POST_COLLAPSE",
+      "value": 7
+    },
+    {
+      "name": "POST_RUBBLE",
+      "value": 6
+    },
+    {
+      "name": "POWER_PLANT_UPGRADED",
+      "value": 209
+    },
+    {
+      "name": "POWER_PLANT_UPGRADING",
+      "value": 210
+    },
+    {
+      "name": "PREATTACK_A",
+      "value": 68
+    },
+    {
+      "name": "PREATTACK_B",
+      "value": 69
+    },
+    {
+      "name": "PREATTACK_C",
+      "value": 70
+    },
+    {
+      "name": "PREATTACK_D",
+      "value": 71
+    },
+    {
+      "name": "PREATTACK_E",
+      "value": 72
+    },
+    {
+      "name": "PREORDER",
+      "value": 224
+    },
+    {
+      "name": "PREPARING",
+      "value": 200
+    },
+    {
+      "name": "PRIMARY_FORMATION",
+      "value": 322
+    },
+    {
+      "name": "PRONE",
+      "value": 333
+    },
+    {
+      "name": "RADAR_EXTENDING",
+      "value": 172
+    },
+    {
+      "name": "RADAR_UPGRADED",
+      "value": 173
+    },
+    {
+      "name": "RAISING_FLAG",
+      "value": 220
+    },
+    {
+      "name": "RAPPELLING",
+      "value": 159
+    },
+    {
+      "name": "REACT_1",
+      "value": 268
+    },
+    {
+      "name": "REACT_2",
+      "value": 269
+    },
+    {
+      "name": "REACT_3",
+      "value": 270
+    },
+    {
+      "name": "REACT_4",
+      "value": 271
+    },
+    {
+      "name": "REACT_5",
+      "value": 272
+    },
+    {
+      "name": "REACT_6",
+      "value": 273
+    },
+    {
+      "name": "REALLYDAMAGED",
+      "value": 4
+    },
+    {
+      "name": "RELOADING_A",
+      "value": 88
+    },
+    {
+      "name": "RELOADING_B",
+      "value": 89
+    },
+    {
+      "name": "RELOADING_C",
+      "value": 90
+    },
+    {
+      "name": "RELOADING_D",
+      "value": 91
+    },
+    {
+      "name": "RELOADING_E",
+      "value": 92
+    },
+    {
+      "name": "REPAIRING_DISABLED",
+      "value": 421
+    },
+    {
+      "name": "RESURRECTED",
+      "value": 260
+    },
+    {
+      "name": "RIDER1",
+      "value": 312
+    },
+    {
+      "name": "RIDER2",
+      "value": 313
+    },
+    {
+      "name": "RIDER3",
+      "value": 314
+    },
+    {
+      "name": "RIDER4",
+      "value": 315
+    },
+    {
+      "name": "RIDER5",
+      "value": 316
+    },
+    {
+      "name": "RIDER6",
+      "value": 317
+    },
+    {
+      "name": "RIDER7",
+      "value": 318
+    },
+    {
+      "name": "RIDER8",
+      "value": 319
+    },
+    {
+      "name": "RIDERLESS",
+      "value": 320
+    },
+    {
+      "name": "RUBBLE",
+      "value": 5
+    },
+    {
+      "name": "RUNNING_OFF_MAP",
+      "value": 151
+    },
+    {
+      "name": "SAIL_BLOWN_LEFT",
+      "value": 376
+    },
+    {
+      "name": "SAIL_BLOWN_RIGHT",
+      "value": 375
+    },
+    {
+      "name": "SAIL_FLAPPING",
+      "value": 374
+    },
+    {
+      "name": "SCALING_WALL",
+      "value": 162
+    },
+    {
+      "name": "SCALING_WALL_HORDE",
+      "value": 163
+    },
+    {
+      "name": "SELECTED",
+      "value": 256
+    },
+    {
+      "name": "SHRINK_EFFECT",
+      "value": 423
+    },
+    {
+      "name": "SIEGE_CONTAIN",
+      "value": 196
+    },
+    {
+      "name": "SMOLDERING",
+      "value": 176
+    },
+    {
+      "name": "SNOW",
+      "value": 15
+    },
+    {
+      "name": "SOLD",
+      "value": 11
+    },
+    {
+      "name": "SPECIALPOWER1_READY",
+      "value": 301
+    },
+    {
+      "name": "SPECIALPOWER2_READY",
+      "value": 302
+    },
+    {
+      "name": "SPECIALPOWER3_READY",
+      "value": 303
+    },
+    {
+      "name": "SPECIALPOWER4_READY",
+      "value": 304
+    },
+    {
+      "name": "SPECIALPOWER5_READY",
+      "value": 305
+    },
+    {
+      "name": "SPECIALPOWER6_READY",
+      "value": 306
+    },
+    {
+      "name": "SPECIALPOWER7_READY",
+      "value": 307
+    },
+    {
+      "name": "SPECIALPOWER8_READY",
+      "value": 308
+    },
+    {
+      "name": "SPECIALPOWER9_READY",
+      "value": 309
+    },
+    {
+      "name": "SPECIAL_CHEERING",
+      "value": 225
+    },
+    {
+      "name": "SPECIAL_DAMAGED",
+      "value": 13
+    },
+    {
+      "name": "SPECIAL_ENEMY_NEAR",
+      "value": 371
+    },
+    {
+      "name": "SPECIAL_POWER_1",
+      "value": 298
+    },
+    {
+      "name": "SPECIAL_POWER_2",
+      "value": 299
+    },
+    {
+      "name": "SPECIAL_POWER_3",
+      "value": 300
+    },
+    {
+      "name": "SPECIAL_WEAPON_FIVE",
+      "value": 60
+    },
+    {
+      "name": "SPECIAL_WEAPON_FOUR",
+      "value": 59
+    },
+    {
+      "name": "SPECIAL_WEAPON_ONE",
+      "value": 56
+    },
+    {
+      "name": "SPECIAL_WEAPON_SIX",
+      "value": 61
+    },
+    {
+      "name": "SPECIAL_WEAPON_THREE",
+      "value": 58
+    },
+    {
+      "name": "SPECIAL_WEAPON_TWO",
+      "value": 57
+    },
+    {
+      "name": "SPLATTED",
+      "value": 231
+    },
+    {
+      "name": "START_CAPTURE",
+      "value": 216
+    },
+    {
+      "name": "STRUCTURE_UNPACKING",
+      "value": 12
+    },
+    {
+      "name": "STUNNED",
+      "value": 229
+    },
+    {
+      "name": "STUNNED_FLAILING",
+      "value": 228
+    },
+    {
+      "name": "STUNNED_STANDING_UP",
+      "value": 230
+    },
+    {
+      "name": "SUCKED_UP_HIGH",
+      "value": 455
+    },
+    {
+      "name": "SUPPRESSED",
+      "value": 335
+    },
+    {
+      "name": "SWAPPING_TO_WEAPONSET_1",
+      "value": 43
+    },
+    {
+      "name": "SWAPPING_TO_WEAPONSET_2",
+      "value": 44
+    },
+    {
+      "name": "SWAPPING_TO_WEAPONSET_3",
+      "value": 45
+    },
+    {
+      "name": "SWIMMING",
+      "value": 161
+    },
+    {
+      "name": "SWOOPING",
+      "value": 155
+    },
+    {
+      "name": "TAKING_OFF",
+      "value": 165
+    },
+    {
+      "name": "THROWN_PROJECTILE",
+      "value": 232
+    },
+    {
+      "name": "TIBERIUM_CRYSTAL_TYPE1",
+      "value": 382
+    },
+    {
+      "name": "TIBERIUM_CRYSTAL_TYPE2",
+      "value": 383
+    },
+    {
+      "name": "TIBERIUM_CRYSTAL_TYPE3",
+      "value": 384
+    },
+    {
+      "name": "TIBERIUM_CRYSTAL_TYPE4",
+      "value": 385
+    },
+    {
+      "name": "TIBERIUM_CRYSTAL_TYPE5",
+      "value": 386
+    },
+    {
+      "name": "TIBERIUM_GROWING",
+      "value": 387
+    },
+    {
+      "name": "TOPPLED",
+      "value": 0
+    },
+    {
+      "name": "TRANSPORT_MOVING",
+      "value": 194
+    },
+    {
+      "name": "TRANSPORT_STOPPED",
+      "value": 195
+    },
+    {
+      "name": "TURN_LEFT",
+      "value": 238
+    },
+    {
+      "name": "TURN_LEFT_HIGH_SPEED",
+      "value": 240
+    },
+    {
+      "name": "TURN_RIGHT",
+      "value": 239
+    },
+    {
+      "name": "TURN_RIGHT_HIGH_SPEED",
+      "value": 241
+    },
+    {
+      "name": "TURRET_ANGLE_0",
+      "value": 336
+    },
+    {
+      "name": "TURRET_ANGLE_180",
+      "value": 338
+    },
+    {
+      "name": "TURRET_ANGLE_270",
+      "value": 339
+    },
+    {
+      "name": "TURRET_ANGLE_90",
+      "value": 337
+    },
+    {
+      "name": "TURRET_ROTATE",
+      "value": 340
+    },
+    {
+      "name": "UNCONTROLLABLE",
+      "value": 372
+    },
+    {
+      "name": "UNDERPOWERED",
+      "value": 381
+    },
+    {
+      "name": "UNIT_ACTIVELY_BEING_CONSTRUCTED",
+      "value": 170
+    },
+    {
+      "name": "UNPACKING",
+      "value": 201
+    },
+    {
+      "name": "UPGRADED_ARMOR",
+      "value": 351
+    },
+    {
+      "name": "USER_1",
+      "value": 283
+    },
+    {
+      "name": "USER_10",
+      "value": 292
+    },
+    {
+      "name": "USER_2",
+      "value": 284
+    },
+    {
+      "name": "USER_3",
+      "value": 285
+    },
+    {
+      "name": "USER_4",
+      "value": 286
+    },
+    {
+      "name": "USER_5",
+      "value": 287
+    },
+    {
+      "name": "USER_6",
+      "value": 288
+    },
+    {
+      "name": "USER_7",
+      "value": 289
+    },
+    {
+      "name": "USER_8",
+      "value": 290
+    },
+    {
+      "name": "USER_9",
+      "value": 291
+    },
+    {
+      "name": "USING_COMBO_LOCOMOTOR",
+      "value": 406
+    },
+    {
+      "name": "USING_SPECIAL_ABILITY",
+      "value": 310
+    },
+    {
+      "name": "USING_WEAPON_A",
+      "value": 98
+    },
+    {
+      "name": "USING_WEAPON_B",
+      "value": 99
+    },
+    {
+      "name": "USING_WEAPON_C",
+      "value": 100
+    },
+    {
+      "name": "USING_WEAPON_D",
+      "value": 101
+    },
+    {
+      "name": "USING_WEAPON_E",
+      "value": 102
+    },
+    {
+      "name": "VEHICLE_CRUSH_CENTER",
+      "value": 413
+    },
+    {
+      "name": "VEHICLE_CRUSH_LEFT",
+      "value": 411
+    },
+    {
+      "name": "VEHICLE_CRUSH_RIGHT",
+      "value": 412
+    },
+    {
+      "name": "WADING",
+      "value": 160
+    },
+    {
+      "name": "WALKING",
+      "value": 148
+    },
+    {
+      "name": "WALL_SEGMENT",
+      "value": 422
+    },
+    {
+      "name": "WANDER",
+      "value": 147
+    },
+    {
+      "name": "WEAPONLOCK_PRIMARY",
+      "value": 246
+    },
+    {
+      "name": "WEAPONLOCK_QUATERNARY",
+      "value": 249
+    },
+    {
+      "name": "WEAPONLOCK_QUINARY",
+      "value": 250
+    },
+    {
+      "name": "WEAPONLOCK_SECONDARY",
+      "value": 247
+    },
+    {
+      "name": "WEAPONLOCK_TERTIARY",
+      "value": 248
+    },
+    {
+      "name": "WEAPONSET_CLOSE_RANGE",
+      "value": 33
+    },
+    {
+      "name": "WEAPONSET_CONTAINED",
+      "value": 41
+    },
+    {
+      "name": "WEAPONSET_CONTESTING_BUILDING",
+      "value": 34
+    },
+    {
+      "name": "WEAPONSET_ELITE",
+      "value": 23
+    },
+    {
+      "name": "WEAPONSET_GARRISONED",
+      "value": 32
+    },
+    {
+      "name": "WEAPONSET_HERO",
+      "value": 24
+    },
+    {
+      "name": "WEAPONSET_MOUNTED",
+      "value": 42
+    },
+    {
+      "name": "WEAPONSET_PASSENGER_TYPE_ONE",
+      "value": 25
+    },
+    {
+      "name": "WEAPONSET_PASSENGER_TYPE_TWO",
+      "value": 26
+    },
+    {
+      "name": "WEAPONSET_PLAYER_UPGRADE",
+      "value": 27
+    },
+    {
+      "name": "WEAPONSET_RIDER1",
+      "value": 35
+    },
+    {
+      "name": "WEAPONSET_RIDER2",
+      "value": 36
+    },
+    {
+      "name": "WEAPONSET_RIDER3",
+      "value": 37
+    },
+    {
+      "name": "WEAPONSET_RIDER4",
+      "value": 38
+    },
+    {
+      "name": "WEAPONSET_SPECIAL_ONE",
+      "value": 39
+    },
+    {
+      "name": "WEAPONSET_SPECIAL_TWO",
+      "value": 40
+    },
+    {
+      "name": "WEAPONSET_SPECIAL_UPGRADE",
+      "value": 31
+    },
+    {
+      "name": "WEAPONSET_TOGGLE_1",
+      "value": 28
+    },
+    {
+      "name": "WEAPONSET_TOGGLE_2",
+      "value": 29
+    },
+    {
+      "name": "WEAPONSET_TOGGLE_3",
+      "value": 30
+    },
+    {
+      "name": "WEAPONSET_VETERAN",
+      "value": 22
+    },
+    {
+      "name": "WEAPONSLOTID_01",
+      "value": 51
+    },
+    {
+      "name": "WEAPONSLOTID_02",
+      "value": 52
+    },
+    {
+      "name": "WEAPONSLOTID_03",
+      "value": 53
+    },
+    {
+      "name": "WEAPONSLOTID_04",
+      "value": 54
+    },
+    {
+      "name": "WEAPONSLOTID_05",
+      "value": 55
+    },
+    {
+      "name": "WEAPONSLOTID_06",
+      "value": 438
+    },
+    {
+      "name": "WEAPONSLOTID_07",
+      "value": 439
+    },
+    {
+      "name": "WEAPONSLOTID_08",
+      "value": 440
+    },
+    {
+      "name": "WEAPONSLOTID_09",
+      "value": 441
+    },
+    {
+      "name": "WEAPONSLOTID_10",
+      "value": 442
+    },
+    {
+      "name": "WEAPONSTATE_CLOSE_RANGE",
+      "value": 49
+    },
+    {
+      "name": "WEAPONSTATE_CONTAINED",
+      "value": 50
+    },
+    {
+      "name": "WEAPONSTATE_ONE",
+      "value": 46
+    },
+    {
+      "name": "WEAPONSTATE_THREE",
+      "value": 48
+    },
+    {
+      "name": "WEAPONSTATE_TWO",
+      "value": 47
+    },
+    {
+      "name": "WEAPON_TOGGLING",
+      "value": 63
+    },
+    {
+      "name": "WORLD_BUILDER",
+      "value": 214
+    }
   ]
 }
