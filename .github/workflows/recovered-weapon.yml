@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/recovered-weapon.yml'
       - 'recovery/src/**/Weapon*'
+      - 'recovery/src/**/ResourceMarshaling*'
       - 'recovery/tests/Weapon*'
       - 'recovery/scripts/TestWeapon.ps1'
       - 'recovery/scripts/ExtractWeaponEvidence.py'
@@ -79,3 +80,4 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
+

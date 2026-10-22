@@ -1,6 +1,7 @@
 #include "WeaponTemplate.h"
 #include "ScalarParsing.h"
 #include "DataInitializers.h"
+#include "ResourceMarshaling.h"
 #include <cstring>
 #include <stdexcept>
 #include <sstream>
@@ -39,15 +40,15 @@ const WeaponField fields[] = {
     { "WeaponRecoil", "0d", 64u, 0x1319E3B1u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
     { "MinTargetPitch", "-180d", 68u, 0x553B6C95u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
     { "MaxTargetPitch", "180d", 72u, 0xB7737023u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
-    { "PreferredTargetBone", nullptr, 76u, 0x4C932F32u, 0x1A2933AAu, WeaponValue::Absent, WeaponToken::Member, "" },
-    { "FireSound", nullptr, 84u, 0x120A78E8u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
-    { "FireSoundPerClip", nullptr, 88u, 0x3819F796u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
-    { "FiringLoopSound", nullptr, 92u, 0x86CE6D08u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "PreferredTargetBone", nullptr, 76u, 0x4C932F32u, 0x1A2933AAu, WeaponValue::String, WeaponToken::Member, "" },
+    { "FireSound", nullptr, 84u, 0x120A78E8u, 0x63D7B468u, WeaponValue::ReferencePointer, WeaponToken::Pointer, "" },
+    { "FireSoundPerClip", nullptr, 88u, 0x3819F796u, 0x63D7B468u, WeaponValue::ReferencePointer, WeaponToken::Pointer, "" },
+    { "FiringLoopSound", nullptr, 92u, 0x86CE6D08u, 0x63D7B468u, WeaponValue::ReferencePointer, WeaponToken::Pointer, "" },
     { "FiringLoopSoundContinuesDuringReload", "true", 299u, 0x8E9F06FBu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
-    { "FireFX", nullptr, 96u, 0x9F1BCA25u, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
-    { "FireVeteranFX", nullptr, 100u, 0x6DBBA63Eu, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
-    { "FireFlankFX", nullptr, 104u, 0x1459E5BDu, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
-    { "PreAttackFX", nullptr, 108u, 0x17F17220u, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "FireFX", nullptr, 96u, 0x9F1BCA25u, 0x0D1C8E83u, WeaponValue::Reference, WeaponToken::Member, "" },
+    { "FireVeteranFX", nullptr, 100u, 0x6DBBA63Eu, 0x0D1C8E83u, WeaponValue::Reference, WeaponToken::Member, "" },
+    { "FireFlankFX", nullptr, 104u, 0x1459E5BDu, 0x0D1C8E83u, WeaponValue::Reference, WeaponToken::Member, "" },
+    { "PreAttackFX", nullptr, 108u, 0x17F17220u, 0x0D1C8E83u, WeaponValue::Reference, WeaponToken::Member, "" },
     { "ClipSize", "0", 112u, 0xB68DBC28u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
     { "ContinuousFireOne", "99999", 116u, 0x9B8145E9u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
     { "ContinuousFireTwo", "99999", 120u, 0xCC9D6D26u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
@@ -90,19 +91,19 @@ const WeaponField fields[] = {
     { "PreAttackType", "PER_SHOT", 176u, 0x15B123C5u, 0x826ACC69u, WeaponValue::Enum, WeaponToken::Member, "WeaponPrefireType" },
     { "ReAcquireDetailType", "PER_SHOT", 180u, 0xEF029607u, 0x3061BA53u, WeaponValue::Enum, WeaponToken::Member, "WeaponReAcquireDetailType" },
     { "AutoReloadsClip", "AUTO", 184u, 0x2CF21F66u, 0x266EF25Au, WeaponValue::Enum, WeaponToken::Member, "WeaponReloadType" },
-    { "SingleAmmoReloadedNotFullSound", "", 188u, 0xD9D3C0EEu, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Member, "" },
-    { "ClipReloadedSound", "", 192u, 0xB1C14901u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "SingleAmmoReloadedNotFullSound", "", 188u, 0xD9D3C0EEu, 0x63D7B468u, WeaponValue::Reference, WeaponToken::Member, "" },
+    { "ClipReloadedSound", "", 192u, 0xB1C14901u, 0x63D7B468u, WeaponValue::Reference, WeaponToken::Member, "" },
     { "RadiusDamageAffects", "ENEMIES", 196u, 0xE3731062u, 0x5208E1B9u, WeaponValue::Bits, WeaponToken::Member, "WeaponAffectsType" },
     { "FXTrigger", "NONE", 200u, 0xC4274C12u, 0x808B85BEu, WeaponValue::Enum, WeaponToken::Member, "FXTriggerType" },
     { "ProjectileCollidesWith", "STRUCTURES", 204u, 0x6E2FE0B6u, 0x11E28116u, WeaponValue::Bits, WeaponToken::Member, "WeaponCollideType" },
     { "RequiredAntiMask", "ANTI_GROUND ANTI_WATER ANTI_STRUCTURE", 208u, 0x475B437Du, 0xC8C69390u, WeaponValue::Bits, WeaponToken::Member, "WpnAntiT" },
     { "ForbiddenAntiMask", "", 212u, 0x4DD6D922u, 0xC8C69390u, WeaponValue::Bits, WeaponToken::Member, "WpnAntiT" },
     { "StopFiringOnCanBeInvisible", "false", 323u, 0xE1BD34FEu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
-    { "ProjectileStreamName", nullptr, 216u, 0x8A3BDF92u, 0x148ED75Du, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "ProjectileStreamName", nullptr, 216u, 0x8A3BDF92u, 0x148ED75Du, WeaponValue::AssetId, WeaponToken::Member, "" },
     { "ContactWeapon", "false", 324u, 0xF40F232Du, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "UseCenterForRangeCheck", "false", 325u, 0x4C86C5A2u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "VirtualDamage", "NONE", 220u, 0xD297044Fu, 0x2AFA9122u, WeaponValue::Enum, WeaponToken::Member, "VirtualDamageType" },
-    { "PreAttackWeapon", nullptr, 224u, 0x3BD61BC1u, 0xD046DD22u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "PreAttackWeapon", nullptr, 224u, 0x3BD61BC1u, 0xD046DD22u, WeaponValue::ReferencePointer, WeaponToken::Pointer, "" },
     { "RevealShroudOnFire", "false", 326u, 0x1BC662CCu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "ShouldPlayTargetDeadEvaEvent", "true", 327u, 0xD9EEFC1Fu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "OverrideVoiceAttackSound", nullptr, 228u, 0x7E74DFCCu, 0x1AE6B6B7u, WeaponValue::Absent, WeaponToken::Pointer, "" },
@@ -251,6 +252,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     Relo::Tracker data, tokens;
     Root* root = nullptr;
     data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
+    std::map<U32, void*> referenceBlocks;
     for (const auto& field : fields) {
         auto found = attributes.find(field.name);
         if (field.value == WeaponValue::Absent) continue;
@@ -260,6 +262,17 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         float number = 0;
         U32 word = 0;
         switch (field.value) {
+        case WeaponValue::String:
+            MarshalString(data, at, text); continue;
+        case WeaponValue::Reference:
+            MarshalReference(data, at, text); continue;
+        case WeaponValue::ReferencePointer: {
+            auto block = data.Push(reinterpret_cast<void**>(at), 4, 1);
+            MarshalReference(data, block, text);
+            referenceBlocks[field.offset] = block;
+            data.Pop(); continue;
+        }
+        case WeaponValue::AssetId: word = HashAssetId(text); break;
         case WeaponValue::Boolean: *at = ParseBoolean(text) ? 1 : 0; continue;
         case WeaponValue::Integer: word = static_cast<U32>(ParseSigned(text)); break;
         case WeaponValue::Enum: word = Lookup(field.enumGroup, text); break;
@@ -297,6 +310,9 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             tokens.BookmarkMemberOffset(&block->minSeconds, &nested[0].offset);
             tokens.BookmarkMemberOffset(&block->maxSeconds, &nested[1].offset);
             tokens.Pop();
+        } else if (field.value == WeaponValue::ReferencePointer) {
+            auto found = referenceBlocks.find(field.offset);
+            if (found != referenceBlocks.end()) tokens.BookmarkMemberOffset(found->second, &table[i].offset);
         } else if (field.token == WeaponToken::Member) {
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
         } else if (field.token == WeaponToken::List) {
@@ -330,3 +346,4 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+

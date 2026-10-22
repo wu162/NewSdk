@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 namespace Recovered { namespace Native {
-enum class WeaponValue { Float, Angle, Time, Percentage, Integer, Boolean, Enum, Bits, Absent };
+enum class WeaponValue { Float, Angle, Time, Percentage, Integer, Boolean, Enum, Bits, String, Reference, ReferencePointer, AssetId, Absent };
 enum class WeaponToken { Member, Pointer, List };
 struct WeaponField {
     const char* name;
@@ -19,3 +19,4 @@ struct WeaponDurationInput { std::string minSeconds, maxSeconds; };
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations, bool bigEndian);
 }}
+

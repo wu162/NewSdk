@@ -49,6 +49,7 @@ class WeaponOracle
         Equal(label + "/instance", original.InstanceData, recovered.InstanceData);
         Equal(label + "/relocations", original.RelocationData, recovered.RelocationData);
         Equal(label + "/imports", original.ImportsData, recovered.ImportsData);
+        if (count < 0) return; // Resource fixtures have their own independent layout checks.
         bool big = platform != TargetPlatform.Win32;
         int tokenSize = 1296 + 36*count;
         if (recovered.InstanceData.Length != 1624 + 44*count || recovered.RelocationData.Length != (count == 0 ? 0 : (count+1)*4) || recovered.ImportsData.Length != 0 ||
@@ -81,12 +82,59 @@ class WeaponOracle
     static void Check(IAssetBuilderPlugin plugin, string label, string attrs, TargetPlatform platform) {
         Test(plugin, label, Weapon(attrs), platform, 0); ++fixtures;
     }
+
+    static string Attribute(string name, string value) {
+        return name + "='" + System.Security.SecurityElement.Escape(value) + "'";
+    }
+    static void Resources(IAssetBuilderPlugin plugin, TargetPlatform platform) {
+        string[] refs = { "FireSound", "FireSoundPerClip", "FiringLoopSound", "FireFX", "FireVeteranFX", "FireFlankFX", "PreAttackFX", "SingleAmmoReloadedNotFullSound", "ClipReloadedSound", "PreAttackWeapon" };
+        string[] values = { "", "NONE", "event", @"event\0", @"event\1", @"event\123", @"event\-1", @"event\-2", @"event\+17", @"event\  42tail", @"event\010", @"event\0x10", @"event\", @"\9", @"event\bad", @"event\1\999", @"event\2147483647", @"event\2147483648", @"event\4294967295", @"event\-2147483648", @"event\-2147483649", @"event\999999999999999999999", @"event\--1", "event/7" };
+        foreach (string name in refs) foreach (string value in values) {
+            Test(plugin, "resource/" + name + "/" + value, Weapon(Attribute(name, value)), platform, -1); ++fixtures;
+        }
+        foreach (string name in new[] { "PreferredTargetBone", "ProjectileStreamName" }) {
+            foreach (string value in new[] { "", "a", "AB", "ABC", "AbCd", "AbCdE", "BONE_TURRET", " bone & <Turret> ", "é", "Éa", "abé", "中", "a中", "abc中", new string('X', 257) }) {
+                Test(plugin, "text/" + name + "/" + value, Weapon(Attribute(name, value)), platform, -1); ++fixtures;
+            }
+            for (int n = 0; n <= 65; ++n) {
+                Test(plugin, "text-length/" + name + "/" + n, Weapon(Attribute(name, new string('Q', n))), platform, -1); ++fixtures;
+            }
+        }
+        string attrs = "PreferredTargetBone='ABC' FireSound='s\\0' FireSoundPerClip='s\\17' FiringLoopSound='' FireFX='fx\\9' FireVeteranFX='fx\\-1' FireFlankFX='fx\\123' PreAttackFX='fx\\1' SingleAmmoReloadedNotFullSound='s\\2' ClipReloadedSound='s\\3' PreAttackWeapon='w\\4'";
+        string xml = "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Resources' " + attrs + "><ClipReloadTime MinSeconds='4s'/><PreAttackDelay MinSeconds='1s'/></WeaponTemplate>";
+        Test(plugin, "all-resources-and-durations", xml, platform, -1); ++fixtures;
+        var doc = new XmlDocument(); doc.LoadXml(xml);
+        var ns = new XmlNamespaceManager(doc.NameTable); ns.AddNamespace("ea", AssetNamespace);
+        var result = WeaponCompiler.CompileXml(doc.DocumentElement, ns, platform != TargetPlatform.Win32);
+        bool big = platform != TargetPlatform.Win32;
+        const int tokens = 1368, root = tokens, tail = tokens+328;
+        // Four-byte string including terminator, four pointer-reference words,
+        // then the two duration payloads; token tables are only for durations.
+        if (result.InstanceData.Length != tokens+328+4+16+16 || result.ImportsData.Length != 0 ||
+            Word(result.InstanceData, root+76, big) != 3 || Word(result.InstanceData, root+80, big) != tail ||
+            result.InstanceData[tail] != 65 || result.InstanceData[tail+3] != 0 ||
+            Word(result.InstanceData, root+84, big) != tail+4 || Word(result.InstanceData, root+88, big) != tail+8 ||
+            Word(result.InstanceData, root+92, big) != tail+12 || Word(result.InstanceData, root+224, big) != tail+16 ||
+            Word(result.InstanceData, tail+4, big) != 1 || Word(result.InstanceData, tail+8, big) != 18 ||
+            Word(result.InstanceData, tail+12, big) != 0 || Word(result.InstanceData, tail+16, big) != 5 ||
+            Word(result.InstanceData, root+96, big) != 10 || Word(result.InstanceData, root+100, big) != 0 ||
+            Word(result.InstanceData, root+236, big) != tail+20 || Word(result.InstanceData, root+248, big) != tail+28 ||
+            Word(result.InstanceData, 26*12+8, big) != tail+4 || Word(result.InstanceData, 88*12+8, big) != tail+16)
+            throw new Exception("Independent combined resource layout assertion");
+        uint[] relocationOffsets = { 80, 84, 88, 92, 224, 236, 248 };
+        if (result.RelocationData.Length != 32) throw new Exception("Resource relocation count");
+        for (int i = 0; i < relocationOffsets.Length; ++i)
+            if (Word(result.RelocationData, i*4, big) != root+relocationOffsets[i]) throw new Exception("Resource relocation order");
+        if (Word(result.RelocationData, 28, big) != uint.MaxValue) throw new Exception("Resource relocation sentinel");
+    }
+
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                Resources(plugin, platform);
                 Check(plugin, "defaults", "", platform);
                 Check(plugin, "AttackRange-0", "AttackRange='-0'", platform);
                 Check(plugin, "AttackRange-1", "AttackRange='-23.75'", platform);
@@ -849,20 +897,8 @@ class WeaponOracle
                 Test(plugin, "first-duplicate-duration", "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle'><PreAttackDelay MinSeconds='1s'/><PreAttackDelay MinSeconds='9s'/></WeaponTemplate>", platform, 1); ++fixtures;
 
             }
-            Reject(Weapon("PreferredTargetBone=''"));
-            Reject(Weapon("FireSound=''"));
-            Reject(Weapon("FireSoundPerClip=''"));
-            Reject(Weapon("FiringLoopSound=''"));
-            Reject(Weapon("FireFX=''"));
-            Reject(Weapon("FireVeteranFX=''"));
-            Reject(Weapon("FireFlankFX=''"));
-            Reject(Weapon("PreAttackFX=''"));
             Reject(Weapon("RequiredFiringObjectStatus=''"));
             Reject(Weapon("ForbiddenFiringObjectStatus=''"));
-            Reject(Weapon("SingleAmmoReloadedNotFullSound=''"));
-            Reject(Weapon("ClipReloadedSound=''"));
-            Reject(Weapon("ProjectileStreamName=''"));
-            Reject(Weapon("PreAttackWeapon=''"));
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceAttackSound/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceEnterStateAttackSound/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><PreAttackDelay Unknown=\"1\"/></WeaponTemplate>");
@@ -878,8 +914,9 @@ class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><IncompatibleAttributeModifier/></WeaponTemplate>");
             Reject(Weapon("UnknownField='1'"));
             Reject("<WeaponTemplate xmlns='" + AssetNamespace + "' id='Reject'><Unknown/></WeaponTemplate>");
-            Console.WriteLine("PASS WeaponTemplate scalar/duration subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+

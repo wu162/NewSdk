@@ -14,8 +14,7 @@ public ref class WeaponCompiler abstract sealed {
         return result;
     }
 public:
-    // Partial WeaponTemplate entry point. Nested structures and references are
-    // deliberately rejected until their serializers have their own oracle loop.
+    // Partial WeaponTemplate entry point. Unsupported structures are rejected.
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
         auto adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
@@ -68,3 +67,4 @@ public:
     }
 };
 }
+
