@@ -1,5 +1,7 @@
 {
-  "sourceCommit": "4dc7ab49b2f7df14a13f52f3fae8662c6f0d5050",
-  "status": "started",
-  "succeeded": false
+  "status": "Formal Armor plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified",
+  "scope": "ArmorTemplate only; original plugins retained for other types",
+  "succeeded": true,
+  "sourceCommit": "b455f4e5704bba68e0027757093558ea8bee7929",
+  "runId": "39858968034"
 }

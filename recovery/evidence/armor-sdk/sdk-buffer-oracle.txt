@@ -1,0 +1,4 @@
+PASS SDK call RecoveryArmorProbe_NonDefault: original buffers equal, bytes=352
+PASS SDK call RecoveryArmorProbe_Inherited: original buffers equal, bytes=352
+PASS SDK call RecoveryArmorProbe_Defaults: original buffers equal, bytes=128
+PASS 3 actual SDK plugin calls, all three probe assets emitted; inherited XML tested after BAB preprocessing.
