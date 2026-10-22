@@ -27,6 +27,29 @@ jobs:
           $lines = Get-Content recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
           $lines[17515..18180] | Set-Content recovery/evidence/weapon/marshal.txt
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
+          # Original helper evidence, using one-based source line numbers.
+          $helperRanges = @(
+            @{ Name = 'FastHash'; Start = 12274; End = 12329 }
+            @{ Name = 'SoundOrEvaEvent Marshal'; Start = 13587; End = 13602 }
+            @{ Name = 'WeaponAiHintInfo Marshal'; Start = 15328; End = 15341 }
+            @{ Name = 'String allocation'; Start = 51067; End = 51094 }
+            @{ Name = 'Inline FX reference'; Start = 51542; End = 51558 }
+            @{ Name = 'Pointer audio reference'; Start = 66888; End = 66900 }
+            @{ Name = 'Typed ID and pointer weapon reference'; Start = 68432; End = 68492 }
+            @{ Name = 'ANSI Value conversion'; Start = 76566; End = 76594 }
+            @{ Name = 'SoundOrEvaEvent Tokenize'; Start = 76849; End = 76877 }
+            @{ Name = 'WeaponAiHintInfo Tokenize'; Start = 78529; End = 78566 }
+            @{ Name = 'Reference and string Tokenize'; Start = 97830; End = 97847 }
+          )
+          $helperEvidence = foreach ($range in $helperRanges) {
+            if ($range.Start -lt 1 -or $range.End -gt $lines.Count) { throw 'Helper evidence range is outside committed source' }
+            "=== $($range.Name): -Module-.cs lines $($range.Start)-$($range.End) ==="
+            for ($line = $range.Start; $line -le $range.End; ++$line) {
+              '{0}: {1}' -f $line, $lines[$line - 1]
+            }
+            ''
+          }
+          $helperEvidence | Set-Content recovery/evidence/weapon/resource-helpers.txt
       - name: Read original enum maps
         shell: pwsh
         run: python recovery/scripts/ExtractWeaponEvidence.py
