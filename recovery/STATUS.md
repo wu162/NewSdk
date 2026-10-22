@@ -6,6 +6,10 @@ Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` h
 
 Recover both `SDK/tools/BinaryAssetBuilder.XmlCompiler.dll` and `BinaryAssetBuilder.Tokenizer.dll`, including managed/C++/CLI logic. Work directly from this repository, without assumptions from earlier projects. Do not create a microtask scheduler. Commit meaningful milestones. Windows Actions are authorized. Validate using the example MOD's basic-data build (the GUI invokes BAB through `defaultscript.cs` case 5). Continue across sessions at substantial milestones to avoid context exhaustion.
 
+## Stage size rule — user update, 2026-10-22
+
+Future implementation sessions should contain about **25 minutes of effective work** (normally estimated at 20–30 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 25 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
+
 ## Completed and persisted
 
 * Mechanical C# rendering, complete IL listings, method metadata, native layouts and disassembly for both target DLLs. Core/BAB/GUI evidence is also available for integration context. ILSpy source extraction and IL extraction both returned 0 for both targets. Every nonzero-RVA IL body was read without errors.
@@ -46,7 +50,7 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 
 ## Resume instruction
 
-Read this file and `README.md`, inspect current branch/head and actual committed evidence, then continue Node/XML marshaling and real serializer reconstruction. Start with one complete type path (ArmorTemplate is smaller than WeaponTemplate/GameObject), validate its InstanceData/RelocationData/ImportsData against the original Plugin.ProcessInstance, then expand the same machinery. Do not rewrite or re-extract the validated relocation component. Do not redo extraction, recreate the baseline or import conclusions from another recovery repository. Do not claim the two full compiler DLLs have been restored at this stage.
+Read this file, `STAGES.md` and `README.md`, inspect current branch/head and actual committed evidence, then continue Node/XML marshaling and real serializer reconstruction. Start with one complete type path (ArmorTemplate is smaller than WeaponTemplate/GameObject), validate its InstanceData/RelocationData/ImportsData against the original Plugin.ProcessInstance, then expand the same machinery. Do not rewrite or re-extract the validated relocation component. Do not redo extraction, recreate the baseline or import conclusions from another recovery repository. Do not claim the two full compiler DLLs have been restored at this stage.
 
 
 ## Continuation details from this stage
