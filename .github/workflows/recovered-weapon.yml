@@ -7,6 +7,7 @@ on:
       - 'recovery/src/**/Weapon*'
       - 'recovery/tests/Weapon*'
       - 'recovery/scripts/TestWeapon.ps1'
+      - 'recovery/scripts/ExtractWeaponEvidence.py'
 permissions:
   contents: read
 jobs:
@@ -25,6 +26,9 @@ jobs:
           $lines = Get-Content recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
           $lines[17515..18180] | Set-Content recovery/evidence/weapon/marshal.txt
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
+      - name: Read original enum maps
+        shell: pwsh
+        run: python recovery/scripts/ExtractWeaponEvidence.py
       - name: Build and compare
         shell: pwsh
         run: |
