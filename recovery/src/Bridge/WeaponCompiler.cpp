@@ -20,18 +20,25 @@ public:
         auto adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         auto children = adapter->Children(nullptr);
         array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
+        array<String^>^ soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
+        array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculation" };
         while (children->MoveNext()) {
             auto child = children->Current;
-            if (child->NamespaceURI != node->NamespaceURI || Array::IndexOf<String^>(durationNames, child->LocalName) < 0)
+            bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;
+            bool sound = Array::IndexOf<String^>(soundNames, child->LocalName) >= 0;
+            bool hint = child->LocalName == "WeaponAiHintInfo";
+            if (child->NamespaceURI != node->NamespaceURI || (!duration && !sound && !hint))
                 throw gcnew NotSupportedException("WeaponTemplate child structure is not reconstructed: " + child->LocalName);
             auto attributes = child->Clone();
             if (attributes->MoveToFirstAttribute()) do {
                 if (attributes->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-                if (attributes->NamespaceURI->Length != 0 || (attributes->LocalName != "MinSeconds" && attributes->LocalName != "MaxSeconds"))
-                    throw gcnew NotSupportedException("Unsupported RangeDuration attribute: " + attributes->Name);
+                bool known = duration ? (attributes->LocalName == "MinSeconds" || attributes->LocalName == "MaxSeconds") :
+                    sound ? (attributes->LocalName == "Sound" || attributes->LocalName == "EvaEvent") : Array::IndexOf<String^>(hintAttributes, attributes->LocalName) >= 0;
+                if (attributes->NamespaceURI->Length != 0 || !known)
+                    throw gcnew NotSupportedException("Unsupported WeaponTemplate child attribute: " + attributes->Name);
             } while (attributes->MoveToNextAttribute());
             if (child->SelectChildren(XPathNodeType::Element)->MoveNext())
-                throw gcnew NotSupportedException("RangeDuration does not support nested elements.");
+                throw gcnew NotSupportedException("WeaponTemplate optional block does not support nested elements.");
         }
         std::map<std::string, Native::WeaponDurationInput> durations;
         for each (String^ name in durationNames) {
@@ -42,6 +49,19 @@ public:
             duration.maxSeconds = marshal_as<std::string>(child->Attribute("MaxSeconds", "0s"));
             durations[marshal_as<std::string>(name)] = duration;
         }
+        std::map<std::string, Native::WeaponOptionalInput> optionalBlocks;
+        array<String^>^ blockNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "WeaponAiHintInfo" };
+        for each (String^ name in blockNames) {
+            auto child = adapter->Child(name, nullptr);
+            if (child == nullptr) continue;
+            Native::WeaponOptionalInput input;
+            array<String^>^ names = name == "WeaponAiHintInfo" ? hintAttributes : gcnew array<String^> { "Sound", "EvaEvent" };
+            for each (String^ attrName in names) {
+                String^ value = child->Attribute(attrName, nullptr);
+                if (value != nullptr) input[marshal_as<std::string>(attrName)] = marshal_as<std::string>(value);
+            }
+            optionalBlocks[marshal_as<std::string>(name)] = input;
+        }
         std::map<std::string, std::string> attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
@@ -50,7 +70,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeapon(attributes, durations, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);

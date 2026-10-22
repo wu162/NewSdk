@@ -15,8 +15,10 @@ struct WeaponField {
 };
 const WeaponField* WeaponFields();
 unsigned WeaponFieldCount();
+using WeaponOptionalInput = std::map<std::string, std::string>;
 struct WeaponDurationInput { std::string minSeconds, maxSeconds; };
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
-    const std::map<std::string, WeaponDurationInput>& durations, bool bigEndian);
+    const std::map<std::string, WeaponDurationInput>& durations,
+    const std::map<std::string, WeaponOptionalInput>& optionalBlocks, bool bigEndian);
 }}
 

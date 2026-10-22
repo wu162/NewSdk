@@ -235,12 +235,22 @@ struct Root { unsigned char bytes[328]; };
 const WeaponField* WeaponFields() { return fields; }
 unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
-    const std::map<std::string, WeaponDurationInput>& durations, bool bigEndian) {
+    const std::map<std::string, WeaponDurationInput>& durations,
+    const std::map<std::string, WeaponOptionalInput>& optionalBlocks, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
     for (const auto& duration : durations) {
         bool known = false;
         for (const char* name : durationNames) if (duration.first == name) known = true;
         if (!known) throw std::invalid_argument("Unsupported WeaponTemplate duration: " + duration.first);
+    }
+    for (const auto& entry : optionalBlocks) {
+        bool sound = entry.first == "OverrideVoiceAttackSound" || entry.first == "OverrideVoiceEnterStateAttackSound";
+        if (!sound && entry.first != "WeaponAiHintInfo") throw std::invalid_argument("Unsupported optional block: " + entry.first);
+        for (const auto& attr : entry.second) {
+            bool known = sound ? (attr.first == "Sound" || attr.first == "EvaEvent") :
+                (attr.first == "IsAntiGarrisonWeapon" || attr.first == "MaxSpeedOfTarget" || attr.first == "UseLongLockOnTimeCode" || attr.first == "UseAsWarheadForDamageCalculation");
+            if (!known) throw std::invalid_argument("Unsupported optional attribute: " + attr.first);
+        }
     }
     // Validate before allocation: unsupported input must never silently produce zero data.
     for (const auto& attr : attributes) {
@@ -285,6 +295,23 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         }
         std::memcpy(at, &word, 4);
     }
+    struct SoundOrEvaEvent { void* sound; U32 eva; };
+    SoundOrEvaEvent* soundBlocks[2] = {};
+    void* soundReferences[2] = {};
+    const char* soundNames[] = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
+    for (unsigned i = 0; i < 2; ++i) {
+        auto found = optionalBlocks.find(soundNames[i]);
+        if (found == optionalBlocks.end()) continue;
+        auto block = static_cast<SoundOrEvaEvent*>(data.Push(reinterpret_cast<void**>(root->bytes + 228 + 4*i), 8, 1));
+        auto sound = found->second.find("Sound");
+        if (sound != found->second.end()) {
+            soundReferences[i] = data.Push(&block->sound, 4, 1);
+            MarshalReference(data, soundReferences[i], sound->second); data.Pop();
+        }
+        auto eva = found->second.find("EvaEvent");
+        if (eva != found->second.end()) MarshalReference(data, &block->eva, eva->second);
+        soundBlocks[i] = block; data.Pop();
+    }
     struct RangeDuration { float minSeconds, maxSeconds; };
     RangeDuration* durationBlocks[4] = {};
     for (unsigned i = 0; i < 4; ++i) {
@@ -295,6 +322,23 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         block->minSeconds = InitializeTime(found->second.minSeconds.c_str());
         block->maxSeconds = InitializeTime(found->second.maxSeconds.c_str());
         durationBlocks[i] = block;
+        data.Pop();
+    }
+    struct AiHint { void* maxSpeed; U32 warhead; unsigned char antiGarrison, longLock, padding[2]; };
+    AiHint* ai = nullptr;
+    float* maxSpeed = nullptr;
+    auto hint = optionalBlocks.find("WeaponAiHintInfo");
+    if (hint != optionalBlocks.end()) {
+        ai = static_cast<AiHint*>(data.Push(reinterpret_cast<void**>(root->bytes+252), 12, 1));
+        const auto& attrs = hint->second;
+        auto anti = attrs.find("IsAntiGarrisonWeapon");
+        ai->antiGarrison = anti != attrs.end() && ParseBoolean(anti->second);
+        auto lock = attrs.find("UseLongLockOnTimeCode");
+        ai->longLock = lock != attrs.end() && ParseBoolean(lock->second);
+        auto speed = attrs.find("MaxSpeedOfTarget");
+        if (speed != attrs.end()) { maxSpeed = static_cast<float*>(data.Push(&ai->maxSpeed, 4, 1)); *maxSpeed = ParseFloat(speed->second); data.Pop(); }
+        auto warhead = attrs.find("UseAsWarheadForDamageCalculation");
+        if (warhead != attrs.end()) MarshalReference(data, &ai->warhead, warhead->second);
         data.Pop();
     }
     Procedure* table = nullptr;
@@ -309,6 +353,25 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             nested[1].name = 895757295u; nested[1].type = 2575722984u;
             tokens.BookmarkMemberOffset(&block->minSeconds, &nested[0].offset);
             tokens.BookmarkMemberOffset(&block->maxSeconds, &nested[1].offset);
+            tokens.Pop();
+        } else if (field.offset >= 228 && field.offset <= 232 && soundBlocks[(field.offset-228)/4]) {
+            unsigned index = (field.offset-228)/4;
+            auto nested = static_cast<Procedure*>(tokens.Push(&table[i].offset, 12, 3));
+            nested[0].name = 805758285u; nested[0].type = 1675080808u;
+            nested[1].name = 357806494u; nested[1].type = 3303818161u;
+            if (soundReferences[index]) tokens.BookmarkMemberOffset(soundReferences[index], &nested[0].offset);
+            tokens.BookmarkMemberOffset(&soundBlocks[index]->eva, &nested[1].offset);
+            tokens.Pop();
+        } else if (field.offset == 252 && ai) {
+            auto nested = static_cast<Procedure*>(tokens.Push(&table[i].offset, 12, 5));
+            nested[0].name = 486840776u; nested[0].type = 2011428087u;
+            nested[1].name = 4291171833u; nested[1].type = 1683514611u;
+            nested[2].name = 1432037361u; nested[2].type = 2011428087u;
+            nested[3].name = 3539729073u; nested[3].type = 3494305058u;
+            tokens.BookmarkMemberOffset(&ai->antiGarrison, &nested[0].offset);
+            if (maxSpeed) tokens.BookmarkMemberOffset(maxSpeed, &nested[1].offset);
+            tokens.BookmarkMemberOffset(&ai->longLock, &nested[2].offset);
+            tokens.BookmarkMemberOffset(&ai->warhead, &nested[3].offset);
             tokens.Pop();
         } else if (field.value == WeaponValue::ReferencePointer) {
             auto found = referenceBlocks.find(field.offset);
@@ -329,6 +392,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         // Keep live host pointers intact until Tracker converts them to offsets.
         for (unsigned offset = 4; offset < 292; offset += 4)
             if (offset < 236 || offset > 248) Swap(root->bytes + offset);
+        if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }
     auto tokenChunk = tokens.MakeRelocatable(bigEndian, 0);

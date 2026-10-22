@@ -128,12 +128,50 @@ class WeaponOracle
         if (Word(result.RelocationData, 28, big) != uint.MaxValue) throw new Exception("Resource relocation sentinel");
     }
 
+
+    static string WithChild(string name, string attrs) {
+        return "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Optional'><" + name + " " + attrs + "/></WeaponTemplate>";
+    }
+    static void OptionalBlocks(IAssetBuilderPlugin plugin, TargetPlatform platform) {
+        string[] soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
+        foreach (string name in soundNames) {
+            foreach (string attrs in new[] { "", "Sound=''", "EvaEvent=''", "Sound='NONE'", @"Sound='s\0'", @"Sound='s\17' EvaEvent='e\9'", @"Sound='s\-1' EvaEvent='e\-2'", @"EvaEvent='e\2147483648'" }) {
+                Test(plugin, name + "/" + attrs, WithChild(name, attrs), platform, -1); ++fixtures;
+            }
+            foreach (string value in new[] { "", @"s\0", @"s\1", @"s\-1", @"s\4294967295", "NONE", @"s\bad" }) {
+                Test(plugin, name+"/sound/"+value, WithChild(name, Attribute("Sound", value)), platform, -1); ++fixtures;
+                Test(plugin, name+"/eva/"+value, WithChild(name, Attribute("EvaEvent", value)), platform, -1); ++fixtures;
+            }
+            Test(plugin, name+"/first-duplicate", "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Optional'><"+name+" Sound='a\\2'/><"+name+" Sound='b\\99'/></WeaponTemplate>", platform, -1); ++fixtures;
+        }
+        foreach (string attrs in new[] { "", "IsAntiGarrisonWeapon='true'", "UseLongLockOnTimeCode='TRUE'", "IsAntiGarrisonWeapon='yes' UseLongLockOnTimeCode='0'", "MaxSpeedOfTarget=''", "MaxSpeedOfTarget='-0'", "MaxSpeedOfTarget='2d1'", "MaxSpeedOfTarget='1e-40'", "MaxSpeedOfTarget='1e40'", "MaxSpeedOfTarget='0x1p2'", "UseAsWarheadForDamageCalculation=''", @"UseAsWarheadForDamageCalculation='w\9'", @"IsAntiGarrisonWeapon='1' MaxSpeedOfTarget='-33.5' UseLongLockOnTimeCode='t' UseAsWarheadForDamageCalculation='w\-2'" }) {
+            Test(plugin, "AI/"+attrs, WithChild("WeaponAiHintInfo", attrs), platform, -1); ++fixtures;
+        }
+        string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Combined'><WeaponAiHintInfo MaxSpeedOfTarget='33.5' IsAntiGarrisonWeapon='true' UseLongLockOnTimeCode='true' UseAsWarheadForDamageCalculation='w\\3'/><ClipReloadTime MinSeconds='4s'/><OverrideVoiceEnterStateAttackSound Sound='s\\2' EvaEvent='e\\3'/><FiringDuration MinSeconds='2s'/><OverrideVoiceAttackSound Sound='s\\0' EvaEvent='e\\1'/><CoolDownDelayBetweenShots MinSeconds='3s'/><PreAttackDelay MinSeconds='1s'/></WeaponTemplate>";
+        Test(plugin, "all-optional-blocks-reverse-order", xml, platform, -1); ++fixtures;
+        var doc = new XmlDocument(); doc.LoadXml(xml);
+        var ns = new XmlNamespaceManager(doc.NameTable); ns.AddNamespace("ea", AssetNamespace);
+        bool big = platform != TargetPlatform.Win32;
+        var result = WeaponCompiler.CompileXml(doc.DocumentElement, ns, big);
+        const int tokens = 1572, tail = tokens+328;
+        if (result.InstanceData.Length != tail+72 || result.ImportsData.Length != 0 || result.RelocationData.Length != 44 ||
+            Word(result.InstanceData, tokens+228, big) != tail || Word(result.InstanceData, tail, big) != tail+8 ||
+            Word(result.InstanceData, tail+4, big) != 2 || Word(result.InstanceData, tail+8, big) != 1 ||
+            Word(result.InstanceData, tokens+232, big) != tail+12 || Word(result.InstanceData, tail+12, big) != tail+20 ||
+            Word(result.InstanceData, tokens+236, big) != tail+24 || Word(result.InstanceData, tokens+248, big) != tail+48 ||
+            Word(result.InstanceData, tokens+252, big) != tail+56 || Word(result.InstanceData, tail+56, big) != tail+68 ||
+            Word(result.InstanceData, tail+60, big) != 4 || result.InstanceData[tail+64] != 1 || result.InstanceData[tail+65] != 1 ||
+            Word(result.InstanceData, tail+68, big) != 0x42060000u || Word(result.RelocationData, 40, big) != uint.MaxValue)
+            throw new Exception("Independent optional-block allocation/layout assertion");
+    }
+
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                OptionalBlocks(plugin, platform);
                 Resources(plugin, platform);
                 Check(plugin, "defaults", "", platform);
                 Check(plugin, "AttackRange-0", "AttackRange='-0'", platform);
@@ -899,13 +937,10 @@ class WeaponOracle
             }
             Reject(Weapon("RequiredFiringObjectStatus=''"));
             Reject(Weapon("ForbiddenFiringObjectStatus=''"));
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceAttackSound/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceEnterStateAttackSound/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><PreAttackDelay Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><FiringDuration Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ClipReloadTime Unknown=\"1\"/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><WeaponAiHintInfo/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><Nuggets/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><SurpriseAttackObjectFilter/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CombinedAttackObjectFilter/></WeaponTemplate>");
@@ -914,6 +949,12 @@ class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><IncompatibleAttributeModifier/></WeaponTemplate>");
             Reject(Weapon("UnknownField='1'"));
             Reject("<WeaponTemplate xmlns='" + AssetNamespace + "' id='Reject'><Unknown/></WeaponTemplate>");
+            foreach (string name in new[] { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "WeaponAiHintInfo" }) {
+                Reject(WithChild(name, "Unknown='1'"));
+                Reject(WithChild(name, "xmlns:x='urn:other' x:Sound='1'"));
+                Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
+                Reject(Weapon(Attribute(name, "")));
+            }
             Console.WriteLine("PASS WeaponTemplate scalar/duration/resource subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
