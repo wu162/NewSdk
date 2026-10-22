@@ -1,0 +1,7 @@
+PASS namespace=
+PASS empty namespace=
+PASS namespace=uri:ea.com:eala:asset
+PASS empty namespace=uri:ea.com:eala:asset
+PASS namespace=other
+PASS empty namespace=other
+PASS Node adapter: 360 original/recovered comparisons.
