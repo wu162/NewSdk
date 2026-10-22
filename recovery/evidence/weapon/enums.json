@@ -4990,5 +4990,53 @@
       "name": "UNDEFINED",
       "value": 3
     }
+  ],
+  "WeaponSlotType": [
+    {
+      "name": "NO_WEAPON",
+      "value": 5
+    },
+    {
+      "name": "PRIMARY_WEAPON",
+      "value": 0
+    },
+    {
+      "name": "QUATERNARY_WEAPON",
+      "value": 3
+    },
+    {
+      "name": "QUINARY_WEAPON",
+      "value": 4
+    },
+    {
+      "name": "SECONDARY_WEAPON",
+      "value": 1
+    },
+    {
+      "name": "TERTIARY_WEAPON",
+      "value": 2
+    }
+  ],
+  "VeterancyLevel": [
+    {
+      "name": "ELITE",
+      "value": 2
+    },
+    {
+      "name": "HEROIC",
+      "value": 3
+    },
+    {
+      "name": "INVALID",
+      "value": -1
+    },
+    {
+      "name": "REGULAR",
+      "value": 0
+    },
+    {
+      "name": "VETERAN",
+      "value": 1
+    }
   ]
 }
