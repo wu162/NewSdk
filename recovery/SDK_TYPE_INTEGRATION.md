@@ -36,7 +36,7 @@ WeaponTemplate 尚缺 ScatterRadiusVsType 和 Nuggets，暂不切换整类 SDK �
 
 现有 /Od、/O2 多平台差分是回归层；按类型配置运行 SDK 是集成层；两个完整替代 DLL 是最终验收。分别报告实际通过范围。
 
-下一轮约 25 分钟优先完成 ArmorTemplate 正式插件、配置分派和 SDK 原版/恢复版编译对照。之后继续 ModelCondition / ScatterRadiusVsType，再推进 Nuggets。遇到实际插件加载、元数据或预处理差异时记录具体阻塞，不通过原 DLL 转发绕过。
+下一轮约 35 分钟优先完成 ArmorTemplate 正式插件、配置分派和 SDK 原版/恢复版编译对照。之后继续 ModelCondition / ScatterRadiusVsType，再推进 Nuggets。遇到实际插件加载、元数据或预处理差异时记录具体阻塞，不通过原 DLL 转发绕过。
 
 ## mymod 验证源码与 XSD（用户补充，2026-10-22）
 

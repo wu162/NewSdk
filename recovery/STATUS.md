@@ -10,11 +10,11 @@ Recover both `SDK/tools/BinaryAssetBuilder.XmlCompiler.dll` and `BinaryAssetBuil
 
 The user explicitly states: “这个仓库以后所有任务，仅仅不允许强推，其他都授权”.
 
-For all future tasks in `wu162/NewSdk`, all task-related repository operations except force-push are authorized without repeated confirmation, including workflow configuration and automatic commits/pushes. Force-push, force-with-lease and forced API ref updates are prohibited. Read the root `AGENTS.md` for the persistent instruction. This supersedes earlier narrower authorization notes; the task scope, verification and approximately-25-minute implementation-stage rules continue unchanged.
+For all future tasks in `wu162/NewSdk`, all task-related repository operations except force-push are authorized without repeated confirmation, including workflow configuration and automatic commits/pushes. Force-push, force-with-lease and forced API ref updates are prohibited. Read the root `AGENTS.md` for the persistent instruction. This supersedes earlier narrower authorization notes; the task scope, verification and approximately-35-minute implementation-stage rules continue unchanged.
 
-## Stage size rule — user update, 2026-10-22
+## Stage size rule — user update, 2026-10-23
 
-Future implementation sessions should contain about **25 minutes of effective work** (normally estimated at 20–30 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 25 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
+The user extended stages from about 25 to about 35 minutes on 2026-10-23. This supersedes the earlier timing rule. Future implementation sessions should contain about **35 minutes of effective work** (normally estimated at 30–40 minutes), not stop after a roughly 10-minute component. Bundle implementation, Windows build, original-DLL differential tests, fixes, commits and handoff into substantial stages. If planned work finishes early, continue adjacent useful work; do not idle or repeat unaffected tests to pad time. Finish critical verification already in progress and hand off a reviewable milestone. Explain any earlier handoff caused by an external blocker or context limits. This rule governs future implementation stages; a planning-only documentation edit need not take 35 minutes. The dependency-based revised plan and next session scope are in [`STAGES.md`](STAGES.md). Read both files when resuming. No microtask scheduler is introduced.
 
 ## Completed and persisted
 
@@ -68,7 +68,7 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
 Continue WeaponTemplate from the validated status/filter/list implementation below.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-25-minute scope: prioritize formal ArmorTemplate plugin integration
+Next approximately-35-minute scope: prioritize formal ArmorTemplate plugin integration
 and real SDK compilation using per-type plugin configuration, following
 `SDK_TYPE_INTEGRATION.md`. The user explicitly requested this progressive
 replacement strategy. Then continue 456-bit ModelCondition / ScatterRadiusVsType
@@ -130,7 +130,7 @@ Historical next scope (now completed by the stage below): begin WeaponTemplate u
   does not establish full WeaponTemplate coverage. GameObject, XmlCompiler type
   serializers and full replacement-DLL MOD compilation remain unfinished.
 
-Next approximately-25-minute stage: group reference/string helper recovery with
+Next approximately-35-minute stage: group reference/string helper recovery with
 WeaponTemplate's audio/FX/weapon reference attributes and nonempty differential
 fixtures, then bring in additional optional structures if time permits. Preserve
 the verified scalar/duration behavior and expand the original-ProcessInstance
@@ -217,7 +217,7 @@ related ObjectFilter helpers, then lists/Nuggets in later substantial stages.
 
 This supersedes the resource stage's eight-field unsupported boundary. This stage
 bundles multiple adjacent serializers, a shared parser, differential tests,
-Windows builds and persistent evidence; the about-25-minute stage rule remains.
+Windows builds and persistent evidence; the about-35-minute stage rule remains.
 
 * Shared `src/Native/EnumBitset.h` / `.cpp`: original C-whitespace token splitting,
   sign handling, case-sensitive name matching, fallback values, OR/XOR updates
@@ -281,7 +281,7 @@ new ObjectFilter helpers. Crucial distinction: absent Filter leaves its inline
 112 bytes zero, whereas present `<Filter/>` runs defaults (Rule NONE = 3).
 Recover the full ModelCondition enum/fallback from original data before enabling
 this list. After its verified integration, begin Nuggets shared base layout and
-dispatch with explicit unsupported-derived-type rejection. Keep the about-25-minute
+dispatch with explicit unsupported-derived-type rejection. Keep the about-35-minute
 stage size, source/Windows/oracle/commit/handoff grouping, and no force-push rule.
 
 
