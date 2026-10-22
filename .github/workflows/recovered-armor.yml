@@ -8,6 +8,7 @@ on:
       - 'recovery/src/Bridge/ArmorCompiler.cpp'
       - 'recovery/src/Bridge/XmlNodeAdapter.h'
       - 'recovery/tests/ArmorOracle.cs'
+      - 'recovery/tests/XmlNodeOracle.cs'
       - 'recovery/scripts/TestArmor.ps1'
 permissions:
   contents: write

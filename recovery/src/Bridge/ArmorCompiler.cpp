@@ -1,6 +1,6 @@
+#include <msclr/marshal_cppstd.h>
 #include "XmlNodeAdapter.h"
 #include "../Native/ArmorTemplate.h"
-#include <msclr/marshal_cppstd.h>
 #using <BinaryAssetBuilder.Core.dll>
 using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;

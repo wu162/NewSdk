@@ -15,3 +15,13 @@ $code = $LASTEXITCODE
 @{ exitCode = $code; succeeded = ($code -eq 0); sourceCommit = $env:GITHUB_SHA; scope = 'ArmorTemplate full ProcessInstance buffers; not replacement DLLs' } | ConvertTo-Json | Set-Content "$evidence/result.json"
 Get-Content "$evidence/oracle.txt"
 if ($code -ne 0) { throw 'Armor ProcessInstance differential test failed' }
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:"$out/Recovered.Armor.dll" /out:"$out/XmlNodeOracle.exe" (Resolve-Path 'recovery/tests/XmlNodeOracle.cs') *> "$evidence/node-host-build.txt"
+if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/node-host-build.txt"; throw 'XML node oracle build failed' }
+Copy-Item "$out/ArmorOracle.exe.config" "$out/XmlNodeOracle.exe.config"
+foreach ($name in @('Tokenizer', 'XmlCompiler')) {
+    & "$out/XmlNodeOracle.exe" (Resolve-Path "SDK/tools/BinaryAssetBuilder.$name.dll").Path *> "$evidence/$name-node-oracle.txt"
+    $nodeCode = $LASTEXITCODE
+    Get-Content "$evidence/$name-node-oracle.txt"
+    @{ exitCode = $nodeCode; succeeded = ($nodeCode -eq 0); sourceCommit = $env:GITHUB_SHA } | ConvertTo-Json | Set-Content "$evidence/$name-node-result.json"
+    if ($nodeCode -ne 0) { throw "$name XML node differential test failed" }
+}
