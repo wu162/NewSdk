@@ -1,0 +1,300 @@
+#include "WeaponTemplate.h"
+#include "ScalarParsing.h"
+#include "DataInitializers.h"
+#include <cstring>
+#include <stdexcept>
+#include <sstream>
+#include <algorithm>
+#include <cctype>
+#ifdef _MANAGED
+#pragma managed(push, off)
+#endif
+namespace Recovered { namespace Native {
+using U32 = std::uint32_t;
+namespace {
+// Original WeaponTemplate Marshal and Tokenize; offsets are bytes in its 328-byte root.
+const WeaponField fields[] = {
+    { "AttackRange", "0", 4u, 0xA8A3BBFEu, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "MinimumAttackRange", "0", 8u, 0x9797D067u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "RangeBonusMinHeight", "0", 12u, 0x03646BDEu, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "RangeBonus", "0", 16u, 0x02E3525Eu, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "RangeBonusPerFoot", "0", 20u, 0x9FCEE103u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "RequestAssistRange", "0", 24u, 0x95FF8A6Cu, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "AcceptableAimDelta", "0d", 28u, 0x1066C317u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
+    { "AimDirection", "0d", 32u, 0x7EF694B1u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
+    { "ScatterRadius", "0", 36u, 0x7A72CBE9u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "ScatterLength", "0", 40u, 0xCB2EC959u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "ScatterIndependently", "false", 292u, 0x0FEB4E73u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "WeaponSpeed", "99999.0", 44u, 0xE16286CBu, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "MinWeaponSpeed", "99999.0", 48u, 0x388A03C9u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "MaxWeaponSpeed", "99999.0", 52u, 0x490E4588u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "ScaleWeaponSpeed", "false", 293u, 0x3BA0478Fu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "IgnoresContactPoints", "false", 294u, 0x61128F5Cu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ScaleAttackRangeByAmmoRemaining", "false", 295u, 0xB6E40781u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "CanBeDodged", "false", 296u, 0xF1DF59ACu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "IdleAfterFiringDelaySeconds", "-1s", 56u, 0x5D5C6183u, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
+    { "HoldAfterFiringDelaySeconds", "0s", 60u, 0x6B1FF4E9u, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
+    { "HoldDuringReload", "false", 297u, 0x00A9BE33u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "CanFireWhileMoving", "false", 298u, 0xBBCBE27Eu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "WeaponRecoil", "0d", 64u, 0x1319E3B1u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
+    { "MinTargetPitch", "-180d", 68u, 0x553B6C95u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
+    { "MaxTargetPitch", "180d", 72u, 0xB7737023u, 0x4E16EA4Du, WeaponValue::Angle, WeaponToken::Member, "" },
+    { "PreferredTargetBone", nullptr, 76u, 0x4C932F32u, 0x1A2933AAu, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "FireSound", nullptr, 84u, 0x120A78E8u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "FireSoundPerClip", nullptr, 88u, 0x3819F796u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "FiringLoopSound", nullptr, 92u, 0x86CE6D08u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "FiringLoopSoundContinuesDuringReload", "true", 299u, 0x8E9F06FBu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "FireFX", nullptr, 96u, 0x9F1BCA25u, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "FireVeteranFX", nullptr, 100u, 0x6DBBA63Eu, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "FireFlankFX", nullptr, 104u, 0x1459E5BDu, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "PreAttackFX", nullptr, 108u, 0x17F17220u, 0x0D1C8E83u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "ClipSize", "0", 112u, 0xB68DBC28u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
+    { "ContinuousFireOne", "99999", 116u, 0x9B8145E9u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
+    { "ContinuousFireTwo", "99999", 120u, 0xCC9D6D26u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
+    { "ContinuousFireCoastSeconds", "0s", 124u, 0x97FDA959u, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
+    { "AutoReloadWhenIdleSeconds", "0s", 128u, 0x88099007u, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
+    { "ShotsPerBarrel", "0", 132u, 0x95C56669u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
+    { "DamageDealtAtSelfPosition", "false", 300u, 0x104CDFAAu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "RequiredFiringObjectStatus", nullptr, 136u, 0x4D73E039u, 0xA7BD811Eu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "ForbiddenFiringObjectStatus", nullptr, 140u, 0x600D69FBu, 0xA7BD811Eu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "CheckStatusFlagsInRangeChecks", "true", 301u, 0x6A4BDF67u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ProjectileSelf", "false", 302u, 0x9BDB3BC4u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "MeleeWeapon", "false", 303u, 0x3F081EA7u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ChaseWeapon", "false", 304u, 0x0A8779F5u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "LeechRangeWeapon", "false", 305u, 0x844F87FAu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "HitStoredTarget", "false", 306u, 0x8DF650A3u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "CapableOfFollowingWaypoints", "false", 307u, 0x252225FAu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ShowsAmmoPips", "false", 308u, 0xB1598108u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "AllowAttackGarrisonedBldgs", "false", 309u, 0x1F46C311u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "PlayFXWhenStealthed", "false", 310u, 0x5B25DE0Du, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ContinueAttackRange", "0", 144u, 0x4131B666u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "SuspendFXDelaySeconds", "0s", 148u, 0x1C66E1FCu, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
+    { "IsAimingWeapon", "false", 311u, 0x8566AEF8u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "NoVictimNeeded", "false", 312u, 0x4013983Bu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "HitPercentage", "100%", 152u, 0xFFB6DE81u, 0x645864F3u, WeaponValue::Percentage, WeaponToken::Member, "" },
+    { "HitPassengerPercentage", "100%", 156u, 0xA09C5D99u, 0x645864F3u, WeaponValue::Percentage, WeaponToken::Member, "" },
+    { "PassengerProportionalAttack", "false", 313u, 0xFBB273E4u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "HealthProportionalResolution", "0", 160u, 0x87D285A7u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "MaxAttackPassengers", nullptr, 164u, 0xAF845003u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
+    { "FinishAttackOnceStarted", "false", 314u, 0x447F0E34u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "RestrictedHeightRange", "0.0", 168u, 0xCA7889B7u, 0x645864F3u, WeaponValue::Float, WeaponToken::Member, "" },
+    { "CannotTargetCastleVictims", "false", 315u, 0x7D34A061u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "RequireFollowThru", "false", 316u, 0x5031D40Bu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ShareTimers", "false", 317u, 0x5BE81F7Cu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ShouldPlayUnderAttackEvaEvent", "true", 318u, 0x68DD1107u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "InstantLoadClipOnActivate", "false", 319u, 0x35890A12u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "Flags", "NONE", 172u, 0xF345058Au, 0x47FC1D9Au, WeaponValue::Bits, WeaponToken::Member, "WeaponFlagsType" },
+    { "LockWhenUsing", "false", 320u, 0x62679E18u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "BombardType", "false", 321u, 0xD51F15E0u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "UseInnateAttributes", "false", 322u, 0xAFB534D7u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "PreAttackType", "PER_SHOT", 176u, 0x15B123C5u, 0x826ACC69u, WeaponValue::Enum, WeaponToken::Member, "WeaponPrefireType" },
+    { "ReAcquireDetailType", "PER_SHOT", 180u, 0xEF029607u, 0x3061BA53u, WeaponValue::Enum, WeaponToken::Member, "WeaponReAcquireDetailType" },
+    { "AutoReloadsClip", "AUTO", 184u, 0x2CF21F66u, 0x266EF25Au, WeaponValue::Enum, WeaponToken::Member, "WeaponReloadType" },
+    { "SingleAmmoReloadedNotFullSound", "", 188u, 0xD9D3C0EEu, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "ClipReloadedSound", "", 192u, 0xB1C14901u, 0x63D7B468u, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "RadiusDamageAffects", "ENEMIES", 196u, 0xE3731062u, 0x5208E1B9u, WeaponValue::Bits, WeaponToken::Member, "WeaponAffectsType" },
+    { "FXTrigger", "NONE", 200u, 0xC4274C12u, 0x808B85BEu, WeaponValue::Enum, WeaponToken::Member, "FXTriggerType" },
+    { "ProjectileCollidesWith", "STRUCTURES", 204u, 0x6E2FE0B6u, 0x11E28116u, WeaponValue::Bits, WeaponToken::Member, "WeaponCollideType" },
+    { "RequiredAntiMask", "ANTI_GROUND ANTI_WATER ANTI_STRUCTURE", 208u, 0x475B437Du, 0xC8C69390u, WeaponValue::Bits, WeaponToken::Member, "WpnAntiT" },
+    { "ForbiddenAntiMask", "", 212u, 0x4DD6D922u, 0xC8C69390u, WeaponValue::Bits, WeaponToken::Member, "WpnAntiT" },
+    { "StopFiringOnCanBeInvisible", "false", 323u, 0xE1BD34FEu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ProjectileStreamName", nullptr, 216u, 0x8A3BDF92u, 0x148ED75Du, WeaponValue::Absent, WeaponToken::Member, "" },
+    { "ContactWeapon", "false", 324u, 0xF40F232Du, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "UseCenterForRangeCheck", "false", 325u, 0x4C86C5A2u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "VirtualDamage", "NONE", 220u, 0xD297044Fu, 0x2AFA9122u, WeaponValue::Enum, WeaponToken::Member, "VirtualDamageType" },
+    { "PreAttackWeapon", nullptr, 224u, 0x3BD61BC1u, 0xD046DD22u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "RevealShroudOnFire", "false", 326u, 0x1BC662CCu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "ShouldPlayTargetDeadEvaEvent", "true", 327u, 0xD9EEFC1Fu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
+    { "OverrideVoiceAttackSound", nullptr, 228u, 0x7E74DFCCu, 0x1AE6B6B7u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "OverrideVoiceEnterStateAttackSound", nullptr, 232u, 0xAE8F7512u, 0x1AE6B6B7u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "PreAttackDelay", nullptr, 236u, 0xCF9D76E0u, 0x9CED3BFAu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "FiringDuration", nullptr, 240u, 0x508A6678u, 0x9CED3BFAu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "CoolDownDelayBetweenShots", nullptr, 244u, 0x51A6820Du, 0x9CED3BFAu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "ClipReloadTime", nullptr, 248u, 0x0C7FF035u, 0x9CED3BFAu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "WeaponAiHintInfo", nullptr, 252u, 0xD3A7C780u, 0xD3A7C780u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "Nuggets", nullptr, 256u, 0x5752BD3Cu, 0xA5C43252u, WeaponValue::Absent, WeaponToken::List, "" },
+    { "SurpriseAttackObjectFilter", nullptr, 264u, 0xA64A0E8Fu, 0xE46EA3B2u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "CombinedAttackObjectFilter", nullptr, 268u, 0xAB96B610u, 0xE46EA3B2u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "HitStoredObjectFilter", nullptr, 272u, 0xC0F5DA4Cu, 0xE46EA3B2u, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "ScatterRadiusVsType", nullptr, 276u, 0xDBEA8EFDu, 0xE1EBA7C4u, WeaponValue::Absent, WeaponToken::List, "" },
+    { "IncompatibleAttributeModifier", nullptr, 284u, 0xDF062E0Du, 0x09DDCFF3u, WeaponValue::Absent, WeaponToken::List, "" },
+};
+struct EnumEntry { const char* group; const char* name; U32 value; };
+const EnumEntry enumEntries[] = {
+    { "WeaponPrefireType", "PER_BURST", 2u },
+    { "WeaponPrefireType", "PER_CLIP", 1u },
+    { "WeaponPrefireType", "PER_POSITION", 4u },
+    { "WeaponPrefireType", "PER_SHOT", 0u },
+    { "WeaponPrefireType", "PER_TARGET", 3u },
+    { "WeaponReAcquireDetailType", "PER_ATTACK", 3u },
+    { "WeaponReAcquireDetailType", "PER_CLIP", 2u },
+    { "WeaponReAcquireDetailType", "PER_SHOT", 1u },
+    { "WeaponReAcquireDetailType", "POST_FIRE", 5u },
+    { "WeaponReAcquireDetailType", "PRE_FIRE", 4u },
+    { "WeaponReAcquireDetailType", "PRE_SHOT", 0u },
+    { "WeaponReloadType", "AUTO", 0u },
+    { "WeaponReloadType", "NONE", 1u },
+    { "WeaponReloadType", "RETURN_TO_BASE", 2u },
+    { "WeaponAffectsType", "ALLIES", 1u },
+    { "WeaponAffectsType", "ENEMIES", 2u },
+    { "WeaponAffectsType", "MINES", 9u },
+    { "WeaponAffectsType", "NEUTRALS", 3u },
+    { "WeaponAffectsType", "NOT_AIRBORNE", 6u },
+    { "WeaponAffectsType", "NOT_SIMILAR", 5u },
+    { "WeaponAffectsType", "PROJECTILES", 7u },
+    { "WeaponAffectsType", "SAME_HEIGHT_ONLY", 8u },
+    { "WeaponAffectsType", "SELF", 0u },
+    { "WeaponAffectsType", "SUICIDE", 4u },
+    { "WeaponFlagsType", "ATTACK_NEEDS_LINE_OF_SIGHT", 4u },
+    { "WeaponFlagsType", "CRUSH_VEHICLE", 8u },
+    { "WeaponFlagsType", "FORCE_EMPTY_ENTIRE_CLIP", 9u },
+    { "WeaponFlagsType", "IGNORE_ENCLOSURE_CHECK", 11u },
+    { "WeaponFlagsType", "IGNORE_TARGET_AS_OBSTACLE", 6u },
+    { "WeaponFlagsType", "IGNORE_WALL_RELATIONSHIP", 10u },
+    { "WeaponFlagsType", "LENGTH_SCATTER", 3u },
+    { "WeaponFlagsType", "NONE", 0u },
+    { "WeaponFlagsType", "NOT_ATTRACTED_BY_MAGNETS", 7u },
+    { "WeaponFlagsType", "ORTHOGONAL_SCATTER", 2u },
+    { "WeaponFlagsType", "RELOAD_WHEN_ATTACK_STOPS", 5u },
+    { "WeaponFlagsType", "SYNC_AMMO_ON_ACTIVATE", 1u },
+    { "WeaponCollideType", "ALLIES", 0u },
+    { "WeaponCollideType", "BALLISTIC_MISSILES", 8u },
+    { "WeaponCollideType", "CONTROLLED_STRUCTURES", 9u },
+    { "WeaponCollideType", "ENEMIES", 1u },
+    { "WeaponCollideType", "MONSTERS", 10u },
+    { "WeaponCollideType", "NEUTRAL", 2u },
+    { "WeaponCollideType", "PROJECTILES", 5u },
+    { "WeaponCollideType", "SHRUBBERY", 4u },
+    { "WeaponCollideType", "SMALL_MISSILES", 7u },
+    { "WeaponCollideType", "STRUCTURES", 3u },
+    { "WeaponCollideType", "WALLS", 6u },
+    { "WpnAntiT", "ANTI_AIRBORNE_INFANTRY", 7u },
+    { "WpnAntiT", "ANTI_AIRBORNE_VEHICLE", 6u },
+    { "WpnAntiT", "ANTI_BALLISTIC_MISSILE", 8u },
+    { "WpnAntiT", "ANTI_GROUND", 0u },
+    { "WpnAntiT", "ANTI_INFANTRY", 12u },
+    { "WpnAntiT", "ANTI_LIFTED_GROUND_UNIT", 11u },
+    { "WpnAntiT", "ANTI_MINE", 9u },
+    { "WpnAntiT", "ANTI_PARACHUTE", 10u },
+    { "WpnAntiT", "ANTI_PROJECTILE", 4u },
+    { "WpnAntiT", "ANTI_SMALL_MISSILE", 5u },
+    { "WpnAntiT", "ANTI_STRUCTURE", 3u },
+    { "WpnAntiT", "ANTI_SUBMERGED", 2u },
+    { "WpnAntiT", "ANTI_VEHICLE", 13u },
+    { "WpnAntiT", "ANTI_WATER", 1u },
+    { "VirtualDamageType", "NONE", 0u },
+    { "VirtualDamageType", "SHARE", 2u },
+    { "VirtualDamageType", "SOLO", 1u },
+    { "FXTriggerType", "CATAPULT_ROCK", 1u },
+    { "FXTriggerType", "NONE", 0u },
+    { "FXTriggerType", "TREBUCHET_ROCK", 2u },
+};
+U32 Lookup(const std::string& group, const std::string& text) {
+    for (const auto& entry : enumEntries)
+        if (group == entry.group && text == entry.name) return entry.value;
+    if (group == "WeaponPrefireType") return 2u;
+    if (group == "WeaponReAcquireDetailType") return 3u;
+    if (group == "WeaponReloadType") return 0u;
+    if (group == "WeaponAffectsType") return 1u;
+    if (group == "WeaponFlagsType") return 4u;
+    if (group == "WeaponCollideType") return 0u;
+    if (group == "WpnAntiT") return 7u;
+    if (group == "VirtualDamageType") return 0u;
+    if (group == "FXTriggerType") return 1u;
+    throw std::logic_error("Unknown recovered enum group");
+}
+U32 Bits(const std::string& group, const std::string& text) {
+    U32 result = 0;
+    std::istringstream words(text);
+    std::string word;
+    while (words >> word) {
+        bool add = true;
+        if (word[0] == '+' || word[0] == '-') {
+            add = word[0] == '+'; word.erase(0, 1);
+        }
+        std::string upper = word;
+        std::transform(upper.begin(), upper.end(), upper.begin(), [](unsigned char c) { return static_cast<char>(std::toupper(c)); });
+        // In the original, ALL's branch does not advance the token cursor.
+        if (upper == "ALL") return 0xFFFFFFFFu;
+        U32 bit = Lookup(group, word);
+        // Original '-' toggles with XOR, it does not clear with AND.
+        if (add) result |= U32(1) << bit;
+        else result ^= U32(1) << bit;
+    }
+    return result;
+}
+void Swap(void* at) {
+    auto p = static_cast<unsigned char*>(at);
+    std::swap(p[0], p[3]); std::swap(p[1], p[2]);
+}
+struct Procedure { U32 name, type; void* offset; };
+static_assert(sizeof(Procedure) == 12, "Weapon serializer requires x86");
+struct Root { unsigned char bytes[328]; };
+}
+const WeaponField* WeaponFields() { return fields; }
+unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
+Relo::Chunk CompileWeaponScalars(const std::map<std::string, std::string>& attributes, bool bigEndian) {
+    // Validate before allocation: unsupported input must never silently produce zero data.
+    for (const auto& attr : attributes) {
+        const WeaponField* field = nullptr;
+        for (const auto& candidate : fields) if (attr.first == candidate.name) { field = &candidate; break; }
+        if (!field || field->value == WeaponValue::Absent)
+            throw std::invalid_argument("Unsupported WeaponTemplate field: " + attr.first);
+    }
+    Relo::Tracker data, tokens;
+    Root* root = nullptr;
+    data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
+    for (const auto& field : fields) {
+        auto found = attributes.find(field.name);
+        if (field.value == WeaponValue::Absent) continue;
+        if (found == attributes.end() && field.fallback == nullptr) continue;
+        const std::string text = found == attributes.end() ? field.fallback : found->second;
+        unsigned char* at = root->bytes + field.offset;
+        float number = 0;
+        U32 word = 0;
+        switch (field.value) {
+        case WeaponValue::Boolean: *at = ParseBoolean(text) ? 1 : 0; continue;
+        case WeaponValue::Integer: word = static_cast<U32>(ParseSigned(text)); break;
+        case WeaponValue::Enum: word = Lookup(field.enumGroup, text); break;
+        case WeaponValue::Bits: word = Bits(field.enumGroup, text); break;
+        case WeaponValue::Float: number = ParseFloat(text); std::memcpy(&word, &number, 4); break;
+        case WeaponValue::Angle: number = InitializeAngle(text.c_str()); std::memcpy(&word, &number, 4); break;
+        case WeaponValue::Time: number = InitializeTime(text.c_str()); std::memcpy(&word, &number, 4); break;
+        case WeaponValue::Percentage: number = ParsePercentage(text); std::memcpy(&word, &number, 4); break;
+        default: throw std::logic_error("Unimplemented Weapon value");
+        }
+        std::memcpy(at, &word, 4);
+    }
+    Procedure* table = nullptr;
+    tokens.Push(reinterpret_cast<void**>(&table), sizeof(Procedure), 105);
+    for (unsigned i = 0; i < WeaponFieldCount(); ++i) {
+        const auto& field = fields[i];
+        table[i].name = field.nameHash; table[i].type = field.typeHash;
+        if (field.token == WeaponToken::Member) {
+            tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
+        } else if (field.token == WeaponToken::List) {
+            // Empty lists still have a count table; no list payload allocation.
+            Procedure* list = static_cast<Procedure*>(tokens.Push(&table[i].offset, sizeof(Procedure), 1));
+            list->name = 1820487795u; list->type = 1564774360u;
+            tokens.BookmarkMemberOffset(root->bytes + field.offset, &list->offset);
+            tokens.Pop();
+        }
+        // Absent optional pointers have zero token offsets, as in the original.
+    }
+    tokens.Pop();
+    if (bigEndian) for (unsigned offset = 4; offset < 292; offset += 4) Swap(root->bytes + offset);
+    auto tokenChunk = tokens.MakeRelocatable(bigEndian, 0);
+    tokens.FixupMemberOffsets(data, tokenChunk, bigEndian);
+    auto result = data.MakeRelocatable(bigEndian, static_cast<U32>(tokenChunk.instance.size()));
+    if (bigEndian) for (unsigned at = 0; at < tokenChunk.instance.size(); at += 12) {
+        Swap(tokenChunk.instance.data() + at); Swap(tokenChunk.instance.data() + at + 4);
+    }
+    tokenChunk.instance.insert(tokenChunk.instance.end(), result.instance.begin(), result.instance.end());
+    result.instance = std::move(tokenChunk.instance);
+    result.imports.clear();
+    return result;
+}
+}}
+#ifdef _MANAGED
+#pragma managed(pop)
+#endif

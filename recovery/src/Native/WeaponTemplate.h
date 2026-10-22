@@ -1,0 +1,19 @@
+#pragma once
+#include "Relocation.h"
+#include <map>
+#include <string>
+namespace Recovered { namespace Native {
+enum class WeaponValue { Float, Angle, Time, Percentage, Integer, Boolean, Enum, Bits, Absent };
+enum class WeaponToken { Member, Pointer, List };
+struct WeaponField {
+    const char* name;
+    const char* fallback;
+    std::uint32_t offset, nameHash, typeHash;
+    WeaponValue value;
+    WeaponToken token;
+    const char* enumGroup;
+};
+const WeaponField* WeaponFields();
+unsigned WeaponFieldCount();
+Relo::Chunk CompileWeaponScalars(const std::map<std::string, std::string>& attributes, bool bigEndian);
+}}
