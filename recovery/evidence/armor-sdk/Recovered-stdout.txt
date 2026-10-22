@@ -1,157 +1,166 @@
 Command Line: D:\a\_temp\ra3-armor-sdk\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-armor-sdk\Recovered\builtmods /iod:D:\a\_temp\ra3-armor-sdk\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
 Command Line: D:\a\_temp\ra3-armor-sdk\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-armor-sdk\Recovered\builtmods /iod:D:\a\_temp\ra3-armor-sdk\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
 [00:00:00] BinaryAssetBuilder started
-[00:00:00.3437676] Cached session data not available.
-[00:00:00.3437676] Session caching enabled ('D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
-[00:00:00.3437676] Network caching enabled ('D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\cache').
-[00:00:00.3593863] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml'.
-[00:00:00.3906400] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\static.xml which has not been compiled, attempting to use precompiled
-[00:00:00.3906400] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\static.manifest, file not found
-[00:00:00.3906400] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\static.xml'.
-[00:00:00.4062636] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\global.xml which has not been compiled, attempting to use precompiled
-[00:00:00.4062636] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\global.manifest, file not found
-[00:00:00.4062636] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\global.xml'.
-[00:00:00.4062636] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\audio.xml which has not been compiled, attempting to use precompiled
-[00:00:00.4062636] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\audio.manifest, file not found
-[00:00:00.4062636] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\audio.xml'.
-[00:00:00.4062636] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'.
-[00:00:00.4218937] commanddata.xml: Compiling LogicCommand:Command_Constructmytank [7d464170:3a5bda88]
-[00:00:00.4531455] commanddata.xml: Compiling LogicCommandSet:AlliedWarFactoryCommandSet [ec066d65:ec7b195e]
-[00:00:00.4687662] commanddata.xml: Compiling LogicCommandSet:mytankCommandSet [ec066d65:84fb9652]
-[00:00:00.4687662] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'.
-[00:00:00.4844009] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\globaldata\globaldefines.xml'.
-[00:00:00.5000730] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\baseobjects\basevehicle.xml'.
-[00:00:00.5000730] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\baseobjects\baseobject.xml'.
-[00:00:00.5156464] baseobject.xml: Compiling GameObject:BaseObject [942fff2d:e7fad687]
-[00:00:00.5625190] basevehicle.xml: Compiling GameObject:BaseVehicle [942fff2d:3f48438d]
-[00:00:00.5937658] mytank.xml: Compiling GameObject:mytank [942fff2d:0a661d3b]
-[00:00:00.6875096] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\recoveryarmorprobe.xml'.
-[00:00:00.6875096] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Defaults [3a6c5e8e:6e22267c]
-[00:00:00.7187767] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_NonDefault [3a6c5e8e:87ac06c4]
-[00:00:00.7187767] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Inherited [3a6c5e8e:1ad80020]
-[00:00:00.7187767] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\recoveryweaponnuggetprobe.xml'.
-[00:00:00.7187767] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Damage [94d4d96e:b9d0b6b5]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_DOT [94d4d96e:98c6285c]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Grappling [94d4d96e:e2a87f23]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechPercent [94d4d96e:25a2de71]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechHealth [94d4d96e:c912b589]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Line [94d4d96e:0b74928c]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spawn [94d4d96e:214fe4dd]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Fire [94d4d96e:dfe23893]
-[00:00:00.7344057] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Contained [94d4d96e:7d93012c]
-[00:00:00.7500205] Resolving references: mods\mymod\data\mod
-[00:00:00.7500205] Warning: Unknown asset 'UnitIntro:Allied_GuardianTank_UnitIntro' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'ArmorTemplate:CryoBeamFrozenArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'DamageFX:VehicleDamageFX' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'ArmorTemplate:ShrinkRayEffectArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'LocomotorTemplate:TestReactiveLocomotorTANK' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'Texture:EXTnkTrack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseRenderAssetType:AUAntiVehicleVehicleTech1_SKN' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_Laser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageSmoke' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1_D' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFire' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFireLight' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'W3DAnimation:AUAntiVehicleVehicleTech1_MOVA' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'TerrainParticleMapping:DefaultTankTerrainParticleMapping' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'Texture:FXObeliskLaser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'Texture:FXLaserOverlay' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseRenderAssetType:EX_Headlights' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'WeaponTemplate:CatalystInfantryDeathWeapon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'StanceTemplate:Generic' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_02' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_04' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_06' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_08' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_10' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1Cannon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1TargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'TargetingCompareList:DefaultTurretTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_LaserEnd' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'ObjectCreationList:AUAntiVehicleVehicleTech1_Die_OCL' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'FXList:FX_AlliedChieftanDie' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_ToggleTargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'ObjectFilterAsset:GenericSpecialPowerObjectFilter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOff' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOn' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeModifier_TargetPaintVisionBonus' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger_HighTechnology' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'AttributeModifier:AttributeMod_AlliedHighTechnologyAttribute' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'TargetingCompareList:DefaultTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:SOV_MagneticSatellite_SuckedAway' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:UnitSelectFrozen' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_GuardianTank_VoiceShrunken' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttackPaintTarget' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceCreate' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMoveAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMove' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceRetreat' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectBattleMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_MoveStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:VehicleCrush' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'BaseAudioEventInfo:Tank_Land_MoveLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:UnitLost' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:BuildingConstructionStarted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:UnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:UnitUnderAttackFromShroudedUnit' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:GenericUnitBeingBurned' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:AllyUnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:UnitAmbushed' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:GenericEnemyUnitSighted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:EnemyStealthUnitDiscovered' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:NewConstructionOptions' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:BuildOnHold' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:BuildCancelled' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7500205] Warning: Unknown asset 'EvaEvent:UnitPromoted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMiner' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiInfantryVehicle_Ground' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiAirVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiStructureVehicle' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech3' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMCV' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_ToggleTargetPainter' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_AttackMove' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Warning: Unknown asset 'LogicCommand:Command_MoveToPositionAndCollect' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
-[00:00:00.7656423] Stable sorting assets
-[00:00:00.7656423] Sorting by schema dependencies
-[00:00:00.7656423] Sorting by asset dependencies
-[00:00:00.7656423] Generating stream: mods\mymod\data\mod
-[00:00:00.7812828] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
-[00:00:00.7812828] mods\mymod\data\mod Linking binary data
-[00:00:00.7812828] mods\mymod\data\mod Linking import data
-[00:00:00.7812828] mods\mymod\data\mod Linking relocation data
-[00:00:00.7812828] mods\mymod\data\mod Stream complete
-[00:00:00.7812828] BinaryAssetBuilder complete
-[00:00:00.7812828] ArmorTemplate:
-[00:00:00.7812828]       Instances Processed: 3
-[00:00:00.7812828]       Total Processing Time: 00:00:00.0156444
-[00:00:00.7812828]       Longest Processing Time: 00:00:00.0156444 (RecoveryArmorProbe_Defaults)
-[00:00:00.7812828]       Average Processing Time: 0.0052148 seconds
-[00:00:00.7812828] LogicCommand:
-[00:00:00.7812828]       Instances Processed: 1
-[00:00:00.7812828]       Total Processing Time: 00:00:00.0312518
-[00:00:00.7812828]       Longest Processing Time: 00:00:00.0312518 (Command_Constructmytank)
-[00:00:00.7812828]       Average Processing Time: 0.0312518 seconds
-[00:00:00.7812828] GameObject:
-[00:00:00.7812828]       Instances Processed: 3
-[00:00:00.7812828]       Total Processing Time: 00:00:00.0937575
-[00:00:00.7812828]       Longest Processing Time: 00:00:00.0468904 (mytank)
-[00:00:00.7812828]       Average Processing Time: 0.0312525 seconds
-[00:00:00.7812828] WeaponTemplate:
-[00:00:00.7812828]       Instances Processed: 9
-[00:00:00.7812828]       Total Processing Time: 00:00:00.0312438
-[00:00:00.7812828]       Longest Processing Time: 00:00:00.0156290 (RecoveryNugget_Damage)
-[00:00:00.7812828]       Average Processing Time: 0.00347153333333333 seconds
-[00:00:00.7812828] LogicCommandSet:
-[00:00:00.7812828]       Instances Processed: 2
-[00:00:00.7812828]       Total Processing Time: 00:00:00.0156207
-[00:00:00.7812828]       Longest Processing Time: 00:00:00.0156207 (AlliedWarFactoryCommandSet)
-[00:00:00.7812828]       Average Processing Time: 0.00781035 seconds
-[00:00:00.7812828] Total Processing Time for All Types: 00:00:00.1875182
+[00:00:00.1829770] Cached session data not available.
+[00:00:00.1829770] Session caching enabled ('D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.1829770] Network caching enabled ('D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\cache').
+[00:00:00.1985876] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml'.
+[00:00:00.2142161] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2142161] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\static.manifest, file not found
+[00:00:00.2142161] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\static.xml'.
+[00:00:00.2298433] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2298433] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\global.manifest, file not found
+[00:00:00.2298433] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\global.xml'.
+[00:00:00.2298433] Stream d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-armor-sdk\recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2298433] Warning: Could not load precompiled manifest D:\a\_temp\ra3-armor-sdk\Recovered\builtmods\audio.manifest, file not found
+[00:00:00.2298433] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\audio.xml'.
+[00:00:00.2298433] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'.
+[00:00:00.2454876] commanddata.xml: Compiling LogicCommand:Command_Constructmytank [7d464170:3a5bda88]
+[00:00:00.2611013] commanddata.xml: Compiling LogicCommandSet:AlliedWarFactoryCommandSet [ec066d65:ec7b195e]
+[00:00:00.2611013] commanddata.xml: Compiling LogicCommandSet:mytankCommandSet [ec066d65:84fb9652]
+[00:00:00.2611013] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'.
+[00:00:00.2767211] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\globaldata\globaldefines.xml'.
+[00:00:00.2923775] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\baseobjects\basevehicle.xml'.
+[00:00:00.2923775] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\sagexml\baseobjects\baseobject.xml'.
+[00:00:00.3079852] baseobject.xml: Compiling GameObject:BaseObject [942fff2d:e7fad687]
+[00:00:00.3392435] basevehicle.xml: Compiling GameObject:BaseVehicle [942fff2d:3f48438d]
+[00:00:00.3704841] mytank.xml: Compiling GameObject:mytank [942fff2d:0a661d3b]
+[00:00:00.4017378] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\recoveryarmorprobe.xml'.
+[00:00:00.4173503] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Defaults [3a6c5e8e:6e22267c]
+[00:00:00.4330054] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_NonDefault [3a6c5e8e:87ac06c4]
+[00:00:00.4330054] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Inherited [3a6c5e8e:1ad80020]
+[00:00:00.4330054] Loading 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\recoveryweaponnuggetprobe.xml'.
+[00:00:00.4330054] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Damage [94d4d96e:b9d0b6b5]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_DOT [94d4d96e:98c6285c]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Grappling [94d4d96e:e2a87f23]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechPercent [94d4d96e:25a2de71]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechHealth [94d4d96e:c912b589]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Line [94d4d96e:0b74928c]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spawn [94d4d96e:214fe4dd]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Fire [94d4d96e:dfe23893]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Contained [94d4d96e:7d93012c]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Projectile [94d4d96e:0e7ba06c]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ScatterProjectile [94d4d96e:1e941181]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_OCL [94d4d96e:117d134c]
+[00:00:00.4486009] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Seed [94d4d96e:42732717]
+[00:00:00.4642239] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SpecialPower [94d4d96e:3b5679b3]
+[00:00:00.4642239] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inform [94d4d96e:3fd3d0f8]
+[00:00:00.4642239] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ContainedAttack [94d4d96e:f047cf90]
+[00:00:00.4642239] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SlavesAttack [94d4d96e:60996334]
+[00:00:00.4642239] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Report [94d4d96e:10d17433]
+[00:00:00.4642239] Resolving references: mods\mymod\data\mod
+[00:00:00.4642239] Warning: Unknown asset 'UnitIntro:Allied_GuardianTank_UnitIntro' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'ArmorTemplate:CryoBeamFrozenArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'DamageFX:VehicleDamageFX' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'ArmorTemplate:ShrinkRayEffectArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LocomotorTemplate:TestReactiveLocomotorTANK' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'Texture:EXTnkTrack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseRenderAssetType:AUAntiVehicleVehicleTech1_SKN' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_Laser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageSmoke' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1_D' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFire' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFireLight' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'W3DAnimation:AUAntiVehicleVehicleTech1_MOVA' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'TerrainParticleMapping:DefaultTankTerrainParticleMapping' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'Texture:FXObeliskLaser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'Texture:FXLaserOverlay' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseRenderAssetType:EX_Headlights' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'WeaponTemplate:CatalystInfantryDeathWeapon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'StanceTemplate:Generic' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_02' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_04' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_06' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_08' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_10' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1Cannon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1TargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'TargetingCompareList:DefaultTurretTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_LaserEnd' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'ObjectCreationList:AUAntiVehicleVehicleTech1_Die_OCL' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'FXList:FX_AlliedChieftanDie' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_ToggleTargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'ObjectFilterAsset:GenericSpecialPowerObjectFilter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOff' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOn' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeModifier_TargetPaintVisionBonus' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger_HighTechnology' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'AttributeModifier:AttributeMod_AlliedHighTechnologyAttribute' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'TargetingCompareList:DefaultTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:SOV_MagneticSatellite_SuckedAway' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:UnitSelectFrozen' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_GuardianTank_VoiceShrunken' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttackPaintTarget' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceCreate' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMoveAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMove' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceRetreat' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectBattleMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_MoveStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:VehicleCrush' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'BaseAudioEventInfo:Tank_Land_MoveLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:UnitLost' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:BuildingConstructionStarted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:UnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:UnitUnderAttackFromShroudedUnit' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:GenericUnitBeingBurned' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:AllyUnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:UnitAmbushed' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:GenericEnemyUnitSighted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:EnemyStealthUnitDiscovered' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:NewConstructionOptions' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:BuildOnHold' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:BuildCancelled' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'EvaEvent:UnitPromoted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\mytank.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMiner' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiInfantryVehicle_Ground' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiAirVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiStructureVehicle' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech3' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMCV' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_ToggleTargetPainter' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_AttackMove' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Warning: Unknown asset 'LogicCommand:Command_MoveToPositionAndCollect' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-armor-sdk\recovered\mods\mymod\data\commanddata.xml'
+[00:00:00.4642239] Stable sorting assets
+[00:00:00.4642239] Sorting by schema dependencies
+[00:00:00.4642239] Sorting by asset dependencies
+[00:00:00.4642239] Generating stream: mods\mymod\data\mod
+[00:00:00.4798476] Slow asset clean-up (expected: 27, actual: 27, old: 0, current: 27)
+[00:00:00.4798476] mods\mymod\data\mod Linking binary data
+[00:00:00.4798476] mods\mymod\data\mod Linking import data
+[00:00:00.4798476] mods\mymod\data\mod Linking relocation data
+[00:00:00.4798476] mods\mymod\data\mod Stream complete
+[00:00:00.4798476] BinaryAssetBuilder complete
+[00:00:00.4954721] ArmorTemplate:
+[00:00:00.4954721]       Instances Processed: 3
+[00:00:00.4954721]       Total Processing Time: 00:00:00.0156551
+[00:00:00.4954721]       Longest Processing Time: 00:00:00.0156551 (RecoveryArmorProbe_Defaults)
+[00:00:00.4954721]       Average Processing Time: 0.00521836666666667 seconds
+[00:00:00.4954721] LogicCommand:
+[00:00:00.4954721]       Instances Processed: 1
+[00:00:00.4954721]       Total Processing Time: 00:00:00.0156137
+[00:00:00.4954721]       Longest Processing Time: 00:00:00.0156137 (Command_Constructmytank)
+[00:00:00.4954721]       Average Processing Time: 0.0156137 seconds
+[00:00:00.4954721] GameObject:
+[00:00:00.4954721]       Instances Processed: 3
+[00:00:00.4954721]       Total Processing Time: 00:00:00.0625043
+[00:00:00.4954721]       Longest Processing Time: 00:00:00.0312537 (mytank)
+[00:00:00.4954721]       Average Processing Time: 0.0208347666666667 seconds
+[00:00:00.4954721] WeaponTemplate:
+[00:00:00.4954721]       Instances Processed: 18
+[00:00:00.4954721]       Total Processing Time: 00:00:00.0155955
+[00:00:00.4954721]       Longest Processing Time: 00:00:00.0155955 (RecoveryNugget_Damage)
+[00:00:00.4954721]       Average Processing Time: 0.000866416666666667 seconds
+[00:00:00.4954721] LogicCommandSet:
+[00:00:00.4954721]       Instances Processed: 2
+[00:00:00.4954721]       Total Processing Time: 00:00:00
+[00:00:00.4954721]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4954721]       Average Processing Time: 0 seconds
+[00:00:00.4954721] Total Processing Time for All Types: 00:00:00.1093686
