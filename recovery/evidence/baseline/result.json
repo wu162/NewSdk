@@ -1,0 +1,86 @@
+{
+  "arguments": [
+    "\"D:\\a\\_temp\\ra3-original-baseline\\Mods\\mymod\\Data\\mod.xml\"",
+    "/od:\"D:\\a\\_temp\\ra3-original-baseline\\builtmods\"",
+    "/iod:\"D:\\a\\_temp\\ra3-original-baseline\\builtmods\"",
+    "/csc:false",
+    "/ls:true",
+    "/osh:false",
+    "/pc:true",
+    "/res:true",
+    "/slowclean:true",
+    "/ss:true",
+    "/art:\".;.\\Mods\\mymod\\Art;.\\Mods;.\\Art\"",
+    "/audio:\".;.\\Mods\\mymod\\Audio;.\\Mods;.\\Audio\"",
+    "/data:\".;.\\Mods\\mymod\\Data;.\\Mods;.\\SageXml\""
+  ],
+  "elapsedSeconds": 6.2060371,
+  "executable": "SDK/tools/BinaryAssetBuilder.exe",
+  "completed": true,
+  "sourceOfCommand": "SDK/defaultscript.cs executeModBuildStep case 5",
+  "exitCode": 0,
+  "manifestCreated": true,
+  "compatibilityChange": "Temporary copy only: CLR4 startup with legacy mixed-mode activation",
+  "files": [
+    {
+      "sha256": "7A3AA680B8AF17D81BF9211B0D41D231D40071B2EFF63B8B2CE67D4026BBE093",
+      "path": "BinaryAssetBuilder.SessionCache.xml",
+      "size": 21505
+    },
+    {
+      "sha256": "3D20CB5D63F153CE59D443F800A18A2B122FBCB2C717F5C028B3DDBFB7435E40",
+      "path": "StringHashes.xml",
+      "size": 12023
+    },
+    {
+      "sha256": "F3AE834FADD9A454D644A7E1BC2D7B6B52AA7511EFB12466E1E7E1367D827E07",
+      "path": "mods\\mymod\\data\\mod.bin",
+      "size": 43072
+    },
+    {
+      "sha256": "2DA5875357CEAACC0753447CB7EDF94E3FCE100016AA83AF12186B05FD221749",
+      "path": "mods\\mymod\\data\\mod.imp",
+      "size": 64
+    },
+    {
+      "sha256": "1608F2A66FCDAC381CCC4CD4EEB1DBED0325419A9E381079C971C0A831DCD470",
+      "path": "mods\\mymod\\data\\mod.manifest",
+      "size": 1338
+    },
+    {
+      "sha256": "9A769C93516F4499211743EFB4978A7DE505624AFCFC7D98B850DEADCA38A428",
+      "path": "mods\\mymod\\data\\mod.relo",
+      "size": 864
+    },
+    {
+      "sha256": "8E93697DF87A5EE5A96799E7E2B80A56B434C964220204F57F550695C6835E39",
+      "path": "mods\\mymod\\data\\mod\\assets\\7d464170.568700a8.3a5bda88.8a74a80a.asset",
+      "size": 80
+    },
+    {
+      "sha256": "A6A376F8B8A42932C59B32172ED781D51F506398D66839143150AF8ECA806514",
+      "path": "mods\\mymod\\data\\mod\\assets\\942fff2d.cb8d0980.0a661d3b.37f520aa.asset",
+      "size": 43836
+    },
+    {
+      "sha256": "D4125F4FF80390AE906B89E18110BFFAB5ECA6C65763146156DD45C7DFD51A05",
+      "path": "mods\\mymod\\data\\mod\\assets\\942fff2d.cb8d0980.3f48438d.6dfe84de.asset",
+      "size": 11552
+    },
+    {
+      "sha256": "74EC2004795705BFD8D0788A39404263FED9493784D1D72E935094E4A0F2FD33",
+      "path": "mods\\mymod\\data\\mod\\assets\\942fff2d.cb8d0980.e7fad687.d814b0dc.asset",
+      "size": 3072
+    },
+    {
+      "sha256": "52E03BB8DB0C1F3E8CC6DCBD4CCCCC51C1A974D2F6B0A05BCFFE0A85396970FE",
+      "path": "mods\\mymod\\data\\mod\\assets\\ec066d65.8ae8b68c.84fb9652.010c9f7b.asset",
+      "size": 80
+    },
+    {
+      "sha256": "3D07B9B272E50C697AD2DABEC58E0C12E9109BB837C79DF37C81839E683542CE",
+      "path": "mods\\mymod\\data\\mod\\assets\\ec066d65.8ae8b68c.ec7b195e.491a87be.asset",
+      "size": 120
+    }
+  ]
+}
