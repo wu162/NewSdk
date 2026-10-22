@@ -49,6 +49,15 @@ unsafe class ScalarOracle
                 string[] reals = { "0", "-0", "1", "+1", "12.5", " 12.5", "12,5", "garbage", "2d1", "2D-1", "1e-40", "1e38", "-1e38", "16777217", "0x10", "0x1p2", "INF", "NaN", "1.#INF", "1e39", "1e-50", "-INF", "-NaN", "-garbage", "-0x10", ".25", "-.25", "1e", "1d+", "1d-2tail", "- 1", "++1" };
                 foreach (string kind in new[] { "unsigned int", "int", "unsigned char", "unsigned short", "bool", "float", "percent" }) {
                     string methodName = kind == "percent" ? "Marshaler.Marshal<float,class Relo::Tracker,struct PercentageTag>" : "Marshaler.Marshal<" + kind + ",class Relo::Tracker>";
+                    // XmlCompiler only instantiates its ushort overload for
+                    // INode*, not IValue*. Do not pretend it exposes the same
+                    // method as Tokenizer or substitute a recovered oracle.
+                    if (kind == "unsigned short" && methods[0].Module.Assembly.GetName().Name == "BinaryAssetBuilder.XmlCompiler") {
+                        if (methods.Any(m => m.Name == methodName && m.GetParameters()[0].ParameterType.Name == "IValue*"))
+                            throw new Exception("XmlCompiler metadata boundary changed");
+                        Console.WriteLine("SKIP XmlCompiler unsigned short IValue*: not present in original DLL; covered against Tokenizer.");
+                        continue;
+                    }
                     string[] values = kind == "float" || kind == "percent" ? reals : kind == "bool" ? new[] { "true", "True", "TRUE", "turtle", "false", "False", "1", "10", "2", "-1", " 1", " true", "", "yes", "T" } : integers;
                     foreach (string text in values) {
                         uint expected = Original(node, methodName, text), actual;
