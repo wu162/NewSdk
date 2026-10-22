@@ -9,6 +9,9 @@ TimeTag	3S	40400000	40400000
 TimeTag	junk	00000000	00000000
 TimeTag	2s1ms	3B03126F	3B03126F
 TimeTag	1e-6s	358637BD	358637BD
+TimeTag	2d1s	41A00000	41A00000
+TimeTag	2D1	41A00000	41A00000
+TimeTag	2d-1s	3E4CCCCD	3E4CCCCD
 AngleTag	0	00000000	00000000
 AngleTag	1	3F800000	3F800000
 AngleTag	90d	3FC90FDB	3FC90FDB
@@ -19,7 +22,7 @@ AngleTag	0.123456789d	3B0D3654	3B0D3654
 AngleTag	 2r	40000000	40000000
 AngleTag	3D	40400000	40400000
 AngleTag	junk	00000000	00000000
-AngleTag	2d1r	41A00000	40000000
-
-Unhandled Exception: System.Exception: Float-bit mismatch for AngleTag 2d1r
-   at PrimitiveOracle.Main(String[] args)
+AngleTag	2d1r	41A00000	41A00000
+AngleTag	2d-1r	3E4CCCCD	3E4CCCCD
+AngleTag	2d+1r	41A00000	41A00000
+PASS: 27 original/recovered bitwise comparisons
