@@ -1,0 +1,34 @@
+name: Original compiler basic-data baseline
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/compiler-baseline.yml'
+      - 'recovery/scripts/Baseline.ps1'
+permissions:
+  contents: write
+jobs:
+  baseline:
+    runs-on: windows-2022
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the GUI's basic-data compiler command
+        shell: pwsh
+        run: ./recovery/scripts/Baseline.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: original-basic-data-baseline
+          path: recovery/evidence/baseline
+      - name: Commit baseline report
+        if: success()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/baseline
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m 'recovery: record original example-mod basic-data baseline'
+          git pull --rebase origin recovery/compiler-source
+          git push origin HEAD:recovery/compiler-source

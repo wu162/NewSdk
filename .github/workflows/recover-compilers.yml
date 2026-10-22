@@ -4,7 +4,7 @@ on:
     branches: [recovery/compiler-source]
     paths:
       - '.github/workflows/recover-compilers.yml'
-      - 'recovery/scripts/**'
+      - 'recovery/scripts/Extract.ps1'
       - 'recovery/MetadataInventory/**'
 permissions:
   contents: write

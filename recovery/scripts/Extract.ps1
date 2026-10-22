@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
 New-Item -ItemType Directory -Force recovery/logs | Out-Null
-dotnet build recovery/MetadataInventory -c Release
+dotnet build recovery/MetadataInventory -c Release -p:Platform=AnyCPU -o recovery/toolbin/inventory
 if ($LASTEXITCODE -ne 0) { throw 'Metadata reader build failed' }
 $ilspy = Join-Path $root 'recovery/toolbin/ilspycmd.exe'
 $targets = @('BinaryAssetBuilder.Tokenizer', 'BinaryAssetBuilder.XmlCompiler', 'EALAModStudio', 'BinaryAssetBuilder.Core', 'BinaryAssetBuilder')
@@ -16,7 +16,7 @@ foreach ($name in $targets) {
     # IL output preserves native method declarations that C# cannot represent.
     & $ilspy -il $inputFile > "recovery/logs/$name.il"
     $ilExit = $LASTEXITCODE
-    dotnet recovery/MetadataInventory/bin/Release/net8.0/MetadataInventory.dll $inputFile "recovery/evidence/$name"
+    dotnet recovery/toolbin/inventory/MetadataInventory.dll $inputFile "recovery/evidence/$name"
     if ($LASTEXITCODE -ne 0) { throw "Inventory failed: $name" }
     @{ decompilerExit = $decompileExit; ilExit = $ilExit } | ConvertTo-Json | Set-Content "recovery/evidence/$name/extraction.json"
     if ($name -in @('BinaryAssetBuilder.Tokenizer', 'BinaryAssetBuilder.XmlCompiler')) {
