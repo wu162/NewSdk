@@ -21,7 +21,9 @@ constexpr U32 ProjectileId=2278014412u, ScatterProjectileId=4131529406u, OclId=3
 constexpr U32 SpecialPowerId=1542018985u, InformId=1115743736u, ContainedAttackId=609705483u, SlavesAttackId=3111574559u, ReportId=1675169590u;
 bool BaseOnly(U32 id) {return id==ContainedAttackId || id==SlavesAttackId || id==ReportId;}
 bool Auxiliary(U32 id) {return BaseOnly(id) || id==SpecialPowerId || id==InformId;}
-bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id); }
+constexpr U32 CircularId=2360033115u,LiftId=2769610658u,LinearId=3694898303u,StreamId=2159708756u,LaserId=3915396258u,CraterId=3520092115u;
+bool SimpleType(U32 id) {return id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId;}
+bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id) || SimpleType(id); }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
     U32 type, partition; U32* status; U32* model;
@@ -402,6 +404,26 @@ const EnumNameValue WeaponSlotType[] = {
     {"NO_WEAPON",5},{"PRIMARY_WEAPON",0},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2}
 };
 const EnumNameValue VeterancyLevel[] = {{"ELITE",2},{"HEROIC",3},{"INVALID",-1},{"REGULAR",0},{"VETERAN",1}};
+// Shared execution for scalar/reference-only branches; the original per-type
+// member order, offsets and procedure keys remain explicit in these tables.
+struct SimpleMember { Field field; U32 name, type; };
+const SimpleMember lifetimeMembers[]={{{"Lifetime","1s",40,'t'},1411793767u,2575722984u}};
+const SimpleMember streamMembers[]={{{"Lifetime","1s",40,'t'},1411793767u,2575722984u},{{"StreamId","0",44,'i'},2251403163u,602296504u}};
+const SimpleMember laserMembers[]={
+    {{"Lifetime","1s",40,'t'},1411793767u,2575722984u},{{"LaserId","0",44,'i'},1118104655u,602296504u},
+    {{"HitGroundFX",nullptr,48,'r'},149298952u,219975299u},{{"OverShootDistance","0",52,'f'},2533801744u,1683514611u}
+};
+const SimpleMember craterMembers[]={{{"Depth","0",40,'f'},1018273879u,1683514611u},{{"Lift","0%",44,'p'},1240646209u,1683514611u}};
+struct SimpleSpec { U32 id, size; const SimpleMember* members; unsigned count; };
+const SimpleSpec simpleSpecs[]={
+    {CircularId,44,lifetimeMembers,1},{LiftId,44,lifetimeMembers,1},{LinearId,44,lifetimeMembers,1},
+    {StreamId,48,streamMembers,2},{LaserId,56,laserMembers,4},{CraterId,48,craterMembers,2}
+};
+const SimpleSpec* FindSimple(U32 id) {for(const auto& spec:simpleSpecs) if(spec.id==id) return &spec;return nullptr;}
+U32 NonDamageSize(U32 id) {
+    auto simple=FindSimple(id);if(simple) return simple->size;
+    return id==ProjectileId?68:id==SeedId?56:BaseOnly(id)?40:id==SpecialPowerId?44:48;
+}
 void ValidateNonDamage(const WeaponNuggetInput& input) {
     if(input.hasSpawnTemplate || input.hasTargetFilter || input.hasDamageFilter || !input.damageScalars.empty())
         throw std::invalid_argument("Damage-only child on reference nugget");
@@ -415,6 +437,7 @@ void ValidateNonDamage(const WeaponNuggetInput& input) {
         if(input.typeId==SeedId && (attr.first=="FieldAmount" || attr.first=="SpawnedInFieldBonus")) known=true;
         if(input.typeId==SpecialPowerId && attr.first=="SpecialPowerTemplate") known=true;
         if(input.typeId==InformId && (attr.first=="MinTimeToImpactFudgeFactor" || attr.first=="MaxTimeToImpactFudgeFactor")) known=true;
+        auto simple=FindSimple(input.typeId);if(simple) for(unsigned i=0;i<simple->count;++i) if(attr.first==simple->members[i].field.name) known=true;
         if(!known) throw std::invalid_argument("Unsupported reference nugget attribute: "+attr.first);
     }
     for(const auto& attr:input.attackOffset) if(attr.first!="x" && attr.first!="y" && attr.first!="z") throw std::invalid_argument("Unsupported AttackOffset attribute");
@@ -422,7 +445,19 @@ void ValidateNonDamage(const WeaponNuggetInput& input) {
         if(attr.first!="VeterancyLevel" && attr.first!="ProjectileTemplate") throw std::invalid_argument("Unsupported VeterancyProjectiles attribute");
 }
 void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::Tracker& data) {
-    if(Auxiliary(src.typeId)) {
+    auto simple=FindSimple(src.typeId);
+    if(simple) {
+        for(unsigned i=0;i<simple->count;++i) {
+            const auto& field=simple->members[i].field;
+            if(!field.fallback && !src.attributes.count(field.name)) continue;
+            auto text=Text(src,field.name,field.fallback?field.fallback:"");
+            auto at=reinterpret_cast<unsigned char*>(base)+field.offset;
+            if(field.kind=='r') {MarshalReference(data,at,text);continue;}
+            if(field.kind=='i') {auto value=ParseSigned(text);std::memcpy(at,&value,4);continue;}
+            float value=field.kind=='t'?InitializeTime(text.c_str()):field.kind=='p'?ParsePercentage(text):ParseFloat(text);
+            std::memcpy(at,&value,4);
+        }
+    } else if(Auxiliary(src.typeId)) {
         if(src.typeId==SpecialPowerId && src.attributes.count("SpecialPowerTemplate")) MarshalReference(data,&reinterpret_cast<SpecialPowerNugget*>(base)->power,Text(src,"SpecialPowerTemplate",""));
         if(src.typeId==InformId) {auto object=reinterpret_cast<InformTargetNugget*>(base);object->min=ParseFloat(Text(src,"MinTimeToImpactFudgeFactor","0.85"));object->max=ParseFloat(Text(src,"MaxTimeToImpactFudgeFactor","1.15"));}
     } else if(src.typeId==ScatterProjectileId) {
@@ -459,6 +494,13 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
     MarshalBase(src,*base,data);base->type=src.typeId;
 }
 void TokenNonDamageNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bool oclParent=false) {
+    auto simple=FindSimple(base->type);
+    if(simple) {
+        auto t=static_cast<Procedure*>(tokens.Push(table,12,simple->count+2));
+        t[0].name=1;t[0].type=3351432196u;TokenBase(*base,&t[0].offset,tokens);
+        for(unsigned i=0;i<simple->count;++i) {t[i+1].name=simple->members[i].name;t[i+1].type=simple->members[i].type;Member(base,simple->members[i].field.offset,t[i+1],tokens);}
+        tokens.Pop();return;
+    }
     if(base->type==SeedId && !oclParent) {
         auto t=static_cast<Procedure*>(tokens.Push(table,12,4));
         t[0].name=1;t[0].type=OclId;TokenNonDamageNugget(base,&t[0].offset,tokens,true);
@@ -503,6 +545,11 @@ void TokenNonDamageNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bo
     tokens.Pop();
 }
 void EndianNonDamageNugget(BaseNugget* base) {
+    auto simple=FindSimple(base->type);
+    if(simple) {
+        for(unsigned i=0;i<simple->count;++i) if(simple->members[i].field.kind!='r') Swap(reinterpret_cast<unsigned char*>(base)+simple->members[i].field.offset);
+        EndianBase(*base);return;
+    }
     if(base->type==InformId) {auto object=reinterpret_cast<InformTargetNugget*>(base);Swap(&object->min);Swap(&object->max);}
     if(base->type==SeedId) {auto seed=reinterpret_cast<SeedNugget*>(base);Swap(&seed->amount);Swap(&seed->bonus);}
     if(base->type==ScatterProjectileId) {auto object=reinterpret_cast<ScatterProjectileNugget*>(base);Swap(&object->min);Swap(&object->max);}
@@ -600,7 +647,7 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     for(U32 i=0;i<list->count;++i) {
         const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
         if(NonDamageFamily(src.typeId)) {
-            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],src.typeId==ProjectileId?68:src.typeId==SeedId?56:BaseOnly(src.typeId)?40:src.typeId==SpecialPowerId?44:48,1));
+            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],NonDamageSize(src.typeId),1));
             MarshalNonDamageNugget(src,base,data);data.Pop();continue;
         }
         auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],src.typeId==ContainedId?272:src.typeId==SpawnId?220:src.typeId==FireId?164:dot?164:percent?156:line?176:152,1));

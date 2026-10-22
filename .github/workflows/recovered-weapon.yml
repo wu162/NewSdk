@@ -34,6 +34,14 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Lifetime-only Marshal'; Start = 15802; End = 15866 }
+            @{ Name = 'Stream Marshal and endian'; Start = 15927; End = 15975 }
+            @{ Name = 'TerrainCrater Marshal and endian'; Start = 15976; End = 16017 }
+            @{ Name = 'Laser Marshal and endian'; Start = 16625; End = 16687 }
+            @{ Name = 'Lifetime-only Tokenize'; Start = 78835; End = 78914 }
+            @{ Name = 'Stream Tokenize'; Start = 78953; End = 78973 }
+            @{ Name = 'TerrainCrater Tokenize'; Start = 78991; End = 79013 }
+            @{ Name = 'Laser Tokenize'; Start = 79273; End = 79301 }
             @{ Name = 'InformTarget Marshal and endian'; Start = 15867; End = 15920 }
             @{ Name = 'InformTarget Tokenize'; Start = 78915; End = 78937 }
             @{ Name = 'SpecialPower and base-only allocations'; Start = 52732; End = 52773 }
@@ -142,6 +150,12 @@ jobs:
           foreach ($file in $files) { $hashes[$file.Name] = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
           $hashes | ConvertTo-Json | Set-Content "$evidence/log-sha256.json"
           Compress-Archive -Path $files.FullName -DestinationPath "$evidence/oracle-logs.zip" -Force
+          if ($validation.sdkProbeSucceeded -eq $true) {
+            Copy-Item $validationPath "$evidence/sdk-batch-validation.json" -Force
+            Copy-Item "$evidence/oracle-logs.zip" "$evidence/sdk-batch-logs.zip" -Force
+            git add "$evidence/sdk-batch-validation.json" "$evidence/sdk-batch-logs.zip"
+            if ($LASTEXITCODE -ne 0) { throw 'Unable to stage successful SDK batch snapshot' }
+          }
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$evidence/validation.json" "$evidence/enums.json" "$evidence/log-sha256.json" "$evidence/oracle-logs.zip"

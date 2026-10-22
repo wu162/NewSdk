@@ -885,6 +885,7 @@ unsafe partial class WeaponOracle
                 Scatter(plugin, platform);
                 Nuggets(plugin, platform);
                 ProjectileNuggets(plugin, platform);
+                ActivationNuggets(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
