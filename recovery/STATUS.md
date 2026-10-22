@@ -68,12 +68,13 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
 Continue WeaponTemplate from the validated status/filter/list implementation below.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-25-minute scope: recover the 456-bit ModelCondition masks and
-ScatterRadiusVsType (176-byte elements with an inline ObjectFilter), with original
-ProcessInstance differential tests; then begin the common Nuggets base/dispatch
-as dependencies and time allow. Only ScatterRadiusVsType and Nuggets remain
-explicitly unsupported. A complete replacement plugin and rebuilt-DLL MOD run
-are still outstanding. Read the newest validation.json for exact source/run.
+Next approximately-25-minute scope: prioritize formal ArmorTemplate plugin integration
+and real SDK compilation using per-type plugin configuration, following
+`SDK_TYPE_INTEGRATION.md`. The user explicitly requested this progressive
+replacement strategy. Then continue 456-bit ModelCondition / ScatterRadiusVsType
+and Nuggets. Only those two Weapon fields remain explicitly unsupported.
+A complete replacement of both compiler DLLs is still outstanding.
+Read the newest validation.json for exact source/run.
 
 ## Continuation details from this stage
 
@@ -282,3 +283,14 @@ Recover the full ModelCondition enum/fallback from original data before enabling
 this list. After its verified integration, begin Nuggets shared base layout and
 dispatch with explicit unsupported-derived-type rejection. Keep the about-25-minute
 stage size, source/Windows/oracle/commit/handoff grouping, and no force-push rule.
+
+
+## User validation strategy update — 2026-10-22
+
+The user requests per-type SDK plugin routing to recovered DLLs once a type is fully
+recovered, progressively replacing the two original compiler DLLs. This is now the
+main integration path, in addition to original-DLL differential tests. See
+`SDK_TYPE_INTEGRATION.md` for the verified configuration mechanism and acceptance
+criteria. Prioritize ArmorTemplate formal plugin + SDK integration before the next
+Weapon field group. Current recovered components are not yet registered SDK plugins;
+this documentation update does not claim an SDK run using them has already passed.
