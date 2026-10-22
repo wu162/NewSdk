@@ -14,6 +14,7 @@ namespace Recovered { namespace Native {
 namespace {
 using U32 = std::uint32_t;
 constexpr U32 DamageId = 3237297817u, DotId = 4022030886u, GrapplingId = 1093138400u;
+constexpr U32 ContainedId = 2459653016u;
 constexpr U32 SpawnId = 3266020104u, FireId = 2014632688u;
 constexpr U32 LeechPercentId = 921679887u, LeechHealthId = 4012276286u, LineId = 4021248832u;
 struct WordList { U32 count; U32* values; };
@@ -31,6 +32,7 @@ struct DamageNugget {
     float drainMultiplier, speed; U32 eva, revealer, invalidStatus[7];
     ScalarList scalars; unsigned char flags[8];
 };
+struct ContainedNugget { DamageNugget damage; U32 maxUnits, windowFx; ObjectFilter filter; };
 struct SpawnNugget { DamageNugget damage; float probability; U32 model[15], objectId; };
 struct FireNugget { DamageNugget damage; U32 weapon; ObjectFilter* filter; unsigned char onVictim, mustBeAlive, padding[2]; };
 struct LineNugget { DamageNugget damage; float angle, width, leadIn, leadOut, overshoot; unsigned char dynamicLength, padding[3]; };
@@ -38,7 +40,7 @@ struct PercentNugget { DamageNugget damage; float percentage; };
 struct DotNugget { DamageNugget damage; float interval, duration; unsigned char removeIfHealed, padding[3]; };
 struct Procedure { U32 name, type; void* offset; };
 struct TokenKey { U32 name, type; };
-static_assert(sizeof(BaseNugget)==40 && sizeof(DamageNugget)==152 && sizeof(DotNugget)==164 && sizeof(PercentNugget)==156 && sizeof(LineNugget)==176 && sizeof(SpawnNugget)==220 && sizeof(FireNugget)==164, "Original x86 nugget layouts");
+static_assert(sizeof(BaseNugget)==40 && sizeof(DamageNugget)==152 && sizeof(DotNugget)==164 && sizeof(PercentNugget)==156 && sizeof(LineNugget)==176 && sizeof(SpawnNugget)==220 && sizeof(FireNugget)==164 && sizeof(ContainedNugget)==272, "Original x86 nugget layouts");
 static_assert(sizeof(ScalarInfo)==124 && offsetof(DamageNugget, scalars)==136 && offsetof(DamageNugget, flags)==144, "Original nested layouts");
 const TokenKey WeaponEffectNuggetTokens[] = {
     { 430981792u, 602296504u },
@@ -381,8 +383,9 @@ const Field damageFields[] = {
     {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
 };
 void Validate(const WeaponNuggetInput& input) {
-    if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId && input.typeId!=SpawnId && input.typeId!=FireId)
+    if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId && input.typeId!=SpawnId && input.typeId!=FireId && input.typeId!=ContainedId)
         throw std::invalid_argument("Unrecovered WeaponEffectNugget TypeId");
+    if(input.hasDamageFilter && input.typeId!=ContainedId) throw std::invalid_argument("DamageObjectFilter belongs to DamageContainedNugget");
     if(input.hasSpawnTemplate && input.typeId!=SpawnId) throw std::invalid_argument("SpawnTemplate belongs to DamageAndSpawnNugget");
     if(input.hasTargetFilter && input.typeId!=FireId) throw std::invalid_argument("Filter belongs to FireOnObjectsNugget");
     for(const auto& attr:input.attributes) {
@@ -393,6 +396,7 @@ void Validate(const WeaponNuggetInput& input) {
         if(input.typeId==LineId && (attr.first=="OffsetAngle" || attr.first=="LineWidth" || attr.first=="LineLengthLeadIn" || attr.first=="LineLengthLeadOut" || attr.first=="UseDynamicLineLength" || attr.first=="OverShootDistance")) known=true;
         if(input.typeId==SpawnId && (attr.first=="SpawnProbability" || attr.first=="SpawnedModelConditionFlags")) known=true;
         if(input.typeId==FireId && (attr.first=="Weapon" || attr.first=="FireOnVictimObject" || attr.first=="VictimMustBeAlive")) known=true;
+        if(input.typeId==ContainedId && (attr.first=="MaxUnitsToDamage" || attr.first=="WindowBlastFX")) known=true;
         if(!known) throw std::invalid_argument("Unsupported damage nugget attribute: "+attr.first);
     }
 }
@@ -461,7 +465,12 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     data.Push(reinterpret_cast<void**>(&list->elements),4,list->count);
     for(U32 i=0;i<list->count;++i) {
         const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
-        auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],src.typeId==SpawnId?220:src.typeId==FireId?164:dot?164:percent?156:line?176:152,1));
+        auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],src.typeId==ContainedId?272:src.typeId==SpawnId?220:src.typeId==FireId?164:dot?164:percent?156:line?176:152,1));
+        if(src.typeId==ContainedId) {
+            auto derived=reinterpret_cast<ContainedNugget*>(object);derived->maxUnits=static_cast<U32>(ParseSigned(Text(src,"MaxUnitsToDamage","100")));
+            if(src.attributes.count("WindowBlastFX")) MarshalReference(data,&derived->windowFx,Text(src,"WindowBlastFX",""));
+            if(src.hasDamageFilter) MarshalObjectFilter(src.damageFilter,&derived->filter,data);
+        }
         if(src.typeId==SpawnId) {
             auto derived=reinterpret_cast<SpawnNugget*>(object);derived->probability=ParseFloat(Text(src,"SpawnProbability","1.0"));
             if(src.attributes.count("SpawnedModelConditionFlags")) MarshalModelCondition(Text(src,"SpawnedModelConditionFlags",""),derived->model);
@@ -504,8 +513,14 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
         if(object->base.type==DamageId) TokenDamage(*object,&poly->offset,tokens);
         else {
             bool dot=object->base.type==DotId;bool percent=object->base.type==LeechPercentId || object->base.type==LeechHealthId;bool line=object->base.type==LineId;
-            auto derived=static_cast<Procedure*>(tokens.Push(&poly->offset,12,object->base.type==SpawnId?5:object->base.type==FireId?6:dot?5:percent?3:line?8:2));
+            auto derived=static_cast<Procedure*>(tokens.Push(&poly->offset,12,object->base.type==ContainedId?5:object->base.type==SpawnId?5:object->base.type==FireId?6:dot?5:percent?3:line?8:2));
             derived[0].name=1;derived[0].type=DamageId;TokenDamage(*object,&derived[0].offset,tokens);
+            if(object->base.type==ContainedId) {
+                derived[1].name=1258282188u;derived[1].type=602296504u;Member(object,152,derived[1],tokens);
+                derived[2].name=899645757u;derived[2].type=219975299u;Member(object,156,derived[2],tokens);
+                derived[3].name=2805754577u;derived[3].type=3832456114u;
+                TokenizeObjectFilter(&reinterpret_cast<ContainedNugget*>(object)->filter,&derived[3].offset,tokens);
+            }
             if(object->base.type==SpawnId) {
                 const U32 names[]={1998637738u,3234314496u,1528957511u};
                 const U32 types[]={1683514611u,1742454729u,344905565u};
@@ -552,6 +567,7 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
             for(unsigned j=0;j<15;++j) Swap(spawn->model+j);Swap(&spawn->objectId);
         }
         if(object->base.type==FireId) {auto fire=reinterpret_cast<FireNugget*>(object);if(fire->filter) EndianObjectFilter(fire->filter);}
+        if(object->base.type==ContainedId) {auto contained=reinterpret_cast<ContainedNugget*>(object);Swap(&contained->maxUnits);EndianObjectFilter(&contained->filter);}
         EndianDamage(*object);
     }
     Swap(&list->count);

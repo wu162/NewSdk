@@ -12,9 +12,9 @@ struct NuggetScalarInput {
 struct WeaponNuggetInput {
     std::uint32_t typeId = 0;
     std::map<std::string, std::string> attributes;
-    bool hasSpawnTemplate = false, hasTargetFilter = false;
+    bool hasSpawnTemplate = false, hasTargetFilter = false, hasDamageFilter = false;
     std::string spawnTemplate;
-    ObjectFilterInput targetFilter;
+    ObjectFilterInput targetFilter, damageFilter;
     bool hasSpecialFilter = false;
     ObjectFilterInput specialFilter;
     std::vector<std::string> requiredUpgrades, forbiddenUpgrades;

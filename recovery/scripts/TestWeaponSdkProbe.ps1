@@ -46,9 +46,9 @@ $files = foreach ($ext in @('bin','manifest','imp','relo')) {
 & "$out/WeaponSdkProbeOracle.exe" payloads $sdk (Join-Path $output 'mods/mymod/data/mod.bin') $details *> "$report/nugget-sdk-payloads.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/nugget-sdk-payloads.txt"; throw 'Actual SDK output did not match recovered component' }
 Get-Content "$report/nugget-sdk-schema.txt";Get-Content "$report/nugget-sdk-payloads.txt"
-@{ sourceCommit = $env:GITHUB_SHA; succeeded = $true; sdkRoute = 'Original Tokenizer for WeaponTemplate'; scope = 'eight XSD-valid mymod Nugget assets in real SDK output match recovered component InstanceData; all three buffers separately checked by ProcessInstance differentials'; files = @($files) } | ConvertTo-Json -Depth 8 | Set-Content "$report/nugget-sdk.json"
+@{ sourceCommit = $env:GITHUB_SHA; succeeded = $true; sdkRoute = 'Original Tokenizer for WeaponTemplate'; scope = 'nine XSD-valid mymod Nugget assets in real SDK output match recovered component InstanceData; all three buffers separately checked by ProcessInstance differentials'; files = @($files) } | ConvertTo-Json -Depth 8 | Set-Content "$report/nugget-sdk.json"
 Compress-Archive -Path "$details/*" -DestinationPath "$report/nugget-sdk-output.zip" -Force
 $validation.succeeded = $true
 $validation | Add-Member -Force NoteProperty sdkProbeSucceeded $true
-$validation | Add-Member -Force NoteProperty sdkProbeScope 'Original SDK build of eight schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing'
+$validation | Add-Member -Force NoteProperty sdkProbeScope 'Original SDK build of nine schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing'
 $validation | ConvertTo-Json -Depth 8 | Set-Content "$report/validation.json"

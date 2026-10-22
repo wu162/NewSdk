@@ -88,6 +88,8 @@ public ref class WeaponCompiler abstract sealed {
                 auto value=ReadUpgrade(child);if(!result.hasSpawnTemplate) {result.spawnTemplate=value;result.hasSpawnTemplate=true;}
             } else if(child->LocalName == "Filter") {
                 auto value=ReadFilter(child);if(!result.hasTargetFilter) {result.targetFilter=value;result.hasTargetFilter=true;}
+            } else if(child->LocalName == "DamageObjectFilter") {
+                auto value=ReadFilter(child);if(!result.hasDamageFilter) {result.damageFilter=value;result.hasDamageFilter=true;}
             }
             else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
         }

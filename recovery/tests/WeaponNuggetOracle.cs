@@ -6,8 +6,8 @@ using Recovered;
 
 unsafe partial class WeaponOracle
 {
-    static readonly string[] NuggetNames={"DamageNugget","DOTNugget","GrapplingHookNugget","LeechPercentMaxHealthDamageNugget","LeechHealthDamageNugget","LineDamageNugget","DamageAndSpawnNugget","FireOnObjectsNugget"};
-    static readonly uint[] NuggetIds={3237297817u,4022030886u,1093138400u,921679887u,4012276286u,4021248832u,3266020104u,2014632688u};
+    static readonly string[] NuggetNames={"DamageNugget","DOTNugget","GrapplingHookNugget","LeechPercentMaxHealthDamageNugget","LeechHealthDamageNugget","LineDamageNugget","DamageAndSpawnNugget","FireOnObjectsNugget","DamageContainedNugget"};
+    static readonly uint[] NuggetIds={3237297817u,4022030886u,1093138400u,921679887u,4012276286u,4021248832u,3266020104u,2014632688u,2459653016u};
     static string NuggetXml(string content,string attributes) {
         return "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Nuggets' "+attributes+"><Nuggets>"+content+"</Nuggets></WeaponTemplate>";
     }
@@ -42,7 +42,7 @@ unsafe partial class WeaponOracle
         var xml=new XmlDocument();xml.LoadXml(NuggetXml(Nugget(kind,"",""),""));
         var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",AssetNamespace);
         var result=WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);bool big=platform!=TargetPlatform.Win32;
-        int[] extras={0,60,24,36,36,96,60,72},sizes={152,164,152,156,156,176,220,164};
+        int[] extras={0,60,24,36,36,96,60,72,216},sizes={152,164,152,156,156,176,220,164,272};
         int tokens=1812+extras[kind],data=tokens+332;
         if(result.InstanceData.Length!=tokens+332+sizes[kind] || Word(result.InstanceData,tokens+328,big)!=data ||
             Word(result.InstanceData,data,big)!=NuggetIds[kind] || Word(result.InstanceData,1284,big)!=2 || Word(result.InstanceData,1288,big)!=NuggetIds[kind])
@@ -56,12 +56,13 @@ unsafe partial class WeaponOracle
             if(Word(result.InstanceData,1304,big)!=1356 || Word(result.InstanceData,1316,big)!=data+152 || Word(result.InstanceData,1328,big)!=data+156 || Word(result.InstanceData,1340,big)!=data+216) throw new Exception("Spawn token member offsets");
         }
         if(kind==7 && (Word(result.InstanceData,1304,big)!=1368 || Word(result.InstanceData,1316,big)!=data+152 || Word(result.InstanceData,1328,big)!=data+160 || Word(result.InstanceData,1340,big)!=data+161 || Word(result.InstanceData,1352,big)!=0)) throw new Exception("Fire token member offsets");
+        if(kind==8 && (Word(result.InstanceData,data+152,big)!=100 || Word(result.InstanceData,data+156,big)!=0 || Word(result.InstanceData,1340,big)!=1848)) throw new Exception("Contained defaults/inline filter token");
         if(kind==5) for(int at=152;at<176;at+=4) if(Word(result.InstanceData,data+at,big)!=0) throw new Exception("Line default fields/padding");
     }
     static void Nuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
         DamageLayout(plugin,platform,0);
         foreach(int count in new[] {1,2,3,7,16,17,31,32,33,64,127,128,129,255,256,257}) DamageLayout(plugin,platform,count);
-        foreach(int kind in new[] {0,1,2,3,4,5,6,7}) {
+        foreach(int kind in new[] {0,1,2,3,4,5,6,7,8}) {
             DerivedNuggetLayout(platform,kind);
             NuggetFixture(plugin,platform,"defaults-"+kind,Nugget(kind,"",""),"");
             foreach(string field in new[] {"Damage","DamageTaperOff","MinRadius","DamageMaxHeight","DamageMaxHeightAboveTerrain","FlankingBonus","FlankedScalar","DrainLifeMultiplier","DamageSpeed","Radius"})
@@ -118,6 +119,15 @@ unsafe partial class WeaponOracle
             child+="</Filter>";NuggetFixture(plugin,platform,"fire-filter-lists-"+count,Nugget(7,"ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL' Weapon='w\\9'",child),"");
         }
         NuggetFixture(plugin,platform,"fire-first-filter",Nugget(7,"","<Filter Rule='ANY'/><Filter Rule='NONE'/>"),"");
+        foreach(string field in new[] {"MaxUnitsToDamage","WindowBlastFX"}) foreach(string value in new[] {"", "100", "-1", "010", "0x7f", "2147483648", "-2147483649", "garbage", "fx\\0", "fx\\-1", "fx\\2147483648"}) NuggetFixture(plugin,platform,"contained-"+field+"-"+value,Nugget(8,Attribute(field,value),"<DamageObjectFilter/>"),"");
+        foreach(int count in new[] {0,1,2,7,33,129,257}) {
+            string child="<SpecialObjectFilter StatusBitFlags='ALL'/><DamageScalarDetails><Filter StatusBitFlags='ALL'/></DamageScalarDetails><DamageObjectFilter StatusBitFlags='ALL' StatusBitFlagsExclude='ALL'>";
+            for(int i=0;i<count;++i) child+="<IncludeThing>Obj_"+i+"</IncludeThing><ExcludeThing>Other_"+i+"</ExcludeThing>";
+            child+="</DamageObjectFilter>";NuggetFixture(plugin,platform,"contained-filter-lists-"+count,Nugget(8,"ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL' WindowBlastFX='fx\\9'",child),"");
+        }
+        NuggetFixture(plugin,platform,"contained-first-filter",Nugget(8,"","<DamageObjectFilter Rule='ANY'/><DamageObjectFilter Rule='NONE'/>"),"");
+        Reject(NuggetXml(Nugget(0,"","<DamageObjectFilter/>"),""));
+        Reject(NuggetXml(Nugget(8,"","<Filter/>"),""));
         foreach(string id in new[] {"3237297817","0xc0f54699","+3237297817","3237297817tail"}) {
             // Hex fixture is supplied from the exact decimal constant below.
             string value=id=="0xc0f54699"?"0x"+NuggetIds[0].ToString("x"):id;
@@ -128,13 +138,13 @@ unsafe partial class WeaponOracle
             string xml="<WeaponTemplate xmlns='"+AssetNamespace+"' id='MixedNuggets' FireSound='s\\0' RequiredFiringObjectStatus='ALL' PreferredTargetBone='bone'>";
             for(int i=6;i>=0;--i) if((mask&(1<<i))!=0) xml+="<"+blocks[i]+"/>";
             xml+="<ScatterRadiusVsType Radius='3' RequiredModelConditions='ALL'><Filter StatusBitFlags='AFLAME'><IncludeThing>Obj</IncludeThing></Filter></ScatterRadiusVsType><HitStoredObjectFilter StatusBitFlags='ALL'/><Nuggets>";
-            for(int kind=0;kind<8;++kind) xml+=Nugget(kind,"Damage='27.5' ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL'","<SpecialObjectFilter Include='AIRCRAFT'/><RequiredUpgrade>BaseUp</RequiredUpgrade><ForbiddenUpgrade>OtherUp</ForbiddenUpgrade><DamageScalarDetails Scalar='25%'><Filter StatusBitFlags='ALL'/><RequiredUpgrade>ScalarUp</RequiredUpgrade></DamageScalarDetails>");
+            for(int kind=0;kind<9;++kind) xml+=Nugget(kind,"Damage='27.5' ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL'","<SpecialObjectFilter Include='AIRCRAFT'/><RequiredUpgrade>BaseUp</RequiredUpgrade><ForbiddenUpgrade>OtherUp</ForbiddenUpgrade><DamageScalarDetails Scalar='25%'><Filter StatusBitFlags='ALL'/><RequiredUpgrade>ScalarUp</RequiredUpgrade></DamageScalarDetails>");
             xml+="</Nuggets><IncompatibleAttributeModifier>m\\1</IncompatibleAttributeModifier></WeaponTemplate>";
             Test(plugin,"nugget-mixed-"+mask,xml,platform,-1);++fixtures;
         }
         Reject(NuggetXml(Nugget(0,"","<Filter/>"),""));
         Reject(NuggetXml(Nugget(0,"","<SpawnTemplate>Obj</SpawnTemplate>"),""));
-        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2278014412u,2459653016u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
+        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2278014412u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
         foreach(string content in new[] {"<DamageNugget/>","<DamageNugget TypeId='0'/>","<DamageNugget TypeId='576040660'/>","<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
     }
 }
