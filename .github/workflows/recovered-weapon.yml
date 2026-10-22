@@ -1,0 +1,36 @@
+name: WeaponTemplate recovery validation
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-weapon.yml'
+      - 'recovery/src/**/Weapon*'
+      - 'recovery/tests/Weapon*'
+      - 'recovery/scripts/TestWeapon.ps1'
+permissions:
+  contents: read
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Capture focused committed evidence
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force recovery/evidence/weapon | Out-Null
+          $lines = Get-Content recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
+          $lines[17515..18180] | Set-Content recovery/evidence/weapon/marshal.txt
+          $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
+      - name: Build and compare
+        shell: pwsh
+        run: |
+          if (Test-Path recovery/scripts/TestWeapon.ps1) { ./recovery/scripts/TestWeapon.ps1 }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-weapon-evidence
+          path: recovery/evidence/weapon
