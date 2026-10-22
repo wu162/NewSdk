@@ -27,6 +27,7 @@ class Tracker {
     static bool Less(const Bookmark& a, const Bookmark& b);
     static void Sort(std::vector<Bookmark>& values);
     static void Quick(Bookmark* first, Bookmark* last, int depth);
+    static void AdjustHeap(Bookmark* first, int top, int size, int position, Bookmark value);
 public:
     U32 Allocate(U32 count, U32 elementSize);
     void* Push(void** pointerLocation, U32 objectSize, U32 objectCount);

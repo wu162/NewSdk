@@ -198,7 +198,9 @@ unsafe class RelocationOracle
         if (IntPtr.Size != 4) throw new Exception("Original runtime requires x86");
         var original = Assembly.LoadFrom(args[0]);
         Console.WriteLine(original.FullName);
-        Offsets(original);
+        bool tokenized = original.GetName().Name == "BinaryAssetBuilder.Tokenizer";
+        if (tokenized) Offsets(original);
+        else Console.WriteLine("INFO: XmlCompiler has no GetMemberOffset/BookmarkMemberOffset/FixupMemberOffsets methods; token-table-only cases apply to Tokenizer.");
         foreach (bool big in new[] {false,true})
         {
             for (int seed=0; seed<24; ++seed)
@@ -206,7 +208,7 @@ unsafe class RelocationOracle
                     Compare("graph "+seed+" big="+big+" base="+absolute,Graph(original,seed,big,absolute),Graph(null,seed,big,absolute));
             foreach (int count in new[] {1,2,27,28,29,64,257})
                 Compare("duplicate reference sort "+count+" big="+big,LargeReferences(original,count,big),LargeReferences(null,count,big));
-            foreach (bool exchange in new[] {false,true})
+            if (tokenized) foreach (bool exchange in new[] {false,true})
                 Compare("member table exchange="+exchange+" big="+big,MemberTable(original,big,exchange),MemberTable(null,big,exchange));
             Compare("exchange pointer/reference big="+big,ExchangeReferences(original,big),ExchangeReferences(null,big));
         }

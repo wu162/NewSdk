@@ -65,6 +65,19 @@ bool Tracker::ExchangePointers(void* a, void* b) {
 bool Tracker::Less(const Bookmark& a, const Bookmark& b) {
     return a.block < b.block || (a.block == b.block && a.value < b.value);
 }
+void Tracker::AdjustHeap(Bookmark* first, int top, int size, int position, Bookmark value) {
+    int child = position*2+2;
+    while (child < size) {
+        if (Less(first[child],first[child-1])) --child;
+        first[position] = first[child]; position = child; child = child*2+2;
+    }
+    if (child == size) { first[position] = first[child-1]; position = child-1; }
+    int parent = (position-1)/2;
+    while (position > top && Less(first[parent],value)) {
+        first[position] = first[parent]; position = parent; parent = (position-1)/2;
+    }
+    first[position] = value;
+}
 void Tracker::Quick(Bookmark* first, Bookmark* last, int depth) {
     while (last-first > 28 && depth > 0) {
         auto a = first, b = first+(last-first)/2, c = last-1;
@@ -80,7 +93,16 @@ void Tracker::Quick(Bookmark* first, Bookmark* last, int depth) {
         }
         --depth; Quick(lo,last,depth); last = lo;
     }
-    if (depth == 0) { std::make_heap(first,last,Less); std::sort_heap(first,last,Less); }
+    if (depth == 0) {
+        // Preserve the original heap's right-child preference when keys tie.
+        // A library sort is allowed to produce a different relocation order.
+        int size = static_cast<int>(last-first);
+        if (size >= 2) for (int i=(size-2)/2; i>=0; --i) AdjustHeap(first,i,size,i,first[i]);
+        while (size > 1) {
+            Bookmark value = first[size-1]; first[size-1] = first[0];
+            --size; AdjustHeap(first,0,size,0,value);
+        }
+    }
 }
 void Tracker::Sort(std::vector<Bookmark>& values) {
     if (values.empty()) return;
