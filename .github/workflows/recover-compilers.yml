@@ -1,0 +1,47 @@
+name: Recover compiler evidence
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recover-compilers.yml'
+      - 'recovery/scripts/**'
+      - 'recovery/MetadataInventory/**'
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned decompiler
+        run: dotnet tool install ilspycmd --tool-path recovery/toolbin --version 9.1.0.7988
+      - name: Extract managed source and native evidence
+        shell: pwsh
+        run: ./recovery/scripts/Extract.ps1
+      - name: Publish evidence archive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-recovery-evidence
+          path: |
+            recovery/evidence
+            recovery/decompiled
+            recovery/logs
+          retention-days: 30
+      - name: Save extracted results to branch
+        if: success()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/decompiled recovery/evidence recovery/logs
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m 'recovery: preserve decompiled managed sources and mixed-mode method inventory'
+          git push origin HEAD:recovery/compiler-source
