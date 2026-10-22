@@ -1,0 +1,9 @@
+PASS: BinaryAssetBuilder.XmlCompiler platform Win32
+PASS: BinaryAssetBuilder.XmlCompiler platform Xbox360
+PASS: BinaryAssetBuilder.XmlCompiler platform PlayStation3
+PASS: BinaryAssetBuilder.XmlCompiler platform 99
+PASS: BinaryAssetBuilder.Tokenizer platform Win32
+PASS: BinaryAssetBuilder.Tokenizer platform Xbox360
+PASS: BinaryAssetBuilder.Tokenizer platform PlayStation3
+PASS: BinaryAssetBuilder.Tokenizer platform 99
+PASS: 1232 original/recovered type records, all public fields
