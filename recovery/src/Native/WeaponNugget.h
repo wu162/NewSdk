@@ -9,8 +9,13 @@ struct NuggetScalarInput {
     ObjectFilterInput filter;
     std::vector<std::string> requiredUpgrades;
 };
+struct VeteranProjectileInput { std::map<std::string, std::string> attributes; };
 struct WeaponNuggetInput {
     std::uint32_t typeId = 0;
+    bool hasAttackOffset = false, hasBarrel = false;
+    std::map<std::string, std::string> attackOffset;
+    std::string barrel;
+    std::vector<VeteranProjectileInput> veterans;
     std::map<std::string, std::string> attributes;
     bool hasSpawnTemplate = false, hasTargetFilter = false, hasDamageFilter = false;
     std::string spawnTemplate;
@@ -25,3 +30,4 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input, WeaponNug
 void TokenizeWeaponNuggets(WeaponNuggetList* list, void** table, Relo::Tracker& tokens);
 void EndianWeaponNuggets(WeaponNuggetList* list);
 }}
+

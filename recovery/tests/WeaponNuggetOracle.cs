@@ -144,7 +144,8 @@ unsafe partial class WeaponOracle
         }
         Reject(NuggetXml(Nugget(0,"","<Filter/>"),""));
         Reject(NuggetXml(Nugget(0,"","<SpawnTemplate>Obj</SpawnTemplate>"),""));
-        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2278014412u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
+        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
         foreach(string content in new[] {"<DamageNugget/>","<DamageNugget TypeId='0'/>","<DamageNugget TypeId='576040660'/>","<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
     }
 }
+

@@ -34,6 +34,16 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Projectile Marshal and endian'; Start = 16865; End = 16960 }
+            @{ Name = 'Projectile Tokenize'; Start = 79393; End = 79449 }
+            @{ Name = 'ScatterProjectile Marshal and endian'; Start = 15757; End = 15802 }
+            @{ Name = 'ScatterProjectile Tokenize'; Start = 78814; End = 78836 }
+            @{ Name = 'WeaponOCL Marshal'; Start = 16192; End = 16202 }
+            @{ Name = 'WeaponOCL Tokenize'; Start = 79074; End = 79096 }
+            @{ Name = 'VeteranProjectile Marshal'; Start = 15319; End = 15327 }
+            @{ Name = 'VeteranProjectile Tokenize'; Start = 78512; End = 78528 }
+            @{ Name = 'VeteranProjectile list Marshal and endian'; Start = 53300; End = 53394 }
+            @{ Name = 'VeteranProjectile list Tokenize'; Start = 99038; End = 99064 }
             @{ Name = 'DamageContainedNuggetType Tokenizer_002ETokenize'; Start = 79731; End = 79755 }
             @{ Name = 'DamageContainedNuggetType Marshaler_002EMarshal'; Start = 17498; End = 17529 }
             @{ Name = 'FireOnObjects and DamageAndSpawn Marshal'; Start = 17392; End = 17480 }
@@ -95,7 +105,9 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestWeapon.ps1
+      # Real SDK builds are deliberately batched; mark a milestone commit [sdk-probe].
       - name: Validate schema-valid mymod Nugget probes through original SDK
+        if: contains(github.event.head_commit.message, '[sdk-probe]')
         shell: pwsh
         run: ./recovery/scripts/TestWeaponSdkProbe.ps1
       - name: Persist validation evidence
@@ -113,6 +125,9 @@ jobs:
           $validation | Add-Member -Force NoteProperty runId ([long]$env:GITHUB_RUN_ID)
           $validation | Add-Member -Force NoteProperty runUrl "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
           $validation | ConvertTo-Json -Depth 10 | Set-Content $validationPath
+          if ($validation.sdkProbeStatus -like 'not run*') {
+            Remove-Item "$evidence/nugget-sdk.json", "$evidence/nugget-sdk-output.zip" -ErrorAction SilentlyContinue
+          }
           $files = @(Get-ChildItem $evidence -File | Where-Object { $_.Extension -eq '.txt' -or $_.Name -eq 'validation.json' -or $_.Name -eq 'enums.json' -or $_.Name -eq 'nugget-sdk.json' -or $_.Name -eq 'nugget-sdk-output.zip' })
           $hashes = [ordered]@{}
           foreach ($file in $files) { $hashes[$file.Name] = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
@@ -144,3 +159,4 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
+

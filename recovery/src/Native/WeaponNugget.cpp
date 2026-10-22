@@ -17,12 +17,20 @@ constexpr U32 DamageId = 3237297817u, DotId = 4022030886u, GrapplingId = 1093138
 constexpr U32 ContainedId = 2459653016u;
 constexpr U32 SpawnId = 3266020104u, FireId = 2014632688u;
 constexpr U32 LeechPercentId = 921679887u, LeechHealthId = 4012276286u, LineId = 4021248832u;
+constexpr U32 ProjectileId=2278014412u, ScatterProjectileId=4131529406u, OclId=3322313791u;
+bool ReferenceFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId; }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
     U32 type, partition; U32* status; U32* model;
     float radius; ObjectFilter* special;
     WordList required, forbidden;
 };
+struct VeteranProjectile { U32 level, projectile; };
+struct VeteranList { U32 count; VeteranProjectile* values; };
+struct ProjectileNugget { BaseNugget base; U32 warhead, projectile, slot; float* offset; VeteranList veterans; int* barrel; };
+struct ScatterProjectileNugget { BaseNugget base; float min, max; };
+struct OclNugget { BaseNugget base; U32 ocl; unsigned char target, padding[3]; };
+static_assert(sizeof(ProjectileNugget)==68 && sizeof(ScatterProjectileNugget)==48 && sizeof(OclNugget)==48 && sizeof(VeteranProjectile)==8, "Original reference family layouts");
 struct ScalarInfo { float scalar; ObjectFilter filter; WordList required; };
 struct ScalarList { U32 count; ScalarInfo* values; };
 struct DamageNugget {
@@ -382,7 +390,100 @@ const Field damageFields[] = {
     {"NotifyOwnerOnVictimDeath","false",148,'b'},{"NotifyObserversOnPreDamageEffectPosition","false",149,'b'},
     {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
 };
+const EnumNameValue WeaponSlotType[] = {
+    {"NO_WEAPON",5},{"PRIMARY_WEAPON",0},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2}
+};
+const EnumNameValue VeterancyLevel[] = {{"ELITE",2},{"HEROIC",3},{"INVALID",-1},{"REGULAR",0},{"VETERAN",1}};
+void ValidateReference(const WeaponNuggetInput& input) {
+    if(input.hasSpawnTemplate || input.hasTargetFilter || input.hasDamageFilter || !input.damageScalars.empty())
+        throw std::invalid_argument("Damage-only child on reference nugget");
+    if(input.typeId!=ProjectileId && (input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()))
+        throw std::invalid_argument("Projectile-only child on other nugget");
+    for(const auto& attr:input.attributes) {
+        bool known=attr.first=="PartitionFilterTestType" || attr.first=="Radius" || attr.first=="ForbiddenTargetObjectStatus" || attr.first=="ForbiddenTargetModelCondition";
+        if(input.typeId==ProjectileId && (attr.first=="WarheadTemplate" || attr.first=="ProjectileTemplate" || attr.first=="WeaponLaunchBoneSlotOverride")) known=true;
+        if(input.typeId==ScatterProjectileId && (attr.first=="ScatterMin" || attr.first=="ScatterMax")) known=true;
+        if(input.typeId==OclId && (attr.first=="WeaponOCL" || attr.first=="TargetAsPrimaryObject")) known=true;
+        if(!known) throw std::invalid_argument("Unsupported reference nugget attribute: "+attr.first);
+    }
+    for(const auto& attr:input.attackOffset) if(attr.first!="x" && attr.first!="y" && attr.first!="z") throw std::invalid_argument("Unsupported AttackOffset attribute");
+    for(const auto& veteran:input.veterans) for(const auto& attr:veteran.attributes)
+        if(attr.first!="VeterancyLevel" && attr.first!="ProjectileTemplate") throw std::invalid_argument("Unsupported VeterancyProjectiles attribute");
+}
+void MarshalReferenceNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::Tracker& data) {
+    if(src.typeId==ScatterProjectileId) {
+        auto object=reinterpret_cast<ScatterProjectileNugget*>(base);
+        object->min=ParseFloat(Text(src,"ScatterMin","0"));object->max=ParseFloat(Text(src,"ScatterMax","0"));
+    } else if(src.typeId==OclId) {
+        auto object=reinterpret_cast<OclNugget*>(base);
+        if(src.attributes.count("WeaponOCL")) MarshalReference(data,&object->ocl,Text(src,"WeaponOCL",""));
+        object->target=ParseBoolean(Text(src,"TargetAsPrimaryObject","false"));
+    } else {
+        auto object=reinterpret_cast<ProjectileNugget*>(base);
+        if(src.attributes.count("WarheadTemplate")) MarshalReference(data,&object->warhead,Text(src,"WarheadTemplate",""));
+        if(src.attributes.count("ProjectileTemplate")) MarshalReference(data,&object->projectile,Text(src,"ProjectileTemplate",""));
+        object->slot=Enum(Text(src,"WeaponLaunchBoneSlotOverride","NO_WEAPON"),WeaponSlotType,5);
+        if(src.hasAttackOffset) {
+            data.Push(reinterpret_cast<void**>(&object->offset),12,1);
+            const char* names[]={"x","y","z"};
+            for(unsigned j=0;j<3;++j) {auto it=src.attackOffset.find(names[j]);object->offset[j]=ParseFloat(it==src.attackOffset.end()?"0.0":it->second);}
+            data.Pop();
+        }
+        object->veterans.count=static_cast<U32>(src.veterans.size());
+        if(object->veterans.count) {
+            data.Push(reinterpret_cast<void**>(&object->veterans.values),8,object->veterans.count);
+            for(U32 j=0;j<object->veterans.count;++j) {
+                const auto& attrs=src.veterans[j].attributes;auto& dst=object->veterans.values[j];
+                auto level=attrs.find("VeterancyLevel");if(level!=attrs.end()) dst.level=Enum(level->second,VeterancyLevel,2);
+                auto ref=attrs.find("ProjectileTemplate");if(ref!=attrs.end()) MarshalReference(data,&dst.projectile,ref->second);
+            }
+            data.Pop();
+        }
+        if(src.hasBarrel) {data.Push(reinterpret_cast<void**>(&object->barrel),4,1);*object->barrel=ParseSigned(src.barrel);data.Pop();}
+    }
+    MarshalBase(src,*base,data);base->type=src.typeId;
+}
+void TokenReferenceNugget(BaseNugget* base,void** table,Relo::Tracker& tokens) {
+    bool projectile=base->type==ProjectileId,scatter=base->type==ScatterProjectileId;
+    auto t=static_cast<Procedure*>(tokens.Push(table,12,projectile?8:4));
+    t[0].name=1;t[0].type=3351432196u;TokenBase(*base,&t[0].offset,tokens);
+    if(!projectile) {
+        t[1].name=scatter?1711669554u:3121636592u;t[1].type=scatter?1683514611u:1122298321u;
+        t[2].name=scatter?3876912366u:2837807479u;t[2].type=scatter?1683514611u:2011428087u;
+        Member(base,40,t[1],tokens);Member(base,44,t[2],tokens);
+    } else {
+        const U32 names[]={4053034122u,3441092437u,3557541540u,4234379302u,3738739198u,2647151577u};
+        const U32 types[]={3494305058u,3215691893u,407422281u,691437687u,1099265352u,602296504u};
+        for(unsigned j=0;j<6;++j) {t[j+1].name=names[j];t[j+1].type=types[j];}
+        Member(base,40,t[1],tokens);Member(base,44,t[2],tokens);Member(base,48,t[3],tokens);
+        auto object=reinterpret_cast<ProjectileNugget*>(base);
+        if(object->offset) tokens.BookmarkMemberOffset(object->offset,&t[4].offset);
+        auto entries=static_cast<Procedure*>(tokens.Push(&t[5].offset,12,object->veterans.count+1));
+        entries[0].name=1820487795u;entries[0].type=1564774360u;Member(&object->veterans,0,entries[0],tokens);
+        for(U32 j=0;j<object->veterans.count;++j) {
+            entries[j+1].name=2974916843u;
+            auto item=static_cast<Procedure*>(tokens.Push(&entries[j+1].offset,12,3));
+            item[0].name=4221549935u;item[0].type=4221549935u;Member(object->veterans.values+j,0,item[0],tokens);
+            item[1].name=3441092437u;item[1].type=3215691893u;Member(object->veterans.values+j,4,item[1],tokens);tokens.Pop();
+        }
+        tokens.Pop();
+        if(object->barrel) tokens.BookmarkMemberOffset(object->barrel,&t[6].offset);
+    }
+    tokens.Pop();
+}
+void EndianReferenceNugget(BaseNugget* base) {
+    if(base->type==ScatterProjectileId) {auto object=reinterpret_cast<ScatterProjectileNugget*>(base);Swap(&object->min);Swap(&object->max);}
+    if(base->type==ProjectileId) {
+        auto object=reinterpret_cast<ProjectileNugget*>(base);Swap(&object->slot);
+        if(object->offset) for(unsigned j=0;j<3;++j) Swap(object->offset+j);
+        for(U32 j=0;j<object->veterans.count;++j) Swap(&object->veterans.values[j].level);
+        Swap(&object->veterans.count);if(object->barrel) Swap(object->barrel);
+    }
+    EndianBase(*base);
+}
 void Validate(const WeaponNuggetInput& input) {
+    if(ReferenceFamily(input.typeId)) {ValidateReference(input);return;}
+    if(input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()) throw std::invalid_argument("Projectile child on Damage family");
     if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId && input.typeId!=SpawnId && input.typeId!=FireId && input.typeId!=ContainedId)
         throw std::invalid_argument("Unrecovered WeaponEffectNugget TypeId");
     if(input.hasDamageFilter && input.typeId!=ContainedId) throw std::invalid_argument("DamageObjectFilter belongs to DamageContainedNugget");
@@ -465,6 +566,10 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     data.Push(reinterpret_cast<void**>(&list->elements),4,list->count);
     for(U32 i=0;i<list->count;++i) {
         const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
+        if(ReferenceFamily(src.typeId)) {
+            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],src.typeId==ProjectileId?68:48,1));
+            MarshalReferenceNugget(src,base,data);data.Pop();continue;
+        }
         auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],src.typeId==ContainedId?272:src.typeId==SpawnId?220:src.typeId==FireId?164:dot?164:percent?156:line?176:152,1));
         if(src.typeId==ContainedId) {
             auto derived=reinterpret_cast<ContainedNugget*>(object);derived->maxUnits=static_cast<U32>(ParseSigned(Text(src,"MaxUnitsToDamage","100")));
@@ -510,7 +615,8 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
         entries[i+1].name=2974916843u;
         auto object=static_cast<DamageNugget*>(list->elements[i]);
         auto poly=static_cast<Procedure*>(tokens.Push(&entries[i+1].offset,12,1));poly->name=2;poly->type=object->base.type;
-        if(object->base.type==DamageId) TokenDamage(*object,&poly->offset,tokens);
+        if(ReferenceFamily(object->base.type)) TokenReferenceNugget(reinterpret_cast<BaseNugget*>(object),&poly->offset,tokens);
+        else if(object->base.type==DamageId) TokenDamage(*object,&poly->offset,tokens);
         else {
             bool dot=object->base.type==DotId;bool percent=object->base.type==LeechPercentId || object->base.type==LeechHealthId;bool line=object->base.type==LineId;
             auto derived=static_cast<Procedure*>(tokens.Push(&poly->offset,12,object->base.type==ContainedId?5:object->base.type==SpawnId?5:object->base.type==FireId?6:dot?5:percent?3:line?8:2));
@@ -559,6 +665,7 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
 void EndianWeaponNuggets(WeaponNuggetList* list) {
     for(U32 i=0;i<list->count;++i) {
         auto object=static_cast<DamageNugget*>(list->elements[i]);
+        if(ReferenceFamily(object->base.type)) {EndianReferenceNugget(reinterpret_cast<BaseNugget*>(object));continue;}
         if(object->base.type==DotId) { auto dot=reinterpret_cast<DotNugget*>(object);Swap(&dot->interval);Swap(&dot->duration); }
         if(object->base.type==LeechPercentId || object->base.type==LeechHealthId) Swap(&reinterpret_cast<PercentNugget*>(object)->percentage);
         if(object->base.type==LineId) for(unsigned at=152;at<=168;at+=4) Swap(reinterpret_cast<unsigned char*>(object)+at);
@@ -576,3 +683,4 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+

@@ -66,6 +66,16 @@ public ref class WeaponCompiler abstract sealed {
         }
         return result;
     }
+    static std::map<std::string,std::string> ReadProjectileAttributes(XPathNavigator^ node) {
+        std::map<std::string,std::string> result;auto attrs=node->Clone();
+        if(attrs->MoveToFirstAttribute()) do {
+            if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if(attrs->NamespaceURI->Length != 0) throw gcnew NotSupportedException("Namespaced projectile attributes are unsupported.");
+            result[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+        } while(attrs->MoveToNextAttribute());
+        if(node->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested projectile helper children are unsupported.");
+        return result;
+    }
     static Native::WeaponNuggetInput ReadNugget(XPathNavigator^ node) {
         Native::WeaponNuggetInput result;auto attrs=node->Clone();
         if(attrs->MoveToFirstAttribute()) do {
@@ -83,6 +93,13 @@ public ref class WeaponCompiler abstract sealed {
                 auto filter=ReadFilter(child);if(!result.hasSpecialFilter) {result.specialFilter=filter;result.hasSpecialFilter=true;}
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
             else if(child->LocalName == "ForbiddenUpgrade") result.forbiddenUpgrades.push_back(ReadUpgrade(child));
+            else if(child->LocalName == "AttackOffset") {
+                auto value=ReadProjectileAttributes(child);if(!result.hasAttackOffset) {result.attackOffset=value;result.hasAttackOffset=true;}
+            } else if(child->LocalName == "SpecificBarrelOverride") {
+                auto value=ReadUpgrade(child);if(!result.hasBarrel) {result.barrel=value;result.hasBarrel=true;}
+            } else if(child->LocalName == "VeterancyProjectiles") {
+                Native::VeteranProjectileInput value;value.attributes=ReadProjectileAttributes(child);result.veterans.push_back(value);
+            }
             else if(child->LocalName == "DamageScalarDetails") result.damageScalars.push_back(ReadScalar(child));
             else if(child->LocalName == "SpawnTemplate") {
                 auto value=ReadUpgrade(child);if(!result.hasSpawnTemplate) {result.spawnTemplate=value;result.hasSpawnTemplate=true;}
@@ -240,3 +257,4 @@ public:
     }
 };
 }
+

@@ -884,6 +884,7 @@ unsafe partial class WeaponOracle
                 Filters(plugin, platform);
                 Scatter(plugin, platform);
                 Nuggets(plugin, platform);
+                ProjectileNuggets(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
@@ -1680,3 +1681,4 @@ unsafe partial class WeaponOracle
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+
