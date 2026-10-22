@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 $out = Join-Path $env:RUNNER_TEMP 'ra3-recovered-primitives'
 New-Item -ItemType Directory -Force $out, recovery/evidence/primitives | Out-Null
-cl /nologo /clr /LD /MD /EHsc /Od /Fo"$out/" /Fe"$out/Recovered.Primitives.dll" recovery/src/Native/DataInitializers.cpp recovery/src/Bridge/PrimitiveInitializers.cpp
+cl /nologo /clr /LD /MD /EHa /Od /Fo"$out/" /Fe"$out/Recovered.Primitives.dll" recovery/src/Native/DataInitializers.cpp recovery/src/Bridge/PrimitiveInitializers.cpp
 if ($LASTEXITCODE -ne 0) { throw 'Recovered C++/CLI component build failed' }
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /unsafe /platform:x86 /r:"$out/Recovered.Primitives.dll" /r:System.Core.dll /out:"$out/PrimitiveOracle.exe" recovery/tests/PrimitiveOracle.cs
