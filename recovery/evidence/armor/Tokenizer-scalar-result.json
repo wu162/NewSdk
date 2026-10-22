@@ -1,5 +1,5 @@
 {
-  "succeeded": false,
-  "sourceCommit": "c25febc3623de0818c8f3d2881574b3867ec8b86",
-  "exitCode": 1
+  "exitCode": 0,
+  "succeeded": true,
+  "sourceCommit": "a443f6df71859ba981c3de701409f57cc0568b17"
 }
