@@ -16,6 +16,6 @@ foreach ($mode in @('Od', 'O2')) {
     if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/oracle-$mode.txt" -Tail 20; throw "Weapon differential failed: $mode" }
     Get-Content "$evidence/oracle-$mode.txt" -Tail 1
 }
-@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; scope = '89 root attributes and four RangeDuration blocks; remaining optional fields absent and lists empty'; modes = @('Od','O2') } | ConvertTo-Json | Set-Content "$evidence/validation.json"
+@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; scope = '89 root attributes, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo; remaining fields absent and lists empty'; modes = @('Od','O2') } | ConvertTo-Json | Set-Content "$evidence/validation.json"
 
 

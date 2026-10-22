@@ -144,10 +144,20 @@ class WeaponOracle
             }
             Test(plugin, name+"/first-duplicate", "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Optional'><"+name+" Sound='a\\2'/><"+name+" Sound='b\\99'/></WeaponTemplate>", platform, -1); ++fixtures;
         }
-        foreach (string attrs in new[] { "", "IsAntiGarrisonWeapon='true'", "UseLongLockOnTimeCode='TRUE'", "IsAntiGarrisonWeapon='yes' UseLongLockOnTimeCode='0'", "MaxSpeedOfTarget=''", "MaxSpeedOfTarget='-0'", "MaxSpeedOfTarget='2d1'", "MaxSpeedOfTarget='1e-40'", "MaxSpeedOfTarget='1e40'", "MaxSpeedOfTarget='0x1p2'", "UseAsWarheadForDamageCalculation=''", @"UseAsWarheadForDamageCalculation='w\9'", @"IsAntiGarrisonWeapon='1' MaxSpeedOfTarget='-33.5' UseLongLockOnTimeCode='t' UseAsWarheadForDamageCalculation='w\-2'" }) {
+        foreach (string attrs in new[] { "", "IsAntiGarrisonWeapon='true'", "UseLongLockOnTimeCode='TRUE'", "IsAntiGarrisonWeapon='yes' UseLongLockOnTimeCode='0'", "MaxSpeedOfTarget=''", "MaxSpeedOfTarget='-0'", "MaxSpeedOfTarget='2d1'", "MaxSpeedOfTarget='1e-40'", "MaxSpeedOfTarget='1e40'", "MaxSpeedOfTarget='0x1p2'", "UseAsWarheadForDamageCalculations=''", @"UseAsWarheadForDamageCalculations='w\9'", @"IsAntiGarrisonWeapon='1' MaxSpeedOfTarget='-33.5' UseLongLockOnTimeCode='t' UseAsWarheadForDamageCalculations='w\-2'" }) {
             Test(plugin, "AI/"+attrs, WithChild("WeaponAiHintInfo", attrs), platform, -1); ++fixtures;
         }
-        string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Combined'><WeaponAiHintInfo MaxSpeedOfTarget='33.5' IsAntiGarrisonWeapon='true' UseLongLockOnTimeCode='true' UseAsWarheadForDamageCalculation='w\\3'/><ClipReloadTime MinSeconds='4s'/><OverrideVoiceEnterStateAttackSound Sound='s\\2' EvaEvent='e\\3'/><FiringDuration MinSeconds='2s'/><OverrideVoiceAttackSound Sound='s\\0' EvaEvent='e\\1'/><CoolDownDelayBetweenShots MinSeconds='3s'/><PreAttackDelay MinSeconds='1s'/></WeaponTemplate>";
+        string[] blockNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime", "WeaponAiHintInfo" };
+        for (int mask = 0; mask < 128; ++mask) {
+            string mixed = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Powerset' PreferredTargetBone='Turret' FireSound='s\\9' FireFX='f\\17' PreAttackWeapon='w\\33'>";
+            for (int i = 6; i >= 0; --i) if ((mask & (1 << i)) != 0) {
+                string attrs = i < 2 ? "Sound='s\\2' EvaEvent='e\\3'" : i < 6 ? "MinSeconds='1s' MaxSeconds='2s'" : "MaxSpeedOfTarget='3.5' UseAsWarheadForDamageCalculations='w\\7'";
+                mixed += "<"+blockNames[i]+" "+attrs+"/>";
+            }
+            mixed += "</WeaponTemplate>";
+            Test(plugin, "optional-powerset-and-resources/"+mask, mixed, platform, -1); ++fixtures;
+        }
+        string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Combined'><WeaponAiHintInfo MaxSpeedOfTarget='33.5' IsAntiGarrisonWeapon='true' UseLongLockOnTimeCode='true' UseAsWarheadForDamageCalculations='w\\3'/><ClipReloadTime MinSeconds='4s'/><OverrideVoiceEnterStateAttackSound Sound='s\\2' EvaEvent='e\\3'/><FiringDuration MinSeconds='2s'/><OverrideVoiceAttackSound Sound='s\\0' EvaEvent='e\\1'/><CoolDownDelayBetweenShots MinSeconds='3s'/><PreAttackDelay MinSeconds='1s'/></WeaponTemplate>";
         Test(plugin, "all-optional-blocks-reverse-order", xml, platform, -1); ++fixtures;
         var doc = new XmlDocument(); doc.LoadXml(xml);
         var ns = new XmlNamespaceManager(doc.NameTable); ns.AddNamespace("ea", AssetNamespace);

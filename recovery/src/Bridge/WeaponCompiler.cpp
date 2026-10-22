@@ -21,7 +21,7 @@ public:
         auto children = adapter->Children(nullptr);
         array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
         array<String^>^ soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
-        array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculation" };
+        array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
         while (children->MoveNext()) {
             auto child = children->Current;
             bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;

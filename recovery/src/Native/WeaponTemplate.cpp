@@ -248,7 +248,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (!sound && entry.first != "WeaponAiHintInfo") throw std::invalid_argument("Unsupported optional block: " + entry.first);
         for (const auto& attr : entry.second) {
             bool known = sound ? (attr.first == "Sound" || attr.first == "EvaEvent") :
-                (attr.first == "IsAntiGarrisonWeapon" || attr.first == "MaxSpeedOfTarget" || attr.first == "UseLongLockOnTimeCode" || attr.first == "UseAsWarheadForDamageCalculation");
+                (attr.first == "IsAntiGarrisonWeapon" || attr.first == "MaxSpeedOfTarget" || attr.first == "UseLongLockOnTimeCode" || attr.first == "UseAsWarheadForDamageCalculations");
             if (!known) throw std::invalid_argument("Unsupported optional attribute: " + attr.first);
         }
     }
@@ -337,7 +337,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         ai->longLock = lock != attrs.end() && ParseBoolean(lock->second);
         auto speed = attrs.find("MaxSpeedOfTarget");
         if (speed != attrs.end()) { maxSpeed = static_cast<float*>(data.Push(&ai->maxSpeed, 4, 1)); *maxSpeed = ParseFloat(speed->second); data.Pop(); }
-        auto warhead = attrs.find("UseAsWarheadForDamageCalculation");
+        auto warhead = attrs.find("UseAsWarheadForDamageCalculations");
         if (warhead != attrs.end()) MarshalReference(data, &ai->warhead, warhead->second);
         data.Pop();
     }
