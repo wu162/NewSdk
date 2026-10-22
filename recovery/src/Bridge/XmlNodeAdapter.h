@@ -7,7 +7,7 @@ using namespace System::Xml::XPath;
 namespace Recovered {
 // Owned managed navigators replace the original 16-byte gcroot Node wrapper.
 // Preserve namespace-qualified child selection and unqualified attributes.
-ref class XmlNodeAdapter sealed {
+public ref class XmlNodeAdapter sealed {
     XPathNavigator^ navigator_;
     XmlNamespaceManager^ namespaces_;
     String^ default_;
@@ -29,8 +29,9 @@ public:
     }
     XmlNodeAdapter^ Child(String^ name, String^ fallback) {
         if (navigator_ != nullptr) {
-            XPathNavigator^ child = navigator_->SelectSingleNode("ea:" + name, namespaces_);
-            if (child != nullptr) return gcnew XmlNodeAdapter(child, namespaces_);
+            XPathNavigator^ child = navigator_->Clone();
+            if (child->MoveToChild(name, child->NamespaceURI))
+                return gcnew XmlNodeAdapter(child, namespaces_);
         }
         return fallback == nullptr ? nullptr : gcnew XmlNodeAdapter(fallback);
     }
