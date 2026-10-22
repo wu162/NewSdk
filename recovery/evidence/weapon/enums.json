@@ -4196,5 +4196,799 @@
       "name": "WORLD_BUILDER",
       "value": 214
     }
+  ],
+  "PartitionManagerDistTestType": [
+    {
+      "name": "CENTER_2D",
+      "value": 0
+    },
+    {
+      "name": "CENTER_3D",
+      "value": 2
+    },
+    {
+      "name": "CIRCLE",
+      "value": 1
+    },
+    {
+      "name": "EXTENTS_3D",
+      "value": 4
+    },
+    {
+      "name": "SPHERE",
+      "value": 3
+    }
+  ],
+  "DamageType": [
+    {
+      "name": "ALL",
+      "value": 38
+    },
+    {
+      "name": "AUTO_CANNON",
+      "value": 29
+    },
+    {
+      "name": "BLAST",
+      "value": 10
+    },
+    {
+      "name": "CANNON",
+      "value": 22
+    },
+    {
+      "name": "CONCUSSIVE",
+      "value": 32
+    },
+    {
+      "name": "CRUSH",
+      "value": 1
+    },
+    {
+      "name": "EXPLOSIVE",
+      "value": 31
+    },
+    {
+      "name": "FALLING",
+      "value": 9
+    },
+    {
+      "name": "FIRE",
+      "value": 19
+    },
+    {
+      "name": "FLAK",
+      "value": 33
+    },
+    {
+      "name": "FLAME",
+      "value": 4
+    },
+    {
+      "name": "FORCE",
+      "value": 0
+    },
+    {
+      "name": "GRENADE",
+      "value": 23
+    },
+    {
+      "name": "GUN",
+      "value": 21
+    },
+    {
+      "name": "HEALING",
+      "value": 5
+    },
+    {
+      "name": "IMPACT",
+      "value": 30
+    },
+    {
+      "name": "KI",
+      "value": 36
+    },
+    {
+      "name": "LASER",
+      "value": 17
+    },
+    {
+      "name": "LOGICAL_FIRE",
+      "value": 15
+    },
+    {
+      "name": "MAGIC",
+      "value": 13
+    },
+    {
+      "name": "MELEE",
+      "value": 28
+    },
+    {
+      "name": "MINE",
+      "value": 25
+    },
+    {
+      "name": "PASSENGER",
+      "value": 12
+    },
+    {
+      "name": "PENALTY",
+      "value": 8
+    },
+    {
+      "name": "PIERCE",
+      "value": 3
+    },
+    {
+      "name": "PLASMA",
+      "value": 18
+    },
+    {
+      "name": "POISON",
+      "value": 16
+    },
+    {
+      "name": "PRISM",
+      "value": 34
+    },
+    {
+      "name": "RADIATION",
+      "value": 37
+    },
+    {
+      "name": "REFLECTED",
+      "value": 11
+    },
+    {
+      "name": "ROCKET",
+      "value": 20
+    },
+    {
+      "name": "SLASH",
+      "value": 2
+    },
+    {
+      "name": "SNIPER",
+      "value": 24
+    },
+    {
+      "name": "STORM_SHIELD",
+      "value": 27
+    },
+    {
+      "name": "TESLA",
+      "value": 35
+    },
+    {
+      "name": "TIBERIUM",
+      "value": 26
+    },
+    {
+      "name": "UNDEFINED",
+      "value": 14
+    },
+    {
+      "name": "UNRESISTABLE",
+      "value": 6
+    },
+    {
+      "name": "WATER",
+      "value": 7
+    }
+  ],
+  "DeathType": [
+    {
+      "name": "ALL",
+      "value": 33
+    },
+    {
+      "name": "BITTEN",
+      "value": 24
+    },
+    {
+      "name": "BURNED",
+      "value": 3
+    },
+    {
+      "name": "CATALYST",
+      "value": 19
+    },
+    {
+      "name": "CRUSHED",
+      "value": 2
+    },
+    {
+      "name": "DETONATED",
+      "value": 10
+    },
+    {
+      "name": "ELECTROCUTED",
+      "value": 11
+    },
+    {
+      "name": "EXPLODED",
+      "value": 4
+    },
+    {
+      "name": "EXTRA_1",
+      "value": 26
+    },
+    {
+      "name": "EXTRA_2",
+      "value": 27
+    },
+    {
+      "name": "EXTRA_3",
+      "value": 28
+    },
+    {
+      "name": "EXTRA_4",
+      "value": 29
+    },
+    {
+      "name": "EXTRA_5",
+      "value": 30
+    },
+    {
+      "name": "EXTRA_6",
+      "value": 31
+    },
+    {
+      "name": "EXTRA_7",
+      "value": 32
+    },
+    {
+      "name": "FADED",
+      "value": 17
+    },
+    {
+      "name": "FLOODED",
+      "value": 7
+    },
+    {
+      "name": "INTERNAL_DESTRUCTION",
+      "value": 21
+    },
+    {
+      "name": "IRRADIATED",
+      "value": 22
+    },
+    {
+      "name": "KNOCKBACK",
+      "value": 15
+    },
+    {
+      "name": "LASERED",
+      "value": 9
+    },
+    {
+      "name": "MAULED",
+      "value": 23
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "NORMAL",
+      "value": 1
+    },
+    {
+      "name": "POISONED",
+      "value": 5
+    },
+    {
+      "name": "POISONED_BETA",
+      "value": 14
+    },
+    {
+      "name": "PRODUCTION_CANCELLED",
+      "value": 25
+    },
+    {
+      "name": "SHATTERED",
+      "value": 20
+    },
+    {
+      "name": "SLAUGHTERED",
+      "value": 18
+    },
+    {
+      "name": "SPLATTED",
+      "value": 13
+    },
+    {
+      "name": "STABBED",
+      "value": 12
+    },
+    {
+      "name": "SUICIDED",
+      "value": 8
+    },
+    {
+      "name": "SUPERNATURAL",
+      "value": 16
+    },
+    {
+      "name": "TOPPLED",
+      "value": 6
+    }
+  ],
+  "DamageFXType": [
+    {
+      "name": "ALIEN_BOMB",
+      "value": 35
+    },
+    {
+      "name": "ALIEN_BUZZER",
+      "value": 32
+    },
+    {
+      "name": "ALIEN_CANNON",
+      "value": 27
+    },
+    {
+      "name": "ALIEN_DISINTEGRATOR",
+      "value": 39
+    },
+    {
+      "name": "ALIEN_GRENADE",
+      "value": 33
+    },
+    {
+      "name": "ALIEN_ION",
+      "value": 36
+    },
+    {
+      "name": "ALIEN_LASER",
+      "value": 30
+    },
+    {
+      "name": "ALIEN_MACHINEGUN",
+      "value": 31
+    },
+    {
+      "name": "ALIEN_MINE",
+      "value": 29
+    },
+    {
+      "name": "ALIEN_PLASMADISK",
+      "value": 28
+    },
+    {
+      "name": "ALIEN_RAILGUN",
+      "value": 38
+    },
+    {
+      "name": "ALIEN_SONIC",
+      "value": 37
+    },
+    {
+      "name": "ALIEN_TIOXIN",
+      "value": 34
+    },
+    {
+      "name": "ALLIED_ATHENA",
+      "value": 74
+    },
+    {
+      "name": "ALLIED_BOMB",
+      "value": 76
+    },
+    {
+      "name": "ALLIED_BOMBLVL1",
+      "value": 77
+    },
+    {
+      "name": "ALLIED_BOMBLVL2",
+      "value": 78
+    },
+    {
+      "name": "ALLIED_BOMBLVL3",
+      "value": 79
+    },
+    {
+      "name": "ALLIED_CANNON",
+      "value": 63
+    },
+    {
+      "name": "ALLIED_CHAINGUN",
+      "value": 71
+    },
+    {
+      "name": "ALLIED_DOG",
+      "value": 70
+    },
+    {
+      "name": "ALLIED_FIGHTER",
+      "value": 72
+    },
+    {
+      "name": "ALLIED_INFANTRYMISSILE",
+      "value": 66
+    },
+    {
+      "name": "ALLIED_MISSILE",
+      "value": 65
+    },
+    {
+      "name": "ALLIED_PAINTER",
+      "value": 69
+    },
+    {
+      "name": "ALLIED_PARTICLE",
+      "value": 75
+    },
+    {
+      "name": "ALLIED_PHALANX",
+      "value": 80
+    },
+    {
+      "name": "ALLIED_PRESISIONBOMB",
+      "value": 82
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNON",
+      "value": 84
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNONVET1",
+      "value": 85
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNONVET2",
+      "value": 86
+    },
+    {
+      "name": "ALLIED_PRISM",
+      "value": 83
+    },
+    {
+      "name": "ALLIED_SAM",
+      "value": 67
+    },
+    {
+      "name": "ALLIED_SCRAMBLER",
+      "value": 81
+    },
+    {
+      "name": "ALLIED_SHOTGUN",
+      "value": 64
+    },
+    {
+      "name": "ALLIED_SONIC",
+      "value": 73
+    },
+    {
+      "name": "ALLIED_TANYA",
+      "value": 68
+    },
+    {
+      "name": "CLUBBING",
+      "value": 110
+    },
+    {
+      "name": "DEFAULT",
+      "value": -1
+    },
+    {
+      "name": "GDI_BOMB",
+      "value": 8
+    },
+    {
+      "name": "GDI_CANNON",
+      "value": 0
+    },
+    {
+      "name": "GDI_FLAMETHROWER",
+      "value": 7
+    },
+    {
+      "name": "GDI_GRENADE",
+      "value": 6
+    },
+    {
+      "name": "GDI_ION",
+      "value": 11
+    },
+    {
+      "name": "GDI_LASER",
+      "value": 3
+    },
+    {
+      "name": "GDI_MACHINEGUN",
+      "value": 4
+    },
+    {
+      "name": "GDI_MINE",
+      "value": 2
+    },
+    {
+      "name": "GDI_MISSILE",
+      "value": 1
+    },
+    {
+      "name": "GDI_RAILGUN",
+      "value": 10
+    },
+    {
+      "name": "GDI_RIFLE",
+      "value": 5
+    },
+    {
+      "name": "GDI_SHOCKWAVE",
+      "value": 12
+    },
+    {
+      "name": "GDI_SONIC",
+      "value": 9
+    },
+    {
+      "name": "GENERIC_FIRE",
+      "value": 108
+    },
+    {
+      "name": "JAPAN_AIRCRAFT",
+      "value": 102
+    },
+    {
+      "name": "JAPAN_AUTOCANNON",
+      "value": 96
+    },
+    {
+      "name": "JAPAN_BEAM",
+      "value": 100
+    },
+    {
+      "name": "JAPAN_BOMB",
+      "value": 97
+    },
+    {
+      "name": "JAPAN_BONZAI",
+      "value": 103
+    },
+    {
+      "name": "JAPAN_CANNON",
+      "value": 95
+    },
+    {
+      "name": "JAPAN_FORCE",
+      "value": 88
+    },
+    {
+      "name": "JAPAN_GUN",
+      "value": 89
+    },
+    {
+      "name": "JAPAN_KAMIKAZE",
+      "value": 104
+    },
+    {
+      "name": "JAPAN_MECHA",
+      "value": 91
+    },
+    {
+      "name": "JAPAN_MECHAMISSILE",
+      "value": 93
+    },
+    {
+      "name": "JAPAN_MECHARUSH",
+      "value": 92
+    },
+    {
+      "name": "JAPAN_MISSILE",
+      "value": 90
+    },
+    {
+      "name": "JAPAN_PLASMA",
+      "value": 99
+    },
+    {
+      "name": "JAPAN_PSIONIC",
+      "value": 101
+    },
+    {
+      "name": "JAPAN_ROCKET",
+      "value": 94
+    },
+    {
+      "name": "JAPAN_RUSH",
+      "value": 98
+    },
+    {
+      "name": "JAPAN_SHIRUKEN",
+      "value": 105
+    },
+    {
+      "name": "JAPAN_TORPEDO",
+      "value": 87
+    },
+    {
+      "name": "NEUTRAL_CANNON",
+      "value": 106
+    },
+    {
+      "name": "NOD_BOMB",
+      "value": 21
+    },
+    {
+      "name": "NOD_CANNON",
+      "value": 13
+    },
+    {
+      "name": "NOD_FLAMETHROWER",
+      "value": 20
+    },
+    {
+      "name": "NOD_GRENADE",
+      "value": 19
+    },
+    {
+      "name": "NOD_HALLUCINE",
+      "value": 26
+    },
+    {
+      "name": "NOD_ION",
+      "value": 24
+    },
+    {
+      "name": "NOD_LASER",
+      "value": 16
+    },
+    {
+      "name": "NOD_MACHINEGUN",
+      "value": 17
+    },
+    {
+      "name": "NOD_MINE",
+      "value": 15
+    },
+    {
+      "name": "NOD_MISSILE",
+      "value": 14
+    },
+    {
+      "name": "NOD_RAILGUN",
+      "value": 23
+    },
+    {
+      "name": "NOD_RIFLE",
+      "value": 18
+    },
+    {
+      "name": "NOD_SEED",
+      "value": 25
+    },
+    {
+      "name": "NOD_SONIC",
+      "value": 22
+    },
+    {
+      "name": "POISON",
+      "value": 109
+    },
+    {
+      "name": "RADIATION",
+      "value": 111
+    },
+    {
+      "name": "REFLECTED",
+      "value": 107
+    },
+    {
+      "name": "SOVIET_AK47",
+      "value": 45
+    },
+    {
+      "name": "SOVIET_BEAR",
+      "value": 54
+    },
+    {
+      "name": "SOVIET_BIGBOMB",
+      "value": 60
+    },
+    {
+      "name": "SOVIET_BOMB",
+      "value": 55
+    },
+    {
+      "name": "SOVIET_CANNON",
+      "value": 40
+    },
+    {
+      "name": "SOVIET_DEBRIS",
+      "value": 59
+    },
+    {
+      "name": "SOVIET_FLAK",
+      "value": 48
+    },
+    {
+      "name": "SOVIET_FLAKVET",
+      "value": 49
+    },
+    {
+      "name": "SOVIET_HARPOON",
+      "value": 42
+    },
+    {
+      "name": "SOVIET_IRONCURTAIN",
+      "value": 62
+    },
+    {
+      "name": "SOVIET_LASER",
+      "value": 44
+    },
+    {
+      "name": "SOVIET_LEECH",
+      "value": 41
+    },
+    {
+      "name": "SOVIET_MACHINEGUN",
+      "value": 46
+    },
+    {
+      "name": "SOVIET_MAGNETICBOMB",
+      "value": 52
+    },
+    {
+      "name": "SOVIET_MISSILE",
+      "value": 43
+    },
+    {
+      "name": "SOVIET_MOLOTOV",
+      "value": 50
+    },
+    {
+      "name": "SOVIET_ORBITAL",
+      "value": 56
+    },
+    {
+      "name": "SOVIET_ORBITAL2",
+      "value": 57
+    },
+    {
+      "name": "SOVIET_ORBITAL3",
+      "value": 58
+    },
+    {
+      "name": "SOVIET_REPAIR",
+      "value": 53
+    },
+    {
+      "name": "SOVIET_SNIPERRIFLE",
+      "value": 47
+    },
+    {
+      "name": "SOVIET_TESLA",
+      "value": 51
+    },
+    {
+      "name": "SOVIET_TORPEDO",
+      "value": 61
+    },
+    {
+      "name": "UNDEFINED",
+      "value": 112
+    }
+  ],
+  "DamageSubType": [
+    {
+      "name": "BECOME_UNDEAD",
+      "value": 1
+    },
+    {
+      "name": "NORMAL",
+      "value": 0
+    },
+    {
+      "name": "SELF",
+      "value": 2
+    },
+    {
+      "name": "UNDEFINED",
+      "value": 3
+    }
   ]
 }
