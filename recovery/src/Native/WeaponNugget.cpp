@@ -14,6 +14,7 @@ namespace Recovered { namespace Native {
 namespace {
 using U32 = std::uint32_t;
 constexpr U32 DamageId = 3237297817u, DotId = 4022030886u, GrapplingId = 1093138400u;
+constexpr U32 LeechPercentId = 921679887u, LeechHealthId = 4012276286u, LineId = 4021248832u;
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
     U32 type, partition; U32* status; U32* model;
@@ -29,10 +30,12 @@ struct DamageNugget {
     float drainMultiplier, speed; U32 eva, revealer, invalidStatus[7];
     ScalarList scalars; unsigned char flags[8];
 };
+struct LineNugget { DamageNugget damage; float angle, width, leadIn, leadOut, overshoot; unsigned char dynamicLength, padding[3]; };
+struct PercentNugget { DamageNugget damage; float percentage; };
 struct DotNugget { DamageNugget damage; float interval, duration; unsigned char removeIfHealed, padding[3]; };
 struct Procedure { U32 name, type; void* offset; };
 struct TokenKey { U32 name, type; };
-static_assert(sizeof(BaseNugget)==40 && sizeof(DamageNugget)==152 && sizeof(DotNugget)==164, "Original x86 nugget layouts");
+static_assert(sizeof(BaseNugget)==40 && sizeof(DamageNugget)==152 && sizeof(DotNugget)==164 && sizeof(PercentNugget)==156 && sizeof(LineNugget)==176, "Original x86 nugget layouts");
 static_assert(sizeof(ScalarInfo)==124 && offsetof(DamageNugget, scalars)==136 && offsetof(DamageNugget, flags)==144, "Original nested layouts");
 const TokenKey WeaponEffectNuggetTokens[] = {
     { 430981792u, 602296504u },
@@ -375,12 +378,14 @@ const Field damageFields[] = {
     {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
 };
 void Validate(const WeaponNuggetInput& input) {
-    if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId)
+    if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId)
         throw std::invalid_argument("Unrecovered WeaponEffectNugget TypeId");
     for(const auto& attr:input.attributes) {
         bool known=attr.first=="PartitionFilterTestType" || attr.first=="Radius" || attr.first=="ForbiddenTargetObjectStatus" || attr.first=="ForbiddenTargetModelCondition" || attr.first=="InvalidTargetStatus";
         for(const auto& field:damageFields) if(attr.first==field.name) known=true;
         if(input.typeId==DotId && (attr.first=="DamageInterval" || attr.first=="DamageDuration" || attr.first=="RemoveIfHealed")) known=true;
+        if((input.typeId==LeechPercentId && attr.first=="PercentMaxHealthToTake") || (input.typeId==LeechHealthId && attr.first=="PercentDamageToHeal")) known=true;
+        if(input.typeId==LineId && (attr.first=="OffsetAngle" || attr.first=="LineWidth" || attr.first=="LineLengthLeadIn" || attr.first=="LineLengthLeadOut" || attr.first=="UseDynamicLineLength" || attr.first=="OverShootDistance")) known=true;
         if(!known) throw std::invalid_argument("Unsupported damage nugget attribute: "+attr.first);
     }
 }
@@ -448,14 +453,24 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     if(!list->count) return;
     data.Push(reinterpret_cast<void**>(&list->elements),4,list->count);
     for(U32 i=0;i<list->count;++i) {
-        const auto& src=input[i];bool dot=src.typeId==DotId;
-        auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],dot?164:152,1));
+        const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
+        auto object=static_cast<DamageNugget*>(data.Push(&list->elements[i],dot?164:percent?156:line?176:152,1));
         if(dot) {
             auto derived=reinterpret_cast<DotNugget*>(object);
             if(src.attributes.count("DamageInterval")) derived->interval=InitializeTime(Text(src,"DamageInterval","").c_str());
             if(src.attributes.count("DamageDuration")) derived->duration=InitializeTime(Text(src,"DamageDuration","").c_str());
             derived->removeIfHealed=ParseBoolean(Text(src,"RemoveIfHealed","true"));
         }
+        if(line) {
+            auto derived=reinterpret_cast<LineNugget*>(object);
+            derived->angle=InitializeAngle(Text(src,"OffsetAngle","0d").c_str());
+            derived->width=ParseFloat(Text(src,"LineWidth","0"));
+            derived->leadIn=ParseFloat(Text(src,"LineLengthLeadIn","0"));
+            derived->leadOut=ParseFloat(Text(src,"LineLengthLeadOut","0"));
+            derived->overshoot=ParseFloat(Text(src,"OverShootDistance","0"));
+            derived->dynamicLength=ParseBoolean(Text(src,"UseDynamicLineLength","false"));
+        }
+        if(percent) reinterpret_cast<PercentNugget*>(object)->percentage=ParsePercentage(Text(src,src.typeId==LeechPercentId?"PercentMaxHealthToTake":"PercentDamageToHeal","100%"));
         MarshalDamage(src,*object,data);object->base.type=src.typeId;data.Pop();
     }
     data.Pop();
@@ -469,12 +484,24 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
         auto poly=static_cast<Procedure*>(tokens.Push(&entries[i+1].offset,12,1));poly->name=2;poly->type=object->base.type;
         if(object->base.type==DamageId) TokenDamage(*object,&poly->offset,tokens);
         else {
-            bool dot=object->base.type==DotId;
-            auto derived=static_cast<Procedure*>(tokens.Push(&poly->offset,12,dot?5:2));
+            bool dot=object->base.type==DotId;bool percent=object->base.type==LeechPercentId || object->base.type==LeechHealthId;bool line=object->base.type==LineId;
+            auto derived=static_cast<Procedure*>(tokens.Push(&poly->offset,12,dot?5:percent?3:line?8:2));
             derived[0].name=1;derived[0].type=DamageId;TokenDamage(*object,&derived[0].offset,tokens);
             if(dot) {
                 const U32 names[]={1244447716u,1828804499u,1329948426u};
                 for(unsigned j=0;j<3;++j) { derived[j+1].name=names[j];derived[j+1].type=j==2?2011428087u:2575722984u;Member(object,152+4*j,derived[j+1],tokens); }
+            }
+            if(line) {
+                const U32 names[]={4168427962u,1805140803u,1743148362u,564018997u,4070607831u,2533801744u};
+                const unsigned offsets[]={152,156,160,164,172,168};
+                for(unsigned j=0;j<6;++j) {
+                    derived[j+1].name=names[j];derived[j+1].type=j==0?1310124621u:j==4?2011428087u:1683514611u;
+                    Member(object,offsets[j],derived[j+1],tokens);
+                }
+            }
+            if(percent) {
+                derived[1].name=object->base.type==LeechPercentId?1407231226u:3760556672u;derived[1].type=1683514611u;
+                Member(object,152,derived[1],tokens);
             }
             tokens.Pop();
         }
@@ -486,6 +513,8 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
     for(U32 i=0;i<list->count;++i) {
         auto object=static_cast<DamageNugget*>(list->elements[i]);
         if(object->base.type==DotId) { auto dot=reinterpret_cast<DotNugget*>(object);Swap(&dot->interval);Swap(&dot->duration); }
+        if(object->base.type==LeechPercentId || object->base.type==LeechHealthId) Swap(&reinterpret_cast<PercentNugget*>(object)->percentage);
+        if(object->base.type==LineId) for(unsigned at=152;at<=168;at+=4) Swap(reinterpret_cast<unsigned char*>(object)+at);
         EndianDamage(*object);
     }
     Swap(&list->count);

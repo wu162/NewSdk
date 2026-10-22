@@ -31,6 +31,8 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Line and leech Marshal'; Start = 17219; End = 17343 }
+            @{ Name = 'Line and leech Tokenize'; Start = 79571; End = 79641 }
             @{ Name = 'WeaponEffectNugget common Marshal and endian'; Start = 15406; End = 15498 }
             @{ Name = 'Nugget polymorphic Marshal dispatch'; Start = 15499; End = 15623 }
             @{ Name = 'DamageNugget Marshal and endian'; Start = 16961; End = 17218 }
