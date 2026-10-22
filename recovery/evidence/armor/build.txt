@@ -1,1 +1,18 @@
-cl : Command line error D8016 : '/clr' and '/fp:strict' command-line options are incompatible
+Relocation.cpp
+ArmorTemplate.cpp
+ArmorCompiler.cpp
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(99): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(99): note: compiler replacing '*' with '^' to continue parsing
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(106): error C2371: 'IServiceProvider': redefinition; different basic types
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(52): note: see declaration of 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(123): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(123): note: compiler replacing '*' with '^' to continue parsing
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(251): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(251): note: compiler replacing '*' with '^' to continue parsing
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(261): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\servprov.h(261): note: compiler replacing '*' with '^' to continue parsing
+C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um\urlmon.h(7156): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um\urlmon.h(7156): note: compiler replacing '*' with '^' to continue parsing
+C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um\urlmon.h(7158): error C3699: '*': cannot use this indirection on type 'IServiceProvider'
+C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um\urlmon.h(7158): note: compiler replacing '*' with '^' to continue parsing
+Generating Code...
