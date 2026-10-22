@@ -115,10 +115,7 @@ Historical next scope (now completed by the stage below): begin WeaponTemplate u
 * Catalog/time-angle regression triggered by these source commits also passed:
   https://github.com/wu162/NewSdk/actions/runs/39761012116 . The existing workflow
   persists its result through ordinary commits; retain those concurrent commits.
-* The new Weapon workflow has only contents-read permission and uploads artifacts.
-  Automatic approval rejected a proposed persistent contents-write auto-push
-  workflow; a read-only alternative completed validation. Future sessions should
-  fetch its artifacts and commit reviewed evidence with the GitHub plugin.
+* User authorization update, 2026-10-22: the user explicitly permits workflow auto-push configuration. Weapon validation now has contents-write permission and automatically commits its scoped evidence files to recovery/compiler-source after an ordinary pull --rebase. No force-push is used. Evidence-only commits do not match its push path filters, preventing a self-trigger loop. Earlier automatic approval rejection applied before this explicit authorization and is no longer a pending permission requirement.
 * Known limits: 23 remaining non-scalar fields must be absent; all other child
   blocks, root reference/string attributes (including explicit empty values),
   unknown/namespaced attributes are rejected explicitly. Scalar/root success

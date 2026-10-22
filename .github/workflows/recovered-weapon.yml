@@ -9,7 +9,7 @@ on:
       - 'recovery/scripts/TestWeapon.ps1'
       - 'recovery/scripts/ExtractWeaponEvidence.py'
 permissions:
-  contents: read
+  contents: write
 jobs:
   differential:
     runs-on: windows-2022
@@ -33,6 +33,39 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestWeapon.ps1
+      - name: Persist validation evidence
+        if: always()
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $evidence = 'recovery/evidence/weapon'
+          $validationPath = "$evidence/validation.json"
+          $validation = Get-Content $validationPath -Raw | ConvertFrom-Json
+          if ($validation.sourceCommit -ne $env:GITHUB_SHA) {
+            Write-Host 'Validation did not start for this source; retaining artifact output without committing stale evidence.'
+            exit 0
+          }
+          $validation | Add-Member -Force NoteProperty runId ([long]$env:GITHUB_RUN_ID)
+          $validation | Add-Member -Force NoteProperty runUrl "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
+          $validation | ConvertTo-Json -Depth 10 | Set-Content $validationPath
+          $files = @(Get-ChildItem $evidence -File | Where-Object { $_.Extension -eq '.txt' -or $_.Name -eq 'validation.json' -or $_.Name -eq 'enums.json' })
+          $hashes = [ordered]@{}
+          foreach ($file in $files) { $hashes[$file.Name] = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+          $hashes | ConvertTo-Json | Set-Content "$evidence/log-sha256.json"
+          Compress-Archive -Path $files.FullName -DestinationPath "$evidence/oracle-logs.zip" -Force
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$evidence/validation.json" "$evidence/enums.json" "$evidence/log-sha256.json" "$evidence/oracle-logs.zip"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to stage evidence' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect staged evidence' }
+          git commit -m "recovery: record WeaponTemplate validation for $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to commit evidence' }
+          git pull --rebase origin recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence rebase failed; artifact remains available' }
+          git push origin HEAD:recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact remains available' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
