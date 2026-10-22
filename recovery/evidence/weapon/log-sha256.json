@@ -5,9 +5,16 @@
   "host-build-O2.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "host-build-Od.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "marshal.txt": "96cb965b78594ff38762d3f8dc5de82f6294a2615193d84cb9a36587053cabc4",
+  "nugget-sdk-host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "nugget-sdk-output.zip": "bd30d6670e7e97d194fafcc1ac15e66ae4f20bc47a66ed689e9ac1433359bc14",
+  "nugget-sdk-payloads.txt": "9089c4e2a8ec8cdedddaffbe593b7e58109d35bebb884d5d63a397122af62104",
+  "nugget-sdk-schema.txt": "541750c649fb6d82e9ab8a9affcf675dd60ba62949eef57714625fc84fac6b77",
+  "nugget-sdk-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "nugget-sdk-stdout.txt": "e4338aa57c707060328886440d17534bf585f4d5dc9f147eafeb19f66d8aeed3",
+  "nugget-sdk.json": "e6253e5874e65e563e2f62c235bb7d7714a458cee485c0d9cc7d880cc177be63",
   "oracle-O2.txt": "0915034ce5ab37d206d493951f696ad85eb00f71b2867c77ab316280f1e62e71",
   "oracle-Od.txt": "0915034ce5ab37d206d493951f696ad85eb00f71b2867c77ab316280f1e62e71",
   "resource-helpers.txt": "a6f4a08bb415855b2da2a4d4402cffe55b89df4b75898685f2785e1a1b85516a",
   "tokenize.txt": "c2cc58752f5e63f8a08a911727393d4dcec979421addcfec43f2924af0c1b6cb",
-  "validation.json": "89a9d36d36ad7bbb64b75d43cdf35dd147f3b67948d83f84025a133c09529d25"
+  "validation.json": "a9f92169f0e9311ac90b22a4db2ba1c974405a98b9833ec8467c5c325d1ae91c"
 }
