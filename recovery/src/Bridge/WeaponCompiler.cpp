@@ -39,7 +39,37 @@ public ref class WeaponCompiler abstract sealed {
         }
         return result;
     }
+    static Native::WeaponScatterInput ReadScatter(XPathNavigator^ node) {
+        Native::WeaponScatterInput result;
+        auto attrs = node->Clone();
+        if (attrs->MoveToFirstAttribute()) do {
+            if (attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if (attrs->NamespaceURI->Length != 0 || (attrs->LocalName != "Radius" && attrs->LocalName != "RequiredModelConditions"))
+                throw gcnew NotSupportedException("Unsupported ScatterRadiusVsType attribute: "+attrs->Name);
+            if (attrs->LocalName == "Radius") result.radius = marshal_as<std::string>(attrs->Value);
+            else result.modelConditions = marshal_as<std::string>(attrs->Value);
+        } while (attrs->MoveToNextAttribute());
+        auto children = node->SelectChildren(XPathNodeType::Element);
+        while (children->MoveNext()) {
+            auto child = children->Current;
+            if (child->NamespaceURI != node->NamespaceURI || child->LocalName != "Filter")
+                throw gcnew NotSupportedException("Unsupported ScatterRadiusVsType child: "+child->Name);
+            auto filter = ReadFilter(child);
+            if (!result.hasFilter) { result.filter = filter; result.hasFilter = true; }
+        }
+        return result;
+    }
 public:
+    static array<UInt32>^ MarshalModelCondition(String^ text, array<UInt32>^ initial) {
+        if (text == nullptr) throw gcnew ArgumentNullException("text");
+        if (initial == nullptr || initial->Length != 15) throw gcnew ArgumentException("ModelCondition requires fifteen words.", "initial");
+        std::uint32_t words[15];
+        for (int i = 0; i < 15; ++i) words[i] = initial[i];
+        Native::MarshalModelCondition(marshal_as<std::string>(text), words);
+        auto result = gcnew array<UInt32>(15);
+        for (int i = 0; i < 15; ++i) result[i] = words[i];
+        return result;
+    }
     // Direct inline helper, including accumulation into a previously populated mask.
     static array<UInt32>^ MarshalObjectStatus(String^ text, array<UInt32>^ initial) {
         if (text == nullptr) throw gcnew ArgumentNullException("text");
@@ -60,8 +90,12 @@ public:
         array<String^>^ soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
         array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
         std::map<std::string, Native::ObjectFilterInput> filters;
+        std::vector<Native::WeaponScatterInput> scatter;
         while (children->MoveNext()) {
             auto child = children->Current;
+            if (child->LocalName == "ScatterRadiusVsType" && child->NamespaceURI == node->NamespaceURI) {
+                scatter.push_back(ReadScatter(child)); continue;
+            }
             bool filter = child->LocalName == "SurpriseAttackObjectFilter" || child->LocalName == "CombinedAttackObjectFilter" || child->LocalName == "HitStoredObjectFilter";
             if (filter && child->NamespaceURI == node->NamespaceURI) {
                 auto input = ReadFilter(child); auto name = marshal_as<std::string>(child->LocalName);
@@ -118,7 +152,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, filters, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, filters, scatter, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);
@@ -135,5 +169,3 @@ public:
     }
 };
 }
-
-

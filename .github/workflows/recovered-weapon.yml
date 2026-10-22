@@ -31,6 +31,12 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'ScatterRadiusType Marshal'; Start = 15370; End = 15410 }
+            @{ Name = 'ScatterRadius list Marshal'; Start = 53635; End = 53676 }
+            @{ Name = 'ScatterRadius endian'; Start = 53831; End = 53880 }
+            @{ Name = 'ModelCondition text parser'; Start = 67323; End = 67447 }
+            @{ Name = 'ScatterRadius Tokenize'; Start = 78584; End = 78606 }
+            @{ Name = 'ScatterRadius list Tokenize'; Start = 99207; End = 99233 }
             @{ Name = 'ObjectFilter Marshal and endian'; Start = 13601; End = 13696 }
             @{ Name = 'ObjectFilter Tokenize'; Start = 77370; End = 77440 }
             @{ Name = 'KindOf and relationship bitsets'; Start = 66947; End = 67190 }
@@ -115,5 +121,3 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
-
-

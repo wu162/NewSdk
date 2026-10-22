@@ -9,7 +9,7 @@ using System.Xml;
 using BinaryAssetBuilder.Core;
 using Recovered;
 
-unsafe class WeaponOracle
+unsafe partial class WeaponOracle
 {
     const string AssetNamespace = "uri:ea.com:eala:asset";
     static int comparisons;
@@ -878,9 +878,11 @@ unsafe class WeaponOracle
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
             DirectStatus(assembly);
+            DirectModel(assembly);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
                 Filters(plugin, platform);
+                Scatter(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
@@ -1655,9 +1657,10 @@ unsafe class WeaponOracle
 
 
 
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ScatterRadiusVsType/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier Unknown='1'/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier><Unknown/></IncompatibleAttributeModifier></WeaponTemplate>");
+            foreach(string body in new[] {"<ScatterRadiusVsType Unknown='1'/>","<ScatterRadiusVsType xmlns:x='urn:other' x:Radius='1'/>","<ScatterRadiusVsType><Unknown/></ScatterRadiusVsType>","<ScatterRadiusVsType><Filter Unknown='1'/></ScatterRadiusVsType>","<ScatterRadiusVsType><Filter><IncludeThing Unknown='1'/></Filter></ScatterRadiusVsType>","<ScatterRadiusVsType><Filter xmlns='other'/></ScatterRadiusVsType>"})
+                Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'>"+body+"</WeaponTemplate>");
             Reject(Weapon("UnknownField='1'"));
             Reject("<WeaponTemplate xmlns='" + AssetNamespace + "' id='Reject'><Unknown/></WeaponTemplate>");
             foreach (string name in new[] { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound", "WeaponAiHintInfo" }) {
@@ -1672,10 +1675,8 @@ unsafe class WeaponOracle
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><IncludeThing Unknown='1'/></"+name+"></WeaponTemplate>");
             }
-            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons + " directModelComparisons=" + directModelComparisons);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
-
-

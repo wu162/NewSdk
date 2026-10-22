@@ -227,7 +227,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
-    const std::map<std::string, ObjectFilterInput>& filters, bool bigEndian) {
+    const std::map<std::string, ObjectFilterInput>& filters,
+    const std::vector<WeaponScatterInput>& scatter, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
     for (const auto& duration : durations) {
         bool known = false;
@@ -350,6 +351,20 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         bool known = false; for (const char* name : filterNames) if (filter.first == name) known = true;
         if (!known) throw std::invalid_argument("Unsupported WeaponTemplate filter: "+filter.first);
     }
+    // Scatter elements are inline 176-byte structures; absent Filter stays zero.
+    struct ScatterRadius { float radius; U32 conditions[15]; ObjectFilter filter; };
+    static_assert(sizeof(ScatterRadius) == 176, "Original ScatterRadiusType layout");
+    ScatterRadius* scatterBlocks = nullptr;
+    *reinterpret_cast<U32*>(root->bytes+276) = static_cast<U32>(scatter.size());
+    if (!scatter.empty()) {
+        scatterBlocks = static_cast<ScatterRadius*>(data.Push(reinterpret_cast<void**>(root->bytes+280), 176, static_cast<U32>(scatter.size())));
+        for (unsigned i = 0; i < scatter.size(); ++i) {
+            scatterBlocks[i].radius = ParseFloat(scatter[i].radius);
+            MarshalModelCondition(scatter[i].modelConditions, scatterBlocks[i].conditions);
+            if (scatter[i].hasFilter) MarshalObjectFilter(scatter[i].filter, &scatterBlocks[i].filter, data);
+        }
+        data.Pop();
+    }
     // Final Marshal allocation in the original: repeated prepared references.
     U32* modifiers = nullptr;
     *reinterpret_cast<U32*>(root->bytes+284) = static_cast<U32>(incompatibleModifiers.size());
@@ -398,13 +413,25 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         } else if (field.token == WeaponToken::Member) {
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
         } else if (field.token == WeaponToken::List) {
-            unsigned count = field.offset == 284 ? static_cast<unsigned>(incompatibleModifiers.size()) : 0;
+            unsigned count = field.offset == 284 ? static_cast<unsigned>(incompatibleModifiers.size()) :
+                field.offset == 276 ? static_cast<unsigned>(scatter.size()) : 0;
             Procedure* list = static_cast<Procedure*>(tokens.Push(&table[i].offset, sizeof(Procedure), count+1));
             list->name = 1820487795u; list->type = 1564774360u;
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &list->offset);
             for (unsigned index = 0; index < count; ++index) {
                 list[index+1].name = 2974916843u; list[index+1].type = 0;
-                tokens.BookmarkMemberOffset(modifiers+index, &list[index+1].offset);
+                if (field.offset == 284) tokens.BookmarkMemberOffset(modifiers+index, &list[index+1].offset);
+                else {
+                    auto nested = static_cast<Procedure*>(tokens.Push(&list[index+1].offset, 12, 4));
+                    nested[0].name = 1328662213u; nested[0].type = 1683514611u;
+                    nested[1].name = 1022003432u; nested[1].type = 1742454729u;
+                    nested[2].name = static_cast<U32>(-2055623642); nested[2].type = static_cast<U32>(-462511182);
+                    tokens.BookmarkMemberOffset(&scatterBlocks[index].radius, &nested[0].offset);
+                    tokens.BookmarkMemberOffset(scatterBlocks[index].conditions, &nested[1].offset);
+                    // Filter tokenization is unconditional, even if Filter was absent.
+                    TokenizeObjectFilter(&scatterBlocks[index].filter, &nested[2].offset, tokens);
+                    tokens.Pop();
+                }
             }
             tokens.Pop();
         }
@@ -418,6 +445,11 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         for (const auto& block : referenceBlocks) if (block.first == 136 || block.first == 140)
             for (unsigned i = 0; i < 7; ++i) Swap(static_cast<U32*>(block.second)+i);
         for (auto block : filterBlocks) if (block) EndianObjectFilter(block);
+        for (unsigned i = 0; i < scatter.size(); ++i) {
+            Swap(&scatterBlocks[i].radius);
+            for (unsigned word = 0; word < 15; ++word) Swap(scatterBlocks[i].conditions+word);
+            EndianObjectFilter(&scatterBlocks[i].filter);
+        }
         if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }
@@ -436,5 +468,3 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
-

@@ -17,12 +17,16 @@ struct WeaponField {
 const WeaponField* WeaponFields();
 unsigned WeaponFieldCount();
 using WeaponOptionalInput = std::map<std::string, std::string>;
+struct WeaponScatterInput {
+    std::string radius = "0.0", modelConditions;
+    bool hasFilter = false;
+    ObjectFilterInput filter;
+};
 struct WeaponDurationInput { std::string minSeconds, maxSeconds; };
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
-    const std::map<std::string, ObjectFilterInput>& filters, bool bigEndian);
+    const std::map<std::string, ObjectFilterInput>& filters,
+    const std::vector<WeaponScatterInput>& scatter, bool bigEndian);
 }}
-
-
