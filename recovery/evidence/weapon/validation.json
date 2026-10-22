@@ -3,14 +3,9 @@
     "Od",
     "O2"
   ],
+  "sourceCommit": "6a2d873fb6a66da9e705dcf52f9889075273b831",
   "scope": "77 root attributes and four RangeDuration blocks; other optional fields absent and lists empty",
   "succeeded": true,
-  "sourceCommit": "5e29fb4263547cdce546883b2c763cfda9434805",
-  "runId": 39761190464,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39761190464",
-  "conclusion": "success",
-  "fixturesPerMode": 3128,
-  "bufferComparisonsPerMode": 9384,
-  "rejectionsPerMode": 29,
-  "totalBufferComparisons": 18768
+  "runId": 39763083098,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39763083098"
 }
