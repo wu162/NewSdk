@@ -1,6 +1,6 @@
 {
-  "succeeded": true,
-  "sourceCommit": "33e479960aeb3bfb5b42f1aaab9e8bcac214dbc6",
   "scope": "components only; SDK compiler binaries unchanged",
-  "status": "Armor and scalars passed Od and O2; Node passed against both original DLLs"
+  "status": "Armor and scalars passed Od and O2; Node passed against both original DLLs",
+  "succeeded": true,
+  "sourceCommit": "4dc7ab49b2f7df14a13f52f3fae8662c6f0d5050"
 }
