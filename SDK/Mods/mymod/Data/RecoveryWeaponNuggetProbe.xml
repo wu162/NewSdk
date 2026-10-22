@@ -130,4 +130,105 @@
       </DamageContainedNugget>
     </Nuggets>
   </WeaponTemplate>
+  <!-- Batched non-Damage family: references are characterized separately by direct ProcessInstance tests. -->
+  <WeaponTemplate id="RecoveryNugget_Projectile" AttackRange="110">
+    <Nuggets>
+      <ProjectileNugget id="Probe_Projectile" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" WeaponLaunchBoneSlotOverride='SECONDARY_WEAPON'>
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <AttackOffset x='1.5' y='-2.25' z='3.75'/><VeterancyProjectiles VeterancyLevel='ELITE'/><VeterancyProjectiles VeterancyLevel='HEROIC'/><SpecificBarrelOverride>2</SpecificBarrelOverride>
+      </ProjectileNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_ScatterProjectile" AttackRange="111">
+    <Nuggets>
+      <ScatterProjectileNugget id="Probe_ScatterProjectile" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" ScatterMin='2.5' ScatterMax='17.25'>
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </ScatterProjectileNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_OCL" AttackRange="112">
+    <Nuggets>
+      <WeaponOCLNugget id="Probe_OCL" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" TargetAsPrimaryObject='true'>
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </WeaponOCLNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Seed" AttackRange="113">
+    <Nuggets>
+      <SeedTiberiumNugget id="Probe_Seed" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" TargetAsPrimaryObject='true' FieldAmount='23.5' SpawnedInFieldBonus='7.25'>
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </SeedTiberiumNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_SpecialPower" AttackRange="114">
+    <Nuggets>
+      <SpecialPowerNugget id="Probe_SpecialPower" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </SpecialPowerNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Inform" AttackRange="115">
+    <Nuggets>
+      <InformTargetNugget id="Probe_Inform" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" MinTimeToImpactFudgeFactor='0.5' MaxTimeToImpactFudgeFactor='1.75'>
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </InformTargetNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_ContainedAttack" AttackRange="116">
+    <Nuggets>
+      <ContainedObjectAttackNugget id="Probe_ContainedAttack" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </ContainedObjectAttackNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_SlavesAttack" AttackRange="117">
+    <Nuggets>
+      <SlavesAttackNugget id="Probe_SlavesAttack" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </SlavesAttackNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Report" AttackRange="118">
+    <Nuggets>
+      <ReportWeaponFiredStatNugget id="Probe_Report" Radius="11" PartitionFilterTestType="SPHERE"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        
+      </ReportWeaponFiredStatNugget>
+    </Nuggets>
+  </WeaponTemplate>
 </AssetDeclaration>
+

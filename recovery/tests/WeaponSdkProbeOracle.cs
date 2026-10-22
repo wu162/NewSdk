@@ -26,11 +26,13 @@ class WeaponSdkProbeOracle
                     settings.ValidationEventHandler+=delegate(object sender,ValidationEventArgs e) {throw new Exception(name+": "+e.Message);};
                     using(var reader=XmlReader.Create(Path.Combine(sdk,"Mods/mymod/Data/"+name),settings)) while(reader.Read()) {}
                 }
-                Console.WriteLine("PASS complete CnC3Types.xsd validates mymod entry and all nine raw Nugget probes, including required DOT fields and ScalarInfo.Filter.");return 0;
+                Console.WriteLine("PASS complete CnC3Types.xsd validates mymod entry and all eighteen raw Nugget probes, including required DOT fields and ScalarInfo.Filter.");return 0;
             }
             var types=new Dictionary<string,uint> {
                 {"DamageNugget",3237297817u},{"DOTNugget",4022030886u},{"GrapplingHookNugget",1093138400u},
-                {"LeechPercentMaxHealthDamageNugget",921679887u},{"LeechHealthDamageNugget",4012276286u},{"LineDamageNugget",4021248832u},{"DamageAndSpawnNugget",3266020104u},{"FireOnObjectsNugget",2014632688u},{"DamageContainedNugget",2459653016u}
+                {"LeechPercentMaxHealthDamageNugget",921679887u},{"LeechHealthDamageNugget",4012276286u},{"LineDamageNugget",4021248832u},{"DamageAndSpawnNugget",3266020104u},{"FireOnObjectsNugget",2014632688u},{"DamageContainedNugget",2459653016u},
+                {"ProjectileNugget",2278014412u},{"ScatterProjectileNugget",4131529406u},{"WeaponOCLNugget",3322313791u},{"SeedTiberiumNugget",1757028425u},
+                {"SpecialPowerNugget",1542018985u},{"InformTargetNugget",1115743736u},{"ContainedObjectAttackNugget",609705483u},{"SlavesAttackNugget",3111574559u},{"ReportWeaponFiredStatNugget",1675169590u}
             };
             byte[] compiled=File.ReadAllBytes(args[2]);string evidence=args[3];Directory.CreateDirectory(evidence);
             var source=new XmlDocument();source.Load(file);var ns=new XmlNamespaceManager(source.NameTable);ns.AddNamespace("ea",AssetNamespace);int count=0;
@@ -49,8 +51,9 @@ class WeaponSdkProbeOracle
                 xml.Save(Path.Combine(evidence,id+".component-input.xml"));
                 Console.WriteLine("PASS original SDK payload {0}: offset={1}, bytes={2}, recovered component data identical",id,offset,buffers.InstanceData.Length);++count;
             }
-            if(count!=9) throw new Exception("Expected all nine SDK probes");
-            Console.WriteLine("PASS nine schema-valid mymod assets compiled by original SDK and matched recovered component payloads. Weapon SDK routing remains original; not a recovered Weapon plugin build.");return 0;
+            if(count!=18) throw new Exception("Expected all eighteen SDK probes");
+            Console.WriteLine("PASS eighteen schema-valid mymod assets compiled by original SDK and matched recovered component payloads. Weapon SDK routing remains original; not a recovered Weapon plugin build.");return 0;
         } catch(Exception error) {Console.Error.WriteLine(error);return 1;}
     }
 }
+

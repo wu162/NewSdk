@@ -34,6 +34,13 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'InformTarget Marshal and endian'; Start = 15867; End = 15920 }
+            @{ Name = 'InformTarget Tokenize'; Start = 78915; End = 78937 }
+            @{ Name = 'SpecialPower and base-only allocations'; Start = 52732; End = 52773 }
+            @{ Name = 'SlavesAttack allocation'; Start = 52851; End = 52862 }
+            @{ Name = 'ReportWeaponFiredStat allocation'; Start = 52905; End = 52916 }
+            @{ Name = 'SpecialPower Tokenize'; Start = 78974; End = 78990 }
+            @{ Name = 'Base-only Tokenize wrappers'; Start = 98857; End = 98985 }
             @{ Name = 'SeedTiberium Marshal and endian'; Start = 16688; End = 16735 }
             @{ Name = 'SeedTiberium Tokenize'; Start = 79302; End = 79324 }
             @{ Name = 'Projectile Marshal and endian'; Start = 16865; End = 16960 }
