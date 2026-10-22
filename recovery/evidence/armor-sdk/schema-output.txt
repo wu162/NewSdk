@@ -1,0 +1,12 @@
+System.Exception: mytank.xml: The 'uri:ea.com:eala:asset:instance:joinAction' attribute is not declared.
+   at ArmorSdkOracle.<>c__DisplayClass2.<Validate>b__0(Object sender, ValidationEventArgs e)
+   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(XmlSchemaValidationException e, XmlSeverityType severity)
+   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(String code, String arg)
+   at System.Xml.Schema.XmlSchemaValidator.ValidateAttribute(String lName, String ns, XmlValueGetter attributeValueGetter, String attributeStringValue, XmlSchemaInfo schemaInfo)
+   at System.Xml.Schema.XmlSchemaValidator.ValidateAttribute(String localName, String namespaceUri, XmlValueGetter attributeValue, XmlSchemaInfo schemaInfo)
+   at System.Xml.XsdValidatingReader.ValidateAttributes()
+   at System.Xml.XsdValidatingReader.ProcessElementEvent()
+   at System.Xml.XsdValidatingReader.ProcessReaderEvent()
+   at System.Xml.XsdValidatingReader.Read()
+   at ArmorSdkOracle.Validate(String sdk, String report)
+   at ArmorSdkOracle.Main(String[] args)
