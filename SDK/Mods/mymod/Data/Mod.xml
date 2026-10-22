@@ -13,5 +13,6 @@
 		<Include type="all" source="CommandData.xml" />
 		<Include type="all" source="mytank.xml" />
 		<Include type="all" source="RecoveryArmorProbe.xml" />
+		<Include type="all" source="RecoveryWeaponNuggetProbe.xml" />
       </Includes>
 </AssetDeclaration>

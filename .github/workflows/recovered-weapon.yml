@@ -10,6 +10,9 @@ on:
       - 'recovery/src/**/ObjectFilter*'
       - 'recovery/tests/Weapon*'
       - 'recovery/scripts/TestWeapon.ps1'
+      - 'recovery/scripts/TestWeaponSdkProbe.ps1'
+      - 'SDK/Mods/mymod/Data/RecoveryWeaponNuggetProbe.xml'
+      - 'SDK/Mods/mymod/Data/Mod.xml'
       - 'recovery/scripts/ExtractWeaponEvidence.py'
 permissions:
   contents: write
@@ -88,6 +91,9 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestWeapon.ps1
+      - name: Validate schema-valid mymod Nugget probes through original SDK
+        shell: pwsh
+        run: ./recovery/scripts/TestWeaponSdkProbe.ps1
       - name: Persist validation evidence
         if: always()
         shell: pwsh
@@ -103,7 +109,7 @@ jobs:
           $validation | Add-Member -Force NoteProperty runId ([long]$env:GITHUB_RUN_ID)
           $validation | Add-Member -Force NoteProperty runUrl "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
           $validation | ConvertTo-Json -Depth 10 | Set-Content $validationPath
-          $files = @(Get-ChildItem $evidence -File | Where-Object { $_.Extension -eq '.txt' -or $_.Name -eq 'validation.json' -or $_.Name -eq 'enums.json' })
+          $files = @(Get-ChildItem $evidence -File | Where-Object { $_.Extension -eq '.txt' -or $_.Name -eq 'validation.json' -or $_.Name -eq 'enums.json' -or $_.Name -eq 'nugget-sdk.json' -or $_.Name -eq 'nugget-sdk-output.zip' })
           $hashes = [ordered]@{}
           foreach ($file in $files) { $hashes[$file.Name] = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
           $hashes | ConvertTo-Json | Set-Content "$evidence/log-sha256.json"

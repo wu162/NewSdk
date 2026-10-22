@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Legal SDK source. BAB injects polymorphic TypeId metadata during preprocessing. -->
+  <WeaponTemplate id="RecoveryNugget_Damage" AttackRange="101">
+    <Nuggets>
+      <DamageNugget id="Probe_Damage" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </DamageNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_DOT" AttackRange="102">
+    <Nuggets>
+      <DOTNugget id="Probe_DOT" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" DamageInterval="250ms" DamageDuration="3s" RemoveIfHealed="false">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </DOTNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Grappling" AttackRange="103">
+    <Nuggets>
+      <GrapplingHookNugget id="Probe_Grappling" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" >
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </GrapplingHookNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_LeechPercent" AttackRange="104">
+    <Nuggets>
+      <LeechPercentMaxHealthDamageNugget id="Probe_LeechPercent" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" PercentMaxHealthToTake="12.5%">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </LeechPercentMaxHealthDamageNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_LeechHealth" AttackRange="105">
+    <Nuggets>
+      <LeechHealthDamageNugget id="Probe_LeechHealth" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" PercentDamageToHeal="37.5%">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </LeechHealthDamageNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Line" AttackRange="106">
+    <Nuggets>
+      <LineDamageNugget id="Probe_Line" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" OffsetAngle="30d" LineWidth="8" LineLengthLeadIn="1" LineLengthLeadOut="2" UseDynamicLineLength="true" OverShootDistance="3">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+      </LineDamageNugget>
+    </Nuggets>
+  </WeaponTemplate>
+</AssetDeclaration>
