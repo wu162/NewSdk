@@ -84,6 +84,11 @@ public ref class WeaponCompiler abstract sealed {
             } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
             else if(child->LocalName == "ForbiddenUpgrade") result.forbiddenUpgrades.push_back(ReadUpgrade(child));
             else if(child->LocalName == "DamageScalarDetails") result.damageScalars.push_back(ReadScalar(child));
+            else if(child->LocalName == "SpawnTemplate") {
+                auto value=ReadUpgrade(child);if(!result.hasSpawnTemplate) {result.spawnTemplate=value;result.hasSpawnTemplate=true;}
+            } else if(child->LocalName == "Filter") {
+                auto value=ReadFilter(child);if(!result.hasTargetFilter) {result.targetFilter=value;result.hasTargetFilter=true;}
+            }
             else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
         }
         return result;

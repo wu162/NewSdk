@@ -85,4 +85,34 @@
       </LineDamageNugget>
     </Nuggets>
   </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Spawn" AttackRange="107">
+    <Nuggets>
+      <DamageAndSpawnNugget id="Probe_Spawn" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" SpawnProbability="0.5" SpawnedModelConditionFlags="DAMAGED">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+        <SpawnTemplate>mytank</SpawnTemplate>
+      </DamageAndSpawnNugget>
+    </Nuggets>
+  </WeaponTemplate>
+  <WeaponTemplate id="RecoveryNugget_Fire" AttackRange="108">
+    <Nuggets>
+      <FireOnObjectsNugget id="Probe_Fire" Damage="27.5" DamageType="CANNON" Radius="9"
+          ForbiddenTargetObjectStatus="UNATTACKABLE" ForbiddenTargetModelCondition="DAMAGED" FireOnVictimObject="true" VictimMustBeAlive="false">
+        <SpecialObjectFilter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></SpecialObjectFilter>
+        <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        <ForbiddenUpgrade>Upgrade_AlliedTech2</ForbiddenUpgrade>
+        <DamageScalarDetails Scalar="25%">
+          <Filter Rule="ANY" Include="AIRCRAFT" StatusBitFlags="UNATTACKABLE" />
+          <RequiredUpgrade>Upgrade_AlliedTech2</RequiredUpgrade>
+        </DamageScalarDetails>
+        <Filter Rule="ANY" Include="VEHICLE"><IncludeThing>mytank</IncludeThing></Filter>
+      </FireOnObjectsNugget>
+    </Nuggets>
+  </WeaponTemplate>
 </AssetDeclaration>

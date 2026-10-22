@@ -26,11 +26,11 @@ class WeaponSdkProbeOracle
                     settings.ValidationEventHandler+=delegate(object sender,ValidationEventArgs e) {throw new Exception(name+": "+e.Message);};
                     using(var reader=XmlReader.Create(Path.Combine(sdk,"Mods/mymod/Data/"+name),settings)) while(reader.Read()) {}
                 }
-                Console.WriteLine("PASS complete CnC3Types.xsd validates mymod entry and all six raw Nugget probes, including required DOT fields and ScalarInfo.Filter.");return 0;
+                Console.WriteLine("PASS complete CnC3Types.xsd validates mymod entry and all eight raw Nugget probes, including required DOT fields and ScalarInfo.Filter.");return 0;
             }
             var types=new Dictionary<string,uint> {
                 {"DamageNugget",3237297817u},{"DOTNugget",4022030886u},{"GrapplingHookNugget",1093138400u},
-                {"LeechPercentMaxHealthDamageNugget",921679887u},{"LeechHealthDamageNugget",4012276286u},{"LineDamageNugget",4021248832u}
+                {"LeechPercentMaxHealthDamageNugget",921679887u},{"LeechHealthDamageNugget",4012276286u},{"LineDamageNugget",4021248832u},{"DamageAndSpawnNugget",3266020104u},{"FireOnObjectsNugget",2014632688u}
             };
             byte[] compiled=File.ReadAllBytes(args[2]);string evidence=args[3];Directory.CreateDirectory(evidence);
             var source=new XmlDocument();source.Load(file);var ns=new XmlNamespaceManager(source.NameTable);ns.AddNamespace("ea",AssetNamespace);int count=0;
@@ -49,8 +49,8 @@ class WeaponSdkProbeOracle
                 xml.Save(Path.Combine(evidence,id+".component-input.xml"));
                 Console.WriteLine("PASS original SDK payload {0}: offset={1}, bytes={2}, recovered component data identical",id,offset,buffers.InstanceData.Length);++count;
             }
-            if(count!=6) throw new Exception("Expected all six SDK probes");
-            Console.WriteLine("PASS six schema-valid mymod assets compiled by original SDK and matched recovered component payloads. Weapon SDK routing remains original; not a recovered Weapon plugin build.");return 0;
+            if(count!=8) throw new Exception("Expected all eight SDK probes");
+            Console.WriteLine("PASS eight schema-valid mymod assets compiled by original SDK and matched recovered component payloads. Weapon SDK routing remains original; not a recovered Weapon plugin build.");return 0;
         } catch(Exception error) {Console.Error.WriteLine(error);return 1;}
     }
 }

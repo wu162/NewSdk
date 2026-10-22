@@ -6,8 +6,8 @@ using Recovered;
 
 unsafe partial class WeaponOracle
 {
-    static readonly string[] NuggetNames={"DamageNugget","DOTNugget","GrapplingHookNugget","LeechPercentMaxHealthDamageNugget","LeechHealthDamageNugget","LineDamageNugget"};
-    static readonly uint[] NuggetIds={3237297817u,4022030886u,1093138400u,921679887u,4012276286u,4021248832u};
+    static readonly string[] NuggetNames={"DamageNugget","DOTNugget","GrapplingHookNugget","LeechPercentMaxHealthDamageNugget","LeechHealthDamageNugget","LineDamageNugget","DamageAndSpawnNugget","FireOnObjectsNugget"};
+    static readonly uint[] NuggetIds={3237297817u,4022030886u,1093138400u,921679887u,4012276286u,4021248832u,3266020104u,2014632688u};
     static string NuggetXml(string content,string attributes) {
         return "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Nuggets' "+attributes+"><Nuggets>"+content+"</Nuggets></WeaponTemplate>";
     }
@@ -42,19 +42,21 @@ unsafe partial class WeaponOracle
         var xml=new XmlDocument();xml.LoadXml(NuggetXml(Nugget(kind,"",""),""));
         var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",AssetNamespace);
         var result=WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);bool big=platform!=TargetPlatform.Win32;
-        int[] extras={0,60,24,36,36,96},sizes={152,164,152,156,156,176};
+        int[] extras={0,60,24,36,36,96,60,72},sizes={152,164,152,156,156,176,220,164};
         int tokens=1812+extras[kind],data=tokens+332;
         if(result.InstanceData.Length!=tokens+332+sizes[kind] || Word(result.InstanceData,tokens+328,big)!=data ||
             Word(result.InstanceData,data,big)!=NuggetIds[kind] || Word(result.InstanceData,1284,big)!=2 || Word(result.InstanceData,1288,big)!=NuggetIds[kind])
             throw new Exception("Independent derived nugget size/tag: "+kind);
         if((kind==3 || kind==4) && Word(result.InstanceData,data+152,big)!=0x3f800000u) throw new Exception("Leech percentage default");
         if(kind==1 && (Word(result.InstanceData,data+152,big)!=0 || Word(result.InstanceData,data+156,big)!=0 || result.InstanceData[data+160]!=1)) throw new Exception("DOT default extra fields");
+        if(kind==6 && Word(result.InstanceData,data+152,big)!=0x3f800000u) throw new Exception("Spawn probability default");
+        if(kind==7 && (Word(result.InstanceData,data+152,big)!=0 || Word(result.InstanceData,data+156,big)!=0 || result.InstanceData[data+160]!=0 || result.InstanceData[data+161]!=1)) throw new Exception("FireOnObjects defaults");
         if(kind==5) for(int at=152;at<176;at+=4) if(Word(result.InstanceData,data+at,big)!=0) throw new Exception("Line default fields/padding");
     }
     static void Nuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
         DamageLayout(plugin,platform,0);
         foreach(int count in new[] {1,2,3,7,16,17,31,32,33,64,127,128,129,255,256,257}) DamageLayout(plugin,platform,count);
-        foreach(int kind in new[] {0,1,2,3,4,5}) {
+        foreach(int kind in new[] {0,1,2,3,4,5,6,7}) {
             DerivedNuggetLayout(platform,kind);
             NuggetFixture(plugin,platform,"defaults-"+kind,Nugget(kind,"",""),"");
             foreach(string field in new[] {"Damage","DamageTaperOff","MinRadius","DamageMaxHeight","DamageMaxHeightAboveTerrain","FlankingBonus","FlankedScalar","DrainLifeMultiplier","DamageSpeed","Radius"})
@@ -100,6 +102,17 @@ unsafe partial class WeaponOracle
         foreach(string field in new[] {"OffsetAngle","LineWidth","LineLengthLeadIn","LineLengthLeadOut","OverShootDistance","UseDynamicLineLength"})
             foreach(string value in new[] {"", "0", "-17.5", "90d", "0.5r", "2d1", "1e40", "true", "false", "garbage"})
                 NuggetFixture(plugin,platform,"line-"+field+"-"+value,Nugget(5,Attribute(field,value),""),"");
+        foreach(string value in new[] {"", "-0", "-25.5", "2d1", "1e40", "garbage"}) NuggetFixture(plugin,platform,"spawn-probability-"+value,Nugget(6,Attribute("SpawnProbability",value),"<SpawnTemplate>mytank</SpawnTemplate>"),"");
+        foreach(string value in new[] {"", "INVALID", "ALL", "-ALL TOPPLED", "TOPPLED -TOPPLED", "unknown", "SUCKED_UP_HIGH"}) NuggetFixture(plugin,platform,"spawn-model-"+value,Nugget(6,Attribute("SpawnedModelConditionFlags",value),"<SpawnTemplate>mytank</SpawnTemplate>"),"");
+        foreach(string value in new[] {"", "mytank", "MYTANK", "Obj & <test>", "aé", "中文", new string('x',257)}) NuggetFixture(plugin,platform,"spawn-object-"+value,Nugget(6,"","<SpawnTemplate>"+System.Security.SecurityElement.Escape(value)+"</SpawnTemplate>"),"");
+        NuggetFixture(plugin,platform,"spawn-first-child",Nugget(6,"","<SpawnTemplate>first</SpawnTemplate><SpawnTemplate>second</SpawnTemplate>"),"");
+        foreach(string field in new[] {"Weapon", "FireOnVictimObject", "VictimMustBeAlive"}) foreach(string value in new[] {"", "false", "true", "1", "0", "w", "w\\0", "w\\7", "w\\-1", "w\\2147483648", "w\\-2147483649"}) NuggetFixture(plugin,platform,"fire-"+field+"-"+value,Nugget(7,Attribute(field,value),"<Filter/><SpecialObjectFilter/>"),"");
+        foreach(int count in new[] {0,1,2,7,17,33,129,257}) {
+            string child="<SpecialObjectFilter StatusBitFlags='ALL'/><DamageScalarDetails><Filter StatusBitFlags='ALL'/><RequiredUpgrade>Up</RequiredUpgrade></DamageScalarDetails><Filter StatusBitFlags='ALL' StatusBitFlagsExclude='ALL'>";
+            for(int i=0;i<count;++i) child+="<IncludeThing>Obj_"+i+"</IncludeThing><ExcludeThing>Other_"+i+"</ExcludeThing>";
+            child+="</Filter>";NuggetFixture(plugin,platform,"fire-filter-lists-"+count,Nugget(7,"ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL' Weapon='w\\9'",child),"");
+        }
+        NuggetFixture(plugin,platform,"fire-first-filter",Nugget(7,"","<Filter Rule='ANY'/><Filter Rule='NONE'/>"),"");
         foreach(string id in new[] {"3237297817","0xc0f54699","+3237297817","3237297817tail"}) {
             // Hex fixture is supplied from the exact decimal constant below.
             string value=id=="0xc0f54699"?"0x"+NuggetIds[0].ToString("x"):id;
@@ -110,11 +123,11 @@ unsafe partial class WeaponOracle
             string xml="<WeaponTemplate xmlns='"+AssetNamespace+"' id='MixedNuggets' FireSound='s\\0' RequiredFiringObjectStatus='ALL' PreferredTargetBone='bone'>";
             for(int i=6;i>=0;--i) if((mask&(1<<i))!=0) xml+="<"+blocks[i]+"/>";
             xml+="<ScatterRadiusVsType Radius='3' RequiredModelConditions='ALL'><Filter StatusBitFlags='AFLAME'><IncludeThing>Obj</IncludeThing></Filter></ScatterRadiusVsType><HitStoredObjectFilter StatusBitFlags='ALL'/><Nuggets>";
-            for(int kind=0;kind<6;++kind) xml+=Nugget(kind,"Damage='27.5' ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL'","<SpecialObjectFilter Include='AIRCRAFT'/><RequiredUpgrade>BaseUp</RequiredUpgrade><ForbiddenUpgrade>OtherUp</ForbiddenUpgrade><DamageScalarDetails Scalar='25%'><Filter StatusBitFlags='ALL'/><RequiredUpgrade>ScalarUp</RequiredUpgrade></DamageScalarDetails>");
+            for(int kind=0;kind<8;++kind) xml+=Nugget(kind,"Damage='27.5' ForbiddenTargetObjectStatus='ALL' ForbiddenTargetModelCondition='ALL'","<SpecialObjectFilter Include='AIRCRAFT'/><RequiredUpgrade>BaseUp</RequiredUpgrade><ForbiddenUpgrade>OtherUp</ForbiddenUpgrade><DamageScalarDetails Scalar='25%'><Filter StatusBitFlags='ALL'/><RequiredUpgrade>ScalarUp</RequiredUpgrade></DamageScalarDetails>");
             xml+="</Nuggets><IncompatibleAttributeModifier>m\\1</IncompatibleAttributeModifier></WeaponTemplate>";
             Test(plugin,"nugget-mixed-"+mask,xml,platform,-1);++fixtures;
         }
-        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2014632688u,2278014412u,2459653016u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3266020104u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
+        foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2278014412u,2459653016u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
         foreach(string content in new[] {"<DamageNugget/>","<DamageNugget TypeId='0'/>","<DamageNugget TypeId='576040660'/>","<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
     }
 }
