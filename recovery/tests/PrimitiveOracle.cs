@@ -19,8 +19,8 @@ class PrimitiveOracle
             if (candidates.Length != 1) throw new Exception("Expected exactly one original initializer for " + tag + ", got " + candidates.Length);
             var method = candidates[0];
             string[] values = tag == "TimeTag"
-                ? new[] { "0", "1", "250ms", "1.25s", "-4ms", "123.456789ms", " 2s", "3S", "junk", "2s1ms", "1e-6s" }
-                : new[] { "0", "1", "90d", "180d", "3.1415927r", "-45d", "0.123456789d", " 2r", "3D", "junk", "2d1r" };
+                ? new[] { "0", "1", "250ms", "1.25s", "-4ms", "123.456789ms", " 2s", "3S", "junk", "2s1ms", "1e-6s", "2d1s", "2D1", "2d-1s" }
+                : new[] { "0", "1", "90d", "180d", "3.1415927r", "-45d", "0.123456789d", " 2r", "3D", "junk", "2d1r", "2d-1r", "2d+1r" };
             foreach (var text in values)
             {
                 float expected = 0;
