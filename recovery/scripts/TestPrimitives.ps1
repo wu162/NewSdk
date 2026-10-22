@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 $out = Join-Path $env:RUNNER_TEMP 'ra3-recovered-primitives'
 New-Item -ItemType Directory -Force $out, recovery/evidence/primitives | Out-Null
-cl /nologo /clr /LD /MD /EHa /Od /Fo"$out/" /Fe"$out/Recovered.Primitives.dll" recovery/src/Native/DataInitializers.cpp recovery/src/Bridge/PrimitiveInitializers.cpp
+cl /nologo /clr /LD /MD /EHa /Od /Fo"$out/" /Fe"$out/Recovered.Primitives.dll" recovery/src/Native/DataInitializers.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Bridge/PrimitiveInitializers.cpp
 if ($LASTEXITCODE -ne 0) { throw 'Recovered C++/CLI component build failed' }
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 Copy-Item SDK/tools/*.dll $out
@@ -21,3 +21,4 @@ $original = (Resolve-Path 'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').Path
 $code = $LASTEXITCODE
 @{ exitCode = $code; succeeded = ($code -eq 0); kind = 'Original DLL vs rebuilt native+C++/CLI, float bits' } | ConvertTo-Json | Set-Content recovery/evidence/primitives/result.json
 if ($code -ne 0) { Get-Content recovery/evidence/primitives/oracle.txt; throw 'Differential primitive test failed' }
+

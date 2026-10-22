@@ -1,4 +1,5 @@
 #include "DataInitializers.h"
+#include "ScalarParsing.h"
 #include <cstdlib>
 #include <cstring>
 #include <string>
@@ -30,13 +31,9 @@ namespace Recovered { namespace Native {
             // The SDK's VC8 CRT accepts a Fortran D exponent (2d1 == 20).
             // Current UCRT atof does not. Preserve that observed behavior;
             // unit removal above must happen first (2d == two degrees).
-            for (char& character : number) {
-                if (character == 'd') character = 'e';
-                else if (character == 'D') character = 'E';
-            }
             // Preserve both float-rounding points in the original IL:
             // atof(double) -> float; then double(float)*double(float) -> float.
-            const float value = static_cast<float>(std::atof(number.c_str()));
+            const float value = ParseFloat(number);
             return static_cast<float>(static_cast<double>(value) * scale);
         }
     }
@@ -60,3 +57,4 @@ namespace Recovered { namespace Native {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
