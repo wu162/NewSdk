@@ -15,8 +15,10 @@ class ArmorSdkOracle
         schemas.XmlResolver = new XmlUrlResolver();
         schemas.Add("uri:ea.com:eala:asset", Path.Combine(sdk, "Schemas/xsd/CnC3Types.xsd"));
         schemas.Compile();
+        // Existing mytank.xml contains xai:joinAction. BAB removes that directive
+        // before validating the GameObject; use BAB itself for that existing file.
         int files = 0;
-        foreach (string name in new[] { "Mod.xml", "RecoveryArmorProbe.xml", "mytank.xml" }) {
+        foreach (string name in new[] { "Mod.xml", "RecoveryArmorProbe.xml" }) {
             var settings = new XmlReaderSettings(); settings.Schemas = schemas;
             settings.ValidationType = ValidationType.Schema;
             settings.ValidationEventHandler += delegate(object sender, ValidationEventArgs e) {
