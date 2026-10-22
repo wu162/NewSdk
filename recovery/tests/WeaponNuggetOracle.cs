@@ -51,6 +51,11 @@ unsafe partial class WeaponOracle
         if(kind==1 && (Word(result.InstanceData,data+152,big)!=0 || Word(result.InstanceData,data+156,big)!=0 || result.InstanceData[data+160]!=1)) throw new Exception("DOT default extra fields");
         if(kind==6 && Word(result.InstanceData,data+152,big)!=0x3f800000u) throw new Exception("Spawn probability default");
         if(kind==7 && (Word(result.InstanceData,data+152,big)!=0 || Word(result.InstanceData,data+156,big)!=0 || result.InstanceData[data+160]!=0 || result.InstanceData[data+161]!=1)) throw new Exception("FireOnObjects defaults");
+        if(kind==6) {
+            for(int at=156;at<=216;at+=4) if(Word(result.InstanceData,data+at,big)!=0) throw new Exception("Spawn default mask/typed ID");
+            if(Word(result.InstanceData,1304,big)!=1356 || Word(result.InstanceData,1316,big)!=data+152 || Word(result.InstanceData,1328,big)!=data+156 || Word(result.InstanceData,1340,big)!=data+216) throw new Exception("Spawn token member offsets");
+        }
+        if(kind==7 && (Word(result.InstanceData,1304,big)!=1368 || Word(result.InstanceData,1316,big)!=data+152 || Word(result.InstanceData,1328,big)!=data+160 || Word(result.InstanceData,1340,big)!=data+161 || Word(result.InstanceData,1352,big)!=0)) throw new Exception("Fire token member offsets");
         if(kind==5) for(int at=152;at<176;at+=4) if(Word(result.InstanceData,data+at,big)!=0) throw new Exception("Line default fields/padding");
     }
     static void Nuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
@@ -127,6 +132,8 @@ unsafe partial class WeaponOracle
             xml+="</Nuggets><IncompatibleAttributeModifier>m\\1</IncompatibleAttributeModifier></WeaponTemplate>";
             Test(plugin,"nugget-mixed-"+mask,xml,platform,-1);++fixtures;
         }
+        Reject(NuggetXml(Nugget(0,"","<Filter/>"),""));
+        Reject(NuggetXml(Nugget(0,"","<SpawnTemplate>Obj</SpawnTemplate>"),""));
         foreach(uint id in new uint[] {576040660u,169470683u,609705483u,978137461u,1542018985u,1115743736u,1622083673u,1757028425u,1675169590u,2010867179u,2159708756u,2278014412u,2459653016u,2360033115u,2475108259u,2940373499u,2769610658u,3111574559u,3322313791u,3665090361u,3520092115u,3694898303u,3915396258u,3821195611u,4104564135u,4286253161u,4131529406u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
         foreach(string content in new[] {"<DamageNugget/>","<DamageNugget TypeId='0'/>","<DamageNugget TypeId='576040660'/>","<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
     }
