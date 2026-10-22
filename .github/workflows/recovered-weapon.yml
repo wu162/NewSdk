@@ -7,6 +7,7 @@ on:
       - 'recovery/src/**/Weapon*'
       - 'recovery/src/**/ResourceMarshaling*'
       - 'recovery/src/**/EnumBitset*'
+      - 'recovery/src/**/ObjectFilter*'
       - 'recovery/tests/Weapon*'
       - 'recovery/scripts/TestWeapon.ps1'
       - 'recovery/scripts/ExtractWeaponEvidence.py'
@@ -30,6 +31,9 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'ObjectFilter Marshal and endian'; Start = 13601; End = 13696 }
+            @{ Name = 'ObjectFilter Tokenize'; Start = 77370; End = 77440 }
+            @{ Name = 'KindOf and relationship bitsets'; Start = 66947; End = 67190 }
             @{ Name = 'AttributeModifier list Marshal'; Start = 53677; End = 53725 }
             @{ Name = 'AttributeModifier list Tokenize'; Start = 99234; End = 99281 }
             @{ Name = 'Enum token splitting'; Start = 12996; End = 13072 }

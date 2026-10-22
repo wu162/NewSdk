@@ -1,5 +1,6 @@
 #pragma once
 #include "Relocation.h"
+#include "ObjectFilter.h"
 #include <map>
 #include <string>
 namespace Recovered { namespace Native {
@@ -20,7 +21,8 @@ struct WeaponDurationInput { std::string minSeconds, maxSeconds; };
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
-    const std::vector<std::string>& incompatibleModifiers, bool bigEndian);
+    const std::vector<std::string>& incompatibleModifiers,
+    const std::map<std::string, ObjectFilterInput>& filters, bool bigEndian);
 }}
 
 

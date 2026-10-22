@@ -14,6 +14,31 @@ public ref class WeaponCompiler abstract sealed {
             IntPtr(const_cast<unsigned char*>(source.data())), result, 0, result->Length);
         return result;
     }
+    static Native::ObjectFilterInput ReadFilter(XPathNavigator^ node) {
+        Native::ObjectFilterInput result;
+        array<String^>^ allowed = { "id", "Rule", "Relationship", "Alignment", "Include", "Exclude", "StatusBitFlags", "StatusBitFlagsExclude" };
+        auto attrs = node->Clone();
+        if (attrs->MoveToFirstAttribute()) do {
+            if (attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if (attrs->NamespaceURI->Length != 0 || Array::IndexOf<String^>(allowed, attrs->LocalName) < 0)
+                throw gcnew NotSupportedException("Unsupported ObjectFilter attribute: "+attrs->Name);
+            result.attributes[marshal_as<std::string>(attrs->LocalName)] = marshal_as<std::string>(attrs->Value);
+        } while (attrs->MoveToNextAttribute());
+        auto children = node->SelectChildren(XPathNodeType::Element);
+        while (children->MoveNext()) {
+            auto child = children->Current;
+            if (child->NamespaceURI != node->NamespaceURI || (child->LocalName != "IncludeThing" && child->LocalName != "ExcludeThing"))
+                throw gcnew NotSupportedException("Unsupported ObjectFilter child: "+child->LocalName);
+            auto attr = child->Clone();
+            if (attr->MoveToFirstAttribute()) do {
+                if (attr->NamespaceURI != "http://www.w3.org/2000/xmlns/") throw gcnew NotSupportedException("ObjectFilter thing attributes are not supported.");
+            } while (attr->MoveToNextAttribute());
+            if (child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested ObjectFilter thing elements are not supported.");
+            auto value = marshal_as<std::string>(child->Value);
+            if (child->LocalName == "IncludeThing") result.includeThings.push_back(value); else result.excludeThings.push_back(value);
+        }
+        return result;
+    }
 public:
     // Direct inline helper, including accumulation into a previously populated mask.
     static array<UInt32>^ MarshalObjectStatus(String^ text, array<UInt32>^ initial) {
@@ -34,8 +59,15 @@ public:
         array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
         array<String^>^ soundNames = { "OverrideVoiceAttackSound", "OverrideVoiceEnterStateAttackSound" };
         array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
+        std::map<std::string, Native::ObjectFilterInput> filters;
         while (children->MoveNext()) {
             auto child = children->Current;
+            bool filter = child->LocalName == "SurpriseAttackObjectFilter" || child->LocalName == "CombinedAttackObjectFilter" || child->LocalName == "HitStoredObjectFilter";
+            if (filter && child->NamespaceURI == node->NamespaceURI) {
+                auto input = ReadFilter(child); auto name = marshal_as<std::string>(child->LocalName);
+                if (!filters.count(name)) filters[name] = input;
+                continue;
+            }
             bool duration = Array::IndexOf<String^>(durationNames, child->LocalName) >= 0;
             bool sound = Array::IndexOf<String^>(soundNames, child->LocalName) >= 0;
             bool hint = child->LocalName == "WeaponAiHintInfo";
@@ -86,7 +118,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, filters, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);

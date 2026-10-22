@@ -226,7 +226,8 @@ unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
 Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
-    const std::vector<std::string>& incompatibleModifiers, bool bigEndian) {
+    const std::vector<std::string>& incompatibleModifiers,
+    const std::map<std::string, ObjectFilterInput>& filters, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
     for (const auto& duration : durations) {
         bool known = false;
@@ -337,6 +338,18 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (warhead != attrs.end()) MarshalReference(data, &ai->warhead, warhead->second);
         data.Pop();
     }
+    ObjectFilter* filterBlocks[3] = {};
+    const char* filterNames[] = { "SurpriseAttackObjectFilter", "CombinedAttackObjectFilter", "HitStoredObjectFilter" };
+    for (unsigned i = 0; i < 3; ++i) {
+        auto found = filters.find(filterNames[i]);
+        if (found == filters.end()) continue;
+        auto block = static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(root->bytes+264+4*i), 112, 1));
+        MarshalObjectFilter(found->second, block, data); filterBlocks[i] = block; data.Pop();
+    }
+    for (const auto& filter : filters) {
+        bool known = false; for (const char* name : filterNames) if (filter.first == name) known = true;
+        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate filter: "+filter.first);
+    }
     // Final Marshal allocation in the original: repeated prepared references.
     U32* modifiers = nullptr;
     *reinterpret_cast<U32*>(root->bytes+284) = static_cast<U32>(incompatibleModifiers.size());
@@ -377,6 +390,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             tokens.BookmarkMemberOffset(&ai->longLock, &nested[2].offset);
             tokens.BookmarkMemberOffset(&ai->warhead, &nested[3].offset);
             tokens.Pop();
+        } else if (field.offset >= 264 && field.offset <= 272 && filterBlocks[(field.offset-264)/4]) {
+            TokenizeObjectFilter(filterBlocks[(field.offset-264)/4], &table[i].offset, tokens);
         } else if ((field.value == WeaponValue::ReferencePointer || field.value == WeaponValue::StatusPointer)) {
             auto found = referenceBlocks.find(field.offset);
             if (found != referenceBlocks.end()) tokens.BookmarkMemberOffset(found->second, &table[i].offset);
@@ -402,6 +417,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             if (offset < 236 || offset > 248) Swap(root->bytes + offset);
         for (const auto& block : referenceBlocks) if (block.first == 136 || block.first == 140)
             for (unsigned i = 0; i < 7; ++i) Swap(static_cast<U32*>(block.second)+i);
+        for (auto block : filterBlocks) if (block) EndianObjectFilter(block);
         if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }

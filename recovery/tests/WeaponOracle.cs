@@ -465,6 +465,356 @@ unsafe class WeaponOracle
         }
     }
 
+    static readonly string[] FilterNames = { "SurpriseAttackObjectFilter", "CombinedAttackObjectFilter", "HitStoredObjectFilter" };
+    static readonly string[] KindNames = {
+        "OBSTACLE",
+        "SELECTABLE",
+        "TARGETABLE",
+        "ALLY_TARGETABLE",
+        "IMMOBILE",
+        "CAN_ATTACK",
+        "STICK_TO_TERRAIN_SLOPE",
+        "CAN_CAST_REFLECTIONS",
+        "SHRUBBERY",
+        "STRUCTURE",
+        "INFANTRY",
+        "CAVALRY",
+        "MONSTER",
+        "MACHINE",
+        "AIRCRAFT",
+        "HUGE_VEHICLE",
+        "DOZER",
+        "HARVESTER",
+        "COMMANDCENTER",
+        "CASTLE_CENTER",
+        "SALVAGER",
+        "WEAPON_SALVAGER",
+        "TRANSPORT",
+        "BRIDGE",
+        "CANT_TOGGLE_POWER",
+        "SIEGE_WEAPON",
+        "PROJECTILE",
+        "PRELOAD",
+        "NO_GARRISON",
+        "CASTLE_KEEP",
+        "SHADOW_ULTRA_HIGH_ONLY",
+        "NO_COLLIDE",
+        "REPAIR_PAD",
+        "HEAL_PAD",
+        "STEALTH_GARRISON",
+        "SUPPLY_GATHERING_CENTER",
+        "AIRFIELD",
+        "DRAWABLE_ONLY",
+        "MP_COUNT_FOR_VICTORY",
+        "REBUILD_HOLE",
+        "SCORE",
+        "SCORE_CREATE",
+        "SCORE_DESTROY",
+        "NO_HEAL_ICON",
+        "CAN_RAPPEL",
+        "PARACHUTABLE",
+        "CAN_BE_REPULSED",
+        "COMMANDO",
+        "IGNORED_IN_GUI",
+        "CRATE",
+        "CAPTURABLE",
+        "LINKED_TO_FLAG",
+        "CLEARED_BY_BUILD",
+        "SMALL_MISSILE",
+        "ALWAYS_VISIBLE",
+        "UNATTACKABLE",
+        "MINE",
+        "CAN_PLACE_CHARGE",
+        "CLASSIFY_ENTIRE_FOOTPRINT",
+        "ALWAYS_SELECTABLE",
+        "WALK_ON_TOP_OF_WALL",
+        "DEFENSIVE_WALL",
+        "FS_POWER",
+        "FS_FACTORY",
+        "FS_BASE_DEFENSE",
+        "FS_TECHNOLOGY",
+        "AIRCRAFT_PATH_AROUND",
+        "LOW_OVERLAPPABLE",
+        "FORCEATTACKABLE",
+        "AUTO_RALLYPOINT",
+        "CAN_CAPTURE",
+        "POWERED",
+        "PRODUCED_AT_HELIPAD",
+        "DRONE",
+        "CAN_SEE_THROUGH_STRUCTURE",
+        "BALLISTIC_MISSILE",
+        "CLICK_THROUGH",
+        "SUPPLY_SOURCE_ON_PREVIEW",
+        "PARACHUTE",
+        "GARRISONABLE_UNTIL_DESTROYED",
+        "SKIRMISH_AI_CAN_BUILD_DURING_EMERGENCY_NO_INCOME",
+        "IMMUNE_TO_CAPTURE",
+        "HULK",
+        "CAN_PLACE_MANIPULATOR",
+        "DONT_SUBMERGE_BY_WAVES",
+        "CANNOT_BUILD_NEAR_SUPPLIES",
+        "SUPPLY_SOURCE",
+        "REVEAL_TO_ALL",
+        "DISGUISER",
+        "INERT",
+        "IGNORES_SELECT_ALL",
+        "DONT_AUTO_CRUSH_INFANTRY",
+        "SIEGE_TOWER",
+        "TIME_BOMB",
+        "ROCK",
+        "THROWN_OBJECT",
+        "GRAB_AND_KILL",
+        "OPTIMIZED_PROP",
+        "ENVIRONMENT",
+        "DEFLECT_BY_SPECIAL_POWER",
+        "WORKING_PASSENGER",
+        "BASE_FOUNDATION",
+        "NEED_BASE_FOUNDATION",
+        "REACT_WHEN_SELECTED",
+        "CAN_BE_CAPTURED",
+        "IGNORED_IN_FINDPOSITIONAROUND",
+        "HORDE",
+        "COMBO_HORDE",
+        "NONOCCLUDING",
+        "NO_FREEWILL_ENTER",
+        "TIBERIUM_FIELD",
+        "BEAM_TARGET",
+        "BEAM_TARGET_REFLECTOR",
+        "TACTICAL_MARKER",
+        "PATH_THROUGH_EACH_OTHER",
+        "NOTIFY_OF_PREATTACK",
+        "GARRISON",
+        "MELEE_HORDE",
+        "BASE_SITE",
+        "INERT_SHROUD_REVEALER",
+        "OCL_BIT",
+        "SPELL_BOOK",
+        "DEPRECATED",
+        "PATH_THROUGH_INFANTRY",
+        "NO_FORMATION_MOVEMENT",
+        "NO_BASE_CAPTURE",
+        "ARMY_SUMMARY",
+        "CIVILIAN_UNIT",
+        "NOT_AUTOACQUIRABLE",
+        "KEEP_CLASSIFIED_WHEN_DEAD",
+        "CHUNK_VENDOR",
+        "REFINERY",
+        "MOVE_ONLY",
+        "FS_CASH_PRODUCER",
+        "ROCK_VENDOR",
+        "BLOCKING_GATE",
+        "CRANE",
+        "AI_NEEDS_PLAYER_POWER_UPDATE",
+        "MINE_TRIGGER",
+        "BUFF",
+        "GRAB_AND_DROP",
+        "TRANSFORMER",
+        "SCARY",
+        "AI_CAN_UNPACK_NEAR_CONYARD",
+        "BROADCASTS_INVISIBILITY",
+        "CAN_ATTACK_WALLS",
+        "IGNORE_FOR_VICTORY",
+        "DO_NOT_CLASSIFY",
+        "WALL_UPGRADE",
+        "ACTIVATE_AFTER_UNPACK",
+        "SKIRMISH_AI_DONT_MULTI_TARGET",
+        "NOT_SELLABLE",
+        "WALL_PIECE",
+        "WALL_HUB",
+        "BUILD_FOR_FREE",
+        "IGNORE_FOR_EVA_SPEECH_POSITION",
+        "WORLDBUILDER_SNAP_TO_GRID",
+        "BANNER",
+        "UNPACKS_INTO_BUILDING",
+        "ORE_NODE",
+        "PASS_EXPERIENCE_TO_SLAVER",
+        "HAS_HEALTH_BAR",
+        "IGNORE_IN_AI_HUNT_TACTIC",
+        "DEPLOYED_MINE",
+        "CANNOT_RETALIATE",
+        "CREEP",
+        "POWERED_POWERS_ONLY",
+        "VITAL_FOR_BASE_SURVIVAL",
+        "DO_NOT_PICK_ME_WHEN_BUILDING",
+        "SUMMONED",
+        "HIDE_IF_FOGGED",
+        "ALWAYS_SHOW_HOUSE_COLOR",
+        "MOVE_FOR_NOONE",
+        "WB_DISPLAY_SCRIPT_NAME",
+        "CAN_CLIMB_WALLS",
+        "NO_SHADOW",
+        "LARGE_RECTANGLE_PATHFIND",
+        "SUBMARINE",
+        "PORT",
+        "WALL_SEGMENT",
+        "SIMPLE_OBJECT_PROP",
+        "SHIP",
+        "OPTIMIZED_SOUND",
+        "PASS_EXPERIENCE_TO_CONTAINED",
+        "DOZER_FACTORY",
+        "THREAT_FINDER",
+        "ECONOMY_STRUCTURE",
+        "ALWAYS_COLLIDE_WITH_OWN_SHIELD_SPHERES",
+        "CAN_TOPPLE",
+        "CYCLE_SELECTION",
+        "CAN_SKIP_SHADOW",
+        "SCALEABLE_WALL",
+        "SKYBOX",
+        "WALL_GATE",
+        "CAPTUREFLAG",
+        "CANNOT_STOP_ON_WATER",
+        "PASS_EXPERIENCE_TO_CONTAINER",
+        "RESIST_EMP",
+        "ORIENTS_TO_CAMERA",
+        "NEVER_CULL_FOR_MP",
+        "DONT_USE_CANCEL_BUILD_BUTTON",
+        "CIVILIAN_BUILDING",
+        "HEAVY_MELEE_HITTER",
+        "DONT_HIDE_IF_FOGGED",
+        "VEHICLE",
+        "HARVESTABLE",
+        "GRABBABLE",
+        "CONSTRUCTION_YARD",
+        "CAN_SHOOT_OVER_WALLS",
+        "PASS_EXPERIENCE_TO_PRODUCER",
+        "EXPANSION_PAD",
+        "AMPHIBIOUS",
+        "SHOW_BEHIND_OCCLUDERS",
+        "FS_MONEY_STORAGE",
+        "VALID_TARGET_FOR_C4",
+        "UNIQUE_UNIT",
+        "SURPRISE_ATTACKER",
+        "COVER",
+        "INFILTRATOR",
+        "BRIDGE_SEGMENT",
+        "FS_WAR_FACTORY",
+        "FS_BARRACKS",
+        "FS_RADAR",
+        "FS_AIR_FIELD",
+        "FS_TECH_CENTER",
+        "TIBERIUM_BASED",
+        "TIBERIUM",
+        "CAN_ATTACK_STEALTHED",
+        "IMMUNE_TO_CYCLONIC_SHOCKWAVE",
+        "CANNOT_BE_DETECTED",
+        "AUTO_ACQUIRABLE_BY_AI",
+        "CRUSHABLE_OBSTACLE",
+        "NEUTRAL_TECH",
+        "SUPER_WEAPON",
+        "IGNORE_CAN_NOT_BUILD",
+        "SKIRMISH_AI_DONT_CONSIDER_THREAT",
+        "SKIRMISH_AI_DONT_GARRISON",
+        "SKIRMISH_AI_DONT_REPAIR",
+        "SKIRMISH_AI_ATTEMPT_TO_DODGE",
+        "ASSAULT_AIRCRAFT",
+        "BOMBER_AIRCRAFT",
+        "FIGHTER_AIRCRAFT",
+        "ANTI_GARRISON",
+        "ENGINEER",
+        "EXPANSION_UNIT",
+        "EGG",
+        "OUTPOST",
+        "BEACON",
+        "HUSK",
+        "IGNORE_FORCE_MOVE",
+        "LINE_OF_SIGHT_IGNORES_BUILDINGS",
+        "AIRCRAFT_TRANSPORT_ONLY_GARRISONABLE_WHILE_PARKED",
+        "SNIPER",
+        "ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED",
+        "SKIP_DEFECT_IF_UNCOMBINED",
+        "SKIP_IDLE_WHEN_CAPTURED",
+        "BRIDGE_ENDCAP",
+        "BRIDGE_GATEHOUSE",
+        "CAN_BE_FAVORITE_UNIT",
+        "SLAVE_OWNER",
+        "MCV",
+        "CAN_HEAL_ALLIES",
+        "PROJECT_BUILDABILITY_FOR_ALLIES",
+        "CAN_NOT_BUILD_ON_LAND",
+        "CAN_BUILD_ON_WATER",
+        "CAN_BUILD_ON_DEEP_WATER",
+        "LIMITED_PRODUCTION_AIRCRAFT",
+        "LEAVE_PARKING_ON_BUILD_COMPLETE",
+        "ENCLOSURE",
+        "RADAR_SCRAMBLER",
+        "CANNOT_HIJACK",
+        "CRUSHABLE_BUILDING",
+        "CRUSH_CRUSHABLE_BUILDINGS",
+        "GRANTS_VETERANCY",
+        "ALWAYS_VISIBLE_IN_RADAR",
+        "ATTACH_ATTACK",
+        "DONT_UNATTACH_WHEN_HEALING",
+        "T1_UNIT",
+        "T2_UNIT",
+        "T3_UNIT",
+        "DEBRIS",
+        "DONT_DESTROY_IF_ON_BRIDGE",
+        "CARPET_BOMBER",
+        "TERRAIN_LIKE_GROUND_OBJECT",
+    };
+    static void FilterFixture(IAssetBuilderPlugin plugin, TargetPlatform platform, string label, string content) {
+        Test(plugin, "filter-"+label, "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Filters'>"+content+"</WeaponTemplate>", platform, -1); ++fixtures;
+    }
+    static void Filters(IAssetBuilderPlugin plugin, TargetPlatform platform) {
+        foreach (string field in FilterNames) {
+            FilterFixture(plugin, platform, field+"-empty", "<"+field+"/>");
+            foreach (string attr in new[] { "id", "Rule", "Alignment", "Relationship", "Include", "Exclude", "StatusBitFlags", "StatusBitFlagsExclude" })
+                foreach (string value in new[] { "", "NONE", "unknown", "ALL", "-ALL", "all -ALL", "+", "-", "AFLAME", "AFLAME -AFLAME", "Aircraft", "0" })
+                    FilterFixture(plugin, platform, field+"-"+attr+"-"+value, "<"+field+" "+Attribute(attr,value)+"/>");
+            foreach (string value in new[] { "ALL", "ANY", "NONE", "UNPARSED", "all", "ANY ALL", " ALL" })
+                FilterFixture(plugin, platform, field+"-rule-"+value, "<"+field+" "+Attribute("Rule",value)+"/>");
+            foreach (string value in new[] { "NONE", "GOOD", "EVIL", "good", " EVIL" })
+                FilterFixture(plugin, platform, field+"-alignment-"+value, "<"+field+" "+Attribute("Alignment",value)+"/>");
+            foreach (string value in new[] { "ALLIES", "ENEMIES", "NEUTRAL", "SAME_PLAYER", "ALLIES -ENEMIES NEUTRAL SAME_PLAYER", "ALL -ENEMIES" })
+                FilterFixture(plugin, platform, field+"-relationship-"+value, "<"+field+" "+Attribute("Relationship",value)+"/>");
+            for (int bit = 0; bit < KindNames.Length; ++bit) {
+                string name = KindNames[bit];
+                FilterFixture(plugin, platform, field+"-kind-"+bit, "<"+field+" "+Attribute("Include",name)+" "+Attribute("Exclude","-"+name)+"/>");
+                FilterFixture(plugin, platform, field+"-toggle-"+bit, "<"+field+" "+Attribute("Include",name+" -"+name)+" "+Attribute("Exclude",name.ToLowerInvariant())+"/>");
+            }
+            FilterFixture(plugin, platform, field+"-all-kinds", "<"+field+" "+Attribute("Include",string.Join(" ", KindNames))+" Exclude='ALL'/>");
+            foreach (int count in new[] { 0,1,2,7,16,17,32,33,127,128,129,256,257 }) {
+                string content = "<"+field+" id='FiLtEr' Rule='ANY' Alignment='EVIL' Include='AIRCRAFT' Exclude='ALL' StatusBitFlags='AFLAME' StatusBitFlagsExclude='ALL'>";
+                for (int i = 0; i < count; ++i) content += "<IncludeThing>Object_"+(i%7)+"</IncludeThing><ExcludeThing><![CDATA[Other_"+i+"]]></ExcludeThing>";
+                content += "</"+field+">";
+                FilterFixture(plugin, platform, field+"-things-"+count, content);
+            }
+            // First duplicate wins, independent of sibling order.
+            FilterFixture(plugin, platform, field+"-duplicate", "<"+field+" Rule='ANY' Include='AIRCRAFT'/><"+field+" Rule='NONE' Exclude='ALL'/>");
+        }
+        for (int mask = 0; mask < 8; ++mask) {
+            string content = "";
+            for (int i = 2; i >= 0; --i) if ((mask & (1<<i)) != 0) content += "<"+FilterNames[i]+"/>";
+            FilterFixture(plugin, platform, "subset-"+mask, content);
+            var xml = new XmlDocument(); xml.LoadXml("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Layout'>"+content+"</WeaponTemplate>");
+            var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea",AssetNamespace);
+            var buffer = WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);
+            bool big = platform != TargetPlatform.Win32; int count = 0; for(int i=0;i<3;++i) if((mask & (1<<i)) != 0) ++count;
+            int tokens = 1296+156*count, present = 0;
+            if(buffer.InstanceData.Length != 1624+268*count || buffer.RelocationData.Length != (count==0 ? 0 : 4*(count+1))) throw new Exception("Filter independent allocation size");
+            for(int i=0;i<3;++i) {
+                uint pointer = Word(buffer.InstanceData,tokens+264+4*i,big), token = Word(buffer.InstanceData,(99+i)*12+8,big);
+                if((mask & (1<<i)) == 0) { if(pointer!=0 || token!=0) throw new Exception("Absent filter pointers"); continue; }
+                int at = tokens+328+112*present, table = 1272+156*present;
+                if(pointer!=at || token!=table || Word(buffer.RelocationData,4*present,big)!=tokens+264+4*i || Word(buffer.InstanceData,at+4,big)!=3 || Word(buffer.InstanceData,at+12,big)!=0)
+                    throw new Exception("Filter independent pointer/default layout");
+                if(Word(buffer.InstanceData,table+8,big)!=at || Word(buffer.InstanceData,table+4*12+8,big)!=at+16 || Word(buffer.InstanceData,table+5*12+8,big)!=at+52 ||
+                    Word(buffer.InstanceData,table+8*12+8,big)!=table+132 || Word(buffer.InstanceData,table+9*12+8,big)!=table+144 ||
+                    Word(buffer.InstanceData,table+140,big)!=at+96 || Word(buffer.InstanceData,table+152,big)!=at+104) throw new Exception("Filter independent nested tokens");
+                ++present;
+            }
+            if(count!=0 && Word(buffer.RelocationData,4*count,big)!=uint.MaxValue) throw new Exception("Filter relocation sentinel");
+        }
+        for(int mask=0;mask<128;++mask) {
+            string[] blocks = { "OverrideVoiceAttackSound Sound='s\\2'", "OverrideVoiceEnterStateAttackSound EvaEvent='e\\3'", "PreAttackDelay MinSeconds='1s'", "FiringDuration MaxSeconds='2s'", "CoolDownDelayBetweenShots MinSeconds='3s'", "ClipReloadTime MaxSeconds='4s'", "WeaponAiHintInfo MaxSpeedOfTarget='5'" };
+            string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='Mixed' RequiredFiringObjectStatus='ALL' FireSound='s\\0'><IncompatibleAttributeModifier>m\\1</IncompatibleAttributeModifier>";
+            for(int i=6;i>=0;--i) if((mask & (1<<i))!=0) xml+="<"+blocks[i]+"/>";
+            foreach(string name in FilterNames) xml+="<"+name+" Include='AIRCRAFT' StatusBitFlags='AFLAME' StatusBitFlagsExclude='ALL'><IncludeThing>Obj</IncludeThing><ExcludeThing>other</ExcludeThing></"+name+">";
+            xml+="</WeaponTemplate>";
+            Test(plugin,"filter-mixed-"+mask,xml,platform,-1);++fixtures;
+        }
+    }
+
     static void ModifierLists(IAssetBuilderPlugin plugin, TargetPlatform platform) {
         string[] values = { "", "none", "mod\\0", "mod\\7", "mod\\-1", "mod\\2147483648", "mod\\-2147483649", "mod\\12tail", "mod\\garbage", "mod\\+4", " mod\\ 3", "mod\\2\\9" };
         uint[] expected = { 0,0,1,8,0,0x80000000,0x80000001,13,1,5,4,3 };
@@ -530,6 +880,7 @@ unsafe class WeaponOracle
             DirectStatus(assembly);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                Filters(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
@@ -1301,9 +1652,9 @@ unsafe class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ClipReloadTime Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><Nuggets/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><SurpriseAttackObjectFilter/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CombinedAttackObjectFilter/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><HitStoredObjectFilter/></WeaponTemplate>");
+
+
+
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ScatterRadiusVsType/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier Unknown='1'/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><IncompatibleAttributeModifier><Unknown/></IncompatibleAttributeModifier></WeaponTemplate>");
@@ -1314,6 +1665,12 @@ unsafe class WeaponOracle
                 Reject(WithChild(name, "xmlns:x='urn:other' x:Sound='1'"));
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
                 Reject(Weapon(Attribute(name, "")));
+            }
+            foreach (string name in FilterNames) {
+                Reject(WithChild(name, "Unknown='1'"));
+                Reject(WithChild(name, "xmlns:x='urn:other' x:Rule='ANY'"));
+                Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
+                Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><IncludeThing Unknown='1'/></"+name+"></WeaponTemplate>");
             }
             Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons);
             return 0;

@@ -16,7 +16,7 @@ def string_at(va):
             start=raw+rva-base
             return pe[start:pe.index(b"\0",start)].decode("ascii")
     raise ValueError(hex(va))
-wanted = ["WeaponPrefireType","WeaponReAcquireDetailType","WeaponReloadType","WeaponAffectsType","WeaponFlagsType","WeaponCollideType","WpnAntiT","VirtualDamageType","FXTriggerType","ObjectStatusType"]
+wanted = ["WeaponPrefireType","WeaponReAcquireDetailType","WeaponReloadType","WeaponAffectsType","WeaponFlagsType","WeaponCollideType","WpnAntiT","VirtualDamageType","FXTriggerType","ObjectStatusType","ObjectFilterRule","ObjectFilterAlignment","ObjectFilterRelationship","KindOfType"]
 result={}
 for name in wanted:
     line = next(l for l in module.splitlines() if "internal static" in l and "enumMap" in l and "W4"+name+"_0040" in l and "FireWeaponFlagsType" not in l)
