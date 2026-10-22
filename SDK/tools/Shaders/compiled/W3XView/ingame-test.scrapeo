@@ -1,0 +1,133 @@
+# 1 "c:\\projects\\ra3\\production\\run\\shaders\\ingame-test.scrape"
+
+ 
+ 
+ 
+ 
+ 
+
+var camera Viewer
+
+ 
+var surface FrameBuffer color0
+
+ 
+ 
+var texture FrameRenderTarget $WW3D.FrameBufferSize.x $WW3D.FrameBufferSize.y A16B16G16R16F_TILED
+
+ 
+ 
+ 
+var shader PostEffectLookupTableShader PostFX_LookupTable.fx
+
+proc PostEffectLookupTable
+	beginevent UpdatePostFXLookupTable
+         
+		settarget 0 FrameBuffer
+
+		settexture PostEffect FrameBufferTexture FrameRenderTarget
+		setshader PostEffectLookupTableShader ResolveOnly
+		renderquad
+	endevent UpdatePostFXLookupTable
+endproc
+
+proc renderPostEffects
+    beginevent RenderPostEffects
+ 
+ 
+	    callproc PostEffectLookupTable
+    endevent RenderPostEffects
+endproc
+ 
+ 
+ 
+ 
+proc InGame
+
+	beginevent UpdateFrameBuffer
+	
+		setcamera Viewer
+		visibleobjects Frame
+
+		setclearcolor 0 0 0 1
+		setcleardepth 1.0
+
+		clear
+
+         
+		settarget 0 FrameBuffer FrameRenderTarget
+
+		renderTerrain
+
+    	renderRoads
+
+		 
+		renderbin TerrainLikeGroundObject
+
+ 
+
+   	   	renderTerrainTracks
+
+         
+        renderbin Bridge
+
+		renderProps
+		
+		renderUnits
+
+		 
+		renderbin Solid
+
+		renderStructures
+
+ 
+
+ 
+			 
+ 
+
+			 
+ 
+ 
+ 
+
+ 
+    	renderWater
+
+ 
+
+    	renderbin Transparent
+
+        renderTransparentOutlineObjects
+
+ 
+
+ 
+
+ 
+
+		 
+		setbool Particle ReallyRenderSoftParticles false
+		renderParticles
+
+ 
+ 
+		renderLasers
+ 
+ 
+
+    	callproc renderPostEffects  
+
+ 
+ 
+
+		renderIconLayers
+		renderUI
+
+		renderDebugDisplays
+
+	
+	endevent UpdateFrameBuffer
+
+endproc
+

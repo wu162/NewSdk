@@ -1,0 +1,18 @@
+c:\projects\ra3\production\tools\external\rnafxcompiler\dev-sage\cpp.exe
+-DEA_PLATFORM_WINDOWS -D_WW3D_ -D_WW3D_VERSION_=1  -I "c:\projects\ra3\production\run\shaders" -I "c:\projects\ra3\production\data\sagetypes\include\common\sagetypes"   c:\projects\ra3\production\run\shaders\ingame.scrape c:\projects\ra3\production\run\shaders\compiled\ingame.scrapeo 
+c:\projects\ra3\production\run\shaders\common.scrapeh
+c:\projects\ra3\production\run\shaders\shadow.scrapeh
+c:\projects\ra3\production\run\shaders\postfx.scrapeh
+c:\projects\ra3\production\run\shaders\postfx_lookuptable.scrapeh
+c:\projects\ra3\production\run\shaders\postfx_distortion.scrapeh
+c:\projects\ra3\production\run\shaders\postfx_bloom.scrapeh
+c:\projects\ra3\production\run\shaders\depthmap.scrapeh
+c:\projects\ra3\production\run\shaders\waterreflection.scrapeh
+c:\projects\ra3\production\run\shaders\oceandisplacement.scrapeh
+c:\projects\ra3\production\run\shaders\underwaterdeferred.scrapeh
+c:\projects\ra3\production\run\shaders\outlines.scrapeh
+c:\projects\ra3\production\run\shaders\rotateenvironmentmap.scrapeh
+c:\projects\ra3\production\run\shaders\rotateenvironmentmap_defs.scrapeh
+c:\projects\ra3\production\run\shaders\rotateenvironmentmap_water.scrapeh
+c:\projects\ra3\production\run\shaders\rotateenvironmentmap_proc.scrapeh
+c:\projects\ra3\production\run\shaders\rotateenvironmentmap_objects.scrapeh

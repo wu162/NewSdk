@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<Include type="all" source="ART:augunship_skl.w3x"/>
+	</Includes>
+	<W3DAnimation id="AUGUNSHIP_IDLB" Hierarchy="AUGUNSHIP_SKL" NumFrames="1" FrameRate="30">
+		<Channels>
+			<ChannelScalar Pivot="4" Type="YTranslation" FirstFrame="0">
+				<Frame>-0.806031</Frame>
+			</ChannelScalar>
+			<ChannelScalar Pivot="8" Type="YTranslation" FirstFrame="0">
+				<Frame>8.110158</Frame>
+			</ChannelScalar>
+			<ChannelQuaternion Pivot="8" Type="Orientation" FirstFrame="0">
+				<Frame X="-0.000000" Y="-0.000000" Z="-0.001711" W="0.999999"/>
+			</ChannelQuaternion>
+			<ChannelScalar Pivot="13" Type="YTranslation" FirstFrame="0">
+				<Frame>-0.806031</Frame>
+			</ChannelScalar>
+			<ChannelScalar Pivot="17" Type="YTranslation" FirstFrame="0">
+				<Frame>8.110158</Frame>
+			</ChannelScalar>
+			<ChannelQuaternion Pivot="17" Type="Orientation" FirstFrame="0">
+				<Frame X="-0.000000" Y="-0.000000" Z="-0.001711" W="0.999999"/>
+			</ChannelQuaternion>
+		</Channels>
+	</W3DAnimation>
+</AssetDeclaration>

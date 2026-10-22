@@ -1,0 +1,2 @@
+c:\projects\ra3\production\tools\external\rnafxcompiler\dev-sage\cpp.exe
+-DEA_PLATFORM_WINDOWS -D_WW3D_ -D_WW3D_VERSION_=1 -D_W3DVIEW_  -I "c:\projects\ra3\production\run\shaders" -I "c:\projects\ra3\production\data\sagetypes\include\common\sagetypes"   c:\projects\ra3\production\run\shaders\basic.scrape c:\projects\ra3\production\run\shaders\compiled\w3xview\basic.scrapeo 

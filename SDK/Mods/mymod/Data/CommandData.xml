@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+<Tags/>
+<Includes/>
+	
+	<!-- 新型超级吊爆坦克，无敌+吊爆，信不信由你，反正我信了-->
+	
+	<LogicCommand
+		Type="UNIT_BUILD"
+		id="Command_Constructmytank">
+		<Object>mytank</Object>
+	</LogicCommand>
+	
+	<!-- 新型超级吊爆坦克代码结束-->
+
+	<LogicCommandSet
+		id="AlliedWarFactoryCommandSet">
+		<Cmd>Command_Constructmytank</Cmd>
+		<Cmd>Command_ConstructAlliedMiner</Cmd>
+		<Cmd>Command_ConstructAlliedAntiInfantryVehicle_Ground</Cmd>
+		<Cmd>Command_ConstructAlliedAntiAirVehicleTech1</Cmd>
+		<Cmd>Command_ConstructAlliedAntiVehicleVehicleTech1</Cmd>
+		<Cmd>Command_ConstructAlliedAntiStructureVehicle</Cmd>
+		<Cmd>Command_ConstructAlliedAntiVehicleVehicleTech3</Cmd>
+		<Cmd>Command_ConstructAlliedMCV</Cmd>
+<!--
+		<Cmd>Command_UpgradeAlliedWarFactoryRepairBay</Cmd>
+-->
+	</LogicCommandSet>
+
+	<LogicCommandSet
+		id="mytankCommandSet">
+		<Cmd>Command_ToggleTargetPainter</Cmd>
+		<Cmd>Command_AttackMove</Cmd>
+		<Cmd>Command_MoveToPositionAndCollect</Cmd>
+	</LogicCommandSet>
+	
+</AssetDeclaration>

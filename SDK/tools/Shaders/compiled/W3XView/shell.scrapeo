@@ -1,0 +1,18 @@
+# 1 "c:\\projects\\ra3\\production\\run\\shaders\\shell.scrape"
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+proc Shell
+	setclearcolor 0 0 0 1
+	setcleardepth 1.0
+	
+	clear
+	renderUI
+	renderDebugDisplays
+endproc
