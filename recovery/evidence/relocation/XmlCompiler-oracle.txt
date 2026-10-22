@@ -1,0 +1,8 @@
+BinaryAssetBuilder.XmlCompiler, Version=1.0.3492.22406, Culture=neutral, PublicKeyToken=null
+
+Unhandled Exception: System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at RelocationOracle.Runtime.Call(String name, Object[] args)
+   at RelocationOracle.Runtime.Offset(IntPtr member, UInt32& offset)
+   at RelocationOracle.Offsets(Assembly original)
+   at RelocationOracle.Main(String[] args)

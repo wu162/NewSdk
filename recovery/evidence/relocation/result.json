@@ -1,0 +1,12 @@
+[
+  {
+    "succeeded": true,
+    "assembly": "Tokenizer",
+    "exitCode": 0
+  },
+  {
+    "succeeded": false,
+    "assembly": "XmlCompiler",
+    "exitCode": -532462766
+  }
+]
