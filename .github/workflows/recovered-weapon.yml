@@ -32,7 +32,7 @@ jobs:
       - name: Build and compare
         shell: pwsh
         run: |
-          if (Test-Path recovery/scripts/TestWeapon.ps1) { ./recovery/scripts/TestWeapon.ps1 }
+          ./recovery/scripts/TestWeapon.ps1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -40,3 +40,9 @@ jobs:
           path: |
             recovery/evidence/weapon
             recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: recovered-weapon-component-x86
+          path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
+          if-no-files-found: error

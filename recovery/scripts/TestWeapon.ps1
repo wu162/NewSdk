@@ -3,7 +3,7 @@ Set-Location (Resolve-Path "$PSScriptRoot/../..")
 $out = Join-Path $env:RUNNER_TEMP 'ra3-recovered-weapon'
 $evidence = 'recovery/evidence/weapon'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
-@{ succeeded = $false; sourceCommit = $env:GITHUB_SHA; scope = 'WeaponTemplate scalar subset, not full type or DLL' } | ConvertTo-Json | Set-Content "$evidence/validation.json"
+@{ succeeded = $false; sourceCommit = $env:GITHUB_SHA; scope = 'WeaponTemplate scalar/duration subset, not full type or DLL' } | ConvertTo-Json | Set-Content "$evidence/validation.json"
 Copy-Item SDK/tools/*.dll $out
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 foreach ($mode in @('Od', 'O2')) {
@@ -16,5 +16,5 @@ foreach ($mode in @('Od', 'O2')) {
     if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/oracle-$mode.txt" -Tail 20; throw "Weapon differential failed: $mode" }
     Get-Content "$evidence/oracle-$mode.txt" -Tail 1
 }
-@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; scope = '77 root attributes, absent optional fields and empty lists only'; modes = @('Od','O2') } | ConvertTo-Json | Set-Content "$evidence/validation.json"
+@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; scope = '77 root attributes and four RangeDuration blocks; other optional fields absent and lists empty'; modes = @('Od','O2') } | ConvertTo-Json | Set-Content "$evidence/validation.json"
 
