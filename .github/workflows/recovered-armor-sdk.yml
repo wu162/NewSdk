@@ -17,6 +17,7 @@ on:
       - 'recovery/scripts/SetArmorPlugin.ps1'
       - 'recovery/tests/ArmorSdkOracle.cs'
       - 'SDK/Mods/mymod/Data/RecoveryArmorProbe.xml'
+      - 'SDK/Mods/mymod/Data/RecoveryWeaponNuggetProbe.xml'
 permissions:
   contents: write
 jobs:
