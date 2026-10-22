@@ -1,5 +1,6 @@
 {
-  "status": "validation started; consult individual results",
-  "succeeded": false,
-  "sourceCommit": "a443f6df71859ba981c3de701409f57cc0568b17"
+  "succeeded": true,
+  "sourceCommit": "33e479960aeb3bfb5b42f1aaab9e8bcac214dbc6",
+  "scope": "components only; SDK compiler binaries unchanged",
+  "status": "Armor and scalars passed Od and O2; Node passed against both original DLLs"
 }
