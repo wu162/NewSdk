@@ -1,0 +1,53 @@
+{
+  "file": "BinaryAssetBuilder.XmlCompiler.dll",
+  "sha256": "D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6",
+  "assembly": "BinaryAssetBuilder.XmlCompiler",
+  "version": "1.0.3492.22406",
+  "runtime": "v2.0.50727",
+  "machine": "I386",
+  "imageBase": "0x10000000",
+  "corFlags": "NativeEntryPoint",
+  "types": 1406,
+  "methods": 2810,
+  "il": 2772,
+  "native": 38,
+  "other": 0,
+  "references": [
+    {
+      "name": "mscorlib",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Data",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Xml",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "EALA.Hash",
+      "version": "1.0.3344.32674"
+    },
+    {
+      "name": "EALA.ProcessUtility",
+      "version": "1.0.3152.32169"
+    },
+    {
+      "name": "EALA.Metrics",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "Microsoft.VisualC",
+      "version": "8.0.0.0"
+    }
+  ]
+}

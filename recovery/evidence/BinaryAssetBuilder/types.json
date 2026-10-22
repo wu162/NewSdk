@@ -1,0 +1,271 @@
+[
+  {
+    "token": "0x02000001",
+    "name": "\u003CModule\u003E",
+    "attributes": "NotPublic",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000002",
+    "name": "BinaryAssetBuilder.BinaryAssetBuilder",
+    "attributes": "BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06121D"
+      },
+      {
+        "name": "_Mutex",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "_SessionCacheSaveMutex",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "_PluginRegistry",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061225"
+      },
+      {
+        "name": "_VerifierPluginRegistry",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061229"
+      },
+      {
+        "name": "_cache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06122D"
+      },
+      {
+        "name": "_monitor",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061231"
+      },
+      {
+        "name": "_Descriptors",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "061D1235"
+      },
+      {
+        "name": "_StartTime",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061139"
+      },
+      {
+        "name": "_BuildWindow",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "06123D"
+      },
+      {
+        "name": "_RunResult",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_CacheSerializationTime",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061145"
+      }
+    ]
+  },
+  {
+    "token": "0x02000003",
+    "name": "BinaryAssetBuilder.FileMetricsListener",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Metrics",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615124D020E1251"
+      },
+      {
+        "name": "_FilePathStub",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Descriptors",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1235"
+      }
+    ]
+  },
+  {
+    "token": "0x02000004",
+    "name": "BinaryAssetBuilder.Program",
+    "attributes": "Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_theResidentServer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061218"
+      },
+      {
+        "name": "_systemTrayForm",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "061220"
+      }
+    ]
+  },
+  {
+    "token": "0x02000005",
+    "name": "ServerCommandHandler",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_originalConsole",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061255"
+      }
+    ]
+  },
+  {
+    "token": "0x02000006",
+    "name": "ResidentInstance",
+    "attributes": "NestedPublic, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_processSync",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "_owned",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ipcChannel",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06125D"
+      },
+      {
+        "name": "_bab",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061208"
+      },
+      {
+        "name": "_babThread",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061261"
+      },
+      {
+        "name": "_ResidentBabReadyMutex",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "_state",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061159"
+      },
+      {
+        "name": "_theSessionCache",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061265"
+      },
+      {
+        "name": "_thePathMonitor",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061231"
+      }
+    ]
+  },
+  {
+    "token": "0x02000007",
+    "name": "BinaryAssetBuilder.OutputMetricsListner",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "m_ConsoleBuffer",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151269010E"
+      },
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06121D"
+      }
+    ]
+  },
+  {
+    "token": "0x02000008",
+    "name": "BinaryAssetBuilder.SystemTrayForm",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "components",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061271"
+      },
+      {
+        "name": "systemTrayIcon",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061275"
+      },
+      {
+        "name": "systemTrayContextMenu",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061279"
+      },
+      {
+        "name": "exitToolStripMenuItem",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06127D"
+      }
+    ]
+  }
+]

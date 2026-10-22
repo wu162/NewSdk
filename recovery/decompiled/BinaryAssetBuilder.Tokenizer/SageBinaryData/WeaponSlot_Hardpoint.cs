@@ -1,0 +1,22 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Microsoft.VisualC;
+
+namespace SageBinaryData;
+
+[StructLayout(LayoutKind.Sequential, Size = 28)]
+[DebugInfoInPDB]
+[MiscellaneousBits(65)]
+[NativeCppClass]
+internal struct WeaponSlot_Hardpoint
+{
+	[StructLayout(LayoutKind.Sequential, Size = 1)]
+	[NativeCppClass]
+	[MiscellaneousBits(65)]
+	[CLSCompliant(false)]
+	[DebugInfoInPDB]
+	public struct WeaponListComparer
+	{
+	}
+}

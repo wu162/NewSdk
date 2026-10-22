@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>Exe</OutputType>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net20</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="EALA.Metrics">
+      <HintPath>SDK/tools/EALA.Metrics.dll</HintPath>
+    </Reference>
+    <Reference Include="BinaryAssetBuilder.Remote">
+      <HintPath>SDK/tools/BinaryAssetBuilder.Remote.dll</HintPath>
+    </Reference>
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

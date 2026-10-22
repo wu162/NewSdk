@@ -1,0 +1,53 @@
+{
+  "file": "BinaryAssetBuilder.exe",
+  "sha256": "F79C2FE743DE251E59C9E1DAEE6930F4C58B1DE3ADF735F73AA7E9798C8C49AF",
+  "assembly": "BinaryAssetBuilder",
+  "version": "1.0.3344.32798",
+  "runtime": "v2.0.50727",
+  "machine": "I386",
+  "imageBase": "0x400000",
+  "corFlags": "ILOnly, Requires32Bit",
+  "types": 8,
+  "methods": 48,
+  "il": 48,
+  "native": 0,
+  "other": 0,
+  "references": [
+    {
+      "name": "mscorlib",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "EALA.Metrics",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Remote",
+      "version": "0.0.0.0"
+    },
+    {
+      "name": "System.Windows.Forms",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "System",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Runtime.Remoting",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Configuration",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Drawing",
+      "version": "2.0.0.0"
+    }
+  ]
+}

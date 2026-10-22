@@ -1,0 +1,373 @@
+[
+  {
+    "token": "0x02000001",
+    "name": "\u003CModule\u003E",
+    "attributes": "NotPublic",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000002",
+    "name": "EALAModStudio.Program",
+    "attributes": "Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000003",
+    "name": "EALAModStudio.ModStudioUI",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "components",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061219"
+      },
+      {
+        "name": "splitContainer1",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06121D"
+      },
+      {
+        "name": "flowLayoutPanel1",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "grpModBuild",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061225"
+      },
+      {
+        "name": "flwModOptions",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061221"
+      },
+      {
+        "name": "cmbMods",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061229"
+      },
+      {
+        "name": "grpModBuildOptions",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061225"
+      },
+      {
+        "name": "buttonBuildMod",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06122D"
+      },
+      {
+        "name": "saveBuildLog",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061231"
+      },
+      {
+        "name": "outputTabs",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061235"
+      },
+      {
+        "name": "tabPage1",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061239"
+      },
+      {
+        "name": "splitContainer2",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06121D"
+      },
+      {
+        "name": "rtbGUIOutput",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06123D"
+      },
+      {
+        "name": "buttonSaveBuildLog",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06122D"
+      },
+      {
+        "name": "clearBuildLog",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06122D"
+      },
+      {
+        "name": "tabPage2",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061239"
+      },
+      {
+        "name": "tvErrorView",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061241"
+      },
+      {
+        "name": "tabPage3",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061239"
+      },
+      {
+        "name": "brwsrDocumentation",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061245"
+      },
+      {
+        "name": "buildscript",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "guiserializationextension",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "buildScriptInstance",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061249"
+      },
+      {
+        "name": "inputModGUIData",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615124D011251"
+      },
+      {
+        "name": "generatedModGUIData",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151255020E1259"
+      },
+      {
+        "name": "tnCritical",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06125D"
+      },
+      {
+        "name": "CRITICAL_IMAGE_INDEX",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "tnError",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06125D"
+      },
+      {
+        "name": "ERROR_IMAGE_INDEX",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "tnWarning",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06125D"
+      },
+      {
+        "name": "WARNING_IMAGE_INDEX",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "modGUIPanel",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061261"
+      },
+      {
+        "name": "currentStepId",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "currentRunningProcess",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061265"
+      },
+      {
+        "name": "currentProcessOutputReader",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061269"
+      },
+      {
+        "name": "processRunning",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "redirectOutput",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "stepFailed",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "leftPanelWidth",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "criticalColor",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06116D"
+      },
+      {
+        "name": "errorColor",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06116D"
+      },
+      {
+        "name": "warningColor",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06116D"
+      },
+      {
+        "name": "BuildTimeStart",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060A"
+      },
+      {
+        "name": "StepTimeStart",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060A"
+      },
+      {
+        "name": "raiseDeleteErrors",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "raiseCopyError",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "overwrite",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "MAX_READ_LINES",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "PROCESS_SLEEP_DELAY",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "MIN_LEFT_WIDTH",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000004",
+    "name": "FormInvokeDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000005",
+    "name": "WriteDataDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000006",
+    "name": "EALAModStudio.Properties.Settings",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "defaultInstance",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061218"
+      }
+    ]
+  },
+  {
+    "token": "0x02000007",
+    "name": "EALAModStudio.Properties.Resources",
+    "attributes": "BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "resourceMan",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061280A5"
+      },
+      {
+        "name": "resourceCulture",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061280A9"
+      }
+    ]
+  }
+]

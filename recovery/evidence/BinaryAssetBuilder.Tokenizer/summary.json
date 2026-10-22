@@ -1,0 +1,53 @@
+{
+  "file": "BinaryAssetBuilder.Tokenizer.dll",
+  "sha256": "BA5E34E9A44509D5489086F610C3BB4502B441C1513740FB66D6B740AD3EB603",
+  "assembly": "BinaryAssetBuilder.Tokenizer",
+  "version": "1.0.3492.22559",
+  "runtime": "v2.0.50727",
+  "machine": "I386",
+  "imageBase": "0x10000000",
+  "corFlags": "NativeEntryPoint",
+  "types": 1032,
+  "methods": 3322,
+  "il": 3288,
+  "native": 34,
+  "other": 0,
+  "references": [
+    {
+      "name": "mscorlib",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Data",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Xml",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "EALA.Hash",
+      "version": "1.0.3344.32674"
+    },
+    {
+      "name": "EALA.ProcessUtility",
+      "version": "1.0.3152.32169"
+    },
+    {
+      "name": "EALA.Metrics",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "Microsoft.VisualC",
+      "version": "8.0.0.0"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Microsoft.VisualC;
+
+namespace SageBinaryData;
+
+[StructLayout(LayoutKind.Sequential, Size = 20)]
+[DebugInfoInPDB]
+[NativeCppClass]
+[MiscellaneousBits(65)]
+internal struct FXParticleDrawRenderObject
+{
+	[StructLayout(LayoutKind.Sequential, Size = 16)]
+	[NativeCppClass]
+	[CLSCompliant(false)]
+	[MiscellaneousBits(65)]
+	[DebugInfoInPDB]
+	public struct ObjectSet
+	{
+	}
+}

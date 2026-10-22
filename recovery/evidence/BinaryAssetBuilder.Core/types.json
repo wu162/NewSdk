@@ -1,0 +1,4475 @@
+[
+  {
+    "token": "0x02000001",
+    "name": "\u003CModule\u003E",
+    "attributes": "NotPublic",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000002",
+    "name": "BinaryAssetBuilder.Core.IExpressionEvaluator",
+    "attributes": "Public, ClassSemanticsMask, Abstract",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000003",
+    "name": "BinaryAssetBuilder.Core.XIncludingReaderWrapper",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Lib",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061275"
+      }
+    ]
+  },
+  {
+    "token": "0x02000004",
+    "name": "BinaryAssetBuilder.Core.ExpressionEvaluatorWrapper",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Lib",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061275"
+      }
+    ]
+  },
+  {
+    "token": "0x02000005",
+    "name": "BinaryAssetBuilder.Core.AssetBuffer",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_InstanceData",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D05"
+      },
+      {
+        "name": "_RelocationData",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D05"
+      },
+      {
+        "name": "_ImportsData",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D05"
+      }
+    ]
+  },
+  {
+    "token": "0x02000006",
+    "name": "BinaryAssetBuilder.Core.DocumentState",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "None",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061118"
+      },
+      {
+        "name": "Shallow",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061118"
+      },
+      {
+        "name": "Loaded",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061118"
+      },
+      {
+        "name": "Validated",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061118"
+      },
+      {
+        "name": "Complete",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061118"
+      }
+    ]
+  },
+  {
+    "token": "0x02000007",
+    "name": "BinaryAssetBuilder.Core.FindLocation",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "None",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06111C"
+      },
+      {
+        "name": "Self",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06111C"
+      },
+      {
+        "name": "All",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06111C"
+      },
+      {
+        "name": "Tentative",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06111C"
+      },
+      {
+        "name": "External",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06111C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000008",
+    "name": "BinaryAssetBuilder.Core.OutputAsset",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Handle",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "InstanceFileSize",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "RelocationFileSize",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "ImportsFileSize",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000009",
+    "name": "BinaryAssetBuilder.Core.AssetDeclarationDocument",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Last",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061234"
+      },
+      {
+        "name": "_Current",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "061238"
+      },
+      {
+        "name": "_processing",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "ReloadedForInheritance",
+        "attributes": "Public, NotSerialized",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x0200000A",
+    "name": "XmlNodeWithMetaData",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Node",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128099"
+      },
+      {
+        "name": "LineNumber",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200000B",
+    "name": "DependencyComparer",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000C",
+    "name": "TypeDepCompare",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_TypeDependencies",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020908"
+      }
+    ]
+  },
+  {
+    "token": "0x0200000D",
+    "name": "LastState",
+    "attributes": "NestedPrivate, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "DocumentHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "DependentFileHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "DependentFiles",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "IncludePathHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "InclusionItems",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128108"
+      },
+      {
+        "name": "OutputAssets",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C011220"
+      },
+      {
+        "name": "SelfDefines",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128084"
+      },
+      {
+        "name": "SelfInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C0112810C"
+      },
+      {
+        "name": "UsedDefines",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128080"
+      },
+      {
+        "name": "StreamHints",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      }
+    ]
+  },
+  {
+    "token": "0x0200000E",
+    "name": "CurrentState",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "DocumentHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "SourcePath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "SourceDirectory",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "SourcePathFromRoot",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "LogicalSourcePath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "DependentFileHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "IncludePathHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "OutputChecksum",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "IsLoaded",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "Processing",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "ChangeReason",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "Changed",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "State",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061118"
+      },
+      {
+        "name": "SelfDefines",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128084"
+      },
+      {
+        "name": "SelfInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128124"
+      },
+      {
+        "name": "DependentFiles",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "InclusionItems",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128108"
+      },
+      {
+        "name": "UsedDefines",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0615128081020E0E"
+      },
+      {
+        "name": "VerificationErrors",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "HashItem",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061280A0"
+      },
+      {
+        "name": "OutputInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C0112810C"
+      },
+      {
+        "name": "AllDefines",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128088"
+      },
+      {
+        "name": "Instances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128124"
+      },
+      {
+        "name": "AllInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128124"
+      },
+      {
+        "name": "TentativeInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128124"
+      },
+      {
+        "name": "ReferenceInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128124"
+      },
+      {
+        "name": "Tags",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128085"
+      },
+      {
+        "name": "XmlDocument",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128089"
+      },
+      {
+        "name": "NamespaceManager",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0612808D"
+      },
+      {
+        "name": "DocumentProcessor",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128090"
+      },
+      {
+        "name": "OutputAssets",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C011220"
+      },
+      {
+        "name": "StreamHints",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "NodeSourceInfoSet",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06151280B1011228"
+      },
+      {
+        "name": "OutputInstanceSet",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06151280810212811812810C"
+      },
+      {
+        "name": "XmlReader",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061279"
+      },
+      {
+        "name": "ConfigurationName",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "LastOutputAssets",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C011220"
+      },
+      {
+        "name": "LastDocumentHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "LastDependentFileHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "LastIncludePathHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      }
+    ]
+  },
+  {
+    "token": "0x0200000F",
+    "name": "LoadType",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "InplaceLoad",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06113C"
+      },
+      {
+        "name": "FromScratch",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06113C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000010",
+    "name": "BinaryAssetBuilder.Core.AssetReport",
+    "attributes": "Public, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "FileName",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "FileNameFullyQualified",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "TypeName",
+        "attributes": "Public, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "AssetRecordWriter",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06127D"
+      },
+      {
+        "name": "RecordedAssets",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0615128081020E02"
+      }
+    ]
+  },
+  {
+    "token": "0x02000011",
+    "name": "BinaryAssetBuilder.Core.Chunk",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "BufferSize",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_BufferStack",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06151280B5011D05"
+      },
+      {
+        "name": "_Data",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D05"
+      },
+      {
+        "name": "_BytesRead",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000012",
+    "name": "BinaryAssetBuilder.Core.AsynchronousFileReader",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "QueueSize",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_JobQueue",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280B9011280BD"
+      },
+      {
+        "name": "_Stream",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280C1"
+      },
+      {
+        "name": "_CurrentChunk",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061244"
+      }
+    ]
+  },
+  {
+    "token": "0x02000013",
+    "name": "BinaryAssetBuilder.Core.AssetLocation",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "None",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "Memory",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "Output",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "Local",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "Cache",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "BasePatchStream",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      },
+      {
+        "name": "All",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06114C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000014",
+    "name": "BinaryAssetBuilder.Core.AssetLocationOption",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "None",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061150"
+      },
+      {
+        "name": "ForceUpdate",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061150"
+      },
+      {
+        "name": "ReturnAll",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061150"
+      }
+    ]
+  },
+  {
+    "token": "0x02000015",
+    "name": "BinaryAssetBuilder.Core.BinaryAsset",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Instance",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612810C"
+      },
+      {
+        "name": "_CacheDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_AssetOutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_CustomDataOutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_AssetFileName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_CustomDataFileName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Buffer",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061214"
+      },
+      {
+        "name": "_IsOutputAsset",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_MemoryAvailability",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "_CacheAvailability",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "_OutputAvailability",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "_LastLocationInfo",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612808C"
+      },
+      {
+        "name": "_LocalAvailability",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "_BasePatchStreamAvailability",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "_AssetHeader",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280C5"
+      },
+      {
+        "name": "_Parent",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128138"
+      },
+      {
+        "name": "_CopyBuffer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061D05"
+      }
+    ]
+  },
+  {
+    "token": "0x02000016",
+    "name": "Availability",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Invalid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "Missing",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061158"
+      },
+      {
+        "name": "Present",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061158"
+      }
+    ]
+  },
+  {
+    "token": "0x02000017",
+    "name": "BinaryAssetBuilder.ErrorCode",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "InternalError",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "ReadingSchema",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "IllegalPath",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "SchemaValidation",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "DuplicateInstance",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "UnknownReference",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "ReferencingError",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "CircularDependency",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "MissingReference",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "InheritFromError",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "InputXmlFileNotFound",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "NoDataRootSpecified",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "TextureAssetDependency",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "IllegalPathAlias",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "DuplicateDefine",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "HashCollision",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "BadTextureFile",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "ExpressionEvaluationError",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "DependencyCacheFailure",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "OverridingSameNameInSameFile",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "FileNotFound",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "InvalidArgument",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "XmlFormattingError",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "LockedFile",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "UnexpectedSize",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "NetworkCacheFailure",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "NoIdAttributeForAsset",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "InvalidCustomDataFilePath",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "ErrorContactingBabClient",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "PathMonitor",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      },
+      {
+        "name": "GameDataVerification",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06115C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000018",
+    "name": "BinaryAssetBuilder.BinaryAssetBuilderException",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_ErrorCode",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06115C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000019",
+    "name": "BinaryAssetBuilder.Core.Collection2\u00601",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_syncRoot",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "061C"
+      },
+      {
+        "name": "items",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615121D011300"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001A",
+    "name": "BinaryAssetBuilder.CommandLineOptionAttribute",
+    "attributes": "Public, Abstract, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_MinValue",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061C"
+      },
+      {
+        "name": "_MaxValue",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061C"
+      },
+      {
+        "name": "_ValidValueSet",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1C"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001B",
+    "name": "BinaryAssetBuilder.OrderedCommandLineOptionAttribute",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Ordinal",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001C",
+    "name": "BinaryAssetBuilder.OptionalCommandLineOptionAttribute",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Alias",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001D",
+    "name": "BinaryAssetBuilder.CommandLineOptionProcessor",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_OrderedOptions",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D9011278"
+      },
+      {
+        "name": "_OptionalOptions",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D901127C"
+      },
+      {
+        "name": "_OptionalOptionLookup",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD020E127C"
+      },
+      {
+        "name": "_DisplayNameMaxLength",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_SettingsObject",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061C"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001E",
+    "name": "OrderedOptionInfo",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Descriptor",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061280E1"
+      },
+      {
+        "name": "OptionAttribute",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06126C"
+      }
+    ]
+  },
+  {
+    "token": "0x0200001F",
+    "name": "OptionalOptionInfo",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Descriptor",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061280E1"
+      },
+      {
+        "name": "OptionAttribute",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061270"
+      }
+    ]
+  },
+  {
+    "token": "0x02000020",
+    "name": "BinaryAssetBuilder.Core.DefinitionPair",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Name",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "EvaluatedValue",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000021",
+    "name": "BinaryAssetBuilder.Core.Definition",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Name",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "EvaluatedValue",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "IsOverride",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "OriginalValue",
+        "attributes": "Public, NotSerialized",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "Document",
+        "attributes": "Public, NotSerialized",
+        "offset": -1,
+        "signature": "061224"
+      }
+    ]
+  },
+  {
+    "token": "0x02000022",
+    "name": "BinaryAssetBuilder.Core.DefinitionSet",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000023",
+    "name": "BinaryAssetBuilder.Core.AssetLocationInfo",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "AssetOutputDirectory",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "CustomDataOutputDirectory",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "AudioPaths",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "SessionCachePath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000024",
+    "name": "BinaryAssetBuilder.Core.DocumentProcessor",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Version",
+        "attributes": "Public, Static, Literal, NotSerialized, HasDefault",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_MissingReferences",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06128120"
+      },
+      {
+        "name": "_DocumentStack",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "_Cache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128128"
+      },
+      {
+        "name": "_SchemaSet",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128158"
+      },
+      {
+        "name": "_RequiredInheritFromSources",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128120"
+      },
+      {
+        "name": "_PluginRegistry",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280F0"
+      },
+      {
+        "name": "_VerifierPluginRegistry",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280FC"
+      },
+      {
+        "name": "_InstancesProcessedCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_FilesProcessedCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_FilesParsedCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_InstancesCopiedFromCacheCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_InstancesCompiledCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_TotalProcInstancesTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "_TotalPrepareOutputTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "_TotalPrepareSourceTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "_TotalPostProcTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "_TotalValidateTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "_TypeProcessingTime",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06151280810209128094"
+      },
+      {
+        "name": "_MaxTotalMemory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060A"
+      },
+      {
+        "name": "_CurrentDocumentStack",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06151280B5010E"
+      },
+      {
+        "name": "_CurrentStreamStack",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06151280B5010E"
+      },
+      {
+        "name": "_CompilingProject",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ProjectDefaultConfigurations",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD020E0E"
+      },
+      {
+        "name": "_LastWrittenAssets",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "0615128081020E12808C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000025",
+    "name": "TypeCompileData",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "TotalProcessTime",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "LongestProcessTime",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061180E5"
+      },
+      {
+        "name": "InstancesProcessed",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "TypeName",
+        "attributes": "Public, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "LongestProcessInstance",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000026",
+    "name": "ProcessOptions",
+    "attributes": "NestedPublic, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "BasePatchStream",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "BaseStreamSearchPaths",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "StreamReferences",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061D1281D4"
+      },
+      {
+        "name": "RelativeBasePath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "UsePrecompiled",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "GenerateOutput",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "Configuration",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000027",
+    "name": "BinaryAssetBuilder.Core.FileState",
+    "attributes": "Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "AllInvalid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611809C"
+      },
+      {
+        "name": "ExistsValid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611809C"
+      },
+      {
+        "name": "DateValid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611809C"
+      },
+      {
+        "name": "HashValid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611809C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000028",
+    "name": "BinaryAssetBuilder.Core.FileHashItem",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_KeepAliveDelegate",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "061280A4"
+      },
+      {
+        "name": "_Path",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BuildConfiguration",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_TargetPlatform",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061180E0"
+      },
+      {
+        "name": "_State",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "0611809C"
+      },
+      {
+        "name": "_Hash",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_LastDate",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061180E9"
+      },
+      {
+        "name": "_CurrentDate",
+        "attributes": "Public, NotSerialized",
+        "offset": -1,
+        "signature": "061180E9"
+      },
+      {
+        "name": "_Exists",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x02000029",
+    "name": "KeepAliveDelegate",
+    "attributes": "NestedPublic, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002A",
+    "name": "BinaryAssetBuilder.Core.FileItem",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_hashItem",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280A0"
+      },
+      {
+        "name": "_document",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061224"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002B",
+    "name": "BinaryAssetBuilder.Core.PathMapItem",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "SourceUri",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "TargetPath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002C",
+    "name": "BinaryAssetBuilder.Core.FileNameXmlResolver",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_BaseDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Paths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615121D011280AC"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002D",
+    "name": "BinaryAssetBuilder.Core.FileNameResolver",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "SplitCharacters",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061D03"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002E",
+    "name": "BinaryAssetBuilder.Core.GUIBuildOutput",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_CurClickedFilePath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "components",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128111"
+      },
+      {
+        "name": "buildOutputText",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128148"
+      },
+      {
+        "name": "saveOutputToFile",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128115"
+      },
+      {
+        "name": "linkContextMenu",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128119"
+      },
+      {
+        "name": "openContainingFolder",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06124D"
+      },
+      {
+        "name": "openWith",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06124D"
+      }
+    ]
+  },
+  {
+    "token": "0x0200002F",
+    "name": "LaunchLinkItem",
+    "attributes": "NestedPublic, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Command",
+        "attributes": "Private, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Argument",
+        "attributes": "Private, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000030",
+    "name": "InvokeWriteStrDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000031",
+    "name": "InvokeSetColorDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000032",
+    "name": "InvokeSetBoldDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000033",
+    "name": "InvokeWriteDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000034",
+    "name": "EmptyInvokeDelegate",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000035",
+    "name": "BinaryAssetBuilder.Core.HashProvider",
+    "attributes": "Public, Abstract, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "StringHashesFileDefault",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "StringHashesFile",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_SchemaNameToBinName",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0615128081020E0E"
+      },
+      {
+        "name": "_StringHashBins",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "0615128081020E1280D8"
+      },
+      {
+        "name": "InstanceIdTableName",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "TypeIdTableName",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "StringTableAssetName",
+        "attributes": "Public, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "StringBinEnumAttribute",
+        "attributes": "Public, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "HashProviderVersion",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_outputDirectory",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000036",
+    "name": "BinaryAssetBuilder.Core.StringHashBin",
+    "attributes": "BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_stringTable",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061512808102090E"
+      },
+      {
+        "name": "_name",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_caseSensitive",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "StringTableEntryName",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000037",
+    "name": "BinaryAssetBuilder.Core.HashingWriter",
+    "attributes": "BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "m_runningHash",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "m_leftoverChars",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "HashingSize",
+        "attributes": "Private, Static, InitOnly",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000038",
+    "name": "BinaryAssetBuilder.Core.TargetPlatform",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Win32",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061180E0"
+      },
+      {
+        "name": "Xbox360",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061180E0"
+      },
+      {
+        "name": "PlayStation3",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061180E0"
+      }
+    ]
+  },
+  {
+    "token": "0x02000039",
+    "name": "BinaryAssetBuilder.Core.ExtendedTypeInformation",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "TypeName",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "TypeId",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "TypeHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "ProcessingHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "HasCustomData",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "Tokenized",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "UseBuildCache",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x0200003A",
+    "name": "BinaryAssetBuilder.IAssetBuilderPluginBase",
+    "attributes": "Public, ClassSemanticsMask, Abstract",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003B",
+    "name": "BinaryAssetBuilder.Core.IAssetBuilderPlugin",
+    "attributes": "Public, ClassSemanticsMask, Abstract",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003C",
+    "name": "BinaryAssetBuilder.Core.PluginRegistry",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_DefaultPlugin",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280EC"
+      },
+      {
+        "name": "_PluginMap",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD02091280EC"
+      },
+      {
+        "name": "_TypeInfoMap",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD02091280E4"
+      },
+      {
+        "name": "_BuildCacheMap",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD020902"
+      },
+      {
+        "name": "_DefaultUseBuildCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x0200003D",
+    "name": "NullPlugin",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003E",
+    "name": "BinaryAssetBuilder.Core.IAssetBuilderVerifierPlugin",
+    "attributes": "Public, ClassSemanticsMask, Abstract",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003F",
+    "name": "BinaryAssetBuilder.Core.VerifierPluginRegistry",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_DefaultPlugin",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280F8"
+      },
+      {
+        "name": "_PluginMap",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280DD02091280F8"
+      }
+    ]
+  },
+  {
+    "token": "0x02000040",
+    "name": "NullVerifierPlugin",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000041",
+    "name": "BinaryAssetBuilder.Core.InclusionType",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Reference",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118104"
+      },
+      {
+        "name": "Instance",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118104"
+      },
+      {
+        "name": "All",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118104"
+      }
+    ]
+  },
+  {
+    "token": "0x02000042",
+    "name": "BinaryAssetBuilder.Core.InclusionItem",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_LogicalPath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_PhysicalPath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Type",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06118104"
+      },
+      {
+        "name": "_Document",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "061224"
+      }
+    ]
+  },
+  {
+    "token": "0x02000043",
+    "name": "BinaryAssetBuilder.Core.InstanceDeclaration",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Last",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128110"
+      },
+      {
+        "name": "_Current",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "06128114"
+      }
+    ]
+  },
+  {
+    "token": "0x02000044",
+    "name": "LastState",
+    "attributes": "NestedPrivate, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Handle",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "ProcessingHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "ReferencedInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128118"
+      },
+      {
+        "name": "WeakReferencedInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128118"
+      },
+      {
+        "name": "ReferencedFiles",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "InheritFromHandle",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "InheritFromXmlHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "PrevalidationXmlHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "IsInheritable",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "HasCustomData",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x02000045",
+    "name": "CurrentState",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Document",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061224"
+      },
+      {
+        "name": "Handle",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "ProcessingHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "XmlNode",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128099"
+      },
+      {
+        "name": "ReferencedInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128118"
+      },
+      {
+        "name": "WeakReferencedInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128118"
+      },
+      {
+        "name": "ReferencedFiles",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C010E"
+      },
+      {
+        "name": "IsInheritable",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "HasCustomData",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "CustomDataPath",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "InheritFromHandle",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "InheritFromXmlHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "PrevalidationXmlHash",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "ValidatedReferencedInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061512812C01128118"
+      },
+      {
+        "name": "AllDependentInstances",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06128120"
+      }
+    ]
+  },
+  {
+    "token": "0x02000046",
+    "name": "BinaryAssetBuilder.Core.InstanceHandle",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_InstanceId",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_InstanceHash",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_InstanceName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_TypeId",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_TypeHash",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_TypeName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Name",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_FullName",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_FileBase",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000047",
+    "name": "BinaryAssetBuilder.Core.KeyedCollection2\u00602",
+    "attributes": "Public, Abstract, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "defaultThreshold",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "comparer",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128129011300"
+      },
+      {
+        "name": "dict",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615123D0213001301"
+      },
+      {
+        "name": "keyCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "threshold",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000048",
+    "name": "BinaryAssetBuilder.Core.InstanceHandleSet",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000049",
+    "name": "BinaryAssetBuilder.Core.InstanceSet",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004A",
+    "name": "BinaryAssetBuilder.Core.ISessionCache",
+    "attributes": "Public, ClassSemanticsMask, Abstract",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004B",
+    "name": "BinaryAssetBuilder.Core.List2\u00601",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_defaultCapacity",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_maxBinCapacity",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_binList",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D901151280D9011300"
+      },
+      {
+        "name": "_size",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_syncRoot",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "061C"
+      },
+      {
+        "name": "_version",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004C",
+    "name": "ComparisonComparer",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_comparison",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061512813D011300"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004D",
+    "name": "Enumerator",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "list",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061512812C011300"
+      },
+      {
+        "name": "index",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "version",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "current",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061300"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004E",
+    "name": "BinaryAssetBuilder.Core.OutputManager",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "LinkedBufferSize",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_OldOutputInstances",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020E1220"
+      },
+      {
+        "name": "_Assets",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020E1254"
+      },
+      {
+        "name": "_AssetFileCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_CustomDataFileCount",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_OutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_IntermediateOutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_AssetDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_CustomDataDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Platform",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061180E0"
+      },
+      {
+        "name": "_IsLinked",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ValidOldOutputInstances",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_TargetPlatformCacheRoot",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_ManifestFile",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_OldManifestFile",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_VersionFile",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_DocumentProcessor",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128090"
+      },
+      {
+        "name": "_BasePatchStreamRelativePath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BasePatchStream",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BasePatchStreamAssets",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020E1280C5"
+      },
+      {
+        "name": "_BasePatchStreamManifest",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128141"
+      },
+      {
+        "name": "_Header",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128145"
+      },
+      {
+        "name": "breakHandle",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06128118"
+      },
+      {
+        "name": "_LinkedBuffer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061D05"
+      }
+    ]
+  },
+  {
+    "token": "0x0200004F",
+    "name": "BinaryAssetBuilder.Core.NodeJoiner",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "m_document",
+        "attributes": "Private, InitOnly",
+        "offset": -1,
+        "signature": "06128089"
+      },
+      {
+        "name": "m_schema",
+        "attributes": "Private, InitOnly",
+        "offset": -1,
+        "signature": "0612814D"
+      }
+    ]
+  },
+  {
+    "token": "0x02000050",
+    "name": "JoinAction",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Append",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118140"
+      },
+      {
+        "name": "Overwrite",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118140"
+      },
+      {
+        "name": "Remove",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118140"
+      },
+      {
+        "name": "Replace",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118140"
+      }
+    ]
+  },
+  {
+    "token": "0x02000051",
+    "name": "InsertPosition",
+    "attributes": "NestedPrivate, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Top",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118144"
+      },
+      {
+        "name": "Bottom",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118144"
+      }
+    ]
+  },
+  {
+    "token": "0x02000052",
+    "name": "BinaryAssetBuilder.Core.NoScrollRichTextBox",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "EM_SETEVENTMASK",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "EM_SETTYPOGRAPHYOPTIONS",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "WM_SETREDRAW",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "PFM_ALIGNMENT",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "SCF_SELECTION",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "EM_GETSCROLLPOS",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "EM_SETSCROLLPOS",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "updating",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "oldEventMask",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_scrollpos",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0611814C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000053",
+    "name": "POINT",
+    "attributes": "NestedPrivate, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "X",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060A"
+      },
+      {
+        "name": "Y",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060A"
+      }
+    ]
+  },
+  {
+    "token": "0x02000054",
+    "name": "BinaryAssetBuilder.Core.PathMonitor",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "EventLimit",
+        "attributes": "Public, Static, InitOnly",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_Watchers",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D901128169"
+      },
+      {
+        "name": "_ChangedFiles",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D9010E"
+      },
+      {
+        "name": "_NumEvents",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_UnrecoverableErrorOccured",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x02000055",
+    "name": "BinaryAssetBuilder.PluginDescriptor",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Plugin",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061280E8"
+      },
+      {
+        "name": "_HandledTypes",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D90109"
+      },
+      {
+        "name": "_AssetTypes",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Enabled",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_TargetType",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_UseBuildCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ConfigSection",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000056",
+    "name": "BinaryAssetBuilder.Core.SchemaSet",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "XmlNamespace",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Schemas",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612814D"
+      },
+      {
+        "name": "_XmlBaseAssetType",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612811D"
+      },
+      {
+        "name": "_XmlBaseInheritableAsset",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612811D"
+      },
+      {
+        "name": "_XmlAssetReferenceType",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612811D"
+      },
+      {
+        "name": "_XmlWeakReferenceType",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612811D"
+      },
+      {
+        "name": "_XmlFileReferenceType",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0612811D"
+      },
+      {
+        "name": "_HashableTypes",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280810212811D02"
+      },
+      {
+        "name": "_SchemaPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020E1180E9"
+      },
+      {
+        "name": "_CurrentSchema",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_InheritanceMap",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020E128179"
+      },
+      {
+        "name": "_AssetDependencies",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0615128081020908"
+      },
+      {
+        "name": "_DependencyTree",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280810209128160"
+      },
+      {
+        "name": "_CircularCheck",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151281780109"
+      }
+    ]
+  },
+  {
+    "token": "0x02000057",
+    "name": "SchemaHashTable",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000058",
+    "name": "DependencyList",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "TypeName",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "Children",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06151280D90109"
+      },
+      {
+        "name": "FixedUpChildren",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0615121D01128160"
+      },
+      {
+        "name": "GrandChildren",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06151281780109"
+      }
+    ]
+  },
+  {
+    "token": "0x02000059",
+    "name": "BinaryAssetBuilder.SerializedSectionHandler",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005A",
+    "name": "BinaryAssetBuilder.Core.SessionCache",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "CacheVersion",
+        "attributes": "Private, Static, Literal, NotSerialized, HasDefault",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_Tracer",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Current",
+        "attributes": "Private, NotSerialized",
+        "offset": -1,
+        "signature": "06128170"
+      },
+      {
+        "name": "_Last",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06128174"
+      },
+      {
+        "name": "_dirtyStreams",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280D9010E"
+      },
+      {
+        "name": "_cacheFileName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x0200005B",
+    "name": "FileConfig",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "LastCached",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061280A8"
+      },
+      {
+        "name": "All",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "06151280D9011280A8"
+      }
+    ]
+  },
+  {
+    "token": "0x0200005C",
+    "name": "CurrentState",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "FileConfigs",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0615128081020E12816C"
+      },
+      {
+        "name": "Files",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0615128081020E1280A8"
+      },
+      {
+        "name": "Created",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "061180E9"
+      },
+      {
+        "name": "AssetCompilersVersion",
+        "attributes": "Public",
+        "offset": -1,
+        "signature": "0609"
+      }
+    ]
+  },
+  {
+    "token": "0x0200005D",
+    "name": "LastState",
+    "attributes": "NestedPrivate, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_files",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1280A8"
+      },
+      {
+        "name": "_version",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_assetCompilersVersion",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "_created",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061180E9"
+      },
+      {
+        "name": "_documentProcessorVersion",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      }
+    ]
+  },
+  {
+    "token": "0x0200005E",
+    "name": "BinaryAssetBuilder.Core.Set\u00601",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_TheNop",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061511817C011300"
+      },
+      {
+        "name": "_Dictionary",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06151280810213001511817C011300"
+      }
+    ]
+  },
+  {
+    "token": "0x0200005F",
+    "name": "Nop",
+    "attributes": "NestedPrivate, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000060",
+    "name": "BinaryAssetBuilder.BuildConfiguration",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Name",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Postfix",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_StreamPostfix",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_AppendPostfixToStream",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ArtPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_AudioPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_DataPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000061",
+    "name": "BinaryAssetBuilder.Settings",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "Current",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "06128184"
+      },
+      {
+        "name": "_SchemaPath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BuildCacheDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_SessionCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_BuildCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_SessionCacheDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_PartialSessionCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_TargetPlatform",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061180E0"
+      },
+      {
+        "name": "_CompressedSessionCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_AlwaysTouchCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_MetricsReporting",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_OldOutputFormat",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_DataRoot",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_TraceLevel",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_ErrorLevel",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "_BuildConfigurationName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_PauseOnError",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_SingleFile",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_FreezeSessionCache",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_LinkedStreams",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_IntermediateOutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_OutputIntermediateXml",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_GuiMode",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_ForceSlowCleanup",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_OutputDirectory",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_InputPath",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_DataPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "_ArtPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "_AudioPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "_ProcessedMonitorPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "_Plugins",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D128154"
+      },
+      {
+        "name": "_VerifierPlugins",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D128154"
+      },
+      {
+        "name": "_BuildConfigurations",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D128180"
+      },
+      {
+        "name": "_DefaultArtPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_DefaultAudioPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_DefaultDataPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_MonitorPaths",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Postfix",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_StreamPostfix",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BigEndian",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_StableSort",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_BasePatchStream",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_UsePrecompiled",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_VersionFiles",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_CustomPostfix",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Resident",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_EnableStreamHints",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_AssetNamespace",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_OutputAssetReport",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_OutputStringHashes",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "_StringHashBinDescriptors",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1281AC"
+      }
+    ]
+  },
+  {
+    "token": "0x02000062",
+    "name": "BinaryAssetBuilder.Core.SettingsLoader",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000063",
+    "name": "BinaryAssetBuilder.Core.PathCharType",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "Invalid",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611818C"
+      },
+      {
+        "name": "ValidLongFileNameChar",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611818C"
+      },
+      {
+        "name": "ValidShortFileNameChar",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611818C"
+      },
+      {
+        "name": "Wildcard",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611818C"
+      },
+      {
+        "name": "Separator",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0611818C"
+      }
+    ]
+  },
+  {
+    "token": "0x02000064",
+    "name": "BinaryAssetBuilder.Core.AutoComplete",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "Default",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "Filesystem",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "UrlHistory",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "UrlMru",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "UrlAll",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "UseTab",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "FileSystemOnly",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "FileSystemDirectories",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "AutoSuggestForceOn",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "AutoSuggestForceOff",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "AutoAppendForceOn",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      },
+      {
+        "name": "AutoAppendForceOff",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "06118190"
+      }
+    ]
+  },
+  {
+    "token": "0x02000065",
+    "name": "BinaryAssetBuilder.Core.ShPath",
+    "attributes": "Public, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "MaxPath",
+        "attributes": "Private, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000066",
+    "name": "User32",
+    "attributes": "NestedPrivate, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000067",
+    "name": "Gdi32",
+    "attributes": "NestedPrivate, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000068",
+    "name": "Shlwapi",
+    "attributes": "NestedPrivate, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000069",
+    "name": "BinaryAssetBuilder.Core.ShMisc",
+    "attributes": "Public, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006A",
+    "name": "Shlwapi",
+    "attributes": "NestedPrivate, Abstract, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006B",
+    "name": "BinaryAssetBuilder.Core.StringHashBinDescriptor",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_SchemaTypeName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_BinName",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_CaseSensitive",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x0200006C",
+    "name": "BinaryAssetBuilder.Core.TraceWriteHandler",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006D",
+    "name": "BinaryAssetBuilder.Core.TraceKind",
+    "attributes": "Public, Sealed",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "None",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Exception",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Assert",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Error",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Warning",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Message",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Info",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Note",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Method",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Scope",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Constructor",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Property",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "Data",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "All",
+        "attributes": "Public, Static, Literal, HasDefault",
+        "offset": -1,
+        "signature": "061181B4"
+      }
+    ]
+  },
+  {
+    "token": "0x0200006E",
+    "name": "BinaryAssetBuilder.Core.Tracer",
+    "attributes": "Public",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "VerbosityLevels",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "061D1181B4"
+      },
+      {
+        "name": "_Tracers",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "06151280DD020E1281B8"
+      },
+      {
+        "name": "TraceWrite",
+        "attributes": "Public, Static",
+        "offset": -1,
+        "signature": "061281B0"
+      },
+      {
+        "name": "_IndentLevelStore",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061281AD"
+      },
+      {
+        "name": "_TraceMask",
+        "attributes": "Private, Static",
+        "offset": -1,
+        "signature": "061181B4"
+      },
+      {
+        "name": "_TraceSource",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061271"
+      },
+      {
+        "name": "_Name",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_Description",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "_TraceEnabled",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      }
+    ]
+  },
+  {
+    "token": "0x0200006F",
+    "name": "InternalTraceSource",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000070",
+    "name": "InternalScopedTrace",
+    "attributes": "NestedPrivate, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "_Tracer",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061281B8"
+      },
+      {
+        "name": "_Text",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000071",
+    "name": "BinaryAssetBuilder.Core.XmlHelper",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000072",
+    "name": "BinaryAssetBuilder.Project.BinaryAssetBuilderProject",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "streamField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1281CC"
+      }
+    ]
+  },
+  {
+    "token": "0x02000073",
+    "name": "BinaryAssetBuilder.Project.BinaryStream",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "configurationField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1281D0"
+      },
+      {
+        "name": "sourceField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000074",
+    "name": "BinaryAssetBuilder.Project.StreamConfiguration",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "baseStreamSearchPathField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D0E"
+      },
+      {
+        "name": "streamReferenceField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "061D1281D4"
+      },
+      {
+        "name": "nameField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "defaultField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "patchStreamField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "relativeBasePathField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  },
+  {
+    "token": "0x02000075",
+    "name": "BinaryAssetBuilder.Project.StreamReference",
+    "attributes": "Public, Serializable, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "referenceNameField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "referenceConfigurationField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      },
+      {
+        "name": "referenceManifestField",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "060E"
+      }
+    ]
+  }
+]

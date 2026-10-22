@@ -1,0 +1,53 @@
+{
+  "file": "BinaryAssetBuilder.Core.dll",
+  "sha256": "B36D5015F97532457D64072034F9F5C629A4C060A2D34C49C4F89FD6E6F79E47",
+  "assembly": "BinaryAssetBuilder.Core",
+  "version": "1.0.0.0",
+  "runtime": "v2.0.50727",
+  "machine": "I386",
+  "imageBase": "0x400000",
+  "corFlags": "ILOnly",
+  "types": 117,
+  "methods": 1099,
+  "il": 1071,
+  "native": 0,
+  "other": 28,
+  "references": [
+    {
+      "name": "mscorlib",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Xml",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "System.Windows.Forms",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Utility",
+      "version": "1.0.3344.32795"
+    },
+    {
+      "name": "System.Drawing",
+      "version": "2.0.0.0"
+    },
+    {
+      "name": "EALA.Hash",
+      "version": "1.0.3344.32674"
+    },
+    {
+      "name": "EALA.Metrics",
+      "version": "1.0.0.0"
+    },
+    {
+      "name": "System.Configuration",
+      "version": "2.0.0.0"
+    }
+  ]
+}
