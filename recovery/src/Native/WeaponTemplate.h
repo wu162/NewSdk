@@ -1,6 +1,7 @@
 #pragma once
 #include "Relocation.h"
 #include "ObjectFilter.h"
+#include "WeaponNugget.h"
 #include <map>
 #include <string>
 namespace Recovered { namespace Native {
@@ -28,5 +29,6 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
     const std::map<std::string, ObjectFilterInput>& filters,
-    const std::vector<WeaponScatterInput>& scatter, bool bigEndian);
+    const std::vector<WeaponScatterInput>& scatter,
+    const std::vector<WeaponNuggetInput>& nuggets, bool bigEndian);
 }}

@@ -31,6 +31,17 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'WeaponEffectNugget common Marshal and endian'; Start = 15406; End = 15498 }
+            @{ Name = 'Nugget polymorphic Marshal dispatch'; Start = 15499; End = 15623 }
+            @{ Name = 'DamageNugget Marshal and endian'; Start = 16961; End = 17218 }
+            @{ Name = 'ScalarInfo Marshal'; Start = 15339; End = 15369 }
+            @{ Name = 'ScalarInfo list Marshal'; Start = 53395; End = 53436 }
+            @{ Name = 'DamageNugget allocation'; Start = 52948; End = 52955 }
+            @{ Name = 'Nugget common Tokenize'; Start = 78605; End = 78683 }
+            @{ Name = 'DamageNugget Tokenize'; Start = 79450; End = 79570 }
+            @{ Name = 'Nugget list Tokenize'; Start = 99182; End = 99206 }
+            @{ Name = 'DOT Marshal and endian'; Start = 17344; End = 17390 }
+            @{ Name = 'DOT Tokenize'; Start = 79642; End = 79666 }
             @{ Name = 'ScatterRadiusType Marshal'; Start = 15370; End = 15410 }
             @{ Name = 'ScatterRadius list Marshal'; Start = 53635; End = 53676 }
             @{ Name = 'ScatterRadius endian'; Start = 53831; End = 53880 }

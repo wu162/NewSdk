@@ -228,7 +228,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
     const std::map<std::string, ObjectFilterInput>& filters,
-    const std::vector<WeaponScatterInput>& scatter, bool bigEndian) {
+    const std::vector<WeaponScatterInput>& scatter,
+    const std::vector<WeaponNuggetInput>& nuggets, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
     for (const auto& duration : durations) {
         bool known = false;
@@ -339,6 +340,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (warhead != attrs.end()) MarshalReference(data, &ai->warhead, warhead->second);
         data.Pop();
     }
+    MarshalWeaponNuggets(nuggets,reinterpret_cast<WeaponNuggetList*>(root->bytes+256),data);
     ObjectFilter* filterBlocks[3] = {};
     const char* filterNames[] = { "SurpriseAttackObjectFilter", "CombinedAttackObjectFilter", "HitStoredObjectFilter" };
     for (unsigned i = 0; i < 3; ++i) {
@@ -412,6 +414,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             if (found != referenceBlocks.end()) tokens.BookmarkMemberOffset(found->second, &table[i].offset);
         } else if (field.token == WeaponToken::Member) {
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
+        } else if (field.offset == 256) {
+            TokenizeWeaponNuggets(reinterpret_cast<WeaponNuggetList*>(root->bytes+256),&table[i].offset,tokens);
         } else if (field.token == WeaponToken::List) {
             unsigned count = field.offset == 284 ? static_cast<unsigned>(incompatibleModifiers.size()) :
                 field.offset == 276 ? static_cast<unsigned>(scatter.size()) : 0;
@@ -439,9 +443,10 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     }
     tokens.Pop();
     if (bigEndian) {
-        // Keep live host pointers intact until Tracker converts them to offsets.
+        EndianWeaponNuggets(reinterpret_cast<WeaponNuggetList*>(root->bytes+256));
+        // The nugget helper swaps its count; other root fields follow the original layout.
         for (unsigned offset = 4; offset < 292; offset += 4)
-            if (offset < 236 || offset > 248) Swap(root->bytes + offset);
+            if (offset != 256 && (offset < 236 || offset > 248)) Swap(root->bytes + offset);
         for (const auto& block : referenceBlocks) if (block.first == 136 || block.first == 140)
             for (unsigned i = 0; i < 7; ++i) Swap(static_cast<U32*>(block.second)+i);
         for (auto block : filterBlocks) if (block) EndianObjectFilter(block);

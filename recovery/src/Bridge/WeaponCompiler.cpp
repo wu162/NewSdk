@@ -3,6 +3,7 @@
 #include "XmlNodeAdapter.h"
 #include "../Native/WeaponTemplate.h"
 #include "../Native/EnumBitset.h"
+#include "../Native/ScalarParsing.h"
 #using <BinaryAssetBuilder.Core.dll>
 using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
@@ -36,6 +37,54 @@ public ref class WeaponCompiler abstract sealed {
             if (child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested ObjectFilter thing elements are not supported.");
             auto value = marshal_as<std::string>(child->Value);
             if (child->LocalName == "IncludeThing") result.includeThings.push_back(value); else result.excludeThings.push_back(value);
+        }
+        return result;
+    }
+    static std::string ReadUpgrade(XPathNavigator^ node) {
+        auto attrs=node->Clone();
+        if(attrs->MoveToFirstAttribute()) do {
+            if(attrs->NamespaceURI != "http://www.w3.org/2000/xmlns/") throw gcnew NotSupportedException("Upgrade list element attributes are unsupported.");
+        } while(attrs->MoveToNextAttribute());
+        if(node->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested upgrade elements are unsupported.");
+        return marshal_as<std::string>(node->Value);
+    }
+    static Native::NuggetScalarInput ReadScalar(XPathNavigator^ node) {
+        Native::NuggetScalarInput result;auto attrs=node->Clone();
+        if(attrs->MoveToFirstAttribute()) do {
+            if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if(attrs->NamespaceURI->Length != 0 || attrs->LocalName != "Scalar") throw gcnew NotSupportedException("Unsupported DamageScalarDetails attribute: "+attrs->Name);
+            result.scalar=marshal_as<std::string>(attrs->Value);
+        } while(attrs->MoveToNextAttribute());
+        auto children=node->SelectChildren(XPathNodeType::Element);
+        while(children->MoveNext()) {
+            auto child=children->Current;
+            if(child->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced DamageScalarDetails child is unsupported.");
+            if(child->LocalName == "Filter") {
+                auto filter=ReadFilter(child);if(!result.hasFilter) {result.filter=filter;result.hasFilter=true;}
+            } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
+            else throw gcnew NotSupportedException("Unsupported DamageScalarDetails child: "+child->Name);
+        }
+        return result;
+    }
+    static Native::WeaponNuggetInput ReadNugget(XPathNavigator^ node) {
+        Native::WeaponNuggetInput result;auto attrs=node->Clone();
+        if(attrs->MoveToFirstAttribute()) do {
+            if(attrs->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if(attrs->NamespaceURI->Length != 0) throw gcnew NotSupportedException("Namespaced nugget attributes are unsupported.");
+            if(attrs->LocalName == "id") continue; // pipeline-only, not emitted
+            if(attrs->LocalName == "TypeId") result.typeId=Native::ParseUnsigned(marshal_as<std::string>(attrs->Value));
+            else result.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+        } while(attrs->MoveToNextAttribute());
+        auto children=node->SelectChildren(XPathNodeType::Element);
+        while(children->MoveNext()) {
+            auto child=children->Current;
+            if(child->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced nugget child is unsupported.");
+            if(child->LocalName == "SpecialObjectFilter") {
+                auto filter=ReadFilter(child);if(!result.hasSpecialFilter) {result.specialFilter=filter;result.hasSpecialFilter=true;}
+            } else if(child->LocalName == "RequiredUpgrade") result.requiredUpgrades.push_back(ReadUpgrade(child));
+            else if(child->LocalName == "ForbiddenUpgrade") result.forbiddenUpgrades.push_back(ReadUpgrade(child));
+            else if(child->LocalName == "DamageScalarDetails") result.damageScalars.push_back(ReadScalar(child));
+            else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
         }
         return result;
     }
@@ -91,8 +140,23 @@ public:
         array<String^>^ hintAttributes = { "IsAntiGarrisonWeapon", "MaxSpeedOfTarget", "UseLongLockOnTimeCode", "UseAsWarheadForDamageCalculations" };
         std::map<std::string, Native::ObjectFilterInput> filters;
         std::vector<Native::WeaponScatterInput> scatter;
+        std::vector<Native::WeaponNuggetInput> nuggets;bool readNuggets=false;
         while (children->MoveNext()) {
             auto child = children->Current;
+            if(child->LocalName == "Nuggets" && child->NamespaceURI == node->NamespaceURI) {
+                auto attrs=child->Clone();
+                if(attrs->MoveToFirstAttribute()) do {
+                    if(attrs->NamespaceURI != "http://www.w3.org/2000/xmlns/") throw gcnew NotSupportedException("Nuggets container attributes are unsupported.");
+                } while(attrs->MoveToNextAttribute());
+                std::vector<Native::WeaponNuggetInput> entries;
+                auto list=child->SelectChildren(XPathNodeType::Element);
+                while(list->MoveNext()) {
+                    if(list->Current->NamespaceURI != node->NamespaceURI) throw gcnew NotSupportedException("Namespaced nugget elements are unsupported.");
+                    entries.push_back(ReadNugget(list->Current));
+                }
+                if(!readNuggets) {nuggets=entries;readNuggets=true;}
+                continue;
+            }
             if (child->LocalName == "ScatterRadiusVsType" && child->NamespaceURI == node->NamespaceURI) {
                 scatter.push_back(ReadScatter(child)); continue;
             }
@@ -152,7 +216,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, filters, scatter, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, optionalBlocks, incompatibleModifiers, filters, scatter, nuggets, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);

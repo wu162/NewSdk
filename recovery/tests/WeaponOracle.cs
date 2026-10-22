@@ -883,6 +883,7 @@ unsafe partial class WeaponOracle
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
                 Filters(plugin, platform);
                 Scatter(plugin, platform);
+                Nuggets(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
@@ -1653,7 +1654,6 @@ unsafe partial class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><FiringDuration Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ClipReloadTime Unknown=\"1\"/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><Nuggets/></WeaponTemplate>");
 
 
 
