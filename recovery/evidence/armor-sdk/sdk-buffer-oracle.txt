@@ -1,4 +1,4 @@
-PASS original SDK replay call RecoveryArmorProbe_Inherited: verified buffers equal, bytes=352
 PASS original SDK replay call RecoveryArmorProbe_Defaults: verified buffers equal, bytes=128
 PASS original SDK replay call RecoveryArmorProbe_NonDefault: verified buffers equal, bytes=352
+PASS original SDK replay call RecoveryArmorProbe_Inherited: verified buffers equal, bytes=352
 PASS 3 verified calls, all three probe assets emitted; inherited XML tested after BAB preprocessing; isolated=False.
