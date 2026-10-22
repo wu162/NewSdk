@@ -192,6 +192,13 @@ This supersedes the earlier scalar/duration stage's supported-scope limits.
   helper excerpts because the file includes contents-write and auto-push settings.
   That edit was dropped; existing authorized workflow configuration is retained.
   Source/test changes proceeded using the existing build/evidence workflow.
+  Follow-up: the user explicitly approved this exact extra workflow change.
+  Implemented in `013e5ee468f864e4856c602d8ad8b481290ee16b`: 11 named,
+  line-numbered original helper excerpts in `resource-helpers.txt`, included by
+  the existing evidence ZIP/hash collection. Permissions and auto-push logic
+  are unchanged. Run https://github.com/wu162/NewSdk/actions/runs/39788084474
+  completed successfully; both modes again pass 5,492 fixtures / 16,476 buffer
+  comparisons / 26 rejection checks each.
 
 Next stage: ObjectStatus masks (223 bits). Relevant original Tokenizer global
 methods: IValue pointer Marshal near 51212 (28-byte allocation), inline Marshal
