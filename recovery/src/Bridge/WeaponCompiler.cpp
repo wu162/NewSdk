@@ -20,7 +20,29 @@ public:
         if (node == nullptr) throw gcnew ArgumentNullException("node");
         auto adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);
         auto children = adapter->Children(nullptr);
-        if (children->MoveNext()) throw gcnew NotSupportedException("WeaponTemplate child structures are not reconstructed yet.");
+        array<String^>^ durationNames = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
+        while (children->MoveNext()) {
+            auto child = children->Current;
+            if (child->NamespaceURI != node->NamespaceURI || Array::IndexOf<String^>(durationNames, child->LocalName) < 0)
+                throw gcnew NotSupportedException("WeaponTemplate child structure is not reconstructed: " + child->LocalName);
+            auto attributes = child->Clone();
+            if (attributes->MoveToFirstAttribute()) do {
+                if (attributes->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+                if (attributes->NamespaceURI->Length != 0 || (attributes->LocalName != "MinSeconds" && attributes->LocalName != "MaxSeconds"))
+                    throw gcnew NotSupportedException("Unsupported RangeDuration attribute: " + attributes->Name);
+            } while (attributes->MoveToNextAttribute());
+            if (child->SelectChildren(XPathNodeType::Element)->MoveNext())
+                throw gcnew NotSupportedException("RangeDuration does not support nested elements.");
+        }
+        std::map<std::string, Native::WeaponDurationInput> durations;
+        for each (String^ name in durationNames) {
+            auto child = adapter->Child(name, nullptr);
+            if (child == nullptr) continue;
+            Native::WeaponDurationInput duration;
+            duration.minSeconds = marshal_as<std::string>(child->Attribute("MinSeconds", "0s"));
+            duration.maxSeconds = marshal_as<std::string>(child->Attribute("MaxSeconds", "0s"));
+            durations[marshal_as<std::string>(name)] = duration;
+        }
         std::map<std::string, std::string> attributes;
         for each (XmlAttribute^ attribute in node->Attributes) {
             if (attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
@@ -29,7 +51,7 @@ public:
             attributes[marshal_as<std::string>(attribute->Name)] = marshal_as<std::string>(attribute->Value);
         }
         try {
-            auto chunk = Native::CompileWeaponScalars(attributes, bigEndian);
+            auto chunk = Native::CompileWeapon(attributes, durations, bigEndian);
             auto buffer = gcnew AssetBuffer();
             buffer->InstanceData = Copy(chunk.instance);
             buffer->RelocationData = Copy(chunk.relocations);

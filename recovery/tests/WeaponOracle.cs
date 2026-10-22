@@ -50,10 +50,23 @@ class WeaponOracle
         Equal(label + "/relocations", original.RelocationData, recovered.RelocationData);
         Equal(label + "/imports", original.ImportsData, recovered.ImportsData);
         bool big = platform != TargetPlatform.Win32;
-        if (recovered.InstanceData.Length != 1624 || recovered.RelocationData.Length != 0 || recovered.ImportsData.Length != 0 ||
-            Word(recovered.InstanceData, 8, big) != 1300 || Word(recovered.InstanceData, 104*12, big) != 0 ||
-            Word(recovered.InstanceData, 98*12+8, big) != 1260 || Word(recovered.InstanceData, 1268, big) != 1552)
+        int tokenSize = 1296 + 36*count;
+        if (recovered.InstanceData.Length != 1624 + 44*count || recovered.RelocationData.Length != (count == 0 ? 0 : (count+1)*4) || recovered.ImportsData.Length != 0 ||
+            Word(recovered.InstanceData, 8, big) != tokenSize+4 || Word(recovered.InstanceData, 104*12, big) != 0 ||
+            Word(recovered.InstanceData, 98*12+8, big) != 1260+36*count || Word(recovered.InstanceData, 1268+36*count, big) != tokenSize+256)
             throw new Exception(label + " independent scalar-only layout assertion");
+        int present = 0;
+        for (int i = 0; i < 4; ++i) {
+            uint pointer = Word(recovered.InstanceData, tokenSize + 236 + i*4, big);
+            if (pointer == 0) continue;
+            if (pointer != tokenSize+328+present*8 ||
+                Word(recovered.RelocationData, present*4, big) != tokenSize+236+i*4 ||
+                Word(recovered.InstanceData, (93+i)*12+8, big) != 1260+present*36)
+                throw new Exception(label + " independent duration pointer/relocation assertion");
+            ++present;
+        }
+        if (present != count || (count != 0 && Word(recovered.RelocationData, count*4, big) != uint.MaxValue))
+            throw new Exception(label + " duration count/sentinel assertion");
         Console.WriteLine("PASS {0} platform={1} bytes={2}", label, (int)platform, recovered.InstanceData.Length);
     }
     static string Weapon(string attrs) { return "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle' " + attrs + "/>"; }
@@ -826,6 +839,15 @@ class WeaponOracle
                 Check(plugin, "ShouldPlayTargetDeadEvaEvent-7", "ShouldPlayTargetDeadEvaEvent=''", platform);
                 Check(plugin, "ShouldPlayTargetDeadEvaEvent-8", "ShouldPlayTargetDeadEvaEvent=' true'", platform);
                 Check(plugin, "mixed-fields", "AttackRange='-23.75' MinimumAttackRange='-23.75' RangeBonusMinHeight='-23.75' RangeBonus='-23.75' RangeBonusPerFoot='-23.75' RequestAssistRange='-23.75' AcceptableAimDelta='90d' AimDirection='90d' ScatterRadius='-23.75' ScatterLength='-23.75' ScatterIndependently='false' WeaponSpeed='-23.75' MinWeaponSpeed='-23.75' MaxWeaponSpeed='-23.75' ScaleWeaponSpeed='false' IgnoresContactPoints='false' ScaleAttackRangeByAmmoRemaining='false' CanBeDodged='false' IdleAfterFiringDelaySeconds='-2s' HoldAfterFiringDelaySeconds='-2s' HoldDuringReload='false' CanFireWhileMoving='false' WeaponRecoil='90d' MinTargetPitch='90d' MaxTargetPitch='90d' FiringLoopSoundContinuesDuringReload='false' ClipSize='0' ContinuousFireOne='0' ContinuousFireTwo='0' ContinuousFireCoastSeconds='-2s' AutoReloadWhenIdleSeconds='-2s' ShotsPerBarrel='0' DamageDealtAtSelfPosition='false' CheckStatusFlagsInRangeChecks='false' ProjectileSelf='false' MeleeWeapon='false' ChaseWeapon='false' LeechRangeWeapon='false' HitStoredTarget='false' CapableOfFollowingWaypoints='false' ShowsAmmoPips='false' AllowAttackGarrisonedBldgs='false' PlayFXWhenStealthed='false' ContinueAttackRange='-23.75' SuspendFXDelaySeconds='-2s' IsAimingWeapon='false' NoVictimNeeded='false' HitPercentage='-23.75' HitPassengerPercentage='-23.75' PassengerProportionalAttack='false' HealthProportionalResolution='-23.75' MaxAttackPassengers='0' FinishAttackOnceStarted='false' RestrictedHeightRange='-23.75' CannotTargetCastleVictims='false' RequireFollowThru='false' ShareTimers='false' ShouldPlayUnderAttackEvaEvent='false' InstantLoadClipOnActivate='false' Flags='CRUSH_VEHICLE' LockWhenUsing='false' BombardType='false' UseInnateAttributes='false' PreAttackType='PER_CLIP' ReAcquireDetailType='PER_CLIP' AutoReloadsClip='NONE' RadiusDamageAffects='ENEMIES' FXTrigger='NONE' ProjectileCollidesWith='BALLISTIC_MISSILES' RequiredAntiMask='ANTI_AIRBORNE_VEHICLE' ForbiddenAntiMask='ANTI_AIRBORNE_VEHICLE' StopFiringOnCanBeInvisible='false' ContactWeapon='false' UseCenterForRangeCheck='false' VirtualDamage='SHARE' RevealShroudOnFire='false' ShouldPlayTargetDeadEvaEvent='false'", platform);
+                string[] durations = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
+                foreach (string duration in durations) {
+                    foreach (string attrs in new[] { "", "MinSeconds='1s'", "MaxSeconds='1500ms'", "MinSeconds='-2s' MaxSeconds='-3s'", "MinSeconds='2d1s' MaxSeconds='1e-7s'", "MinSeconds='' MaxSeconds='garbage'", "MinSeconds='1e40' MaxSeconds='1e-40'" }) {
+                        Test(plugin, duration + "/" + attrs, "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle' AttackRange='42'><" + duration + " " + attrs + "/></WeaponTemplate>", platform, 1); ++fixtures;
+                    }
+                }
+                Test(plugin, "all-durations", "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle'><ClipReloadTime MinSeconds='4s'/><CoolDownDelayBetweenShots MinSeconds='3s'/><FiringDuration MinSeconds='2s'/><PreAttackDelay MinSeconds='1s'/></WeaponTemplate>", platform, 4); ++fixtures;
+                Test(plugin, "first-duplicate-duration", "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle'><PreAttackDelay MinSeconds='1s'/><PreAttackDelay MinSeconds='9s'/></WeaponTemplate>", platform, 1); ++fixtures;
+
             }
             Reject(Weapon("PreferredTargetBone=''"));
             Reject(Weapon("FireSound=''"));
@@ -843,10 +865,10 @@ class WeaponOracle
             Reject(Weapon("PreAttackWeapon=''"));
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceAttackSound/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><OverrideVoiceEnterStateAttackSound/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><PreAttackDelay/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><FiringDuration/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots/></WeaponTemplate>");
-            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ClipReloadTime/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><PreAttackDelay Unknown=\"1\"/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><FiringDuration Unknown=\"1\"/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots Unknown=\"1\"/></WeaponTemplate>");
+            Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><ClipReloadTime Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><WeaponAiHintInfo/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><Nuggets/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><SurpriseAttackObjectFilter/></WeaponTemplate>");
@@ -856,7 +878,7 @@ class WeaponOracle
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><IncompatibleAttributeModifier/></WeaponTemplate>");
             Reject(Weapon("UnknownField='1'"));
             Reject("<WeaponTemplate xmlns='" + AssetNamespace + "' id='Reject'><Unknown/></WeaponTemplate>");
-            Console.WriteLine("PASS WeaponTemplate scalar subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

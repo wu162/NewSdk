@@ -233,7 +233,14 @@ struct Root { unsigned char bytes[328]; };
 }
 const WeaponField* WeaponFields() { return fields; }
 unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
-Relo::Chunk CompileWeaponScalars(const std::map<std::string, std::string>& attributes, bool bigEndian) {
+Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
+    const std::map<std::string, WeaponDurationInput>& durations, bool bigEndian) {
+    const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
+    for (const auto& duration : durations) {
+        bool known = false;
+        for (const char* name : durationNames) if (duration.first == name) known = true;
+        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate duration: " + duration.first);
+    }
     // Validate before allocation: unsupported input must never silently produce zero data.
     for (const auto& attr : attributes) {
         const WeaponField* field = nullptr;
@@ -265,12 +272,32 @@ Relo::Chunk CompileWeaponScalars(const std::map<std::string, std::string>& attri
         }
         std::memcpy(at, &word, 4);
     }
+    struct RangeDuration { float minSeconds, maxSeconds; };
+    RangeDuration* durationBlocks[4] = {};
+    for (unsigned i = 0; i < 4; ++i) {
+        auto found = durations.find(durationNames[i]);
+        if (found == durations.end()) continue;
+        auto block = static_cast<RangeDuration*>(data.Push(
+            reinterpret_cast<void**>(root->bytes + 236 + 4*i), sizeof(RangeDuration), 1));
+        block->minSeconds = InitializeTime(found->second.minSeconds.c_str());
+        block->maxSeconds = InitializeTime(found->second.maxSeconds.c_str());
+        durationBlocks[i] = block;
+        data.Pop();
+    }
     Procedure* table = nullptr;
     tokens.Push(reinterpret_cast<void**>(&table), sizeof(Procedure), 105);
     for (unsigned i = 0; i < WeaponFieldCount(); ++i) {
         const auto& field = fields[i];
         table[i].name = field.nameHash; table[i].type = field.typeHash;
-        if (field.token == WeaponToken::Member) {
+        if (field.offset >= 236 && field.offset <= 248 && durationBlocks[(field.offset - 236)/4]) {
+            auto block = durationBlocks[(field.offset - 236)/4];
+            auto nested = static_cast<Procedure*>(tokens.Push(&table[i].offset, sizeof(Procedure), 3));
+            nested[0].name = 947845537u; nested[0].type = 2575722984u;
+            nested[1].name = 895757295u; nested[1].type = 2575722984u;
+            tokens.BookmarkMemberOffset(&block->minSeconds, &nested[0].offset);
+            tokens.BookmarkMemberOffset(&block->maxSeconds, &nested[1].offset);
+            tokens.Pop();
+        } else if (field.token == WeaponToken::Member) {
             tokens.BookmarkMemberOffset(root->bytes + field.offset, &table[i].offset);
         } else if (field.token == WeaponToken::List) {
             // Empty lists still have a count table; no list payload allocation.
@@ -282,7 +309,12 @@ Relo::Chunk CompileWeaponScalars(const std::map<std::string, std::string>& attri
         // Absent optional pointers have zero token offsets, as in the original.
     }
     tokens.Pop();
-    if (bigEndian) for (unsigned offset = 4; offset < 292; offset += 4) Swap(root->bytes + offset);
+    if (bigEndian) {
+        // Keep live host pointers intact until Tracker converts them to offsets.
+        for (unsigned offset = 4; offset < 292; offset += 4)
+            if (offset < 236 || offset > 248) Swap(root->bytes + offset);
+        for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
+    }
     auto tokenChunk = tokens.MakeRelocatable(bigEndian, 0);
     tokens.FixupMemberOffsets(data, tokenChunk, bigEndian);
     auto result = data.MakeRelocatable(bigEndian, static_cast<U32>(tokenChunk.instance.size()));
