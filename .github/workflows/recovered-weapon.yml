@@ -33,4 +33,6 @@ jobs:
         if: always()
         with:
           name: recovered-weapon-evidence
-          path: recovery/evidence/weapon
+          path: |
+            recovery/evidence/weapon
+            recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
