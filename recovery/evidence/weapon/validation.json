@@ -3,12 +3,12 @@
     "Od",
     "O2"
   ],
-  "sourceCommit": "0bfc640f44503d4a12192b7070581bf29a9688e3",
+  "sourceCommit": "5e7a123f07e7c4a70266169b8524f685e151d349",
   "succeeded": true,
-  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget and LineDamageNugget with common base and ScalarInfo; other nugget types rejected",
+  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget and FireOnObjectsNugget with common base and ScalarInfo; other nugget types rejected",
   "componentSucceeded": true,
   "sdkProbeSucceeded": true,
-  "sdkProbeScope": "Original SDK build of six schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing",
-  "runId": 39862386470,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39862386470"
+  "sdkProbeScope": "Original SDK build of eight schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing",
+  "runId": 39863278752,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39863278752"
 }
