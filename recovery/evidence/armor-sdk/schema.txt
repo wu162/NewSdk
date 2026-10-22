@@ -1,1 +1,1 @@
-PASS 2 documents validated against CnC3Types.xsd with relative includes/imports.
+PASS 2 documents validated against CnC3Types.xsd with relative includes/imports; 3 invalid fixtures rejected.

@@ -1,50 +1,50 @@
 [
   {
-    "file": "mod.bin",
-    "bytes": 43904,
     "sha256": "9E8BF4E3074486E5B4853435C23F5688F470CFF520486259BAEEAA7F5C2D667C",
-    "mode": "Original"
-  },
-  {
-    "file": "mod.manifest",
-    "bytes": 1655,
-    "sha256": "54942AB8D422A810347688EE976C02AAC6B1555A674AD42833D008E78D54F68C",
-    "mode": "Original"
-  },
-  {
-    "file": "mod.imp",
-    "bytes": 64,
-    "sha256": "479EA3F6CE512BD4DE4F8660006B41FA87FDAAA0F5B2983384AA82CCE64803FA",
-    "mode": "Original"
-  },
-  {
-    "file": "mod.relo",
-    "bytes": 880,
-    "sha256": "6567804AF6D9C12E8E610D7BFEC23F106AE1CBDFF51E540865E7B4D30B538631",
-    "mode": "Original"
-  },
-  {
+    "mode": "Original",
     "file": "mod.bin",
-    "bytes": 43904,
-    "sha256": "9E8BF4E3074486E5B4853435C23F5688F470CFF520486259BAEEAA7F5C2D667C",
-    "mode": "Recovered"
+    "bytes": 43904
   },
   {
-    "file": "mod.manifest",
-    "bytes": 1655,
     "sha256": "54942AB8D422A810347688EE976C02AAC6B1555A674AD42833D008E78D54F68C",
-    "mode": "Recovered"
+    "mode": "Original",
+    "file": "mod.manifest",
+    "bytes": 1655
   },
   {
-    "file": "mod.imp",
-    "bytes": 64,
     "sha256": "479EA3F6CE512BD4DE4F8660006B41FA87FDAAA0F5B2983384AA82CCE64803FA",
-    "mode": "Recovered"
+    "mode": "Original",
+    "file": "mod.imp",
+    "bytes": 64
   },
   {
-    "file": "mod.relo",
-    "bytes": 880,
     "sha256": "6567804AF6D9C12E8E610D7BFEC23F106AE1CBDFF51E540865E7B4D30B538631",
-    "mode": "Recovered"
+    "mode": "Original",
+    "file": "mod.relo",
+    "bytes": 880
+  },
+  {
+    "sha256": "9E8BF4E3074486E5B4853435C23F5688F470CFF520486259BAEEAA7F5C2D667C",
+    "mode": "Recovered",
+    "file": "mod.bin",
+    "bytes": 43904
+  },
+  {
+    "sha256": "54942AB8D422A810347688EE976C02AAC6B1555A674AD42833D008E78D54F68C",
+    "mode": "Recovered",
+    "file": "mod.manifest",
+    "bytes": 1655
+  },
+  {
+    "sha256": "479EA3F6CE512BD4DE4F8660006B41FA87FDAAA0F5B2983384AA82CCE64803FA",
+    "mode": "Recovered",
+    "file": "mod.imp",
+    "bytes": 64
+  },
+  {
+    "sha256": "6567804AF6D9C12E8E610D7BFEC23F106AE1CBDFF51E540865E7B4D30B538631",
+    "mode": "Recovered",
+    "file": "mod.relo",
+    "bytes": 880
   }
 ]
