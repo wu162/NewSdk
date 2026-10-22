@@ -60,6 +60,6 @@ ModelCondition / ScatterRadiusVsType 已继续完成差分验证；下一轮恢�
 
 ## Nugget 阶段的实际 SDK 样例 — 2026-10-23
 
-`RecoveryWeaponNuggetProbe.xml` 已加入 mymod 实际 Include 链，包含六种已恢复伤害类 Nugget 的合法 WeaponTemplate，DOT 必填字段和 ScalarInfo.Filter 均符合完整 XSD。`TestWeaponSdkProbe.ps1` 使用原版 Weapon 路由编译 mymod，要求六份恢复组件 InstanceData 实际出现在 mod.bin，并保存全部产物与证据。此项是合法源码/实际 SDK 产物核对，不能称为已切换恢复版 Weapon 插件。
+`RecoveryWeaponNuggetProbe.xml` 已加入 mymod 实际 Include 链，包含九种已恢复伤害类 Nugget 的合法 WeaponTemplate，DOT 必填字段和 ScalarInfo.Filter 均符合完整 XSD。`TestWeaponSdkProbe.ps1` 使用原版 Weapon 路由编译 mymod，要求九份恢复组件 InstanceData 实际出现在 mod.bin，并保存全部产物与证据。此项是合法源码/实际 SDK 产物核对，不能称为已切换恢复版 Weapon 插件。
 
-同时，原有 Armor 正式插件对照随新增 mymod 样例运行，原版/恢复版 Armor 路由的完整 bin/manifest/imp/relo 仍逐字节一致。Nuggets 当前恢复 6/35 个显式分支，剩余 29 个明确拒绝；待 WeaponTemplate 完整后再按正式路由策略切换该顶层类型。
+同时，原有 Armor 正式插件对照随新增 mymod 样例运行，原版/恢复版 Armor 路由的完整 bin/manifest/imp/relo 仍逐字节一致。Nuggets 当前恢复 9/35 个显式分支，剩余 26 个明确拒绝；待 WeaponTemplate 完整后再按正式路由策略切换该顶层类型。

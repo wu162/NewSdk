@@ -17,8 +17,11 @@ integration probe.
 | LeechPercentMaxHealthDamageNugget | 921679887 | 156 | PercentMaxHealthToTake |
 | LeechHealthDamageNugget | 4012276286 | 156 | PercentDamageToHeal |
 | LineDamageNugget | 4021248832 | 176 | OffsetAngle, LineWidth, LineLengthLeadIn/Out, UseDynamicLineLength, OverShootDistance |
+| DamageAndSpawnNugget | 3266020104 | 220 | SpawnProbability, inline model mask, SpawnTemplate typed ID |
+| FireOnObjectsNugget | 2014632688 | 164 | Weapon reference, two Booleans and optional Filter pointer |
+| DamageContainedNugget | 2459653016 | 272 | MaxUnitsToDamage, WindowBlastFX reference, inline DamageObjectFilter |
 
-The original pointer dispatcher has 35 explicit branches. The other 29 branches,
+The original pointer dispatcher has 35 explicit branches. The other 26 branches,
 zero/unknown TypeIds, unknown attributes and unimplemented children are rejected.
 An empty Nuggets container now serializes correctly, but does not establish full
 Nugget support. A matching XML element name without its prepared TypeId is not
@@ -62,6 +65,23 @@ upgrade-list allocations. DOT/line/leech scalar extensions execute before their
 DamageNugget parent. Derived TypeId is written after the inherited Marshal chain.
 This ordering is preserved because it changes buffer and relocation offsets.
 
+DamageAndSpawn adds SpawnProbability at 152, 15 inline model-mask words at 156,
+and SpawnTemplate typed GameObject ID at 216. FireOnObjects adds Weapon prepared
+reference at 152, an optional ObjectFilter pointer at 156, and FireOnVictimObject /
+VictimMustBeAlive bytes at 160/161. Its extra filter is allocated before parent
+DamageScalarDetails and base allocations. First SpawnTemplate / Filter children
+win; unsupported use of those children on other types rejects explicitly. Fire
+reference words are rewritten by Tracker, while SpawnTemplate is a numeric typed
+ID and is endian-swapped. Neither representation is inferred from the XML name.
+
+DamageContained adds MaxUnitsToDamage at 152, WindowBlastFX reference at 156,
+and an inline 112-byte DamageObjectFilter at 160. Its filter is marshaled and
+tokenized unconditionally before the Damage parent, including when absent in
+direct component input. Its derived table has five entries plus the nested
+156-byte filter table. XSD requires DamageObjectFilter in legal SDK sources.
+The base DamageNugget and all eight XSD-derived members are now supported; this
+does not complete the other WeaponEffectNugget families.
+
 ## Token and endian representation
 
 Each Nugget list entry points to a single procedure record with marker 2 and the
@@ -97,17 +117,23 @@ upgrade and ScalarInfo lists through 257, duplicate-filter semantics, every
 unimplemented dispatch branch, and 128 combinations with existing root fields,
 optional blocks, filters, scatter and modifier references on all four platform IDs.
 
-`SDK/Mods/mymod/Data/RecoveryWeaponNuggetProbe.xml` adds six legal weapons and is
+`SDK/Mods/mymod/Data/RecoveryWeaponNuggetProbe.xml` adds nine legal weapons and is
 included from the real Mod.xml entry. It supplies required DOT fields and valid
 ScalarInfo.Filter children, preserving existing sample sources.
 `TestWeaponSdkProbe.ps1` validates these raw files against the full CnC3Types.xsd,
 compiles actual mymod basic data through the original SDK with fresh output, and
-requires the six recovered component InstanceData payloads to occur in the
-resulting mod.bin. Its expected-component input adds only the six known
+requires the nine recovered component InstanceData payloads to occur in the
+resulting mod.bin. Its expected-component input adds only the nine known
 polymorphic TypeIds to raw XML; it is not a reconstruction of all BAB preprocessing.
 This probe retains original WeaponTemplate routing. It establishes legal SDK
-source/output agreement for these six assets, not a recovered Weapon SDK plugin
+source/output agreement for these nine assets, not a recovered Weapon SDK plugin
 build. Direct differential tests separately check all three buffers.
+
+Final nine-type source is `f552f2195ebac59858a9c8d6db92194fa8756881`;
+[run 39863931585](https://github.com/wu162/NewSdk/actions/runs/39863931585)
+completed successfully. Each /Od and /O2 passed 47,512 fixtures, 142,536
+three-buffer comparisons and 190 rejection checks. All nine raw SDK probes
+passed full XSD validation and matched original SDK InstanceData.
 
 The workflow persists source/run, mode/scope and SDK-probe status in
 `evidence/weapon/validation.json`. The evidence ZIP contains SDK logs, all four
@@ -121,6 +147,8 @@ All code is based on this repository's Tokenizer PE/IL. Entry points in
 `decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs` include common Marshal
 15406, pointer dispatch 15499, ScalarInfo Marshal 15339, DamageNugget Marshal
 16961, line/leech/DOT Marshal 17219–17390, allocation wrappers around 52878–52979,
+FireOnObjects / Spawn Marshal 17392 / 17427 and Tokenize 79667 / 79706,
+DamageContained Marshal / Tokenize 17498 / 79731,
 common Tokenize 78605, Damage Tokenize 79450, derived token tables 79571–79666,
 ScalarInfo list Marshal 53395 and Nugget list Tokenize 99182.
 `ExtractWeaponEvidence.py` now extracts the original partition/damage/death/FX/
@@ -143,15 +171,15 @@ subtype enum maps too; no enum order is guessed from XSD or another SDK.
 | ReportWeaponFiredStatNuggetType | 1675169590 | Explicitly rejected |
 | LuaEventNuggetType | 2010867179 | Explicitly rejected |
 | ActivateStreamNuggetType | 2159708756 | Explicitly rejected |
-| FireOnObjectsNuggetType | 2014632688 | Explicitly rejected |
+| FireOnObjectsNuggetType | 2014632688 | Recovered |
 | ProjectileNuggetType | 2278014412 | Explicitly rejected |
-| DamageContainedNuggetType | 2459653016 | Explicitly rejected |
+| DamageContainedNuggetType | 2459653016 | Recovered |
 | ActivateCircularDamageNuggetType | 2360033115 | Explicitly rejected |
 | SecondaryDamageNuggetType | 2475108259 | Explicitly rejected |
 | MetaImpactNuggetType | 2940373499 | Explicitly rejected |
 | ActivateLiftObjectNuggetType | 2769610658 | Explicitly rejected |
 | SlavesAttackNuggetType | 3111574559 | Explicitly rejected |
-| DamageAndSpawnNuggetType | 3266020104 | Explicitly rejected |
+| DamageAndSpawnNuggetType | 3266020104 | Recovered |
 | DamageNuggetType | 3237297817 | Recovered |
 | WeaponOCLNuggetType | 3322313791 | Explicitly rejected |
 | TintObjectsNuggetType | 3665090361 | Explicitly rejected |
