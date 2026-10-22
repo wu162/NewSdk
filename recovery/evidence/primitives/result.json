@@ -1,5 +1,5 @@
 {
-  "exitCode": 0,
   "succeeded": true,
+  "exitCode": 0,
   "kind": "Original DLL vs rebuilt native+C++/CLI, float bits"
 }
