@@ -33,8 +33,8 @@
 
 ## 下一轮的具体起点
 
-阶段 1 已完成；阶段 2 已完成 WeaponTemplate 的 77 个根属性和四个 RangeDuration 可选块，详见 WEAPON_TEMPLATE.md、STATUS.md 与 evidence/weapon。两种构建模式均已建立真实原版 ProcessInstance 的三缓冲区差分闭环；这只证明已支持子集，不代表完整 WeaponTemplate 或替代 DLL 完成。
+阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 89 个根属性、四个 RangeDuration、两个 SoundOrEvaEvent 和 WeaponAiHintInfo。字符串、预处理引用、TypedAssetId 哈希已接入；非空资源引用、嵌套指针和时间块组合已进入原版 ProcessInstance 差分测试。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
 
-下一轮约 25 分钟优先成组恢复字符串与预处理资源引用共用逻辑，以及 WeaponTemplate 的音效、FX、武器引用属性，增加非空引用/重定位差分样例；时间允许再接续其他可选块。复用现有 ScalarParsing、DataInitializers、XmlNodeAdapter 与 Relo::Tracker。其余可选块、状态掩码、过滤器、非空列表、Nuggets 与完整插件仍未完成，不要重新从布局或默认值起步。
+下一轮约 25 分钟：成组恢复 RequiredFiringObjectStatus / ForbiddenFiringObjectStatus 的 223 位状态掩码、共用枚举/位集处理及直接原 DLL 差分；依赖和时间允许再接续 ObjectFilter 或简单列表。不要重做已验证标量、引用和可选块，不得静默忽略 Nuggets/过滤器等未实现字段。完整插件和重建 DLL 的 MOD 编译仍未完成。
 
-用户于 2026-10-22 明确授权工作流自动推送配置。Weapon 验证工作流可自动提交验证结果：仅提交 recovery/evidence/weapon 的指定证据文件，先 pull --rebase 再普通推送，不强推；证据路径不在触发过滤器中，避免递归运行。每轮仍按约 25 分钟有效工作量推进，完成验证、提交和准确交接。
+用户已授权工作流自动提交验证结果；继续保持限定证据范围、pull --rebase 后普通推送、不强推及避免递归触发。每轮按约 25 分钟有效工作量推进，完成验证、提交和准确交接。

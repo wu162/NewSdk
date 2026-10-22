@@ -1,6 +1,6 @@
 # Compiler source recovery — session handoff
 
-Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/duration subset, but is still **not completed recovery of both compiler DLLs**.
+Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/seven-optional-block subset, but is still **not completed recovery of both compiler DLLs**.
 
 ## User scope
 
@@ -26,7 +26,7 @@ Future implementation sessions should contain about **25 minutes of effective wo
 * Buildable C++ `src/Native/DataInitializers.cpp` plus actual C++/CLI bridge `src/Bridge/PrimitiveInitializers.cpp`: time and angle initializers.
 * Buildable C++ `src/Native/Relocation.h` / `.cpp` and C++/CLI `src/Bridge/RelocationBridge.cpp`: shared allocation/relocation runtime, external-reference tables, bookmark exchange, Tokenizer member lookup/fixup. Source and ABI/semantic details: `RELOCATION_RUNTIME.md`. Recovered containers use RAII/STL, not the original EASTL in-memory ABI.
 * Recovered ArmorTemplate XML-to-InstanceData/RelocationData/ImportsData path, shared Node adapter and scalar parsing: `ARMOR_TEMPLATE.md`. This is a single-type component entry point, not a replacement compiler DLL.
-* WeaponTemplate: 77 root attributes plus four optional RangeDuration blocks, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
+* WeaponTemplate: 89 root attributes plus four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
 * Read `README.md` for build entry points and `PROVENANCE.md` for original method tokens.
 
 ## Actual validation
@@ -66,13 +66,13 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 ## Resume instruction
 
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
-Continue WeaponTemplate from the validated 77-attribute/four-duration implementation.
+Continue WeaponTemplate from the resource/seven-block implementation described below.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-25-minute scope: recover prepared external references/strings and
-related helpers as a group, then remaining optional blocks as dependencies allow;
-build directly against original ProcessInstance with nonempty relocation/import cases.
-Keep unsupported fields explicit. Lists, filters and polymorphic Nuggets remain
-unimplemented. A complete replacement plugin and rebuilt-DLL MOD run are outstanding.
+Next approximately-25-minute scope: recover the two 223-bit ObjectStatus masks
+and shared enum/bitset handling with original ProcessInstance differential tests;
+then filters/simple lists as dependencies and time allow. Remaining eight fields
+are explicitly unsupported. A complete replacement plugin and rebuilt-DLL MOD
+run are still outstanding. Read the newest validation.json for exact source/run.
 
 ## Continuation details from this stage
 
@@ -133,3 +133,71 @@ WeaponTemplate's audio/FX/weapon reference attributes and nonempty differential
 fixtures, then bring in additional optional structures if time permits. Preserve
 the verified scalar/duration behavior and expand the original-ProcessInstance
 oracle instead of replacing it with recovered-only tests.
+
+
+
+## WeaponTemplate resource and optional-block stage — 2026-10-22
+
+This supersedes the earlier scalar/duration stage's supported-scope limits.
+
+* Added shared native `ResourceMarshaling.h` / `.cpp`: padded ANSI strings,
+  prepared-reference suffix parsing and typed-asset-ID FastHash. No original
+  DLL forwarding. Original Node.Value uses StringToHGlobalAnsi; the bridge's
+  ANSI conversion is exercised with accented and Chinese input on the runner.
+* Expanded root support from 77 to 89 attributes: PreferredTargetBone; three
+  pointer audio references; four inline FX references; two inline reload audio
+  references; ProjectileStreamName typed ID; PreAttackWeapon pointer reference.
+  Explicit-empty strings and pointer references allocate real payloads. Inline
+  references without a backslash remain zero. Decimal indexes include malformed
+  suffixes, signed limits/overflow, negative values and modulo-2^32 +1 encoding.
+* Added OverrideVoiceAttackSound / OverrideVoiceEnterStateAttackSound (8-byte
+  blocks, optional nested audio reference, inline EvaEvent) and WeaponAiHintInfo
+  (12-byte block, two Boolean bytes, optional float pointer and inline warhead
+  reference). Reused existing four RangeDuration blocks. Full layouts and token
+  constants are in WEAPON_TEMPLATE.md and readable source.
+* First resource source: `40e7c3556457f32510c3c3fec9fe65e84443481e`, run
+  https://github.com/wu162/NewSdk/actions/runs/39764631667 : success. Each of
+  /Od and /O2 passed 4,740 fixtures / 14,220 three-buffer comparisons and 17
+  unsupported-input checks. Catalog/time-angle regression also passed in run
+  https://github.com/wu162/NewSdk/actions/runs/39764631778 .
+* Optional-block source `381b9287c87db5a619b17bc600e7b323bb47adc7` compiled,
+  then differential testing exposed a truncated mangled XML field name. The
+  original raw string is **UseAsWarheadForDamageCalculations** (plural). Its
+  mangled identifier stops before the final s. Corrected native/bridge/oracle
+  names using the raw-data bytes, not another game's SDK.
+* Final source: `bef3220408380d609d7a145c4c40171caba63ee8`. Final validation:
+  https://github.com/wu162/NewSdk/actions/runs/39787342909 , verified completed /
+  success. Each /Od and /O2 build passed **5,492 fixtures / 16,476 three-buffer
+  comparisons / 26 rejection checks**; 32,952 buffer comparisons across both
+  modes. `evidence/weapon/validation.json` pins the exact source/run and scope;
+  oracle logs/hashes are auto-persisted in the evidence ZIP. The optimized
+  `Recovered.Weapon.dll` remains a separate component artifact, not a replacement
+  SDK compiler DLL. Catalog/time-angle regression also passed:
+  https://github.com/wu162/NewSdk/actions/runs/39787342799 .
+* The oracle additionally exercises all 128 subsets of the seven optional
+  blocks, with nonempty root string/audio/FX/weapon references and reverse XML
+  order. Independent assertions check exact data size, pointer targets, nested
+  reference values, token member targets, float bits and relocation order/sentinel.
+  Original and recovered InstanceData, RelocationData and ImportsData are compared
+  byte-for-byte on Win32, Xbox360, PlayStation3 and unknown platform 99.
+* Important boundary: Tokenizer intentionally returns an empty ImportsData even
+  when its internal tracker records references. The recovered code follows this
+  original Plugin.ProcessInstance behavior; do not claim nonempty public imports.
+* Still unsupported, with explicit rejection: RequiredFiringObjectStatus,
+  ForbiddenFiringObjectStatus, Nuggets, SurpriseAttackObjectFilter,
+  CombinedAttackObjectFilter, HitStoredObjectFilter, ScatterRadiusVsType and
+  IncompatibleAttributeModifier. Other unknown/namespaced input remains rejected.
+  There is still no complete recovered WeaponTemplate or replacement compiler DLL.
+* Automatic approval review rejected an optional workflow edit to capture extra
+  helper excerpts because the file includes contents-write and auto-push settings.
+  That edit was dropped; existing authorized workflow configuration is retained.
+  Source/test changes proceeded using the existing build/evidence workflow.
+
+Next stage: ObjectStatus masks (223 bits). Relevant original Tokenizer global
+methods: IValue pointer Marshal near 51212 (28-byte allocation), inline Marshal
+near 51592, seven-word EndianCorrect near 51672, text bitset parser near 67448,
+and pointer Tokenize near 98079 (member offset, not a nested procedure table).
+Extract full enum maps from original PE data as with previous enum recovery.
+Do not assume mangled names preserve full XML attribute strings. Reuse all
+validated resource/node/scalar/relocation code. Time permitting, bring in the
+related ObjectFilter helpers, then lists/Nuggets in later substantial stages.
