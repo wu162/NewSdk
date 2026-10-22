@@ -79,6 +79,8 @@ class ArmorOracle
             string[] numbers = { "0", "-0", "-25.5%", "33.3333333333", "16777217", "2d1", "2D-1", "1e-7", "", "garbage", " 25.75junk", "25,5", "100%", "1e30", "1e-30" };
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
                 Test(plugin, "defaults", Armor("", ""), platform, 0);
+                Test(plugin, "distinct-fields", Armor("Default='12.25%' DamageScalar='23.5' SideDamageScalar='34.75' RearDamageScalar='45' FlankedPenalty='56.125'", "<Armor Damage='TESLA' Percent='-10'/><Armor Damage='GUN' Percent='225.5'/>"), platform, 2);
+                Test(plugin, "partial-defaults", Armor("SideDamageScalar='0' FlankedPenalty='-12.5'", ""), platform, 0);
                 for (int i = 0; i < numbers.Length; ++i)
                     Test(plugin, "percent-" + i, Armor("Default='" + numbers[i] + "' DamageScalar='" + numbers[i] + "' SideDamageScalar='" + numbers[i] + "' RearDamageScalar='" + numbers[i] + "' FlankedPenalty='" + numbers[i] + "'", "<Armor Damage='CANNON' Percent='" + numbers[i] + "'/>"), platform, 1);
                 for (int i = 0; i < damages.Length; ++i) {
@@ -86,7 +88,7 @@ class ArmorOracle
                     Test(plugin, "enum-" + damages[i], Armor("", child), platform, 1);
                 }
                 foreach (string damage in new[] { "cannon", " CANNON", "CANNON ", "", "UNKNOWN", "炮弹" })
-                    Test(plugin, "unknown-" + damage, Armor("", "<Armor Damage='" + damage + "' Percent='15'/ >".Replace("/ >", "/>")), platform, 1);
+                    Test(plugin, "unknown-" + damage, Armor("", "<Armor Damage='" + damage + "' Percent='15'/>"), platform, 1);
                 Test(plugin, "missing-and-duplicate", Armor("", "<Armor/><Armor Damage='FORCE'/><Armor Percent='10'/><Armor Damage='FORCE' Percent='200'/>"), platform, 4);
                 Test(plugin, "namespace-filter", Armor("default='1'", "<Armor xmlns='' Percent='1'/><Armor xmlns='other' Percent='2'/><armor Percent='3'/><Other/><e:Armor xmlns:e='" + AssetNamespace + "' Damage='GUN' Percent='42'/><Armor><Percent>5</Percent></Armor>"), platform, 2);
                 foreach (int count in new[] { 2, 27, 28, 29, 64, 257 }) {

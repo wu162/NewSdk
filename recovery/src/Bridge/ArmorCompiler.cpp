@@ -6,6 +6,14 @@ using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
 
 namespace Recovered {
+public ref class ScalarParser abstract sealed {
+public:
+    static UInt32 Unsigned(String^ text) { return Native::ParseUnsigned(marshal_as<std::string>(text)); }
+    static Int32 Signed(String^ text) { return Native::ParseSigned(marshal_as<std::string>(text)); }
+    static bool Boolean(String^ text) { return Native::ParseBoolean(marshal_as<std::string>(text)); }
+    static float Float(String^ text) { return Native::ParseFloat(marshal_as<std::string>(text)); }
+    static float Percentage(String^ text) { return Native::ParsePercentage(marshal_as<std::string>(text)); }
+};
 public ref class ArmorCompiler abstract sealed {
     static array<Byte>^ Copy(const std::vector<unsigned char>& source) {
         array<Byte>^ result = gcnew array<Byte>(static_cast<int>(source.size()));

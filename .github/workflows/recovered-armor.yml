@@ -5,10 +5,12 @@ on:
     paths:
       - '.github/workflows/recovered-armor.yml'
       - 'recovery/src/Native/ArmorTemplate.*'
+      - 'recovery/src/Native/ScalarParsing.*'
       - 'recovery/src/Bridge/ArmorCompiler.cpp'
       - 'recovery/src/Bridge/XmlNodeAdapter.h'
       - 'recovery/tests/ArmorOracle.cs'
       - 'recovery/tests/XmlNodeOracle.cs'
+      - 'recovery/tests/ScalarOracle.cs'
       - 'recovery/scripts/TestArmor.ps1'
 permissions:
   contents: write

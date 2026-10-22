@@ -47,14 +47,6 @@ unsigned int ParseDamageType(const std::string& text) {
     return 38;
 }
 
-float ParsePercentage(const std::string& text) {
-    std::string number(text);
-    // Preserve the already-observed VC8 CRT D-exponent behavior.
-    for (char& c : number) { if (c == 'd') c = 'e'; else if (c == 'D') c = 'E'; }
-    const float value = static_cast<float>(std::atof(number.c_str()));
-    return static_cast<float>(static_cast<double>(value) * 0.01f);
-}
-
 Relo::Chunk CompileArmor(const ArmorInput& input, bool bigEndian) {
     Relo::Tracker data, tokens;
     ArmorData* root = nullptr;
