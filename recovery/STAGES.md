@@ -29,6 +29,8 @@
 
 ## 下一轮的具体起点
 
-阶段 1 已完成 XML 节点适配和 ArmorTemplate 首条完整差分链路，详见 `ARMOR_TEMPLATE.md` 与 `STATUS.md` 的实际验证记录。额外提取了可复用标量解析，并依据原 DLL 修复旧 CRT 与新 CRT 的差异；不要再次从 ArmorTemplate 起步。
+阶段 1 已完成；阶段 2 已完成 WeaponTemplate 的 77 个根属性和四个 RangeDuration 可选块，详见 WEAPON_TEMPLATE.md、STATUS.md 与 evidence/weapon。两种构建模式均已建立真实原版 ProcessInstance 的三缓冲区差分闭环；这只证明已支持子集，不代表完整 WeaponTemplate 或替代 DLL 完成。
 
-下一轮进入阶段 2：读取 WeaponTemplate Marshal/Tokenize/EndianCorrect 的证据，成组恢复其布局、默认值、标量及依赖枚举，接入节点层和已经验证的重定位运行时，建立原 `Plugin.ProcessInstance` 的差分宿主。以约 25 分钟为一轮，若完整路径涉及过多可选结构，则交接可编译、有差分证据的连贯字段组，并明确未覆盖的可选块、列表和弹头。不能把未实现分支清零后返回成功，也不能把默认 XML 通过解释为完整 WeaponTemplate 恢复。
+下一轮约 25 分钟优先成组恢复字符串与预处理资源引用共用逻辑，以及 WeaponTemplate 的音效、FX、武器引用属性，增加非空引用/重定位差分样例；时间允许再接续其他可选块。复用现有 ScalarParsing、DataInitializers、XmlNodeAdapter 与 Relo::Tracker。其余可选块、状态掩码、过滤器、非空列表、Nuggets 与完整插件仍未完成，不要重新从布局或默认值起步。
+
+新的 Weapon 验证工作流只读仓库并上传产物；结果需要通过 GitHub 插件审核后提交，避免建立自动写仓库的持久工作流。每轮仍按约 25 分钟有效工作量推进，完成验证、提交和准确交接。

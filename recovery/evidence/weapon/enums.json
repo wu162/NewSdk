@@ -1,0 +1,288 @@
+{
+  "WeaponPrefireType": [
+    {
+      "name": "PER_BURST",
+      "value": 2
+    },
+    {
+      "name": "PER_CLIP",
+      "value": 1
+    },
+    {
+      "name": "PER_POSITION",
+      "value": 4
+    },
+    {
+      "name": "PER_SHOT",
+      "value": 0
+    },
+    {
+      "name": "PER_TARGET",
+      "value": 3
+    }
+  ],
+  "WeaponReAcquireDetailType": [
+    {
+      "name": "PER_ATTACK",
+      "value": 3
+    },
+    {
+      "name": "PER_CLIP",
+      "value": 2
+    },
+    {
+      "name": "PER_SHOT",
+      "value": 1
+    },
+    {
+      "name": "POST_FIRE",
+      "value": 5
+    },
+    {
+      "name": "PRE_FIRE",
+      "value": 4
+    },
+    {
+      "name": "PRE_SHOT",
+      "value": 0
+    }
+  ],
+  "WeaponReloadType": [
+    {
+      "name": "AUTO",
+      "value": 0
+    },
+    {
+      "name": "NONE",
+      "value": 1
+    },
+    {
+      "name": "RETURN_TO_BASE",
+      "value": 2
+    }
+  ],
+  "WeaponAffectsType": [
+    {
+      "name": "ALLIES",
+      "value": 1
+    },
+    {
+      "name": "ENEMIES",
+      "value": 2
+    },
+    {
+      "name": "MINES",
+      "value": 9
+    },
+    {
+      "name": "NEUTRALS",
+      "value": 3
+    },
+    {
+      "name": "NOT_AIRBORNE",
+      "value": 6
+    },
+    {
+      "name": "NOT_SIMILAR",
+      "value": 5
+    },
+    {
+      "name": "PROJECTILES",
+      "value": 7
+    },
+    {
+      "name": "SAME_HEIGHT_ONLY",
+      "value": 8
+    },
+    {
+      "name": "SELF",
+      "value": 0
+    },
+    {
+      "name": "SUICIDE",
+      "value": 4
+    }
+  ],
+  "WeaponFlagsType": [
+    {
+      "name": "ATTACK_NEEDS_LINE_OF_SIGHT",
+      "value": 4
+    },
+    {
+      "name": "CRUSH_VEHICLE",
+      "value": 8
+    },
+    {
+      "name": "FORCE_EMPTY_ENTIRE_CLIP",
+      "value": 9
+    },
+    {
+      "name": "IGNORE_ENCLOSURE_CHECK",
+      "value": 11
+    },
+    {
+      "name": "IGNORE_TARGET_AS_OBSTACLE",
+      "value": 6
+    },
+    {
+      "name": "IGNORE_WALL_RELATIONSHIP",
+      "value": 10
+    },
+    {
+      "name": "LENGTH_SCATTER",
+      "value": 3
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "NOT_ATTRACTED_BY_MAGNETS",
+      "value": 7
+    },
+    {
+      "name": "ORTHOGONAL_SCATTER",
+      "value": 2
+    },
+    {
+      "name": "RELOAD_WHEN_ATTACK_STOPS",
+      "value": 5
+    },
+    {
+      "name": "SYNC_AMMO_ON_ACTIVATE",
+      "value": 1
+    }
+  ],
+  "WeaponCollideType": [
+    {
+      "name": "ALLIES",
+      "value": 0
+    },
+    {
+      "name": "BALLISTIC_MISSILES",
+      "value": 8
+    },
+    {
+      "name": "CONTROLLED_STRUCTURES",
+      "value": 9
+    },
+    {
+      "name": "ENEMIES",
+      "value": 1
+    },
+    {
+      "name": "MONSTERS",
+      "value": 10
+    },
+    {
+      "name": "NEUTRAL",
+      "value": 2
+    },
+    {
+      "name": "PROJECTILES",
+      "value": 5
+    },
+    {
+      "name": "SHRUBBERY",
+      "value": 4
+    },
+    {
+      "name": "SMALL_MISSILES",
+      "value": 7
+    },
+    {
+      "name": "STRUCTURES",
+      "value": 3
+    },
+    {
+      "name": "WALLS",
+      "value": 6
+    }
+  ],
+  "WpnAntiT": [
+    {
+      "name": "ANTI_AIRBORNE_INFANTRY",
+      "value": 7
+    },
+    {
+      "name": "ANTI_AIRBORNE_VEHICLE",
+      "value": 6
+    },
+    {
+      "name": "ANTI_BALLISTIC_MISSILE",
+      "value": 8
+    },
+    {
+      "name": "ANTI_GROUND",
+      "value": 0
+    },
+    {
+      "name": "ANTI_INFANTRY",
+      "value": 12
+    },
+    {
+      "name": "ANTI_LIFTED_GROUND_UNIT",
+      "value": 11
+    },
+    {
+      "name": "ANTI_MINE",
+      "value": 9
+    },
+    {
+      "name": "ANTI_PARACHUTE",
+      "value": 10
+    },
+    {
+      "name": "ANTI_PROJECTILE",
+      "value": 4
+    },
+    {
+      "name": "ANTI_SMALL_MISSILE",
+      "value": 5
+    },
+    {
+      "name": "ANTI_STRUCTURE",
+      "value": 3
+    },
+    {
+      "name": "ANTI_SUBMERGED",
+      "value": 2
+    },
+    {
+      "name": "ANTI_VEHICLE",
+      "value": 13
+    },
+    {
+      "name": "ANTI_WATER",
+      "value": 1
+    }
+  ],
+  "VirtualDamageType": [
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "SHARE",
+      "value": 2
+    },
+    {
+      "name": "SOLO",
+      "value": 1
+    }
+  ],
+  "FXTriggerType": [
+    {
+      "name": "CATAPULT_ROCK",
+      "value": 1
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "TREBUCHET_ROCK",
+      "value": 2
+    }
+  ]
+}

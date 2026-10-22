@@ -1,6 +1,6 @@
 # Compiler source recovery — session handoff
 
-Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime and first complete ArmorTemplate serialization path, but is still **not completed recovery of both compiler DLLs**.
+Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/duration subset, but is still **not completed recovery of both compiler DLLs**.
 
 ## User scope
 
@@ -20,6 +20,7 @@ Future implementation sessions should contain about **25 minutes of effective wo
 * Buildable C++ `src/Native/DataInitializers.cpp` plus actual C++/CLI bridge `src/Bridge/PrimitiveInitializers.cpp`: time and angle initializers.
 * Buildable C++ `src/Native/Relocation.h` / `.cpp` and C++/CLI `src/Bridge/RelocationBridge.cpp`: shared allocation/relocation runtime, external-reference tables, bookmark exchange, Tokenizer member lookup/fixup. Source and ABI/semantic details: `RELOCATION_RUNTIME.md`. Recovered containers use RAII/STL, not the original EASTL in-memory ABI.
 * Recovered ArmorTemplate XML-to-InstanceData/RelocationData/ImportsData path, shared Node adapter and scalar parsing: `ARMOR_TEMPLATE.md`. This is a single-type component entry point, not a replacement compiler DLL.
+* WeaponTemplate: 77 root attributes plus four optional RangeDuration blocks, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
 * Read `README.md` for build entry points and `PROVENANCE.md` for original method tokens.
 
 ## Actual validation
@@ -58,8 +59,14 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 
 ## Resume instruction
 
-Read this file, `STAGES.md`, `README.md` and `ARMOR_TEMPLATE.md`, inspect current branch/head and actual committed evidence, then continue with WeaponTemplate. ArmorTemplate and the shared Node adapter already have a complete differential loop; do not reconstruct them again. Reuse `ScalarParsing`, `XmlNodeAdapter` and `Relo::Tracker`. The next substantial stage should recover WeaponTemplate layout/defaults and a cohesive group of fields with an original-ProcessInstance differential host, then expand optional/list/nugget structures across later stages as needed. Do not rewrite or re-extract the validated relocation component. Do not redo extraction, recreate the baseline or import conclusions from another recovery repository. Do not claim the two full compiler DLLs have been restored at this stage.
-
+Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
+Continue WeaponTemplate from the validated 77-attribute/four-duration implementation.
+Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
+Next approximately-25-minute scope: recover prepared external references/strings and
+related helpers as a group, then remaining optional blocks as dependencies allow;
+build directly against original ProcessInstance with nonempty relocation/import cases.
+Keep unsupported fields explicit. Lists, filters and polymorphic Nuggets remain
+unimplemented. A complete replacement plugin and rebuilt-DLL MOD run are outstanding.
 
 ## Continuation details from this stage
 
@@ -76,4 +83,50 @@ This substantial stage bundled XML adaptation, complete ArmorTemplate layout/Mar
 
 Early failures were corrected: incompatible `/clr /fp:strict` options, the System/Windows IServiceProvider header-order collision, modern CRT unsigned negative-overflow and float lexical differences, and an oracle incorrectly assuming XmlCompiler had Tokenizer's IValue ushort instantiation. The final `/Od` and `/O2` native/C++/CLI builds and all scoped oracles pass. Read `ARMOR_TEMPLATE.md` for field offsets, procedure-table details, original tokens and component usage.
 
-Next approximately-25-minute scope: begin WeaponTemplate using existing XML/scalar/relocation layers; recover a coherent layout/default/enum/scalar field group and its differential host, then optional/list/nugget structures as dependencies allow. WeaponTemplate is 328 bytes with 105 main token-table slots, but has many nested structures. Do not silently zero unimplemented branches, forward to original compiler DLLs, or label default-only fixtures as full coverage. A complete replacement plugin and MOD compilation using rebuilt DLLs are still outstanding.
+Historical next scope (now completed by the stage below): begin WeaponTemplate using existing XML/scalar/relocation layers; recover a coherent layout/default/enum/scalar field group and its differential host, then optional/list/nugget structures as dependencies allow. WeaponTemplate is 328 bytes with 105 main token-table slots, but has many nested structures. Do not silently zero unimplemented branches, forward to original compiler DLLs, or label default-only fixtures as full coverage. A complete replacement plugin and MOD compilation using rebuilt DLLs are still outstanding.
+
+
+
+## WeaponTemplate scalar/duration stage — 2026-10-22
+
+* Implemented `src/Native/WeaponTemplate.*`, `src/Bridge/WeaponCompiler.cpp`,
+  `tests/WeaponOracle.cs`, `scripts/TestWeapon.ps1` and direct-PE enum extraction.
+  All 104 named procedure entries plus sentinel are reconstructed. 77 root
+  attributes work; 36 Boolean bytes retain their byte layout. All nine enum maps
+  and defaults are read from the original DLL/evidence, not another SDK version.
+* Four real RangeDuration blocks now work: PreAttackDelay, FiringDuration,
+  CoolDownDelayBetweenShots and ClipReloadTime. Each adds eight data bytes,
+  a 36-byte token table and a real pointer relocation. Original field allocation
+  order and first-duplicate-child selection are preserved.
+* First scalar-only source milestone: `accd5abd48810cb83dc1c685bd4b217288417760`,
+  run https://github.com/wu162/NewSdk/actions/runs/39760497709 : both modes passed
+  3,008 fixtures / 9,024 three-buffer comparisons, plus 29 rejection checks.
+* Duration implementation: `0c77c9845c46877fbe24c94b72d4db6d0abc1de7`,
+  run https://github.com/wu162/NewSdk/actions/runs/39761012085 : both modes passed
+  3,128 fixtures / 9,384 buffer comparisons, plus 29 rejection checks per mode.
+  Four platforms include unknown platform 99. Independent assertions cover
+  root and nested offsets, sizes, duration allocation order and relocation sentinel.
+* Final validation source and artifact run: `5e29fb4263547cdce546883b2c763cfda9434805`,
+  https://github.com/wu162/NewSdk/actions/runs/39761190464 . Verified completed/success. Both modes pass 3,128 fixtures / 9,384 buffer
+  comparisons each (18,768 total), plus 29 rejections each. Final result is pinned
+  in `evidence/weapon/validation.json`; complete logs are persisted in the evidence
+  ZIP. The optimized component is published separately as
+  `recovered-weapon-component-x86`; it is not named as or used to replace a SDK DLL.
+* Catalog/time-angle regression triggered by these source commits also passed:
+  https://github.com/wu162/NewSdk/actions/runs/39761012116 . The existing workflow
+  persists its result through ordinary commits; retain those concurrent commits.
+* The new Weapon workflow has only contents-read permission and uploads artifacts.
+  Automatic approval rejected a proposed persistent contents-write auto-push
+  workflow; a read-only alternative completed validation. Future sessions should
+  fetch its artifacts and commit reviewed evidence with the GitHub plugin.
+* Known limits: 23 remaining non-scalar fields must be absent; all other child
+  blocks, root reference/string attributes (including explicit empty values),
+  unknown/namespaced attributes are rejected explicitly. Scalar/root success
+  does not establish full WeaponTemplate coverage. GameObject, XmlCompiler type
+  serializers and full replacement-DLL MOD compilation remain unfinished.
+
+Next approximately-25-minute stage: group reference/string helper recovery with
+WeaponTemplate's audio/FX/weapon reference attributes and nonempty differential
+fixtures, then bring in additional optional structures if time permits. Preserve
+the verified scalar/duration behavior and expand the original-ProcessInstance
+oracle instead of replacing it with recovered-only tests.

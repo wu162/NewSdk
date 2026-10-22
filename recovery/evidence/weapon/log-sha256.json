@@ -1,0 +1,12 @@
+{
+  "build-O2.txt": "aecbc7adc991187e2bf3de8d11639a9875613315eb62d1dc0df6f6418c7de031",
+  "build-Od.txt": "aecbc7adc991187e2bf3de8d11639a9875613315eb62d1dc0df6f6418c7de031",
+  "enums.json": "5f8ba2dc573b7bc97349aaf97e3c4e3c5cc764f8deaba5c25bd221a1e250fde8",
+  "host-build-O2.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "host-build-Od.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "marshal.txt": "96cb965b78594ff38762d3f8dc5de82f6294a2615193d84cb9a36587053cabc4",
+  "oracle-O2.txt": "2b1130eaada237e3f611068bd73f39246d6d8c38f62e0fcc0b7cb1930f3ee1b6",
+  "oracle-Od.txt": "2b1130eaada237e3f611068bd73f39246d6d8c38f62e0fcc0b7cb1930f3ee1b6",
+  "tokenize.txt": "c2cc58752f5e63f8a08a911727393d4dcec979421addcfec43f2924af0c1b6cb",
+  "validation.json": "777dc237f9ee7beca6b8f654fd409a57d2c4a1f4a30dd9a406b15879c4ccfdab"
+}
