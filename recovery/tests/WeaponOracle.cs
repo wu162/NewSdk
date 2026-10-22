@@ -175,12 +175,302 @@ class WeaponOracle
             throw new Exception("Independent optional-block allocation/layout assertion");
     }
 
+    // Explicit original PE enum ordinals; the oracle never reads the recovered map.
+    static readonly string[] StatusNames = {
+        "DESTROYED",
+        "CAN_ATTACK",
+        "UNDER_CONSTRUCTION",
+        "UNSELECTABLE",
+        "NO_COLLISIONS",
+        "NO_ATTACK",
+        "NO_SPECIAL_ABILITY",
+        "AIRBORNE_TARGET",
+        "PARACHUTING",
+        "REPULSOR",
+        "HIJACKED",
+        "AFLAME",
+        "BURNED",
+        "CANNOT_BE_SOLD",
+        "IS_FIRING_WEAPON",
+        "IS_RELOADING_WEAPON",
+        "IS_BRAKING",
+        "STEALTHED",
+        "HIDDEN",
+        "DETECTED",
+        "CAN_STEALTH",
+        "SOLD",
+        "UNDERGOING_REPAIR",
+        "RECONSTRUCTING",
+        "IS_ATTACKING",
+        "NO_AUTO_ACQUIRE",
+        "USING_ABILITY",
+        "IS_AIMING_WEAPON",
+        "NO_ATTACK_FROM_AI",
+        "IGNORING_STEALTH",
+        "IS_MELEE_ATTACKING",
+        "FOLLOWING_THROUGH",
+        "LEASHED_RETURNING",
+        "DEATH_1",
+        "DEATH_2",
+        "DEATH_3",
+        "DEATH_4",
+        "DEATH_5",
+        "CONTESTED",
+        "CONTESTING_BUILDING",
+        "HORDE_MEMBER",
+        "TRANSPORT_MOVING_TO_CONTAIN",
+        "RIDER_IS_PILOT",
+        "DAMAGED",
+        "REALLYDAMAGED",
+        "RUBBLE",
+        "IRRADIATED",
+        "NO_SHADOW",
+        "IN_STASIS",
+        "OUT_OF_PHASE",
+        "NEXT_MOVE_IS_REVERSE",
+        "IMMOBILE",
+        "IMMOBILE_ALLOW_ROTATE",
+        "PAUSING",
+        "FLEE_OFF_MAP",
+        "NOT_IN_WORLD",
+        "INAUDIBLE",
+        "CHANTING",
+        "ENRAGED",
+        "SINKING",
+        "RAMPAGING",
+        "INSIDE_GARRISON",
+        "DEPLOYED",
+        "UNATTACKABLE",
+        "ENCLOSED",
+        "TEMPORARILY_DEFECTED",
+        "TAGGED",
+        "DEPLOYING",
+        "TOPPLING",
+        "PORTER_TAGGED",
+        "NO_SQUISHCOLLIDE_DELAY",
+        "STAND_GROUND",
+        "UNCONTROLLABLY_SCARED",
+        "SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING",
+        "TIBERIUM_VIBRATING",
+        "UPDATING_AI",
+        "CLONED",
+        "IGNORE_AI_COMMAND",
+        "RUNNING_DOWN_FROM_BEHIND",
+        "DO_NOT_SCORE",
+        "CAN_NOT_WALK_ON",
+        "MARCH_OF_DEATH",
+        "DO_NOT_PICK_ME",
+        "INHERITED_FROM_ALLY_TEAM",
+        "SWITCHED_WEAPONS",
+        "END_FIRE_STATE",
+        "BOOKENDING",
+        "GENERIC_TOGGLE_STATE",
+        "CAN_CONTEST_GARRISON",
+        "BUILD_BEING_CANCELED",
+        "PENDING_CONSTRUCTION",
+        "PHANTOM_STRUCTURE",
+        "IN_FORMATION_TEMPLATE",
+        "IS_LEAVING_FACTORY",
+        "MOVING_TO_DISMOUNT",
+        "NO_HERO_PROPERTIES",
+        "CAN_ENTER_ANYTHING",
+        "ENTERING_GOAL",
+        "CHARGING_BASE_DEFENSES",
+        "INVISIBLE_DETECTED_BY_FRIEND",
+        "INVISIBLE_DETECTED",
+        "SHRUNK",
+        "ATTACHED",
+        "WONT_RIDE_WITH_YOU",
+        "COMMAND_BUTTON_TOGGLED",
+        "OCLMONITOR_COMPLETED_TASK",
+        "OCLMONITOR_MONITOR_RELEASED",
+        "USER_POWERED_DOWN",
+        "GARRISONED",
+        "BOOBY_TRAPPED",
+        "IS_HIDEOUT",
+        "EXECUTING_STORED_COMMAND",
+        "UNIT_WANTS_TO_REGARRISON",
+        "IN_COVER",
+        "DONT_CLEAR_FOR_BUILD",
+        "MATCH_TARGETS_SPEED",
+        "HAS_TIBERIUM_GROWTH_MOD",
+        "HAS_TIBERIUM_UPGRADE",
+        "STEAL_NEXT_UNIT_TRAPPED",
+        "DOES_CONTAIN_TIBERIUM",
+        "IS_BEING_HARVESTED",
+        "NO_REFUND",
+        "SHIELDBODY_ENABLED",
+        "HEALTH_PERCENT_0",
+        "HEALTH_PERCENT_25",
+        "HEALTH_PERCENT_50",
+        "HEALTH_PERCENT_75",
+        "HEALTH_PERCENT_100",
+        "WEAPON_UPGRADED_01",
+        "WEAPON_UPGRADED_02",
+        "WEAPON_UPGRADED_03",
+        "COMBINED_PARENT",
+        "COMBINED_CHILD",
+        "COMBINED_ATTACHED",
+        "LOADED_FROM_MAP",
+        "ATTACKING_GARRISONED_STRUCTURE",
+        "EXITING_COMBINED",
+        "DELAYED_ENTER_STRUCTURE",
+        "DOCKING",
+        "HARVESTING",
+        "BRIDGE_IMPASSABLE",
+        "POWERED_DOWN_EMP",
+        "FORCE_ATTACKING",
+        "FORCE_ATTACK_MOVING",
+        "SCARED_CIVILIAN_CAR",
+        "USER_PARALYZED",
+        "BOOBY_TRAP_EXPLODE",
+        "IS_ENGAGED",
+        "CARRYING_FLAG",
+        "IS_MOVING_TO_RALLY_POINT",
+        "SPECIAL_ARMOR_ACTIVE",
+        "AIRCRAFT_IGNORE_SAMEPLAYER_HANGAR_RULE",
+        "NEXT_MOVE_IS_FORCE_ATTACK_MOVE",
+        "SPECIALABILITY_ACTIVE",
+        "CAN_STEALTH_FROM_PRODUCER",
+        "GARRISON_CAN_STEALTH",
+        "CAN_ATTACK_WHILE_STEALTHED",
+        "RESET_GOAL_POSITION",
+        "RIFT_OCCUPIED",
+        "WATER_LOCOMOTOR_ACTIVE",
+        "GROUND_LOCOMOTOR_ACTIVE",
+        "AIR_LOCOMOTOR_ACTIVE",
+        "UNPACKING",
+        "OVER_WATER",
+        "CONTAINER_OCCUPIED",
+        "PLACED_BY_PLAYER",
+        "DEFLECT_INCOMING_FIRE",
+        "DEPART_FROM_BOARDING",
+        "WAITING_FOR_BOARDING",
+        "HAS_SECONDARY_DAMAGE",
+        "IS_BEING_DRAGGED",
+        "CLEARED_FOR_LANDING",
+        "VEHICLE_ATTACHED",
+        "PARKED_AT_AIRFIELD",
+        "IN_SHIELD_SPHERE",
+        "HIT_SHIELD_SPHERE",
+        "NON_AUTOACQUIRABLE",
+        "CHARGING_WEAPON",
+        "OVERCHARGING_WEAPON",
+        "ENABLE_TRACER_DRAW",
+        "PREEMPT_PRE_ATTACK",
+        "LINE_SEGMENT_DAMAGE_ACTIVE",
+        "ADVANCED_MISSILE_PACKS",
+        "LEECHED_TARGET_ACTIVE",
+        "PLAYER_POWER_1",
+        "PLAYER_POWER_2",
+        "PLAYER_POWER_3",
+        "PLAYER_POWER_4",
+        "PLAYER_POWER_5",
+        "GRAPPLE_UPDATE_ACTIVE",
+        "SHROUD_REVEAL_TO_ALL",
+        "SURFACED",
+        "SUBMERGED",
+        "SKIRMISH_AI_DO_NOT_ATTACK",
+        "SKIRMISH_AI_DO_NOT_TAKE",
+        "TRANSFORMATION_TOGGLE_STATE",
+        "REPAIR_ALLIES_WHEN_IDLE",
+        "DO_NOT_AVOID_TALLBUILDING",
+        "ABSORBED_DAMAGE",
+        "NO_BRIBE",
+        "IGNORING_POWER_DOWN",
+        "EXCEEDED_PATH_NEIGHBOR_COUNT",
+        "CANNOT_LAND_AT_AIRFIELD",
+        "WALL_SEGMENT",
+        "IMMUNE_TO_BARK",
+        "UNDER_RUSH_ATTACK",
+        "UNDER_FROZEN",
+        "LANDING_IN_PROGRESS",
+        "UNDER_IRON_CURTAIN",
+        "EXPLOSIVES_ATTACHED",
+        "EXPLOSIVES_DETONATING",
+        "LIFTED_INTO_AIR",
+        "IN_NANOHIVE",
+        "SURFACED_IMMOBILE",
+        "BROADCASTING_INVISIBILITY",
+        "SCRAMBLED",
+        "MAGNETIZED",
+        "RIOT_SHIELDED",
+        "POINT_DEFENSE_DRONE_ATTACHED",
+        "GRAPPLE_UPDATE_BEING_MOVED",
+        "TARGETED_FOR_REPAIR",
+        "IN_SPIDER_HOLE",
+        "ANTI_GARRISON",
+    };
+    static uint[] StatusBit(int bit) {
+        var words = new uint[7]; if (bit >= 0) words[bit/32] = 1u << (bit%32); return words;
+    }
+    static void StatusFixture(IAssetBuilderPlugin plugin, TargetPlatform platform, string label,
+        string required, string forbidden, uint[] requiredWords, uint[] forbiddenWords) {
+        string attrs = (required == null ? "" : Attribute("RequiredFiringObjectStatus", required)) + " " +
+            (forbidden == null ? "" : Attribute("ForbiddenFiringObjectStatus", forbidden));
+        Test(plugin, "status-"+label, Weapon(attrs), platform, -1); ++fixtures;
+        var xml = new XmlDocument(); xml.LoadXml(Weapon(attrs));
+        var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea", AssetNamespace);
+        var result = WeaponCompiler.ProcessInstance(Declaration(xml, ns), platform);
+        bool big = platform != TargetPlatform.Win32;
+        int count = (required == null ? 0 : 1) + (forbidden == null ? 0 : 1), present = 0;
+        if (result.InstanceData.Length != 1624+28*count || result.RelocationData.Length != (count == 0 ? 0 : 4*(count+1)) || result.ImportsData.Length != 0)
+            throw new Exception("Status independent allocation sizes");
+        for (int field = 0; field < 2; ++field) {
+            bool exists = field == 0 ? required != null : forbidden != null;
+            uint target = Word(result.InstanceData, 1296+136+4*field, big);
+            uint tokenTarget = Word(result.InstanceData, (41+field)*12+8, big);
+            if (!exists) { if (target != 0 || tokenTarget != 0) throw new Exception("Absent status pointer"); continue; }
+            if (target != 1624+28*present || tokenTarget != target || Word(result.RelocationData, 4*present, big) != 1296+136+4*field)
+                throw new Exception("Status independent pointer/member bookmark/relocation");
+            var expected = field == 0 ? requiredWords : forbiddenWords;
+            for (int word = 0; word < 7; ++word)
+                if (Word(result.InstanceData, (int)target+4*word, big) != expected[word]) throw new Exception("Status independent bit word: "+label+" word="+word);
+            ++present;
+        }
+        if (count != 0 && Word(result.RelocationData, 4*count, big) != uint.MaxValue) throw new Exception("Status relocation sentinel");
+    }
+    static void StatusMasks(IAssetBuilderPlugin plugin, TargetPlatform platform) {
+        var zero = new uint[7]; var all = new uint[7]; for (int i = 0; i < 7; ++i) all[i] = uint.MaxValue;
+        StatusFixture(plugin, platform, "absent", null, null, null, null);
+        StatusFixture(plugin, platform, "empty", "", "", zero, zero);
+        for (int bit = 0; bit < StatusNames.Length; ++bit) {
+            string name = StatusNames[bit]; var one = StatusBit(bit);
+            StatusFixture(plugin, platform, "single-"+bit, name, null, one, null);
+            StatusFixture(plugin, platform, "forbidden-"+bit, null, name, null, one);
+            StatusFixture(plugin, platform, "prefix-"+bit, "+"+name, "-"+name, one, one);
+            StatusFixture(plugin, platform, "toggle-"+bit, name+" -"+name, "-"+name+" -"+name, zero, zero);
+            StatusFixture(plugin, platform, "duplicate-"+bit, name+" "+name, "+"+name+" +"+name, one, one);
+            StatusFixture(plugin, platform, "lowercase-"+bit, name.ToLowerInvariant(), null, StatusBit(198), null);
+        }
+        foreach (string text in new[] { "unknown", "NONE", "+", "-", "++"+StatusNames[0], "--"+StatusNames[222], "0", "222", ",", "AFLAME,ATTACHED" })
+            StatusFixture(plugin, platform, "unknown-"+text, text, null, StatusBit(198), null);
+        foreach (string text in new[] { "ALL", "all", "AlL", "+ALL", "-ALL", "ALL -AFLAME", "AFLAME -all ATTACHED", "ALL unknown", "-ALL -ALL" })
+            StatusFixture(plugin, platform, "all-"+text, text, null, all, null);
+        StatusFixture(plugin, platform, "spaces", " \t\r\n ", "\t"+StatusNames[31]+"\n\r", zero, StatusBit(31));
+        // Every word boundary and the highest valid bit. ALL above also checks bit 223.
+        string boundary = ""; var boundaryWords = new uint[7];
+        foreach (int bit in new[] { 0,31,32,63,64,95,96,127,128,159,160,191,192,222 }) { boundary += " "+StatusNames[bit]; boundaryWords[bit/32] |= 1u << (bit%32); }
+        StatusFixture(plugin, platform, "boundaries", boundary, boundary, boundaryWords, boundaryWords);
+        var validAll = new uint[7]; for (int i = 0; i < 7; ++i) validAll[i] = uint.MaxValue; validAll[6] = 0x7fffffff;
+        StatusFixture(plugin, platform, "all-names", string.Join(" ", StatusNames), null, validAll, null);
+        // Mix status payloads with earlier/later pointer allocations and every optional block.
+        for (int mask = 0; mask < 128; ++mask) {
+            string[] blocks = { "OverrideVoiceAttackSound Sound='s\\2'", "OverrideVoiceEnterStateAttackSound EvaEvent='e\\3'", "PreAttackDelay MinSeconds='1s'", "FiringDuration MaxSeconds='2s'", "CoolDownDelayBetweenShots MinSeconds='3s'", "ClipReloadTime MaxSeconds='4s'", "WeaponAiHintInfo MaxSpeedOfTarget='5' UseAsWarheadForDamageCalculations='w\\4'" };
+            string xml = "<WeaponTemplate xmlns='"+AssetNamespace+"' id='StatusMixed' PreferredTargetBone='bone' FireSound='s\\0' PreAttackWeapon='w\\1' RequiredFiringObjectStatus='"+boundary+"' ForbiddenFiringObjectStatus='ALL'>";
+            for (int i = 6; i >= 0; --i) if ((mask & (1<<i)) != 0) xml += "<"+blocks[i]+"/>";
+            xml += "</WeaponTemplate>";
+            Test(plugin, "status-mixed-"+mask, xml, platform, -1); ++fixtures;
+        }
+    }
+
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
                 Resources(plugin, platform);
                 Check(plugin, "defaults", "", platform);
@@ -945,8 +1235,6 @@ class WeaponOracle
                 Test(plugin, "first-duplicate-duration", "<WeaponTemplate xmlns='" + AssetNamespace + "' id='Oracle'><PreAttackDelay MinSeconds='1s'/><PreAttackDelay MinSeconds='9s'/></WeaponTemplate>", platform, 1); ++fixtures;
 
             }
-            Reject(Weapon("RequiredFiringObjectStatus=''"));
-            Reject(Weapon("ForbiddenFiringObjectStatus=''"));
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><PreAttackDelay Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><FiringDuration Unknown=\"1\"/></WeaponTemplate>");
             Reject("<WeaponTemplate xmlns=\"" + AssetNamespace + "\" id=\"Reject\"><CoolDownDelayBetweenShots Unknown=\"1\"/></WeaponTemplate>");
@@ -965,9 +1253,10 @@ class WeaponOracle
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
                 Reject(Weapon(Attribute(name, "")));
             }
-            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+
 

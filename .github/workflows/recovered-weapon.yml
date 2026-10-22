@@ -6,6 +6,7 @@ on:
       - '.github/workflows/recovered-weapon.yml'
       - 'recovery/src/**/Weapon*'
       - 'recovery/src/**/ResourceMarshaling*'
+      - 'recovery/src/**/EnumBitset*'
       - 'recovery/tests/Weapon*'
       - 'recovery/scripts/TestWeapon.ps1'
       - 'recovery/scripts/ExtractWeaponEvidence.py'
@@ -29,6 +30,11 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Enum token splitting'; Start = 12996; End = 13072 }
+            @{ Name = 'ObjectStatus pointer Marshal'; Start = 51212; End = 51225 }
+            @{ Name = 'ObjectStatus inline Marshal and endian'; Start = 51592; End = 51740 }
+            @{ Name = 'ObjectStatus text parser'; Start = 67448; End = 67571 }
+            @{ Name = 'ObjectStatus pointer Tokenize'; Start = 98079; End = 98090 }
             @{ Name = 'FastHash'; Start = 12274; End = 12329 }
             @{ Name = 'SoundOrEvaEvent Marshal'; Start = 13587; End = 13602 }
             @{ Name = 'WeaponAiHintInfo Marshal'; Start = 15328; End = 15341 }
@@ -103,4 +109,5 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
+
 

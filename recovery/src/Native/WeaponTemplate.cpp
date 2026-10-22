@@ -2,6 +2,7 @@
 #include "ScalarParsing.h"
 #include "DataInitializers.h"
 #include "ResourceMarshaling.h"
+#include "EnumBitset.h"
 #include <cstring>
 #include <stdexcept>
 #include <sstream>
@@ -56,8 +57,8 @@ const WeaponField fields[] = {
     { "AutoReloadWhenIdleSeconds", "0s", 128u, 0x88099007u, 0x998669E8u, WeaponValue::Time, WeaponToken::Member, "" },
     { "ShotsPerBarrel", "0", 132u, 0x95C56669u, 0x23E650B8u, WeaponValue::Integer, WeaponToken::Member, "" },
     { "DamageDealtAtSelfPosition", "false", 300u, 0x104CDFAAu, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
-    { "RequiredFiringObjectStatus", nullptr, 136u, 0x4D73E039u, 0xA7BD811Eu, WeaponValue::Absent, WeaponToken::Pointer, "" },
-    { "ForbiddenFiringObjectStatus", nullptr, 140u, 0x600D69FBu, 0xA7BD811Eu, WeaponValue::Absent, WeaponToken::Pointer, "" },
+    { "RequiredFiringObjectStatus", nullptr, 136u, 0x4D73E039u, 0xA7BD811Eu, WeaponValue::StatusPointer, WeaponToken::Pointer, "" },
+    { "ForbiddenFiringObjectStatus", nullptr, 140u, 0x600D69FBu, 0xA7BD811Eu, WeaponValue::StatusPointer, WeaponToken::Pointer, "" },
     { "CheckStatusFlagsInRangeChecks", "true", 301u, 0x6A4BDF67u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "ProjectileSelf", "false", 302u, 0x9BDB3BC4u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
     { "MeleeWeapon", "false", 303u, 0x3F081EA7u, 0x77E3F4F7u, WeaponValue::Boolean, WeaponToken::Member, "" },
@@ -206,22 +207,10 @@ U32 Lookup(const std::string& group, const std::string& text) {
 }
 U32 Bits(const std::string& group, const std::string& text) {
     U32 result = 0;
-    std::istringstream words(text);
-    std::string word;
-    while (words >> word) {
-        bool add = true;
-        if (word[0] == '+' || word[0] == '-') {
-            add = word[0] == '+'; word.erase(0, 1);
-        }
-        std::string upper = word;
-        std::transform(upper.begin(), upper.end(), upper.begin(), [](unsigned char c) { return static_cast<char>(std::toupper(c)); });
-        // In the original, ALL's branch does not advance the token cursor.
-        if (upper == "ALL") return 0xFFFFFFFFu;
-        U32 bit = Lookup(group, word);
-        // Original '-' toggles with XOR, it does not clear with AND.
-        if (add) result |= U32(1) << bit;
-        else result ^= U32(1) << bit;
-    }
+    std::vector<EnumNameValue> names;
+    for (const auto& entry : enumEntries) if (group == entry.group)
+        names.push_back({ entry.name, static_cast<int>(entry.value) });
+    MarshalEnumBitset(text, names.data(), names.size(), static_cast<int>(Lookup(group, "")), 32, &result);
     return result;
 }
 void Swap(void* at) {
@@ -279,6 +268,12 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         case WeaponValue::ReferencePointer: {
             auto block = data.Push(reinterpret_cast<void**>(at), 4, 1);
             MarshalReference(data, block, text);
+            referenceBlocks[field.offset] = block;
+            data.Pop(); continue;
+        }
+        case WeaponValue::StatusPointer: {
+            auto block = static_cast<U32*>(data.Push(reinterpret_cast<void**>(at), 28, 1));
+            MarshalObjectStatus(text, block);
             referenceBlocks[field.offset] = block;
             data.Pop(); continue;
         }
@@ -373,7 +368,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
             tokens.BookmarkMemberOffset(&ai->longLock, &nested[2].offset);
             tokens.BookmarkMemberOffset(&ai->warhead, &nested[3].offset);
             tokens.Pop();
-        } else if (field.value == WeaponValue::ReferencePointer) {
+        } else if ((field.value == WeaponValue::ReferencePointer || field.value == WeaponValue::StatusPointer)) {
             auto found = referenceBlocks.find(field.offset);
             if (found != referenceBlocks.end()) tokens.BookmarkMemberOffset(found->second, &table[i].offset);
         } else if (field.token == WeaponToken::Member) {
@@ -392,6 +387,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         // Keep live host pointers intact until Tracker converts them to offsets.
         for (unsigned offset = 4; offset < 292; offset += 4)
             if (offset < 236 || offset > 248) Swap(root->bytes + offset);
+        for (const auto& block : referenceBlocks) if (block.first == 136 || block.first == 140)
+            for (unsigned i = 0; i < 7; ++i) Swap(static_cast<U32*>(block.second)+i);
         if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }
@@ -410,4 +407,5 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
