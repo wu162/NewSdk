@@ -1,14 +1,15 @@
 {
-  "sourceCommit": "cc375a18125501a12a97257c4f9f584b743fc6c8",
+  "succeeded": true,
   "modes": [
     "Od",
     "O2"
   ],
+  "sourceCommit": "3b18b96b2ad2d5db0ce031646791f4068f777018",
+  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget FireOnObjectsNugget and DamageContainedNugget with common base and ScalarInfo; ProjectileNugget, ScatterProjectileNugget WeaponOCLNugget and SeedTiberiumNugget including VeteranProjectile list; SpecialPowerNugget, InformTargetNugget, ContainedObjectAttackNugget, SlavesAttackNugget and ReportWeaponFiredStatNugget; other nugget types rejected",
   "componentSucceeded": true,
-  "succeeded": true,
-  "sdkProbeStatus": "not run for this source; batched separately",
-  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget FireOnObjectsNugget and DamageContainedNugget with common base and ScalarInfo; ProjectileNugget, ScatterProjectileNugget WeaponOCLNugget and SeedTiberiumNugget including VeteranProjectile list; other nugget types rejected",
-  "sdkProbeSucceeded": null,
-  "runId": 39866841179,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39866841179"
+  "sdkProbeStatus": "completed successfully as an explicit batch",
+  "sdkProbeSucceeded": true,
+  "sdkProbeScope": "Original SDK build of eighteen schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing",
+  "runId": 39867148131,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39867148131"
 }
