@@ -41,6 +41,8 @@ ArmorTemplate 正式插件与 SDK 接入阶段已实现：`Recovered.Compiler.dl
 
 ModelConditionFlagType / ScatterRadiusVsType 已完成原版差分与两种优化模式验证：每模式 28,496 个 ProcessInstance 样例、85,488 次缓冲区比较，以及 4,179 次 ModelCondition 和 2,070 次 ObjectStatus 直接掩码比较。详见 STATUS.md 和 evidence/weapon/validation.json。
 
-下一轮约 35 分钟：恢复 WeaponEffectNugget 共用基类、指针/多态分派及一组合适的派生类型（优先 DamageNugget），复用现有 ModelCondition、ObjectStatus、ObjectFilter、资源与重定位代码，同步扩展原 DLL ProcessInstance 差分及 Windows /Od、/O2 验证。未恢复派生类型显式拒绝，不把空 Nuggets 当成完整支持。Nuggets 是 WeaponTemplate 唯一尚未支持的字段；完整前保留原 SDK 路由。完成整类后接入正式插件，并加入合法 mymod/XSD 真实编译样例，处理 BAB 注入的 TypeId 注解。
+Nuggets 共用基类、ScalarInfo、列表/多态 Token 已恢复，且六类伤害分支通过原 DLL 差分：Damage、DOT、GrapplingHook、两种 Leech、LineDamage。每模式 41,248 个样例、123,744 次三缓冲区比较、186 次显式拒绝检查；原有位集直接差分继续通过。新增六个合法 mymod 武器样例，完整 XSD 校验与真实原版 SDK 产物中的恢复组件数据核对均通过。Armor 新插件路由回归也保持四份完整产物一致。确切源码/run 见 STATUS.md、WEAPON_NUGGETS.md 和 evidence/weapon/validation.json。
+
+下一轮约 35 分钟：补齐 DamageAndSpawn、FireOnObjects 等剩余 Damage 派生类型，再按依赖推进 projectile / weapon-OCL / 引用类分支，复用现有共用基类和 ScalarInfo。实现与 /Od、/O2 原版 ProcessInstance 差分、合法 mymod/XSD 样例、实际原 SDK 产物核对、证据和交接合并成一个实质阶段。当前 35 个显式分派分支恢复 6 个，剩余 29 个明确拒绝；维护覆盖表，不把空 Nuggets 或少数派生类型当作整类完成。WeaponTemplate 完整前继续保留原 SDK 路由；最终切换还需处理 BAB 给根/非多态子结构注入的 TypeId 元数据。
 
 用户已授予仓库级持续授权（仅禁止强推）；继续保持限定证据范围、pull --rebase 后普通推送及避免递归触发。每轮按约 35 分钟有效工作量推进，完成验证、提交和准确交接。

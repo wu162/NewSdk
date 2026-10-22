@@ -57,3 +57,9 @@ WeaponTemplate 尚缺 ScatterRadiusVsType 和 Nuggets，暂不切换整类 SDK �
 已实现 `Recovered.Compiler.Plugin, Recovered.Compiler`，依赖恢复的 `Recovered.Armor.dll`，实际类型路由与上面的设计相同。配置切换脚本为 `scripts/SetArmorPlugin.ps1`，完整验证入口为 `scripts/TestArmorSdk.ps1`，使用与证据说明见 `ARMOR_SDK_INTEGRATION.md`。三个 mymod 验证资产包括默认、非默认和继承后的护甲；入口 Include 与 mytank ArmorSet 引用已提交。原版/恢复版 SDK 输出 bin/manifest/imp/relo 已逐字节一致，实际三次新插件调用及三缓冲区均已与原版核对。最终源码/run 以 `evidence/armor-sdk/validation.json` 为准。
 
 ModelCondition / ScatterRadiusVsType 已继续完成差分验证；下一轮恢复 Nuggets。WeaponTemplate 完整前继续保留原版路由。新类型接入时复用此插件/切换/真实编译链，不能跳过合法 mymod 样例、SDK 预处理与实际产物比较。
+
+## Nugget 阶段的实际 SDK 样例 — 2026-10-23
+
+`RecoveryWeaponNuggetProbe.xml` 已加入 mymod 实际 Include 链，包含六种已恢复伤害类 Nugget 的合法 WeaponTemplate，DOT 必填字段和 ScalarInfo.Filter 均符合完整 XSD。`TestWeaponSdkProbe.ps1` 使用原版 Weapon 路由编译 mymod，要求六份恢复组件 InstanceData 实际出现在 mod.bin，并保存全部产物与证据。此项是合法源码/实际 SDK 产物核对，不能称为已切换恢复版 Weapon 插件。
+
+同时，原有 Armor 正式插件对照随新增 mymod 样例运行，原版/恢复版 Armor 路由的完整 bin/manifest/imp/relo 仍逐字节一致。Nuggets 当前恢复 6/35 个显式分支，剩余 29 个明确拒绝；待 WeaponTemplate 完整后再按正式路由策略切换该顶层类型。

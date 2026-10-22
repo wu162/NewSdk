@@ -66,14 +66,15 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 ## Resume instruction
 
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
-Continue WeaponTemplate from the validated scatter/model implementation at the end of this file.
+Continue WeaponTemplate from the validated six-branch Nugget implementation at the end of this file.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
 Next approximately-35-minute scope: ArmorTemplate SDK integration is now implemented
 and verified below. ModelCondition / ScatterRadiusVsType is also verified.
-Continue Nuggets base layout, polymorphic dispatch and a coherent derived group
-(such as DamageNugget), following the per-type integration strategy in
-`SDK_TYPE_INTEGRATION.md`. Nuggets is the only remaining unsupported Weapon field.
-Do not route WeaponTemplate to the recovered SDK plugin before all Nuggets work.
+The Nugget common base, ScalarInfo and six damage-family branches are now verified.
+Continue the remaining 29 explicit branches, starting with DamageAndSpawn /
+FireOnObjects and the adjacent projectile/reference group. Follow
+`WEAPON_NUGGETS.md` and `SDK_TYPE_INTEGRATION.md`. Keep WeaponTemplate on its
+original SDK route until the complete type and preprocessing boundary are validated.
 A complete replacement of both compiler DLLs is still outstanding.
 Read the newest validation.json for exact source/run.
 
@@ -408,3 +409,78 @@ rejects unknown attributes, including that annotation. Adapt this deliberate
 component boundary using real BAB inputs, preserving independent rejection of
 unimplemented business fields; do not claim current direct oracle XML is already
 SDK-preprocessed Weapon compatibility.
+
+
+## Nugget common runtime, damage family and legal SDK probes — 2026-10-23
+
+* Added `src/Native/WeaponNugget.h` / `.cpp` and C++/CLI Nugget readers.
+  Original TypeId-driven dispatch, common 40-byte base, upgrade typed-ID lists,
+  pointer masks, SpecialObjectFilter and 124-byte ScalarInfo list are recovered.
+  The base allocations run after derived/ScalarInfo allocations, matching original
+  byte and relocation ordering. WeaponTemplate delegates list Marshal/Tokenize/
+  endian conversion; its 256/260 count/pointer and polymorphic token frames work.
+* Six of the original **35 explicit dispatch branches** are now reconstructed:
+  DamageNugget (152 bytes), DOTNugget (164), GrapplingHookNugget (152),
+  LeechPercentMaxHealthDamageNugget (156), LeechHealthDamageNugget (156),
+  LineDamageNugget (176). Common and derived fields, nested filters/masks/upgrades/
+  ScalarInfo, references, defaults, inheritance frames and endian conversion are
+  included. All other 29 branches explicitly reject; zero/unknown TypeIds reject.
+  Empty Nuggets now works structurally but is not claimed as full Nugget support.
+* First three-branch source `b0de16e4bd6eb7ca423fbcafed9a73774c361031`,
+  run https://github.com/wu162/NewSdk/actions/runs/39861485833 : success. Each
+  /Od and /O2 passed 35,060 fixtures / 105,180 buffer comparisons / 70 rejections.
+  Extended six-branch source `ccfa45b4485f85365fcdd86170a22ae6c3484432`,
+  run https://github.com/wu162/NewSdk/actions/runs/39861894014 : success.
+* Final source including real SDK/XSD probes:
+  `0bfc640f44503d4a12192b7070581bf29a9688e3`, run
+  https://github.com/wu162/NewSdk/actions/runs/39862386470 : completed/success.
+  Each MSVC x86 /Od and /O2 passes **41,248 original ProcessInstance fixtures /
+  123,744 three-buffer comparisons / 186 unsupported-input checks**, plus the
+  existing 2,070 ObjectStatus and 4,179 ModelCondition direct parser comparisons.
+  Both modes total 247,488 buffer comparisons, 4,140 ObjectStatus and 8,358
+  ModelCondition comparisons. Four platform IDs include unknown 99.
+* `tests/WeaponNuggetOracle.cs` is the third partial oracle file. Fixtures include
+  every new enum value/field, legacy numeric/unit/Boolean grammar, reference
+  suffix limits, list sizes through 257, absent/empty/duplicate filters, pointer
+  combinations, all 29 rejected dispatch branches, TypeId-driven element-name
+  independence and 128 combinations with prior Weapon fields/optionals/scatter.
+  Independent assertions check data/token sizes, tags, pointer-array order,
+  scalar defaults, derived bytes/padding and relocation lengths/endpoints.
+* Added schema-valid `SDK/Mods/mymod/Data/RecoveryWeaponNuggetProbe.xml` and its
+  actual Mod.xml Include. All six weapons have non-default data, common filters/
+  masks/upgrades and ScalarInfo; DOT required fields and ScalarInfo.Filter are
+  supplied. `scripts/TestWeaponSdkProbe.ps1` validates raw XML with complete
+  CnC3Types.xsd, builds actual mymod using fresh original-SDK output, and finds
+  each reconstructed InstanceData payload byte-for-byte in final mod.bin.
+  Payload lengths: Damage 3,096; DOT 3,168; Grappling 3,120; each leech 3,136;
+  Line 3,216. Logs, all four SDK outputs and component inputs/buffers are inside
+  the persisted weapon oracle ZIP's nugget-sdk-output.zip.
+* The six-asset SDK probe retains **original WeaponTemplate routing**. It compares
+  recovered component payloads with actual original SDK output; it is not an SDK
+  build through a recovered Weapon plugin. Expected-component input adds the
+  known polymorphic TypeIds to raw XML and does not claim full BAB preprocessing.
+  All three buffers are checked separately by original ProcessInstance oracles.
+* Armor recovered-plugin integration reran with the expanded mymod and passed:
+  https://github.com/wu162/NewSdk/actions/runs/39862386602 . Original/recovered
+  Armor routing produces identical full MOD outputs: bin 62,776 bytes, manifest
+  2,225, imp 64, relo 1,168. All three real recovered Armor calls, schema negative
+  checks, reversible routing and original-free replay remain passing. Primitive/
+  catalog regression also passed: run 39862386479.
+* Read `WEAPON_NUGGETS.md` for layout, source entry points, accepted input boundary
+  and the full 35-branch coverage table. Current validation/source/run is pinned
+  in evidence/weapon/validation.json, including componentSucceeded and
+  sdkProbeSucceeded with an explicit SDK scope. No SDK compiler DLL is replaced.
+
+Next approximately-35-minute scope: complete the remaining DamageNugget-derived
+DamageAndSpawn and FireOnObjects branches, then extend the adjacent projectile /
+weapon-OCL/reference family as dependencies permit. Reuse the verified common
+Nugget runtime, shared masks/filters/resources and ScalarInfo; do not restart
+DamageNugget or the base. Group implementation, Windows /Od-/O2 differentials,
+legal mymod/XSD fixtures, actual original-SDK payload matching and evidence into
+a substantial stage. Keep the coverage table accurate and unknown branches
+explicitly rejected. For newly completed top-level asset types, use the formal
+plugin/SDK routing strategy; WeaponTemplate must remain on its original handler
+until its remaining 29 branches and the BAB metadata-annotation boundary work.
+The earlier note about root/nested unqualified TypeId annotations still applies
+to eventual Weapon SDK plugin integration; the direct Nugget adapter now handles
+its own polymorphic TypeId, not all injected metadata across Weapon XML.

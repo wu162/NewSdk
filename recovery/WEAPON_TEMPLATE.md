@@ -20,7 +20,8 @@ byte offset, procedure name/type hash and token treatment in original order.
 as child blocks (four durations, two voice overrides, one AI hint and three filters); their
 names remain rejected as root attributes. IncompatibleAttributeModifier is supported as a repeated child list. The three
 ObjectFilter pointer blocks are also supported. ScatterRadiusVsType is supported as a repeated 176-byte inline-filter/model-mask list.
-The remaining Nuggets field must be absent. Unsupported input,
+Nuggets supports the common base and six damage-family branches described in
+`WEAPON_NUGGETS.md`; the other 29 dispatch branches reject explicitly. Unsupported input,
 including an explicit empty value, is rejected.
 Other child elements, unknown attributes and namespaced attributes are rejected
 by the partial component, except namespace declarations and the root `id`.
@@ -292,3 +293,15 @@ Actual validation/source/run is recorded in STATUS.md and evidence/weapon.
 
 Nuggets remains unsupported; WeaponTemplate is not yet switched to the recovered
 SDK plugin. Full recovery of WeaponTemplate is still required before that switch.
+
+
+## Nugget damage family continuation
+
+Nuggets is now partially supported, rather than wholly absent. The common base,
+ScalarInfo, polymorphic list/token representation and six derived branches are
+recovered and differentially validated. See `WEAPON_NUGGETS.md` for exact type
+IDs, sizes, fields, evidence and the remaining 29-branch boundary. The new
+`RecoveryWeaponNuggetProbe.xml` is included in real mymod; XSD validation and an
+original SDK build verify all six reconstructed InstanceData payloads. That
+probe retains original Weapon routing. Full recovered-Weapon SDK integration
+and complete replacement DLLs remain outstanding.
