@@ -1,6 +1,6 @@
 # Compiler source recovery — session handoff
 
-Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/seven-optional-block subset, but is still **not completed recovery of both compiler DLLs**.
+Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list subset, but is still **not completed recovery of both compiler DLLs**.
 
 ## User scope
 
@@ -26,7 +26,7 @@ Future implementation sessions should contain about **25 minutes of effective wo
 * Buildable C++ `src/Native/DataInitializers.cpp` plus actual C++/CLI bridge `src/Bridge/PrimitiveInitializers.cpp`: time and angle initializers.
 * Buildable C++ `src/Native/Relocation.h` / `.cpp` and C++/CLI `src/Bridge/RelocationBridge.cpp`: shared allocation/relocation runtime, external-reference tables, bookmark exchange, Tokenizer member lookup/fixup. Source and ABI/semantic details: `RELOCATION_RUNTIME.md`. Recovered containers use RAII/STL, not the original EASTL in-memory ABI.
 * Recovered ArmorTemplate XML-to-InstanceData/RelocationData/ImportsData path, shared Node adapter and scalar parsing: `ARMOR_TEMPLATE.md`. This is a single-type component entry point, not a replacement compiler DLL.
-* WeaponTemplate: 89 root attributes plus four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
+* WeaponTemplate: 91 root attributes (including two ObjectStatus masks), four RangeDuration blocks, two SoundOrEvaEvent blocks, WeaponAiHintInfo, three ObjectFilter blocks and the IncompatibleAttributeModifier reference list, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
 * Read `README.md` for build entry points and `PROVENANCE.md` for original method tokens.
 
 ## Actual validation
@@ -66,13 +66,14 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 ## Resume instruction
 
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
-Continue WeaponTemplate from the resource/seven-block implementation described below.
+Continue WeaponTemplate from the validated status/filter/list implementation below.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-25-minute scope: recover the two 223-bit ObjectStatus masks
-and shared enum/bitset handling with original ProcessInstance differential tests;
-then filters/simple lists as dependencies and time allow. Remaining eight fields
-are explicitly unsupported. A complete replacement plugin and rebuilt-DLL MOD
-run are still outstanding. Read the newest validation.json for exact source/run.
+Next approximately-25-minute scope: recover the 456-bit ModelCondition masks and
+ScatterRadiusVsType (176-byte elements with an inline ObjectFilter), with original
+ProcessInstance differential tests; then begin the common Nuggets base/dispatch
+as dependencies and time allow. Only ScatterRadiusVsType and Nuggets remain
+explicitly unsupported. A complete replacement plugin and rebuilt-DLL MOD run
+are still outstanding. Read the newest validation.json for exact source/run.
 
 ## Continuation details from this stage
 
@@ -208,3 +209,76 @@ Extract full enum maps from original PE data as with previous enum recovery.
 Do not assume mangled names preserve full XML attribute strings. Reuse all
 validated resource/node/scalar/relocation code. Time permitting, bring in the
 related ObjectFilter helpers, then lists/Nuggets in later substantial stages.
+
+
+
+## WeaponTemplate status, reference-list and ObjectFilter stage — 2026-10-22
+
+This supersedes the resource stage's eight-field unsupported boundary. This stage
+bundles multiple adjacent serializers, a shared parser, differential tests,
+Windows builds and persistent evidence; the about-25-minute stage rule remains.
+
+* Shared `src/Native/EnumBitset.h` / `.cpp`: original C-whitespace token splitting,
+  sign handling, case-sensitive name matching, fallback values, OR/XOR updates
+  and case-insensitive ALL semantics. The existing five Weapon root bitset
+  attributes now reuse it. The full original PE ObjectStatus map (223 names) is
+  included without relying on another SDK's enums.
+* RequiredFiringObjectStatus / ForbiddenFiringObjectStatus: pointers at root
+  offsets 136/140 allocate 28 bytes each when present, including empty text.
+  Token offsets directly bookmark the mask payload; there is no nested token
+  table. Seven words are endian-corrected. Unknown text selects ordinal 198;
+  ALL fills all 224 stored bits and prevents later tokens from changing them,
+  reproducing the original cursor bug. A minus sign XORs, rather than clears.
+* Added direct `WeaponCompiler.MarshalObjectStatus(text, initialSevenWords)` and
+  original global-method reflection tests: zero/patterned/all-set seeds,
+  223 names, signs, toggles, C control whitespace, embedded NUL and ANSI text.
+  2,070 seven-word comparisons per build mode, separate from buffer comparisons.
+* IncompatibleAttributeModifier: repeated text-valued child references, root
+  count/pointer at 284/288, four-byte payload elements, original list token
+  records and bookmark fixup. List sizes through 257, malformed/signed/overflow
+  suffixes, repeated values, interleaved children and CDATA compare exactly.
+* `src/Native/ObjectFilter.h` / `.cpp`: readable complete shared 112-byte layout,
+  Marshal/Tokenize/endian helpers. The three WeaponTemplate pointers at 264/268/272
+  now work, with all eight attributes, 284-bit KindOf Include/Exclude masks,
+  two optional ObjectStatus masks, and IncludeThing/ExcludeThing typed-ID lists.
+  All 284 KindOf names and small enum maps were read from original PE data.
+  Rule unknown fallback is 1; Alignment fallback is 1; Relationship fallback is
+  bit 0; KindOf fallback is bit 149. Empty/default values and ALL padding bits
+  preserve original behavior. Unknown/namespaced inputs remain explicitly rejected.
+* Differential fixtures cover all enum names, signs, toggles, lower-case fallback,
+  both root status pointers, all eight subsets of the three filters, duplicate
+  blocks, list boundary lengths through 257, and all 128 subsets of seven earlier
+  optional blocks combined with filters/status/resources/reference lists.
+  Independent assertions check scalar defaults, bit words, data/token sizes,
+  count/order, pointer targets, nested member bookmarks and relocation sentinels.
+* Source milestones: `aa2ed3f6d623dc4f9d12ffa8e18ea98790faa1d4` (status masks/shared
+  parser), `750313180a88f6bad25b8c3143dc6c2d9eabf978` (direct seeded parser oracle),
+  `15d43c1369d906be201cb44493516fabd0072217` (modifier reference list),
+  `09f5b6d71786bdc16691ec011d27b0ee8932f5ea` (complete ObjectFilter integration).
+* Final source validation: https://github.com/wu162/NewSdk/actions/runs/39790728845
+  completed successfully. Each MSVC x86 C++/CLI /Od and /O2 build passes **20,488
+  ProcessInstance fixtures / 61,464 three-buffer comparisons / 34 unsupported-input
+  checks**, plus **2,070 direct seven-word parser comparisons**. Both modes together:
+  **122,928 buffer comparisons and 4,140 direct parser comparisons**. All four
+  platforms include unknown 99. `evidence/weapon/validation.json` pins the exact
+  source/run, with enum maps, logs/hashes and ZIP auto-persisted by the existing
+  ordinary-push workflow. The optimized component remains a separate
+  `recovered-weapon-component-x86` artifact, never a replacement SDK compiler DLL.
+* Catalog/time-angle regression for that source also passed:
+  https://github.com/wu162/NewSdk/actions/runs/39790728955 . Existing regressions
+  ran with the changed source; no unrelated baseline or Armor re-extraction.
+* Still unsupported: Nuggets and ScatterRadiusVsType, plus unknown/namespaced XML
+  outside this documented component input domain. No GameObject serializer,
+  complete replacement compiler DLL or replacement-DLL MOD build is claimed.
+
+Next substantial stage: ModelConditionFlagType (456 bits) + ScatterRadiusVsType.
+Original helpers: ScatterRadiusType Marshal at lines 15370–15410, list Marshal
+53635–53676 (176 bytes per element), endian at 53831, Tokenize at 78584 (four
+procedure entries), list Tokenize at 99207. Each element contains Radius at 0,
+15-word RequiredModelConditions at 4, and inline ObjectFilter at 64. Reuse the
+new ObjectFilter helpers. Crucial distinction: absent Filter leaves its inline
+112 bytes zero, whereas present `<Filter/>` runs defaults (Rule NONE = 3).
+Recover the full ModelCondition enum/fallback from original data before enabling
+this list. After its verified integration, begin Nuggets shared base layout and
+dispatch with explicit unsupported-derived-type rejection. Keep the about-25-minute
+stage size, source/Windows/oracle/commit/handoff grouping, and no force-push rule.

@@ -33,8 +33,8 @@
 
 ## 下一轮的具体起点
 
-阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 89 个根属性、四个 RangeDuration、两个 SoundOrEvaEvent 和 WeaponAiHintInfo。字符串、预处理引用、TypedAssetId 哈希已接入；非空资源引用、嵌套指针和时间块组合已进入原版 ProcessInstance 差分测试。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
+阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 91 个根属性（含两个 223 位 ObjectStatus 掩码）、四个 RangeDuration、两个 SoundOrEvaEvent、WeaponAiHintInfo、三个完整 ObjectFilter 过滤器和 IncompatibleAttributeModifier 引用列表。共用 EnumBitset 已接入旧根位集和过滤器的 284 位 KindOf 掩码；非空资源引用、状态位、对象列表及可选块组合均已进入原版 ProcessInstance 差分。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
 
-下一轮约 25 分钟：成组恢复 RequiredFiringObjectStatus / ForbiddenFiringObjectStatus 的 223 位状态掩码、共用枚举/位集处理及直接原 DLL 差分；依赖和时间允许再接续 ObjectFilter 或简单列表。不要重做已验证标量、引用和可选块，不得静默忽略 Nuggets/过滤器等未实现字段。完整插件和重建 DLL 的 MOD 编译仍未完成。
+下一轮约 25 分钟：成组恢复 ModelConditionFlagType 的 456 位掩码和 ScatterRadiusVsType 列表（每项 176 字节，含半径、15 个状态字和内嵌 ObjectFilter），复用已验证过滤器/列表/位集并加入原 DLL 差分；时间允许再开始 Nuggets 公共基类和分派。注意 Scatter 的 Filter 缺席时内嵌区保持全零，显式空 Filter 则执行默认值，二者不同。不要重做已验证状态/过滤器，不得静默忽略剩余两个未实现字段。完整插件和重建 DLL 的 MOD 编译仍未完成。
 
-用户已授权工作流自动提交验证结果；继续保持限定证据范围、pull --rebase 后普通推送、不强推及避免递归触发。每轮按约 25 分钟有效工作量推进，完成验证、提交和准确交接。
+用户已授予仓库级持续授权（仅禁止强推）；继续保持限定证据范围、pull --rebase 后普通推送及避免递归触发。每轮按约 25 分钟有效工作量推进，完成验证、提交和准确交接。

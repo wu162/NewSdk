@@ -1,4 +1,4 @@
-# WeaponTemplate scalar, resource and optional-block subset
+# WeaponTemplate scalar, resource, status, optional-block and modifier-list subset
 
 The supported entry point is `Recovered.WeaponCompiler.ProcessInstance` in
 `src/Bridge/WeaponCompiler.cpp`; the native implementation is
@@ -10,18 +10,17 @@ for `InstanceDeclaration` / `AssetBuffer`, and does not replace either compiler.
 
 ## Implemented scope
 
-89 root attributes: the original 77 scalar/bitset attributes plus 12 string,
-resource-reference and typed-ID attributes. Scalar coverage includes floats, angles, times, percentages, signed integers,
+91 root attributes: the original 77 scalar/bitset attributes plus 12 string,
+resource-reference and typed-ID attributes, plus the two ObjectStatus pointer masks. Scalar coverage includes floats, angles, times, percentages, signed integers,
 36 byte-sized Boolean fields, five scalar enum groups, and five bitset attributes
 (including both anti-mask attributes).
 The explicit `WeaponField` table lists every supported field, default text,
 byte offset, procedure name/type hash and token treatment in original order.
-`WeaponValue::Absent` now marks 15 child/list/status fields. Seven are supported
-as child blocks (four durations, two voice overrides and one AI hint); their
-names remain rejected as root attributes. The remaining eight fields must be
-absent: RequiredFiringObjectStatus, ForbiddenFiringObjectStatus, Nuggets,
-SurpriseAttackObjectFilter, CombinedAttackObjectFilter, HitStoredObjectFilter,
-ScatterRadiusVsType and IncompatibleAttributeModifier. Unsupported input,
+`WeaponValue::Absent` marks 13 child/list fields. Ten are supported
+as child blocks (four durations, two voice overrides, one AI hint and three filters); their
+names remain rejected as root attributes. IncompatibleAttributeModifier is supported as a repeated child list. The three
+ObjectFilter pointer blocks are also supported. The remaining two fields must
+be absent: Nuggets and ScatterRadiusVsType. Unsupported input,
 including an explicit empty value, is rejected.
 Other child elements, unknown attributes and namespaced attributes are rejected
 by the partial component, except namespace declarations and the root `id`.
@@ -143,3 +142,109 @@ Next: recover the two ObjectStatus masks, filters, lists and polymorphic Nuggets
 WeaponTemplate, GameObject, XmlCompiler serializers, plugin assembly identity,
 and a MOD build using replacement DLLs remain outstanding.
 
+
+
+## ObjectStatus masks and shared enum bitsets
+
+`EnumBitset.h` / `.cpp` contains the shared text-bitset helper and all 223
+ObjectStatus name/ordinal pairs, read directly from the shipped PE enumMap.
+The five existing root bitset attributes now use the same helper. No original
+DLL is called by the recovered implementation. The direct managed helper
+`WeaponCompiler.MarshalObjectStatus(text, initialSevenWords)` exposes inline
+accumulation for differential testing and reuse, without resetting initial bits.
+
+| Attribute | Root pointer | Allocation | Procedure-table treatment |
+|---|---:|---:|---|
+| RequiredFiringObjectStatus | 136 | 28 bytes | Member offset to mask payload (slot 41), no nested table |
+| ForbiddenFiringObjectStatus | 140 | 28 bytes | Member offset to mask payload (slot 42), no nested table |
+
+Absent attributes leave null pointers. Present empty/whitespace text still
+allocates seven zero words. Allocation follows root Marshal order, after the
+three firing-audio pointers and before PreAttackWeapon. Each present mask adds
+28 instance bytes and one root pointer relocation; it adds no token-table bytes.
+The seven words are endian-corrected independently. Bit 0 is the least significant
+bit of word 0; named values span 0 through 222.
+
+Enum names are case-sensitive. Unknown names (including NONE, bare signs and
+malformed tokens) select ordinal 198, ABSORBED_DAMAGE. Leading '+' ORs a bit;
+leading '-' XORs it, rather than clearing. Splitting uses C whitespace (space,
+TAB, CR, LF, vertical tab and form feed), and stops at the first NUL. ALL alone
+is case-insensitive, ignores its sign and fills all seven words with FFFFFFFF,
+including reserved bit 223. The original ALL branch fails to advance the token
+cursor, so later tokens never affect the result. This behavior is retained.
+
+The oracle checks every name, each pointer, positive/negative signs, duplicates,
+XOR twice, lower-case fallback, word boundaries, all names together, ALL and
+malformed tokens. Independent assertions verify all seven words, pointer targets,
+member bookmarks and relocation order/sentinel. All 128 optional-block subsets
+also run with both masks and nonempty resource pointers. A direct reflection
+oracle additionally compares zero, patterned and all-set initial masks, raw
+control characters, embedded NUL and ANSI conversion with the original helper.
+
+## IncompatibleAttributeModifier reference list
+
+Each repeated `<IncompatibleAttributeModifier>name\index</IncompatibleAttributeModifier>`
+child contributes one four-byte prepared reference in source order. Empty values
+are real list entries. Attributes and nested elements are explicitly rejected by
+the partial adapter. The existing ANSI/prepared-reference helper parses content;
+no asset resolution or original compiler forwarding occurs here.
+
+The root stores count at 284 and payload pointer at 288. The nonempty payload is
+allocated last, after AI hint and duration allocations. The list procedure table
+has count + 1 entries: count header hashes 1820487795 / 1564774360, followed by
+name hash 2974916843, zero type hash and a direct member bookmark for each payload
+word. There is no list-table sentinel. Relative to an otherwise empty list,
+each entry adds 12 token bytes and 4 data bytes. The payload pointer adds one
+relocation; public ImportsData remains empty as in original Tokenizer.
+
+Differential fixtures cover lengths 0 through representative boundaries up to
+257, repeated values, malformed/signed/overflow reference suffixes, CDATA and
+interleaved children, and combinations with status/audio/AI/duration allocations.
+Independent assertions check count, order, token records, values and relocation.
+The exact validated source and run remain in `evidence/weapon/validation.json`.
+
+## Three ObjectFilter blocks
+
+`ObjectFilter.h` / `.cpp` implements the shared 112-byte ObjectFilter layout,
+marshaling, tokenization and endian correction. WeaponTemplate allocates
+SurpriseAttackObjectFilter, CombinedAttackObjectFilter and HitStoredObjectFilter
+through root pointers 264/268/272, in that order, after WeaponAiHintInfo and before
+the modifier list. Duplicate XML blocks use the first matching child.
+
+| ObjectFilter member | Offset | Representation |
+|---|---:|---|
+| id | 0 | Lowercased ANSI typed-ID FastHash, zero when absent |
+| Rule | 4 | Enum; NONE defaults to 3, unknown text falls back to ALL (1) |
+| Relationship | 8 | Four named bits in one word; empty by default; unknown token selects ALLIES (0) |
+| Alignment | 12 | Enum; NONE defaults to 0, unknown text falls back to EVIL (1) |
+| Include / Exclude | 16 / 52 | Two inline 284-bit KindOf masks, nine words each |
+| StatusBitFlags / StatusBitFlagsExclude | 88 / 92 | Optional pointers to 28-byte ObjectStatus masks |
+| IncludeThing | 96 / 100 | Count/pointer pair for repeated four-byte GameObject typed IDs |
+| ExcludeThing | 104 / 108 | Count/pointer pair for repeated four-byte GameObject typed IDs |
+
+All 284 KindOf names/ordinals and the three small enum maps come from the original
+PE. KindOf unknown-token fallback is 149 (ACTIVATE_AFTER_UNPACK); ALL fills all
+nine words, including the four padding bits. Signs and ALL cursor behavior reuse
+the validated enum-bitset helper. These are compiler serialization semantics,
+not runtime target-selection behavior.
+
+The filter procedure table has ten fields plus sentinel (132 bytes). The two
+thing lists each have a count header even when empty, adding 24 token bytes.
+An otherwise empty filter adds 156 token bytes and 112 data bytes. Status payloads
+use direct member bookmarks; thing entries use name hash 2974916843, zero type
+hash and direct member bookmarks to typed IDs. No nested procedure table is
+created for a status mask or typed-ID word. All scalar/mask words and typed-ID
+arrays are endian-corrected before relocation, while host pointers remain intact.
+
+The bridge accepts only the eight listed attributes and repeated IncludeThing /
+ExcludeThing children. Other attributes, namespaced attributes, unknown children,
+thing attributes and nested thing elements are rejected explicitly. Every name
+and sign/toggle/case fallback, enum values, default combinations, duplicate blocks,
+thing lists through 257 and the seven optional-block combinations are compared
+with original ProcessInstance. Independent assertions check empty-block sizes,
+pointer allocation order, defaults, nested token offsets and relocation tables.
+
+ScatterRadiusVsType is not a simple radius list: its original element is 176
+bytes (radius + 456-bit ModelCondition mask + inline 112-byte ObjectFilter).
+Recover the 456-name ModelCondition enum and inline filter integration before
+supporting it; do not silently emit only Radius. Nuggets remain unsupported.
