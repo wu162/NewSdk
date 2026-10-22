@@ -1,4 +1,4 @@
-# WeaponTemplate scalar, resource, status, optional-block and modifier-list subset
+# WeaponTemplate supported subset: scalars, resources, status, filters and scatter
 
 The supported entry point is `Recovered.WeaponCompiler.ProcessInstance` in
 `src/Bridge/WeaponCompiler.cpp`; the native implementation is
@@ -19,8 +19,8 @@ byte offset, procedure name/type hash and token treatment in original order.
 `WeaponValue::Absent` marks 13 child/list fields. Ten are supported
 as child blocks (four durations, two voice overrides, one AI hint and three filters); their
 names remain rejected as root attributes. IncompatibleAttributeModifier is supported as a repeated child list. The three
-ObjectFilter pointer blocks are also supported. The remaining two fields must
-be absent: Nuggets and ScatterRadiusVsType. Unsupported input,
+ObjectFilter pointer blocks are also supported. ScatterRadiusVsType is supported as a repeated 176-byte inline-filter/model-mask list.
+The remaining Nuggets field must be absent. Unsupported input,
 including an explicit empty value, is rejected.
 Other child elements, unknown attributes and namespaced attributes are rejected
 by the partial component, except namespace declarations and the root `id`.
@@ -244,7 +244,51 @@ thing lists through 257 and the seven optional-block combinations are compared
 with original ProcessInstance. Independent assertions check empty-block sizes,
 pointer allocation order, defaults, nested token offsets and relocation tables.
 
-ScatterRadiusVsType is not a simple radius list: its original element is 176
+The previously unsupported ScatterRadiusVsType is not a simple radius list: its original element is 176
 bytes (radius + 456-bit ModelCondition mask + inline 112-byte ObjectFilter).
-Recover the 456-name ModelCondition enum and inline filter integration before
-supporting it; do not silently emit only Radius. Nuggets remain unsupported.
+The complete ModelCondition map and inline-filter integration are now recovered
+and validated as described below. Nuggets remains unsupported.
+
+
+## ModelCondition and ScatterRadiusVsType
+
+The scatter list uses a count/pointer at root offsets 276/280. Each element is
+176 bytes: Radius float at 0; 15 inline ModelCondition words at 4; a complete
+112-byte inline ObjectFilter at 64. The list payload is allocated after the three
+root filters and before IncompatibleAttributeModifier. Per-element filter status
+payloads and typed-ID lists use the same validated shared helpers.
+
+An absent Filter leaves all 112 inline bytes zero. A present empty Filter applies
+the normal defaults, including Rule NONE = 3. Tokenization always emits the inline
+filter table, even when the XML Filter was absent. Repeated Filter children use
+the first one; repeated ScatterRadiusVsType children remain ordered list entries.
+
+The original PE ModelCondition enum map has 457 name/value pairs: INVALID = -1
+and ordinals 0 through 455. ALL has ordinal 454 in the map, but the text parser
+handles case-insensitive ALL specially and fills all 15 words, including 24
+padding bits. INVALID is skipped, unknown names fall back to ABOUT_TO_HIT (233),
+minus XORs, and ALL retains the already-characterized token cursor behavior.
+`MarshalModelCondition` reuses the shared parser with these exact parameters;
+its managed bridge supports seeded 15-word masks for direct original-helper tests.
+
+The scatter element procedure table has three members plus sentinel (48 bytes):
+Radius hashes 1328662213/1683514611, RequiredModelConditions 1022003432/1742454729,
+and Filter -2055623642/-462511182. Each element unconditionally adds the 156-byte
+ObjectFilter token structure. The list has a count header and one 12-byte entry
+per element; no list sentinel. With no extra filter payloads or other optionals,
+n elements produce 1296 + 216*n token bytes and 1624 + 392*n instance bytes,
+with one root payload relocation plus sentinel when nonempty. Both endian modes
+swap all 15 model words and inline/nested filter data, preserving live pointers
+until the tracker rewrites them.
+
+`tests/WeaponScatterOracle.cs` is a second partial class in the existing original
+ProcessInstance oracle. It covers all 456 names, INVALID, signs/toggles, lower-case
+fallback, ALL/padding, word boundaries, raw seeded helper calls, list lengths
+through 257, absent/empty/duplicate filters, nested status/thing lists and 128
+combinations of earlier optionals/resources/status/filters/modifier references.
+Independent assertions check radius bits, mask words, inline-filter defaults,
+procedure offsets, list count/order, total size and relocation/sentinel.
+Actual validation/source/run is recorded in STATUS.md and evidence/weapon.
+
+Nuggets remains unsupported; WeaponTemplate is not yet switched to the recovered
+SDK plugin. Full recovery of WeaponTemplate is still required before that switch.

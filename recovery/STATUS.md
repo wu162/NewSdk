@@ -1,6 +1,6 @@
 # Compiler source recovery — session handoff
 
-Updated 2026-10-22. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list subset, but is still **not completed recovery of both compiler DLLs**.
+Updated 2026-10-23. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list/scatter subset, but is still **not completed recovery of both compiler DLLs**.
 
 ## User scope
 
@@ -25,8 +25,8 @@ The user extended stages from about 25 to about 35 minutes on 2026-10-23. This s
 * Buildable C# `src/Managed/CompilerCatalog.cs`: all 301 XmlCompiler and 3 Tokenizer type records, platform versions, processing hashes, unknown-type defaults.
 * Buildable C++ `src/Native/DataInitializers.cpp` plus actual C++/CLI bridge `src/Bridge/PrimitiveInitializers.cpp`: time and angle initializers.
 * Buildable C++ `src/Native/Relocation.h` / `.cpp` and C++/CLI `src/Bridge/RelocationBridge.cpp`: shared allocation/relocation runtime, external-reference tables, bookmark exchange, Tokenizer member lookup/fixup. Source and ABI/semantic details: `RELOCATION_RUNTIME.md`. Recovered containers use RAII/STL, not the original EASTL in-memory ABI.
-* Recovered ArmorTemplate XML-to-InstanceData/RelocationData/ImportsData path, shared Node adapter and scalar parsing: `ARMOR_TEMPLATE.md`. This is a single-type component entry point, not a replacement compiler DLL.
-* WeaponTemplate: 91 root attributes (including two ObjectStatus masks), four RangeDuration blocks, two SoundOrEvaEvent blocks, WeaponAiHintInfo, three ObjectFilter blocks and the IncompatibleAttributeModifier reference list, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
+* Recovered ArmorTemplate XML-to-InstanceData/RelocationData/ImportsData path, shared Node adapter and scalar parsing: `ARMOR_TEMPLATE.md`. A formal Armor-only SDK plugin and real MOD integration are now implemented; see the newest Armor SDK stage below. This is not a replacement of both compiler DLLs.
+* WeaponTemplate: 91 root attributes (including two ObjectStatus masks), four RangeDuration blocks, two SoundOrEvaEvent blocks, WeaponAiHintInfo, three ObjectFilter blocks the IncompatibleAttributeModifier reference list and complete ScatterRadiusVsType list with 456-bit ModelCondition masks, native C++ implementation and C++/CLI ProcessInstance bridge. See `WEAPON_TEMPLATE.md`; this is a validated partial type, not a replacement DLL.
 * Read `README.md` for build entry points and `PROVENANCE.md` for original method tokens.
 
 ## Actual validation
@@ -37,7 +37,7 @@ The user extended stages from about 25 to about 35 minutes on 2026-10-23. This s
 4. Original Tokenizer global IL initializers versus rebuilt native+C++/CLI functions: **PASS**, 27 comparisons of exact float bits. Includes units, negative/scientific inputs, rounding, case sensitivity, malformed/mixed units and VC8 D exponents. `evidence/primitives/oracle.txt`, `result.json`. Run: https://github.com/wu162/NewSdk/actions/runs/39748015944 .
 5. Shared runtime: **PASS**, Windows MSVC x86 C++/CLI build and 700 original/recovered comparisons (Tokenizer 364, XmlCompiler 336). All instance/relocation/import arrays match byte-for-byte for generated graphs, both endian modes, nonzero absolute offsets, duplicate-key sorts through 257 entries, and pointer/reference exchange. Tokenizer additionally validates member lookup, padding, miss behavior and cross-tracker token-member fixup. XmlCompiler has no token-member methods, so those cases are explicitly Tokenizer-only. `evidence/relocation`; run: https://github.com/wu162/NewSdk/actions/runs/39749956806 . The first run passed Tokenizer but failed because the harness attempted a Tokenizer-only function in XmlCompiler; the corrected harness scopes those tests explicitly.
 6. Existing catalog/primitive regression: **PASS** again after the runtime changes, run https://github.com/wu162/NewSdk/actions/runs/39749956807 .
-7. Full recovered compiler DLL build / replacing both DLLs / sample MOD compilation using replacements: **NOT IMPLEMENTED OR VALIDATED**.
+7. Full recovered compiler DLL build / replacing both DLLs: **NOT IMPLEMENTED OR VALIDATED**. The Armor-only per-type SDK plugin now has real MOD validation; see the newest Armor SDK stage below.
 8. **ArmorTemplate full single-type path: PASS**, Windows MSVC x86 native+C++/CLI compilation, `/Od` and `/O2`. Each build passes 284 original-Plugin.ProcessInstance fixtures / 852 three-buffer comparisons (1,704 comparisons across both modes). All 39 damage enum values, distinct root fields, partial defaults, missing/empty/unknown attributes, namespace filtering, malformed/negative/scientific percentages, duplicate entries and list lengths through 257 are covered. The four platforms are Win32, Xbox360, PlayStation3 and unknown 99. Independent size/member/relocation assertions also pass. `evidence/armor/oracle.txt` and `release-oracle.txt`.
 9. **Shared Node adapter: PASS**, 360 direct original/recovered comparisons per DLL, 720 total. Attribute lookup, empty/default values, single-child lookup, named/all-element lists, counts/order/reset and parent position preservation are checked across empty/asset/other namespaces. See both `*-node-oracle.txt` files.
 10. **Shared scalar parsers: PASS**, Tokenizer 199 + XmlCompiler 169 exact bit comparisons in each build mode, 736 total. Covers Boolean first-character rules, signed/unsigned limits, base-0 octal/hex integers, byte/ushort truncation, overflow, malformed signs, decimal/D exponents, signed zero/subnormals, overflow-to-infinity and legacy lexical rejection of hex-float/INF/NaN input. XmlCompiler does not instantiate an IValue-based ushort overload; that exact boundary is reported explicitly, with ushort IValue coverage on Tokenizer only. Corrected VC8 unsigned negative-overflow behavior and modern-CRT float grammar differences from original-DLL evidence.
@@ -66,13 +66,14 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 ## Resume instruction
 
 Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
-Continue WeaponTemplate from the validated status/filter/list implementation below.
+Continue WeaponTemplate from the validated scatter/model implementation at the end of this file.
 Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-35-minute scope: prioritize formal ArmorTemplate plugin integration
-and real SDK compilation using per-type plugin configuration, following
-`SDK_TYPE_INTEGRATION.md`. The user explicitly requested this progressive
-replacement strategy. Then continue 456-bit ModelCondition / ScatterRadiusVsType
-and Nuggets. Only those two Weapon fields remain explicitly unsupported.
+Next approximately-35-minute scope: ArmorTemplate SDK integration is now implemented
+and verified below. ModelCondition / ScatterRadiusVsType is also verified.
+Continue Nuggets base layout, polymorphic dispatch and a coherent derived group
+(such as DamageNugget), following the per-type integration strategy in
+`SDK_TYPE_INTEGRATION.md`. Nuggets is the only remaining unsupported Weapon field.
+Do not route WeaponTemplate to the recovered SDK plugin before all Nuggets work.
 A complete replacement of both compiler DLLs is still outstanding.
 Read the newest validation.json for exact source/run.
 
@@ -292,8 +293,8 @@ recovered, progressively replacing the two original compiler DLLs. This is now t
 main integration path, in addition to original-DLL differential tests. See
 `SDK_TYPE_INTEGRATION.md` for the verified configuration mechanism and acceptance
 criteria. Prioritize ArmorTemplate formal plugin + SDK integration before the next
-Weapon field group. Current recovered components are not yet registered SDK plugins;
-this documentation update does not claim an SDK run using them has already passed.
+Weapon field group. At the time of that strategy update the components were not registered SDK plugins.
+The subsequent Armor SDK stage below implements and validates that registration.
 
 
 ## mymod / XSD validation requirement — 2026-10-22
@@ -307,4 +308,103 @@ Compare original/recovered plugin configurations using identical modified mymod
 source and fresh output/isolated caches, and prove actual recovered-plugin calls.
 Do not bypass schema validation or confuse malformed direct-ProcessInstance
 oracle inputs with legal SDK XML. Commit the fixtures and entry modifications.
-See `SDK_TYPE_INTEGRATION.md`; the next ArmorTemplate SDK stage includes this work.
+See `SDK_TYPE_INTEGRATION.md`; the completed Armor SDK stage below includes this work.
+
+
+## ArmorTemplate formal plugin and real SDK integration — 2026-10-23
+
+* Implemented `src/Plugin/ArmorPlugin.cs` as a real IAssetBuilderPlugin in
+  `Recovered.Compiler.dll`, referencing the recovered C++/CLI `Recovered.Armor.dll`.
+  Initialize/ReInitialize, original platform versions, all public Armor metadata
+  fields and ProcessInstance are covered. No original compiler forwarding.
+* Added reversible/idempotent `scripts/SetArmorPlugin.ps1`, removing explicit
+  ArmorTemplate registration before adding the selected handler. The original
+  Tokenizer keeps WeaponTemplate/GameObject; XmlCompiler retains #all.
+  Checked-in original compiler binaries/default configuration are unchanged.
+* Added schema-valid `SDK/Mods/mymod/Data/RecoveryArmorProbe.xml`, included from
+  actual Mod.xml, plus a mytank ArmorSet reference. Three assets cover defaults,
+  five distinct percentages/four damage entries, and an inherited/overridden armor.
+* `scripts/TestArmorSdk.ps1` builds the formal plugin and runs the 284-fixture /
+  852-buffer differential oracle in both /Od and /O2, including metadata on all
+  four platform IDs. The original Armor/Node/scalar regression also passed:
+  https://github.com/wu162/NewSdk/actions/runs/39858755023 .
+* Final Armor SDK source `1165538468f78f27edc136a6c8afa2834675be07`, run
+  https://github.com/wu162/NewSdk/actions/runs/39859270614 : success. Two disposable
+  SDK copies compile identical modified mymod source with fresh output and no
+  shared generated cache. All complete outputs match byte-for-byte: mod.bin
+  43,904 bytes; mod.manifest 1,655; mod.imp 64; mod.relo 880. Full sizes/hashes,
+  configuration snapshots, logs, captured XML and buffers persist in
+  `evidence/armor-sdk`. Validation pins the exact source/run.
+* Exactly three real recovered SDK calls are traced. Each captured XML is replayed
+  through original Tokenizer.ProcessInstance and all three buffers compare exactly.
+  All three emitted instance payloads are found in final mod.bin. The inherited
+  input contains the parent's four Armor children and shared percentages, with
+  Default overridden to 61.25%; this is BAB's actual preprocessing, not an oracle
+  approximation. Fresh-process replay with both original compiler DLLs physically
+  absent also passes; neither original assembly is loaded.
+* Complete CnC3Types.xsd validates the new probe and Mod.xml; three negative fixtures
+  (unknown Damage, invalid Percent, missing id) are rejected. Raw direct validation
+  of existing mytank.xml initially failed on its existing xai:joinAction. Corrected
+  the harness to use BAB's normal preprocessing/schema pipeline for that file;
+  schemas and SDK validation are not weakened. Initial failed run is retained in
+  history; the final run above passes the complete integration.
+* Artifact `recovered-armor-sdk-plugin-x86` contains the two new DLLs;
+  `ARMOR_SDK_INTEGRATION.md` documents build/configuration/evidence usage.
+  This establishes Armor-only progressive replacement, not recovery of both
+  complete DLLs. WeaponTemplate is still on its original SDK handler.
+
+
+## ModelCondition / ScatterRadiusVsType stage — 2026-10-23
+
+* Continued adjacent Weapon recovery after completing Armor SDK integration.
+  Added the original ModelConditionFlagType map (457 entries, INVALID=-1 and
+  ordinals 0..455) to shared EnumBitset. Unknown fallback is ABOUT_TO_HIT (233);
+  case-insensitive ALL fills 15 words including padding, INVALID is skipped.
+  The existing sign/XOR/ALL-cursor semantics are reused without normalization.
+* Implemented the full ScatterRadiusVsType list path in WeaponTemplate native
+  Marshal/Tokenize/endian/output assembly plus its C++/CLI XML adapter. Element
+  layout: 176 bytes, Radius at 0, 15-word mask at 4, inline ObjectFilter at 64.
+  Root count/pointer 276/280. Absent Filter stays zero; present empty Filter
+  sets normal defaults. Filter token tables are emitted unconditionally.
+* New partial-class `tests/WeaponScatterOracle.cs` covers all enum names/signs/
+  case/fallback/padding, seeded direct original-helper calls, simple and nested
+  list sizes through 257, first duplicate Filter, sibling order, and 128 mixed
+  optional-block/resource/status/filter/modifier configurations. Independent
+  assertions cover bits, offsets, total sizes, counts and relocation sentinels.
+  TestWeapon.ps1 now compiles both partial test files.
+* Source `6e5d09ec43784f8fb47557e72438462b18cb7286`, run
+  https://github.com/wu162/NewSdk/actions/runs/39859937000 : completed/success.
+  Each MSVC x86 /Od and /O2 build passes **28,496 ProcessInstance fixtures /
+  85,488 three-buffer comparisons / 39 explicit unsupported-input checks**,
+  plus **2,070 direct ObjectStatus and 4,179 direct ModelCondition comparisons**.
+  Both modes: 170,976 buffer comparisons, 4,140 ObjectStatus and 8,358
+  ModelCondition mask comparisons. Win32/Xbox360/PlayStation3/unknown99 are covered.
+  Final validation/source/run, original enum maps, logs/hashes and evidence ZIP
+  are auto-persisted in evidence/weapon. The shared catalog/primitive regression
+  also passed: https://github.com/wu162/NewSdk/actions/runs/39859937037 .
+* No Weapon SDK routing change: Nuggets remains unsupported, with explicit
+  rejection. The recovered Weapon artifact remains a partial type component;
+  ArmorTemplate is the only production SDK type routed to a recovered plugin
+  in the integration test. Neither original compiler DLL is fully replaced.
+
+Next approximately-35-minute scope: recover WeaponEffectNugget common base,
+polymorphic dispatch and a coherent initial derived group (DamageNugget is a
+useful first member), including original ProcessInstance differential fixtures
+and optimized Windows validation. Original Tokenizer -Module-.cs entry points:
+base Marshal 15406 / endian 15449 / pointer dispatch 15499; DamageNugget Marshal
+16961 / endian 17069; base Tokenize follows Scatter at 78607; list Tokenize 99182
+and polymorphic token wrappers around 99003. Derive actual sizes/fields and
+procedure hashes from original pointer arithmetic; do not assume an unrelated
+SDK's layout. Reuse ModelCondition for ForbiddenTargetModelCondition and shared
+ObjectStatus/ObjectFilter/resource/tracker code. Reject all unimplemented derived
+branches explicitly. Do not silently accept an empty Nuggets container as full
+polymorphic support. Once all Weapon branches work, register the type in the new
+plugin and add legal mymod/XSD fixtures using the Armor SDK chain.
+
+Integration detail to handle before the eventual Weapon SDK switch: real BAB
+preprocessed XML includes an unqualified TypeId attribute on assets and nested
+elements (visible in the committed Armor traces). Current partial Weapon adapter
+rejects unknown attributes, including that annotation. Adapt this deliberate
+component boundary using real BAB inputs, preserving independent rejection of
+unimplemented business fields; do not claim current direct oracle XML is already
+SDK-preprocessed Weapon compatibility.

@@ -8,7 +8,7 @@
 
 原版 PluginRegistry 按类型建立 Dictionary，注册使用 Add：不能重复注册同一类型，不能靠顺序覆盖。迁移 ArmorTemplate 时，必须将它从原 Tokenizer 的 assetTypes 中移除，再交给新插件。迁移默认 XmlCompiler 的类型时，显式注册该类型，保留 #all 处理其余类型即可；已有显式注册时同样先移除冲突。
 
-## 首次接入目标
+## 首次接入目标（历史方案；当前已实现，见文末）
 
 优先为已完整恢复的 ArmorTemplate 实现正式 IAssetBuilderPlugin 适配器，补齐初始化、版本、类型元数据和 ProcessInstance。现有 Recovered.Armor.dll 只是组件，尚不能直接填入 targetType 作为正式插件加载。
 
@@ -51,3 +51,9 @@ WeaponTemplate 尚缺 ScatterRadiusVsType 和 Nuggets，暂不切换整类 SDK �
 - 验证样例及入口修改应随源码和配置工具一并提交，便于后续重复运行；保留原有示例内容，使用清晰的验证文件/资产 ID。
 
 下一轮 ArmorTemplate 接入验收必须同时包含上述 mymod/XSD 工作，不能只完成插件加载或运行未触发 ArmorTemplate 的旧示例。
+
+## ArmorTemplate 当前接入状态 — 2026-10-23
+
+已实现 `Recovered.Compiler.Plugin, Recovered.Compiler`，依赖恢复的 `Recovered.Armor.dll`，实际类型路由与上面的设计相同。配置切换脚本为 `scripts/SetArmorPlugin.ps1`，完整验证入口为 `scripts/TestArmorSdk.ps1`，使用与证据说明见 `ARMOR_SDK_INTEGRATION.md`。三个 mymod 验证资产包括默认、非默认和继承后的护甲；入口 Include 与 mytank ArmorSet 引用已提交。原版/恢复版 SDK 输出 bin/manifest/imp/relo 已逐字节一致，实际三次新插件调用及三缓冲区均已与原版核对。最终源码/run 以 `evidence/armor-sdk/validation.json` 为准。
+
+ModelCondition / ScatterRadiusVsType 已继续完成差分验证；下一轮恢复 Nuggets。WeaponTemplate 完整前继续保留原版路由。新类型接入时复用此插件/切换/真实编译链，不能跳过合法 mymod 样例、SDK 预处理与实际产物比较。

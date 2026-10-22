@@ -33,12 +33,14 @@
 
 ## 下一轮的具体起点
 
-阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 91 个根属性（含两个 223 位 ObjectStatus 掩码）、四个 RangeDuration、两个 SoundOrEvaEvent、WeaponAiHintInfo、三个完整 ObjectFilter 过滤器和 IncompatibleAttributeModifier 引用列表。共用 EnumBitset 已接入旧根位集和过滤器的 284 位 KindOf 掩码；非空资源引用、状态位、对象列表及可选块组合均已进入原版 ProcessInstance 差分。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
+阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 91 个根属性（含两个 223 位 ObjectStatus 掩码）、四个 RangeDuration、两个 SoundOrEvaEvent、WeaponAiHintInfo、三个完整 ObjectFilter 过滤器、IncompatibleAttributeModifier 引用列表和完整 ScatterRadiusVsType 列表（内嵌 ObjectFilter 与 ModelCondition 掩码）。共用 EnumBitset 已接入旧根位集和过滤器的 284 位 KindOf 掩码；非空资源引用、状态位、对象列表及可选块组合均已进入原版 ProcessInstance 差分。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
 
 用户于 2026-10-22 补充验证方案：每完整恢复一种类型，就通过 SDK 的 plugin 配置把该类型分派到新 DLL，逐步替换原来的两个 DLL。原 DLL 差分仍保留；真实 SDK 编译不必等全部类型完成后才开始。详见 SDK_TYPE_INTEGRATION.md。
 
-下一轮约 35 分钟：优先为已完整恢复的 ArmorTemplate 实现正式 IAssetBuilderPlugin 适配，生成无重复类型注册的配置，在隔离 SDK 中执行原版/恢复版真实基础数据编译，加入能证明目标类型实际走新插件的非默认样例和证据。当前 Recovered.Armor.dll 仍是组件，不能直接改配置就视为接入完成。WeaponTemplate 尚缺两个字段，暂不切换整类。
+ArmorTemplate 正式插件与 SDK 接入阶段已实现：`Recovered.Compiler.dll` 实现真实 IAssetBuilderPlugin，调用恢复的 C++/CLI 组件；mymod 新增合法样例并接入实际入口，mytank 引用新护甲。原版/恢复版隔离编译输出四个文件逐字节一致，三个实际插件调用已核对原版输出。确切最终源码及验证运行见 STATUS.md 和 evidence/armor-sdk/validation.json；使用方法见 ARMOR_SDK_INTEGRATION.md。
 
-Armor SDK 接入验证后，继续 ModelConditionFlagType 的 456 位掩码和 ScatterRadiusVsType 列表（每项 176 字节，含半径、15 个状态字和内嵌 ObjectFilter），再推进 Nuggets。注意 Filter 缺席时内嵌区保持全零，显式空 Filter 则执行默认值。完整插件和重建 DLL 的 MOD 编译仍未完成。
+ModelConditionFlagType / ScatterRadiusVsType 已完成原版差分与两种优化模式验证：每模式 28,496 个 ProcessInstance 样例、85,488 次缓冲区比较，以及 4,179 次 ModelCondition 和 2,070 次 ObjectStatus 直接掩码比较。详见 STATUS.md 和 evidence/weapon/validation.json。
+
+下一轮约 35 分钟：恢复 WeaponEffectNugget 共用基类、指针/多态分派及一组合适的派生类型（优先 DamageNugget），复用现有 ModelCondition、ObjectStatus、ObjectFilter、资源与重定位代码，同步扩展原 DLL ProcessInstance 差分及 Windows /Od、/O2 验证。未恢复派生类型显式拒绝，不把空 Nuggets 当成完整支持。Nuggets 是 WeaponTemplate 唯一尚未支持的字段；完整前保留原 SDK 路由。完成整类后接入正式插件，并加入合法 mymod/XSD 真实编译样例，处理 BAB 注入的 TypeId 注解。
 
 用户已授予仓库级持续授权（仅禁止强推）；继续保持限定证据范围、pull --rebase 后普通推送及避免递归触发。每轮按约 35 分钟有效工作量推进，完成验证、提交和准确交接。
