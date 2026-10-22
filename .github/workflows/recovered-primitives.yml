@@ -1,0 +1,39 @@
+name: Recovered C++ CLI primitive differential test
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-primitives.yml'
+      - 'recovery/src/**'
+      - 'recovery/tests/**'
+      - 'recovery/scripts/TestPrimitives.ps1'
+permissions:
+  contents: write
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build recovered C++ and CLI source and compare with original
+        shell: pwsh
+        run: ./recovery/scripts/TestPrimitives.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-primitives-oracle
+          path: recovery/evidence/primitives
+      - name: Save differential result
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/primitives
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m 'recovery: record native and CLI primitive differential results'
+          git pull --rebase origin recovery/compiler-source
+          git push origin HEAD:recovery/compiler-source
