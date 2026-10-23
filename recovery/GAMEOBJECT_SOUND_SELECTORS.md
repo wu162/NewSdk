@@ -14,3 +14,14 @@ Override flags均两组inline60字节，注意Upgrade字段名是RequiredModelCo
 复用已验证根Audio契约，但需扩展可空结构Token及nullable int：AudioArrayVoice24（AudioEntry stride12、ObjectSpecificEntry16、NamedEntry12）；AudioArraySound8含AudioSoundEntry8（Sound可空引用@0、Type@4）；EvaEventArray8含EvaEventEntry8（EvaEvent资源@0、Type@4）。SoundOrEvaEvent8为Sound可空引用@0、EvaEvent资源@4；ObjectSpecific目标是小写typed-ID，Named名称区分大小写StringHash。部分Marshal被内联或折叠，必须查看父方法/列表helper，不得编造缺失独立重载。
 
 按整个四选择器依赖组实现，保留原优先级→Voice→Sound→Upgrade列表分配次序、枚举fallback、单例/列表XML约束和弱升级ID语义。随后一次完整/Od、/O2、0/1/2/99三缓冲区矩阵、独立布局/Token/endian与拒绝验证。其他未支持类型继续拒绝。SDK仍待累计能力后的正式集成批次。
+
+## 原方法入口（方便下一轮直接展开）
+
+| 模块 | Marshal | Token | endian |
+|---|---:|---:|---:|
+| RandomSoundSelector | 18677 | 93184 | 18742 |
+| ModelConditionSoundSelector | 62869 | 103999 | 65567 |
+| UpgradeSoundSelector | 61585 | 102879 | 64349 |
+| ModelConditionEvaEventSelector | 61210 | 102579 | 64043 |
+
+方法行号对应上述固定blob；完整签名及摘要在JSON。调查脚本运行方式：`python recovery/scripts/ExtractSoundSelectorEvidence.py --check`，仅检查证据一致性。
