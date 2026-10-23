@@ -85,7 +85,7 @@ partial class GameObjectOracle {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -100,10 +100,10 @@ partial class GameObjectOracle {
                     mixed+=f.Name+"='"+(f.Kind=="String"?"mixed-string":f.Kind=="Boolean"?"true":"23")+"' ";
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
-                foreach(string a in new[]{"Unknown='1'","KindOf='VEHICLE'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
+                foreach(string a in new[]{"Unknown='1'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 85 root attributes including Browser string list, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

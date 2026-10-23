@@ -2,6 +2,7 @@
 #include "ScalarParsing.h"
 #include "DataInitializers.h"
 #include "ResourceMarshaling.h"
+#include "EnumBitset.h"
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>
@@ -71,6 +72,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         if(found==attributes.end() && !f.fallback) continue;
         std::string text=found==attributes.end()?f.fallback:found->second;
         switch(f.kind) {
+        case GameObjectValue::Bits: MarshalEnumBitset(text,kindOfEntries,284,149,284,reinterpret_cast<U32*>(at));continue;
         case GameObjectValue::AssetId: word=HashAssetId(text);break;
         case GameObjectValue::Reference: MarshalReference(data,at,text);continue;
         case GameObjectValue::Enum: word=EnumValue(f.name,text);break;

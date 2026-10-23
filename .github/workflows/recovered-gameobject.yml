@@ -9,11 +9,13 @@ on:
       - 'recovery/src/**/ScalarParsing*'
       - 'recovery/src/**/DataInitializers*'
       - 'recovery/src/**/ResourceMarshaling*'
+      - 'recovery/src/**/EnumBitset*'
       - 'recovery/scripts/TestGameObject.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
+      - 'recovery/tests/GameObjectKindOf.cs'
 permissions:
   contents: write
 jobs:

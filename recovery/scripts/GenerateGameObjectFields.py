@@ -85,10 +85,15 @@ for index,line in enumerate(marshal.splitlines()):
 # its root lookup/Marshal is split across statements (50082-50085).
 assert 'Browser_003F_0024AA' in marshal and '((byte*)@object + 40)' in marshal
 fields.insert(0,('Browser',40,'StringList',None,None,50082))
-assert len(fields)==86, len(fields)
+fields.insert(0,('KindOf',4,'Bits',None,None,50079))
+fields.append(('BuildOnRequiredObjectKindOf',312,'Bits',None,None,50167))
+assert len(fields)==88, len(fields)
 lines=['// Generated from original Marshal/Tokenize and PE enum maps. See GenerateGameObjectFields.py.', 'const GameObjectField fields[] = {']
 for n,o,k,f,d,l in fields:
     lines.append('    { '+json.dumps(n)+', '+str(o)+'u, GameObjectValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+str(d or 0)+' }, // original line '+str(l))
+lines+=['};','const EnumNameValue kindOfEntries[] = {']
+for name,value in enum_values('KindOfType').items():
+    lines.append('    { '+json.dumps(name)+', '+str(value)+' },')
 lines+=['};','const GameObjectEnum enumEntries[] = {']
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
