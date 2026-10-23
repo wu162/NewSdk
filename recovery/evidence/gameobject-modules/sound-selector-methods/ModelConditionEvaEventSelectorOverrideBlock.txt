@@ -1,0 +1,192 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 18937; SHA256 b726cf02775b2e8eb5b69e5d2a1c900d36489a338071063a0eb0ad1d18f9e4f3
+// Literals: {"_003F_003F_C_0040_0O_0040OEIKDPGL_0040EvaEventArray_003F_0024AA_0040": "EvaEventArray", "_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040": "", "_003F_003F_C_0040_0O_0040JAOBMFGE_0040RequiredFlags_003F_0024AA_0040": "RequiredFlags", "_003F_003F_C_0040_0O_0040LHGFEGNM_0040ExcludedFlags_003F_0024AA_0040": "ExcludedFlags", "_003F_003F_C_0040_08POEPGJOG_0040EvaEntry_003F_0024AA_0040": "EvaEntry"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ModelConditionEvaEventSelectorOverrideBlock* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040JAOBMFGE_0040RequiredFlags_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)@object, state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040LHGFEGNM_0040ExcludedFlags_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+		if (ptr2 != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 60), state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040OEIKDPGL_0040EvaEventArray_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr3 = (INode*)(int)(*(uint*)num);
+			EvaEventArray** ptr4 = (EvaEventArray**)((byte*)@object + 120);
+			if (ptr3 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr4, 8u, 1u);
+				EvaEventArray* target = (EvaEventArray*)(int)(*(uint*)ptr4);
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08POEPGJOG_0040EvaEntry_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AEvaEventEntry_003E*)target, state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+	}
+
+
+// Original line 54852; SHA256 43e0f8233aa59c0762270cbd0682466b6aa2680b6f43590d2f9406eaff8ebc20
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E(IList* list, List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 124u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (ModelConditionEvaEventSelectorOverrideBlock*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 124;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+
+// Original line 90464; SHA256 ffb79779ff8affe6c9c1f4e73a9badfcef10bc981c7bd1018e30b612a7a17ee5
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ModelConditionEvaEventSelectorOverrideBlock* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1501620149;
+		((int*)ptr)[1] = 1742454729;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 424292648;
+		((int*)ptr)[1] = 1742454729;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 60, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -159929682;
+		((int*)ptr)[1] = -159929682;
+		byte* num = (byte*)@object + 120;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (EvaEventArray*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
+
+// Original line 54894; SHA256 b9028f4b8c8427296107728e92f3b96a11bfd91ef03d7a38189c81ddc18d870a
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E(List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		ModelConditionEvaEventSelectorOverrideBlock* ptr = (ModelConditionEvaEventSelectorOverrideBlock*)num;
+		ModelConditionEvaEventSelectorOverrideBlock* ptr2 = (ModelConditionEvaEventSelectorOverrideBlock*)(*(int*)list * 124 + num);
+		if (ptr != ptr2)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			do
+			{
+				ModelConditionEvaEventSelectorOverrideBlock* ptr3 = (ModelConditionEvaEventSelectorOverrideBlock*)((byte*)ptr + 62 - 60);
+				uint num2 = 15u;
+				do
+				{
+					if (*(bool*)endian)
+					{
+						*(sbyte*)(&num3) = ((sbyte*)ptr3)[1];
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = *(sbyte*)ptr3;
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = *((sbyte*)ptr3 - 1);
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *((sbyte*)ptr3 - 2);
+						*(uint*)((byte*)ptr3 - 2) = num3;
+					}
+					ptr3 = (ModelConditionEvaEventSelectorOverrideBlock*)((byte*)ptr3 + 4);
+					num2--;
+				}
+				while (num2 != 0);
+				ModelConditionEvaEventSelectorOverrideBlock* ptr4 = (ModelConditionEvaEventSelectorOverrideBlock*)((byte*)ptr + 62);
+				uint num4 = 15u;
+				do
+				{
+					if (*(bool*)endian)
+					{
+						*(sbyte*)(&num5) = ((sbyte*)ptr4)[1];
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = *(sbyte*)ptr4;
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = *((sbyte*)ptr4 - 1);
+						System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = *((sbyte*)ptr4 - 2);
+						*(uint*)((byte*)ptr4 - 2) = num5;
+					}
+					ptr4 = (ModelConditionEvaEventSelectorOverrideBlock*)((byte*)ptr4 + 4);
+					num4--;
+				}
+				while (num4 != 0);
+				uint num6 = ((uint*)ptr)[30];
+				if (num6 != 0)
+				{
+					Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E((List_003CSageBinaryData_003A_003AEvaEventEntry_003E*)(int)num6, endian);
+				}
+				ptr = (ModelConditionEvaEventSelectorOverrideBlock*)((byte*)ptr + 124);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num7);
+			*(sbyte*)(&num7) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 3)) = *(sbyte*)list;
+			*(uint*)list = num7;
+		}
+	}
+

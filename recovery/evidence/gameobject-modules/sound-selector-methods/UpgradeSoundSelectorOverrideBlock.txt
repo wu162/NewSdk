@@ -1,0 +1,254 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 18800; SHA256 3937df5c7a23311158626d127a10bae468a3ff811fd5da989e8e3a3464eebe4d
+// Literals: {"_003F_003F_C_0040_0BA_0040GLEGIAHL_0040AudioArrayVoice_003F_0024AA_0040": "AudioArrayVoice", "_003F_003F_C_0040_0BA_0040DAIHFLPN_0040AudioArraySound_003F_0024AA_0040": "AudioArraySound", "_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040": "", "_003F_003F_C_0040_0BA_0040GLMIFAOK_0040RequiredUpgrade_003F_0024AA_0040": "RequiredUpgrade", "_003F_003F_C_0040_0BI_0040MLNMPFFC_0040RequiredModelConditions_003F_0024AA_0040": "RequiredModelConditions", "_003F_003F_C_0040_0L_0040BEEJIKGN_0040AudioEntry_003F_0024AA_0040": "AudioEntry", "_003F_003F_C_0040_0BG_0040MEMJENHB_0040VoicePriorityOverride_003F_0024AA_0040": "VoicePriorityOverride", "_003F_003F_C_0040_0BL_0040HGBFKIOO_0040ConflictingModelConditions_003F_0024AA_0040": "ConflictingModelConditions", "_003F_003F_C_0040_0BD_0040FMAPFGAI_0040ConflictingUpgrade_003F_0024AA_0040": "ConflictingUpgrade"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, UpgradeSoundSelectorOverrideBlock* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040MLNMPFFC_0040RequiredModelConditions_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)@object, state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040HGBFKIOO_0040ConflictingModelConditions_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+		if (ptr2 != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 60), state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+		}
+		Marshaler_002EMarshal_003Cint_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040MEMJENHB_0040VoicePriorityOverride_003F_0024AA_0040), null), (int**)((byte*)@object + 120), state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040GLEGIAHL_0040AudioArrayVoice_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr3 = (INode*)(int)(*(uint*)num);
+			AudioArrayVoice** ptr4 = (AudioArrayVoice**)((byte*)@object + 124);
+			if (ptr3 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr4, 24u, 1u);
+				Marshaler_002EMarshal(ptr3, (AudioArrayVoice*)(int)(*(uint*)ptr4), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040DAIHFLPN_0040AudioArraySound_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr5 = (INode*)(int)(*(uint*)num2);
+			AudioArraySound** ptr6 = (AudioArraySound**)((byte*)@object + 128);
+			if (ptr5 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr6, 8u, 1u);
+				AudioArraySound* target = (AudioArraySound*)(int)(*(uint*)ptr6);
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040BEEJIKGN_0040AudioEntry_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AAudioSoundEntry_003E*)target, state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+			throw;
+		}
+		if (*(int*)(&nodeHolder2) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+		}
+		Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040GLMIFAOK_0040RequiredUpgrade_003F_0024AA_0040)), (List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 132), state);
+		Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040FMAPFGAI_0040ConflictingUpgrade_003F_0024AA_0040)), (List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 140), state);
+	}
+
+
+// Original line 54679; SHA256 e64dc7340953d9a7ce49fc296345c40fb5da02fc374cc056b42e4a04f7c5360c
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E(IList* list, List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 148u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (UpgradeSoundSelectorOverrideBlock*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 148;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+
+// Original line 90512; SHA256 4521e4f28931520c6dfec3474dccb8e566726f23f49dcd13f7c6461c1c3fe7be
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, UpgradeSoundSelectorOverrideBlock* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 8u);
+		*(int*)ptr = 1022003432;
+		((int*)ptr)[1] = 1742454729;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -615698620;
+		((int*)ptr)[1] = 1742454729;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 60, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 549620986;
+		((int*)ptr)[1] = 602296504;
+		byte* num = (byte*)@object + 120;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num2, ptr2);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 164725313;
+		((int*)ptr)[1] = 164725313;
+		byte* num3 = (byte*)@object + 124;
+		void** ptr3 = (void**)((byte*)ptr + 8);
+		uint num4 = *(uint*)num3;
+		if (num4 != 0)
+		{
+			Tokenizer_002ETokenize(ptr3, (AudioArrayVoice*)(int)num4, state);
+		}
+		else
+		{
+			*(int*)ptr3 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1501986059;
+		((int*)ptr)[1] = 1501986059;
+		byte* num5 = (byte*)@object + 128;
+		void** ptr4 = (void**)((byte*)ptr + 8);
+		uint num6 = *(uint*)num5;
+		if (num6 != 0)
+		{
+			Tokenizer_002ETokenize(ptr4, (AudioArraySound*)(int)num6, state);
+		}
+		else
+		{
+			*(int*)ptr4 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 2138150697;
+		((int*)ptr)[1] = 653971399;
+		Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 132), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1963486625;
+		((int*)ptr)[1] = 653971399;
+		Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 140), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
+
+// Original line 18870; SHA256 7777fdb803d6ee96ff039e17f2a4c140fa5f349d3497e8b5fa2a6eb230030a25
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(UpgradeSoundSelectorOverrideBlock* @object, EndianHelper* state)
+	{
+		Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E((BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)@object, state);
+		Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E((BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 60), state);
+		uint num = ((uint*)@object)[30];
+		if (num != 0)
+		{
+			int* ptr = (int*)(int)num;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*ptr = (int)num2;
+			}
+		}
+		uint num3 = ((uint*)@object)[31];
+		if (num3 != 0)
+		{
+			AudioArrayVoice* ptr2 = (AudioArrayVoice*)(int)num3;
+			Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E((List_003CSageBinaryData_003A_003AAudioVoiceEntry_003E*)ptr2, state);
+			Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E((List_003CSageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E*)((byte*)ptr2 + 8), state);
+			Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E((List_003CSageBinaryData_003A_003AAudioVoiceReferentialEntry_003E*)((byte*)ptr2 + 16), state);
+		}
+		uint num4 = ((uint*)@object)[32];
+		if (num4 != 0)
+		{
+			Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E((List_003CSageBinaryData_003A_003AAudioSoundEntry_003E*)(int)num4, state);
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E((List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 132), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E((List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 140), state);
+	}
+
+
+// Original line 54721; SHA256 aa33a1aa63678794d811b99903daf5758089ae00461f568c46f7f08c158fce1a
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E(List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		UpgradeSoundSelectorOverrideBlock* ptr = (UpgradeSoundSelectorOverrideBlock*)num;
+		UpgradeSoundSelectorOverrideBlock* ptr2 = (UpgradeSoundSelectorOverrideBlock*)(*(int*)list * 148 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (UpgradeSoundSelectorOverrideBlock*)((byte*)ptr + 148);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+

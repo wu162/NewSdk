@@ -1,0 +1,31 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 61210; SHA256 4bef0d6d9116801e5c27e759f3fa9256dc80d552a258b757eb5ee4edaa9e7a77
+// Literals: {"_003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040": "Override"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ModelConditionEvaEventSelectorClientBehaviorModuleData* ptr = (ModelConditionEvaEventSelectorClientBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1640547431;
+	}
+
+
+// Original line 102579; SHA256 f20c41b5190cb23846fb96dfdf4c1e72e140a08b7043ecfce832bff03e94f63b
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (ModelConditionEvaEventSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+
+
+// Original line 64043; SHA256 1afdcf663ef102fa53441f9262c550dd6b7c70fc989f4c90615cbe57e6c1e8b1
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((ModelConditionEvaEventSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), endian);
+	}
+

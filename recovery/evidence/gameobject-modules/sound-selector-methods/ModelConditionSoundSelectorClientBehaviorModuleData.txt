@@ -1,0 +1,31 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 62869; SHA256 7d9d9ea0c3d03206c1a3c942a15d1db412401f57c4d54835998a9dd63fb4a259
+// Literals: {"_003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040": "Override"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ModelConditionSoundSelectorClientBehaviorModuleData* ptr = (ModelConditionSoundSelectorClientBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 847051638;
+	}
+
+
+// Original line 103999; SHA256 9b06f7b6870c698c5ff39798dd1eb76aec3a2109f85e821af8df189f36877964
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (ModelConditionSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+
+
+// Original line 65567; SHA256 64464748ce04bee58596a9be32a2f62fc415792a7521ebce0af93f6249e8cd53
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((ModelConditionSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), endian);
+	}
+

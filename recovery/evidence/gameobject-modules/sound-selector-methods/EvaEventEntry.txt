@@ -1,0 +1,113 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 18928; SHA256 641d196cdfaf76b05d82f8ed7561e844dc9ac578ab988d1f8bf67cbf7f779cb9
+// Literals: {"_003F_003F_C_0040_08OGOIKBAG_0040EvaEvent_003F_0024AA_0040": "EvaEvent", "_003F_003F_C_0040_07CAGPKEFO_0040EvaType_003F_0024AA_0040": "EvaType"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, EvaEventEntry* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AEvaEvent_002Cstruct_0020SageBinaryData_003A_003AEvaEvent_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08OGOIKBAG_0040EvaEvent_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AEvaEvent_002CSageBinaryData_003A_003AEvaEvent_003E*)@object, state);
+			Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AThingTemplateEvaEventType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07CAGPKEFO_0040EvaType_003F_0024AA_0040), null), (ThingTemplateEvaEventType*)@object + 1, state);
+		}
+	}
+
+
+// Original line 54757; SHA256 25ba45d3fdef267f022b12be38722e8df910682e686c82159f84c4eed5ef42a3
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E(IList* list, List_003CSageBinaryData_003A_003AEvaEventEntry_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 8u, num);
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (EvaEventEntry*)(int)(num2 * 8 + (uint)((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2++;
+				}
+				while (num2 < num);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+
+// Original line 77259; SHA256 d201324765073ab9d418547f9b16532eb832aa49158719983f652d9bc5e68041
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, EvaEventEntry* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 357806494;
+		((int*)ptr)[1] = -991149135;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1314237693;
+		((int*)ptr)[1] = -1068255466;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 4, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
+
+// Original line 54797; SHA256 32b9bc51bf595d107f187c1765ddc78fa44b1c3bcde74eeb64736c642924bdea
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E(List_003CSageBinaryData_003A_003AEvaEventEntry_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		EvaEventEntry* ptr = (EvaEventEntry*)num;
+		EvaEventEntry* ptr2 = (EvaEventEntry*)(*(int*)list * 8 + num);
+		if (ptr != ptr2)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			do
+			{
+				int num2 = ((int*)ptr)[1];
+				if (*(bool*)endian)
+				{
+					*(sbyte*)(&num3) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)(&num2);
+					num2 = (int)num3;
+				}
+				((int*)ptr)[1] = num2;
+				ptr = (EvaEventEntry*)((byte*)ptr + 8);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(sbyte*)(&num4) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = *(sbyte*)list;
+			*(uint*)list = num4;
+		}
+	}
+

@@ -1,0 +1,31 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 61585; SHA256 ed38515a07c9a1a6b09e60910edf52d3bd81a71d8c34f00e317d6acdad2f9d35
+// Literals: {"_003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040": "Override"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		UpgradeSoundSelectorClientBehaviorModuleData* ptr = (UpgradeSoundSelectorClientBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08HPOOIHCA_0040Override_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -116303191;
+	}
+
+
+// Original line 102879; SHA256 38ac600470b2c8107ecaa126dd39410ba5758bfd7e0f66ea950b77fb6cae3c27
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (UpgradeSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+
+
+// Original line 64349; SHA256 b9a488f2832bde3f25eea463d6705f0e99fd8fa11aefae8ab5d47b8e96c2a58b
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UpgradeSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), endian);
+	}
+

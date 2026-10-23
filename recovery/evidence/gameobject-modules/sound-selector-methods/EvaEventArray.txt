@@ -1,0 +1,16 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 77276; SHA256 a4e1dacfbbf468cb9b77ce9c9194b84f639911f2c72e14771a02c9178e90524c
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, EvaEventArray* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
+		*(int*)ptr = -1788329727;
+		((int*)ptr)[1] = -676012325;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AEvaEventEntry_003E*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

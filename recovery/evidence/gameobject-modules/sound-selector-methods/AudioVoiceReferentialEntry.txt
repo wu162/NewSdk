@@ -1,0 +1,132 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 18502; SHA256 8b83b214c34c3f838184f8b277eef5c3db06f3110bd1a88aa84442f43bf123f6
+// Literals: {"_003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040": "Name"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, AudioVoiceReferentialEntry* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040), null);
+		if (ptr != null)
+		{
+			sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			sbyte* ptr3 = ptr2;
+			if (*ptr2 != 0)
+			{
+				do
+				{
+					ptr3++;
+				}
+				while (*ptr3 != 0);
+			}
+			uint num = (uint)(ptr3 - (nuint)ptr2);
+			((int*)@object)[2] = (int)FastHashInternal_002EFastHashFn(num, ptr2, num);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		Marshaler_002EMarshal(node, (SoundOrEvaEvent*)@object, state);
+	}
+
+
+// Original line 54400; SHA256 35c361db4b32f0faa00b7aaadc18e19b800fcb2ba6af46b668814e938c177db4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E(IList* list, List_003CSageBinaryData_003A_003AAudioVoiceReferentialEntry_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 12u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (AudioVoiceReferentialEntry*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 12;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+
+// Original line 77183; SHA256 6fd4962a9d4eaf5d5c9c6e4ba1c470cd9f72f82c15970f038cb9bdf3f30bc412
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, AudioVoiceReferentialEntry* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 451327671;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SoundOrEvaEvent*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1501410244;
+		((int*)ptr)[1] = 1488897831;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
+
+// Original line 54523; SHA256 16a70f5d398b9bc947a835522b90570b34d721aea239e13665586112f2e34aaf
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E(List_003CSageBinaryData_003A_003AAudioVoiceReferentialEntry_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		AudioVoiceReferentialEntry* ptr = (AudioVoiceReferentialEntry*)num;
+		AudioVoiceReferentialEntry* ptr2 = (AudioVoiceReferentialEntry*)(*(int*)list * 12 + num);
+		if (ptr != ptr2)
+		{
+			AudioVoiceReferentialEntry* ptr3 = (AudioVoiceReferentialEntry*)((byte*)ptr + 10);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			do
+			{
+				if (*(bool*)endian)
+				{
+					*(sbyte*)(&num2) = ((sbyte*)ptr3)[1];
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr3;
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr3 - 1);
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr3 - 2);
+					*(uint*)((byte*)ptr3 - 2) = num2;
+				}
+				ptr = (AudioVoiceReferentialEntry*)((byte*)ptr + 12);
+				ptr3 = (AudioVoiceReferentialEntry*)((byte*)ptr3 + 12);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(sbyte*)(&num3) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)list;
+			*(uint*)list = num3;
+		}
+	}
+

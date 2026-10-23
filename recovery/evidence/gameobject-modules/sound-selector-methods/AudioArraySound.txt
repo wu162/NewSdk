@@ -1,0 +1,16 @@
+// Source blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; evidence only, not compilable C#
+// Original line 77170; SHA256 f4d5865d697b8a6d61d196dbd81cf30a32fc2450ad0176b6563bb2e0790d72f5
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, AudioArraySound* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
+		*(int*)ptr = -1777833558;
+		((int*)ptr)[1] = -2016384916;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AAudioSoundEntry_003E*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
