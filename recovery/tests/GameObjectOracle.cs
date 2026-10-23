@@ -585,7 +585,10 @@ partial class GameObjectOracle {
                 kind.IndexOf("Bits")>=0?new[]{""," ","UNKNOWN","unknown","ALL","all","-ALL","+ALL","ALL -UNKNOWN","UNKNOWN ALL unknown","-UNKNOWN -UNKNOWN","+","-","A B;C,D"}:
                 kind=="Enum"?new[]{"","UNKNOWN","unknown","0","-1","ALL","1"," 1"}:
                 new[]{"","0","-0","1.25","-17","0x10","010","2147483647","-2147483648","4294967295","4294967296","-2147483649","1e39","nan","inf"," 23tail","text"};
-            foreach(string v in values)Check(original,p,"",AIWrap(group,name+"='"+Escape(v)+"'"));
+            foreach(string v in values) {
+                string xml=AIWrap(group,name+"='"+Escape(v)+"'");Check(original,p,"",xml);
+                if(group==2)Check(original,p,"",xml.Replace("ConstructionBaseSelectionCriteria","ResourceNodeBaseClosenessTestSelectionCriteria"));
+            }
         }
         foreach(var e in AIEnumTests) foreach(string value in e[2].Split('|')) {
             int group=int.Parse(e[0]);string field=e[1];
@@ -616,12 +619,22 @@ partial class GameObjectOracle {
         // Independent default layout and table sentinel checks, separate from metadata.
         var empty=Check(original,p,"","<SkirmishAIInformation/>");byte[] bytes=empty.InstanceData;
         int root=(int)Word(bytes,8,big)-4,ai=(int)Word(bytes,root+460,big),table=(int)Word(bytes,Token(bytes,0,465968874u,big)+8,big);
-        if(ai!=root+592 || bytes.Length!=ai+88 || Word(bytes,ai,big)!=0 || Word(bytes,ai+8,big)!=3 || Word(bytes,ai+24,big)!=38 || Word(bytes,ai+28,big)!=3 || Word(bytes,ai+40,big)!=0x3f800000u || Word(bytes,ai+48,big)!=0x43960000u || bytes[ai+80]!=1)throw new Exception("Independent AI defaults/layout");
+        if(ai!=root+592 || bytes.Length!=ai+88 || Word(bytes,ai,big)!=0 || Word(bytes,ai+8,big)!=3 || Word(bytes,ai+24,big)!=14 || Word(bytes,ai+28,big)!=3 || Word(bytes,ai+40,big)!=0x3f800000u || Word(bytes,ai+48,big)!=0x43960000u || bytes[ai+80]!=1)throw new Exception("Independent AI defaults/layout");
         for(int i=0;i<12;++i)if(bytes[table+25*12+i]!=0)throw new Exception("Independent AI token sentinel");
         var nullable=Check(original,p,"",AIWrap(0,"ConquerMetricsOverrideDPS='0' ConquerMetricsOverrideDefendingAntiMask='ALL' OverrideInnerDistanceToTarget='0' OverrideOuterDistanceToTarget='0'"));
         bytes=nullable.InstanceData;root=(int)Word(bytes,8,big)-4;ai=(int)Word(bytes,root+460,big);
         int allocation=ai+88;foreach(int off in new[]{20,36,52,56}) {if(Word(bytes,ai+off,big)!=allocation)throw new Exception("Independent AI nullable allocation order");allocation+=4;}
         if(Word(bytes,(int)Word(bytes,ai+36,big),big)!=0xffffffffu)throw new Exception("Independent AI bit padding");
+        var special=Check(original,p,"",AIWrap(1,"NextLogicCommand='Cmd\\23' UpdateObject='' UseToCounterGarrison='false' MaxUpdatables='0'", "<SpecialPowerWeapon Weapon='W\\1'/>"));
+        bytes=special.InstanceData;root=(int)Word(bytes,8,big)-4;ai=(int)Word(bytes,root+460,big);
+        int powerAt=(int)Word(bytes,ai+64,big),cmd=(int)Word(bytes,powerAt+128,big),update=(int)Word(bytes,powerAt+136,big),max=(int)Word(bytes,powerAt+148,big),counter=(int)Word(bytes,powerAt+152,big),weapon=(int)Word(bytes,powerAt+160,big);
+        if(Word(bytes,ai+60,big)!=1 || cmd==0 || update==0 || max==0 || counter==0 || weapon==0 || Word(bytes,cmd,big)!=24 || Word(bytes,update,big)!=0 || Word(bytes,max,big)!=0 || bytes[counter]!=0 || Word(bytes,weapon,big)!=2 || bytes[powerAt+166]!=1)throw new Exception("Independent AI nullable reference/bool/int and weapon bindings");
+        table=(int)Word(bytes,Token(bytes,0,465968874u,big)+8,big);
+        int countTable=(int)Word(bytes,Token(bytes,table,2328042926u,big)+8,big),powerTable=(int)Word(bytes,countTable+20,big);
+        if(Word(bytes,Token(bytes,powerTable,531684559u,big)+8,big)!=cmd || Word(bytes,Token(bytes,powerTable,587544167u,big)+8,big)!=update || Word(bytes,Token(bytes,powerTable,852392820u,big)+8,big)!=counter)throw new Exception("Independent AI nullable token pointees");
+        for(int i=0;i<12;++i)if(bytes[powerTable+30*12+i]!=0)throw new Exception("Independent power token sentinel");
+        var unknownDamage=Check(original,p,"",AIWrap(0,"ConquerMetricsOverrideDamageType='UNKNOWN'"));bytes=unknownDamage.InstanceData;root=(int)Word(bytes,8,big)-4;ai=(int)Word(bytes,root+460,big);
+        if(Word(bytes,ai+24,big)!=38)throw new Exception("Independent AI damage fallback distinct from UNDEFINED");
         foreach(string node in new[]{"SkirmishAIInformation","AIContextualPower","ConstructionBaseSelectionCriteria","ResourceNodeBaseClosenessTestSelectionCriteria","SpecialPowerWeapon"}) {
             Func<string,string> wrap=delegate(string value){return node=="SkirmishAIInformation"?value:node=="SpecialPowerWeapon"?AIWrap(0,"","<AIContextualPower>"+value+"</AIContextualPower>"):AIWrap(0,"",value);};
             foreach(string bad in new[]{"<"+node+" Unknown='1'/>","<"+node+" xmlns='foreign'/>","<"+node+" xmlns:f='foreign' f:TypeId='1'/>","<"+node+">text</"+node+">","<"+node+"><Unknown/></"+node+">"})Reject(p,"",wrap(bad));
