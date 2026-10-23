@@ -40,6 +40,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectDie.h"
 #include "GameObjectUpgrade.h"
 #include "GameObjectUpgradeRemaining.h"
+#include "GameObjectProduction.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -240,6 +241,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:productionChoices) if(choice.type==type) return &choice;
     for(const auto& choice:remainingChoices) if(choice.type==type) return &choice;
     for(const auto& choice:upgradeChoices) if(choice.type==type) return &choice;
     for(const auto& choice:dieChoices) if(choice.type==type) return &choice;
@@ -468,6 +470,37 @@ void EndianUpgrade(unsigned char* output,unsigned kind) {
     auto anim=*reinterpret_cast<unsigned char**>(output+8);if(anim) EndianModuleFieldSet(anim,upgradeFieldSets[11]);
     for(unsigned group=0;group<2;++group) {auto list=reinterpret_cast<NativeList*>(output+12+8*group);for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);Swap(&list->count);}
 }
+void MarshalProductionList(const GameObjectChild& input,const char* name,unsigned char* output,unsigned offset,unsigned stride,unsigned fields,Relo::Tracker& data) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);for(const auto& child:input.children) if(child.name==name) ++list->count;
+    if(!list->count) return;
+    auto at=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));unsigned i=0;
+    for(const auto& child:input.children) if(child.name==name) {
+        auto entry=at+stride*i++;MarshalModuleFieldSet(child,entry,productionFieldSets[fields],data);
+        if(fields==4) for(const auto& filter:child.children) MarshalUpgradeFilter(filter,reinterpret_cast<ObjectFilter*>(entry+12),data);
+    }
+    data.Pop();
+}
+void EndianProductionList(unsigned char* output,unsigned offset,unsigned stride,unsigned fields) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);
+    for(U32 i=0;i<list->count;++i) {auto at=static_cast<unsigned char*>(list->data)+stride*i;EndianModuleFieldSet(at,productionFieldSets[fields]);if(fields==4) EndianObjectFilter(reinterpret_cast<ObjectFilter*>(at+12));}
+    Swap(&list->count);
+}
+void MarshalProduction(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,productionFieldSets[kind-52],data);
+    if(kind==52) {
+        MarshalProductionList(input,"QuantityModifier",output,60,8,3,data);MarshalProductionList(input,"ProductionModifier",output,68,124,4,data);
+        for(const auto& child:input.children) if(child.name=="GiveUpgradeToProduced") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+76),8,1));MarshalProductionList(child,"UpgradeTranslate",at,0,8,5,data);data.Pop();}
+    } else for(unsigned i=0;i<2;++i) for(const auto& child:input.children) if(child.name==(i==0?"UnitCreatePoint":"NaturalRallyPoint")) {
+        unsigned char* at=output+20+12*i;
+        if(kind==53) at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+8+4*i),12,1));
+        MarshalModuleFieldSet(child,at,remainingFieldSets[15],data);if(kind==53) data.Pop();
+    }
+}
+void EndianProduction(unsigned char* output,unsigned kind) {
+    EndianModuleFieldSet(output,productionFieldSets[kind-52]);
+    if(kind==52) {EndianProductionList(output,60,8,3);EndianProductionList(output,68,124,4);auto given=*reinterpret_cast<unsigned char**>(output+76);if(given) EndianProductionList(given,0,8,5);}
+    else for(unsigned i=0;i<2;++i) {auto at=kind==53?*reinterpret_cast<unsigned char**>(output+8+4*i):output+20+12*i;if(at) EndianModuleFieldSet(at,remainingFieldSets[15]);}
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind && choice->kind<=2) {
@@ -490,7 +523,8 @@ void EndianModule(U32* input) {
     if(choice && choice->kind>=13 && choice->kind<=16) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=17 && choice->kind<=22) EndianLifecycle(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=23 && choice->kind<=29) EndianDie(reinterpret_cast<unsigned char*>(input),choice->kind);
-    if(choice && choice->kind>=30) EndianUpgrade(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=52) EndianProduction(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=30 && choice->kind<=51) EndianUpgrade(reinterpret_cast<unsigned char*>(input),choice->kind);
     Swap(input);Swap(input+1);
 }
 
@@ -504,7 +538,8 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
-    if(choice && choice->kind>=30) MarshalUpgrade(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=52) MarshalProduction(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=30 && choice->kind<=51) MarshalUpgrade(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     target[0]=choice?type:0;
     auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
     data.Pop();
@@ -590,6 +625,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=52) {const auto& set=productionFieldSets[choice->kind-52];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=30) {const auto& own=choice->kind>=41?remainingFieldSets[choice->kind-41]:upgradeFieldSets[choice->kind-30];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;return false;}
     if(choice->kind>=23) {const auto& set=dieFieldSets[choice->kind-23];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=17) {const auto& set=lifecycleFieldSets[choice->kind-17];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
@@ -610,8 +646,13 @@ bool GameObjectModuleNestedAttributeSupported(const std::string& typeId,const st
 bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string& name) {
     auto choice=FindModule(ParseUnsigned(typeId));return choice && ((choice->kind>=1 && choice->kind<=2 && name=="DamageRangeModifier") || (choice->kind==8 && name=="Key") || (choice->kind==9 && name=="Sound") || (choice->kind==10 && name=="ModelConditionSound") || (choice->kind==21 && name=="ObjectStatusValidation") || (choice->kind>=23 && choice->kind<=29 && name=="DieMuxData") || (choice->kind==27 && (name=="UpgradeRequired" || name=="UpgradeForbidden")) || (choice->kind==29 && name=="ObjectFilter") || (choice->kind>=30 && (name=="CustomAnimAndDuration" || name=="TriggeredBy" || name=="ConflictsWith")));
 }
-unsigned GameObjectRemainingUpgradeKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
-unsigned GameObjectUpgradeNodeKind(unsigned kind,const std::string& path) {
+unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
+unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=52) {
+        if(kind==52) {if(path=="QuantityModifier" || path=="ProductionModifier" || path=="GiveUpgradeToProduced/UpgradeTranslate") return 2;if(path=="GiveUpgradeToProduced" || path=="ProductionModifier/ModifierFilter") return 1;}
+        if((kind==53 || kind==54) && (path=="UnitCreatePoint" || path=="NaturalRallyPoint")) return 1;
+        return 0;
+    }
     if(path=="CustomAnimAndDuration") return 1;
     if(path=="TriggeredBy" || path=="ConflictsWith") return 3;
     if(kind==41) {if(path=="AvailableSubStructure" || path=="StructureOffset") return 2;if(path=="AvailableSubStructure/UpgradeTrigger" || path=="AvailableSubStructure/ObjectTemplate") return 4;if(path=="StructureOffset/Offset") return 1;}
@@ -623,7 +664,12 @@ unsigned GameObjectUpgradeNodeKind(unsigned kind,const std::string& path) {
     if(kind==49 && path=="ApplyToUpgrade") return 3;
     return 0;
 }
-bool GameObjectUpgradeNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=52) {
+        unsigned fields=path=="QuantityModifier"?3:path=="ProductionModifier"?4:path=="GiveUpgradeToProduced/UpgradeTranslate"?5:99;
+        if(path=="UnitCreatePoint" || path=="NaturalRallyPoint") {for(unsigned i=0;i<remainingFieldSets[15].count;++i) if(attribute==remainingFieldSets[15].fields[i].name) return true;return false;}
+        if(fields==99) return false;for(unsigned i=0;i<productionFieldSets[fields].count;++i) if(attribute==productionFieldSets[fields].fields[i].name) return true;return false;
+    }
     if(path=="ObjectFilter") return false;
     unsigned index=path=="Nugget"?11:path=="Nugget/UpgradeTexture"?12:path=="StructureOffset"?13:(path=="Offset" || path=="StructureOffset/Offset")?15:99;
     if(path=="CustomAnimAndDuration" || path=="Nugget/CustomAnimAndDuration") {for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;return false;}

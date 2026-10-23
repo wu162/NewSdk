@@ -1,3 +1,7 @@
+# 当前验证中：完整Production Update/exit三类型
+
+本轮第三完整组已实现，生成原表run40035737553 success。ProductionUpdate三类嵌套列表、可空GiveUpgradeToProduced/UpgradeTranslation、inline ObjectFilter、全部24根属性、Default出口两个可空Vector3与Queue出口两个inline Vector3、实际Update/Contain Token继承均恢复；完整矩阵含前两组补强的全部ObjectStatus/时间单位/深过滤器边界一起运行。88支持/234拒绝为候选数，验收前有效85。SDK0次。
+
 # 已验收85类型；继续Production完整组
 
 第二组11种命名Upgrade已通过：source aed221a9bec343b1d8a67dd2f071c4ddab11e5b4，GameObject run40035310226 success，基础run40035310221 success。每模式168432 fixtures、505296缓冲区比较、9356拒绝、320不变性；/Od、/O2与0/1/2/99完整通过。支持85/322，237明确拒绝；SDK0次。额外边界矩阵在本地补齐，将随下一完整Production组共同验收。
