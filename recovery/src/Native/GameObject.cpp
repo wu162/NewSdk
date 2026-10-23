@@ -47,6 +47,8 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         if(found==attributes.end() && !f.fallback) continue;
         std::string text=found==attributes.end()?f.fallback:found->second;
         switch(f.kind) {
+        case GameObjectValue::AssetId: word=HashAssetId(text);break;
+        case GameObjectValue::Reference: MarshalReference(data,at,text);continue;
         case GameObjectValue::Enum: word=EnumValue(f.name,text);break;
         case GameObjectValue::String: MarshalString(data,at,text);continue;
         case GameObjectValue::Boolean: *at=ParseBoolean(text)?1:0;continue;

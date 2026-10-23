@@ -15,6 +15,7 @@ const GameObjectField fields[] = {
     { "FactoryExitWidth", 108u, GameObjectValue::Float, "0.0", 0 }, // original line 50102
     { "FactoryExtraBibWidth", 112u, GameObjectValue::Float, "0.0", 0 }, // original line 50103
     { "IsTrainable", 581u, GameObjectValue::Boolean, "true", 0 }, // original line 50104
+    { "Side", 116u, GameObjectValue::AssetId, nullptr, 0 }, // original line 50105
     { "EditorName", 120u, GameObjectValue::String, nullptr, 0 }, // original line 50106
     { "EditorSorting", 128u, GameObjectValue::Enum, "NONE", 0 }, // original line 50107
     { "BountyValue", 132u, GameObjectValue::Signed, "0", 0 }, // original line 50108
@@ -26,8 +27,14 @@ const GameObjectField fields[] = {
     { "IsPrerequisite", 583u, GameObjectValue::Boolean, "false", 0 }, // original line 50114
     { "IsGrabbable", 584u, GameObjectValue::Boolean, "false", 0 }, // original line 50115
     { "IsHarvestable", 585u, GameObjectValue::Boolean, "false", 0 }, // original line 50116
+    { "CommandSet", 148u, GameObjectValue::AssetId, "", 0 }, // original line 50117
+    { "SelectPortrait", 152u, GameObjectValue::AssetId, "", 0 }, // original line 50118
+    { "SelectPortraitTransformed", 156u, GameObjectValue::AssetId, "", 0 }, // original line 50119
+    { "ButtonImage", 160u, GameObjectValue::AssetId, "", 0 }, // original line 50120
+    { "ButtonImageTransformed", 164u, GameObjectValue::AssetId, "", 0 }, // original line 50121
     { "VoicePriority", 168u, GameObjectValue::Signed, nullptr, 0 }, // original line 50122
     { "MinZIncreaseForVoiceMoveToHigherGround", 172u, GameObjectValue::Float, "-1", 0 }, // original line 50123
+    { "CrowdResponse", 176u, GameObjectValue::Reference, nullptr, 0 }, // original line 50124
     { "CampnessValue", 180u, GameObjectValue::Unsigned, "0", 0 }, // original line 50125
     { "CampnessValueRadius", 184u, GameObjectValue::Float, "600.0", 0 }, // original line 50126
     { "Scale", 188u, GameObjectValue::Float, "1.0", 0 }, // original line 50127
@@ -69,12 +76,15 @@ const GameObjectField fields[] = {
     { "UnitCategory", 348u, GameObjectValue::Enum, "NONE", -1 }, // original line 50168
     { "WeaponCategory", 352u, GameObjectValue::Enum, "NONE", -1 }, // original line 50169
     { "HasFiredRecentlyTime", 356u, GameObjectValue::Time, "2s", 0 }, // original line 50171
+    { "UnitTypeIcon", 360u, GameObjectValue::Reference, nullptr, 0 }, // original line 50172
     { "ReinvisibilityDelay", 364u, GameObjectValue::Time, "0.5s", 0 }, // original line 50174
     { "InvisibilityOpacityMin", 368u, GameObjectValue::Float, "0.4", 0 }, // original line 50175
     { "InvisibilityOpacityMax", 372u, GameObjectValue::Float, "0.9", 0 }, // original line 50176
+    { "HealthBar", 376u, GameObjectValue::AssetId, nullptr, 0 }, // original line 50177
     { "SubGroupPriority", 380u, GameObjectValue::Signed, "500", 0 }, // original line 50178
     { "EvaEventSecondDamageFarFromFirstScanRange", 384u, GameObjectValue::Float, "200", 0 }, // original line 50179
     { "EvaEventSecondDamageFarFromFirstTimeoutMS", 388u, GameObjectValue::DurationDefault, "31000", 155 }, // original line 50181
+    { "UnitIntro", 392u, GameObjectValue::Reference, nullptr, 0 }, // original line 50182
 };
 const GameObjectEnum enumEntries[] = {
     { "RadarPriority", "COMMANDO", 2 },

@@ -1,5 +1,15 @@
 partial class GameObjectOracle {
     static Field[] Fields = {
+        new Field("UnitIntro","Reference"),
+        new Field("HealthBar","AssetId"),
+        new Field("UnitTypeIcon","Reference"),
+        new Field("CrowdResponse","Reference"),
+        new Field("ButtonImageTransformed","AssetId"),
+        new Field("ButtonImage","AssetId"),
+        new Field("SelectPortraitTransformed","AssetId"),
+        new Field("SelectPortrait","AssetId"),
+        new Field("CommandSet","AssetId"),
+        new Field("Side","AssetId"),
         new Field("Description","String"),
         new Field("DescriptionTransformed","String"),
         new Field("TypeDescription","String"),

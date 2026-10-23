@@ -41,13 +41,14 @@ fields=[]
 enums=[]
 enum_fallbacks=[]
 for index,line in enumerate(marshal.splitlines()):
-    # Direct scalar/string attributes; lists, references, IDs, masks and blocks remain unsupported.
+    # Direct root scalar/string/resource attributes; lists, masks and blocks remain unsupported.
     m=re.search(r'(Marshaler_002EMarshal_\w+)\(',line)
     if not m or 'Unsafe.AsPointer' not in line: continue
     helper=m[1]
     typ=re.search(r'\((float|int|uint|ushort|bool|byte|\w+Type|UnitCategory|WeaponCategory)\*\)@object \+ (\d+), state',line)
     string='Relo_003A_003AString_003Cchar_003E_002Cclass' in helper
-    if not typ and not string: continue
+    resource=re.search(r'\((TypedAssetId_\w+|AssetReference_\w+)\*\)\(\(byte\*\)@object \+ (\d+)\)',line)
+    if not typ and not string and not resource: continue
     symbols=re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',line)
     prefix=decode(symbols[0])
     candidates=[prefix] if prefix in names else [n for n in names if n.startswith(prefix)]
@@ -56,7 +57,9 @@ for index,line in enumerate(marshal.splitlines()):
     if len(candidates)!=1: raise ValueError((prefix,candidates))
     name=candidates[0]
     fallback=decode(symbols[1]) if len(symbols)>1 else None
-    if string:
+    if resource:
+        offset=int(resource[2]);kind='AssetId' if resource[1].startswith('TypedAssetId_') else 'Reference';default=None
+    elif string:
         offset=int(re.search(r'\(byte\*\)@object \+ (\d+)\), state',line)[1]);kind='String';default=None
     else:
         t=typ[1];offset=int(typ[2])*({'ushort':2,'bool':1,'byte':1}.get(t,4))
@@ -78,7 +81,7 @@ for index,line in enumerate(marshal.splitlines()):
             single=lambda x:struct.unpack('<f',struct.pack('<f',x))[0]
             default=math.ceil(single(scale*single(float(fallback))))
     fields.append((name,offset,kind,fallback,default,first+index))
-assert len(fields)==75, len(fields)
+assert len(fields)==85, len(fields)
 lines=['// Generated from original Marshal/Tokenize and PE enum maps. See GenerateGameObjectFields.py.', 'const GameObjectField fields[] = {']
 for n,o,k,f,d,l in fields:
     lines.append('    { '+json.dumps(n)+', '+str(o)+'u, GameObjectValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+str(d or 0)+' }, // original line '+str(l))
@@ -107,4 +110,4 @@ path=root/'recovery/src/Native/GameObjectFields.h'
 if '--check' in sys.argv:
     assert path.read_text()==output, 'Regenerate GameObjectFields.h'
 else: path.write_text(output)
-print('PASS source-derived GameObject metadata: '+str(len(fields))+' scalar/string fields, 126 tokens; no frozen buffers')
+print('PASS source-derived GameObject metadata: '+str(len(fields))+' root fields, 126 tokens; no frozen buffers')
