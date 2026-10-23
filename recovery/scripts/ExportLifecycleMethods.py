@@ -65,7 +65,9 @@ for index,(signature,(body,line)) in enumerate(selected.items()):
     meta={'file':filename,'signature':signature,'line':line,'bodySha256':digest,'literals':list(decoded.values())}
     matched=False
     for item in report['modules']:
-        if re.search(r'(?<!\\w)'+re.escape(item['name'])+r'\\*',signature) or '_003A_003A'+item['name']+'_002Cstruct_' in signature:item['methods'].append(meta);matched=True
+        if '('+item['name']+'* @object,' in signature or ', '+item['name']+'* @object,' in signature or '_003A_003A'+item['name']+'_002Cstruct_' in signature:item['methods'].append(meta);matched=True
     if not matched:report['helpers'].append(meta)
+assert all(item['methods'] for item in report['modules']), 'Missing exact module methods'
+assert sum(len(item['methods']) for item in report['modules'])+len(report['helpers'])==len(selected), 'Duplicate method owner index'
 (out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print('PASS original module source evidence:',len(names),'module source contracts;',len(selected),'exact methods; no runtime support claimed')

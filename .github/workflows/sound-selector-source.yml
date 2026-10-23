@@ -7,6 +7,7 @@ on:
       - 'recovery/scripts/ExportLifecycleMethods.py'
       - 'recovery/scripts/GenerateLifecycleFields.py'
       - 'recovery/scripts/GenerateDieFields.py'
+      - 'recovery/scripts/GenerateUpgradeFields.py'
       - '.github/workflows/sound-selector-source.yml'
 permissions:
   contents: write
@@ -27,11 +28,13 @@ jobs:
           python recovery/scripts/GenerateLifecycleFields.py --check
           python recovery/scripts/GenerateDieFields.py
           python recovery/scripts/GenerateDieFields.py --check
+          python recovery/scripts/GenerateUpgradeFields.py
+          python recovery/scripts/GenerateUpgradeFields.py --check
       - name: Save bounded source evidence
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/gameobject-modules/sound-selector-methods recovery/evidence/gameobject-modules/lifecycle-source recovery/evidence/gameobject-modules/die-source recovery/evidence/gameobject-modules/upgrade-source recovery/src/Native/GameObjectLifecycle.h recovery/src/Native/GameObjectDie.h
+          git add recovery/evidence/gameobject-modules/sound-selector-methods recovery/evidence/gameobject-modules/lifecycle-source recovery/evidence/gameobject-modules/die-source recovery/evidence/gameobject-modules/upgrade-source recovery/src/Native/GameObjectLifecycle.h recovery/src/Native/GameObjectDie.h recovery/src/Native/GameObjectUpgrade.h
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "recovery: export module source methods from $GITHUB_SHA"
           git pull --rebase origin recovery/compiler-source
