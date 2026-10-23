@@ -11,8 +11,10 @@ bool GameObjectLeafAttributeSupported(const std::string& name, const std::string
 struct GameObjectChild {
     std::string name, text;
     std::map<std::string,std::string> attributes;
+    std::vector<GameObjectChild> children;
 };
 // Restricted component; unsupported attributes and child blocks are rejected.
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
 }}
+
 

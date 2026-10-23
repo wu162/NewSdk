@@ -688,6 +688,22 @@ const LeafToken ShadowInfoTokens[] = {
     { 3633590885u, 2011428087u, 59u },
     { 1902020174u, 1683514611u, 52u },
 };
+const LeafField AutoResolveInfoFields[] = {
+    { "AutoResolveUnitType", 0u, LeafValue::String, nullptr },
+    { "AutoResolveBody", 8u, LeafValue::AssetId, nullptr },
+    { "AutoResolveArmor", 12u, LeafValue::Reference, nullptr },
+    { "AutoResolveWeapon", 16u, LeafValue::Reference, nullptr },
+    { "AutoResolveLeadership", 20u, LeafValue::String, nullptr },
+    { "AutoResolveCombatChain", 28u, LeafValue::String, nullptr },
+};
+const LeafToken AutoResolveInfoTokens[] = {
+    { 928084911u, 438907818u, 0u },
+    { 1310294233u, 3186653541u, 8u },
+    { 1972927658u, 1636048523u, 12u },
+    { 2393386135u, 3494305058u, 16u },
+    { 3105727316u, 438907818u, 20u },
+    { 2746445579u, 438907818u, 28u },
+};
 const LeafField VisionInfoFields[] = {
     { "VisionRange", 0u, LeafValue::Float, "0.00" },
     { "ShroudClearingRange", 4u, LeafValue::Float, "0.0" },
@@ -716,5 +732,7 @@ const LeafLayout leafLayouts[] = {
     { "FormationPreviewDecal", 512u, 16u, FormationPreviewDecalFields, 3u, FormationPreviewDecalTokens },
     { "FormationPreviewItemDecal", 516u, 16u, FormationPreviewDecalFields, 3u, FormationPreviewDecalTokens },
     { "ShadowInfo", 544u, 60u, ShadowInfoFields, 18u, ShadowInfoTokens },
+    { "AutoResolveInfo", 548u, 36u, AutoResolveInfoFields, 6u, AutoResolveInfoTokens },
     { "VisionInfo", 552u, 40u, VisionInfoFields, 10u, VisionInfoTokens },
 };
+

@@ -17,7 +17,7 @@ enum class GameObjectTokenKind { Member, List, Null };
 struct GameObjectEnum {const char* field; const char* name; int value;};
 struct GameObjectEnumFallback {const char* field; int value;};
 struct GameObjectToken { U32 name,type,offset; GameObjectTokenKind kind; };
-enum class LeafValue { Float, Percent, Unsigned, Boolean, Time, Enum, String, Reference };
+enum class LeafValue { Float, Percent, Unsigned, Boolean, Time, Enum, String, Reference, AssetId };
 struct LeafField {const char* name;unsigned offset;LeafValue kind;const char* fallback;};
 struct LeafToken {U32 name,type,offset;};
 struct LeafLayout {const char* name;unsigned offset,size;const LeafField* fields;unsigned count;const LeafToken* tokens;};
@@ -188,6 +188,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
                     switch(f.kind) {
                     case LeafValue::String: MarshalString(data,at,value);continue;
                     case LeafValue::Reference: MarshalReference(data,at,value);continue;
+                    case LeafValue::AssetId: word=HashAssetId(value);break;
                     case LeafValue::Boolean: *at=ParseBoolean(value)?1:0;continue;
                     case LeafValue::Enum: word=EnumValue(leaf.name,value);break;
                     case LeafValue::Unsigned: word=ParseUnsigned(value);break;
@@ -206,6 +207,27 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned i=0;i<4;++i) {auto at=child.attributes.find(names[i]);flammability[i]=at==child.attributes.end()?0:ParseUnsigned(at->second);}
         data.Pop();
     }
+    std::map<unsigned,unsigned char*> autoObjects;
+    for(unsigned index=0;index<2;++index) for(const auto& child:children)
+        if(child.name==(index==0?"AutoResolveArmor":"AutoResolveWeapon")) {
+            unsigned offset=504+4*index;
+            auto bytes=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+offset),20,1));
+            autoObjects[offset]=bytes;
+            auto ref=child.attributes.find(index==0?"Armor":"Weapon");
+            if(ref!=child.attributes.end()) MarshalReference(data,bytes,ref->second);
+            for(unsigned group=0;group<2;++group) {
+                std::vector<std::string> values;
+                for(const auto& value:child.children) if(value.name==(group==0?"RequiredUpgrade":"ExcludedUpgrade")) values.push_back(value.text);
+                auto list=reinterpret_cast<NativeList*>(bytes+4+8*group);
+                list->count=static_cast<U32>(values.size());
+                if(!values.empty()) {
+                    auto elements=static_cast<U32*>(data.Push(&list->data,4,list->count));
+                    for(U32 i=0;i<list->count;++i) elements[i]=HashAssetId(values[i]);
+                    data.Pop();
+                }
+            }
+            data.Pop();
+        }
     marshalLeaves(512,516);
     for(const auto& child:children) if(child.name=="LiveCameraOffset") {
         camera=static_cast<float*>(data.Push(reinterpret_cast<void**>(root+520),12,1));
@@ -231,6 +253,27 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             const U32 names[]={2194468989u,1555868979u,1413518551u,2097559226u};
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,5));
             for(unsigned j=0;j<4;++j) {nested[j].name=names[j];nested[j].type=1982953380u;procedures.BookmarkMemberOffset(flammability+j,&nested[j].offset);}
+            procedures.Pop();
+        }
+        else if(autoObjects.count(t.offset)) {
+            auto bytes=autoObjects.at(t.offset);
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,4));
+            nested[0].name=t.offset==504?735930353u:63188358u;
+            nested[0].type=t.offset==504?1636048523u:3494305058u;
+            procedures.BookmarkMemberOffset(bytes,&nested[0].offset);
+            for(unsigned group=0;group<2;++group) {
+                nested[group+1].name=group==0?2138150697u:4283231007u;
+                nested[group+1].type=653971399u;
+                auto list=reinterpret_cast<NativeList*>(bytes+4+8*group);
+                auto count=static_cast<Procedure*>(procedures.Push(&nested[group+1].offset,12,list->count+1));
+                count[0].name=1820487795u;count[0].type=1564774360u;
+                procedures.BookmarkMemberOffset(list,&count[0].offset);
+                for(U32 j=0;j<list->count;++j) {
+                    count[j+1].name=2974916843u;count[j+1].type=0;
+                    procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+j,&count[j+1].offset);
+                }
+                procedures.Pop();
+            }
             procedures.Pop();
         }
         else if(leafObjects.count(t.offset)) {
@@ -276,6 +319,11 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(auto name:displayNames) if(name) Swap(&name->length);
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
         if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
+        for(const auto& entry:autoObjects) for(unsigned group=0;group<2;++group) {
+            auto list=reinterpret_cast<NativeList*>(entry.second+4+8*group);
+            for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);
+            Swap(&list->count);
+        }
         for(const auto& leaf:leafLayouts) if(leafObjects.count(leaf.offset))
             for(unsigned i=0;i<leaf.count;++i) if(leaf.fields[i].kind!=LeafValue::Boolean) Swap(leafObjects.at(leaf.offset)+leaf.fields[i].offset);
         for(const auto& entry:lists) if(entry.first!=40) {
@@ -302,4 +350,5 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 

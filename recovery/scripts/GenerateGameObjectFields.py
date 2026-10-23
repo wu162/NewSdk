@@ -135,6 +135,9 @@ leaf_specs = {
         ('OpacityFadeOutTime',40,'Time','0s'),('OpacityEnd',44,'Float','0'),('MaxHeight',48,'Float','20'),
         ('OverrideLODVisibility',56,'Boolean','false'),('UseHouseColor',57,'Boolean','false'),
         ('IsRotatingWithObject',58,'Boolean','true'),('LocalPlayerOnly',59,'Boolean','false'),('SunAngle',52,'Float','0.0')]),
+    'AutoResolveInfo': (36,[('AutoResolveUnitType',0,'String',None),('AutoResolveBody',8,'AssetId',None),
+        ('AutoResolveArmor',12,'Reference',None),('AutoResolveWeapon',16,'Reference',None),
+        ('AutoResolveLeadership',20,'String',None),('AutoResolveCombatChain',28,'String',None)]),
     'VisionInfo': (40,[('VisionRange',0,'Float','0.00'),('ShroudClearingRange',4,'Float','0.0'),('ShroudClearingHeight',8,'Float','50.0'),
         ('VisionSide',12,'Percent','100'),('VisionRear',16,'Percent','100'),('VisionBonusTestRadius',20,'Float','100'),
         ('VisionBonusTestSegments',24,'Unsigned','8'),('VisionBonusPercentPerFoot',28,'Percent','0'),
@@ -161,7 +164,7 @@ for name,(size,entries) in leaf_specs.items():
     assert '12u, '+str(len(entries)+1)+'u' in token_body
     lines+=['};']
 lines+=['const LeafLayout leafLayouts[] = {']
-for name,typ,off in [('FormationPreviewDecal','FormationPreviewDecal',512),('FormationPreviewItemDecal','FormationPreviewDecal',516),('ShadowInfo','ShadowInfo',544),('VisionInfo','VisionInfo',552)]:
+for name,typ,off in [('FormationPreviewDecal','FormationPreviewDecal',512),('FormationPreviewItemDecal','FormationPreviewDecal',516),('ShadowInfo','ShadowInfo',544),('AutoResolveInfo','AutoResolveInfo',548),('VisionInfo','VisionInfo',552)]:
     size,entries=leaf_specs[typ]
     lines.append('    { '+json.dumps(name)+', '+str(off)+'u, '+str(size)+'u, '+typ+'Fields, '+str(len(entries))+'u, '+typ+'Tokens },')
 lines+=['};','']
@@ -171,4 +174,5 @@ if '--check' in sys.argv:
     assert path.read_text()==output, 'Regenerate GameObjectFields.h'
 else: path.write_text(output)
 print('PASS source-derived GameObject metadata: '+str(len(fields))+' root fields, 126 tokens; no frozen buffers')
+
 
