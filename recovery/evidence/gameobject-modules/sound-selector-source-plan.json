@@ -1,5 +1,5 @@
 {
-  "status": "source plan only; four selector types remain rejected and not DLL validated",
+  "status": "source contract plan only; runtime support and DLL validation are tracked separately in GameObject validation.json",
   "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
   "modules": [
     {

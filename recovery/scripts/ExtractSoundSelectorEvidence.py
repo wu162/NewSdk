@@ -105,11 +105,11 @@ for row in nested_rows:
         assert any(p['elementSize']==expected[row['name']] for m in row['listMarshal'] for p in m['pushes']),row
         row['nativeListStride']=expected[row['name']]
         assert row['listEndian'],('Missing list endian',row['name'])
-report={'status':'source plan only; four selector types remain rejected and not DLL validated','sourceBlob':SOURCE_BLOB,
+report={'status':'source contract plan only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,
         'modules':module_rows,'nested':nested_rows,
         'reuseEvidence':'Existing root AudioArrayVoice/AudioArraySound/EvaEventArray are DLL validated; nested selector integration is not.'}
 output=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
 path=ROOT/'recovery/evidence/gameobject-modules/sound-selector-source-plan.json'
 if '--check' in sys.argv:assert path.read_text()==output,'Regenerate selector source plan'
 else:path.write_text(output)
-print('PASS sound selector source plan: 4 rejected module types; 12 nested contracts; 8 independently checked list strides; no runtime support claimed')
+print('PASS sound selector source plan: 4 selector module source contracts; 12 nested contracts; 8 independently checked list strides; no runtime support claimed')

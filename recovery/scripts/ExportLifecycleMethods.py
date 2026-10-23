@@ -21,9 +21,11 @@ for line in source.splitlines():
 names=['DeletionUpdateModuleData','DieOnProducerDeathUpdateModuleData','InvalidTargetsDeathUpdateModuleData','HeightDieUpdateModuleData','LoseHealthUpdateModuleData','LifetimeUpdateModuleData','DestroyDieModuleData']
 if '--die-family' in sys.argv:
     names=['DieModuleData','DestroyDieModuleData','UpgradeDieModuleData','KeepObjectDieModuleData','CreateObjectDieModuleData','CrushDieModuleData','RefundDieModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--upgrade-family' in sys.argv:
+    names=['UpgradeModuleData','PowerUpgradeModuleData','DelayedUpgradeModuleData','AttributeModifierUpgradeModuleData','InvisibilityUpgradeModuleData','CommandSetUpgradeModuleData','ExperienceScalarUpgradeModuleData','MaxHealthUpgradeModuleData','ArmorUpgradeModuleData','LevelUpUpgradeModuleData','AudioLoopUpgradeModuleData']
+out=ROOT/('recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
-report={'status':'source evidence only; seven modules remain explicitly rejected; no runtime or DLL validation claim','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
+report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
 def add(signature):
     if signature not in selected:selected[signature]=method(source,signature)
@@ -66,4 +68,4 @@ for index,(signature,(body,line)) in enumerate(selected.items()):
         if item['name'] in signature:item['methods'].append(meta);matched=True
     if not matched:report['helpers'].append(meta)
 (out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
-print('PASS lifecycle original source evidence:',len(names),'rejected module types;',len(selected),'exact methods; no runtime support claimed')
+print('PASS original module source evidence:',len(names),'module source contracts;',len(selected),'exact methods; no runtime support claimed')
