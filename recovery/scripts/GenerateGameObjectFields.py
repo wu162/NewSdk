@@ -112,6 +112,9 @@ enums.extend(('GeometryShapeType',n,v) for n,v in enum_values('GeometryType').it
 enum_fallbacks.append(('GeometryShapeType',1)) # original scalar helper 57939
 enums.extend(('ContactPointGeneration',n,v) for n,v in enum_values('ContactPointGenerationType').items())
 enum_fallbacks.append(('ContactPointGeneration',3)) # original scalar helper 57950
+for field,typ,fallback in [('AudioArraySound','ThingTemplateSoundType',31),('EvaEventArray','ThingTemplateEvaEventType',11),('AudioVoiceEntry','ThingTemplateVoiceType',32),('AudioObjectSpecificVoiceEntry','ThingTemplateObjectSpecificVoiceType',0)]:
+    enums.extend((field,n,v) for n,v in enum_values(typ).items())
+    enum_fallbacks.append((field,fallback))
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
 lines+=['};','const GameObjectEnumFallback enumFallbacks[] = {']
@@ -176,7 +179,7 @@ for name,typ,off in [('FormationPreviewDecal','FormationPreviewDecal',512),('For
 lines+=['};','']
 # Complete raw Geometry dependency group. Keys/types come from the original
 # Tokenize methods; offsets are separately transcribed from native layouts.
-for typ,offsets in [('Geometry',[24,0,4,8,16]),('Shape',[0,4,8,44,45,16,20,24,32,36,40]),('ContactPoint',[0,8])]:
+for typ,offsets in [('Geometry',[24,0,4,8,16]),('Shape',[0,4,8,44,45,16,20,24,32,36,40]),('ContactPoint',[0,8]),('AudioArraySound',[0]),('EvaEventArray',[0]),('AudioSoundEntry',[0,4]),('EvaEventEntry',[0,4]),('AudioArrayVoice',[0,8,16]),('AudioVoiceEntry',[0,8]),('AudioObjectSpecificVoiceEntry',[0,8,12]),('AudioVoiceReferentialEntry',[0,8]),('SoundOrEvaEvent',[0,4])]:
     body,first=method(s,'internal unsafe static void Tokenizer_002ETokenize(void** table, '+typ+'* @object, Tracker* state)')
     parts=body.split('ptr = (ProcTableElement*)((byte*)ptr + 12);')[:-1]
     assert len(parts)==len(offsets)

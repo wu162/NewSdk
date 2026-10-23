@@ -35,6 +35,20 @@ U32 EnumValue(const std::string& field,const std::string& text) {
     throw std::logic_error("Unknown GameObject enum field");
 }
 void Swap(void* p) { auto b=static_cast<unsigned char*>(p); std::swap(b[0],b[3]);std::swap(b[1],b[2]); }
+// Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.
+U32 ExactStringHash(const std::string& text) {
+    U32 size=static_cast<U32>(std::strlen(text.c_str())),hash=size;if(!size) return 0;
+    auto p=reinterpret_cast<const unsigned char*>(text.data());
+    auto shortWord=[](const unsigned char* b)->U32 {return b[0]|(U32(b[1])<<8);};
+    auto signedByte=[](unsigned char b)->U32 {return static_cast<U32>(static_cast<std::int8_t>(b));};
+    for(U32 n=size/4;n;--n,p+=4) {hash+=shortWord(p);hash^=(shortWord(p+2)^(hash<<5))<<11;hash+=hash>>11;}
+    switch(size&3) {
+    case 3:hash+=shortWord(p);hash^=((signedByte(p[2])<<2)^hash)<<16;hash+=hash>>11;break;
+    case 2:hash+=shortWord(p);hash^=hash<<11;hash+=hash>>17;break;
+    case 1:hash+=signedByte(*p);hash^=hash<<10;hash+=hash>>1;break;
+    }
+    hash^=hash<<3;hash+=hash>>5;hash^=hash<<2;hash+=hash>>15;return (hash<<10)^hash;
+}
 }
 const GameObjectField* GameObjectFields() { return fields; }
 unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
@@ -331,6 +345,43 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned i=0;i<3;++i) {auto at=child.attributes.find(names[i]);camera[i]=at==child.attributes.end()?0.0f:ParseFloat(at->second);}
         data.Pop();
     }
+    NativeList* voiceLists=nullptr;
+    for(const auto& child:children) if(child.name=="AudioArrayVoice") {
+        voiceLists=static_cast<NativeList*>(data.Push(reinterpret_cast<void**>(root+524),24,1));
+        const char* names[]={"AudioEntry","ObjectSpecificEntry","NamedEntry"};
+        for(unsigned group=0;group<3;++group) {
+            auto list=voiceLists+group;std::vector<const GameObjectChild*> values;
+            for(const auto& entry:child.children) if(entry.name==names[group]) values.push_back(&entry);
+            list->count=static_cast<U32>(values.size());
+            if(list->count) {
+                unsigned stride=group==1?16:12;auto elements=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));
+                for(U32 j=0;j<list->count;++j) {
+                    auto at=elements+stride*j;const auto& attrs=values[j]->attributes;
+                    if(group==2) {auto name=attrs.find("Name");if(name!=attrs.end()) {auto hash=ExactStringHash(name->second);std::memcpy(at+8,&hash,4);}}
+                    else {auto type=attrs.find("AudioType");if(type!=attrs.end()) {auto v=EnumValue(group==0?"AudioVoiceEntry":"AudioObjectSpecificVoiceEntry",type->second);std::memcpy(at+8,&v,4);}if(group==1) {auto target=attrs.find("TargetObject");if(target!=attrs.end()) {auto hash=HashAssetId(target->second);std::memcpy(at+12,&hash,4);}}}
+                    auto sound=attrs.find("Sound");if(sound!=attrs.end()) {auto ref=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,ref,sound->second);data.Pop();}
+                    auto eva=attrs.find("EvaEvent");MarshalReference(data,at+4,eva==attrs.end()?"":eva->second);
+                }
+                data.Pop();
+            }
+        }
+        data.Pop();
+    }
+    NativeList* audioArrays[2]={nullptr,nullptr};
+    for(unsigned group=0;group<2;++group) for(const auto& child:children) if(child.name==(group==0?"AudioArraySound":"EvaEventArray")) {
+        auto list=static_cast<NativeList*>(data.Push(reinterpret_cast<void**>(root+528+4*group),8,1));audioArrays[group]=list;
+        list->count=static_cast<U32>(child.children.size());
+        if(list->count) {
+            auto elements=static_cast<U32*>(data.Push(&list->data,8,list->count));
+            for(U32 j=0;j<list->count;++j) {
+                const auto& attributes=child.children[j].attributes;
+                auto ref=attributes.find(group==0?"Sound":"EvaEvent");if(ref!=attributes.end()) MarshalReference(data,elements+2*j,ref->second);
+                auto type=attributes.find(group==0?"AudioType":"EvaType");if(type!=attributes.end()) elements[2*j+1]=EnumValue(child.name,type->second);
+            }
+            data.Pop();
+        }
+        data.Pop();
+    }
     marshalList("UpgradeCameo",536,true);
     marshalLeaves(544,552);
     unsigned char* crusher=nullptr;
@@ -469,6 +520,37 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             }
             procedures.Pop();
         }
+        else if(t.offset==524 && voiceLists) {
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,4));
+            for(unsigned group=0;group<3;++group) {
+                nested[group].name=AudioArrayVoiceProc[group].name;nested[group].type=AudioArrayVoiceProc[group].type;auto list=voiceLists+group;
+                auto count=static_cast<Procedure*>(procedures.Push(&nested[group].offset,12,list->count+1));
+                count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
+                for(U32 j=0;j<list->count;++j) {
+                    count[j+1].name=2974916843u;unsigned members=group==1?3:2;auto proc=group==0?AudioVoiceEntryProc:group==1?AudioObjectSpecificVoiceEntryProc:AudioVoiceReferentialEntryProc;
+                    auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,members+1));auto bytes=static_cast<unsigned char*>(list->data)+(group==1?16:12)*j;
+                    for(unsigned k=0;k<members;++k) {item[k].name=proc[k].name;item[k].type=proc[k].type;if(k) procedures.BookmarkMemberOffset(bytes+proc[k].offset,&item[k].offset);}
+                    auto base=static_cast<Procedure*>(procedures.Push(&item[0].offset,12,3));
+                    for(unsigned k=0;k<2;++k) {base[k].name=SoundOrEvaEventProc[k].name;base[k].type=SoundOrEvaEventProc[k].type;}
+                    auto sound=*reinterpret_cast<void**>(bytes);if(sound) procedures.BookmarkMemberOffset(sound,&base[0].offset);
+                    procedures.BookmarkMemberOffset(bytes+4,&base[1].offset);procedures.Pop();procedures.Pop();
+                }
+                procedures.Pop();
+            }
+            procedures.Pop();
+        }
+        else if((t.offset==528 || t.offset==532) && audioArrays[(t.offset-528)/4]) {
+            unsigned group=(t.offset-528)/4;auto list=audioArrays[group];auto proc=group==0?AudioArraySoundProc:EvaEventArrayProc;auto entryProc=group==0?AudioSoundEntryProc:EvaEventEntryProc;
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,2));nested[0].name=proc[0].name;nested[0].type=proc[0].type;
+            auto count=static_cast<Procedure*>(procedures.Push(&nested[0].offset,12,list->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
+            for(U32 j=0;j<list->count;++j) {
+                count[j+1].name=2974916843u;auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,3));
+                for(unsigned k=0;k<2;++k) {item[k].name=entryProc[k].name;item[k].type=entryProc[k].type;procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+2*j+k,&item[k].offset);}
+                procedures.Pop();
+            }
+            procedures.Pop();procedures.Pop();
+        }
         else if(t.offset==492 && geometry) {
             auto tokenizeShape=[&](unsigned char* shape,void** destination) {
                 auto nested=static_cast<Procedure*>(procedures.Push(destination,12,12));
@@ -571,6 +653,12 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
     }
     if(bigEndian) {
+        if(voiceLists) for(unsigned group=0;group<3;++group) {
+            auto list=voiceLists+group;unsigned stride=group==1?16:12;
+            for(U32 j=0;j<list->count;++j) {auto at=static_cast<unsigned char*>(list->data)+stride*j;Swap(at+8);if(group==1) Swap(at+12);}
+            Swap(&list->count);
+        }
+        for(auto list:audioArrays) if(list) {for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+2*j+1);Swap(&list->count);}
         if(geometry) {
             auto swapShape=[&](unsigned char* shape) {
                 const unsigned offsets[]={0,4,8,16,20,24,32,36};for(auto off:offsets) Swap(shape+off);

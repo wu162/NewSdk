@@ -116,6 +116,27 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadAudioArray(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        bool sound=node->LocalName=="AudioArraySound",voice=node->LocalName=="AudioArrayVoice";
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported audio array attribute.");
+        } while(a->MoveToNextAttribute());
+        auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;
+            if(child->NamespaceURI!=node->NamespaceURI || (voice?(child->LocalName!="AudioEntry" && child->LocalName!="ObjectSpecificEntry" && child->LocalName!="NamedEntry"):(sound?child->LocalName!="AudioEntry":child->LocalName!="EvaEntry")) || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported audio array entry.");
+            Native::GameObjectChild entry;entry.name=marshal_as<std::string>(child->LocalName);
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                bool allowed=voice?(attrs->LocalName=="Sound" || attrs->LocalName=="EvaEvent" || (child->LocalName!="NamedEntry" && attrs->LocalName=="AudioType") || (child->LocalName=="NamedEntry" && attrs->LocalName=="Name") || (child->LocalName=="ObjectSpecificEntry" && attrs->LocalName=="TargetObject")):(sound?(attrs->LocalName=="Sound" || attrs->LocalName=="AudioType"):(attrs->LocalName=="EvaEvent" || attrs->LocalName=="EvaType"));
+                if(attrs->NamespaceURI->Length!=0 || !allowed) throw gcnew NotSupportedException("Unsupported audio entry attribute.");
+                entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+            } while(attrs->MoveToNextAttribute());
+            NoStructuredText(child);result.children.push_back(entry);
+        }
+        NoStructuredText(node);return result;
+    }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
@@ -134,10 +155,11 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="AudioArrayVoice" && name!="AudioArraySound" && name!="EvaEventArray" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
+            if(name=="AudioArrayVoice" || name=="AudioArraySound" || name=="EvaEventArray") {children.push_back(ReadAudioArray(child));continue;}
             if(name=="Geometry") {children.push_back(ReadGeometry(child));continue;}
             if(name=="GameDependency") {children.push_back(ReadDependency(child));continue;}
             if(name=="CrusherInfo" || name=="ProjectedBuildabilityInfo") {children.push_back(ReadPlacementGroup(child));continue;}

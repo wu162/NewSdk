@@ -520,11 +520,61 @@ partial class GameObjectOracle {
         Check(original,p,"Description='mixed' Browser='a bb'","<VisionInfo/><CrusherInfo/><ProjectedBuildabilityInfo/><Geometry>"+anchorXml+placement+s1+s2+c1+c2+"</Geometry><AutoResolveInfo/><DisplayUpgrade>upgrade</DisplayUpgrade>");
         foreach(string bad in new[]{"<Geometry/><Geometry/>","<Geometry Unknown='1'/>","<Geometry xmlns='foreign'/>","<Geometry xmlns:f='foreign' f:IsSmall='true'/>","<Geometry>text</Geometry>","<Geometry><Unknown/></Geometry>","<Geometry><RotationAnchorOffset/><RotationAnchorOffset/></Geometry>","<Geometry><PlacementShape/><PlacementShape/></Geometry>","<Geometry><RotationAnchorOffset z='1'/></Geometry>","<Geometry><Shape Unknown='1'/></Geometry>","<Geometry><Shape xmlns='foreign'/></Geometry>","<Geometry><Shape><Offset/><Offset/></Shape></Geometry>","<Geometry><Shape><Offset Unknown='1'/></Shape></Geometry>","<Geometry><Shape><Offset><Unknown/></Offset></Shape></Geometry>","<Geometry><PlacementShape>text</PlacementShape></Geometry>","<Geometry><PlacementShape><Unknown/></PlacementShape></Geometry>","<Geometry><ContactPoint Unknown='1'/></Geometry>","<Geometry><ContactPoint><Pos/><Pos/></ContactPoint></Geometry>","<Geometry><ContactPoint><Pos xmlns='foreign'/></ContactPoint></Geometry>","<Geometry><ContactPoint><Pos>text</Pos></ContactPoint></Geometry>","<Geometry><ContactPoint><Offset/></ContactPoint></Geometry>"})Reject(p,"",bad);
     }
+    static void AudioGroups(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] arrays={"AudioArraySound","EvaEventArray","AudioArrayVoice"};
+        foreach(string array in arrays) {
+            var b=Check(original,p,"","<"+array+"/>");var d=b.InstanceData;int r=(int)Word(d,8,big)-4,o=(int)Word(d,r+(array=="AudioArraySound"?528:array=="EvaEventArray"?532:524),big);
+            if(r!=(array=="AudioArrayVoice"?1704:1656) || o!=r+592 || d.Length!=o+(array=="AudioArrayVoice"?24:8))throw new Exception("Independent empty audio array allocation");
+        }
+        foreach(string value in "soundAfterburner soundAmbient soundAmbientBattle soundAmbientDamaged soundAmbientReallyDamaged soundAmbientRubble soundCreated soundCrushing soundDeploy soundDisabled soundDisabledOnCreation soundDisguiseRevealedFailure soundDisguiseRevealedSuccess soundDisguiseStarted soundEnter soundExit soundFalling soundImpact soundImpactCyclonic soundMoveLoop soundMoveLoopDamaged soundMoveStart soundMoveStartDamaged soundOnDamaged soundOnReallyDamaged soundPrepositioned soundPromotedElite soundPromotedHero soundPromotedVeteran soundReenabled soundStealthOff soundStealthOn soundTurretMoveLoop soundUndeploy soundUnderConstruction soundUnderRepairFromDamage soundUnderRepairFromRubble".Split(' '))Check(original,p,"","<AudioArraySound><AudioEntry AudioType='"+value+"'/></AudioArraySound>");
+        foreach(string value in "ambushed availableForProduction buildCancelled buildOnHold cannotBuildDueToFullBuildQueue damagedAlly damagedByFireOwner damagedFromShroudedSourceOwner damagedOwner detectedAlly detectedEnemy detectedOwner dieAlly dieEnemy dieOwner enemyObjectSighted enemyObjectSightedAfterRespawn manuallyPoweredOff manuallyPoweredOn onFirstSightingEnemy onFirstSightingNonEnemy placementFailed productionComplete productionStarted promotedOwner repairingOwner secondDamageFarFromFirstOwner secondDamageFarFromFirstScanRange secondDamageFarFromFirstTimeoutMS soldOwner".Split(' '))Check(original,p,"","<EvaEventArray><EvaEntry EvaType='"+value+"'/></EvaEventArray>");
+        foreach(string value in "voiceAlert voiceAttack voiceAttackAfterMoving voiceAttackAir voiceAttackCharge voiceAttackGarrisonedStructure voiceAttackMachine voiceAttackStructure voiceBombard voiceBuildResponse voiceCaptureBuildingComplete voiceCombatDrop voiceCombineWithHorde voiceCreated voiceDefectingAway voiceDefectingTowards voiceDeliverRing voiceDesperateAttack voiceDock voiceEnter voiceEnterHostile voiceEnterStateAttack voiceEnterStateAttackAfterMoving voiceEnterStateAttackAir voiceEnterStateAttackCharge voiceEnterStateAttackGarrisonedStructure voiceEnterStateAttackMachine voiceEnterStateAttackStructure voiceEnterStateMove voiceEnterStateMoveLandToWater voiceEnterStateMoveOverWalls voiceEnterStateMoveToCamp voiceEnterStateMoveToHigherGround voiceEnterStateMoveWaterToLand voiceEnterStateMoveWhileAttacking voiceEnterStateRetreatToCastle voiceFear voiceFullyCreated voiceGarrison voiceGetHealed voiceGuard voiceLowFuel voiceMove voiceMoveLandToWater voiceMoveOverWalls voiceMoveToCamp voiceMoveToHigherGround voiceMoveWaterToLand voiceMoveWhileAttacking voiceNoBuild voicePrimaryWeaponMode voiceRapidFire voiceRepair voiceRetreatToCastle voiceSalvage voiceSecondaryWeaponMode voiceSelect voiceSelectBattle voiceSelectIdleWorker voiceSelectUnderConstruction voiceSelectUnderFire voiceSendToSlaughterhouse voiceStartCharging voiceSupply voiceTaskComplete voiceTertiaryWeaponMode voiceUnload".Split(' '))Check(original,p,"","<AudioArrayVoice><AudioEntry AudioType='"+value+"'/></AudioArrayVoice>");
+        foreach(string value in "voiceAttackUnit voiceCreatedFrom voiceEnterStateAttackUnit voiceEnterStateEnterUnit voiceEnterUnit voiceFullyCreatedFrom".Split(' '))Check(original,p,"","<AudioArrayVoice><ObjectSpecificEntry AudioType='"+value+"'/></AudioArrayVoice>");
+        string[] groups={"AudioArraySound","EvaEventArray","AudioArrayVoice","AudioArrayVoice","AudioArrayVoice"};
+        string[] entries={"AudioEntry","EvaEntry","AudioEntry","ObjectSpecificEntry","NamedEntry"};
+        int[] rootOffsets={528,532,524,524,524};
+        for(int group=0;group<5;++group) {
+            string array=groups[group],entry=entries[group];
+            foreach(string value in new[]{"","UNKNOWN","unknown","voiceSelect"," voiceSelect","voiceSelect ","-1","0"})if(group!=4)Check(original,p,"","<"+array+"><"+entry+" "+(group==1?"EvaType":"AudioType")+"='"+value+"'/></"+array+">");
+            foreach(string value in new[]{"","Unresolved","Name\\0","Name\\1","Name\\23","Name\\-1","Name\\2147483647","Name\\2147483648","Name\\-2147483648","Name\\-2147483649","Name\\23tail","Name\\0x10","Name\\ 23","Name\\text"}) {
+                string attr=group==1?"EvaEvent":"Sound";
+                Check(original,p,"","<"+array+"><"+entry+" "+attr+"='"+value+"'/></"+array+">");
+                if(group>=2)Check(original,p,"","<"+array+"><"+entry+" EvaEvent='"+value+"'/></"+array+">");
+            }
+            foreach(int count in new[]{1,2,3,17,64}) {
+                string items="";for(int j=0;j<count;++j)items+="<"+entry+"/>";
+                var b=Check(original,p,"","<"+array+">"+items+"</"+array+">");var d=b.InstanceData;int r=(int)Word(d,8,big)-4,o=(int)Word(d,r+rootOffsets[group],big),list=o+(group==3?8:group==4?16:0);
+                int tokenStride=group<2?48:group==3?96:84,dataStride=group<2?8:group==3?16:12;
+                if(r!=(group<2?1656:1704)+tokenStride*count || d.Length!=(group<2?2256:2320)+(tokenStride+dataStride)*count || Word(d,list,big)!=count)throw new Exception("Independent audio list allocation "+entry);
+            }
+        }
+        foreach(string value in new[]{"","a","A","ab","AB","abc","AbC","abcd","AbCd","abcde","AbCdE","abcdef","ABCDEF","abcdefg","AbCdEfG","abcdefgh","with spaces","é","ÿ","中文","A&B"}) {
+            string text=Escape(value);
+            Check(original,p,"","<AudioArrayVoice><NamedEntry Name='"+text+"'/><ObjectSpecificEntry TargetObject='"+text+"'/></AudioArrayVoice>");
+        }
+        var lower=Check(original,p,"","<AudioArrayVoice><NamedEntry Name='abcd'/><ObjectSpecificEntry TargetObject='abcd'/></AudioArrayVoice>").InstanceData;
+        var upper=Check(original,p,"","<AudioArrayVoice><NamedEntry Name='AbCd'/><ObjectSpecificEntry TargetObject='AbCd'/></AudioArrayVoice>").InstanceData;
+        int rr=(int)Word(lower,8,big)-4,oo=(int)Word(lower,rr+524,big),named=(int)Word(lower,oo+20,big),specific=(int)Word(lower,oo+12,big);
+        if(Word(lower,named+8,big)==Word(upper,named+8,big) || Word(lower,specific+12,big)!=Word(upper,specific+12,big))throw new Exception("Independent named voice case sensitivity / asset case folding");
+        var present=Check(original,p,"","<AudioArrayVoice><AudioEntry Sound='' EvaEvent='E\\23'/></AudioArrayVoice>");var bytes=present.InstanceData;rr=(int)Word(bytes,8,big)-4;oo=(int)Word(bytes,rr+524,big);int item=(int)Word(bytes,oo+4,big),sound=(int)Word(bytes,item,big);
+        if(sound==0 || Word(bytes,sound,big)!=0 || Word(bytes,item+4,big)!=24)throw new Exception("Independent allocated empty sound reference / EVA index");
+        string voice="<AudioEntry TypeId='2' AudioType='voiceSelect' Sound='s\\23' EvaEvent='e\\-1'/><ObjectSpecificEntry TypeId='3' AudioType='voiceEnterUnit' TargetObject='Tank' Sound='o\\4'/><NamedEntry TypeId='4' Name='MiXeD' EvaEvent='e\\5'/>";
+        string interleaved="<NamedEntry Name='MiXeD' EvaEvent='e\\5'/><ObjectSpecificEntry AudioType='voiceEnterUnit' TargetObject='Tank' Sound='o\\4'/><AudioEntry AudioType='voiceSelect' Sound='s\\23' EvaEvent='e\\-1'/>";
+        Equal(Check(original,p,"","<AudioArrayVoice TypeId='1'>"+voice+"</AudioArrayVoice>").InstanceData,Check(original,p,"","<AudioArrayVoice>"+interleaved+"</AudioArrayVoice>").InstanceData,"Voice list schema allocation order",false);
+        Check(original,p,"Browser='a bb' Description='mixed'","<AudioArrayVoice>"+voice+"</AudioArrayVoice><AudioArraySound TypeId='5'><AudioEntry TypeId='6' Sound='s\\23' AudioType='soundAmbient'/><AudioEntry/></AudioArraySound><EvaEventArray TypeId='7'><EvaEntry TypeId='8' EvaEvent='e\\4' EvaType='dieOwner'/></EvaEventArray><Geometry><Shape Name='shape'/></Geometry><CrusherInfo/><ProjectedBuildabilityInfo/><ShadowInfo/>");
+        foreach(string array in arrays) {
+            Reject(p,"","<"+array+"/><"+array+"/>");Reject(p,"","<"+array+" Unknown='1'/>");Reject(p,"","<"+array+" xmlns='foreign'/>");Reject(p,"","<"+array+">text</"+array+">");Reject(p,"","<"+array+"><Unknown/></"+array+">");
+            string entry=array=="EvaEventArray"?"EvaEntry":"AudioEntry";
+            foreach(string body in new[]{"<"+entry+" Unknown='1'/>","<"+entry+" xmlns='foreign'/>","<"+entry+" xmlns:f='foreign' f:Sound='x'/>","<"+entry+">text</"+entry+">","<"+entry+"><Unknown/></"+entry+">"})Reject(p,"","<"+array+">"+body+"</"+array+">");
+        }
+        foreach(string bad in new[]{"<AudioArrayVoice><AudioEntry Name='wrong'/></AudioArrayVoice>","<AudioArrayVoice><NamedEntry AudioType='voiceSelect'/></AudioArrayVoice>","<AudioArrayVoice><NamedEntry TargetObject='x'/></AudioArrayVoice>","<AudioArrayVoice><ObjectSpecificEntry Name='wrong'/></AudioArrayVoice>","<AudioArraySound><AudioEntry EvaEvent='wrong'/></AudioArraySound>","<EvaEventArray><EvaEntry Sound='wrong'/></EvaEventArray>"})Reject(p,"",bad);
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -542,7 +592,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-six child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-nine child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
