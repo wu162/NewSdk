@@ -213,7 +213,7 @@ ai_specs = {
 'AIBaseSelectionCriteria':(20,[(n,i*4,'Bits','','AIBaseType') for i,n in enumerate(['RequiredBaseTypes','ExcludedBaseTypes','PreferredBaseTypes','PreferredNotBaseTypes'])]+[('SortOrder',16,'Enum','PREFER_NEWEST','AIBaseSortingOrder')],[]),
 'AISpecialPowerWeaponData':(28,[('Weapon',0,'Reference',None,None),('IsDisablingAttack',24,'Boolean','false',None),('AffectsFriendlies',25,'Boolean','false',None),('AffectsSelf',26,'Boolean','false',None),('TotalValueGreaterThan',4,'Signed','0',None),('AoeAttackPowerLocationPreference',8,'Enum','PREFER_NEAREST','AIAoeAttackPowerLocationPreference'),('AoeAttackPowerBlockAreaAfterActivationTime',12,'Time','0s',None),('AoeAttackEmanationLocation',16,'Enum','EMANATE_FROM_SELF','AIAoeAttackPowerEmanationLocation'),('ToggleRangeHysteresis',20,'Float','0.0',None),('ToggleShortRangeTargetForcesTarget',27,'Boolean','false',None)],[])
 }
-ai_enums=[('SkirmishAIBaseLocation',2,0),('DamageType',38,0),('EconomyResourceType',3,0),('AISpecialPowerHeuristic',4,0),('AISpecialPowerManager',3,0),('AIBaseSortingOrder',6,0),('AIAoeAttackPowerLocationPreference',1,0),('AIAoeAttackPowerEmanationLocation',0,0),('WpnAntiT',7,14),('MicroManagerState',0,10),('AITargetLocationType',1,2),('AIBaseType',2,10),('KindOfType',149,284)]
+ai_enums=[('SkirmishAIBaseLocation',2,0),('DamageType',38,0),('EconomyResourceType',3,0),('AISpecialPowerHeuristic',4,0),('AISpecialPowerManager',3,0),('AIBaseSortingOrder',6,0),('AIAoeAttackPowerLocationPreference',1,0),('AIAoeAttackPowerEmanationLocation',0,0),('WpnAntiT',7,14),('MicroManagerState',0,10),('AITargetLocationType',1,2),('AIBaseType',2,10),('KindOfType',149,284),('ModelConditionFlagType',233,0)]
 for group,unknown,bits in ai_enums:
     entries=enum_values(group)
     lines+=['const EnumNameValue ai'+group+'Names[] = {']+[ '    { '+json.dumps(n)+', '+str(v)+' },' for n,v in entries.items()]+['};']
@@ -269,6 +269,27 @@ for typ,(size,entries,children) in ai_specs.items():
     lines+=['    { '+str(size)+'u, '+typ+'AIFields, '+str(len(entries))+'u, '+typ+'AIProc, '+str(len(entries)+len(children))+'u },']
 lines+=['};','']
 
+body_specs={
+'ActiveBodyModuleData':[
+('MaxHealth',8,'Float','0',None),('MaxHealthDamagedPercentage',12,'Percent','66.666666',None),('MaxHealthReallyDamagedPercentage',16,'Percent','33.333333',None),('InitialHealth',20,'Float','-1.0',None),('DodgePercent',24,'Float','0',None),('EnteringDamagedTransitionTime',28,'Time','0s',None),('EnteringReallyDamagedTransitionTime',32,'Time','0s',None),('GrabObject',36,'String',None,None),('HealingBuffFX',44,'Reference',None,None),('DamagedAttributeModifier',48,'Reference',None,None),('ReallyDamagedAttributeModifier',52,'Reference',None,None),('CheerRadius',56,'Float','200.0',None),('RemoveUpgradesOnDeath',72,'Boolean','false',None),('BurningDeathBehavior',73,'Boolean','false',None),('BurningDeathFX',60,'Reference',None,None)],
+'ShieldBodyModuleData':[
+('ShieldEnabledFX',76,'Reference',None,None),('ShieldDepleteFX',80,'Reference',None,None),('ShieldRechargeEndFX',84,'Reference',None,None),('ShieldTakeDamageFX',88,'Reference',None,None),('ShieldAmount',92,'Float',None,None),('ShieldArmor',96,'NullableReference',None,None),('ShieldRechargeIdleTime',100,'Time','0s',None),('ShieldActiveModelCondition',104,'Enum','INVALID','ModelConditionFlagType')],
+'ActiveBodyDamageRangeModifier':[
+('Min',0,'Percent',None,None),('Max',4,'Percent',None,None),('AttributeModifier',8,'Reference',None,None)]}
+for typ,entries in body_specs.items():
+    body,first=method(s,'internal unsafe static void Marshaler_002EMarshal(INode* node, '+typ+'* @object, Tracker* state)')
+    lookups=[]
+    for line in body.splitlines():
+        symbols=re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',line)
+        if symbols: lookups.append((ai_literals[symbols[0]],ai_literals[symbols[1]] if len(symbols)>1 else None))
+    expected=[(n,f) for n,o,k,f,g in entries]
+    if typ=='ActiveBodyModuleData': expected.append(('DamageRangeModifier',None))
+    assert lookups==expected,(typ,lookups,expected)
+    lines+=['const ModuleField '+typ+'ModuleFields[] = {']
+    for n,o,k,f,g in entries:
+        lines+=['    { '+json.dumps(n)+', '+str(o)+'u, ModuleValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+('nullptr' if g is None else '&ai'+g)+' },']
+    lines+=['};']
+
 # Full module dispatch inventory is validated separately and reused here.
 import runpy
 module_source=runpy.run_path(str(root/'recovery/scripts/ExtractGameObjectModuleEvidence.py'))
@@ -280,19 +301,21 @@ def emit_module_graph(graph):
     records=[]
     for item in graph['records']:
         nested=emit_module_graph(item['nested']) if 'nested' in item else None
-        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested))
+        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested,{'list':1,'nullable-member':2}.get(item.get('mode'),0)))
     name='moduleTable'+str(len(module_choices))
     module_choices.append(name)
     lines.append('const ModuleToken '+name+'Tokens[] = {')
-    for key,typ,off,nested in records:
-        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u, '+('&'+nested if nested else 'nullptr')+' },')
+    for key,typ,off,nested,mode in records:
+        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u, '+('&'+nested if nested else 'nullptr')+', '+str(mode)+'u },')
     lines+=['};','const ModuleLayout '+name+' = { '+name+'Tokens, '+str(len(records))+'u };']
     return name
 module_rows=[]
 for entry in module_inventory['baseOnlyCandidates']:
-    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph'])))
+    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),8,0))
+for entry in module_inventory['bodyCandidates']:
+    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],2 if entry['name']=='ShieldBodyModuleData' else 1))
 lines+=['const ModuleChoice moduleChoices[] = {']
-for value,table in module_rows: lines+=['    { '+str(value)+'u, &'+table+' },']
+for value,table,size,kind in module_rows: lines+=['    { '+str(value)+'u, &'+table+', '+str(size)+'u, '+str(kind)+'u },']
 lines+=['};','const U32 knownModuleTypes[] = {']
 lines+=['    '+str(key)+'u,' for key in module_inventory['marshal'] if key!='default']
 lines+=['};','const ModuleChildName moduleChildNames[] = {']

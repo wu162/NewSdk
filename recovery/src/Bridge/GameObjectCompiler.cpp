@@ -163,12 +163,24 @@ public ref class GameObjectCompiler abstract sealed {
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
             auto child=nodes->Current;Native::GameObjectChild item;item.name=marshal_as<std::string>(child->LocalName);
-            if(child->NamespaceURI!=node->NamespaceURI || !Native::GameObjectModuleChildSupported(result.name,item.name) || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported module child structure.");
+            if(child->NamespaceURI!=node->NamespaceURI || !Native::GameObjectModuleChildSupported(result.name,item.name)) throw gcnew NotSupportedException("Unsupported module child structure.");
+            auto typeId=marshal_as<std::string>(child->GetAttribute("TypeId",""));
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
                 if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
-                if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="id" && attrs->LocalName!="TypeId")) throw gcnew NotSupportedException("Unsupported module attribute.");
+                if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="id" && attrs->LocalName!="TypeId" && !Native::GameObjectModuleAttributeSupported(typeId,marshal_as<std::string>(attrs->LocalName)))) throw gcnew NotSupportedException("Unsupported module attribute.");
                 item.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
+            auto nested=child->SelectChildren(XPathNodeType::Element);
+            while(nested->MoveNext()) {
+                auto value=nested->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(value->LocalName);
+                if(value->NamespaceURI!=child->NamespaceURI || !Native::GameObjectModuleNestedSupported(typeId,entry.name) || value->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported module nested structure.");
+                auto a=value->Clone();if(a->MoveToFirstAttribute()) do {
+                    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+                    if(a->NamespaceURI->Length!=0 || (a->LocalName!="Min" && a->LocalName!="Max" && a->LocalName!="AttributeModifier")) throw gcnew NotSupportedException("Unsupported DamageRangeModifier attribute.");
+                    entry.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+                } while(a->MoveToNextAttribute());
+                NoStructuredText(value);item.children.push_back(entry);
+            }
             NoStructuredText(child);result.children.push_back(item);
         }
         if(node->LocalName=="Body" && result.children.size()>1) throw gcnew NotSupportedException("Body requires a single module.");

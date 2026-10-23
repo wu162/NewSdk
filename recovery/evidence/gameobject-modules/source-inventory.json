@@ -9501,5 +9501,1212 @@
         "zeroSentinel": true
       }
     }
+  ],
+  "bodyCandidates": [
+    {
+      "typeId": 1510882715,
+      "name": "ActiveBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 62310,
+      "tokenGraph": {
+        "sourceLine": 103509,
+        "forwardTo": {
+          "sourceLine": 81673,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 4103182530,
+              "nested": {
+                "sourceLine": 81639,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 968647375,
+              "typeHash": 1683514611,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 1911847171,
+              "typeHash": 1683514611,
+              "memberOffset": 12
+            },
+            {
+              "nameHash": 206566497,
+              "typeHash": 1683514611,
+              "memberOffset": 16
+            },
+            {
+              "nameHash": 3551989382,
+              "typeHash": 1683514611,
+              "memberOffset": 20
+            },
+            {
+              "nameHash": 2277040911,
+              "typeHash": 1683514611,
+              "memberOffset": 24
+            },
+            {
+              "nameHash": 1684031329,
+              "typeHash": 2575722984,
+              "memberOffset": 28
+            },
+            {
+              "nameHash": 2103367945,
+              "typeHash": 2575722984,
+              "memberOffset": 32
+            },
+            {
+              "nameHash": 547533617,
+              "typeHash": 2153588212,
+              "memberOffset": 36
+            },
+            {
+              "nameHash": 2138264650,
+              "typeHash": 219975299,
+              "memberOffset": 44
+            },
+            {
+              "nameHash": 453070279,
+              "typeHash": 165531635,
+              "memberOffset": 48
+            },
+            {
+              "nameHash": 1801443129,
+              "typeHash": 165531635,
+              "memberOffset": 52
+            },
+            {
+              "nameHash": 4013011182,
+              "typeHash": 1683514611,
+              "memberOffset": 56
+            },
+            {
+              "nameHash": 1709780650,
+              "typeHash": 2011428087,
+              "memberOffset": 72
+            },
+            {
+              "nameHash": 2230346729,
+              "typeHash": 2011428087,
+              "memberOffset": 73
+            },
+            {
+              "nameHash": 2250948084,
+              "typeHash": 219975299,
+              "memberOffset": 60
+            },
+            {
+              "nameHash": 901614625,
+              "typeHash": 1964320689,
+              "memberOffset": 64,
+              "mode": "list",
+              "nested": {
+                "sourceLine": 81652,
+                "records": [
+                  {
+                    "nameHash": 3527446079,
+                    "typeHash": 1683514611,
+                    "memberOffset": 0
+                  },
+                  {
+                    "nameHash": 1155846608,
+                    "typeHash": 1683514611,
+                    "memberOffset": 4
+                  },
+                  {
+                    "nameHash": 3319822471,
+                    "typeHash": 165531635,
+                    "memberOffset": 8
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 3545651287,
+      "name": "ShieldBodyModuleData",
+      "nativeSize": 108,
+      "marshalLine": 61454,
+      "tokenGraph": {
+        "sourceLine": 102795,
+        "forwardTo": {
+          "sourceLine": 81750,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1510882715,
+              "nested": {
+                "sourceLine": 81673,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 4103182530,
+                    "nested": {
+                      "sourceLine": 81639,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 2769121946,
+                          "nested": {
+                            "sourceLine": 78138,
+                            "records": [
+                              {
+                                "nameHash": 1,
+                                "typeHash": 3613234082,
+                                "nested": {
+                                  "sourceLine": 78028,
+                                  "records": [
+                                    {
+                                      "nameHash": 430981792,
+                                      "typeHash": 602296504,
+                                      "memberOffset": 0
+                                    },
+                                    {
+                                      "nameHash": 2363267224,
+                                      "typeHash": 3186653541,
+                                      "memberOffset": 4
+                                    }
+                                  ],
+                                  "zeroSentinel": true
+                                }
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  },
+                  {
+                    "nameHash": 968647375,
+                    "typeHash": 1683514611,
+                    "memberOffset": 8
+                  },
+                  {
+                    "nameHash": 1911847171,
+                    "typeHash": 1683514611,
+                    "memberOffset": 12
+                  },
+                  {
+                    "nameHash": 206566497,
+                    "typeHash": 1683514611,
+                    "memberOffset": 16
+                  },
+                  {
+                    "nameHash": 3551989382,
+                    "typeHash": 1683514611,
+                    "memberOffset": 20
+                  },
+                  {
+                    "nameHash": 2277040911,
+                    "typeHash": 1683514611,
+                    "memberOffset": 24
+                  },
+                  {
+                    "nameHash": 1684031329,
+                    "typeHash": 2575722984,
+                    "memberOffset": 28
+                  },
+                  {
+                    "nameHash": 2103367945,
+                    "typeHash": 2575722984,
+                    "memberOffset": 32
+                  },
+                  {
+                    "nameHash": 547533617,
+                    "typeHash": 2153588212,
+                    "memberOffset": 36
+                  },
+                  {
+                    "nameHash": 2138264650,
+                    "typeHash": 219975299,
+                    "memberOffset": 44
+                  },
+                  {
+                    "nameHash": 453070279,
+                    "typeHash": 165531635,
+                    "memberOffset": 48
+                  },
+                  {
+                    "nameHash": 1801443129,
+                    "typeHash": 165531635,
+                    "memberOffset": 52
+                  },
+                  {
+                    "nameHash": 4013011182,
+                    "typeHash": 1683514611,
+                    "memberOffset": 56
+                  },
+                  {
+                    "nameHash": 1709780650,
+                    "typeHash": 2011428087,
+                    "memberOffset": 72
+                  },
+                  {
+                    "nameHash": 2230346729,
+                    "typeHash": 2011428087,
+                    "memberOffset": 73
+                  },
+                  {
+                    "nameHash": 2250948084,
+                    "typeHash": 219975299,
+                    "memberOffset": 60
+                  },
+                  {
+                    "nameHash": 901614625,
+                    "typeHash": 1964320689,
+                    "memberOffset": 64,
+                    "mode": "list",
+                    "nested": {
+                      "sourceLine": 81652,
+                      "records": [
+                        {
+                          "nameHash": 3527446079,
+                          "typeHash": 1683514611,
+                          "memberOffset": 0
+                        },
+                        {
+                          "nameHash": 1155846608,
+                          "typeHash": 1683514611,
+                          "memberOffset": 4
+                        },
+                        {
+                          "nameHash": 3319822471,
+                          "typeHash": 165531635,
+                          "memberOffset": 8
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 1753799754,
+              "typeHash": 219975299,
+              "memberOffset": 76
+            },
+            {
+              "nameHash": 109704883,
+              "typeHash": 219975299,
+              "memberOffset": 80
+            },
+            {
+              "nameHash": 2565798936,
+              "typeHash": 219975299,
+              "memberOffset": 84
+            },
+            {
+              "nameHash": 286694762,
+              "typeHash": 219975299,
+              "memberOffset": 88
+            },
+            {
+              "nameHash": 442579723,
+              "typeHash": 1683514611,
+              "memberOffset": 92
+            },
+            {
+              "nameHash": 317447484,
+              "typeHash": 887689851,
+              "memberOffset": 96,
+              "mode": "nullable-member"
+            },
+            {
+              "nameHash": 3047922012,
+              "typeHash": 2575722984,
+              "memberOffset": 100
+            },
+            {
+              "nameHash": 1030049321,
+              "typeHash": 359808523,
+              "memberOffset": 104
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 2296991610,
+      "name": "ImmortalBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 61837,
+      "tokenGraph": {
+        "sourceLine": 103104,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 1510882715,
+            "nested": {
+              "sourceLine": 81673,
+              "records": [
+                {
+                  "nameHash": 1,
+                  "typeHash": 4103182530,
+                  "nested": {
+                    "sourceLine": 81639,
+                    "records": [
+                      {
+                        "nameHash": 1,
+                        "typeHash": 2769121946,
+                        "nested": {
+                          "sourceLine": 78138,
+                          "records": [
+                            {
+                              "nameHash": 1,
+                              "typeHash": 3613234082,
+                              "nested": {
+                                "sourceLine": 78028,
+                                "records": [
+                                  {
+                                    "nameHash": 430981792,
+                                    "typeHash": 602296504,
+                                    "memberOffset": 0
+                                  },
+                                  {
+                                    "nameHash": 2363267224,
+                                    "typeHash": 3186653541,
+                                    "memberOffset": 4
+                                  }
+                                ],
+                                "zeroSentinel": true
+                              }
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                },
+                {
+                  "nameHash": 968647375,
+                  "typeHash": 1683514611,
+                  "memberOffset": 8
+                },
+                {
+                  "nameHash": 1911847171,
+                  "typeHash": 1683514611,
+                  "memberOffset": 12
+                },
+                {
+                  "nameHash": 206566497,
+                  "typeHash": 1683514611,
+                  "memberOffset": 16
+                },
+                {
+                  "nameHash": 3551989382,
+                  "typeHash": 1683514611,
+                  "memberOffset": 20
+                },
+                {
+                  "nameHash": 2277040911,
+                  "typeHash": 1683514611,
+                  "memberOffset": 24
+                },
+                {
+                  "nameHash": 1684031329,
+                  "typeHash": 2575722984,
+                  "memberOffset": 28
+                },
+                {
+                  "nameHash": 2103367945,
+                  "typeHash": 2575722984,
+                  "memberOffset": 32
+                },
+                {
+                  "nameHash": 547533617,
+                  "typeHash": 2153588212,
+                  "memberOffset": 36
+                },
+                {
+                  "nameHash": 2138264650,
+                  "typeHash": 219975299,
+                  "memberOffset": 44
+                },
+                {
+                  "nameHash": 453070279,
+                  "typeHash": 165531635,
+                  "memberOffset": 48
+                },
+                {
+                  "nameHash": 1801443129,
+                  "typeHash": 165531635,
+                  "memberOffset": 52
+                },
+                {
+                  "nameHash": 4013011182,
+                  "typeHash": 1683514611,
+                  "memberOffset": 56
+                },
+                {
+                  "nameHash": 1709780650,
+                  "typeHash": 2011428087,
+                  "memberOffset": 72
+                },
+                {
+                  "nameHash": 2230346729,
+                  "typeHash": 2011428087,
+                  "memberOffset": 73
+                },
+                {
+                  "nameHash": 2250948084,
+                  "typeHash": 219975299,
+                  "memberOffset": 60
+                },
+                {
+                  "nameHash": 901614625,
+                  "typeHash": 1964320689,
+                  "memberOffset": 64,
+                  "mode": "list",
+                  "nested": {
+                    "sourceLine": 81652,
+                    "records": [
+                      {
+                        "nameHash": 3527446079,
+                        "typeHash": 1683514611,
+                        "memberOffset": 0
+                      },
+                      {
+                        "nameHash": 1155846608,
+                        "typeHash": 1683514611,
+                        "memberOffset": 4
+                      },
+                      {
+                        "nameHash": 3319822471,
+                        "typeHash": 165531635,
+                        "memberOffset": 8
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                }
+              ],
+              "zeroSentinel": true
+            }
+          }
+        ],
+        "zeroSentinel": true
+      }
+    },
+    {
+      "typeId": 1863294802,
+      "name": "HighlanderBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 60763,
+      "tokenGraph": {
+        "sourceLine": 102156,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 1510882715,
+            "nested": {
+              "sourceLine": 81673,
+              "records": [
+                {
+                  "nameHash": 1,
+                  "typeHash": 4103182530,
+                  "nested": {
+                    "sourceLine": 81639,
+                    "records": [
+                      {
+                        "nameHash": 1,
+                        "typeHash": 2769121946,
+                        "nested": {
+                          "sourceLine": 78138,
+                          "records": [
+                            {
+                              "nameHash": 1,
+                              "typeHash": 3613234082,
+                              "nested": {
+                                "sourceLine": 78028,
+                                "records": [
+                                  {
+                                    "nameHash": 430981792,
+                                    "typeHash": 602296504,
+                                    "memberOffset": 0
+                                  },
+                                  {
+                                    "nameHash": 2363267224,
+                                    "typeHash": 3186653541,
+                                    "memberOffset": 4
+                                  }
+                                ],
+                                "zeroSentinel": true
+                              }
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                },
+                {
+                  "nameHash": 968647375,
+                  "typeHash": 1683514611,
+                  "memberOffset": 8
+                },
+                {
+                  "nameHash": 1911847171,
+                  "typeHash": 1683514611,
+                  "memberOffset": 12
+                },
+                {
+                  "nameHash": 206566497,
+                  "typeHash": 1683514611,
+                  "memberOffset": 16
+                },
+                {
+                  "nameHash": 3551989382,
+                  "typeHash": 1683514611,
+                  "memberOffset": 20
+                },
+                {
+                  "nameHash": 2277040911,
+                  "typeHash": 1683514611,
+                  "memberOffset": 24
+                },
+                {
+                  "nameHash": 1684031329,
+                  "typeHash": 2575722984,
+                  "memberOffset": 28
+                },
+                {
+                  "nameHash": 2103367945,
+                  "typeHash": 2575722984,
+                  "memberOffset": 32
+                },
+                {
+                  "nameHash": 547533617,
+                  "typeHash": 2153588212,
+                  "memberOffset": 36
+                },
+                {
+                  "nameHash": 2138264650,
+                  "typeHash": 219975299,
+                  "memberOffset": 44
+                },
+                {
+                  "nameHash": 453070279,
+                  "typeHash": 165531635,
+                  "memberOffset": 48
+                },
+                {
+                  "nameHash": 1801443129,
+                  "typeHash": 165531635,
+                  "memberOffset": 52
+                },
+                {
+                  "nameHash": 4013011182,
+                  "typeHash": 1683514611,
+                  "memberOffset": 56
+                },
+                {
+                  "nameHash": 1709780650,
+                  "typeHash": 2011428087,
+                  "memberOffset": 72
+                },
+                {
+                  "nameHash": 2230346729,
+                  "typeHash": 2011428087,
+                  "memberOffset": 73
+                },
+                {
+                  "nameHash": 2250948084,
+                  "typeHash": 219975299,
+                  "memberOffset": 60
+                },
+                {
+                  "nameHash": 901614625,
+                  "typeHash": 1964320689,
+                  "memberOffset": 64,
+                  "mode": "list",
+                  "nested": {
+                    "sourceLine": 81652,
+                    "records": [
+                      {
+                        "nameHash": 3527446079,
+                        "typeHash": 1683514611,
+                        "memberOffset": 0
+                      },
+                      {
+                        "nameHash": 1155846608,
+                        "typeHash": 1683514611,
+                        "memberOffset": 4
+                      },
+                      {
+                        "nameHash": 3319822471,
+                        "typeHash": 165531635,
+                        "memberOffset": 8
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                }
+              ],
+              "zeroSentinel": true
+            }
+          }
+        ],
+        "zeroSentinel": true
+      }
+    },
+    {
+      "typeId": 1905798828,
+      "name": "ManagerBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 62839,
+      "tokenGraph": {
+        "sourceLine": 103966,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 2296991610,
+            "nested": {
+              "sourceLine": 81805,
+              "records": [
+                {
+                  "nameHash": 1,
+                  "typeHash": 1510882715,
+                  "nested": {
+                    "sourceLine": 81673,
+                    "records": [
+                      {
+                        "nameHash": 1,
+                        "typeHash": 4103182530,
+                        "nested": {
+                          "sourceLine": 81639,
+                          "records": [
+                            {
+                              "nameHash": 1,
+                              "typeHash": 2769121946,
+                              "nested": {
+                                "sourceLine": 78138,
+                                "records": [
+                                  {
+                                    "nameHash": 1,
+                                    "typeHash": 3613234082,
+                                    "nested": {
+                                      "sourceLine": 78028,
+                                      "records": [
+                                        {
+                                          "nameHash": 430981792,
+                                          "typeHash": 602296504,
+                                          "memberOffset": 0
+                                        },
+                                        {
+                                          "nameHash": 2363267224,
+                                          "typeHash": 3186653541,
+                                          "memberOffset": 4
+                                        }
+                                      ],
+                                      "zeroSentinel": true
+                                    }
+                                  }
+                                ],
+                                "zeroSentinel": true
+                              }
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      },
+                      {
+                        "nameHash": 968647375,
+                        "typeHash": 1683514611,
+                        "memberOffset": 8
+                      },
+                      {
+                        "nameHash": 1911847171,
+                        "typeHash": 1683514611,
+                        "memberOffset": 12
+                      },
+                      {
+                        "nameHash": 206566497,
+                        "typeHash": 1683514611,
+                        "memberOffset": 16
+                      },
+                      {
+                        "nameHash": 3551989382,
+                        "typeHash": 1683514611,
+                        "memberOffset": 20
+                      },
+                      {
+                        "nameHash": 2277040911,
+                        "typeHash": 1683514611,
+                        "memberOffset": 24
+                      },
+                      {
+                        "nameHash": 1684031329,
+                        "typeHash": 2575722984,
+                        "memberOffset": 28
+                      },
+                      {
+                        "nameHash": 2103367945,
+                        "typeHash": 2575722984,
+                        "memberOffset": 32
+                      },
+                      {
+                        "nameHash": 547533617,
+                        "typeHash": 2153588212,
+                        "memberOffset": 36
+                      },
+                      {
+                        "nameHash": 2138264650,
+                        "typeHash": 219975299,
+                        "memberOffset": 44
+                      },
+                      {
+                        "nameHash": 453070279,
+                        "typeHash": 165531635,
+                        "memberOffset": 48
+                      },
+                      {
+                        "nameHash": 1801443129,
+                        "typeHash": 165531635,
+                        "memberOffset": 52
+                      },
+                      {
+                        "nameHash": 4013011182,
+                        "typeHash": 1683514611,
+                        "memberOffset": 56
+                      },
+                      {
+                        "nameHash": 1709780650,
+                        "typeHash": 2011428087,
+                        "memberOffset": 72
+                      },
+                      {
+                        "nameHash": 2230346729,
+                        "typeHash": 2011428087,
+                        "memberOffset": 73
+                      },
+                      {
+                        "nameHash": 2250948084,
+                        "typeHash": 219975299,
+                        "memberOffset": 60
+                      },
+                      {
+                        "nameHash": 901614625,
+                        "typeHash": 1964320689,
+                        "memberOffset": 64,
+                        "mode": "list",
+                        "nested": {
+                          "sourceLine": 81652,
+                          "records": [
+                            {
+                              "nameHash": 3527446079,
+                              "typeHash": 1683514611,
+                              "memberOffset": 0
+                            },
+                            {
+                              "nameHash": 1155846608,
+                              "typeHash": 1683514611,
+                              "memberOffset": 4
+                            },
+                            {
+                              "nameHash": 3319822471,
+                              "typeHash": 165531635,
+                              "memberOffset": 8
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                }
+              ],
+              "zeroSentinel": true
+            }
+          }
+        ],
+        "zeroSentinel": true
+      }
+    },
+    {
+      "typeId": 3993857585,
+      "name": "ManagedActiveBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 60508,
+      "tokenGraph": {
+        "sourceLine": 101927,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 1510882715,
+            "nested": {
+              "sourceLine": 81673,
+              "records": [
+                {
+                  "nameHash": 1,
+                  "typeHash": 4103182530,
+                  "nested": {
+                    "sourceLine": 81639,
+                    "records": [
+                      {
+                        "nameHash": 1,
+                        "typeHash": 2769121946,
+                        "nested": {
+                          "sourceLine": 78138,
+                          "records": [
+                            {
+                              "nameHash": 1,
+                              "typeHash": 3613234082,
+                              "nested": {
+                                "sourceLine": 78028,
+                                "records": [
+                                  {
+                                    "nameHash": 430981792,
+                                    "typeHash": 602296504,
+                                    "memberOffset": 0
+                                  },
+                                  {
+                                    "nameHash": 2363267224,
+                                    "typeHash": 3186653541,
+                                    "memberOffset": 4
+                                  }
+                                ],
+                                "zeroSentinel": true
+                              }
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                },
+                {
+                  "nameHash": 968647375,
+                  "typeHash": 1683514611,
+                  "memberOffset": 8
+                },
+                {
+                  "nameHash": 1911847171,
+                  "typeHash": 1683514611,
+                  "memberOffset": 12
+                },
+                {
+                  "nameHash": 206566497,
+                  "typeHash": 1683514611,
+                  "memberOffset": 16
+                },
+                {
+                  "nameHash": 3551989382,
+                  "typeHash": 1683514611,
+                  "memberOffset": 20
+                },
+                {
+                  "nameHash": 2277040911,
+                  "typeHash": 1683514611,
+                  "memberOffset": 24
+                },
+                {
+                  "nameHash": 1684031329,
+                  "typeHash": 2575722984,
+                  "memberOffset": 28
+                },
+                {
+                  "nameHash": 2103367945,
+                  "typeHash": 2575722984,
+                  "memberOffset": 32
+                },
+                {
+                  "nameHash": 547533617,
+                  "typeHash": 2153588212,
+                  "memberOffset": 36
+                },
+                {
+                  "nameHash": 2138264650,
+                  "typeHash": 219975299,
+                  "memberOffset": 44
+                },
+                {
+                  "nameHash": 453070279,
+                  "typeHash": 165531635,
+                  "memberOffset": 48
+                },
+                {
+                  "nameHash": 1801443129,
+                  "typeHash": 165531635,
+                  "memberOffset": 52
+                },
+                {
+                  "nameHash": 4013011182,
+                  "typeHash": 1683514611,
+                  "memberOffset": 56
+                },
+                {
+                  "nameHash": 1709780650,
+                  "typeHash": 2011428087,
+                  "memberOffset": 72
+                },
+                {
+                  "nameHash": 2230346729,
+                  "typeHash": 2011428087,
+                  "memberOffset": 73
+                },
+                {
+                  "nameHash": 2250948084,
+                  "typeHash": 219975299,
+                  "memberOffset": 60
+                },
+                {
+                  "nameHash": 901614625,
+                  "typeHash": 1964320689,
+                  "memberOffset": 64,
+                  "mode": "list",
+                  "nested": {
+                    "sourceLine": 81652,
+                    "records": [
+                      {
+                        "nameHash": 3527446079,
+                        "typeHash": 1683514611,
+                        "memberOffset": 0
+                      },
+                      {
+                        "nameHash": 1155846608,
+                        "typeHash": 1683514611,
+                        "memberOffset": 4
+                      },
+                      {
+                        "nameHash": 3319822471,
+                        "typeHash": 165531635,
+                        "memberOffset": 8
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                }
+              ],
+              "zeroSentinel": true
+            }
+          }
+        ],
+        "zeroSentinel": true
+      }
+    },
+    {
+      "typeId": 3834377004,
+      "name": "ManagedImmortalBodyModuleData",
+      "nativeSize": 76,
+      "marshalLine": 62690,
+      "tokenGraph": {
+        "sourceLine": 103839,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 3993857585,
+            "nested": {
+              "sourceLine": 81818,
+              "records": [
+                {
+                  "nameHash": 1,
+                  "typeHash": 1510882715,
+                  "nested": {
+                    "sourceLine": 81673,
+                    "records": [
+                      {
+                        "nameHash": 1,
+                        "typeHash": 4103182530,
+                        "nested": {
+                          "sourceLine": 81639,
+                          "records": [
+                            {
+                              "nameHash": 1,
+                              "typeHash": 2769121946,
+                              "nested": {
+                                "sourceLine": 78138,
+                                "records": [
+                                  {
+                                    "nameHash": 1,
+                                    "typeHash": 3613234082,
+                                    "nested": {
+                                      "sourceLine": 78028,
+                                      "records": [
+                                        {
+                                          "nameHash": 430981792,
+                                          "typeHash": 602296504,
+                                          "memberOffset": 0
+                                        },
+                                        {
+                                          "nameHash": 2363267224,
+                                          "typeHash": 3186653541,
+                                          "memberOffset": 4
+                                        }
+                                      ],
+                                      "zeroSentinel": true
+                                    }
+                                  }
+                                ],
+                                "zeroSentinel": true
+                              }
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      },
+                      {
+                        "nameHash": 968647375,
+                        "typeHash": 1683514611,
+                        "memberOffset": 8
+                      },
+                      {
+                        "nameHash": 1911847171,
+                        "typeHash": 1683514611,
+                        "memberOffset": 12
+                      },
+                      {
+                        "nameHash": 206566497,
+                        "typeHash": 1683514611,
+                        "memberOffset": 16
+                      },
+                      {
+                        "nameHash": 3551989382,
+                        "typeHash": 1683514611,
+                        "memberOffset": 20
+                      },
+                      {
+                        "nameHash": 2277040911,
+                        "typeHash": 1683514611,
+                        "memberOffset": 24
+                      },
+                      {
+                        "nameHash": 1684031329,
+                        "typeHash": 2575722984,
+                        "memberOffset": 28
+                      },
+                      {
+                        "nameHash": 2103367945,
+                        "typeHash": 2575722984,
+                        "memberOffset": 32
+                      },
+                      {
+                        "nameHash": 547533617,
+                        "typeHash": 2153588212,
+                        "memberOffset": 36
+                      },
+                      {
+                        "nameHash": 2138264650,
+                        "typeHash": 219975299,
+                        "memberOffset": 44
+                      },
+                      {
+                        "nameHash": 453070279,
+                        "typeHash": 165531635,
+                        "memberOffset": 48
+                      },
+                      {
+                        "nameHash": 1801443129,
+                        "typeHash": 165531635,
+                        "memberOffset": 52
+                      },
+                      {
+                        "nameHash": 4013011182,
+                        "typeHash": 1683514611,
+                        "memberOffset": 56
+                      },
+                      {
+                        "nameHash": 1709780650,
+                        "typeHash": 2011428087,
+                        "memberOffset": 72
+                      },
+                      {
+                        "nameHash": 2230346729,
+                        "typeHash": 2011428087,
+                        "memberOffset": 73
+                      },
+                      {
+                        "nameHash": 2250948084,
+                        "typeHash": 219975299,
+                        "memberOffset": 60
+                      },
+                      {
+                        "nameHash": 901614625,
+                        "typeHash": 1964320689,
+                        "memberOffset": 64,
+                        "mode": "list",
+                        "nested": {
+                          "sourceLine": 81652,
+                          "records": [
+                            {
+                              "nameHash": 3527446079,
+                              "typeHash": 1683514611,
+                              "memberOffset": 0
+                            },
+                            {
+                              "nameHash": 1155846608,
+                              "typeHash": 1683514611,
+                              "memberOffset": 4
+                            },
+                            {
+                              "nameHash": 3319822471,
+                              "typeHash": 165531635,
+                              "memberOffset": 8
+                            }
+                          ],
+                          "zeroSentinel": true
+                        }
+                      }
+                    ],
+                    "zeroSentinel": true
+                  }
+                }
+              ],
+              "zeroSentinel": true
+            }
+          }
+        ],
+        "zeroSentinel": true
+      }
+    }
   ]
 }

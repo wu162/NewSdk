@@ -27,9 +27,11 @@ struct AIEnum {const EnumNameValue* names;unsigned count;int unknown;unsigned bi
 struct AIField {const char* name;unsigned offset;AIValue kind;const char* fallback;const AIEnum* values;};
 struct AILayout {unsigned size;const AIField* fields;unsigned count;const LeafToken* tokens;unsigned tokenCount;};
 struct ModuleLayout;
-struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;};
+struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode;};
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
-struct ModuleChoice {U32 type;const ModuleLayout* tokens;};
+struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
+enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum};
+struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
 struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
@@ -145,10 +147,61 @@ const ModuleChoice* FindModule(U32 type) {
     for(const auto& choice:moduleChoices) if(choice.type==type) return &choice;
     return nullptr;
 }
+template<std::size_t N>
+void MarshalModuleFields(const GameObjectChild& input,unsigned char* output,const ModuleField (&fields)[N],Relo::Tracker& data) {
+    for(const auto& f:fields) {
+        auto found=input.attributes.find(f.name);if(found==input.attributes.end() && !f.fallback) continue;
+        std::string value=found==input.attributes.end()?f.fallback:found->second;auto at=output+f.offset;float number=0;U32 word=0;
+        switch(f.kind) {
+        case ModuleValue::Float:case ModuleValue::Percent:
+            number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
+        case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
+        case ModuleValue::Boolean:*at=ParseBoolean(value)?1:0;break;
+        case ModuleValue::String:MarshalString(data,at,value);break;
+        case ModuleValue::Reference:MarshalReference(data,at,value);break;
+        case ModuleValue::NullableReference:
+            {auto reference=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,reference,value);data.Pop();}break;
+        case ModuleValue::Enum:
+            word=static_cast<U32>(f.values->unknown);
+            for(unsigned j=0;j<f.values->count;++j) if(value==f.values->names[j].name) {word=static_cast<U32>(f.values->names[j].value);break;}
+            std::memcpy(at,&word,4);break;
+        }
+    }
+}
+void MarshalBody(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    if(kind==2) MarshalModuleFields(input,output,ShieldBodyModuleDataModuleFields,data);
+    MarshalModuleFields(input,output,ActiveBodyModuleDataModuleFields,data);
+    auto list=reinterpret_cast<NativeList*>(output+64);list->count=static_cast<U32>(input.children.size());
+    if(list->count) {
+        auto entries=static_cast<unsigned char*>(data.Push(&list->data,12,list->count));
+        for(U32 i=0;i<list->count;++i) MarshalModuleFields(input.children[i],entries+12*i,ActiveBodyDamageRangeModifierModuleFields,data);
+        data.Pop();
+    }
+}
+template<std::size_t N>
+void EndianModuleFields(unsigned char* output,const ModuleField (&fields)[N]) {
+    for(const auto& f:fields) if(f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(output+f.offset);
+}
+void EndianModule(U32* input) {
+    auto choice=FindModule(input[0]);
+    if(choice && choice->kind) {
+        auto bytes=reinterpret_cast<unsigned char*>(input);
+        if(choice->kind==2) EndianModuleFields(bytes,ShieldBodyModuleDataModuleFields);
+        EndianModuleFields(bytes,ActiveBodyModuleDataModuleFields);
+        auto list=reinterpret_cast<NativeList*>(bytes+64);
+        for(U32 i=0;i<list->count;++i) {auto at=static_cast<unsigned char*>(list->data)+12*i;Swap(at);Swap(at+4);}
+        Swap(&list->count);
+    }
+    Swap(input);Swap(input+1);
+}
+
 void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data) {
     auto found=input.attributes.find("TypeId");U32 type=found==input.attributes.end()?0:ParseUnsigned(found->second);
     if(!FindModule(type)) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
-    auto target=static_cast<U32*>(data.Push(slot,8,1));target[0]=FindModule(type)?type:0;
+    auto choice=FindModule(type);
+    auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    target[0]=choice?type:0;
     auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
     data.Pop();
 }
@@ -156,7 +209,15 @@ void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo:
     auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
     for(unsigned i=0;i<layout.count;++i) {
         const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
-        if(t.nested) TokenizeModuleTable(input,*t.nested,&table[i].offset,procedures);
+        if(t.mode==1) {
+            auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
+            for(U32 j=0;j<list->count;++j) {count[j+1].name=2974916843u;TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+12*j),*t.nested,&count[j+1].offset,procedures);}
+            procedures.Pop();
+        } else if(t.mode==2) {
+            auto pointee=*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) procedures.BookmarkMemberOffset(pointee,&table[i].offset);
+        } else if(t.nested) TokenizeModuleTable(input,*t.nested,&table[i].offset,procedures);
         else procedures.BookmarkMemberOffset(reinterpret_cast<unsigned char*>(input)+t.offset,&table[i].offset);
     }
     procedures.Pop();
@@ -209,6 +270,15 @@ bool GameObjectAIAttributeSupported(const std::string& name,const std::string& a
     if(index==1 && attribute=="id") return true;
     const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
     return false;
+}
+bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
+    auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    for(const auto& f:ActiveBodyModuleDataModuleFields) if(attribute==f.name) return true;
+    if(choice->kind==2) for(const auto& f:ShieldBodyModuleDataModuleFields) if(attribute==f.name) return true;
+    return false;
+}
+bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string& name) {
+    auto choice=FindModule(ParseUnsigned(typeId));return choice && choice->kind && name=="DamageRangeModifier";
 }
 bool GameObjectModuleChildSupported(const std::string& parent,const std::string& child) {
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
@@ -839,10 +909,10 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     }
     if(bigEndian) {
         EndianAI(skirmishAI,0);
-        if(bodyModule) {Swap(bodyModule);Swap(bodyModule+1);}
+        if(bodyModule) EndianModule(bodyModule);
         for(const auto& entry:moduleLists) {
             auto list=entry.second;
-            for(U32 j=0;j<list->count;++j) {auto module=static_cast<U32**>(list->data)[j];Swap(module);Swap(module+1);}
+            for(U32 j=0;j<list->count;++j) {auto module=static_cast<U32**>(list->data)[j];EndianModule(module);}
             if(entry.first!=472) Swap(&list->count);
         }
         if(voiceLists) for(unsigned group=0;group<3;++group) {

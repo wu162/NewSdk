@@ -2,6 +2,14 @@
 
 更新：2026-10-23。仓库`wu162/NewSdk`，分支`recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md和本文件；历史STATUS.md不是当前计划，不全量加载大型反编译或source-inventory。
 
+## 当前实现检查点（2026-10-23，验证中）
+
+本轮从13:48:08Z开始有效工作；前轮约40分钟提前收尾，用户已指出未遵守45分钟约定，本轮继续按约45分钟推进，不因一个组提前完成结束。
+
+完整Body组代码/测试已准备：除已有InactiveBody/PropBody外，七个剩余类型及ActiveBody全部字段、Shield全部字段、DamageRangeModifier列表、可空ShieldArmor、各自原始Token继承树。当前支持31公共类型+7 Body类型，其余284个已知类型显式拒绝。**待本实现提交Windows完整矩阵，尚不声明新Body组通过。** SDK未运行，原路由保留。
+
+下面的已验证锚点仍是前序公共组；本轮最终结果出来后统一重写当前入口。
+
 ## 持续规则
 
 - 目标完整恢复XmlCompiler/Tokenizer的C#和C++/CLI；两份完整替代DLL尚未完成。

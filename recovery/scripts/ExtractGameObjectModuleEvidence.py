@@ -97,7 +97,14 @@ def token_graph(signature, seen=()):
         bookmark=re.search(r'BookmarkMemberOffset\(state, (?:\(byte\*\))?@object(?: \+ (\d+))?,',part)
         if bookmark:
             row['memberOffset']=int(bookmark[1] or 0)
-            assert row['memberOffset'] in (0,4),(signature,row)
+            assert 0<=row['memberOffset']<=104,(signature,row)
+        elif 'ActiveBodyDamageRangeModifier_003E' in part:
+            assert '(byte*)@object + 64)' in part
+            row['memberOffset']=64;row['mode']='list'
+            row['nested']=token_graph('internal unsafe static void Tokenizer_002ETokenize(void** table, ActiveBodyDamageRangeModifier* @object, Tracker* state)',seen+(signature,))
+        elif 'byte* num = (byte*)@object + 96;' in part:
+            assert 'BookmarkMemberOffset(state, (void*)(int)num2, ptr2)' in part
+            row['memberOffset']=96;row['mode']='nullable-member'
         else:
             calls=re.findall(r'Tokenizer_002ETokenize\([^;]+?\((\w+Data)\*\)',part)
             assert len(calls)==1,(signature,part)
@@ -120,10 +127,22 @@ for key,row in marshal.items():
     base_only.append({'typeId':int(key),'name':row['name'],'marshalLine':row['helperLine'],
                       'tokenGraph':token_graph(token[key]['helperSignature'])})
 assert len(base_only)==31
+def assert_base_graph(graph):
+    if 'forwardTo' in graph: return assert_base_graph(graph['forwardTo'])
+    for row in graph['records']:
+        assert row.get('memberOffset',0) in (0,4) and 'mode' not in row
+        if 'nested' in row: assert_base_graph(row['nested'])
+for row in base_only: assert_base_graph(row['tokenGraph'])
+body_candidates=[]
+for name in ['ActiveBodyModuleData','ShieldBodyModuleData','ImmortalBodyModuleData','HighlanderBodyModuleData','ManagerBodyModuleData','ManagedActiveBodyModuleData','ManagedImmortalBodyModuleData']:
+    key,row=next((k,v) for k,v in marshal.items() if v['name']==name)
+    assert row['nativeSize']==(108 if name=='ShieldBodyModuleData' else 76)
+    body_candidates.append({'typeId':int(key),'name':name,'nativeSize':row['nativeSize'],'marshalLine':row['helperLine'],'tokenGraph':token_graph(token[key]['helperSignature'])})
+
 
 report={'status':'source inventory only; not implemented or DLL validated', 'sourceBlob':SOURCE_BLOB,
         'dispatchCounts':{'marshalExplicit':322,'endianExplicit':322,'tokenExplicit':380,'tokenOnly':58},
-        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only}
+        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only,'bodyCandidates':body_candidates}
 output=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
 path=ROOT/'recovery/evidence/gameobject-modules/source-inventory.json'
 if '--check' in sys.argv:

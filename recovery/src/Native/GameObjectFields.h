@@ -1872,6 +1872,466 @@ const EnumNameValue aiKindOfTypeNames[] = {
     { "WORLDBUILDER_SNAP_TO_GRID", 156 },
 };
 const AIEnum aiKindOfType = { aiKindOfTypeNames, 284u, 149, 284u };
+const EnumNameValue aiModelConditionFlagTypeNames[] = {
+    { "ABOUT_TO_HIT", 233 },
+    { "ACCELERATE", 236 },
+    { "ACTIVELY_BEING_CONSTRUCTED", 169 },
+    { "ACTIVELY_CONSTRUCTING", 171 },
+    { "AFFECTED_BY_EMP", 380 },
+    { "AFLAME", 175 },
+    { "AIM_FAR", 282 },
+    { "AIM_HIGH", 278 },
+    { "AIM_LOW", 280 },
+    { "AIM_NEAR", 281 },
+    { "AIM_STRAIGHT", 279 },
+    { "AIR_POWER_EFFECT", 425 },
+    { "ALL", 454 },
+    { "ALTERNATE_FORMATION", 323 },
+    { "ARMORSET_ALTERNATE_FORMATION", 345 },
+    { "ARMORSET_ELITE", 342 },
+    { "ARMORSET_HERO", 343 },
+    { "ARMORSET_MOUNTED", 346 },
+    { "ARMORSET_PLAYER_UPGRADE", 347 },
+    { "ARMORSET_PLAYER_UPGRADE_2", 348 },
+    { "ARMORSET_PLAYER_UPGRADE_3", 349 },
+    { "ARMORSET_UNBESIEGEABLE", 350 },
+    { "ARMORSET_VETERAN", 341 },
+    { "ARMORSET_WEAK_VERSUS_BASEDEFENSES", 344 },
+    { "ATTACHED", 261 },
+    { "ATTACKING", 64 },
+    { "ATTACKING_POSITION", 66 },
+    { "ATTACKING_STRUCTURE", 65 },
+    { "ATTACK_MOVING", 153 },
+    { "AWAITING_CONSTRUCTION", 167 },
+    { "BACKCRUSHED", 2 },
+    { "BACKING_UP", 157 },
+    { "BASE_BUILD", 267 },
+    { "BEING_MAULED", 427 },
+    { "BETWEEN_FIRING_SHOTS_A", 93 },
+    { "BETWEEN_FIRING_SHOTS_B", 94 },
+    { "BETWEEN_FIRING_SHOTS_C", 95 },
+    { "BETWEEN_FIRING_SHOTS_D", 96 },
+    { "BETWEEN_FIRING_SHOTS_E", 97 },
+    { "BUILD_PLACEMENT_CURSOR", 211 },
+    { "BUILD_PLACEMENT_HINT", 443 },
+    { "BUILD_VARIATION_ONE", 377 },
+    { "BUILD_VARIATION_TWO", 378 },
+    { "BURNED", 177 },
+    { "BURNINGDEATH", 180 },
+    { "BURNT_MODEL", 178 },
+    { "BURNT_TEXTURE", 179 },
+    { "CANCEL_CAPTURE", 217 },
+    { "CAPTURED", 219 },
+    { "CAPTURE_0", 328 },
+    { "CAPTURE_100", 324 },
+    { "CAPTURE_25", 327 },
+    { "CAPTURE_50", 326 },
+    { "CAPTURE_75", 325 },
+    { "CAPTURING", 218 },
+    { "CARRYING", 192 },
+    { "CHARGING", 149 },
+    { "CHRONORIFT", 430 },
+    { "CLIMBING", 158 },
+    { "COLLAPSING", 10 },
+    { "COMBINED_CHILD", 420 },
+    { "COMBINED_PARENT", 419 },
+    { "COMING_OUT_OF_FACTORY", 152 },
+    { "CONTINUOUS_FIRE_FAST", 223 },
+    { "CONTINUOUS_FIRE_MEAN", 222 },
+    { "CONTINUOUS_FIRE_SLOW", 221 },
+    { "COVER", 334 },
+    { "DAMAGED", 3 },
+    { "DEATH_1", 251 },
+    { "DEATH_10", 448 },
+    { "DEATH_11", 449 },
+    { "DEATH_12", 450 },
+    { "DEATH_13", 451 },
+    { "DEATH_14", 452 },
+    { "DEATH_15", 453 },
+    { "DEATH_2", 252 },
+    { "DEATH_3", 253 },
+    { "DEATH_4", 254 },
+    { "DEATH_5", 255 },
+    { "DEATH_6", 444 },
+    { "DEATH_7", 445 },
+    { "DEATH_8", 446 },
+    { "DEATH_9", 447 },
+    { "DEBUG", 215 },
+    { "DECAY", 8 },
+    { "DECELERATE", 237 },
+    { "DEFLECT_SPECIAL_POWER", 311 },
+    { "DEPLOYED", 265 },
+    { "DESTROYED_BACK", 244 },
+    { "DESTROYED_FRONT", 242 },
+    { "DESTROYED_LEFT", 245 },
+    { "DESTROYED_RIGHT", 243 },
+    { "DESTROYED_WEAPON", 62 },
+    { "DESTROYED_WHILST_BEING_CONSTRUCTED", 9 },
+    { "DISGUISED", 329 },
+    { "DIVING", 154 },
+    { "DOCKING", 181 },
+    { "DOCKING_ACTIVE", 183 },
+    { "DOCKING_BEGINNING", 182 },
+    { "DOCKING_ENDING", 188 },
+    { "DOCKING_EXTRACT", 187 },
+    { "DOCKING_FILL", 186 },
+    { "DOCKING_MOVEBACK", 185 },
+    { "DOCKING_PRE_DOCK", 189 },
+    { "DOCKING_RETURN", 184 },
+    { "DOOR_1_CLOSING", 104 },
+    { "DOOR_1_OPENING", 103 },
+    { "DOOR_1_WAITING_OPEN", 105 },
+    { "DOOR_1_WAITING_TO_CLOSE", 106 },
+    { "DOOR_2_CLOSING", 108 },
+    { "DOOR_2_OPENING", 107 },
+    { "DOOR_2_WAITING_OPEN", 109 },
+    { "DOOR_2_WAITING_TO_CLOSE", 110 },
+    { "DOOR_3_CLOSING", 112 },
+    { "DOOR_3_OPENING", 111 },
+    { "DOOR_3_WAITING_OPEN", 113 },
+    { "DOOR_3_WAITING_TO_CLOSE", 114 },
+    { "DOOR_4_CLOSING", 116 },
+    { "DOOR_4_OPENING", 115 },
+    { "DOOR_4_WAITING_OPEN", 117 },
+    { "DOOR_4_WAITING_TO_CLOSE", 118 },
+    { "DOOR_HELIPAD_CLOSING", 120 },
+    { "DOOR_HELIPAD_OPENING", 119 },
+    { "DOOR_HELIPAD_WAITING_OPEN", 121 },
+    { "DOOR_HELIPAD_WAITING_TO_CLOSE", 122 },
+    { "DRAFTED", 262 },
+    { "DYING", 144 },
+    { "DYING_WASATTACKING", 146 },
+    { "DYING_WASMOVING", 145 },
+    { "EATING", 227 },
+    { "EMOTION_AFRAID", 367 },
+    { "EMOTION_ALERT", 366 },
+    { "EMOTION_AMUSED", 358 },
+    { "EMOTION_BRACE_FOR_BEING_CRUSHED", 364 },
+    { "EMOTION_CELEBRATING", 357 },
+    { "EMOTION_CHEER_FOR_ABOUT_TO_CRUSH", 365 },
+    { "EMOTION_COWER", 361 },
+    { "EMOTION_DISSIDENT", 362 },
+    { "EMOTION_DOOM", 353 },
+    { "EMOTION_GUNG_HO", 355 },
+    { "EMOTION_LOOK_TO_SKY", 356 },
+    { "EMOTION_MORALE_HIGH", 359 },
+    { "EMOTION_MORALE_LOW", 360 },
+    { "EMOTION_PANIC", 369 },
+    { "EMOTION_POINTING", 354 },
+    { "EMOTION_TAUNTING", 352 },
+    { "EMOTION_TERROR", 368 },
+    { "EMOTION_UNCONTROLLABLY_AFRAID", 363 },
+    { "ENGAGED", 67 },
+    { "EXPLODED_BOUNCING", 235 },
+    { "EXPLODED_FLAILING", 234 },
+    { "FIRING_A", 78 },
+    { "FIRING_B", 79 },
+    { "FIRING_C", 80 },
+    { "FIRING_D", 81 },
+    { "FIRING_E", 82 },
+    { "FIRING_OR_PREATTACK_A", 73 },
+    { "FIRING_OR_PREATTACK_B", 74 },
+    { "FIRING_OR_PREATTACK_C", 75 },
+    { "FIRING_OR_PREATTACK_D", 76 },
+    { "FIRING_OR_PREATTACK_E", 77 },
+    { "FIRING_OR_RELOADING_A", 83 },
+    { "FIRING_OR_RELOADING_B", 84 },
+    { "FIRING_OR_RELOADING_C", 85 },
+    { "FIRING_OR_RELOADING_D", 86 },
+    { "FIRING_OR_RELOADING_E", 87 },
+    { "FLOODED", 263 },
+    { "FLYING", 164 },
+    { "FORMATION_PREVIEW", 213 },
+    { "FREEFALL", 16 },
+    { "FRONTCRUSHED", 1 },
+    { "FROZEN", 428 },
+    { "GARRISONED", 20 },
+    { "GUARDING", 257 },
+    { "HARVEST_ACTION", 191 },
+    { "HARVEST_PREPARATION", 190 },
+    { "HEALTH_PERCENT_0", 414 },
+    { "HEALTH_PERCENT_100", 418 },
+    { "HEALTH_PERCENT_25", 415 },
+    { "HEALTH_PERCENT_50", 416 },
+    { "HEALTH_PERCENT_75", 417 },
+    { "HIDDEN", 330 },
+    { "HIGH_TECH_EFFECT", 424 },
+    { "HIT_LEVEL_1", 275 },
+    { "HIT_LEVEL_2", 276 },
+    { "HIT_LEVEL_3", 277 },
+    { "HIT_REACTION", 274 },
+    { "HORDE_EMPTY", 321 },
+    { "IMPENDING_DOOM", 226 },
+    { "INFILTRATED_DISABLE", 431 },
+    { "INFILTRATED_ENERGY", 435 },
+    { "INFILTRATED_RADAR_FREEZE", 432 },
+    { "INFILTRATED_RESET", 436 },
+    { "INFILTRATED_STEAL_MONEY", 433 },
+    { "INFILTRATED_VISION", 434 },
+    { "INFILTRATED_VISION_UNITS", 437 },
+    { "INSIDE_GARRISON", 21 },
+    { "INVALID", -1 },
+    { "INVISIBLE_CAMOUFLAGE", 332 },
+    { "INVISIBLE_STEALTH", 331 },
+    { "INVULNERABLE", 370 },
+    { "IRONCURTAIN", 429 },
+    { "JETAFTERBURNER", 197 },
+    { "JETEXHAUST", 198 },
+    { "JUST_BUILT", 266 },
+    { "LANDING", 166 },
+    { "LAUNCHED", 19 },
+    { "LEASHED_RETURNING", 373 },
+    { "LEVELED", 258 },
+    { "LOADED", 264 },
+    { "LOCOMOTOR_BURNINGDEATH", 405 },
+    { "LOCOMOTOR_CHANGING_FIRINGARC", 404 },
+    { "LOCOMOTOR_COMBO", 400 },
+    { "LOCOMOTOR_COMBO2", 401 },
+    { "LOCOMOTOR_COMBO3", 402 },
+    { "LOCOMOTOR_CONTAINED", 399 },
+    { "LOCOMOTOR_ENRAGED", 397 },
+    { "LOCOMOTOR_FREEFALL", 391 },
+    { "LOCOMOTOR_MOUNTED", 396 },
+    { "LOCOMOTOR_NORMAL_UPGRADED", 390 },
+    { "LOCOMOTOR_PANIC", 393 },
+    { "LOCOMOTOR_SCARED", 398 },
+    { "LOCOMOTOR_SUPERSONIC", 395 },
+    { "LOCOMOTOR_TAXIING", 394 },
+    { "LOCOMOTOR_WALL_SCALING", 403 },
+    { "LOCOMOTOR_WANDER", 392 },
+    { "MARCHING", 156 },
+    { "MARKED_FOR_HUNT_TACTIC", 388 },
+    { "MARKED_FOR_NO_SKIRMISH_RECRUIT", 389 },
+    { "MONEY_STORED_AMOUNT_1", 407 },
+    { "MONEY_STORED_AMOUNT_2", 408 },
+    { "MONEY_STORED_AMOUNT_3", 409 },
+    { "MONEY_STORED_AMOUNT_4", 410 },
+    { "MOUNTED", 259 },
+    { "MOVING", 143 },
+    { "MOVING_OUT_OF_THE_WAY", 150 },
+    { "NIGHT", 14 },
+    { "OVER_WATER", 208 },
+    { "PACKING", 199 },
+    { "PACKING_TYPE_1", 202 },
+    { "PACKING_TYPE_2", 203 },
+    { "PACKING_TYPE_3", 204 },
+    { "PACKING_TYPE_4", 205 },
+    { "PACKING_TYPE_5", 206 },
+    { "PACKING_TYPE_6", 207 },
+    { "PANICKING", 174 },
+    { "PARACHUTE_LAND", 18 },
+    { "PARACHUTING", 17 },
+    { "PARALYZED", 379 },
+    { "PARKINGPLACE_1_DOOR_CLOSED", 126 },
+    { "PARKINGPLACE_1_DOOR_CLOSING", 125 },
+    { "PARKINGPLACE_1_DOOR_OPEN", 124 },
+    { "PARKINGPLACE_1_DOOR_OPENING", 123 },
+    { "PARKINGPLACE_2_DOOR_CLOSED", 130 },
+    { "PARKINGPLACE_2_DOOR_CLOSING", 129 },
+    { "PARKINGPLACE_2_DOOR_OPEN", 128 },
+    { "PARKINGPLACE_2_DOOR_OPENING", 127 },
+    { "PARKINGPLACE_3_DOOR_CLOSED", 134 },
+    { "PARKINGPLACE_3_DOOR_CLOSING", 133 },
+    { "PARKINGPLACE_3_DOOR_OPEN", 132 },
+    { "PARKINGPLACE_3_DOOR_OPENING", 131 },
+    { "PARKINGPLACE_4_DOOR_CLOSED", 138 },
+    { "PARKINGPLACE_4_DOOR_CLOSING", 137 },
+    { "PARKINGPLACE_4_DOOR_OPEN", 136 },
+    { "PARKINGPLACE_4_DOOR_OPENING", 135 },
+    { "PARKINGPLACE_HELIPAD_DOOR_CLOSED", 142 },
+    { "PARKINGPLACE_HELIPAD_DOOR_CLOSING", 141 },
+    { "PARKINGPLACE_HELIPAD_DOOR_OPEN", 140 },
+    { "PARKINGPLACE_HELIPAD_DOOR_OPENING", 139 },
+    { "PARTIALLY_CONSTRUCTED", 168 },
+    { "PASSENGER", 193 },
+    { "PASSENGER_VARIATION_1", 293 },
+    { "PASSENGER_VARIATION_2", 294 },
+    { "PASSENGER_VARIATION_3", 295 },
+    { "PASSENGER_VARIATION_4", 296 },
+    { "PASSENGER_VARIATION_5", 297 },
+    { "PHANTOM_STRUCTURE", 212 },
+    { "PLAYER_POWER_1", 426 },
+    { "POST_COLLAPSE", 7 },
+    { "POST_RUBBLE", 6 },
+    { "POWER_PLANT_UPGRADED", 209 },
+    { "POWER_PLANT_UPGRADING", 210 },
+    { "PREATTACK_A", 68 },
+    { "PREATTACK_B", 69 },
+    { "PREATTACK_C", 70 },
+    { "PREATTACK_D", 71 },
+    { "PREATTACK_E", 72 },
+    { "PREORDER", 224 },
+    { "PREPARING", 200 },
+    { "PRIMARY_FORMATION", 322 },
+    { "PRONE", 333 },
+    { "RADAR_EXTENDING", 172 },
+    { "RADAR_UPGRADED", 173 },
+    { "RAISING_FLAG", 220 },
+    { "RAPPELLING", 159 },
+    { "REACT_1", 268 },
+    { "REACT_2", 269 },
+    { "REACT_3", 270 },
+    { "REACT_4", 271 },
+    { "REACT_5", 272 },
+    { "REACT_6", 273 },
+    { "REALLYDAMAGED", 4 },
+    { "RELOADING_A", 88 },
+    { "RELOADING_B", 89 },
+    { "RELOADING_C", 90 },
+    { "RELOADING_D", 91 },
+    { "RELOADING_E", 92 },
+    { "REPAIRING_DISABLED", 421 },
+    { "RESURRECTED", 260 },
+    { "RIDER1", 312 },
+    { "RIDER2", 313 },
+    { "RIDER3", 314 },
+    { "RIDER4", 315 },
+    { "RIDER5", 316 },
+    { "RIDER6", 317 },
+    { "RIDER7", 318 },
+    { "RIDER8", 319 },
+    { "RIDERLESS", 320 },
+    { "RUBBLE", 5 },
+    { "RUNNING_OFF_MAP", 151 },
+    { "SAIL_BLOWN_LEFT", 376 },
+    { "SAIL_BLOWN_RIGHT", 375 },
+    { "SAIL_FLAPPING", 374 },
+    { "SCALING_WALL", 162 },
+    { "SCALING_WALL_HORDE", 163 },
+    { "SELECTED", 256 },
+    { "SHRINK_EFFECT", 423 },
+    { "SIEGE_CONTAIN", 196 },
+    { "SMOLDERING", 176 },
+    { "SNOW", 15 },
+    { "SOLD", 11 },
+    { "SPECIALPOWER1_READY", 301 },
+    { "SPECIALPOWER2_READY", 302 },
+    { "SPECIALPOWER3_READY", 303 },
+    { "SPECIALPOWER4_READY", 304 },
+    { "SPECIALPOWER5_READY", 305 },
+    { "SPECIALPOWER6_READY", 306 },
+    { "SPECIALPOWER7_READY", 307 },
+    { "SPECIALPOWER8_READY", 308 },
+    { "SPECIALPOWER9_READY", 309 },
+    { "SPECIAL_CHEERING", 225 },
+    { "SPECIAL_DAMAGED", 13 },
+    { "SPECIAL_ENEMY_NEAR", 371 },
+    { "SPECIAL_POWER_1", 298 },
+    { "SPECIAL_POWER_2", 299 },
+    { "SPECIAL_POWER_3", 300 },
+    { "SPECIAL_WEAPON_FIVE", 60 },
+    { "SPECIAL_WEAPON_FOUR", 59 },
+    { "SPECIAL_WEAPON_ONE", 56 },
+    { "SPECIAL_WEAPON_SIX", 61 },
+    { "SPECIAL_WEAPON_THREE", 58 },
+    { "SPECIAL_WEAPON_TWO", 57 },
+    { "SPLATTED", 231 },
+    { "START_CAPTURE", 216 },
+    { "STRUCTURE_UNPACKING", 12 },
+    { "STUNNED", 229 },
+    { "STUNNED_FLAILING", 228 },
+    { "STUNNED_STANDING_UP", 230 },
+    { "SUCKED_UP_HIGH", 455 },
+    { "SUPPRESSED", 335 },
+    { "SWAPPING_TO_WEAPONSET_1", 43 },
+    { "SWAPPING_TO_WEAPONSET_2", 44 },
+    { "SWAPPING_TO_WEAPONSET_3", 45 },
+    { "SWIMMING", 161 },
+    { "SWOOPING", 155 },
+    { "TAKING_OFF", 165 },
+    { "THROWN_PROJECTILE", 232 },
+    { "TIBERIUM_CRYSTAL_TYPE1", 382 },
+    { "TIBERIUM_CRYSTAL_TYPE2", 383 },
+    { "TIBERIUM_CRYSTAL_TYPE3", 384 },
+    { "TIBERIUM_CRYSTAL_TYPE4", 385 },
+    { "TIBERIUM_CRYSTAL_TYPE5", 386 },
+    { "TIBERIUM_GROWING", 387 },
+    { "TOPPLED", 0 },
+    { "TRANSPORT_MOVING", 194 },
+    { "TRANSPORT_STOPPED", 195 },
+    { "TURN_LEFT", 238 },
+    { "TURN_LEFT_HIGH_SPEED", 240 },
+    { "TURN_RIGHT", 239 },
+    { "TURN_RIGHT_HIGH_SPEED", 241 },
+    { "TURRET_ANGLE_0", 336 },
+    { "TURRET_ANGLE_180", 338 },
+    { "TURRET_ANGLE_270", 339 },
+    { "TURRET_ANGLE_90", 337 },
+    { "TURRET_ROTATE", 340 },
+    { "UNCONTROLLABLE", 372 },
+    { "UNDERPOWERED", 381 },
+    { "UNIT_ACTIVELY_BEING_CONSTRUCTED", 170 },
+    { "UNPACKING", 201 },
+    { "UPGRADED_ARMOR", 351 },
+    { "USER_1", 283 },
+    { "USER_10", 292 },
+    { "USER_2", 284 },
+    { "USER_3", 285 },
+    { "USER_4", 286 },
+    { "USER_5", 287 },
+    { "USER_6", 288 },
+    { "USER_7", 289 },
+    { "USER_8", 290 },
+    { "USER_9", 291 },
+    { "USING_COMBO_LOCOMOTOR", 406 },
+    { "USING_SPECIAL_ABILITY", 310 },
+    { "USING_WEAPON_A", 98 },
+    { "USING_WEAPON_B", 99 },
+    { "USING_WEAPON_C", 100 },
+    { "USING_WEAPON_D", 101 },
+    { "USING_WEAPON_E", 102 },
+    { "VEHICLE_CRUSH_CENTER", 413 },
+    { "VEHICLE_CRUSH_LEFT", 411 },
+    { "VEHICLE_CRUSH_RIGHT", 412 },
+    { "WADING", 160 },
+    { "WALKING", 148 },
+    { "WALL_SEGMENT", 422 },
+    { "WANDER", 147 },
+    { "WEAPONLOCK_PRIMARY", 246 },
+    { "WEAPONLOCK_QUATERNARY", 249 },
+    { "WEAPONLOCK_QUINARY", 250 },
+    { "WEAPONLOCK_SECONDARY", 247 },
+    { "WEAPONLOCK_TERTIARY", 248 },
+    { "WEAPONSET_CLOSE_RANGE", 33 },
+    { "WEAPONSET_CONTAINED", 41 },
+    { "WEAPONSET_CONTESTING_BUILDING", 34 },
+    { "WEAPONSET_ELITE", 23 },
+    { "WEAPONSET_GARRISONED", 32 },
+    { "WEAPONSET_HERO", 24 },
+    { "WEAPONSET_MOUNTED", 42 },
+    { "WEAPONSET_PASSENGER_TYPE_ONE", 25 },
+    { "WEAPONSET_PASSENGER_TYPE_TWO", 26 },
+    { "WEAPONSET_PLAYER_UPGRADE", 27 },
+    { "WEAPONSET_RIDER1", 35 },
+    { "WEAPONSET_RIDER2", 36 },
+    { "WEAPONSET_RIDER3", 37 },
+    { "WEAPONSET_RIDER4", 38 },
+    { "WEAPONSET_SPECIAL_ONE", 39 },
+    { "WEAPONSET_SPECIAL_TWO", 40 },
+    { "WEAPONSET_SPECIAL_UPGRADE", 31 },
+    { "WEAPONSET_TOGGLE_1", 28 },
+    { "WEAPONSET_TOGGLE_2", 29 },
+    { "WEAPONSET_TOGGLE_3", 30 },
+    { "WEAPONSET_VETERAN", 22 },
+    { "WEAPONSLOTID_01", 51 },
+    { "WEAPONSLOTID_02", 52 },
+    { "WEAPONSLOTID_03", 53 },
+    { "WEAPONSLOTID_04", 54 },
+    { "WEAPONSLOTID_05", 55 },
+    { "WEAPONSLOTID_06", 438 },
+    { "WEAPONSLOTID_07", 439 },
+    { "WEAPONSLOTID_08", 440 },
+    { "WEAPONSLOTID_09", 441 },
+    { "WEAPONSLOTID_10", 442 },
+    { "WEAPONSTATE_CLOSE_RANGE", 49 },
+    { "WEAPONSTATE_CONTAINED", 50 },
+    { "WEAPONSTATE_ONE", 46 },
+    { "WEAPONSTATE_THREE", 48 },
+    { "WEAPONSTATE_TWO", 47 },
+    { "WEAPON_TOGGLING", 63 },
+    { "WORLD_BUILDER", 214 },
+};
+const AIEnum aiModelConditionFlagType = { aiModelConditionFlagTypeNames, 457u, 233, 0u };
 const AIField SkirmishAIInformationAIFields[] = {
     { "BaseBuildingLocation", 0u, AIValue::Enum, "FRONT", &aiSkirmishAIBaseLocation },
     { "AdditionalRotation", 4u, AIValue::Angle, "0r", nullptr },
@@ -2029,525 +2489,877 @@ const AILayout aiLayouts[] = {
     { 28u, AISpecialPowerWeaponDataAIFields, 10u, AISpecialPowerWeaponDataAIProc, 10u },
 };
 
+const ModuleField ActiveBodyModuleDataModuleFields[] = {
+    { "MaxHealth", 8u, ModuleValue::Float, "0", nullptr },
+    { "MaxHealthDamagedPercentage", 12u, ModuleValue::Percent, "66.666666", nullptr },
+    { "MaxHealthReallyDamagedPercentage", 16u, ModuleValue::Percent, "33.333333", nullptr },
+    { "InitialHealth", 20u, ModuleValue::Float, "-1.0", nullptr },
+    { "DodgePercent", 24u, ModuleValue::Float, "0", nullptr },
+    { "EnteringDamagedTransitionTime", 28u, ModuleValue::Time, "0s", nullptr },
+    { "EnteringReallyDamagedTransitionTime", 32u, ModuleValue::Time, "0s", nullptr },
+    { "GrabObject", 36u, ModuleValue::String, nullptr, nullptr },
+    { "HealingBuffFX", 44u, ModuleValue::Reference, nullptr, nullptr },
+    { "DamagedAttributeModifier", 48u, ModuleValue::Reference, nullptr, nullptr },
+    { "ReallyDamagedAttributeModifier", 52u, ModuleValue::Reference, nullptr, nullptr },
+    { "CheerRadius", 56u, ModuleValue::Float, "200.0", nullptr },
+    { "RemoveUpgradesOnDeath", 72u, ModuleValue::Boolean, "false", nullptr },
+    { "BurningDeathBehavior", 73u, ModuleValue::Boolean, "false", nullptr },
+    { "BurningDeathFX", 60u, ModuleValue::Reference, nullptr, nullptr },
+};
+const ModuleField ShieldBodyModuleDataModuleFields[] = {
+    { "ShieldEnabledFX", 76u, ModuleValue::Reference, nullptr, nullptr },
+    { "ShieldDepleteFX", 80u, ModuleValue::Reference, nullptr, nullptr },
+    { "ShieldRechargeEndFX", 84u, ModuleValue::Reference, nullptr, nullptr },
+    { "ShieldTakeDamageFX", 88u, ModuleValue::Reference, nullptr, nullptr },
+    { "ShieldAmount", 92u, ModuleValue::Float, nullptr, nullptr },
+    { "ShieldArmor", 96u, ModuleValue::NullableReference, nullptr, nullptr },
+    { "ShieldRechargeIdleTime", 100u, ModuleValue::Time, "0s", nullptr },
+    { "ShieldActiveModelCondition", 104u, ModuleValue::Enum, "INVALID", &aiModelConditionFlagType },
+};
+const ModuleField ActiveBodyDamageRangeModifierModuleFields[] = {
+    { "Min", 0u, ModuleValue::Percent, nullptr, nullptr },
+    { "Max", 4u, ModuleValue::Percent, nullptr, nullptr },
+    { "AttributeModifier", 8u, ModuleValue::Reference, nullptr, nullptr },
+};
 const ModuleToken moduleTable0Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable0 = { moduleTable0Tokens, 2u };
 const ModuleToken moduleTable1Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable0 },
+    { 1u, 3613234082u, 0u, &moduleTable0, 0u },
 };
 const ModuleLayout moduleTable1 = { moduleTable1Tokens, 1u };
 const ModuleToken moduleTable2Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable1 },
+    { 1u, 2769121946u, 0u, &moduleTable1, 0u },
 };
 const ModuleLayout moduleTable2 = { moduleTable2Tokens, 1u };
 const ModuleToken moduleTable3Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable2 },
+    { 1u, 687874333u, 0u, &moduleTable2, 0u },
 };
 const ModuleLayout moduleTable3 = { moduleTable3Tokens, 1u };
 const ModuleToken moduleTable4Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable3 },
+    { 1u, 4043318533u, 0u, &moduleTable3, 0u },
 };
 const ModuleLayout moduleTable4 = { moduleTable4Tokens, 1u };
 const ModuleToken moduleTable5Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable5 = { moduleTable5Tokens, 2u };
 const ModuleToken moduleTable6Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable5 },
+    { 1u, 3613234082u, 0u, &moduleTable5, 0u },
 };
 const ModuleLayout moduleTable6 = { moduleTable6Tokens, 1u };
 const ModuleToken moduleTable7Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable6 },
+    { 1u, 2769121946u, 0u, &moduleTable6, 0u },
 };
 const ModuleLayout moduleTable7 = { moduleTable7Tokens, 1u };
 const ModuleToken moduleTable8Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable7 },
+    { 1u, 687874333u, 0u, &moduleTable7, 0u },
 };
 const ModuleLayout moduleTable8 = { moduleTable8Tokens, 1u };
 const ModuleToken moduleTable9Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable9 = { moduleTable9Tokens, 2u };
 const ModuleToken moduleTable10Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable9 },
+    { 1u, 3613234082u, 0u, &moduleTable9, 0u },
 };
 const ModuleLayout moduleTable10 = { moduleTable10Tokens, 1u };
 const ModuleToken moduleTable11Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable10 },
+    { 1u, 2769121946u, 0u, &moduleTable10, 0u },
 };
 const ModuleLayout moduleTable11 = { moduleTable11Tokens, 1u };
 const ModuleToken moduleTable12Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable12 = { moduleTable12Tokens, 2u };
 const ModuleToken moduleTable13Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable12 },
+    { 1u, 3613234082u, 0u, &moduleTable12, 0u },
 };
 const ModuleLayout moduleTable13 = { moduleTable13Tokens, 1u };
 const ModuleToken moduleTable14Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable14 = { moduleTable14Tokens, 2u };
 const ModuleToken moduleTable15Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable14 },
+    { 1u, 3613234082u, 0u, &moduleTable14, 0u },
 };
 const ModuleLayout moduleTable15 = { moduleTable15Tokens, 1u };
 const ModuleToken moduleTable16Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable15 },
+    { 1u, 2769121946u, 0u, &moduleTable15, 0u },
 };
 const ModuleLayout moduleTable16 = { moduleTable16Tokens, 1u };
 const ModuleToken moduleTable17Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable16 },
+    { 1u, 687874333u, 0u, &moduleTable16, 0u },
 };
 const ModuleLayout moduleTable17 = { moduleTable17Tokens, 1u };
 const ModuleToken moduleTable18Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable17 },
+    { 1u, 4043318533u, 0u, &moduleTable17, 0u },
 };
 const ModuleLayout moduleTable18 = { moduleTable18Tokens, 1u };
 const ModuleToken moduleTable19Tokens[] = {
-    { 1u, 701158544u, 0u, &moduleTable18 },
+    { 1u, 701158544u, 0u, &moduleTable18, 0u },
 };
 const ModuleLayout moduleTable19 = { moduleTable19Tokens, 1u };
 const ModuleToken moduleTable20Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable20 = { moduleTable20Tokens, 2u };
 const ModuleToken moduleTable21Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable20 },
+    { 1u, 3613234082u, 0u, &moduleTable20, 0u },
 };
 const ModuleLayout moduleTable21 = { moduleTable21Tokens, 1u };
 const ModuleToken moduleTable22Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable21 },
+    { 1u, 2769121946u, 0u, &moduleTable21, 0u },
 };
 const ModuleLayout moduleTable22 = { moduleTable22Tokens, 1u };
 const ModuleToken moduleTable23Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable23 = { moduleTable23Tokens, 2u };
 const ModuleToken moduleTable24Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable23 },
+    { 1u, 3613234082u, 0u, &moduleTable23, 0u },
 };
 const ModuleLayout moduleTable24 = { moduleTable24Tokens, 1u };
 const ModuleToken moduleTable25Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable24 },
+    { 1u, 2769121946u, 0u, &moduleTable24, 0u },
 };
 const ModuleLayout moduleTable25 = { moduleTable25Tokens, 1u };
 const ModuleToken moduleTable26Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable26 = { moduleTable26Tokens, 2u };
 const ModuleToken moduleTable27Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable26 },
+    { 1u, 3613234082u, 0u, &moduleTable26, 0u },
 };
 const ModuleLayout moduleTable27 = { moduleTable27Tokens, 1u };
 const ModuleToken moduleTable28Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable27 },
+    { 1u, 2769121946u, 0u, &moduleTable27, 0u },
 };
 const ModuleLayout moduleTable28 = { moduleTable28Tokens, 1u };
 const ModuleToken moduleTable29Tokens[] = {
-    { 1u, 4103182530u, 0u, &moduleTable28 },
+    { 1u, 4103182530u, 0u, &moduleTable28, 0u },
 };
 const ModuleLayout moduleTable29 = { moduleTable29Tokens, 1u };
 const ModuleToken moduleTable30Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable30 = { moduleTable30Tokens, 2u };
 const ModuleToken moduleTable31Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable30 },
+    { 1u, 3613234082u, 0u, &moduleTable30, 0u },
 };
 const ModuleLayout moduleTable31 = { moduleTable31Tokens, 1u };
 const ModuleToken moduleTable32Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable31 },
+    { 1u, 2769121946u, 0u, &moduleTable31, 0u },
 };
 const ModuleLayout moduleTable32 = { moduleTable32Tokens, 1u };
 const ModuleToken moduleTable33Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable33 = { moduleTable33Tokens, 2u };
 const ModuleToken moduleTable34Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable33 },
+    { 1u, 3613234082u, 0u, &moduleTable33, 0u },
 };
 const ModuleLayout moduleTable34 = { moduleTable34Tokens, 1u };
 const ModuleToken moduleTable35Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable34 },
+    { 1u, 2769121946u, 0u, &moduleTable34, 0u },
 };
 const ModuleLayout moduleTable35 = { moduleTable35Tokens, 1u };
 const ModuleToken moduleTable36Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable35 },
+    { 1u, 687874333u, 0u, &moduleTable35, 0u },
 };
 const ModuleLayout moduleTable36 = { moduleTable36Tokens, 1u };
 const ModuleToken moduleTable37Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable36 },
+    { 1u, 4043318533u, 0u, &moduleTable36, 0u },
 };
 const ModuleLayout moduleTable37 = { moduleTable37Tokens, 1u };
 const ModuleToken moduleTable38Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable38 = { moduleTable38Tokens, 2u };
 const ModuleToken moduleTable39Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable38 },
+    { 1u, 3613234082u, 0u, &moduleTable38, 0u },
 };
 const ModuleLayout moduleTable39 = { moduleTable39Tokens, 1u };
 const ModuleToken moduleTable40Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable39 },
+    { 1u, 2769121946u, 0u, &moduleTable39, 0u },
 };
 const ModuleLayout moduleTable40 = { moduleTable40Tokens, 1u };
 const ModuleToken moduleTable41Tokens[] = {
-    { 1u, 816016269u, 0u, &moduleTable40 },
+    { 1u, 816016269u, 0u, &moduleTable40, 0u },
 };
 const ModuleLayout moduleTable41 = { moduleTable41Tokens, 1u };
 const ModuleToken moduleTable42Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable42 = { moduleTable42Tokens, 2u };
 const ModuleToken moduleTable43Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable42 },
+    { 1u, 3613234082u, 0u, &moduleTable42, 0u },
 };
 const ModuleLayout moduleTable43 = { moduleTable43Tokens, 1u };
 const ModuleToken moduleTable44Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable43 },
+    { 1u, 2769121946u, 0u, &moduleTable43, 0u },
 };
 const ModuleLayout moduleTable44 = { moduleTable44Tokens, 1u };
 const ModuleToken moduleTable45Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable45 = { moduleTable45Tokens, 2u };
 const ModuleToken moduleTable46Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable45 },
+    { 1u, 3613234082u, 0u, &moduleTable45, 0u },
 };
 const ModuleLayout moduleTable46 = { moduleTable46Tokens, 1u };
 const ModuleToken moduleTable47Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable46 },
+    { 1u, 2769121946u, 0u, &moduleTable46, 0u },
 };
 const ModuleLayout moduleTable47 = { moduleTable47Tokens, 1u };
 const ModuleToken moduleTable48Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable48 = { moduleTable48Tokens, 2u };
 const ModuleToken moduleTable49Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable48 },
+    { 1u, 3613234082u, 0u, &moduleTable48, 0u },
 };
 const ModuleLayout moduleTable49 = { moduleTable49Tokens, 1u };
 const ModuleToken moduleTable50Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable49 },
+    { 1u, 2769121946u, 0u, &moduleTable49, 0u },
 };
 const ModuleLayout moduleTable50 = { moduleTable50Tokens, 1u };
 const ModuleToken moduleTable51Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable50 },
+    { 1u, 687874333u, 0u, &moduleTable50, 0u },
 };
 const ModuleLayout moduleTable51 = { moduleTable51Tokens, 1u };
 const ModuleToken moduleTable52Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable51 },
+    { 1u, 4043318533u, 0u, &moduleTable51, 0u },
 };
 const ModuleLayout moduleTable52 = { moduleTable52Tokens, 1u };
 const ModuleToken moduleTable53Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable53 = { moduleTable53Tokens, 2u };
 const ModuleToken moduleTable54Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable53 },
+    { 1u, 3613234082u, 0u, &moduleTable53, 0u },
 };
 const ModuleLayout moduleTable54 = { moduleTable54Tokens, 1u };
 const ModuleToken moduleTable55Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable54 },
+    { 1u, 2769121946u, 0u, &moduleTable54, 0u },
 };
 const ModuleLayout moduleTable55 = { moduleTable55Tokens, 1u };
 const ModuleToken moduleTable56Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable56 = { moduleTable56Tokens, 2u };
 const ModuleToken moduleTable57Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable56 },
+    { 1u, 3613234082u, 0u, &moduleTable56, 0u },
 };
 const ModuleLayout moduleTable57 = { moduleTable57Tokens, 1u };
 const ModuleToken moduleTable58Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable57 },
+    { 1u, 2769121946u, 0u, &moduleTable57, 0u },
 };
 const ModuleLayout moduleTable58 = { moduleTable58Tokens, 1u };
 const ModuleToken moduleTable59Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable59 = { moduleTable59Tokens, 2u };
 const ModuleToken moduleTable60Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable59 },
+    { 1u, 3613234082u, 0u, &moduleTable59, 0u },
 };
 const ModuleLayout moduleTable60 = { moduleTable60Tokens, 1u };
 const ModuleToken moduleTable61Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable60 },
+    { 1u, 2769121946u, 0u, &moduleTable60, 0u },
 };
 const ModuleLayout moduleTable61 = { moduleTable61Tokens, 1u };
 const ModuleToken moduleTable62Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable61 },
+    { 1u, 687874333u, 0u, &moduleTable61, 0u },
 };
 const ModuleLayout moduleTable62 = { moduleTable62Tokens, 1u };
 const ModuleToken moduleTable63Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable62 },
+    { 1u, 4043318533u, 0u, &moduleTable62, 0u },
 };
 const ModuleLayout moduleTable63 = { moduleTable63Tokens, 1u };
 const ModuleToken moduleTable64Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable64 = { moduleTable64Tokens, 2u };
 const ModuleToken moduleTable65Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable64 },
+    { 1u, 3613234082u, 0u, &moduleTable64, 0u },
 };
 const ModuleLayout moduleTable65 = { moduleTable65Tokens, 1u };
 const ModuleToken moduleTable66Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable65 },
+    { 1u, 2769121946u, 0u, &moduleTable65, 0u },
 };
 const ModuleLayout moduleTable66 = { moduleTable66Tokens, 1u };
 const ModuleToken moduleTable67Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable67 = { moduleTable67Tokens, 2u };
 const ModuleToken moduleTable68Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable67 },
+    { 1u, 3613234082u, 0u, &moduleTable67, 0u },
 };
 const ModuleLayout moduleTable68 = { moduleTable68Tokens, 1u };
 const ModuleToken moduleTable69Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable68 },
+    { 1u, 2769121946u, 0u, &moduleTable68, 0u },
 };
 const ModuleLayout moduleTable69 = { moduleTable69Tokens, 1u };
 const ModuleToken moduleTable70Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable70 = { moduleTable70Tokens, 2u };
 const ModuleToken moduleTable71Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable70 },
+    { 1u, 3613234082u, 0u, &moduleTable70, 0u },
 };
 const ModuleLayout moduleTable71 = { moduleTable71Tokens, 1u };
 const ModuleToken moduleTable72Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable71 },
+    { 1u, 2769121946u, 0u, &moduleTable71, 0u },
 };
 const ModuleLayout moduleTable72 = { moduleTable72Tokens, 1u };
 const ModuleToken moduleTable73Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable73 = { moduleTable73Tokens, 2u };
 const ModuleToken moduleTable74Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable73 },
+    { 1u, 3613234082u, 0u, &moduleTable73, 0u },
 };
 const ModuleLayout moduleTable74 = { moduleTable74Tokens, 1u };
 const ModuleToken moduleTable75Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable75 = { moduleTable75Tokens, 2u };
 const ModuleToken moduleTable76Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable75 },
+    { 1u, 3613234082u, 0u, &moduleTable75, 0u },
 };
 const ModuleLayout moduleTable76 = { moduleTable76Tokens, 1u };
 const ModuleToken moduleTable77Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable76 },
+    { 1u, 2769121946u, 0u, &moduleTable76, 0u },
 };
 const ModuleLayout moduleTable77 = { moduleTable77Tokens, 1u };
 const ModuleToken moduleTable78Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable77 },
+    { 1u, 687874333u, 0u, &moduleTable77, 0u },
 };
 const ModuleLayout moduleTable78 = { moduleTable78Tokens, 1u };
 const ModuleToken moduleTable79Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable78 },
+    { 1u, 4043318533u, 0u, &moduleTable78, 0u },
 };
 const ModuleLayout moduleTable79 = { moduleTable79Tokens, 1u };
 const ModuleToken moduleTable80Tokens[] = {
-    { 1u, 701158544u, 0u, &moduleTable79 },
+    { 1u, 701158544u, 0u, &moduleTable79, 0u },
 };
 const ModuleLayout moduleTable80 = { moduleTable80Tokens, 1u };
 const ModuleToken moduleTable81Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable81 = { moduleTable81Tokens, 2u };
 const ModuleToken moduleTable82Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable81 },
+    { 1u, 3613234082u, 0u, &moduleTable81, 0u },
 };
 const ModuleLayout moduleTable82 = { moduleTable82Tokens, 1u };
 const ModuleToken moduleTable83Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable82 },
+    { 1u, 2769121946u, 0u, &moduleTable82, 0u },
 };
 const ModuleLayout moduleTable83 = { moduleTable83Tokens, 1u };
 const ModuleToken moduleTable84Tokens[] = {
-    { 1u, 816016269u, 0u, &moduleTable83 },
+    { 1u, 816016269u, 0u, &moduleTable83, 0u },
 };
 const ModuleLayout moduleTable84 = { moduleTable84Tokens, 1u };
 const ModuleToken moduleTable85Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable85 = { moduleTable85Tokens, 2u };
 const ModuleToken moduleTable86Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable85 },
+    { 1u, 3613234082u, 0u, &moduleTable85, 0u },
 };
 const ModuleLayout moduleTable86 = { moduleTable86Tokens, 1u };
 const ModuleToken moduleTable87Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable86 },
+    { 1u, 2769121946u, 0u, &moduleTable86, 0u },
 };
 const ModuleLayout moduleTable87 = { moduleTable87Tokens, 1u };
 const ModuleToken moduleTable88Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable87 },
+    { 1u, 687874333u, 0u, &moduleTable87, 0u },
 };
 const ModuleLayout moduleTable88 = { moduleTable88Tokens, 1u };
 const ModuleToken moduleTable89Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable88 },
+    { 1u, 4043318533u, 0u, &moduleTable88, 0u },
 };
 const ModuleLayout moduleTable89 = { moduleTable89Tokens, 1u };
 const ModuleToken moduleTable90Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable90 = { moduleTable90Tokens, 2u };
 const ModuleToken moduleTable91Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable90 },
+    { 1u, 3613234082u, 0u, &moduleTable90, 0u },
 };
 const ModuleLayout moduleTable91 = { moduleTable91Tokens, 1u };
 const ModuleToken moduleTable92Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable92 = { moduleTable92Tokens, 2u };
 const ModuleToken moduleTable93Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable92 },
+    { 1u, 3613234082u, 0u, &moduleTable92, 0u },
 };
 const ModuleLayout moduleTable93 = { moduleTable93Tokens, 1u };
 const ModuleToken moduleTable94Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable93 },
+    { 1u, 2769121946u, 0u, &moduleTable93, 0u },
 };
 const ModuleLayout moduleTable94 = { moduleTable94Tokens, 1u };
 const ModuleToken moduleTable95Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable95 = { moduleTable95Tokens, 2u };
 const ModuleToken moduleTable96Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable95 },
+    { 1u, 3613234082u, 0u, &moduleTable95, 0u },
 };
 const ModuleLayout moduleTable96 = { moduleTable96Tokens, 1u };
 const ModuleToken moduleTable97Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable96 },
+    { 1u, 2769121946u, 0u, &moduleTable96, 0u },
 };
 const ModuleLayout moduleTable97 = { moduleTable97Tokens, 1u };
 const ModuleToken moduleTable98Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable98 = { moduleTable98Tokens, 2u };
 const ModuleToken moduleTable99Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable98 },
+    { 1u, 3613234082u, 0u, &moduleTable98, 0u },
 };
 const ModuleLayout moduleTable99 = { moduleTable99Tokens, 1u };
 const ModuleToken moduleTable100Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable99 },
+    { 1u, 2769121946u, 0u, &moduleTable99, 0u },
 };
 const ModuleLayout moduleTable100 = { moduleTable100Tokens, 1u };
 const ModuleToken moduleTable101Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable100 },
+    { 1u, 687874333u, 0u, &moduleTable100, 0u },
 };
 const ModuleLayout moduleTable101 = { moduleTable101Tokens, 1u };
 const ModuleToken moduleTable102Tokens[] = {
-    { 1u, 4043318533u, 0u, &moduleTable101 },
+    { 1u, 4043318533u, 0u, &moduleTable101, 0u },
 };
 const ModuleLayout moduleTable102 = { moduleTable102Tokens, 1u };
 const ModuleToken moduleTable103Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable103 = { moduleTable103Tokens, 2u };
 const ModuleToken moduleTable104Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable103 },
+    { 1u, 3613234082u, 0u, &moduleTable103, 0u },
 };
 const ModuleLayout moduleTable104 = { moduleTable104Tokens, 1u };
 const ModuleToken moduleTable105Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable104 },
+    { 1u, 2769121946u, 0u, &moduleTable104, 0u },
 };
 const ModuleLayout moduleTable105 = { moduleTable105Tokens, 1u };
 const ModuleToken moduleTable106Tokens[] = {
-    { 1u, 687874333u, 0u, &moduleTable105 },
+    { 1u, 687874333u, 0u, &moduleTable105, 0u },
 };
 const ModuleLayout moduleTable106 = { moduleTable106Tokens, 1u };
 const ModuleToken moduleTable107Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable107 = { moduleTable107Tokens, 2u };
 const ModuleToken moduleTable108Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable107 },
+    { 1u, 3613234082u, 0u, &moduleTable107, 0u },
 };
 const ModuleLayout moduleTable108 = { moduleTable108Tokens, 1u };
 const ModuleToken moduleTable109Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable108 },
+    { 1u, 2769121946u, 0u, &moduleTable108, 0u },
 };
 const ModuleLayout moduleTable109 = { moduleTable109Tokens, 1u };
 const ModuleToken moduleTable110Tokens[] = {
-    { 430981792u, 602296504u, 0u, nullptr },
-    { 2363267224u, 3186653541u, 4u, nullptr },
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
 };
 const ModuleLayout moduleTable110 = { moduleTable110Tokens, 2u };
 const ModuleToken moduleTable111Tokens[] = {
-    { 1u, 3613234082u, 0u, &moduleTable110 },
+    { 1u, 3613234082u, 0u, &moduleTable110, 0u },
 };
 const ModuleLayout moduleTable111 = { moduleTable111Tokens, 1u };
 const ModuleToken moduleTable112Tokens[] = {
-    { 1u, 2769121946u, 0u, &moduleTable111 },
+    { 1u, 2769121946u, 0u, &moduleTable111, 0u },
 };
 const ModuleLayout moduleTable112 = { moduleTable112Tokens, 1u };
 const ModuleToken moduleTable113Tokens[] = {
-    { 1u, 4103182530u, 0u, &moduleTable112 },
+    { 1u, 4103182530u, 0u, &moduleTable112, 0u },
 };
 const ModuleLayout moduleTable113 = { moduleTable113Tokens, 1u };
+const ModuleToken moduleTable114Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable114 = { moduleTable114Tokens, 2u };
+const ModuleToken moduleTable115Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable114, 0u },
+};
+const ModuleLayout moduleTable115 = { moduleTable115Tokens, 1u };
+const ModuleToken moduleTable116Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable115, 0u },
+};
+const ModuleLayout moduleTable116 = { moduleTable116Tokens, 1u };
+const ModuleToken moduleTable117Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable117 = { moduleTable117Tokens, 3u };
+const ModuleToken moduleTable118Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable116, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable117, 1u },
+};
+const ModuleLayout moduleTable118 = { moduleTable118Tokens, 17u };
+const ModuleToken moduleTable119Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable119 = { moduleTable119Tokens, 2u };
+const ModuleToken moduleTable120Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable119, 0u },
+};
+const ModuleLayout moduleTable120 = { moduleTable120Tokens, 1u };
+const ModuleToken moduleTable121Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable120, 0u },
+};
+const ModuleLayout moduleTable121 = { moduleTable121Tokens, 1u };
+const ModuleToken moduleTable122Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable122 = { moduleTable122Tokens, 3u };
+const ModuleToken moduleTable123Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable121, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable122, 1u },
+};
+const ModuleLayout moduleTable123 = { moduleTable123Tokens, 17u };
+const ModuleToken moduleTable124Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable123, 0u },
+    { 1753799754u, 219975299u, 76u, nullptr, 0u },
+    { 109704883u, 219975299u, 80u, nullptr, 0u },
+    { 2565798936u, 219975299u, 84u, nullptr, 0u },
+    { 286694762u, 219975299u, 88u, nullptr, 0u },
+    { 442579723u, 1683514611u, 92u, nullptr, 0u },
+    { 317447484u, 887689851u, 96u, nullptr, 2u },
+    { 3047922012u, 2575722984u, 100u, nullptr, 0u },
+    { 1030049321u, 359808523u, 104u, nullptr, 0u },
+};
+const ModuleLayout moduleTable124 = { moduleTable124Tokens, 9u };
+const ModuleToken moduleTable125Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable125 = { moduleTable125Tokens, 2u };
+const ModuleToken moduleTable126Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable125, 0u },
+};
+const ModuleLayout moduleTable126 = { moduleTable126Tokens, 1u };
+const ModuleToken moduleTable127Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable126, 0u },
+};
+const ModuleLayout moduleTable127 = { moduleTable127Tokens, 1u };
+const ModuleToken moduleTable128Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable128 = { moduleTable128Tokens, 3u };
+const ModuleToken moduleTable129Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable127, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable128, 1u },
+};
+const ModuleLayout moduleTable129 = { moduleTable129Tokens, 17u };
+const ModuleToken moduleTable130Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable129, 0u },
+};
+const ModuleLayout moduleTable130 = { moduleTable130Tokens, 1u };
+const ModuleToken moduleTable131Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable131 = { moduleTable131Tokens, 2u };
+const ModuleToken moduleTable132Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable131, 0u },
+};
+const ModuleLayout moduleTable132 = { moduleTable132Tokens, 1u };
+const ModuleToken moduleTable133Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable132, 0u },
+};
+const ModuleLayout moduleTable133 = { moduleTable133Tokens, 1u };
+const ModuleToken moduleTable134Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable134 = { moduleTable134Tokens, 3u };
+const ModuleToken moduleTable135Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable133, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable134, 1u },
+};
+const ModuleLayout moduleTable135 = { moduleTable135Tokens, 17u };
+const ModuleToken moduleTable136Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable135, 0u },
+};
+const ModuleLayout moduleTable136 = { moduleTable136Tokens, 1u };
+const ModuleToken moduleTable137Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable137 = { moduleTable137Tokens, 2u };
+const ModuleToken moduleTable138Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable137, 0u },
+};
+const ModuleLayout moduleTable138 = { moduleTable138Tokens, 1u };
+const ModuleToken moduleTable139Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable138, 0u },
+};
+const ModuleLayout moduleTable139 = { moduleTable139Tokens, 1u };
+const ModuleToken moduleTable140Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable140 = { moduleTable140Tokens, 3u };
+const ModuleToken moduleTable141Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable139, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable140, 1u },
+};
+const ModuleLayout moduleTable141 = { moduleTable141Tokens, 17u };
+const ModuleToken moduleTable142Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable141, 0u },
+};
+const ModuleLayout moduleTable142 = { moduleTable142Tokens, 1u };
+const ModuleToken moduleTable143Tokens[] = {
+    { 1u, 2296991610u, 0u, &moduleTable142, 0u },
+};
+const ModuleLayout moduleTable143 = { moduleTable143Tokens, 1u };
+const ModuleToken moduleTable144Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable144 = { moduleTable144Tokens, 2u };
+const ModuleToken moduleTable145Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable144, 0u },
+};
+const ModuleLayout moduleTable145 = { moduleTable145Tokens, 1u };
+const ModuleToken moduleTable146Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable145, 0u },
+};
+const ModuleLayout moduleTable146 = { moduleTable146Tokens, 1u };
+const ModuleToken moduleTable147Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable147 = { moduleTable147Tokens, 3u };
+const ModuleToken moduleTable148Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable146, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable147, 1u },
+};
+const ModuleLayout moduleTable148 = { moduleTable148Tokens, 17u };
+const ModuleToken moduleTable149Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable148, 0u },
+};
+const ModuleLayout moduleTable149 = { moduleTable149Tokens, 1u };
+const ModuleToken moduleTable150Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable150 = { moduleTable150Tokens, 2u };
+const ModuleToken moduleTable151Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable150, 0u },
+};
+const ModuleLayout moduleTable151 = { moduleTable151Tokens, 1u };
+const ModuleToken moduleTable152Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable151, 0u },
+};
+const ModuleLayout moduleTable152 = { moduleTable152Tokens, 1u };
+const ModuleToken moduleTable153Tokens[] = {
+    { 3527446079u, 1683514611u, 0u, nullptr, 0u },
+    { 1155846608u, 1683514611u, 4u, nullptr, 0u },
+    { 3319822471u, 165531635u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable153 = { moduleTable153Tokens, 3u };
+const ModuleToken moduleTable154Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable152, 0u },
+    { 968647375u, 1683514611u, 8u, nullptr, 0u },
+    { 1911847171u, 1683514611u, 12u, nullptr, 0u },
+    { 206566497u, 1683514611u, 16u, nullptr, 0u },
+    { 3551989382u, 1683514611u, 20u, nullptr, 0u },
+    { 2277040911u, 1683514611u, 24u, nullptr, 0u },
+    { 1684031329u, 2575722984u, 28u, nullptr, 0u },
+    { 2103367945u, 2575722984u, 32u, nullptr, 0u },
+    { 547533617u, 2153588212u, 36u, nullptr, 0u },
+    { 2138264650u, 219975299u, 44u, nullptr, 0u },
+    { 453070279u, 165531635u, 48u, nullptr, 0u },
+    { 1801443129u, 165531635u, 52u, nullptr, 0u },
+    { 4013011182u, 1683514611u, 56u, nullptr, 0u },
+    { 1709780650u, 2011428087u, 72u, nullptr, 0u },
+    { 2230346729u, 2011428087u, 73u, nullptr, 0u },
+    { 2250948084u, 219975299u, 60u, nullptr, 0u },
+    { 901614625u, 1964320689u, 64u, &moduleTable153, 1u },
+};
+const ModuleLayout moduleTable154 = { moduleTable154Tokens, 17u };
+const ModuleToken moduleTable155Tokens[] = {
+    { 1u, 1510882715u, 0u, &moduleTable154, 0u },
+};
+const ModuleLayout moduleTable155 = { moduleTable155Tokens, 1u };
+const ModuleToken moduleTable156Tokens[] = {
+    { 1u, 3993857585u, 0u, &moduleTable155, 0u },
+};
+const ModuleLayout moduleTable156 = { moduleTable156Tokens, 1u };
 const ModuleChoice moduleChoices[] = {
-    { 12431267u, &moduleTable4 },
-    { 39586775u, &moduleTable8 },
-    { 367637472u, &moduleTable11 },
-    { 402003752u, &moduleTable13 },
-    { 413409423u, &moduleTable19 },
-    { 456357763u, &moduleTable22 },
-    { 687874333u, &moduleTable25 },
-    { 690179694u, &moduleTable29 },
-    { 712593807u, &moduleTable32 },
-    { 701158544u, &moduleTable37 },
-    { 777285518u, &moduleTable41 },
-    { 816016269u, &moduleTable44 },
-    { 857632184u, &moduleTable47 },
-    { 1193738269u, &moduleTable52 },
-    { 1286434524u, &moduleTable55 },
-    { 1354235932u, &moduleTable58 },
-    { 1681533635u, &moduleTable63 },
-    { 1683093719u, &moduleTable66 },
-    { 1689321498u, &moduleTable69 },
-    { 1894105347u, &moduleTable72 },
-    { 2072794994u, &moduleTable74 },
-    { 2138239554u, &moduleTable80 },
-    { 2541127534u, &moduleTable84 },
-    { 2552695760u, &moduleTable89 },
-    { 2769121946u, &moduleTable91 },
-    { 3375962491u, &moduleTable94 },
-    { 3415251966u, &moduleTable97 },
-    { 3861049429u, &moduleTable102 },
-    { 4043318533u, &moduleTable106 },
-    { 4103182530u, &moduleTable109 },
-    { 4287119435u, &moduleTable113 },
+    { 12431267u, &moduleTable4, 8u, 0u },
+    { 39586775u, &moduleTable8, 8u, 0u },
+    { 367637472u, &moduleTable11, 8u, 0u },
+    { 402003752u, &moduleTable13, 8u, 0u },
+    { 413409423u, &moduleTable19, 8u, 0u },
+    { 456357763u, &moduleTable22, 8u, 0u },
+    { 687874333u, &moduleTable25, 8u, 0u },
+    { 690179694u, &moduleTable29, 8u, 0u },
+    { 712593807u, &moduleTable32, 8u, 0u },
+    { 701158544u, &moduleTable37, 8u, 0u },
+    { 777285518u, &moduleTable41, 8u, 0u },
+    { 816016269u, &moduleTable44, 8u, 0u },
+    { 857632184u, &moduleTable47, 8u, 0u },
+    { 1193738269u, &moduleTable52, 8u, 0u },
+    { 1286434524u, &moduleTable55, 8u, 0u },
+    { 1354235932u, &moduleTable58, 8u, 0u },
+    { 1681533635u, &moduleTable63, 8u, 0u },
+    { 1683093719u, &moduleTable66, 8u, 0u },
+    { 1689321498u, &moduleTable69, 8u, 0u },
+    { 1894105347u, &moduleTable72, 8u, 0u },
+    { 2072794994u, &moduleTable74, 8u, 0u },
+    { 2138239554u, &moduleTable80, 8u, 0u },
+    { 2541127534u, &moduleTable84, 8u, 0u },
+    { 2552695760u, &moduleTable89, 8u, 0u },
+    { 2769121946u, &moduleTable91, 8u, 0u },
+    { 3375962491u, &moduleTable94, 8u, 0u },
+    { 3415251966u, &moduleTable97, 8u, 0u },
+    { 3861049429u, &moduleTable102, 8u, 0u },
+    { 4043318533u, &moduleTable106, 8u, 0u },
+    { 4103182530u, &moduleTable109, 8u, 0u },
+    { 4287119435u, &moduleTable113, 8u, 0u },
+    { 1510882715u, &moduleTable118, 76u, 1u },
+    { 3545651287u, &moduleTable124, 108u, 2u },
+    { 2296991610u, &moduleTable130, 76u, 1u },
+    { 1863294802u, &moduleTable136, 76u, 1u },
+    { 1905798828u, &moduleTable143, 76u, 1u },
+    { 3993857585u, &moduleTable149, 76u, 1u },
+    { 3834377004u, &moduleTable156, 76u, 1u },
 };
 const U32 knownModuleTypes[] = {
     7192255u,

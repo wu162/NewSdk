@@ -698,11 +698,65 @@ partial class GameObjectOracle {
         }
     }
 
+    static string BodyXML(string node,string type,string attrs="",string children="") {
+        return "<Body><"+node+" TypeId='"+type+"' id='BodyTest' "+attrs+">"+children+"</"+node+"></Body>";
+    }
+    static void BodyFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(var body in BodyTypes) {
+            string node=body[0],type=body[1];Check(original,p,"",BodyXML(node,type));
+            foreach(var f in BodyFields) {
+                if(f[0]=="Shield" && node!="ShieldBody")continue;
+                string name=f[1],kind=f[2];
+                string[] values=kind=="Boolean"?new[]{"","true","false","TRUE","False","1","0","yes"," true"}:
+                    kind=="Reference" || kind=="NullableReference"?new[]{"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23trailing","K\\0x10","L\\ 23","M\\text"}:
+                    kind=="String"?new[]{"","a","ab","abc","abcd","abcde","with spaces","中文测试","é ÿ","A&amp;B"}:
+                    kind=="Time"?new[]{"","0s","-17s","23ms","1000ms","1.25s","2d1s","text"}:
+                    new[]{"","0","-0","1.25","-17","0x10","010","2147483647","-2147483648","4294967295","4294967296","-2147483649","1e39","nan","inf"," 23tail","text","33.333333","66.666666","200.00002","200.00004"};
+                foreach(string value in values)Check(original,p,"",BodyXML(node,type,name+"='"+Escape(value)+"'"));
+            }
+            foreach(string field in new[]{"Min","Max","AttributeModifier"}) foreach(string value in new[]{"","0","1","-17","33.333333","66.666666","1e39","text","Name\\0","Name\\23","Name\\-1","Name\\2147483648"})Check(original,p,"",BodyXML(node,type,"","<DamageRangeModifier "+field+"='"+Escape(value)+"'/>"));
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {
+                string items="";for(int i=0;i<count;++i)items+="<DamageRangeModifier TypeId='7' Min='"+i+"' Max='"+(i+1)+"' AttributeModifier='A\\"+i+"'/>";
+                string xml=BodyXML(node,type,"GrabObject='body' HealingBuffFX='H\\23' MaxHealth='123.5'",items);
+                Check(original,p,"Browser='a bb' Description='mixed'",xml+"<SkirmishAIInformation ConquerMetricsOverrideDPS='0'/><Geometry/><ReplaceModule/>");
+            }
+            string all="";foreach(var f in BodyFields)if(f[0]!="Shield" || node=="ShieldBody")all+=f[1]+"='"+(f[2]=="Boolean"?"true":f[2]=="String"?"body":f[2].IndexOf("Reference")>=0?"Ref\\23":f[2]=="Time"?"2s":f[2]=="Enum"?"DAMAGED":"23.5")+"' ";
+            string range="<DamageRangeModifier Min='12.5' Max='75' AttributeModifier='M\\1'/>";
+            Check(original,p,"",BodyXML(node,type,all,range));
+            foreach(var container in ModuleContainers) {
+                string xml="<"+container[0]+"><"+container[1]+" TypeId='"+type+"' id='viaContainer' "+all+">"+range+"</"+container[1]+"></"+container[0]+">";
+                Check(original,p,"",xml);
+            }
+            foreach(string bad in new[]{"<DamageRangeModifier Unknown='1'/>","<DamageRangeModifier xmlns='foreign'/>","<DamageRangeModifier xmlns:f='foreign' f:Min='1'/>","<DamageRangeModifier>text</DamageRangeModifier>","<DamageRangeModifier><Unknown/></DamageRangeModifier>","<Unknown/>"})Reject(p,"",BodyXML(node,type,"",bad));
+            Reject(p,"",BodyXML(node,type,"Unknown='1'"));Reject(p,"",BodyXML(node,type,"xmlns:f='foreign' f:MaxHealth='1'"));
+            if(node!="ShieldBody")Reject(p,"",BodyXML(node,type,"ShieldArmor='A'"));
+            // Same concrete type and fields, reversed attribute/child ordering.
+            var a=Check(original,p,"",BodyXML(node,type,"MaxHealth='123' GrabObject='abc'",range+"<DamageRangeModifier Min='25' Max='50'/>"));
+            var b=Check(original,p,"",BodyXML(node,type,"GrabObject='abc' MaxHealth='123'",range+"<DamageRangeModifier Max='50' Min='25'/>"));
+            Equal(a.InstanceData,b.InstanceData,"Body attribute order",false);Equal(a.RelocationData,b.RelocationData,"Body relocation order",false);
+        }
+        foreach(string value in BodyModelConditions) {
+            Check(original,p,"",BodyXML("ShieldBody","3545651287","ShieldActiveModelCondition='"+Escape(value)+"'"));
+            Check(original,p,"",BodyXML("ShieldBody","3545651287","ShieldActiveModelCondition='"+Escape(value.ToLowerInvariant())+"'"));
+        }
+        foreach(string value in new[]{"","UNKNOWN","INVALID","INVALID "," INVALID","0","-1","ALL"})Check(original,p,"",BodyXML("ShieldBody","3545651287","ShieldActiveModelCondition='"+value+"'"));
+        // Independent explicit offsets and allocation order, not derived from metadata.
+        var shield=Check(original,p,"",BodyXML("ShieldBody","3545651287","ShieldArmor='A\\23' GrabObject='xy' DodgePercent='25' MaxHealthDamagedPercentage='25' ShieldAmount='17'","<DamageRangeModifier Min='25' Max='50' AttributeModifier='M\\1'/>"));
+        byte[] bytes=shield.InstanceData;int root=(int)Word(bytes,8,big)-4,at=(int)Word(bytes,root+480,big);
+        if(Word(bytes,at,big)!=3545651287u || Word(bytes,at+12,big)!=0x3e800000u || Word(bytes,at+24,big)!=0x41c80000u || Word(bytes,at+36,big)!=2 || Word(bytes,at+40,big)!=at+112 || Word(bytes,at+92,big)!=0x41880000u || Word(bytes,at+96,big)!=at+108 || Word(bytes,at+64,big)!=1 || Word(bytes,at+68,big)!=at+116 || Word(bytes,at+108,big)!=24 || Word(bytes,at+116,big)!=0x3e800000u || Word(bytes,at+120,big)!=0x3f000000u || Word(bytes,at+124,big)!=2)throw new Exception("Independent Shield/Active field and allocation order");
+        int wrapper=(int)Word(bytes,Token(bytes,0,1868326721u,big)+8,big),table=(int)Word(bytes,wrapper+8,big);
+        if(Word(bytes,Token(bytes,table,317447484u,big)+8,big)!=at+108)throw new Exception("Independent nullable ShieldArmor Token pointee");
+        for(int i=0;i<12;++i)if(bytes[table+9*12+i]!=0)throw new Exception("Independent Shield Token sentinel");
+        var emptyArmor=Check(original,p,"",BodyXML("ShieldBody","3545651287","ShieldArmor=''"));bytes=emptyArmor.InstanceData;root=(int)Word(bytes,8,big)-4;at=(int)Word(bytes,root+480,big);
+        if(Word(bytes,at+96,big)!=at+108 || Word(bytes,at+108,big)!=0)throw new Exception("Independent present empty ShieldArmor");
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -720,7 +774,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers restricted to 31 complete base-only types/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
