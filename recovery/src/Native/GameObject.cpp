@@ -133,6 +133,20 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         } else continue;
         std::memcpy(root+offset,&word,4);
     }
+    NativeList* buildCosts=nullptr;
+    for(const auto& child:children) if(child.name=="ObjectResourceInfo") {
+        buildCosts=static_cast<NativeList*>(data.Push(reinterpret_cast<void**>(root+408),8,1));
+        buildCosts->count=static_cast<U32>(child.children.size());
+        if(buildCosts->count) {
+            auto elements=static_cast<U32*>(data.Push(&buildCosts->data,8,buildCosts->count));
+            for(U32 i=0;i<buildCosts->count;++i) for(unsigned j=0;j<2;++j) {
+                auto found=child.children[i].attributes.find(j==0?"Account":"Amount");
+                if(found!=child.children[i].attributes.end()) elements[2*i+j]=ParseUnsigned(found->second);
+            }
+            data.Pop();
+        }
+        data.Pop();
+    }
     std::map<unsigned,NativeList*> lists;
     lists[40]=reinterpret_cast<NativeList*>(root+40);
     auto marshalSets=[&](const char* name,unsigned offset,bool armor) {
@@ -172,6 +186,16 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
         data.Pop();
     };
+    // The original pointer-list overload selects element children, not text
+    // tokens. XSD StringList permits text only, so present valid nodes allocate
+    // an empty list header even when their text contains several words.
+    std::map<unsigned,NativeList*> pointerLists;
+    for(unsigned index=0;index<2;++index) for(const auto& child:children)
+        if(child.name==(index==0?"BuildFadeInOnCreateList":"BuildVariations")) {
+            unsigned offset=436+4*index;
+            pointerLists[offset]=static_cast<NativeList*>(data.Push(reinterpret_cast<void**>(root+offset),8,1));
+            data.Pop();
+        }
     marshalList("EquivalentTo",444,false);
     U32* flammability=nullptr;float* camera=nullptr;
     std::map<unsigned,unsigned char*> leafObjects;
@@ -255,6 +279,29 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             for(unsigned j=0;j<4;++j) {nested[j].name=names[j];nested[j].type=1982953380u;procedures.BookmarkMemberOffset(flammability+j,&nested[j].offset);}
             procedures.Pop();
         }
+        else if(t.offset==408 && buildCosts) {
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,2));
+            nested[0].name=4043881713u;nested[0].type=3070636877u;
+            auto count=static_cast<Procedure*>(procedures.Push(&nested[0].offset,12,buildCosts->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;
+            procedures.BookmarkMemberOffset(buildCosts,&count[0].offset);
+            for(U32 j=0;j<buildCosts->count;++j) {
+                count[j+1].name=2974916843u;count[j+1].type=0;
+                auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,3));
+                for(unsigned k=0;k<2;++k) {
+                    item[k].name=k==0?78324893u:1343336868u;item[k].type=1982953380u;
+                    procedures.BookmarkMemberOffset(static_cast<U32*>(buildCosts->data)+2*j+k,&item[k].offset);
+                }
+                procedures.Pop();
+            }
+            procedures.Pop();procedures.Pop();
+        }
+        else if(pointerLists.count(t.offset)) {
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,1));
+            count[0].name=1820487795u;count[0].type=1564774360u;
+            procedures.BookmarkMemberOffset(pointerLists.at(t.offset),&count[0].offset);
+            procedures.Pop();
+        }
         else if(autoObjects.count(t.offset)) {
             auto bytes=autoObjects.at(t.offset);
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,4));
@@ -319,6 +366,10 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(auto name:displayNames) if(name) Swap(&name->length);
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
         if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
+        if(buildCosts) {
+            for(U32 i=0;i<buildCosts->count*2;++i) Swap(static_cast<U32*>(buildCosts->data)+i);
+            Swap(&buildCosts->count);
+        }
         for(const auto& entry:autoObjects) for(unsigned group=0;group<2;++group) {
             auto list=reinterpret_cast<NativeList*>(entry.second+4+8*group);
             for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);

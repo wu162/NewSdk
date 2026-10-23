@@ -313,11 +313,81 @@ partial class GameObjectOracle {
         Equal(Check(original,p,"Browser='a bb' Description='desc'",armor+weapon+meta).InstanceData,Check(original,p,"Browser='a bb' Description='desc'",meta+weapon+armor).InstanceData,"auto family allocation order",false);
         Check(original,p,"Browser='a bb' Description='desc'","<DisplayName>name</DisplayName><ArmorSet Armor='A\\23'/><LocomotorSet Locomotor='L\\1'/><EquivalentTo>tank</EquivalentTo><Flammability Fuel='3'/>"+meta+weapon+armor+"<FormationPreviewDecal Texture='image'/><LiveCameraOffset x='2'/><UpgradeCameo>cameo</UpgradeCameo><ShadowInfo Texture='T\\23'/><VisionInfo VisionSide='30'/><DisplayUpgrade>upg</DisplayUpgrade>");
     }
+    static void PointerStringLists(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] names={"BuildFadeInOnCreateList","BuildVariations"};uint[] keys={4079217817u,2160707259u};
+        // Reuse the actual SDK StringList declaration, rather than a guessed
+        // schema. XmlDocument validation leaves xs:list as element text. BAB
+        // ValidateInstances annotates TypeId and passes the same XmlNode onward.
+        var baseSchema=new XmlDocument();baseSchema.Load("SDK/Schemas/xsd/Includes/Base.xsd");
+        var ns=new XmlNamespaceManager(baseSchema.NameTable);ns.AddNamespace("xs","http://www.w3.org/2001/XMLSchema");
+        var listType=baseSchema.SelectSingleNode("/xs:schema/xs:simpleType[@name='StringList']",ns);
+        if(listType==null || listType.SelectSingleNode("xs:list[@itemType='xs:token']",ns)==null)throw new Exception("SDK StringList schema changed");
+        string schema="<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:ea='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset' elementFormDefault='qualified'>"+listType.OuterXml+"<xs:element name='BuildFadeInOnCreateList' type='ea:StringList'/><xs:element name='BuildVariations' type='ea:StringList'/></xs:schema>";
+        var schemas=new System.Xml.Schema.XmlSchemaSet();using(var reader=XmlReader.Create(new System.IO.StringReader(schema)))schemas.Add(null,reader);schemas.Compile();
+        for(int n=0;n<2;++n) {
+            string name=names[n];int offset=436+4*n;
+            var empty=Check(original,p,"","<"+name+"/>");var d=empty.InstanceData;
+            int root=(int)Word(d,8,big)-4,ptr=(int)Word(d,root+offset,big),tab=(int)Word(d,Token(d,0,keys[n],big)+8,big);
+            if(root!=1632 || ptr!=2224 || d.Length!=2232 || Word(d,ptr,big)!=0 || Word(d,ptr+4,big)!=0)throw new Exception("Independent pointer StringList allocation");
+            if(Word(d,tab,big)!=1820487795u || Word(d,tab+4,big)!=1564774360u || Word(d,tab+8,big)!=ptr)throw new Exception("Independent pointer StringList count token");
+            foreach(string value in new[]{""," ","a","a bb ccc"," a  bb ","a\tb\rc\nd","a,b;c","a a a a","é ÿ 中文","A&B"}) {
+                var xml=new XmlDocument();xml.LoadXml("<"+name+" xmlns='uri:ea.com:eala:asset'>"+Escape(value)+"</"+name+">");xml.Schemas=schemas;
+                xml.Validate(delegate(object sender,System.Xml.Schema.ValidationEventArgs e){throw new Exception("StringList schema: "+e.Message);});
+                if(xml.DocumentElement.SelectNodes("*").Count!=0)throw new Exception("Schema unexpectedly expanded list text");
+                xml.DocumentElement.SetAttribute("TypeId","123");
+                var result=Check(original,p,"",xml.DocumentElement.OuterXml);
+                Equal(empty.InstanceData,result.InstanceData,"Original pointer list ignores valid text",false);
+            }
+            Check(original,p,"","<"+name+"><![CDATA[a bb]]><!-- retained comment --><?probe ignored?></"+name+">");
+            // Characterize the original overload's nonempty path separately.
+            // This element-child representation violates StringList XSD and is
+            // deliberately refused by the recovered public component.
+            string synthetic="<"+name+"><Item>a</Item><Item>bb</Item></"+name+">";
+            var observed=original.ProcessInstance(Declaration("",synthetic));var od=observed.InstanceData;
+            int oroot=(int)Word(od,8,big)-4,optr=(int)Word(od,oroot+offset,big),items=(int)Word(od,optr+4,big);
+            if(Word(od,optr,big)!=2 || Word(od,items,big)!=1 || Word(od,items+8,big)!=2)throw new Exception("Original pointer list must enumerate element children");
+            Reject(p,"",synthetic);
+            var invalid=new XmlDocument();invalid.LoadXml("<"+name+" xmlns='uri:ea.com:eala:asset'><Item>a</Item></"+name+">");invalid.Schemas=schemas;bool invalidRejected=false;
+            invalid.Validate(delegate(object sender,System.Xml.Schema.ValidationEventArgs e){if(e.Severity==System.Xml.Schema.XmlSeverityType.Error)invalidRejected=true;});if(!invalidRejected)throw new Exception("StringList nested elements unexpectedly schema-valid");
+            foreach(string bad in new[]{"<"+name+"/><"+name+"/>","<"+name+" Unknown='1'/>","<"+name+" xmlns='foreign'/>","<"+name+" xmlns:f='foreign' f:TypeId='1'/>"})Reject(p,"",bad);
+        }
+        var both=Check(original,p,"","<BuildFadeInOnCreateList>a bb</BuildFadeInOnCreateList><BuildVariations>c dd</BuildVariations>");var b=both.InstanceData;int br=(int)Word(b,8,big)-4;
+        if(br!=1644 || b.Length!=2252 || Word(b,br+436,big)!=2236 || Word(b,br+440,big)!=2244)throw new Exception("Independent pointer list group order");
+        Equal(b,Check(original,p,"","<BuildVariations/><BuildFadeInOnCreateList/>").InstanceData,"Pointer list allocation independent of XML order",false);
+        Check(original,p,"Browser='a bb' Description='desc'","<BuildVariations>a bb</BuildVariations><DisplayName>name</DisplayName><ArmorSet Armor='A\\1'/><LocomotorSet Locomotor='L\\2'/><BuildFadeInOnCreateList>c dd</BuildFadeInOnCreateList><EquivalentTo>tank</EquivalentTo><Flammability Fuel='3'/><AutoResolveWeapon Weapon='W\\3'><RequiredUpgrade>upgrade</RequiredUpgrade></AutoResolveWeapon><AutoResolveInfo AutoResolveUnitType='tank'/><ShadowInfo/><VisionInfo/><DisplayUpgrade>upg</DisplayUpgrade>");
+    }
+    static void ObjectResourceLists(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        var empty=Check(original,p,"","<ObjectResourceInfo/>");var d=empty.InstanceData;
+        int root=(int)Word(d,8,big)-4,obj=(int)Word(d,root+408,big),tab=(int)Word(d,Token(d,0,1789579963u,big)+8,big),list=(int)Word(d,tab+8,big);
+        if(root!=1656 || obj!=2248 || d.Length!=2256 || Word(d,obj,big)!=0 || Word(d,obj+4,big)!=0)throw new Exception("Independent ObjectResourceInfo default allocation");
+        if(Word(d,tab,big)!=4043881713u || Word(d,tab+4,big)!=3070636877u || Word(d,list,big)!=1820487795u || Word(d,list+4,big)!=1564774360u || Word(d,list+8,big)!=obj)throw new Exception("Independent ObjectResourceInfo tokens");
+        for(int j=0;j<12;++j)if(d[tab+12+j]!=0)throw new Exception("ObjectResourceInfo sentinel");
+        string[] values={"0","1","-1","255","256","65535","65536","0x12345678","010","08","2147483647","2147483648","4294967295","4294967296","-4294967296"," 23tail","text",""};
+        foreach(string field in new[]{"Account","Amount"})foreach(string value in values)Check(original,p,"","<ObjectResourceInfo><BuildCost "+field+"='"+Escape(value)+"'/></ObjectResourceInfo>");
+        foreach(int count in new[]{0,1,2,5,17,64}) {
+            string content="";for(int j=0;j<count;++j)content+="<BuildCost Account='"+j+"' Amount='"+(j+100)+"'/>";
+            var result=Check(original,p,"","<ObjectResourceInfo>"+content+"</ObjectResourceInfo>");var b=result.InstanceData;
+            int r=(int)Word(b,8,big)-4,o=(int)Word(b,r+408,big),t=(int)Word(b,Token(b,0,1789579963u,big)+8,big),l=(int)Word(b,t+8,big),items=(int)Word(b,o+4,big);
+            if(r!=1656+48*count || b.Length!=2256+56*count || o!=r+592 || Word(b,o,big)!=count || (count>0 && items!=o+8))throw new Exception("Independent BuildCost list size/order");
+            for(int j=0;j<count;++j) {
+                int itemToken=(int)Word(b,l+12*(j+1)+8,big);
+                if(Word(b,l+12*(j+1),big)!=2974916843u || Word(b,l+12*(j+1)+4,big)!=0 || Word(b,itemToken,big)!=78324893u || Word(b,itemToken+4,big)!=1982953380u || Word(b,itemToken+8,big)!=items+8*j || Word(b,itemToken+12,big)!=1343336868u || Word(b,itemToken+16,big)!=1982953380u || Word(b,itemToken+20,big)!=items+8*j+4 || Word(b,items+8*j,big)!=j || Word(b,items+8*j+4,big)!=j+100)throw new Exception("Independent MoneyTransaction fields/bookmarks");
+                for(int k=0;k<12;++k)if(b[itemToken+24+k]!=0)throw new Exception("MoneyTransaction sentinel");
+            }
+        }
+        Check(original,p,"","<ObjectResourceInfo TypeId='1'><BuildCost TypeId='2' Account='0x12345678' Amount='4294967295'/><BuildCost/></ObjectResourceInfo>");
+        foreach(string bad in new[]{"<ObjectResourceInfo/><ObjectResourceInfo/>","<ObjectResourceInfo Unknown='1'/>","<ObjectResourceInfo xmlns='foreign'/>","<ObjectResourceInfo>text</ObjectResourceInfo>","<ObjectResourceInfo><Unknown/></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost Unknown='1'/></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost xmlns='foreign'/></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost><Unknown/></BuildCost></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost>text</BuildCost></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost xmlns:f='foreign' f:Amount='1'/></ObjectResourceInfo>","<ObjectResourceInfo><BuildCost/>text</ObjectResourceInfo>"})Reject(p,"",bad);
+        string costs="<ObjectResourceInfo><BuildCost Account='1' Amount='2'/><BuildCost Account='3' Amount='4'/></ObjectResourceInfo>";
+        string others="<DisplayName>name</DisplayName><BuildFadeInOnCreateList>a bb</BuildFadeInOnCreateList><BuildVariations>c dd</BuildVariations><EquivalentTo>tank</EquivalentTo><ArmorSet Armor='A\\1'/><LocomotorSet Locomotor='L\\2'/><AutoResolveArmor Armor='A\\23'><RequiredUpgrade>upgrade</RequiredUpgrade></AutoResolveArmor><AutoResolveInfo AutoResolveBody='module'/><ShadowInfo/><VisionInfo/>";
+        Equal(Check(original,p,"Browser='a bb' Description='desc'",costs+others).InstanceData,Check(original,p,"Browser='a bb' Description='desc'",others+costs).InstanceData,"Resource list schema allocation order",false);
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -335,7 +405,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and nineteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-two child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

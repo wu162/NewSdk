@@ -31,25 +31,29 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
             bool autoSet=name=="AutoResolveArmor" || name=="AutoResolveWeapon";
-            if(!autoSet && child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
+            bool resourceInfo=name=="ObjectResourceInfo";
+            if(!autoSet && !resourceInfo && child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
             Native::GameObjectChild item;item.name=marshal_as<std::string>(name);item.text=marshal_as<std::string>(child->Value);
-            if(autoSet) {
+            if(autoSet || resourceInfo) {
                 auto values=child->SelectChildren(XPathNodeType::Element);
                 while(values->MoveNext()) {
                     auto value=values->Current;
-                    if(value->NamespaceURI!="uri:ea.com:eala:asset" || (value->LocalName!="RequiredUpgrade" && value->LocalName!="ExcludedUpgrade") || value->SelectChildren(XPathNodeType::Element)->MoveNext())
+                    if(value->NamespaceURI!="uri:ea.com:eala:asset" || (resourceInfo?value->LocalName!="BuildCost":(value->LocalName!="RequiredUpgrade" && value->LocalName!="ExcludedUpgrade")) || value->SelectChildren(XPathNodeType::Element)->MoveNext())
                         throw gcnew NotSupportedException("Unsupported auto-resolve upgrade child.");
+                    Native::GameObjectChild upgrade;upgrade.name=marshal_as<std::string>(value->LocalName);upgrade.text=marshal_as<std::string>(value->Value);
                     auto va=value->Clone();
                     if(va->MoveToFirstAttribute()) do {
                         if(va->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
-                        if(va->NamespaceURI->Length!=0 || va->LocalName!="TypeId") throw gcnew NotSupportedException("Unsupported auto-resolve upgrade attribute.");
+                        if(va->NamespaceURI->Length!=0 || (va->LocalName!="TypeId" && !(resourceInfo && (va->LocalName=="Account" || va->LocalName=="Amount")))) throw gcnew NotSupportedException("Unsupported nested list attribute.");
+                        if(va->LocalName!="TypeId") upgrade.attributes[marshal_as<std::string>(va->LocalName)]=marshal_as<std::string>(va->Value);
                     } while(va->MoveToNextAttribute());
-                    Native::GameObjectChild upgrade;upgrade.name=marshal_as<std::string>(value->LocalName);upgrade.text=marshal_as<std::string>(value->Value);item.children.push_back(upgrade);
+                    if(resourceInfo && value->Value->Trim()->Length!=0) throw gcnew NotSupportedException("Unexpected text in BuildCost.");
+                    item.children.push_back(upgrade);
                 }
                 auto content=child->SelectChildren(XPathNodeType::All);
                 while(content->MoveNext()) if((content->Current->NodeType==XPathNodeType::Text || content->Current->NodeType==XPathNodeType::SignificantWhitespace) && content->Current->Value->Trim()->Length!=0)
