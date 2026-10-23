@@ -27,7 +27,9 @@ if '--upgrade-remaining' in sys.argv:
     names=["SubStructureBuildUpgradeModuleData","ModelConditionUpgradeModuleData","ReplaceSelfUpgradeModuleData","SubObjectsUpgradeModuleData","ObjectCreationUpgradeModuleData","RemoveUpgradeUpgradeModuleData","StatusBitsUpgradeModuleData","UnpauseSpecialPowerUpgradeModuleData","CostModifierUpgradeModuleData","TechUpgradeModuleData","GeometryUpgradeModuleData"]
 if '--production-family' in sys.argv:
     names=['ProductionUpdateModuleData','DefaultProductionExitUpdateModuleData','QueueProductionExitUpdateModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--create-family' in sys.argv:
+    names=['GrantUpgradeCreateModuleData','InheritUpgradeCreateModuleData','ExperienceLevelCreateModuleData','ActivateSpecialPowerOnCreate','EvaAnnounceClientCreateModuleData']
+out=ROOT/('recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
