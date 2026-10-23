@@ -264,7 +264,7 @@ public:
             auto compiled=Native::CompileGameObject(input,children,bigEndian);auto buffer=gcnew AssetBuffer();
             buffer->InstanceData=Copy(compiled.instance);buffer->RelocationData=Copy(compiled.relocations);buffer->ImportsData=Copy(compiled.imports);return buffer;
         } catch(const Native::GameObjectFormatError& error) {
-            throw gcnew BinaryAssetBuilderException(ErrorCode::XmlFormattingError,gcnew String(error.what()),gcnew array<Object^>(0));
+            throw gcnew BinaryAssetBuilder::BinaryAssetBuilderException(BinaryAssetBuilder::ErrorCode::XmlFormattingError,gcnew String(error.what()),gcnew array<Object^>(0));
         } catch(const std::exception& error) {throw gcnew NotSupportedException(gcnew String(error.what()));}
     }
     static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
