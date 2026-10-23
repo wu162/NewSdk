@@ -24,7 +24,7 @@ def generate(source,enums):
             try:literals[m[1]]=bytes.fromhex(m[2]).rstrip(b'\0').decode('ascii')
             except UnicodeDecodeError:pass
     lines=['// Generated from original source blob '+BLOB+'; eleven complete Upgrade derivations.']
-    for group,count,fallback,bits in [('DistanceCheckType',2,0,0),('ReplaceSelfUpgradeOptions',6,5,5)]:
+    for group,count,fallback,bits in [('DistanceCheckType',2,0,0),('ReplaceSelfUpgradeOptions',5,4,5)]:
         entries=enums[group];assert len(entries)==count,(group,entries)
         lines.append('const EnumNameValue remaining'+group+'Names[] = {')
         for n,v in entries.items():lines.append('    { '+json.dumps(n)+', '+str(v)+' },')
