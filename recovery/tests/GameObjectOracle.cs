@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Xml;
+using BinaryAssetBuilder.Core;
+partial class GameObjectOracle {
+    class Field {public string Name,Kind;public Field(string n,string k){Name=n;Kind=k;}}
+    static int fixtures,comparisons,refusals;
+    static InstanceDeclaration Declaration(string attrs,string children) {
+        var xml=new XmlDocument();xml.LoadXml("<GameObject xmlns='uri:ea.com:eala:asset' id='RecoveryRoot' "+attrs+">"+children+"</GameObject>");
+        var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea","uri:ea.com:eala:asset");
+        var doc=new AssetDeclarationDocument();var st=typeof(AssetDeclarationDocument).GetNestedType("CurrentState",BindingFlags.NonPublic);
+        var state=FormatterServices.GetUninitializedObject(st);st.GetField("NamespaceManager").SetValue(state,ns);
+        typeof(AssetDeclarationDocument).GetField("_Current",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(doc,state);
+        var d=new InstanceDeclaration(doc);d.XmlNode=xml.DocumentElement;return d;
+    }
+    static uint Word(byte[] b,int at,bool big) {return big?((uint)b[at]<<24)|((uint)b[at+1]<<16)|((uint)b[at+2]<<8)|b[at+3]:BitConverter.ToUInt32(b,at);}
+    static void Equal(byte[] a,byte[] b,string label) {++comparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
+    static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs) {
+        var input=Declaration(attrs,"");var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
+        Equal(expected.InstanceData,actual.InstanceData,attrs+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+" imports");++fixtures;return actual;
+    }
+    static void Reject(TargetPlatform p,string attrs,string children) {
+        try {Recovered.GameObjectCompiler.ProcessInstance(Declaration(attrs,children),p);}catch(NotSupportedException){++refusals;return;}
+        throw new Exception("Unsupported GameObject accepted: "+attrs+children);
+    }
+    static string Escape(string value) {return value.Replace("&","&amp;").Replace("'","&apos;").Replace("<","&lt;").Replace("\"","&quot;");}
+    static void Layout(AssetBuffer b,bool big) {
+        int root=checked((int)Word(b.InstanceData,8,big))-4;
+        if(root!=1620 || b.InstanceData.Length!=2212 || b.RelocationData.Length!=0 || b.ImportsData.Length!=0)throw new Exception("Independent default layout");
+        // Independent explicit checks, deliberately outside generated metadata.
+        int[] negative={80,304,348,352};foreach(int off in negative)if(Word(b.InstanceData,root+off,big)!=0xffffffffu)throw new Exception("Default enum "+off);
+        if(Word(b.InstanceData,root+388,big)!=155u)throw new Exception("Duration default frame conversion");
+        if(Word(b.InstanceData,root+188,big)!=0x3f800000u || Word(b.InstanceData,root+184,big)!=0x44160000u)throw new Exception("Default float");
+        int[] offsets={40,412,420,444,472,536,560,568};
+        for(int i=0;i<8;++i)if(Word(b.InstanceData,1524+12*i,big)!=1820487795u || Word(b.InstanceData,1528+12*i,big)!=1564774360u || Word(b.InstanceData,1532+12*i,big)!=root+offsets[i])throw new Exception("Independent empty-list count table");
+        for(int i=1512;i<1524;++i)if(b.InstanceData[i]!=0)throw new Exception("Token sentinel");
+    }
+    static int Main(string[] args) {
+        try {
+            var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
+            foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);
+                string mixed="";
+                foreach(var f in Fields) {
+                    string[] values=f.Kind=="String"?new[]{"","x","abc","abcd","abcde","long value with spaces","A&amp;B","中文测试"}:
+                        f.Kind=="Boolean"?new[]{"true","false","TRUE","False","1","0","t","yes"," true",""}:
+                        f.Kind=="Time"?new[]{"0s","-17s","23ms","2d1s","1000ms","1.25s","5",""}:
+                        f.Kind=="Angle"?new[]{"0r","180d","-90d","1.25r","2d1","","text"}:
+                        new[]{"-17","0","23","-1","255","256","65535","65536","0x10","010","1.25","2d1"," 23tail","text","","2147483647","-2147483648","4294967295","4294967296"};
+                    foreach(string value in values)Check(original,p,f.Name+"='"+Escape(value)+"'");
+                    mixed+=f.Name+"='"+(f.Kind=="String"?"mixed-string":f.Kind=="Boolean"?"true":"23")+"' ";
+                }
+                Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
+                foreach(string a in new[]{"Unknown='1'","KindOf='VEHICLE'","Browser='x'","Side='Allied'","RadarPriority='UNIT'","UnitCategory='VEHICLE'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
+                foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
+            }
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 68 scalar/string attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+        }catch(Exception e){Console.Error.WriteLine(e);return 1;}
+    }
+}

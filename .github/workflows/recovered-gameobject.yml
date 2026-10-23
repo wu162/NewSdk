@@ -1,0 +1,52 @@
+name: GameObject root recovery validation
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-gameobject.yml'
+      - 'recovery/src/**/GameObject*'
+      - 'recovery/src/**/Relocation*'
+      - 'recovery/src/**/ScalarParsing*'
+      - 'recovery/src/**/DataInitializers*'
+      - 'recovery/src/**/ResourceMarshaling*'
+      - 'recovery/scripts/TestGameObject.ps1'
+      - 'recovery/scripts/GenerateGameObjectFields.py'
+      - 'recovery/scripts/ExtractGameObjectEvidence.py'
+      - 'recovery/tests/GameObjectOracle.cs'
+      - 'recovery/tests/GameObjectCases.cs'
+permissions:
+  contents: write
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare original and recovered GameObject root
+        shell: pwsh
+        run: ./recovery/scripts/TestGameObject.ps1
+      - name: Persist root component evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/gameobject-root
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to stage evidence' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect evidence' }
+          git commit -m "recovery: record GameObject root validation for $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence rebase failed' }
+          git push origin HEAD:recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-gameobject-root
+          path: recovery/evidence/gameobject-root

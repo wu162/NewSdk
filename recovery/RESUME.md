@@ -55,3 +55,9 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 4. 新恢复逻辑保持未支持块显式拒绝；建立 /Od、/O2 四平台完整三缓冲区矩阵和独立布局/拒绝门槛。攒够类型/字段后再做合法 mymod SDK 批次，GameObject 继续由原插件处理。
 
 本轮复用了同一份原模块与组件构建产物完成正式 SDK 验证，没有为各字段分别做真实 SDK 构建；不能量化账号额度节省，也不能通过仓库重置模型使用额度。
+
+## 2026-10-23 GameObject root implementation checkpoint (validation pending)
+
+Added source-derived root metadata, native root marshaling/tokenization, C++/CLI bridge and differential workflow. 68 scalar/string root attributes are accepted; six enum overrides, duration override, masks/resources/lists and every child block are explicitly rejected. Defaults include all six enum defaults and the source-derived 31000ms -> 155-frame duration; eight empty-list count tables are generated algorithmically. SDK routing is unchanged.
+
+`recovery/scripts/TestGameObject.ps1` runs /Od and /O2 on Win32/Xbox360/PS3/99, three-buffer differentials, lexical/boundary inputs, combined inputs, independent defaults/list/sentinel assertions and rejection cases. Source generator checks passed locally; x86 MSVC execution is pending in Actions. Do not claim the component passes until `recovery/evidence/gameobject-root/validation.json` matches this source commit and a successful run. First fix any reported differential failure, then review helper/null/endian evidence and expand coverage before SDK integration.
