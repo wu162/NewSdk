@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 60798; body SHA256 0c7b1c1e16a9d058f290162e3e9d1c8a4aed65898adee874c6b8f4da6ef94ead
+// Literals: {"_003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040": "SpecialPowerTemplate"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AActivateSpecialPowerOnCreate_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ActivateSpecialPowerOnCreate* ptr = (ActivateSpecialPowerOnCreate*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_002Cclass_0020SpecialPowerTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003ASpecialPowerTemplate_002CSpecialPowerTemplate_003E_0020_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -984951557;
+	}
+

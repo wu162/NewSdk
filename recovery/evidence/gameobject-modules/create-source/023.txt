@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62345; body SHA256 14a90150183f8445ab7494c57fe6c7740cf59c67f9967fb30f3cbd9eab34e2ae
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AEvaAnnounceClientCreateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		EvaAnnounceClientCreateModuleData* ptr = (EvaAnnounceClientCreateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 28u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -789643811;
+	}
+

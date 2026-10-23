@@ -1,0 +1,15 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 12970; body SHA256 5b45cf5946e45be7eac555e742e5d965d70428a65ce75a3618ed536c223e1fe7
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(uint* @object, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*@object = num;
+		}
+	}
+

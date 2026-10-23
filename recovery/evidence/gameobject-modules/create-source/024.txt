@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103538; body SHA256 6e6594a8ba9c48cca71100e4fe2bf75abcc6ba8a92eec18b2308ba687037a1e2
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AEvaAnnounceClientCreateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (EvaAnnounceClientCreateModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+

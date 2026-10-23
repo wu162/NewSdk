@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 23123; body SHA256 88bd5b451fc296872df0ce24fbda31bce4568c0913081fb0fb53f8857da6c08c
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0N_0040DLOFNAIP_0040ExemptStatus_003F_0024AA_0040": "ExemptStatus", "_003F_003F_C_0040_0P_0040CMFDHNGF_0040UpgradeToGrant_003F_0024AA_0040": "UpgradeToGrant", "_003F_003F_C_0040_0BE_0040PKDFFPIK_0040GiveOnBuildComplete_003F_0024AA_0040": "GiveOnBuildComplete"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, GrantUpgradeCreateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040CMFDHNGF_0040UpgradeToGrant_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E*)((byte*)@object + 8), state);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040DLOFNAIP_0040ExemptStatus_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)@object + 12), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040PKDFFPIK_0040GiveOnBuildComplete_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 40, state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+
