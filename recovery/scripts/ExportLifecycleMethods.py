@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 from ExtractGameObjectEvidence import method
 ROOT=Path(__file__).resolve().parents[2]
@@ -18,7 +19,9 @@ for line in source.splitlines():
         try:literals[match[1]]=bytes.fromhex(match[2]).rstrip(b'\0').decode('ascii')
         except UnicodeDecodeError:pass
 names=['DeletionUpdateModuleData','DieOnProducerDeathUpdateModuleData','InvalidTargetsDeathUpdateModuleData','HeightDieUpdateModuleData','LoseHealthUpdateModuleData','LifetimeUpdateModuleData','DestroyDieModuleData']
-out=ROOT/'recovery/evidence/gameobject-modules/lifecycle-source'
+if '--die-family' in sys.argv:
+    names=['DieModuleData','DestroyDieModuleData','UpgradeDieModuleData','KeepObjectDieModuleData','CreateObjectDieModuleData','CrushDieModuleData','RefundDieModuleData']
+out=ROOT/('recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; seven modules remain explicitly rejected; no runtime or DLL validation claim','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
