@@ -62,6 +62,36 @@ public ref class GameObjectCompiler abstract sealed {
         if(result->Length) System::Runtime::InteropServices::Marshal::Copy(IntPtr(const_cast<unsigned char*>(source.data())),result,0,result->Length);
         return result;
     }
+    static Native::GameObjectChild ReadPlacementGroup(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        bool crusher=node->LocalName=="CrusherInfo";
+        array<String^>^ crushAttributes={"CrusherLevel","CrushableLevel","CrushKnockback","CrushZFactor","CrushEqualLevelProps","UseCrushAttack","CrushOnlyWhileCharging","MinCrushVelocityPercent","CrushDecelerationPercent","CrushAllies","CrushWeapon","CrushWhileStationary"};
+        array<String^>^ projectionAttributes={"Radius","RadiusY","BuildPlacementTypes","StatusToReject","ModelConditionsToReject","AllowedBuildabilityHeightVariation","PrimaryBuidability"};
+        auto allowed=crusher?crushAttributes:projectionAttributes;
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported crush/placement attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        auto nodes=node->SelectChildren(XPathNodeType::Element);bool filterSeen=false;
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;
+            if(child->NamespaceURI!=node->NamespaceURI || (crusher?child->LocalName!="ExtraCrushLevels":child->LocalName!="AllowedObjectFilter")) throw gcnew NotSupportedException("Unsupported crush/placement child.");
+            if(!crusher) {
+                if(filterSeen) throw gcnew NotSupportedException("Duplicate AllowedObjectFilter.");filterSeen=true;
+                auto filter=ReadDependencyFilter(child);filter.name="AllowedObjectFilter";result.children.push_back(filter);continue;
+            }
+            if(child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested ExtraCrushLevels content.");
+            Native::GameObjectChild level;level.name="ExtraCrushLevels";
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="CrusherLevel" && attrs->LocalName!="CrushableLevel" && attrs->LocalName!="ModelConditionMatch")) throw gcnew NotSupportedException("Unsupported ExtraCrushLevels attribute.");
+                level.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+            } while(attrs->MoveToNextAttribute());
+            NoStructuredText(child);result.children.push_back(level);
+        }
+        NoStructuredText(node);return result;
+    }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
@@ -80,11 +110,12 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="GameDependency"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
-            bool repeated=name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
+            bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
             if(name=="GameDependency") {children.push_back(ReadDependency(child));continue;}
+            if(name=="CrusherInfo" || name=="ProjectedBuildabilityInfo") {children.push_back(ReadPlacementGroup(child));continue;}
             bool autoSet=name=="AutoResolveArmor" || name=="AutoResolveWeapon";
             bool resourceInfo=name=="ObjectResourceInfo";
             if(!autoSet && !resourceInfo && child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
@@ -143,5 +174,6 @@ public:
     }
 };
 }
+
 
 

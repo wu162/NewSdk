@@ -106,6 +106,8 @@ enum_fallbacks.append(('LocomotorSet',12))
 enums.extend(('ShadowInfo',n,v) for n,v in enum_values('ShadowType').items())
 enum_fallbacks.append(('ShadowInfo',3))
 lines+=['};','const GameObjectEnum enumEntries[] = {']
+enums.extend(('ExtraCrushLevels',n,v) for n,v in enum_values('ModelConditionFlagType').items())
+enum_fallbacks.append(('ExtraCrushLevels',233)) # original scalar helper 52035
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
 lines+=['};','const GameObjectEnumFallback enumFallbacks[] = {']
@@ -174,5 +176,6 @@ if '--check' in sys.argv:
     assert path.read_text()==output, 'Regenerate GameObjectFields.h'
 else: path.write_text(output)
 print('PASS source-derived GameObject metadata: '+str(len(fields))+' root fields, 126 tokens; no frozen buffers')
+
 
 

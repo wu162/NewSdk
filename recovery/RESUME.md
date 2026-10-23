@@ -71,3 +71,7 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 本轮按三个完整能力组推进并保留工作分支检查点和并发证据，未为单字段拆 CI。真实 SDK 零次；未重复调查 Weapon 实现，仅读取依赖所需的共享过滤器入口。没有账号额度计量，不能量化节省。
 
+
+## 本轮检查点（2026-10-23，验证中）
+
+已实现 CrusherInfo/ExtraCrushLevels 与重复 ProjectedBuildabilityInfo 的完整依赖，新增原版差分、全部 ModelCondition 枚举及两类掩码全值、布局/列表/拒绝检查。当前仅本地生成器一致性通过；等待本次源码的 Windows /Od、/O2 四平台完整矩阵，尚不能按已验证支持汇报。GameObject SDK 仍未运行、保留原路由。实现阶段已按用户最新要求调整为约45分钟。

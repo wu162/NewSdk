@@ -293,6 +293,60 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     }
     marshalList("UpgradeCameo",536,true);
     marshalLeaves(544,552);
+    unsigned char* crusher=nullptr;
+    NativeList* extraLevels=nullptr;
+    for(const auto& child:children) if(child.name=="CrusherInfo") {
+        crusher=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+556),36,1));
+        auto value=[&](const char* name,const char* fallback)->std::string {auto it=child.attributes.find(name);return it==child.attributes.end()?fallback:it->second;};
+        auto word=static_cast<U32>(ParseSigned(value("CrushKnockback","0")));std::memcpy(crusher,&word,4);
+        const char* floats[]={"CrushZFactor","MinCrushVelocityPercent","CrushDecelerationPercent"};
+        for(unsigned j=0;j<3;++j) {auto text=value(floats[j],j==2?"0":"1");float number=j==0?ParseFloat(text):ParsePercentage(text);std::memcpy(crusher+4+4*j,&number,4);}
+        auto ref=child.attributes.find("CrushWeapon");if(ref!=child.attributes.end()) MarshalReference(data,crusher+16,ref->second);
+        crusher[28]=static_cast<unsigned char>(ParseSigned(value("CrusherLevel","0")));
+        crusher[29]=static_cast<unsigned char>(ParseSigned(value("CrushableLevel","127")));
+        const char* flags[]={"CrushEqualLevelProps","UseCrushAttack","CrushOnlyWhileCharging","CrushAllies","CrushWhileStationary"};
+        for(unsigned j=0;j<5;++j) crusher[30+j]=ParseBoolean(value(flags[j],j==1?"true":"false"))?1:0;
+        extraLevels=reinterpret_cast<NativeList*>(crusher+20);extraLevels->count=static_cast<U32>(child.children.size());
+        if(extraLevels->count) {
+            auto items=static_cast<unsigned char*>(data.Push(&extraLevels->data,8,extraLevels->count));
+            for(U32 j=0;j<extraLevels->count;++j) {
+                const auto& attrs=child.children[j].attributes;auto at=items+8*j;
+                for(unsigned k=0;k<2;++k) {auto found=attrs.find(k==0?"CrusherLevel":"CrushableLevel");at[4+k]=found==attrs.end()?(k==0?0:127):static_cast<unsigned char>(ParseSigned(found->second));}
+                auto found=attrs.find("ModelConditionMatch");if(found!=attrs.end()) {auto v=EnumValue("ExtraCrushLevels",found->second);std::memcpy(at,&v,4);}
+            }
+            data.Pop();
+        }
+        data.Pop();
+    }
+    auto projections=reinterpret_cast<NativeList*>(root+560);
+    std::vector<const GameObjectChild*> projectionInputs;
+    for(const auto& child:children) if(child.name=="ProjectedBuildabilityInfo") projectionInputs.push_back(&child);
+    projections->count=static_cast<U32>(projectionInputs.size());
+    std::vector<ObjectFilter*> projectionFilters(projections->count,nullptr);
+    if(projections->count) {
+        auto items=static_cast<unsigned char*>(data.Push(&projections->data,112,projections->count));
+        const EnumNameValue placements[]={{"BLOCKED",4},{"INVALID",0},{"MAIN_STRUCTURE",1},{"OTHER_STRUCTURE",2},{"TIBERIUM_FIELD",3}};
+        for(U32 j=0;j<projections->count;++j) {
+            auto at=items+112*j;const auto& child=*projectionInputs[j];
+            auto value=[&](const char* name,const char* fallback)->std::string {auto it=child.attributes.find(name);return it==child.attributes.end()?fallback:it->second;};
+            float radius=ParseFloat(value("Radius","0"));std::memcpy(at,&radius,4);
+            auto ry=child.attributes.find("RadiusY");if(ry!=child.attributes.end()) {
+                auto number=static_cast<float*>(data.Push(reinterpret_cast<void**>(at+4),4,1));*number=ParseFloat(ry->second);data.Pop();
+            }
+            MarshalEnumBitset(value("BuildPlacementTypes","INVALID"),placements,5,4,5,reinterpret_cast<U32*>(at+8));
+            auto status=child.attributes.find("StatusToReject");if(status!=child.attributes.end()) MarshalObjectStatus(status->second,reinterpret_cast<U32*>(at+12));
+            MarshalModelCondition(value("ModelConditionsToReject","STRUCTURE_UNPACKING"),reinterpret_cast<U32*>(at+40));
+            float height=ParseFloat(value("AllowedBuildabilityHeightVariation","50.0"));std::memcpy(at+100,&height,4);
+            at[108]=ParseBoolean(value("PrimaryBuidability","true"))?1:0;
+            if(!child.children.empty()) {
+                const auto& filter=child.children[0];ObjectFilterInput input;input.attributes=filter.attributes;
+                for(const auto& thing:filter.children) if(thing.name=="IncludeThing") input.includeThings.push_back(thing.text);else input.excludeThings.push_back(thing.text);
+                projectionFilters[j]=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(at+104),112,1));
+                MarshalObjectFilter(input,projectionFilters[j],data);data.Pop();
+            }
+        }
+        data.Pop();
+    }
     marshalList("DisplayUpgrade",568,false);
     // Unsupported optional pointers and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
@@ -375,6 +429,37 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             }
             procedures.Pop();
         }
+        else if(t.offset==556 && crusher) {
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,14));
+            const U32 keys[]={910974594u,3643225156u,3253443162u,3004652270u,2213912127u,3110872486u,4183563336u,1698114463u,797901100u,4120968022u,3910970335u,3401922681u,4110060450u};
+            const U32 types[]={924736962u,924736962u,602296504u,1683514611u,2011428087u,2011428087u,2011428087u,1683514611u,1683514611u,2011428087u,3494305058u,2011428087u,2425485691u};
+            const unsigned offsets[]={28,29,0,4,30,31,32,8,12,33,16,34};
+            for(unsigned j=0;j<13;++j) {nested[j].name=keys[j];nested[j].type=types[j];if(j<12) procedures.BookmarkMemberOffset(crusher+offsets[j],&nested[j].offset);}
+            auto count=static_cast<Procedure*>(procedures.Push(&nested[12].offset,12,extraLevels->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(extraLevels,&count[0].offset);
+            for(U32 j=0;j<extraLevels->count;++j) {
+                count[j+1].name=2974916843u;
+                auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,4));
+                const U32 names[]={910974594u,3643225156u,4049621940u};const U32 types2[]={924736962u,924736962u,359808523u};const unsigned off[]={4,5,0};
+                for(unsigned k=0;k<3;++k) {item[k].name=names[k];item[k].type=types2[k];procedures.BookmarkMemberOffset(static_cast<unsigned char*>(extraLevels->data)+8*j+off[k],&item[k].offset);}
+                procedures.Pop();
+            }
+            procedures.Pop();procedures.Pop();
+        }
+        else if(t.offset==560) {
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,projections->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(projections,&count[0].offset);
+            for(U32 j=0;j<projections->count;++j) {
+                count[j+1].name=2974916843u;
+                auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,9));auto bytes=static_cast<unsigned char*>(projections->data)+112*j;
+                const U32 keys[]={1328662213u,3519330798u,3300370196u,1859875231u,2524881596u,1464587907u,789445011u,3484925126u};
+                const U32 types[]={1683514611u,1683514611u,4098281327u,2814214430u,1742454729u,1683514611u,2011428087u,3832456114u};
+                const unsigned offsets[]={0,4,8,12,40,100,108,104};
+                for(unsigned k=0;k<8;++k) {item[k].name=keys[k];item[k].type=types[k];if(k==1) {auto radius=*reinterpret_cast<float**>(bytes+4);if(radius) procedures.BookmarkMemberOffset(radius,&item[k].offset);}else if(k==7) {if(projectionFilters[j]) TokenizeObjectFilter(projectionFilters[j],&item[k].offset,procedures);}else procedures.BookmarkMemberOffset(bytes+offsets[k],&item[k].offset);}
+                procedures.Pop();
+            }
+            procedures.Pop();
+        }
         else if(leafObjects.count(t.offset)) {
             for(const auto& leaf:leafLayouts) if(leaf.offset==t.offset) {
                 auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,leaf.count+1));
@@ -414,6 +499,17 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
     }
     if(bigEndian) {
+        if(crusher) {
+            for(unsigned j=0;j<4;++j) Swap(crusher+4*j);
+            for(U32 j=0;j<extraLevels->count;++j) Swap(static_cast<unsigned char*>(extraLevels->data)+8*j);
+            Swap(&extraLevels->count);
+        }
+        for(U32 j=0;j<projections->count;++j) {
+            auto at=static_cast<unsigned char*>(projections->data)+112*j;
+            auto ry=*reinterpret_cast<float**>(at+4);if(ry) Swap(ry);
+            Swap(at);for(unsigned off=8;off<=100;off+=4) Swap(at+off);
+            if(projectionFilters[j]) EndianObjectFilter(projectionFilters[j]);
+        }
         for(U32 i=0;i<browser.size();++i) Swap(&browserStrings[i].length);
         for(auto name:displayNames) if(name) Swap(&name->length);
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
@@ -462,5 +558,6 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 
