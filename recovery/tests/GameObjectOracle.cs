@@ -19,7 +19,7 @@ partial class GameObjectOracle {
     static void Equal(byte[] a,byte[] b,string label) {++comparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
     static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs,string children="") {
         var input=Declaration(attrs,children);var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
-        Equal(expected.InstanceData,actual.InstanceData,attrs+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+" imports");++fixtures;return actual;
+        Equal(expected.InstanceData,actual.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+children+" imports");++fixtures;return actual;
     }
     static void Reject(TargetPlatform p,string attrs,string children) {
         try {Recovered.GameObjectCompiler.ProcessInstance(Declaration(attrs,children),p);}catch(NotSupportedException){++refusals;return;}
