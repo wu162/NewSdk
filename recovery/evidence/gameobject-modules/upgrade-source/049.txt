@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61797; body SHA256 4b1ffb3ca5fd0fcdb5f2dc51aa5f2e284e415c7aeb936a6a0e01ff2e9a18f41f
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAudioLoopUpgradeModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		AudioLoopUpgradeModuleData* ptr = (AudioLoopUpgradeModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 48u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 585970648;
+	}
+

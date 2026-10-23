@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62400; body SHA256 aeb41d2fdc6f0d97e4bdc2f86ff71ecda251aa3e55b258380db2d9017811294f
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ALevelUpUpgradeModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		LevelUpUpgradeModuleData* ptr = (LevelUpUpgradeModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 48u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1753406047;
+	}
+
