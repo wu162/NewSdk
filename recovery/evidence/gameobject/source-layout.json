@@ -28,7 +28,9 @@
       "typeHash": 2600243603,
       "nativeOffset": 4,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "KindOf",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 1,
@@ -39,7 +41,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
-      ]
+      ],
+      "name": "Browser",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 2,
@@ -48,7 +52,9 @@
       "typeHash": 438907818,
       "nativeOffset": 48,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "Description",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 3,
@@ -57,7 +63,9 @@
       "typeHash": 438907818,
       "nativeOffset": 56,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "DescriptionTransformed",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 4,
@@ -66,7 +74,9 @@
       "typeHash": 438907818,
       "nativeOffset": 64,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "TypeDescription",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 5,
@@ -75,7 +85,9 @@
       "typeHash": 438907818,
       "nativeOffset": 72,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "TypeDescriptionTransformed",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 6,
@@ -84,7 +96,9 @@
       "typeHash": 2635111608,
       "nativeOffset": 80,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "RadarPriority",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 7,
@@ -93,7 +107,9 @@
       "typeHash": 814836630,
       "nativeOffset": 580,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "TransportSlotCount",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 8,
@@ -102,7 +118,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 84,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "FenceWidth",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 9,
@@ -111,7 +129,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 88,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "FenceXOffset",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 10,
@@ -120,7 +140,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 92,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "RemoveTerrainRadius",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 11,
@@ -129,7 +151,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 96,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "EmotionRange",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 12,
@@ -138,7 +162,9 @@
       "typeHash": 1310124621,
       "nativeOffset": 100,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "PlacementViewAngle",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 13,
@@ -147,7 +173,9 @@
       "typeHash": 2575722984,
       "nativeOffset": 104,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "JustBuiltTime",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 14,
@@ -156,7 +184,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 108,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "FactoryExitWidth",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 15,
@@ -165,7 +195,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 112,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "FactoryExtraBibWidth",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 16,
@@ -174,7 +206,9 @@
       "typeHash": 2011428087,
       "nativeOffset": 581,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "IsTrainable",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 17,
@@ -183,7 +217,9 @@
       "typeHash": 1873548347,
       "nativeOffset": 116,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "Side",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 18,
@@ -192,7 +228,9 @@
       "typeHash": 438907818,
       "nativeOffset": 120,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "EditorName",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 19,
@@ -201,7 +239,9 @@
       "typeHash": 3650538541,
       "nativeOffset": 128,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "EditorSorting",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 20,
@@ -210,7 +250,9 @@
       "typeHash": 602296504,
       "nativeOffset": 132,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "BountyValue",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 21,
@@ -219,7 +261,9 @@
       "typeHash": 1683514611,
       "nativeOffset": 136,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "BuildTime",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 22,
@@ -228,7 +272,9 @@
       "typeHash": 1129320594,
       "nativeOffset": 576,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "RefundValue",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 23,
@@ -237,7 +283,9 @@
       "typeHash": 602296504,
       "nativeOffset": 140,
       "kind": "member-bookmark",
-      "helpers": []
+      "helpers": [],
+      "name": "EnergyProduction",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 24,
@@ -248,7 +296,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "EnergyBonus",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 25,
@@ -259,7 +309,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "IsForbidden",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 26,
@@ -270,7 +322,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "IsPrerequisite",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 27,
@@ -281,7 +335,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "IsGrabbable",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 28,
@@ -292,7 +348,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "IsHarvestable",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 29,
@@ -303,7 +361,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ALogicCommandSet_003E"
-      ]
+      ],
+      "name": "CommandSet",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 30,
@@ -314,7 +374,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
-      ]
+      ],
+      "name": "SelectPortrait",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 31,
@@ -325,7 +387,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
-      ]
+      ],
+      "name": "SelectPortraitTransformed",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 32,
@@ -336,7 +400,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
-      ]
+      ],
+      "name": "ButtonImage",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 33,
@@ -347,7 +413,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
-      ]
+      ],
+      "name": "ButtonImageTransformed",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 34,
@@ -358,7 +426,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoicePriority",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 35,
@@ -369,7 +439,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "MinZIncreaseForVoiceMoveToHigherGround",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 36,
@@ -380,7 +452,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ACrowdResponse_002Cclass_0020CrowdResponseTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CrowdResponse",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 37,
@@ -391,7 +465,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CampnessValue",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 38,
@@ -402,7 +478,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CampnessValueRadius",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 39,
@@ -413,7 +491,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "Scale",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 40,
@@ -424,7 +504,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "HealthBoxHeightOffset",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 41,
@@ -435,7 +517,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "LiveCameraFXPitch",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 42,
@@ -446,7 +530,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "FormationWidth",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 43,
@@ -457,7 +543,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "FormationDepth",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 44,
@@ -468,7 +556,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "InstanceScaleFuzziness",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 45,
@@ -479,7 +569,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "StructureRubbleHeight",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 46,
@@ -490,7 +582,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020short_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "MaxSimultaneousOfType",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 47,
@@ -501,7 +595,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "RamPower",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 48,
@@ -512,7 +608,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "RamZMult",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 49,
@@ -523,7 +621,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ShockwaveResistance",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 50,
@@ -534,7 +634,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CommandPoints",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 51,
@@ -545,7 +647,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CommandPointBonus",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 52,
@@ -556,7 +660,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoiceAttackChargeTimeout",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 53,
@@ -567,7 +673,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoiceMoveLandToWaterTimeout",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 54,
@@ -578,7 +686,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoiceMoveWaterToLandTimeout",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 55,
@@ -589,7 +699,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoiceSelectUnderFireTimeout",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 56,
@@ -600,7 +712,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "VoiceSelectUnderFireDamageTime",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 57,
@@ -611,7 +725,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "MaxDistanceForEngaged",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 58,
@@ -622,7 +738,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "EngagedStateTimeout",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 59,
@@ -633,7 +751,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ThreatLevel",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 60,
@@ -644,7 +764,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ForceLuaRegistration",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 61,
@@ -655,7 +777,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "KeepSelectableWhenDead",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 62,
@@ -666,7 +790,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "IsAutoBuilt",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 63,
@@ -677,7 +803,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CanPathThroughGates",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 64,
@@ -688,7 +816,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "SlopeLimitIndex",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 65,
@@ -699,7 +829,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "PathfindDiameter",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 66,
@@ -710,7 +842,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "SupplyOverride",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 67,
@@ -721,7 +855,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ExperienceScalarTable",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 68,
@@ -732,7 +868,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "FiringArc",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 69,
@@ -743,7 +881,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "CamouflageDetectorLevel",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 70,
@@ -754,7 +894,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "SelectionPriority",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 71,
@@ -765,7 +907,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "PathPriority",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 72,
@@ -776,7 +920,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020ProductionQueueType_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ProductionQueueType",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 73,
@@ -787,7 +933,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020SageBinaryData_003A_003ABuildPlacementType_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "BuildPlacementTypeFlag",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 74,
@@ -798,7 +946,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "BuildInProximityToSamePlayerStucture",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 75,
@@ -809,7 +959,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020BitFlags_003C284_002Cenum_0020KindOfType_003E_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "BuildOnRequiredObjectKindOf",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 76,
@@ -820,7 +972,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020UnitCategory_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "UnitCategory",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 77,
@@ -831,7 +985,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020WeaponCategory_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "WeaponCategory",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 78,
@@ -842,7 +998,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "HasFiredRecentlyTime",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 79,
@@ -853,7 +1011,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUnitTypeIcon_002Cclass_0020UnitTypeIcon_003E_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "UnitTypeIcon",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 80,
@@ -864,7 +1024,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ReinvisibilityDelay",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 81,
@@ -875,7 +1037,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "InvisibilityOpacityMin",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 82,
@@ -886,7 +1050,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "InvisibilityOpacityMax",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 83,
@@ -897,7 +1063,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AHealthBarTemplate_003E"
-      ]
+      ],
+      "name": "HealthBar",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 84,
@@ -908,7 +1076,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "SubGroupPriority",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 85,
@@ -919,7 +1089,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "EvaEventSecondDamageFarFromFirstScanRange",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 86,
@@ -930,7 +1102,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "EvaEventSecondDamageFarFromFirstTimeoutMS",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 87,
@@ -941,7 +1115,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUnitIntro_002Cclass_0020UnitIntro_003E_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "UnitIntro",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 88,
@@ -952,7 +1128,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
-      ]
+      ],
+      "name": "DisplayName",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 89,
@@ -963,7 +1141,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
-      ]
+      ],
+      "name": "DisplayNameTransformed",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 90,
@@ -974,7 +1154,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AGameDependencyType_003E"
-      ]
+      ],
+      "name": "GameDependency",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 91,
@@ -985,7 +1167,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AObjectResourceInfo_003E"
-      ]
+      ],
+      "name": "ObjectResourceInfo",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 92,
@@ -996,7 +1180,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AArmorTemplateSet_003E"
-      ]
+      ],
+      "name": "ArmorSet",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 93,
@@ -1007,7 +1193,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ALocomotorSet_003E"
-      ]
+      ],
+      "name": "LocomotorSet",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 94,
@@ -1018,7 +1206,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020BuildableStatus_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "Buildable",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 95,
@@ -1029,7 +1219,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cenum_0020ThingClassType_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "ThingClass",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 96,
@@ -1040,7 +1232,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E_0020_003E"
-      ]
+      ],
+      "name": "BuildFadeInOnCreateList",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 97,
@@ -1051,7 +1245,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E_0020_003E"
-      ]
+      ],
+      "name": "BuildVariations",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 98,
@@ -1062,7 +1258,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E"
-      ]
+      ],
+      "name": "EquivalentTo",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 99,
@@ -1073,7 +1271,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
-      ]
+      ],
+      "name": "DisplayColor",
+      "defaultTokenKind": "native-member-bookmark"
     },
     {
       "index": 100,
@@ -1084,7 +1284,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFlammability_003E"
-      ]
+      ],
+      "name": "Flammability",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 101,
@@ -1095,7 +1297,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASkirmishAIInformation_003E"
-      ]
+      ],
+      "name": "SkirmishAIInformation",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 102,
@@ -1106,7 +1310,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003ADrawModuleData_0020_002A_003E_0020_003E"
-      ]
+      ],
+      "name": "Draws",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 103,
@@ -1117,7 +1323,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003ABehaviorModuleData_0020_002A_003E_0020_003E"
-      ]
+      ],
+      "name": "Behaviors",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 104,
@@ -1128,7 +1336,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AUpdateModuleData_0020_002A_003E"
-      ]
+      ],
+      "name": "AI",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 105,
@@ -1139,7 +1349,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize"
-      ]
+      ],
+      "name": "Body",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 106,
@@ -1150,7 +1362,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003AClientUpdateModuleData_0020_002A_003E_0020_003E"
-      ]
+      ],
+      "name": "ClientUpdates",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 107,
@@ -1161,7 +1375,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003AClientBehaviorModuleData_0020_002A_003E_0020_003E"
-      ]
+      ],
+      "name": "ClientBehaviors",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 108,
@@ -1172,7 +1388,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AGeometry_003E"
-      ]
+      ],
+      "name": "Geometry",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 109,
@@ -1181,7 +1399,9 @@
       "typeHash": 1471645405,
       "nativeOffset": 496,
       "kind": "null-only-token-stub",
-      "helpers": []
+      "helpers": [],
+      "name": "ReplaceModule",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 110,
@@ -1190,7 +1410,9 @@
       "typeHash": 3786889584,
       "nativeOffset": 500,
       "kind": "null-only-token-stub",
-      "helpers": []
+      "helpers": [],
+      "name": "InheritableModule",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 111,
@@ -1201,7 +1423,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveArmor_003E"
-      ]
+      ],
+      "name": "AutoResolveArmor",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 112,
@@ -1212,7 +1436,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveWeapon_003E"
-      ]
+      ],
+      "name": "AutoResolveWeapon",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 113,
@@ -1223,7 +1449,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFormationPreviewDecal_003E"
-      ]
+      ],
+      "name": "FormationPreviewDecal",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 114,
@@ -1234,7 +1462,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFormationPreviewDecal_003E"
-      ]
+      ],
+      "name": "FormationPreviewItemDecal",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 115,
@@ -1245,7 +1475,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector3_003E"
-      ]
+      ],
+      "name": "LiveCameraOffset",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 116,
@@ -1256,7 +1488,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioArrayVoice_003E"
-      ]
+      ],
+      "name": "AudioArrayVoice",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 117,
@@ -1267,7 +1501,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioArraySound_003E"
-      ]
+      ],
+      "name": "AudioArraySound",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 118,
@@ -1278,7 +1514,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AEvaEventArray_003E"
-      ]
+      ],
+      "name": "EvaEventArray",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 119,
@@ -1289,7 +1527,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002C5_003E"
-      ]
+      ],
+      "name": "UpgradeCameo",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 120,
@@ -1300,7 +1540,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AShadowInfo_003E"
-      ]
+      ],
+      "name": "ShadowInfo",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 121,
@@ -1311,7 +1553,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveInfo_003E"
-      ]
+      ],
+      "name": "AutoResolveInfo",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 122,
@@ -1322,7 +1566,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AVisionInfo_003E"
-      ]
+      ],
+      "name": "VisionInfo",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 123,
@@ -1333,7 +1579,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ACrusherInfo_003E"
-      ]
+      ],
+      "name": "CrusherInfo",
+      "defaultTokenKind": "null-token-offset"
     },
     {
       "index": 124,
@@ -1344,7 +1592,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AProjectedBuildabilityInfo_003E"
-      ]
+      ],
+      "name": "ProjectedBuildabilityInfo",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 125,
@@ -1355,7 +1605,9 @@
       "kind": "nested-helper",
       "helpers": [
         "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_002C2_003E"
-      ]
+      ],
+      "name": "DisplayUpgrade",
+      "defaultTokenKind": "empty-list-count-table"
     },
     {
       "index": 126,
@@ -1365,6 +1617,36 @@
       "nativeOffset": null,
       "kind": "sentinel",
       "helpers": []
+    }
+  ],
+  "defaultLayouts": [
+    {
+      "platform": 0,
+      "nativeRootOffset": 1620,
+      "instanceBytes": 2212,
+      "relocationBytes": 0,
+      "importsBytes": 0
+    },
+    {
+      "platform": 1,
+      "nativeRootOffset": 1620,
+      "instanceBytes": 2212,
+      "relocationBytes": 0,
+      "importsBytes": 0
+    },
+    {
+      "platform": 2,
+      "nativeRootOffset": 1620,
+      "instanceBytes": 2212,
+      "relocationBytes": 0,
+      "importsBytes": 0
+    },
+    {
+      "platform": 99,
+      "nativeRootOffset": 1620,
+      "instanceBytes": 2212,
+      "relocationBytes": 0,
+      "importsBytes": 0
     }
   ]
 }
