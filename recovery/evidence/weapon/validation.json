@@ -1,15 +1,14 @@
 {
+  "sourceCommit": "bd474c8cfec499be91ade4af040279e86010c5cf",
+  "sdkProbeSucceeded": null,
+  "succeeded": true,
+  "sdkProbeStatus": "not run for this source; batched separately",
   "modes": [
     "Od",
     "O2"
   ],
-  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget FireOnObjectsNugget and DamageContainedNugget with common base and ScalarInfo; ProjectileNugget, ScatterProjectileNugget WeaponOCLNugget and SeedTiberiumNugget including VeteranProjectile list; SpecialPowerNugget, InformTargetNugget, ContainedObjectAttackNugget, SlavesAttackNugget and ReportWeaponFiredStatNugget; ActivateCircularDamage, ActivateLiftObject, ActivateLinearDamage, ActivateStream, ActivateLaser and TerrainCrater; Attach, SpendStolenTiberium, SecondaryDamage, StripMaxHealthPercent, Suppression and LuaEvent; remaining five nugget branches rejected",
-  "succeeded": true,
-  "sourceCommit": "83ec946e687569fb883bda0798ceb6de46a93cc4",
   "componentSucceeded": true,
-  "sdkProbeStatus": "completed successfully as an explicit batch",
-  "sdkProbeSucceeded": true,
-  "sdkProbeScope": "Original SDK build of thirty-one schema-valid mymod weapons; recovered InstanceData payload match only; not recovered Weapon routing",
-  "runId": 39891922522,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39891922522"
+  "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget FireOnObjectsNugget and DamageContainedNugget with common base and ScalarInfo; ProjectileNugget, ScatterProjectileNugget WeaponOCLNugget and SeedTiberiumNugget including VeteranProjectile list; SpecialPowerNugget, InformTargetNugget, ContainedObjectAttackNugget, SlavesAttackNugget and ReportWeaponFiredStatNugget; ActivateCircularDamage, ActivateLiftObject, ActivateLinearDamage, ActivateStream, ActivateLaser and TerrainCrater; Attach, SpendStolenTiberium, SecondaryDamage, StripMaxHealthPercent, Suppression and LuaEvent; Paralyze and InformationWarfare; remaining three nugget branches rejected",
+  "runId": 39892423711,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/39892423711"
 }

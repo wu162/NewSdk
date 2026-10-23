@@ -5038,5 +5038,57 @@
       "name": "VETERAN",
       "value": 1
     }
+  ],
+  "ParalyzeEffectType": [
+    {
+      "name": "EMP",
+      "value": 0
+    },
+    {
+      "name": "HELD",
+      "value": 3
+    },
+    {
+      "name": "NONE",
+      "value": 4
+    },
+    {
+      "name": "UNMANNED",
+      "value": 2
+    },
+    {
+      "name": "USER_PARALYZE",
+      "value": 1
+    }
+  ],
+  "InfoWarEffect": [
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "RADAR_JAM",
+      "value": 1
+    },
+    {
+      "name": "RESET_RADAR_ALL",
+      "value": 6
+    },
+    {
+      "name": "RESET_RADAR_FREEZE",
+      "value": 5
+    },
+    {
+      "name": "RESET_RADAR_HACKS",
+      "value": 4
+    },
+    {
+      "name": "RESET_RADAR_JAM",
+      "value": 2
+    },
+    {
+      "name": "RESET_RADAR_SPIES",
+      "value": 3
+    }
   ]
 }
