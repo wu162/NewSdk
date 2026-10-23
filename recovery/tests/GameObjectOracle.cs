@@ -86,8 +86,8 @@ partial class GameObjectOracle {
         const string duration="EvaEventSecondDamageFarFromFirstTimeoutMS";
         foreach(string value in new[]{"", "text", "0", "-0", "0.000001", "199.99998", "199.99999", "200", "200.00001", "200.00002", "201", "399.99997", "400", "400.00003", "31000", "-0.0001", "-199.99998", "-200", "-200.00002", "-201", "-400", "1.25e4", "2D3", "0x10", "nan", "inf", "1e40", "-1e40", "1e1000", "-1e1000", "4294967295", "4294967296", "858993459100", "858993459200", "858993459300", "-858993459200", "1.8446744e21", "1.8446745e21", "-1.8446744e21", "-1.8446745e21", "1e-50", "  +23tail"})
             Check(original,p,duration+"='"+Escape(value)+"'");
-        foreach(string value in new[]{"0","1","199.99998","200","200.00002","-200","-201","1e40","-1e40"}) {
-            uint expected=value=="0"||value=="1e40"||value=="-1e40"?0u:value=="200.00002"?2u:value=="-200"||value=="-201"?0xffffffffu:1u;
+        foreach(string value in new[]{"0","1","199.99998","200","200.00002","200.00004","-200","-201","1e40","-1e40"}) {
+            uint expected=value=="0"||value=="1e40"||value=="-1e40"?0u:value=="200.00004"?2u:value=="-200"||value=="-201"?0xffffffffu:1u;
             var b=Check(original,p,duration+"='"+value+"'");
             if(Word(b.InstanceData,1620+388,big)!=expected)throw new Exception("Independent duration "+value);
         }
