@@ -37,35 +37,35 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 旧 `sdk-batch-validation.json` 是此前原路由 31 样例批次的独立历史证据，不等同于新的正式路由结果。详见 WEAPON_TEMPLATE.md / WEAPON_NUGGETS.md / WEAPON_INPUT_PIPELINE.md。
 
-## GameObject 当前：根组件已恢复，尚未接入 SDK
+## GameObject 当前：88 根属性与 16 类子节点已恢复，尚未接入 SDK
 
-已实现独立 x86 C++/CLI 组件 `Recovered.GameObject.dll`，支持 GameObject XSD 直接声明的 **87/88 根属性**：标量/字符串、六枚举、七 typed ID、三资源引用、Browser 字符串列表，以及两项 284-bit KindOf 位集。还不是完整 GameObject 编译器，也没有 GameObject 正式插件。SDK 继续使用原路由。
+独立 x86 C++/CLI 组件 `Recovered.GameObject.dll` 已恢复 GameObject XSD 直接声明的 **88/88 根属性**，包括此前剩余的 `EvaEventSecondDamageFarFromFirstTimeoutMS` 覆盖。原 scale=0.004999999888241291f，保留 atof→float、乘法→float、ceil→float 再转 uint 的行为；默认155；200.00002仍为1帧、200.00004为2帧，负数/指数/溢出和相邻float已直接差分。
 
-仅剩根属性 `EvaEventSecondDamageFarFromFirstTimeoutMS` 覆盖未恢复；**所有 XML 子节点仍显式拒绝**。省略的时长默认已按原 scale 0.004999999888241291f 及两个 float 舍入点恢复为 155。不要误用 31000 或假定 30 FPS。
+已恢复子节点共16类：DisplayName、DisplayNameTransformed、Buildable、ThingClass、DisplayColor、EquivalentTo、UpgradeCameo、DisplayUpgrade、Flammability、LiveCameraOffset、ArmorSet、LocomotorSet、FormationPreviewDecal、FormationPreviewItemDecal、ShadowInfo、VisionInfo。重复列表、嵌套 Token、原分配顺序、字节序和默认值均覆盖。ArmorSet全部23位，LocomotorSet全部19个枚举项，ShadowType全部7值及未知回退已测。单例重复、未知结构/属性、外来命名空间等继续拒绝；UpgradeCameo/DisplayUpgrade保持XSD上限5/2。
 
-源码：`7b958b9df5c31f880465d6fd2df8eec6cb73fa28`。
-完整组件验证：https://github.com/wu162/NewSdk/actions/runs/39920441194 ，success。
-/Od 与 /O2 各 12,452 fixtures、37,356 次三缓冲区比较、36 次拒绝检查；两模式合计 **74,712 次比较**。覆盖 Win32、Xbox360、PS3、99；全部 284 个 KindOf 名称在两个字段分别测试无符号/加号/减号，含 ALL、XOR、未知回退；六枚举全值、资源哈希/索引边界、Browser 与字符串/资源/位集混用、独立布局均通过。
-对应基础回归：https://github.com/wu162/NewSdk/actions/runs/39920441265 。
-证据：`recovery/evidence/gameobject-root/validation.json` 及两模式 oracle 日志，sourceCommit/runId 已核对；该 run 的 `recovered-gameobject-component-x86` artifact 包含组件 DLL。
-本轮无真实 SDK 验证，不将组件成功当作 SDK 接入成功。共享 relocation/scalar/resource/enum-bitset 源码未修改。
+**仍不是完整 GameObject 编译器，没有正式 GameObject 插件；SDK保持原路由。** 其余子节点/模块仍拒绝，本轮真实SDK运行0次。未修改共享relocation、scalar/resource、enum-bitset逻辑。
 
-默认布局来自原逻辑重建：592 字节根、126 字段加结束记录、90 成员书签、28 空偏移、8 空列表子表。默认 root=1620、InstanceData=2212；非空 Browser 每项令 Token 前缀增长 12 字节，不能固定根偏移。Buildable@428、ThingClass@432、DisplayColor@452 即使没有 XML 子节点也有成员书签；ReplaceModule@496 / InheritableModule@500 的原 Tokenize 非空路径仍缺失，不得擅自补成普通子表。
+## GameObject 精确验证锚点
 
-入口：`recovery/GAMEOBJECT.md`、`src/Native/GameObject.{h,cpp}`、`src/Bridge/GameObjectCompiler.cpp`、`scripts/GenerateGameObjectFields.py`、`scripts/TestGameObject.ps1`、`tests/GameObject{Oracle,Cases,KindOf}.cs`。
-生成器从原 Marshal/Tokenize 和 PE 枚举表生成可读元数据，不嵌入原实例缓冲区。源码指纹需先规范化 Windows checkout CRLF；所有 126 个默认 Token 的键/偏移/分类已与独立原版运行时清单核对。
+源码：`a115ef671b3c4a7a18a11bc720418b4c68e789f4`。
+完整组件运行：https://github.com/wu162/NewSdk/actions/runs/39924338693 ，success。
+每种 /Od、/O2：**23,240 fixtures、69,720次三缓冲区比较、224次拒绝检查、16次额外不变性比较**；两模式合计 **139,440次缓冲区比较**。含Win32、Xbox360、PS3、99，保留原全部根属性/284个KindOf全值矩阵，并新增完整子节点/混合输入和独立布局断言。
+基础回归：https://github.com/wu162/NewSdk/actions/runs/39924338637 。第2次作业尝试已success，head_sha与上述源码一致；首次编译/差分已成功，但保存证据与GameObject作业发生普通push竞态，定向重跑后普通推送成功。基础回归41次浮点位比较、1,232条类型记录比较通过。
 
-原版基线仍单独保留在 `evidence/gameobject`：196 样例、588 次重复三缓冲区比较；源码 `46b0ec5020b3911ec0b0403a3d60f63426590673`、run 39897995324 success。不要混淆基线与恢复组件证据。
+证据：`recovery/evidence/gameobject-root/validation.json` 与两模式日志，sourceCommit/runId已核对。该run的 `recovered-gameobject-component-x86` artifact已生成；DLL不是完整替代原Tokenizer。布局与原方法来源见 `recovery/GAMEOBJECT.md`。
 
-## 下一轮约 35 分钟
+实现：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`；生成器 `scripts/GenerateGameObjectFields.py`，验证 `scripts/TestGameObject.ps1`、`tests/GameObject{Oracle,Cases,KindOf}.cs`。视觉叶子的Token键/偏移/顺序从原方法生成并对照可读字段元数据，仍规范化CRLF检查原源码指纹，无实例缓冲区快照。
 
-流程已按用户要求调整：**整批实现、统一验证、失败后集中修复**。本轮目标为剩余 duration 根属性与一组相连子节点，调查、实现和测试连续推进，不把每种表示拆成独立全量 CI 批次。工作分支保存未完成检查点，整批准备好后合入目标分支统一跑完整矩阵；详见 EFFICIENCY.md“大批实现与统一验证”。当前 87/88 支持范围及已有验证锚点不变。
+无子节点时仍为592字节root、126字段+结束记录、90成员书签/28空偏移/8空列表，默认root=1620、InstanceData=2212。非空列表、结构Token与字符串会改变前缀/分配；不能固定非默认root位置。ReplaceModule@496 / InheritableModule@500原非空Token路径仍缺失，继续拒绝。
 
-1. 核对上述最终组件/基础回归终态和 sourceCommit；只读本入口、GAMEOBJECT.md 与目标源码，不重扫 Weapon 或大型反编译全文。
-2. 在同一实现批次内先刻画并恢复根 +388 的 duration 覆盖：原 helper 55021、scale 9619；调查小数帧边界、负数、指数、溢出与 float-to-uint，保留两个 float 舍入点，不从默认 155 推断全部行为。
-3. 连续恢复同批相连子节点：Buildable@428、ThingClass@432、DisplayColor@452；DisplayColor 是 Color4 节点/ColorTag 路径，不能按 uint 文本处理。时间允许再接 396/400 两个可选字符串指针。逐一核对缺省、分配、Token/endian 及拒绝边界。
-4. 整批代码与测试准备好后统一执行 /Od、/O2 四平台完整三缓冲区差分和独立布局/拒绝门槛，集中修复失败后取得最终完整成功结果。其他子块与模块继续显式拒绝；若修改共享行为，评估并验证全部受影响使用者。
-5. 等形成更完整的字段/子节点批次再集中做合法 mymod SDK 验证。正式启用 GameObject 恢复插件前须完成真实路由对照与无原 DLL 重放。
+## 下一轮约35分钟
 
-本轮复用已有共享模块和原版布局证据；SDK 构建次数为零，测试只在代码/门槛变化或实际失败修复后重跑。不能量化账号额度节省。
+按完整能力组连续推进；未完成检查点放工作分支，准备好后普通合入目标分支统一跑完整矩阵，保留并发证据。当前默认单代理和SDK降频规则不变。
 
+1. 先核对本节最终锚点；无需重扫Weapon、历史STATUS或整个大型反编译文件。
+2. 建议下一连贯组：BuildFadeInOnCreateList / BuildVariations 两个指针列表，以及 AutoResolveArmor / AutoResolveWeapon / AutoResolveInfo 家族，跟进完整子依赖。不要每个字段单独全量CI。
+3. **输入链注意：** Includes/Base.xsd的StringList是xs:list，但原指针列表helper66048调用Node.GetChildNodes(null)，实现75998选的是元素子节点；它没有走Browser的空白分词重载68660。先刻画BAB预处理后实际输入与原版行为，不能按文本空白分词猜写。
+4. GameDependency/ObjectResourceInfo、SkirmishAIInformation、CrusherInfo、ProjectedBuildabilityInfo、Geometry、音频数组、全部多态模块及Replace/Inheritable仍未恢复。逐组完成Marshal/Tokenize/endian/分配和拒绝契约后统一验证。
+5. 继续累计GameObject能力，之后集中制作合法mymod样例与正式插件路由；正式宣称接入前仍需四产物对照、实际三缓冲区重放及无原DLL重放。组件成功不能代替SDK验证。
+
+本轮通过GitHub插件读取与普通快进保存阶段成果；按四个连贯能力组推进，未为单个字段/枚举值拆CI；仅一次新独立断言的float边界预期修正后复验。真实SDK零次，不重复调查Weapon/共享模块。没有账号额度计量，不能量化节省。
