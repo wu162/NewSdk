@@ -1,6 +1,23 @@
 {
+  "scope": "87 root attributes including Browser and both KindOf masks; all child blocks and duration override rejected",
+  "succeeded": true,
+  "modes": [
+    {
+      "summary": "PASS recovered GameObject root: fixtures=12452 threeBufferComparisons=37356 refusals=36; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "Od"
+    },
+    {
+      "summary": "PASS recovered GameObject root: fixtures=12452 threeBufferComparisons=37356 refusals=36; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "O2"
+    }
+  ],
   "sdkStatus": "not run; original route retained",
-  "sourceCommit": "b91d60ec10d25cfae341498920ca3fe56db2372f",
-  "succeeded": false,
-  "runId": "39920193156"
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "sourceCommit": "7b958b9df5c31f880465d6fd2df8eec6cb73fa28",
+  "runId": "39920441194"
 }

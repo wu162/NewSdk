@@ -1,1 +1,1 @@
-PASS recovered GameObject root: fixtures=5328 threeBufferComparisons=15984 refusals=40; 85 root attributes including Browser string list, four targets including 99, independent defaults/list/sentinel checks; SDK not run
+PASS recovered GameObject root: fixtures=12452 threeBufferComparisons=37356 refusals=36; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run
