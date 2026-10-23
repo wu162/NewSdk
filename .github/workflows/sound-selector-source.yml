@@ -1,9 +1,10 @@
-name: Export sound selector source evidence
+name: Export GameObject module source evidence
 on:
   push:
     branches: [recovery/compiler-source]
     paths:
       - 'recovery/scripts/ExportSoundSelectorMethods.py'
+      - 'recovery/scripts/ExportLifecycleMethods.py'
       - '.github/workflows/sound-selector-source.yml'
 permissions:
   contents: write
@@ -17,12 +18,13 @@ jobs:
         run: |
           python recovery/scripts/ExtractSoundSelectorEvidence.py --check
           python recovery/scripts/ExportSoundSelectorMethods.py
+          python recovery/scripts/ExportLifecycleMethods.py
       - name: Save bounded source evidence
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/gameobject-modules/sound-selector-methods
+          git add recovery/evidence/gameobject-modules/sound-selector-methods recovery/evidence/gameobject-modules/lifecycle-source
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "recovery: export selector source methods from $GITHUB_SHA"
+          git commit -m "recovery: export module source methods from $GITHUB_SHA"
           git pull --rebase origin recovery/compiler-source
           git push origin HEAD:recovery/compiler-source
