@@ -1,3 +1,7 @@
+# 本轮进行中：四种声音／播报选择器
+
+已实现四种选择器及完整嵌套列表、可空优先级和 Token/Endian；新增差分与独立布局测试。当前为**未验证检查点**，等待本提交触发的完整 Windows 矩阵；不得据此宣布新增四类型已完成。原方法经 source blob 指纹及 SHA256 核对，分段证据在 sound-selector-methods/。SDK 未运行，原路由保留。下方此前成功锚点仍只适用于旧源码。
+
 # 编译器恢复：当前续接入口
 
 更新：2026-10-23。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md及本文件。不要全量加载大型反编译或source-inventory。

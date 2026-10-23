@@ -35,6 +35,7 @@ struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char
 struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectFields.h"
+#include "GameObjectSoundSelectors.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -144,7 +145,98 @@ void EndianAI(unsigned char* input,unsigned layoutIndex) {
     }
 }
 
+U32 ExactStringHash(const std::string& text);
+void MarshalSelectorAudio(const GameObjectChild& child,void** slot,Relo::Tracker& data) {
+    bool voice=child.name=="AudioArrayVoice";
+    auto lists=static_cast<NativeList*>(data.Push(slot,voice?24:8,1));
+    const char* names[]={"AudioEntry","ObjectSpecificEntry","NamedEntry"};
+    for(unsigned group=0;group<(voice?3u:1u);++group) {
+        auto list=lists+group;std::vector<const GameObjectChild*> values;
+        for(const auto& entry:child.children) if(!voice || entry.name==names[group]) values.push_back(&entry);
+        list->count=static_cast<U32>(values.size());
+        if(!list->count) continue;
+        unsigned stride=voice?(group==1?16:12):8;
+        auto elements=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));
+        for(U32 j=0;j<list->count;++j) {
+            auto at=elements+stride*j;const auto& attrs=values[j]->attributes;
+            if(voice) {
+                if(group==2) {auto n=attrs.find("Name");if(n!=attrs.end()) {auto hash=ExactStringHash(n->second);std::memcpy(at+8,&hash,4);}}
+                else {auto type=attrs.find("AudioType");if(type!=attrs.end()) {auto word=EnumValue(group==0?"AudioVoiceEntry":"AudioObjectSpecificVoiceEntry",type->second);std::memcpy(at+8,&word,4);}if(group==1) {auto target=attrs.find("TargetObject");if(target!=attrs.end()) {auto hash=HashAssetId(target->second);std::memcpy(at+12,&hash,4);}}}
+                auto sound=attrs.find("Sound");if(sound!=attrs.end()) {auto ref=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,ref,sound->second);data.Pop();}
+                auto eva=attrs.find("EvaEvent");MarshalReference(data,at+4,eva==attrs.end()?"":eva->second);
+            } else {
+                bool sound=child.name=="AudioArraySound";
+                auto ref=attrs.find(sound?"Sound":"EvaEvent");if(ref!=attrs.end()) MarshalReference(data,at,ref->second);
+                auto type=attrs.find(sound?"AudioType":"EvaType");if(type!=attrs.end()) {auto word=EnumValue(child.name,type->second);std::memcpy(at+4,&word,4);}
+            }
+        }
+        data.Pop();
+    }
+    data.Pop();
+}
+void MarshalSelectorPriority(const GameObjectChild& input,unsigned char* at,Relo::Tracker& data) {
+    auto value=input.attributes.find("VoicePriorityOverride");if(value==input.attributes.end()) return;
+    auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=static_cast<U32>(ParseSigned(value->second));data.Pop();
+}
+void MarshalSelectorAudioChildren(const GameObjectChild& input,unsigned char* output,bool eva,Relo::Tracker& data) {
+    const char* names[]={"AudioArrayVoice","AudioArraySound","EvaEventArray"};
+    for(unsigned group=eva?2:0;group<(eva?3u:2u);++group)
+        for(const auto& child:input.children) if(child.name==names[group]) MarshalSelectorAudio(child,reinterpret_cast<void**>(output+(eva?0:4*group)),data);
+}
+void MarshalSoundSelector(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    if(kind==13) {
+        auto value=input.attributes.find("Chance");float chance=ParseFloat(value==input.attributes.end()?"50":value->second)*0.01f;std::memcpy(output+8,&chance,4);
+        MarshalSelectorPriority(input,output+12,data);
+        value=input.attributes.find("RerollOnEveryFrame");output[24]=ParseBoolean(value==input.attributes.end()?"false":value->second)?1:0;
+        MarshalSelectorAudioChildren(input,output+16,false,data);return;
+    }
+    auto list=reinterpret_cast<NativeList*>(output+8);list->count=static_cast<U32>(input.children.size());
+    if(!list->count) return;
+    unsigned stride=kind==14?132:kind==15?148:124;
+    auto entries=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));
+    for(U32 i=0;i<list->count;++i) {
+        const auto& entry=input.children[i];auto at=entries+stride*i;
+        const char* names[]={kind==15?"RequiredModelConditions":"RequiredFlags",kind==15?"ConflictingModelConditions":"ExcludedFlags"};
+        for(unsigned group=0;group<2;++group) {auto v=entry.attributes.find(names[group]);MarshalModelCondition(v==entry.attributes.end()?"":v->second,reinterpret_cast<U32*>(at+60*group));}
+        if(kind!=16) MarshalSelectorPriority(entry,at+120,data);
+        MarshalSelectorAudioChildren(entry,at+(kind==16?120:124),kind==16,data);
+        if(kind==15) for(unsigned group=0;group<2;++group) {
+            auto upgrades=reinterpret_cast<NativeList*>(at+132+8*group);std::vector<const GameObjectChild*> values;
+            for(const auto& child:entry.children) if(child.name==(group==0?"RequiredUpgrade":"ConflictingUpgrade")) values.push_back(&child);
+            upgrades->count=static_cast<U32>(values.size());
+            if(upgrades->count) {auto words=static_cast<U32*>(data.Push(&upgrades->data,4,upgrades->count));for(U32 j=0;j<upgrades->count;++j) words[j]=HashAssetId(values[j]->text);data.Pop();}
+        }
+    }
+    data.Pop();
+}
+void EndianSelectorAudio(void* input,bool voice) {
+    if(!input) return;
+    auto lists=static_cast<NativeList*>(input);
+    for(unsigned group=0;group<(voice?3u:1u);++group) {
+        auto list=lists+group;unsigned stride=voice?(group==1?16:12):8;
+        for(U32 j=0;j<list->count;++j) {auto at=static_cast<unsigned char*>(list->data)+stride*j;Swap(at+(voice?8:4));if(voice && group==1) Swap(at+12);}
+        Swap(&list->count);
+    }
+}
+void EndianSelectorAudioChildren(unsigned char* input,bool eva) {
+    if(eva) EndianSelectorAudio(*reinterpret_cast<void**>(input),false);
+    else {EndianSelectorAudio(*reinterpret_cast<void**>(input),true);EndianSelectorAudio(*reinterpret_cast<void**>(input+4),false);}
+}
+void EndianSoundSelector(unsigned char* output,unsigned kind) {
+    if(kind==13) {Swap(output+8);auto priority=*reinterpret_cast<void**>(output+12);if(priority) Swap(priority);EndianSelectorAudioChildren(output+16,false);return;}
+    auto list=reinterpret_cast<NativeList*>(output+8);unsigned stride=kind==14?132:kind==15?148:124;
+    for(U32 i=0;i<list->count;++i) {
+        auto at=static_cast<unsigned char*>(list->data)+stride*i;
+        for(unsigned j=0;j<30;++j) Swap(at+4*j);
+        if(kind!=16) {auto priority=*reinterpret_cast<void**>(at+120);if(priority) Swap(priority);}
+        EndianSelectorAudioChildren(at+(kind==16?120:124),kind==16);
+        if(kind==15) for(unsigned group=0;group<2;++group) {auto upgrades=reinterpret_cast<NativeList*>(at+132+8*group);for(U32 j=0;j<upgrades->count;++j) Swap(static_cast<U32*>(upgrades->data)+j);Swap(&upgrades->count);}
+    }
+    Swap(&list->count);
+}
+
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:selectorChoices) if(choice.type==type) return &choice;
     for(const auto& choice:moduleChoices) if(choice.type==type) return &choice;
     return nullptr;
 }
@@ -245,7 +337,7 @@ void EndianModule(U32* input) {
         for(U32 i=0;i<list->count;++i) {auto at=static_cast<unsigned char*>(list->data)+12*i;Swap(at);Swap(at+4);}
         Swap(&list->count);
     }
-    if(choice && choice->kind>=3) {
+    if(choice && choice->kind>=3 && choice->kind<13) {
         auto bytes=reinterpret_cast<unsigned char*>(input);EndianModuleFieldSet(bytes,moduleFieldSets[choice->kind]);
         if(choice->kind==9 || choice->kind==10) {
             auto list=reinterpret_cast<NativeList*>(bytes+(choice->kind==9?12:8));unsigned stride=choice->kind==9?24:124,fields=choice->kind==9?11:12;
@@ -254,6 +346,7 @@ void EndianModule(U32* input) {
         }
         if(choice->kind==8) {auto list=reinterpret_cast<NativeList*>(bytes+16);for(U32 i=0;i<list->count;++i) Swap(static_cast<U32*>(list->data)+i);Swap(&list->count);}
     }
+    if(choice && choice->kind>=13) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
     Swap(input);Swap(input+1);
 }
 
@@ -263,7 +356,8 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto choice=FindModule(type);
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind && choice->kind<=2) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
-    if(choice && choice->kind>=3) MarshalClientUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=3 && choice->kind<13) MarshalClientUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=13) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     target[0]=choice?type:0;
     auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
     data.Pop();
@@ -282,6 +376,8 @@ void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo:
                 else procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+j,&count[j+1].offset);
             }
             procedures.Pop();
+        } else if(t.mode==4) {
+            auto pointee=*reinterpret_cast<U32**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) TokenizeModuleTable(pointee,*t.nested,&table[i].offset,procedures);
         } else if(t.mode==2) {
             auto pointee=*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) procedures.BookmarkMemberOffset(pointee,&table[i].offset);
         } else if(t.nested) TokenizeModuleTable(input,*t.nested,&table[i].offset,procedures);
@@ -338,8 +434,12 @@ bool GameObjectAIAttributeSupported(const std::string& name,const std::string& a
     const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
     return false;
 }
+unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
+    auto choice=FindModule(ParseUnsigned(typeId));return choice && choice->kind>=13?choice->kind:0;
+}
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=13) return choice->kind==13 && (attribute=="Chance" || attribute=="VoicePriorityOverride" || attribute=="RerollOnEveryFrame");
     const auto& set=moduleFieldSets[choice->kind];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
     if(choice->kind==2) for(const auto& f:ActiveBodyModuleDataModuleFields) if(attribute==f.name) return true;
     return false;

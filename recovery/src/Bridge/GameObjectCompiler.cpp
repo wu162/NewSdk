@@ -155,6 +155,29 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadSoundSelectorOverride(XPathNavigator^ node,unsigned kind) {
+        Native::GameObjectChild result;result.name="Override";
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            bool allowed=kind==15?(a->LocalName=="RequiredModelConditions" || a->LocalName=="ConflictingModelConditions"):(a->LocalName=="RequiredFlags" || a->LocalName=="ExcludedFlags");
+            allowed=allowed || (kind!=16 && a->LocalName=="VoicePriorityOverride");
+            if(a->NamespaceURI->Length!=0 || !allowed) throw gcnew NotSupportedException("Unsupported sound selector override attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;auto name=child->LocalName;
+            if(child->NamespaceURI!=node->NamespaceURI) throw gcnew NotSupportedException("Foreign sound selector override child.");
+            bool audio=kind==16?name=="EvaEventArray":(name=="AudioArrayVoice" || name=="AudioArraySound");
+            if(audio) {if(!seen->Add(name)) throw gcnew NotSupportedException("Duplicate sound selector audio array.");result.children.push_back(ReadAudioArray(child));continue;}
+            if(kind!=15 || (name!="RequiredUpgrade" && name!="ConflictingUpgrade") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported sound selector override child.");
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported selector upgrade attribute.");
+            } while(attrs->MoveToNextAttribute());
+            Native::GameObjectChild entry;entry.name=marshal_as<std::string>(name);entry.text=marshal_as<std::string>(child->Value);result.children.push_back(entry);
+        }
+        NoStructuredText(node);return result;
+    }
     static Native::GameObjectChild ReadModules(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
@@ -170,6 +193,21 @@ public ref class GameObjectCompiler abstract sealed {
                 if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="id" && attrs->LocalName!="TypeId" && !Native::GameObjectModuleAttributeSupported(typeId,marshal_as<std::string>(attrs->LocalName)))) throw gcnew NotSupportedException("Unsupported module attribute.");
                 item.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
+            if(unsigned kind=Native::GameObjectSoundSelectorKind(typeId)) {
+                auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto values=child->SelectChildren(XPathNodeType::Element);
+                while(values->MoveNext()) {
+                    auto value=values->Current;auto name=value->LocalName;
+                    if(value->NamespaceURI!=child->NamespaceURI) throw gcnew NotSupportedException("Foreign sound selector child.");
+                    if(kind==13) {
+                        if((name!="AudioArrayVoice" && name!="AudioArraySound") || !seen->Add(name)) throw gcnew NotSupportedException("Unsupported or duplicate random selector child.");
+                        item.children.push_back(ReadAudioArray(value));
+                    } else {
+                        if(name!="Override") throw gcnew NotSupportedException("Expected sound selector Override.");
+                        item.children.push_back(ReadSoundSelectorOverride(value,kind));
+                    }
+                }
+                NoStructuredText(child);result.children.push_back(item);continue;
+            }
             auto nested=child->SelectChildren(XPathNodeType::Element);
             while(nested->MoveNext()) {
                 auto value=nested->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(value->LocalName);

@@ -845,11 +845,69 @@ partial class GameObjectOracle {
         for(int i=0;i<15;++i)if(Word(bytes,items+4+4*i,big)!=0xffffffffu || Word(bytes,items+64+4*i,big)!=0)throw new Exception("Independent loop inline masks/padding");
     }
 
+    static string SelectorXML(int group,string attrs="",string children="") {
+        string[] names={"RandomSoundSelector","ModelConditionSoundSelector","UpgradeSoundSelector","ModelConditionEvaEventSelector"};
+        string[] types={"3030954484","847051638","4178664105","1640547431"};
+        return SoundXML(names[group],types[group],attrs,children);
+    }
+    static void SoundSelectorFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string voice="<AudioArrayVoice><AudioEntry Sound='S\\23' EvaEvent='E\\-1' AudioType='voiceSelect'/><ObjectSpecificEntry Sound='' EvaEvent='' TargetObject='AbCd' AudioType='voiceAttackUnit'/><NamedEntry Name='AbCd' Sound='N\\0'/></AudioArrayVoice>";
+        string sound="<AudioArraySound><AudioEntry Sound='S\\23' AudioType='soundAmbient'/><AudioEntry/></AudioArraySound>";
+        string eva="<EvaEventArray><EvaEntry EvaEvent='E\\23' EvaType='dieOwner'/><EvaEntry/></EvaEventArray>";
+        for(int group=0;group<4;++group) {
+            Check(original,p,"",SelectorXML(group));
+            string payload=group==3?eva:voice+sound;
+            Check(original,p,"Browser='a bb'",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {
+                string children="";
+                for(int j=0;j<count;++j)children+=group==0?"<AudioEntry Sound='S\\23' AudioType='voiceSelect'/>":"<Override "+(group==3?"":"VoicePriorityOverride='-1'")+">"+payload+(group==2?"<RequiredUpgrade>UpA</RequiredUpgrade><ConflictingUpgrade>UpB</ConflictingUpgrade>":"")+"</Override>";
+                if(group==0)children="<AudioArrayVoice>"+children+"</AudioArrayVoice><AudioArraySound/>";
+                Check(original,p,"Description='mixed'",SelectorXML(group,"",children)+"<AudioArrayVoice/>"+BodyXML("ShieldBody","3545651287","ShieldArmor='A\\23'"));
+            }
+            if(group!=0)foreach(string field in group==2?new[]{"RequiredModelConditions","ConflictingModelConditions"}:new[]{"RequiredFlags","ExcludedFlags"}) {
+                foreach(string value in BodyModelConditions)Check(original,p,"",SelectorXML(group,"","<Override "+field+"='"+Escape(value)+"'/>"));
+                foreach(string value in new[]{""," ","UNKNOWN","unknown","ALL","all","-ALL","ALL -UNKNOWN","-DAMAGED -DAMAGED +DAMAGED","+","-","DAMAGED RUBBLE"})Check(original,p,"",SelectorXML(group,"","<Override "+field+"='"+value+"'/>"));
+            }
+            if(group<3)foreach(string value in new[]{"","0","-0","1","-1","010","0x10"," 23tail","2147483647","2147483648","-2147483648","-2147483649","4294967295","4294967296","text"})Check(original,p,"",SelectorXML(group,group==0?"VoicePriorityOverride='"+value+"'":"",group==0?"":"<Override VoicePriorityOverride='"+value+"'/>"));
+            foreach(var container in ModuleContainers) {
+                string type=group==0?"3030954484":group==1?"847051638":group==2?"4178664105":"1640547431";
+                Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+type+"'>"+(group==0?payload:"<Override>"+payload+"</Override>")+"</"+container[1]+"></"+container[0]+">");
+            }
+            foreach(string bad in new[]{"<Unknown/>","<Override Unknown='1'/>","<Override xmlns='foreign'/>","<Override>text</Override>","<Override><Unknown/></Override>"})Reject(p,"",SelectorXML(group,"",bad));
+            Reject(p,"",SelectorXML(group,"Unknown='1'"));
+            string entry=group==0?"":"<Override>",end=group==0?"":"</Override>";
+            foreach(string bad in group==3?new[]{"<AudioArrayVoice/>","<EvaEventArray/><EvaEventArray/>","<EvaEventArray><EvaEntry Sound='wrong'/></EvaEventArray>"}:new[]{"<EvaEventArray/>","<AudioArrayVoice/><AudioArrayVoice/>","<AudioArraySound/><AudioArraySound/>","<AudioArraySound><AudioEntry><Unknown/></AudioEntry></AudioArraySound>","<AudioArrayVoice><AudioEntry Name='wrong'/></AudioArrayVoice>"})Reject(p,"",SelectorXML(group,"",entry+bad+end));
+        }
+        foreach(string field in new[]{"Chance","RerollOnEveryFrame"})foreach(string value in new[]{"","-1","0","1","50","100","123.45","1e39","nan","inf","text","true","false","TRUE"," true"})Check(original,p,"",SelectorXML(0,field+"='"+value+"'"));
+        foreach(string value in new[]{"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23trailing","K\\0x10","L\\ 23","M\\text"})for(int group=0;group<4;++group) {
+            string payload=group==3?"<EvaEventArray><EvaEntry EvaEvent='"+value+"'/></EvaEventArray>":"<AudioArrayVoice><AudioEntry Sound='"+value+"' EvaEvent='"+value+"'/><ObjectSpecificEntry Sound='"+value+"'/><NamedEntry Sound='"+value+"'/></AudioArrayVoice><AudioArraySound><AudioEntry Sound='"+value+"'/></AudioArraySound>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
+        foreach(string value in new[]{"","a","AB","ab","abc","abcd","abcde","MiXeD","with spaces","中文","é"}) {
+            Check(original,p,"",SelectorXML(2,"","<Override><RequiredUpgrade>"+value+"</RequiredUpgrade><RequiredUpgrade>"+value+"</RequiredUpgrade><ConflictingUpgrade>"+value+"</ConflictingUpgrade>"+voice+sound+"</Override>"));
+            for(int group=0;group<3;++group) {string payload="<AudioArrayVoice><NamedEntry Name='"+value+"'/><ObjectSpecificEntry TargetObject='"+value+"'/></AudioArrayVoice>";Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));}
+        }
+        var b=Check(original,p,"",SelectorXML(0,"VoicePriorityOverride='-1'","<AudioArrayVoice/><AudioArraySound/>"));var bytes=b.InstanceData;
+        int root=(int)Word(bytes,8,big)-4,header=(int)Word(bytes,root+488,big),slots=(int)Word(bytes,header+4,big),at=(int)Word(bytes,slots,big);
+        if(Word(bytes,at,big)!=3030954484u || Word(bytes,at+8,big)!=0x3f000000u || Word(bytes,at+12,big)!=at+28 || Word(bytes,at+28,big)!=0xffffffffu || Word(bytes,at+16,big)!=at+32 || Word(bytes,at+20,big)!=at+56 || bytes[at+24]!=0)throw new Exception("Independent random selector default/nullable/allocation layout");
+        int listToken=(int)Word(bytes,Token(bytes,0,3007506658u,big)+8,big),wrapper=(int)Word(bytes,listToken+20,big),table=(int)Word(bytes,wrapper+8,big);
+        if(Word(bytes,wrapper,big)!=2 || Word(bytes,wrapper+4,big)!=3030954484u || Word(bytes,table+72,big)!=0 || Word(bytes,table+76,big)!=0 || Word(bytes,table+80,big)!=0 || Word(bytes,Token(bytes,table,549620986u,big)+8,big)!=at+28)throw new Exception("Independent selector wrapper/nullable Token/sentinel");
+        for(int group=1;group<4;++group) {
+            b=Check(original,p,"",SelectorXML(group,"","<Override "+(group==2?"RequiredModelConditions":"RequiredFlags")+"='ALL'/><Override/>"));bytes=b.InstanceData;root=(int)Word(bytes,8,big)-4;header=(int)Word(bytes,root+488,big);slots=(int)Word(bytes,header+4,big);at=(int)Word(bytes,slots,big);int items=(int)Word(bytes,at+12,big),stride=group==1?132:group==2?148:124;
+            if(Word(bytes,at+8,big)!=2 || items!=at+16 || bytes.Length!=items+2*stride)throw new Exception("Independent selector override count/stride");
+            for(int j=0;j<15;++j)if(Word(bytes,items+4*j,big)!=0xffffffffu || Word(bytes,items+60+4*j,big)!=0 || Word(bytes,items+stride+4*j,big)!=0)throw new Exception("Independent selector inline ModelCondition masks");
+        }
+        string ordered=SelectorXML(2,"","<Override>"+voice+sound+"<RequiredUpgrade>UpA</RequiredUpgrade><ConflictingUpgrade>UpB</ConflictingUpgrade></Override>");
+        string reversed=SelectorXML(2,"","<Override><ConflictingUpgrade>UpB</ConflictingUpgrade><RequiredUpgrade>UpA</RequiredUpgrade>"+sound+voice+"</Override>");
+        var a=Check(original,p,"",ordered);b=Check(original,p,"",reversed);Equal(a.InstanceData,b.InstanceData,"Selector schema allocation order",false);Equal(a.RelocationData,b.RelocationData,"Selector relocation order",false);
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
