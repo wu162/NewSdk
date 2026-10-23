@@ -1,23 +1,23 @@
 {
+  "modes": [
+    {
+      "summary": "PASS recovered GameObject root: fixtures=24120 threeBufferComparisons=72360 refusals=336 invarianceComparisons=32; 88 root attributes and nineteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "Od"
+    },
+    {
+      "summary": "PASS recovered GameObject root: fixtures=24120 threeBufferComparisons=72360 refusals=336 invarianceComparisons=32; 88 root attributes and nineteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "O2"
+    }
+  ],
+  "runId": "39926787685",
+  "sdkStatus": "not run; original route retained",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "modes": [
-    {
-      "summary": "PASS recovered GameObject root: fixtures=23240 threeBufferComparisons=69720 refusals=224 invarianceComparisons=16; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "Od"
-    },
-    {
-      "summary": "PASS recovered GameObject root: fixtures=23240 threeBufferComparisons=69720 refusals=224 invarianceComparisons=16; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "O2"
-    }
-  ],
-  "sdkStatus": "not run; original route retained",
-  "scope": "88 root attributes; sixteen child nodes including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
-  "sourceCommit": "a115ef671b3c4a7a18a11bc720418b4c68e789f4",
   "succeeded": true,
-  "runId": "39924338693"
+  "scope": "88 root attributes; nineteen child nodes; AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
+  "sourceCommit": "8650678284fd171f0dc076732bf12d0944e2d1ef"
 }
