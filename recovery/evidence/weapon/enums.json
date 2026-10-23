@@ -5090,5 +5090,67 @@
       "name": "RESET_RADAR_SPIES",
       "value": 3
     }
+  ],
+  "AttributeModifierCategoryType": [
+    {
+      "name": "BUFF",
+      "value": 7
+    },
+    {
+      "name": "DEBUFF",
+      "value": 8
+    },
+    {
+      "name": "FORMATION",
+      "value": 2
+    },
+    {
+      "name": "INNATE_ARMOR",
+      "value": 10
+    },
+    {
+      "name": "INNATE_AUTOHEAL",
+      "value": 13
+    },
+    {
+      "name": "INNATE_DAMAGEMULT",
+      "value": 11
+    },
+    {
+      "name": "INNATE_HEALTH",
+      "value": 14
+    },
+    {
+      "name": "INNATE_VISION",
+      "value": 12
+    },
+    {
+      "name": "LEADERSHIP",
+      "value": 1
+    },
+    {
+      "name": "LEVEL",
+      "value": 6
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "SPELL",
+      "value": 3
+    },
+    {
+      "name": "STRUCTURE",
+      "value": 5
+    },
+    {
+      "name": "STUN",
+      "value": 9
+    },
+    {
+      "name": "WEAPON",
+      "value": 4
+    }
   ]
 }
