@@ -1,27 +1,20 @@
-# 下一完整组：四个声音/播报选择器（尚未实现）
+# 四种声音／播报选择器（组件已验证）
+  
+源码448bf2903742f7d43b2dc1e5938ef2fd4a2ca416；GameObject run40016394892、基础run40016394889均success。每/Od、/O2模式105,348 fixtures、316,044三缓冲区逐字节比较、8,516拒绝、284不变性比较；四平台0/1/2/99。两模式合计632,088次缓冲区比较。SDK未运行，原路由保留；不是正式GameObject插件。
 
-本轮只完成源码调查，不启用TypeId，不声明原DLL验证。提取器scripts/ExtractSoundSelectorEvidence.py及evidence/gameobject-modules/sound-selector-source-plan.json保留原blob指纹、精确签名/行号/方法摘要、lookup顺序/默认、Token记录及helper调用、endian重载，独立检查8种列表stride。生成和--check均通过；没有替代运行差分。
+| 模块 | TypeId | nativeSize |
+|---|---:|---:|
+| RandomSoundSelectorClientBehavior | 3030954484 | 28 |
+| ModelConditionSoundSelectorClientBehavior | 847051638 | 16 |
+| UpgradeSoundSelectorClientBehavior | 4178664105 | 16 |
+| ModelConditionEvaEventSelectorClientBehavior | 1640547431 | 16 |
 
-| 模块 | TypeId | nativeSize | 核心依赖 |
-|---|---:|---:|---|
-| RandomSoundSelector | 3030954484 | 28 | Chance百分比@8默认50；可空int优先级@12；Voice@16；Sound@20；Reroll bool@24 |
-| ModelConditionSoundSelector | 847051638 | 16 | Override列表@8，stride132 |
-| UpgradeSoundSelector | 4178664105 | 16 | Override列表@8，stride148 |
-| ModelConditionEvaEventSelector | 1640547431 | 16 | Override列表@8，stride124 |
+支持四模块全部属性与子节点、三Override stride132/148/124、AudioArrayVoice三种列表、AudioArraySound、EvaEventArray、可空有符号优先级和弱Upgrade ID列表。两inline60字节ModelCondition mask、优先级→Voice→Sound→Upgrade分配次序、scalar enum fallback、NamedEntry大小写敏感StringHash和TargetObject/Upgrade小写typed-ID均保留。**AudioSoundEntry.Sound是内联资源引用；SoundOrEvaEvent.Sound才是可空指针**，更正此前交接描述。
 
-Override flags均两组inline60字节，注意Upgrade字段名是RequiredModelConditions/ConflictingModelConditions，其余是RequiredFlags/ExcludedFlags。ModelConditionSound的可空优先级@120、Voice@124、Sound@128；Upgrade再有RequiredUpgrade列表@132、ConflictingUpgrade@140。Eva条目只有EvaEventArray指针@120。
+实现GameObject.cpp、桥接GameObjectCompiler.cpp；GenerateSoundSelectorFields.py从固定原blob 6e40a9ed6c9f961d294d49768d911e6a6f354619派生18个Token布局及四分派选择，生成GameObjectSoundSelectors.h。检查集成进TestGameObject.ps1；此前原矩阵全部保留。新增所有嵌套合法枚举、fallback、ModelCondition全表、资源边界、空/多项列表、分配顺序、typed-ID和NamedEntry大小写、不支持输入及独立布局/Token/sentinel断言。
 
-复用已验证根Audio契约，但需扩展可空结构Token及nullable int：AudioArrayVoice24（AudioEntry stride12、ObjectSpecificEntry16、NamedEntry12）；AudioArraySound8含AudioSoundEntry8（Sound可空引用@0、Type@4）；EvaEventArray8含EvaEventEntry8（EvaEvent资源@0、Type@4）。SoundOrEvaEvent8为Sound可空引用@0、EvaEvent资源@4；ObjectSpecific目标是小写typed-ID，Named名称区分大小写StringHash。部分Marshal被内联或折叠，必须查看父方法/列表helper，不得编造缺失独立重载。
+原始方法逐方法核对证据在evidence/gameobject-modules/sound-selector-methods/；ExportSoundSelectorMethods.py核对原blob和body SHA256，覆盖折叠的具体重载、父方法、列表及共享helper。source-plan.json仍是此前调查计划，不能单独代替运行验收。首次run40016123624因测试节点漏ClientBehavior后缀而失败，已按XSD修正；不能把该失败列为通过，最终锚点为上述修正后完整矩阵。
 
-按整个四选择器依赖组实现，保留原优先级→Voice→Sound→Upgrade列表分配次序、枚举fallback、单例/列表XML约束和弱升级ID语义。随后一次完整/Od、/O2、0/1/2/99三缓冲区矩阵、独立布局/Token/endian与拒绝验证。其他未支持类型继续拒绝。SDK仍待累计能力后的正式集成批次。
+本组已保存50/322已知Marshal类型支持状态，其他272明确拒绝，58 Token-only继续原未知Marshal路径。完整GameObject和两份完整替代DLL仍未完成。
 
-## 原方法入口（方便下一轮直接展开）
-
-| 模块 | Marshal | Token | endian |
-|---|---:|---:|---:|
-| RandomSoundSelector | 18677 | 93184 | 18742 |
-| ModelConditionSoundSelector | 62869 | 103999 | 65567 |
-| UpgradeSoundSelector | 61585 | 102879 | 64349 |
-| ModelConditionEvaEventSelector | 61210 | 102579 | 64043 |
-
-方法行号对应上述固定blob；完整签名及摘要在JSON。调查脚本运行方式：`python recovery/scripts/ExtractSoundSelectorEvidence.py --check`，仅检查证据一致性。
+下一组生命周期Update：DeletionUpdate、DieOnProducerDeathUpdate、InvalidTargetsDeathUpdate、HeightDieUpdate、LoseHealthUpdate、LifetimeUpdate；另有DestroyDie/DieMuxData源码证据供后续Die家族。lifecycle-source/manifest.json记录68个精确原方法；这些新增生命周期类型目前仍明确拒绝，未冒充已支持。
