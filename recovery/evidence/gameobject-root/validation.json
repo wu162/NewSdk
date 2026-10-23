@@ -1,23 +1,23 @@
 {
   "sdkStatus": "not run; original route retained",
+  "scope": "88 root attributes; twenty-three child nodes; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
+  "succeeded": true,
+  "runId": "39928834132",
   "modes": [
     {
       "mode": "Od",
-      "summary": "PASS recovered GameObject root: fixtures=24412 threeBufferComparisons=73236 refusals=420 invarianceComparisons=120; 88 root attributes and twenty-two child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=34052 threeBufferComparisons=102156 refusals=492 invarianceComparisons=124; 88 root attributes and twenty-three child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
     },
     {
       "mode": "O2",
-      "summary": "PASS recovered GameObject root: fixtures=24412 threeBufferComparisons=73236 refusals=420 invarianceComparisons=120; 88 root attributes and twenty-two child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=34052 threeBufferComparisons=102156 refusals=492 invarianceComparisons=124; 88 root attributes and twenty-three child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
     }
   ],
-  "sourceCommit": "93d16a98c24cde4ac9d2e00d26c6d76c96ff7015",
-  "runId": "39927770965",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "succeeded": true,
-  "scope": "88 root attributes; twenty-two child nodes; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected"
+  "sourceCommit": "074d267b2835be89ade3944c1cbe6d2f94b3793a"
 }
