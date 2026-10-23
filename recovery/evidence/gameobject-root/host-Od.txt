@@ -1,0 +1,1 @@
+recovery\tests\GameObjectOracle.cs(1039,262): error CS0136: A local variable named 'f' cannot be declared in this scope because it would give a different meaning to 'f', which is already used in a 'child' scope to denote something else
