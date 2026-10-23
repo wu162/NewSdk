@@ -178,6 +178,24 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadUpgradeNode(XPathNavigator^ node,unsigned kind,std::string path) {
+        Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        unsigned shape=Native::GameObjectUpgradeNodeKind(kind,path);
+        if(!shape) throw gcnew NotSupportedException("Unsupported Upgrade nested node.");
+        if(path=="ObjectFilter") return ReadDependencyFilter(node);
+        auto attrs=node->Clone();if(attrs->MoveToFirstAttribute()) do {
+            if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+            if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectUpgradeNodeAttribute(kind,path,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported Upgrade nested attribute.");
+            result.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+        }while(attrs->MoveToNextAttribute());
+        auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto children=node->SelectChildren(XPathNodeType::Element);
+        while(children->MoveNext()) {
+            auto child=children->Current;auto subpath=path+"/"+marshal_as<std::string>(child->LocalName);unsigned subshape=Native::GameObjectUpgradeNodeKind(kind,subpath);
+            if(child->NamespaceURI!=node->NamespaceURI || shape==3 || shape==4 || !subshape || ((subshape==1 || subshape==4) && !seen->Add(child->LocalName))) throw gcnew NotSupportedException("Unsupported or duplicate Upgrade nested child.");
+            result.children.push_back(ReadUpgradeNode(child,kind,subpath));
+        }
+        if(shape==3 || shape==4) result.text=marshal_as<std::string>(node->Value);else NoStructuredText(node);return result;
+    }
     static Native::GameObjectChild ReadModules(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
@@ -205,6 +223,15 @@ public ref class GameObjectCompiler abstract sealed {
                         if(name!="Override") throw gcnew NotSupportedException("Expected sound selector Override.");
                         item.children.push_back(ReadSoundSelectorOverride(value,kind));
                     }
+                }
+                NoStructuredText(child);result.children.push_back(item);continue;
+            }
+            if(unsigned kind=Native::GameObjectRemainingUpgradeKind(typeId)) {
+                auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto values=child->SelectChildren(XPathNodeType::Element);
+                while(values->MoveNext()) {
+                    auto value=values->Current;std::string path=marshal_as<std::string>(value->LocalName);unsigned shape=Native::GameObjectUpgradeNodeKind(kind,path);
+                    if(value->NamespaceURI!=child->NamespaceURI || !shape || ((shape==1 || shape==4) && !seen->Add(value->LocalName))) throw gcnew NotSupportedException("Unsupported or duplicate Upgrade child.");
+                    item.children.push_back(ReadUpgradeNode(value,kind,path));
                 }
                 NoStructuredText(child);result.children.push_back(item);continue;
             }

@@ -1,3 +1,7 @@
+# 当前验证中：其余11种命名Upgrade派生
+
+2026-10-23续接阶段第二完整组已实现，正在完整矩阵验收。新增SubStructureBuild、ModelCondition、ReplaceSelf、SubObjects/Nugget/ReplaceTexture、ObjectCreation/Vector3、RemoveUpgrade、StatusBits、UnpauseSpecialPower、CostModifier、Tech和Geometry Upgrade。GenerateUpgradeRemaining原源码/PE完整生成校验已通过run40034988048。此检查点的85种支持/237拒绝是候选数，验收前以已成功74种为准；SDK本轮0次。
+
 # 当前已验收：Upgrade基类及十派生
 
 2026-10-23续接阶段：新增11种完整Upgrade模块，已验收支持74/322，248明确拒绝；58 Token-only路径不变。最新有效源码d39c891b32b8ddc229ffc4db76fb71f5fec7fdaa，GameObject run40034294614、基础run40034294612均success；远端gameobject-root/validation.json已核对。每/Od、/O2：158216 fixtures、474648三缓冲区逐字节比较、9084拒绝、312不变性，平台0/1/2/99。SDK本轮0次。
