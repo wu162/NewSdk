@@ -1,17 +1,17 @@
 {
-  "runId": "39897241362",
+  "rootTokenRecords": 127,
+  "scalarBindings": 16,
+  "scope": "Original DLL characterization only; no recovered GameObject compiler",
   "fixtures": 196,
-  "succeeded": true,
-  "nativeRootBytes": 592,
-  "sourceCommit": "10fcc4cb7d95cd1f3bb30ec5778f7eab1d9f56c0",
   "repeatedThreeBufferComparisons": 588,
+  "sourceCommit": "a2bca36c1b72b09eea4a0cacfef1c4b7e7724ea6",
+  "nativeRootBytes": 592,
+  "runId": "39897613031",
+  "succeeded": true,
   "platforms": [
     0,
     1,
     2,
     99
-  ],
-  "rootTokenRecords": 127,
-  "scalarBindings": 16,
-  "scope": "Original DLL characterization only; no recovered GameObject compiler"
+  ]
 }

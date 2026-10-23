@@ -1,0 +1,1370 @@
+{
+  "scope": "Original source evidence; not a recovered compiler",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "nativeRootBytes": 592,
+  "methods": {
+    "marshal": {
+      "startLine": 50072,
+      "lineCount": 556
+    },
+    "endian": {
+      "startLine": 50628,
+      "lineCount": 284
+    },
+    "tokenize": {
+      "startLine": 97296,
+      "lineCount": 519
+    },
+    "root": {
+      "startLine": 74590,
+      "lineCount": 91
+    }
+  },
+  "tokens": [
+    {
+      "index": 0,
+      "sourceLine": 97296,
+      "nameHash": 4185812704,
+      "typeHash": 2600243603,
+      "nativeOffset": 4,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 1,
+      "sourceLine": 97302,
+      "nameHash": 3067491221,
+      "typeHash": 1835445784,
+      "nativeOffset": 40,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 2,
+      "sourceLine": 97306,
+      "nameHash": 2503394572,
+      "typeHash": 438907818,
+      "nativeOffset": 48,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 3,
+      "sourceLine": 97310,
+      "nameHash": 2071352306,
+      "typeHash": 438907818,
+      "nativeOffset": 56,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 4,
+      "sourceLine": 97314,
+      "nameHash": 1405703153,
+      "typeHash": 438907818,
+      "nativeOffset": 64,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 5,
+      "sourceLine": 97318,
+      "nameHash": 2553711004,
+      "typeHash": 438907818,
+      "nativeOffset": 72,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 6,
+      "sourceLine": 97322,
+      "nameHash": 1256201774,
+      "typeHash": 2635111608,
+      "nativeOffset": 80,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 7,
+      "sourceLine": 97326,
+      "nameHash": 2603815667,
+      "typeHash": 814836630,
+      "nativeOffset": 580,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 8,
+      "sourceLine": 97330,
+      "nameHash": 2784876747,
+      "typeHash": 1683514611,
+      "nativeOffset": 84,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 9,
+      "sourceLine": 97334,
+      "nameHash": 4115183252,
+      "typeHash": 1683514611,
+      "nativeOffset": 88,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 10,
+      "sourceLine": 97338,
+      "nameHash": 2374071002,
+      "typeHash": 1683514611,
+      "nativeOffset": 92,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 11,
+      "sourceLine": 97342,
+      "nameHash": 3901548879,
+      "typeHash": 1683514611,
+      "nativeOffset": 96,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 12,
+      "sourceLine": 97346,
+      "nameHash": 3754195860,
+      "typeHash": 1310124621,
+      "nativeOffset": 100,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 13,
+      "sourceLine": 97350,
+      "nameHash": 707785181,
+      "typeHash": 2575722984,
+      "nativeOffset": 104,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 14,
+      "sourceLine": 97354,
+      "nameHash": 3506240728,
+      "typeHash": 1683514611,
+      "nativeOffset": 108,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 15,
+      "sourceLine": 97358,
+      "nameHash": 405691149,
+      "typeHash": 1683514611,
+      "nativeOffset": 112,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 16,
+      "sourceLine": 97362,
+      "nameHash": 3144851442,
+      "typeHash": 2011428087,
+      "nativeOffset": 581,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 17,
+      "sourceLine": 97366,
+      "nameHash": 449781326,
+      "typeHash": 1873548347,
+      "nativeOffset": 116,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 18,
+      "sourceLine": 97370,
+      "nameHash": 444549785,
+      "typeHash": 438907818,
+      "nativeOffset": 120,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 19,
+      "sourceLine": 97374,
+      "nameHash": 847505653,
+      "typeHash": 3650538541,
+      "nativeOffset": 128,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 20,
+      "sourceLine": 97378,
+      "nameHash": 2693990618,
+      "typeHash": 602296504,
+      "nativeOffset": 132,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 21,
+      "sourceLine": 97382,
+      "nameHash": 3394036936,
+      "typeHash": 1683514611,
+      "nativeOffset": 136,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 22,
+      "sourceLine": 97386,
+      "nameHash": 779772782,
+      "typeHash": 1129320594,
+      "nativeOffset": 576,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 23,
+      "sourceLine": 97390,
+      "nameHash": 2792070950,
+      "typeHash": 602296504,
+      "nativeOffset": 140,
+      "kind": "member-bookmark",
+      "helpers": []
+    },
+    {
+      "index": 24,
+      "sourceLine": 97394,
+      "nameHash": 2790196718,
+      "typeHash": 602296504,
+      "nativeOffset": 144,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 25,
+      "sourceLine": 97398,
+      "nameHash": 4150983076,
+      "typeHash": 2011428087,
+      "nativeOffset": 582,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 26,
+      "sourceLine": 97402,
+      "nameHash": 1825943781,
+      "typeHash": 2011428087,
+      "nativeOffset": 583,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 27,
+      "sourceLine": 97406,
+      "nameHash": 4162298070,
+      "typeHash": 2011428087,
+      "nativeOffset": 584,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 28,
+      "sourceLine": 97410,
+      "nameHash": 1767410626,
+      "typeHash": 2011428087,
+      "nativeOffset": 585,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 29,
+      "sourceLine": 97414,
+      "nameHash": 2584759047,
+      "typeHash": 2245282653,
+      "nativeOffset": 148,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ALogicCommandSet_003E"
+      ]
+    },
+    {
+      "index": 30,
+      "sourceLine": 97418,
+      "nameHash": 3330187981,
+      "typeHash": 1019125366,
+      "nativeOffset": 152,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
+      ]
+    },
+    {
+      "index": 31,
+      "sourceLine": 97422,
+      "nameHash": 771982898,
+      "typeHash": 1019125366,
+      "nativeOffset": 156,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
+      ]
+    },
+    {
+      "index": 32,
+      "sourceLine": 97426,
+      "nameHash": 4171715770,
+      "typeHash": 1019125366,
+      "nativeOffset": 160,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
+      ]
+    },
+    {
+      "index": 33,
+      "sourceLine": 97430,
+      "nameHash": 3689831051,
+      "typeHash": 1019125366,
+      "nativeOffset": 164,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_003E"
+      ]
+    },
+    {
+      "index": 34,
+      "sourceLine": 97434,
+      "nameHash": 2960732144,
+      "typeHash": 602296504,
+      "nativeOffset": 168,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 35,
+      "sourceLine": 97438,
+      "nameHash": 2851957643,
+      "typeHash": 1683514611,
+      "nativeOffset": 172,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 36,
+      "sourceLine": 97442,
+      "nameHash": 400896388,
+      "typeHash": 2597951987,
+      "nativeOffset": 176,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ACrowdResponse_002Cclass_0020CrowdResponseTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 37,
+      "sourceLine": 97446,
+      "nameHash": 3038829189,
+      "typeHash": 1982953380,
+      "nativeOffset": 180,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 38,
+      "sourceLine": 97450,
+      "nameHash": 248528920,
+      "typeHash": 1683514611,
+      "nativeOffset": 184,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 39,
+      "sourceLine": 97454,
+      "nameHash": 3749463182,
+      "typeHash": 1683514611,
+      "nativeOffset": 188,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 40,
+      "sourceLine": 97458,
+      "nameHash": 1294491905,
+      "typeHash": 1683514611,
+      "nativeOffset": 192,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 41,
+      "sourceLine": 97462,
+      "nameHash": 3539859246,
+      "typeHash": 1683514611,
+      "nativeOffset": 196,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 42,
+      "sourceLine": 97466,
+      "nameHash": 85538830,
+      "typeHash": 602296504,
+      "nativeOffset": 200,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 43,
+      "sourceLine": 97470,
+      "nameHash": 1498319417,
+      "typeHash": 602296504,
+      "nativeOffset": 204,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 44,
+      "sourceLine": 97474,
+      "nameHash": 3687407556,
+      "typeHash": 1683514611,
+      "nativeOffset": 208,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 45,
+      "sourceLine": 97478,
+      "nameHash": 1031951649,
+      "typeHash": 1683514611,
+      "nativeOffset": 212,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 46,
+      "sourceLine": 97482,
+      "nameHash": 1216152939,
+      "typeHash": 1129320594,
+      "nativeOffset": 578,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020short_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 47,
+      "sourceLine": 97486,
+      "nameHash": 3185619309,
+      "typeHash": 602296504,
+      "nativeOffset": 216,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 48,
+      "sourceLine": 97490,
+      "nameHash": 1475445830,
+      "typeHash": 1683514611,
+      "nativeOffset": 220,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 49,
+      "sourceLine": 97494,
+      "nameHash": 3971031051,
+      "typeHash": 1683514611,
+      "nativeOffset": 224,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 50,
+      "sourceLine": 97498,
+      "nameHash": 694860650,
+      "typeHash": 602296504,
+      "nativeOffset": 228,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 51,
+      "sourceLine": 97502,
+      "nameHash": 3937849036,
+      "typeHash": 602296504,
+      "nativeOffset": 232,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 52,
+      "sourceLine": 97506,
+      "nameHash": 3808143923,
+      "typeHash": 1982953380,
+      "nativeOffset": 236,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 53,
+      "sourceLine": 97510,
+      "nameHash": 2773906269,
+      "typeHash": 2575722984,
+      "nativeOffset": 240,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 54,
+      "sourceLine": 97514,
+      "nameHash": 3975318301,
+      "typeHash": 2575722984,
+      "nativeOffset": 244,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 55,
+      "sourceLine": 97518,
+      "nameHash": 170801484,
+      "typeHash": 2575722984,
+      "nativeOffset": 248,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 56,
+      "sourceLine": 97522,
+      "nameHash": 3419462363,
+      "typeHash": 2575722984,
+      "nativeOffset": 252,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 57,
+      "sourceLine": 97526,
+      "nameHash": 2816668280,
+      "typeHash": 1683514611,
+      "nativeOffset": 256,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 58,
+      "sourceLine": 97530,
+      "nameHash": 3527745219,
+      "typeHash": 1982953380,
+      "nativeOffset": 260,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 59,
+      "sourceLine": 97534,
+      "nameHash": 2984215616,
+      "typeHash": 1683514611,
+      "nativeOffset": 264,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 60,
+      "sourceLine": 97538,
+      "nameHash": 548801598,
+      "typeHash": 2011428087,
+      "nativeOffset": 586,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 61,
+      "sourceLine": 97542,
+      "nameHash": 3802663823,
+      "typeHash": 2011428087,
+      "nativeOffset": 587,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 62,
+      "sourceLine": 97546,
+      "nameHash": 3434745923,
+      "typeHash": 2011428087,
+      "nativeOffset": 588,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 63,
+      "sourceLine": 97550,
+      "nameHash": 1531640618,
+      "typeHash": 2011428087,
+      "nativeOffset": 589,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 64,
+      "sourceLine": 97554,
+      "nameHash": 3694606693,
+      "typeHash": 1982953380,
+      "nativeOffset": 268,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 65,
+      "sourceLine": 97558,
+      "nameHash": 1311875094,
+      "typeHash": 1683514611,
+      "nativeOffset": 272,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 66,
+      "sourceLine": 97562,
+      "nameHash": 3482443700,
+      "typeHash": 602296504,
+      "nativeOffset": 276,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 67,
+      "sourceLine": 97566,
+      "nameHash": 1143703929,
+      "typeHash": 438907818,
+      "nativeOffset": 280,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 68,
+      "sourceLine": 97570,
+      "nameHash": 2471770621,
+      "typeHash": 1683514611,
+      "nativeOffset": 288,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 69,
+      "sourceLine": 97574,
+      "nameHash": 1575092515,
+      "typeHash": 602296504,
+      "nativeOffset": 292,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 70,
+      "sourceLine": 97578,
+      "nameHash": 2271802027,
+      "typeHash": 602296504,
+      "nativeOffset": 296,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 71,
+      "sourceLine": 97582,
+      "nameHash": 1846208615,
+      "typeHash": 602296504,
+      "nativeOffset": 300,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 72,
+      "sourceLine": 97586,
+      "nameHash": 3163048042,
+      "typeHash": 3163048042,
+      "nativeOffset": 304,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020ProductionQueueType_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 73,
+      "sourceLine": 97590,
+      "nameHash": 2630826128,
+      "typeHash": 549004363,
+      "nativeOffset": 308,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020SageBinaryData_003A_003ABuildPlacementType_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 74,
+      "sourceLine": 97594,
+      "nameHash": 2521734105,
+      "typeHash": 2011428087,
+      "nativeOffset": 590,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 75,
+      "sourceLine": 97598,
+      "nameHash": 1445533692,
+      "typeHash": 2600243603,
+      "nativeOffset": 312,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020BitFlags_003C284_002Cenum_0020KindOfType_003E_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 76,
+      "sourceLine": 97602,
+      "nameHash": 2482724672,
+      "typeHash": 2482724672,
+      "nativeOffset": 348,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020UnitCategory_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 77,
+      "sourceLine": 97606,
+      "nameHash": 668229763,
+      "typeHash": 668229763,
+      "nativeOffset": 352,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020WeaponCategory_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 78,
+      "sourceLine": 97610,
+      "nameHash": 552856633,
+      "typeHash": 2575722984,
+      "nativeOffset": 356,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 79,
+      "sourceLine": 97614,
+      "nameHash": 3614134471,
+      "typeHash": 2716967967,
+      "nativeOffset": 360,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUnitTypeIcon_002Cclass_0020UnitTypeIcon_003E_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 80,
+      "sourceLine": 97618,
+      "nameHash": 2154577981,
+      "typeHash": 2575722984,
+      "nativeOffset": 364,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 81,
+      "sourceLine": 97622,
+      "nameHash": 506097697,
+      "typeHash": 1683514611,
+      "nativeOffset": 368,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 82,
+      "sourceLine": 97626,
+      "nameHash": 3598372541,
+      "typeHash": 1683514611,
+      "nativeOffset": 372,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 83,
+      "sourceLine": 97630,
+      "nameHash": 682912317,
+      "typeHash": 3769189345,
+      "nativeOffset": 376,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AHealthBarTemplate_003E"
+      ]
+    },
+    {
+      "index": 84,
+      "sourceLine": 97634,
+      "nameHash": 3635298881,
+      "typeHash": 602296504,
+      "nativeOffset": 380,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cint_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 85,
+      "sourceLine": 97638,
+      "nameHash": 2763501760,
+      "typeHash": 1683514611,
+      "nativeOffset": 384,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 86,
+      "sourceLine": 97642,
+      "nameHash": 2853411872,
+      "typeHash": 1869421287,
+      "nativeOffset": 388,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 87,
+      "sourceLine": 97646,
+      "nameHash": 1870180772,
+      "typeHash": 1786164858,
+      "nativeOffset": 392,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUnitIntro_002Cclass_0020UnitIntro_003E_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 88,
+      "sourceLine": 97650,
+      "nameHash": 926479574,
+      "typeHash": 438907818,
+      "nativeOffset": 396,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 89,
+      "sourceLine": 97654,
+      "nameHash": 797144851,
+      "typeHash": 438907818,
+      "nativeOffset": 400,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 90,
+      "sourceLine": 97658,
+      "nameHash": 1812791604,
+      "typeHash": 1836672734,
+      "nativeOffset": 404,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AGameDependencyType_003E"
+      ]
+    },
+    {
+      "index": 91,
+      "sourceLine": 97662,
+      "nameHash": 1789579963,
+      "typeHash": 1789579963,
+      "nativeOffset": 408,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AObjectResourceInfo_003E"
+      ]
+    },
+    {
+      "index": 92,
+      "sourceLine": 97666,
+      "nameHash": 681740580,
+      "typeHash": 1583019381,
+      "nativeOffset": 412,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AArmorTemplateSet_003E"
+      ]
+    },
+    {
+      "index": 93,
+      "sourceLine": 97670,
+      "nameHash": 1852568706,
+      "typeHash": 1852568706,
+      "nativeOffset": 420,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ALocomotorSet_003E"
+      ]
+    },
+    {
+      "index": 94,
+      "sourceLine": 97674,
+      "nameHash": 9963775,
+      "typeHash": 4118694088,
+      "nativeOffset": 428,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020BuildableStatus_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 95,
+      "sourceLine": 97678,
+      "nameHash": 1022237882,
+      "typeHash": 1723492635,
+      "nativeOffset": 432,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cenum_0020ThingClassType_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 96,
+      "sourceLine": 97682,
+      "nameHash": 4079217817,
+      "typeHash": 1835445784,
+      "nativeOffset": 436,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 97,
+      "sourceLine": 97686,
+      "nameHash": 2160707259,
+      "typeHash": 1835445784,
+      "nativeOffset": 440,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 98,
+      "sourceLine": 97690,
+      "nameHash": 3726299163,
+      "typeHash": 344905565,
+      "nativeOffset": 444,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 99,
+      "sourceLine": 97694,
+      "nameHash": 601607184,
+      "typeHash": 2654902107,
+      "nativeOffset": 452,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E"
+      ]
+    },
+    {
+      "index": 100,
+      "sourceLine": 97698,
+      "nameHash": 272911724,
+      "typeHash": 272911724,
+      "nativeOffset": 456,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFlammability_003E"
+      ]
+    },
+    {
+      "index": 101,
+      "sourceLine": 97702,
+      "nameHash": 465968874,
+      "typeHash": 465968874,
+      "nativeOffset": 460,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASkirmishAIInformation_003E"
+      ]
+    },
+    {
+      "index": 102,
+      "sourceLine": 97706,
+      "nameHash": 1373506191,
+      "typeHash": 4022052753,
+      "nativeOffset": 464,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003ADrawModuleData_0020_002A_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 103,
+      "sourceLine": 97710,
+      "nameHash": 3015298429,
+      "typeHash": 620546786,
+      "nativeOffset": 468,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003ABehaviorModuleData_0020_002A_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 104,
+      "sourceLine": 97714,
+      "nameHash": 1376227828,
+      "typeHash": 1608018205,
+      "nativeOffset": 472,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AUpdateModuleData_0020_002A_003E"
+      ]
+    },
+    {
+      "index": 105,
+      "sourceLine": 97718,
+      "nameHash": 1868326721,
+      "typeHash": 2947372788,
+      "nativeOffset": 480,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize"
+      ]
+    },
+    {
+      "index": 106,
+      "sourceLine": 97722,
+      "nameHash": 346717295,
+      "typeHash": 835647844,
+      "nativeOffset": 484,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003AClientUpdateModuleData_0020_002A_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 107,
+      "sourceLine": 97726,
+      "nameHash": 3007506658,
+      "typeHash": 3664568761,
+      "nativeOffset": 488,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AList_003Cstruct_0020SageBinaryData_003A_003AClientBehaviorModuleData_0020_002A_003E_0020_003E"
+      ]
+    },
+    {
+      "index": 108,
+      "sourceLine": 97730,
+      "nameHash": 4001023936,
+      "typeHash": 4001023936,
+      "nativeOffset": 492,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AGeometry_003E"
+      ]
+    },
+    {
+      "index": 109,
+      "sourceLine": 97734,
+      "nameHash": 1471645405,
+      "typeHash": 1471645405,
+      "nativeOffset": 496,
+      "kind": "null-only-token-stub",
+      "helpers": []
+    },
+    {
+      "index": 110,
+      "sourceLine": 97741,
+      "nameHash": 3786889584,
+      "typeHash": 3786889584,
+      "nativeOffset": 500,
+      "kind": "null-only-token-stub",
+      "helpers": []
+    },
+    {
+      "index": 111,
+      "sourceLine": 97748,
+      "nameHash": 1972927658,
+      "typeHash": 1972927658,
+      "nativeOffset": 504,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveArmor_003E"
+      ]
+    },
+    {
+      "index": 112,
+      "sourceLine": 97752,
+      "nameHash": 2393386135,
+      "typeHash": 2393386135,
+      "nativeOffset": 508,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveWeapon_003E"
+      ]
+    },
+    {
+      "index": 113,
+      "sourceLine": 97756,
+      "nameHash": 3612602563,
+      "typeHash": 3612602563,
+      "nativeOffset": 512,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFormationPreviewDecal_003E"
+      ]
+    },
+    {
+      "index": 114,
+      "sourceLine": 97760,
+      "nameHash": 2471735507,
+      "typeHash": 3612602563,
+      "nativeOffset": 516,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFormationPreviewDecal_003E"
+      ]
+    },
+    {
+      "index": 115,
+      "sourceLine": 97764,
+      "nameHash": 222595978,
+      "typeHash": 691437687,
+      "nativeOffset": 520,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector3_003E"
+      ]
+    },
+    {
+      "index": 116,
+      "sourceLine": 97768,
+      "nameHash": 164725313,
+      "typeHash": 164725313,
+      "nativeOffset": 524,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioArrayVoice_003E"
+      ]
+    },
+    {
+      "index": 117,
+      "sourceLine": 97772,
+      "nameHash": 1501986059,
+      "typeHash": 1501986059,
+      "nativeOffset": 528,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioArraySound_003E"
+      ]
+    },
+    {
+      "index": 118,
+      "sourceLine": 97776,
+      "nameHash": 4135037614,
+      "typeHash": 4135037614,
+      "nativeOffset": 532,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AEvaEventArray_003E"
+      ]
+    },
+    {
+      "index": 119,
+      "sourceLine": 97780,
+      "nameHash": 754362008,
+      "typeHash": 438907818,
+      "nativeOffset": 536,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002C5_003E"
+      ]
+    },
+    {
+      "index": 120,
+      "sourceLine": 97784,
+      "nameHash": 2197716616,
+      "typeHash": 2197716616,
+      "nativeOffset": 544,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AShadowInfo_003E"
+      ]
+    },
+    {
+      "index": 121,
+      "sourceLine": 97788,
+      "nameHash": 2236001359,
+      "typeHash": 2236001359,
+      "nativeOffset": 548,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAutoResolveInfo_003E"
+      ]
+    },
+    {
+      "index": 122,
+      "sourceLine": 97792,
+      "nameHash": 1688180689,
+      "typeHash": 1688180689,
+      "nativeOffset": 552,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AVisionInfo_003E"
+      ]
+    },
+    {
+      "index": 123,
+      "sourceLine": 97796,
+      "nameHash": 519758843,
+      "typeHash": 519758843,
+      "nativeOffset": 556,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ACrusherInfo_003E"
+      ]
+    },
+    {
+      "index": 124,
+      "sourceLine": 97800,
+      "nameHash": 1388118305,
+      "typeHash": 1388118305,
+      "nativeOffset": 560,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AProjectedBuildabilityInfo_003E"
+      ]
+    },
+    {
+      "index": 125,
+      "sourceLine": 97804,
+      "nameHash": 2658004210,
+      "typeHash": 653971399,
+      "nativeOffset": 568,
+      "kind": "nested-helper",
+      "helpers": [
+        "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_002C2_003E"
+      ]
+    },
+    {
+      "index": 126,
+      "sourceLine": 97808,
+      "nameHash": 0,
+      "typeHash": 0,
+      "nativeOffset": null,
+      "kind": "sentinel",
+      "helpers": []
+    }
+  ]
+}
