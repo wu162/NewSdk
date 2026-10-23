@@ -23,7 +23,9 @@ if '--die-family' in sys.argv:
     names=['DieModuleData','DestroyDieModuleData','UpgradeDieModuleData','KeepObjectDieModuleData','CreateObjectDieModuleData','CrushDieModuleData','RefundDieModuleData']
 if '--upgrade-family' in sys.argv:
     names=['UpgradeModuleData','PowerUpgradeModuleData','DelayedUpgradeModuleData','AttributeModifierUpgradeModuleData','InvisibilityUpgradeModuleData','CommandSetUpgradeModuleData','ExperienceScalarUpgradeModuleData','MaxHealthUpgradeModuleData','ArmorUpgradeModuleData','LevelUpUpgradeModuleData','AudioLoopUpgradeModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--upgrade-remaining' in sys.argv:
+    names=["SubStructureBuildUpgradeModuleData","ModelConditionUpgradeModuleData","ReplaceSelfUpgradeModuleData","SubObjectsUpgradeModuleData","ObjectCreationUpgradeModuleData","RemoveUpgradeUpgradeModuleData","StatusBitsUpgradeModuleData","UnpauseSpecialPowerUpgradeModuleData","CostModifierUpgradeModuleData","TechUpgradeModuleData","GeometryUpgradeModuleData"]
+out=ROOT/('recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
