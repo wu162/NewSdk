@@ -1,6 +1,6 @@
 # GameObject recovery entry
 
-Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 23 non-polymorphic child types listed below. Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
+Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 29 non-polymorphic child types (the original 23 below plus the six complete groups documented later). Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
 
 Implementation: `src/Native/GameObject.{h,cpp}`, source-derived `GameObjectFields.h`, `src/Bridge/GameObjectCompiler.cpp`. Validation: `scripts/TestGameObject.ps1`, `tests/GameObject{Oracle,Cases,KindOf}.cs`, `.github/workflows/recovered-gameobject.yml`. The workflow builds a separate `Recovered.GameObject.dll` on x86 under /Od and /O2; it does not replace either original DLL. Successful builds publish the DLL as `recovered-gameobject-component-x86`.
 
@@ -86,7 +86,7 @@ Actual SDK `Includes/Base.xsd` declares StringList as `xs:list itemType="xs:toke
 
 The test loads the actual SDK StringList declaration, validates text nodes with .NET XmlDocument, adds the allowed unqualified TypeId annotation and compares them directly against the original plugin. Empty, multiword, whitespace, Unicode, CDATA/comment/PI cases all preserve an explicit empty list. One present list has root=1632, list=2224, total=2232; both have root=1644 and total=2252, with headers in schema order. Original-only synthetic `<Item>` children confirm the helper's nonempty element path; a separate XSD check rejects this representation and the recovered component explicitly refuses it. **Non-XSD nonempty pointer-list inputs are not supported.** No whitespace-token interpretation was invented.
 
-## Current validation
+## Historical validation: 23-child checkpoint
 
 Source `074d267b2835be89ade3944c1cbe6d2f94b3793a`, successful run [39928834132](https://github.com/wu162/NewSdk/actions/runs/39928834132). Per /Od and /O2: **34,052 fixtures, 102,156 three-buffer comparisons, 492 refusal checks and 124 invariance comparisons**. Both modes total 204,312 buffer comparisons. Win32, Xbox360, PlayStation3 and unknown 99 are retained. Evidence: `evidence/gameobject-root/validation.json` and both oracle/build/host logs. The run's `recovered-gameobject-component-x86` artifact contains the component DLL.
 
@@ -96,9 +96,9 @@ Earlier coherent checkpoints: AutoResolve source `8650678284fd171f0dc076732bf12d
 
 Primitive regression: [39928834050](https://github.com/wu162/NewSdk/actions/runs/39928834050), success, matching source. Real SDK runs this stage: **zero**. GameObject SDK routing remains original; no formal GameObject plugin or complete replacement DLL exists yet. Relocation, scalar/resource, shared enum-bitset and ObjectFilter implementation files were not changed.
 
-## Next coherent stage (~35 minutes)
+## Next coherent stage (~45 minutes)
 
-Continue complete remaining non-polymorphic groups: CrusherInfo with ExtraCrushLevels, and ProjectedBuildabilityInfo with its full mask/AllowedObjectFilter dependencies. Do not split each scalar or enum into its own full CI. SkirmishAIInformation requires its nullable overrides, AIContextualPower and base-selection substructures as a later complete group. Geometry, audio arrays and all polymorphic module groups remain unsupported; ReplaceModule/InheritableModule nonempty Token paths remain unresolved and refused.
+Continue SkirmishAIInformation with its complete nullable overrides, AIContextualPower/AISpecialPowerInfo, AISpecialPowerWeaponData, both AIBaseSelectionCriteria and ObjectFilter dependencies. Source-only layout/method investigation is in `GAMEOBJECT_AI.md`; it is not implemented or differentially validated. The Crusher, ProjectedBuildability, Geometry and all three audio/EVA groups below are now validated. All polymorphic module groups and nonempty ReplaceModule/InheritableModule paths remain unsupported and refused. Current exact validation anchors are in RESUME.md and the last section below.
 
 Keep /Od, /O2, four-target three-buffer comparisons, independent layouts and explicit refusal coverage. Save meaningful checkpoints promptly and preserve concurrent commits and Actions evidence. Keep SDK batching: prepare schema-valid mymod inputs and formal routed/original-free replay only at a later GameObject integration milestone. Component success does not replace SDK validation.
 
@@ -119,10 +119,12 @@ Shape Marshal37207/endian37284/Tokenize76939: Type enum0 (defaultSPHERE0, unknow
 
 Empty Geometry direct component input is characterized (root1716/object2308/total2336); XSD requires at least oneShape. Empty Shape defaults and independent stride/offset assertions, every enum spelling, scalar/string/vector boundaries, optional pointers, long/repeated/interleaved lists, TypeId and structural refusals are included. These raw component cases do not claim XSD-complete MOD or SDK integration. Validated source140963c2f2be6c1091ce506c5130205b77fe072b, component39955059001 and baseline39955059019 success. Per mode43,624 fixtures/130,872 comparisons/652 refusals/132 invariance checks, both optimization modes/four platforms. SDK not run.
 
-## Audio/EVA complete group — checkpoint awaiting Windows validation
+## Audio/EVA complete group — Windows validated
 
 AudioArraySound root528 ->8-byte header, eight-byte entries (reference0, enum4): original list54192 / wrapper54580, itemMarshal18493, Token77155/77170; enum37 names, unknown31, omitted0. EvaEventArray root532 ->8-byte header, eight-byte entries (reference0, enum4): list54757/wrapper54832, itemMarshal18928, Token77259/77276; enum30 names, unknown11, omitted0. Empty arrays root1656/object2248/total2256; each entry adds48Token+8data bytes.
 
 AudioArrayVoice root524 ->24-byte header with AudioEntry/ObjectSpecificEntry/NamedEntry lists at0/8/16. Original Marshal18543; lists54310/54358/54400 use12/16/12-byte stride. SoundOrEvaEvent base0/4: nullable allocated reference pointerSound0 (present empty still allocates4bytes) and inlineEvaEvent reference4 (absent uses empty fallback). Original13587; all three items embed a nested base procedure table. AudioType@8:67 names/fallback32 for ordinary voice,6 names/fallback0 for object-specific voice. TargetObject@12 lowercases as typed assetID; NamedEntry Name@8 **does not lowercase** before FastHashFn(length,text,length) (Marshal18502). Local ExactStringHash preserves signed-byte tail behavior; no shared helpers modified. All four enums source/PE-derived; procedure keys/types generated directly from original methods.
 
-EmptyVoice root1704/object2296/total2320. Per entry token/data deltas: ordinary84/12, object-specific96/16, named84/12, plus4bytes for each presentSound. Complete tests include all140 enum names, missing/empty/unknown, reference index edges, Name length/hash/case/high bytes, typedTargetObject case folding, every repeated list, schema allocation order, TypeId, structural refusals and mixedGeometry/Crusher/Projection samples. Await this source's fullWindows matrix; SDK remains original route.
+EmptyVoice root1704/object2296/total2320. Per entry token/data deltas: ordinary84/12, object-specific96/16, named84/12, plus4bytes for each presentSound. Complete tests include all140 enum names, missing/empty/unknown, reference index edges, Name length/hash/case/high bytes, typedTargetObject case folding, every repeated list, schema allocation order, TypeId, structural refusals and mixedGeometry/Crusher/Projection samples. Validated source d27f0b932b4855d708cf0f09095c0b50026251e4; component39956084622 and baseline39956084413 success. Per mode44,980 fixtures/134,940 comparisons/796 refusals/136 invariance checks; total269,880 buffer comparisons across both modes, four platforms including99. SDK remains original route.
+
+Next complete group source investigation: `GAMEOBJECT_AI.md`; not implemented or differentially validated yet.

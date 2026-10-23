@@ -645,3 +645,16 @@ Coherent preceding groups passed at sources 8650678284fd171f0dc076732bf12d0944e2
 TestGameObject.ps1 now links the existing ObjectFilter.cpp. Workflow change adds only the ObjectFilter path filter; permissions and automatic evidence pushes are unchanged. Automatic review initially rejected saving the workflow due to an authorization concern. Re-read remote AGENTS.md and original workflow to establish explicit user authorization and unchanged privileges; retry was approved. No bypass or new privilege was introduced.
 
 GameObject remains an incomplete component, not a formal SDK plugin or either complete replacement DLL. Next coherent group: CrusherInfo/ExtraCrushLevels and ProjectedBuildabilityInfo/masks/AllowedObjectFilter. SkirmishAIInformation, Geometry, audio arrays, polymorphic module groups and unresolved Replace/Inheritable Token paths remain. RESUME.md is the current continuation entry. Actual quota reduction cannot be quantified; avoided repeated Weapon investigation and all real SDK runs, while preserving full affected matrices.
+
+
+## 2026-10-23 — complete GameObject Crusher/Projection, Geometry and audio/EVA groups (29 child types)
+
+User extended this and future implementation rounds to approximately45 minutes; AGENTS/EFFICIENCY/RESUME/STAGES/STAGE_DURATION now agree, preserving ordinary pushes/no force-push and checkpoint/validation rules. Existing branch updated directly, no new branch. An external pause before user continuation is not counted as effective work.
+
+Six root child classes added in three coherent batches: complete CrusherInfo/ExtraCrushLevels and repeatedProjectedBuildabilityInfo; rawGeometry/PlacementShape/Shape/ContactPoint with vectors; allAudioArrayVoice branches plusSound/EVA arrays. Original defaults/layouts/enum fallbacks/nullable allocations/Token/endian and unknown-input refusals restored. NamedVoice hashes preserve case, while TargetObject typedIDs fold case; no shared implementation changed.
+
+Final source d27f0b932b4855d708cf0f09095c0b50026251e4, component https://github.com/wu162/NewSdk/actions/runs/39956084622 success; baseline https://github.com/wu162/NewSdk/actions/runs/39956084413 success. Per/Od,/O2:44,980fixtures,134,940buffer comparisons,796refusals,136invariance checks; four targets0/1/2/99;269,880total comparisons. Read terminal states and validation.json, matching sourceCommit/runId/modes. Evidence bot commits retained. SDK zero runs/original route; no formalGameObject plugin or wholeDLL replacement claimed.
+
+Prior group anchors:4a8989d232432330a230cdcb58f0e7bbd7e6462e/run39935810403 (25 child types),140963c2f2be6c1091ce506c5130205b77fe072b/run39955059001 (26 child types); final matrix covers all29. Source-derived generator fingerprint/check retained. Local native syntax check only supplements Windows x86 build/differential; it is not a replacement for layout validation.
+
+Prepared GAMEOBJECT_AI.md as source-only next-group map:88-byteSkirmishAIInformation,172-byteAISpecialPowerInfo list, two20-byteBaseSelection objects,28-byteAISpecialPowerWeaponData and sharedObjectFilter. Not implemented/not differentially validated. Nullablefloat/bool/asset-reference and enum-bitset semantics need full next-batch probes. AIBaseType has11names for10bits, with PRIMARY_TYPE_MAX and CAPTURED sharing2; do not infer bitCount from nameCount. See RESUME for current continuation.

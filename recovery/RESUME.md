@@ -37,23 +37,31 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 旧 `sdk-batch-validation.json` 是此前原路由 31 样例批次的独立历史证据，不等同于新的正式路由结果。详见 WEAPON_TEMPLATE.md / WEAPON_NUGGETS.md / WEAPON_INPUT_PIPELINE.md。
 
-## GameObject 当前：26类子节点已验证，音频/EVA完整组验证中
+## GameObject 当前：88根属性、29类子节点完整组件差分通过
 
-全部88根属性及此前25类子节点已恢复；本轮CrusherInfo/ExtraCrushLevels与可重复ProjectedBuildabilityInfo的验证锚点为 `4a8989d232432330a230cdcb58f0e7bbd7e6462e`，组件39935810403、基础39935810494 success。每模式42,704 fixtures /128,112三缓冲区比较 /572拒绝 /128独立不变性比较。
+本轮新增六类根子节点：CrusherInfo（含完整ExtraCrushLevels）、可重复ProjectedBuildabilityInfo（RadiusY可空、三类位集、AllowedObjectFilter）、完整原始Geometry（PlacementShape/Shape/ContactPoint与Vector2/Vector3）、AudioArrayVoice（三类完整列表）、AudioArraySound、EvaEventArray。此前23类及全部根属性继续通过。
 
-完整原始Geometry（RotationAnchorOffset、PlacementShape、Shape列表、ContactPoint列表及Vector2/Vector3）亦通过：源码 `140963c2f2be6c1091ce506c5130205b77fe072b`，组件 https://github.com/wu162/NewSdk/actions/runs/39955059001 ，基础 https://github.com/wu162/NewSdk/actions/runs/39955059019 ，均success；每种/Od、/O2为43,624 fixtures、130,872三缓冲区比较、652拒绝、132独立不变性比较；两模式261,744比较，平台0/1/2/99。sourceCommit/runId已核对。Geometry不是后处理GeometryInfo。
+关键边界：Crusher默认MinCrushVelocityPercent为0.01f；必须保留原拼写PrimaryBuidability；Geometry与GeometryInfo是不同结构。NamedEntry Name采用大小写敏感FastHash，TargetObject采用小写化typed-ID哈希；缺失Sound是null，显式空Sound仍分配引用word。全部位集、列表、可空值、Token、endian与原版逐字节一致。
 
-本检查点继续实现完整AudioArrayVoice（三类列表，含SoundOrEvaEvent、可空Sound引用、TargetObject与大小写敏感Name哈希）、AudioArraySound、EvaEventArray，将支持面推进至29类子节点。全部枚举、引用、长列表、缺省/未知、独立分配与拒绝测试已准备；本地生成器一致性/原生语法通过，等待本次源码的Windows完整矩阵。**不能将26类的旧成功结果用于本批29类源码。**
+原指针StringList仍只接受XSD合法文本（原版结果为空列表），非空Item拒绝；未知输入、外来命名空间、重复单例继续拒绝。共享relocation/scalar/resource/bitset/ObjectFilter实现未修改。**仍不是完整GameObject编译器，没有正式GameObject插件；本轮真实SDK运行0次、保持原路由。**
 
-仍不是完整GameObject编译器，没有正式插件；SDK运行0次、保持原路由。指针StringList只接受XSD合法文本；非空Item仍拒绝。未知输入、外来命名空间、重复单例继续拒绝。共享实现未修改。
+## GameObject最终精确验证锚点
+
+源码：`d27f0b932b4855d708cf0f09095c0b50026251e4`。
+组件：https://github.com/wu162/NewSdk/actions/runs/39956084622 ，success。
+每种/Od、/O2：**44,980 fixtures、134,940次三缓冲区比较、796次拒绝检查、136次独立不变性比较**；两模式合计**269,880次缓冲区比较**，含Win32、Xbox360、PS3、99。
+基础回归：https://github.com/wu162/NewSdk/actions/runs/39956084413 ，success，源码相同。
+已读取终态及 `evidence/gameobject-root/validation.json`，sourceCommit/runId/modes/平台已核对。组件artifact：recovered-gameobject-component-x86；两模式原始摘要在对应oracle日志，保留Actions证据提交。
+
+本轮前序完整组锚点（历史）：Crusher/Projected源码4a8989d232432330a230cdcb58f0e7bbd7e6462e / run39935810403；Geometry源码140963c2f2be6c1091ce506c5130205b77fe072b / run39955059001。最终覆盖以上全部能力，不需对未变化源码重复运行。
 
 源码：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`。生成器 `scripts/GenerateGameObjectFields.py` 保持原源码 blob 指纹及生成一致性检查。测试 `tests/GameObject{Oracle,Cases,KindOf}.cs` / `scripts/TestGameObject.ps1`。具体源方法、大小、偏移和限制见 `GAMEOBJECT.md`。
 
-## 下一步
+## 下一轮约45分钟
 
-1. 先取得本次音频/EVA源码的完整组件矩阵结果，集中修复差异，核对sourceCommit/runId后更新入口。
-2. SkirmishAIInformation必须带齐可空override、AIContextualPower/AISpecialPowerInfo及其ObjectFilter、AISpecialPowerWeaponData、两组AIBaseSelectionCriteria等完整依赖；仅外壳不能宣称支持。其方法49752、AISpecialPowerInfo方法252xx显示依赖较多，需按完整组推进。
-3. 全部多态模块、ReplaceModule/InheritableModule尚未完成，继续显式拒绝。Geometry与GeometryInfo是不同结构，本轮只涉及GameObject原始Geometry。
-4. GameObject能力累计后集中制作合法mymod样例及正式插件，四产物、实际三缓冲区和无原DLL重放门槛不变。
+1. 直接按 `GAMEOBJECT_AI.md` 的完整依赖组推进SkirmishAIInformation：88字节根、172字节AISpecialPowerInfo列表、两组20字节AIBaseSelectionCriteria、28字节AISpecialPowerWeaponData及ObjectFilter。该文档已整理原Marshal/endian/Token方法、65项XSD声明（id仅元数据，其余64项字段）、字节偏移与枚举入口；**只是源码调查，尚未实现或原DLL差分**。下一轮仍需核对实际方法及未知helper，不能把调查表当验证结果。
+2. SkirmishAIInformation、全部多态模块、ReplaceModule/InheritableModule仍未完成，继续显式拒绝；不只放开AI外壳。
+3. GameObject能力累计后集中准备合法mymod样例及正式插件，四产物对照、实际三缓冲区及无原DLL重放门槛不降低。普通组件组不频繁跑SDK。
+4. 本次及以后约45分钟有效工作量；沿用及时检查点/普通推送与禁止强推。本轮直接更新现有分支，没有创建新分支。中途用户续接前存在外部暂停，暂停不计有效工作量。
 
-本次及以后按约45分钟有效工作量推进。中途用户续接前存在外部暂停，不把暂停算作有效工作。直接在现有分支保存检查点，未创建新分支；SDK零次。没有账号额度计量，不能量化节省。
+本轮复用已加载原模块与既有共享实现，按完整组验证，未反复读取Weapon历史或触发真实SDK；没有账号额度计量，不能量化节省。
