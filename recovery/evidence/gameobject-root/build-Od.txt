@@ -6,4 +6,6 @@ EnumBitset.cpp
 ObjectFilter.cpp
 GameObject.cpp
 GameObjectCompiler.cpp
+recovery/src/Bridge/GameObjectCompiler.cpp(267): error C2061: syntax error: identifier 'BinaryAssetBuilderException'
+recovery/src/Bridge/GameObjectCompiler.cpp(267): error C2653: 'ErrorCode': is not a class or namespace name
 Generating Code...
