@@ -18,10 +18,21 @@ def contracts(value):
     elif isinstance(value,list):
         for child in value:
             yield from contracts(child)
-for row in source.report['modules']+source.report['nested']:
+rows=source.report['modules']+source.report['nested']+[{'name':'SelectorSharedHelpers'}]
+for row in rows:
     chunks=[]
     seen=set()
-    for item in contracts(row):
+    items=list(contracts(row))
+    for signature in source.signatures:
+        shared=row['name']=='SelectorSharedHelpers' and (
+            'int_0020_002A_002Cclass_0020Relo' in signature or
+            ('UpgradeTemplate' in signature and ('(IList* list' in signature or '(void** table' in signature)) or
+            'ClientBehaviorModuleData* @object' in signature or
+            ', ModuleData* @object' in signature)
+        if shared or row['name']+'* @object' in signature:
+            _,meta=source.exact(signature)
+            items.append(meta)
+    for item in items:
         signature=item['signature']
         if signature in seen: continue
         seen.add(signature)
