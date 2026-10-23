@@ -34,6 +34,12 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Paralyze Marshal and endian'; Start = 16733; End = 16804 }
+            @{ Name = 'Paralyze enum helper'; Start = 53265; End = 53276 }
+            @{ Name = 'Paralyze Tokenize'; Start = 79323; End = 79355 }
+            @{ Name = 'InformationWarfare Marshal and endian'; Start = 16267; End = 16327 }
+            @{ Name = 'InformationWarfare bit parser'; Start = 67718; End = 67842 }
+            @{ Name = 'InformationWarfare Tokenize'; Start = 79124; End = 79148 }
             @{ Name = 'Attach Marshal'; Start = 15743; End = 15756 }
             @{ Name = 'Spend Marshal'; Start = 15912; End = 15926 }
             @{ Name = 'SecondaryDamage Marshal and endian'; Start = 16131; End = 16191 }

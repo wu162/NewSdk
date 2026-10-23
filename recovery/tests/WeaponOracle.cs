@@ -887,6 +887,7 @@ unsafe partial class WeaponOracle
                 ProjectileNuggets(plugin, platform);
                 ActivationNuggets(plugin, platform);
                 ScalarNuggets(plugin, platform);
+                EffectNuggets(plugin, platform);
                 ModifierLists(plugin, platform);
                 StatusMasks(plugin, platform);
                 OptionalBlocks(plugin, platform);
@@ -1683,4 +1684,5 @@ unsafe partial class WeaponOracle
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+
 

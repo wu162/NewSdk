@@ -23,7 +23,8 @@ bool BaseOnly(U32 id) {return id==ContainedAttackId || id==SlavesAttackId || id=
 bool Auxiliary(U32 id) {return BaseOnly(id) || id==SpecialPowerId || id==InformId;}
 constexpr U32 CircularId=2360033115u,LiftId=2769610658u,LinearId=3694898303u,StreamId=2159708756u,LaserId=3915396258u,CraterId=3520092115u;
 constexpr U32 AttachId=576040660u,SpendId=4286253161u,SecondaryId=2475108259u,StripId=1622083673u,SuppressionId=4104564135u,LuaId=2010867179u;
-bool SimpleType(U32 id) {return id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
+constexpr U32 ParalyzeId=169470683u,InformationId=978137461u;
+bool SimpleType(U32 id) {return id==ParalyzeId || id==InformationId || id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
 bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id) || SimpleType(id); }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
@@ -401,6 +402,8 @@ const Field damageFields[] = {
     {"NotifyOwnerOnVictimDeath","false",148,'b'},{"NotifyObserversOnPreDamageEffectPosition","false",149,'b'},
     {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
 };
+const EnumNameValue ParalyzeEffectType[]={{"EMP",0},{"HELD",3},{"NONE",4},{"UNMANNED",2},{"USER_PARALYZE",1}};
+const EnumNameValue InfoWarEffect[]={{"NONE",0},{"RADAR_JAM",1},{"RESET_RADAR_ALL",6},{"RESET_RADAR_FREEZE",5},{"RESET_RADAR_HACKS",4},{"RESET_RADAR_JAM",2},{"RESET_RADAR_SPIES",3}};
 const EnumNameValue WeaponSlotType[] = {
     {"NO_WEAPON",5},{"PRIMARY_WEAPON",0},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2}
 };
@@ -434,8 +437,21 @@ const SimpleMember luaMembers[]={
     {{"EventName",nullptr,40,'s'},3813864839u,438907818u},{{"SendToEnemies","false",48,'b'},1975294207u,2011428087u},
     {{"SendToAllies","false",49,'b'},759007980u,2011428087u},{{"SendToNeutral","false",50,'b'},564167374u,2011428087u}
 };
+const SimpleMember paralyzeMembers[]={
+    {{"EffectArc","360d",40,'a'},3738876630u,1310124621u},
+    {{"DurationSeconds","0s",44,'t'},1835767993u,2575722984u},
+    {{"ParalyzeType","NONE",48,'q'},100864519u,121953141u},
+    {{"RemoveParalyzeType","NONE",52,'q'},2251207440u,121953141u},
+    {{"ParalyzeFX",nullptr,56,'r'},3573896194u,219975299u},
+};
+const SimpleMember informationMembers[]={
+    {{"InfoWarType","NONE",40,'w'},2973902501u,265587170u},
+    {{"RadarJamRadius","0",44,'f'},2984380844u,1683514611u},
+    {{"RadarJamDuration","0s",48,'t'},2374890276u,2575722984u},
+};
 struct SimpleSpec { U32 id, size; const SimpleMember* members; unsigned count; };
 const SimpleSpec simpleSpecs[]={
+    {ParalyzeId,60,paralyzeMembers,5},{InformationId,52,informationMembers,3},
     {CircularId,44,lifetimeMembers,1},{LiftId,44,lifetimeMembers,1},{LinearId,44,lifetimeMembers,1},
     {StreamId,48,streamMembers,2},{LaserId,56,laserMembers,4},{CraterId,48,craterMembers,2},
     {AttachId,44,attachMembers,1},{SpendId,44,spendMembers,1},{SecondaryId,52,secondaryMembers,3},
@@ -477,6 +493,8 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
             if(field.kind=='r') {MarshalReference(data,at,text);continue;}
             if(field.kind=='s') {MarshalString(data,at,text);continue;}
             if(field.kind=='b') {*at=ParseBoolean(text);continue;}
+            if(field.kind=='q') {auto value=Enum(text,ParalyzeEffectType,0);std::memcpy(at,&value,4);continue;}
+            if(field.kind=='w') {MarshalEnumBitset(text,InfoWarEffect,sizeof(InfoWarEffect)/sizeof(InfoWarEffect[0]),0,7,reinterpret_cast<U32*>(at));continue;}
             if(field.kind=='h') {auto value=HashAssetId(text);std::memcpy(at,&value,4);continue;}
             if(field.kind=='d' || field.kind=='e' || field.kind=='x') {
                 U32 value=field.kind=='d'?Enum(text,DamageType,38):field.kind=='e'?Enum(text,DeathType,33):Enum(text,DamageFXType,35);
