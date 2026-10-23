@@ -1,23 +1,6 @@
 {
-  "modes": [
-    {
-      "summary": "PASS recovered GameObject root: fixtures=44980 threeBufferComparisons=134940 refusals=796 invarianceComparisons=136; 88 root attributes and twenty-nine child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "Od"
-    },
-    {
-      "summary": "PASS recovered GameObject root: fixtures=44980 threeBufferComparisons=134940 refusals=796 invarianceComparisons=136; 88 root attributes and twenty-nine child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "O2"
-    }
-  ],
-  "succeeded": true,
-  "sourceCommit": "d27f0b932b4855d708cf0f09095c0b50026251e4",
-  "scope": "88 root attributes; twenty-nine child nodes; AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
-  "platforms": [
-    0,
-    1,
-    2,
-    99
-  ],
-  "runId": "39956084622",
-  "sdkStatus": "not run; original route retained"
+  "succeeded": false,
+  "sdkStatus": "not run; original route retained",
+  "runId": "39959381460",
+  "sourceCommit": "7bd7cbad251a7a410759f9f779c65c3dc6bd891e"
 }

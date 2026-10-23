@@ -1,1 +1,3 @@
-PASS recovered GameObject root: fixtures=44980 threeBufferComparisons=134940 refusals=796 invarianceComparisons=136; 88 root attributes and twenty-nine child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run
+System.Exception: Independent AI defaults/layout
+   at GameObjectOracle.SkirmishAIGroup(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)
