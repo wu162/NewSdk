@@ -7,6 +7,11 @@ enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time
 struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind; const char* fallback; int defaultValue; };
 const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();
-// Root-only component. Unsupported attributes and every child block are rejected.
-Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, bool bigEndian);
+struct GameObjectChild {
+    std::string name, text;
+    std::map<std::string,std::string> attributes;
+};
+// Restricted component; unsupported attributes and child blocks are rejected.
+Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
 }}
+

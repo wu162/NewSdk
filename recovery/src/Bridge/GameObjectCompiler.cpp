@@ -3,6 +3,7 @@
 #include "XmlNodeAdapter.h"
 #include "../Native/GameObject.h"
 #using <BinaryAssetBuilder.Core.dll>
+#using <System.Core.dll>
 using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
 namespace Recovered {
@@ -23,9 +24,32 @@ public:
             if(attrs->LocalName=="id" || attrs->LocalName=="TypeId") continue;
             input[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
         } while(attrs->MoveToNextAttribute());
-        if(nav->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("GameObject child blocks are not reconstructed.");
+        std::vector<Native::GameObjectChild> children;
+        auto nodes=nav->SelectChildren(XPathNodeType::Element);
+        auto seen=gcnew System::Collections::Generic::HashSet<String^>();
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;
+            auto name=child->LocalName;
+            if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed"))
+                throw gcnew NotSupportedException("Unsupported GameObject child.");
+            if(!seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
+            if(child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
+            Native::GameObjectChild item;item.name=marshal_as<std::string>(name);item.text=marshal_as<std::string>(child->Value);
+            auto a=child->Clone();
+            if(a->MoveToFirstAttribute()) do {
+                if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
+                if(a->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject child attribute.");
+                if(a->LocalName=="TypeId") continue;
+                if(name!="DisplayColor" || (a->LocalName!="R" && a->LocalName!="G" && a->LocalName!="B" && a->LocalName!="A"))
+                    throw gcnew NotSupportedException("Unsupported GameObject child attribute.");
+                item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+            } while(a->MoveToNextAttribute());
+            if(name=="DisplayColor" && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("DisplayColor text content.");
+            children.push_back(item);
+        }
         try {
-            auto compiled=Native::CompileGameObject(input,bigEndian);auto buffer=gcnew AssetBuffer();
+            auto compiled=Native::CompileGameObject(input,children,bigEndian);auto buffer=gcnew AssetBuffer();
             buffer->InstanceData=Copy(compiled.instance);buffer->RelocationData=Copy(compiled.relocations);buffer->ImportsData=Copy(compiled.imports);return buffer;
         } catch(const std::exception& error) {throw gcnew NotSupportedException(gcnew String(error.what()));}
     }
@@ -36,3 +60,4 @@ public:
     }
 };
 }
+

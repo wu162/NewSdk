@@ -1,5 +1,6 @@
 partial class GameObjectOracle {
     static Field[] Fields = {
+        new Field("EvaEventSecondDamageFarFromFirstTimeoutMS","Duration"),
         new Field("KindOf","Bits"),
         new Field("BuildOnRequiredObjectKindOf","Bits"),
         new Field("Browser","StringList"),
@@ -83,3 +84,4 @@ partial class GameObjectOracle {
         new Field("EvaEventSecondDamageFarFromFirstScanRange","Float"),
     };
 }
+

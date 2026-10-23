@@ -94,6 +94,10 @@ for n,o,k,f,d,l in fields:
 lines+=['};','const EnumNameValue kindOfEntries[] = {']
 for name,value in enum_values('KindOfType').items():
     lines.append('    { '+json.dumps(name)+', '+str(value)+' },')
+# Child enums use the same original PE maps and exact-name lookup.
+for field, group, fallback in [('Buildable','BuildableStatus',1),('ThingClass','ThingClassType',15)]:
+    enums.extend((field,n,v) for n,v in enum_values(group).items())
+    enum_fallbacks.append((field,fallback))
 lines+=['};','const GameObjectEnum enumEntries[] = {']
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
@@ -120,3 +124,4 @@ if '--check' in sys.argv:
     assert path.read_text()==output, 'Regenerate GameObjectFields.h'
 else: path.write_text(output)
 print('PASS source-derived GameObject metadata: '+str(len(fields))+' root fields, 126 tokens; no frozen buffers')
+

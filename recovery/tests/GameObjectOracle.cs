@@ -17,8 +17,8 @@ partial class GameObjectOracle {
     }
     static uint Word(byte[] b,int at,bool big) {return big?((uint)b[at]<<24)|((uint)b[at+1]<<16)|((uint)b[at+2]<<8)|b[at+3]:BitConverter.ToUInt32(b,at);}
     static void Equal(byte[] a,byte[] b,string label) {++comparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
-    static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs) {
-        var input=Declaration(attrs,"");var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
+    static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs,string children="") {
+        var input=Declaration(attrs,children);var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
         Equal(expected.InstanceData,actual.InstanceData,attrs+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+" imports");++fixtures;return actual;
     }
     static void Reject(TargetPlatform p,string attrs,string children) {
@@ -81,11 +81,42 @@ partial class GameObjectOracle {
         foreach(string value in new[]{"AIRCRAFT","INFANTRY","NONE","STRUCTURE","VEHICLE","aircraft"," AIRCRAFT","AIRCRAFT ","","-1","0","UNKNOWN"}) Check(original,p,"UnitCategory='"+Escape(value)+"'" );
         foreach(string value in new[]{"BLAST","CANNON","GUN","LIGHTNING","MISSILE","NONE","blast"," BLAST","BLAST ","","-1","0","UNKNOWN"}) Check(original,p,"WeaponCategory='"+Escape(value)+"'" );
     }
+    static void ChildrenAndDuration(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        const string duration="EvaEventSecondDamageFarFromFirstTimeoutMS";
+        foreach(string value in new[]{"", "text", "0", "-0", "0.000001", "199.99998", "199.99999", "200", "200.00001", "200.00002", "201", "399.99997", "400", "400.00003", "31000", "-0.0001", "-199.99998", "-200", "-200.00002", "-201", "-400", "1.25e4", "2D3", "0x10", "nan", "inf", "1e40", "-1e40", "1e1000", "-1e1000", "4294967295", "4294967296", "858993459100", "858993459200", "858993459300", "-858993459200", "1.8446744e21", "1.8446745e21", "-1.8446744e21", "-1.8446745e21", "1e-50", "  +23tail"})
+            Check(original,p,duration+"='"+Escape(value)+"'");
+        foreach(string value in new[]{"0","1","199.99998","200","200.00002","-200","-201","1e40","-1e40"}) {
+            uint expected=value=="0"||value=="1e40"||value=="-1e40"?0u:value=="200.00002"?2u:value=="-200"||value=="-201"?0xffffffffu:1u;
+            var b=Check(original,p,duration+"='"+value+"'");
+            if(Word(b.InstanceData,1620+388,big)!=expected)throw new Exception("Independent duration "+value);
+        }
+        string[] buildable={"IGNORE_PREREQUISITES","NO","ONLY_BY_AI","YES"};
+        string[] thing={"BUFF","BUSH","CAVALRY_UNIT","CHARACTER_UNIT","CIV_BUILDING","FACTION_BUILDING","GROUND_COVER","HORDE_UNIT","LANDMARK_BUILDING","LARGE_MONSTER","MACHINE","MEDIUM_MONSTER","PROP","TREE","UNSPECIFIED","WALL_PIECE"};
+        foreach(string name in new[]{"Buildable","ThingClass"}) {
+            foreach(string value in name=="Buildable"?buildable:thing)Check(original,p,"","<"+name+">"+value+"</"+name+">");
+            foreach(string value in new[]{"", "UNKNOWN", "yes", " YES", "YES ", "0", "-1", " BUFF", "buff"})Check(original,p,"","<"+name+">"+value+"</"+name+">");
+        }
+        foreach(string color in new[]{"", "R='1'", "G='2'", "B='3'", "A='4'", "R='17' G='34' B='51' A='68'", "R='-1' G='256' B='0x123' A='010'", "R='4294967296' G='-4294967296' B='text' A=''"})Check(original,p,"","<DisplayColor "+color+"/>");
+        var inline=Check(original,p,"","<ThingClass>BUFF</ThingClass><DisplayColor R='17' G='34' B='51' A='68'/><Buildable>NO</Buildable>");
+        if(inline.InstanceData.Length!=2212 || inline.RelocationData.Length!=0 || Word(inline.InstanceData,1620+428,big)!=2 || Word(inline.InstanceData,1620+432,big)!=15 || Word(inline.InstanceData,1620+452,big)!=0x44112233u)throw new Exception("Independent inline child layout");
+        var emptyColor=Check(original,p,"","<DisplayColor/>");
+        if(Word(emptyColor.InstanceData,1620+452,big)!=0xff000000u)throw new Exception("Color omitted channel defaults");
+        foreach(string name in new[]{"DisplayName","DisplayNameTransformed"})foreach(string value in new[]{"", "a", "abcd", "abcde", "with spaces", "é ÿ 中文", "A&amp;B"})Check(original,p,"","<"+name+">"+value+"</"+name+">");
+        string names="<DisplayName>abcd</DisplayName><DisplayNameTransformed>x</DisplayNameTransformed>";
+        var strings=Check(original,p,"",names);
+        if(Word(strings.InstanceData,1620+396,big)!=2212 || Word(strings.InstanceData,1620+400,big)!=2228 || Word(strings.InstanceData,2212,big)!=4 || Word(strings.InstanceData,2216,big)!=2220 || Word(strings.InstanceData,2228,big)!=1 || Word(strings.InstanceData,2232,big)!=2236 || strings.InstanceData.Length!=2240)throw new Exception("Independent optional string allocation");
+        var reversed=Check(original,p,"","<DisplayNameTransformed>x</DisplayNameTransformed><DisplayName>abcd</DisplayName>");
+        Equal(strings.InstanceData,reversed.InstanceData,"XML order must not change native allocation order");
+        Check(original,p,"Browser='a bb' Description='desc' KindOf='INFANTRY' CrowdResponse='A\\23' "+duration+"='201'",names+"<Buildable>ONLY_BY_AI</Buildable><ThingClass>MACHINE</ThingClass><DisplayColor R='10' G='20' B='30'/>");
+        Check(original,p,"","<DisplayName TypeId='1'>name</DisplayName><Buildable TypeId='2'>YES</Buildable><DisplayColor TypeId='3' R='1'/>");
+        foreach(string child in new[]{"<Buildable/><Buildable/>","<ThingClass/><ThingClass/>","<DisplayName/><DisplayName/>","<DisplayColor/><DisplayColor/>","<Buildable R='1'/>","<ThingClass Unknown='1'/>","<DisplayColor X='1'/>","<DisplayColor R='1' xmlns:f='foreign' f:G='2'/>","<DisplayName xmlns='foreign'/>","<DisplayName><Unknown/></DisplayName>","<DisplayColor>123</DisplayColor>"})Reject(p,"",child);
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -100,10 +131,11 @@ partial class GameObjectOracle {
                     mixed+=f.Name+"='"+(f.Kind=="String"?"mixed-string":f.Kind=="Boolean"?"true":"23")+"' ";
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
-                foreach(string a in new[]{"Unknown='1'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
+                foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 88 root attributes and five child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
