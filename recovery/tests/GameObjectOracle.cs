@@ -256,11 +256,68 @@ partial class GameObjectOracle {
         Check(original,p,"Browser='a bb' Description='desc'","<DisplayName>name</DisplayName><ArmorSet Conditions='ELITE'/><LocomotorSet Speed='1'/><Flammability Fuel='3'/><FormationPreviewDecal Texture='abcd' Width='23'/><FormationPreviewItemDecal Texture='x' Height='17'/><LiveCameraOffset x='2'/><UpgradeCameo>cameo</UpgradeCameo><ShadowInfo Texture='T\\23' OpacityFadeInTime='250ms' LocalPlayerOnly='true'/><VisionInfo VisionSide='30' ShroudClearingHeight='90'/><DisplayUpgrade>upg</DisplayUpgrade>");
         Reject(p,"","<ShadowInfo xmlns:f='foreign' f:SizeX='1'/>");
     }
+    static int Token(byte[] data,int table,uint key,bool big) {
+        for(int at=table;Word(data,at,big)!=0;at+=12)if(Word(data,at,big)==key)return at;
+        throw new Exception("Missing token "+key);
+    }
+    static void AutoResolveFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] references={"","Unresolved","Name\\0","Name\\23","Name\\-1","Name\\2147483647","Name\\2147483648","Name\\-2147483648","Name\\-2147483649","Name\\+17","Name\\23trailing","Name\\0x10","Name\\ 23","Name\\text"};
+        string[] ids={"","a","AB","abc","abcd","abcde","ABCDEF","AbCdEfG","MiXeDCaSe","with spaces","Asset:Name","é","ÿ","中文"};
+        string[] strings={"","x","abc","abcd","abcde","long value with spaces","A&B","中文测试"};
+        for(int n=0;n<2;++n) {
+            string name=n==0?"AutoResolveArmor":"AutoResolveWeapon",field=n==0?"Armor":"Weapon";
+            int rootOffset=504+4*n;uint key=n==0?1972927658u:2393386135u;
+            var empty=Check(original,p,"","<"+name+"/>");var bytes=empty.InstanceData;
+            int root=(int)Word(bytes,8,big)-4,obj=(int)Word(bytes,root+rootOffset,big),tab=(int)Word(bytes,Token(bytes,0,key,big)+8,big);
+            if(root!=1692 || obj!=root+592 || bytes.Length!=2304)throw new Exception("Independent auto-set default allocation");
+            if(Word(bytes,tab,big)!=(n==0?735930353u:63188358u) || Word(bytes,tab+4,big)!=(n==0?1636048523u:3494305058u) || Word(bytes,tab+8,big)!=obj)throw new Exception("Independent auto-set reference token");
+            for(int group=0;group<2;++group) {
+                int record=tab+12*(group+1),listTab=(int)Word(bytes,record+8,big);
+                if(Word(bytes,record,big)!=(group==0?2138150697u:4283231007u) || Word(bytes,record+4,big)!=653971399u || Word(bytes,listTab,big)!=1820487795u || Word(bytes,listTab+4,big)!=1564774360u || Word(bytes,listTab+8,big)!=obj+4+8*group)throw new Exception("Independent auto-set list tokens");
+            }
+            for(int j=0;j<12;++j)if(bytes[tab+36+j]!=0)throw new Exception("Auto-set sentinel");
+            foreach(string value in references)Check(original,p,"","<"+name+" "+field+"='"+Escape(value)+"'/>");
+            foreach(string tag in new[]{"RequiredUpgrade","ExcludedUpgrade"})foreach(string value in ids)Check(original,p,"","<"+name+"><"+tag+">"+Escape(value)+"</"+tag+"></"+name+">");
+            foreach(int a in new[]{0,1,2,5,17})foreach(int b in new[]{0,1,2,5,17}) {
+                string content="";for(int j=0;j<a;++j)content+="<RequiredUpgrade>required"+j+"</RequiredUpgrade>";for(int j=0;j<b;++j)content+="<ExcludedUpgrade>excluded"+j+"</ExcludedUpgrade>";
+                var result=Check(original,p,"","<"+name+" "+field+"='Ref\\23'>"+content+"</"+name+">");
+                var d=result.InstanceData;int rr=(int)Word(d,8,big)-4,oo=(int)Word(d,rr+rootOffset,big),tt=(int)Word(d,Token(d,0,key,big)+8,big);
+                if(Word(d,oo,big)!=24 || Word(d,oo+4,big)!=a || Word(d,oo+12,big)!=b || rr!=1692+12*(a+b) || d.Length!=2304+16*(a+b))throw new Exception("Independent auto-set sizes/reference");
+                for(int group=0;group<2;++group) {
+                    int count=group==0?a:b,lt=(int)Word(d,tt+12*(group+1)+8,big),ptr=(int)Word(d,oo+8+8*group,big);
+                    for(int j=0;j<count;++j)if(Word(d,lt+12*(j+1),big)!=2974916843u || Word(d,lt+12*(j+1)+4,big)!=0 || Word(d,lt+12*(j+1)+8,big)!=ptr+4*j)throw new Exception("Independent upgrade item bookmark");
+                }
+            }
+            string ordered="<"+name+"><RequiredUpgrade>A</RequiredUpgrade><RequiredUpgrade>B</RequiredUpgrade><ExcludedUpgrade>C</ExcludedUpgrade><ExcludedUpgrade>D</ExcludedUpgrade></"+name+">";
+            string interleaved="<"+name+"><ExcludedUpgrade>C</ExcludedUpgrade><RequiredUpgrade>A</RequiredUpgrade><ExcludedUpgrade>D</ExcludedUpgrade><RequiredUpgrade>B</RequiredUpgrade></"+name+">";
+            Equal(Check(original,p,"",ordered).InstanceData,Check(original,p,"",interleaved).InstanceData,"auto-set schema allocation order",false);
+            Check(original,p,"","<"+name+" TypeId='17' "+field+"='Ref\\-1'><RequiredUpgrade TypeId='9'>A</RequiredUpgrade><ExcludedUpgrade TypeId='10'>B</ExcludedUpgrade></"+name+">");
+            foreach(string invalid in new[]{"<"+name+"/><"+name+"/>","<"+name+" Unknown='1'/>","<"+name+" xmlns='foreign'/>","<"+name+">text</"+name+">","<"+name+"><Unknown/></"+name+">","<"+name+"><RequiredUpgrade Unknown='1'/></"+name+">","<"+name+"><ExcludedUpgrade xmlns='foreign'/></"+name+">","<"+name+"><RequiredUpgrade><Unknown/></RequiredUpgrade></"+name+">","<"+name+"><ExcludedUpgrade xmlns:f='foreign' f:TypeId='1'/></"+name+">","<"+name+" xmlns:f='foreign' f:"+field+"='x'/>","<"+name+"><RequiredUpgrade>A</RequiredUpgrade>text</"+name+">"})Reject(p,"",invalid);
+        }
+        var info=Check(original,p,"","<AutoResolveInfo/>");var ib=info.InstanceData;int ir=(int)Word(ib,8,big)-4,io=(int)Word(ib,ir+548,big),it=(int)Word(ib,Token(ib,0,2236001359u,big)+8,big);
+        if(ir!=1704 || io!=2296 || ib.Length!=2332)throw new Exception("Independent AutoResolveInfo layout");
+        uint[] names={928084911u,1310294233u,1972927658u,2393386135u,3105727316u,2746445579u};uint[] types={438907818u,3186653541u,1636048523u,3494305058u,438907818u,438907818u};int[] offs={0,8,12,16,20,28};
+        for(int j=0;j<6;++j)if(Word(ib,it+12*j,big)!=names[j] || Word(ib,it+12*j+4,big)!=types[j] || Word(ib,it+12*j+8,big)!=io+offs[j])throw new Exception("Independent AutoResolveInfo member "+j);
+        for(int j=0;j<12;++j)if(ib[it+72+j]!=0)throw new Exception("AutoResolveInfo sentinel");
+        for(int j=0;j<36;++j)if(ib[io+j]!=0)throw new Exception("AutoResolveInfo zero default");
+        foreach(string field in new[]{"AutoResolveUnitType","AutoResolveLeadership","AutoResolveCombatChain"})foreach(string value in strings)Check(original,p,"","<AutoResolveInfo "+field+"='"+Escape(value)+"'/>");
+        foreach(string field in new[]{"AutoResolveArmor","AutoResolveWeapon"})foreach(string value in references)Check(original,p,"","<AutoResolveInfo "+field+"='"+Escape(value)+"'/>");
+        foreach(string value in ids)Check(original,p,"","<AutoResolveInfo AutoResolveBody='"+Escape(value)+"'/>");
+        foreach(string field in new[]{"AutoResolveBody","AutoResolveUnitType","AutoResolveLeadership","AutoResolveCombatChain"}) {
+            var a=Check(original,p,"","<AutoResolveInfo "+field+"='AbCd'/>");var b=Check(original,p,"","<AutoResolveInfo "+field+"='abcd'/>");
+            if(field=="AutoResolveBody")Equal(a.InstanceData,b.InstanceData,"module id lowercase",false);
+        }
+        foreach(string invalid in new[]{"<AutoResolveInfo/><AutoResolveInfo/>","<AutoResolveInfo Unknown='1'/>","<AutoResolveInfo><Unknown/></AutoResolveInfo>","<AutoResolveInfo>text</AutoResolveInfo>","<AutoResolveInfo xmlns='foreign'/>","<AutoResolveInfo xmlns:f='foreign' f:AutoResolveBody='A'/>"})Reject(p,"",invalid);
+        string armor="<AutoResolveArmor Armor='A\\23'><RequiredUpgrade>upA</RequiredUpgrade><ExcludedUpgrade>upB</ExcludedUpgrade></AutoResolveArmor>",weapon="<AutoResolveWeapon Weapon='W\\-1'><RequiredUpgrade>upC</RequiredUpgrade><RequiredUpgrade>upD</RequiredUpgrade></AutoResolveWeapon>",meta="<AutoResolveInfo TypeId='5' AutoResolveUnitType='tank' AutoResolveBody='ModuleID' AutoResolveArmor='A\\1' AutoResolveWeapon='W\\23' AutoResolveLeadership='leader' AutoResolveCombatChain='chain'/>";
+        Equal(Check(original,p,"Browser='a bb' Description='desc'",armor+weapon+meta).InstanceData,Check(original,p,"Browser='a bb' Description='desc'",meta+weapon+armor).InstanceData,"auto family allocation order",false);
+        Check(original,p,"Browser='a bb' Description='desc'","<DisplayName>name</DisplayName><ArmorSet Armor='A\\23'/><LocomotorSet Locomotor='L\\1'/><EquivalentTo>tank</EquivalentTo><Flammability Fuel='3'/>"+meta+weapon+armor+"<FormationPreviewDecal Texture='image'/><LiveCameraOffset x='2'/><UpgradeCameo>cameo</UpgradeCameo><ShadowInfo Texture='T\\23'/><VisionInfo VisionSide='30'/><DisplayUpgrade>upg</DisplayUpgrade>");
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -278,8 +335,9 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and nineteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
 

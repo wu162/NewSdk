@@ -735,4 +735,3 @@ const LeafLayout leafLayouts[] = {
     { "AutoResolveInfo", 548u, 36u, AutoResolveInfoFields, 6u, AutoResolveInfoTokens },
     { "VisionInfo", 552u, 40u, VisionInfoFields, 10u, VisionInfoTokens },
 };
-
