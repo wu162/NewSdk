@@ -1,5 +1,6 @@
 name: Recovered ArmorTemplate SDK integration
 on:
+  workflow_dispatch:
   push:
     branches: [recovery/compiler-source]
     paths:
@@ -22,6 +23,8 @@ permissions:
   contents: write
 jobs:
   integration:
+    # Real SDK validation is an explicit batch; normal pushes retain component CI.
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-armor]')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:
