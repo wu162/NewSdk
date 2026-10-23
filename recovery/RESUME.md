@@ -37,27 +37,33 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 旧 `sdk-batch-validation.json` 是此前原路由 31 样例批次的独立历史证据，不等同于新的正式路由结果。详见 WEAPON_TEMPLATE.md / WEAPON_NUGGETS.md / WEAPON_INPUT_PIPELINE.md。
 
-## 当前下一目标：GameObject，尚未实现恢复编译器
+## GameObject 当前：根组件已恢复，尚未接入 SDK
 
-已建立原 DLL 基线：196 个样例、588 次重复三缓冲区比较，覆盖四平台、默认布局及 16 个标量字段。源码 `a2bca36c1b72b09eea4a0cacfef1c4b7e7724ea6`，运行 39897613031 success；对应基础回归 39897613102 success。
+已实现独立 x86 C++/CLI 组件 `Recovered.GameObject.dll`，支持 GameObject XSD 直接声明的 **87/88 根属性**：标量/字符串、六枚举、七 typed ID、三资源引用、Browser 字符串列表，以及两项 284-bit KindOf 位集。还不是完整 GameObject 编译器，也没有 GameObject 正式插件。SDK 继续使用原路由。
 
-原始证据映射：592 字节根对象；根 Token 表 126 字段加结束记录；23 个成员书签、101 个辅助入口、2 个空值分支。ReplaceModule@496 和 InheritableModule@500 的 Tokenize 原方法没有非空处理，不得自行补成普通子表。
+仅剩根属性 `EvaEventSecondDamageFarFromFirstTimeoutMS` 覆盖未恢复；**所有 XML 子节点仍显式拒绝**。省略的时长默认已按原 scale 0.004999999888241291f 及两个 float 舍入点恢复为 155。不要误用 31000 或假定 30 FPS。
 
-追加检查点 `46b0ec5020b3911ec0b0403a3d60f63426590673` 将全部原方法字段与四平台实际 Token 表关联，验证 126 个名称、全部 name/type hash 和默认书签/空指针/空列表关系；本地及 Windows 全量检查均通过，运行 https://github.com/wu162/NewSdk/actions/runs/39897995324 success，validation.json 的 sourceCommit/runId 及三条 PASS 摘要已核对。默认根偏移 1620，InstanceData 2212，RelocationData/ImportsData 为空；八个空列表依次生成 count Token：Browser、ArmorSet、LocomotorSet、EquivalentTo、AI、UpgradeCameo、ProjectedBuildabilityInfo、DisplayUpgrade。
+源码：`7b958b9df5c31f880465d6fd2df8eec6cb73fa28`。
+完整组件验证：https://github.com/wu162/NewSdk/actions/runs/39920441194 ，success。
+/Od 与 /O2 各 12,452 fixtures、37,356 次三缓冲区比较、36 次拒绝检查；两模式合计 **74,712 次比较**。覆盖 Win32、Xbox360、PS3、99；全部 284 个 KindOf 名称在两个字段分别测试无符号/加号/减号，含 ALL、XOR、未知回退；六枚举全值、资源哈希/索引边界、Browser 与字符串/资源/位集混用、独立布局均通过。
+对应基础回归：https://github.com/wu162/NewSdk/actions/runs/39920441265 。
+证据：`recovery/evidence/gameobject-root/validation.json` 及两模式 oracle 日志，sourceCommit/runId 已核对；该 run 的 `recovered-gameobject-component-x86` artifact 包含组件 DLL。
+本轮无真实 SDK 验证，不将组件成功当作 SDK 接入成功。共享 relocation/scalar/resource/enum-bitset 源码未修改。
 
-入口：GAMEOBJECT.md、scripts/ExtractGameObjectEvidence.py、VerifyGameObjectEvidence.py、TestGameObjectBaseline.ps1、tests/GameObjectBaseline.cs。自动保存 `evidence/gameobject/source-layout.json` 和 `original-baseline.zip`，包含全部源字段/原辅助方法标识/原始缓冲区/名称表。
+默认布局来自原逻辑重建：592 字节根、126 字段加结束记录、90 成员书签、28 空偏移、8 空列表子表。默认 root=1620、InstanceData=2212；非空 Browser 每项令 Token 前缀增长 12 字节，不能固定根偏移。Buildable@428、ThingClass@432、DisplayColor@452 即使没有 XML 子节点也有成员书签；ReplaceModule@496 / InheritableModule@500 的原 Tokenize 非空路径仍缺失，不得擅自补成普通子表。
+
+入口：`recovery/GAMEOBJECT.md`、`src/Native/GameObject.{h,cpp}`、`src/Bridge/GameObjectCompiler.cpp`、`scripts/GenerateGameObjectFields.py`、`scripts/TestGameObject.ps1`、`tests/GameObject{Oracle,Cases,KindOf}.cs`。
+生成器从原 Marshal/Tokenize 和 PE 枚举表生成可读元数据，不嵌入原实例缓冲区。源码指纹需先规范化 Windows checkout CRLF；所有 126 个默认 Token 的键/偏移/分类已与独立原版运行时清单核对。
+
+原版基线仍单独保留在 `evidence/gameobject`：196 样例、588 次重复三缓冲区比较；源码 `46b0ec5020b3911ec0b0403a3d60f63426590673`、run 39897995324 success。不要混淆基线与恢复组件证据。
 
 ## 下一轮约 35 分钟
 
-1. 先核对 GameObject 最新检查点的 Windows 结果，再读取 GAMEOBJECT.md 和 source-layout.json；不要重扫两份大型反编译文件。
-2. 按原 Marshal/Tokenize/endian 恢复根标量/字符串及默认列表的一个完整可差分子集。先映射默认值与所有默认辅助调用；无 XML 子节点不等于无 Token/分配。禁止拿冻结的原始二进制当恢复逻辑。
-3. 原始方法：Tokenizer `-Module-.cs` Marshal 50072–50627、endian 50628–50911、Tokenize 97296–97814、构造器 74590–74680；blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`。原 GameObject TypeId=2486173485、TypeHash=3415017856。先复用现有 relocation/scalar/enum/string 模块，但逐一核实实际表示和缺省。
-4. 新恢复逻辑保持未支持块显式拒绝；建立 /Od、/O2 四平台完整三缓冲区矩阵和独立布局/拒绝门槛。攒够类型/字段后再做合法 mymod SDK 批次，GameObject 继续由原插件处理。
+1. 核对上述最终组件/基础回归终态和 sourceCommit；只读本入口、GAMEOBJECT.md 与目标源码，不重扫 Weapon 或大型反编译全文。
+2. 先刻画根 +388 的 duration 覆盖：原 helper 55021、scale 9619；调查小数帧边界、负数、指数、溢出与 float-to-uint，保留两个 float 舍入点，不从默认 155 推断全部行为。
+3. 再恢复一组相连子节点：Buildable@428、ThingClass@432、DisplayColor@452；DisplayColor 是 Color4 节点/ColorTag 路径，不能按 uint 文本处理。时间允许再接 396/400 两个可选字符串指针。逐一核对缺省、分配、Token/endian 及拒绝边界。
+4. 保留 /Od、/O2 四平台完整三缓冲区差分和独立布局/拒绝门槛。其他子块与模块继续显式拒绝；若修改共享行为，评估并验证全部受影响使用者。
+5. 等形成更完整的字段/子节点批次再集中做合法 mymod SDK 验证。正式启用 GameObject 恢复插件前须完成真实路由对照与无原 DLL 重放。
 
-本轮复用了同一份原模块与组件构建产物完成正式 SDK 验证，没有为各字段分别做真实 SDK 构建；不能量化账号额度节省，也不能通过仓库重置模型使用额度。
+本轮复用已有共享模块和原版布局证据；SDK 构建次数为零，测试只在代码/门槛变化或实际失败修复后重跑。不能量化账号额度节省。
 
-## 2026-10-23 GameObject root implementation checkpoint (validation pending)
-
-Added source-derived root metadata, native root marshaling/tokenization, C++/CLI bridge and differential workflow. 68 scalar/string root attributes are accepted; six enum overrides, duration override, masks/resources/lists and every child block are explicitly rejected. Defaults include all six enum defaults and the source-derived 31000ms -> 155-frame duration; eight empty-list count tables are generated algorithmically. SDK routing is unchanged.
-
-`recovery/scripts/TestGameObject.ps1` runs /Od and /O2 on Win32/Xbox360/PS3/99, three-buffer differentials, lexical/boundary inputs, combined inputs, independent defaults/list/sentinel assertions and rejection cases. Source generator checks passed locally; x86 MSVC execution is pending in Actions. Do not claim the component passes until `recovery/evidence/gameobject-root/validation.json` matches this source commit and a successful run. First fix any reported differential failure, then review helper/null/endian evidence and expand coverage before SDK integration.
