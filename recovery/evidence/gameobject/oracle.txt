@@ -1,0 +1,1 @@
+PASS original GameObject characterization: fixtures=196 repeatedThreeBufferComparisons=588; 592-byte root, 127 root tokens, 16 scalar bindings, four targets. No recovered GameObject implementation.
