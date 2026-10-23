@@ -8,6 +8,7 @@ struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind
 const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();
 bool GameObjectLeafAttributeSupported(const std::string& name, const std::string& attribute);
+bool GameObjectAIAttributeSupported(const std::string& name, const std::string& attribute);
 struct GameObjectChild {
     std::string name, text;
     std::map<std::string,std::string> attributes;
@@ -16,5 +17,6 @@ struct GameObjectChild {
 // Restricted component; unsupported attributes and child blocks are rejected.
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
 }}
+
 
 

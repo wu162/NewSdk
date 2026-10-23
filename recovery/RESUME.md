@@ -65,3 +65,9 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 4. 本次及以后约45分钟有效工作量；沿用及时检查点/普通推送与禁止强推。本轮直接更新现有分支，没有创建新分支。中途用户续接前存在外部暂停，暂停不计有效工作量。
 
 本轮复用已加载原模块与既有共享实现，按完整组验证，未反复读取Weapon历史或触发真实SDK；没有账号额度计量，不能量化节省。
+
+## 2026-10-23 AI整组实现检查点（验证中）
+
+新增SkirmishAIInformation完整依赖组代码和测试：88字节根、172字节AIContextualPower列表、两组AIBaseSelectionCriteria、SpecialPowerWeapon和两处ObjectFilter。64字段、枚举/位集、可空值/引用、列表/重定位、拒绝和独立布局覆盖已准备。生成器核对原源码完整字段名/默认值/Token偏移，本地生成一致性与语法检查通过。**Windows原DLL完整差分待本提交Actions结果，尚不能声明本组通过。SDK未运行，保持原路由。**
+
+下一步：检查本实现提交的GameObject与基础回归Actions；失败集中修复，成功核对sourceCommit/runId和两模式摘要后更新本入口。仍未恢复GameObject多态模块及正式插件。

@@ -22,6 +22,10 @@ enum class LeafValue { Float, Percent, Unsigned, Boolean, Time, Enum, String, Re
 struct LeafField {const char* name;unsigned offset;LeafValue kind;const char* fallback;};
 struct LeafToken {U32 name,type,offset;};
 struct LeafLayout {const char* name;unsigned offset,size;const LeafField* fields;unsigned count;const LeafToken* tokens;};
+enum class AIValue { Float, Signed, Boolean, Time, Angle, Reference, Enum, Bits, NullableFloat, NullableSigned, NullableBoolean, NullableReference, NullableBits };
+struct AIEnum {const EnumNameValue* names;unsigned count;int unknown;unsigned bits;};
+struct AIField {const char* name;unsigned offset;AIValue kind;const char* fallback;const AIEnum* values;};
+struct AILayout {unsigned size;const AIField* fields;unsigned count;const LeafToken* tokens;unsigned tokenCount;};
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
@@ -35,6 +39,103 @@ U32 EnumValue(const std::string& field,const std::string& text) {
     throw std::logic_error("Unknown GameObject enum field");
 }
 void Swap(void* p) { auto b=static_cast<unsigned char*>(p); std::swap(b[0],b[3]);std::swap(b[1],b[2]); }
+// The four layouts form one complete AI dependency group. They share the
+// existing scalar, bitset, resource and ObjectFilter implementations.
+bool NullableAI(AIValue kind) {
+    return kind==AIValue::NullableFloat || kind==AIValue::NullableSigned || kind==AIValue::NullableBoolean || kind==AIValue::NullableReference || kind==AIValue::NullableBits;
+}
+void MarshalAI(const GameObjectChild& input,unsigned char* output,unsigned layoutIndex,Relo::Tracker& data) {
+    const auto& layout=aiLayouts[layoutIndex];
+    for(unsigned i=0;i<layout.count;++i) {
+        const auto& f=layout.fields[i];auto found=input.attributes.find(f.name);
+        if(found==input.attributes.end() && !f.fallback) continue;
+        std::string value=found==input.attributes.end()?f.fallback:found->second;
+        auto at=output+f.offset;bool nullable=NullableAI(f.kind);
+        if(nullable) at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(at),f.kind==AIValue::NullableBoolean?1:4,1));
+        U32 word=0;float number=0;
+        switch(f.kind) {
+        case AIValue::NullableBoolean:case AIValue::Boolean:*at=ParseBoolean(value)?1:0;break;
+        case AIValue::NullableFloat:case AIValue::Float:number=ParseFloat(value);std::memcpy(at,&number,4);break;
+        case AIValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
+        case AIValue::Angle:number=InitializeAngle(value.c_str());std::memcpy(at,&number,4);break;
+        case AIValue::NullableSigned:case AIValue::Signed:word=static_cast<U32>(ParseSigned(value));std::memcpy(at,&word,4);break;
+        case AIValue::NullableReference:case AIValue::Reference:MarshalReference(data,at,value);break;
+        case AIValue::NullableBits:case AIValue::Bits:MarshalEnumBitset(value,f.values->names,f.values->count,f.values->unknown,f.values->bits,reinterpret_cast<U32*>(at));break;
+        case AIValue::Enum:
+            word=static_cast<U32>(f.values->unknown);
+            for(unsigned j=0;j<f.values->count;++j) if(value==f.values->names[j].name) {word=static_cast<U32>(f.values->names[j].value);break;}
+            std::memcpy(at,&word,4);break;
+        }
+        if(nullable) data.Pop();
+    }
+    auto filter=[&](const GameObjectChild& child,unsigned offset) {
+        ObjectFilterInput in;in.attributes=child.attributes;
+        for(const auto& thing:child.children) if(thing.name=="IncludeThing") in.includeThings.push_back(thing.text);else in.excludeThings.push_back(thing.text);
+        auto target=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(output+offset),112,1));MarshalObjectFilter(in,target,data);data.Pop();
+    };
+    if(layoutIndex==0) {
+        auto list=reinterpret_cast<NativeList*>(output+60);
+        for(const auto& child:input.children) if(child.name=="AIContextualPower") ++list->count;
+        if(list->count) {
+            auto items=static_cast<unsigned char*>(data.Push(&list->data,172,list->count));unsigned index=0;
+            for(const auto& child:input.children) if(child.name=="AIContextualPower") MarshalAI(child,items+172*index++,1,data);
+            data.Pop();
+        }
+        const char* names[]={"ConstructionBaseSelectionCriteria","ResourceNodeBaseClosenessTestSelectionCriteria"};
+        for(unsigned i=0;i<2;++i) for(const auto& child:input.children) if(child.name==names[i]) {
+            auto target=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+68+4*i),20,1));MarshalAI(child,target,2,data);data.Pop();
+        }
+        for(const auto& child:input.children) if(child.name=="DodgeWithUnits") filter(child,76);
+    } else if(layoutIndex==1) {
+        for(const auto& child:input.children) if(child.name=="ObjectFilter") filter(child,156);
+        for(const auto& child:input.children) if(child.name=="SpecialPowerWeapon") {
+            auto target=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+160),28,1));MarshalAI(child,target,3,data);data.Pop();
+        }
+    }
+}
+void TokenizeAI(unsigned char* input,unsigned layoutIndex,void** target,Relo::Tracker& procedures) {
+    if(!input) return;
+    const auto& layout=aiLayouts[layoutIndex];
+    auto table=static_cast<Procedure*>(procedures.Push(target,12,layout.tokenCount+1));
+    for(unsigned i=0;i<layout.tokenCount;++i) {
+        const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
+        if(i<layout.count) {
+            auto at=input+t.offset;if(NullableAI(layout.fields[i].kind)) at=*reinterpret_cast<unsigned char**>(at);
+            if(at) procedures.BookmarkMemberOffset(at,&table[i].offset);
+        } else if(layoutIndex==0 && t.offset==60) {
+            auto list=reinterpret_cast<NativeList*>(input+60);
+            auto items=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
+            items[0].name=1820487795u;items[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&items[0].offset);
+            for(U32 j=0;j<list->count;++j) {items[j+1].name=2974916843u;TokenizeAI(static_cast<unsigned char*>(list->data)+172*j,1,&items[j+1].offset,procedures);}
+            procedures.Pop();
+        } else if(layoutIndex==0 && (t.offset==68 || t.offset==72)) TokenizeAI(*reinterpret_cast<unsigned char**>(input+t.offset),2,&table[i].offset,procedures);
+        else if(layoutIndex==1 && t.offset==160) TokenizeAI(*reinterpret_cast<unsigned char**>(input+160),3,&table[i].offset,procedures);
+        else {auto filter=*reinterpret_cast<ObjectFilter**>(input+t.offset);if(filter) TokenizeObjectFilter(filter,&table[i].offset,procedures);}
+    }
+    procedures.Pop();
+}
+void EndianAI(unsigned char* input,unsigned layoutIndex) {
+    if(!input) return;
+    const auto& layout=aiLayouts[layoutIndex];
+    for(unsigned i=0;i<layout.count;++i) {
+        const auto& f=layout.fields[i];auto at=input+f.offset;
+        if(NullableAI(f.kind)) at=*reinterpret_cast<unsigned char**>(at);
+        if(!at || f.kind==AIValue::Boolean || f.kind==AIValue::NullableBoolean || f.kind==AIValue::Reference || f.kind==AIValue::NullableReference) continue;
+        unsigned words=f.values && f.values->bits?(f.values->bits+31)/32:1;
+        for(unsigned j=0;j<words;++j) Swap(at+4*j);
+    }
+    if(layoutIndex==0) {
+        auto list=reinterpret_cast<NativeList*>(input+60);
+        for(U32 j=0;j<list->count;++j) EndianAI(static_cast<unsigned char*>(list->data)+172*j,1);
+        Swap(&list->count);
+        for(unsigned offset=68;offset<=72;offset+=4) EndianAI(*reinterpret_cast<unsigned char**>(input+offset),2);
+        auto filter=*reinterpret_cast<ObjectFilter**>(input+76);if(filter) EndianObjectFilter(filter);
+    } else if(layoutIndex==1) {
+        auto filter=*reinterpret_cast<ObjectFilter**>(input+156);if(filter) EndianObjectFilter(filter);
+        EndianAI(*reinterpret_cast<unsigned char**>(input+160),3);
+    }
+}
+
 // Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.
 U32 ExactStringHash(const std::string& text) {
     U32 size=static_cast<U32>(std::strlen(text.c_str())),hash=size;if(!size) return 0;
@@ -55,6 +156,12 @@ unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
 bool GameObjectLeafAttributeSupported(const std::string& name,const std::string& attribute) {
     for(const auto& leaf:leafLayouts) if(name==leaf.name)
         for(unsigned i=0;i<leaf.count;++i) if(attribute==leaf.fields[i].name) return true;
+    return false;
+}
+bool GameObjectAIAttributeSupported(const std::string& name,const std::string& attribute) {
+    unsigned index=name=="SkirmishAIInformation"?0:name=="AIContextualPower"?1:name=="SpecialPowerWeapon"?3:2;
+    if(index==1 && attribute=="id") return true;
+    const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
     return false;
 }
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
@@ -277,6 +384,11 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned i=0;i<4;++i) {auto at=child.attributes.find(names[i]);flammability[i]=at==child.attributes.end()?0:ParseUnsigned(at->second);}
         data.Pop();
     }
+    unsigned char* skirmishAI=nullptr;
+    for(const auto& child:children) if(child.name=="SkirmishAIInformation") {
+        skirmishAI=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+460),88,1));
+        MarshalAI(child,skirmishAI,0,data);data.Pop();
+    }
     unsigned char* geometry=nullptr;
     NativeList* geometryShapes=nullptr;NativeList* contactPoints=nullptr;
     auto marshalVector=[&](const GameObjectChild& input,void* output,unsigned dimensions) {
@@ -476,6 +588,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             if(dependencyFilter) TokenizeObjectFilter(dependencyFilter,&nested[6].offset,procedures);
             procedures.Pop();
         }
+        else if(t.offset==460 && skirmishAI) TokenizeAI(skirmishAI,0,&table[i].offset,procedures);
         else if(t.offset==408 && buildCosts) {
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,2));
             nested[0].name=4043881713u;nested[0].type=3070636877u;
@@ -653,6 +766,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
     }
     if(bigEndian) {
+        EndianAI(skirmishAI,0);
         if(voiceLists) for(unsigned group=0;group<3;++group) {
             auto list=voiceLists+group;unsigned stride=group==1?16:12;
             for(U32 j=0;j<list->count;++j) {auto at=static_cast<unsigned char*>(list->data)+stride*j;Swap(at+8);if(group==1) Swap(at+12);}

@@ -137,6 +137,24 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadSkirmishAI(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(a->NamespaceURI->Length!=0 || !Native::GameObjectAIAttributeSupported(result.name,marshal_as<std::string>(a->LocalName))) throw gcnew NotSupportedException("Unsupported SkirmishAI attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;auto n=child->LocalName;auto parent=node->LocalName;
+            bool valid=(parent=="SkirmishAIInformation" && (n=="AIContextualPower" || n=="ConstructionBaseSelectionCriteria" || n=="ResourceNodeBaseClosenessTestSelectionCriteria" || n=="DodgeWithUnits")) || (parent=="AIContextualPower" && (n=="ObjectFilter" || n=="SpecialPowerWeapon"));
+            if(child->NamespaceURI!=node->NamespaceURI || !valid) throw gcnew NotSupportedException("Unsupported SkirmishAI child.");
+            if(n!="AIContextualPower" && !seen->Add(n)) throw gcnew NotSupportedException("Duplicate SkirmishAI singleton.");
+            if(n=="ObjectFilter" || n=="DodgeWithUnits") {auto filter=ReadDependencyFilter(child);filter.name=marshal_as<std::string>(n);result.children.push_back(filter);}
+            else result.children.push_back(ReadSkirmishAI(child));
+        }
+        NoStructuredText(node);return result;
+    }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
@@ -155,11 +173,12 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="AudioArrayVoice" && name!="AudioArraySound" && name!="EvaEventArray" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="AudioArrayVoice" && name!="AudioArraySound" && name!="EvaEventArray" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo" && name!="SkirmishAIInformation"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
             if(name=="AudioArrayVoice" || name=="AudioArraySound" || name=="EvaEventArray") {children.push_back(ReadAudioArray(child));continue;}
+            if(name=="SkirmishAIInformation") {children.push_back(ReadSkirmishAI(child));continue;}
             if(name=="Geometry") {children.push_back(ReadGeometry(child));continue;}
             if(name=="GameDependency") {children.push_back(ReadDependency(child));continue;}
             if(name=="CrusherInfo" || name=="ProjectedBuildabilityInfo") {children.push_back(ReadPlacementGroup(child));continue;}

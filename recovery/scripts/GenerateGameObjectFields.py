@@ -191,6 +191,84 @@ for typ,offsets in [('Geometry',[24,0,4,8,16]),('Shape',[0,4,8,44,45,16,20,24,32
         if direct: assert int(direct[1] or 0)==offset
         lines.append('    { '+str(key)+'u, '+str(value)+'u, '+str(offset)+'u },')
     lines+=['};','']
+# Integrated into the existing source-derived generator; field order is original Marshal order.
+ai_specs = {
+'SkirmishAIInformation': (88, [
+('BaseBuildingLocation',0,'Enum','FRONT','SkirmishAIBaseLocation'),
+('AdditionalRotation',4,'Angle','0r',None),('BaseBuildingMaxNudges',8,'Signed','3',None),
+('BlockIfUnpackTargetBuildingCannotBeRebuilt',80,'Boolean','true',None),('UnitBuilderStandardCombatUnit',81,'Boolean','false',None),('TargetDuringCrush',82,'Boolean','false',None),
+('CrushSpeedBonus',12,'Float','0.0',None),('OutOfRangePenalty',16,'Float','1.3',None),('ContainedMembersProvideWeapon',83,'Boolean','false',None),
+('ConquerMetricsOverrideDPS',20,'NullableFloat',None,None),('ConquerMetricsOverrideDamageType',24,'Enum','UNDEFINED','DamageType'),
+('ConquerMetricsOverrideAntiMask',28,'Bits','ANTI_GROUND ANTI_WATER','WpnAntiT'),('ConquerMetricsOverrideForbiddenAntiMask',32,'Bits','','WpnAntiT'),('ConquerMetricsOverrideDefendingAntiMask',36,'NullableBits',None,'WpnAntiT'),
+('ConquerMetricsDpsBonusAgainstDefenses',40,'Float','1.0',None),('NearResourceNodeType',44,'Enum','ORE','EconomyResourceType'),('DodgeSafetyDistance',48,'Float','300.0',None),
+('OverrideInnerDistanceToTarget',52,'NullableFloat',None,None),('OverrideOuterDistanceToTarget',56,'NullableFloat',None,None),('CanFireUpCliffs',84,'Boolean','false',None),('DoesSecondaryDamage',85,'Boolean','false',None)], [60,68,72,76]),
+'AISpecialPowerInfo':(172,[
+('Heuristic',0,'Enum',None,'AISpecialPowerHeuristic'),('Manager',4,'Enum',None,'AISpecialPowerManager'),('Distance',8,'Float','100.0',None),('HealthFraction',12,'Float','0.0',None),
+('TargetObjectInclude',16,'Bits',None,'KindOfType'),('TargetObjectExclude',52,'Bits',None,'KindOfType'),('UseOnlyWhenPowerAdvantageIsAbove',88,'NullableFloat',None,None),
+('NeverUseWhileRetreating',164,'Boolean','false',None),('NeverUseWhilePullingBack',165,'Boolean','false',None),
+('InvulnerabilityDamageLookAheadTime',92,'Time','1s',None),('InvulnerabilityDamageLookBehindTime',96,'Time','1s',None),('InvulnerabilityDamageFractionWhenOutOfRangeOfTarget',100,'Float','.3',None),('InvulnerabilityDamageFractionWhenInRangeOfTarget',104,'Float','.6',None),
+('InvulnerabilityAvoidUseIfAngleToNextPathNodeIsMoreThan',108,'Angle','360d',None),('MaxTargetSpeed',112,'Float','99999.0',None),('RequireKillTargets',166,'Boolean','true',None),
+('MinKillValue',116,'Float','0.0',None),('MinTargetsHit',120,'Signed','1',None),('MinEnemiesNearby',124,'Signed','1',None),('NextLogicCommand',128,'NullableReference',None,None),('UseInMicroManagerState',132,'Bits','','MicroManagerState'),
+('UseNearTacticalTarget',167,'Boolean','false',None),('UseWhenOutOfAmmo',168,'Boolean','false',None),('UpdateObject',136,'NullableReference',None,None),('SearchRadius',140,'Float','150.0',None),('Location',144,'Bits','Water Land','AITargetLocationType'),('MaxUpdatables',148,'NullableSigned',None,None),('UseToCounterGarrison',152,'NullableBoolean',None,None)], [156,160]),
+'AIBaseSelectionCriteria':(20,[(n,i*4,'Bits','','AIBaseType') for i,n in enumerate(['RequiredBaseTypes','ExcludedBaseTypes','PreferredBaseTypes','PreferredNotBaseTypes'])]+[('SortOrder',16,'Enum','PREFER_NEWEST','AIBaseSortingOrder')],[]),
+'AISpecialPowerWeaponData':(28,[('Weapon',0,'Reference',None,None),('IsDisablingAttack',24,'Boolean','false',None),('AffectsFriendlies',25,'Boolean','false',None),('AffectsSelf',26,'Boolean','false',None),('TotalValueGreaterThan',4,'Signed','0',None),('AoeAttackPowerLocationPreference',8,'Enum','PREFER_NEAREST','AIAoeAttackPowerLocationPreference'),('AoeAttackPowerBlockAreaAfterActivationTime',12,'Time','0s',None),('AoeAttackEmanationLocation',16,'Enum','EMANATE_FROM_SELF','AIAoeAttackPowerEmanationLocation'),('ToggleRangeHysteresis',20,'Float','0.0',None),('ToggleShortRangeTargetForcesTarget',27,'Boolean','false',None)],[])
+}
+ai_enums=[('SkirmishAIBaseLocation',2,0),('DamageType',38,0),('EconomyResourceType',3,0),('AISpecialPowerHeuristic',4,0),('AISpecialPowerManager',3,0),('AIBaseSortingOrder',6,0),('AIAoeAttackPowerLocationPreference',1,0),('AIAoeAttackPowerEmanationLocation',0,0),('WpnAntiT',7,14),('MicroManagerState',0,10),('AITargetLocationType',1,2),('AIBaseType',2,10),('KindOfType',149,284)]
+for group,unknown,bits in ai_enums:
+    entries=enum_values(group)
+    lines+=['const EnumNameValue ai'+group+'Names[] = {']+[ '    { '+json.dumps(n)+', '+str(v)+' },' for n,v in entries.items()]+['};']
+    lines+=['const AIEnum ai'+group+' = { ai'+group+'Names, '+str(len(entries))+'u, '+str(unknown)+', '+str(bits)+'u };']
+    # Confirm scalar unknowns against the actual original helper.
+    if not bits:
+        helpers=[l for l in s.splitlines() if 'internal unsafe static void Marshaler_002EMarshal_003Cenum_0020' in l and '(IValue* value,' in l and ('_003A_003A'+group+'_002C' in l or '_0020'+group+'_002C' in l)]
+        assert len(helpers)==1,(group,helpers)
+        helper_body,_=method(s,helpers[0].strip())
+        match=re.search(r'ptr == null\) \? (-?\d+)',helper_body)
+        assert (int(match[1])==unknown if match else unknown==0 and 'ptr != null' in helper_body),(group,helper_body)
+# Resolve complete literal strings from original data, rather than trusting
+# truncated decorated names or XSD defaults.
+ai_literals={}
+for line in s.splitlines():
+    m=re.search(r'internal static .*? (\S+)/\* Not supported: data\(([^)]+)\)',line)
+    if m:
+        try: ai_literals[m[1]]=bytes.fromhex(m[2]).rstrip(b'\0').decode('ascii')
+        except UnicodeDecodeError: pass
+for typ,(size,entries,child_offsets) in ai_specs.items():
+    body,first=method(s,'internal unsafe static void Marshaler_002EMarshal(INode* node, '+typ+'* @object, Tracker* state)')
+    # Every attribute is an actual lookup in the original, including truncated names.
+    prefixes=[decode(x) for l in body.splitlines() if 'Unsafe.AsPointer' in l for x in re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',l)[:1]]
+    assert all(any(n.startswith(p) for p in prefixes) for n,o,k,f,g in entries)
+    lookups=[]
+    for line in body.splitlines():
+        symbols=re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',line)
+        if not symbols: continue
+        literal=ai_literals.get(symbols[0])
+        if literal in {e[0] for e in entries}:
+            lookups.append((literal,ai_literals[symbols[1]] if len(symbols)>1 else None))
+    assert lookups==[(n,f) for n,o,k,f,g in entries],(typ,lookups)
+
+    lines+=['const AIField '+typ+'AIFields[] = {']
+    for n,o,k,f,g in entries:
+        lines.append('    { '+json.dumps(n)+', '+str(o)+'u, AIValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+('nullptr' if g is None else '&ai'+g)+' },')
+    lines+=['};']
+    body,first=method(s,'internal unsafe static void Tokenizer_002ETokenize(void** table, '+typ+'* @object, Tracker* state)')
+    parts=body.split('ptr = (ProcTableElement*)((byte*)ptr + 12);')[:-1]
+    offsets=[e[1] for e in entries]+child_offsets
+    assert len(parts)==len(offsets) and ('12u, '+str(len(parts)+1)+'u') in body
+    lines+=['const LeafToken '+typ+'AIProc[] = {']
+    for part,offset in zip(parts,offsets):
+        key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',part)[1])&0xffffffff
+        value=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',part)[1])&0xffffffff
+        direct=re.search(r'(?:\(byte\*\)@object|\(byte\*\)@object) \+ (\d+)',part)
+        if direct: assert int(direct[1])==offset,(typ,offset,part)
+        elif offset: raise ValueError((typ,offset,part))
+        lines.append('    { '+str(key)+'u, '+str(value)+'u, '+str(offset)+'u },')
+    lines+=['};']
+lines+=['const AILayout aiLayouts[] = {']
+for typ,(size,entries,children) in ai_specs.items():
+    lines+=['    { '+str(size)+'u, '+typ+'AIFields, '+str(len(entries))+'u, '+typ+'AIProc, '+str(len(entries)+len(children))+'u },']
+lines+=['};','']
+
 output='\n'.join(lines)
 path=root/'recovery/src/Native/GameObjectFields.h'
 if '--check' in sys.argv:

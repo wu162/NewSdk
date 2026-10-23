@@ -570,11 +570,72 @@ partial class GameObjectOracle {
         }
         foreach(string bad in new[]{"<AudioArrayVoice><AudioEntry Name='wrong'/></AudioArrayVoice>","<AudioArrayVoice><NamedEntry AudioType='voiceSelect'/></AudioArrayVoice>","<AudioArrayVoice><NamedEntry TargetObject='x'/></AudioArrayVoice>","<AudioArrayVoice><ObjectSpecificEntry Name='wrong'/></AudioArrayVoice>","<AudioArraySound><AudioEntry EvaEvent='wrong'/></AudioArraySound>","<EvaEventArray><EvaEntry Sound='wrong'/></EvaEventArray>"})Reject(p,"",bad);
     }
+    static string AIWrap(int group,string attrs,string body="") {
+        string part=group==0?body:group==1?"<AIContextualPower "+attrs+">"+body+"</AIContextualPower>":group==2?"<ConstructionBaseSelectionCriteria "+attrs+">"+body+"</ConstructionBaseSelectionCriteria>":"<AIContextualPower><SpecialPowerWeapon "+attrs+">"+body+"</SpecialPowerWeapon></AIContextualPower>";
+        return "<SkirmishAIInformation "+(group==0?attrs:"")+">"+part+"</SkirmishAIInformation>";
+    }
+    static void SkirmishAIGroup(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(var f in AIFields) {
+            int group=int.Parse(f[0]);string name=f[1],kind=f[2];
+            string[] values=kind.IndexOf("Boolean")>=0?new[]{"","true","false","TRUE","False","1","0","yes"," true"}:
+                kind.IndexOf("Reference")>=0?new[]{"","Unresolved","Name\\0","Name\\1","Name\\23","Name\\-1","Name\\2147483647","Name\\2147483648","Name\\-2147483648","Name\\-2147483649","Name\\+17","Name\\23trailing","Name\\0x10","Name\\ 23","Name\\text"}:
+                kind=="Time"?new[]{"","0s","-17s","23ms","1000ms","1.25s","2d1s","text"}:
+                kind=="Angle"?new[]{"","0r","180d","-90d","1.25r","2d1","text"}:
+                kind.IndexOf("Bits")>=0?new[]{""," ","UNKNOWN","unknown","ALL","all","-ALL","+ALL","ALL -UNKNOWN","UNKNOWN ALL unknown","-UNKNOWN -UNKNOWN","+","-","A B;C,D"}:
+                kind=="Enum"?new[]{"","UNKNOWN","unknown","0","-1","ALL","1"," 1"}:
+                new[]{"","0","-0","1.25","-17","0x10","010","2147483647","-2147483648","4294967295","4294967296","-2147483649","1e39","nan","inf"," 23tail","text"};
+            foreach(string v in values)Check(original,p,"",AIWrap(group,name+"='"+Escape(v)+"'"));
+        }
+        foreach(var e in AIEnumTests) foreach(string value in e[2].Split('|')) {
+            int group=int.Parse(e[0]);string field=e[1];
+            Check(original,p,"",AIWrap(group,field+"='"+Escape(value)+"'"));
+            Check(original,p,"",AIWrap(group,field+"='"+Escape(value.ToLowerInvariant())+"'"));
+            Check(original,p,"",AIWrap(group,field+"=' "+Escape(value)+" '"));
+            if(e[3]=="bits")Check(original,p,"",AIWrap(group,field+"='-"+Escape(value)+" -"+Escape(value)+" +"+Escape(value)+"'"));
+        }
+        for(int g=0;g<4;++g) {
+            string attrs="";foreach(var f in AIFields)if(int.Parse(f[0])==g)attrs+=f[1]+"='"+(f[2].IndexOf("Boolean")>=0?"true":f[2].IndexOf("Reference")>=0?"Test\\23":f[2].IndexOf("Bits")>=0?"ALL":f[2]=="Angle"?"90d":f[2]=="Time"?"2s":"23")+"' ";
+            Check(original,p,"",AIWrap(g,attrs));
+        }
+        string filter="<ObjectFilter TypeId='4' Include='VEHICLE' Exclude='STRUCTURE' StatusBitFlags='ALL'><IncludeThing TypeId='5'>Tank</IncludeThing><ExcludeThing>Ship</ExcludeThing></ObjectFilter>";
+        string power="<AIContextualPower TypeId='2' id='metadata' Heuristic='UNKNOWN' Manager='UNKNOWN' UseOnlyWhenPowerAdvantageIsAbove='0' NextLogicCommand='C\\23' UpdateObject='' MaxUpdatables='-1' UseToCounterGarrison='false'>"+filter+"<SpecialPowerWeapon TypeId='3' Weapon='W\\0' ToggleShortRangeTargetForcesTarget='true'/></AIContextualPower>";
+        string base1="<ConstructionBaseSelectionCriteria TypeId='6' RequiredBaseTypes='ALL'/>";
+        string base2="<ResourceNodeBaseClosenessTestSelectionCriteria TypeId='7' ExcludedBaseTypes='PRIMARY_TYPE_MAX CAPTURED'/>";
+        string dodge=filter.Replace("ObjectFilter","DodgeWithUnits");
+        foreach(int count in new[]{0,1,2,7,32}) {
+            string body="";for(int i=0;i<count;++i)body+=i%2==0?power:"<AIContextualPower/>";
+            string xml=AIWrap(0,"TypeId='1' ConquerMetricsOverrideDPS='0' ConquerMetricsOverrideDefendingAntiMask='' OverrideInnerDistanceToTarget='0' OverrideOuterDistanceToTarget='0'",body+base1+base2+dodge);
+            var a=Check(original,p,"Browser='a bb' Description='mixed'","<Flammability Fuel='1'/>"+xml+"<Geometry><Shape/></Geometry><AudioArrayVoice/>");
+            var b=Check(original,p,"Description='mixed' Browser='a bb'","<AudioArrayVoice/><Geometry><Shape/></Geometry>"+xml+"<Flammability Fuel='1'/>");
+            Equal(a.InstanceData,b.InstanceData,"AI mixed XML order instance",false);Equal(a.RelocationData,b.RelocationData,"AI mixed XML order relocations",false);
+        }
+        var forward=Check(original,p,"",AIWrap(0,"",power+base1+base2+dodge));
+        var reverse=Check(original,p,"",AIWrap(0,"",dodge+base2+base1+power));
+        Equal(forward.InstanceData,reverse.InstanceData,"AI schema allocation order",false);Equal(forward.RelocationData,reverse.RelocationData,"AI schema relocation order",false);
+        // Independent default layout and table sentinel checks, separate from metadata.
+        var empty=Check(original,p,"","<SkirmishAIInformation/>");byte[] bytes=empty.InstanceData;
+        int root=(int)Word(bytes,8,big)-4,ai=(int)Word(bytes,root+460,big),table=(int)Word(bytes,Token(bytes,0,465968874u,big)+8,big);
+        if(ai!=root+592 || bytes.Length!=ai+88 || Word(bytes,ai,big)!=0 || Word(bytes,ai+8,big)!=3 || Word(bytes,ai+24,big)!=38 || Word(bytes,ai+28,big)!=3 || Word(bytes,ai+40,big)!=0x3f800000u || Word(bytes,ai+48,big)!=0x43960000u || bytes[ai+80]!=1)throw new Exception("Independent AI defaults/layout");
+        for(int i=0;i<12;++i)if(bytes[table+25*12+i]!=0)throw new Exception("Independent AI token sentinel");
+        var nullable=Check(original,p,"",AIWrap(0,"ConquerMetricsOverrideDPS='0' ConquerMetricsOverrideDefendingAntiMask='ALL' OverrideInnerDistanceToTarget='0' OverrideOuterDistanceToTarget='0'"));
+        bytes=nullable.InstanceData;root=(int)Word(bytes,8,big)-4;ai=(int)Word(bytes,root+460,big);
+        int allocation=ai+88;foreach(int off in new[]{20,36,52,56}) {if(Word(bytes,ai+off,big)!=allocation)throw new Exception("Independent AI nullable allocation order");allocation+=4;}
+        if(Word(bytes,(int)Word(bytes,ai+36,big),big)!=0xffffffffu)throw new Exception("Independent AI bit padding");
+        foreach(string node in new[]{"SkirmishAIInformation","AIContextualPower","ConstructionBaseSelectionCriteria","ResourceNodeBaseClosenessTestSelectionCriteria","SpecialPowerWeapon"}) {
+            Func<string,string> wrap=delegate(string value){return node=="SkirmishAIInformation"?value:node=="SpecialPowerWeapon"?AIWrap(0,"","<AIContextualPower>"+value+"</AIContextualPower>"):AIWrap(0,"",value);};
+            foreach(string bad in new[]{"<"+node+" Unknown='1'/>","<"+node+" xmlns='foreign'/>","<"+node+" xmlns:f='foreign' f:TypeId='1'/>","<"+node+">text</"+node+">","<"+node+"><Unknown/></"+node+">"})Reject(p,"",wrap(bad));
+            if(node!="AIContextualPower")Reject(p,"",wrap("<"+node+"/><"+node+"/>"));
+        }
+        foreach(string bad in new[]{"<ObjectFilter/><ObjectFilter/>","<ObjectFilter Unknown='1'/>","<ObjectFilter>text</ObjectFilter>","<ObjectFilter><IncludeThing Unknown='1'/></ObjectFilter>","<ObjectFilter><ExcludeThing><Unknown/></ExcludeThing></ObjectFilter>","<ObjectFilter><IncludeThing xmlns='foreign'/></ObjectFilter>","<SpecialPowerWeapon/><SpecialPowerWeapon/>"})Reject(p,"",AIWrap(1,"",bad));
+        foreach(string bad in new[]{"<DodgeWithUnits/><DodgeWithUnits/>","<DodgeWithUnits Unknown='1'/>","<DodgeWithUnits xmlns='foreign'/>","<DodgeWithUnits>text</DodgeWithUnits>","<DodgeWithUnits><IncludeThing Unknown='1'/></DodgeWithUnits>","<DodgeWithUnits><ExcludeThing><Unknown/></ExcludeThing></DodgeWithUnits>"})Reject(p,"",AIWrap(0,"",bad));
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -592,7 +653,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-nine child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty child nodes including complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
