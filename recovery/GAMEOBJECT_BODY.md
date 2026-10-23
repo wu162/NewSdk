@@ -1,6 +1,6 @@
-# 下一完整组：Body全部九种XSD类型
+# Body全部九种XSD类型：已实现并验证
 
-状态：本页是原源码调查，**其余七种Body尚未实现/差分**。当前仅InactiveBody、PropBody及公共BodyModuleData已随31类型公共组通过。源Tokenizer blob仍为`6e40a9ed6c9f961d294d49768d911e6a6f354619`；`GAMEOBJECT_MODULES.md`和source-inventory.json给出精确方法入口。
+状态：全部九种XSD Body已实现并通过原DLL差分。七种新增类型的独立组源码d0b96f2a57aeb7dac4dc2d58683b6ed8a93d8c8f，run39965730762 success；后续完整矩阵持续包含本组。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`。
 
 ## 完整范围与原方法
 
@@ -25,8 +25,8 @@
 | 字段 | 偏移 | 原Marshal默认/规则 |
 |---|---:|---|
 | MaxHealth | 8 | float，0 |
-| MaxHealthDamagedPercentage | 12 | 66.66666，经`float(atof)*0.01f` |
-| MaxHealthReallyDamagedPercentage | 16 | 33.33333，同上 |
+| MaxHealthDamagedPercentage | 12 | 66.666666，经`float(atof)*0.01f` |
+| MaxHealthReallyDamagedPercentage | 16 | 33.333333，同上 |
 | InitialHealth | 20 | float，-1.0 |
 | DodgePercent | 24 | float，0；**虽然名字含Percent，原代码不乘0.01** |
 | EnteringDamagedTransitionTime | 28 | Time，0s |
@@ -43,7 +43,7 @@
 
 Marshal的查找次序与上表偏移排序不完全相同：两个bool先于BurningDeathFX，然后DamageRangeModifier列表，最后ModuleData id。分配上GrabObject先于列表；资源word不当作字符串分配。
 
-ActiveBodyDamageRangeModifier原Marshal18073、列表Marshal53895、列表endian53937、Token81652、列表Token100007。条目12字节：Min@0、Max@4均`float(atof)*0.01f`且无原lookup默认；AttributeModifier资源word@8。完整保留列表0/1/多/长与resource边界。Token为3字段+sentinel。还须完整核对endian helper与资源包装再实现，不能把本调查当成已通过结果。
+ActiveBodyDamageRangeModifier原Marshal18073、列表Marshal53895、列表endian53937、Token81652、列表Token100007。条目12字节：Min@0、Max@4均`float(atof)*0.01f`且无原lookup默认；AttributeModifier资源word@8。完整保留列表0/1/多/长与resource边界。Token为3字段+sentinel。已实现对应endian helper、资源包装及差分。
 
 ## ShieldBody依赖组
 
@@ -53,7 +53,4 @@ ActiveBodyDamageRangeModifier原Marshal18073、列表Marshal53895、列表endian
 
 ## 实施和验收
 
-- 按七个剩余Body、全部Active/Shield字段、DamageRangeModifier完整依赖一次实现/统一矩阵。原模块描述目前固定8字节分配，`FindModule`+ModuleChoice只针对已完成公共类型；不能仅把新TypeId加到choices就当成支持。要扩展native size/字段编译和桥接字段白名单，并更新unsupported矩阵。
-- 复用scalar、string、resource、relocation与已有ModelCondition源证据；需逐项核对helper，包括百分比舍入、可空资源、数组分配/Token/endian。原源码查完后按每个实际TypeId差分，不以ActiveBody通过替代其他派生Token链。
-- 同时覆盖全部六容器、七种实际TypeId、缺省/显式0/空引用、所有字段边界、混合模块列表、XML顺序不变性；保留已完成31类型和其余未支持类型拒绝。
-- 整组一次/Od、/O2、0/1/2/99、三缓冲区逐字节差分与独立布局/Token/sentinel。真实SDK继续累计，未正式GameObject路由启用前不宣称集成完成。
+ModuleChoice已扩展实际size/字段组，桥接白名单、Token继承图和endian同步实现。完整覆盖七种新增实际TypeId、六容器、缺省/0/空、资源与百分比边界、混合列表和XML顺序不变性。/Od、/O2、平台0/1/2/99、三缓冲区逐字节比较及独立布局/Token/sentinel全部通过。SDK未运行。

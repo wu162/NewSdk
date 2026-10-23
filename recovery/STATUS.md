@@ -671,3 +671,17 @@ Prepared GAMEOBJECT_AI.md as source-only next-group map:88-byteSkirmishAIInforma
 AI首轮仅独立测试把UNDEFINED误写为unknown fallback（应分别14/38），保留失败run39959381460，修正并扩展独立检查后完整通过run39959718372；空标记组run39960173975通过；公共模块整组一次完整矩阵通过。未逐字段反复触发Windows，未触发SDK。没有账号额度计量，不能量化节省。
 
 RESUME已重写为当前入口；下一完整组为Body的其余七类型，GAMEOBJECT_BODY.md整理实际方法/布局/分配与Token差异，仍未实现/差分。注意ShieldArmor先分配后ActiveBody基类，DodgePercent不是归一百分比，76字节派生类Token链不同；不能只把新TypeId加到固定8字节choices。
+
+
+## 2026-10-23：Body / ClientUpdate / 声音播放完整组
+
+本轮有效工作从13:48:08Z开始，至14:33Z左右完成实现、矩阵、后续源码调查和交接，按约45分钟推进。首个完整组及时保存，再推进两个完整组和下一选择器源码证据；并未以首组完成结束。全程普通快进更新，保留Actions证据，无强推，无SDK运行。
+
+- Body其余七种全部实现，至此九种XSD Body全覆盖；source d0b96f2a57aeb7dac4dc2d58683b6ed8a93d8c8f/run39965730762 success。精确默认66.666666/33.333333、ShieldArmor先分配、完整12字节DamageRangeModifier及各派生Token图。
+- 六种ClientUpdate及25属性全部实现，含区分大小写Key列表、ushort UnitWeight、普通float LaserLifetime；source76e1e34c12b4728ab194acffbde1a26bef52febd/run39966783977 success。
+- AnimationSoundClientBehavior / ModelConditionAudioLoopClientBehavior完整依赖组实现：可空非负range、可空/inline ModelCondition、资源、动画typed-ID、Frame signed列表、Token/endian。source85a1e180c6bdb506733ec0711e9ad7c8512095c4/run39968193677 success。
+- 终审补齐原XmlFormattingError异常；92846ab初次构建因命名空间不完整失败，修复源码83a7e5261da45fdf1d35d14728db42b76c040747，最终GameObject https://github.com/wu162/NewSdk/actions/runs/39969902743 和基础 https://github.com/wu162/NewSdk/actions/runs/39969902873 均success。远端validation.json源码/runId/modes/platforms及日志已核对。每/Od、/O2模式91,528 fixtures、274,584三缓冲区比较、8,444拒绝、272独立不变性比较；两模式合计549,168缓冲区比较，平台0/1/2/99。
+- 总46/322已知模块类型，276个仍明确拒绝；58个Token-only沿用原未知Marshal路径。根88属性/38子节点，仍非完整GameObject/正式插件，原SDK路由保留。
+- 下一完整组四个声音/播报选择器仅源码调查：ExtractSoundSelectorEvidence.py、sound-selector-source-plan.json，12嵌套契约、8独立列表stride，生成及--check成功，不启用TypeId、不冒充DLL验证。见GAMEOBJECT_SOUND_SELECTORS.md。
+
+准确当前入口RESUME.md；Body文档已从计划更新为完成并修正literal精度；新增ClientUpdate和声音播放契约说明。最终交接提交只含文档及源证据调查，不改已验证运行源码或测试。

@@ -1,10 +1,12 @@
 # GameObject 多态模块：公共能力组
 
+当前扩展：46/322个已知Marshal模块已恢复；276个仍拒绝。Body九种XSD、ClientUpdate六种XSD和两个声音播放模块均完整支持，见GAMEOBJECT_BODY.md、GAMEOBJECT_CLIENT_UPDATES.md、GAMEOBJECT_SOUND_PLAYBACK.md。下述31公共类型结果是此前历史锚点。
+
 状态：**完整公共能力组已实现并通过原DLL差分。** 源码`afac552209d4880e883f2d37189c896a1823e4a6`；run https://github.com/wu162/NewSdk/actions/runs/39961644190 success。/Od、/O2每模式69,744 fixtures、209,232三缓冲区比较、8,264拒绝、204不变性比较，四平台含99。基础回归run39961644145 success。SDK未运行，原路由保留。
 
 ## 已实现范围
 
-六个容器Draws、Behaviors、AI、Body、ClientUpdates、ClientBehaviors；完整恢复原Marshal的全部31个8字节公共字段类型和未知TypeId默认分支。其余291个已知Marshal类型显式拒绝。支持容器并不代表支持其中全部模块。
+六个容器Draws、Behaviors、AI、Body、ClientUpdates、ClientBehaviors；完整恢复原Marshal的全部31个8字节公共字段类型和未知TypeId默认分支。本轮再完成15种类型；当前其余276个已知Marshal类型显式拒绝。支持容器并不代表支持其中全部模块。
 
 模块XML名称从AssetTypeGameObject.xsd的六个容器提取。原Marshal按数值TypeId分派，不从元素名猜测；无TypeId与未知TypeId走默认路径。测试包含同一合法元素名注入不同TypeId的直接组件探针；这些输入不冒充BAB已注入正确TypeId的SDK集成。只接受无命名空间id/TypeId；未知字段、外来命名空间、嵌套结构与结构文本继续拒绝。
 

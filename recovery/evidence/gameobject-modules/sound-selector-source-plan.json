@@ -1,0 +1,1305 @@
+{
+  "status": "source plan only; four selector types remain rejected and not DLL validated",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "modules": [
+    {
+      "name": "RandomSoundSelectorClientBehaviorModuleData",
+      "typeId": 3030954484,
+      "nativeSize": 28,
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, RandomSoundSelectorClientBehaviorModuleData* @object, Tracker* state)",
+        "line": 18677,
+        "bodySha256": "0d57933aa5440fefe7e6f5c8314424dfb6a8f8a623e2fab7e2fc7f916d769a3a",
+        "lookups": [
+          {
+            "name": "Chance",
+            "fallback": "50",
+            "kind": "attribute",
+            "line": 18683
+          },
+          {
+            "name": "VoicePriorityOverride",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18690
+          },
+          {
+            "name": "RerollOnEveryFrame",
+            "fallback": "false",
+            "kind": "attribute",
+            "line": 18691
+          },
+          {
+            "name": "AudioArrayVoice",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18693
+          },
+          {
+            "name": "AudioArraySound",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18716
+          },
+          {
+            "name": "AudioEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18725
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 24,
+            "countExpression": "1u"
+          },
+          {
+            "elementSize": 8,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "AudioArrayVoice",
+          "ModuleData"
+        ]
+      },
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, RandomSoundSelectorClientBehaviorModuleData* @object, Tracker* state)",
+        "line": 93184,
+        "bodySha256": "10cd28275dd15530ef9c2e0c7d2829fa32de009e2aab659159a74b6d836810c9",
+        "recordCountIncludingSentinel": 7,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 2072794994,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 1916176025,
+            "typeHash": 1683514611,
+            "objectOffset": 8,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 549620986,
+            "typeHash": 602296504,
+            "objectOffset": 12,
+            "binding": "nullable-pointee",
+            "helpers": []
+          },
+          {
+            "nameHash": 2789968803,
+            "typeHash": 2011428087,
+            "objectOffset": 24,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 164725313,
+            "typeHash": 164725313,
+            "objectOffset": 16,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 1501986059,
+            "typeHash": 1501986059,
+            "objectOffset": 20,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrect(RandomSoundSelectorClientBehaviorModuleData* @object, EndianHelper* state)",
+        "line": 18742,
+        "bodySha256": "68970871abaf36fa25867d0ea8f282768dbe36ba5417876bddf2a2cf1a534cbc",
+        "calls": [
+          "Marshaler_002EEndianCorrect",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E"
+        ]
+      }
+    },
+    {
+      "name": "ModelConditionSoundSelectorClientBehaviorModuleData",
+      "typeId": 847051638,
+      "nativeSize": 16,
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+        "line": 62869,
+        "bodySha256": "7d9d9ea0c3d03206c1a3c942a15d1db412401f57c4d54835998a9dd63fb4a259",
+        "lookups": [
+          {
+            "name": "Override",
+            "fallback": null,
+            "kind": "list",
+            "line": 62874
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 16,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "ModuleData"
+        ]
+      },
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+        "line": 103999,
+        "bodySha256": "9b06f7b6870c698c5ff39798dd1eb76aec3a2109f85e821af8df189f36877964",
+        "forwardCalls": [
+          "Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+          "Tokenizer_002ETokenize(table, (ModelConditionSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker)"
+        ]
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+        "line": 65567,
+        "bodySha256": "64464748ce04bee58596a9be32a2f62fc415792a7521ebce0af93f6249e8cd53",
+        "calls": [
+          "Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E",
+          "Marshaler_002EEndianCorrect"
+        ]
+      }
+    },
+    {
+      "name": "UpgradeSoundSelectorClientBehaviorModuleData",
+      "typeId": 4178664105,
+      "nativeSize": 16,
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+        "line": 61585,
+        "bodySha256": "ed38515a07c9a1a6b09e60910edf52d3bd81a71d8c34f00e317d6acdad2f9d35",
+        "lookups": [
+          {
+            "name": "Override",
+            "fallback": null,
+            "kind": "list",
+            "line": 61590
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 16,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "ModuleData"
+        ]
+      },
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+        "line": 102879,
+        "bodySha256": "38ac600470b2c8107ecaa126dd39410ba5758bfd7e0f66ea950b77fb6cae3c27",
+        "forwardCalls": [
+          "Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+          "Tokenizer_002ETokenize(table, (UpgradeSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker)"
+        ]
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+        "line": 64349,
+        "bodySha256": "b9a488f2832bde3f25eea463d6705f0e99fd8fa11aefae8ab5d47b8e96c2a58b",
+        "calls": [
+          "Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E",
+          "Marshaler_002EEndianCorrect"
+        ]
+      }
+    },
+    {
+      "name": "ModelConditionEvaEventSelectorClientBehaviorModuleData",
+      "typeId": 1640547431,
+      "nativeSize": 16,
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+        "line": 61210,
+        "bodySha256": "4bef0d6d9116801e5c27e759f3fa9256dc80d552a258b757eb5ee4edaa9e7a77",
+        "lookups": [
+          {
+            "name": "Override",
+            "fallback": null,
+            "kind": "list",
+            "line": 61215
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 16,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "ModuleData"
+        ]
+      },
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+        "line": 102579,
+        "bodySha256": "f20c41b5190cb23846fb96dfdf4c1e72e140a08b7043ecfce832bff03e94f63b",
+        "forwardCalls": [
+          "Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+          "Tokenizer_002ETokenize(table, (ModelConditionEvaEventSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), tracker)"
+        ]
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+        "line": 64043,
+        "bodySha256": "1afdcf663ef102fa53441f9262c550dd6b7c70fc989f4c90615cbe57e6c1e8b1",
+        "calls": [
+          "Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorClientBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E",
+          "Marshaler_002EEndianCorrect"
+        ]
+      }
+    }
+  ],
+  "nested": [
+    {
+      "name": "ModelConditionSoundSelectorOverrideBlock",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ModelConditionSoundSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 18553,
+        "bodySha256": "4f67abd191a02698d343caada91d0d091435e077ef1f6262b45ef2daae011a4f",
+        "lookups": [
+          {
+            "name": "RequiredFlags",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18559
+          },
+          {
+            "name": "ExcludedFlags",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18565
+          },
+          {
+            "name": "VoicePriorityOverride",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18571
+          },
+          {
+            "name": "AudioArrayVoice",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18573
+          },
+          {
+            "name": "AudioArraySound",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18596
+          },
+          {
+            "name": "AudioEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18605
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 24,
+            "countExpression": "1u"
+          },
+          {
+            "elementSize": 8,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "AudioArrayVoice"
+        ]
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E(IList* list, List_003CSageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E* target, Tracker* tracker)",
+          "line": 54612,
+          "bodySha256": "d2b6a13be1fb8eae19d264fbf9de9398c8f2891ef496e3baeb0985d9b2468fd6",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 132,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "ModelConditionSoundSelectorOverrideBlock"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ModelConditionSoundSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 90388,
+        "bodySha256": "f31e7037c8cdbddb4cde74f9c699ea869f78e4ba06a457072052a2c2141c5c16",
+        "recordCountIncludingSentinel": 6,
+        "records": [
+          {
+            "nameHash": 1501620149,
+            "typeHash": 1742454729,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 424292648,
+            "typeHash": 1742454729,
+            "objectOffset": 60,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 549620986,
+            "typeHash": 602296504,
+            "objectOffset": 120,
+            "binding": "nullable-pointee",
+            "helpers": []
+          },
+          {
+            "nameHash": 164725313,
+            "typeHash": 164725313,
+            "objectOffset": 124,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 1501986059,
+            "typeHash": 1501986059,
+            "objectOffset": 128,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrect(ModelConditionSoundSelectorOverrideBlock* @object, EndianHelper* state)",
+        "line": 18621,
+        "bodySha256": "d7d4beb454c3527e8708935032a3a3e2f51220f226bd88a278dc417836788b6c",
+        "calls": [
+          "Marshaler_002EEndianCorrect",
+          "Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E",
+          "Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E"
+        ]
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E(List_003CSageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E* list, EndianHelper* endian)",
+          "line": 54654,
+          "bodySha256": "c9c66213574e50d67a0bf721c03c59e2e86f487f9dfb4c4740d360fcc320826e",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionSoundSelectorOverrideBlock_003E",
+            "Marshaler_002EEndianCorrect"
+          ]
+        }
+      ],
+      "nativeListStride": 132
+    },
+    {
+      "name": "UpgradeSoundSelectorOverrideBlock",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, UpgradeSoundSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 18800,
+        "bodySha256": "3937df5c7a23311158626d127a10bae468a3ff811fd5da989e8e3a3464eebe4d",
+        "lookups": [
+          {
+            "name": "RequiredModelConditions",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18806
+          },
+          {
+            "name": "ConflictingModelConditions",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18812
+          },
+          {
+            "name": "VoicePriorityOverride",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18818
+          },
+          {
+            "name": "AudioArrayVoice",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18820
+          },
+          {
+            "name": "AudioArraySound",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18843
+          },
+          {
+            "name": "AudioEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18852
+          },
+          {
+            "name": "RequiredUpgrade",
+            "fallback": null,
+            "kind": "list",
+            "line": 18866
+          },
+          {
+            "name": "ConflictingUpgrade",
+            "fallback": null,
+            "kind": "list",
+            "line": 18867
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 24,
+            "countExpression": "1u"
+          },
+          {
+            "elementSize": 8,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": [
+          "AudioArrayVoice"
+        ]
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E(IList* list, List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E* target, Tracker* tracker)",
+          "line": 54679,
+          "bodySha256": "e64dc7340953d9a7ce49fc296345c40fb5da02fc374cc056b42e4a04f7c5360c",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 148,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "UpgradeSoundSelectorOverrideBlock"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, UpgradeSoundSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 90512,
+        "bodySha256": "4521e4f28931520c6dfec3474dccb8e566726f23f49dcd13f7c6461c1c3fe7be",
+        "recordCountIncludingSentinel": 8,
+        "records": [
+          {
+            "nameHash": 1022003432,
+            "typeHash": 1742454729,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 3679268676,
+            "typeHash": 1742454729,
+            "objectOffset": 60,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 549620986,
+            "typeHash": 602296504,
+            "objectOffset": 120,
+            "binding": "nullable-pointee",
+            "helpers": []
+          },
+          {
+            "nameHash": 164725313,
+            "typeHash": 164725313,
+            "objectOffset": 124,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 1501986059,
+            "typeHash": 1501986059,
+            "objectOffset": 128,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 2138150697,
+            "typeHash": 653971399,
+            "objectOffset": 132,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E"
+            ]
+          },
+          {
+            "nameHash": 2331480671,
+            "typeHash": 653971399,
+            "objectOffset": 140,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "signature": "internal unsafe static void Marshaler_002EEndianCorrect(UpgradeSoundSelectorOverrideBlock* @object, EndianHelper* state)",
+        "line": 18870,
+        "bodySha256": "7777fdb803d6ee96ff039e17f2a4c140fa5f349d3497e8b5fa2a6eb230030a25",
+        "calls": [
+          "Marshaler_002EEndianCorrect",
+          "Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E",
+          "Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E",
+          "Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E"
+        ]
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E(List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E* list, EndianHelper* endian)",
+          "line": 54721,
+          "bodySha256": "aa33a1aa63678794d811b99903daf5758089ae00461f568c46f7f08c158fce1a",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E",
+            "Marshaler_002EEndianCorrect"
+          ]
+        }
+      ],
+      "nativeListStride": 148
+    },
+    {
+      "name": "ModelConditionEvaEventSelectorOverrideBlock",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ModelConditionEvaEventSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 18937,
+        "bodySha256": "b726cf02775b2e8eb5b69e5d2a1c900d36489a338071063a0eb0ad1d18f9e4f3",
+        "lookups": [
+          {
+            "name": "RequiredFlags",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18943
+          },
+          {
+            "name": "ExcludedFlags",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 18949
+          },
+          {
+            "name": "EvaEventArray",
+            "fallback": null,
+            "kind": "optional-child",
+            "line": 18956
+          },
+          {
+            "name": "EvaEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18965
+          }
+        ],
+        "pushes": [
+          {
+            "elementSize": 8,
+            "countExpression": "1u"
+          }
+        ],
+        "marshalCasts": []
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E(IList* list, List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E* target, Tracker* tracker)",
+          "line": 54852,
+          "bodySha256": "43e0f8233aa59c0762270cbd0682466b6aa2680b6f43590d2f9406eaff8ebc20",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 124,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "ModelConditionEvaEventSelectorOverrideBlock"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ModelConditionEvaEventSelectorOverrideBlock* @object, Tracker* state)",
+        "line": 90464,
+        "bodySha256": "ffb79779ff8affe6c9c1f4e73a9badfcef10bc981c7bd1018e30b612a7a17ee5",
+        "recordCountIncludingSentinel": 4,
+        "records": [
+          {
+            "nameHash": 1501620149,
+            "typeHash": 1742454729,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 424292648,
+            "typeHash": 1742454729,
+            "objectOffset": 60,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 4135037614,
+            "typeHash": 4135037614,
+            "objectOffset": 120,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E(List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E* list, EndianHelper* endian)",
+          "line": 54894,
+          "bodySha256": "b9028f4b8c8427296107728e92f3b96a11bfd91ef03d7a38189c81ddc18d870a",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E",
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 124
+    },
+    {
+      "name": "AudioArrayVoice",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, AudioArrayVoice* @object, Tracker* state)",
+        "line": 18543,
+        "bodySha256": "3387c950829f6c3230333baa051157014c710b63709b23ed57b220ba1c9844c2",
+        "lookups": [
+          {
+            "name": "AudioEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18547
+          },
+          {
+            "name": "ObjectSpecificEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18548
+          },
+          {
+            "name": "NamedEntry",
+            "fallback": null,
+            "kind": "list",
+            "line": 18549
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": []
+      },
+      "listMarshal": [],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioArrayVoice* @object, Tracker* state)",
+        "line": 77238,
+        "bodySha256": "447c40a9148b19f241ebc6abe0df7fb8c0111fc3f2e316c3a2cb0fc11c49a15f",
+        "recordCountIncludingSentinel": 4,
+        "records": [
+          {
+            "nameHash": 2517133738,
+            "typeHash": 2326383380,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E"
+            ]
+          },
+          {
+            "nameHash": 3005242152,
+            "typeHash": 2933900493,
+            "objectOffset": 8,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E"
+            ]
+          },
+          {
+            "nameHash": 2026901168,
+            "typeHash": 4176300155,
+            "objectOffset": 16,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": []
+    },
+    {
+      "name": "AudioArraySound",
+      "marshal": {
+        "status": "no exact standalone Marshal overload; inspect list/parent inline implementation",
+        "name": "AudioArraySound"
+      },
+      "listMarshal": [],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioArraySound* @object, Tracker* state)",
+        "line": 77170,
+        "bodySha256": "f4d5865d697b8a6d61d196dbd81cf30a32fc2450ad0176b6563bb2e0790d72f5",
+        "recordCountIncludingSentinel": 2,
+        "records": [
+          {
+            "nameHash": 2517133738,
+            "typeHash": 2278582380,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": []
+    },
+    {
+      "name": "EvaEventArray",
+      "marshal": {
+        "status": "no exact standalone Marshal overload; inspect list/parent inline implementation",
+        "name": "EvaEventArray"
+      },
+      "listMarshal": [],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, EvaEventArray* @object, Tracker* state)",
+        "line": 77276,
+        "bodySha256": "a4e1dacfbbf468cb9b77ce9c9194b84f639911f2c72e14771a02c9178e90524c",
+        "recordCountIncludingSentinel": 2,
+        "records": [
+          {
+            "nameHash": 2506637569,
+            "typeHash": 3618954971,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E"
+            ]
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": []
+    },
+    {
+      "name": "AudioVoiceEntry",
+      "marshal": {
+        "status": "no exact standalone Marshal overload; inspect list/parent inline implementation",
+        "name": "AudioVoiceEntry"
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E(IList* list, List_003CSageBinaryData_003A_003AAudioVoiceEntry_003E* target, Tracker* tracker)",
+          "line": 54310,
+          "bodySha256": "c5609864950a3c83675db2af02c1c9682054b7192c118c2dbed661ebd68c7b55",
+          "lookups": [
+            {
+              "name": "AudioType",
+              "fallback": null,
+              "kind": "attribute",
+              "line": 54334
+            }
+          ],
+          "pushes": [
+            {
+              "elementSize": 12,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "SoundOrEvaEvent"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioVoiceEntry* @object, Tracker* state)",
+        "line": 77200,
+        "bodySha256": "38d4dc0e61afbca45db21ef21bc3f8cd8a2a5184f7745b052882a13f946d24ec",
+        "recordCountIncludingSentinel": 3,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 451327671,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 2297507835,
+            "typeHash": 1302792368,
+            "objectOffset": 8,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E(List_003CSageBinaryData_003A_003AAudioVoiceEntry_003E* list, EndianHelper* endian)",
+          "line": 54442,
+          "bodySha256": "2a34523ba5255ccecd1bbbfa99de368a75c61ad4790d036d340ff7e50e9762e2",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 12
+    },
+    {
+      "name": "AudioObjectSpecificVoiceEntry",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, AudioObjectSpecificVoiceEntry* @object, Tracker* state)",
+        "line": 18528,
+        "bodySha256": "7c671d5a10e99eb0fa591328ba6d1d68a24cd0dae84fb2c8a480d069f26dfe0b",
+        "lookups": [
+          {
+            "name": "AudioType",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18532
+          },
+          {
+            "name": "TargetObject",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18533
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": [
+          "SoundOrEvaEvent"
+        ]
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E(IList* list, List_003CSageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E* target, Tracker* tracker)",
+          "line": 54358,
+          "bodySha256": "91b9f922c555289f750c517e2aff7b60016b19bcb2f3e2c83d5048ec3102344d",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 16,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "AudioObjectSpecificVoiceEntry"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioObjectSpecificVoiceEntry* @object, Tracker* state)",
+        "line": 77217,
+        "bodySha256": "74d9fc1177346e19fac8a0dfcaf93232d938c2b869e02cdb135595b77692071e",
+        "recordCountIncludingSentinel": 4,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 451327671,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 2297507835,
+            "typeHash": 2493947059,
+            "objectOffset": 8,
+            "binding": "member",
+            "helpers": []
+          },
+          {
+            "nameHash": 2509084830,
+            "typeHash": 344905565,
+            "objectOffset": 12,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E(List_003CSageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E* list, EndianHelper* endian)",
+          "line": 54477,
+          "bodySha256": "e2a79507d556604675c08bbb5e7c387fa7fbdc7da8459142f029e33c8bc9b197",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioObjectSpecificVoiceEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 16
+    },
+    {
+      "name": "AudioVoiceReferentialEntry",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, AudioVoiceReferentialEntry* @object, Tracker* state)",
+        "line": 18502,
+        "bodySha256": "8b83b214c34c3f838184f8b277eef5c3db06f3110bd1a88aa84442f43bf123f6",
+        "lookups": [
+          {
+            "name": "Name",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18508
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": [
+          "SoundOrEvaEvent"
+        ]
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E(IList* list, List_003CSageBinaryData_003A_003AAudioVoiceReferentialEntry_003E* target, Tracker* tracker)",
+          "line": 54400,
+          "bodySha256": "35c361db4b32f0faa00b7aaadc18e19b800fcb2ba6af46b668814e938c177db4",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 12,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "AudioVoiceReferentialEntry"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioVoiceReferentialEntry* @object, Tracker* state)",
+        "line": 77183,
+        "bodySha256": "6fd4962a9d4eaf5d5c9c6e4ba1c470cd9f72f82c15970f038cb9bdf3f30bc412",
+        "recordCountIncludingSentinel": 3,
+        "records": [
+          {
+            "nameHash": 1,
+            "typeHash": 451327671,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize",
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 1501410244,
+            "typeHash": 1488897831,
+            "objectOffset": 8,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E(List_003CSageBinaryData_003A_003AAudioVoiceReferentialEntry_003E* list, EndianHelper* endian)",
+          "line": 54523,
+          "bodySha256": "16a70f5d398b9bc947a835522b90570b34d721aea239e13665586112f2e34aaf",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioVoiceReferentialEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 12
+    },
+    {
+      "name": "SoundOrEvaEvent",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, SoundOrEvaEvent* @object, Tracker* state)",
+        "line": 13587,
+        "bodySha256": "3ac353f190eefe62da81033f75fb1b7b854fde42056c7f73d045c1de46eeae5e",
+        "lookups": [
+          {
+            "name": "Sound",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 13591
+          },
+          {
+            "name": "EvaEvent",
+            "fallback": "",
+            "kind": "attribute",
+            "line": 13597
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": []
+      },
+      "listMarshal": [],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, SoundOrEvaEvent* @object, Tracker* state)",
+        "line": 76849,
+        "bodySha256": "a176d1e0e681bc72ff572a15df401d0dea95f5382b309d7b78761d929ec0a770",
+        "recordCountIncludingSentinel": 3,
+        "records": [
+          {
+            "nameHash": 805758285,
+            "typeHash": 1675080808,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 357806494,
+            "typeHash": 3303818161,
+            "objectOffset": 4,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": []
+    },
+    {
+      "name": "AudioSoundEntry",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, AudioSoundEntry* @object, Tracker* state)",
+        "line": 18493,
+        "bodySha256": "ef51725177aabbe355dddf88371124ee410ec867133806edd413d949e8161f0f",
+        "lookups": [
+          {
+            "name": "Sound",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18497
+          },
+          {
+            "name": "AudioType",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18498
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": []
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E(IList* list, List_003CSageBinaryData_003A_003AAudioSoundEntry_003E* target, Tracker* tracker)",
+          "line": 54192,
+          "bodySha256": "e24b12a472626d703ed671011a52c1acdf288bf89a9c6975f3a25d569ec21cd5",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 8,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "AudioSoundEntry"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, AudioSoundEntry* @object, Tracker* state)",
+        "line": 77153,
+        "bodySha256": "fc0e787144cff99d665589f116edac5846c6e17844c87bbf2a3de84efad83259",
+        "recordCountIncludingSentinel": 3,
+        "records": [
+          {
+            "nameHash": 805758285,
+            "typeHash": 1675080808,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 2297507835,
+            "typeHash": 3574449303,
+            "objectOffset": 4,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E(List_003CSageBinaryData_003A_003AAudioSoundEntry_003E* list, EndianHelper* endian)",
+          "line": 54232,
+          "bodySha256": "a52a0fc99a69d04e95c03aa4c70d6b23a4612963505f27fac6aa19f731ce131d",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAudioSoundEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 8
+    },
+    {
+      "name": "EvaEventEntry",
+      "marshal": {
+        "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, EvaEventEntry* @object, Tracker* state)",
+        "line": 18928,
+        "bodySha256": "641d196cdfaf76b05d82f8ed7561e844dc9ac578ab988d1f8bf67cbf7f779cb9",
+        "lookups": [
+          {
+            "name": "EvaEvent",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18932
+          },
+          {
+            "name": "EvaType",
+            "fallback": null,
+            "kind": "attribute",
+            "line": 18933
+          }
+        ],
+        "pushes": [],
+        "marshalCasts": []
+      },
+      "listMarshal": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E(IList* list, List_003CSageBinaryData_003A_003AEvaEventEntry_003E* target, Tracker* tracker)",
+          "line": 54757,
+          "bodySha256": "25ba45d3fdef267f022b12be38722e8df910682e686c82159f84c4eed5ef42a3",
+          "lookups": [],
+          "pushes": [
+            {
+              "elementSize": 8,
+              "countExpression": "num"
+            }
+          ],
+          "marshalCasts": [
+            "EvaEventEntry"
+          ]
+        }
+      ],
+      "token": {
+        "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, EvaEventEntry* @object, Tracker* state)",
+        "line": 77259,
+        "bodySha256": "d201324765073ab9d418547f9b16532eb832aa49158719983f652d9bc5e68041",
+        "recordCountIncludingSentinel": 3,
+        "records": [
+          {
+            "nameHash": 357806494,
+            "typeHash": 3303818161,
+            "objectOffset": 0,
+            "binding": "helper",
+            "helpers": [
+              "Tokenizer_002ETokenize"
+            ]
+          },
+          {
+            "nameHash": 2980729603,
+            "typeHash": 3226711830,
+            "objectOffset": 4,
+            "binding": "member",
+            "helpers": []
+          }
+        ],
+        "zeroSentinel": true
+      },
+      "endian": {
+        "status": "no exact standalone endian overload; inspect list/parent inline implementation"
+      },
+      "listEndian": [
+        {
+          "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E(List_003CSageBinaryData_003A_003AEvaEventEntry_003E* list, EndianHelper* endian)",
+          "line": 54797,
+          "bodySha256": "32b9bc51bf595d107f187c1765ddc78fa44b1c3bcde74eeb64736c642924bdea",
+          "calls": [
+            "Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AEvaEventEntry_003E"
+          ]
+        }
+      ],
+      "nativeListStride": 8
+    }
+  ],
+  "reuseEvidence": "Existing root AudioArrayVoice/AudioArraySound/EvaEventArray are DLL validated; nested selector integration is not."
+}
