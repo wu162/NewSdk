@@ -161,7 +161,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         case ModuleValue::NullableModelCondition:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),60,1));MarshalModelCondition(value,words);data.Pop();}break;
         case ModuleValue::NullablePositiveFloat:
-            {auto target=static_cast<float*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ParseFloat(value);if(*target<0.0f) throw std::invalid_argument("Value should be >= 0");data.Pop();}break;
+            {auto target=static_cast<float*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ParseFloat(value);if(*target<0.0f) throw GameObjectFormatError("Value should be >= 0");data.Pop();}break;
         case ModuleValue::SignedList: {
             std::vector<std::string> tokens;std::size_t atText=0;
             auto space=[](unsigned char c) {return c==' ' || (c>=9 && c<=13);};

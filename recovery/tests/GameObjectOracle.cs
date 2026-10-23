@@ -823,9 +823,12 @@ partial class GameObjectOracle {
         }
         foreach(string value in new[]{"","0","-0","0.001","17","2147483647","1e39","nan","inf","text"})Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'"));
         foreach(string value in new[]{"-1","-0.001","-2147483648","-1e39"}) {
-            string xml=SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'");bool rejected=false;
-            try{original.ProcessInstance(Declaration("",xml));}catch(Exception error){if(error.Message.IndexOf("Value should be >= 0",StringComparison.Ordinal)<0)throw;rejected=true;}
-            if(!rejected)throw new Exception("Original positive-range helper unexpectedly accepted negative value");Reject(p,"",xml);
+            string xml=SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'");Exception expectedError=null,actualError=null;
+            try{original.ProcessInstance(Declaration("",xml));}catch(Exception error){if(error.Message.IndexOf("Value should be >= 0",StringComparison.Ordinal)<0)throw;expectedError=error;}
+            try{Recovered.GameObjectCompiler.ProcessInstance(Declaration("",xml),p);}catch(Exception error){actualError=error;}
+            if(expectedError==null || actualError==null || expectedError.GetType()!=actualError.GetType() || expectedError.Message!=actualError.Message)throw new Exception("Positive-range exception type/message differs from original");
+            foreach(var property in expectedError.GetType().GetProperties(BindingFlags.Public|BindingFlags.Instance))if(property.Name=="ErrorCode" || property.Name=="Code")if(!object.Equals(property.GetValue(expectedError,null),property.GetValue(actualError,null)))throw new Exception("Positive-range error code differs from original");
+            ++refusals;
         }
         foreach(string field in new[]{"Animation","Frame"})foreach(string value in new[]{""," ","a","AB","ab","abc","abcd","中文","é","1","1 -1 010","0x10 2147483647 -2147483648 4294967295","1,2;3","text","+1  2   3"})Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","","<Sound "+field+"='"+Escape(value)+"'/>"));
         Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","","<Sound Frame='1&#9;2&#10;3&#13;4'/>"));

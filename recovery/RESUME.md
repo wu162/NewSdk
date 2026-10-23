@@ -8,6 +8,10 @@
 
 本提交继续完整恢复AnimationSoundClientBehavior和ModelConditionAudioLoopClientBehavior：MaxUpdateRangeCap可空非负float、完整Sound列表（资源、两可空ModelCondition、Animation typed-ID、Frame有符号列表）、完整ModelConditionSound列表（可空Sound引用、两inline ModelCondition位集）；原Token和endian已实现，测试覆盖原负值拒绝、0/空/缺失、所有ModelCondition名和长列表。**待本提交完整矩阵，尚不声明播放组成功。** 当前共46/322已知模块类型，其他276个继续拒绝；另四种ClientBehavior声音/播报选择器尚未实现。SDK未运行。
 
+### 播放组后续核对
+
+播放组source85a1e180c6bdb506733ec0711e9ad7c8512095c4/run39968193677已成功：每模式91,528 fixtures、274,584三缓冲区比较、8,444拒绝、272不变性比较，四平台。终审继续补齐负数MaxUpdateRangeCap的原XmlFormattingError异常类型/消息/错误码，**待本修订完整矩阵，不把前序成功冒充修订通过**。四个声音选择器仍拒绝，新增的源计划只是后续实现调查。
+
 ## 持续规则
 
 - 目标完整恢复XmlCompiler/Tokenizer的C#和C++/CLI；两份完整替代DLL尚未完成。

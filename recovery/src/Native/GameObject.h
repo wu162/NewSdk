@@ -2,7 +2,12 @@
 #include "Relocation.h"
 #include <map>
 #include <string>
+#include <stdexcept>
 namespace Recovered { namespace Native {
+class GameObjectFormatError : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
 enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time, Angle, String, StringList, Bits, Enum, AssetId, Reference, DurationDefault };
 struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind; const char* fallback; int defaultValue; };
 const GameObjectField* GameObjectFields();
