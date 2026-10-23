@@ -12,10 +12,17 @@ namespace Recovered { namespace Native {
 namespace {
 using U32=std::uint32_t;
 enum class GameObjectTokenKind { Member, List, Null };
+struct GameObjectEnum {const char* field; const char* name; int value;};
+struct GameObjectEnumFallback {const char* field; int value;};
 struct GameObjectToken { U32 name,type,offset; GameObjectTokenKind kind; };
 #include "GameObjectFields.h"
 struct Procedure { U32 name,type; void* offset; };
 static_assert(sizeof(Procedure)==12, "GameObject requires x86");
+U32 EnumValue(const std::string& field,const std::string& text) {
+    for(const auto& e:enumEntries) if(field==e.field && text==e.name) return static_cast<U32>(e.value);
+    for(const auto& e:enumFallbacks) if(field==e.field) return static_cast<U32>(e.value);
+    throw std::logic_error("Unknown GameObject enum field");
+}
 void Swap(void* p) { auto b=static_cast<unsigned char*>(p); std::swap(b[0],b[3]);std::swap(b[1],b[2]); }
 }
 const GameObjectField* GameObjectFields() { return fields; }
@@ -24,7 +31,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     for(const auto& a:attributes) {
         const GameObjectField* match=nullptr;
         for(const auto& f:fields) if(a.first==f.name) {match=&f;break;}
-        if(!match || match->kind==GameObjectValue::Enum || match->kind==GameObjectValue::DurationDefault)
+        if(!match || match->kind==GameObjectValue::DurationDefault)
             throw std::invalid_argument("Unsupported GameObject attribute: "+a.first);
     }
     Relo::Tracker data, procedures;
@@ -34,12 +41,13 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         auto found=attributes.find(f.name);
         auto at=root+f.offset;
         U32 word=0;float number=0;
-        if(f.kind==GameObjectValue::Enum || f.kind==GameObjectValue::DurationDefault) {
+        if(f.kind==GameObjectValue::DurationDefault) {
             word=static_cast<U32>(f.defaultValue);std::memcpy(at,&word,4);continue;
         }
         if(found==attributes.end() && !f.fallback) continue;
         std::string text=found==attributes.end()?f.fallback:found->second;
         switch(f.kind) {
+        case GameObjectValue::Enum: word=EnumValue(f.name,text);break;
         case GameObjectValue::String: MarshalString(data,at,text);continue;
         case GameObjectValue::Boolean: *at=ParseBoolean(text)?1:0;continue;
         case GameObjectValue::Byte: *at=static_cast<unsigned char>(ParseUnsigned(text));continue;

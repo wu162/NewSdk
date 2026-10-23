@@ -38,6 +38,8 @@ def enum_values(group):
     return {string_at(p):v for p,v in struct.iter_unpack('<Ii',bytes.fromhex(re.search(r'data\(([^)]+)',line)[1]))}
 
 fields=[]
+enums=[]
+enum_fallbacks=[]
 for index,line in enumerate(marshal.splitlines()):
     # Direct scalar/string attributes; lists, references, IDs, masks and blocks remain unsupported.
     m=re.search(r'(Marshaler_002EMarshal_\w+)\(',line)
@@ -63,7 +65,12 @@ for index,line in enumerate(marshal.splitlines()):
         default=None
         if kind=='Enum':
             group='BuildPlacementType' if 'BuildPlacementType' in helper else t
-            default=enum_values(group)[fallback]
+            entries=enum_values(group)
+            default=entries[fallback]
+            original,_=method(s,'internal unsafe static void '+helper+'(')
+            unknown=int(re.search(r'ptr == null\) \? (-?\d+)',original)[1])
+            enum_fallbacks.append((name,unknown))
+            enums.extend((name,n,v) for n,v in entries.items())
         if 'DurationTag' in helper:
             kind='DurationDefault'
             constant=next(l for l in s.splitlines() if 'internal static float DataInitializers_002E_003FA0xf4a5029c_002ELOGICFRAMES_PER_MSEC_REAL' in l)
@@ -75,6 +82,12 @@ assert len(fields)==75, len(fields)
 lines=['// Generated from original Marshal/Tokenize and PE enum maps. See GenerateGameObjectFields.py.', 'const GameObjectField fields[] = {']
 for n,o,k,f,d,l in fields:
     lines.append('    { '+json.dumps(n)+', '+str(o)+'u, GameObjectValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+str(d or 0)+' }, // original line '+str(l))
+lines+=['};','const GameObjectEnum enumEntries[] = {']
+for field,name,value in enums:
+    lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
+lines+=['};','const GameObjectEnumFallback enumFallbacks[] = {']
+for field,value in enum_fallbacks:
+    lines.append('    { '+json.dumps(field)+', '+str(value)+' },')
 lines+=['};','const GameObjectToken tokens[] = {']
 list_offsets={40,412,420,444,472,536,560,568}
 for t in tokens[:-1]:
