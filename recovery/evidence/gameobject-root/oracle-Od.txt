@@ -1,0 +1,4 @@
+System.Exception:  instance byte 1137: 8 != 0
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label)
+   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs)
+   at GameObjectOracle.Main(String[] args)
