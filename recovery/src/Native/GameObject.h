@@ -7,6 +7,7 @@ enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time
 struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind; const char* fallback; int defaultValue; };
 const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();
+bool GameObjectLeafAttributeSupported(const std::string& name, const std::string& attribute);
 struct GameObjectChild {
     std::string name, text;
     std::map<std::string,std::string> attributes;

@@ -21,5 +21,5 @@ foreach ($mode in @('Od','O2')) {
     $summaries += @{ mode = $mode; summary = $summary }
     Write-Host $summary
 }
-@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; scope = '88 root attributes; twelve child nodes including leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected'; platforms = @(0,1,2,99); modes = $summaries; sdkStatus = 'not run; original route retained' } | ConvertTo-Json -Depth 5 | Set-Content "$report/validation.json"
+@{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; scope = '88 root attributes; sixteen child nodes including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected'; platforms = @(0,1,2,99); modes = $summaries; sdkStatus = 'not run; original route retained' } | ConvertTo-Json -Depth 5 | Set-Content "$report/validation.json"
 

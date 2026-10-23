@@ -225,11 +225,42 @@ partial class GameObjectOracle {
         Check(original,p,"","<ArmorSet TypeId='1' Conditions='ELITE'/><LocomotorSet TypeId='2' Condition='NORMAL'/>");
         foreach(string child in new[]{"<ArmorSet Unknown='1'/>","<ArmorSet Armor='A' xmlns:f='foreign' f:DamageFX='B'/>","<LocomotorSet speed='1'/>","<LocomotorSet><Unknown/></LocomotorSet>","<ArmorSet>text</ArmorSet>","<LocomotorSet>text</LocomotorSet>"})Reject(p,"",child);
     }
+    static void VisualLeaves(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] nodes={"FormationPreviewDecal","FormationPreviewItemDecal","ShadowInfo","VisionInfo"};
+        string[][] fieldNames={new[]{"Width","Height"},new[]{"Width","Height"},new[]{"SizeX","SizeY","OffsetX","OffsetY","OpacityStart","OpacityPeak","OpacityEnd","MaxHeight","SunAngle"},new[]{"VisionRange","ShroudClearingRange","ShroudClearingHeight","VisionSide","VisionRear","VisionBonusTestRadius","VisionBonusPercentPerFoot","MaxVisionBonusPercent","MinVisionBonusPercent"}};
+        for(int n=0;n<nodes.Length;++n) {
+            Check(original,p,"","<"+nodes[n]+"/>");
+            Check(original,p,"","<"+nodes[n]+" TypeId='123'/>");
+            foreach(string field in fieldNames[n])foreach(string value in new[]{"", "text", "0", "-17", "1.25", "0.1", "2D3", "100", "1e38", "-1e38", "1e40", "-1e40", "1e-40"})Check(original,p,"","<"+nodes[n]+" "+field+"='"+value+"'/>");
+            Reject(p,"","<"+nodes[n]+"/><"+nodes[n]+"/>");Reject(p,"","<"+nodes[n]+" Unknown='1'/>");Reject(p,"","<"+nodes[n]+"><Unknown/></"+nodes[n]+">");Reject(p,"","<"+nodes[n]+">text</"+nodes[n]+">");Reject(p,"","<"+nodes[n]+" xmlns='foreign'/>");
+        }
+        foreach(string n in new[]{"FormationPreviewDecal","FormationPreviewItemDecal"})foreach(string value in new[]{"", "a", "abcd", "abcde", "é ÿ 中文", "with spaces", "A&amp;B"})Check(original,p,"","<"+n+" Texture='"+value+"'/>");
+        foreach(string field in new[]{"Texture","AdditionalTexture"})foreach(string value in new[]{"", "Unresolved", "T\\0", "T\\23", "T\\-1", "T\\2147483648", "T\\-2147483649", "T\\23trailing"})Check(original,p,"","<ShadowInfo "+field+"='"+value+"'/>");
+        foreach(string field in new[]{"OverrideLODVisibility","UseHouseColor","IsRotatingWithObject","LocalPlayerOnly"})foreach(string value in new[]{"true","false","TRUE","False","1","0","t","yes"," true",""})Check(original,p,"","<ShadowInfo "+field+"='"+value+"'/>");
+        foreach(string field in new[]{"OpacityFadeInTime","OpacityFadeOutTime"})foreach(string value in new[]{"0s","-17s","23ms","2d1s","1000ms","1.25s","5",""})Check(original,p,"","<ShadowInfo "+field+"='"+value+"'/>");
+        string[] shadowEnums={"NONE","DECAL","ALPHA_DECAL","ADDITIVE_DECAL","ALPHA_DECAL_DYNAMIC","ADDITIVE_DECAL_DYNAMIC","MERGE_DECAL"};
+        for(int i=0;i<shadowEnums.Length;++i) {var b=Check(original,p,"","<ShadowInfo Type='"+shadowEnums[i]+"'/>");if(Word(b.InstanceData,2440,big)!=(uint)i)throw new Exception("Independent ShadowType enum");}
+        foreach(string value in new[]{"", "UNKNOWN", "none", " NONE", "NONE ", "0", "-1"}) {var b=Check(original,p,"","<ShadowInfo Type='"+value+"'/>");if(Word(b.InstanceData,2440,big)!=3)throw new Exception("Independent ShadowType fallback");}
+        foreach(string value in new[]{"0","1","-1","0x12345678","4294967295","4294967296","-4294967296","text",""})Check(original,p,"","<VisionInfo VisionBonusTestSegments='"+value+"'/>");
+        var decal=Check(original,p,"","<FormationPreviewDecal/>");
+        if((int)Word(decal.InstanceData,8,big)-4!=1668 || decal.InstanceData.Length!=2276 || Word(decal.InstanceData,1668+512,big)!=2260 || Word(decal.InstanceData,2260,big)!=0 || Word(decal.InstanceData,2264,big)!=0 || Word(decal.InstanceData,2268,big)!=0x42480000u || Word(decal.InstanceData,2272,big)!=0x42480000u)throw new Exception("Independent decal defaults/layout");
+        var texture=Check(original,p,"","<FormationPreviewDecal Texture='abcd'/>");
+        if(texture.InstanceData.Length!=2284 || Word(texture.InstanceData,2260,big)!=4 || Word(texture.InstanceData,2264,big)!=2276)throw new Exception("Independent decal texture allocation");
+        var vision=Check(original,p,"","<VisionInfo/>");uint[] visionWords={0,0,0x42480000u,0x3f800000u,0x3f800000u,0x42c80000u,8,0,0x3f000000u,0xbf000000u};
+        if((int)Word(vision.InstanceData,8,big)-4!=1752 || vision.InstanceData.Length!=2384 || Word(vision.InstanceData,1752+552,big)!=2344)throw new Exception("Independent VisionInfo layout");
+        for(int i=0;i<visionWords.Length;++i)if(Word(vision.InstanceData,2344+4*i,big)!=visionWords[i])throw new Exception("Independent VisionInfo defaults "+i);
+        var shadow=Check(original,p,"","<ShadowInfo/>");
+        if((int)Word(shadow.InstanceData,8,big)-4!=1848 || shadow.InstanceData.Length!=2500 || Word(shadow.InstanceData,1848+544,big)!=2440 || Word(shadow.InstanceData,2440+36,big)!=0x3f800000u || Word(shadow.InstanceData,2440+48,big)!=0x41a00000u)throw new Exception("Independent ShadowInfo layout/default floats");
+        for(int i=0;i<4;++i)if(shadow.InstanceData[2440+56+i]!=(i==2?1:0))throw new Exception("Independent ShadowInfo packed booleans");
+        Check(original,p,"Browser='a bb' Description='desc'","<DisplayName>name</DisplayName><ArmorSet Conditions='ELITE'/><LocomotorSet Speed='1'/><Flammability Fuel='3'/><FormationPreviewDecal Texture='abcd' Width='23'/><FormationPreviewItemDecal Texture='x' Height='17'/><LiveCameraOffset x='2'/><UpgradeCameo>cameo</UpgradeCameo><ShadowInfo Texture='T\\23' OpacityFadeInTime='250ms' LocalPlayerOnly='true'/><VisionInfo VisionSide='30' ShroudClearingHeight='90'/><DisplayUpgrade>upg</DisplayUpgrade>");
+        Reject(p,"","<ShadowInfo xmlns:f='foreign' f:SizeX='1'/>");
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -247,7 +278,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twelve child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

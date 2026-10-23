@@ -489,6 +489,13 @@ const GameObjectEnum enumEntries[] = {
     { "LocomotorSet", "TAXIING", 5 },
     { "LocomotorSet", "WALL_SCALING", 14 },
     { "LocomotorSet", "WANDER", 3 },
+    { "ShadowInfo", "ADDITIVE_DECAL", 3 },
+    { "ShadowInfo", "ADDITIVE_DECAL_DYNAMIC", 5 },
+    { "ShadowInfo", "ALPHA_DECAL", 2 },
+    { "ShadowInfo", "ALPHA_DECAL_DYNAMIC", 4 },
+    { "ShadowInfo", "DECAL", 1 },
+    { "ShadowInfo", "MERGE_DECAL", 6 },
+    { "ShadowInfo", "NONE", 0 },
 };
 const GameObjectEnumFallback enumFallbacks[] = {
     { "RadarPriority", 2 },
@@ -500,6 +507,7 @@ const GameObjectEnumFallback enumFallbacks[] = {
     { "Buildable", 1 },
     { "ThingClass", 15 },
     { "LocomotorSet", 12 },
+    { "ShadowInfo", 3 },
 };
 const GameObjectToken tokens[] = {
     { 4185812704u, 2600243603u, 4u, GameObjectTokenKind::Member },
@@ -628,4 +636,85 @@ const GameObjectToken tokens[] = {
     { 519758843u, 519758843u, 556u, GameObjectTokenKind::Null },
     { 1388118305u, 1388118305u, 560u, GameObjectTokenKind::List },
     { 2658004210u, 653971399u, 568u, GameObjectTokenKind::List },
+};
+
+const LeafField FormationPreviewDecalFields[] = {
+    { "Texture", 0u, LeafValue::String, nullptr },
+    { "Width", 8u, LeafValue::Float, "50.0" },
+    { "Height", 12u, LeafValue::Float, "50.0" },
+};
+const LeafToken FormationPreviewDecalTokens[] = {
+    { 568797146u, 2153588212u, 0u },
+    { 2801412506u, 1683514611u, 8u },
+    { 2875692432u, 1683514611u, 12u },
+};
+const LeafField ShadowInfoFields[] = {
+    { "Type", 0u, LeafValue::Enum, nullptr },
+    { "Texture", 4u, LeafValue::Reference, nullptr },
+    { "AdditionalTexture", 8u, LeafValue::Reference, nullptr },
+    { "SizeX", 12u, LeafValue::Float, "0.0" },
+    { "SizeY", 16u, LeafValue::Float, "0.0" },
+    { "OffsetX", 20u, LeafValue::Float, "0.0" },
+    { "OffsetY", 24u, LeafValue::Float, "0.0" },
+    { "OpacityStart", 28u, LeafValue::Float, "0" },
+    { "OpacityFadeInTime", 32u, LeafValue::Time, "0s" },
+    { "OpacityPeak", 36u, LeafValue::Float, "1" },
+    { "OpacityFadeOutTime", 40u, LeafValue::Time, "0s" },
+    { "OpacityEnd", 44u, LeafValue::Float, "0" },
+    { "MaxHeight", 48u, LeafValue::Float, "20" },
+    { "OverrideLODVisibility", 56u, LeafValue::Boolean, "false" },
+    { "UseHouseColor", 57u, LeafValue::Boolean, "false" },
+    { "IsRotatingWithObject", 58u, LeafValue::Boolean, "true" },
+    { "LocalPlayerOnly", 59u, LeafValue::Boolean, "false" },
+    { "SunAngle", 52u, LeafValue::Float, "0.0" },
+};
+const LeafToken ShadowInfoTokens[] = {
+    { 2219907648u, 995629393u, 0u },
+    { 568797146u, 1279146296u, 4u },
+    { 3810401382u, 1279146296u, 8u },
+    { 1331287495u, 1683514611u, 12u },
+    { 701354670u, 1683514611u, 16u },
+    { 3535499909u, 1683514611u, 20u },
+    { 458018766u, 1683514611u, 24u },
+    { 980905958u, 1683514611u, 28u },
+    { 1591653543u, 2575722984u, 32u },
+    { 2256853385u, 1683514611u, 36u },
+    { 1338199621u, 2575722984u, 40u },
+    { 403917391u, 1683514611u, 44u },
+    { 2442743418u, 1683514611u, 48u },
+    { 1465894513u, 2011428087u, 56u },
+    { 1377712240u, 2011428087u, 57u },
+    { 2723964047u, 2011428087u, 58u },
+    { 3633590885u, 2011428087u, 59u },
+    { 1902020174u, 1683514611u, 52u },
+};
+const LeafField VisionInfoFields[] = {
+    { "VisionRange", 0u, LeafValue::Float, "0.00" },
+    { "ShroudClearingRange", 4u, LeafValue::Float, "0.0" },
+    { "ShroudClearingHeight", 8u, LeafValue::Float, "50.0" },
+    { "VisionSide", 12u, LeafValue::Percent, "100" },
+    { "VisionRear", 16u, LeafValue::Percent, "100" },
+    { "VisionBonusTestRadius", 20u, LeafValue::Float, "100" },
+    { "VisionBonusTestSegments", 24u, LeafValue::Unsigned, "8" },
+    { "VisionBonusPercentPerFoot", 28u, LeafValue::Percent, "0" },
+    { "MaxVisionBonusPercent", 32u, LeafValue::Percent, "50" },
+    { "MinVisionBonusPercent", 36u, LeafValue::Percent, "-50" },
+};
+const LeafToken VisionInfoTokens[] = {
+    { 2300421872u, 1683514611u, 0u },
+    { 4220663359u, 1683514611u, 4u },
+    { 4011662961u, 1683514611u, 8u },
+    { 3717658879u, 1683514611u, 12u },
+    { 3479516767u, 1683514611u, 16u },
+    { 2367925348u, 1683514611u, 20u },
+    { 2911201959u, 1982953380u, 24u },
+    { 874595051u, 1683514611u, 28u },
+    { 4195343142u, 1683514611u, 32u },
+    { 742241367u, 1683514611u, 36u },
+};
+const LeafLayout leafLayouts[] = {
+    { "FormationPreviewDecal", 512u, 16u, FormationPreviewDecalFields, 3u, FormationPreviewDecalTokens },
+    { "FormationPreviewItemDecal", 516u, 16u, FormationPreviewDecalFields, 3u, FormationPreviewDecalTokens },
+    { "ShadowInfo", 544u, 60u, ShadowInfoFields, 18u, ShadowInfoTokens },
+    { "VisionInfo", 552u, 40u, VisionInfoFields, 10u, VisionInfoTokens },
 };

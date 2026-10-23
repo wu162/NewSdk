@@ -103,6 +103,8 @@ for name,value in enum_values('ArmorSetType').items():
     lines.append('    { '+json.dumps(name)+', '+str(value)+' },')
 enums.extend(('LocomotorSet',n,v) for n,v in enum_values('LocomotorSetType').items())
 enum_fallbacks.append(('LocomotorSet',12))
+enums.extend(('ShadowInfo',n,v) for n,v in enum_values('ShadowType').items())
+enum_fallbacks.append(('ShadowInfo',3))
 lines+=['};','const GameObjectEnum enumEntries[] = {']
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
@@ -122,6 +124,46 @@ for t in tokens[:-1]:
         direct=r'internal unsafe static void '+re.escape(h)+r'\(void\*\* \w+, '+re.escape(cast[1])+r' [@\w]+, Tracker\* \w+\)\s*\{\s*Relo_002ETracker_002EBookmarkMemberOffset\([^;]+\);\s*\}'
         if re.search(direct,s): kind='Member'
     lines.append('    { '+str(t['nameHash'])+'u, '+str(t['typeHash'])+'u, '+str(t['nativeOffset'])+'u, GameObjectTokenKind::'+kind+' },')
+lines+=['};','']
+# Non-polymorphic visual leaf layouts, transcribed from original Marshal
+# methods 14189, 49185, 49243; tokens are extracted independently below.
+leaf_specs = {
+    'FormationPreviewDecal': (16,[('Texture',0,'String',None),('Width',8,'Float','50.0'),('Height',12,'Float','50.0')]),
+    'ShadowInfo': (60,[('Type',0,'Enum',None),('Texture',4,'Reference',None),('AdditionalTexture',8,'Reference',None),
+        ('SizeX',12,'Float','0.0'),('SizeY',16,'Float','0.0'),('OffsetX',20,'Float','0.0'),('OffsetY',24,'Float','0.0'),
+        ('OpacityStart',28,'Float','0'),('OpacityFadeInTime',32,'Time','0s'),('OpacityPeak',36,'Float','1'),
+        ('OpacityFadeOutTime',40,'Time','0s'),('OpacityEnd',44,'Float','0'),('MaxHeight',48,'Float','20'),
+        ('OverrideLODVisibility',56,'Boolean','false'),('UseHouseColor',57,'Boolean','false'),
+        ('IsRotatingWithObject',58,'Boolean','true'),('LocalPlayerOnly',59,'Boolean','false'),('SunAngle',52,'Float','0.0')]),
+    'VisionInfo': (40,[('VisionRange',0,'Float','0.00'),('ShroudClearingRange',4,'Float','0.0'),('ShroudClearingHeight',8,'Float','50.0'),
+        ('VisionSide',12,'Percent','100'),('VisionRear',16,'Percent','100'),('VisionBonusTestRadius',20,'Float','100'),
+        ('VisionBonusTestSegments',24,'Unsigned','8'),('VisionBonusPercentPerFoot',28,'Percent','0'),
+        ('MaxVisionBonusPercent',32,'Percent','50'),('MinVisionBonusPercent',36,'Percent','-50')])
+}
+for name,(size,entries) in leaf_specs.items():
+    original, first = method(s,'internal unsafe static void Marshaler_002EMarshal(INode* node, '+name+'* @object, Tracker* state)')
+    symbols=[decode(x) for x in re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',original)]
+    assert set(n for n,o,k,f in entries).issubset(symbols), (name,symbols)
+    lines+=['const LeafField '+name+'Fields[] = {']
+    for n,o,k,f in entries:
+        lines.append('    { '+json.dumps(n)+', '+str(o)+'u, LeafValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+' },')
+    lines+=['};','const LeafToken '+name+'Tokens[] = {']
+    token_body, token_line = method(s,'internal unsafe static void Tokenizer_002ETokenize(void** table, '+name+'* @object, Tracker* state)')
+    parsed=[]
+    for part in token_body.split('ptr = (ProcTableElement*)((byte*)ptr + 12);')[:-1]:
+        key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',part)[1])&0xffffffff
+        typ=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',part)[1])&0xffffffff
+        bookmark=re.search(r'BookmarkMemberOffset\(state, (?:\(byte\*\))?@object(?: \+ (\d+))?,',part)
+        assert bookmark, part
+        off=int(bookmark[1] or 0);parsed.append(off)
+        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u },')
+    assert parsed==[o for n,o,k,f in entries], (name,parsed)
+    assert '12u, '+str(len(entries)+1)+'u' in token_body
+    lines+=['};']
+lines+=['const LeafLayout leafLayouts[] = {']
+for name,typ,off in [('FormationPreviewDecal','FormationPreviewDecal',512),('FormationPreviewItemDecal','FormationPreviewDecal',516),('ShadowInfo','ShadowInfo',544),('VisionInfo','VisionInfo',552)]:
+    size,entries=leaf_specs[typ]
+    lines.append('    { '+json.dumps(name)+', '+str(off)+'u, '+str(size)+'u, '+typ+'Fields, '+str(len(entries))+'u, '+typ+'Tokens },')
 lines+=['};','']
 output='\n'.join(lines)
 path=root/'recovery/src/Native/GameObjectFields.h'

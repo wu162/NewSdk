@@ -17,6 +17,10 @@ enum class GameObjectTokenKind { Member, List, Null };
 struct GameObjectEnum {const char* field; const char* name; int value;};
 struct GameObjectEnumFallback {const char* field; int value;};
 struct GameObjectToken { U32 name,type,offset; GameObjectTokenKind kind; };
+enum class LeafValue { Float, Percent, Unsigned, Boolean, Time, Enum, String, Reference };
+struct LeafField {const char* name;unsigned offset;LeafValue kind;const char* fallback;};
+struct LeafToken {U32 name,type,offset;};
+struct LeafLayout {const char* name;unsigned offset,size;const LeafField* fields;unsigned count;const LeafToken* tokens;};
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
@@ -33,6 +37,11 @@ void Swap(void* p) { auto b=static_cast<unsigned char*>(p); std::swap(b[0],b[3])
 }
 const GameObjectField* GameObjectFields() { return fields; }
 unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
+bool GameObjectLeafAttributeSupported(const std::string& name,const std::string& attribute) {
+    for(const auto& leaf:leafLayouts) if(name==leaf.name)
+        for(unsigned i=0;i<leaf.count;++i) if(attribute==leaf.fields[i].name) return true;
+    return false;
+}
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
     for(const auto& a:attributes) {
         const GameObjectField* match=nullptr;
@@ -165,12 +174,39 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     };
     marshalList("EquivalentTo",444,false);
     U32* flammability=nullptr;float* camera=nullptr;
+    std::map<unsigned,unsigned char*> leafObjects;
+    auto marshalLeaves=[&](unsigned first,unsigned last) {
+        for(const auto& leaf:leafLayouts) if(leaf.offset>=first && leaf.offset<=last)
+            for(const auto& child:children) if(child.name==leaf.name) {
+                auto bytes=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+leaf.offset),leaf.size,1));
+                leafObjects[leaf.offset]=bytes;
+                for(unsigned i=0;i<leaf.count;++i) {
+                    const auto& f=leaf.fields[i];auto found=child.attributes.find(f.name);
+                    if(found==child.attributes.end() && !f.fallback) continue;
+                    std::string value=found==child.attributes.end()?f.fallback:found->second;
+                    auto at=bytes+f.offset;U32 word=0;float number=0;
+                    switch(f.kind) {
+                    case LeafValue::String: MarshalString(data,at,value);continue;
+                    case LeafValue::Reference: MarshalReference(data,at,value);continue;
+                    case LeafValue::Boolean: *at=ParseBoolean(value)?1:0;continue;
+                    case LeafValue::Enum: word=EnumValue(leaf.name,value);break;
+                    case LeafValue::Unsigned: word=ParseUnsigned(value);break;
+                    default:
+                        number=f.kind==LeafValue::Time?InitializeTime(value.c_str()):f.kind==LeafValue::Percent?ParsePercentage(value):ParseFloat(value);
+                        std::memcpy(&word,&number,4);break;
+                    }
+                    std::memcpy(at,&word,4);
+                }
+                data.Pop();
+            }
+    };
     for(const auto& child:children) if(child.name=="Flammability") {
         flammability=static_cast<U32*>(data.Push(reinterpret_cast<void**>(root+456),16,1));
         const char* names[]={"Fuel","MaxBurnRate","Decay","Resistance"};
         for(unsigned i=0;i<4;++i) {auto at=child.attributes.find(names[i]);flammability[i]=at==child.attributes.end()?0:ParseUnsigned(at->second);}
         data.Pop();
     }
+    marshalLeaves(512,516);
     for(const auto& child:children) if(child.name=="LiveCameraOffset") {
         camera=static_cast<float*>(data.Push(reinterpret_cast<void**>(root+520),12,1));
         const char* names[]={"x","y","z"};
@@ -178,6 +214,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         data.Pop();
     }
     marshalList("UpgradeCameo",536,true);
+    marshalLeaves(544,552);
     marshalList("DisplayUpgrade",568,false);
     // Unsupported optional pointers and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
@@ -195,6 +232,16 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,5));
             for(unsigned j=0;j<4;++j) {nested[j].name=names[j];nested[j].type=1982953380u;procedures.BookmarkMemberOffset(flammability+j,&nested[j].offset);}
             procedures.Pop();
+        }
+        else if(leafObjects.count(t.offset)) {
+            for(const auto& leaf:leafLayouts) if(leaf.offset==t.offset) {
+                auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,leaf.count+1));
+                for(unsigned j=0;j<leaf.count;++j) {
+                    nested[j].name=leaf.tokens[j].name;nested[j].type=leaf.tokens[j].type;
+                    procedures.BookmarkMemberOffset(leafObjects.at(t.offset)+leaf.tokens[j].offset,&nested[j].offset);
+                }
+                procedures.Pop();break;
+            }
         }
         else if(t.kind==GameObjectTokenKind::List) {
             auto found=lists.find(t.offset);auto list=found==lists.end()?nullptr:found->second;
@@ -229,6 +276,8 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(auto name:displayNames) if(name) Swap(&name->length);
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
         if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
+        for(const auto& leaf:leafLayouts) if(leafObjects.count(leaf.offset))
+            for(unsigned i=0;i<leaf.count;++i) if(leaf.fields[i].kind!=LeafValue::Boolean) Swap(leafObjects.at(leaf.offset)+leaf.fields[i].offset);
         for(const auto& entry:lists) if(entry.first!=40) {
             const unsigned stride=entry.first==412 || entry.first==420?12:entry.first==536?8:4;
             auto bytes=static_cast<unsigned char*>(entry.second->data);
