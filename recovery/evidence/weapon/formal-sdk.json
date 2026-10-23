@@ -1,0 +1,7 @@
+{
+  "scope": "WeaponTemplate only; original plugins retained for other types; SDK Win32 integration, component /Od /O2 on four targets",
+  "runId": "39896743313",
+  "status": "Formal Weapon plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified; original-free replay; three XSD negative cases; reversible/idempotent routing; 38 probes cover 35 branches, all-35 mixed list and inherited all-35 list",
+  "succeeded": true,
+  "sourceCommit": "22c12f53c2f3c886cdb63d212ab10bc57cf715e0"
+}
