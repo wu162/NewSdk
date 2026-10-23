@@ -16,6 +16,8 @@ struct GameObjectEnum {const char* field; const char* name; int value;};
 struct GameObjectEnumFallback {const char* field; int value;};
 struct GameObjectToken { U32 name,type,offset; GameObjectTokenKind kind; };
 #include "GameObjectFields.h"
+struct ReloString {U32 length;void* data;};
+static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct Procedure { U32 name,type; void* offset; };
 static_assert(sizeof(Procedure)==12, "GameObject requires x86");
 U32 EnumValue(const std::string& field,const std::string& text) {
@@ -37,7 +39,29 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     Relo::Tracker data, procedures;
     unsigned char* root=nullptr;
     data.Push(reinterpret_cast<void**>(&root),592,1);
+    // Original Browser Marshal precedes every scalar/string allocation.
+    std::vector<std::string> browser;
+    auto browserInput=attributes.find("Browser");
+    if(browserInput!=attributes.end()) {
+        const auto& text=browserInput->second;
+        auto space=[](unsigned char c) {return c==' ' || (c>=9 && c<=13);};
+        std::size_t at=0;
+        while(at<text.size() && text[at]) {
+            while(at<text.size() && space(static_cast<unsigned char>(text[at]))) ++at;
+            auto first=at;
+            while(at<text.size() && text[at] && !space(static_cast<unsigned char>(text[at]))) ++at;
+            if(at>first) browser.push_back(text.substr(first,at-first));
+        }
+    }
+    ReloString* browserStrings=nullptr;
+    if(!browser.empty()) {
+        U32 count=static_cast<U32>(browser.size());std::memcpy(root+40,&count,4);
+        browserStrings=static_cast<ReloString*>(data.Push(reinterpret_cast<void**>(root+44),8,count));
+        for(U32 i=0;i<count;++i) MarshalString(data,browserStrings+i,browser[i]);
+        data.Pop();
+    }
     for(const auto& f:fields) {
+        if(f.kind==GameObjectValue::StringList) continue;
         auto found=attributes.find(f.name);
         auto at=root+f.offset;
         U32 word=0;float number=0;
@@ -63,7 +87,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
         std::memcpy(at,&word,4);
     }
-    // Zero-initialized optional pointers, masks, references and counts stay absent.
+    // Unsupported optional pointers, masks and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
     Procedure* table=nullptr;
     procedures.Push(reinterpret_cast<void**>(&table),12,127);
@@ -71,12 +95,18 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         const auto& t=tokens[i];table[i].name=t.name;table[i].type=t.type;
         if(t.kind==GameObjectTokenKind::Member) procedures.BookmarkMemberOffset(root+t.offset,&table[i].offset);
         else if(t.kind==GameObjectTokenKind::List) {
-            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,1));
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,t.offset==40?static_cast<U32>(browser.size())+1:1));
             count->name=1820487795u;count->type=1564774360u;
-            procedures.BookmarkMemberOffset(root+t.offset,&count->offset);procedures.Pop();
+            procedures.BookmarkMemberOffset(root+t.offset,&count->offset);
+            if(t.offset==40) for(U32 j=0;j<browser.size();++j) {
+                count[j+1].name=2974916843u;count[j+1].type=0;
+                procedures.BookmarkMemberOffset(browserStrings+j,&count[j+1].offset);
+            }
+            procedures.Pop();
         }
     }
     if(bigEndian) {
+        for(U32 i=0;i<browser.size();++i) Swap(&browserStrings[i].length);
         // In this restricted surface all words below 576 are scalars, lengths,
         // zero masks/counts, or pointers overwritten by MakeRelocatable.
         for(unsigned at=4;at<576;at+=4) Swap(root+at);

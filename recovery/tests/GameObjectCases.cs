@@ -1,5 +1,6 @@
 partial class GameObjectOracle {
     static Field[] Fields = {
+        new Field("Browser","StringList"),
         new Field("UnitIntro","Reference"),
         new Field("HealthBar","AssetId"),
         new Field("UnitTypeIcon","Reference"),

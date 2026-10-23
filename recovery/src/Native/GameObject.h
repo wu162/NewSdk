@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 namespace Recovered { namespace Native {
-enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time, Angle, String, Enum, AssetId, Reference, DurationDefault };
+enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time, Angle, String, StringList, Enum, AssetId, Reference, DurationDefault };
 struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind; const char* fallback; int defaultValue; };
 const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();

@@ -81,7 +81,11 @@ for index,line in enumerate(marshal.splitlines()):
             single=lambda x:struct.unpack('<f',struct.pack('<f',x))[0]
             default=math.ceil(single(scale*single(float(fallback))))
     fields.append((name,offset,kind,fallback,default,first+index))
-assert len(fields)==85, len(fields)
+# Browser uses the shared whitespace tokenizer at original line 12996;
+# its root lookup/Marshal is split across statements (50082-50085).
+assert 'Browser_003F_0024AA' in marshal and '((byte*)@object + 40)' in marshal
+fields.insert(0,('Browser',40,'StringList',None,None,50082))
+assert len(fields)==86, len(fields)
 lines=['// Generated from original Marshal/Tokenize and PE enum maps. See GenerateGameObjectFields.py.', 'const GameObjectField fields[] = {']
 for n,o,k,f,d,l in fields:
     lines.append('    { '+json.dumps(n)+', '+str(o)+'u, GameObjectValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+str(d or 0)+' }, // original line '+str(l))

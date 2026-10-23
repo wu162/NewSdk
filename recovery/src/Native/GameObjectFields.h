@@ -1,5 +1,6 @@
 // Generated from original Marshal/Tokenize and PE enum maps. See GenerateGameObjectFields.py.
 const GameObjectField fields[] = {
+    { "Browser", 40u, GameObjectValue::StringList, nullptr, 0 }, // original line 50082
     { "Description", 48u, GameObjectValue::String, nullptr, 0 }, // original line 50088
     { "DescriptionTransformed", 56u, GameObjectValue::String, nullptr, 0 }, // original line 50089
     { "TypeDescription", 64u, GameObjectValue::String, nullptr, 0 }, // original line 50090

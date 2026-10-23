@@ -57,6 +57,17 @@ partial class GameObjectOracle {
         byte[] expectedNarrow=big?new byte[]{0x12,0x34,0x56,0x78,0xab,0,1}:new byte[]{0x34,0x12,0x78,0x56,0xab,0,1};
         for(int i=0;i<expectedNarrow.Length;++i)if(narrow.InstanceData[a+i]!=expectedNarrow[i])throw new Exception("Independent packed short/byte/bool layout");
     }
+    static void BrowserLayout(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        var b=Check(original,p,"Browser='a bb' Description='abcd'");
+        int root=(int)Word(b.InstanceData,8,big)-4;
+        // Two item tokens shift every subsequent list table and the native root.
+        if(root!=1644 || Word(b.InstanceData,root+40,big)!=2 || Word(b.InstanceData,root+44,big)!=root+592)throw new Exception("Independent Browser root/list binding");
+        int elements=root+592;
+        if(Word(b.InstanceData,elements,big)!=1 || Word(b.InstanceData,elements+8,big)!=2 || Word(b.InstanceData,elements+4,big)!=elements+16 || Word(b.InstanceData,elements+12,big)!=elements+20 || Word(b.InstanceData,root+52,big)!=elements+24)throw new Exception("Independent Browser allocation order");
+        for(int i=0;i<2;++i)if(Word(b.InstanceData,1536+12*i,big)!=2974916843u || Word(b.InstanceData,1540+12*i,big)!=0 || Word(b.InstanceData,1544+12*i,big)!=elements+8*i)throw new Exception("Independent Browser item tokens");
+        Check(original,p,"Browser='a&#9;b&#10;c&#13;d'");
+    }
     static void Enums(IAssetBuilderPlugin original,TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
         int[] offsets={80,128,304,308,348,352};uint[] valid={0xfffffffeu,2,6,3,0xffffffffu,4};uint[] fallback={2,8,4,4,3,1};
@@ -74,10 +85,11 @@ partial class GameObjectOracle {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
-                    string[] values=f.Kind=="AssetId"?new[]{"","a","AB","abc","abcd","abcde","ABCDEF","AbCdEfG","MiXeDCaSe","with spaces","Asset:Name","1","_Test-Name","é","ÿ","中文"}:
+                    string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
+                        f.Kind=="AssetId"?new[]{"","a","AB","abc","abcd","abcde","ABCDEF","AbCdEfG","MiXeDCaSe","with spaces","Asset:Name","1","_Test-Name","é","ÿ","中文"}:
                         f.Kind=="Reference"?new[]{"","Unresolved","Name\\0","Name\\1","Name\\23","Name\\-1","Name\\2147483647","Name\\2147483648","Name\\-2147483648","Name\\-2147483649","Name\\+17","Name\\23trailing","Name\\0x10","Name\\ 23","Name\\text"}:
                         f.Kind=="String"?new[]{"","x","abc","abcd","abcde","long value with spaces","A&amp;B","中文测试"}:
                         f.Kind=="Boolean"?new[]{"true","false","TRUE","False","1","0","t","yes"," true",""}:
@@ -88,10 +100,10 @@ partial class GameObjectOracle {
                     mixed+=f.Name+"='"+(f.Kind=="String"?"mixed-string":f.Kind=="Boolean"?"true":"23")+"' ";
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
-                foreach(string a in new[]{"Unknown='1'","KindOf='VEHICLE'","Browser='x'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
+                foreach(string a in new[]{"Unknown='1'","KindOf='VEHICLE'","EvaEventSecondDamageFarFromFirstTimeoutMS='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 84 scalar/string/enum/resource attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 85 root attributes including Browser string list, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
