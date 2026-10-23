@@ -102,6 +102,9 @@ def token_graph(signature, seen=()):
             assert '(byte*)@object + 64)' in part
             row['memberOffset']=64;row['mode']='list'
             row['nested']=token_graph('internal unsafe static void Tokenizer_002ETokenize(void** table, ActiveBodyDamageRangeModifier* @object, Tracker* state)',seen+(signature,))
+        elif 'Tokenizer_002ETokenize_003Cunsigned_0020int_003E' in part:
+            assert '(byte*)@object + 16)' in part
+            row['memberOffset']=16;row['mode']='hash-list'
         elif 'byte* num = (byte*)@object + 96;' in part:
             assert 'BookmarkMemberOffset(state, (void*)(int)num2, ptr2)' in part
             row['memberOffset']=96;row['mode']='nullable-member'
@@ -140,9 +143,14 @@ for name in ['ActiveBodyModuleData','ShieldBodyModuleData','ImmortalBodyModuleDa
     body_candidates.append({'typeId':int(key),'name':name,'nativeSize':row['nativeSize'],'marshalLine':row['helperLine'],'tokenGraph':token_graph(token[key]['helperSignature'])})
 
 
+client_candidates=[]
+for name in ['BeaconClientUpdateModuleData','EvaAnnounceClientCreateModuleData','EvaAnnounceSpecialPowerReadyClientUpdateModuleData','LaserUpdateModuleData','RadarMarkerClientUpdateModuleData','LargeGroupAudioClientUpdateModuleData']:
+    key,row=next((k,v) for k,v in marshal.items() if v['name']==name)
+    client_candidates.append({'typeId':int(key),'name':name,'nativeSize':row['nativeSize'],'marshalLine':row['helperLine'],'tokenGraph':token_graph(token[key]['helperSignature'])})
+
 report={'status':'source inventory only; not implemented or DLL validated', 'sourceBlob':SOURCE_BLOB,
         'dispatchCounts':{'marshalExplicit':322,'endianExplicit':322,'tokenExplicit':380,'tokenOnly':58},
-        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only,'bodyCandidates':body_candidates}
+        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only,'bodyCandidates':body_candidates,'clientUpdateCandidates':client_candidates}
 output=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
 path=ROOT/'recovery/evidence/gameobject-modules/source-inventory.json'
 if '--check' in sys.argv:

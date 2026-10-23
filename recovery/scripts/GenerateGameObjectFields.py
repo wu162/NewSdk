@@ -276,6 +276,16 @@ body_specs={
 ('ShieldEnabledFX',76,'Reference',None,None),('ShieldDepleteFX',80,'Reference',None,None),('ShieldRechargeEndFX',84,'Reference',None,None),('ShieldTakeDamageFX',88,'Reference',None,None),('ShieldAmount',92,'Float',None,None),('ShieldArmor',96,'NullableReference',None,None),('ShieldRechargeIdleTime',100,'Time','0s',None),('ShieldActiveModelCondition',104,'Enum','INVALID','ModelConditionFlagType')],
 'ActiveBodyDamageRangeModifier':[
 ('Min',0,'Percent',None,None),('Max',4,'Percent',None,None),('AttributeModifier',8,'Reference',None,None)]}
+client_names=['BeaconClientUpdateModuleData','EvaAnnounceClientCreateModuleData','EvaAnnounceSpecialPowerReadyClientUpdateModuleData','LaserUpdateModuleData','RadarMarkerClientUpdateModuleData','LargeGroupAudioClientUpdateModuleData']
+client_specs={
+'BeaconClientUpdateModuleData':[('FramesBetweenRadarPulses',8,'Unsigned','0',None),('RadarPulseDuration',12,'Unsigned','0',None)],
+'EvaAnnounceClientCreateModuleData':[(n,8+4*i,'Reference','',None) for i,n in enumerate(['AnnouncementEventEnemy','AnnouncementEventAlly','AnnouncementEventOwner'])]+[('DelayBeforeAnnouncementLogicFrames',20,'Unsigned','0',None)]+[(n,24+i,'Boolean','false',None) for i,n in enumerate(['OnlyIfVisible','CountAsFirstSightedAnnouncement','UseObjectsPosition','CreateFakeRadarEvent'])],
+'EvaAnnounceSpecialPowerReadyClientUpdateModuleData':[(n,8+4*i,'Reference','',None) for i,n in enumerate(['AnnouncementEventEnemy','AnnouncementEventAlly','AnnouncementEventOwner'])]+[('SpecialPowerTemplate',20,'Reference',None,None),('JustMonitorPercentReady',24,'Boolean','false',None),('CheckPlayerPowerVisibility',25,'Boolean','false',None)],
+'LaserUpdateModuleData':[('ParticleSystemId',8,'Reference',None,None),('ParentFireBoneName',12,'String',None,None),('ParentFireBoneOnTurret',28,'Boolean','false',None),('TargetParticleSystemId',20,'Reference',None,None),('LaserLifetime',24,'Float','0',None)],
+'RadarMarkerClientUpdateModuleData':[('TypeName',8,'String',None,None)],
+'LargeGroupAudioClientUpdateModuleData':[('FramesBetweenUpdatesMin',8,'Unsigned','3',None),('FramesBetweenUpdatesVariation',12,'Unsigned','2',None),('UnitWeight',24,'Short','1',None)]}
+body_specs.update(client_specs)
+
 for typ,entries in body_specs.items():
     body,first=method(s,'internal unsafe static void Marshaler_002EMarshal(INode* node, '+typ+'* @object, Tracker* state)')
     lookups=[]
@@ -284,12 +294,17 @@ for typ,entries in body_specs.items():
         if symbols: lookups.append((ai_literals[symbols[0]],ai_literals[symbols[1]] if len(symbols)>1 else None))
     expected=[(n,f) for n,o,k,f,g in entries]
     if typ=='ActiveBodyModuleData': expected.append(('DamageRangeModifier',None))
+    if typ=='LargeGroupAudioClientUpdateModuleData': expected.append(('Key',None))
     assert lookups==expected,(typ,lookups,expected)
     lines+=['const ModuleField '+typ+'ModuleFields[] = {']
     for n,o,k,f,g in entries:
         lines+=['    { '+json.dumps(n)+', '+str(o)+'u, ModuleValue::'+k+', '+('nullptr' if f is None else json.dumps(f))+', '+('nullptr' if g is None else '&ai'+g)+' },']
     lines+=['};']
 
+lines+=['const ModuleFieldSet moduleFieldSets[] = {','    { nullptr, 0u },']
+for typ in ['ActiveBodyModuleData','ShieldBodyModuleData']+client_names:
+    lines+=['    { '+typ+'ModuleFields, '+str(len(body_specs[typ]))+'u },']
+lines+=['};']
 # Full module dispatch inventory is validated separately and reused here.
 import runpy
 module_source=runpy.run_path(str(root/'recovery/scripts/ExtractGameObjectModuleEvidence.py'))
@@ -301,7 +316,7 @@ def emit_module_graph(graph):
     records=[]
     for item in graph['records']:
         nested=emit_module_graph(item['nested']) if 'nested' in item else None
-        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested,{'list':1,'nullable-member':2}.get(item.get('mode'),0)))
+        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested,{'list':1,'nullable-member':2,'hash-list':3}.get(item.get('mode'),0)))
     name='moduleTable'+str(len(module_choices))
     module_choices.append(name)
     lines.append('const ModuleToken '+name+'Tokens[] = {')
@@ -314,6 +329,8 @@ for entry in module_inventory['baseOnlyCandidates']:
     module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),8,0))
 for entry in module_inventory['bodyCandidates']:
     module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],2 if entry['name']=='ShieldBodyModuleData' else 1))
+for kind,entry in enumerate(module_inventory['clientUpdateCandidates'],3):
+    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],kind))
 lines+=['const ModuleChoice moduleChoices[] = {']
 for value,table,size,kind in module_rows: lines+=['    { '+str(value)+'u, &'+table+', '+str(size)+'u, '+str(kind)+'u },']
 lines+=['};','const U32 knownModuleTypes[] = {']

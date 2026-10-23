@@ -10708,5 +10708,468 @@
         "zeroSentinel": true
       }
     }
+  ],
+  "clientUpdateCandidates": [
+    {
+      "typeId": 4183522625,
+      "name": "BeaconClientUpdateModuleData",
+      "nativeSize": 16,
+      "marshalLine": 62724,
+      "tokenGraph": {
+        "sourceLine": 103872,
+        "forwardTo": {
+          "sourceLine": 84496,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 3472624487,
+              "typeHash": 1982953380,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 81432998,
+              "typeHash": 1982953380,
+              "memberOffset": 12
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 3505323485,
+      "name": "EvaAnnounceClientCreateModuleData",
+      "nativeSize": 28,
+      "marshalLine": 62345,
+      "tokenGraph": {
+        "sourceLine": 103538,
+        "forwardTo": {
+          "sourceLine": 92571,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 3323880662,
+              "typeHash": 3303818161,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 2793102590,
+              "typeHash": 3303818161,
+              "memberOffset": 12
+            },
+            {
+              "nameHash": 3725789635,
+              "typeHash": 3303818161,
+              "memberOffset": 16
+            },
+            {
+              "nameHash": 2300000552,
+              "typeHash": 1982953380,
+              "memberOffset": 20
+            },
+            {
+              "nameHash": 1686367820,
+              "typeHash": 2011428087,
+              "memberOffset": 24
+            },
+            {
+              "nameHash": 412844885,
+              "typeHash": 2011428087,
+              "memberOffset": 25
+            },
+            {
+              "nameHash": 3113778485,
+              "typeHash": 2011428087,
+              "memberOffset": 26
+            },
+            {
+              "nameHash": 1599972670,
+              "typeHash": 2011428087,
+              "memberOffset": 27
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 2720065494,
+      "name": "EvaAnnounceSpecialPowerReadyClientUpdateModuleData",
+      "nativeSize": 28,
+      "marshalLine": 62215,
+      "tokenGraph": {
+        "sourceLine": 103440,
+        "forwardTo": {
+          "sourceLine": 92616,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 3323880662,
+              "typeHash": 3303818161,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 2793102590,
+              "typeHash": 3303818161,
+              "memberOffset": 12
+            },
+            {
+              "nameHash": 3725789635,
+              "typeHash": 3303818161,
+              "memberOffset": 16
+            },
+            {
+              "nameHash": 2178440954,
+              "typeHash": 2934454408,
+              "memberOffset": 20
+            },
+            {
+              "nameHash": 3727834606,
+              "typeHash": 2011428087,
+              "memberOffset": 24
+            },
+            {
+              "nameHash": 2244234618,
+              "typeHash": 2011428087,
+              "memberOffset": 25
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 3399407677,
+      "name": "LaserUpdateModuleData",
+      "nativeSize": 32,
+      "marshalLine": 62199,
+      "tokenGraph": {
+        "sourceLine": 103430,
+        "forwardTo": {
+          "sourceLine": 91439,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 3288131190,
+              "typeHash": 1139920438,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 372443599,
+              "typeHash": 438907818,
+              "memberOffset": 12
+            },
+            {
+              "nameHash": 1025257192,
+              "typeHash": 2011428087,
+              "memberOffset": 28
+            },
+            {
+              "nameHash": 3651255743,
+              "typeHash": 1139920438,
+              "memberOffset": 20
+            },
+            {
+              "nameHash": 2850671775,
+              "typeHash": 1683514611,
+              "memberOffset": 24
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 2941371362,
+      "name": "RadarMarkerClientUpdateModuleData",
+      "nativeSize": 16,
+      "marshalLine": 62593,
+      "tokenGraph": {
+        "sourceLine": 103738,
+        "forwardTo": {
+          "sourceLine": 93167,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 834482619,
+              "typeHash": 438907818,
+              "memberOffset": 8
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 2552668823,
+      "name": "LargeGroupAudioClientUpdateModuleData",
+      "nativeSize": 28,
+      "marshalLine": 60739,
+      "tokenGraph": {
+        "sourceLine": 102141,
+        "forwardTo": {
+          "sourceLine": 92099,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 1286434524,
+              "nested": {
+                "sourceLine": 78257,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 2769121946,
+                    "nested": {
+                      "sourceLine": 78138,
+                      "records": [
+                        {
+                          "nameHash": 1,
+                          "typeHash": 3613234082,
+                          "nested": {
+                            "sourceLine": 78028,
+                            "records": [
+                              {
+                                "nameHash": 430981792,
+                                "typeHash": 602296504,
+                                "memberOffset": 0
+                              },
+                              {
+                                "nameHash": 2363267224,
+                                "typeHash": 3186653541,
+                                "memberOffset": 4
+                              }
+                            ],
+                            "zeroSentinel": true
+                          }
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 653670571,
+              "typeHash": 1982953380,
+              "memberOffset": 8
+            },
+            {
+              "nameHash": 3199752589,
+              "typeHash": 1982953380,
+              "memberOffset": 12
+            },
+            {
+              "nameHash": 936286845,
+              "typeHash": 1129320594,
+              "memberOffset": 24
+            },
+            {
+              "nameHash": 4113570727,
+              "typeHash": 1488897831,
+              "memberOffset": 16,
+              "mode": "hash-list"
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    }
   ]
 }

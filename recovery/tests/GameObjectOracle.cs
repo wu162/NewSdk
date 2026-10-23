@@ -752,11 +752,60 @@ partial class GameObjectOracle {
         if(Word(bytes,at+96,big)!=at+108 || Word(bytes,at+108,big)!=0)throw new Exception("Independent present empty ShieldArmor");
     }
 
+    static string ClientXML(string node,string type,string attrs="",string children="") {
+        return "<ClientUpdates><"+node+" TypeId='"+type+"' id='ClientTest' "+attrs+">"+children+"</"+node+"></ClientUpdates>";
+    }
+    static void ClientUpdateFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;string mixed="";
+        foreach(var client in ClientTypes) {
+            string node=client[0],type=client[1];Check(original,p,"",ClientXML(node,type));
+            string attrs="";
+            foreach(var f in ClientFields)if(f[0]==node) {
+                string name=f[1],kind=f[2];
+                string[] values=kind=="Boolean"?new[]{"","true","false","TRUE","False","1","0","yes"," true"}:
+                    kind=="Reference"?new[]{"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23trailing","K\\0x10","L\\ 23","M\\text"}:
+                    kind=="String"?new[]{"","a","ab","abc","abcd","abcde","with spaces","中文测试","é ÿ","A&amp;B"}:
+                    new[]{"","0","-0","1.25","-17","0x1234","010","65535","65536","65537","2147483647","-2147483648","4294967295","4294967296","-2147483649","1e39","nan","inf"," 23tail","text"};
+                foreach(string value in values)Check(original,p,"",ClientXML(node,type,name+"='"+Escape(value)+"'"));
+                attrs+=name+"='"+(kind=="Boolean"?"true":kind=="String"?"client":kind=="Reference"?"R\\23":"23")+"' ";
+            }
+            string children=node=="LargeGroupAudioClientUpdate"?"<Key TypeId='3'>AB</Key><Key>ab</Key><Key/>":"";
+            Check(original,p,"",ClientXML(node,type,attrs,children));
+            mixed+="<"+node+" TypeId='"+type+"' id='mix' "+attrs+">"+children+"</"+node+">";
+            foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+type+"' id='viaContainer' "+attrs+">"+children+"</"+container[1]+"></"+container[0]+">");
+            foreach(string bad in new[]{"<Unknown/>","<DamageRangeModifier/>","<ObjectFilter/>"})Reject(p,"",ClientXML(node,type,"",bad));
+            if(node!="LargeGroupAudioClientUpdate")Reject(p,"",ClientXML(node,type,"","<Key>x</Key>"));
+            Reject(p,"",ClientXML(node,type,"Unknown='1'"));Reject(p,"",ClientXML(node,type,"MaxHealth='1'"));
+            Reject(p,"",ClientXML(node,type,"xmlns:f='foreign' f:TypeId='1'"));
+        }
+        foreach(int count in new[]{0,1,2,27,28,29,65}) {
+            string items="";for(int i=0;i<count;++i)items+="<Key TypeId='7'>Item"+i+"</Key>";
+            Check(original,p,"Browser='a bb'",ClientXML("LargeGroupAudioClientUpdate","2552668823","UnitWeight='0x1234'",items));
+        }
+        foreach(string value in new[]{""," ","a","A","ab","AB","abc","abcd","abcde","ABCDEF","a b"," a ","a,b;c","é","ÿ","中文","&amp;","line&#10;next"})Check(original,p,"",ClientXML("LargeGroupAudioClientUpdate","2552668823","","<Key>"+value+"</Key><Key>"+value+"</Key>"));
+        foreach(string bad in new[]{"<Key Unknown='1'/>","<Key id='wrong'/>","<Key xmlns='foreign'/>","<Key xmlns:f='foreign' f:TypeId='1'/>","<Key><Unknown/></Key>"})Reject(p,"",ClientXML("LargeGroupAudioClientUpdate","2552668823","",bad));
+        string list="<ClientUpdates>"+mixed+mixed+mixed+"</ClientUpdates>",body=BodyXML("ShieldBody","3545651287","ShieldArmor='A\\1' GrabObject='body'","<DamageRangeModifier Min='25' Max='50'/>");
+        var a=Check(original,p,"Description='mixed'",list+body+"<SkirmishAIInformation/><Geometry/>");
+        var b=Check(original,p,"Description='mixed'","<Geometry/><SkirmishAIInformation/>"+body+list);
+        Equal(a.InstanceData,b.InstanceData,"Client/Body container order",false);Equal(a.RelocationData,b.RelocationData,"Client/Body relocation order",false);
+        // Independent reference words, packed bools and uint overflow.
+        var eva=Check(original,p,"",ClientXML("EvaAnnounceClientCreate","3505323485","AnnouncementEventEnemy='A\\23' AnnouncementEventAlly='B\\-1' AnnouncementEventOwner='C\\0' DelayBeforeAnnouncementLogicFrames='-1' OnlyIfVisible='true' CountAsFirstSightedAnnouncement='true' UseObjectsPosition='true' CreateFakeRadarEvent='true'"));
+        byte[] bytes=eva.InstanceData;int root=(int)Word(bytes,8,big)-4,header=(int)Word(bytes,root+484,big),slots=(int)Word(bytes,header+4,big),at=(int)Word(bytes,slots,big);
+        if(Word(bytes,at+8,big)!=24 || Word(bytes,at+12,big)!=0 || Word(bytes,at+16,big)!=1 || Word(bytes,at+20,big)!=0xffffffffu)throw new Exception("Independent EVA resources/uint");
+        for(int i=24;i<28;++i)if(bytes[at+i]!=1)throw new Exception("Independent EVA packed bool");
+        var laser=Check(original,p,"",ClientXML("LaserUpdate","3399407677","ParticleSystemId='P\\1' TargetParticleSystemId='T\\23' ParentFireBoneName='ab' ParentFireBoneOnTurret='true' LaserLifetime='2.5'"));
+        bytes=laser.InstanceData;root=(int)Word(bytes,8,big)-4;header=(int)Word(bytes,root+484,big);slots=(int)Word(bytes,header+4,big);at=(int)Word(bytes,slots,big);
+        if(Word(bytes,at+8,big)!=2 || Word(bytes,at+12,big)!=2 || Word(bytes,at+16,big)!=at+32 || Word(bytes,at+20,big)!=24 || Word(bytes,at+24,big)!=0x40200000u || bytes[at+28]!=1 || bytes.Length!=at+36)throw new Exception("Independent Laser layout/string/allocation");
+        var audio=Check(original,p,"",ClientXML("LargeGroupAudioClientUpdate","2552668823","UnitWeight='0x1234' FramesBetweenUpdatesMin='0xfedcba98' FramesBetweenUpdatesVariation='010'","<Key>AB</Key><Key>ab</Key><Key/>"));
+        bytes=audio.InstanceData;root=(int)Word(bytes,8,big)-4;header=(int)Word(bytes,root+484,big);slots=(int)Word(bytes,header+4,big);at=(int)Word(bytes,slots,big);int keys=(int)Word(bytes,at+20,big);
+        if(Word(bytes,at+8,big)!=0xfedcba98u || Word(bytes,at+12,big)!=8 || Word(bytes,at+16,big)!=3 || keys!=at+28 || bytes[at+24]!=(big?0x12:0x34) || bytes[at+25]!=(big?0x34:0x12) || bytes[at+26]!=0 || bytes[at+27]!=0 || Word(bytes,keys,big)==Word(bytes,keys+4,big) || Word(bytes,keys+8,big)!=0)throw new Exception("Independent LargeGroupAudio narrow field/hash list");
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -774,7 +823,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

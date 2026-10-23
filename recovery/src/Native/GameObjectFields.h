@@ -2521,6 +2521,54 @@ const ModuleField ActiveBodyDamageRangeModifierModuleFields[] = {
     { "Max", 4u, ModuleValue::Percent, nullptr, nullptr },
     { "AttributeModifier", 8u, ModuleValue::Reference, nullptr, nullptr },
 };
+const ModuleField BeaconClientUpdateModuleDataModuleFields[] = {
+    { "FramesBetweenRadarPulses", 8u, ModuleValue::Unsigned, "0", nullptr },
+    { "RadarPulseDuration", 12u, ModuleValue::Unsigned, "0", nullptr },
+};
+const ModuleField EvaAnnounceClientCreateModuleDataModuleFields[] = {
+    { "AnnouncementEventEnemy", 8u, ModuleValue::Reference, "", nullptr },
+    { "AnnouncementEventAlly", 12u, ModuleValue::Reference, "", nullptr },
+    { "AnnouncementEventOwner", 16u, ModuleValue::Reference, "", nullptr },
+    { "DelayBeforeAnnouncementLogicFrames", 20u, ModuleValue::Unsigned, "0", nullptr },
+    { "OnlyIfVisible", 24u, ModuleValue::Boolean, "false", nullptr },
+    { "CountAsFirstSightedAnnouncement", 25u, ModuleValue::Boolean, "false", nullptr },
+    { "UseObjectsPosition", 26u, ModuleValue::Boolean, "false", nullptr },
+    { "CreateFakeRadarEvent", 27u, ModuleValue::Boolean, "false", nullptr },
+};
+const ModuleField EvaAnnounceSpecialPowerReadyClientUpdateModuleDataModuleFields[] = {
+    { "AnnouncementEventEnemy", 8u, ModuleValue::Reference, "", nullptr },
+    { "AnnouncementEventAlly", 12u, ModuleValue::Reference, "", nullptr },
+    { "AnnouncementEventOwner", 16u, ModuleValue::Reference, "", nullptr },
+    { "SpecialPowerTemplate", 20u, ModuleValue::Reference, nullptr, nullptr },
+    { "JustMonitorPercentReady", 24u, ModuleValue::Boolean, "false", nullptr },
+    { "CheckPlayerPowerVisibility", 25u, ModuleValue::Boolean, "false", nullptr },
+};
+const ModuleField LaserUpdateModuleDataModuleFields[] = {
+    { "ParticleSystemId", 8u, ModuleValue::Reference, nullptr, nullptr },
+    { "ParentFireBoneName", 12u, ModuleValue::String, nullptr, nullptr },
+    { "ParentFireBoneOnTurret", 28u, ModuleValue::Boolean, "false", nullptr },
+    { "TargetParticleSystemId", 20u, ModuleValue::Reference, nullptr, nullptr },
+    { "LaserLifetime", 24u, ModuleValue::Float, "0", nullptr },
+};
+const ModuleField RadarMarkerClientUpdateModuleDataModuleFields[] = {
+    { "TypeName", 8u, ModuleValue::String, nullptr, nullptr },
+};
+const ModuleField LargeGroupAudioClientUpdateModuleDataModuleFields[] = {
+    { "FramesBetweenUpdatesMin", 8u, ModuleValue::Unsigned, "3", nullptr },
+    { "FramesBetweenUpdatesVariation", 12u, ModuleValue::Unsigned, "2", nullptr },
+    { "UnitWeight", 24u, ModuleValue::Short, "1", nullptr },
+};
+const ModuleFieldSet moduleFieldSets[] = {
+    { nullptr, 0u },
+    { ActiveBodyModuleDataModuleFields, 15u },
+    { ShieldBodyModuleDataModuleFields, 8u },
+    { BeaconClientUpdateModuleDataModuleFields, 2u },
+    { EvaAnnounceClientCreateModuleDataModuleFields, 8u },
+    { EvaAnnounceSpecialPowerReadyClientUpdateModuleDataModuleFields, 6u },
+    { LaserUpdateModuleDataModuleFields, 5u },
+    { RadarMarkerClientUpdateModuleDataModuleFields, 1u },
+    { LargeGroupAudioClientUpdateModuleDataModuleFields, 3u },
+};
 const ModuleToken moduleTable0Tokens[] = {
     { 430981792u, 602296504u, 0u, nullptr, 0u },
     { 2363267224u, 3186653541u, 4u, nullptr, 0u },
@@ -3321,6 +3369,134 @@ const ModuleToken moduleTable156Tokens[] = {
     { 1u, 3993857585u, 0u, &moduleTable155, 0u },
 };
 const ModuleLayout moduleTable156 = { moduleTable156Tokens, 1u };
+const ModuleToken moduleTable157Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable157 = { moduleTable157Tokens, 2u };
+const ModuleToken moduleTable158Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable157, 0u },
+};
+const ModuleLayout moduleTable158 = { moduleTable158Tokens, 1u };
+const ModuleToken moduleTable159Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable158, 0u },
+};
+const ModuleLayout moduleTable159 = { moduleTable159Tokens, 1u };
+const ModuleToken moduleTable160Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable159, 0u },
+    { 3472624487u, 1982953380u, 8u, nullptr, 0u },
+    { 81432998u, 1982953380u, 12u, nullptr, 0u },
+};
+const ModuleLayout moduleTable160 = { moduleTable160Tokens, 3u };
+const ModuleToken moduleTable161Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable161 = { moduleTable161Tokens, 2u };
+const ModuleToken moduleTable162Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable161, 0u },
+};
+const ModuleLayout moduleTable162 = { moduleTable162Tokens, 1u };
+const ModuleToken moduleTable163Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable162, 0u },
+};
+const ModuleLayout moduleTable163 = { moduleTable163Tokens, 1u };
+const ModuleToken moduleTable164Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable163, 0u },
+    { 3323880662u, 3303818161u, 8u, nullptr, 0u },
+    { 2793102590u, 3303818161u, 12u, nullptr, 0u },
+    { 3725789635u, 3303818161u, 16u, nullptr, 0u },
+    { 2300000552u, 1982953380u, 20u, nullptr, 0u },
+    { 1686367820u, 2011428087u, 24u, nullptr, 0u },
+    { 412844885u, 2011428087u, 25u, nullptr, 0u },
+    { 3113778485u, 2011428087u, 26u, nullptr, 0u },
+    { 1599972670u, 2011428087u, 27u, nullptr, 0u },
+};
+const ModuleLayout moduleTable164 = { moduleTable164Tokens, 9u };
+const ModuleToken moduleTable165Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable165 = { moduleTable165Tokens, 2u };
+const ModuleToken moduleTable166Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable165, 0u },
+};
+const ModuleLayout moduleTable166 = { moduleTable166Tokens, 1u };
+const ModuleToken moduleTable167Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable166, 0u },
+};
+const ModuleLayout moduleTable167 = { moduleTable167Tokens, 1u };
+const ModuleToken moduleTable168Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable167, 0u },
+    { 3323880662u, 3303818161u, 8u, nullptr, 0u },
+    { 2793102590u, 3303818161u, 12u, nullptr, 0u },
+    { 3725789635u, 3303818161u, 16u, nullptr, 0u },
+    { 2178440954u, 2934454408u, 20u, nullptr, 0u },
+    { 3727834606u, 2011428087u, 24u, nullptr, 0u },
+    { 2244234618u, 2011428087u, 25u, nullptr, 0u },
+};
+const ModuleLayout moduleTable168 = { moduleTable168Tokens, 7u };
+const ModuleToken moduleTable169Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable169 = { moduleTable169Tokens, 2u };
+const ModuleToken moduleTable170Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable169, 0u },
+};
+const ModuleLayout moduleTable170 = { moduleTable170Tokens, 1u };
+const ModuleToken moduleTable171Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable170, 0u },
+};
+const ModuleLayout moduleTable171 = { moduleTable171Tokens, 1u };
+const ModuleToken moduleTable172Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable171, 0u },
+    { 3288131190u, 1139920438u, 8u, nullptr, 0u },
+    { 372443599u, 438907818u, 12u, nullptr, 0u },
+    { 1025257192u, 2011428087u, 28u, nullptr, 0u },
+    { 3651255743u, 1139920438u, 20u, nullptr, 0u },
+    { 2850671775u, 1683514611u, 24u, nullptr, 0u },
+};
+const ModuleLayout moduleTable172 = { moduleTable172Tokens, 6u };
+const ModuleToken moduleTable173Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable173 = { moduleTable173Tokens, 2u };
+const ModuleToken moduleTable174Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable173, 0u },
+};
+const ModuleLayout moduleTable174 = { moduleTable174Tokens, 1u };
+const ModuleToken moduleTable175Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable174, 0u },
+};
+const ModuleLayout moduleTable175 = { moduleTable175Tokens, 1u };
+const ModuleToken moduleTable176Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable175, 0u },
+    { 834482619u, 438907818u, 8u, nullptr, 0u },
+};
+const ModuleLayout moduleTable176 = { moduleTable176Tokens, 2u };
+const ModuleToken moduleTable177Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr, 0u },
+    { 2363267224u, 3186653541u, 4u, nullptr, 0u },
+};
+const ModuleLayout moduleTable177 = { moduleTable177Tokens, 2u };
+const ModuleToken moduleTable178Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable177, 0u },
+};
+const ModuleLayout moduleTable178 = { moduleTable178Tokens, 1u };
+const ModuleToken moduleTable179Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable178, 0u },
+};
+const ModuleLayout moduleTable179 = { moduleTable179Tokens, 1u };
+const ModuleToken moduleTable180Tokens[] = {
+    { 1u, 1286434524u, 0u, &moduleTable179, 0u },
+    { 653670571u, 1982953380u, 8u, nullptr, 0u },
+    { 3199752589u, 1982953380u, 12u, nullptr, 0u },
+    { 936286845u, 1129320594u, 24u, nullptr, 0u },
+    { 4113570727u, 1488897831u, 16u, nullptr, 3u },
+};
+const ModuleLayout moduleTable180 = { moduleTable180Tokens, 5u };
 const ModuleChoice moduleChoices[] = {
     { 12431267u, &moduleTable4, 8u, 0u },
     { 39586775u, &moduleTable8, 8u, 0u },
@@ -3360,6 +3536,12 @@ const ModuleChoice moduleChoices[] = {
     { 1905798828u, &moduleTable143, 76u, 1u },
     { 3993857585u, &moduleTable149, 76u, 1u },
     { 3834377004u, &moduleTable156, 76u, 1u },
+    { 4183522625u, &moduleTable160, 16u, 3u },
+    { 3505323485u, &moduleTable164, 28u, 4u },
+    { 2720065494u, &moduleTable168, 28u, 5u },
+    { 3399407677u, &moduleTable172, 32u, 6u },
+    { 2941371362u, &moduleTable176, 16u, 7u },
+    { 2552668823u, &moduleTable180, 28u, 8u },
 };
 const U32 knownModuleTypes[] = {
     7192255u,

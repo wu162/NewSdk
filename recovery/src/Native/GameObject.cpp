@@ -30,8 +30,9 @@ struct ModuleLayout;
 struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode;};
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
 struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
-enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum};
+enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short};
 struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
+struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
@@ -147,14 +148,16 @@ const ModuleChoice* FindModule(U32 type) {
     for(const auto& choice:moduleChoices) if(choice.type==type) return &choice;
     return nullptr;
 }
-template<std::size_t N>
-void MarshalModuleFields(const GameObjectChild& input,unsigned char* output,const ModuleField (&fields)[N],Relo::Tracker& data) {
-    for(const auto& f:fields) {
+void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,const ModuleFieldSet& fields,Relo::Tracker& data) {
+    for(unsigned i=0;i<fields.count;++i) {
+        const auto& f=fields.fields[i];
         auto found=input.attributes.find(f.name);if(found==input.attributes.end() && !f.fallback) continue;
         std::string value=found==input.attributes.end()?f.fallback:found->second;auto at=output+f.offset;float number=0;U32 word=0;
         switch(f.kind) {
         case ModuleValue::Float:case ModuleValue::Percent:
             number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
+        case ModuleValue::Unsigned:word=ParseUnsigned(value);std::memcpy(at,&word,4);break;
+        case ModuleValue::Short:{auto narrow=static_cast<std::uint16_t>(ParseUnsigned(value));std::memcpy(at,&narrow,2);}break;
         case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
         case ModuleValue::Boolean:*at=ParseBoolean(value)?1:0;break;
         case ModuleValue::String:MarshalString(data,at,value);break;
@@ -168,6 +171,18 @@ void MarshalModuleFields(const GameObjectChild& input,unsigned char* output,cons
         }
     }
 }
+template<std::size_t N>
+void MarshalModuleFields(const GameObjectChild& input,unsigned char* output,const ModuleField (&fields)[N],Relo::Tracker& data) {
+    ModuleFieldSet set={fields,static_cast<unsigned>(N)};MarshalModuleFieldSet(input,output,set,data);
+}
+U32 ExactStringHash(const std::string& text);
+void MarshalClientUpdate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,moduleFieldSets[kind],data);
+    if(kind==8) {
+        auto list=reinterpret_cast<NativeList*>(output+16);list->count=static_cast<U32>(input.children.size());
+        if(list->count) {auto keys=static_cast<U32*>(data.Push(&list->data,4,list->count));for(U32 i=0;i<list->count;++i) keys[i]=ExactStringHash(input.children[i].text);data.Pop();}
+    }
+}
 void MarshalBody(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
     if(kind==2) MarshalModuleFields(input,output,ShieldBodyModuleDataModuleFields,data);
     MarshalModuleFields(input,output,ActiveBodyModuleDataModuleFields,data);
@@ -178,19 +193,30 @@ void MarshalBody(const GameObjectChild& input,unsigned char* output,unsigned kin
         data.Pop();
     }
 }
+void EndianModuleFieldSet(unsigned char* output,const ModuleFieldSet& fields) {
+    for(unsigned i=0;i<fields.count;++i) {
+        const auto& f=fields.fields[i];auto at=output+f.offset;
+        if(f.kind==ModuleValue::Short) std::swap(at[0],at[1]);
+        else if(f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(at);
+    }
+}
 template<std::size_t N>
 void EndianModuleFields(unsigned char* output,const ModuleField (&fields)[N]) {
-    for(const auto& f:fields) if(f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(output+f.offset);
+    ModuleFieldSet set={fields,static_cast<unsigned>(N)};EndianModuleFieldSet(output,set);
 }
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
-    if(choice && choice->kind) {
+    if(choice && choice->kind && choice->kind<=2) {
         auto bytes=reinterpret_cast<unsigned char*>(input);
         if(choice->kind==2) EndianModuleFields(bytes,ShieldBodyModuleDataModuleFields);
         EndianModuleFields(bytes,ActiveBodyModuleDataModuleFields);
         auto list=reinterpret_cast<NativeList*>(bytes+64);
         for(U32 i=0;i<list->count;++i) {auto at=static_cast<unsigned char*>(list->data)+12*i;Swap(at);Swap(at+4);}
         Swap(&list->count);
+    }
+    if(choice && choice->kind>=3) {
+        auto bytes=reinterpret_cast<unsigned char*>(input);EndianModuleFieldSet(bytes,moduleFieldSets[choice->kind]);
+        if(choice->kind==8) {auto list=reinterpret_cast<NativeList*>(bytes+16);for(U32 i=0;i<list->count;++i) Swap(static_cast<U32*>(list->data)+i);Swap(&list->count);}
     }
     Swap(input);Swap(input+1);
 }
@@ -200,7 +226,8 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(!FindModule(type)) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
     auto choice=FindModule(type);
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
-    if(choice && choice->kind) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind && choice->kind<=2) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=3) MarshalClientUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     target[0]=choice?type:0;
     auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
     data.Pop();
@@ -209,11 +236,15 @@ void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo:
     auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
     for(unsigned i=0;i<layout.count;++i) {
         const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
-        if(t.mode==1) {
+        if(t.mode==1 || t.mode==3) {
             auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
             auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
             count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
-            for(U32 j=0;j<list->count;++j) {count[j+1].name=2974916843u;TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+12*j),*t.nested,&count[j+1].offset,procedures);}
+            for(U32 j=0;j<list->count;++j) {
+                count[j+1].name=2974916843u;
+                if(t.mode==1) TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+12*j),*t.nested,&count[j+1].offset,procedures);
+                else procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+j,&count[j+1].offset);
+            }
             procedures.Pop();
         } else if(t.mode==2) {
             auto pointee=*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) procedures.BookmarkMemberOffset(pointee,&table[i].offset);
@@ -273,12 +304,12 @@ bool GameObjectAIAttributeSupported(const std::string& name,const std::string& a
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
-    for(const auto& f:ActiveBodyModuleDataModuleFields) if(attribute==f.name) return true;
-    if(choice->kind==2) for(const auto& f:ShieldBodyModuleDataModuleFields) if(attribute==f.name) return true;
+    const auto& set=moduleFieldSets[choice->kind];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+    if(choice->kind==2) for(const auto& f:ActiveBodyModuleDataModuleFields) if(attribute==f.name) return true;
     return false;
 }
 bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string& name) {
-    auto choice=FindModule(ParseUnsigned(typeId));return choice && choice->kind && name=="DamageRangeModifier";
+    auto choice=FindModule(ParseUnsigned(typeId));return choice && ((choice->kind>=1 && choice->kind<=2 && name=="DamageRangeModifier") || (choice->kind==8 && name=="Key"));
 }
 bool GameObjectModuleChildSupported(const std::string& parent,const std::string& child) {
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;

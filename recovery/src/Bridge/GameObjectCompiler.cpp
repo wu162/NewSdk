@@ -176,10 +176,10 @@ public ref class GameObjectCompiler abstract sealed {
                 if(value->NamespaceURI!=child->NamespaceURI || !Native::GameObjectModuleNestedSupported(typeId,entry.name) || value->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported module nested structure.");
                 auto a=value->Clone();if(a->MoveToFirstAttribute()) do {
                     if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
-                    if(a->NamespaceURI->Length!=0 || (a->LocalName!="Min" && a->LocalName!="Max" && a->LocalName!="AttributeModifier")) throw gcnew NotSupportedException("Unsupported DamageRangeModifier attribute.");
+                    if(a->NamespaceURI->Length!=0 || entry.name=="Key" || (a->LocalName!="Min" && a->LocalName!="Max" && a->LocalName!="AttributeModifier")) throw gcnew NotSupportedException("Unsupported nested module attribute.");
                     entry.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
                 } while(a->MoveToNextAttribute());
-                NoStructuredText(value);item.children.push_back(entry);
+                if(entry.name=="Key") entry.text=marshal_as<std::string>(value->Value);else NoStructuredText(value);item.children.push_back(entry);
             }
             NoStructuredText(child);result.children.push_back(item);
         }
