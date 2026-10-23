@@ -37,35 +37,36 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 旧 `sdk-batch-validation.json` 是此前原路由 31 样例批次的独立历史证据，不等同于新的正式路由结果。详见 WEAPON_TEMPLATE.md / WEAPON_NUGGETS.md / WEAPON_INPUT_PIPELINE.md。
 
-## GameObject 当前：88 根属性与 16 类子节点已恢复，尚未接入 SDK
+## GameObject 当前：88 根属性、23 类子节点已恢复，SDK 尚未接入
 
-独立 x86 C++/CLI 组件 `Recovered.GameObject.dll` 已恢复 GameObject XSD 直接声明的 **88/88 根属性**，包括此前剩余的 `EvaEventSecondDamageFarFromFirstTimeoutMS` 覆盖。原 scale=0.004999999888241291f，保留 atof→float、乘法→float、ceil→float 再转 uint 的行为；默认155；200.00002仍为1帧、200.00004为2帧，负数/指数/溢出和相邻float已直接差分。
+独立 x86 C++/CLI 组件 `Recovered.GameObject.dll` 支持全部 88 根属性，以及此前16类子节点加本轮7类：GameDependency、ObjectResourceInfo、BuildFadeInOnCreateList、BuildVariations、AutoResolveArmor、AutoResolveWeapon、AutoResolveInfo。
 
-已恢复子节点共16类：DisplayName、DisplayNameTransformed、Buildable、ThingClass、DisplayColor、EquivalentTo、UpgradeCameo、DisplayUpgrade、Flammability、LiveCameraOffset、ArmorSet、LocomotorSet、FormationPreviewDecal、FormationPreviewItemDecal、ShadowInfo、VisionInfo。重复列表、嵌套 Token、原分配顺序、字节序和默认值均覆盖。ArmorSet全部23位，LocomotorSet全部19个枚举项，ShadowType全部7值及未知回退已测。单例重复、未知结构/属性、外来命名空间等继续拒绝；UpgradeCameo/DisplayUpgrade保持XSD上限5/2。
+- GameDependency 完整包含两组可空 ModelCondition 位集、一组可空 ObjectStatus 位集、RequiredObject / ForbiddenUpgrade / NeededUpgrade 三组 ID 列表及可选完整 ObjectFilter；复用未改动的共享位集/过滤器实现。
+- AutoResolveArmor / Weapon 包含资源引用及 RequiredUpgrade / ExcludedUpgrade 全部列表依赖；Info 包含全部六属性（字符串、ModuleData ID、两资源引用）。
+- ObjectResourceInfo 完整支持 BuildCost / MoneyTransaction 列表，含两个 uint32、原分配、嵌套 Token 和 endian。
+- **两个指针 StringList 只支持 XSD 合法的文本输入。原版实测将这类文本保留为显式空列表，不能按空白分词。** 原 helper 66048 → Node.GetChildNodes(null) 75998/76050 选择元素；BAB ValidateInstances 仅注入 TypeId、不展开文本。测试读取实际 StringList XSD、验证文本并注入注解，再原版差分；另外刻画原非空 `<Item>` 路径并证实它不符 XSD，因此恢复组件继续显式拒绝这种输入。详见 GAMEOBJECT.md。尚未运行真实 GameObject SDK 批次，不能将源码输入链分析称为 SDK 集成验证。
 
-**仍不是完整 GameObject 编译器，没有正式 GameObject 插件；SDK保持原路由。** 其余子节点/模块仍拒绝，本轮真实SDK运行0次。未修改共享relocation、scalar/resource、enum-bitset逻辑。
+旧16类：DisplayName、DisplayNameTransformed、Buildable、ThingClass、DisplayColor、EquivalentTo、UpgradeCameo、DisplayUpgrade、Flammability、LiveCameraOffset、ArmorSet、LocomotorSet、FormationPreviewDecal、FormationPreviewItemDecal、ShadowInfo、VisionInfo。原默认值/布局、duration 边界、KindOf 284全值矩阵及所有既有拒绝检查继续保留。所有非多态节点支持 BAB 无命名空间 TypeId；未知字段、结构、外来命名空间和重复单例仍拒绝。ReplaceModule / InheritableModule 非空路径仍拒绝。
+
+**仍不是完整 GameObject 编译器，没有正式 GameObject 插件；SDK 保持原路由。** 本轮真实 SDK 运行0次，共享 relocation / scalar / resource / enum-bitset / ObjectFilter 实现均未修改。TestGameObject.ps1 新增链接 ObjectFilter.cpp，工作流路径过滤新增 ObjectFilter；权限和原有证据自动推送步骤没有改变。
 
 ## GameObject 精确验证锚点
 
-源码：`a115ef671b3c4a7a18a11bc720418b4c68e789f4`。
-完整组件运行：https://github.com/wu162/NewSdk/actions/runs/39924338693 ，success。
-每种 /Od、/O2：**23,240 fixtures、69,720次三缓冲区比较、224次拒绝检查、16次额外不变性比较**；两模式合计 **139,440次缓冲区比较**。含Win32、Xbox360、PS3、99，保留原全部根属性/284个KindOf全值矩阵，并新增完整子节点/混合输入和独立布局断言。
-基础回归：https://github.com/wu162/NewSdk/actions/runs/39924338637 。第2次作业尝试已success，head_sha与上述源码一致；首次编译/差分已成功，但保存证据与GameObject作业发生普通push竞态，定向重跑后普通推送成功。基础回归41次浮点位比较、1,232条类型记录比较通过。
+源码：`074d267b2835be89ade3944c1cbe6d2f94b3793a`。
+完整组件：https://github.com/wu162/NewSdk/actions/runs/39928834132 ，success。
+每种 /Od、/O2：**34,052 fixtures、102,156 次三缓冲区比较、492 次拒绝检查、124 次独立不变性比较**；两模式合计 **204,312 次缓冲区比较**，含 Win32、Xbox360、PS3、99。
+新增 GameDependency 全部457个 ModelCondition 名称和223个 ObjectStatus 名称、符号/XOR/ALL、可空数组、所有三组列表及完整嵌套过滤器；其他新组包括全部依赖、独立布局/Token/分配断言和原版指针列表刻画。
+基础回归：https://github.com/wu162/NewSdk/actions/runs/39928834050 ，success，源码一致。
+证据：`recovery/evidence/gameobject-root/validation.json` 和两模式日志，sourceCommit/runId已核对；组件 artifact 为 `recovered-gameobject-component-x86`。旧 `evidence/gameobject` 只作原版刻画，不能混同当前组件或 SDK 成功。
 
-证据：`recovery/evidence/gameobject-root/validation.json` 与两模式日志，sourceCommit/runId已核对。该run的 `recovered-gameobject-component-x86` artifact已生成；DLL不是完整替代原Tokenizer。布局与原方法来源见 `recovery/GAMEOBJECT.md`。
-
-实现：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`；生成器 `scripts/GenerateGameObjectFields.py`，验证 `scripts/TestGameObject.ps1`、`tests/GameObject{Oracle,Cases,KindOf}.cs`。视觉叶子的Token键/偏移/顺序从原方法生成并对照可读字段元数据，仍规范化CRLF检查原源码指纹，无实例缓冲区快照。
-
-无子节点时仍为592字节root、126字段+结束记录、90成员书签/28空偏移/8空列表，默认root=1620、InstanceData=2212。非空列表、结构Token与字符串会改变前缀/分配；不能固定非默认root位置。ReplaceModule@496 / InheritableModule@500原非空Token路径仍缺失，继续拒绝。
+源码：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`。生成器 `scripts/GenerateGameObjectFields.py` 保持原源码 blob 指纹及生成一致性检查。测试 `tests/GameObject{Oracle,Cases,KindOf}.cs` / `scripts/TestGameObject.ps1`。具体源方法、大小、偏移和限制见 `GAMEOBJECT.md`。
 
 ## 下一轮约35分钟
 
-按完整能力组连续推进；未完成检查点放工作分支，准备好后普通合入目标分支统一跑完整矩阵，保留并发证据。当前默认单代理和SDK降频规则不变。
+1. 先核对本节最终锚点，无需重读 Weapon 或历史 STATUS。
+2. 建议连贯组：CrusherInfo + ExtraCrushLevels，以及 ProjectedBuildabilityInfo + 全部位集/AllowedObjectFilter。先查齐公共契约再实现整组，不逐字段触发全矩阵。
+3. SkirmishAIInformation 需要连同可空 override、AIContextualPower、两个 base-selection 子对象等完整依赖另成组；不要只放开外壳。
+4. Geometry、音频数组、全部多态模块、Replace/Inheritable 仍未完成，继续显式拒绝。
+5. GameObject 能力累计完成后再集中制作合法 mymod 样例及正式插件路由，四产物对照、实际三缓冲区重放、无原 DLL 重放门槛不降低。
 
-1. 先核对本节最终锚点；无需重扫Weapon、历史STATUS或整个大型反编译文件。
-2. 建议下一连贯组：BuildFadeInOnCreateList / BuildVariations 两个指针列表，以及 AutoResolveArmor / AutoResolveWeapon / AutoResolveInfo 家族，跟进完整子依赖。不要每个字段单独全量CI。
-3. **输入链注意：** Includes/Base.xsd的StringList是xs:list，但原指针列表helper66048调用Node.GetChildNodes(null)，实现75998选的是元素子节点；它没有走Browser的空白分词重载68660。先刻画BAB预处理后实际输入与原版行为，不能按文本空白分词猜写。
-4. GameDependency/ObjectResourceInfo、SkirmishAIInformation、CrusherInfo、ProjectedBuildabilityInfo、Geometry、音频数组、全部多态模块及Replace/Inheritable仍未恢复。逐组完成Marshal/Tokenize/endian/分配和拒绝契约后统一验证。
-5. 继续累计GameObject能力，之后集中制作合法mymod样例与正式插件路由；正式宣称接入前仍需四产物对照、实际三缓冲区重放及无原DLL重放。组件成功不能代替SDK验证。
-
-本轮通过GitHub插件读取与普通快进保存阶段成果；按四个连贯能力组推进，未为单个字段/枚举值拆CI；仅一次新独立断言的float边界预期修正后复验。真实SDK零次，不重复调查Weapon/共享模块。没有账号额度计量，不能量化节省。
+本轮按三个完整能力组推进并保留工作分支检查点和并发证据，未为单字段拆 CI。真实 SDK 零次；未重复调查 Weapon 实现，仅读取依赖所需的共享过滤器入口。没有账号额度计量，不能量化节省。
