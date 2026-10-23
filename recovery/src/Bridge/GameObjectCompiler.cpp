@@ -8,6 +8,55 @@ using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
 namespace Recovered {
 public ref class GameObjectCompiler abstract sealed {
+    static void NoStructuredText(XPathNavigator^ node) {
+        auto contents=node->SelectChildren(XPathNodeType::All);
+        while(contents->MoveNext()) if((contents->Current->NodeType==XPathNodeType::Text || contents->Current->NodeType==XPathNodeType::SignificantWhitespace) && contents->Current->Value->Trim()->Length!=0)
+            throw gcnew NotSupportedException("Unexpected text in GameDependency structure.");
+    }
+    static Native::GameObjectChild ReadDependencyFilter(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name="ObjectFilter";
+        array<String^>^ allowed={"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"};
+        auto a=node->Clone();
+        if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported dependency filter attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;
+            if(child->NamespaceURI!=node->NamespaceURI || (child->LocalName!="IncludeThing" && child->LocalName!="ExcludeThing") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported dependency filter child.");
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported filter thing attribute.");
+            } while(attrs->MoveToNextAttribute());
+            Native::GameObjectChild thing;thing.name=marshal_as<std::string>(child->LocalName);thing.text=marshal_as<std::string>(child->Value);result.children.push_back(thing);
+        }
+        NoStructuredText(node);return result;
+    }
+    static Native::GameObjectChild ReadDependency(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name="GameDependency";
+        array<String^>^ allowed={"RequiredModelConditionsAny","ForbiddenModelConditions","RequiredObjectStatusAny"};
+        auto a=node->Clone();
+        if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported GameDependency attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        bool filterSeen=false;auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;
+            if(child->NamespaceURI!=node->NamespaceURI) throw gcnew NotSupportedException("Foreign GameDependency child.");
+            if(child->LocalName=="ObjectFilter") {
+                if(filterSeen) throw gcnew NotSupportedException("Duplicate dependency ObjectFilter.");filterSeen=true;result.children.push_back(ReadDependencyFilter(child));continue;
+            }
+            if((child->LocalName!="RequiredObject" && child->LocalName!="ForbiddenUpgrade" && child->LocalName!="NeededUpgrade") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported GameDependency child.");
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported dependency list attribute.");
+            } while(attrs->MoveToNextAttribute());
+            Native::GameObjectChild value;value.name=marshal_as<std::string>(child->LocalName);value.text=marshal_as<std::string>(child->Value);result.children.push_back(value);
+        }
+        NoStructuredText(node);return result;
+    }
     static array<Byte>^ Copy(const std::vector<unsigned char>& source) {
         auto result=gcnew array<Byte>(static_cast<int>(source.size()));
         if(result->Length) System::Runtime::InteropServices::Marshal::Copy(IntPtr(const_cast<unsigned char*>(source.data())),result,0,result->Length);
@@ -31,10 +80,11 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="GameDependency"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
+            if(name=="GameDependency") {children.push_back(ReadDependency(child));continue;}
             bool autoSet=name=="AutoResolveArmor" || name=="AutoResolveWeapon";
             bool resourceInfo=name=="ObjectResourceInfo";
             if(!autoSet && !resourceInfo && child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");

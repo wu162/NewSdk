@@ -3,6 +3,7 @@
 #include "DataInitializers.h"
 #include "ResourceMarshaling.h"
 #include "EnumBitset.h"
+#include "ObjectFilter.h"
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>
@@ -132,6 +133,37 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             word=(channel("A",255)<<24)|(channel("R",0)<<16)|(channel("G",0)<<8)|channel("B",0);offset=452;
         } else continue;
         std::memcpy(root+offset,&word,4);
+    }
+    unsigned char* dependency=nullptr;
+    U32* dependencyMasks[3]={nullptr,nullptr,nullptr};
+    ObjectFilter* dependencyFilter=nullptr;
+    for(const auto& child:children) if(child.name=="GameDependency") {
+        dependency=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+404),40,1));
+        const char* names[]={"RequiredModelConditionsAny","ForbiddenModelConditions","RequiredObjectStatusAny"};
+        for(unsigned j=0;j<3;++j) {
+            auto found=child.attributes.find(names[j]);if(found==child.attributes.end()) continue;
+            dependencyMasks[j]=static_cast<U32*>(data.Push(reinterpret_cast<void**>(dependency+4*j),j==2?28:60,1));
+            if(j==2) MarshalObjectStatus(found->second,dependencyMasks[j]);else MarshalModelCondition(found->second,dependencyMasks[j]);
+            data.Pop();
+        }
+        const char* groups[]={"RequiredObject","ForbiddenUpgrade","NeededUpgrade"};
+        for(unsigned group=0;group<3;++group) {
+            std::vector<std::string> values;
+            for(const auto& value:child.children) if(value.name==groups[group]) values.push_back(value.text);
+            auto list=reinterpret_cast<NativeList*>(dependency+12+8*group);list->count=static_cast<U32>(values.size());
+            if(list->count) {
+                auto elements=static_cast<U32*>(data.Push(&list->data,4,list->count));
+                for(U32 j=0;j<list->count;++j) elements[j]=HashAssetId(values[j]);
+                data.Pop();
+            }
+        }
+        for(const auto& value:child.children) if(value.name=="ObjectFilter") {
+            ObjectFilterInput input;input.attributes=value.attributes;
+            for(const auto& thing:value.children) if(thing.name=="IncludeThing") input.includeThings.push_back(thing.text);else input.excludeThings.push_back(thing.text);
+            dependencyFilter=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(dependency+36),112,1));
+            MarshalObjectFilter(input,dependencyFilter,data);data.Pop();
+        }
+        data.Pop();
     }
     NativeList* buildCosts=nullptr;
     for(const auto& child:children) if(child.name=="ObjectResourceInfo") {
@@ -279,6 +311,26 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             for(unsigned j=0;j<4;++j) {nested[j].name=names[j];nested[j].type=1982953380u;procedures.BookmarkMemberOffset(flammability+j,&nested[j].offset);}
             procedures.Pop();
         }
+        else if(t.offset==404 && dependency) {
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,8));
+            const U32 keys[]={618545001u,849164020u,2787973588u,850409515u,725359606u,2925224871u,3832456114u};
+            const U32 types[]={1742454729u,1742454729u,2814214430u,344905565u,653971399u,653971399u,3832456114u};
+            for(unsigned j=0;j<7;++j) {nested[j].name=keys[j];nested[j].type=types[j];}
+            for(unsigned j=0;j<3;++j) if(dependencyMasks[j]) procedures.BookmarkMemberOffset(dependencyMasks[j],&nested[j].offset);
+            for(unsigned group=0;group<3;++group) {
+                auto list=reinterpret_cast<NativeList*>(dependency+12+8*group);
+                auto count=static_cast<Procedure*>(procedures.Push(&nested[group+3].offset,12,list->count+1));
+                count[0].name=1820487795u;count[0].type=1564774360u;
+                procedures.BookmarkMemberOffset(list,&count[0].offset);
+                for(U32 j=0;j<list->count;++j) {
+                    count[j+1].name=2974916843u;count[j+1].type=0;
+                    procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+j,&count[j+1].offset);
+                }
+                procedures.Pop();
+            }
+            if(dependencyFilter) TokenizeObjectFilter(dependencyFilter,&nested[6].offset,procedures);
+            procedures.Pop();
+        }
         else if(t.offset==408 && buildCosts) {
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,2));
             nested[0].name=4043881713u;nested[0].type=3070636877u;
@@ -366,6 +418,15 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(auto name:displayNames) if(name) Swap(&name->length);
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
         if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
+        if(dependency) {
+            for(unsigned j=0;j<3;++j) if(dependencyMasks[j]) for(unsigned k=0;k<(j==2?7u:15u);++k) Swap(dependencyMasks[j]+k);
+            for(unsigned group=0;group<3;++group) {
+                auto list=reinterpret_cast<NativeList*>(dependency+12+8*group);
+                for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);
+                Swap(&list->count);
+            }
+            if(dependencyFilter) EndianObjectFilter(dependencyFilter);
+        }
         if(buildCosts) {
             for(U32 i=0;i<buildCosts->count*2;++i) Swap(static_cast<U32*>(buildCosts->data)+i);
             Swap(&buildCosts->count);
