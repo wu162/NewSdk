@@ -1,0 +1,15 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 85325; body SHA256 b8a6f06e125162686b080e075093b8e9376cc8130bfc9644de81d148e46537ff
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, GiveUpgradeToProduced* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
+		*(int*)ptr = -1119080683;
+		((int*)ptr)[1] = -1282755712;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AUpgradeTranslation_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AUpgradeTranslation_003E*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

@@ -1,0 +1,15 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 100531; body SHA256 27de80fd0303e5b5e9a2543e729f13b5b758c0909b68c661b99d8e9704e461ab
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AGiveUpgradeToProduced_003E(void** table, GiveUpgradeToProduced** pointer, Tracker* tracker)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Tokenizer_002ETokenize(table, (GiveUpgradeToProduced*)(int)num, tracker);
+		}
+		else
+		{
+			*(int*)table = 0;
+		}
+	}
+

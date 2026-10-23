@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 56467; body SHA256 4ce5b6110374fd99e0396d643f9bbdc74660179983c8abc4ac653d01122eca7b
+// Literals: {"_003F_003F_C_0040_0BB_0040OMLNIOEO_0040UpgradeTranslate_003F_0024AA_0040": "UpgradeTranslate"}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGiveUpgradeToProduced_003E(INode* node, GiveUpgradeToProduced** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+			GiveUpgradeToProduced* target = (GiveUpgradeToProduced*)(int)(*(uint*)pointer);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUpgradeTranslation_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040OMLNIOEO_0040UpgradeTranslate_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUpgradeTranslation_003E*)target, tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+

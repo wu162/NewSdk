@@ -1,0 +1,59 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 21013; body SHA256 ecfab07f622c2ca280c00c2c0481f30299eddb3c97ef405226aee58e1610fcad
+// Literals: {"_003F_003F_C_0040_0BA_0040GCOGLIMG_0040UnitCreatePoint_003F_0024AA_0040": "UnitCreatePoint", "_003F_003F_C_0040_0BC_0040GHLFDDI_0040NaturalRallyPoint_003F_0024AA_0040": "NaturalRallyPoint"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DefaultProductionExitUpdateModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040GCOGLIMG_0040UnitCreatePoint_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			Vector3** ptr2 = (Vector3**)((byte*)@object + 8);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 12u, 1u);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out VectorHack vectorHack);
+				Marshaler_002EMarshal(ptr, (Vector3*)(int)(*(uint*)ptr2), state, &vectorHack);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040GHLFDDI_0040NaturalRallyPoint_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr3 = (INode*)(int)(*(uint*)num2);
+			Vector3** ptr4 = (Vector3**)((byte*)@object + 12);
+			if (ptr3 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr4, 12u, 1u);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out VectorHack vectorHack2);
+				Marshaler_002EMarshal(ptr3, (Vector3*)(int)(*(uint*)ptr4), state, &vectorHack2);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+			throw;
+		}
+		if (*(int*)(&nodeHolder2) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+		}
+		Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+	}
+

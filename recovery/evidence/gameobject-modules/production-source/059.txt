@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 27208; body SHA256 dccdca0d5ce068172278c721047360e9a3a02427a70bdccd29a84cab28eb4cde
+// Literals: {"_003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040": "Name", "_003F_003F_C_0040_05IJGIMMHE_0040Count_003F_0024AA_0040": "Count"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, QuantityModifier* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05IJGIMMHE_0040Count_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				((int*)@object)[1] = strtol(ptr3, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+		}
+	}
+
