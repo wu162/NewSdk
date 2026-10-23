@@ -1,6 +1,23 @@
 {
-  "sourceCommit": "23bc2886f7639a0c83a3feb68d2d82aa9636121f",
   "sdkStatus": "not run; original route retained",
-  "runId": "39922470976",
-  "succeeded": false
+  "sourceCommit": "1d49376085c226035c07899eb0adb805cd96207f",
+  "scope": "88 root attributes and Buildable/ThingClass/DisplayColor/DisplayName/DisplayNameTransformed; other children rejected",
+  "runId": "39922719316",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "Od",
+      "summary": "PASS recovered GameObject root: fixtures=13000 threeBufferComparisons=39004 refusals=76; 88 root attributes and five child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    },
+    {
+      "mode": "O2",
+      "summary": "PASS recovered GameObject root: fixtures=13000 threeBufferComparisons=39004 refusals=76; 88 root attributes and five child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    }
+  ],
+  "succeeded": true
 }

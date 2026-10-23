@@ -1,3 +1,1 @@
-System.Exception: Independent duration 200.00002
-   at GameObjectOracle.ChildrenAndDuration(IAssetBuilderPlugin original, TargetPlatform p)
-   at GameObjectOracle.Main(String[] args)
+PASS recovered GameObject root: fixtures=13000 threeBufferComparisons=39004 refusals=76; 88 root attributes and five child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run
