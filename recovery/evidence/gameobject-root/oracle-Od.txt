@@ -1,4 +1,1 @@
-System.Exception:  instance byte 1137: 8 != 0
-   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label)
-   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs)
-   at GameObjectOracle.Main(String[] args)
+PASS recovered GameObject root: fixtures=4272 threeBufferComparisons=12816 refusals=56; 68 scalar/string attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run

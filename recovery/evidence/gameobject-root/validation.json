@@ -1,6 +1,23 @@
 {
+  "scope": "68 scalar/string root attributes; all child blocks, masks, lists, resources and enum overrides rejected",
+  "sourceCommit": "fc05a4082ff9b04c0ee5fd177b3b50820f68d06c",
+  "modes": [
+    {
+      "mode": "Od",
+      "summary": "PASS recovered GameObject root: fixtures=4272 threeBufferComparisons=12816 refusals=56; 68 scalar/string attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    },
+    {
+      "mode": "O2",
+      "summary": "PASS recovered GameObject root: fixtures=4272 threeBufferComparisons=12816 refusals=56; 68 scalar/string attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    }
+  ],
   "sdkStatus": "not run; original route retained",
-  "runId": "39899911523",
-  "sourceCommit": "a321f60dafef11b6d0fef2d994802a1d37f27e41",
-  "succeeded": false
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "succeeded": true,
+  "runId": "39900126246"
 }
