@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 27923; body SHA256 fa507b8d7694b0dff134327095f67a09924916752b20697a20956033e044df22
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(RefundDieModuleData* @object, EndianHelper* state)
+	{
+		Marshaler_002EEndianCorrect_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E((List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 56), state);
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 64)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 64)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 64)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[64];
+			((int*)@object)[16] = (int)num;
+		}
+		uint num2 = ((uint*)@object)[17];
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((ObjectFilter*)(int)num2, state);
+		}
+		Marshaler_002EEndianCorrect((DieModuleData*)@object, state);
+	}
+

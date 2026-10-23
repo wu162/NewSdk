@@ -1,0 +1,26 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 20868; body SHA256 c92c2b3ba67bb7e8c5e1faf889612c00fba603b718c4a6829879c57215645d61
+// Literals: {"_003F_003F_C_0040_0L_0040CDKBJMLG_0040DieMuxData_003F_0024AA_0040": "DieMuxData"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DieModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040CDKBJMLG_0040DieMuxData_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (DieMuxDataType*)((byte*)@object + 8), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+

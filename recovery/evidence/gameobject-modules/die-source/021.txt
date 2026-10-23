@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 20915; body SHA256 83018d74f65b41e4399bb20be3e2028b7a1903adbb86b5c250dcf770b0e393ce
+// Literals: {"_003F_003F_C_0040_0N_0040MMDJBCBC_0040CreationList_003F_0024AA_0040": "CreationList", "_003F_003F_C_0040_0BA_0040DPFCMHDK_0040UpgradeRequired_003F_0024AA_0040": "UpgradeRequired", "_003F_003F_C_0040_0BB_0040PMAOKMID_0040UpgradeForbidden_003F_0024AA_0040": "UpgradeForbidden"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, CreateObjectDieModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AObjectCreationList_002Cclass_0020ObjectCreationList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040MMDJBCBC_0040CreationList_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AObjectCreationList_002CObjectCreationList_003E*)((byte*)@object + 52), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040DPFCMHDK_0040UpgradeRequired_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E_0020_003E*)((byte*)@object + 56), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040PMAOKMID_0040UpgradeForbidden_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E_0020_003E*)((byte*)@object + 64), state);
+			Marshaler_002EMarshal(node, (DieModuleData*)@object, state);
+		}
+	}
+

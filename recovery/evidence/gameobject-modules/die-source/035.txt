@@ -1,0 +1,41 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 81912; body SHA256 dcd6efae8605ee8a028015b633293bfbe84a3df9de4efbe001b16fe3690fd9af
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, RefundDieModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 6u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1638978702;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DieModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 2084565028;
+		((int*)ptr)[1] = 1253711657;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 52, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1218661169;
+		((int*)ptr)[1] = 1835445784;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 56), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1858941968;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 64, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -462511182;
+		((int*)ptr)[1] = -462511182;
+		byte* num = (byte*)@object + 68;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (ObjectFilter*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

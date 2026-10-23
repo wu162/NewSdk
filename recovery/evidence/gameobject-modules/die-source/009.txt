@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62258; body SHA256 86ad90a830a9d18361a073b75d580599fd01fc2bdd2dbe71af69579ae087bb9a
+// Literals: {"_003F_003F_C_0040_09MPAKGDFP_0040UpgradeId_003F_0024AA_0040": "UpgradeId"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUpgradeDieModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		UpgradeDieModuleData* ptr = (UpgradeDieModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 56u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09MPAKGDFP_0040UpgradeId_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E*)((byte*)ptr + 52), tracker);
+			Marshaler_002EMarshal(node, (DieModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1359837639;
+	}
+

@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 33690; body SHA256 af21cee88fe2912884434b52e47467beada4eb8d4265f1e45fc902ea736657dc
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040": "0s", "_003F_003F_C_0040_0P_0040OMCLACEG_0040CollapsingTime_003F_0024AA_0040": "CollapsingTime", "_003F_003F_C_0040_0M_0040MNGJEABC_0040StayOnRadar_003F_0024AA_0040": "StayOnRadar"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, KeepObjectDieModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040OMCLACEG_0040CollapsingTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 13, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040MNGJEABC_0040StayOnRadar_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 56, state);
+			Marshaler_002EMarshal(node, (DieModuleData*)@object, state);
+		}
+	}
+
