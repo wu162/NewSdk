@@ -1,1 +1,3 @@
-PASS recovered GameObject root: fixtures=12452 threeBufferComparisons=37356 refusals=36; 87 root attributes including Browser and both KindOf masks, four targets including 99, independent defaults/list/sentinel checks; SDK not run
+System.Exception: Independent duration 200.00002
+   at GameObjectOracle.ChildrenAndDuration(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)
