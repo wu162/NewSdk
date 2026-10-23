@@ -1,6 +1,8 @@
-# 当前进行中：Upgrade基类及十派生（验证中）
+# 当前已验收：Upgrade基类及十派生
 
-本轮2026-10-23 22:21:54Z（北京时间10-24 06:21:54）开始，按约45分钟有效实现阶段推进。11种完整Upgrade源码、全部公共依赖、字段/enum/Token生成器及差分/独立测试已提交；这是**验证中检查点**，尚不能宣布74类型已验收。此提交会跑完整/Od、/O2四平台三缓冲区矩阵；SDK未运行。源证据精确类型归属索引的旧转义错误也已修正，123方法一一归属检查通过。
+2026-10-23续接阶段：新增11种完整Upgrade模块，已验收支持74/322，248明确拒绝；58 Token-only路径不变。最新有效源码d39c891b32b8ddc229ffc4db76fb71f5fec7fdaa，GameObject run40034294614、基础run40034294612均success；远端gameobject-root/validation.json已核对。每/Od、/O2：158216 fixtures、474648三缓冲区逐字节比较、9084拒绝、312不变性，平台0/1/2/99。SDK本轮0次。
+
+下一组其余11种命名Upgrade派生的139个原方法已提取，见evidence/gameobject-modules/upgrade-remaining-source/manifest.json，源码导出run40034106033 success。这11种尚未实现、仍拒绝。继续整组恢复字段、嵌套依赖、Token、Endian后验收，不能把本组74计为85。
 
 # 编译器恢复：当前续接入口
 
