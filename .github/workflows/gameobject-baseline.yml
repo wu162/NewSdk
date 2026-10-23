@@ -6,6 +6,7 @@ on:
       - '.github/workflows/gameobject-baseline.yml'
       - 'recovery/scripts/TestGameObjectBaseline.ps1'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
+      - 'recovery/scripts/VerifyGameObjectEvidence.py'
       - 'recovery/tests/GameObjectBaseline.cs'
 permissions:
   contents: write

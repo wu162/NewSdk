@@ -15,5 +15,7 @@ $details = Join-Path $out 'buffers'
 & "$out/GameObjectBaseline.exe" "$out/BinaryAssetBuilder.Tokenizer.dll" $details (Resolve-Path 'SDK/Schemas/xsd/AssetTypeGameObject.xsd') *> "$report/oracle.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/oracle.txt" -Tail 25; throw 'GameObject original characterization failed' }
 Get-Content "$report/oracle.txt" -Tail 1
+python recovery/scripts/VerifyGameObjectEvidence.py "$report/source-layout.json" $details
+if ($LASTEXITCODE -ne 0) { throw 'Original source/runtime token join failed' }
 Compress-Archive -Path "$details/*" -DestinationPath "$report/original-baseline.zip" -Force
 @{ succeeded = $true; sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; scope = 'Original DLL characterization only; no recovered GameObject compiler'; fixtures = 196; repeatedThreeBufferComparisons = 588; nativeRootBytes = 592; rootTokenRecords = 127; scalarBindings = 16; platforms = @(0,1,2,99) } | ConvertTo-Json | Set-Content "$report/validation.json"
