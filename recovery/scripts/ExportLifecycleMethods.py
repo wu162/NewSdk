@@ -65,7 +65,7 @@ for index,(signature,(body,line)) in enumerate(selected.items()):
     meta={'file':filename,'signature':signature,'line':line,'bodySha256':digest,'literals':list(decoded.values())}
     matched=False
     for item in report['modules']:
-        if item['name'] in signature:item['methods'].append(meta);matched=True
+        if re.search(r'(?<!\\w)'+re.escape(item['name'])+r'\\*',signature) or '_003A_003A'+item['name']+'_002Cstruct_' in signature:item['methods'].append(meta);matched=True
     if not matched:report['helpers'].append(meta)
 (out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print('PASS original module source evidence:',len(names),'module source contracts;',len(selected),'exact methods; no runtime support claimed')
