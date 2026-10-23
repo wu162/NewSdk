@@ -66,8 +66,10 @@ Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，s
 
 本轮复用已加载原模块与既有共享实现，按完整组验证，未反复读取Weapon历史或触发真实SDK；没有账号额度计量，不能量化节省。
 
-## 2026-10-23 AI整组实现检查点（验证中）
+## 2026-10-23 当前检查点：AI已验证，空Module标记验证中
 
-新增SkirmishAIInformation完整依赖组代码和测试：88字节根、172字节AIContextualPower列表、两组AIBaseSelectionCriteria、SpecialPowerWeapon和两处ObjectFilter。64字段、枚举/位集、可空值/引用、列表/重定位、拒绝和独立布局覆盖已准备。生成器核对原源码完整字段名/默认值/Token偏移，本地生成一致性与语法检查通过。**Windows原DLL完整差分待本提交Actions结果，尚不能声明本组通过。SDK未运行，保持原路由。**
+AI完整依赖组已通过：源码986bb898dacfbed2d6f92074f3e49f9aef421719；run39959718372 success。每种/Od、/O2为60,272 fixtures、180,816三缓冲区比较、964拒绝、184独立不变性比较，四平台含99。见GAMEOBJECT_AI.md。
 
-下一步：检查本实现提交的GameObject与基础回归Actions；失败集中修复，成功核对sourceCommit/runId和两模式摘要后更新本入口。仍未恢复GameObject多态模块及正式插件。
+本提交继续完整恢复XSD空结构ReplaceModule/InheritableModule：原方法66174/66183各Push1字节、tracker按4字节对齐；root@496/@500，Token不生成子表。新增原版差分、独立指针/填充/relocation/零Token、混合顺序及拒绝边界。**空Module标记组尚待本提交Actions完整矩阵，不声明通过。SDK未运行，原路由保留。**
+
+下一步：检查本提交GameObject与基础回归Actions终态并核对证据；全部通过后更新当前入口，继续GameObject多态模块完整能力组。保留所有证据提交，禁止强推。

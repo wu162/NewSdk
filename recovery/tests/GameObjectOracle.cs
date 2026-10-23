@@ -644,11 +644,28 @@ partial class GameObjectOracle {
         foreach(string bad in new[]{"<DodgeWithUnits/><DodgeWithUnits/>","<DodgeWithUnits Unknown='1'/>","<DodgeWithUnits xmlns='foreign'/>","<DodgeWithUnits>text</DodgeWithUnits>","<DodgeWithUnits><IncludeThing Unknown='1'/></DodgeWithUnits>","<DodgeWithUnits><ExcludeThing><Unknown/></ExcludeThing></DodgeWithUnits>"})Reject(p,"",AIWrap(0,"",bad));
     }
 
+    static void EmptyModuleMarkers(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(string name in new[]{"ReplaceModule","InheritableModule"}) {
+            foreach(string typeId in new[]{"","0","1","4294967295","UNKNOWN"}) {
+                string xml="<"+name+" TypeId='"+typeId+"'/>";var b=Check(original,p,"",xml);byte[] bytes=b.InstanceData;
+                int root=(int)Word(bytes,8,big)-4,off=name=="ReplaceModule"?496:500;
+                if(Word(bytes,root+off,big)!=root+592 || bytes.Length!=root+596 || Word(bytes,root+592,big)!=0 || Word(bytes,Token(bytes,0,name=="ReplaceModule"?1471645405u:3786889584u,big)+8,big)!=0 || b.RelocationData.Length!=8 || Word(b.RelocationData,0,big)!=root+off || Word(b.RelocationData,4,big)!=0xffffffffu)throw new Exception("Independent empty module marker layout/Token/relocation");
+            }
+            foreach(string bad in new[]{"<"+name+"/><"+name+"/>","<"+name+" id='x'/>","<"+name+" Unknown='1'/>","<"+name+" xmlns='foreign'/>","<"+name+" xmlns:f='foreign' f:TypeId='1'/>","<"+name+">text</"+name+">","<"+name+"><Unknown/></"+name+">"})Reject(p,"",bad);
+        }
+        string before="<SkirmishAIInformation ConquerMetricsOverrideDPS='0'/><Geometry><Shape/></Geometry>",after="<AutoResolveArmor Armor='A\\23'/><AutoResolveWeapon Weapon='W\\1'/><VisionInfo/>";
+        var a=Check(original,p,"",before+"<ReplaceModule/><InheritableModule/>"+after);
+        var reverse=Check(original,p,"",after+"<InheritableModule/><ReplaceModule/>"+before);
+        Equal(a.InstanceData,reverse.InstanceData,"Marker schema order",false);Equal(a.RelocationData,reverse.RelocationData,"Marker relocation order",false);
+        byte[] b2=a.InstanceData;int r=(int)Word(b2,8,big)-4;
+        if(Word(b2,r+500,big)!=Word(b2,r+496,big)+4 || Word(b2,r+504,big)!=Word(b2,r+500,big)+4)throw new Exception("Independent marker four-byte padding and following allocation");
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -664,9 +681,9 @@ partial class GameObjectOracle {
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
-                foreach(string child in new[]{"<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
+                foreach(string child in new[]{"<Draws/>","<Behaviors/>","<AI/>","<Body/>","<ClientUpdates/>","<ClientBehaviors/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty child nodes including complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-two child nodes including empty module markers and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

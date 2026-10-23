@@ -1,6 +1,6 @@
 # SkirmishAIInformation：下一完整能力组的源码调查
 
-状态：**尚未实现，未进行此组原 DLL 差分，不能作为支持声明。** 2026-10-23 在完成29类GameObject子节点后预先整理，供下一轮直接定位；当前恢复组件仍显式拒绝SkirmishAIInformation。
+状态：**完整依赖组已实现并通过原DLL组件差分。** 源码 `986bb898dacfbed2d6f92074f3e49f9aef421719`；运行 https://github.com/wu162/NewSdk/actions/runs/39959718372 success。每种/Od、/O2为60,272 fixtures、180,816三缓冲区比较、964拒绝、184独立不变性比较，平台0/1/2/99。尚未真实SDK集成，原路由保留。
 
 证据：原Tokenizer `-Module-.cs` blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`，布局/调用次序来自该源码，枚举表来自原PE与源码映射。XSD表只记录声明契约；最终缺省、未知值、拒绝与输出仍须原版探针及完整矩阵验证。不要用下表的XSD缺省代替Marshal取值规则。
 
@@ -148,3 +148,11 @@ WpnAntiT为14位、MicroManagerState为10位、AITargetLocationType为2位、AIB
 这些helper均先按原词分隔符解析，普通名称大小写敏感；`+`为OR、`-`为XOR。`ALL`大小写不敏感（去掉前导符号后判断），直接把整个32位word设为0xffffffff，包含padding；`-ALL`同样设满而不是清空。ALL分支不推进token指针，因此剩余循环反复处理ALL而不再处理后续token；新测试必须包括 `ALL -UNKNOWN`、`-ALL`、重复负号XOR及AIBaseType同值名称。不是bitCount范围掩码。已知枚举值若为-1或>=bitCount则跳过；unknown落入表中fallback位。
 
 可复用现有MarshalEnumBitset逻辑，但仍要为本组各字段补齐新布局/可空包装、XOR/ALL/padding的独立断言及完整差分，不能仅凭控制流相同省略验证。
+
+## 实现核对与验证补充（2026-10-23）
+
+- 生成器从原数据定义解码完整字符串，逐项核对64字段的原Marshal顺序、名称及默认值；Token keys/type/offset独立从原方法提取；8个标量枚举unknown helper逐个核对。非多态TypeId注解忽略，AIContextualPower id仅元数据。
+- MarshalAI / TokenizeAI / EndianAI共用四个源派生布局，复用既有scalar、resource、bitset与ObjectFilter。未修改共享实现。可空bool原Push大小1、其余可空值大小4；引用对象的Token指向引用word，不能指向父指针槽。
+- UNDEFINED是DamageType=14，未知名称fallback=38；首轮独立断言错误已修正，原差分实现未更改。最终矩阵同时独立检查这两种输入。
+- 64字段逐项边界和所有枚举/位名覆盖；两组base条件都覆盖字段值；两处完整过滤器；0/1/2/7/32项特技列表、混合GameObject结构、XML顺序不变性；独立检查可空0/false/空引用的存在、资源索引、位集padding、Token目标与sentinel、schema分配顺序。未知/外来命名空间/重复单例/结构文本拒绝。
+- 后续空Module标记组会重新验证受影响GameObject矩阵；以上是独立AI组精确锚点，不把后续未验证改动冒充本次结果。

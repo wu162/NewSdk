@@ -429,6 +429,12 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
         data.Pop();
     }
+    // Original 66174/66183: both schema types are empty one-byte objects.
+    // Root Tokenize 97735/97742 creates no pointee bookmark or child table.
+    for(unsigned i=0;i<2;++i) for(const auto& child:children)
+        if(child.name==(i==0?"ReplaceModule":"InheritableModule")) {
+            data.Push(reinterpret_cast<void**>(root+496+4*i),1,1);data.Pop();
+        }
     std::map<unsigned,unsigned char*> autoObjects;
     for(unsigned index=0;index<2;++index) for(const auto& child:children)
         if(child.name==(index==0?"AutoResolveArmor":"AutoResolveWeapon")) {

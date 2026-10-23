@@ -173,7 +173,7 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="AudioArrayVoice" && name!="AudioArraySound" && name!="EvaEventArray" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo" && name!="SkirmishAIInformation"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="AudioArrayVoice" && name!="AudioArraySound" && name!="EvaEventArray" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo" && name!="SkirmishAIInformation" && name!="ReplaceModule" && name!="InheritableModule"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
@@ -221,7 +221,7 @@ public:
                     throw gcnew NotSupportedException("Unsupported GameObject child attribute.");
                 item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
             } while(a->MoveToNextAttribute());
-            if((name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset" || name=="ArmorSet" || name=="LocomotorSet" || name=="FormationPreviewDecal" || name=="FormationPreviewItemDecal" || name=="ShadowInfo" || name=="VisionInfo" || name=="AutoResolveInfo") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("Unexpected text in structured GameObject child.");
+            if((name=="ReplaceModule" || name=="InheritableModule" || name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset" || name=="ArmorSet" || name=="LocomotorSet" || name=="FormationPreviewDecal" || name=="FormationPreviewItemDecal" || name=="ShadowInfo" || name=="VisionInfo" || name=="AutoResolveInfo") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("Unexpected text in structured GameObject child.");
             children.push_back(item);
             if(name=="UpgradeCameo" || name=="DisplayUpgrade") {
                 unsigned count=0;for(const auto& c:children) if(c.name==item.name) ++count;
