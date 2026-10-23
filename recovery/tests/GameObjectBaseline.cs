@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -25,6 +26,13 @@ class GameObjectBaseline
             string[] names={"FenceWidth","FenceXOffset","RemoveTerrainRadius","EmotionRange","FactoryExitWidth","FactoryExtraBibWidth","BountyValue","BuildTime","EnergyProduction","EnergyBonus","VoicePriority","Scale","HealthBoxHeightOffset","LiveCameraFXPitch","FormationWidth","CampnessValueRadius"};
             int[] offsets={84,88,92,96,108,112,132,136,140,144,168,188,192,196,200,184};
             bool[] signed={false,false,false,false,false,false,true,false,true,true,true,false,false,false,true,false};
+            var schema=new XmlDocument();schema.Load(args[2]);
+            var symbols=new Dictionary<uint,string>();
+            foreach(XmlElement element in schema.SelectNodes("//*[@name]")) {
+                string name=element.GetAttribute("name");uint hash=HashProvider.GetCaseSensitiveSymbolHash(name);
+                if(symbols.ContainsKey(hash) && symbols[hash]!=name) throw new Exception("Schema symbol hash collision");
+                symbols[hash]=name;
+            }
             int fixtures=0;
             foreach(TargetPlatform platform in new[] {TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
                 plugin.Initialize(null,platform);bool big=platform!=TargetPlatform.Win32;
@@ -37,6 +45,11 @@ class GameObjectBaseline
                     // Token[0] is KindOf, bookmarked at native root+4. Native root is 592 bytes.
                     int root=checked((int)Word(buffer.InstanceData,8,big))-4;
                     if(root<127*12 || root+592>buffer.InstanceData.Length)throw new Exception("Original GameObject root bounds");
+                    if(field<0) for(int i=0;i<127;++i) {
+                        uint name=Word(buffer.InstanceData,12*i,big),type=Word(buffer.InstanceData,12*i+4,big),target=Word(buffer.InstanceData,12*i+8,big);
+                        string resolved;symbols.TryGetValue(name,out resolved);
+                        File.AppendAllText(Path.Combine(args[1],"root-tokens.tsv"),((int)platform)+"\t"+i+"\t"+name+"\t"+type+"\t"+target+"\t"+(resolved??"<unresolved>")+Environment.NewLine);
+                    }
                     if(field>=0) {
                         uint expected=signed[field]?unchecked((uint)value):BitConverter.ToUInt32(BitConverter.GetBytes((float)value),0);
                         if(Word(buffer.InstanceData,root+offsets[field],big)!=expected)throw new Exception("Original scalar binding: "+attr);

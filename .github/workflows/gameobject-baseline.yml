@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/gameobject-baseline.yml'
       - 'recovery/scripts/TestGameObjectBaseline.ps1'
+      - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/tests/GameObjectBaseline.cs'
 permissions:
   contents: write
