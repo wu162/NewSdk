@@ -1,7 +1,7 @@
 # WeaponEffectNugget recovery
 
 `src/Native/WeaponNugget.h` / `.cpp` recover the common Nugget path and a coherent
-damage family. `WeaponTemplate` delegates Nugget allocation, tokenization and
+damage family plus the reference, activation and scalar families below. `WeaponTemplate` delegates Nugget allocation, tokenization and
 endian correction to that module. The C++/CLI adapter reads the XML and the
 original SDK-injected TypeId; it never calls the original compiler. The original
 compiler is loaded only by differential tests and the explicitly original-SDK
@@ -21,13 +21,50 @@ integration probe.
 | FireOnObjectsNugget | 2014632688 | 164 | Weapon reference, two Booleans and optional Filter pointer |
 | DamageContainedNugget | 2459653016 | 272 | MaxUnitsToDamage, WindowBlastFX reference, inline DamageObjectFilter |
 
-The original pointer dispatcher has 35 explicit branches. The other 26 branches,
+The original pointer dispatcher has 35 explicit branches; 32 are recovered. The other three branches,
 zero/unknown TypeIds, unknown attributes and unimplemented children are rejected.
 An empty Nuggets container now serializes correctly, but does not establish full
 Nugget support. A matching XML element name without its prepared TypeId is not
 sufficient for the direct component API. Actual BAB preprocessing supplies it.
 Dispatch follows TypeId rather than the spelling of the child element, as in the
 original; a direct differential fixture verifies this explicitly.
+
+
+### Non-Damage branches (40-byte WeaponEffectNugget base)
+
+| XML element | Instance bytes | Derived fields |
+|---|---:|---|
+| ProjectileNugget | 68 | Two references, slot override, optional Vector3, VeteranProjectile list, optional barrel int |
+| ScatterProjectileNugget | 48 | ScatterMin / ScatterMax |
+| WeaponOCLNugget | 48 | WeaponOCL reference, TargetAsPrimaryObject |
+| SeedTiberiumNugget | 56 | WeaponOCL parent, FieldAmount / SpawnedInFieldBonus |
+| SpecialPowerNugget | 44 | SpecialPowerTemplate reference |
+| InformTargetNugget | 48 | Min/MaxTimeToImpactFudgeFactor |
+| ContainedObjectAttackNugget / SlavesAttackNugget / ReportWeaponFiredStatNugget | 40 each | Common base only |
+| ActivateCircularDamageNugget / ActivateLiftObjectNugget / ActivateLinearDamageNugget | 44 each | Lifetime |
+| ActivateStreamNugget | 48 | Lifetime, StreamId |
+| ActivateLaserNugget | 56 | Lifetime, LaserId, HitGroundFX, OverShootDistance |
+| TerrainCraterNugget | 48 | Depth, Lift percentage |
+| AttachNugget | 44 | AttachModuleId typed ID |
+| SpendStolenTiberiumNugget | 44 | AmountToSpend |
+| SecondaryDamageNugget | 52 | Amount, DamageTaperOff, PercentDamageToContained |
+| StripMaxHealthPercentNugget | 56 | AmountToStrip, DamageType, DeathType, DamageFXType |
+| SuppressionNugget | 60 | Suppression, DurationSeconds, TaperOff, Arc, ArcInverted |
+| LuaEventNugget | 52 | Allocated EventName string and three Boolean bytes |
+| ParalyzeNugget | 60 | EffectArc, DurationSeconds, two ParalyzeEffectType enums and ParalyzeFX reference |
+| InformationWarfareNugget | 52 | Inline seven-bit InfoWar mask, RadarJamRadius and RadarJamDuration |
+
+ParalyzeEffectType comes from the original PE: EMP=0, USER_PARALYZE=1,
+UNMANNED=2, HELD=3, NONE=4; unknown names fall back to EMP. InfoWar has
+seven bits, NONE=0 through RESET_RADAR_ALL=6. Its default NONE sets bit zero;
+ALL fills all 32 bits, including padding. Existing sign/XOR/ALL-cursor behavior
+is preserved. Unknown InfoWar names select bit zero.
+
+These branches marshal derived allocations before their common base. Their token
+tables preserve original per-member keys and offsets. Reference words are handled
+by Tracker; Boolean bytes and string pointers are not byte-swapped as scalars.
+LuaEvent swaps the string length only. Seed retains the WeaponOCL inheritance
+token frame. These branches never use the 152-byte Damage prefix.
 
 ## Layout and allocation order
 
@@ -107,6 +144,19 @@ another game or SDK version is assumed.
 
 ## Verification
 
+Latest 32-branch source: `bd474c8cfec499be91ade4af040279e86010c5cf`,
+[run 39892423711](https://github.com/wu162/NewSdk/actions/runs/39892423711), success.
+Each /Od and /O2 passes 57,288 fixtures, 171,864 buffer comparisons and 850
+explicit rejection checks; four platforms include unknown 99. The SDK batch
+[run 39891922522](https://github.com/wu162/NewSdk/actions/runs/39891922522) separately
+passes 31 legal weapons covering the prior 30 branches plus a mixed list.
+Paralyze/InformationWarfare were not in that SDK batch; keep the two scopes distinct.
+
+Current validation: read `RESUME.md` and the pinned `evidence/weapon/validation.json`.
+The paragraphs below retain the historical nine-branch milestone; the coverage
+table and non-Damage section above describe the current 32 branches.
+
+
 Run `scripts/TestWeapon.ps1` in the x86 VS2022 developer environment. It builds
 both /Od and /O2 and compiles three partial oracle files: WeaponOracle,
 WeaponScatterOracle and WeaponNuggetOracle. The actual original ProcessInstance
@@ -158,40 +208,41 @@ subtype enum maps too; no enum order is guessed from XSD or another SDK.
 
 | Original native type | TypeId | State |
 |---|---:|---|
-| AttachNugget | 576040660 | Explicitly rejected |
-| ParalyzeNuggetType | 169470683 | Explicitly rejected |
-| ContainedObjectAttackNuggetType | 609705483 | Explicitly rejected |
-| InformationWarfareNuggetType | 978137461 | Explicitly rejected |
+| AttachNugget | 576040660 | Recovered |
+| ParalyzeNuggetType | 169470683 | Recovered |
+| ContainedObjectAttackNuggetType | 609705483 | Recovered |
+| InformationWarfareNuggetType | 978137461 | Recovered |
 | LeechPercentMaxHealthDamageNuggetType | 921679887 | Recovered |
 | GrapplingHookNuggetType | 1093138400 | Recovered |
-| SpecialPowerNuggetType | 1542018985 | Explicitly rejected |
-| InformTargetNuggetType | 1115743736 | Explicitly rejected |
-| StripMaxHealthPercentNuggetType | 1622083673 | Explicitly rejected |
-| SeedTiberiumNuggetType | 1757028425 | Explicitly rejected |
-| ReportWeaponFiredStatNuggetType | 1675169590 | Explicitly rejected |
-| LuaEventNuggetType | 2010867179 | Explicitly rejected |
-| ActivateStreamNuggetType | 2159708756 | Explicitly rejected |
+| SpecialPowerNuggetType | 1542018985 | Recovered |
+| InformTargetNuggetType | 1115743736 | Recovered |
+| StripMaxHealthPercentNuggetType | 1622083673 | Recovered |
+| SeedTiberiumNuggetType | 1757028425 | Recovered |
+| ReportWeaponFiredStatNuggetType | 1675169590 | Recovered |
+| LuaEventNuggetType | 2010867179 | Recovered |
+| ActivateStreamNuggetType | 2159708756 | Recovered |
 | FireOnObjectsNuggetType | 2014632688 | Recovered |
-| ProjectileNuggetType | 2278014412 | Explicitly rejected |
+| ProjectileNuggetType | 2278014412 | Recovered |
 | DamageContainedNuggetType | 2459653016 | Recovered |
-| ActivateCircularDamageNuggetType | 2360033115 | Explicitly rejected |
-| SecondaryDamageNuggetType | 2475108259 | Explicitly rejected |
+| ActivateCircularDamageNuggetType | 2360033115 | Recovered |
+| SecondaryDamageNuggetType | 2475108259 | Recovered |
 | MetaImpactNuggetType | 2940373499 | Explicitly rejected |
-| ActivateLiftObjectNuggetType | 2769610658 | Explicitly rejected |
-| SlavesAttackNuggetType | 3111574559 | Explicitly rejected |
+| ActivateLiftObjectNuggetType | 2769610658 | Recovered |
+| SlavesAttackNuggetType | 3111574559 | Recovered |
 | DamageAndSpawnNuggetType | 3266020104 | Recovered |
 | DamageNuggetType | 3237297817 | Recovered |
-| WeaponOCLNuggetType | 3322313791 | Explicitly rejected |
+| WeaponOCLNuggetType | 3322313791 | Recovered |
 | TintObjectsNuggetType | 3665090361 | Explicitly rejected |
-| TerrainCraterNuggetType | 3520092115 | Explicitly rejected |
-| ActivateLinearDamageNuggetType | 3694898303 | Explicitly rejected |
-| ActivateLaserNuggetType | 3915396258 | Explicitly rejected |
+| TerrainCraterNuggetType | 3520092115 | Recovered |
+| ActivateLinearDamageNuggetType | 3694898303 | Recovered |
+| ActivateLaserNuggetType | 3915396258 | Recovered |
 | AttributeModifierNuggetType | 3821195611 | Explicitly rejected |
 | LeechHealthDamageNuggetType | 4012276286 | Recovered |
 | DOTNuggetType | 4022030886 | Recovered |
 | LineDamageNuggetType | 4021248832 | Recovered |
-| SuppressionNuggetType | 4104564135 | Explicitly rejected |
-| SpendStolenTiberiumNuggetType | 4286253161 | Explicitly rejected |
-| ScatterProjectileNuggetType | 4131529406 | Explicitly rejected |
+| SuppressionNuggetType | 4104564135 | Recovered |
+| SpendStolenTiberiumNuggetType | 4286253161 | Recovered |
+| ScatterProjectileNuggetType | 4131529406 | Recovered |
 
 WeaponTemplate remains a partial type until the remaining branches and any unknown-polymorphic fallback boundary are deliberately recovered. Its SDK route is retained on the original plugin.
+

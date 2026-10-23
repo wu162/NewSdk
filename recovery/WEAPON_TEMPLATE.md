@@ -248,7 +248,7 @@ pointer allocation order, defaults, nested token offsets and relocation tables.
 The previously unsupported ScatterRadiusVsType is not a simple radius list: its original element is 176
 bytes (radius + 456-bit ModelCondition mask + inline 112-byte ObjectFilter).
 The complete ModelCondition map and inline-filter integration are now recovered
-and validated as described below. Nuggets remains unsupported.
+and validated as described below. Nuggets remained unsupported at that historical checkpoint; see the current Nugget continuation below.
 
 
 ## ModelCondition and ScatterRadiusVsType
@@ -296,13 +296,17 @@ below supersedes that boundary. WeaponTemplate is not yet switched to the recove
 SDK plugin. Full recovery of WeaponTemplate is still required before that switch.
 
 
-## Nugget damage family continuation
+## Nugget continuation
 
-Nuggets is now partially supported, rather than wholly absent. The common base,
-ScalarInfo, polymorphic list/token representation and all nine DamageNugget-family branches are
-recovered and differentially validated. See `WEAPON_NUGGETS.md` for exact type
-IDs, sizes, fields, evidence and the remaining 26-branch boundary. The new
-`RecoveryWeaponNuggetProbe.xml` is included in real mymod; XSD validation and an
-original SDK build verify all nine reconstructed InstanceData payloads. That
-probe retains original Weapon routing. Full recovered-Weapon SDK integration
-and complete replacement DLLs remain outstanding.
+The common base, ScalarInfo, polymorphic list/token representation and 32 of
+35 explicit branches are recovered. This includes all nine Damage-family
+branches, projectile/reference paths, activation/scalar/string paths, Paralyze
+and InformationWarfare. See `WEAPON_NUGGETS.md` for sizes and the coverage table;
+read `RESUME.md` for exact current source/run and the separate SDK batch scope.
+
+The 31 legal mymod weapons cover 30 branches plus a mixed 12-Nugget list.
+Their recovered InstanceData payloads matched actual original-SDK mod.bin.
+Paralyze/InformationWarfare are component-only additions after that batch.
+The three remaining branches are MetaImpact, TintObjects and AttributeModifier;
+unknown-TypeId behavior and BAB metadata still require recovery before a formal
+Weapon plugin switch. Weapon remains on the original SDK handler.

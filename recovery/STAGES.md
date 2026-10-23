@@ -33,18 +33,12 @@
 
 ## 下一轮的具体起点
 
-阶段 1 已完成；阶段 2 当前支持 WeaponTemplate 的 91 个根属性（含两个 223 位 ObjectStatus 掩码）、四个 RangeDuration、两个 SoundOrEvaEvent、WeaponAiHintInfo、三个完整 ObjectFilter 过滤器、IncompatibleAttributeModifier 引用列表和完整 ScatterRadiusVsType 列表（内嵌 ObjectFilter 与 ModelCondition 掩码）。共用 EnumBitset 已接入旧根位集和过滤器的 284 位 KindOf 掩码；非空资源引用、状态位、对象列表及可选块组合均已进入原版 ProcessInstance 差分。实际验证提交及结果以 STATUS.md 和 evidence/weapon/validation.json 为准；这仍是类型子集，不能称为完整替代 DLL。
+以 `RESUME.md` 的当前源码/验证链接为准。ArmorTemplate 正式插件已接入真实 SDK；Weapon 的 35 个显式 Nugget 分支已恢复 32 个。前九类伤害分支、Projectile / ScatterProjectile / WeaponOCL / Seed、SpecialPower / InformTarget / ContainedObjectAttack / SlavesAttack / Report、六类激活/地形分支与 Attach / Spend / SecondaryDamage / Strip / Suppression / LuaEvent 以及 Paralyze / InformationWarfare 均在组件差分中覆盖。详见 WEAPON_NUGGETS.md。
 
-用户于 2026-10-22 补充验证方案：每完整恢复一种类型，就通过 SDK 的 plugin 配置把该类型分派到新 DLL，逐步替换原来的两个 DLL。原 DLL 差分仍保留；真实 SDK 编译不必等全部类型完成后才开始。详见 SDK_TYPE_INTEGRATION.md。
+下一阶段约 35 分钟：成组恢复剩余 MetaImpact、TintObjects、AttributeModifier；先恢复所需位集与颜色等共享结构，再实现各自布局、Marshal / Tokenize / endian 并做原 DLL 差分。可以跨轮完成；不要为赶数量静默零填未实现结构。
 
-ArmorTemplate 正式插件与 SDK 接入阶段已实现：`Recovered.Compiler.dll` 实现真实 IAssetBuilderPlugin，调用恢复的 C++/CLI 组件；mymod 新增合法样例并接入实际入口，mytank 引用新护甲。原版/恢复版隔离编译输出四个文件逐字节一致，三个实际插件调用已核对原版输出。确切最终源码及验证运行见 STATUS.md 和 evidence/armor-sdk/validation.json；使用方法见 ARMOR_SDK_INTEGRATION.md。
+35 个显式分支完成后，还要核实原版 unknown-TypeId 行为、BAB 给根/非多态子结构注入的 TypeId 元数据、预处理边界，然后才注册 WeaponTemplate 的正式恢复插件。保持原 SDK 路由直到整个类型通过验收。
 
-ModelConditionFlagType / ScatterRadiusVsType 已完成原版差分与两种优化模式验证：每模式 28,496 个 ProcessInstance 样例、85,488 次缓冲区比较，以及 4,179 次 ModelCondition 和 2,070 次 ObjectStatus 直接掩码比较。详见 STATUS.md 和 evidence/weapon/validation.json。
+真实 SDK 验证按用户要求攒够一组字段/类型后集中触发：现有 Weapon 工作流通过提交消息 `[sdk-probe]` 显式启用。普通实现/修复提交只跑组件差分；成功批次单独保留 sdk-batch-validation.json / sdk-batch-logs.zip，避免之后的组件结果混淆 SDK 覆盖。
 
-Nuggets 共用基类、ScalarInfo、列表/多态 Token 已恢复，且九类伤害分支通过原 DLL 差分：Damage、DOT、GrapplingHook、两种 Leech、LineDamage、DamageAndSpawn、FireOnObjects、DamageContained。每模式 47,512 个样例、142,536 次三缓冲区比较、190 次显式拒绝检查；原有位集直接差分继续通过。新增九个合法 mymod 武器样例，完整 XSD 校验与真实原版 SDK 产物中的恢复组件数据核对均通过。Armor 新插件路由回归也保持四份完整产物一致。确切源码/run 见 STATUS.md、WEAPON_NUGGETS.md 和 evidence/weapon/validation.json。
-
-下一轮约 35 分钟：从 ProjectileNugget、ScatterProjectileNugget、WeaponOCLNugget 开始，按依赖推进 projectile / weapon-OCL / 引用类分支，复用现有共用基类和 ScalarInfo。实现与 /Od、/O2 原版 ProcessInstance 差分、合法 mymod/XSD 样例、实际原 SDK 产物核对、证据和交接合并成一个实质阶段。当前 35 个显式分派分支恢复 9 个，剩余 26 个明确拒绝；维护覆盖表，不把空 Nuggets 或少数派生类型当作整类完成。WeaponTemplate 完整前继续保留原 SDK 路由；最终切换还需处理 BAB 给根/非多态子结构注入的 TypeId 元数据。
-
-用户已授予仓库级持续授权（仅禁止强推）；继续保持限定证据范围、pull --rebase 后普通推送及避免递归触发。每轮按约 35 分钟有效工作量推进，完成验证、提交和准确交接。
-
-后续非 Damage 派生类型必须使用各自的原始布局：当前 Damage 类型含 152 字节父结构，不能把仅含 40 字节 WeaponEffectNugget 父结构的分支强制按 DamageNugget 处理。原始 Marshal / Tokenize 起点：Projectile 16865 / 79393，ScatterProjectile 15757 / 78814，WeaponOCL 16192 / 79074（以方法名核对）。
+继续约 35 分钟有效工作量、阶段提交与交接、普通更新分支和禁止强推的规则。

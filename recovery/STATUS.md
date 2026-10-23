@@ -1,4 +1,6 @@
-# Compiler source recovery — session handoff
+# Compiler source recovery — historical session records
+
+**Current continuation:** read [RESUME.md](RESUME.md) first. Older “next stage” paragraphs below are historical and may already be completed. The current branch/evidence source commit is authoritative.
 
 Updated 2026-10-23. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list/scatter subset, but is still **not completed recovery of both compiler DLLs**.
 
@@ -65,18 +67,9 @@ The oracle exposed old VC8 `atof` parsing `2d1` as 20. Current UCRT does not, so
 
 ## Resume instruction
 
-Read this file, STAGES.md, README.md and WEAPON_TEMPLATE.md, then inspect branch/head.
-Continue WeaponTemplate from the validated nine-branch DamageNugget-family implementation at the end of this file.
-Do not repeat Armor/XML/runtime reconstruction or restart WeaponTemplate defaults.
-Next approximately-35-minute scope: ArmorTemplate SDK integration is now implemented
-and verified below. ModelCondition / ScatterRadiusVsType is also verified.
-The Nugget common base, ScalarInfo and all nine DamageNugget-family branches are now verified.
-Continue the remaining 26 explicit branches, starting with ProjectileNugget,
-ScatterProjectileNugget and WeaponOCLNugget in the projectile/reference group. Follow
-`WEAPON_NUGGETS.md` and `SDK_TYPE_INTEGRATION.md`. Keep WeaponTemplate on its
-original SDK route until the complete type and preprocessing boundary are validated.
-A complete replacement of both compiler DLLs is still outstanding.
-Read the newest validation.json for exact source/run.
+Read `RESUME.md`, root `AGENTS.md` and the type-specific source/tests needed for
+the current stage. `STAGES.md` retains the substantial-stage policy. Do not load
+all historical records or the full 106,000-line decompilation into context.
 
 ## Continuation details from this stage
 
@@ -521,3 +514,59 @@ Damage-family branches. Maintain the full coverage table in WEAPON_NUGGETS.md.
 WeaponTemplate stays on the original handler until all remaining branches,
 unknown-polymorphic fallback and BAB metadata annotations are recovered. Full
 recovery/replacement of both target compiler DLLs is still outstanding.
+
+
+## Current recovery, failed-run repair and 32-branch completion — 2026-10-23
+
+The previous handoff still described nine branches, while the branch had advanced
+through the 24-branch milestone and an unvalidated 30-branch source. This session
+read the actual branch head and failed Actions run rather than repeating that work.
+
+* Failure source `ae766a17c3bb11a0b5b4ee37591960569f038b19`, run 39890803205:
+  empty SecondaryDamageNugget differed at instance byte 1332. Its
+  PercentDamageToContained procedure-name constant was mistyped as 4033350053;
+  original IL writes signed -261607243 = **4033360053u**. Fix `69dd1af3cf43a7f273316762dcd58e544b1b4815`
+  adds an independent key/type/member assertion. Run 39891592759 passed both modes:
+  54,744 fixtures / 164,232 three-buffer comparisons / 802 rejections per mode.
+* SDK batch source `83ec946e687569fb883bda0798ceb6de46a93cc4`,
+  https://github.com/wu162/NewSdk/actions/runs/39891922522 : completed/success.
+  Added 12 legal probes for the activation/crater and scalar/string branches,
+  plus a mixed 12-Nugget asset. All **31** weapons passed complete CnC3Types.xsd
+  and original SDK basic-data compilation; all 31 recovered InstanceData payloads
+  occur byte-for-byte in actual mod.bin. Schema negatives reject missing Amount,
+  missing AttachModuleId and invalid DamageType. Weapon SDK routing stays original.
+  This covers 30 branches, not the subsequent two additions. Preserved separately
+  in evidence/weapon/sdk-batch-validation.json and sdk-batch-logs.zip.
+* Armor SDK integration run https://github.com/wu162/NewSdk/actions/runs/39891922459
+  completed/success on the same batch source and expanded mymod. All four complete
+  original/recovered outputs are byte-identical; three traced calls, inheritance,
+  original-free replay, negative schema cases and reversible routing pass.
+* Added ParalyzeNugget (60 bytes) and InformationWarfareNugget (52) using their
+  real common 40-byte base, original per-member procedure keys, scalar units,
+  references and endian correction. Original PE extraction now includes
+  ParalyzeEffectType and InfoWarEffect. Unknown Paralyze names map to EMP (0),
+  default NONE is 4; InfoWar default NONE sets bit zero, unknown names select
+  bit zero, ALL sets the full 32-bit word including padding. Existing sign/XOR/
+  ALL-cursor behavior is preserved and tested through original ProcessInstance.
+* Latest component source `bd474c8cfec499be91ade4af040279e86010c5cf`,
+  https://github.com/wu162/NewSdk/actions/runs/39892423711 : completed/success.
+  Each MSVC x86 /Od and /O2 passes **57,288 fixtures / 171,864 three-buffer
+  comparisons / 850 rejection checks**, plus 2,070 direct ObjectStatus and
+  4,179 direct ModelCondition comparisons. Both modes total **343,728 buffer
+  comparisons**, four platforms including unknown 99. New WeaponEffectOracle.cs
+  covers each enum value, independent token/default/mask assertions, malformed
+  numbers/units/references, signed mask combinations, seeded randomized masks,
+  list lengths through 257 and mixed inheritance/allocation paths.
+* Catalog/time-angle regression https://github.com/wu162/NewSdk/actions/runs/39892423774
+  completed/success. No extra SDK compilation was triggered for those two new
+  branches; SDK batch scope is deliberately pinned to its earlier source.
+* Added short RESUME.md, made it the root AGENTS.md continuation entry, updated
+  STAGES/type/coverage docs and marked old STATUS next-stage paragraphs historical.
+  This reduces repeated context loading. Tools/model remained usable this turn;
+  account/model usage quotas cannot be reset through repository changes.
+
+Current explicit Nugget coverage: **32/35**. Remaining: MetaImpact (96 bytes),
+TintObjects (72), AttributeModifier (64). Their exact Marshal/Tokenize navigation
+and dependencies are in RESUME.md. Full Weapon preprocessing/unknown-TypeId
+behavior and formal plugin routing remain after those branches. Full recovery of
+both compiler DLLs, GameObject and remaining XmlCompiler serializers is unfinished.
