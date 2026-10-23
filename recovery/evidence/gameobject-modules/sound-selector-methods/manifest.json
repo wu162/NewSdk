@@ -8,18 +8,18 @@
     },
     {
       "name": "ModelConditionSoundSelectorClientBehaviorModuleData.txt",
-      "methods": 3,
-      "sha256": "e7a9131ae83e064bd032b557aba3e43801d67c34a85578e94305d1a6c3f59818"
+      "methods": 5,
+      "sha256": "03eab82a3789840135c4451c146c67a1c4585b046e59f9ad363aff36695f503f"
     },
     {
       "name": "UpgradeSoundSelectorClientBehaviorModuleData.txt",
-      "methods": 3,
-      "sha256": "6f359daa09bceb8d01993b4d9c50e4b95b3b43bb85c9c8a0de9c3d605d5ed246"
+      "methods": 5,
+      "sha256": "d265859ed0ea9a5ff6865d608c27044531286175b61277791cd9b352ecd41b6f"
     },
     {
       "name": "ModelConditionEvaEventSelectorClientBehaviorModuleData.txt",
-      "methods": 3,
-      "sha256": "59f6c13f638b5237b3686bf21c8d8ea76394f61ff9218d75b0a2326c20614c4a"
+      "methods": 5,
+      "sha256": "2597dd3b84c4a6a1660f8e8717a8a79296e98b5085c3cf299fbbe9a8ea45b17d"
     },
     {
       "name": "ModelConditionSoundSelectorOverrideBlock.txt",
@@ -80,6 +80,11 @@
       "name": "EvaEventEntry.txt",
       "methods": 4,
       "sha256": "9c8e0bcf7eda414ac0eedbd2bf9377757d9b08cd9c6607dac297369cbbb2d8d2"
+    },
+    {
+      "name": "SelectorSharedHelpers.txt",
+      "methods": 23,
+      "sha256": "b70278f0e1c162ebf50f32be87e9d7da1a83580251f83e6c356c6f4beb3b3cdf"
     }
   ]
 }

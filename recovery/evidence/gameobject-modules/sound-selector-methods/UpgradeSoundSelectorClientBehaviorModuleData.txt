@@ -29,3 +29,49 @@ internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruc
 		Marshaler_002EEndianCorrect((UpgradeSoundSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), endian);
 	}
 
+
+// Original line 18905; SHA256 57cfdacc6d02414dc33b3a88168573ec1b92dd9ce4e2c5ab89c56ae09a27e70d
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(UpgradeSoundSelectorClientBehaviorModuleData* @object, EndianHelper* state)
+	{
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E((List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E*)((byte*)@object + 8), state);
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*(uint*)@object = num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num2;
+		}
+	}
+
+
+// Original line 90579; SHA256 9171f5395685584bd4131b4e343489e923ef52edc87a644f63061fd40a53656b
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, UpgradeSoundSelectorClientBehaviorModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 2072794994;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ClientBehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1293508106;
+		((int*)ptr)[1] = -1796057966;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AUpgradeSoundSelectorOverrideBlock_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

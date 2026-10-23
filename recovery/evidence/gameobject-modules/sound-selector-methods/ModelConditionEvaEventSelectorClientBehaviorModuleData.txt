@@ -29,3 +29,49 @@ internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruc
 		Marshaler_002EEndianCorrect((ModelConditionEvaEventSelectorClientBehaviorModuleData*)(int)(*(uint*)pointer), endian);
 	}
 
+
+// Original line 18981; SHA256 7a8b0008ebcd4f605676c5da8a694b23dfc7f43d8d3832b4756f57e9f3b2e3a3
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(ModelConditionEvaEventSelectorClientBehaviorModuleData* @object, EndianHelper* state)
+	{
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E((List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E*)((byte*)@object + 8), state);
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*(uint*)@object = num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num2;
+		}
+	}
+
+
+// Original line 90495; SHA256 aeb298cf3aa70ddc008bc8fd32b59ea5d51a5cfde2d19af1c0a010382a68d8b8
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ModelConditionEvaEventSelectorClientBehaviorModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 2072794994;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ClientBehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1293508106;
+		((int*)ptr)[1] = -1057680303;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AModelConditionEvaEventSelectorOverrideBlock_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
