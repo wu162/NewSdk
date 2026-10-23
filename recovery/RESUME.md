@@ -14,7 +14,7 @@
 
 ## 本轮检查点（验证中）
 
-2026-10-23：开始 unknown-TypeId 分配、Tokenize、endian 的默认分支恢复。已核对原 blob 的 Marshal/Tokenize/endian：未知对象分配 40 字节，共用基类、输出 tag 清零；Tokenize 无 default，不生成基类 token 子表，仅保留 12 字节包装且 offset=0。已添加完整差分扩展及独立布局断言；本检查点尚未通过新的 Windows 差分，不能引用下方旧锚点作为新代码成功。下一步检查 Actions，修复任何失败，再调查 BAB TypeId 注入边界。
+2026-10-23：开始 unknown-TypeId 分配、Tokenize、endian 的默认分支恢复。已核对原 blob 的 Marshal/Tokenize/endian：未知对象分配 40 字节，共用基类、输出 tag 清零；Tokenize 无 default，不生成基类 token 子表，仅保留 12 字节包装且 offset=0。已添加完整差分扩展及独立布局断言；本检查点尚未通过新的 Windows 差分，不能引用下方旧锚点作为新代码成功。未知分支修正独立 EXTENTS_3D=4 断言后，a7639058c6f50c89f62ed317cba0fa5ac7bc9a29 的组件运行 39895987897 已 success；基础运行 39895987909 success。下一组已实现非多态 TypeId 注解容忍与正式 Weapon 插件，并将整套矩阵扩展为原/注解原/注解恢复/正式插件比较；该新组验证中。BAB 边界见 WEAPON_INPUT_PIPELINE.md，下一步真实 SDK 路由批次。
 
 ## 当前能力与验证边界
 

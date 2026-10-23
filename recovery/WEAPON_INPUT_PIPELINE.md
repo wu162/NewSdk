@@ -1,0 +1,16 @@
+# Weapon SDK input boundary
+
+Source: committed decompilation under recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core, inspected at branch commit 1cbcc295fdeda68cd620e101ad0154788721eaba. These are BAB host responsibilities; the recovered plugin consumes their output, it does not reimplement them.
+
+- DocumentProcessor.ProcessDocumentContents: ProcessExpressions, ProcessOverrides, Validate, then ProcessInstances. Included documents/definitions are processed first. AssetDeclarationDocument.ProcessExpressions recursively evaluates values beginning with `=`.
+- InstanceDeclaration.XmlNode setter builds the handle from root name/id, records inheritFrom, then removes the inheritFrom attribute. AssetDeclarationDocument.OverrideInstance uses NodeJoiner.Override and replaces the node before validation.
+- AssetDeclarationDocument.Validate installs the complete SchemaSet and validates before ValidateInstances. Named schema defaults therefore arrive on the plugin input.
+- ValidateInstances enumerates descendants in `uri:ea.com:eala:asset`, matchSelf=true. For each element it processes reference types on the element and its attributes, returns to the element, then adds unqualified `TypeId` using HashProvider.GetCaseSensitiveSymbolHash(SchemaInfo.SchemaType.Name). This includes the root and named non-polymorphic helper/leaf/container types, not just Nugget nodes. An anonymous type can have no usable name; no plugin-side name-to-ID reconstruction is appropriate.
+- HandleAssetReferenceType resolves xas:refType, checks schema derivation for strong references, records referenced handles, then replaces strong values with `originalText\\referenceIndex`. Weak references retain their text. HandleFileReferenceType resolves paths. Existing recovered resource marshaling expects prepared values; raw unresolved strong references are not an SDK integration test.
+- ValidateInstances computes type/processing metadata and hashes. The original Weapon plugin advertises TypeId 2496977262, TypeHash 216405646, tokenized=true, all-types hash 1424942948, version 4100 (Win32/default), 4101 (Xbox360), 4102 (PS3); ProcessingHash is TypeHash+version. Source: decompiled Tokenizer/BinaryAssetBuilder.Tokenizer/Plugin.cs GetExtendedTypeInformation/GetVersionNumber/GetAllTypesHash.
+
+Bridge contract: ignore only unqualified `TypeId` on non-polymorphic nodes, retain its dispatch meaning on direct Nugget entries, retain foreign-namespace and unsupported-field rejection. Do not strip or mutate the supplied DOM. Existing namespace checks remain active. The full component matrix additionally decorates every non-Nugget node with a sentinel TypeId and compares original undecorated, original decorated, recovered decorated, and formal-plugin decorated buffers, across all four target platforms and /Od,/O2. Synthetic decoration tests metadata tolerance; actual XSD/BAB preprocessing still needs the formal SDK batch and captured input replay.
+
+## Integration status
+
+Formal Weapon plugin entry implemented in src/Plugin/WeaponPlugin.cs; full metadata and buffer matrix verification pending. SDK routing and original-free replay pending. Default SDK configuration remains original until an explicit validated switching script is used.

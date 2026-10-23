@@ -13,6 +13,8 @@ unsafe partial class WeaponOracle
 {
     const string AssetNamespace = "uri:ea.com:eala:asset";
     static int comparisons;
+    static int annotatedFixtures;
+    static IAssetBuilderPlugin formalPlugin;
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
         // Supply the same Node and namespace manager that BAB supplies after
@@ -50,6 +52,26 @@ unsafe partial class WeaponOracle
         Equal(label + "/instance", original.InstanceData, recovered.InstanceData);
         Equal(label + "/relocations", original.RelocationData, recovered.RelocationData);
         Equal(label + "/imports", original.ImportsData, recovered.ImportsData);
+        // Exercise the BAB annotation boundary across the whole existing matrix.
+        // Preserve the supplied polymorphic dispatch tags (including missing tags).
+        foreach(XmlElement element in xml.SelectNodes("//*")) {
+            if(element.ParentNode is XmlElement && element.ParentNode.LocalName=="Nuggets") continue;
+            element.SetAttribute("TypeId", "314159265");
+        }
+        AssetBuffer annotatedOriginal=plugin.ProcessInstance(declaration);
+        AssetBuffer annotatedRecovered=WeaponCompiler.ProcessInstance(declaration,platform);
+        Equal(label+"/annotation-original-instance",original.InstanceData,annotatedOriginal.InstanceData);
+        Equal(label+"/annotation-original-relo",original.RelocationData,annotatedOriginal.RelocationData);
+        Equal(label+"/annotation-original-imp",original.ImportsData,annotatedOriginal.ImportsData);
+        Equal(label+"/annotation-recovered-instance",annotatedOriginal.InstanceData,annotatedRecovered.InstanceData);
+        Equal(label+"/annotation-recovered-relo",annotatedOriginal.RelocationData,annotatedRecovered.RelocationData);
+        Equal(label+"/annotation-recovered-imp",annotatedOriginal.ImportsData,annotatedRecovered.ImportsData);
+        formalPlugin.Initialize(null,platform);
+        AssetBuffer formal=formalPlugin.ProcessInstance(declaration);
+        Equal(label+"/formal-instance",annotatedOriginal.InstanceData,formal.InstanceData);
+        Equal(label+"/formal-relo",annotatedOriginal.RelocationData,formal.RelocationData);
+        Equal(label+"/formal-imp",annotatedOriginal.ImportsData,formal.ImportsData);
+        ++annotatedFixtures;
         if (count < 0) return; // Resource fixtures have their own independent layout checks.
         bool big = platform != TargetPlatform.Win32;
         int tokenSize = 1296 + 36*count;
@@ -877,10 +899,16 @@ unsafe partial class WeaponOracle
         try {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             var assembly = Assembly.LoadFrom(args[0]);
+            formalPlugin=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[1]).GetType("Recovered.Weapon.Plugin"));
             DirectStatus(assembly);
             DirectModel(assembly);
             var plugin = (IAssetBuilderPlugin)Activator.CreateInstance(assembly.GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 }) {
+                plugin.Initialize(null,platform);formalPlugin.Initialize(null,platform);
+                var expectedInfo=plugin.GetExtendedTypeInformation(2496977262u);
+                var actualInfo=formalPlugin.GetExtendedTypeInformation(2496977262u);
+                if(expectedInfo.TypeId!=actualInfo.TypeId || expectedInfo.TypeName!=actualInfo.TypeName || expectedInfo.TypeHash!=actualInfo.TypeHash || expectedInfo.ProcessingHash!=actualInfo.ProcessingHash || expectedInfo.Tokenized!=actualInfo.Tokenized || plugin.GetVersionNumber()!=formalPlugin.GetVersionNumber() || plugin.GetAllTypesHash()!=formalPlugin.GetAllTypesHash())
+                    throw new Exception("Formal Weapon plugin metadata mismatch: "+platform);
                 Filters(plugin, platform);
                 Scatter(plugin, platform);
                 Nuggets(plugin, platform);
@@ -1680,11 +1708,12 @@ unsafe partial class WeaponOracle
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><Unknown/></"+name+"></WeaponTemplate>");
                 Reject("<WeaponTemplate xmlns='"+AssetNamespace+"' id='Reject'><"+name+"><IncludeThing Unknown='1'/></"+name+"></WeaponTemplate>");
             }
-            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons + " directModelComparisons=" + directModelComparisons);
+            Console.WriteLine("PASS WeaponTemplate scalar/duration/resource/status subset: fixtures=" + fixtures + " bufferComparisons=" + comparisons + " unsupportedRejections=" + rejections + " directStatusComparisons=" + directStatusComparisons + " directModelComparisons=" + directModelComparisons + " annotatedFixtures=" + annotatedFixtures);
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
+
 
 
 
