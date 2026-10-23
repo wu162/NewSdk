@@ -1,6 +1,8 @@
-# 当前验证中：完整Production Update/exit三类型
+# 当前验证中：剩余四种Create完整模块
 
-本轮第三完整组已实现，生成原表run40035737553 success。ProductionUpdate三类嵌套列表、可空GiveUpgradeToProduced/UpgradeTranslation、inline ObjectFilter、全部24根属性、Default出口两个可空Vector3与Queue出口两个inline Vector3、实际Update/Contain Token继承均恢复；完整矩阵含前两组补强的全部ObjectStatus/时间单位/深过滤器边界一起运行。88支持/234拒绝为候选数，验收前有效85。SDK0次。
+本轮第四完整组已实现，源生成检查run40036342219 success。GrantUpgradeCreate、InheritUpgradeCreate及inline过滤器/弱Upgrade列表、ExperienceLevelCreate、ActivateSpecialPowerOnCreate及强SpecialPower列表全字段/完整Token/Endian已恢复；完整矩阵正在运行，候选92支持/230拒绝，尚未验收前以88为准。已有EvaAnnounceClientCreate仍复用原已验收实现，不重复计数；其源方法与本组共66个已保存。SDK0次。
+
+前三完整组已验收：source add48873bb0016e2abf77af40922cb779f0d8f67，GameObject run40036066958、基础run40036066943均success。validation.json已核对：每/Od、/O2 176032样例、528096三缓冲区比较、9464拒绝、328不变性，0/1/2/99。88支持/234拒绝。
 
 # 已验收85类型；继续Production完整组
 
