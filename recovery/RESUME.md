@@ -73,3 +73,11 @@ AI完整依赖组已通过：源码986bb898dacfbed2d6f92074f3e49f9aef421719；ru
 本提交继续完整恢复XSD空结构ReplaceModule/InheritableModule：原方法66174/66183各Push1字节、tracker按4字节对齐；root@496/@500，Token不生成子表。新增原版差分、独立指针/填充/relocation/零Token、混合顺序及拒绝边界。**空Module标记组尚待本提交Actions完整矩阵，不声明通过。SDK未运行，原路由保留。**
 
 下一步：检查本提交GameObject与基础回归Actions终态并核对证据；全部通过后更新当前入口，继续GameObject多态模块完整能力组。保留所有证据提交，禁止强推。
+
+## 多态公共能力组检查点（验证中）
+
+前序32类子节点已完整通过：source1d07ec2aee4ec6aa0193f8866fbd4ed76e7497d0/run39960173975；每模式60,320 fixtures、180,960三缓冲区比较、1,036拒绝、192不变性比较。
+
+本提交继续实现六个模块容器及原322个Marshal分支中全部31个8字节公共字段类型，Token继承树从实际原方法提取，不按C++类型继承猜测。未知TypeId原路径输出8字节ModuleData、TypeId清零、仅单记录Token包装；其余291个已知类型继续显式拒绝。模块名由六个XSD容器声明限定；只接受id/TypeId、拒绝未知字段/嵌套结构。**完整Windows差分待本提交Actions，不声明公共模块组成功。**
+
+提取器ExtractGameObjectModuleEvidence.py及source-inventory.json分别保存322个Marshal/endian、380个Token分支，58个Token-only和2个endian别名；不是全部模块已恢复的证明。下一步核对本提交Actions，失败集中修复；SDK仍未运行。

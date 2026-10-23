@@ -269,6 +269,40 @@ for typ,(size,entries,children) in ai_specs.items():
     lines+=['    { '+str(size)+'u, '+typ+'AIFields, '+str(len(entries))+'u, '+typ+'AIProc, '+str(len(entries)+len(children))+'u },']
 lines+=['};','']
 
+# Full module dispatch inventory is validated separately and reused here.
+import runpy
+module_source=runpy.run_path(str(root/'recovery/scripts/ExtractGameObjectModuleEvidence.py'))
+module_inventory=module_source['report']
+module_choices=[]
+def emit_module_graph(graph):
+    global lines
+    if 'forwardTo' in graph: return emit_module_graph(graph['forwardTo'])
+    records=[]
+    for item in graph['records']:
+        nested=emit_module_graph(item['nested']) if 'nested' in item else None
+        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested))
+    name='moduleTable'+str(len(module_choices))
+    module_choices.append(name)
+    lines.append('const ModuleToken '+name+'Tokens[] = {')
+    for key,typ,off,nested in records:
+        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u, '+('&'+nested if nested else 'nullptr')+' },')
+    lines+=['};','const ModuleLayout '+name+' = { '+name+'Tokens, '+str(len(records))+'u };']
+    return name
+module_rows=[]
+for entry in module_inventory['baseOnlyCandidates']:
+    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph'])))
+lines+=['const ModuleChoice moduleChoices[] = {']
+for value,table in module_rows: lines+=['    { '+str(value)+'u, &'+table+' },']
+lines+=['};','const U32 knownModuleTypes[] = {']
+lines+=['    '+str(key)+'u,' for key in module_inventory['marshal'] if key!='default']
+lines+=['};','const ModuleChildName moduleChildNames[] = {']
+containers={'Draws':'DrawModules','Behaviors':'BehaviorModules','AI':'AIModule','Body':'BodyModule','ClientUpdates':'ClientUpdateModules','ClientBehaviors':'ClientBehaviorModules'}
+for name,typ in containers.items():
+    node=next(n for n in schema.getroot() if n.attrib.get('name')==typ)
+    for child in node.iter('{http://www.w3.org/2001/XMLSchema}element'):
+        lines+=['    { '+json.dumps(name)+', '+json.dumps(child.attrib['name'])+' },']
+lines+=['};','']
+
 output='\n'.join(lines)
 path=root/'recovery/src/Native/GameObjectFields.h'
 if '--check' in sys.argv:

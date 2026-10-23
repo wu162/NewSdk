@@ -9,6 +9,7 @@ const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();
 bool GameObjectLeafAttributeSupported(const std::string& name, const std::string& attribute);
 bool GameObjectAIAttributeSupported(const std::string& name, const std::string& attribute);
+bool GameObjectModuleChildSupported(const std::string& parent, const std::string& child);
 struct GameObjectChild {
     std::string name, text;
     std::map<std::string,std::string> attributes;

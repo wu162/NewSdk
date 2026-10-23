@@ -16,6 +16,7 @@ on:
       - 'recovery/scripts/TestGameObject.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
+      - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
       - 'recovery/tests/GameObjectKindOf.cs'

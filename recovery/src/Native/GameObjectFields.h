@@ -2028,3 +2028,1163 @@ const AILayout aiLayouts[] = {
     { 20u, AIBaseSelectionCriteriaAIFields, 5u, AIBaseSelectionCriteriaAIProc, 5u },
     { 28u, AISpecialPowerWeaponDataAIFields, 10u, AISpecialPowerWeaponDataAIProc, 10u },
 };
+
+const ModuleToken moduleTable0Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable0 = { moduleTable0Tokens, 2u };
+const ModuleToken moduleTable1Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable0 },
+};
+const ModuleLayout moduleTable1 = { moduleTable1Tokens, 1u };
+const ModuleToken moduleTable2Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable1 },
+};
+const ModuleLayout moduleTable2 = { moduleTable2Tokens, 1u };
+const ModuleToken moduleTable3Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable2 },
+};
+const ModuleLayout moduleTable3 = { moduleTable3Tokens, 1u };
+const ModuleToken moduleTable4Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable3 },
+};
+const ModuleLayout moduleTable4 = { moduleTable4Tokens, 1u };
+const ModuleToken moduleTable5Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable5 = { moduleTable5Tokens, 2u };
+const ModuleToken moduleTable6Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable5 },
+};
+const ModuleLayout moduleTable6 = { moduleTable6Tokens, 1u };
+const ModuleToken moduleTable7Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable6 },
+};
+const ModuleLayout moduleTable7 = { moduleTable7Tokens, 1u };
+const ModuleToken moduleTable8Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable7 },
+};
+const ModuleLayout moduleTable8 = { moduleTable8Tokens, 1u };
+const ModuleToken moduleTable9Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable9 = { moduleTable9Tokens, 2u };
+const ModuleToken moduleTable10Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable9 },
+};
+const ModuleLayout moduleTable10 = { moduleTable10Tokens, 1u };
+const ModuleToken moduleTable11Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable10 },
+};
+const ModuleLayout moduleTable11 = { moduleTable11Tokens, 1u };
+const ModuleToken moduleTable12Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable12 = { moduleTable12Tokens, 2u };
+const ModuleToken moduleTable13Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable12 },
+};
+const ModuleLayout moduleTable13 = { moduleTable13Tokens, 1u };
+const ModuleToken moduleTable14Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable14 = { moduleTable14Tokens, 2u };
+const ModuleToken moduleTable15Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable14 },
+};
+const ModuleLayout moduleTable15 = { moduleTable15Tokens, 1u };
+const ModuleToken moduleTable16Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable15 },
+};
+const ModuleLayout moduleTable16 = { moduleTable16Tokens, 1u };
+const ModuleToken moduleTable17Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable16 },
+};
+const ModuleLayout moduleTable17 = { moduleTable17Tokens, 1u };
+const ModuleToken moduleTable18Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable17 },
+};
+const ModuleLayout moduleTable18 = { moduleTable18Tokens, 1u };
+const ModuleToken moduleTable19Tokens[] = {
+    { 1u, 701158544u, 0u, &moduleTable18 },
+};
+const ModuleLayout moduleTable19 = { moduleTable19Tokens, 1u };
+const ModuleToken moduleTable20Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable20 = { moduleTable20Tokens, 2u };
+const ModuleToken moduleTable21Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable20 },
+};
+const ModuleLayout moduleTable21 = { moduleTable21Tokens, 1u };
+const ModuleToken moduleTable22Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable21 },
+};
+const ModuleLayout moduleTable22 = { moduleTable22Tokens, 1u };
+const ModuleToken moduleTable23Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable23 = { moduleTable23Tokens, 2u };
+const ModuleToken moduleTable24Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable23 },
+};
+const ModuleLayout moduleTable24 = { moduleTable24Tokens, 1u };
+const ModuleToken moduleTable25Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable24 },
+};
+const ModuleLayout moduleTable25 = { moduleTable25Tokens, 1u };
+const ModuleToken moduleTable26Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable26 = { moduleTable26Tokens, 2u };
+const ModuleToken moduleTable27Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable26 },
+};
+const ModuleLayout moduleTable27 = { moduleTable27Tokens, 1u };
+const ModuleToken moduleTable28Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable27 },
+};
+const ModuleLayout moduleTable28 = { moduleTable28Tokens, 1u };
+const ModuleToken moduleTable29Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable28 },
+};
+const ModuleLayout moduleTable29 = { moduleTable29Tokens, 1u };
+const ModuleToken moduleTable30Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable30 = { moduleTable30Tokens, 2u };
+const ModuleToken moduleTable31Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable30 },
+};
+const ModuleLayout moduleTable31 = { moduleTable31Tokens, 1u };
+const ModuleToken moduleTable32Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable31 },
+};
+const ModuleLayout moduleTable32 = { moduleTable32Tokens, 1u };
+const ModuleToken moduleTable33Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable33 = { moduleTable33Tokens, 2u };
+const ModuleToken moduleTable34Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable33 },
+};
+const ModuleLayout moduleTable34 = { moduleTable34Tokens, 1u };
+const ModuleToken moduleTable35Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable34 },
+};
+const ModuleLayout moduleTable35 = { moduleTable35Tokens, 1u };
+const ModuleToken moduleTable36Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable35 },
+};
+const ModuleLayout moduleTable36 = { moduleTable36Tokens, 1u };
+const ModuleToken moduleTable37Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable36 },
+};
+const ModuleLayout moduleTable37 = { moduleTable37Tokens, 1u };
+const ModuleToken moduleTable38Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable38 = { moduleTable38Tokens, 2u };
+const ModuleToken moduleTable39Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable38 },
+};
+const ModuleLayout moduleTable39 = { moduleTable39Tokens, 1u };
+const ModuleToken moduleTable40Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable39 },
+};
+const ModuleLayout moduleTable40 = { moduleTable40Tokens, 1u };
+const ModuleToken moduleTable41Tokens[] = {
+    { 1u, 816016269u, 0u, &moduleTable40 },
+};
+const ModuleLayout moduleTable41 = { moduleTable41Tokens, 1u };
+const ModuleToken moduleTable42Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable42 = { moduleTable42Tokens, 2u };
+const ModuleToken moduleTable43Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable42 },
+};
+const ModuleLayout moduleTable43 = { moduleTable43Tokens, 1u };
+const ModuleToken moduleTable44Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable43 },
+};
+const ModuleLayout moduleTable44 = { moduleTable44Tokens, 1u };
+const ModuleToken moduleTable45Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable45 = { moduleTable45Tokens, 2u };
+const ModuleToken moduleTable46Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable45 },
+};
+const ModuleLayout moduleTable46 = { moduleTable46Tokens, 1u };
+const ModuleToken moduleTable47Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable46 },
+};
+const ModuleLayout moduleTable47 = { moduleTable47Tokens, 1u };
+const ModuleToken moduleTable48Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable48 = { moduleTable48Tokens, 2u };
+const ModuleToken moduleTable49Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable48 },
+};
+const ModuleLayout moduleTable49 = { moduleTable49Tokens, 1u };
+const ModuleToken moduleTable50Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable49 },
+};
+const ModuleLayout moduleTable50 = { moduleTable50Tokens, 1u };
+const ModuleToken moduleTable51Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable50 },
+};
+const ModuleLayout moduleTable51 = { moduleTable51Tokens, 1u };
+const ModuleToken moduleTable52Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable51 },
+};
+const ModuleLayout moduleTable52 = { moduleTable52Tokens, 1u };
+const ModuleToken moduleTable53Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable53 = { moduleTable53Tokens, 2u };
+const ModuleToken moduleTable54Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable53 },
+};
+const ModuleLayout moduleTable54 = { moduleTable54Tokens, 1u };
+const ModuleToken moduleTable55Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable54 },
+};
+const ModuleLayout moduleTable55 = { moduleTable55Tokens, 1u };
+const ModuleToken moduleTable56Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable56 = { moduleTable56Tokens, 2u };
+const ModuleToken moduleTable57Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable56 },
+};
+const ModuleLayout moduleTable57 = { moduleTable57Tokens, 1u };
+const ModuleToken moduleTable58Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable57 },
+};
+const ModuleLayout moduleTable58 = { moduleTable58Tokens, 1u };
+const ModuleToken moduleTable59Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable59 = { moduleTable59Tokens, 2u };
+const ModuleToken moduleTable60Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable59 },
+};
+const ModuleLayout moduleTable60 = { moduleTable60Tokens, 1u };
+const ModuleToken moduleTable61Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable60 },
+};
+const ModuleLayout moduleTable61 = { moduleTable61Tokens, 1u };
+const ModuleToken moduleTable62Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable61 },
+};
+const ModuleLayout moduleTable62 = { moduleTable62Tokens, 1u };
+const ModuleToken moduleTable63Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable62 },
+};
+const ModuleLayout moduleTable63 = { moduleTable63Tokens, 1u };
+const ModuleToken moduleTable64Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable64 = { moduleTable64Tokens, 2u };
+const ModuleToken moduleTable65Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable64 },
+};
+const ModuleLayout moduleTable65 = { moduleTable65Tokens, 1u };
+const ModuleToken moduleTable66Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable65 },
+};
+const ModuleLayout moduleTable66 = { moduleTable66Tokens, 1u };
+const ModuleToken moduleTable67Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable67 = { moduleTable67Tokens, 2u };
+const ModuleToken moduleTable68Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable67 },
+};
+const ModuleLayout moduleTable68 = { moduleTable68Tokens, 1u };
+const ModuleToken moduleTable69Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable68 },
+};
+const ModuleLayout moduleTable69 = { moduleTable69Tokens, 1u };
+const ModuleToken moduleTable70Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable70 = { moduleTable70Tokens, 2u };
+const ModuleToken moduleTable71Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable70 },
+};
+const ModuleLayout moduleTable71 = { moduleTable71Tokens, 1u };
+const ModuleToken moduleTable72Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable71 },
+};
+const ModuleLayout moduleTable72 = { moduleTable72Tokens, 1u };
+const ModuleToken moduleTable73Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable73 = { moduleTable73Tokens, 2u };
+const ModuleToken moduleTable74Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable73 },
+};
+const ModuleLayout moduleTable74 = { moduleTable74Tokens, 1u };
+const ModuleToken moduleTable75Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable75 = { moduleTable75Tokens, 2u };
+const ModuleToken moduleTable76Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable75 },
+};
+const ModuleLayout moduleTable76 = { moduleTable76Tokens, 1u };
+const ModuleToken moduleTable77Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable76 },
+};
+const ModuleLayout moduleTable77 = { moduleTable77Tokens, 1u };
+const ModuleToken moduleTable78Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable77 },
+};
+const ModuleLayout moduleTable78 = { moduleTable78Tokens, 1u };
+const ModuleToken moduleTable79Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable78 },
+};
+const ModuleLayout moduleTable79 = { moduleTable79Tokens, 1u };
+const ModuleToken moduleTable80Tokens[] = {
+    { 1u, 701158544u, 0u, &moduleTable79 },
+};
+const ModuleLayout moduleTable80 = { moduleTable80Tokens, 1u };
+const ModuleToken moduleTable81Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable81 = { moduleTable81Tokens, 2u };
+const ModuleToken moduleTable82Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable81 },
+};
+const ModuleLayout moduleTable82 = { moduleTable82Tokens, 1u };
+const ModuleToken moduleTable83Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable82 },
+};
+const ModuleLayout moduleTable83 = { moduleTable83Tokens, 1u };
+const ModuleToken moduleTable84Tokens[] = {
+    { 1u, 816016269u, 0u, &moduleTable83 },
+};
+const ModuleLayout moduleTable84 = { moduleTable84Tokens, 1u };
+const ModuleToken moduleTable85Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable85 = { moduleTable85Tokens, 2u };
+const ModuleToken moduleTable86Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable85 },
+};
+const ModuleLayout moduleTable86 = { moduleTable86Tokens, 1u };
+const ModuleToken moduleTable87Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable86 },
+};
+const ModuleLayout moduleTable87 = { moduleTable87Tokens, 1u };
+const ModuleToken moduleTable88Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable87 },
+};
+const ModuleLayout moduleTable88 = { moduleTable88Tokens, 1u };
+const ModuleToken moduleTable89Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable88 },
+};
+const ModuleLayout moduleTable89 = { moduleTable89Tokens, 1u };
+const ModuleToken moduleTable90Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable90 = { moduleTable90Tokens, 2u };
+const ModuleToken moduleTable91Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable90 },
+};
+const ModuleLayout moduleTable91 = { moduleTable91Tokens, 1u };
+const ModuleToken moduleTable92Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable92 = { moduleTable92Tokens, 2u };
+const ModuleToken moduleTable93Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable92 },
+};
+const ModuleLayout moduleTable93 = { moduleTable93Tokens, 1u };
+const ModuleToken moduleTable94Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable93 },
+};
+const ModuleLayout moduleTable94 = { moduleTable94Tokens, 1u };
+const ModuleToken moduleTable95Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable95 = { moduleTable95Tokens, 2u };
+const ModuleToken moduleTable96Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable95 },
+};
+const ModuleLayout moduleTable96 = { moduleTable96Tokens, 1u };
+const ModuleToken moduleTable97Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable96 },
+};
+const ModuleLayout moduleTable97 = { moduleTable97Tokens, 1u };
+const ModuleToken moduleTable98Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable98 = { moduleTable98Tokens, 2u };
+const ModuleToken moduleTable99Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable98 },
+};
+const ModuleLayout moduleTable99 = { moduleTable99Tokens, 1u };
+const ModuleToken moduleTable100Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable99 },
+};
+const ModuleLayout moduleTable100 = { moduleTable100Tokens, 1u };
+const ModuleToken moduleTable101Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable100 },
+};
+const ModuleLayout moduleTable101 = { moduleTable101Tokens, 1u };
+const ModuleToken moduleTable102Tokens[] = {
+    { 1u, 4043318533u, 0u, &moduleTable101 },
+};
+const ModuleLayout moduleTable102 = { moduleTable102Tokens, 1u };
+const ModuleToken moduleTable103Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable103 = { moduleTable103Tokens, 2u };
+const ModuleToken moduleTable104Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable103 },
+};
+const ModuleLayout moduleTable104 = { moduleTable104Tokens, 1u };
+const ModuleToken moduleTable105Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable104 },
+};
+const ModuleLayout moduleTable105 = { moduleTable105Tokens, 1u };
+const ModuleToken moduleTable106Tokens[] = {
+    { 1u, 687874333u, 0u, &moduleTable105 },
+};
+const ModuleLayout moduleTable106 = { moduleTable106Tokens, 1u };
+const ModuleToken moduleTable107Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable107 = { moduleTable107Tokens, 2u };
+const ModuleToken moduleTable108Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable107 },
+};
+const ModuleLayout moduleTable108 = { moduleTable108Tokens, 1u };
+const ModuleToken moduleTable109Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable108 },
+};
+const ModuleLayout moduleTable109 = { moduleTable109Tokens, 1u };
+const ModuleToken moduleTable110Tokens[] = {
+    { 430981792u, 602296504u, 0u, nullptr },
+    { 2363267224u, 3186653541u, 4u, nullptr },
+};
+const ModuleLayout moduleTable110 = { moduleTable110Tokens, 2u };
+const ModuleToken moduleTable111Tokens[] = {
+    { 1u, 3613234082u, 0u, &moduleTable110 },
+};
+const ModuleLayout moduleTable111 = { moduleTable111Tokens, 1u };
+const ModuleToken moduleTable112Tokens[] = {
+    { 1u, 2769121946u, 0u, &moduleTable111 },
+};
+const ModuleLayout moduleTable112 = { moduleTable112Tokens, 1u };
+const ModuleToken moduleTable113Tokens[] = {
+    { 1u, 4103182530u, 0u, &moduleTable112 },
+};
+const ModuleLayout moduleTable113 = { moduleTable113Tokens, 1u };
+const ModuleChoice moduleChoices[] = {
+    { 12431267u, &moduleTable4 },
+    { 39586775u, &moduleTable8 },
+    { 367637472u, &moduleTable11 },
+    { 402003752u, &moduleTable13 },
+    { 413409423u, &moduleTable19 },
+    { 456357763u, &moduleTable22 },
+    { 687874333u, &moduleTable25 },
+    { 690179694u, &moduleTable29 },
+    { 712593807u, &moduleTable32 },
+    { 701158544u, &moduleTable37 },
+    { 777285518u, &moduleTable41 },
+    { 816016269u, &moduleTable44 },
+    { 857632184u, &moduleTable47 },
+    { 1193738269u, &moduleTable52 },
+    { 1286434524u, &moduleTable55 },
+    { 1354235932u, &moduleTable58 },
+    { 1681533635u, &moduleTable63 },
+    { 1683093719u, &moduleTable66 },
+    { 1689321498u, &moduleTable69 },
+    { 1894105347u, &moduleTable72 },
+    { 2072794994u, &moduleTable74 },
+    { 2138239554u, &moduleTable80 },
+    { 2541127534u, &moduleTable84 },
+    { 2552695760u, &moduleTable89 },
+    { 2769121946u, &moduleTable91 },
+    { 3375962491u, &moduleTable94 },
+    { 3415251966u, &moduleTable97 },
+    { 3861049429u, &moduleTable102 },
+    { 4043318533u, &moduleTable106 },
+    { 4103182530u, &moduleTable109 },
+    { 4287119435u, &moduleTable113 },
+};
+const U32 knownModuleTypes[] = {
+    7192255u,
+    5980302u,
+    12431267u,
+    39586775u,
+    14531459u,
+    50199012u,
+    79217712u,
+    72607304u,
+    88803780u,
+    115223906u,
+    127626925u,
+    144160085u,
+    134128162u,
+    148619278u,
+    149050769u,
+    163451004u,
+    197077561u,
+    170624835u,
+    227633887u,
+    227975924u,
+    245525561u,
+    254628242u,
+    251140562u,
+    259966977u,
+    267133387u,
+    267870432u,
+    344630372u,
+    290244143u,
+    350237090u,
+    358254523u,
+    367637472u,
+    402003752u,
+    393460526u,
+    413409423u,
+    415825860u,
+    426756072u,
+    474181074u,
+    456357763u,
+    478930205u,
+    482350304u,
+    494913911u,
+    507880339u,
+    505436482u,
+    509375610u,
+    513142359u,
+    539465258u,
+    585970648u,
+    554078198u,
+    597529935u,
+    602268606u,
+    642696730u,
+    670005533u,
+    664395762u,
+    671107761u,
+    687874333u,
+    690179694u,
+    712593807u,
+    701158544u,
+    769868147u,
+    771889415u,
+    777285518u,
+    793065128u,
+    783731100u,
+    803073101u,
+    816016269u,
+    825858229u,
+    831374550u,
+    829862040u,
+    847051638u,
+    857632184u,
+    880602396u,
+    895696920u,
+    887477685u,
+    915350037u,
+    952407768u,
+    968369663u,
+    1016285011u,
+    996718440u,
+    1023139366u,
+    1052292566u,
+    1067163377u,
+    1083087423u,
+    1072475067u,
+    1111529555u,
+    1125589673u,
+    1121390653u,
+    1149685576u,
+    1197014736u,
+    1193738269u,
+    1205836826u,
+    1206381257u,
+    1212396263u,
+    1220819118u,
+    1213608295u,
+    1230044432u,
+    1244839822u,
+    1285783358u,
+    1300449569u,
+    1286434524u,
+    1306352767u,
+    1311610569u,
+    1313225606u,
+    1322199627u,
+    1318893585u,
+    1323283019u,
+    1346840366u,
+    1354235932u,
+    1391381229u,
+    1359837639u,
+    1409001909u,
+    1409388128u,
+    1411399584u,
+    1442440941u,
+    1440184067u,
+    1461180892u,
+    1463665155u,
+    1468802863u,
+    1506879888u,
+    1503617237u,
+    1510882715u,
+    1510899067u,
+    1514068980u,
+    1578938331u,
+    1518063315u,
+    1594276481u,
+    1601476857u,
+    1610744897u,
+    1640547431u,
+    1632936356u,
+    1681533635u,
+    1683093719u,
+    1689321498u,
+    1768048089u,
+    1729257771u,
+    1776471404u,
+    1785063229u,
+    1808399630u,
+    1814576242u,
+    1813100279u,
+    1853336153u,
+    1858556985u,
+    1863294802u,
+    1905798828u,
+    1894105347u,
+    1951832746u,
+    1956793413u,
+    1964506706u,
+    1979616656u,
+    1973457077u,
+    2000137321u,
+    2018429368u,
+    2020381784u,
+    2072794994u,
+    2042621387u,
+    2082975044u,
+    2083097860u,
+    2090477367u,
+    2125984281u,
+    2091086747u,
+    2138239554u,
+    2170196321u,
+    2191489142u,
+    2272972461u,
+    2207967292u,
+    2296991610u,
+    2323717438u,
+    2308556452u,
+    2328709842u,
+    2354114775u,
+    2339238473u,
+    2376148578u,
+    2384596706u,
+    2384652488u,
+    2396208723u,
+    2395449223u,
+    2422471532u,
+    2427007323u,
+    2429465756u,
+    2432276463u,
+    2431669529u,
+    2434933121u,
+    2441348999u,
+    2448240860u,
+    2503769947u,
+    2474849635u,
+    2509263754u,
+    2541127534u,
+    2541561249u,
+    2552668823u,
+    2541716369u,
+    2552695760u,
+    2557908884u,
+    2595752269u,
+    2615586235u,
+    2603081264u,
+    2642984081u,
+    2645545868u,
+    2655988594u,
+    2702353412u,
+    2695497697u,
+    2717792172u,
+    2720065494u,
+    2734068631u,
+    2756454809u,
+    2739727708u,
+    2769121946u,
+    2784675807u,
+    2806653772u,
+    2864072215u,
+    2842040686u,
+    2891550594u,
+    2893949514u,
+    2920212896u,
+    2924124080u,
+    2923073644u,
+    2925571736u,
+    2941001505u,
+    2941371362u,
+    2974418213u,
+    2960202212u,
+    2980398469u,
+    2984624090u,
+    2988211815u,
+    3028557483u,
+    2995535186u,
+    3030954484u,
+    3032642002u,
+    3040483501u,
+    3098903621u,
+    3052093933u,
+    3109462554u,
+    3115493811u,
+    3135487101u,
+    3170589623u,
+    3148647452u,
+    3179117790u,
+    3197949694u,
+    3199719331u,
+    3201673786u,
+    3201389610u,
+    3214000077u,
+    3221293211u,
+    3231835197u,
+    3270227277u,
+    3247734492u,
+    3270634528u,
+    3282447464u,
+    3310015739u,
+    3337877037u,
+    3328368308u,
+    3356383339u,
+    3358372044u,
+    3370197599u,
+    3395303590u,
+    3375962491u,
+    3399407677u,
+    3415251966u,
+    3432253488u,
+    3444991387u,
+    3442719982u,
+    3451973623u,
+    3455002493u,
+    3472757011u,
+    3505323485u,
+    3491013058u,
+    3535916994u,
+    3543149950u,
+    3545651287u,
+    3593042897u,
+    3579087005u,
+    3598262113u,
+    3599948941u,
+    3620482613u,
+    3631725172u,
+    3625168682u,
+    3651459681u,
+    3660533477u,
+    3719921227u,
+    3765090183u,
+    3721928425u,
+    3787260944u,
+    3828176408u,
+    3833989627u,
+    3834721291u,
+    3834377004u,
+    3842124126u,
+    3859925230u,
+    3861049429u,
+    3887509261u,
+    3870511801u,
+    3921409083u,
+    3922835435u,
+    3925677257u,
+    3972432445u,
+    3962605070u,
+    3977962844u,
+    3993857585u,
+    3996180436u,
+    4012457028u,
+    4002813588u,
+    4043318533u,
+    4047873639u,
+    4070192848u,
+    4093160954u,
+    4088922837u,
+    4099311701u,
+    4100895620u,
+    4103182530u,
+    4173638251u,
+    4161248261u,
+    4178664105u,
+    4183522625u,
+    4198440042u,
+    4216826759u,
+    4201302198u,
+    4227225901u,
+    4230098692u,
+    4235893941u,
+    4286303667u,
+    4277690261u,
+    4286905310u,
+    4287119435u,
+};
+const ModuleChildName moduleChildNames[] = {
+    { "Draws", "ScriptedModelDraw" },
+    { "Draws", "TankDraw" },
+    { "Draws", "TruckDraw" },
+    { "Draws", "PropDraw" },
+    { "Draws", "LaserDraw" },
+    { "Draws", "StreamDraw" },
+    { "Draws", "TracerModelDraw" },
+    { "Draws", "SpotlightDraw" },
+    { "Draws", "DynamicsDraw" },
+    { "Behaviors", "ObjectSMCHelper" },
+    { "Behaviors", "ObjectDefectionHelper" },
+    { "Behaviors", "AttributeModifierUpgrade" },
+    { "Behaviors", "AttackTargetSpecialPower" },
+    { "Behaviors", "ArmorUpgrade" },
+    { "Behaviors", "BeamTargetBehavior" },
+    { "Behaviors", "SlavedUpdate" },
+    { "Behaviors", "SecondaryDamageTracker" },
+    { "Behaviors", "BezierProjectile" },
+    { "Behaviors", "BuildingBehavior" },
+    { "Behaviors", "ClusterBombUpdate" },
+    { "Behaviors", "Collide" },
+    { "Behaviors", "CommandSetUpgrade" },
+    { "Behaviors", "CreateObjectDie" },
+    { "Behaviors", "CrushDie" },
+    { "Behaviors", "DefaultProductionExit" },
+    { "Behaviors", "DestroyDie" },
+    { "Behaviors", "EmotionTrackerUpdate" },
+    { "Behaviors", "DominateEnemySpecialPower" },
+    { "Behaviors", "ReconstituteStateSpecialAbility" },
+    { "Behaviors", "EngineerContain" },
+    { "Behaviors", "InfiltratorContain" },
+    { "Behaviors", "InvalidTargetsDeathUpdate" },
+    { "Behaviors", "FireWeaponCollide" },
+    { "Behaviors", "EnableDynamicsCollide" },
+    { "Behaviors", "FireWeaponUpdate" },
+    { "Behaviors", "BombardAreaUpdate" },
+    { "Behaviors", "LiftObjectUpdate" },
+    { "Behaviors", "SpecialDisguiseUpdate" },
+    { "Behaviors", "ToppleUpdate" },
+    { "Behaviors", "DamageFieldUpdate" },
+    { "Behaviors", "AutoDepositUpdate" },
+    { "Behaviors", "FXListBehavior" },
+    { "Behaviors", "GeometryUpgrade" },
+    { "Behaviors", "GiveUpgradeUpdate" },
+    { "Behaviors", "GrantUpgradeCreate" },
+    { "Behaviors", "HeightDieUpdate" },
+    { "Behaviors", "MissileUpdate" },
+    { "Behaviors", "SpecialPowerAssistResponseBehavior" },
+    { "Behaviors", "AttackAssistResponseBehavior" },
+    { "Behaviors", "LevelUpUpgrade" },
+    { "Behaviors", "LifetimeUpdate" },
+    { "Behaviors", "GatherEjectUpdate" },
+    { "Behaviors", "SqueezeFlingUpdate" },
+    { "Behaviors", "LocomotorSetUpgrade" },
+    { "Behaviors", "SwitchLocomotorsSpecialAbilityUpdate" },
+    { "Behaviors", "MaxHealthUpgrade" },
+    { "Behaviors", "MinefieldBehavior" },
+    { "Behaviors", "ModelConditionUpgrade" },
+    { "Behaviors", "RandomModelCondition" },
+    { "Behaviors", "StrafeAreaUpdate" },
+    { "Behaviors", "OCLMonitorUpdate" },
+    { "Behaviors", "TeleportSpecialAbilityUpdate" },
+    { "Behaviors", "TeleportToCasterSpecialPower" },
+    { "Behaviors", "ToggleStatusSpecialAbilityUpdate" },
+    { "Behaviors", "ObjectCreationUpgrade" },
+    { "Behaviors", "SlaveWatcherBehavior" },
+    { "Behaviors", "TimedOpacityUpdate" },
+    { "Behaviors", "OCLSpecialPower" },
+    { "Behaviors", "TemporaryOwnerSpecialPower" },
+    { "Behaviors", "OCLUpdate" },
+    { "Behaviors", "OpenContain" },
+    { "Behaviors", "FreefallUpdate" },
+    { "Behaviors", "HealContain" },
+    { "Behaviors", "Physics" },
+    { "Behaviors", "CombinedInfoModule" },
+    { "Behaviors", "CompositeStructureInfoModule" },
+    { "Behaviors", "PlayerUpgradeSpecialPower" },
+    { "Behaviors", "ProductionUpdate" },
+    { "Behaviors", "ProductionUpdateInfo" },
+    { "Behaviors", "QueueProductionExitUpdate" },
+    { "Behaviors", "CombineSpecialPower" },
+    { "Behaviors", "UncombineSpecialPower" },
+    { "Behaviors", "RadarHackSpecialPower" },
+    { "Behaviors", "RadarJamSpecialPower" },
+    { "Behaviors", "RadarSpySpecialPower" },
+    { "Behaviors", "RadarFreezeSpecialPower" },
+    { "Behaviors", "CaptureAndGiveCommandSetSpecialPower" },
+    { "Behaviors", "GiveOrRestoreUpgradeSpecialPower" },
+    { "Behaviors", "RefundDie" },
+    { "Behaviors", "RemoveUpgradeUpgrade" },
+    { "Behaviors", "ReplaceSelfUpgrade" },
+    { "Behaviors", "CrateCollide" },
+    { "Behaviors", "SalvageCrateCollide" },
+    { "Behaviors", "HealCrateCollide" },
+    { "Behaviors", "MoneyCrateCollide" },
+    { "Behaviors", "UnitCrateCollide" },
+    { "Behaviors", "VeterancyCrateCollide" },
+    { "Behaviors", "AttributeCrateCollide" },
+    { "Behaviors", "RandomCrateCollide" },
+    { "Behaviors", "SlowDeath" },
+    { "Behaviors", "ShipSlowDeath" },
+    { "Behaviors", "SpawnBehavior" },
+    { "Behaviors", "SpecialAbilityUpdate" },
+    { "Behaviors", "OCLMonitorSpecialAbilityUpdate" },
+    { "Behaviors", "EjectPassengersSpecialAbilityUpdate" },
+    { "Behaviors", "SpecialPower" },
+    { "Behaviors", "AssignSlavesTargetObjectSpecialPower" },
+    { "Behaviors", "HordeDispatchSpecialPower" },
+    { "Behaviors", "SpecialPowerDispatchSpecialPower" },
+    { "Behaviors", "SpecialPowerUpdate" },
+    { "Behaviors", "StealthDetectorUpdate" },
+    { "Behaviors", "InitiateRepairDie" },
+    { "Behaviors", "AttributeModifierAuraUpdate" },
+    { "Behaviors", "ShieldBodyUpdate" },
+    { "Behaviors", "ShieldSphereUpdate" },
+    { "Behaviors", "SpiderHoleUpdate" },
+    { "Behaviors", "ActivateSpecialPowerOnCreate" },
+    { "Behaviors", "SubObjectsUpgrade" },
+    { "Behaviors", "TerrainResource" },
+    { "Behaviors", "TransportContain" },
+    { "Behaviors", "HordeTransportContain" },
+    { "Behaviors", "HordeContain" },
+    { "Behaviors", "UnpauseSpecialPowerUpgrade" },
+    { "Behaviors", "Upgrade" },
+    { "Behaviors", "AudioLoopUpgrade" },
+    { "Behaviors", "WeaponSetUpdate" },
+    { "Behaviors", "BeamSpecialAbilityUpdate" },
+    { "Behaviors", "CaptureSpecialAbilityUpdate" },
+    { "Behaviors", "DieOnProducerDeathUpdate" },
+    { "Behaviors", "ReplaceSelfSpecialAbility" },
+    { "Behaviors", "WeaponFireSpecialAbilityUpdate" },
+    { "Behaviors", "DelayedWeaponFireSpecialAbilityUpdate" },
+    { "Behaviors", "TiberiumThiefSpecialAbilityUpdate" },
+    { "Behaviors", "TiberiumField" },
+    { "Behaviors", "TiberiumCrystal" },
+    { "Behaviors", "TiberiumGrowthModBehavior" },
+    { "Behaviors", "RadarBehavior" },
+    { "Behaviors", "DockUpdate" },
+    { "Behaviors", "RepairUpdate" },
+    { "Behaviors", "SupplyCenterDockUpdate" },
+    { "Behaviors", "SupplyWarehouseDockUpdate" },
+    { "Behaviors", "AimWeapon" },
+    { "Behaviors", "DistributedMoney" },
+    { "Behaviors", "AutoAbility" },
+    { "Behaviors", "FireWeaponWhenDamaged" },
+    { "Behaviors", "FireWeaponWhenDead" },
+    { "Behaviors", "GarrisonContain" },
+    { "Behaviors", "ContestableGarrisonContain" },
+    { "Behaviors", "ExperienceLevelCreate" },
+    { "Behaviors", "InheritUpgradeCreate" },
+    { "Behaviors", "DeletionUpdate" },
+    { "Behaviors", "EMPUpdate" },
+    { "Behaviors", "DelayedUpgrade" },
+    { "Behaviors", "StatusBitsUpgrade" },
+    { "Behaviors", "RadarUpdate" },
+    { "Behaviors", "UpgradeDie" },
+    { "Behaviors", "KeepObjectDie" },
+    { "Behaviors", "AutoHealBehavior" },
+    { "Behaviors", "EnergyDisablingBehavior" },
+    { "Behaviors", "UnitVisionBehavior" },
+    { "Behaviors", "ParkingPlaceBehavior" },
+    { "Behaviors", "ExperienceScalarUpgrade" },
+    { "Behaviors", "LevelGrantSpecialPower" },
+    { "Behaviors", "CostModifierUpgrade" },
+    { "Behaviors", "SquishCollide" },
+    { "Behaviors", "Damage" },
+    { "Behaviors", "TrackDamage" },
+    { "Behaviors", "Damager" },
+    { "Behaviors", "Destroy" },
+    { "Behaviors", "DamageStateList" },
+    { "Behaviors", "LaserUpdate" },
+    { "Behaviors", "LaserState" },
+    { "Behaviors", "SweepingLaserState" },
+    { "Behaviors", "ConvergingLaserState" },
+    { "Behaviors", "StreamState" },
+    { "Behaviors", "ActivateModuleSpecialAbilityUpdate" },
+    { "Behaviors", "CaptureBehavior" },
+    { "Behaviors", "StoreCurrentStateUpdate" },
+    { "Behaviors", "StorePurchasedUpgradeBehavior" },
+    { "Behaviors", "StoreObjectsSpecialPower" },
+    { "Behaviors", "CloneStoredObjectsSpecialPowerUpdate" },
+    { "Behaviors", "TeleportStoredObjectsUpdate" },
+    { "Behaviors", "TeleportStoredObjectsSpecialPower" },
+    { "Behaviors", "RecallUnitsSpecialPower" },
+    { "Behaviors", "ReturnToProducerSpecialPower" },
+    { "Behaviors", "ReturnToDockSpecialPower" },
+    { "Behaviors", "HordeGarrisonContain" },
+    { "Behaviors", "TunnelContain" },
+    { "Behaviors", "TunnelTeleportContain" },
+    { "Behaviors", "SlaughterHordeContain" },
+    { "Behaviors", "InvisibilityUpdate" },
+    { "Behaviors", "InvisibilityBroadcastUpdate" },
+    { "Behaviors", "InvisibilitySpecialPower" },
+    { "Behaviors", "InvisibilityBehavior" },
+    { "Behaviors", "InvisibilityUpgrade" },
+    { "Behaviors", "PowerUpdate" },
+    { "Behaviors", "SupplyCenterCreate" },
+    { "Behaviors", "GatherSlavesUpdate" },
+    { "Behaviors", "StancesBehavior" },
+    { "Behaviors", "FiringTracker" },
+    { "Behaviors", "SpecialPowerTimerRefreshSpecialPower" },
+    { "Behaviors", "BuildingDestructionBehavior" },
+    { "Behaviors", "OreNodeBehavior" },
+    { "Behaviors", "OreMinerBehavior" },
+    { "Behaviors", "QueueDockBehavior" },
+    { "Behaviors", "SecondaryObjectListenerModule" },
+    { "Behaviors", "HitReactionBehavior" },
+    { "Behaviors", "ReplaceObjectUpdate" },
+    { "Behaviors", "HelicopterSlowDeath" },
+    { "Behaviors", "ClearanceTestingSlowDeathBehavior" },
+    { "Behaviors", "LeechTargetingAttachUpdate" },
+    { "Behaviors", "MoneyGainAttachUpdate" },
+    { "Behaviors", "AttachUpdate" },
+    { "Behaviors", "ParabolicCurveUpdate" },
+    { "Behaviors", "LineSegmentDamageUpdate" },
+    { "Behaviors", "BoobyTrapUpdate" },
+    { "Behaviors", "StealUnitUpdate" },
+    { "Behaviors", "SpawnCrateUpdate" },
+    { "Behaviors", "BridgeBuilder" },
+    { "Behaviors", "PassiveAreaEffectBehavior" },
+    { "Behaviors", "PowerUpgrade" },
+    { "Behaviors", "CreateAndEnterObjectSpecialPower" },
+    { "Behaviors", "MoveToPositionAndEvacuateSpecialPower" },
+    { "Behaviors", "MoveToPositionAndReplaceSelfSpecialPower" },
+    { "Behaviors", "TechUpgrade" },
+    { "Behaviors", "TechUpgradeReceiver" },
+    { "Behaviors", "SubStructureBuild" },
+    { "Behaviors", "SubStructureBehavior" },
+    { "Behaviors", "SubStructureStorageBehavior" },
+    { "Behaviors", "ActivateModuleSpecialPower" },
+    { "Behaviors", "SwitchLocomotorUpdate" },
+    { "Behaviors", "RunOffMapBehavior" },
+    { "Behaviors", "SuppressionUpdate" },
+    { "Behaviors", "AttributeModifierPoolUpdate" },
+    { "Behaviors", "ProjectileUpdate" },
+    { "Behaviors", "WallHubBehavior" },
+    { "Behaviors", "StructureUnpackUpdate" },
+    { "Behaviors", "StructureSellUpdate" },
+    { "Behaviors", "FindCoverBehavior" },
+    { "Behaviors", "RepairSpecialPower" },
+    { "Behaviors", "RadarScanMapSpecialAbilityUpdate" },
+    { "Behaviors", "RestrictSpecialPowerBehavior" },
+    { "Behaviors", "AreaRestrictSpecialPowerBehavior" },
+    { "Behaviors", "MonitorConditionUpdate" },
+    { "Behaviors", "MonitorSpecialPowerTimerUpdate" },
+    { "Behaviors", "LinearDamageUpdate" },
+    { "Behaviors", "CircularDamageUpdate" },
+    { "Behaviors", "GrantUpgradeAreaOfEffectSpecialPower" },
+    { "Behaviors", "SetLocomotorSpeedUpdate" },
+    { "Behaviors", "DestroyObjectsUpdate" },
+    { "Behaviors", "PlayerPowerManager" },
+    { "Behaviors", "LUAEventList" },
+    { "Behaviors", "AttributeModifierNaval" },
+    { "Behaviors", "DynamicsUpdate" },
+    { "Behaviors", "NotifyWhenAttackingBehavior" },
+    { "Behaviors", "EncloseBehavior" },
+    { "Behaviors", "TrackIncomingWeaponFireBehavior" },
+    { "Behaviors", "DestructibleEnvironmentUpdate" },
+    { "Behaviors", "MagneticEffectUpdate" },
+    { "Behaviors", "LoseHealthUpdate" },
+    { "Behaviors", "WeaponScatterEffectUpdate" },
+    { "Behaviors", "LaserScatterUpdate" },
+    { "Behaviors", "ObjectStatusSpecialAbilityUpdate" },
+    { "Behaviors", "MovementSpecialPower" },
+    { "Behaviors", "PrematureDischargeSpecialPower" },
+    { "Behaviors", "GiveProductionBonusSpecialPower" },
+    { "Behaviors", "WallBuilderBehavior" },
+    { "Behaviors", "GrapplingHookUpdate" },
+    { "Behaviors", "ChargeWeaponUpdate" },
+    { "Behaviors", "StrafeAreaTargetChooser" },
+    { "Behaviors", "SuckUpObjectsUpdate" },
+    { "Behaviors", "StoreTemplateIDBehavior" },
+    { "Behaviors", "RenderStoredThingTemplate" },
+    { "Behaviors", "DistributeEnergyToAlliesBehavior" },
+    { "Behaviors", "UnifiedControlBehavior" },
+    { "Behaviors", "UnifiedShroudRevealBehavior" },
+    { "Behaviors", "CaptureAndGiveUpgradeBehavior" },
+    { "Behaviors", "AssistedPlacementBehavior" },
+    { "Behaviors", "AssistedPlacementInfoBehavior" },
+    { "Behaviors", "SelectiveVisibilityBehavior" },
+    { "Behaviors", "AssembleStructureSpecialAbilityUpdate" },
+    { "Behaviors", "StructurePlacementBehavior" },
+    { "AI", "AIUpdate" },
+    { "AI", "ConstructionYardAIUpdate" },
+    { "AI", "AIGateUpdate" },
+    { "AI", "DeployStyleAIUpdate" },
+    { "AI", "TransportAIUpdate" },
+    { "AI", "HordeAIUpdate" },
+    { "AI", "JetAIUpdate" },
+    { "AI", "SupplyTruckAIUpdate" },
+    { "AI", "WanderAIUpdate" },
+    { "AI", "AnimalAIUpdate" },
+    { "Body", "ActiveBody" },
+    { "Body", "ShieldBody" },
+    { "Body", "ImmortalBody" },
+    { "Body", "HighlanderBody" },
+    { "Body", "InactiveBody" },
+    { "Body", "PropBody" },
+    { "Body", "ManagerBody" },
+    { "Body", "ManagedActiveBody" },
+    { "Body", "ManagedImmortalBody" },
+    { "ClientUpdates", "BeaconClientUpdate" },
+    { "ClientUpdates", "EvaAnnounceClientCreate" },
+    { "ClientUpdates", "EvaAnnounceSpecialPowerReadyClientUpdate" },
+    { "ClientUpdates", "LaserUpdate" },
+    { "ClientUpdates", "RadarMarkerClientUpdate" },
+    { "ClientUpdates", "LargeGroupAudioClientUpdate" },
+    { "ClientBehaviors", "AnimationSoundClientBehavior" },
+    { "ClientBehaviors", "ModelConditionAudioLoopClientBehavior" },
+    { "ClientBehaviors", "ModelConditionSoundSelectorClientBehavior" },
+    { "ClientBehaviors", "RandomSoundSelectorClientBehavior" },
+    { "ClientBehaviors", "UpgradeSoundSelectorClientBehavior" },
+    { "ClientBehaviors", "ModelConditionEvaEventSelectorClientBehavior" },
+};

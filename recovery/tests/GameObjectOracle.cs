@@ -661,11 +661,48 @@ partial class GameObjectOracle {
         byte[] b2=a.InstanceData;int r=(int)Word(b2,8,big)-4;
         if(Word(b2,r+500,big)!=Word(b2,r+496,big)+4 || Word(b2,r+504,big)!=Word(b2,r+500,big)+4)throw new Exception("Independent marker four-byte padding and following allocation");
     }
+    static string ModuleXML(string container,string node,string attrs) {return "<"+container+"><"+node+" "+attrs+"/></"+container+">";}
+    static void ModuleFoundation(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(var container in ModuleContainers) {
+            string parent=container[0],node=container[1];Check(original,p,"","<"+parent+"/>");
+            foreach(string type in BaseModuleTypes) foreach(string id in new[]{"","a","AB","abc","abcd","abcde","MiXeDCaSe","with spaces","中文","é"})Check(original,p,"",ModuleXML(parent,node,"TypeId='"+type+"' id='"+Escape(id)+"'"));
+            foreach(string type in UnknownModuleTypes)Check(original,p,"",ModuleXML(parent,node,"TypeId='"+type+"' id='defaultCase'"));
+            foreach(string type in new[]{"","0","1","4294967295","4294967296","-1","-2147483649","0x10","010"," 23tail","UNKNOWN"})Check(original,p,"",ModuleXML(parent,node,"TypeId='"+type+"' id='fallback'"));
+            Check(original,p,"",ModuleXML(parent,node,"id='missingTypeId'"));
+            foreach(string type in UnsupportedModuleTypes)Reject(p,"",ModuleXML(parent,node,"TypeId='"+type+"'"));
+            foreach(string bad in new[]{"<"+parent+"/><"+parent+"/>","<"+parent+" Unknown='1'/>","<"+parent+" xmlns='foreign'/>","<"+parent+" xmlns:f='foreign' f:TypeId='1'/>","<"+parent+">text</"+parent+">","<"+parent+"><Unknown/></"+parent+">","<"+parent+"><"+node+" xmlns='foreign'/></"+parent+">","<"+parent+"><"+node+" Unknown='1'/></"+parent+">","<"+parent+"><"+node+" xmlns:f='foreign' f:id='x'/></"+parent+">","<"+parent+"><"+node+">text</"+node+"></"+parent+">","<"+parent+"><"+node+"><Unknown/></"+node+"></"+parent+">"})Reject(p,"",bad);
+            if(parent=="Body") {Reject(p,"","<Body><"+node+"/><"+node+"/></Body>");continue;}
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {
+                string body="";for(int i=0;i<count;++i)body+="<"+node+" TypeId='"+BaseModuleTypes[i%BaseModuleTypes.Length]+"' id='Item"+i+"'/>";
+                Check(original,p,"Browser='a bb'","<"+parent+">"+body+"</"+parent+">");
+            }
+        }
+        string mixed="";foreach(var c in ModuleContainers)mixed+=ModuleXML(c[0],c[1],"TypeId='"+BaseModuleTypes[0]+"' id='mixed'");
+        var a=Check(original,p,"Description='mixed'","<SkirmishAIInformation ConquerMetricsOverrideDPS='0'/>"+mixed+"<Geometry/><ReplaceModule/><InheritableModule/>");
+        string reverse="";for(int i=ModuleContainers.Length-1;i>=0;--i)reverse+=ModuleXML(ModuleContainers[i][0],ModuleContainers[i][1],"TypeId='"+BaseModuleTypes[0]+"' id='mixed'");
+        var b=Check(original,p,"Description='mixed'","<InheritableModule/><ReplaceModule/><Geometry/>"+reverse+"<SkirmishAIInformation ConquerMetricsOverrideDPS='0'/>");
+        Equal(a.InstanceData,b.InstanceData,"Module container schema order",false);Equal(a.RelocationData,b.RelocationData,"Module container relocation order",false);
+        // Concrete Layout: unknown module is eight bytes, output TypeId=0 and a
+        // single 12-byte polymorphic token wrapper with no base token subtable.
+        var fallback=Check(original,p,"","<Body><InactiveBody TypeId='1' id='ab'/></Body>");
+        byte[] data=fallback.InstanceData;int root=(int)Word(data,8,big)-4,at=(int)Word(data,root+480,big);
+        int bodyToken=Token(data,0,1868326721u,big); // original Body name/type hash
+        int wrapper=(int)Word(data,bodyToken+8,big);
+        if(at!=root+592 || data.Length!=at+8 || Word(data,at,big)!=0 || Word(data,at+4,big)==0 || Word(data,wrapper,big)!=2 || Word(data,wrapper+4,big)!=0 || Word(data,wrapper+8,big)!=0)throw new Exception("Independent unknown module layout/token wrapper");
+        var lower=Check(original,p,"","<Body><InactiveBody TypeId='1' id='AB'/></Body>");Equal(fallback.InstanceData,lower.InstanceData,"Module typed id lowercasing",false);
+        foreach(string type in BaseModuleTypes) {
+            var known=Check(original,p,"",ModuleXML("Body","InactiveBody","TypeId='"+type+"' id='ab'"));data=known.InstanceData;root=(int)Word(data,8,big)-4;at=(int)Word(data,root+480,big);
+            wrapper=(int)Word(data,Token(data,0,1868326721u,big)+8,big);
+            if(Word(data,at,big)!=uint.Parse(type) || Word(data,wrapper,big)!=2 || Word(data,wrapper+4,big)!=uint.Parse(type) || Word(data,wrapper+8,big)==0)throw new Exception("Independent concrete module type/token binding");
+        }
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -681,9 +718,9 @@ partial class GameObjectOracle {
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
-                foreach(string child in new[]{"<Draws/>","<Behaviors/>","<AI/>","<Body/>","<ClientUpdates/>","<ClientBehaviors/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
+                foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-two child nodes including empty module markers and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers restricted to 31 complete base-only types/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

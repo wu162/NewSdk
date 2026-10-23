@@ -26,6 +26,11 @@ enum class AIValue { Float, Signed, Boolean, Time, Angle, Reference, Enum, Bits,
 struct AIEnum {const EnumNameValue* names;unsigned count;int unknown;unsigned bits;};
 struct AIField {const char* name;unsigned offset;AIValue kind;const char* fallback;const AIEnum* values;};
 struct AILayout {unsigned size;const AIField* fields;unsigned count;const LeafToken* tokens;unsigned tokenCount;};
+struct ModuleLayout;
+struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;};
+struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
+struct ModuleChoice {U32 type;const ModuleLayout* tokens;};
+struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
@@ -136,6 +141,47 @@ void EndianAI(unsigned char* input,unsigned layoutIndex) {
     }
 }
 
+const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:moduleChoices) if(choice.type==type) return &choice;
+    return nullptr;
+}
+void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data) {
+    auto found=input.attributes.find("TypeId");U32 type=found==input.attributes.end()?0:ParseUnsigned(found->second);
+    if(!FindModule(type)) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
+    auto target=static_cast<U32*>(data.Push(slot,8,1));target[0]=FindModule(type)?type:0;
+    auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
+    data.Pop();
+}
+void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo::Tracker& procedures) {
+    auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
+    for(unsigned i=0;i<layout.count;++i) {
+        const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
+        if(t.nested) TokenizeModuleTable(input,*t.nested,&table[i].offset,procedures);
+        else procedures.BookmarkMemberOffset(reinterpret_cast<unsigned char*>(input)+t.offset,&table[i].offset);
+    }
+    procedures.Pop();
+}
+void TokenizeModule(U32* input,void** slot,Relo::Tracker& procedures) {
+    if(!input) return;
+    // Polymorphic wrapper has exactly one record, without a sentinel.
+    auto wrapper=static_cast<Procedure*>(procedures.Push(slot,12,1));wrapper->name=2;wrapper->type=input[0];
+    if(auto choice=FindModule(input[0])) TokenizeModuleTable(input,*choice->tokens,&wrapper->offset,procedures);
+    procedures.Pop();
+}
+void MarshalModuleList(const GameObjectChild& input,NativeList* list,Relo::Tracker& data) {
+    list->count=static_cast<U32>(input.children.size());
+    if(!list->count) return;
+    auto slots=static_cast<U32**>(data.Push(&list->data,4,list->count));
+    for(U32 i=0;i<list->count;++i) MarshalModule(input.children[i],reinterpret_cast<void**>(slots+i),data);
+    data.Pop();
+}
+void TokenizeModuleList(NativeList* list,void** slot,Relo::Tracker& procedures) {
+    auto table=static_cast<Procedure*>(procedures.Push(slot,12,list->count+1));
+    table[0].name=1820487795u;table[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&table[0].offset);
+    for(U32 i=0;i<list->count;++i) {table[i+1].name=2974916843u;TokenizeModule(static_cast<U32**>(list->data)[i],&table[i+1].offset,procedures);}
+    procedures.Pop();
+}
+
 // Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.
 U32 ExactStringHash(const std::string& text) {
     U32 size=static_cast<U32>(std::strlen(text.c_str())),hash=size;if(!size) return 0;
@@ -162,6 +208,10 @@ bool GameObjectAIAttributeSupported(const std::string& name,const std::string& a
     unsigned index=name=="SkirmishAIInformation"?0:name=="AIContextualPower"?1:name=="SpecialPowerWeapon"?3:2;
     if(index==1 && attribute=="id") return true;
     const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
+    return false;
+}
+bool GameObjectModuleChildSupported(const std::string& parent,const std::string& child) {
+    for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
     return false;
 }
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
@@ -389,6 +439,19 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         skirmishAI=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+460),88,1));
         MarshalAI(child,skirmishAI,0,data);data.Pop();
     }
+    std::map<unsigned,NativeList*> moduleLists;
+    const char* moduleContainers[]={"Draws","Behaviors","AI","ClientUpdates","ClientBehaviors"};
+    const unsigned moduleOffsets[]={464,468,472,484,488};
+    U32* bodyModule=nullptr;
+    // Schema order places Body after AI and before the two client lists.
+    for(unsigned group=0;group<5;++group) {
+        if(group==3) for(const auto& child:children) if(child.name=="Body" && child.children.size()==1) MarshalModule(child.children[0],reinterpret_cast<void**>(root+480),data);
+        for(const auto& child:children) if(child.name==moduleContainers[group]) {
+            auto list=group==2?reinterpret_cast<NativeList*>(root+472):static_cast<NativeList*>(data.Push(reinterpret_cast<void**>(root+moduleOffsets[group]),8,1));
+            moduleLists[moduleOffsets[group]]=list;MarshalModuleList(child,list,data);if(group!=2) data.Pop();
+        }
+    }
+    bodyModule=*reinterpret_cast<U32**>(root+480);
     unsigned char* geometry=nullptr;
     NativeList* geometryShapes=nullptr;NativeList* contactPoints=nullptr;
     auto marshalVector=[&](const GameObjectChild& input,void* output,unsigned dimensions) {
@@ -557,6 +620,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         data.Pop();
     }
     marshalList("DisplayUpgrade",568,false);
+    if(!moduleLists.count(472)) moduleLists[472]=reinterpret_cast<NativeList*>(root+472);
     // Unsupported optional pointers and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
     Procedure* table=nullptr;
@@ -594,6 +658,8 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             if(dependencyFilter) TokenizeObjectFilter(dependencyFilter,&nested[6].offset,procedures);
             procedures.Pop();
         }
+        else if(moduleLists.count(t.offset)) TokenizeModuleList(moduleLists.at(t.offset),&table[i].offset,procedures);
+        else if(t.offset==480 && bodyModule) TokenizeModule(bodyModule,&table[i].offset,procedures);
         else if(t.offset==460 && skirmishAI) TokenizeAI(skirmishAI,0,&table[i].offset,procedures);
         else if(t.offset==408 && buildCosts) {
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,2));
@@ -773,6 +839,12 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     }
     if(bigEndian) {
         EndianAI(skirmishAI,0);
+        if(bodyModule) {Swap(bodyModule);Swap(bodyModule+1);}
+        for(const auto& entry:moduleLists) {
+            auto list=entry.second;
+            for(U32 j=0;j<list->count;++j) {auto module=static_cast<U32**>(list->data)[j];Swap(module);Swap(module+1);}
+            if(entry.first!=472) Swap(&list->count);
+        }
         if(voiceLists) for(unsigned group=0;group<3;++group) {
             auto list=voiceLists+group;unsigned stride=group==1?16:12;
             for(U32 j=0;j<list->count;++j) {auto at=static_cast<unsigned char*>(list->data)+stride*j;Swap(at+8);if(group==1) Swap(at+12);}
