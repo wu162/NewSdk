@@ -1,6 +1,23 @@
 {
-  "sourceCommit": "47675dee96603002a09b681028e25de28dd80d66",
+  "sourceCommit": "36bdb6c0bf42094010222fb7e5fa102644cce142",
+  "succeeded": true,
   "sdkStatus": "not run; original route retained",
-  "succeeded": false,
-  "runId": "40017749178"
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "scope": "88 root attributes; thirty-eight child nodes including module containers with 31 complete base-only types plus all seven remaining Body types (all nine XSD Body choices), full DamageRangeModifier and nullable ShieldArmor; all six ClientUpdate types including exact-case Key hash lists and ushort UnitWeight; complete six lifecycle Updates and four sound/EVA selectors and AnimationSound/ModelConditionAudioLoop playback groups (nullable masks/range, signed Frame list and inline masks); unknown fallback (266 other known module types rejected); complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
+  "runId": "40018019890",
+  "modes": [
+    {
+      "summary": "PASS recovered GameObject root: fixtures=112084 threeBufferComparisons=336252 refusals=8576 invarianceComparisons=292; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "Od"
+    },
+    {
+      "summary": "PASS recovered GameObject root: fixtures=112084 threeBufferComparisons=336252 refusals=8576 invarianceComparisons=292; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "O2"
+    }
+  ]
 }
