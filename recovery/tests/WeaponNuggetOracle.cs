@@ -79,7 +79,7 @@ unsafe partial class WeaponOracle
                 throw new Exception("Unknown independent allocation sizes/count");
             for(int i=0;i<count;++i) {
                 int data=array+4*count+40*i,poly=1272+12*count+12*i;
-                if(Word(result.InstanceData,array+4*i,big)!=data || Word(result.InstanceData,data,big)!=0 || Word(result.InstanceData,data+4,big)!=0 || Word(result.InstanceData,data+16,big)!=0x418a0000u || Word(result.InstanceData,poly,big)!=2 || Word(result.InstanceData,poly+4,big)!=0 || Word(result.InstanceData,poly+8,big)!=0 || Word(result.RelocationData,4*(i+1),big)!=array+4*i)
+                if(Word(result.InstanceData,array+4*i,big)!=data || Word(result.InstanceData,data,big)!=0 || Word(result.InstanceData,data+4,big)!=4 || Word(result.InstanceData,data+16,big)!=0x418a0000u || Word(result.InstanceData,poly,big)!=2 || Word(result.InstanceData,poly+4,big)!=0 || Word(result.InstanceData,poly+8,big)!=0 || Word(result.RelocationData,4*(i+1),big)!=array+4*i)
                     throw new Exception("Unknown independent tag/token/base/member relocation");
             }
             if(Word(result.RelocationData,0,big)!=tokens+260 || Word(result.RelocationData,4*(count+1),big)!=uint.MaxValue) throw new Exception("Unknown relocation endpoints");
