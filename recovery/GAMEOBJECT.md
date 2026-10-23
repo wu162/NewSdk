@@ -53,6 +53,8 @@ Original characterization remains separate: 196 fixtures, 588 repeated three-buf
 
 ## Next coherent stage (~35 minutes)
 
+Use one coherent implementation batch for the remaining duration attribute and the connected child group below. Investigate uncertain behavior with focused original probes, implement the whole planned group and its tests, then run the full affected matrix together. Save unfinished checkpoints on `recovery/work/<batch>`; integrate the prepared batch into `recovery/compiler-source` for the existing complete CI gates. Consolidate diagnosed fixes before rerunning. See EFFICIENCY.md, “大批实现与统一验证”. Do not repeat separate full-CI batches for scalar, enum, resource, list and bitset representations. Current support and prior validation anchors are unchanged.
+
 1. Verify the current root evidence sourceCommit/runId before changing code; reuse the exact successful result while relevant inputs stay unchanged.
 2. Characterize the remaining duration override at root+388: original helper 55021, scale 9619. Cover fractional frame boundaries, exponents, signs, huge values, invalid inputs and uint conversion. Preserve both float-rounding points; do not guess from the 155 default.
 3. Restore a connected group of child inputs after examining original helpers: Buildable@428, ThingClass@432 and DisplayColor@452 are useful entry points. DisplayColor is a Color4 node passed through the ColorTag helper, not an arbitrary unsigned-text scalar. Follow with the two optional string pointers at 396/400 if time permits. Preserve omitted defaults, duplicate/namespace rejection and exact allocation/token contracts.
