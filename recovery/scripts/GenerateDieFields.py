@@ -58,7 +58,7 @@ def generate(source):
             else:
                 nested=re.search(r'Tokenizer_002ETokenize\([^;\n]+?, \((\w+)\*\)',part)
                 if nested:
-                    child=nested[1];mode=4 if ')(int)' in part else 0
+                    child=nested[1];mode=4 if '('+child+'*)(int)' in part else 0
                     if child=='ObjectFilter':mode=7;child=None
                     else:emit(child)
                 elif re.search(r'BookmarkMemberOffset\(state, \(void\*\)\(int\)',part):mode=2

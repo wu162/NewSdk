@@ -68,7 +68,7 @@ const ModuleToken dieDieModuleDataTokens[] = {
 };
 const ModuleLayout dieDieModuleData = { dieDieModuleDataTokens, 2u };
 const ModuleToken dieDestroyDieModuleDataTokens[] = {
-    { 1u, 2655988594u, 0u, &dieDieModuleData, 4u, 0u },
+    { 1u, 2655988594u, 0u, &dieDieModuleData, 0u, 0u },
 };
 const ModuleLayout dieDestroyDieModuleData = { dieDestroyDieModuleDataTokens, 1u };
 const ModuleToken dieUpgradeDieModuleDataTokens[] = {

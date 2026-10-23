@@ -208,17 +208,21 @@ public ref class GameObjectCompiler abstract sealed {
                 }
                 NoStructuredText(child);result.children.push_back(item);continue;
             }
-            bool validationSeen=false;auto nested=child->SelectChildren(XPathNodeType::Element);
+            bool validationSeen=false,dieMuxSeen=false,filterSeen=false;auto nested=child->SelectChildren(XPathNodeType::Element);
             while(nested->MoveNext()) {
                 auto value=nested->Current;Native::GameObjectChild entry;entry.name=marshal_as<std::string>(value->LocalName);
+                if(entry.name=="ObjectFilter" && value->NamespaceURI==child->NamespaceURI && Native::GameObjectModuleNestedSupported(typeId,entry.name)) {
+                    if(filterSeen) throw gcnew NotSupportedException("Duplicate Die ObjectFilter.");filterSeen=true;item.children.push_back(ReadDependencyFilter(value));continue;
+                }
                 if(value->NamespaceURI!=child->NamespaceURI || !Native::GameObjectModuleNestedSupported(typeId,entry.name) || value->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported module nested structure.");
+                if(entry.name=="DieMuxData") {if(dieMuxSeen) throw gcnew NotSupportedException("Duplicate DieMuxData.");dieMuxSeen=true;}
                 if(entry.name=="ObjectStatusValidation") {if(validationSeen) throw gcnew NotSupportedException("Duplicate ObjectStatusValidation.");validationSeen=true;}
                 auto a=value->Clone();if(a->MoveToFirstAttribute()) do {
                     if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
-                    if(a->NamespaceURI->Length!=0 || entry.name=="Key" || !(entry.name=="DamageRangeModifier"?(a->LocalName=="Min" || a->LocalName=="Max" || a->LocalName=="AttributeModifier"):Native::GameObjectModuleNestedAttributeSupported(typeId,entry.name,marshal_as<std::string>(a->LocalName)))) throw gcnew NotSupportedException("Unsupported nested module attribute.");
+                    if(a->NamespaceURI->Length!=0 || (entry.name=="Key" || entry.name=="UpgradeRequired" || entry.name=="UpgradeForbidden") || !(entry.name=="DamageRangeModifier"?(a->LocalName=="Min" || a->LocalName=="Max" || a->LocalName=="AttributeModifier"):Native::GameObjectModuleNestedAttributeSupported(typeId,entry.name,marshal_as<std::string>(a->LocalName)))) throw gcnew NotSupportedException("Unsupported nested module attribute.");
                     entry.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
                 } while(a->MoveToNextAttribute());
-                if(entry.name=="Key") entry.text=marshal_as<std::string>(value->Value);else NoStructuredText(value);item.children.push_back(entry);
+                if(entry.name=="Key" || entry.name=="UpgradeRequired" || entry.name=="UpgradeForbidden") entry.text=marshal_as<std::string>(value->Value);else NoStructuredText(value);item.children.push_back(entry);
             }
             NoStructuredText(child);result.children.push_back(item);
         }
