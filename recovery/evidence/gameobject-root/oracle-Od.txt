@@ -1,1 +1,1 @@
-PASS recovered GameObject root: fixtures=13564 threeBufferComparisons=40692 refusals=120 invarianceComparisons=16; 88 root attributes and ten child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run
+PASS recovered GameObject root: fixtures=21608 threeBufferComparisons=64824 refusals=140 invarianceComparisons=16; 88 root attributes and twelve child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run
