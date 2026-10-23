@@ -24,6 +24,8 @@ unsafe partial class WeaponOracle
             throw new Exception("Independent scalar nugget size/token/relocation: "+kind);
         if(kind==1 && Word(result.InstanceData,at+40,big)!=1) throw new Exception("AmountToSpend default");
         if(kind==2 && (Word(result.InstanceData,at+40,big)!=0 || Word(result.InstanceData,at+44,big)!=0xbf800000u || Word(result.InstanceData,at+48,big)!=0)) throw new Exception("Secondary defaults");
+        // Original Tokenizer writes signed -261607243, i.e. 4033360053u.
+        if(kind==2 && (Word(result.InstanceData,1332,big)!=4033360053u || Word(result.InstanceData,1336,big)!=1683514611u || Word(result.InstanceData,1340,big)!=at+48)) throw new Exception("Secondary PercentDamageToContained procedure key/type/member");
         if(kind==3 && (Word(result.InstanceData,at+40,big)!=0x3f000000u || Word(result.InstanceData,at+44,big)!=14 || Word(result.InstanceData,at+48,big)!=1 || Word(result.InstanceData,at+52,big)!=112)) throw new Exception("Strip defaults");
         if(kind==4 && (Word(result.InstanceData,at+40,big)!=0 || Word(result.InstanceData,at+44,big)!=0 || Word(result.InstanceData,at+48,big)!=0xbf800000u || Word(result.InstanceData,at+56,big)!=0)) throw new Exception("Suppression defaults and bool padding");
         if(kind==5) for(int j=40;j<52;j+=4) if(Word(result.InstanceData,at+j,big)!=0) throw new Exception("Lua absent string, flags and padding");
@@ -76,3 +78,4 @@ unsafe partial class WeaponOracle
         Reject(NuggetXml(ScalarNugget(4,"Damage='1'",""),""));
     }
 }
+

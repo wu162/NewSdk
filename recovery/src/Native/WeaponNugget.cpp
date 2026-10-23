@@ -419,7 +419,7 @@ const SimpleMember attachMembers[]={{{"AttachModuleId",nullptr,40,'h'},226083408
 const SimpleMember spendMembers[]={{{"AmountToSpend","1",40,'i'},175234830u,602296504u}};
 const SimpleMember secondaryMembers[]={
     {{"Amount",nullptr,40,'i'},1343336868u,602296504u},{{"DamageTaperOff","-1.0",44,'f'},293792262u,1683514611u},
-    {{"PercentDamageToContained","0%",48,'p'},4033350053u,1683514611u}
+    {{"PercentDamageToContained","0%",48,'p'},4033360053u,1683514611u}
 };
 const SimpleMember stripMembers[]={
     {{"AmountToStrip","50%",40,'p'},2847940485u,1683514611u},{{"DamageType","UNDEFINED",44,'d'},1179152369u,1179152369u},
