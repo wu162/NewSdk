@@ -14,7 +14,7 @@
 
 ## 本轮检查点（验证中）
 
-2026-10-23：开始 unknown-TypeId 分配、Tokenize、endian 的默认分支恢复。已核对原 blob 的 Marshal/Tokenize/endian：未知对象分配 40 字节，共用基类、输出 tag 清零；Tokenize 无 default，不生成基类 token 子表，仅保留 12 字节包装且 offset=0。已添加完整差分扩展及独立布局断言；本检查点尚未通过新的 Windows 差分，不能引用下方旧锚点作为新代码成功。未知分支修正独立 EXTENTS_3D=4 断言后，a7639058c6f50c89f62ed317cba0fa5ac7bc9a29 的组件运行 39895987897 已 success；基础运行 39895987909 success。下一组已实现非多态 TypeId 注解容忍与正式 Weapon 插件，并将整套矩阵扩展为原/注解原/注解恢复/正式插件比较；该新组验证中。BAB 边界见 WEAPON_INPUT_PIPELINE.md，下一步真实 SDK 路由批次。
+2026-10-23：开始 unknown-TypeId 分配、Tokenize、endian 的默认分支恢复。已核对原 blob 的 Marshal/Tokenize/endian：未知对象分配 40 字节，共用基类、输出 tag 清零；Tokenize 无 default，不生成基类 token 子表，仅保留 12 字节包装且 offset=0。已添加完整差分扩展及独立布局断言；本检查点尚未通过新的 Windows 差分，不能引用下方旧锚点作为新代码成功。未知分支修正独立 EXTENTS_3D=4 断言后，a7639058c6f50c89f62ed317cba0fa5ac7bc9a29 的组件运行 39895987897 已 success；基础运行 39895987909 success。下一组已实现非多态 TypeId 注解容忍与正式 Weapon 插件，并将整套矩阵扩展为原/注解原/注解恢复/正式插件比较；该组 c94f2f217cfa5e5d6b953b3880ea20ff0a47b7fc 的组件运行 39896334554 已 success，基础运行 39896334504 success。BAB 边界见 WEAPON_INPUT_PIPELINE.md。本检查点新增 38 个合法武器的正式 SDK 路由批次（全 35 分支/全列表/继承，原版与恢复版四份产物比较、实际三缓冲区与无原 DLL 重放），尚待 [sdk-plugin] 运行结果。默认 SDK 配置仍保留原路由，通过 SetWeaponPlugin.ps1 可切换。
 
 ## 当前能力与验证边界
 
