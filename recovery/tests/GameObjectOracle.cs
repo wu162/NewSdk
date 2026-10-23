@@ -18,7 +18,7 @@ partial class GameObjectOracle {
     static uint Word(byte[] b,int at,bool big) {return big?((uint)b[at]<<24)|((uint)b[at+1]<<16)|((uint)b[at+2]<<8)|b[at+3]:BitConverter.ToUInt32(b,at);}
     static void Equal(byte[] a,byte[] b,string label,bool bufferComparison=true) {if(bufferComparison)++comparisons;else ++invarianceComparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
     static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs,string children="") {
-        var input=Declaration(attrs,children);var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
+        var input=Declaration(attrs,children);AssetBuffer expected,actual;try {expected=original.ProcessInstance(input);actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);}catch(Exception error){throw new Exception("Fixture "+attrs+children,error);}
         Equal(expected.InstanceData,actual.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+children+" imports");++fixtures;return actual;
     }
     static void Reject(TargetPlatform p,string attrs,string children) {
@@ -846,7 +846,7 @@ partial class GameObjectOracle {
     }
 
     static string SelectorXML(int group,string attrs="",string children="") {
-        string[] names={"RandomSoundSelector","ModelConditionSoundSelector","UpgradeSoundSelector","ModelConditionEvaEventSelector"};
+        string[] names={"RandomSoundSelectorClientBehavior","ModelConditionSoundSelectorClientBehavior","UpgradeSoundSelectorClientBehavior","ModelConditionEvaEventSelectorClientBehavior"};
         string[] types={"3030954484","847051638","4178664105","1640547431"};
         return SoundXML(names[group],types[group],attrs,children);
     }
@@ -888,6 +888,26 @@ partial class GameObjectOracle {
             Check(original,p,"",SelectorXML(2,"","<Override><RequiredUpgrade>"+value+"</RequiredUpgrade><RequiredUpgrade>"+value+"</RequiredUpgrade><ConflictingUpgrade>"+value+"</ConflictingUpgrade>"+voice+sound+"</Override>"));
             for(int group=0;group<3;++group) {string payload="<AudioArrayVoice><NamedEntry Name='"+value+"'/><ObjectSpecificEntry TargetObject='"+value+"'/></AudioArrayVoice>";Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));}
         }
+        foreach(string value in "soundAfterburner soundAmbient soundAmbientBattle soundAmbientDamaged soundAmbientReallyDamaged soundAmbientRubble soundCreated soundCrushing soundDeploy soundDisabled soundDisabledOnCreation soundDisguiseRevealedFailure soundDisguiseRevealedSuccess soundDisguiseStarted soundEnter soundExit soundFalling soundImpact soundImpactCyclonic soundMoveLoop soundMoveLoopDamaged soundMoveStart soundMoveStartDamaged soundOnDamaged soundOnReallyDamaged soundPrepositioned soundPromotedElite soundPromotedHero soundPromotedVeteran soundReenabled soundStealthOff soundStealthOn soundTurretMoveLoop soundUndeploy soundUnderConstruction soundUnderRepairFromDamage soundUnderRepairFromRubble".Split(' '))foreach(int group in new[]{0,1,2}) {
+            string payload="<AudioArraySound><AudioEntry AudioType='"+value+"'/></AudioArraySound>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
+        foreach(string value in "ambushed availableForProduction buildCancelled buildOnHold cannotBuildDueToFullBuildQueue damagedAlly damagedByFireOwner damagedFromShroudedSourceOwner damagedOwner detectedAlly detectedEnemy detectedOwner dieAlly dieEnemy dieOwner enemyObjectSighted enemyObjectSightedAfterRespawn manuallyPoweredOff manuallyPoweredOn onFirstSightingEnemy onFirstSightingNonEnemy placementFailed productionComplete productionStarted promotedOwner repairingOwner secondDamageFarFromFirstOwner secondDamageFarFromFirstScanRange secondDamageFarFromFirstTimeoutMS soldOwner".Split(' '))foreach(int group in new[]{3}) {
+            string payload="<EvaEventArray><EvaEntry EvaType='"+value+"'/></EvaEventArray>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
+        foreach(string value in "voiceAlert voiceAttack voiceAttackAfterMoving voiceAttackAir voiceAttackCharge voiceAttackGarrisonedStructure voiceAttackMachine voiceAttackStructure voiceBombard voiceBuildResponse voiceCaptureBuildingComplete voiceCombatDrop voiceCombineWithHorde voiceCreated voiceDefectingAway voiceDefectingTowards voiceDeliverRing voiceDesperateAttack voiceDock voiceEnter voiceEnterHostile voiceEnterStateAttack voiceEnterStateAttackAfterMoving voiceEnterStateAttackAir voiceEnterStateAttackCharge voiceEnterStateAttackGarrisonedStructure voiceEnterStateAttackMachine voiceEnterStateAttackStructure voiceEnterStateMove voiceEnterStateMoveLandToWater voiceEnterStateMoveOverWalls voiceEnterStateMoveToCamp voiceEnterStateMoveToHigherGround voiceEnterStateMoveWaterToLand voiceEnterStateMoveWhileAttacking voiceEnterStateRetreatToCastle voiceFear voiceFullyCreated voiceGarrison voiceGetHealed voiceGuard voiceLowFuel voiceMove voiceMoveLandToWater voiceMoveOverWalls voiceMoveToCamp voiceMoveToHigherGround voiceMoveWaterToLand voiceMoveWhileAttacking voiceNoBuild voicePrimaryWeaponMode voiceRapidFire voiceRepair voiceRetreatToCastle voiceSalvage voiceSecondaryWeaponMode voiceSelect voiceSelectBattle voiceSelectIdleWorker voiceSelectUnderConstruction voiceSelectUnderFire voiceSendToSlaughterhouse voiceStartCharging voiceSupply voiceTaskComplete voiceTertiaryWeaponMode voiceUnload".Split(' '))foreach(int group in new[]{0,1,2}) {
+            string payload="<AudioArrayVoice><AudioEntry AudioType='"+value+"'/></AudioArrayVoice>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
+        foreach(string value in "voiceAttackUnit voiceCreatedFrom voiceEnterStateAttackUnit voiceEnterStateEnterUnit voiceEnterUnit voiceFullyCreatedFrom".Split(' '))foreach(int group in new[]{0,1,2}) {
+            string payload="<AudioArrayVoice><ObjectSpecificEntry AudioType='"+value+"'/></AudioArrayVoice>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
+        foreach(string value in new[]{"","UNKNOWN","unknown","voiceSelect"," voiceSelect","voiceSelect ","-1","0"})for(int group=0;group<4;++group) {
+            string payload=group==3?"<EvaEventArray><EvaEntry EvaType='"+value+"'/></EvaEventArray>":"<AudioArrayVoice><AudioEntry AudioType='"+value+"'/><ObjectSpecificEntry AudioType='"+value+"'/></AudioArrayVoice><AudioArraySound><AudioEntry AudioType='"+value+"'/></AudioArraySound>";
+            Check(original,p,"",SelectorXML(group,"",group==0?payload:"<Override>"+payload+"</Override>"));
+        }
         var b=Check(original,p,"",SelectorXML(0,"VoicePriorityOverride='-1'","<AudioArrayVoice/><AudioArraySound/>"));var bytes=b.InstanceData;
         int root=(int)Word(bytes,8,big)-4,header=(int)Word(bytes,root+488,big),slots=(int)Word(bytes,header+4,big),at=(int)Word(bytes,slots,big);
         if(Word(bytes,at,big)!=3030954484u || Word(bytes,at+8,big)!=0x3f000000u || Word(bytes,at+12,big)!=at+28 || Word(bytes,at+28,big)!=0xffffffffu || Word(bytes,at+16,big)!=at+32 || Word(bytes,at+20,big)!=at+56 || bytes[at+24]!=0)throw new Exception("Independent random selector default/nullable/allocation layout");
@@ -901,6 +921,12 @@ partial class GameObjectOracle {
         string ordered=SelectorXML(2,"","<Override>"+voice+sound+"<RequiredUpgrade>UpA</RequiredUpgrade><ConflictingUpgrade>UpB</ConflictingUpgrade></Override>");
         string reversed=SelectorXML(2,"","<Override><ConflictingUpgrade>UpB</ConflictingUpgrade><RequiredUpgrade>UpA</RequiredUpgrade>"+sound+voice+"</Override>");
         var a=Check(original,p,"",ordered);b=Check(original,p,"",reversed);Equal(a.InstanceData,b.InstanceData,"Selector schema allocation order",false);Equal(a.RelocationData,b.RelocationData,"Selector relocation order",false);
+        var upper=Check(original,p,"",SelectorXML(2,"","<Override><AudioArrayVoice><ObjectSpecificEntry TargetObject='AbCd'/></AudioArrayVoice><RequiredUpgrade>AbCd</RequiredUpgrade><ConflictingUpgrade>AbCd</ConflictingUpgrade></Override>"));
+        var lower=Check(original,p,"",SelectorXML(2,"","<Override><AudioArrayVoice><ObjectSpecificEntry TargetObject='abcd'/></AudioArrayVoice><RequiredUpgrade>abcd</RequiredUpgrade><ConflictingUpgrade>abcd</ConflictingUpgrade></Override>"));
+        Equal(upper.InstanceData,lower.InstanceData,"Selector typed IDs use lowercase",false);
+        upper=Check(original,p,"",SelectorXML(0,"","<AudioArrayVoice><NamedEntry Name='AbCd'/></AudioArrayVoice>"));lower=Check(original,p,"",SelectorXML(0,"","<AudioArrayVoice><NamedEntry Name='abcd'/></AudioArrayVoice>"));
+        bool same=true;for(int i=0;i<upper.InstanceData.Length;++i)if(upper.InstanceData[i]!=lower.InstanceData[i]){same=false;break;}if(same)throw new Exception("Selector NamedEntry must preserve case");
+
     }
 
     static int Main(string[] args) {
