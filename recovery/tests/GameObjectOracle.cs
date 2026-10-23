@@ -91,6 +91,24 @@ partial class GameObjectOracle {
             var b=Check(original,p,duration+"='"+value+"'");
             if(Word(b.InstanceData,1620+388,big)!=expected)throw new Exception("Independent duration "+value);
         }
+        // Adjacent representable float values around frame boundaries and powers
+        // of two exercise both required single-precision rounding points.
+        for(int frame=-32;frame<=32;++frame) {
+            float center=frame*200.0f;
+            int bits=BitConverter.ToInt32(BitConverter.GetBytes(center),0);
+            for(int delta=-2;delta<=2;++delta) {
+                float value=BitConverter.ToSingle(BitConverter.GetBytes(bits+delta),0);
+                if(!float.IsNaN(value) && !float.IsInfinity(value))Check(original,p,duration+"='"+value.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+"'");
+            }
+        }
+        for(int exponent=-126;exponent<=127;++exponent)foreach(int sign in new[]{-1,1}) {
+            float center=(float)Math.Pow(2,exponent)*sign;
+            int bits=BitConverter.ToInt32(BitConverter.GetBytes(center),0);
+            for(int delta=-1;delta<=1;++delta) {
+                float value=BitConverter.ToSingle(BitConverter.GetBytes(bits+delta),0);
+                if(!float.IsNaN(value) && !float.IsInfinity(value))Check(original,p,duration+"='"+value.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+"'");
+            }
+        }
         string[] buildable={"IGNORE_PREREQUISITES","NO","ONLY_BY_AI","YES"};
         string[] thing={"BUFF","BUSH","CAVALRY_UNIT","CHARACTER_UNIT","CIV_BUILDING","FACTION_BUILDING","GROUND_COVER","HORDE_UNIT","LANDMARK_BUILDING","LARGE_MONSTER","MACHINE","MEDIUM_MONSTER","PROP","TREE","UNSPECIFIED","WALL_PIECE"};
         foreach(string name in new[]{"Buildable","ThingClass"}) {
@@ -154,11 +172,64 @@ partial class GameObjectOracle {
         var canonical=Check(original,p,"",lists+extra);var reversed=Check(original,p,"",extra+lists);Equal(canonical.InstanceData,reversed.InstanceData,"Native allocation independent of child group order",false);
         foreach(string child in new[]{"<EquivalentTo Unknown='1'/>","<UpgradeCameo xmlns='foreign'/>","<DisplayUpgrade><Unknown/></DisplayUpgrade>","<Flammability/><Flammability/>","<LiveCameraOffset/><LiveCameraOffset/>","<Flammability fuel='1'/>","<LiveCameraOffset X='1'/>","<Flammability>text</Flammability>","<LiveCameraOffset xmlns:f='foreign' f:x='1'/>"})Reject(p,"",child);
     }
+    static void ArmorAndLocomotorSets(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] armorNames={"INVALID","VETERAN","ELITE","HERO","PLAYER_UPGRADE","WEAK_VERSUS_BASEDEFENSES","ALTERNATE_FORMATION","MOUNTED","PLAYER_UPGRADE_2","PLAYER_UPGRADE_3","UNBESIEGEABLE","AS_TOWER","AIRBORNE","SECONDARY_DAMAGE","SHRINK_EFFECT","IN_SPIDER_HOLE","UNUSED_05","UNUSED_06","UNUSED_07","UNUSED_08","UNUSED_09","UNUSED_10","SHIELDBODY_ENABLED"};
+        for(int i=0;i<armorNames.Length;++i)foreach(string sign in new[]{"","+","-"}) {
+            var b=Check(original,p,"","<ArmorSet Conditions='"+sign+armorNames[i]+"'/>");
+            int root=(int)Word(b.InstanceData,8,big)-4;int data=(int)Word(b.InstanceData,root+416,big);
+            if(Word(b.InstanceData,data+8,big)!=(1u<<i))throw new Exception("Independent ArmorSet bit index "+armorNames[i]+sign);
+        }
+        foreach(string value in new[]{"", "ALL", "+ALL", "-ALL", "all", "ALL -VETERAN", "VETERAN ALL -VETERAN", "VETERAN -VETERAN", "-VETERAN -VETERAN", "VETERAN VETERAN", "UNKNOWN", "unknown", "veteran", "+UNKNOWN", "-UNKNOWN", "VETERAN,ELITE", " VETERAN  ELITE ", "+", "-"}) {
+            var b=Check(original,p,"","<ArmorSet Conditions='"+value+"'/>");
+            int root=(int)Word(b.InstanceData,8,big)-4;int data=(int)Word(b.InstanceData,root+416,big);
+            if(value.IndexOf("ALL",StringComparison.OrdinalIgnoreCase)>=0 && Word(b.InstanceData,data+8,big)!=0xffffffffu)throw new Exception("ArmorSet ALL padding/stop behavior");
+            if(value=="UNKNOWN" && Word(b.InstanceData,data+8,big)!=(1u<<12))throw new Exception("ArmorSet unknown fallback bit");
+        }
+        string[] locoNames={"NORMAL","NORMAL_UPGRADED","FREEFALL","WANDER","PANIC","TAXIING","SUPERSONIC","MOUNTED","ENRAGED","SCARED","CONTAINED","COMBO","ATTACKING","MOVING_TO_TRANSPORT","WALL_SCALING","CHANGING_FIRINGARC","BURNINGDEATH","EXITING_PRODUCTION_STRUCTURE"};
+        for(int i=0;i<locoNames.Length;++i) {
+            var b=Check(original,p,"","<LocomotorSet Condition='"+locoNames[i]+"'/>");int root=(int)Word(b.InstanceData,8,big)-4;int data=(int)Word(b.InstanceData,root+424,big);
+            if(Word(b.InstanceData,data+4,big)!=(uint)i)throw new Exception("Independent LocomotorSet enum "+locoNames[i]);
+        }
+        foreach(string value in new[]{"INVALID", "", "UNKNOWN", "normal", " NORMAL", "NORMAL ", "-1", "0"})Check(original,p,"","<LocomotorSet Condition='"+value+"'/>");
+        foreach(string value in new[]{"0","-17","23","1.25","2D3","1e40","-1e40","text",""})Check(original,p,"","<LocomotorSet Speed='"+value+"'/>");
+        foreach(string value in new[]{"", "Unresolved", "A\\0", "A\\1", "A\\-1", "A\\2147483647", "A\\2147483648", "A\\-2147483649", "A\\23trailing", "A\\0x10"}) {
+            foreach(string field in new[]{"Armor","DamageFX"})Check(original,p,"","<ArmorSet "+field+"='"+value+"'/>");
+            Check(original,p,"","<LocomotorSet Locomotor='"+value+"'/>");
+        }
+        var emptyArmor=Check(original,p,"","<ArmorSet/>");var emptyLoco=Check(original,p,"","<LocomotorSet/>");
+        foreach(var b in new[]{emptyArmor,emptyLoco}) {
+            int root=(int)Word(b.InstanceData,8,big)-4;
+            if(root!=1680 || b.InstanceData.Length!=2284)throw new Exception("Independent set allocation size");
+            for(int i=0;i<3;++i)if(Word(b.InstanceData,2272+4*i,big)!=0)throw new Exception("Independent omitted set fields");
+        }
+        var explicitEmpty=Check(original,p,"","<LocomotorSet Condition=''/>");if(Word(explicitEmpty.InstanceData,2276,big)!=12)throw new Exception("Locomotor missing vs empty enum");
+        var invalid=Check(original,p,"","<LocomotorSet Condition='INVALID'/>");if(Word(invalid.InstanceData,2276,big)!=0xffffffffu)throw new Exception("Locomotor INVALID enum");
+        string pair="<ArmorSet Armor='A\\23' DamageFX='B\\-1' Conditions='VETERAN ELITE'/><LocomotorSet Speed='1.5' Condition='FREEFALL' Locomotor='C\\0'/>";
+        var combined=Check(original,p,"",pair);int combinedRoot=(int)Word(combined.InstanceData,8,big)-4;
+        if(combinedRoot!=1740 || combined.InstanceData.Length!=2356 || Word(combined.InstanceData,combinedRoot+412,big)!=1 || Word(combined.InstanceData,combinedRoot+416,big)!=2332 || Word(combined.InstanceData,combinedRoot+420,big)!=1 || Word(combined.InstanceData,combinedRoot+424,big)!=2344 || Word(combined.InstanceData,2332,big)!=24 || Word(combined.InstanceData,2336,big)!=0 || Word(combined.InstanceData,2340,big)!=6 || Word(combined.InstanceData,2344,big)!=0x3fc00000u || Word(combined.InstanceData,2348,big)!=2 || Word(combined.InstanceData,2352,big)!=1 || combined.ImportsData.Length!=0)throw new Exception("Independent mixed set layout/references");
+        uint[][] memberNames={new uint[]{735930353u,2905958645u,912300027u},new uint[]{2322663157u,45929675u,728601449u}};
+        uint[][] memberTypes={new uint[]{887689851u,2593517055u,3985361129u},new uint[]{1683514611u,2220692146u,4275178604u}};
+        for(int i=0;i<2;++i) {
+            int table=(int)Word(combined.InstanceData,12*(92+i)+8,big);int nested=(int)Word(combined.InstanceData,table+20,big);
+            if(Word(combined.InstanceData,table,big)!=1820487795u || Word(combined.InstanceData,table+8,big)!=combinedRoot+412+8*i || Word(combined.InstanceData,table+12,big)!=2974916843u || Word(combined.InstanceData,table+16,big)!=0)throw new Exception("Independent set list token");
+            for(int j=0;j<3;++j)if(Word(combined.InstanceData,nested+12*j,big)!=memberNames[i][j] || Word(combined.InstanceData,nested+12*j+4,big)!=memberTypes[i][j] || Word(combined.InstanceData,nested+12*j+8,big)!=2332+12*i+4*j)throw new Exception("Independent nested set token");
+            for(int j=36;j<48;++j)if(combined.InstanceData[nested+j]!=0)throw new Exception("Independent set token sentinel");
+        }
+        Check(original,p,"",pair+pair);
+        foreach(int length in new[]{3,7,20}) {
+            string many="";for(int i=0;i<length;++i)many+="<ArmorSet Armor='A\\23' Conditions='VETERAN'/><LocomotorSet Speed='"+i+"' Condition='NORMAL'/>";
+            Check(original,p,"Browser='a bb'",many);
+        }
+        Check(original,p,"Browser='one two' Description='text'",pair+"<DisplayName>name</DisplayName><EquivalentTo>a</EquivalentTo><Flammability Fuel='17'/><LiveCameraOffset y='-3'/><UpgradeCameo>abc</UpgradeCameo><DisplayUpgrade>upg</DisplayUpgrade>");
+        Check(original,p,"","<ArmorSet TypeId='1' Conditions='ELITE'/><LocomotorSet TypeId='2' Condition='NORMAL'/>");
+        foreach(string child in new[]{"<ArmorSet Unknown='1'/>","<ArmorSet Armor='A' xmlns:f='foreign' f:DamageFX='B'/>","<LocomotorSet speed='1'/>","<LocomotorSet><Unknown/></LocomotorSet>","<ArmorSet>text</ArmorSet>","<LocomotorSet>text</LocomotorSet>"})Reject(p,"",child);
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -174,9 +245,9 @@ partial class GameObjectOracle {
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
-                foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
+                foreach(string child in new[]{"<Geometry/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and ten child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twelve child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

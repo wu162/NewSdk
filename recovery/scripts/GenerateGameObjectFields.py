@@ -98,6 +98,11 @@ for name,value in enum_values('KindOfType').items():
 for field, group, fallback in [('Buildable','BuildableStatus',1),('ThingClass','ThingClassType',15)]:
     enums.extend((field,n,v) for n,v in enum_values(group).items())
     enum_fallbacks.append((field,fallback))
+lines+=['};','const EnumNameValue armorSetEntries[] = {']
+for name,value in enum_values('ArmorSetType').items():
+    lines.append('    { '+json.dumps(name)+', '+str(value)+' },')
+enums.extend(('LocomotorSet',n,v) for n,v in enum_values('LocomotorSetType').items())
+enum_fallbacks.append(('LocomotorSet',12))
 lines+=['};','const GameObjectEnum enumEntries[] = {']
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')

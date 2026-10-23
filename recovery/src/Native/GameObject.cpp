@@ -126,6 +126,30 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     }
     std::map<unsigned,NativeList*> lists;
     lists[40]=reinterpret_cast<NativeList*>(root+40);
+    auto marshalSets=[&](const char* name,unsigned offset,bool armor) {
+        std::vector<const GameObjectChild*> values;
+        for(const auto& child:children) if(child.name==name) values.push_back(&child);
+        auto list=reinterpret_cast<NativeList*>(root+offset);lists[offset]=list;
+        list->count=static_cast<U32>(values.size());
+        if(values.empty()) return;
+        auto elements=static_cast<unsigned char*>(data.Push(&list->data,12,list->count));
+        for(U32 i=0;i<list->count;++i) {
+            auto element=elements+12*i;const auto& attrs=values[i]->attributes;
+            auto find=[&](const char* key)->const std::string* {auto it=attrs.find(key);return it==attrs.end()?nullptr:&it->second;};
+            if(armor) {
+                if(auto value=find("Armor")) MarshalReference(data,element,*value);
+                if(auto value=find("DamageFX")) MarshalReference(data,element+4,*value);
+                if(auto value=find("Conditions")) MarshalEnumBitset(*value,armorSetEntries,23,12,23,reinterpret_cast<U32*>(element+8));
+            } else {
+                if(auto value=find("Speed")) {auto number=ParseFloat(*value);std::memcpy(element,&number,4);}
+                if(auto value=find("Condition")) {auto word=EnumValue("LocomotorSet",*value);std::memcpy(element+4,&word,4);}
+                if(auto value=find("Locomotor")) MarshalReference(data,element+8,*value);
+            }
+        }
+        data.Pop();
+    };
+    marshalSets("ArmorSet",412,true);
+    marshalSets("LocomotorSet",420,false);
     auto marshalList=[&](const char* name,unsigned offset,bool strings) {
         std::vector<std::string> values;
         for(const auto& child:children) if(child.name==name) values.push_back(child.text);
@@ -180,8 +204,22 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             procedures.BookmarkMemberOffset(root+t.offset,&count->offset);
             for(U32 j=0;j<length;++j) {
                 count[j+1].name=2974916843u;count[j+1].type=0;
-                const unsigned stride=t.offset==40 || t.offset==536?8:4;
-                procedures.BookmarkMemberOffset(static_cast<unsigned char*>(list->data)+stride*j,&count[j+1].offset);
+                if(t.offset==412 || t.offset==420) {
+                    // Original item Tokenize methods 96970 / 97024: 3 members + sentinel.
+                    const U32 armorNames[]={735930353u,2905958645u,912300027u};
+                    const U32 armorTypes[]={887689851u,2593517055u,3985361129u};
+                    const U32 locoNames[]={2322663157u,45929675u,728601449u};
+                    const U32 locoTypes[]={1683514611u,2220692146u,4275178604u};
+                    auto nested=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,4));
+                    for(unsigned k=0;k<3;++k) {
+                        nested[k].name=t.offset==412?armorNames[k]:locoNames[k];nested[k].type=t.offset==412?armorTypes[k]:locoTypes[k];
+                        procedures.BookmarkMemberOffset(static_cast<unsigned char*>(list->data)+12*j+4*k,&nested[k].offset);
+                    }
+                    procedures.Pop();
+                } else {
+                    const unsigned stride=t.offset==40 || t.offset==536?8:4;
+                    procedures.BookmarkMemberOffset(static_cast<unsigned char*>(list->data)+stride*j,&count[j+1].offset);
+                }
             }
             procedures.Pop();
         }
@@ -192,9 +230,12 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
         if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
         for(const auto& entry:lists) if(entry.first!=40) {
-            const unsigned stride=entry.first==536?8:4;
+            const unsigned stride=entry.first==412 || entry.first==420?12:entry.first==536?8:4;
             auto bytes=static_cast<unsigned char*>(entry.second->data);
-            for(U32 i=0;i<entry.second->count;++i) Swap(bytes+stride*i);
+            for(U32 i=0;i<entry.second->count;++i) {
+                Swap(bytes+stride*i);
+                if(stride==12) {Swap(bytes+stride*i+4);Swap(bytes+stride*i+8);}
+            }
         }
         // In this restricted surface all words below 576 are scalars, lengths,
         // zero masks/counts, or pointers overwritten by MakeRelocatable.

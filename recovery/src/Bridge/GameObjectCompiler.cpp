@@ -31,9 +31,9 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
-            bool repeated=name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
+            bool repeated=name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
             if(child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
             Native::GameObjectChild item;item.name=marshal_as<std::string>(name);item.text=marshal_as<std::string>(child->Value);
@@ -44,12 +44,14 @@ public:
                 if(a->LocalName=="TypeId") continue;
                 bool allowed=(name=="DisplayColor" && (a->LocalName=="R" || a->LocalName=="G" || a->LocalName=="B" || a->LocalName=="A")) ||
                     (name=="Flammability" && (a->LocalName=="Fuel" || a->LocalName=="MaxBurnRate" || a->LocalName=="Decay" || a->LocalName=="Resistance")) ||
-                    (name=="LiveCameraOffset" && (a->LocalName=="x" || a->LocalName=="y" || a->LocalName=="z"));
+                    (name=="LiveCameraOffset" && (a->LocalName=="x" || a->LocalName=="y" || a->LocalName=="z")) ||
+                    (name=="ArmorSet" && (a->LocalName=="Armor" || a->LocalName=="DamageFX" || a->LocalName=="Conditions")) ||
+                    (name=="LocomotorSet" && (a->LocalName=="Speed" || a->LocalName=="Condition" || a->LocalName=="Locomotor"));
                 if(!allowed)
                     throw gcnew NotSupportedException("Unsupported GameObject child attribute.");
                 item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
             } while(a->MoveToNextAttribute());
-            if((name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("DisplayColor text content.");
+            if((name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset" || name=="ArmorSet" || name=="LocomotorSet") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("Unexpected text in structured GameObject child.");
             children.push_back(item);
             if(name=="UpgradeCameo" || name=="DisplayUpgrade") {
                 unsigned count=0;for(const auto& c:children) if(c.name==item.name) ++count;
