@@ -1,23 +1,23 @@
 {
+  "sdkStatus": "not run; original route retained",
+  "runId": "39961644190",
+  "succeeded": true,
+  "scope": "88 root attributes; thirty-eight child nodes including module containers with 31 complete base-only types plus unknown fallback (other known module types rejected); complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "scope": "88 root attributes; thirty-two child nodes including complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
-  "succeeded": true,
-  "sourceCommit": "1d07ec2aee4ec6aa0193f8866fbd4ed76e7497d0",
   "modes": [
     {
       "mode": "Od",
-      "summary": "PASS recovered GameObject root: fixtures=60320 threeBufferComparisons=180960 refusals=1036 invarianceComparisons=192; 88 root attributes and thirty-two child nodes including empty module markers and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=69744 threeBufferComparisons=209232 refusals=8264 invarianceComparisons=204; 88 root attributes and thirty-eight child nodes including module containers restricted to 31 complete base-only types/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
     },
     {
       "mode": "O2",
-      "summary": "PASS recovered GameObject root: fixtures=60320 threeBufferComparisons=180960 refusals=1036 invarianceComparisons=192; 88 root attributes and thirty-two child nodes including empty module markers and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=69744 threeBufferComparisons=209232 refusals=8264 invarianceComparisons=204; 88 root attributes and thirty-eight child nodes including module containers restricted to 31 complete base-only types/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
     }
   ],
-  "sdkStatus": "not run; original route retained",
-  "runId": "39960173975"
+  "sourceCommit": "afac552209d4880e883f2d37189c896a1823e4a6"
 }
