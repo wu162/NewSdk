@@ -5,19 +5,19 @@
     2,
     99
   ],
-  "succeeded": true,
-  "sourceCommit": "dc7b762721f651e41c7f0ab129079f712437963f",
-  "runId": "39923741018",
-  "scope": "88 root attributes; twelve child nodes including leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
   "modes": [
     {
-      "mode": "Od",
-      "summary": "PASS recovered GameObject root: fixtures=21608 threeBufferComparisons=64824 refusals=140 invarianceComparisons=16; 88 root attributes and twelve child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=23240 threeBufferComparisons=69720 refusals=224 invarianceComparisons=16; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "Od"
     },
     {
-      "mode": "O2",
-      "summary": "PASS recovered GameObject root: fixtures=21608 threeBufferComparisons=64824 refusals=140 invarianceComparisons=16; 88 root attributes and twelve child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+      "summary": "PASS recovered GameObject root: fixtures=23240 threeBufferComparisons=69720 refusals=224 invarianceComparisons=16; 88 root attributes and sixteen child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "O2"
     }
   ],
-  "sdkStatus": "not run; original route retained"
+  "sdkStatus": "not run; original route retained",
+  "scope": "88 root attributes; sixteen child nodes including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
+  "sourceCommit": "a115ef671b3c4a7a18a11bc720418b4c68e789f4",
+  "succeeded": true,
+  "runId": "39924338693"
 }
