@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 23085; body SHA256 fd9946eeb89f5078467bec3edf0441fca510d15fb35e2b2ad8ff9c6c5ceb46fc
+// Literals: {"_003F_003F_C_0040_0N_0040EKEHFFMF_0040ShowGeometry_003F_0024AA_0040": "ShowGeometry", "_003F_003F_C_0040_0N_0040ICFGNGEC_0040HideGeometry_003F_0024AA_0040": "HideGeometry"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, GeometryUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040EKEHFFMF_0040ShowGeometry_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 36), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040ICFGNGEC_0040HideGeometry_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 44), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+

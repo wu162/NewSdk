@@ -1,0 +1,23 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 34256; body SHA256 4042283a8f35654c65456d19205f4b45ed731377448d59d433b16406c1d24021
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(CostModifierUpgradeModuleData* @object, EndianHelper* state)
+	{
+		Marshaler_002EEndianCorrect_003Cfloat_003E((List_003Cfloat_003E*)((byte*)@object + 36), state);
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 44)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 44)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 44)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[44];
+			((int*)@object)[11] = (int)num;
+		}
+		uint num2 = ((uint*)@object)[13];
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((ObjectFilter*)(int)num2, state);
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E((List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 56), state);
+		Marshaler_002EEndianCorrect((UpgradeModuleData*)@object, state);
+	}
+

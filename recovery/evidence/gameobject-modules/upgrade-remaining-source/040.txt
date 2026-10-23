@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 30932; body SHA256 e12ffe507a33074c8760bae74ee58cc8045f7a3dfd4a5bfd2ad7ff490e18b632
+// Literals: {"_003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040": "SpecialPowerTemplate", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0BF_0040LIPGMJIK_0040ObeyRechageOnTrigger_003F_0024AA_0040": "ObeyRechageOnTrigger"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, UnpauseSpecialPowerUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_002Cclass_0020SpecialPowerTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ASpecialPowerTemplate_002CSpecialPowerTemplate_003E*)((byte*)@object + 36), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040LIPGMJIK_0040ObeyRechageOnTrigger_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 40, state);
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+

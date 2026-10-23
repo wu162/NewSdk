@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 27943; body SHA256 ed89ae7304c79963ccf915bb8baf6c4efd2e803584d122eca32a708b7803ace5
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0BG_0040NPBFLDKI_0040UpradesGroupsToRemove_003F_0024AA_0040": "UpradesGroupsToRemove", "_003F_003F_C_0040_0BL_0040CHPHFGFG_0040SuppressEvaEventForRemoval_003F_0024AA_0040": "SuppressEvaEventForRemoval", "_003F_003F_C_0040_0BL_0040JMNIBBMN_0040RemoveFromAllPlayerObjects_003F_0024AA_0040": "RemoveFromAllPlayerObjects", "_003F_003F_C_0040_0BA_0040HAIDIGAI_0040UpgradeToRemove_003F_0024AA_0040": "UpgradeToRemove"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, RemoveUpgradeUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040NPBFLDKI_0040UpradesGroupsToRemove_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetId_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (List_003CRelo_003A_003AAssetId_003E*)((byte*)@object + 36), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040CHPHFGFG_0040SuppressEvaEventForRemoval_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 52, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040JMNIBBMN_0040RemoveFromAllPlayerObjects_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 53, state);
+			Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040HAIDIGAI_0040UpgradeToRemove_003F_0024AA_0040)), (List_003CTypedAssetId_003CSageBinaryData_003A_003AUpgradeTemplate_003E_0020_003E*)((byte*)@object + 44), state);
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+

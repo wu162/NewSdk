@@ -1,0 +1,31 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 24178; body SHA256 35f37c212ec109aac862719bdfe1ef102dd490f8a060ee648c7d71623a5a947a
+// Literals: {"_003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040": "0.0s", "_003F_003F_C_0040_0BC_0040EHECMHHE_0040AddConditionFlags_003F_0024AA_0040": "AddConditionFlags", "_003F_003F_C_0040_0BF_0040ELNLILEB_0040RemoveConditionFlags_003F_0024AA_0040": "RemoveConditionFlags", "_003F_003F_C_0040_0BF_0040OIJBEHBC_0040AddTempConditionFlag_003F_0024AA_0040": "AddTempConditionFlag", "_003F_003F_C_0040_0BC_0040FAGKKABH_0040TempConditionTime_003F_0024AA_0040": "TempConditionTime"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ModelConditionUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040EHECMHHE_0040AddConditionFlags_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 36), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040ELNLILEB_0040RemoveConditionFlags_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 96), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040OIJBEHBC_0040AddTempConditionFlag_003F_0024AA_0040), null), (ModelConditionFlagType*)@object + 39, state);
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040FAGKKABH_0040TempConditionTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 40, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+

@@ -1,0 +1,23 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 88887; body SHA256 393c98e2eeea1e4dd63e8b578a7c55192bdeb3f7081208989a99067eb93bc8e0
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, GeometryUpgradeModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1369395560;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpgradeModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -85442015;
+		((int*)ptr)[1] = 1835445784;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 36), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1859654874;
+		((int*)ptr)[1] = 1835445784;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)@object + 44), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

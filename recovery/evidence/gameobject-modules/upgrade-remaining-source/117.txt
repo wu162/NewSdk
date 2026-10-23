@@ -1,0 +1,61 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 88811; body SHA256 85081dc25c85a1132ba2fd14afa4ef6ca28267aea410fdb0a1fba31a4bead5bc
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, SubObjectsUpgradeNugget* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 11u);
+		*(int*)ptr = -1186364690;
+		((int*)ptr)[1] = -409465770;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetId_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AAssetId_003E*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2039220378;
+		((int*)ptr)[1] = -409465770;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetId_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AAssetId_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1730190031;
+		((int*)ptr)[1] = -1719244312;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 16, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -877244200;
+		((int*)ptr)[1] = -1719244312;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 20, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1696634236;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 40, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 747814091;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 41, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -36046849;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 42, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -675820141;
+		((int*)ptr)[1] = 653971399;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 24, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -234979465;
+		((int*)ptr)[1] = 1851605243;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AReplaceTexture_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AReplaceTexture_003E*)((byte*)@object + 28), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1784776837;
+		((int*)ptr)[1] = 1802791670;
+		byte* num = (byte*)@object + 36;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (AnimAndDuration*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

@@ -1,0 +1,32 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39287; body SHA256 4a57fecca78b8b6cbc64431130979c5d560feefc039920a3ccabed79520cfa81
+// Literals: {"_003F_003F_C_0040_06GEMKPBPA_0040Offset_003F_0024AA_0040": "Offset", "_003F_003F_C_0040_0P_0040HBFICDBA_0040ModelCondition_003F_0024AA_0040": "ModelCondition"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, OffsetInfo* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040HBFICDBA_0040ModelCondition_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06GEMKPBPA_0040Offset_003F_0024AA_0040), null);
+			try
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out VectorHack vectorHack);
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (Vector3*)((byte*)@object + 60), state, &vectorHack);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+	}
+

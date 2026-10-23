@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39317; body SHA256 c91f2d64258f605e89f5cc347a7b59ce1e7d04fd804a824e47ee17f53203a583
+// Literals: {"_003F_003F_C_0040_0BG_0040CLLNDOMJ_0040AvailableSubStructure_003F_0024AA_0040": "AvailableSubStructure", "_003F_003F_C_0040_0BA_0040JDHPIKCE_0040StructureOffset_003F_0024AA_0040": "StructureOffset"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SubStructureBuildUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAvailableSubStructure_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040CLLNDOMJ_0040AvailableSubStructure_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AAvailableSubStructure_003E*)((byte*)@object + 36), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AOffsetInfo_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040JDHPIKCE_0040StructureOffset_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AOffsetInfo_003E*)((byte*)@object + 44), state);
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+

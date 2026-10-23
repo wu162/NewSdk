@@ -1,0 +1,23 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 88469; body SHA256 3d728bd44414295c0e8c6263a432568f62e4a12c191c98cdf65b5edcd5f2c2d6
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, SubStructureBuildUpgradeModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1369395560;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpgradeModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1282983229;
+		((int*)ptr)[1] = -1282983229;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAvailableSubStructure_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AAvailableSubStructure_003E*)((byte*)@object + 36), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1451654458;
+		((int*)ptr)[1] = 1683991075;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AOffsetInfo_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AOffsetInfo_003E*)((byte*)@object + 44), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

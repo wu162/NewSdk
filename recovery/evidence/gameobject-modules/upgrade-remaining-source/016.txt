@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 88043; body SHA256 5d7ab5fcdd373daa10a08c553f24e86dc0944e8732f4ac96de728b7bfa360dd0
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ReplaceSelfUpgradeModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 5u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1369395560;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpgradeModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -87403636;
+		((int*)ptr)[1] = -1719244312;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 36, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1092780236;
+		((int*)ptr)[1] = -797932912;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 40, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1160307140;
+		((int*)ptr)[1] = 344905565;
+		Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E*)((byte*)@object + 44), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

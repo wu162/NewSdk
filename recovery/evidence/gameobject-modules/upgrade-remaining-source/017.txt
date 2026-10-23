@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61498; body SHA256 1f8e27f1a2bb479761adf8d3d4d4827bcba65b1f1f4434d84f42f49efb178bbd
+// Literals: {"_003F_003F_C_0040_06KFOEGDAJ_0040Nugget_003F_0024AA_0040": "Nugget"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASubObjectsUpgradeModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		SubObjectsUpgradeModuleData* ptr = (SubObjectsUpgradeModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 44u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASubObjectsUpgradeNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06KFOEGDAJ_0040Nugget_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ASubObjectsUpgradeNugget_003E*)((byte*)ptr + 36), tracker);
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1594276481;
+	}
+

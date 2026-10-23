@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63552; body SHA256 d35d76ec671c60f506605c0b16a9983b6a24a1cbd6d70ae21efe80dc70d0a4bd
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AStatusBitsUpgradeModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		StatusBitsUpgradeModuleData* ptr = (StatusBitsUpgradeModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)ptr + 36), endian);
+		Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)ptr + 64), endian);
+		Marshaler_002EEndianCorrect((UpgradeModuleData*)ptr, endian);
+	}
+

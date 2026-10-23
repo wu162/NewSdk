@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 33624; body SHA256 391ca67ca439c92567e5e0afb5a3ce71689b890d816bce3918eb468d79c4ae84
+// Literals: {"_003F_003F_C_0040_0M_0040HLOEIHMA_0040StatusToSet_003F_0024AA_0040": "StatusToSet", "_003F_003F_C_0040_0O_0040KFJFAFK_0040StatusToClear_003F_0024AA_0040": "StatusToClear"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, StatusBitsUpgradeModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040HLOEIHMA_0040StatusToSet_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)@object + 36), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040KFJFAFK_0040StatusToClear_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)@object + 64), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)@object, state);
+		}
+	}
+
