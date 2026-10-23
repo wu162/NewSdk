@@ -124,7 +124,7 @@
 | AIAoeAttackPowerLocationPreference | 3 | 1 | 55957 |
 | AIAoeAttackPowerEmanationLocation | 2 | 0 | 55968 |
 
-WpnAntiT为14位、MicroManagerState为10位、AITargetLocationType为2位、AIBaseType为10位（原名字表有11项，`PRIMARY_TYPE_MAX=2`与`CAPTURED=2`为同值名称）。需要从各自原位集helper核对unknown、ALL、负号XOR、越界停止和padding语义，不能按枚举表长度猜bitCount。KindOf可复用当前原始284位表/解析器，但必须新加AISpecialPowerInfo内联include/exclude的独立布局与差分。
+WpnAntiT为14位、MicroManagerState为10位、AITargetLocationType为2位、AIBaseType为10位（原名字表有11项，`PRIMARY_TYPE_MAX=2`与`CAPTURED=2`为同值名称）。四个原位集helper的unknown、ALL、负号XOR、越界与padding已在末节补齐源码对照，尚待恢复与差分；不能按枚举表长度猜bitCount。KindOf可复用当前原始284位表/解析器，但必须新加AISpecialPowerInfo内联include/exclude的独立布局与差分。
 
 ## 整组测试门槛
 
@@ -133,3 +133,18 @@ WpnAntiT为14位、MicroManagerState为10位、AITargetLocationType为2位、AIB
 - 全部列表空/单/多/长，两个base子对象和两个ObjectFilter，嵌套SpecialPowerWeapon，schema顺序分配与XML顺序不变性；混合已支持GameObject组。
 - 非命名空间TypeId允许，外来命名空间/未知字段/未知结构/重复单例/结构文本显式拒绝。
 - 全组准备后统一/Od、/O2、0/1/2/99、三缓冲区差分、独立布局/Token/sentinel和拒绝矩阵。当前没有此组成功结果；不以源码调查代替原版差分。真实SDK继续按EFFICIENCY.md累计。
+
+## 后续位集helper源码核对补充
+
+已完整读取并对照四个118行原始helper，规范化类型、名字表数量、bitCount、unknown常量与IL标签后控制流相同。此结论来自源码结构比较，仍不是恢复实现或新增原DLL差分结果。
+
+| 位集 | helper行 | 名字数 / bitCount | unknown置位 |
+|---|---|---|---|
+| WpnAntiT | 68313 | 14 /14 | 7 |
+| MicroManagerState | 70165 | 10 /10 | 0 |
+| AITargetLocationType | 70046 | 2 /2 | 1 |
+| AIBaseType | 69927 | 11 /10 | 2 |
+
+这些helper均先按原词分隔符解析，普通名称大小写敏感；`+`为OR、`-`为XOR。`ALL`大小写不敏感（去掉前导符号后判断），直接把整个32位word设为0xffffffff，包含padding；`-ALL`同样设满而不是清空。ALL分支不推进token指针，因此剩余循环反复处理ALL而不再处理后续token；新测试必须包括 `ALL -UNKNOWN`、`-ALL`、重复负号XOR及AIBaseType同值名称。不是bitCount范围掩码。已知枚举值若为-1或>=bitCount则跳过；unknown落入表中fallback位。
+
+可复用现有MarshalEnumBitset逻辑，但仍要为本组各字段补齐新布局/可空包装、XOR/ALL/padding的独立断言及完整差分，不能仅凭控制流相同省略验证。
