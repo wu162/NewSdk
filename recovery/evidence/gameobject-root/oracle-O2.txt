@@ -1,1 +1,1 @@
-PASS recovered GameObject root: fixtures=4644 threeBufferComparisons=13932 refusals=48; 74 scalar/string/enum attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run
+PASS recovered GameObject root: fixtures=5276 threeBufferComparisons=15828 refusals=44; 84 scalar/string/enum/resource attributes, four targets including 99, independent defaults/list/sentinel checks; SDK not run
