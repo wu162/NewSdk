@@ -22,7 +22,8 @@ constexpr U32 SpecialPowerId=1542018985u, InformId=1115743736u, ContainedAttackI
 bool BaseOnly(U32 id) {return id==ContainedAttackId || id==SlavesAttackId || id==ReportId;}
 bool Auxiliary(U32 id) {return BaseOnly(id) || id==SpecialPowerId || id==InformId;}
 constexpr U32 CircularId=2360033115u,LiftId=2769610658u,LinearId=3694898303u,StreamId=2159708756u,LaserId=3915396258u,CraterId=3520092115u;
-bool SimpleType(U32 id) {return id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId;}
+constexpr U32 AttachId=576040660u,SpendId=4286253161u,SecondaryId=2475108259u,StripId=1622083673u,SuppressionId=4104564135u,LuaId=2010867179u;
+bool SimpleType(U32 id) {return id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
 bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id) || SimpleType(id); }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
@@ -414,10 +415,31 @@ const SimpleMember laserMembers[]={
     {{"HitGroundFX",nullptr,48,'r'},149298952u,219975299u},{{"OverShootDistance","0",52,'f'},2533801744u,1683514611u}
 };
 const SimpleMember craterMembers[]={{{"Depth","0",40,'f'},1018273879u,1683514611u},{{"Lift","0%",44,'p'},1240646209u,1683514611u}};
+const SimpleMember attachMembers[]={{{"AttachModuleId",nullptr,40,'h'},2260834086u,3186653541u}};
+const SimpleMember spendMembers[]={{{"AmountToSpend","1",40,'i'},175234830u,602296504u}};
+const SimpleMember secondaryMembers[]={
+    {{"Amount",nullptr,40,'i'},1343336868u,602296504u},{{"DamageTaperOff","-1.0",44,'f'},293792262u,1683514611u},
+    {{"PercentDamageToContained","0%",48,'p'},4033350053u,1683514611u}
+};
+const SimpleMember stripMembers[]={
+    {{"AmountToStrip","50%",40,'p'},2847940485u,1683514611u},{{"DamageType","UNDEFINED",44,'d'},1179152369u,1179152369u},
+    {{"DeathType","NORMAL",48,'e'},3322473782u,3322473782u},{{"DamageFXType","UNDEFINED",52,'x'},799690338u,799690338u}
+};
+const SimpleMember suppressionMembers[]={
+    {{"Suppression","0",40,'f'},123827726u,1683514611u},{{"DurationSeconds","0s",44,'t'},1835767993u,2575722984u},
+    {{"SuppressionTaperOff","-1.0",48,'f'},3706225841u,1683514611u},{{"SuppressionArc","360d",52,'a'},50005410u,1310124621u},
+    {{"SuppressionArcInverted","false",56,'b'},3757098032u,2011428087u}
+};
+const SimpleMember luaMembers[]={
+    {{"EventName",nullptr,40,'s'},3813864839u,438907818u},{{"SendToEnemies","false",48,'b'},1975294207u,2011428087u},
+    {{"SendToAllies","false",49,'b'},759007980u,2011428087u},{{"SendToNeutral","false",50,'b'},564167374u,2011428087u}
+};
 struct SimpleSpec { U32 id, size; const SimpleMember* members; unsigned count; };
 const SimpleSpec simpleSpecs[]={
     {CircularId,44,lifetimeMembers,1},{LiftId,44,lifetimeMembers,1},{LinearId,44,lifetimeMembers,1},
-    {StreamId,48,streamMembers,2},{LaserId,56,laserMembers,4},{CraterId,48,craterMembers,2}
+    {StreamId,48,streamMembers,2},{LaserId,56,laserMembers,4},{CraterId,48,craterMembers,2},
+    {AttachId,44,attachMembers,1},{SpendId,44,spendMembers,1},{SecondaryId,52,secondaryMembers,3},
+    {StripId,56,stripMembers,4},{SuppressionId,60,suppressionMembers,5},{LuaId,52,luaMembers,4}
 };
 const SimpleSpec* FindSimple(U32 id) {for(const auto& spec:simpleSpecs) if(spec.id==id) return &spec;return nullptr;}
 U32 NonDamageSize(U32 id) {
@@ -453,8 +475,15 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
             auto text=Text(src,field.name,field.fallback?field.fallback:"");
             auto at=reinterpret_cast<unsigned char*>(base)+field.offset;
             if(field.kind=='r') {MarshalReference(data,at,text);continue;}
+            if(field.kind=='s') {MarshalString(data,at,text);continue;}
+            if(field.kind=='b') {*at=ParseBoolean(text);continue;}
+            if(field.kind=='h') {auto value=HashAssetId(text);std::memcpy(at,&value,4);continue;}
+            if(field.kind=='d' || field.kind=='e' || field.kind=='x') {
+                U32 value=field.kind=='d'?Enum(text,DamageType,38):field.kind=='e'?Enum(text,DeathType,33):Enum(text,DamageFXType,35);
+                std::memcpy(at,&value,4);continue;
+            }
             if(field.kind=='i') {auto value=ParseSigned(text);std::memcpy(at,&value,4);continue;}
-            float value=field.kind=='t'?InitializeTime(text.c_str()):field.kind=='p'?ParsePercentage(text):ParseFloat(text);
+            float value=field.kind=='t'?InitializeTime(text.c_str()):field.kind=='a'?InitializeAngle(text.c_str()):field.kind=='p'?ParsePercentage(text):ParseFloat(text);
             std::memcpy(at,&value,4);
         }
     } else if(Auxiliary(src.typeId)) {
@@ -547,7 +576,7 @@ void TokenNonDamageNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bo
 void EndianNonDamageNugget(BaseNugget* base) {
     auto simple=FindSimple(base->type);
     if(simple) {
-        for(unsigned i=0;i<simple->count;++i) if(simple->members[i].field.kind!='r') Swap(reinterpret_cast<unsigned char*>(base)+simple->members[i].field.offset);
+        for(unsigned i=0;i<simple->count;++i) if(simple->members[i].field.kind!='r' && simple->members[i].field.kind!='b') Swap(reinterpret_cast<unsigned char*>(base)+simple->members[i].field.offset);
         EndianBase(*base);return;
     }
     if(base->type==InformId) {auto object=reinterpret_cast<InformTargetNugget*>(base);Swap(&object->min);Swap(&object->max);}

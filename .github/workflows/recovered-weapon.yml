@@ -34,6 +34,18 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'Attach Marshal'; Start = 15743; End = 15756 }
+            @{ Name = 'Spend Marshal'; Start = 15912; End = 15926 }
+            @{ Name = 'SecondaryDamage Marshal and endian'; Start = 16131; End = 16191 }
+            @{ Name = 'Strip Marshal and endian'; Start = 16203; End = 16269 }
+            @{ Name = 'Suppression Marshal and endian'; Start = 16545; End = 16624 }
+            @{ Name = 'LuaEvent Marshal'; Start = 15818; End = 15838 }
+            @{ Name = 'Attach Tokenize'; Start = 78797; End = 78813 }
+            @{ Name = 'Spend Tokenize'; Start = 78936; End = 78952 }
+            @{ Name = 'SecondaryDamage Tokenize'; Start = 79047; End = 79073 }
+            @{ Name = 'Strip Tokenize'; Start = 79097; End = 79125 }
+            @{ Name = 'Suppression Tokenize'; Start = 79240; End = 79272 }
+            @{ Name = 'LuaEvent Tokenize'; Start = 78853; End = 78881 }
             @{ Name = 'Lifetime-only Marshal'; Start = 15802; End = 15866 }
             @{ Name = 'Stream Marshal and endian'; Start = 15927; End = 15975 }
             @{ Name = 'TerrainCrater Marshal and endian'; Start = 15976; End = 16017 }
