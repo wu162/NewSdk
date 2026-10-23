@@ -1,6 +1,23 @@
 {
-  "succeeded": false,
-  "sdkStatus": "not run; original route retained",
-  "runId": "39959381460",
-  "sourceCommit": "7bd7cbad251a7a410759f9f779c65c3dc6bd891e"
+  "modes": [
+    {
+      "summary": "PASS recovered GameObject root: fixtures=60272 threeBufferComparisons=180816 refusals=964 invarianceComparisons=184; 88 root attributes and thirty child nodes including complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "Od"
+    },
+    {
+      "summary": "PASS recovered GameObject root: fixtures=60272 threeBufferComparisons=180816 refusals=964 invarianceComparisons=184; 88 root attributes and thirty child nodes including complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
+      "mode": "O2"
+    }
+  ],
+  "sourceCommit": "986bb898dacfbed2d6f92074f3e49f9aef421719",
+  "succeeded": true,
+  "runId": "39959718372",
+  "scope": "88 root attributes; thirty child nodes including complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "sdkStatus": "not run; original route retained"
 }

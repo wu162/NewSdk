@@ -1,3 +1,1 @@
-System.Exception: Independent AI defaults/layout
-   at GameObjectOracle.SkirmishAIGroup(IAssetBuilderPlugin original, TargetPlatform p)
-   at GameObjectOracle.Main(String[] args)
+PASS recovered GameObject root: fixtures=60272 threeBufferComparisons=180816 refusals=964 invarianceComparisons=184; 88 root attributes and thirty child nodes including complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run
