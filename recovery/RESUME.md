@@ -1,83 +1,59 @@
 # 编译器恢复：当前续接入口
 
-更新：2026-10-23。仓库 `wu162/NewSdk`，分支 `recovery/compiler-source`。
-先读本文件及 AGENTS.md / EFFICIENCY.md，再按本轮范围读取源码与证据。STATUS.md 保存历史，旧章节的“下一轮”不是当前计划。
+更新：2026-10-23。仓库`wu162/NewSdk`，分支`recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md和本文件；历史STATUS.md不是当前计划，不全量加载大型反编译或source-inventory。
 
 ## 持续规则
 
-- 目标是完整恢复 XmlCompiler / Tokenizer 的 C# 与 C++/CLI；两份完整替代 DLL 尚未完成。
-- 仓库操作持续授权，禁止任何强推。保留并发 Actions 证据提交；API 更新也只能普通快进。
-- 实现阶段按约 45 分钟有效工作量；先完成子集就保存，再继续依赖满足的工作。首个可复现成果及时提交/推送，每约 10–15 分钟检查未保存成果。禁止空等或重复分析凑时长。
-- 正确性优先：保持原 DLL 核对、/Od 与 /O2、四平台含 99、三缓冲区比较、独立布局和拒绝测试。只减少重复读取/重复调查，不减测、不放宽断言。默认单代理。
-- 输出先筛选，大型反编译按方法展开。通常一次约 150 行或 8 KB；这是展示目标而非证据上限。不能把写规则当作已证明额度降低。
-- 真实 SDK 可跨多个实现阶段集中验证，不要求每轮执行；可在临时副本中注释/移除无关 MOD 输入，保留依赖，原/恢复版使用相同输入。精简覆盖须记录，关键里程碑保留完整 mymod 验收，详见 EFFICIENCY.md。Armor 仅显式 [sdk-armor] 或手动批次运行。真实 SDK 按类型/字段批次集中验证。Weapon `[sdk-probe]` 为原路由 payload 批次，`[sdk-plugin]` 为正式恢复插件对照；普通修复只跑组件。输入链/路由变化后必须集成验证。
-- mymod 源码须符合 SDK/Schemas/xsd 完整 XSD 并接入 Mod.xml。保留未支持输入的显式拒绝。
+- 目标完整恢复XmlCompiler/Tokenizer的C#和C++/CLI；两份完整替代DLL尚未完成。
+- 仓库操作持续授权，只禁止任何强推；保留并发代码及Actions证据提交，普通快进更新现有分支。本轮未新建分支。
+- 约45分钟有效实现阶段；先完成一组后保存并推进下一完整组。每约10–15分钟检查未保存成果；检查点明确未验证/验证中/已验证。不能空等或重复分析凑时长。
+- 尽快完成整组，关键公共契约集中调查、连续实现、统一完整矩阵；避免每个字段/同源码重复触发Windows。正确性优先，不降低/Od、/O2、四平台含99、三缓冲区逐字节比较、独立布局/Token/sentinel及拒绝测试。
+- 默认单代理；原DLL证据须核对实际方法，不能以旧总结或nativeSize代替语义。工具结果先筛选，大型源码按方法展开。
+- 真实SDK可跨多阶段累计；普通组件组不触发SDK。路由/输入链/正式启用前仍须适用SDK验收，不能用组件成功冒充集成成功。可在临时副本精简无关MOD输入，原/恢复版输入相同，保留必要依赖及完整XSD。详见EFFICIENCY.md。
+- Weapon `[sdk-probe]` / `[sdk-plugin]`、Armor `[sdk-armor]`或手动批次入口控制真实SDK。没有SDK标记的组件批次不频繁跑SDK。
 
-## 当前已完成：Armor 与 Weapon 逐类型正式接入验证
+## 当前GameObject：88根属性、38类根子节点（模块容器有限范围）
 
-ArmorTemplate：此前正式插件、真实 SDK 配置路由、四份完整产物比较、实际调用及无原 DLL 重放已通过。本轮 mymod 变更后的 Armor 回归也通过。
+本轮连续完成三个完整能力组：
 
-WeaponTemplate：91 根属性、可选块、三种 ObjectFilter、状态位、ScatterRadiusVsType、共用 Nugget/ScalarInfo、全部 **35/35 显式 Nugget 分支**，以及 missing/zero/unknown TypeId 默认路径已恢复。
+1. **SkirmishAIInformation完整依赖组**：88字节根、172字节AIContextualPower列表、两组20字节AIBaseSelectionCriteria、28字节SpecialPowerWeapon、两处ObjectFilter；64字段及所有枚举/位集、可空值/引用、列表、Token/endian。
+2. **ReplaceModule/InheritableModule完整XSD空结构**：各分配1字节，Tracker按4字节对齐；root@496/@500；原Token不生成子表/目标bookmark，offset仍0。未知内容拒绝。
+3. **多态模块公共能力组**：Draws、Behaviors、AI、Body、ClientUpdates、ClientBehaviors六容器；原Marshal全部31个8字节公共字段类型及未知TypeId默认路径。**其余291个已知Marshal类型仍显式拒绝，不是全部模块已恢复。**
 
-本轮关键细节：未知对象分配 40 字节，仅 Marshal 共用基类，输出 TypeId 清零；Tokenize 只有 12 字节包装记录且子表偏移为零，不能生成基类 Token 子表；endian 仅处理共用基类。所有非多态节点允许 BAB 注入的无命名空间 TypeId，Nugget 项仍按它分派。未知字段/结构及外来命名空间继续拒绝。
+关键边界：DamageType的UNDEFINED=14、unknown fallback=38；可空bool为1字节分配，其余AI可空值/引用对象4字节；ALL保留word padding。模块id为小写typed-ID哈希；按数值TypeId分派，不从元素名猜测。未知模块分配8字节、输出TypeId=0、Token仅12字节单记录包装，无公共子表和包装sentinel。31个具体类型的Token继承树按原方法提取，不按推测继承生成。
 
-正式插件：`Recovered.Weapon.Plugin, Recovered.WeaponPlugin`，依赖 `Recovered.Weapon.dll`，不调用原编译器。`scripts/SetWeaponPlugin.ps1` 可逆、幂等切换 WeaponTemplate。默认检入的 SDK 配置仍是原路由；已在隔离 SDK 副本中实际完成恢复插件路由编译。其他类型仍需原插件。
+原Marshal/endian各322个显式模块分支，Token380个；58个Token-only不能自行加到Marshal。已保存完整源码清单、两处endian父类别名和31个公共类型Token树。
 
-## Weapon 精确验证锚点
+此前29类子节点及全部根属性保持覆盖。StringList仅接受XSD合法文本（原结果为空列表），非空Item拒绝。非多态无命名空间TypeId注解允许；外来命名空间、未知字段/结构、重复单例和结构文本拒绝。共享relocation/scalar/resource/bitset/ObjectFilter实现未改。
 
-源码：`22c12f53c2f3c886cdb63d212ab10bc57cf715e0`。
-运行：https://github.com/wu162/NewSdk/actions/runs/39896743313 ，success。
-每种 /Od、/O2：66,152 个 fixture、793,824 次缓冲区比较、1,002 次拒绝检查、2,070 次 ObjectStatus 和 4,179 次 ModelCondition 直接比较；含 Win32、Xbox360、PS3、99。两模式合计 **1,587,648 次缓冲区比较**。整套矩阵同时覆盖非多态 TypeId 注解和正式插件元数据/入口。
+**仍不是完整GameObject编译器；没有正式GameObject插件。本轮真实SDK运行0次，保持原路由。**
 
-同次正式 SDK 批次：38 个合法 mymod 武器，覆盖全部 35 分支、完整 35 项混合列表和继承版本；完整 XSD 及三个非法样例拒绝通过；原/恢复版 mod.bin、mod.manifest、mod.imp、mod.relo 全部逐字节一致；38 个实际调用的三缓冲区原版重放通过，移除两份原编译器 DLL 后重放也通过。实际 SDK 为 Win32；其他平台由组件矩阵验证。
+## 最终精确验证锚点
 
-证据：`evidence/weapon/validation.json`、`formal-sdk.json`、`formal-sdk-output.zip`、`oracle-logs.zip`，sourceCommit/runId 和两模式摘要已核对。正式构建两份程序集在该 run 的 recovered-weapon-component-x86 artifact。
-基础回归：https://github.com/wu162/NewSdk/actions/runs/39896743345 。
-Armor SDK 回归：https://github.com/wu162/NewSdk/actions/runs/39896743435 ，success。
+源码：`afac552209d4880e883f2d37189c896a1823e4a6`。
+GameObject：https://github.com/wu162/NewSdk/actions/runs/39961644190 ，success。
+基础回归：https://github.com/wu162/NewSdk/actions/runs/39961644145 ，success，同源码。
 
-旧 `sdk-batch-validation.json` 是此前原路由 31 样例批次的独立历史证据，不等同于新的正式路由结果。详见 WEAPON_TEMPLATE.md / WEAPON_NUGGETS.md / WEAPON_INPUT_PIPELINE.md。
+每种/Od、/O2：**69,744 fixtures、209,232三缓冲区比较、8,264拒绝检查、204独立不变性比较**；两模式合计**418,464次缓冲区比较**，Win32/Xbox360/PS3/99。终态、sourceCommit/runId、两模式摘要和platforms已核对`evidence/gameobject-root/validation.json`。组件artifact为`recovered-gameobject-component-x86`，保留原日志及Actions证据提交。
 
-## GameObject 当前：88根属性、29类子节点完整组件差分通过
+前序独立组历史：AI source986bb898dacfbed2d6f92074f3e49f9aef421719/run39959718372；空Module标记source1d07ec2aee4ec6aa0193f8866fbd4ed76e7497d0/run39960173975。最终矩阵包含全部以上范围，无需对未变源码重复运行。
 
-本轮新增六类根子节点：CrusherInfo（含完整ExtraCrushLevels）、可重复ProjectedBuildabilityInfo（RadiusY可空、三类位集、AllowedObjectFilter）、完整原始Geometry（PlacementShape/Shape/ContactPoint与Vector2/Vector3）、AudioArrayVoice（三类完整列表）、AudioArraySound、EvaEventArray。此前23类及全部根属性继续通过。
+源码：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`。生成器`GenerateGameObjectFields.py`调用`ExtractGameObjectModuleEvidence.py`，检查原blob和源派生元数据一致性。测试仍在GameObject{Oracle,Cases,KindOf}.cs及TestGameObject.ps1。
 
-关键边界：Crusher默认MinCrushVelocityPercent为0.01f；必须保留原拼写PrimaryBuidability；Geometry与GeometryInfo是不同结构。NamedEntry Name采用大小写敏感FastHash，TargetObject采用小写化typed-ID哈希；缺失Sound是null，显式空Sound仍分配引用word。全部位集、列表、可空值、Token、endian与原版逐字节一致。
+类型细节：GAMEOBJECT.md、GAMEOBJECT_AI.md、GAMEOBJECT_MODULES.md。`evidence/gameobject-modules/source-inventory.json`约500KB，仅按TypeId/类型筛选读取。
 
-原指针StringList仍只接受XSD合法文本（原版结果为空列表），非空Item拒绝；未知输入、外来命名空间、重复单例继续拒绝。共享relocation/scalar/resource/bitset/ObjectFilter实现未修改。**仍不是完整GameObject编译器，没有正式GameObject插件；本轮真实SDK运行0次、保持原路由。**
+## 下一完整能力组：Body的其余七种类型
 
-## GameObject最终精确验证锚点
+先读**GAMEOBJECT_BODY.md**。一次完成ActiveBody、ShieldBody、ImmortalBody、HighlanderBody、ManagerBody、ManagedActiveBody、ManagedImmortalBody全部字段/继承Token及DamageRangeModifier依赖；InactiveBody/PropBody已支持。该文档是本轮源码调查，**不是这七类已实现或原DLL差分结果**。
 
-源码：`d27f0b932b4855d708cf0f09095c0b50026251e4`。
-组件：https://github.com/wu162/NewSdk/actions/runs/39956084622 ，success。
-每种/Od、/O2：**44,980 fixtures、134,940次三缓冲区比较、796次拒绝检查、136次独立不变性比较**；两模式合计**269,880次缓冲区比较**，含Win32、Xbox360、PS3、99。
-基础回归：https://github.com/wu162/NewSdk/actions/runs/39956084413 ，success，源码相同。
-已读取终态及 `evidence/gameobject-root/validation.json`，sourceCommit/runId/modes/平台已核对。组件artifact：recovered-gameobject-component-x86；两模式原始摘要在对应oracle日志，保留Actions证据提交。
+重点：DodgePercent不乘0.01，另外两个MaxHealth百分比及DamageRangeModifier的Min/Max会乘；ShieldArmor可空引用先分配，之后才调用ActiveBody分配GrabObject/列表。五个76字节派生类Token链不同。当前模块分配固定8字节，必须扩展size/字段/桥接白名单，不能仅增加TypeId。保持其他未恢复类型显式拒绝。
 
-本轮前序完整组锚点（历史）：Crusher/Projected源码4a8989d232432330a230cdcb58f0e7bbd7e6462e / run39935810403；Geometry源码140963c2f2be6c1091ce506c5130205b77fe072b / run39955059001。最终覆盖以上全部能力，不需对未变化源码重复运行。
+整组实现和测试准备后统一完整矩阵；GameObject能力累计后再集中准备正式插件、合法mymod样例及四产物/实际三缓冲区/无原DLL重放，不因普通字段逐个跑SDK。
 
-源码：`src/Native/GameObject.{h,cpp}`、`GameObjectFields.h`、`src/Bridge/GameObjectCompiler.cpp`。生成器 `scripts/GenerateGameObjectFields.py` 保持原源码 blob 指纹及生成一致性检查。测试 `tests/GameObject{Oracle,Cases,KindOf}.cs` / `scripts/TestGameObject.ps1`。具体源方法、大小、偏移和限制见 `GAMEOBJECT.md`。
+## 未变化的Weapon/Armor已集成状态
 
-## 下一轮约45分钟
+Weapon：91根属性、35/35显式Nugget、默认TypeId路径及正式插件已完成。源码22c12f53c2f3c886cdb63d212ab10bc57cf715e0；run39896743313 success。每模式66,152 fixtures、793,824缓冲区比较、1,002拒绝，另有ObjectStatus/ModelCondition直接比较；38合法mymod武器、四份完整产物一致、实际调用及无原DLL重放通过。正式插件Recovered.Weapon.Plugin/Recovered.Weapon.dll，默认检入SDK路由仍原版。见WEAPON_TEMPLATE.md、WEAPON_NUGGETS.md、WEAPON_INPUT_PIPELINE.md。
 
-1. 直接按 `GAMEOBJECT_AI.md` 的完整依赖组推进SkirmishAIInformation：88字节根、172字节AISpecialPowerInfo列表、两组20字节AIBaseSelectionCriteria、28字节AISpecialPowerWeaponData及ObjectFilter。该文档已整理原Marshal/endian/Token方法、65项XSD声明（id仅元数据，其余64项字段）、字节偏移与枚举入口；**只是源码调查，尚未实现或原DLL差分**。下一轮仍需核对实际方法及未知helper，不能把调查表当验证结果。
-2. SkirmishAIInformation、全部多态模块、ReplaceModule/InheritableModule仍未完成，继续显式拒绝；不只放开AI外壳。
-3. GameObject能力累计后集中准备合法mymod样例及正式插件，四产物对照、实际三缓冲区及无原DLL重放门槛不降低。普通组件组不频繁跑SDK。
-4. 本次及以后约45分钟有效工作量；沿用及时检查点/普通推送与禁止强推。本轮直接更新现有分支，没有创建新分支。中途用户续接前存在外部暂停，暂停不计有效工作量。
+Armor正式插件/真实SDK四产物/实际调用/无原DLL重放此前通过；最近mymod输入后的回归run39896743435 success。本轮未修改Weapon/Armor源码、SDK输入或路由，未重复对应已完成SDK批次。
 
-本轮复用已加载原模块与既有共享实现，按完整组验证，未反复读取Weapon历史或触发真实SDK；没有账号额度计量，不能量化节省。
-
-## 2026-10-23 当前检查点：AI已验证，空Module标记验证中
-
-AI完整依赖组已通过：源码986bb898dacfbed2d6f92074f3e49f9aef421719；run39959718372 success。每种/Od、/O2为60,272 fixtures、180,816三缓冲区比较、964拒绝、184独立不变性比较，四平台含99。见GAMEOBJECT_AI.md。
-
-本提交继续完整恢复XSD空结构ReplaceModule/InheritableModule：原方法66174/66183各Push1字节、tracker按4字节对齐；root@496/@500，Token不生成子表。新增原版差分、独立指针/填充/relocation/零Token、混合顺序及拒绝边界。**空Module标记组尚待本提交Actions完整矩阵，不声明通过。SDK未运行，原路由保留。**
-
-下一步：检查本提交GameObject与基础回归Actions终态并核对证据；全部通过后更新当前入口，继续GameObject多态模块完整能力组。保留所有证据提交，禁止强推。
-
-## 多态公共能力组检查点（验证中）
-
-前序32类子节点已完整通过：source1d07ec2aee4ec6aa0193f8866fbd4ed76e7497d0/run39960173975；每模式60,320 fixtures、180,960三缓冲区比较、1,036拒绝、192不变性比较。
-
-本提交继续实现六个模块容器及原322个Marshal分支中全部31个8字节公共字段类型，Token继承树从实际原方法提取，不按C++类型继承猜测。未知TypeId原路径输出8字节ModuleData、TypeId清零、仅单记录Token包装；其余291个已知类型继续显式拒绝。模块名由六个XSD容器声明限定；只接受id/TypeId、拒绝未知字段/嵌套结构。**完整Windows差分待本提交Actions，不声明公共模块组成功。**
-
-提取器ExtractGameObjectModuleEvidence.py及source-inventory.json分别保存322个Marshal/endian、380个Token分支，58个Token-only和2个endian别名；不是全部模块已恢复的证明。下一步核对本提交Actions，失败集中修复；SDK仍未运行。
+本轮按完整AI→空Module标记→31类型公共模块三组推进，公共组一次完整差分通过；首轮AI仅独立断言混淆UNDEFINED与unknown，修正后完整验收。阶段及时保存，未逐字段重复全矩阵。没有账号额度计量，不能量化额度节省。

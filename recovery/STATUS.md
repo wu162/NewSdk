@@ -658,3 +658,16 @@ Final source d27f0b932b4855d708cf0f09095c0b50026251e4, component https://github.
 Prior group anchors:4a8989d232432330a230cdcb58f0e7bbd7e6462e/run39935810403 (25 child types),140963c2f2be6c1091ce506c5130205b77fe072b/run39955059001 (26 child types); final matrix covers all29. Source-derived generator fingerprint/check retained. Local native syntax check only supplements Windows x86 build/differential; it is not a replacement for layout validation.
 
 Prepared GAMEOBJECT_AI.md as source-only next-group map:88-byteSkirmishAIInformation,172-byteAISpecialPowerInfo list, two20-byteBaseSelection objects,28-byteAISpecialPowerWeaponData and sharedObjectFilter. Not implemented/not differentially validated. Nullablefloat/bool/asset-reference and enum-bitset semantics need full next-batch probes. AIBaseType has11names for10bits, with PRIMARY_TYPE_MAX and CAPTURED sharing2; do not infer bitCount from nameCount. See RESUME for current continuation.
+
+
+## 2026-10-23：完整AI、空Module标记与31类型公共模块组
+
+在recovery/compiler-source连续完成三组，未新建分支：SkirmishAIInformation完整64字段/特技列表/两组base criteria/武器/ObjectFilter；ReplaceModule/InheritableModule两个完整XSD空结构；六模块容器和全部31个8字节公共模块类型、未知TypeId默认路径。其余291个已知Marshal类型显式拒绝，仍不是完整GameObject编译器，没有正式GameObject插件。
+
+最终源码afac552209d4880e883f2d37189c896a1823e4a6；GameObject https://github.com/wu162/NewSdk/actions/runs/39961644190 success；基础回归 https://github.com/wu162/NewSdk/actions/runs/39961644145 success，同源码。每种/Od、/O2为69,744 fixtures、209,232三缓冲区逐字节比较、8,264拒绝、204不变性比较；含Win32/Xbox360/PS3/99；两模式418,464缓冲区比较。读取终态及validation.json核对sourceCommit/runId/modes/platforms。Actions证据提交保留。真实SDK0次，原路由保留；共享scalar/resource/relocation/bitset/ObjectFilter未改。
+
+原分派提取器核对322个Marshal/endian、380个Token和58个Token-only，保留两处endian别名及全部31公共类型原Token树；生成器检查完整原blob、64个AI字段名称/默认/Token偏移。数据和源码清单不是额外模块运行成功声明。工作流只追加新提取器到既有路径过滤，没有关闭回归或减样本。
+
+AI首轮仅独立测试把UNDEFINED误写为unknown fallback（应分别14/38），保留失败run39959381460，修正并扩展独立检查后完整通过run39959718372；空标记组run39960173975通过；公共模块整组一次完整矩阵通过。未逐字段反复触发Windows，未触发SDK。没有账号额度计量，不能量化节省。
+
+RESUME已重写为当前入口；下一完整组为Body的其余七类型，GAMEOBJECT_BODY.md整理实际方法/布局/分配与Token差异，仍未实现/差分。注意ShieldArmor先分配后ActiveBody基类，DodgePercent不是归一百分比，76字节派生类Token链不同；不能只把新TypeId加到固定8字节choices。

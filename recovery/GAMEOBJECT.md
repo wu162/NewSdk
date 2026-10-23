@@ -1,6 +1,6 @@
 # GameObject recovery entry
 
-Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 29 non-polymorphic child types (the original 23 below plus the six complete groups documented later). Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
+Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 38 child kinds: the prior 29 non-polymorphic groups, complete SkirmishAIInformation, two empty module markers, and six module containers restricted to the complete 31 base-only types plus unknown fallback (291 other known module types remain rejected). Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
 
 Implementation: `src/Native/GameObject.{h,cpp}`, source-derived `GameObjectFields.h`, `src/Bridge/GameObjectCompiler.cpp`. Validation: `scripts/TestGameObject.ps1`, `tests/GameObject{Oracle,Cases,KindOf}.cs`, `.github/workflows/recovered-gameobject.yml`. The workflow builds a separate `Recovered.GameObject.dll` on x86 under /Od and /O2; it does not replace either original DLL. Successful builds publish the DLL as `recovered-gameobject-component-x86`.
 
@@ -24,7 +24,7 @@ Tokenizer `-Module-.cs`, blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`.
 
 Default root Token behavior: 90 member bookmarks, 28 null offsets, eight empty-list count tables. Default root offset=1620, InstanceData=2212 bytes, relocation/import output empty. The eight inline lists are Browser@40, ArmorSet@412, LocomotorSet@420, EquivalentTo@444, AI@472, UpgradeCameo@536, ProjectedBuildabilityInfo@560 and DisplayUpgrade@568. Nonempty Browser adds 12 bytes per item to the token prefix; do not assume root offset 1620 for arbitrary input.
 
-Buildable@428, ThingClass@432 and DisplayColor@452 still receive member bookmarks when their XML nodes are absent. Their helpers are not nullable token helpers. ReplaceModule@496 and InheritableModule@500 have only a null case in the original root Tokenize body; no non-null implementation was found. They remain rejected.
+Buildable@428, ThingClass@432 and DisplayColor@452 still receive member bookmarks when their XML nodes are absent. Their helpers are not nullable token helpers. ReplaceModule@496 and InheritableModule@500 each allocate one zero byte, padded to four by Tracker. Their XSD types are empty. The root Tokenize body creates no pointee bookmark or nested table, so their token offset remains zero even when present. Both empty types are now fully differentially verified; unknown content is rejected.
 
 The six supported enums use exact case-sensitive lookup and preserve original unknown-name fallbacks:
 
@@ -128,3 +128,9 @@ AudioArrayVoice root524 ->24-byte header with AudioEntry/ObjectSpecificEntry/Nam
 EmptyVoice root1704/object2296/total2320. Per entry token/data deltas: ordinary84/12, object-specific96/16, named84/12, plus4bytes for each presentSound. Complete tests include all140 enum names, missing/empty/unknown, reference index edges, Name length/hash/case/high bytes, typedTargetObject case folding, every repeated list, schema allocation order, TypeId, structural refusals and mixedGeometry/Crusher/Projection samples. Validated source d27f0b932b4855d708cf0f09095c0b50026251e4; component39956084622 and baseline39956084413 success. Per mode44,980 fixtures/134,940 comparisons/796 refusals/136 invariance checks; total269,880 buffer comparisons across both modes, four platforms including99. SDK remains original route.
 
 Next complete group source investigation: `GAMEOBJECT_AI.md`; not implemented or differentially validated yet.
+
+## 2026-10-23 complete AI/common-module batch
+
+Source `afac552209d4880e883f2d37189c896a1823e4a6`, GameObject run https://github.com/wu162/NewSdk/actions/runs/39961644190 success; primitive regression run39961644145 success. Each /Od and /O2:69,744 fixtures,209,232 three-buffer comparisons,8,264 refusals,204 invariance comparisons; targets0/1/2/99. Both modes total418,464 buffer comparisons. This final matrix includes all prior GameObject groups plus complete SkirmishAIInformation, empty ReplaceModule/InheritableModule, all six module containers and all31 common eight-byte module types. Other291 known Marshal types remain rejected. SDK not run, original routing retained.
+
+See GAMEOBJECT_AI.md, GAMEOBJECT_MODULES.md and next-group source investigation GAMEOBJECT_BODY.md. No shared scalar/relocation/resource/bitset/ObjectFilter implementation changed.

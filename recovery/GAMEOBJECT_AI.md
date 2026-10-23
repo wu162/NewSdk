@@ -156,3 +156,5 @@ WpnAntiT为14位、MicroManagerState为10位、AITargetLocationType为2位、AIB
 - UNDEFINED是DamageType=14，未知名称fallback=38；首轮独立断言错误已修正，原差分实现未更改。最终矩阵同时独立检查这两种输入。
 - 64字段逐项边界和所有枚举/位名覆盖；两组base条件都覆盖字段值；两处完整过滤器；0/1/2/7/32项特技列表、混合GameObject结构、XML顺序不变性；独立检查可空0/false/空引用的存在、资源索引、位集padding、Token目标与sentinel、schema分配顺序。未知/外来命名空间/重复单例/结构文本拒绝。
 - 后续空Module标记组会重新验证受影响GameObject矩阵；以上是独立AI组精确锚点，不把后续未验证改动冒充本次结果。
+
+最终累计GameObject矩阵：sourceafac552209d4880e883f2d37189c896a1823e4a6/run39961644190，success；每/Od、/O2为69,744 fixtures、209,232三缓冲区比较、8,264拒绝、204不变性比较，含四平台。本结果包含AI、空Module标记及31类型公共模块；基础回归run39961644145同源码成功。SDK未运行。
