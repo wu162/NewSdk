@@ -1,5 +1,14 @@
 # Compiler source recovery — historical session records
 
+## 2026-10-24：三完整组新增17类型，最终矩阵通过
+
+本轮从46推进至63/322已知Marshal类型，剩余259明确拒绝，58 Token-only保持原未知Marshal路径；根仍88属性/38子节点。完成四声音/EVA选择器、六生命周期Update、七共享Die/DieMux模块。最终source379bed90fede179cb9270a1566ce989fe48fb5df，GameObject run40019863862、基础run40019863876均success；每/Od、/O2模式130,596 fixtures、391,788三缓冲区逐字节比较、8,688拒绝、300不变性比较，平台0/1/2/99。两模式783,576次缓冲区比较。SDK0次，原路由保留，组件不冒充正式插件。
+
+分阶段先保存再推进，原失败/Actions证据完整保留。选择器首次样例名遗漏后缀、生命周期独立float期望、Die测试宿主重名与String长度期望均修正后完整通过；源码差分成功与独立断言都保留。详情GAMEOBJECT_SOUND_SELECTORS.md、GAMEOBJECT_LIFECYCLE.md、GAMEOBJECT_DIE.md。下一组11种Upgrade基类/派生只有123个原方法证据，未启用，见GAMEOBJECT_UPGRADE_NEXT.md与RESUME.md。未完成整个GameObject和两份完整替代DLL。
+
+实际优化：固定原blob/方法指纹、分段源读取、完整组集中验收、复用公共契约、SDK降频；不量化账号额度节省。
+
+
 **Current continuation:** read [RESUME.md](RESUME.md) first. Older “next stage” paragraphs below are historical and may already be completed. The current branch/evidence source commit is authoritative.
 
 Updated 2026-10-23. Branch: `recovery/compiler-source`. Original SDK on `main` has not been replaced or modified. This now includes the validated shared relocation runtime, complete ArmorTemplate path and WeaponTemplate scalar/resource/status/ten-optional-block/modifier-list/scatter subset, but is still **not completed recovery of both compiler DLLs**.

@@ -17,4 +17,4 @@
 
 本组已保存50/322已知Marshal类型支持状态，其他272明确拒绝，58 Token-only继续原未知Marshal路径。完整GameObject和两份完整替代DLL仍未完成。
 
-下一组生命周期Update：DeletionUpdate、DieOnProducerDeathUpdate、InvalidTargetsDeathUpdate、HeightDieUpdate、LoseHealthUpdate、LifetimeUpdate；另有DestroyDie/DieMuxData源码证据供后续Die家族。lifecycle-source/manifest.json记录68个精确原方法；这些新增生命周期类型目前仍明确拒绝，未冒充已支持。
+后续六种生命周期Update及共享Die组已完成组件验收，见GAMEOBJECT_LIFECYCLE.md、GAMEOBJECT_DIE.md。当前下一组为Upgrade基类及十种派生，只有源码证据、未启用；续接以RESUME.md为准。
