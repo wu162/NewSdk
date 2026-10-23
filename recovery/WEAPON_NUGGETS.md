@@ -303,7 +303,15 @@ names/sign pairs plus deterministic random sequences, mixed recovered families,
 and unsupported-child/attribute rejections. The prior three TypeId rejection cases
 are replaced by genuinely unknown IDs; zero/missing/unknown rejection remains.
 
-Validation for this implementation is pending the new /Od and /O2 workflow.
+Validation passed for source `0d4c9932dd4c7bec1af88f37a527033afad80b9c`:
+[run 39894482358](https://github.com/wu162/NewSdk/actions/runs/39894482358),
+completed success. Each /Od and /O2 mode ran 64,392 ProcessInstance fixtures,
+193,176 three-buffer comparisons, 1,002 explicit rejections, 2,070 direct
+ObjectStatus comparisons and 4,179 direct ModelCondition comparisons, across
+Win32, Xbox360, PlayStation3 and unknown platform 99. The original procedure
+keys/types for all 29 new members were also compared against their decompiled
+Tokenize methods, and all 15 category entries were extracted from original PE.
+The unchanged primitive regression also passed in run 39894482472.
 The last successful SDK batch covered only the first 30 branches; all five added
 since that batch remain outside real SDK integration evidence. All 35 explicit
 branches does not establish a complete Weapon plugin or replacement compiler DLL:

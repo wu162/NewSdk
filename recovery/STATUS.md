@@ -570,3 +570,34 @@ TintObjects (72), AttributeModifier (64). Their exact Marshal/Tokenize navigatio
 and dependencies are in RESUME.md. Full Weapon preprocessing/unknown-TypeId
 behavior and formal plugin routing remain after those branches. Full recovery of
 both compiler DLLs, GameObject and remaining XmlCompiler serializers is unfinished.
+
+
+
+## 2026-10-23 — Final three explicit Weapon Nugget branches
+
+Implementation source: `0d4c9932dd4c7bec1af88f37a527033afad80b9c`.
+Recovered MetaImpact (96 bytes, optional KillObjectFilter), TintObjects
+(72 bytes, inline RGBColor), AttributeModifier (64 bytes, two modifier references,
+optional DamageFXType, angle, AntiCategories and AntiFX). Explicit dispatcher
+coverage is now 35/35; unknown/missing/zero TypeId and unsupported inputs remain
+explicitly rejected. Complete DLL replacement and formal Weapon plugin routing
+are still incomplete.
+
+Original methods/defaults/offsets and PE enum provenance are recorded in
+WEAPON_NUGGETS.md; new differential and independent assertions are in
+WeaponFinalNuggetOracle.cs. Prior tests remain enabled. The three formerly
+unrecovered TypeId rejection fixtures now reject truly unknown IDs instead;
+newly supported types receive positive differential fixtures.
+
+Windows run https://github.com/wu162/NewSdk/actions/runs/39894482358 completed
+success. validation.json sourceCommit/runId and both mode summaries were checked.
+Each /Od and /O2: 64,392 ProcessInstance fixtures, 193,176 buffer comparisons,
+1,002 explicit rejections, 2,070 direct ObjectStatus comparisons and 4,179 direct
+ModelCondition comparisons, all four platforms including unknown 99. Combined
+buffer comparisons: 386,352. Primitive regression run 39894482472 also succeeded.
+
+No new real SDK build was requested or run. The separate SDK batch at source
+83ec946e687569fb883bda0798ceb6de46a93cc4 still validates only the first 30 branches;
+all five added since that batch remain outside SDK integration evidence.
+Next: unknown-TypeId fallback, BAB TypeId/preprocessing boundary, then formal
+Weapon plugin routing and one full schema-valid SDK batch. See RESUME.md.
