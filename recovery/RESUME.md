@@ -1,6 +1,8 @@
-# 当前验证中：其余11种命名Upgrade派生
+# 已验收85类型；继续Production完整组
 
-2026-10-23续接阶段第二完整组已实现，正在完整矩阵验收。新增SubStructureBuild、ModelCondition、ReplaceSelf、SubObjects/Nugget/ReplaceTexture、ObjectCreation/Vector3、RemoveUpgrade、StatusBits、UnpauseSpecialPower、CostModifier、Tech和Geometry Upgrade。GenerateUpgradeRemaining原源码/PE完整生成校验已通过run40034988048。此检查点的85种支持/237拒绝是候选数，验收前以已成功74种为准；SDK本轮0次。
+第二组11种命名Upgrade已通过：source aed221a9bec343b1d8a67dd2f071c4ddab11e5b4，GameObject run40035310226 success，基础run40035310221 success。每模式168432 fixtures、505296缓冲区比较、9356拒绝、320不变性；/Od、/O2与0/1/2/99完整通过。支持85/322，237明确拒绝；SDK0次。额外边界矩阵在本地补齐，将随下一完整Production组共同验收。
+
+ProductionUpdate与两个出口模块共63原方法已导出run40035493940；此检查点仅新增生成器和源契约，尚未启用这3类型，不得计作88。ProductionModifier的SizedList<...,2>原helper实际直接调用普通List，无2项限制；不能根据类型名猜限制。
 
 # 当前已验收：Upgrade基类及十派生
 
