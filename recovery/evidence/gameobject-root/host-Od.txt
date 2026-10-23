@@ -1,0 +1,2 @@
+recovery\tests\GameObjectKindOf.cs(4,24): error CS0246: The type or namespace name 'IAssetBuilderPlugin' could not be found (are you missing a using directive or an assembly reference?)
+recovery\tests\GameObjectKindOf.cs(4,53): error CS0246: The type or namespace name 'TargetPlatform' could not be found (are you missing a using directive or an assembly reference?)
