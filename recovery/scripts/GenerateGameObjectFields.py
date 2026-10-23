@@ -285,6 +285,13 @@ client_specs={
 'RadarMarkerClientUpdateModuleData':[('TypeName',8,'String',None,None)],
 'LargeGroupAudioClientUpdateModuleData':[('FramesBetweenUpdatesMin',8,'Unsigned','3',None),('FramesBetweenUpdatesVariation',12,'Unsigned','2',None),('UnitWeight',24,'Short','1',None)]}
 body_specs.update(client_specs)
+sound_names=['AnimationSoundClientBehaviorModuleData','ModelConditionAudioLoopClientBehaviorModuleData']
+sound_specs={
+'AnimationSoundClientBehaviorModuleData':[('MaxUpdateRangeCap',8,'NullablePositiveFloat',None,None)],
+'AnimationSoundInfo':[('Sound',0,'Reference',None,None),('RequiredMC',4,'NullableModelCondition',None,None),('ExcludedMC',8,'NullableModelCondition',None,None),('Animation',12,'AssetId',None,None),('Frame',16,'SignedList',None,None)],
+'ModelConditionAudioLoopClientBehaviorModuleDataModelConditionSound':[('Sound',0,'NullableReference',None,None),('RequiredFlags',4,'ModelCondition','',None),('ExcludedFlags',64,'ModelCondition','',None)]}
+body_specs.update(sound_specs)
+
 
 for typ,entries in body_specs.items():
     body,first=method(s,'internal unsafe static void Marshaler_002EMarshal(INode* node, '+typ+'* @object, Tracker* state)')
@@ -295,6 +302,7 @@ for typ,entries in body_specs.items():
     expected=[(n,f) for n,o,k,f,g in entries]
     if typ=='ActiveBodyModuleData': expected.append(('DamageRangeModifier',None))
     if typ=='LargeGroupAudioClientUpdateModuleData': expected.append(('Key',None))
+    if typ=='AnimationSoundClientBehaviorModuleData': expected.append(('Sound',None))
     assert lookups==expected,(typ,lookups,expected)
     lines+=['const ModuleField '+typ+'ModuleFields[] = {']
     for n,o,k,f,g in entries:
@@ -302,8 +310,8 @@ for typ,entries in body_specs.items():
     lines+=['};']
 
 lines+=['const ModuleFieldSet moduleFieldSets[] = {','    { nullptr, 0u },']
-for typ in ['ActiveBodyModuleData','ShieldBodyModuleData']+client_names:
-    lines+=['    { '+typ+'ModuleFields, '+str(len(body_specs[typ]))+'u },']
+for typ in ['ActiveBodyModuleData','ShieldBodyModuleData']+client_names+['AnimationSoundClientBehaviorModuleData','Empty','AnimationSoundInfo','ModelConditionAudioLoopClientBehaviorModuleDataModelConditionSound']:
+    lines+=['    { nullptr, 0u },'] if typ=='Empty' else ['    { '+typ+'ModuleFields, '+str(len(body_specs[typ]))+'u },']
 lines+=['};']
 # Full module dispatch inventory is validated separately and reused here.
 import runpy
@@ -316,12 +324,12 @@ def emit_module_graph(graph):
     records=[]
     for item in graph['records']:
         nested=emit_module_graph(item['nested']) if 'nested' in item else None
-        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested,{'list':1,'nullable-member':2,'hash-list':3}.get(item.get('mode'),0)))
+        records.append((item['nameHash'],item['typeHash'],item.get('memberOffset',0),nested,{'list':1,'nullable-member':2,'hash-list':3}.get(item.get('mode'),0),item.get('stride',12)))
     name='moduleTable'+str(len(module_choices))
     module_choices.append(name)
     lines.append('const ModuleToken '+name+'Tokens[] = {')
-    for key,typ,off,nested,mode in records:
-        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u, '+('&'+nested if nested else 'nullptr')+', '+str(mode)+'u },')
+    for key,typ,off,nested,mode,stride in records:
+        lines.append('    { '+str(key)+'u, '+str(typ)+'u, '+str(off)+'u, '+('&'+nested if nested else 'nullptr')+', '+str(mode)+'u, '+str(stride)+'u },')
     lines+=['};','const ModuleLayout '+name+' = { '+name+'Tokens, '+str(len(records))+'u };']
     return name
 module_rows=[]
@@ -330,6 +338,8 @@ for entry in module_inventory['baseOnlyCandidates']:
 for entry in module_inventory['bodyCandidates']:
     module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],2 if entry['name']=='ShieldBodyModuleData' else 1))
 for kind,entry in enumerate(module_inventory['clientUpdateCandidates'],3):
+    module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],kind))
+for kind,entry in enumerate(module_inventory['soundPlaybackCandidates'],9):
     module_rows.append((entry['typeId'],emit_module_graph(entry['tokenGraph']),entry['nativeSize'],kind))
 lines+=['const ModuleChoice moduleChoices[] = {']
 for value,table,size,kind in module_rows: lines+=['    { '+str(value)+'u, &'+table+', '+str(size)+'u, '+str(kind)+'u },']

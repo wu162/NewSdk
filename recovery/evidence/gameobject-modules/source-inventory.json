@@ -11171,5 +11171,173 @@
         }
       }
     }
+  ],
+  "soundPlaybackCandidates": [
+    {
+      "typeId": 670005533,
+      "name": "AnimationSoundClientBehaviorModuleData",
+      "nativeSize": 20,
+      "marshalLine": 62014,
+      "tokenGraph": {
+        "sourceLine": 103269,
+        "forwardTo": {
+          "sourceLine": 93136,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 2072794994,
+              "nested": {
+                "sourceLine": 78151,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 3613234082,
+                    "nested": {
+                      "sourceLine": 78028,
+                      "records": [
+                        {
+                          "nameHash": 430981792,
+                          "typeHash": 602296504,
+                          "memberOffset": 0
+                        },
+                        {
+                          "nameHash": 2363267224,
+                          "typeHash": 3186653541,
+                          "memberOffset": 4
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 4275670076,
+              "typeHash": 3157204159,
+              "memberOffset": 8,
+              "mode": "nullable-member"
+            },
+            {
+              "nameHash": 805758285,
+              "typeHash": 3949748260,
+              "memberOffset": 12,
+              "mode": "list",
+              "stride": 24,
+              "nested": {
+                "sourceLine": 93087,
+                "records": [
+                  {
+                    "nameHash": 805758285,
+                    "typeHash": 1675080808,
+                    "memberOffset": 0
+                  },
+                  {
+                    "nameHash": 172171793,
+                    "typeHash": 1742454729,
+                    "memberOffset": 4,
+                    "mode": "nullable-member"
+                  },
+                  {
+                    "nameHash": 2001951781,
+                    "typeHash": 1742454729,
+                    "memberOffset": 8,
+                    "mode": "nullable-member"
+                  },
+                  {
+                    "nameHash": 1486976473,
+                    "typeHash": 642253861,
+                    "memberOffset": 12
+                  },
+                  {
+                    "nameHash": 1798861906,
+                    "typeHash": 1240405117,
+                    "memberOffset": 16,
+                    "mode": "hash-list"
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    },
+    {
+      "typeId": 1514068980,
+      "name": "ModelConditionAudioLoopClientBehaviorModuleData",
+      "nativeSize": 16,
+      "marshalLine": 62090,
+      "tokenGraph": {
+        "sourceLine": 103324,
+        "forwardTo": {
+          "sourceLine": 92489,
+          "records": [
+            {
+              "nameHash": 1,
+              "typeHash": 2072794994,
+              "nested": {
+                "sourceLine": 78151,
+                "records": [
+                  {
+                    "nameHash": 1,
+                    "typeHash": 3613234082,
+                    "nested": {
+                      "sourceLine": 78028,
+                      "records": [
+                        {
+                          "nameHash": 430981792,
+                          "typeHash": 602296504,
+                          "memberOffset": 0
+                        },
+                        {
+                          "nameHash": 2363267224,
+                          "typeHash": 3186653541,
+                          "memberOffset": 4
+                        }
+                      ],
+                      "zeroSentinel": true
+                    }
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            },
+            {
+              "nameHash": 699051908,
+              "typeHash": 3627183581,
+              "memberOffset": 8,
+              "mode": "list",
+              "stride": 124,
+              "nested": {
+                "sourceLine": 92459,
+                "records": [
+                  {
+                    "nameHash": 805758285,
+                    "typeHash": 1675080808,
+                    "memberOffset": 0,
+                    "mode": "nullable-member"
+                  },
+                  {
+                    "nameHash": 1501620149,
+                    "typeHash": 1742454729,
+                    "memberOffset": 4
+                  },
+                  {
+                    "nameHash": 424292648,
+                    "typeHash": 1742454729,
+                    "memberOffset": 64
+                  }
+                ],
+                "zeroSentinel": true
+              }
+            }
+          ],
+          "zeroSentinel": true
+        }
+      }
+    }
   ]
 }

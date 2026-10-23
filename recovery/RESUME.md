@@ -2,11 +2,11 @@
 
 更新：2026-10-23。仓库`wu162/NewSdk`，分支`recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md和本文件；历史STATUS.md不是当前计划，不全量加载大型反编译或source-inventory。
 
-## 当前实现检查点（2026-10-23，ClientUpdate验证中）
+## 当前实现检查点（2026-10-23，音效播放组验证中）
 
-本轮13:48:08Z开始有效工作，按约45分钟推进。Body完整组已通过：source d0b96f2a57aeb7dac4dc2d58683b6ed8a93d8c8f/run39965730762 success；每模式81,864 fixtures、245,592三缓冲区比较、8,344拒绝、260不变性比较，四平台含99。
+本轮13:48:08Z开始有效工作，按约45分钟推进。Body完整组source d0b96f2a57aeb7dac4dc2d58683b6ed8a93d8c8f/run39965730762成功；ClientUpdate六类型完整组source76e1e34c12b4728ab194acffbde1a26bef52febd/run39966783977成功。后者每模式83,608 fixtures、250,824三缓冲区比较、8,384拒绝、268不变性比较，四平台含99。
 
-继续完成ClientUpdate六种XSD类型全部字段和LargeGroupAudio Key列表（区分大小写FastHash）、ushort UnitWeight；扩展原Token树和字段白名单，其他278个已知类型继续拒绝。**ClientUpdate待本提交完整矩阵，尚不声明通过。** 原有Body/AI/公共模块回归全部保留。SDK未运行、保持原路由。下方锚点仍是前序历史，最终验收后重写本入口。
+本提交继续完整恢复AnimationSoundClientBehavior和ModelConditionAudioLoopClientBehavior：MaxUpdateRangeCap可空非负float、完整Sound列表（资源、两可空ModelCondition、Animation typed-ID、Frame有符号列表）、完整ModelConditionSound列表（可空Sound引用、两inline ModelCondition位集）；原Token和endian已实现，测试覆盖原负值拒绝、0/空/缺失、所有ModelCondition名和长列表。**待本提交完整矩阵，尚不声明播放组成功。** 当前共46/322已知模块类型，其他276个继续拒绝；另四种ClientBehavior声音/播报选择器尚未实现。SDK未运行。
 
 ## 持续规则
 

@@ -27,10 +27,10 @@ struct AIEnum {const EnumNameValue* names;unsigned count;int unknown;unsigned bi
 struct AIField {const char* name;unsigned offset;AIValue kind;const char* fallback;const AIEnum* values;};
 struct AILayout {unsigned size;const AIField* fields;unsigned count;const LeafToken* tokens;unsigned tokenCount;};
 struct ModuleLayout;
-struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode;};
+struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode,stride;};
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
 struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
-enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short};
+enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList};
 struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
 struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
@@ -156,6 +156,24 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         switch(f.kind) {
         case ModuleValue::Float:case ModuleValue::Percent:
             number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
+        case ModuleValue::AssetId:word=HashAssetId(value);std::memcpy(at,&word,4);break;
+        case ModuleValue::ModelCondition:MarshalModelCondition(value,reinterpret_cast<U32*>(at));break;
+        case ModuleValue::NullableModelCondition:
+            {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),60,1));MarshalModelCondition(value,words);data.Pop();}break;
+        case ModuleValue::NullablePositiveFloat:
+            {auto target=static_cast<float*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ParseFloat(value);if(*target<0.0f) throw std::invalid_argument("Value should be >= 0");data.Pop();}break;
+        case ModuleValue::SignedList: {
+            std::vector<std::string> tokens;std::size_t atText=0;
+            auto space=[](unsigned char c) {return c==' ' || (c>=9 && c<=13);};
+            while(atText<value.size() && value[atText]) {
+                while(atText<value.size() && space(static_cast<unsigned char>(value[atText]))) ++atText;
+                auto first=atText;while(atText<value.size() && value[atText] && !space(static_cast<unsigned char>(value[atText]))) ++atText;
+                if(atText>first) tokens.push_back(value.substr(first,atText-first));
+            }
+            auto list=reinterpret_cast<NativeList*>(at);list->count=static_cast<U32>(tokens.size());
+            if(list->count) {auto words=static_cast<U32*>(data.Push(&list->data,4,list->count));for(U32 j=0;j<list->count;++j) words[j]=static_cast<U32>(ParseSigned(tokens[j]));data.Pop();}
+            break;
+        }
         case ModuleValue::Unsigned:word=ParseUnsigned(value);std::memcpy(at,&word,4);break;
         case ModuleValue::Short:{auto narrow=static_cast<std::uint16_t>(ParseUnsigned(value));std::memcpy(at,&narrow,2);}break;
         case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
@@ -178,6 +196,15 @@ void MarshalModuleFields(const GameObjectChild& input,unsigned char* output,cons
 U32 ExactStringHash(const std::string& text);
 void MarshalClientUpdate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
     MarshalModuleFieldSet(input,output,moduleFieldSets[kind],data);
+    if(kind==9 || kind==10) {
+        auto list=reinterpret_cast<NativeList*>(output+(kind==9?12:8));list->count=static_cast<U32>(input.children.size());
+        if(list->count) {
+            unsigned stride=kind==9?24:124,fields=kind==9?11:12;
+            auto entries=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));
+            for(U32 i=0;i<list->count;++i) MarshalModuleFieldSet(input.children[i],entries+stride*i,moduleFieldSets[fields],data);
+            data.Pop();
+        }
+    }
     if(kind==8) {
         auto list=reinterpret_cast<NativeList*>(output+16);list->count=static_cast<U32>(input.children.size());
         if(list->count) {auto keys=static_cast<U32*>(data.Push(&list->data,4,list->count));for(U32 i=0;i<list->count;++i) keys[i]=ExactStringHash(input.children[i].text);data.Pop();}
@@ -196,7 +223,11 @@ void MarshalBody(const GameObjectChild& input,unsigned char* output,unsigned kin
 void EndianModuleFieldSet(unsigned char* output,const ModuleFieldSet& fields) {
     for(unsigned i=0;i<fields.count;++i) {
         const auto& f=fields.fields[i];auto at=output+f.offset;
-        if(f.kind==ModuleValue::Short) std::swap(at[0],at[1]);
+        if(f.kind==ModuleValue::NullableModelCondition) {auto words=*reinterpret_cast<U32**>(at);if(words) for(unsigned j=0;j<15;++j) Swap(words+j);}
+        else if(f.kind==ModuleValue::ModelCondition) {for(unsigned j=0;j<15;++j) Swap(at+4*j);}
+        else if(f.kind==ModuleValue::NullablePositiveFloat) {auto value=*reinterpret_cast<float**>(at);if(value) Swap(value);}
+        else if(f.kind==ModuleValue::SignedList) {auto list=reinterpret_cast<NativeList*>(at);for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);Swap(&list->count);}
+        else if(f.kind==ModuleValue::Short) std::swap(at[0],at[1]);
         else if(f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(at);
     }
 }
@@ -216,6 +247,11 @@ void EndianModule(U32* input) {
     }
     if(choice && choice->kind>=3) {
         auto bytes=reinterpret_cast<unsigned char*>(input);EndianModuleFieldSet(bytes,moduleFieldSets[choice->kind]);
+        if(choice->kind==9 || choice->kind==10) {
+            auto list=reinterpret_cast<NativeList*>(bytes+(choice->kind==9?12:8));unsigned stride=choice->kind==9?24:124,fields=choice->kind==9?11:12;
+            for(U32 j=0;j<list->count;++j) EndianModuleFieldSet(static_cast<unsigned char*>(list->data)+stride*j,moduleFieldSets[fields]);
+            Swap(&list->count);
+        }
         if(choice->kind==8) {auto list=reinterpret_cast<NativeList*>(bytes+16);for(U32 i=0;i<list->count;++i) Swap(static_cast<U32*>(list->data)+i);Swap(&list->count);}
     }
     Swap(input);Swap(input+1);
@@ -242,7 +278,7 @@ void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo:
             count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
             for(U32 j=0;j<list->count;++j) {
                 count[j+1].name=2974916843u;
-                if(t.mode==1) TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+12*j),*t.nested,&count[j+1].offset,procedures);
+                if(t.mode==1) TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+t.stride*j),*t.nested,&count[j+1].offset,procedures);
                 else procedures.BookmarkMemberOffset(static_cast<U32*>(list->data)+j,&count[j+1].offset);
             }
             procedures.Pop();
@@ -308,8 +344,14 @@ bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::str
     if(choice->kind==2) for(const auto& f:ActiveBodyModuleDataModuleFields) if(attribute==f.name) return true;
     return false;
 }
+bool GameObjectModuleNestedAttributeSupported(const std::string& typeId,const std::string& name,const std::string& attribute) {
+    auto choice=FindModule(ParseUnsigned(typeId));if(!choice) return false;
+    unsigned fields=choice->kind==9 && name=="Sound"?11:choice->kind==10 && name=="ModelConditionSound"?12:0;
+    const auto& set=moduleFieldSets[fields];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+    return false;
+}
 bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string& name) {
-    auto choice=FindModule(ParseUnsigned(typeId));return choice && ((choice->kind>=1 && choice->kind<=2 && name=="DamageRangeModifier") || (choice->kind==8 && name=="Key"));
+    auto choice=FindModule(ParseUnsigned(typeId));return choice && ((choice->kind>=1 && choice->kind<=2 && name=="DamageRangeModifier") || (choice->kind==8 && name=="Key") || (choice->kind==9 && name=="Sound") || (choice->kind==10 && name=="ModelConditionSound"));
 }
 bool GameObjectModuleChildSupported(const std::string& parent,const std::string& child) {
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;

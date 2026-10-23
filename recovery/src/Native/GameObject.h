@@ -10,6 +10,7 @@ unsigned GameObjectFieldCount();
 bool GameObjectLeafAttributeSupported(const std::string& name, const std::string& attribute);
 bool GameObjectAIAttributeSupported(const std::string& name, const std::string& attribute);
 bool GameObjectModuleAttributeSupported(const std::string& typeId, const std::string& attribute);
+bool GameObjectModuleNestedAttributeSupported(const std::string& typeId, const std::string& name, const std::string& attribute);
 bool GameObjectModuleNestedSupported(const std::string& typeId, const std::string& name);
 bool GameObjectModuleChildSupported(const std::string& parent, const std::string& child);
 struct GameObjectChild {

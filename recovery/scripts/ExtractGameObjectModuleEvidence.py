@@ -102,12 +102,22 @@ def token_graph(signature, seen=()):
             assert '(byte*)@object + 64)' in part
             row['memberOffset']=64;row['mode']='list'
             row['nested']=token_graph('internal unsafe static void Tokenizer_002ETokenize(void** table, ActiveBodyDamageRangeModifier* @object, Tracker* state)',seen+(signature,))
+        elif 'AnimationSoundInfo_003E' in part or 'ModelConditionAudioLoopClientBehaviorModuleDataModelConditionSound_003E' in part:
+            element='AnimationSoundInfo' if 'AnimationSoundInfo_003E' in part else 'ModelConditionAudioLoopClientBehaviorModuleDataModelConditionSound'
+            row['memberOffset']=12 if element=='AnimationSoundInfo' else 8
+            assert '(byte*)@object + '+str(row['memberOffset'])+')' in part
+            row['mode']='list';row['stride']=24 if element=='AnimationSoundInfo' else 124
+            row['nested']=token_graph('internal unsafe static void Tokenizer_002ETokenize(void** table, '+element+'* @object, Tracker* state)',seen+(signature,))
+        elif 'Tokenizer_002ETokenize_003Cint_003E' in part:
+            assert '(byte*)@object + 16)' in part
+            row['memberOffset']=16;row['mode']='hash-list'
         elif 'Tokenizer_002ETokenize_003Cunsigned_0020int_003E' in part:
             assert '(byte*)@object + 16)' in part
             row['memberOffset']=16;row['mode']='hash-list'
-        elif 'byte* num = (byte*)@object + 96;' in part:
-            assert 'BookmarkMemberOffset(state, (void*)(int)num2, ptr2)' in part
-            row['memberOffset']=96;row['mode']='nullable-member'
+        elif re.search(r'BookmarkMemberOffset\(state, \(void\*\)\(int\)\w+,',part):
+            nullable=re.search(r'byte\* \w+ = \(byte\*\)@object \+ (\d+);',part)
+            assert nullable or re.search(r'uint \w+ = \*\(uint\*\)@object;',part),part
+            row['memberOffset']=int(nullable[1]) if nullable else 0;row['mode']='nullable-member'
         else:
             calls=re.findall(r'Tokenizer_002ETokenize\([^;]+?\((\w+Data)\*\)',part)
             assert len(calls)==1,(signature,part)
@@ -148,9 +158,14 @@ for name in ['BeaconClientUpdateModuleData','EvaAnnounceClientCreateModuleData',
     key,row=next((k,v) for k,v in marshal.items() if v['name']==name)
     client_candidates.append({'typeId':int(key),'name':name,'nativeSize':row['nativeSize'],'marshalLine':row['helperLine'],'tokenGraph':token_graph(token[key]['helperSignature'])})
 
+sound_candidates=[]
+for name in ['AnimationSoundClientBehaviorModuleData','ModelConditionAudioLoopClientBehaviorModuleData']:
+    key,row=next((k,v) for k,v in marshal.items() if v['name']==name)
+    sound_candidates.append({'typeId':int(key),'name':name,'nativeSize':row['nativeSize'],'marshalLine':row['helperLine'],'tokenGraph':token_graph(token[key]['helperSignature'])})
+
 report={'status':'source inventory only; not implemented or DLL validated', 'sourceBlob':SOURCE_BLOB,
         'dispatchCounts':{'marshalExplicit':322,'endianExplicit':322,'tokenExplicit':380,'tokenOnly':58},
-        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only,'bodyCandidates':body_candidates,'clientUpdateCandidates':client_candidates}
+        'marshal':marshal,'endian':endian,'token':token,'tokenOnly':token_only,'aliasCandidates':aliases,'baseOnlyCandidates':base_only,'bodyCandidates':body_candidates,'clientUpdateCandidates':client_candidates,'soundPlaybackCandidates':sound_candidates}
 output=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
 path=ROOT/'recovery/evidence/gameobject-modules/source-inventory.json'
 if '--check' in sys.argv:

@@ -801,11 +801,52 @@ partial class GameObjectOracle {
         if(Word(bytes,at+8,big)!=0xfedcba98u || Word(bytes,at+12,big)!=8 || Word(bytes,at+16,big)!=3 || keys!=at+28 || bytes[at+24]!=(big?0x12:0x34) || bytes[at+25]!=(big?0x34:0x12) || bytes[at+26]!=0 || bytes[at+27]!=0 || Word(bytes,keys,big)==Word(bytes,keys+4,big) || Word(bytes,keys+8,big)!=0)throw new Exception("Independent LargeGroupAudio narrow field/hash list");
     }
 
+    static string SoundXML(string node,string type,string attrs="",string children="") {return "<ClientBehaviors><"+node+" TypeId='"+type+"' id='SoundTest' "+attrs+">"+children+"</"+node+"></ClientBehaviors>";}
+    static void SoundPlaybackFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(var sound in SoundTypes) {
+            string node=sound[0],type=sound[1],item=node=="AnimationSoundClientBehavior"?"Sound":"ModelConditionSound";
+            Check(original,p,"",SoundXML(node,type));Check(original,p,"",SoundXML(node,type,"","<"+item+"/>"));
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {
+                string children="";for(int i=0;i<count;++i)children+=node=="AnimationSoundClientBehavior"?"<Sound TypeId='7' Sound='S\\"+i+"' RequiredMC='DAMAGED' ExcludedMC='' Animation='Walk' Frame='1 -1 010'/>":"<ModelConditionSound TypeId='7' Sound='S\\"+i+"' RequiredFlags='DAMAGED' ExcludedFlags='ALL'/>";
+                Check(original,p,"Browser='a bb' Description='mixed'",SoundXML(node,type,"",children)+BodyXML("ShieldBody","3545651287","ShieldArmor='A\\23' GrabObject='body'")+ClientXML("LaserUpdate","3399407677","ParentFireBoneName='laser'"));
+            }
+            string[] maskNames=node=="AnimationSoundClientBehavior"?new[]{"RequiredMC","ExcludedMC"}:new[]{"RequiredFlags","ExcludedFlags"};
+            foreach(string field in maskNames) {
+                foreach(string value in BodyModelConditions)Check(original,p,"",SoundXML(node,type,"","<"+item+" "+field+"='"+Escape(value)+"'/>"));
+                foreach(string value in new[]{""," ","UNKNOWN","unknown","ALL","all","-ALL","ALL -UNKNOWN","-DAMAGED -DAMAGED +DAMAGED","+","-","DAMAGED RUBBLE"})Check(original,p,"",SoundXML(node,type,"","<"+item+" "+field+"='"+value+"'/>"));
+            }
+            foreach(string value in new[]{"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23trailing","K\\0x10","L\\ 23","M\\text"})Check(original,p,"",SoundXML(node,type,"","<"+item+" Sound='"+Escape(value)+"'/>"));
+            foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+type+"' id='viaContainer'><"+item+" Sound='S\\23'/></"+container[1]+"></"+container[0]+">");
+            foreach(string bad in new[]{"<"+item+" Unknown='1'/>","<"+item+" id='wrong'/>","<"+item+" xmlns='foreign'/>","<"+item+" xmlns:f='foreign' f:TypeId='1'/>","<"+item+">text</"+item+">","<"+item+"><Unknown/></"+item+">","<Key/>","<DamageRangeModifier/>"})Reject(p,"",SoundXML(node,type,"",bad));
+            Reject(p,"",SoundXML(node,type,"Unknown='1'"));Reject(p,"",SoundXML(node,type,"MaxHealth='1'"));
+        }
+        foreach(string value in new[]{"","0","-0","0.001","17","2147483647","1e39","nan","inf","text"})Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'"));
+        foreach(string value in new[]{"-1","-0.001","-2147483648","-1e39"}) {
+            string xml=SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='"+value+"'");bool rejected=false;
+            try{original.ProcessInstance(Declaration("",xml));}catch(Exception error){if(error.Message.IndexOf("Value should be >= 0",StringComparison.Ordinal)<0)throw;rejected=true;}
+            if(!rejected)throw new Exception("Original positive-range helper unexpectedly accepted negative value");Reject(p,"",xml);
+        }
+        foreach(string field in new[]{"Animation","Frame"})foreach(string value in new[]{""," ","a","AB","ab","abc","abcd","中文","é","1","1 -1 010","0x10 2147483647 -2147483648 4294967295","1,2;3","text","+1  2   3"})Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","","<Sound "+field+"='"+Escape(value)+"'/>"));
+        Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","","<Sound Frame='1&#9;2&#10;3&#13;4'/>"));
+        Reject(p,"",SoundXML("ModelConditionAudioLoopClientBehavior","1514068980","MaxUpdateRangeCap='1'"));
+        Reject(p,"",SoundXML("AnimationSoundClientBehavior","670005533","","<Sound RequiredFlags='ALL'/>"));
+        Reject(p,"",SoundXML("ModelConditionAudioLoopClientBehavior","1514068980","","<ModelConditionSound Animation='A'/>"));
+        var animation=Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='0'","<Sound Sound='S\\23' RequiredMC='' ExcludedMC='ALL' Animation='AB' Frame='1 -1 010'/>"));
+        byte[] bytes=animation.InstanceData;int root=(int)Word(bytes,8,big)-4,header=(int)Word(bytes,root+488,big),slots=(int)Word(bytes,header+4,big),at=(int)Word(bytes,slots,big),items=(int)Word(bytes,at+16,big);
+        if(Word(bytes,at+8,big)!=at+20 || Word(bytes,at+20,big)!=0 || Word(bytes,at+12,big)!=1 || items!=at+24 || Word(bytes,items,big)!=24 || Word(bytes,items+4,big)!=at+48 || Word(bytes,items+8,big)!=at+108 || Word(bytes,items+16,big)!=3 || Word(bytes,items+20,big)!=at+168 || Word(bytes,at+168,big)!=1 || Word(bytes,at+172,big)!=0xffffffffu || Word(bytes,at+176,big)!=8)throw new Exception("Independent animation sound nullable/list/allocation layout");
+        for(int i=0;i<15;++i)if(Word(bytes,at+48+4*i,big)!=0 || Word(bytes,at+108+4*i,big)!=0xffffffffu)throw new Exception("Independent animation sound empty/ALL masks");
+        var lower=Check(original,p,"",SoundXML("AnimationSoundClientBehavior","670005533","MaxUpdateRangeCap='0'","<Sound Sound='S\\23' RequiredMC='' ExcludedMC='ALL' Animation='ab' Frame='1 -1 010'/>"));Equal(animation.InstanceData,lower.InstanceData,"Animation typed-id lowercasing",false);
+        var loop=Check(original,p,"",SoundXML("ModelConditionAudioLoopClientBehavior","1514068980","","<ModelConditionSound Sound='' RequiredFlags='ALL'/>"));bytes=loop.InstanceData;root=(int)Word(bytes,8,big)-4;header=(int)Word(bytes,root+488,big);slots=(int)Word(bytes,header+4,big);at=(int)Word(bytes,slots,big);items=(int)Word(bytes,at+12,big);
+        if(Word(bytes,at+8,big)!=1 || items!=at+16 || Word(bytes,items,big)!=at+140 || Word(bytes,at+140,big)!=0)throw new Exception("Independent model-condition loop nullable sound");
+        for(int i=0;i<15;++i)if(Word(bytes,items+4+4*i,big)!=0xffffffffu || Word(bytes,items+64+4*i,big)!=0)throw new Exception("Independent loop inline masks/padding");
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -823,7 +864,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
