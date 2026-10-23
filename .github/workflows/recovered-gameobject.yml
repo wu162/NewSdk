@@ -18,6 +18,7 @@ on:
       - 'recovery/scripts/GenerateSoundSelectorFields.py'
       - 'recovery/scripts/GenerateLifecycleFields.py'
       - 'recovery/scripts/GenerateDieFields.py'
+      - 'recovery/scripts/GenerateUpgradeFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
