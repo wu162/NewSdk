@@ -11,7 +11,9 @@ s = (root/'recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs').read_t
 raw = s.encode('utf-8')
 assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest() == '6e40a9ed6c9f961d294d49768d911e6a6f354619'
 marshal, first = method(s, 'internal unsafe static void Marshaler_002EMarshal(INode* node, GameObject* @object, Tracker* state)')
-tokens = token_table(*method(s, 'internal unsafe static void Tokenizer_002ETokenize(void** table, GameObject* @object, Tracker* state)'))
+token_body, token_first = method(s, 'internal unsafe static void Tokenizer_002ETokenize(void** table, GameObject* @object, Tracker* state)')
+tokens = token_table(token_body, token_first)
+token_parts = token_body.split('ptr = (ProcTableElement*)((byte*)ptr + 12);')
 schema = ET.parse(root/'SDK/Schemas/xsd/AssetTypeGameObject.xsd')
 names = {n.attrib['name'] for n in schema.iter() if 'name' in n.attrib}
 
@@ -76,7 +78,15 @@ for n,o,k,f,d,l in fields:
 lines+=['};','const GameObjectToken tokens[] = {']
 list_offsets={40,412,420,444,472,536,560,568}
 for t in tokens[:-1]:
-    kind='List' if t['nativeOffset'] in list_offsets else 'Member' if t['kind']=='member-bookmark' or t['nativeOffset']<396 or t['nativeOffset']>=576 else 'Null'
+    kind='List' if t['nativeOffset'] in list_offsets else 'Member' if t['kind']=='member-bookmark' else 'Null'
+    if kind=='Null' and t['helpers']:
+        h=t['helpers'][0]
+        call=next(l for l in token_parts[t['index']].splitlines() if h+'(' in l)
+        cast=re.search(r'ptr \+ 8\), \((\w+\*+)\)',call)
+        if not cast: raise ValueError('Unparsed helper argument: '+call)
+        # Resolve the exact overload and accept only a one-statement bookmark body.
+        direct=r'internal unsafe static void '+re.escape(h)+r'\(void\*\* \w+, '+re.escape(cast[1])+r' [@\w]+, Tracker\* \w+\)\s*\{\s*Relo_002ETracker_002EBookmarkMemberOffset\([^;]+\);\s*\}'
+        if re.search(direct,s): kind='Member'
     lines.append('    { '+str(t['nameHash'])+'u, '+str(t['typeHash'])+'u, '+str(t['nativeOffset'])+'u, GameObjectTokenKind::'+kind+' },')
 lines+=['};','']
 output='\n'.join(lines)
