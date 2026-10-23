@@ -482,11 +482,49 @@ partial class GameObjectOracle {
         Check(original,p,"Description='mixed'",projection+"<GameDependency RequiredModelConditionsAny='ALL'/><AutoResolveInfo/><ShadowInfo/>"+crush+"<VisionInfo/><ProjectedBuildabilityInfo RadiusY='-17'/>");
         foreach(string bad in new[]{"<CrusherInfo/><CrusherInfo/>","<CrusherInfo Unknown='1'/>","<CrusherInfo xmlns:f='foreign' f:CrusherLevel='1'/>","<CrusherInfo>text</CrusherInfo>","<CrusherInfo><Unknown/></CrusherInfo>","<CrusherInfo><ExtraCrushLevels Unknown='1'/></CrusherInfo>","<CrusherInfo><ExtraCrushLevels xmlns='foreign'/></CrusherInfo>","<CrusherInfo><ExtraCrushLevels>text</ExtraCrushLevels></CrusherInfo>","<CrusherInfo><ExtraCrushLevels><Unknown/></ExtraCrushLevels></CrusherInfo>","<ProjectedBuildabilityInfo PrimaryBuildability='true'/>","<ProjectedBuildabilityInfo Unknown='1'/>","<ProjectedBuildabilityInfo xmlns:f='foreign' f:Radius='1'/>","<ProjectedBuildabilityInfo>text</ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><Unknown/></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter/><AllowedObjectFilter/></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter Unknown='1'/></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter xmlns='foreign'/></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter>text</AllowedObjectFilter></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter><IncludeThing Unknown='1'/></AllowedObjectFilter></ProjectedBuildabilityInfo>","<ProjectedBuildabilityInfo><AllowedObjectFilter><ExcludeThing><Unknown/></ExcludeThing></AllowedObjectFilter></ProjectedBuildabilityInfo>"})Reject(p,"",bad);
     }
+    static void GeometryGroup(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        var b=Check(original,p,"","<Geometry/>");var d=b.InstanceData;
+        int root=(int)Word(d,8,big)-4,obj=(int)Word(d,root+492,big);
+        if(root!=1716 || obj!=2308 || d.Length!=2336)throw new Exception("Independent empty geometry allocation");
+        foreach(int offset in new[]{0,4,8,12,16,20})if(Word(d,obj+offset,big)!=0)throw new Exception("Independent empty geometry state");
+        b=Check(original,p,"","<Geometry><Shape/></Geometry>");d=b.InstanceData;root=(int)Word(d,8,big)-4;obj=(int)Word(d,root+492,big);int shape=(int)Word(d,obj+12,big);
+        if(root!=1872 || obj!=2464 || shape!=2492 || d.Length!=2540 || Word(d,obj+8,big)!=1)throw new Exception("Independent shape allocation");
+        if(Word(d,shape,big)!=0 || Word(d,shape+4,big)!=0 || Word(d,shape+16,big)!=0x3f800000u || Word(d,shape+20,big)!=0x3f800000u || Word(d,shape+32,big)!=0x3f800000u || d[shape+44]!=1 || d[shape+45]!=1)throw new Exception("Independent shape defaults");
+        string[] numbers={"","0","-17","23","1.25","0x10","010","1e20","1e-20","text"," 23tail"};
+        foreach(string field in new[]{"MajorRadius","MinorRadius","Height"})foreach(string value in numbers)foreach(string name in new[]{"Shape","PlacementShape"})Check(original,p,"","<Geometry><"+name+" "+field+"='"+value+"'/></Geometry>");
+        foreach(string value in new[]{"","0r","180d","-90d","1.25r","2d1","5","text","1e20r"})foreach(string name in new[]{"Shape","PlacementShape"})Check(original,p,"","<Geometry><"+name+" FrontAngle='"+value+"'/></Geometry>");
+        foreach(string field in new[]{"Active","UsedForHealthBox"})foreach(string value in new[]{"","true","false","TRUE","False","1","0","yes"," true"})Check(original,p,"","<Geometry><Shape "+field+"='"+value+"'/></Geometry>");
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","yes"})Check(original,p,"","<Geometry IsSmall='"+value+"'/>");
+        string[] types={"SPHERE","BOX","CYLINDER","RING","","UNKNOWN","sphere"," SPHERE","SPHERE ","-1"};
+        foreach(string value in types)foreach(string name in new[]{"Shape","PlacementShape"})Check(original,p,"","<Geometry><"+name+" Type='"+value+"'/></Geometry>");
+        foreach(string value in new[]{"NONE","VEHICLE","STRUCTURE","INFANTRY","SQUAD_MEMBER","","UNKNOWN","none"," NONE","NONE "})foreach(string name in new[]{"Shape","PlacementShape"})Check(original,p,"","<Geometry><"+name+" ContactPointGeneration='"+value+"'/></Geometry>");
+        foreach(string value in new[]{"","a","abc","abcd","abcde","abcdefgh","with spaces","é ÿ 中文","A&B"}) {
+            string text=Escape(value);
+            Check(original,p,"","<Geometry><Shape Name='"+text+"' Other='"+text+"'/><PlacementShape Name='"+text+"' Other='"+text+"'/><ContactPoint Label='"+text+"'><Pos/></ContactPoint></Geometry>");
+        }
+        foreach(string value in numbers)foreach(string axis in new[]{"x","y","z"}) {
+            Check(original,p,"","<Geometry><Shape><Offset "+axis+"='"+value+"'/></Shape><PlacementShape><Offset "+axis+"='"+value+"'/></PlacementShape><ContactPoint><Pos "+axis+"='"+value+"'/></ContactPoint></Geometry>");
+            if(axis!="z")Check(original,p,"","<Geometry><RotationAnchorOffset "+axis+"='"+value+"'/><Shape/></Geometry>");
+        }
+        b=Check(original,p,"","<Geometry><RotationAnchorOffset x='17' y='23'/><Shape><Offset x='1' y='2' z='3'/></Shape><ContactPoint><Pos x='4' y='5' z='6'/></ContactPoint></Geometry>");d=b.InstanceData;root=(int)Word(d,8,big)-4;obj=(int)Word(d,root+492,big);int anchor=(int)Word(d,obj,big);shape=(int)Word(d,obj+12,big);int vector=(int)Word(d,shape+40,big),contact=(int)Word(d,obj+20,big);
+        if(Word(d,anchor,big)!=0x41880000u || Word(d,anchor+4,big)!=0x41b80000u || Word(d,vector,big)!=0x3f800000u || Word(d,vector+8,big)!=0x40400000u || Word(d,contact+8,big)!=0x40800000u || Word(d,contact+16,big)!=0x40c00000u)throw new Exception("Independent geometry vector bindings");
+        foreach(int count in new[]{1,2,3,17,64})foreach(bool contacts in new[]{false,true}) {
+            string items="";for(int j=0;j<count;++j)items+=contacts?"<ContactPoint><Pos x='"+j+"'/></ContactPoint>":"<Shape MajorRadius='"+j+"'/>";
+            b=Check(original,p,"","<Geometry>"+items+"</Geometry>");d=b.InstanceData;root=(int)Word(d,8,big)-4;obj=(int)Word(d,root+492,big);int list=obj+(contacts?16:8),elements=(int)Word(d,list+4,big);
+            if(root!=1716+(contacts?48:156)*count || d.Length!=2336+(contacts?68:204)*count || Word(d,list,big)!=count)throw new Exception("Independent geometry list stride/allocation");
+            for(int j=0;j<count;++j)if(Word(d,elements+(contacts?20:48)*j+(contacts?8:16),big)!=BitConverter.ToUInt32(BitConverter.GetBytes((float)j),0))throw new Exception("Independent geometry item values");
+        }
+        string anchorXml="<RotationAnchorOffset TypeId='2' x='23' y='-17'/>",placement="<PlacementShape TypeId='3' Type='BOX' Name='placement' Other='other'><Offset TypeId='4' x='1' y='2' z='3'/></PlacementShape>",s1="<Shape TypeId='5' Type='CYLINDER' Name='one'/>",s2="<Shape TypeId='6' Type='RING' Other='two'><Offset z='4'/></Shape>",c1="<ContactPoint TypeId='7' Label='first'><Pos TypeId='8' x='5'/></ContactPoint>",c2="<ContactPoint Label='second'><Pos y='6'/></ContactPoint>";
+        Equal(Check(original,p,"","<Geometry TypeId='1' IsSmall='true'>"+anchorXml+placement+s1+s2+c1+c2+"</Geometry>").InstanceData,Check(original,p,"","<Geometry IsSmall='true'>"+c1+s1+placement+c2+anchorXml+s2+"</Geometry>").InstanceData,"Geometry schema allocation order",false);
+        Check(original,p,"Description='mixed' Browser='a bb'","<VisionInfo/><CrusherInfo/><ProjectedBuildabilityInfo/><Geometry>"+anchorXml+placement+s1+s2+c1+c2+"</Geometry><AutoResolveInfo/><DisplayUpgrade>upgrade</DisplayUpgrade>");
+        foreach(string bad in new[]{"<Geometry/><Geometry/>","<Geometry Unknown='1'/>","<Geometry xmlns='foreign'/>","<Geometry xmlns:f='foreign' f:IsSmall='true'/>","<Geometry>text</Geometry>","<Geometry><Unknown/></Geometry>","<Geometry><RotationAnchorOffset/><RotationAnchorOffset/></Geometry>","<Geometry><PlacementShape/><PlacementShape/></Geometry>","<Geometry><RotationAnchorOffset z='1'/></Geometry>","<Geometry><Shape Unknown='1'/></Geometry>","<Geometry><Shape xmlns='foreign'/></Geometry>","<Geometry><Shape><Offset/><Offset/></Shape></Geometry>","<Geometry><Shape><Offset Unknown='1'/></Shape></Geometry>","<Geometry><Shape><Offset><Unknown/></Offset></Shape></Geometry>","<Geometry><PlacementShape>text</PlacementShape></Geometry>","<Geometry><PlacementShape><Unknown/></PlacementShape></Geometry>","<Geometry><ContactPoint Unknown='1'/></Geometry>","<Geometry><ContactPoint><Pos/><Pos/></ContactPoint></Geometry>","<Geometry><ContactPoint><Pos xmlns='foreign'/></ContactPoint></Geometry>","<Geometry><ContactPoint><Pos>text</Pos></ContactPoint></Geometry>","<Geometry><ContactPoint><Offset/></ContactPoint></Geometry>"})Reject(p,"",bad);
+    }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -502,9 +540,9 @@ partial class GameObjectOracle {
                 }
                 Check(original,p,mixed);Check(original,p,"TypeId='2486173485' FenceWidth='23'");
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
-                foreach(string child in new[]{"<Geometry/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
+                foreach(string child in new[]{"<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-five child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and twenty-six child nodes (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

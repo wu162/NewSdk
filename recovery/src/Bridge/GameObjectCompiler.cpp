@@ -92,6 +92,30 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadGeometry(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        auto name=node->LocalName;
+        array<String^>^ allowed;
+        if(name=="Geometry") allowed=gcnew array<String^>{"IsSmall"};
+        else if(name=="Shape" || name=="PlacementShape") allowed=gcnew array<String^>{"Type","ContactPointGeneration","Name","Active","UsedForHealthBox","MajorRadius","MinorRadius","Other","Height","FrontAngle"};
+        else if(name=="ContactPoint") allowed=gcnew array<String^>{"Label"};
+        else if(name=="RotationAnchorOffset") allowed=gcnew array<String^>{"x","y"};
+        else allowed=gcnew array<String^>{"x","y","z"};
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
+            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported Geometry attribute.");
+            result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
+        } while(a->MoveToNextAttribute());
+        auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;auto n=child->LocalName;
+            bool valid=(name=="Geometry" && (n=="RotationAnchorOffset" || n=="PlacementShape" || n=="Shape" || n=="ContactPoint")) || ((name=="Shape" || name=="PlacementShape") && n=="Offset") || (name=="ContactPoint" && n=="Pos");
+            if(child->NamespaceURI!=node->NamespaceURI || !valid) throw gcnew NotSupportedException("Unsupported Geometry child.");
+            if(!(name=="Geometry" && (n=="Shape" || n=="ContactPoint")) && !seen->Add(n)) throw gcnew NotSupportedException("Duplicate Geometry singleton.");
+            result.children.push_back(ReadGeometry(child));
+        }
+        NoStructuredText(node);return result;
+    }
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr) throw gcnew ArgumentNullException("node");
@@ -110,10 +134,11 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset" && name!="ArmorSet" && name!="LocomotorSet" && name!="FormationPreviewDecal" && name!="FormationPreviewItemDecal" && name!="ShadowInfo" && name!="VisionInfo" && name!="AutoResolveArmor" && name!="AutoResolveWeapon" && name!="AutoResolveInfo" && name!="BuildFadeInOnCreateList" && name!="BuildVariations" && name!="ObjectResourceInfo" && name!="Geometry" && name!="GameDependency" && name!="CrusherInfo" && name!="ProjectedBuildabilityInfo"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
             bool repeated=name=="ProjectedBuildabilityInfo" || name=="ArmorSet" || name=="LocomotorSet" || name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
             if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
+            if(name=="Geometry") {children.push_back(ReadGeometry(child));continue;}
             if(name=="GameDependency") {children.push_back(ReadDependency(child));continue;}
             if(name=="CrusherInfo" || name=="ProjectedBuildabilityInfo") {children.push_back(ReadPlacementGroup(child));continue;}
             bool autoSet=name=="AutoResolveArmor" || name=="AutoResolveWeapon";

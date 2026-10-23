@@ -263,6 +263,46 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned i=0;i<4;++i) {auto at=child.attributes.find(names[i]);flammability[i]=at==child.attributes.end()?0:ParseUnsigned(at->second);}
         data.Pop();
     }
+    unsigned char* geometry=nullptr;
+    NativeList* geometryShapes=nullptr;NativeList* contactPoints=nullptr;
+    auto marshalVector=[&](const GameObjectChild& input,void* output,unsigned dimensions) {
+        const char* names[]={"x","y","z"};
+        for(unsigned j=0;j<dimensions;++j) {auto found=input.attributes.find(names[j]);float value=found==input.attributes.end()?0.0f:ParseFloat(found->second);std::memcpy(static_cast<unsigned char*>(output)+4*j,&value,4);}
+    };
+    auto marshalShape=[&](const GameObjectChild& input,unsigned char* output) {
+        auto value=[&](const char* name,const char* fallback)->std::string {auto found=input.attributes.find(name);return found==input.attributes.end()?fallback:found->second;};
+        U32 type=EnumValue("GeometryShapeType",value("Type","SPHERE")),generation=EnumValue("ContactPointGeneration",value("ContactPointGeneration","NONE"));
+        std::memcpy(output,&type,4);std::memcpy(output+4,&generation,4);
+        auto name=input.attributes.find("Name");if(name!=input.attributes.end()) MarshalString(data,output+8,name->second);
+        output[44]=ParseBoolean(value("Active","true"))?1:0;output[45]=ParseBoolean(value("UsedForHealthBox","true"))?1:0;
+        float major=ParseFloat(value("MajorRadius","1.0")),minor=ParseFloat(value("MinorRadius","1.0"));std::memcpy(output+16,&major,4);std::memcpy(output+20,&minor,4);
+        auto other=input.attributes.find("Other");if(other!=input.attributes.end()) MarshalString(data,output+24,other->second);
+        float height=ParseFloat(value("Height","1.0"));std::memcpy(output+32,&height,4);
+        auto angle=input.attributes.find("FrontAngle");if(angle!=input.attributes.end()) {float value=InitializeAngle(angle->second.c_str());std::memcpy(output+36,&value,4);}
+        if(!input.children.empty()) {auto vector=data.Push(reinterpret_cast<void**>(output+40),12,1);marshalVector(input.children[0],vector,3);data.Pop();}
+    };
+    for(const auto& child:children) if(child.name=="Geometry") {
+        geometry=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+492),28,1));
+        auto small=child.attributes.find("IsSmall");geometry[24]=small!=child.attributes.end() && ParseBoolean(small->second)?1:0;
+        for(const auto& c:child.children) if(c.name=="RotationAnchorOffset") {auto vector=data.Push(reinterpret_cast<void**>(geometry),8,1);marshalVector(c,vector,2);data.Pop();}
+        for(const auto& c:child.children) if(c.name=="PlacementShape") {auto shape=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(geometry+4),48,1));marshalShape(c,shape);data.Pop();}
+        geometryShapes=reinterpret_cast<NativeList*>(geometry+8);contactPoints=reinterpret_cast<NativeList*>(geometry+16);
+        for(const auto& c:child.children) if(c.name=="Shape") ++geometryShapes->count;else if(c.name=="ContactPoint") ++contactPoints->count;
+        if(geometryShapes->count) {
+            auto shapes=static_cast<unsigned char*>(data.Push(&geometryShapes->data,48,geometryShapes->count));U32 index=0;
+            for(const auto& c:child.children) if(c.name=="Shape") {marshalShape(c,shapes+48*index);++index;}
+            data.Pop();
+        }
+        if(contactPoints->count) {
+            auto points=static_cast<unsigned char*>(data.Push(&contactPoints->data,20,contactPoints->count));U32 index=0;
+            for(const auto& c:child.children) if(c.name=="ContactPoint") {
+                auto at=points+20*index++;auto label=c.attributes.find("Label");if(label!=c.attributes.end()) MarshalString(data,at,label->second);
+                if(!c.children.empty()) marshalVector(c.children[0],at+8,3);
+            }
+            data.Pop();
+        }
+        data.Pop();
+    }
     std::map<unsigned,unsigned char*> autoObjects;
     for(unsigned index=0;index<2;++index) for(const auto& child:children)
         if(child.name==(index==0?"AutoResolveArmor":"AutoResolveWeapon")) {
@@ -429,6 +469,38 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
             }
             procedures.Pop();
         }
+        else if(t.offset==492 && geometry) {
+            auto tokenizeShape=[&](unsigned char* shape,void** destination) {
+                auto nested=static_cast<Procedure*>(procedures.Push(destination,12,12));
+                for(unsigned j=0;j<11;++j) {nested[j].name=ShapeProc[j].name;nested[j].type=ShapeProc[j].type;
+                    if(j==10) {auto vector=*reinterpret_cast<void**>(shape+40);if(vector) procedures.BookmarkMemberOffset(vector,&nested[j].offset);}
+                    else procedures.BookmarkMemberOffset(shape+ShapeProc[j].offset,&nested[j].offset);
+                }
+                procedures.Pop();
+            };
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,6));
+            for(unsigned j=0;j<5;++j) {nested[j].name=GeometryProc[j].name;nested[j].type=GeometryProc[j].type;}
+            procedures.BookmarkMemberOffset(geometry+24,&nested[0].offset);
+            auto anchor=*reinterpret_cast<void**>(geometry);if(anchor) procedures.BookmarkMemberOffset(anchor,&nested[1].offset);
+            auto placement=*reinterpret_cast<unsigned char**>(geometry+4);if(placement) tokenizeShape(placement,&nested[2].offset);
+            for(unsigned group=0;group<2;++group) {
+                auto list=group==0?geometryShapes:contactPoints;
+                auto count=static_cast<Procedure*>(procedures.Push(&nested[group+3].offset,12,list->count+1));
+                count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
+                for(U32 j=0;j<list->count;++j) {
+                    count[j+1].name=2974916843u;
+                    auto bytes=static_cast<unsigned char*>(list->data)+(group==0?48:20)*j;
+                    if(group==0) tokenizeShape(bytes,&count[j+1].offset);
+                    else {
+                        auto item=static_cast<Procedure*>(procedures.Push(&count[j+1].offset,12,3));
+                        for(unsigned k=0;k<2;++k) {item[k].name=ContactPointProc[k].name;item[k].type=ContactPointProc[k].type;procedures.BookmarkMemberOffset(bytes+ContactPointProc[k].offset,&item[k].offset);}
+                        procedures.Pop();
+                    }
+                }
+                procedures.Pop();
+            }
+            procedures.Pop();
+        }
         else if(t.offset==556 && crusher) {
             auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,14));
             const U32 keys[]={910974594u,3643225156u,3253443162u,3004652270u,2213912127u,3110872486u,4183563336u,1698114463u,797901100u,4120968022u,3910970335u,3401922681u,4110060450u};
@@ -499,6 +571,17 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         }
     }
     if(bigEndian) {
+        if(geometry) {
+            auto swapShape=[&](unsigned char* shape) {
+                const unsigned offsets[]={0,4,8,16,20,24,32,36};for(auto off:offsets) Swap(shape+off);
+                auto vector=*reinterpret_cast<float**>(shape+40);if(vector) for(unsigned j=0;j<3;++j) Swap(vector+j);
+            };
+            auto anchor=*reinterpret_cast<float**>(geometry);if(anchor) for(unsigned j=0;j<2;++j) Swap(anchor+j);
+            auto placement=*reinterpret_cast<unsigned char**>(geometry+4);if(placement) swapShape(placement);
+            for(U32 j=0;j<geometryShapes->count;++j) swapShape(static_cast<unsigned char*>(geometryShapes->data)+48*j);
+            for(U32 j=0;j<contactPoints->count;++j) {auto at=static_cast<unsigned char*>(contactPoints->data)+20*j;Swap(at);for(unsigned k=0;k<3;++k) Swap(at+8+4*k);}
+            Swap(&geometryShapes->count);Swap(&contactPoints->count);
+        }
         if(crusher) {
             for(unsigned j=0;j<4;++j) Swap(crusher+4*j);
             for(U32 j=0;j<extraLevels->count;++j) Swap(static_cast<unsigned char*>(extraLevels->data)+8*j);

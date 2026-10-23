@@ -108,6 +108,10 @@ enum_fallbacks.append(('ShadowInfo',3))
 lines+=['};','const GameObjectEnum enumEntries[] = {']
 enums.extend(('ExtraCrushLevels',n,v) for n,v in enum_values('ModelConditionFlagType').items())
 enum_fallbacks.append(('ExtraCrushLevels',233)) # original scalar helper 52035
+enums.extend(('GeometryShapeType',n,v) for n,v in enum_values('GeometryType').items())
+enum_fallbacks.append(('GeometryShapeType',1)) # original scalar helper 57939
+enums.extend(('ContactPointGeneration',n,v) for n,v in enum_values('ContactPointGenerationType').items())
+enum_fallbacks.append(('ContactPointGeneration',3)) # original scalar helper 57950
 for field,name,value in enums:
     lines.append('    { '+json.dumps(field)+', '+json.dumps(name)+', '+str(value)+' },')
 lines+=['};','const GameObjectEnumFallback enumFallbacks[] = {']
@@ -170,6 +174,20 @@ for name,typ,off in [('FormationPreviewDecal','FormationPreviewDecal',512),('For
     size,entries=leaf_specs[typ]
     lines.append('    { '+json.dumps(name)+', '+str(off)+'u, '+str(size)+'u, '+typ+'Fields, '+str(len(entries))+'u, '+typ+'Tokens },')
 lines+=['};','']
+# Complete raw Geometry dependency group. Keys/types come from the original
+# Tokenize methods; offsets are separately transcribed from native layouts.
+for typ,offsets in [('Geometry',[24,0,4,8,16]),('Shape',[0,4,8,44,45,16,20,24,32,36,40]),('ContactPoint',[0,8])]:
+    body,first=method(s,'internal unsafe static void Tokenizer_002ETokenize(void** table, '+typ+'* @object, Tracker* state)')
+    parts=body.split('ptr = (ProcTableElement*)((byte*)ptr + 12);')[:-1]
+    assert len(parts)==len(offsets)
+    lines+=['const LeafToken '+typ+'Proc[] = {']
+    for part,offset in zip(parts,offsets):
+        key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',part)[1])&0xffffffff
+        value=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',part)[1])&0xffffffff
+        direct=re.search(r'BookmarkMemberOffset\(state, (?:\(byte\*\))?@object(?: \+ (\d+))?,',part)
+        if direct: assert int(direct[1] or 0)==offset
+        lines.append('    { '+str(key)+'u, '+str(value)+'u, '+str(offset)+'u },')
+    lines+=['};','']
 output='\n'.join(lines)
 path=root/'recovery/src/Native/GameObjectFields.h'
 if '--check' in sys.argv:

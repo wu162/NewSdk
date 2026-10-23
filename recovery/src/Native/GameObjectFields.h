@@ -953,6 +953,15 @@ const GameObjectEnum enumEntries[] = {
     { "ExtraCrushLevels", "WEAPONSTATE_TWO", 47 },
     { "ExtraCrushLevels", "WEAPON_TOGGLING", 63 },
     { "ExtraCrushLevels", "WORLD_BUILDER", 214 },
+    { "GeometryShapeType", "BOX", 1 },
+    { "GeometryShapeType", "CYLINDER", 2 },
+    { "GeometryShapeType", "RING", 3 },
+    { "GeometryShapeType", "SPHERE", 0 },
+    { "ContactPointGeneration", "INFANTRY", 3 },
+    { "ContactPointGeneration", "NONE", 0 },
+    { "ContactPointGeneration", "SQUAD_MEMBER", 4 },
+    { "ContactPointGeneration", "STRUCTURE", 2 },
+    { "ContactPointGeneration", "VEHICLE", 1 },
 };
 const GameObjectEnumFallback enumFallbacks[] = {
     { "RadarPriority", 2 },
@@ -966,6 +975,8 @@ const GameObjectEnumFallback enumFallbacks[] = {
     { "LocomotorSet", 12 },
     { "ShadowInfo", 3 },
     { "ExtraCrushLevels", 233 },
+    { "GeometryShapeType", 1 },
+    { "ContactPointGeneration", 3 },
 };
 const GameObjectToken tokens[] = {
     { 4185812704u, 2600243603u, 4u, GameObjectTokenKind::Member },
@@ -1192,4 +1203,31 @@ const LeafLayout leafLayouts[] = {
     { "ShadowInfo", 544u, 60u, ShadowInfoFields, 18u, ShadowInfoTokens },
     { "AutoResolveInfo", 548u, 36u, AutoResolveInfoFields, 6u, AutoResolveInfoTokens },
     { "VisionInfo", 552u, 40u, VisionInfoFields, 10u, VisionInfoTokens },
+};
+
+const LeafToken GeometryProc[] = {
+    { 2428332315u, 2011428087u, 24u },
+    { 4047561011u, 1256398628u, 0u },
+    { 2653016324u, 3877700949u, 4u },
+    { 3877700949u, 3877700949u, 8u },
+    { 1804527855u, 1804527855u, 16u },
+};
+
+const LeafToken ShapeProc[] = {
+    { 2219907648u, 2966720868u, 0u },
+    { 1254570213u, 1179977934u, 4u },
+    { 1501410244u, 438907818u, 8u },
+    { 429813291u, 2011428087u, 44u },
+    { 2749344737u, 2011428087u, 45u },
+    { 2680331028u, 1683514611u, 16u },
+    { 4047609472u, 1683514611u, 20u },
+    { 1440024122u, 438907818u, 24u },
+    { 2875692432u, 1683514611u, 32u },
+    { 2317216107u, 1310124621u, 36u },
+    { 2676558395u, 691437687u, 40u },
+};
+
+const LeafToken ContactPointProc[] = {
+    { 2494637160u, 438907818u, 0u },
+    { 3166078089u, 691437687u, 8u },
 };
