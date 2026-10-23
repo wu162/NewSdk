@@ -7,7 +7,8 @@ from ExtractGameObjectEvidence import method, token_table
 root = Path(__file__).resolve().parents[2]
 s = (root/'recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs').read_text(encoding='utf-8-sig')
 # Require the exact characterized original module.
-raw = (root/'recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs').read_bytes()
+# Git for Windows checks out CRLF; hash the canonical LF source, not checkout EOL.
+raw = s.encode('utf-8')
 assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest() == '6e40a9ed6c9f961d294d49768d911e6a6f354619'
 marshal, first = method(s, 'internal unsafe static void Marshaler_002EMarshal(INode* node, GameObject* @object, Tracker* state)')
 tokens = token_table(*method(s, 'internal unsafe static void Tokenizer_002ETokenize(void** table, GameObject* @object, Tracker* state)'))
