@@ -107,6 +107,13 @@ public ref class WeaponCompiler abstract sealed {
                 auto value=ReadFilter(child);if(!result.hasTargetFilter) {result.targetFilter=value;result.hasTargetFilter=true;}
             } else if(child->LocalName == "DamageObjectFilter") {
                 auto value=ReadFilter(child);if(!result.hasDamageFilter) {result.damageFilter=value;result.hasDamageFilter=true;}
+            } else if(child->LocalName == "KillObjectFilter") {
+                auto value=ReadFilter(child);if(!result.hasKillFilter) {result.killFilter=value;result.hasKillFilter=true;}
+            } else if(child->LocalName == "Color") {
+                auto value=ReadProjectileAttributes(child);
+                for(const auto& attr:value) if(attr.first!="R" && attr.first!="G" && attr.first!="B")
+                    throw gcnew NotSupportedException("Unsupported RGBColor attribute.");
+                if(!result.hasColor) {result.color=value;result.hasColor=true;}
             }
             else throw gcnew NotSupportedException("Unrecovered nugget child: "+child->Name);
         }
@@ -257,4 +264,5 @@ public:
     }
 };
 }
+
 

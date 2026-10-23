@@ -34,6 +34,17 @@ jobs:
           $lines[79735..80280] | Set-Content recovery/evidence/weapon/tokenize.txt
           # Original helper evidence, using one-based source line numbers.
           $helperRanges = @(
+            @{ Name = 'RGBColor Marshal and endian'; Start = 13320; End = 13378 }
+            @{ Name = 'RGBColor Tokenize'; Start = 76714; End = 76734 }
+            @{ Name = 'MetaImpact allocation and tag'; Start = 52684; End = 52691 }
+            @{ Name = 'TintObjects and AttributeModifier allocation and tags'; Start = 52795; End = 52811 }
+            @{ Name = 'MetaImpact Marshal and endian'; Start = 16328; End = 16544 }
+            @{ Name = 'TintObjects Marshal and endian'; Start = 16018; End = 16130 }
+            @{ Name = 'AttributeModifier Marshal and endian'; Start = 16805; End = 16864 }
+            @{ Name = 'MetaImpact Tokenize'; Start = 79149; End = 79239 }
+            @{ Name = 'TintObjects Tokenize'; Start = 79012; End = 79048 }
+            @{ Name = 'AttributeModifier Tokenize'; Start = 79356; End = 79392 }
+            @{ Name = 'AttributeModifierCategory bit parser'; Start = 67837; End = 67961 }
             @{ Name = 'Paralyze Marshal and endian'; Start = 16733; End = 16804 }
             @{ Name = 'Paralyze enum helper'; Start = 53265; End = 53276 }
             @{ Name = 'Paralyze Tokenize'; Start = 79323; End = 79355 }
@@ -200,4 +211,5 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
+
 

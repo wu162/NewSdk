@@ -16,7 +16,7 @@ def string_at(va):
             start=raw+rva-base
             return pe[start:pe.index(b"\0",start)].decode("ascii")
     raise ValueError(hex(va))
-wanted = ["WeaponPrefireType","WeaponReAcquireDetailType","WeaponReloadType","WeaponAffectsType","WeaponFlagsType","WeaponCollideType","WpnAntiT","VirtualDamageType","FXTriggerType","ObjectStatusType","ObjectFilterRule","ObjectFilterAlignment","ObjectFilterRelationship","KindOfType","ModelConditionFlagType","PartitionManagerDistTestType","DamageType","DeathType","DamageFXType","DamageSubType","WeaponSlotType","VeterancyLevel","ParalyzeEffectType","InfoWarEffect"]
+wanted = ["WeaponPrefireType","WeaponReAcquireDetailType","WeaponReloadType","WeaponAffectsType","WeaponFlagsType","WeaponCollideType","WpnAntiT","VirtualDamageType","FXTriggerType","ObjectStatusType","ObjectFilterRule","ObjectFilterAlignment","ObjectFilterRelationship","KindOfType","ModelConditionFlagType","PartitionManagerDistTestType","DamageType","DeathType","DamageFXType","DamageSubType","WeaponSlotType","VeterancyLevel","ParalyzeEffectType","InfoWarEffect","AttributeModifierCategoryType"]
 result={}
 for name in wanted:
     line = next(l for l in module.splitlines() if "internal static" in l and "enumMap" in l and "W4"+name+"_0040" in l and "FireWeaponFlagsType" not in l)
@@ -24,5 +24,6 @@ for name in wanted:
     result[name]=[{"name":string_at(ptr),"value":value} for ptr,value in struct.iter_unpack("<Ii",data)]
 out=Path("recovery/evidence/weapon"); out.mkdir(parents=True,exist_ok=True)
 (out/"enums.json").write_text(json.dumps(result,indent=2)+"\n")
+
 
 

@@ -17,6 +17,9 @@ struct WeaponNuggetInput {
     std::string barrel;
     std::vector<VeteranProjectileInput> veterans;
     std::map<std::string, std::string> attributes;
+    bool hasKillFilter = false, hasColor = false;
+    ObjectFilterInput killFilter;
+    std::map<std::string, std::string> color;
     bool hasSpawnTemplate = false, hasTargetFilter = false, hasDamageFilter = false;
     std::string spawnTemplate;
     ObjectFilterInput targetFilter, damageFilter;
@@ -30,4 +33,5 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input, WeaponNug
 void TokenizeWeaponNuggets(WeaponNuggetList* list, void** table, Relo::Tracker& tokens);
 void EndianWeaponNuggets(WeaponNuggetList* list);
 }}
+
 

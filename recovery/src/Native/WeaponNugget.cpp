@@ -24,7 +24,8 @@ bool Auxiliary(U32 id) {return BaseOnly(id) || id==SpecialPowerId || id==InformI
 constexpr U32 CircularId=2360033115u,LiftId=2769610658u,LinearId=3694898303u,StreamId=2159708756u,LaserId=3915396258u,CraterId=3520092115u;
 constexpr U32 AttachId=576040660u,SpendId=4286253161u,SecondaryId=2475108259u,StripId=1622083673u,SuppressionId=4104564135u,LuaId=2010867179u;
 constexpr U32 ParalyzeId=169470683u,InformationId=978137461u;
-bool SimpleType(U32 id) {return id==ParalyzeId || id==InformationId || id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
+constexpr U32 MetaId=2940373499u,TintId=3665090361u,ModifierId=3821195611u;
+bool SimpleType(U32 id) {return id==MetaId || id==TintId || id==ModifierId || id==ParalyzeId || id==InformationId || id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
 bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id) || SimpleType(id); }
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
@@ -55,6 +56,11 @@ struct PercentNugget { DamageNugget damage; float percentage; };
 struct DotNugget { DamageNugget damage; float interval, duration; unsigned char removeIfHealed, padding[3]; };
 struct SpecialPowerNugget { BaseNugget base; U32 power; };
 struct InformTargetNugget { BaseNugget base; float min, max; };
+struct MetaNugget { BaseNugget base; float scalars[11]; ObjectFilter* kill; unsigned char flags[5],padding[3]; };
+struct TintNugget { BaseNugget base; float scalars[5],color[3]; };
+struct ModifierNugget { BaseNugget base; U32 modifier,owner,fxType; float arc; U32 categories,antiFx; };
+static_assert(sizeof(MetaNugget)==96 && offsetof(MetaNugget,kill)==84 && offsetof(MetaNugget,flags)==88 &&
+    sizeof(TintNugget)==72 && offsetof(TintNugget,color)==60 && sizeof(ModifierNugget)==64, "Original final nugget layouts");
 static_assert(sizeof(SpecialPowerNugget)==44 && sizeof(InformTargetNugget)==48, "Original auxiliary layouts");
 struct SeedNugget { OclNugget ocl; float amount, bonus; };
 static_assert(sizeof(SeedNugget)==56, "Original SeedTiberium layout");
@@ -403,6 +409,7 @@ const Field damageFields[] = {
     {"ForceFXPositionToVictim","false",150,'b'},{"RadiusAffectsBridges","false",151,'b'}
 };
 const EnumNameValue ParalyzeEffectType[]={{"EMP",0},{"HELD",3},{"NONE",4},{"UNMANNED",2},{"USER_PARALYZE",1}};
+const EnumNameValue ModifierCategory[]={{"BUFF",7},{"DEBUFF",8},{"FORMATION",2},{"INNATE_ARMOR",10},{"INNATE_AUTOHEAL",13},{"INNATE_DAMAGEMULT",11},{"INNATE_HEALTH",14},{"INNATE_VISION",12},{"LEADERSHIP",1},{"LEVEL",6},{"NONE",0},{"SPELL",3},{"STRUCTURE",5},{"STUN",9},{"WEAPON",4}};
 const EnumNameValue InfoWarEffect[]={{"NONE",0},{"RADAR_JAM",1},{"RESET_RADAR_ALL",6},{"RESET_RADAR_FREEZE",5},{"RESET_RADAR_HACKS",4},{"RESET_RADAR_JAM",2},{"RESET_RADAR_SPIES",3}};
 const EnumNameValue WeaponSlotType[] = {
     {"NO_WEAPON",5},{"PRIMARY_WEAPON",0},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2}
@@ -449,8 +456,44 @@ const SimpleMember informationMembers[]={
     {{"RadarJamRadius","0",44,'f'},2984380844u,1683514611u},
     {{"RadarJamDuration","0s",48,'t'},2374890276u,2575722984u},
 };
+const SimpleMember metaMembers[]={
+    {{"ShockWaveAmount","0",40,'f'},1895051624u,1683514611u},
+    {{"ShockWaveRadius","0",44,'f'},3037181377u,1683514611u},
+    {{"ShockWaveArc","360d",48,'a'},3612043902u,1310124621u},
+    {{"ShockWaveArcInverted","false",88,'b'},4271670327u,2011428087u},
+    {{"ShockWaveTaperOff","0",52,'f'},668485434u,1683514611u},
+    {{"ShockWaveSpeed","0",56,'f'},1762766444u,1683514611u},
+    {{"ShockWaveZMult","1",60,'f'},942695279u,1683514611u},
+    {{"CyclonicFactor","0",64,'f'},2095072366u,1683514611u},
+    {{"ShockwaveDelaySeconds","0s",68,'t'},491083703u,2575722984u},
+    {{"Suppression","0",72,'f'},123827726u,1683514611u},
+    {{"InvertShockWave","false",89,'b'},4063696236u,2011428087u},
+    {{"FlipDirection","false",90,'b'},95831504u,2011428087u},
+    {{"OnlyWhenJustDied","false",91,'b'},2515231289u,2011428087u},
+    {{"ShockWaveClearRadius","false",92,'b'},1261291653u,2011428087u},
+    {{"ShockWaveClearWaveMult","2",76,'f'},1795125690u,1683514611u},
+    {{"ShockWaveClearFlingHeight","100",80,'f'},4065019357u,1683514611u},
+    {{"KillObjectFilter",nullptr,84,'k'},162525091u,3832456114u},
+};
+const SimpleMember tintMembers[]={
+    {{"PreColorTime","2s",40,'t'},2873577633u,2575722984u},
+    {{"PostColorTime","2s",44,'t'},1562998579u,2575722984u},
+    {{"SustainedColorTime","1s",48,'t'},4118895867u,2575722984u},
+    {{"Frequency","1.0",52,'f'},1416053366u,1683514611u},
+    {{"Amplitude","1.0",56,'f'},3095351546u,1683514611u},
+    {{"Color",nullptr,60,'c'},2654902107u,2934399653u},
+};
+const SimpleMember modifierMembers[]={
+    {{"AttributeModifierName",nullptr,40,'r'},226106323u,165531635u},
+    {{"AttributeModifierOwnerName",nullptr,44,'r'},701709449u,165531635u},
+    {{"DamageFXType",nullptr,48,'x'},799690338u,799690338u},
+    {{"DamageArc","360d",52,'a'},480727292u,1310124621u},
+    {{"AntiCategories",nullptr,56,'z'},352777905u,1173445096u},
+    {{"AntiFX",nullptr,60,'r'},4240413615u,219975299u},
+};
 struct SimpleSpec { U32 id, size; const SimpleMember* members; unsigned count; };
 const SimpleSpec simpleSpecs[]={
+    {MetaId,96,metaMembers,17},{TintId,72,tintMembers,6},{ModifierId,64,modifierMembers,6},
     {ParalyzeId,60,paralyzeMembers,5},{InformationId,52,informationMembers,3},
     {CircularId,44,lifetimeMembers,1},{LiftId,44,lifetimeMembers,1},{LinearId,44,lifetimeMembers,1},
     {StreamId,48,streamMembers,2},{LaserId,56,laserMembers,4},{CraterId,48,craterMembers,2},
@@ -463,6 +506,8 @@ U32 NonDamageSize(U32 id) {
     return id==ProjectileId?68:id==SeedId?56:BaseOnly(id)?40:id==SpecialPowerId?44:48;
 }
 void ValidateNonDamage(const WeaponNuggetInput& input) {
+    if(input.hasKillFilter && input.typeId!=MetaId) throw std::invalid_argument("KillObjectFilter belongs to MetaImpactNugget");
+    if(input.hasColor && input.typeId!=TintId) throw std::invalid_argument("Color belongs to TintObjectsNugget");
     if(input.hasSpawnTemplate || input.hasTargetFilter || input.hasDamageFilter || !input.damageScalars.empty())
         throw std::invalid_argument("Damage-only child on reference nugget");
     if(input.typeId!=ProjectileId && (input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()))
@@ -475,10 +520,12 @@ void ValidateNonDamage(const WeaponNuggetInput& input) {
         if(input.typeId==SeedId && (attr.first=="FieldAmount" || attr.first=="SpawnedInFieldBonus")) known=true;
         if(input.typeId==SpecialPowerId && attr.first=="SpecialPowerTemplate") known=true;
         if(input.typeId==InformId && (attr.first=="MinTimeToImpactFudgeFactor" || attr.first=="MaxTimeToImpactFudgeFactor")) known=true;
-        auto simple=FindSimple(input.typeId);if(simple) for(unsigned i=0;i<simple->count;++i) if(attr.first==simple->members[i].field.name) known=true;
+        auto simple=FindSimple(input.typeId);if(simple) for(unsigned i=0;i<simple->count;++i)
+            if(simple->members[i].field.kind!='k' && simple->members[i].field.kind!='c' && attr.first==simple->members[i].field.name) known=true;
         if(!known) throw std::invalid_argument("Unsupported reference nugget attribute: "+attr.first);
     }
     for(const auto& attr:input.attackOffset) if(attr.first!="x" && attr.first!="y" && attr.first!="z") throw std::invalid_argument("Unsupported AttackOffset attribute");
+    for(const auto& attr:input.color) if(attr.first!="R" && attr.first!="G" && attr.first!="B") throw std::invalid_argument("Unsupported RGBColor attribute");
     for(const auto& veteran:input.veterans) for(const auto& attr:veteran.attributes)
         if(attr.first!="VeterancyLevel" && attr.first!="ProjectileTemplate") throw std::invalid_argument("Unsupported VeterancyProjectiles attribute");
 }
@@ -487,6 +534,21 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
     if(simple) {
         for(unsigned i=0;i<simple->count;++i) {
             const auto& field=simple->members[i].field;
+            if(field.kind=='k') {
+                if(src.hasKillFilter) {
+                    auto object=reinterpret_cast<MetaNugget*>(base);
+                    data.Push(reinterpret_cast<void**>(&object->kill),112,1);
+                    MarshalObjectFilter(src.killFilter,object->kill,data);data.Pop();
+                }
+                continue;
+            }
+            if(field.kind=='c') {
+                if(src.hasColor) {
+                    const char* names[]={"R","G","B"};auto color=reinterpret_cast<TintNugget*>(base)->color;
+                    for(unsigned j=0;j<3;++j) {auto found=src.color.find(names[j]);if(found!=src.color.end()) color[j]=ParseFloat(found->second);}
+                }
+                continue;
+            }
             if(!field.fallback && !src.attributes.count(field.name)) continue;
             auto text=Text(src,field.name,field.fallback?field.fallback:"");
             auto at=reinterpret_cast<unsigned char*>(base)+field.offset;
@@ -495,6 +557,7 @@ void MarshalNonDamageNugget(const WeaponNuggetInput& src,BaseNugget* base,Relo::
             if(field.kind=='b') {*at=ParseBoolean(text);continue;}
             if(field.kind=='q') {auto value=Enum(text,ParalyzeEffectType,0);std::memcpy(at,&value,4);continue;}
             if(field.kind=='w') {MarshalEnumBitset(text,InfoWarEffect,sizeof(InfoWarEffect)/sizeof(InfoWarEffect[0]),0,7,reinterpret_cast<U32*>(at));continue;}
+            if(field.kind=='z') {MarshalEnumBitset(text,ModifierCategory,sizeof(ModifierCategory)/sizeof(ModifierCategory[0]),7,15,reinterpret_cast<U32*>(at));continue;}
             if(field.kind=='h') {auto value=HashAssetId(text);std::memcpy(at,&value,4);continue;}
             if(field.kind=='d' || field.kind=='e' || field.kind=='x') {
                 U32 value=field.kind=='d'?Enum(text,DamageType,38):field.kind=='e'?Enum(text,DeathType,33):Enum(text,DamageFXType,35);
@@ -545,7 +608,18 @@ void TokenNonDamageNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bo
     if(simple) {
         auto t=static_cast<Procedure*>(tokens.Push(table,12,simple->count+2));
         t[0].name=1;t[0].type=3351432196u;TokenBase(*base,&t[0].offset,tokens);
-        for(unsigned i=0;i<simple->count;++i) {t[i+1].name=simple->members[i].name;t[i+1].type=simple->members[i].type;Member(base,simple->members[i].field.offset,t[i+1],tokens);}
+        for(unsigned i=0;i<simple->count;++i) {
+            const auto& member=simple->members[i];t[i+1].name=member.name;t[i+1].type=member.type;
+            if(member.field.kind=='k') {
+                auto object=reinterpret_cast<MetaNugget*>(base);
+                if(object->kill) TokenizeObjectFilter(object->kill,&t[i+1].offset,tokens);
+            } else if(member.field.kind=='c') {
+                auto color=static_cast<Procedure*>(tokens.Push(&t[i+1].offset,12,4));
+                const U32 names[]={3593226867u,4213441201u,3809169639u};
+                for(unsigned j=0;j<3;++j) {color[j].name=names[j];color[j].type=1683514611u;Member(base,60+4*j,color[j],tokens);}
+                tokens.Pop();
+            } else Member(base,member.field.offset,t[i+1],tokens);
+        }
         tokens.Pop();return;
     }
     if(base->type==SeedId && !oclParent) {
@@ -594,7 +668,14 @@ void TokenNonDamageNugget(BaseNugget* base,void** table,Relo::Tracker& tokens,bo
 void EndianNonDamageNugget(BaseNugget* base) {
     auto simple=FindSimple(base->type);
     if(simple) {
-        for(unsigned i=0;i<simple->count;++i) if(simple->members[i].field.kind!='r' && simple->members[i].field.kind!='b') Swap(reinterpret_cast<unsigned char*>(base)+simple->members[i].field.offset);
+        for(unsigned i=0;i<simple->count;++i) {
+            const auto& field=simple->members[i].field;
+            if(field.kind=='k') {
+                auto object=reinterpret_cast<MetaNugget*>(base);if(object->kill) EndianObjectFilter(object->kill);
+            } else if(field.kind=='c') {
+                auto object=reinterpret_cast<TintNugget*>(base);for(unsigned j=0;j<3;++j) Swap(object->color+j);
+            } else if(field.kind!='r' && field.kind!='b') Swap(reinterpret_cast<unsigned char*>(base)+field.offset);
+        }
         EndianBase(*base);return;
     }
     if(base->type==InformId) {auto object=reinterpret_cast<InformTargetNugget*>(base);Swap(&object->min);Swap(&object->max);}
@@ -610,6 +691,7 @@ void EndianNonDamageNugget(BaseNugget* base) {
 }
 void Validate(const WeaponNuggetInput& input) {
     if(NonDamageFamily(input.typeId)) {ValidateNonDamage(input);return;}
+    if(input.hasKillFilter || input.hasColor) throw std::invalid_argument("Effect-only child on Damage family");
     if(input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()) throw std::invalid_argument("Projectile child on Damage family");
     if(input.typeId!=DamageId && input.typeId!=DotId && input.typeId!=GrapplingId && input.typeId!=LeechPercentId && input.typeId!=LeechHealthId && input.typeId!=LineId && input.typeId!=SpawnId && input.typeId!=FireId && input.typeId!=ContainedId)
         throw std::invalid_argument("Unrecovered WeaponEffectNugget TypeId");
@@ -810,4 +892,5 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 

@@ -21,8 +21,9 @@ integration probe.
 | FireOnObjectsNugget | 2014632688 | 164 | Weapon reference, two Booleans and optional Filter pointer |
 | DamageContainedNugget | 2459653016 | 272 | MaxUnitsToDamage, WindowBlastFX reference, inline DamageObjectFilter |
 
-The original pointer dispatcher has 35 explicit branches; 32 are recovered. The other three branches,
-zero/unknown TypeIds, unknown attributes and unimplemented children are rejected.
+The original pointer dispatcher has 35 explicit branches; all 35 are implemented.
+Zero/unknown TypeIds, unknown attributes and unimplemented children remain rejected
+until the original fallback and BAB preprocessing boundary are separately recovered.
 An empty Nuggets container now serializes correctly, but does not establish full
 Nugget support. A matching XML element name without its prepared TypeId is not
 sufficient for the direct component API. Actual BAB preprocessing supplies it.
@@ -53,6 +54,9 @@ original; a direct differential fixture verifies this explicitly.
 | LuaEventNugget | 52 | Allocated EventName string and three Boolean bytes |
 | ParalyzeNugget | 60 | EffectArc, DurationSeconds, two ParalyzeEffectType enums and ParalyzeFX reference |
 | InformationWarfareNugget | 52 | Inline seven-bit InfoWar mask, RadarJamRadius and RadarJamDuration |
+| MetaImpactNugget | 96 | Shock-wave scalars, five Boolean bytes and optional KillObjectFilter |
+| TintObjectsNugget | 72 | Three durations, frequency/amplitude and inline RGBColor |
+| AttributeModifierNugget | 64 | Two modifier references, optional DamageFXType, arc, AntiCategories and AntiFX |
 
 ParalyzeEffectType comes from the original PE: EMP=0, USER_PARALYZE=1,
 UNMANNED=2, HELD=3, NONE=4; unknown names fall back to EMP. InfoWar has
@@ -246,3 +250,61 @@ subtype enum maps too; no enum order is guessed from XSD or another SDK.
 
 WeaponTemplate remains a partial type until the remaining branches and any unknown-polymorphic fallback boundary are deliberately recovered. Its SDK route is retained on the original plugin.
 
+
+
+## Final three explicit branches (2026-10-23)
+
+Original evidence: Tokenizer `-Module-.cs` blob
+`6e40a9ed6c9f961d294d49768d911e6a6f354619`, read at repository source
+`5b48971641c5cceea41ffb9621963ba53f71df97`. Method names and actual pointer
+arithmetic, not the separate TypeHash constants, determine dispatch and layout.
+
+| Type / TypeId | Marshal / endian | Tokenize | Allocation |
+|---|---|---|---|
+| MetaImpact / 2940373499 | 16328–16544 | 79149–79239 | 52684–52690: 96 bytes |
+| TintObjects / 3665090361 | 16018–16130 | 79012–79048 | 52795–52801: 72 bytes |
+| AttributeModifier / 3821195611 | 16805–16864 | 79356–79392 | 52803–52809: 64 bytes |
+
+MetaImpact: floats at 40/44/48/52/56/60/64/68/72/76/80, respectively
+ShockWaveAmount=0, ShockWaveRadius=0, ShockWaveArc=360d,
+ShockWaveTaperOff=0, ShockWaveSpeed=0, ShockWaveZMult=1,
+CyclonicFactor=0, ShockwaveDelaySeconds=0s, Suppression=0,
+ShockWaveClearWaveMult=2, ShockWaveClearFlingHeight=100.
+The exact lower-case `w` in ShockwaveDelaySeconds is intentional.
+KillObjectFilter is a nullable 112-byte allocation through offset 84, marshaled
+before base allocations. Boolean bytes at 88–92 are ShockWaveArcInverted,
+InvertShockWave, FlipDirection, OnlyWhenJustDied, ShockWaveClearRadius, all false;
+93–95 remain zero padding. The derived procedure table has 19 entries including
+base and terminator; the filter procedure stays null when absent.
+
+TintObjects: PreColorTime=2s at 40, PostColorTime=2s at 44,
+SustainedColorTime=1s at 48, Frequency=1.0 at 52, Amplitude=1.0 at 56.
+Color is always inline at 60 (R), 64 (G), 68 (B). Missing Color/components remain
+zero; no 255 normalization or clamping. RGBColor Marshal/endian is at
+13320–13378, Tokenize at 76714–76734: a four-entry nested table is always emitted,
+including when Color is absent. Scalar members swap on big endian.
+
+AttributeModifier: references at 40/44 are AttributeModifierName/OwnerName;
+DamageFXType at 48 has no fallback attribute value, so absence remains zero
+(GDI_CANNON), unlike DamageNugget's UNDEFINED default. An explicitly supplied
+unknown name uses the existing original enum fallback ALIEN_BOMB=35.
+DamageArc at 52 defaults to 360d; AntiCategories at 56 is a 15-bit inline mask,
+absent zero; AntiFX is a reference at 60. Reference slots are not scalar-swapped.
+The enum map is extracted from the original PE by ExtractWeaponEvidence.py;
+its text parser at 67837–67961 uses unknown-name fallback BUFF=7, minus as XOR,
+and sign-insensitive ALL fills all 32 bits and stops advancing the token pointer.
+
+The implementation shares explicit per-member specifications but gives nested
+Color/Filter their own marshaling, token and endian paths. Tests in
+WeaponFinalNuggetOracle.cs add independent size/key/type/offset/default assertions,
+all new attributes and RGB components across numeric/reference edge values,
+first duplicate child selection, filter/list/pointer combinations, all category
+names/sign pairs plus deterministic random sequences, mixed recovered families,
+and unsupported-child/attribute rejections. The prior three TypeId rejection cases
+are replaced by genuinely unknown IDs; zero/missing/unknown rejection remains.
+
+Validation for this implementation is pending the new /Od and /O2 workflow.
+The last successful SDK batch covered only the first 30 branches; all five added
+since that batch remain outside real SDK integration evidence. All 35 explicit
+branches does not establish a complete Weapon plugin or replacement compiler DLL:
+unknown-TypeId behavior and BAB TypeId/preprocessing remain open.
