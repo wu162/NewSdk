@@ -1,7 +1,7 @@
 {
-  "runId": "39867148125",
-  "sourceCommit": "3b18b96b2ad2d5db0ce031646791f4068f777018",
-  "status": "Formal Armor plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified; original-free replay; three XSD negative cases; reversible/idempotent routing",
+  "succeeded": true,
+  "sourceCommit": "83ec946e687569fb883bda0798ceb6de46a93cc4",
   "scope": "ArmorTemplate only; original plugins retained for other types",
-  "succeeded": true
+  "runId": "39891922459",
+  "status": "Formal Armor plugin Od/O2 differentials; XSD; original/recovered fresh SDK builds; all four outputs byte-identical; traced actual buffers verified; original-free replay; three XSD negative cases; reversible/idempotent routing"
 }
