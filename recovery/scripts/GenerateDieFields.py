@@ -37,7 +37,13 @@ def generate(source):
     def emit(name):
         nonlocal lines
         if name in emitted:return
-        sig='internal unsafe static void Tokenizer_002ETokenize(void** table, '+name+'* @object, Tracker* state)';body=body_of(source,sig)
+        sig='internal unsafe static void Tokenizer_002ETokenize(void** table, '+name+'* @object, Tracker* state)'
+        if sig in source:body=body_of(source,sig)
+        else:
+            sig='internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003A'+name+'_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)'
+            body=body_of(source,sig)
+            obj=re.search(re.escape(name)+r'\* (\w+) = \('+re.escape(name)+r'\*\)\(int\)',body)[1]
+            body=re.sub(r'\b'+obj+r'\b','@object',body)
         push=re.search(r'ProcTableElement\* (\w+) = \(ProcTableElement\*\)Relo_002ETracker_002EPush\([^;]+12u, (\d+)u\)',body)
         if not push:
             names=re.findall(r'Tokenizer_002ETokenize\(table, \((\w+)\*\)@object, state\)',body);assert len(names)==1,(name,body);emit(names[0]);lines.append('const ModuleLayout die'+name+' = die'+names[0]+';');emitted.add(name);return
