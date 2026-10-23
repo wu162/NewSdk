@@ -16,6 +16,7 @@ on:
       - 'recovery/scripts/TestGameObject.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
       - 'recovery/scripts/GenerateSoundSelectorFields.py'
+      - 'recovery/scripts/GenerateLifecycleFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'

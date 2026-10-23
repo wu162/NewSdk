@@ -1,3 +1,7 @@
+# 本轮进行中：六种生命周期 Update
+
+六种完整 Update 的源码、字段/Token/enum 生成器、桥接及差分/独立测试已准备好。本提交为**验证中检查点**；下面的50类型成功记录仅属于此前选择器修订。新六类型须等待当前源码完整/Od、/O2四平台矩阵，不得提前宣布已验收。DestroyDie未启用，SDK未运行。
+
 # 编译器恢复：当前续接入口
 
 更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md及本文件。
