@@ -601,3 +601,16 @@ No new real SDK build was requested or run. The separate SDK batch at source
 all five added since that batch remain outside SDK integration evidence.
 Next: unknown-TypeId fallback, BAB TypeId/preprocessing boundary, then formal
 Weapon plugin routing and one full schema-valid SDK batch. See RESUME.md.
+
+
+## 2026-10-23 — Weapon formal SDK integration and GameObject baseline
+
+Implemented unknown/missing/zero Nugget dispatch from original PE evidence: 40-byte base allocation, zero output tag, single 12-byte polymorphic token with offset zero, base-only endian. Added tolerance for BAB's non-polymorphic TypeId annotations and a formal Weapon plugin with original metadata. First checkpoint's independent layout expectation incorrectly used EXTENTS_3D=0; corrected to the original 4 before successful complete runs. No comparisons/assertions were weakened.
+
+Verified source 22c12f53c2f3c886cdb63d212ab10bc57cf715e0; run 39896743313 success. Every /Od and /O2: 66,152 fixtures, 793,824 buffer comparisons, 1,002 refusals, 2,070 ObjectStatus and 4,179 ModelCondition direct comparisons, four targets including 99. Synthetic BAB annotations and formal metadata/entry run across the whole matrix. Full modes combined: 1,587,648 buffer comparisons.
+
+One formal SDK Win32 batch: 38 schema-valid weapons covering all 35 Nugget branches, all-35 mixed list and inheritance; three invalid schema probes rejected; reversible/idempotent plugin routing; original/recovered mod.bin, mod.manifest, mod.imp and mod.relo all byte-identical; all 38 actual plugin calls replayed against original three buffers and again without the original Tokenizer/XmlCompiler DLLs. Independent evidence formal-sdk.json/formal-sdk-output.zip is separate from the prior 31-probe original-route SDK batch. Default checked-in config retains original routing; SetWeaponPlugin.ps1 switches only WeaponTemplate. Primitive run 39896743345 and Armor SDK run 39896743435 also success for this source.
+
+Proceeded to the next authorized dependency group instead of stopping after Weapon: established original GameObject characterization (no recovered GameObject implementation). Verified source 46b0ec5020b3911ec0b0403a3d60f63426590673; run 39897995324 success. 196 fixtures and 588 deterministic three-buffer comparisons on four targets; 16 scalar bindings, 592-byte native root. Original source extraction maps 126 fields plus sentinel, including 23 member bookmarks, 101 helper entries, two null-only Tokenize stubs at ReplaceModule@496 and InheritableModule@500. Complete source/runtime join verified all field names and hashes, eight default empty-list tables, root offset 1620, InstanceData 2212 and empty relocation/import buffers. Evidence in evidence/gameobject/source-layout.json and original-baseline.zip. Next stage: recover a coherent scalar/string/default-helper subset, never use a frozen buffer as recovered logic.
+
+RESUME.md now names exact current anchors and the next ~35-minute implementation stage. Efficiency actions: fetched original module once, inspected targeted methods, reused original evidence and already built Weapon assemblies for the SDK batch, did not repeat SDK builds per field; account quota savings cannot be measured here.

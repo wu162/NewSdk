@@ -22,7 +22,7 @@ integration probe.
 | DamageContainedNugget | 2459653016 | 272 | MaxUnitsToDamage, WindowBlastFX reference, inline DamageObjectFilter |
 
 The original pointer dispatcher has 35 explicit branches; all 35 are implemented.
-Zero/unknown TypeIds, unknown attributes and unimplemented children remain rejected
+Zero/missing/unknown TypeIds use the recovered 40-byte fallback; unknown attributes and unimplemented children remain rejected
 until the original fallback and BAB preprocessing boundary are separately recovered.
 An empty Nuggets container now serializes correctly, but does not establish full
 Nugget support. A matching XML element name without its prepared TypeId is not
@@ -230,17 +230,17 @@ subtype enum maps too; no enum order is guessed from XSD or another SDK.
 | DamageContainedNuggetType | 2459653016 | Recovered |
 | ActivateCircularDamageNuggetType | 2360033115 | Recovered |
 | SecondaryDamageNuggetType | 2475108259 | Recovered |
-| MetaImpactNuggetType | 2940373499 | Explicitly rejected |
+| MetaImpactNuggetType | 2940373499 | Recovered |
 | ActivateLiftObjectNuggetType | 2769610658 | Recovered |
 | SlavesAttackNuggetType | 3111574559 | Recovered |
 | DamageAndSpawnNuggetType | 3266020104 | Recovered |
 | DamageNuggetType | 3237297817 | Recovered |
 | WeaponOCLNuggetType | 3322313791 | Recovered |
-| TintObjectsNuggetType | 3665090361 | Explicitly rejected |
+| TintObjectsNuggetType | 3665090361 | Recovered |
 | TerrainCraterNuggetType | 3520092115 | Recovered |
 | ActivateLinearDamageNuggetType | 3694898303 | Recovered |
 | ActivateLaserNuggetType | 3915396258 | Recovered |
-| AttributeModifierNuggetType | 3821195611 | Explicitly rejected |
+| AttributeModifierNuggetType | 3821195611 | Recovered |
 | LeechHealthDamageNuggetType | 4012276286 | Recovered |
 | DOTNuggetType | 4022030886 | Recovered |
 | LineDamageNuggetType | 4021248832 | Recovered |
@@ -248,7 +248,7 @@ subtype enum maps too; no enum order is guessed from XSD or another SDK.
 | SpendStolenTiberiumNuggetType | 4286253161 | Recovered |
 | ScatterProjectileNuggetType | 4131529406 | Recovered |
 
-WeaponTemplate remains a partial type until the remaining branches and any unknown-polymorphic fallback boundary are deliberately recovered. Its SDK route is retained on the original plugin.
+Historical checkpoint: the remaining branches and unknown-polymorphic fallback were still open here. The current result below supersedes that integration restriction.
 
 
 
@@ -301,7 +301,7 @@ all new attributes and RGB components across numeric/reference edge values,
 first duplicate child selection, filter/list/pointer combinations, all category
 names/sign pairs plus deterministic random sequences, mixed recovered families,
 and unsupported-child/attribute rejections. The prior three TypeId rejection cases
-are replaced by genuinely unknown IDs; zero/missing/unknown rejection remains.
+are replaced by genuinely unknown IDs; zero/missing/unknown rejection was retained at that historical checkpoint; it is superseded by the recovered fallback below.
 
 Validation passed for source `0d4c9932dd4c7bec1af88f37a527033afad80b9c`:
 [run 39894482358](https://github.com/wu162/NewSdk/actions/runs/39894482358),
@@ -315,10 +315,10 @@ The unchanged primitive regression also passed in run 39894482472.
 The last successful SDK batch covered only the first 30 branches; all five added
 since that batch remain outside real SDK integration evidence. All 35 explicit
 branches does not establish a complete Weapon plugin or replacement compiler DLL:
-unknown-TypeId behavior and BAB TypeId/preprocessing remain open.
+those two boundaries were still open at that historical checkpoint; both are addressed by the current verified result below.
 
 
-## Unknown polymorphic branch (2026-10-23, validation pending)
+## Unknown polymorphic branch (2026-10-23, validated)
 
 Original evidence is Tokenizer `-Module-.cs` blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`. Pointer Marshal (15499–15623) reads `TypeId` with default `0` through `strtoul(...,0)`. Unknown helper (52980–52986) Pushes **40 bytes**, marshals WeaponEffectNugget common members (15406–15448), then writes tag **zero**, not the unknown input value. Root type hash 3351432196 is also not a known polymorphic tag.
 
@@ -327,3 +327,7 @@ Pointer Tokenize (78676–78796) allocates a single 12-byte `{name=2,type=output
 Implementation recognizes all 35 known IDs and otherwise validates the supported common-base surface, allocates 40 bytes, sets output tag zero, emits the wrapper alone, and runs EndianBase. Derived/unknown fields and foreign namespaces remain explicitly rejected. This strict subset intentionally does not silently ignore arbitrary derived input as raw Marshal might. Missing, zero, decimal/hex/prefix/trailing and malformed TypeId strings use the already recovered unsigned parser.
 
 Tests: UnknownNuggets in WeaponNuggetOracle.cs; every platform including 99, both /Od and /O2, all three buffers. Cartesian TypeId/base fields/filter/upgrade cases; unknown/known mixed lists; independent allocation, output tag, wrapper offset, radius, and relocation checks at 1/2/7/31 entries. Existing full matrix remains enabled. Component results do not establish BAB preprocessing or formal Weapon plugin integration.
+
+## Current verified integration result
+
+Source `22c12f53c2f3c886cdb63d212ab10bc57cf715e0`, run 39896743313 succeeded. Every /Od and /O2: 66,152 fixtures, 793,824 buffer comparisons, 1,002 explicit refusals, 2,070 ObjectStatus and 4,179 ModelCondition direct comparisons. All four target IDs, BAB-style annotations and formal plugin metadata/entry are covered. The separate formal SDK gate passed 38 legal mymod weapons, all 35 branches plus a complete mixed list and inherited list, all four complete SDK output files equal, all 38 actual three-buffer call replays, and original-free replay. See WEAPON_INPUT_PIPELINE.md and evidence/weapon/formal-sdk.json. Earlier sections retain historical evidence scopes; they do not limit this newer result. The two complete replacement compiler DLLs remain unfinished.

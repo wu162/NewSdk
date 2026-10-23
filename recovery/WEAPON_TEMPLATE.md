@@ -1,4 +1,4 @@
-# WeaponTemplate supported subset: scalars, resources, status, filters and scatter
+# WeaponTemplate recovery and formal plugin
 
 The supported entry point is `Recovered.WeaponCompiler.ProcessInstance` in
 `src/Bridge/WeaponCompiler.cpp`; the native implementation is
@@ -6,7 +6,7 @@ The supported entry point is `Recovered.WeaponCompiler.ProcessInstance` in
 `ScalarParsing`, `DataInitializers`, `XmlNodeAdapter` and `Relo::Tracker`,
 plus the shared `ResourceMarshaling.h` / `.cpp` helpers.
 There is no original compiler forwarding. This component references SDK Core
-for `InstanceDeclaration` / `AssetBuffer`, and does not replace either compiler.
+for `InstanceDeclaration` / `AssetBuffer`. The formal entry is `Recovered.Weapon.Plugin` in `Recovered.WeaponPlugin.dll`, backed by `Recovered.Weapon.dll`; it replaces WeaponTemplate routing, not either full compiler DLL.
 
 ## Implemented scope
 
@@ -20,11 +20,9 @@ byte offset, procedure name/type hash and token treatment in original order.
 as child blocks (four durations, two voice overrides, one AI hint and three filters); their
 names remain rejected as root attributes. IncompatibleAttributeModifier is supported as a repeated child list. The three
 ObjectFilter pointer blocks are also supported. ScatterRadiusVsType is supported as a repeated 176-byte inline-filter/model-mask list.
-Nuggets supports the common base and nine damage-family branches described in
-`WEAPON_NUGGETS.md`; the other 26 dispatch branches reject explicitly. Unsupported input,
-including an explicit empty value, is rejected.
+Nuggets supports all 35 explicit branches and the unknown-TypeId common-base fallback described in `WEAPON_NUGGETS.md`. Unsupported fields/structures remain rejected even when empty.
 Other child elements, unknown attributes and namespaced attributes are rejected
-by the partial component, except namespace declarations and the root `id`.
+by the component, except namespace declarations, root `id`, and unqualified BAB `TypeId` annotations on non-polymorphic nodes.
 This deliberately narrows the supported input domain instead of claiming
 full original-plugin acceptance of unknown XML.
 
@@ -292,21 +290,14 @@ procedure offsets, list count/order, total size and relocation/sentinel.
 Actual validation/source/run is recorded in STATUS.md and evidence/weapon.
 
 At that historical scatter milestone Nuggets remained unsupported; the continuation
-below supersedes that boundary. WeaponTemplate is not yet switched to the recovered
-SDK plugin. Full recovery of WeaponTemplate is still required before that switch.
+below supersedes that boundary; formal recovered SDK routing has now passed the current integration gate.
 
 
-## Nugget continuation
+## Current integration result — 2026-10-23
 
-The common base, ScalarInfo, polymorphic list/token representation and 32 of
-35 explicit branches are recovered. This includes all nine Damage-family
-branches, projectile/reference paths, activation/scalar/string paths, Paralyze
-and InformationWarfare. See `WEAPON_NUGGETS.md` for sizes and the coverage table;
-read `RESUME.md` for exact current source/run and the separate SDK batch scope.
+Source `22c12f53c2f3c886cdb63d212ab10bc57cf715e0`, Actions run [39896743313](https://github.com/wu162/NewSdk/actions/runs/39896743313), success. Every /Od and /O2 mode passed 66,152 fixtures, 793,824 buffer comparisons, 1,002 rejection checks, 2,070 direct ObjectStatus and 4,179 ModelCondition comparisons; all four targets including 99. Every normal fixture also checks original undecorated, original annotated, recovered annotated, and formal plugin annotated paths. Metadata matches the original.
 
-The 31 legal mymod weapons cover 30 branches plus a mixed 12-Nugget list.
-Their recovered InstanceData payloads matched actual original-SDK mod.bin.
-Paralyze/InformationWarfare are component-only additions after that batch.
-The three remaining branches are MetaImpact, TintObjects and AttributeModifier;
-unknown-TypeId behavior and BAB metadata still require recovery before a formal
-Weapon plugin switch. Weapon remains on the original SDK handler.
+38 schema-valid mymod weapons cover all 35 branches, a complete 35-entry mixed list and an inherited copy. Actual original/recovered SDK Win32 builds produced identical mod.bin, mod.manifest, mod.imp and mod.relo. All 38 traced calls matched original replay in all three buffers, and replay passed with both original compiler DLLs physically absent. Synthetic invalid low-level inputs remain outside the schema-valid SDK surface.
+
+The default SDK config remains original; `scripts/SetWeaponPlugin.ps1` reversibly/idempotently switches only WeaponTemplate, copying the two recovered assemblies. BAB preprocessing remains the existing Core host's responsibility; see `WEAPON_INPUT_PIPELINE.md`. GameObject and the remaining generic XmlCompiler paths are not recovered.
+
