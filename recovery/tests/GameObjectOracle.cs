@@ -6,7 +6,7 @@ using System.Xml;
 using BinaryAssetBuilder.Core;
 partial class GameObjectOracle {
     class Field {public string Name,Kind;public Field(string n,string k){Name=n;Kind=k;}}
-    static int fixtures,comparisons,refusals;
+    static int fixtures,comparisons,refusals,invarianceComparisons;
     static InstanceDeclaration Declaration(string attrs,string children) {
         var xml=new XmlDocument();xml.LoadXml("<GameObject xmlns='uri:ea.com:eala:asset' id='RecoveryRoot' "+attrs+">"+children+"</GameObject>");
         var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea","uri:ea.com:eala:asset");
@@ -16,7 +16,7 @@ partial class GameObjectOracle {
         var d=new InstanceDeclaration(doc);d.XmlNode=xml.DocumentElement;return d;
     }
     static uint Word(byte[] b,int at,bool big) {return big?((uint)b[at]<<24)|((uint)b[at+1]<<16)|((uint)b[at+2]<<8)|b[at+3]:BitConverter.ToUInt32(b,at);}
-    static void Equal(byte[] a,byte[] b,string label) {++comparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
+    static void Equal(byte[] a,byte[] b,string label,bool bufferComparison=true) {if(bufferComparison)++comparisons;else ++invarianceComparisons;if(a.Length!=b.Length)throw new Exception(label+" length "+a.Length+" != "+b.Length);for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte "+i+": "+a[i]+" != "+b[i]);}
     static AssetBuffer Check(IAssetBuilderPlugin original,TargetPlatform platform,string attrs,string children="") {
         var input=Declaration(attrs,children);var expected=original.ProcessInstance(input);var actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
         Equal(expected.InstanceData,actual.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+children+" imports");++fixtures;return actual;
@@ -107,16 +107,58 @@ partial class GameObjectOracle {
         var strings=Check(original,p,"",names);
         if(Word(strings.InstanceData,1620+396,big)!=2212 || Word(strings.InstanceData,1620+400,big)!=2228 || Word(strings.InstanceData,2212,big)!=4 || Word(strings.InstanceData,2216,big)!=2220 || Word(strings.InstanceData,2228,big)!=1 || Word(strings.InstanceData,2232,big)!=2236 || strings.InstanceData.Length!=2240)throw new Exception("Independent optional string allocation");
         var reversed=Check(original,p,"","<DisplayNameTransformed>x</DisplayNameTransformed><DisplayName>abcd</DisplayName>");
-        Equal(strings.InstanceData,reversed.InstanceData,"XML order must not change native allocation order");
+        Equal(strings.InstanceData,reversed.InstanceData,"XML order must not change native allocation order",false);
         Check(original,p,"Browser='a bb' Description='desc' KindOf='INFANTRY' CrowdResponse='A\\23' "+duration+"='201'",names+"<Buildable>ONLY_BY_AI</Buildable><ThingClass>MACHINE</ThingClass><DisplayColor R='10' G='20' B='30'/>");
         Check(original,p,"","<DisplayName TypeId='1'>name</DisplayName><Buildable TypeId='2'>YES</Buildable><DisplayColor TypeId='3' R='1'/>");
         foreach(string child in new[]{"<Buildable/><Buildable/>","<ThingClass/><ThingClass/>","<DisplayName/><DisplayName/>","<DisplayColor/><DisplayColor/>","<Buildable R='1'/>","<ThingClass Unknown='1'/>","<DisplayColor X='1'/>","<DisplayColor R='1' xmlns:f='foreign' f:G='2'/>","<DisplayName xmlns='foreign'/>","<DisplayName><Unknown/></DisplayName>","<DisplayColor>123</DisplayColor>"})Reject(p,"",child);
+    }
+    static void LeafCollections(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] values={"", "a", "AB", "abc", "abcd", "abcde", "MiXeD", "with spaces", "é ÿ 中文", "-1", "4294967296", "A&amp;B"};
+        foreach(string name in new[]{"EquivalentTo","UpgradeCameo","DisplayUpgrade"}) {
+            foreach(string value in values)Check(original,p,"","<"+name+">"+value+"</"+name+">");
+            Check(original,p,"","<"+name+">a</"+name+"><"+name+">bb</"+name+">");
+            Check(original,p,"","<"+name+" TypeId='123'>a</"+name+"><"+name+"/>");
+            if(name!="UpgradeCameo") {
+                var lower=Check(original,p,"","<"+name+">mixed</"+name+">");
+                var upper=Check(original,p,"","<"+name+">MIXED</"+name+">");
+                Equal(lower.InstanceData,upper.InstanceData,"Case-insensitive typed list IDs",false);
+            }
+        }
+        string cameo="";for(int i=0;i<5;++i)cameo+="<UpgradeCameo>item"+i+"</UpgradeCameo>";Check(original,p,"",cameo);Reject(p,"",cameo+"<UpgradeCameo/>");
+        Reject(p,"","<DisplayUpgrade/><DisplayUpgrade/><DisplayUpgrade/>");
+        foreach(string name in new[]{"Fuel","MaxBurnRate","Decay","Resistance"})foreach(string value in new[]{"0","1","-1","255","256","0x12345678","010","2147483647","4294967295","4294967296","-4294967296"," 23tail","text",""})Check(original,p,"","<Flammability "+name+"='"+value+"'/>");
+        foreach(string axis in new[]{"x","y","z"})foreach(string value in new[]{"0","1","-17","1.25","2D3","1e40","-1e40","1e-50","text",""})Check(original,p,"","<LiveCameraOffset "+axis+"='"+value+"'/>");
+        var flame=Check(original,p,"","<Flammability Fuel='1' MaxBurnRate='2' Decay='3' Resistance='4'/>");
+        int root=(int)Word(flame.InstanceData,8,big)-4;
+        if(root!=1680 || flame.InstanceData.Length!=2288 || Word(flame.InstanceData,root+456,big)!=2272 || Word(flame.InstanceData,1208,big)!=1572)throw new Exception("Independent Flammability root/pointer/token layout");
+        uint[] tokenNames={2194468989u,1555868979u,1413518551u,2097559226u};
+        for(int i=0;i<4;++i)if(Word(flame.InstanceData,2272+4*i,big)!=(uint)i+1 || Word(flame.InstanceData,1572+12*i,big)!=tokenNames[i] || Word(flame.InstanceData,1576+12*i,big)!=1982953380u || Word(flame.InstanceData,1580+12*i,big)!=2272+4*i)throw new Exception("Independent Flammability data/token members");
+        for(int i=1620;i<1632;++i)if(flame.InstanceData[i]!=0)throw new Exception("Flammability token sentinel");
+        var emptyFlame=Check(original,p,"","<Flammability/>");for(int i=0;i<4;++i)if(Word(emptyFlame.InstanceData,2272+4*i,big)!=0)throw new Exception("Flammability zero defaults");
+        var camera=Check(original,p,"","<LiveCameraOffset x='1' y='-2' z='0.5'/>");
+        if(camera.InstanceData.Length!=2224 || Word(camera.InstanceData,1620+520,big)!=2212 || Word(camera.InstanceData,1388,big)!=2212 || Word(camera.InstanceData,2212,big)!=0x3f800000u || Word(camera.InstanceData,2216,big)!=0xc0000000u || Word(camera.InstanceData,2220,big)!=0x3f000000u)throw new Exception("Independent Vector3 allocation/token/layout");
+        var emptyCamera=Check(original,p,"","<LiveCameraOffset/>");for(int i=0;i<3;++i)if(Word(emptyCamera.InstanceData,2212+4*i,big)!=0)throw new Exception("Vector3 zero defaults");
+        string lists="<EquivalentTo>a</EquivalentTo><EquivalentTo>bb</EquivalentTo><UpgradeCameo>a</UpgradeCameo><UpgradeCameo>bb</UpgradeCameo><DisplayUpgrade>a</DisplayUpgrade><DisplayUpgrade>bb</DisplayUpgrade>";
+        var combined=Check(original,p,"",lists);root=(int)Word(combined.InstanceData,8,big)-4;
+        if(root!=1692 || combined.InstanceData.Length!=2324 || Word(combined.InstanceData,root+444,big)!=2 || Word(combined.InstanceData,root+448,big)!=2284 || Word(combined.InstanceData,root+536,big)!=2 || Word(combined.InstanceData,root+540,big)!=2292 || Word(combined.InstanceData,root+568,big)!=2 || Word(combined.InstanceData,root+572,big)!=2316)throw new Exception("Independent collection counts/pointers/allocation");
+        if(Word(combined.InstanceData,2292,big)!=1 || Word(combined.InstanceData,2296,big)!=2308 || Word(combined.InstanceData,2300,big)!=2 || Word(combined.InstanceData,2304,big)!=2312)throw new Exception("Independent collection string entries");
+        int[] fieldTokens={98,119,125};int[] offsets={444,536,568};int[] elements={2284,2292,2316};int[] strides={4,8,4};
+        for(int i=0;i<3;++i) {
+            int t=(int)Word(combined.InstanceData,12*fieldTokens[i]+8,big);
+            if(Word(combined.InstanceData,t,big)!=1820487795u || Word(combined.InstanceData,t+4,big)!=1564774360u || Word(combined.InstanceData,t+8,big)!=root+offsets[i])throw new Exception("Independent collection count token");
+            for(int j=0;j<2;++j)if(Word(combined.InstanceData,t+12+12*j,big)!=2974916843u || Word(combined.InstanceData,t+16+12*j,big)!=0 || Word(combined.InstanceData,t+20+12*j,big)!=elements[i]+strides[i]*j)throw new Exception("Independent collection element token");
+        }
+        string extra="<Flammability Fuel='17'/><LiveCameraOffset y='-3'/><DisplayName>name</DisplayName><DisplayColor R='255'/><Buildable>NO</Buildable>";
+        Check(original,p,"Browser='one two' Description='text' EvaEventSecondDamageFarFromFirstTimeoutMS='200.00004'",lists+extra);
+        var canonical=Check(original,p,"",lists+extra);var reversed=Check(original,p,"",extra+lists);Equal(canonical.InstanceData,reversed.InstanceData,"Native allocation independent of child group order",false);
+        foreach(string child in new[]{"<EquivalentTo Unknown='1'/>","<UpgradeCameo xmlns='foreign'/>","<DisplayUpgrade><Unknown/></DisplayUpgrade>","<Flammability/><Flammability/>","<LiveCameraOffset/><LiveCameraOffset/>","<Flammability fuel='1'/>","<LiveCameraOffset X='1'/>","<Flammability>text</Flammability>","<LiveCameraOffset xmlns:f='foreign' f:x='1'/>"})Reject(p,"",child);
     }
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -134,7 +176,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Geometry/>","<ArmorSet/>","<ReplaceModule/>","<InheritableModule/>","<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+"; 88 root attributes and five child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and ten child nodes, four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

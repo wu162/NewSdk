@@ -20,6 +20,8 @@ struct GameObjectToken { U32 name,type,offset; GameObjectTokenKind kind; };
 #include "GameObjectFields.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
+struct NativeList {U32 count;void* data;};
+static_assert(sizeof(NativeList)==8, "GameObject lists require x86");
 struct Procedure { U32 name,type; void* offset; };
 static_assert(sizeof(Procedure)==12, "GameObject requires x86");
 U32 EnumValue(const std::string& field,const std::string& text) {
@@ -122,6 +124,37 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         } else continue;
         std::memcpy(root+offset,&word,4);
     }
+    std::map<unsigned,NativeList*> lists;
+    lists[40]=reinterpret_cast<NativeList*>(root+40);
+    auto marshalList=[&](const char* name,unsigned offset,bool strings) {
+        std::vector<std::string> values;
+        for(const auto& child:children) if(child.name==name) values.push_back(child.text);
+        auto list=reinterpret_cast<NativeList*>(root+offset);lists[offset]=list;
+        list->count=static_cast<U32>(values.size());
+        if(values.empty()) return;
+        auto elements=static_cast<unsigned char*>(data.Push(&list->data,strings?8:4,list->count));
+        for(U32 i=0;i<list->count;++i) {
+            if(strings) MarshalString(data,elements+8*i,values[i]);
+            else {auto id=HashAssetId(values[i]);std::memcpy(elements+4*i,&id,4);}
+        }
+        data.Pop();
+    };
+    marshalList("EquivalentTo",444,false);
+    U32* flammability=nullptr;float* camera=nullptr;
+    for(const auto& child:children) if(child.name=="Flammability") {
+        flammability=static_cast<U32*>(data.Push(reinterpret_cast<void**>(root+456),16,1));
+        const char* names[]={"Fuel","MaxBurnRate","Decay","Resistance"};
+        for(unsigned i=0;i<4;++i) {auto at=child.attributes.find(names[i]);flammability[i]=at==child.attributes.end()?0:ParseUnsigned(at->second);}
+        data.Pop();
+    }
+    for(const auto& child:children) if(child.name=="LiveCameraOffset") {
+        camera=static_cast<float*>(data.Push(reinterpret_cast<void**>(root+520),12,1));
+        const char* names[]={"x","y","z"};
+        for(unsigned i=0;i<3;++i) {auto at=child.attributes.find(names[i]);camera[i]=at==child.attributes.end()?0.0f:ParseFloat(at->second);}
+        data.Pop();
+    }
+    marshalList("UpgradeCameo",536,true);
+    marshalList("DisplayUpgrade",568,false);
     // Unsupported optional pointers and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
     Procedure* table=nullptr;
@@ -131,13 +164,24 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         if(t.kind==GameObjectTokenKind::Member) procedures.BookmarkMemberOffset(root+t.offset,&table[i].offset);
         else if((t.offset==396 || t.offset==400) && displayNames[(t.offset-396)/4])
             procedures.BookmarkMemberOffset(displayNames[(t.offset-396)/4],&table[i].offset);
+        else if(t.offset==520 && camera) procedures.BookmarkMemberOffset(camera,&table[i].offset);
+        else if(t.offset==456 && flammability) {
+            // Original Tokenize(Flammability), line 95659: four members + sentinel.
+            const U32 names[]={2194468989u,1555868979u,1413518551u,2097559226u};
+            auto nested=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,5));
+            for(unsigned j=0;j<4;++j) {nested[j].name=names[j];nested[j].type=1982953380u;procedures.BookmarkMemberOffset(flammability+j,&nested[j].offset);}
+            procedures.Pop();
+        }
         else if(t.kind==GameObjectTokenKind::List) {
-            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,t.offset==40?static_cast<U32>(browser.size())+1:1));
+            auto found=lists.find(t.offset);auto list=found==lists.end()?nullptr:found->second;
+            const U32 length=list?list->count:0;
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,length+1));
             count->name=1820487795u;count->type=1564774360u;
             procedures.BookmarkMemberOffset(root+t.offset,&count->offset);
-            if(t.offset==40) for(U32 j=0;j<browser.size();++j) {
+            for(U32 j=0;j<length;++j) {
                 count[j+1].name=2974916843u;count[j+1].type=0;
-                procedures.BookmarkMemberOffset(browserStrings+j,&count[j+1].offset);
+                const unsigned stride=t.offset==40 || t.offset==536?8:4;
+                procedures.BookmarkMemberOffset(static_cast<unsigned char*>(list->data)+stride*j,&count[j+1].offset);
             }
             procedures.Pop();
         }
@@ -145,6 +189,13 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     if(bigEndian) {
         for(U32 i=0;i<browser.size();++i) Swap(&browserStrings[i].length);
         for(auto name:displayNames) if(name) Swap(&name->length);
+        if(flammability) for(unsigned i=0;i<4;++i) Swap(flammability+i);
+        if(camera) for(unsigned i=0;i<3;++i) Swap(camera+i);
+        for(const auto& entry:lists) if(entry.first!=40) {
+            const unsigned stride=entry.first==536?8:4;
+            auto bytes=static_cast<unsigned char*>(entry.second->data);
+            for(U32 i=0;i<entry.second->count;++i) Swap(bytes+stride*i);
+        }
         // In this restricted surface all words below 576 are scalars, lengths,
         // zero masks/counts, or pointers overwritten by MakeRelocatable.
         for(unsigned at=4;at<576;at+=4) Swap(root+at);

@@ -31,9 +31,10 @@ public:
             auto child=nodes->Current;
             auto name=child->LocalName;
             if(child->NamespaceURI!="uri:ea.com:eala:asset" ||
-                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed"))
+                (name!="Buildable" && name!="ThingClass" && name!="DisplayColor" && name!="DisplayName" && name!="DisplayNameTransformed" && name!="EquivalentTo" && name!="UpgradeCameo" && name!="DisplayUpgrade" && name!="Flammability" && name!="LiveCameraOffset"))
                 throw gcnew NotSupportedException("Unsupported GameObject child.");
-            if(!seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
+            bool repeated=name=="EquivalentTo" || name=="UpgradeCameo" || name=="DisplayUpgrade";
+            if(!repeated && !seen->Add(name)) throw gcnew NotSupportedException("Duplicate GameObject child.");
             if(child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested GameObject child content.");
             Native::GameObjectChild item;item.name=marshal_as<std::string>(name);item.text=marshal_as<std::string>(child->Value);
             auto a=child->Clone();
@@ -41,12 +42,19 @@ public:
                 if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
                 if(a->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject child attribute.");
                 if(a->LocalName=="TypeId") continue;
-                if(name!="DisplayColor" || (a->LocalName!="R" && a->LocalName!="G" && a->LocalName!="B" && a->LocalName!="A"))
+                bool allowed=(name=="DisplayColor" && (a->LocalName=="R" || a->LocalName=="G" || a->LocalName=="B" || a->LocalName=="A")) ||
+                    (name=="Flammability" && (a->LocalName=="Fuel" || a->LocalName=="MaxBurnRate" || a->LocalName=="Decay" || a->LocalName=="Resistance")) ||
+                    (name=="LiveCameraOffset" && (a->LocalName=="x" || a->LocalName=="y" || a->LocalName=="z"));
+                if(!allowed)
                     throw gcnew NotSupportedException("Unsupported GameObject child attribute.");
                 item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
             } while(a->MoveToNextAttribute());
-            if(name=="DisplayColor" && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("DisplayColor text content.");
+            if((name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("DisplayColor text content.");
             children.push_back(item);
+            if(name=="UpgradeCameo" || name=="DisplayUpgrade") {
+                unsigned count=0;for(const auto& c:children) if(c.name==item.name) ++count;
+                if(count>(name=="UpgradeCameo"?5u:2u)) throw gcnew NotSupportedException("GameObject list exceeds XSD maximum.");
+            }
         }
         try {
             auto compiled=Native::CompileGameObject(input,children,bigEndian);auto buffer=gcnew AssetBuffer();
