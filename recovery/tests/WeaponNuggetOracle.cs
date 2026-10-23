@@ -59,6 +59,37 @@ unsafe partial class WeaponOracle
         if(kind==8 && (Word(result.InstanceData,data+152,big)!=100 || Word(result.InstanceData,data+156,big)!=0 || Word(result.InstanceData,1340,big)!=1848)) throw new Exception("Contained defaults/inline filter token");
         if(kind==5) for(int at=152;at<176;at+=4) if(Word(result.InstanceData,data+at,big)!=0) throw new Exception("Line default fields/padding");
     }
+    static void UnknownNuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
+        string[] ids={null,"0","3","99","4294967295","0x63","+99","99tail","","invalid","-1","3351432196"};
+        string[] attrs={"", "Radius='17.25'", "PartitionFilterTestType='CENTER_2D'", "ForbiddenTargetObjectStatus=''", "ForbiddenTargetObjectStatus='ALL'", "ForbiddenTargetModelCondition='ALL'", "Radius='-2' ForbiddenTargetObjectStatus='TOPPLED -TOPPLED AFLAME' ForbiddenTargetModelCondition='ALL -ALL'"};
+        string[] children={"", "<SpecialObjectFilter/>", "<SpecialObjectFilter StatusBitFlags='ALL' Include='AIRCRAFT'><IncludeThing>Tank</IncludeThing><ExcludeThing>Other</ExcludeThing></SpecialObjectFilter>", "<RequiredUpgrade>Up</RequiredUpgrade><RequiredUpgrade>Up2</RequiredUpgrade><ForbiddenUpgrade>Other</ForbiddenUpgrade>", "<SpecialObjectFilter Rule='ANY'/><SpecialObjectFilter Rule='NONE'/><RequiredUpgrade>Up</RequiredUpgrade>"};
+        foreach(string id in ids) foreach(string attr in attrs) foreach(string child in children) {
+            string node="<AnyElement "+(id==null?"":Attribute("TypeId",id))+" "+attr+">"+child+"</AnyElement>";
+            NuggetFixture(plugin,platform,"unknown-"+id+"/"+attr+"/"+child,node,"");
+        }
+        // Independent flat layout: no base token subtree for unknown output TypeId zero.
+        foreach(int count in new[] {1,2,7,31}) {
+            string nodes="";for(int i=0;i<count;++i) nodes+="<AnyElement TypeId='99' Radius='17.25'/>";
+            NuggetFixture(plugin,platform,"unknown-layout-"+count,nodes,"");
+            var xml=new XmlDocument();xml.LoadXml(NuggetXml(nodes,""));
+            var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",AssetNamespace);
+            var result=WeaponCompiler.ProcessInstance(Declaration(xml,ns),platform);bool big=platform!=TargetPlatform.Win32;
+            int tokens=1296+24*count,array=tokens+328;
+            if(result.InstanceData.Length!=1624+68*count || Word(result.InstanceData,tokens+256,big)!=count || Word(result.InstanceData,tokens+260,big)!=array || result.RelocationData.Length!=4*(count+2) || result.ImportsData.Length!=0)
+                throw new Exception("Unknown independent allocation sizes/count");
+            for(int i=0;i<count;++i) {
+                int data=array+4*count+40*i,poly=1272+12*count+12*i;
+                if(Word(result.InstanceData,array+4*i,big)!=data || Word(result.InstanceData,data,big)!=0 || Word(result.InstanceData,data+4,big)!=0 || Word(result.InstanceData,data+16,big)!=0x418a0000u || Word(result.InstanceData,poly,big)!=2 || Word(result.InstanceData,poly+4,big)!=0 || Word(result.InstanceData,poly+8,big)!=0 || Word(result.RelocationData,4*(i+1),big)!=array+4*i)
+                    throw new Exception("Unknown independent tag/token/base/member relocation");
+            }
+            if(Word(result.RelocationData,0,big)!=tokens+260 || Word(result.RelocationData,4*(count+1),big)!=uint.MaxValue) throw new Exception("Unknown relocation endpoints");
+        }
+        for(int count=1;count<=16;++count) {
+            string nodes="";for(int i=0;i<count;++i) nodes+=(i%2==0?"<AnyElement TypeId='99' ForbiddenTargetObjectStatus='ALL'><SpecialObjectFilter/><RequiredUpgrade>Up</RequiredUpgrade></AnyElement>":Nugget(i%9,"Damage='17'",""));
+            NuggetFixture(plugin,platform,"unknown-known-mixed-"+count,nodes,"FireSound='s\\2'");
+        }
+        foreach(string bad in new[] {"<AnyElement TypeId='99' Damage='1'/>","<AnyElement TypeId='99'><DamageScalarDetails/></AnyElement>","<AnyElement TypeId='99'><AttackOffset/></AnyElement>","<AnyElement TypeId='99'><KillObjectFilter/></AnyElement>","<AnyElement TypeId='99' xmlns:x='urn:other' x:Radius='1'/>","<AnyElement TypeId='99'><SpecialObjectFilter Unknown='1'/></AnyElement>"}) Reject(NuggetXml(bad,""));
+    }
     static void Nuggets(IAssetBuilderPlugin plugin,TargetPlatform platform) {
         DamageLayout(plugin,platform,0);
         foreach(int count in new[] {1,2,3,7,16,17,31,32,33,64,127,128,129,255,256,257}) DamageLayout(plugin,platform,count);
@@ -144,9 +175,10 @@ unsafe partial class WeaponOracle
         }
         Reject(NuggetXml(Nugget(0,"","<Filter/>"),""));
         Reject(NuggetXml(Nugget(0,"","<SpawnTemplate>Obj</SpawnTemplate>"),""));
-        foreach(uint id in new uint[] {3u,99u,4294967295u}) Reject(NuggetXml("<Unrecovered TypeId='"+id+"'/>",""));
-        foreach(string content in new[] {"<DamageNugget/>","<DamageNugget TypeId='0'/>","<DamageNugget TypeId='99'/>","<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
+        UnknownNuggets(plugin,platform);
+        foreach(string content in new[] {"<DamageNugget TypeId='3237297817' Unknown='1'/>","<DamageNugget TypeId='3237297817'><Unknown/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><RequiredUpgrade Unknown='1'/></DamageNugget>","<DamageNugget TypeId='3237297817'><DamageScalarDetails><Filter Unknown='1'/></DamageScalarDetails></DamageNugget>"}) Reject(NuggetXml(content,""));
     }
 }
+
 
 

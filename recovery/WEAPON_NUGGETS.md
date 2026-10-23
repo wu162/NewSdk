@@ -316,3 +316,14 @@ The last successful SDK batch covered only the first 30 branches; all five added
 since that batch remain outside real SDK integration evidence. All 35 explicit
 branches does not establish a complete Weapon plugin or replacement compiler DLL:
 unknown-TypeId behavior and BAB TypeId/preprocessing remain open.
+
+
+## Unknown polymorphic branch (2026-10-23, validation pending)
+
+Original evidence is Tokenizer `-Module-.cs` blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`. Pointer Marshal (15499–15623) reads `TypeId` with default `0` through `strtoul(...,0)`. Unknown helper (52980–52986) Pushes **40 bytes**, marshals WeaponEffectNugget common members (15406–15448), then writes tag **zero**, not the unknown input value. Root type hash 3351432196 is also not a known polymorphic tag.
+
+Pointer Tokenize (78676–78796) allocates a single 12-byte `{name=2,type=outputTag,offset=0}` record. Its switch has **no default and no case zero**: unknown output keeps offset zero, with **no common-base token subtree**. Common-base optional objects and upgrade lists still exist in InstanceData and RelocationData; they must not be dropped merely because Tokenize does not expose them. Pointer endian dispatch (15624–15742), default helper (53210–53213), and base endian (15449–15498) convert common members and pointed-to data only. Never cast this 40-byte fallback to the 152-byte Damage layout.
+
+Implementation recognizes all 35 known IDs and otherwise validates the supported common-base surface, allocates 40 bytes, sets output tag zero, emits the wrapper alone, and runs EndianBase. Derived/unknown fields and foreign namespaces remain explicitly rejected. This strict subset intentionally does not silently ignore arbitrary derived input as raw Marshal might. Missing, zero, decimal/hex/prefix/trailing and malformed TypeId strings use the already recovered unsigned parser.
+
+Tests: UnknownNuggets in WeaponNuggetOracle.cs; every platform including 99, both /Od and /O2, all three buffers. Cartesian TypeId/base fields/filter/upgrade cases; unknown/known mixed lists; independent allocation, output tag, wrapper offset, radius, and relocation checks at 1/2/7/31 entries. Existing full matrix remains enabled. Component results do not establish BAB preprocessing or formal Weapon plugin integration.

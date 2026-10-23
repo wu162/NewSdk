@@ -12,6 +12,10 @@
 - 真实 SDK 验证攒够字段/类型后集中运行。Weapon 提交消息 `[sdk-probe]` 才触发该步骤；普通修复只跑组件差分。
 - 新增 mymod XML 必须符合 SDK/Schemas/xsd 的完整 XSD，并接入实际 Mod.xml。保持未实现分支显式拒绝。
 
+## 本轮检查点（验证中）
+
+2026-10-23：开始 unknown-TypeId 分配、Tokenize、endian 的默认分支恢复。已核对原 blob 的 Marshal/Tokenize/endian：未知对象分配 40 字节，共用基类、输出 tag 清零；Tokenize 无 default，不生成基类 token 子表，仅保留 12 字节包装且 offset=0。已添加完整差分扩展及独立布局断言；本检查点尚未通过新的 Windows 差分，不能引用下方旧锚点作为新代码成功。下一步检查 Actions，修复任何失败，再调查 BAB TypeId 注入边界。
+
 ## 当前能力与验证边界
 
 ArmorTemplate：正式 `Recovered.Compiler.dll` 插件已通过真实 SDK 配置路由、原/恢复版四份产物逐字节比较、三个实际调用和无原 DLL 重放。

@@ -27,6 +27,10 @@ constexpr U32 ParalyzeId=169470683u,InformationId=978137461u;
 constexpr U32 MetaId=2940373499u,TintId=3665090361u,ModifierId=3821195611u;
 bool SimpleType(U32 id) {return id==MetaId || id==TintId || id==ModifierId || id==ParalyzeId || id==InformationId || id==CircularId || id==LiftId || id==LinearId || id==StreamId || id==LaserId || id==CraterId || id==AttachId || id==SpendId || id==SecondaryId || id==StripId || id==SuppressionId || id==LuaId;}
 bool NonDamageFamily(U32 id) { return id==ProjectileId || id==ScatterProjectileId || id==OclId || id==SeedId || Auxiliary(id) || SimpleType(id); }
+bool KnownType(U32 id) {
+    return NonDamageFamily(id) || id==DamageId || id==DotId || id==GrapplingId || id==ContainedId ||
+        id==SpawnId || id==FireId || id==LeechPercentId || id==LeechHealthId || id==LineId;
+}
 struct WordList { U32 count; U32* values; };
 struct BaseNugget {
     U32 type, partition; U32* status; U32* model;
@@ -690,6 +694,15 @@ void EndianNonDamageNugget(BaseNugget* base) {
     EndianBase(*base);
 }
 void Validate(const WeaponNuggetInput& input) {
+    if(!KnownType(input.typeId)) {
+        if(input.hasKillFilter || input.hasColor || input.hasAttackOffset || input.hasBarrel || !input.veterans.empty() ||
+            input.hasDamageFilter || input.hasSpawnTemplate || input.hasTargetFilter || !input.damageScalars.empty())
+            throw std::invalid_argument("Derived child on unknown nugget base");
+        for(const auto& attr:input.attributes)
+            if(attr.first!="PartitionFilterTestType" && attr.first!="Radius" && attr.first!="ForbiddenTargetObjectStatus" && attr.first!="ForbiddenTargetModelCondition")
+                throw std::invalid_argument("Unsupported unknown nugget attribute: "+attr.first);
+        return;
+    }
     if(NonDamageFamily(input.typeId)) {ValidateNonDamage(input);return;}
     if(input.hasKillFilter || input.hasColor) throw std::invalid_argument("Effect-only child on Damage family");
     if(input.hasAttackOffset || input.hasBarrel || !input.veterans.empty()) throw std::invalid_argument("Projectile child on Damage family");
@@ -774,7 +787,12 @@ void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNugg
     if(!list->count) return;
     data.Push(reinterpret_cast<void**>(&list->elements),4,list->count);
     for(U32 i=0;i<list->count;++i) {
-        const auto& src=input[i];bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
+        const auto& src=input[i];
+        if(!KnownType(src.typeId)) {
+            auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],40,1));
+            MarshalBase(src,*base,data);base->type=0;data.Pop();continue;
+        }
+        bool dot=src.typeId==DotId;bool percent=src.typeId==LeechPercentId || src.typeId==LeechHealthId;bool line=src.typeId==LineId;
         if(NonDamageFamily(src.typeId)) {
             auto base=static_cast<BaseNugget*>(data.Push(&list->elements[i],NonDamageSize(src.typeId),1));
             MarshalNonDamageNugget(src,base,data);data.Pop();continue;
@@ -824,6 +842,8 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
         entries[i+1].name=2974916843u;
         auto object=static_cast<DamageNugget*>(list->elements[i]);
         auto poly=static_cast<Procedure*>(tokens.Push(&entries[i+1].offset,12,1));poly->name=2;poly->type=object->base.type;
+        // Original unknown dispatch leaves the single polymorphic token's offset zero.
+        if(object->base.type==0) { tokens.Pop();continue; }
         if(NonDamageFamily(object->base.type)) TokenNonDamageNugget(reinterpret_cast<BaseNugget*>(object),&poly->offset,tokens);
         else if(object->base.type==DamageId) TokenDamage(*object,&poly->offset,tokens);
         else {
@@ -874,6 +894,7 @@ void TokenizeWeaponNuggets(WeaponNuggetList* list,void** table,Relo::Tracker& to
 void EndianWeaponNuggets(WeaponNuggetList* list) {
     for(U32 i=0;i<list->count;++i) {
         auto object=static_cast<DamageNugget*>(list->elements[i]);
+        if(object->base.type==0) {EndianBase(object->base);continue;}
         if(NonDamageFamily(object->base.type)) {EndianNonDamageNugget(reinterpret_cast<BaseNugget*>(object));continue;}
         if(object->base.type==DotId) { auto dot=reinterpret_cast<DotNugget*>(object);Swap(&dot->interval);Swap(&dot->duration); }
         if(object->base.type==LeechPercentId || object->base.type==LeechHealthId) Swap(&reinterpret_cast<PercentNugget*>(object)->percentage);
@@ -892,5 +913,6 @@ void EndianWeaponNuggets(WeaponNuggetList* list) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 

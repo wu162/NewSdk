@@ -98,6 +98,10 @@ jobs:
             @{ Name = 'Line and leech Tokenize'; Start = 79571; End = 79641 }
             @{ Name = 'WeaponEffectNugget common Marshal and endian'; Start = 15406; End = 15498 }
             @{ Name = 'Nugget polymorphic Marshal dispatch'; Start = 15499; End = 15623 }
+            @{ Name = 'Unknown Nugget allocation and zero tag'; Start = 52980; End = 52986 }
+            @{ Name = 'Nugget polymorphic endian dispatch'; Start = 15624; End = 15742 }
+            @{ Name = 'Unknown Nugget endian helper'; Start = 53210; End = 53213 }
+            @{ Name = 'Nugget polymorphic Tokenize with no default'; Start = 78676; End = 78796 }
             @{ Name = 'DamageNugget Marshal and endian'; Start = 16961; End = 17218 }
             @{ Name = 'ScalarInfo Marshal'; Start = 15339; End = 15369 }
             @{ Name = 'ScalarInfo list Marshal'; Start = 53395; End = 53436 }
@@ -211,5 +215,6 @@ jobs:
           name: recovered-weapon-component-x86
           path: ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
           if-no-files-found: error
+
 
 
