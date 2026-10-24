@@ -35,6 +35,12 @@
       "typeId": 1826140078,
       "typeHash": 1624658388,
       "schemaGlobal": false
+    },
+    {
+      "name": "BootupDisplaySequence",
+      "typeId": 3370391592,
+      "typeHash": 3238903012,
+      "schemaGlobal": true
     }
   ]
 }

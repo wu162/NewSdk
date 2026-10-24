@@ -72,5 +72,10 @@ public:
  static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlaudioBridge::Compile(node,namespaces,bigEndian,"MicrophoneSettings");}
  static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");if(declaration->Handle->TypeId!=1826140078u)throw gcnew NotSupportedException("Expected MicrophoneSettings TypeId.");return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);}
 };
+public ref class BootupDisplaySequenceCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlaudioBridge::Compile(node,namespaces,bigEndian,"BootupDisplaySequence");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");if(declaration->Handle->TypeId!=3370391592u)throw gcnew NotSupportedException("Expected BootupDisplaySequence TypeId.");return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);}
+};
 }
 

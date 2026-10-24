@@ -9,7 +9,7 @@ if (-not $tempRoot) { $tempRoot = [IO.Path]::GetTempPath() }
 $out = Join-Path $tempRoot ('recovered-xml-audio-' + $runId)
 $evidence = 'recovery/evidence/xml-audio'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
-$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Six complete audio/video roots and all nested microphone/processor/video event dependencies; component only'; status='started' }
+$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Seven complete audio/video/bootup roots and all nested microphone/processor/video event dependencies; component only'; status='started' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run from the VS2022 x86 developer shell' }
@@ -19,7 +19,7 @@ try {
         $buildLog = "$evidence/$mode-build.txt"
         & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$out" "/Fo$out/" "/Fe$out/Recovered.Xmlaudio.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/Xmlaudio.cpp recovery/src/Bridge/XmlaudioCompiler.cpp *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
-        & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$out/Recovered.Xmlaudio.dll" "/r:$out/BinaryAssetBuilder.Core.dll" "/out:$out/XmlaudioOracle.exe" (Resolve-Path recovery/tests/XmlaudioOracle.cs) (Resolve-Path recovery/tests/XmlaudioCases.cs) *> "$evidence/$mode-host-build.txt"
+        & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$out/Recovered.Xmlaudio.dll" "/r:$out/BinaryAssetBuilder.Core.dll" "/out:$out/XmlaudioOracle.exe" (Resolve-Path recovery/tests/XmlaudioOracle.cs) (Resolve-Path recovery/tests/XmlaudioCases.cs) (Resolve-Path recovery/tests/XmlaudioBootupCases.cs) *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode C# oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$out/XmlaudioOracle.exe.config"
         & "$out/XmlaudioOracle.exe" (Resolve-Path SDK/tools/BinaryAssetBuilder.XmlCompiler.dll).Path "$out/Recovered.Xmlaudio.dll" *> "$evidence/$mode-oracle.txt"

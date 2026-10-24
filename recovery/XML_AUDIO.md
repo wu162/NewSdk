@@ -1,6 +1,6 @@
 # Audio/video 完整能力组（待统一验收）
 
-目标分支 recovery/xmlcompiler-priority。组件包括 AudioEventLimitGroup、AudioLOD、AudioSettings、Video、VideoEventList，以及原 Plugin 的独立 MicrophoneSettings 入口。前五者在原 CnC3Types.xsd 中有全局资产；MicrophoneSettings 只有嵌套 schema，SDK 必须经 AudioSettings 的三个 mic 节点覆盖，不能新增全局 XSD 声明。
+目标分支 recovery/xmlcompiler-priority。组件包括 AudioEventLimitGroup、AudioLOD、AudioSettings、Video、VideoEventList，BootupDisplaySequence，以及原 Plugin 的独立 MicrophoneSettings 入口。前六者在原 CnC3Types.xsd 中有全局资产；MicrophoneSettings 只有嵌套 schema，SDK 必须经 AudioSettings 的三个 mic 节点覆盖，不能新增全局 XSD 声明。
 
 ## 原版证据
 
@@ -25,9 +25,17 @@ Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`，Plugin blob `00bb9e5df7
 
 ## 接线和验证
 
-新增 Native/Xmlaudio.cpp、Xmlaudio.h、XmlaudioFields.inc、XmlaudioEnums.inc；Bridge/XmlaudioCompiler.cpp；tests/XmlaudioOracle.cs、XmlaudioCases.cs；scripts/TestXmlaudio.ps1。Catalog为 catalog/XmlaudioTypes.json；SDK合法源fragment为 sdk/XmlaudioProbe.fragment.xml（11个资产，真实inheritFrom、本地MovieAsset引用和两层列表，MicrophoneSettings经嵌套覆盖）。
+新增 Native/Xmlaudio.cpp、Xmlaudio.h、XmlaudioFields.inc、XmlaudioEnums.inc；Bridge/XmlaudioCompiler.cpp；tests/XmlaudioOracle.cs、XmlaudioCases.cs；scripts/TestXmlaudio.ps1。Catalog为 catalog/XmlaudioTypes.json；SDK合法源fragment为 sdk/XmlaudioProbe.fragment.xml（13个资产，真实inheritFrom、本地MovieAsset引用和两层列表，MicrophoneSettings经嵌套覆盖）。
 
 Windows完整验收命令 `recovery/scripts/TestXmlaudio.ps1`，包含/Od和/O2，平台0/1/2/99，ProcessInstance原DLL三数组逐字节及CompileXml直接对照；全部根缺省独立字节布局，所有scalar边界/枚举合法和未知值，长列表跨过28/29/30的排序边界，nullable缺省，256组复合样本及拒绝边界。不削减其他组矩阵。证据会落在 evidence/xml-audio/validation.json 及两模式日志；本提交仅本地g++语法通过，未取得Windows或SDK成功，不标已验收。
 
 桥接保留未限定TypeId（结构节点允许BAB注入，event节点保留数字分派），foreign namespace/qualified属性、未知内容、重复singleton、异常文本明确拒绝；未知VideoEvent仅支持原基类字段。原DLL仅用于oracle，SDK预处理/继承/引用仍交给BAB。
 
+
+## BootupDisplaySequence 追加完整组
+
+原Plugin HandleType 内联Marshal（原文件行13212，具体方法名为HandleType<SageBinaryData::BootupDisplaySequence>），根Tracker构造99527分配16字节。LoadingTextTexture为strong AssetReference@4；DisplayItem count/pointer@8/@12。每个item28字节：Type enum@0（STATIC_SCREEN=0、LOAD_SCREEN=1、MOVIE=2、unknown回退1）；signed Duration@4（直接strtol，**不按Time解析**）、signed Priority@8；RandomTexture列表@12/@16，元素4字节strong引用；nullable String* Movie@20；ShowOnReboot byte@24。Movie缺失不分配；present-empty先分配8字节String再分配4字节对齐空字符串，所以单item含空Movie输出56字节，三处重定位12/36/48。分配次序为root、item数组、各item随机texture数组、该item Movie String对象和字符块。
+
+原item Marshal44292、Endian44332；enum71763；randomtexture列表71777；nullable String71819；item列表71835、Endian71877。原enum/static和相应源分块都已经固定在xml-source证据中。Bootup根元数据TypeId3370391592、TypeHash3238903012，原CnC3Types全局允许。其runtimeWrapper及item enum属于Joypad命名空间，但没有恢复任何Joypad命名根；本轮按主代理追加Bootup请求恢复此完整独立入口。
+
+新增XmlaudioBootupCases.cs并由原Cases调用，完整两优化四平台矩阵保持，覆盖所有属性边界/enum未知回退、nullable Movie缺失和present-empty、参考解析、65×65长双层列表和256个复合输入、独立字节布局/重定位断言和显式拒绝。SDK fragment新增两个合法Bootup资产，复用原SDK BootupSequence.xml已用的loadingText纹理资源；其在测试profile中的实际引用可用性仍以Windows SDK最终验收为准。未将Texture计作已恢复入口。

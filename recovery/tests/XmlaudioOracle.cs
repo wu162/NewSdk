@@ -9,9 +9,9 @@ using BinaryAssetBuilder.Core;
 partial class XmlaudioOracle {
  const string Ns="uri:ea.com:eala:asset";
  static int fixtures,comparisons,direct,rejections,layouts;
- static readonly string[] Roots={"AudioEventLimitGroup","AudioLOD","AudioSettings","Video","VideoEventList","MicrophoneSettings"};
- static readonly uint[] TypeIds={3906227957u,299416263u,1443425905u,587347702u,1447728787u,1826140078u};
- static readonly int[] Sizes={8,44,384,28,12,48};
+ static readonly string[] Roots={"AudioEventLimitGroup","AudioLOD","AudioSettings","Video","VideoEventList","MicrophoneSettings","BootupDisplaySequence"};
+ static readonly uint[] TypeIds={3906227957u,299416263u,1443425905u,587347702u,1447728787u,1826140078u,3370391592u};
+ static readonly int[] Sizes={8,44,384,28,12,48,16};
  static Assembly recovered;
  static string Escape(string s){return SecurityElement.Escape(s);}
  static string Xml(string root,string attrs,string children){return "<"+root+" xmlns='"+Ns+"' id='Oracle' "+attrs+">"+children+"</"+root+">";}
