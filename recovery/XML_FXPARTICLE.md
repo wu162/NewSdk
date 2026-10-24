@@ -1,6 +1,6 @@
 # FXParticleSystemTemplate XmlCompiler component
 
-Status: implementation and oracle ready; Windows verification pending.
+Status: all 33 known module types and the Event pointer list are implemented. The first expanded component matrix passed at source 77231712d8a56bd385044a9eb9c08ae871dea227, run 40089824762. Later Unicode/embedded-NUL and BAB TypeId metadata changes need their own final successful matrix; SDK integration is not yet accepted.
 Fixed base commit: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Public interface: Recovered::FXParticleSystemTemplateCompiler::CompileXml(XmlNode^, XmlNamespaceManager^, bool)
 and ProcessInstance(InstanceDeclaration^, TargetPlatform); TypeId 686292351.
@@ -42,15 +42,14 @@ Wind@136 is48 bytes with all 12 attributes/defaults from original Marshal.
 List allocation order, null versus empty, imports and relocation sentinels are preserved.
 
 Module pointers Physics/Draw/Volume/Velocity/Update are@140/144/148/152/164.
-Event list header@156 remains zero in the supported empty-Event boundary.
+Event has inline count@156 and pointer-array@160. Empty/absent Event is zero/null. Nonempty Event first allocates all four-byte pointer slots, then each module in document order. Allocation order is Physics, Draw, Volume, Velocity, Event, Update.
 All data uses a single Tracker::MakeRelocatable(bigEndian,0), retaining all three arrays.
 Platform0 is little endian;1/2/99 big endian. Packed bools stay bytes.
 Reference imports retain their actual allocated field offsets. Typed IDs use the shared hash.
 
 ## Supported original TypeId dispatch
 
-Routing uses numeric TypeId, never element names, and deliberately allows original
-cross-category routing. The same supported TypeIds can appear in any singleton wrapper.
+Numeric TypeId selects the implementation, independently of element name. All 33 known types can appear in any singleton wrapper or Event list, including cross-category routing.
 
 | Type | TypeId | Size |
 |---|---:|---:|
@@ -79,44 +78,41 @@ cross-category routing. The same supported TypeIds can appear in any singleton w
 | FXParticleEmissionVelocityCylinder | 4058790702 | 28 |
 | FXParticleEmissionVelocityOrtho | 3880943874 | 40 |
 | FXParticleEmissionVelocityWavefront | 3975650247 | 68 |
+| FXParticleEventBase | 2693838876 | 12 |
+| FXParticleEventCollision | 1075723135 | 28 |
+| FXParticleEventLife | 3465979181 | 24 |
+| FXParticleUpdateDefault | 2933826200 | 104 |
+| FXParticleUpdateRenderObject | 234581578 | 200 |
+| FXParticleDrawGpu | 2248017887 | 60 |
+| FXParticleDrawLightning | 3036920908 | 36 |
+| FXParticleDrawRenderObject | 3408220251 | 20 |
 
-Every field in these 25 types is implemented, including all Volume/Velocity variants,
-RandCoord3D, nested ranges/vectors, Physics flags and DrawSwarm texture imports.
-Missing/zero/unrecognized TypeId produces the original four-byte zero-type fallback,
-provided the module has only the TypeId attribute and no children.
-Empty singleton wrappers leave a null pointer. Unknown enum fallbacks are:
-Priority6, Shader1, Type2, WindMotion3, WavefrontShape1; names are case sensitive.
-Namespaced enum tables were read from original static-data/fields-0030.json;
-stored sorted name/value pairs were combined with exact shipped schema name sets.
-This avoids the manifest exporter omitting namespaced enum maps.
+All fields of these 33 types are implemented. Missing/zero/unknown module TypeId emits four zero bytes only when there are no unsupported payload attributes or children. Empty singleton wrappers remain null. Unknown enum fallbacks are Priority6, Shader1, Type2, WindMotion3, WavefrontShape1, Rotation0, GeometryType2; names are case sensitive. Original namespaced maps come from static-data/fields-0030.json and exact shipped schema names.
 
-## Explicit refusal boundary
+## Completed layouts and source boundaries
 
-Nonempty Event is unsupported. Known unsupported module TypeIds are:
-FXParticleEventBase=2693838876, FXParticleUpdateDefault=2933826200, FXParticleUpdateRenderObject=234581578, FXParticleDrawGpu=2248017887, FXParticleDrawLightning=3036920908, FXParticleDrawRenderObject=3408220251, FXParticleEventCollision=1075723135, FXParticleEventLife=3465979181.
-They are explicitly refused rather than emitted as an unknown fallback.
-Unknown or namespaced attributes, foreign/nested/unknown child content, duplicate
-singletons, multiple module children and wrong root/types are refused.
-Some malformed inputs are ignored by the original; these guards are an explicit
-component boundary and not a claim of identical malformed-XML permissiveness.
-BAB schema preprocessing, inheritance and real SDK integration are outside this component.
+EventBase has EventFX reference@4, PerParticle byte@8, KillAfterEvent byte@9 and padding@10..11. Collision adds HeightOffset random@12 and OrientFXToTerrain byte@24 (default false), padding@25..27. Life adds EventTime random@12. Original Marshal methods are 23359/23369/23399 (part-0046), allocation methods 61822/61951/61975 (part-0123), endian methods 62152/62294/62325 (part-0124); list methods are 62669/62730/83030 (parts-0125/0166). Base reference fields retain import offsets; they are not additionally swapped by the module endian methods.
+
+UpdateDefault stores Rotation@4 and eight random variables@8..103: SizeRate, SizeRateDamping, AngleZ, AngularRateZ, AngularDamping, AngleXY, AngularRateXY, AngularDampingXY. SizeRateDamping and AngularDampingXY initialize to UNIFORM/1/1, including partial-node fallback. UpdateRenderObject has Rotation@4, seven angular random variables@8..91, then RandCoord3D StartSize@92, SizeRate@128, SizeDamping@164.
+
+DrawGpu has Shader string@4, signed frame fields@12/16/20/24, DetailTexture reference@28, SpeedMultiplier@32, GeometryType@36, four MiscValue floats@40..52 and bools@56/57 (EnableSoftParticles defaults true). Default Shader is GPUParticle.fx. DrawLightning has StartPoint@4, EndPoint@16 and RandomSet count@28/pointer@32; each item is 72 bytes containing six random variables. DrawRenderObject has SinkRate@4, ObjectSet count@8/pointer@12 and bools@16/17; each 16-byte item contains nullable RenderGroup string@0, signed NumObjects@8, percentage Percent@12. A missing RenderGroup allocates nothing; a present empty one allocates a NUL block. List item arrays are allocated contiguously before per-item strings.
+
+String lengths follow native ANSI conversion, not UTF-8. Original Value constructor at 118053 (part-0236) uses Marshal.StringToHGlobalAnsi; original String Marshal at 60055/60257 (part-0120) consumes NUL-terminated bytes. Counts exclude the first NUL, payloads include it, and Tracker aligns allocations to four bytes. The added Unicode/combining/surrogate/embedded-NUL tests independently derive ANSI byte lengths; those extra cases are outside the first accepted matrix anchor.
+
+Module parsing is split into Bridge/XmlfxparticleModuleHelpers.inc and XmlfxparticleModuleCases.inc. Nested native allocation is in Native/XmlfxparticleModuleLists.inc. The partial oracle includes XmlfxparticleModuleCases.cs and XmlfxparticleEventCases.cs. The implementation retains the same single-Tracker three-buffer contract.
+
+## Component and SDK boundaries
+
+Unknown or qualified attributes, foreign/unknown child content, duplicate singletons, multiple singleton-wrapper modules and wrong roots/types remain explicit refusals. BAB attaches unnamespaced TypeId to every named schema type (Core AssetDeclarationDocument.ValidateInstances 1213–1235); structural children ignore this metadata as their original Marshal methods do. Optional root TypeId must parse to 686292351; decimal/hexadecimal matches are accepted, mismatches are explicitly refused although the original root ignores that attribute. Qualified TypeId remains refused.
+
+EventBase and unknown-type fallback are component capabilities; they are not a claim that those forms satisfy the shipped XSD. BAB preprocessing, inheritance and dependency resolution remain external. Some malformed inputs are ignored by the original, so component guards do not claim identical malformed-XML permissiveness.
+
+Recovered.XmlPriority.Plugin currently registers FXList and FXParticleSystemTemplate explicitly and uses original XmlCompiler metadata (XMLCOMPILER_METADATA.md). The initial SDK batch uses six legal assets across these two roots and required dependencies. It does not cover the complete MOD or all 301 XmlCompiler types. SDK originals remain unchanged; the recovered implementation never calls them.
 
 ## Validation
 
-Run recovery/scripts/TestXmlfxparticle.ps1 in Windows VS2022 x86 devshell.
-The script is self-contained against the fixed baseline runtime sources, requiring
-no Xmleffects files or Draft files. Builds /Od and /O2, Framework-v4 x86 host, legacy
-CLR activation config. Tests original ProcessInstance on platforms0/1/2/99; every
-accepted fixture compares InstanceData/RelocationData/ImportsData byte for byte.
-Covers every root attribute, each enum, all supported module fields/IDs, missing/0/
-unknown dispatch, all five wrappers and cross-category routing, ranges/vectors,
-null/empty lists, 0/1/2/27/28/29/64/257 keyframes, imports and explicit rejection cases.
-Independent checks cover176-byte root, exact module sizes/IDs, block targets, counts,
-relocation/import offsets and sentinels, padding and the empty Event header.
+Run recovery/scripts/TestXmlfxparticle.ps1 under Windows VS2022 x86. It builds /Od and /O2 with CLR4 legacy activation, runs original ProcessInstance on platforms0/1/2/99, and compares InstanceData, RelocationData and ImportsData byte for byte for every accepted fixture. Existing samples and refusal assertions are retained. Added coverage includes all 33 types in singleton/Event cross-category routes, every added field, nested lists/strings, 0/1/2/27/28/29/64/257 mixed Event lists, multiple imports, unknown fallback and metadata boundaries. Independent layout checks cover root/module sizes, padding, counts, allocation order, pointers, relocation/import offsets and sentinels.
 
-Outputs recovery/evidence/xml-fxparticle/validation.json with succeeded/sourceCommit/runId,
-per-mode result JSON and Od/O2 build/host/oracle logs. Logs include fixture, three-array,
-layout and refusal counts for all four platforms. Success is set only after both matrices.
-Initial implementation reuses and corrects the independently supplied disabled draft
-from effects commit baca81ec04503d2eabeca1be28f41e49e62b9277; no Draft files are merged.
-Windows and SDK validation are not claimed by this checkpoint.
+The first expanded matrix succeeded at source 77231712d8a56bd385044a9eb9c08ae871dea227, run40089824762. Each mode completed 13792 fixtures, 41376 three-buffer comparisons, 364 refusals and 13792 independent layouts across four platforms. Both modes total 27584 fixtures and 82752 array comparisons. Evidence is recovery/evidence/xml-fxparticle/validation.json plus per-mode result and build/oracle logs. This anchor does not validate later test/code changes.
+
+Run40090297467 (source44fc877dd1f88edec6dc174de03d521f5c577fd4) did not establish SDK acceptance: BAB inserted root TypeId, triggering a component refusal. The follow-up accepts structural TypeId metadata and records failed-input XML/error files separately from successful calls.tsv entries. A new successful exact-source anchor is still required for the complete post-fix matrix, Unicode cases, same-input SDK four-artifact comparison, trace replay and isolated replay without the original compiler DLL.
