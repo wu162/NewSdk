@@ -177,8 +177,8 @@ class XmlenvironmentOracle {
         new string[]{"ShadowMap","","MaxViewDistance","Float",""},
         new string[]{"ShadowMap","","MinShadowedTerrainHeight","Float",""},
         new string[]{"OrdersManagerSettings","","LineFadeTime","Time",""},
-        new string[]{"OrdersManagerSettings","","FormationPreviewShader","Reference",""},
-        new string[]{"OrdersManagerSettings","","BuildPlacementShader","Reference",""},
+        new string[]{"OrdersManagerSettings","","FormationPreviewShader","NullableReference",""},
+        new string[]{"OrdersManagerSettings","","BuildPlacementShader","NullableReference",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","Width","Float",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","VOffsetRate","Float",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","Texture","Reference",""},
@@ -316,10 +316,11 @@ class XmlenvironmentOracle {
         for(int i=0;i<lines.Length;++i)body.Append("<"+lines[i]+" Texture='Name\\"+i+"'/>");
         for(int i=0;i<nodes.Length;++i)body.Append("<"+nodes[i]+" Texture='Name\\"+(10+i)+"' AdditionalTexture='Name\\"+(20+i)+"'/>");
         AssetBuffer orders=Test("ABI/Orders",Root("OrdersManagerSettings","FormationPreviewShader='Name\\30' BuildPlacementShader='Name\\31'",body.ToString()),p);
-        Check(orders.InstanceData.Length==368&&Word(orders.InstanceData,4,big)==0x3e800000u,"Orders root size/time");
+        Check(orders.InstanceData.Length==376&&Word(orders.InstanceData,4,big)==0x3e800000u,"Orders root size/time");
         for(int i=0;i<lines.Length;++i){Check(Word(orders.InstanceData,16+16*i,big)==0x3fc00000u&&Word(orders.InstanceData,28+16*i,big)==0x41f00000u,"line defaults and inline offsets");}
-        for(int i=0;i<nodes.Length;++i){int at=128+60*i;Check(Word(orders.InstanceData,112+4*i,big)==at,"shadow pointer allocation order");Check(Word(orders.InstanceData,at+36,big)==0x3f800000u&&Word(orders.InstanceData,at+48,big)==0x41a00000u,"shadow initialized defaults");Check(orders.InstanceData[at+56]==0&&orders.InstanceData[at+57]==0&&orders.InstanceData[at+58]==1&&orders.InstanceData[at+59]==0,"shadow packed boolean defaults");}
-        int[] imports={8,12,24,40,56,72,88,104,132,136,192,196,252,256,312,316};Check(orders.ImportsData.Length==4*(imports.Length+1),"Orders import count");for(int i=0;i<imports.Length;++i)Check(Word(orders.ImportsData,4*i,big)==imports[i],"Orders reference field offsets");
+        for(int i=0;i<nodes.Length;++i){int at=136+60*i;Check(Word(orders.InstanceData,112+4*i,big)==at,"shadow pointer allocation order");Check(Word(orders.InstanceData,at+36,big)==0x3f800000u&&Word(orders.InstanceData,at+48,big)==0x41a00000u,"shadow initialized defaults");Check(orders.InstanceData[at+56]==0&&orders.InstanceData[at+57]==0&&orders.InstanceData[at+58]==1&&orders.InstanceData[at+59]==0,"shadow packed boolean defaults");}
+        Check(Word(orders.InstanceData,8,big)==128&&Word(orders.InstanceData,12,big)==132,"nullable shader block allocation order");
+        int[] imports={24,40,56,72,88,104,128,132,140,144,200,204,260,264,320,324};Check(orders.ImportsData.Length==4*(imports.Length+1),"Orders import count");for(int i=0;i<imports.Length;++i)Check(Word(orders.ImportsData,4*i,big)==imports[i],"Orders reference field offsets");
         Reject("duplicate order line",Root("OrdersManagerSettings","","<ExecutingLine/><ExecutingLine/>"));Reject("duplicate order shadow",Root("OrdersManagerSettings","","<PatrolNode/><PatrolNode/>"));
     }
     static void Matrix(TargetPlatform p) {
@@ -332,7 +333,7 @@ class XmlenvironmentOracle {
             Reject("text/"+Types[i],Root(Types[i],"","payload"));
         }
         foreach(string[] f in FieldCases) {
-            string[] values=f[3]=="Time"?TimeValues:f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="Hash")?Refs:Numbers;
+            string[] values=f[3]=="Time"?TimeValues:f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="NullableReference"||f[3]=="Hash")?Refs:Numbers;
             foreach(string value in values)TestDoc("field/"+f[0]+"/"+f[1]+"/"+f[2]+"/"+value,FieldDocument(f[0],f[1],f[2],value),p);
             XmlDocument metadata=FieldDocument(f[0],f[1],f[2],values[0]);foreach(XmlNode node in metadata.SelectNodes("//*"))((XmlElement)node).SetAttribute("TypeId","1");TestDoc("field-metadata/"+f[0]+"/"+f[1]+"/"+f[2],metadata,p);
             XmlDocument invalid=FieldDocument(f[0],f[1],f[2],values[0]);XmlNodeList nodes=invalid.SelectNodes("//*");((XmlElement)nodes[nodes.Count-1]).SetAttribute("Unknown","1");Reject("nested unknown",invalid.OuterXml);
