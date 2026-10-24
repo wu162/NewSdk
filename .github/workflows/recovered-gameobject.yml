@@ -16,6 +16,9 @@ on:
       - 'recovery/src/**/EnumBitset*'
       - 'recovery/scripts/TestGameObject.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
+      - 'recovery/scripts/GenerateSpecialPowerBaseFields.py'
+      - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
+      - 'recovery/scripts/GeneratePowerRoutingFields.py'
       - 'recovery/scripts/GenerateUpgradeRemaining.py'
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'
@@ -46,7 +49,7 @@ permissions:
 jobs:
   differential:
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
@@ -82,6 +85,7 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
 
 

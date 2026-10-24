@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 a1edfd540d5396a251346ce6fac223fc675a4d604a2b5ac436516ea08b5079e7
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, SpecialPowerDispatchSpecialPowerModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -822210285;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SpecialPowerModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 326734708;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 460, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1106885690;
+		((int*)ptr)[1] = -120687517;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADispatchSpecialPowerType_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ADispatchSpecialPowerType_003E*)((byte*)@object + 452), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

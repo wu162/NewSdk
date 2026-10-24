@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 a9efe7dbccfa1bb38730985a42398164c03f10d838535d9ac4a7b50f8c4e57b4
+// Literals: {"_003F_003F_C_0040_07MMBCICBA_0040Modules_003F_0024AA_0040": "Modules"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AActivateModuleSpecialPower_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ActivateModuleSpecialPower* ptr = (ActivateModuleSpecialPower*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 460u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AActivateModuleInfo_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07MMBCICBA_0040Modules_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AActivateModuleInfo_003E*)((byte*)ptr + 452), tracker);
+			Marshaler_002EMarshal(node, (SpecialPowerModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1213608295;
+	}

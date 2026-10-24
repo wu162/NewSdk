@@ -4,6 +4,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=188 && choice->kind<=190) {
+        const auto& own=powerRoutingFieldSets[choice->kind-188];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(choice->kind!=188) for(unsigned i=0;i<specialPowerFieldSets[0].count;++i) if(attribute==specialPowerFieldSets[0].fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=165 && choice->kind<=187) {
         for(const auto& fields:{specialPowerFieldSets[0],specialDerivedFieldSets[choice->kind-165]})
             for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
@@ -92,6 +97,11 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=188 && kind<=190) {
+        if(kind==188) return path=="InitiateSound"?1:0;
+        if(path==(kind==189?"Modules":"SpecialPower")) return 2;
+        return GameObjectModuleNodeKind(162,path);
+    }
     if(kind>=165 && kind<=187) {
         const auto& children=specialDerivedChildren[kind-165];
         if(children.filter) {
@@ -234,6 +244,14 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=188 && kind<=190) {
+        if(kind==189 && path=="Modules") {
+            if(attribute=="Deactivate") return true;
+            for(const auto& f:powerRoutingInfoFields) if(attribute==f.name) return true;return false;
+        }
+        if(kind==190 && path=="SpecialPower") return attribute=="SpecialPowerTemplate";
+        return GameObjectModuleNodeAttribute(162,path,attribute);
+    }
     if(kind>=165 && kind<=187) return GameObjectModuleNodeAttribute(162,path,attribute);
     if(kind>=162 && kind<=164) return path=="InitiateSound" && (attribute=="Sound" || attribute=="EvaEvent");
     if(kind>=159 && kind<=161) return kind==161 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");

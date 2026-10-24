@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 775ddc5871d734e4b801184e6b3289eb36cccd4c1a3c45939ba5b796bc263836
+// Literals: {"_003F_003F_C_0040_0BL_0040ILFAINIJ_0040RequireAllPowersToFunction_003F_0024AA_0040": "RequireAllPowersToFunction", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0N_0040GJFEDFIF_0040SpecialPower_003F_0024AA_0040": "SpecialPower"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SpecialPowerDispatchSpecialPowerModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040ILFAINIJ_0040RequireAllPowersToFunction_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 460, state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADispatchSpecialPowerType_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040GJFEDFIF_0040SpecialPower_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ADispatchSpecialPowerType_003E*)((byte*)@object + 452), state);
+			Marshaler_002EMarshal(node, (SpecialPowerModuleData*)@object, state);
+		}
+	}
