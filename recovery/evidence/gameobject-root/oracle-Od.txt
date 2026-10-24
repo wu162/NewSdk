@@ -1,9 +1,5 @@
-System.Exception: Fixture <Behaviors><AIUpdate TypeId='148619278' id='AIUpdate' ></AIUpdate></Behaviors> ---> System.NotSupportedException: Unsupported module child structure.
-   at Recovered.GameObjectCompiler.ReadModules(GameObjectChild* , XPathNavigator node)
-   at Recovered.GameObjectCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
-   at Recovered.GameObjectCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
-   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
-   --- End of inner exception stack trace ---
+System.Exception: <Behaviors><ObjectSMCHelper TypeId='148619278' id='AIUpdate' AutoAcquireEnemiesWhenIdle='UNKNOWN'></ObjectSMCHelper></Behaviors> instance byte 2612: 16 != 0
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label, Boolean bufferComparison)
    at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
    at GameObjectOracle.AIUpdateFamily(IAssetBuilderPlugin original, TargetPlatform p)
    at GameObjectOracle.Main(String[] args)
