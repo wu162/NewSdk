@@ -2,16 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Runtime.InteropServices;
+using Recovered;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 partial class XmlfxparticleOracle {
+    static int NativeParticleStringLength(string text) {
+        IntPtr buffer=Marshal.StringToHGlobalAnsi(text);
+        try { int length=0; while(Marshal.ReadByte(buffer,length)!=0) ++length; return length; }
+        finally { Marshal.FreeHGlobal(buffer); }
+    }
+    static void ModuleStringDocumentTest(IAssetBuilderPlugin original,TargetPlatform platform,string label,uint id,string value) {
+        XmlDocument d=Parse(Xml("",Wrap("Draw",id,"",id==3408220251u?"<ObjectSet/>":"")));
+        XmlElement module=(XmlElement)Child(d.DocumentElement,"Draw").FirstChild;
+        if(id==2248017887u) module.SetAttribute("Shader",value);
+        else ((XmlElement)module.FirstChild).SetAttribute("RenderGroup",value);
+        XmlNamespaceManager ns=Namespaces(d); InstanceDeclaration declaration=Declaration(d,ns);
+        AssetBuffer a=original.ProcessInstance(declaration);
+        AssetBuffer b=FXParticleSystemTemplateCompiler.ProcessInstance(declaration,platform);
+        string prefix=label+"/platform="+(int)platform;
+        Equal(prefix+"/instance",a.InstanceData,b.InstanceData);
+        Equal(prefix+"/relocations",a.RelocationData,b.RelocationData);
+        Equal(prefix+"/imports",a.ImportsData,b.ImportsData);
+        Layout(prefix,d,b,platform!=TargetPlatform.Win32); ++fixtures;
+    }
     static int ParticleAlign(int value) { return (value+3)&~3; }
     static int ModuleCompletionLayout(string label,XmlNode module,uint id,int start,AssetBuffer b,bool big,List<int> locations,List<int> targets,List<int> imports) {
         int end=start+ModuleSize(id);
         if(id==2248017887u) {
             string shader=module.Attributes["Shader"]==null?"GPUParticle.fx":module.Attributes["Shader"].Value;
-            // Adapter performs the same native narrow-string conversion as the original node adapter.
-            int bytes=Encoding.UTF8.GetByteCount(shader);
+            // Original Value::.ctor (Module 118053) uses StringToHGlobalAnsi; strings use strlen.
+            int bytes=NativeParticleStringLength(shader);
             Check(Word(b.InstanceData,start+4,big)==bytes,label+" gpu shader count");
             locations.Add(start+8); targets.Add(end); end=ParticleAlign(end+bytes+1);
             if(module.Attributes["DetailTexture"]!=null&&Imported(module.Attributes["DetailTexture"].Value)) imports.Add(start+28);
@@ -30,7 +51,7 @@ partial class XmlfxparticleOracle {
                 for(int i=0;i<children.Count;++i) {
                     XmlAttribute group=children[i].Attributes["RenderGroup"];
                     if(group!=null) {
-                        int bytes=Encoding.UTF8.GetByteCount(group.Value);
+                        int bytes=NativeParticleStringLength(group.Value);
                         Check(Word(b.InstanceData,list+16*i,big)==bytes,label+" render group count");
                         locations.Add(list+16*i+4);targets.Add(end);end=ParticleAlign(end+bytes+1);
                     } else Check(Word(b.InstanceData,list+16*i,big)==0&&Word(b.InstanceData,list+16*i+4,big)==0,label+" absent render group");
@@ -102,6 +123,9 @@ partial class XmlfxparticleOracle {
         foreach(string field in new string[]{"MultiRenderObjects","SinkOnTerrainCollision"})foreach(string value in Bools)Test(original,p,"render-bool-"+field+"-"+value,Xml("",Wrap("Draw",3408220251u,Attr(field,value),"")));
         foreach(string field in new string[]{"NumObjects","Percent"})foreach(string value in Numbers)Test(original,p,"object-"+field+"-"+value,Xml("",Wrap("Draw",3408220251u,"","<ObjectSet "+Attr(field,value)+"/>")));
         foreach(string value in new string[]{"","a","abc","abcd","abcde","Model\\7","A&B<model>"})Test(original,p,"object-string-"+value,Xml("",Wrap("Draw",3408220251u,"","<ObjectSet "+Attr("RenderGroup",value)+"/><ObjectSet/>")));
+        foreach(uint id in new uint[]{2248017887u,3408220251u})
+            foreach(string value in new string[]{"é","资源","😀","e\u0301","a\0tail","\0leading","a\0","a\0b\0c","多字节\0尾部"}) 
+                ModuleStringDocumentTest(original,p,"native-string-"+id+"-"+value.Length,id,value);
         foreach(uint id in ids) {
             Reject(Xml("",Wrap("Draw",id,"Bad='1'","")),p);
             Reject(Xml("",Wrap("Draw",id,"","<Unknown/>")),p);
