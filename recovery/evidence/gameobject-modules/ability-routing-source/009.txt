@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 686158257959dc3c66c23ce8942f5921e4ee66c0a456b28ce549e630d94f38f0
+// Literals: {"_003F_003F_C_0040_0N_0040PCPHHJLC_0040ObjectStatus_003F_0024AA_0040": "ObjectStatus", "_003F_003F_C_0040_0P_0040HBFICDBA_0040ModelCondition_003F_0024AA_0040": "ModelCondition", "_003F_003F_C_0040_06NBEDPADE_0040KindOf_003F_0024AA_0040": "KindOf", "_003F_003F_C_0040_0BF_0040EDDIDFEO_0040UseLocalPlayerFilter_003F_0024AA_0040": "UseLocalPlayerFilter", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, KindOfAndStatusAndModelConditionType* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040PCPHHJLC_0040ObjectStatus_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040HBFICDBA_0040ModelCondition_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 28), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06NBEDPADE_0040KindOf_003F_0024AA_0040), null);
+			if (ptr3 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020KindOfType_002C284_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3), (BitFlags_003C284_002Cenum_0020KindOfType_003E*)((byte*)@object + 88), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040EDDIDFEO_0040UseLocalPlayerFilter_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 124, state);
+		}
+	}

@@ -4,6 +4,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=211 && choice->kind<=212) {for(const auto& field:abilityFields) if(attribute==field.name) return true;return false;}
     if(choice->kind>=204 && choice->kind<=210) {
         for(const auto& field:abilityFields) if(attribute==field.name) return true;
         const auto& own=abilityStateFieldSets[choice->kind-204];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
@@ -121,6 +122,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=211 && kind<=212) {if((kind==211 && path=="SpecialPowerModules") || (kind==212 && path=="IntersectionFlagsFilter")) return 2;return GameObjectModuleNodeKind(191,path);}
     if(kind>=204 && kind<=210) {
         if((kind==206 && path=="AttributeModifierAffects") || (kind==207 && path=="AcceptanceFilter")) return 1;
         if((kind==206 && (path=="AttributeModifierAffects/IncludeThing" || path=="AttributeModifierAffects/ExcludeThing")) || (kind==207 && (path=="AcceptanceFilter/IncludeThing" || path=="AcceptanceFilter/ExcludeThing")) || (kind==209 && path=="ReplacementTemplate") || (kind==210 && path=="StructureTemplate")) return 3;
@@ -284,6 +286,11 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=211 && kind<=212) {
+        if(kind==211 && path=="SpecialPowerModules") {for(const auto& f:abilityRoutingSpecialPowerModuleInfoFields) if(attribute==f.name) return true;return false;}
+        if(kind==212 && path=="IntersectionFlagsFilter") {for(const auto& f:abilityRoutingKindOfAndStatusAndModelConditionTypeFields) if(attribute==f.name) return true;return false;}
+        return GameObjectModuleNodeAttribute(191,path,attribute);
+    }
     if(kind>=204 && kind<=210) return GameObjectModuleNodeAttribute(191,path,attribute);
     if(kind>=200 && kind<=203) {if(kind==201 && path=="EjectionBoneOffset") return attribute=="x" || attribute=="y" || attribute=="z";return GameObjectModuleNodeAttribute(191,path,attribute);}
     if(kind>=198 && kind<=199) {if(kind==198 && path=="UpgradeOCL") return attribute=="OCL";return GameObjectModuleNodeAttribute(162,path,attribute);}

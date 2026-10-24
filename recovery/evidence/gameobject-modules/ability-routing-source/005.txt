@@ -1,0 +1,8 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 20657883b62af6d726d9da144e3b0efd0bd990dc9efe077aa04ace4829e12491
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarScanMapSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		RadarScanMapSpecialAbilityUpdateModuleData* ptr = (RadarScanMapSpecialAbilityUpdateModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AKindOfAndStatusAndModelConditionType_003E((List_003CSageBinaryData_003A_003AKindOfAndStatusAndModelConditionType_003E*)((byte*)ptr + 240), endian);
+		Marshaler_002EEndianCorrect((SpecialAbilityUpdateModuleData*)ptr, endian);
+	}

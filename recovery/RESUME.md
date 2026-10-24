@@ -27,6 +27,8 @@ WeaponFire有11完整属性，DestealthClosestObjectMatchingFilter是bool，Mode
 本轮复用既有父/helper/枚举、各完整组统一验证，没有逐字段反复触发；未取得账号额度计量，不能量化节省。
 
 
-## 2026-10-25 当前实现检查点（未验收）
+## 2026-10-25 本轮当前检查点（全部待验收）
 
-本轮完成移动4类及相邻状态/对象操纵7类的Native/Bridge/完整测试。首轮run40128411260在Check三缓冲区差分之后的独立Eject断言失败：测试误把4字符含终止符字符串分配写成4字节（应8字节），并修正两个`\\1`强引用预期为2；实现无需改变。不能把失败run标为通过。随后补齐GiveOrRestoreUpgrade/ReconstituteState/DominateEnemy/LevelGrant/CloneStoredObjects/ReplaceSelf/AssembleStructure整组，含完整父240、nullable Filter112和typed GameObject列表、原PE核验ReplaceSelfOptions7。原方法证据52份，Inspect run40128710378成功，仅取证。下一步以本提交完整GameObject /Od、/O2和平台0/1/2/99矩阵结果验收，未通过前仍为231/322；成功后预计242/322。SDK未运行、原路由保留。按最新长期约1小时执行，本轮没有30分钟限制。
+已完成移动4类、状态/对象操纵7类及ActivateAbility/RadarScanMap两类，新增13类；完整父SpecialAbility240。第三组是SpecialPowerModules结构列表（每项SpecialPowerModuleInfo12）与IntersectionFlagsFilter结构列表（每项128，inline223/456/284 masks和默认true布尔），不是多态模块列表。26原方法取证与生成器/测试完整接入。本轮SDK0次，路由不变。
+
+首轮run40128411260失败在独立Eject断言：4字符字符串连终止符应分配8字节，且`\\1`引用值应2，已集中修正测试；原/恢复三缓冲区比较在这些断言前通过，不把失败run当成功。移动+状态源码603a7fd0bd11e31b3c2774e3e97839fe5fa7622e正在run40128943921完整回归；不能取消/覆盖该证据。第三组继续以本提交最终完整矩阵验收。通过前计数仍231/322，全部通过后预计244/322（78已知拒绝、58 Token-only回退）。Inspect原PE的ReplaceSelfOptions7已在run40128710378取证成功，不计组件验收。下一步核对完整/Od/O2四平台实际终态和sourceCommit/runId，集中修复，更新简短交接；最新长期时长约1小时，本轮无30分钟限制。

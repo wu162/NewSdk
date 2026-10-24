@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 f86f0302f44c391794a985153bc9cbdbbd6616490a645bdddb95066778de21c4
+// Literals: {"_003F_003F_C_0040_0BE_0040FDOLCAEP_0040SpecialPowerModules_003F_0024AA_0040": "SpecialPowerModules"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AActivateModuleSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ActivateModuleSpecialAbilityUpdateModuleData* ptr = (ActivateModuleSpecialAbilityUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 248u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerModuleInfo_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040FDOLCAEP_0040SpecialPowerModules_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ASpecialPowerModuleInfo_003E*)((byte*)ptr + 240), tracker);
+			Marshaler_002EMarshal(node, (SpecialAbilityUpdateModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -852247314;
+	}
