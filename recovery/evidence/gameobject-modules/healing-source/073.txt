@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 32499; body SHA256 9c84c16c722cfe367db14639b6ebf43391b508a4051beed95d09bc59ed1243c7
+// Literals: {"_003F_003F_C_0040_0BJ_0040LDNEMOLN_0040SelfRepairFromDamageLoop_003F_0024AA_0040": "SelfRepairFromDamageLoop", "_003F_003F_C_0040_0BJ_0040IIODHNGP_0040SelfRepairFromRubbleLoop_003F_0024AA_0040": "SelfRepairFromRubbleLoop"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, RepairUpdateModuleData.SelfAudio* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040LDNEMOLN_0040SelfRepairFromDamageLoop_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E*)@object, state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040IIODHNGP_0040SelfRepairFromRubbleLoop_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E*)((byte*)@object + 4), state);
+		}
+	}
+
