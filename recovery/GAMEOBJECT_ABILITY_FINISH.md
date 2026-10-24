@@ -1,6 +1,6 @@
 # 完整对象控制与护盾组
 
-2026-10-25实现，待本轮最终Windows完整差分验收，不据此增加已验收计数。
+2026-10-25已通过最终Windows完整差分：source de8fffb065be8376c312612b9fd3d72d04f3a9d4/run40134635589，/Od、/O2各873680 fixtures、2621040三缓冲区比较、19512拒绝、1924不变性；平台0/1/2/99。计入251/322，SDK仍待集成。
 
 固定原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；原PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。`ability-finish-source/manifest.json`保存51完整原方法及原PE三表；来源只读取证run40133860981/source3170dcd10e3e77d1822379a31535fd06348a18f2。ExportAbilityFinishMethods.py重取并逐项核对，GenerateAbilityFinishFields.py核对literal/default/Token/父层及PE表。没有仅按名字猜实现。
 

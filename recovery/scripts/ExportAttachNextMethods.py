@@ -40,6 +40,15 @@ from GenerateUpgradeFields import enum_values
 pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
 enumNames=sorted(set(re.findall(r'EnumNameGetter_0040W4([A-Za-z][A-Za-z0-9]*)_0040', '\n'.join(bodies.values()))))
 manifest['peEnums']={name:enum_values(s,pe,name) for name in enumNames}
+# Preserve archive numbering independently of hash-randomized dependency traversal.
+# New archives use sorted signatures; existing archives retain their verified signature order.
+if (E/'manifest.json').exists():
+ old=json.loads((E/'manifest.json').read_text())
+ order=[x['signature'] for x in old['methods']]
+ assert set(order)==set(bodies), 'Attach direct dependency closure changed'
+ bodies={sig:bodies[sig] for sig in order}
+else:
+ bodies=dict(sorted(bodies.items()))
 exports={}
 for index,(sig,body) in enumerate(bodies.items()):
  file=f'{index:03}.txt';sha=hashlib.sha256((body+'\n').encode()).hexdigest();used={x:literals[x] for x in re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',body) if x in literals};exports[file]='// Original blob '+BLOB+'; body SHA256 '+sha+'\n// Literals: '+json.dumps(used,ensure_ascii=False)+'\n'+body+'\n';manifest['methods'].append({'file':file,'signature':sig,'bodySha256':sha})
