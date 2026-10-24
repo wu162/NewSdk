@@ -127,4 +127,30 @@ public:
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
     }
 };
+public ref class TerrainParticleMappingCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="TerrainParticleMapping")throw gcnew NotSupportedException("Expected TerrainParticleMapping root.");
+        return XmlenvironmentCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=1469498551u)throw gcnew NotSupportedException("Expected TerrainParticleMapping TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class BounceKickTerrainMappingCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="BounceKickTerrainMapping")throw gcnew NotSupportedException("Expected BounceKickTerrainMapping root.");
+        return XmlenvironmentCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=2368878637u)throw gcnew NotSupportedException("Expected BounceKickTerrainMapping TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
 }

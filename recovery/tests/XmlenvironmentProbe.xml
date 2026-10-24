@@ -290,4 +290,12 @@
       <LightningDuration Type="UNIFORM" Low="1" High="3" />
     </CloudEffect>
   </Environment>
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Defaults" />
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Combined" AccelerationMultiplier="75%">
+    <Mapping TerrainClass="Grass" RequiredModelConditions="MOVING" ForbiddenModelConditions="SNOW" />
+  </TerrainParticleMapping>
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults" />
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Combined">
+    <Mapping TerrainClass="Sand" BounceMultiplier="25%" />
+  </BounceKickTerrainMapping>
 </AssetDeclaration>

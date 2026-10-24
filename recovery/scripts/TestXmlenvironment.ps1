@@ -15,7 +15,7 @@ $summary = [ordered]@{
     succeeded = $false
     sourceCommit = $sourceCommit
     runId = $runId
-    scope = 'XmlCompiler environment six-root component; original ProcessInstance three buffers; SDK integration pending'
+    scope = 'XmlCompiler environment eight-root component; original ProcessInstance three buffers; SDK integration pending'
     platforms = @(0,1,2,99)
     modes = @()
     status = 'started'
@@ -29,6 +29,7 @@ try {
     $sources = @(
         'recovery/src/Native/Relocation.cpp',
         'recovery/src/Native/ScalarParsing.cpp',
+        'recovery/src/Native/EnumBitset.cpp',
                 'recovery/src/Native/ResourceMarshaling.cpp',
         'recovery/src/Bridge/XmlenvironmentCompiler.cpp'
     )

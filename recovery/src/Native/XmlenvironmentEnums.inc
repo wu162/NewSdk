@@ -36,4 +36,19 @@
         if(value=="UNIFORM")return 1u;
         return 0u;
     }
+    if(type=="TerrainClassType") {
+        if(value=="Cliff")return 3u;
+        if(value=="Dirt")return 2u;
+        if(value=="Grass")return 4u;
+        if(value=="Misc")return 1u;
+        if(value=="Mud")return 7u;
+        if(value=="Road")return 6u;
+        if(value=="Rock")return 5u;
+        if(value=="Sand")return 8u;
+        if(value=="Shrub")return 9u;
+        if(value=="Snow")return 10u;
+        if(value=="UNSPECIFIED")return 0u;
+        return 3u;
+    }
+
 

@@ -1,6 +1,7 @@
 #include "Xmlenvironment.h"
 #include "ScalarParsing.h"
 #include "ResourceMarshaling.h"
+#include "EnumBitset.h"
 #include <cstring>
 #include <stdexcept>
 #ifndef NOMINMAX
@@ -12,7 +13,7 @@
 #endif
 namespace Recovered { namespace Native { namespace {
 using Relo::U32;
-enum class Kind { Float,Signed,Unsigned,Bool,Reference,Hash,Enum };
+enum class Kind { Float,Signed,Unsigned,Bool,Reference,Hash,Enum,Percentage,ModelFlags };
 struct Field { const char* name; unsigned offset; Kind kind; const char* fallback; const char* enumeration; };
 enum class ChildKind { Inline,Pointer,List };
 struct Child { const char* name; const char* type; unsigned offset; ChildKind kind; };
@@ -71,6 +72,8 @@ struct Builder {
             std::string text=a==node.attributes.end()?f.fallback:a->second;auto p=target+f.offset;
             switch(f.kind) {
             case Kind::Float:Float(p,ParseFloat(text));break;
+            case Kind::Percentage:Float(p,ParsePercentage(text));break;
+            case Kind::ModelFlags:MarshalModelCondition(text,reinterpret_cast<U32*>(p));for(unsigned i=0;i<15;++i)words.push_back(p+4*i);break;
             case Kind::Signed:Word(p,static_cast<U32>(ParseSigned(text)));break;
             case Kind::Unsigned:Word(p,ParseUnsigned(text));break;
             case Kind::Bool:*p=ParseBoolean(text);break;
@@ -105,6 +108,8 @@ struct Builder {
 };
 }
 unsigned int XmlenvironmentTypeId(const std::string& name) {
+    if(name=="TerrainParticleMapping")return 1469498551u;
+    if(name=="BounceKickTerrainMapping")return 2368878637u;
     if(name=="Weather")return 2430161325u;
     if(name=="WaterTransparency")return 1479531562u;
     if(name=="WaterSetting")return 2728605516u;

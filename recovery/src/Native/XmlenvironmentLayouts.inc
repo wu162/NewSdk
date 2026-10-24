@@ -21,5 +21,9 @@ std::map<std::string,Layout> MakeLayouts() {
         {"LightingSettings",{48,{{"TimeOfDay",8,Kind::Enum,nullptr,"TimeOfDayType"},{"OccludedLuminanceScale",12,Kind::Float,"0.5",""},{"LoadAfter",4,Kind::Reference,nullptr,""}},{{"LightingMultiplierIfNoClouds","RGBColor",16,ChildKind::Inline},{"CurrentLightingSettings","LightingTime",28,ChildKind::Inline},{"TerrainLighting","TerrainLighting",40,ChildKind::Inline}}}},
         {"String",{8,{},{}}},
         {"WaterTextureList",{16,{{"Type",4,Kind::Enum,nullptr,"WaterTextureType"}},{{"Texture","String",8,ChildKind::List}}}},
+        {"TerrainParticleMap",{128,{{"TerrainClass",0,Kind::Enum,nullptr,"TerrainClassType"},{"ParticleSystem",4,Kind::Reference,nullptr,""},{"RequiredModelConditions",8,Kind::ModelFlags,nullptr,""},{"ForbiddenModelConditions",68,Kind::ModelFlags,nullptr,""}},{}}},
+        {"TerrainParticleMapping",{16,{{"AccelerationMultiplier",4,Kind::Percentage,"100%",""}},{{"Mapping","TerrainParticleMap",8,ChildKind::List}}}},
+        {"BounceKickTerrainData",{8,{{"TerrainClass",0,Kind::Enum,nullptr,"TerrainClassType"},{"BounceMultiplier",4,Kind::Percentage,nullptr,""}},{}}},
+        {"BounceKickTerrainMapping",{12,{},{{"Mapping","BounceKickTerrainData",4,ChildKind::List}}}},
     };
 }
