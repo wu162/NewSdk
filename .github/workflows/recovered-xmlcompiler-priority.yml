@@ -2,7 +2,7 @@ name: XmlCompiler priority type differential validation
 
 on:
   push:
-    branches: [recovery/xmlcompiler-priority]
+    branches: [recovery/xmlcompiler-priority, recovery/compiler-source]
     paths:
       - '.github/workflows/recovered-xmlcompiler-priority.yml'
       - 'recovery/src/**/Xml*'
@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       groups: ${{ steps.groups.outputs.groups }}
+      link_ready: ${{ steps.groups.outputs.link_ready }}
     steps:
       - uses: actions/checkout@v4
       - id: groups
@@ -37,12 +38,14 @@ jobs:
         shell: python
         run: |
           import json, os, pathlib
-          expected = ["attributes", "effects", "powers", "locomotor", "ai"]
+          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle"]
           groups = [g for g in expected if pathlib.Path("recovery/scripts/TestXml" + g + ".ps1").is_file()]
           if not groups:
               raise RuntimeError("No recovered component test scripts available")
           with open(os.environ["GITHUB_OUTPUT"], "a") as stream:
               stream.write("groups=" + json.dumps(groups) + "\n")
+              ready = len(groups) == len(expected) and pathlib.Path("recovery/scripts/TestXmlPriorityLink.ps1").is_file()
+              stream.write("link_ready=" + str(ready).lower() + "\n")
           print("Validating implemented group scripts: " + ", ".join(groups))
           print("Not yet present: " + ", ".join(g for g in expected if g not in groups))
   differential:
@@ -76,8 +79,35 @@ jobs:
           name: xml-priority-${{ matrix.group }}
           path: recovery/evidence/xml-${{ matrix.group }}
           if-no-files-found: error
+  link:
+    needs: inventory
+    if: needs.inventory.outputs.link_ready == 'true'
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Link all recovered groups and compare fourteen default roots
+        shell: pwsh
+        run: ./recovery/scripts/TestXmlPriorityLink.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-priority-priority-link
+          path: |
+            recovery/evidence/xml-priority-link
+            !recovery/evidence/xml-priority-link/**/*.dll
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: recovered-xmlcompiler-priority-x86
+          path: ${{ runner.temp }}/ra3-recovered-xml-priority-link/**/Recovered.XmlCompilerPriority.dll
+          if-no-files-found: error
   evidence:
-    needs: differential
+    needs: [inventory, differential, link]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -91,7 +121,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for group in attributes effects powers locomotor ai; do
+          for group in attributes effects powers locomotor ai fxparticle priority-link; do
             src="/tmp/xml-priority-results/xml-priority-$group"
             if [ -d "$src" ]; then
               mkdir -p "recovery/evidence/xml-$group"
@@ -108,4 +138,8 @@ jobs:
       - name: Require all differential groups to pass
         env:
           DIFFERENTIAL_RESULT: ${{ needs.differential.result }}
-        run: test "$DIFFERENTIAL_RESULT" = success
+          LINK_READY: ${{ needs.inventory.outputs.link_ready }}
+          LINK_RESULT: ${{ needs.link.result }}
+        run: |
+          test "$DIFFERENTIAL_RESULT" = success
+          if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; fi
