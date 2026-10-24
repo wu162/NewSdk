@@ -1,0 +1,280 @@
+{
+  "roots": [
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "typeId": 104126924,
+      "typeHash": 3160055664,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "typeId": 113029208,
+      "typeHash": 2342677506,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "typeId": 346077409,
+      "typeHash": 2270316023,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "typeId": 442957564,
+      "typeHash": 1448492760,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "typeId": 485977567,
+      "typeHash": 1542859068,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "typeId": 694838069,
+      "typeHash": 4192036989,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "typeId": 772462768,
+      "typeHash": 875756023,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "typeId": 1014034471,
+      "typeHash": 2969006564,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "typeId": 1138847078,
+      "typeHash": 1373916399,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "typeId": 1234485619,
+      "typeHash": 3237545121,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "typeId": 1249197161,
+      "typeHash": 2873907483,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "typeId": 1277109486,
+      "typeHash": 4038536099,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "typeId": 1334543376,
+      "typeHash": 3689232783,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "typeId": 1371977384,
+      "typeHash": 301556505,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "typeId": 1474300054,
+      "typeHash": 1098794956,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "typeId": 1499648070,
+      "typeHash": 1611277776,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "typeId": 1956336137,
+      "typeHash": 693782642,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "typeId": 1974922393,
+      "typeHash": 276486244,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "typeId": 2067763016,
+      "typeHash": 2390364070,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "typeId": 2047841880,
+      "typeHash": 3936894160,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "typeId": 2074164365,
+      "typeHash": 3494287844,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "typeId": 2278083954,
+      "typeHash": 3993871439,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "typeId": 2505151835,
+      "typeHash": 96366804,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "typeId": 2635272840,
+      "typeHash": 4048847353,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "typeId": 2697587777,
+      "typeHash": 129995987,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "typeId": 2808773267,
+      "typeHash": 2375239281,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "typeId": 2873949396,
+      "typeHash": 4072122752,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "typeId": 2914137727,
+      "typeHash": 1938882503,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "typeId": 2957071942,
+      "typeHash": 3017648610,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "typeId": 2958905921,
+      "typeHash": 2908721247,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "typeId": 2987234945,
+      "typeHash": 1863152725,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "typeId": 3057018816,
+      "typeHash": 1130654826,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "typeId": 3094553884,
+      "typeHash": 3862996978,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "typeId": 3420020972,
+      "typeHash": 1007090371,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "typeId": 3548787763,
+      "typeHash": 45961792,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "typeId": 3575834349,
+      "typeHash": 3529865568,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "typeId": 3716369729,
+      "typeHash": 2581745695,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "typeId": 3756168709,
+      "typeHash": 144321893,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "typeId": 3809842710,
+      "typeHash": 4187711090,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "typeId": 3976885676,
+      "typeHash": 2900176681,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "typeId": 4026878150,
+      "typeHash": 3889487240,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "typeId": 4094578721,
+      "typeHash": 4253066583,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "typeId": 4102242385,
+      "typeHash": 3000504919,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "typeId": 4140422551,
+      "typeHash": 3882873771,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "typeId": 4180354873,
+      "typeHash": 3463571609,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "typeId": 4232364483,
+      "typeHash": 3130369778,
+      "schemaGlobal": true
+    }
+  ]
+}
