@@ -31,9 +31,11 @@
 
 ## 本阶段新增与当前检查点
 
-Projectile/Dynamics/Freefall/EnableDynamicsCollide及完整Movement四分支、Volume五类shape/Quaternion已验收，112→116/322；206种已知Marshal仍拒绝。见GAMEOBJECT_MOTION.md。源码c77679fc2d0cc53326317bfa6d93c39c707bd767；GameObject run40053555512 success、基础run40053555499 success。每/Od、/O2：202832 fixtures、608496三缓冲区比较、10616拒绝、424不变性，平台0/1/2/99；实际validation.json及两模式日志已核对。下文旧112锚点为此前阶段，不作为新代码的验收。
+Projectile/Dynamics/Freefall/Collide完整组已通过，112→116；Physics/Bezier/Missile完整组已通过，116→119/322。当前203种已知Marshal仍拒绝。见GAMEOBJECT_MOTION.md、GAMEOBJECT_FLIGHT.md。最新已验收源码3af11bee2540673c97a671dcf39876c7e687c7d8；GameObject run40068382383 success、基础run40068382487 success。每/Od、/O2：217200 fixtures、651600三缓冲区比较、10640拒绝、448不变性，平台0/1/2/99；validation.json及两模式日志已核对。下文旧112锚点为此前阶段。
 
-继续实现Physics/BezierProjectileBehavior/Missile完整组（GAMEOBJECT_FLIGHT.md），49原方法导出2479c32473931bc1707ac7e0a372e0504b6ca727/run40053432952 success。三个模块全部属性、两段KindOf位集、完整Bezier父Token和测试已准备，等待当前检查点完整矩阵；未经终态成功不计入116。Motion首轮独立断言误认为ALL后继续处理词，按原helper不前移指针的实际行为修正，仅断言修改；保留逐字节比较，最终上述矩阵已通过。SDK本阶段0次，原路由保留。
+DamageStateList与三类受伤/碰撞/死亡触发开火（GAMEOBJECT_REACTIVE.md）完整实现/测试已推送7f1d6b7b570e0e84a4be2b84f2fe579dc7c1ea7d，矩阵待终态，未计入119；包含完整Upgrade、DieMuxData、概率列表和所有掩码，不能只按空模块验收。SDK本阶段0次，原路由保留。
+
+WeaponSetUpdate仍拒绝，详细调查同文档下一节及weapon-state-source（143方法）；不能只实现空槽。其SortedList调用Tracker.ExchangePointers后才交换72字节WeaponData；必须完整核对eastl排序（尤其重复Ordering）及指针/引用交换，不能排序XML或只memcpy。weapon-slot-sort-source已导出Sort/Comparer，正在补quick_sort与ExchangePointers完整证据。完整四种槽、WeaponData、TurretAI、目标选择器/ObjectVisionRange/ObjectFilter都是下一完整组必要依赖。Motion首轮仅独立ALL断言错误已据原helper修正，最终矩阵已通过；不要重复同源码矩阵。
 
 ## 持续规则
 

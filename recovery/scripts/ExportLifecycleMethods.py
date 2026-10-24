@@ -52,7 +52,12 @@ out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
 def add(signature):
-    if signature not in selected:selected[signature]=method(source,signature)
+    if signature not in selected:
+        body,line=method(source,signature)
+        if not signature.startswith('internal unsafe static void '):
+            from GenerateLifecycleFields import body_of
+            body=body_of(source,signature)+'\n'
+        selected[signature]=(body,line)
 for name in names:
     key,row=next((k,v) for k,v in inventory['marshal'].items() if v['name']==name)
     item={'name':name,'typeId':int(key),'nativeSize':row['nativeSize'],'methods':[]}
@@ -70,7 +75,7 @@ if '--motion-family' in sys.argv:
             add(signature)
 if '--weapon-slot-sort' in sys.argv:
     for signature in signatures:
-        if 'WeaponListComparer' in signature and '('in signature:add(signature)
+        if '('in signature and ('WeaponListComparer'in signature or ('WeaponSlot_WeaponData'in signature and 'eastl_002E'in signature) or 'Relo_002ETracker_002EExchangePointers('in signature):add(signature)
 # Include called concrete bases and named template helpers, preserving exact overloads.
 queue=list(selected)
 while queue:
