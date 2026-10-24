@@ -1,0 +1,5 @@
+System.Exception: <Behaviors><ObjectSMCHelper TypeId='554078198' id='Attach' ></ObjectSMCHelper></Behaviors> instance length 3136 != 3112
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label, Boolean bufferComparison)
+   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
+   at GameObjectOracle.AttachFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)
