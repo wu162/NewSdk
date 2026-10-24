@@ -82,7 +82,7 @@ there are no new owning native static containers or shutdown-time map destructor
 and three partial cases sweep every root/nested attribute and enum, conversion
 boundaries, all model-condition names, imports, typed IDs, null/empty strings,
 ANSI Unicode and embedded NUL, inline/pointer filters, all list sizes0/1/2/3/27/28/29/64/257,
-all named leaf metadata and explicit unknown/foreign/duplicate rejection. Sixty-three
+all named leaf metadata and explicit unknown/foreign/duplicate rejection. Sixty
 existing independently validated AIState heuristic fixtures are replayed inside
 BuildState together with its own entries/filters, including nested weighted heuristics.
 Independent ABI checks fix exact root sizes/default packing, a424-byte combined
