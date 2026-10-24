@@ -38,6 +38,23 @@ class XmlPriorityLinkOracle
         new Root("AIBudgetStateDefinition", 2893598307u, true),
         new Root("AIStateDefinition", 3239935619u, true),
         new Root("AITargetingHeuristic", 926814458u, true),
+        new Root("LogicCommand", 2101756272u, false),
+        new Root("PlayerTech", 2131237081u, false),
+        new Root("PlayerTechRank", 1802643394u, false),
+        new Root("PlayerTechUpgradeBinding", 2140592493u, false),
+        new Root("ExperienceLevelTemplate", 1874610847u, false),
+        new Root("Weather", 2430161325u, false),
+        new Root("WaterTransparency", 1479531562u, false),
+        new Root("WaterSetting", 2728605516u, false),
+        new Root("Environment", 680780553u, false),
+        new Root("LightingSettings", 3169690211u, false),
+        new Root("WaterTextureList", 2995571269u, false),
+        new Root("AIData", 3827723072u, false),
+        new Root("UnitAISettings", 2964891936u, false),
+        new Root("PlayerTemplate", 4063352333u, false),
+        new Root("MultiplayerSettings", 191082224u, false),
+        new Root("AIBuildStateDefinition", 1644972043u, false),
+        new Root("AIStrategicStateName", 2010562192u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -86,7 +103,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 14 || supplied.Count != 14) throw new Exception("Exactly 14 priority roots are required");
+        if (Roots.Length != 31 || supplied.Count != 31) throw new Exception("Exactly 31 recovered roots are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -113,7 +130,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 14) throw new Exception("Metadata preflight did not resolve all 14 roots");
+        if (Methods.Count != 31) throw new Exception("Metadata preflight did not resolve all 31 roots");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -196,12 +213,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=14 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=31 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 56 || comparisons != 168 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 14) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 124 || comparisons != 372 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 31) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=31 fixtures=124 comparisons=372 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();
@@ -216,4 +233,5 @@ class XmlPriorityLinkOracle
         }
     }
 }
+
 

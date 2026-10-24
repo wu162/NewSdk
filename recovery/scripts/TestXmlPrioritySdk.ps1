@@ -11,7 +11,7 @@ $sourceCommit = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git rev-parse
 $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $summary = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId; status = 'started'
-    scope = 'Fourteen XmlCompiler priority types; eighteen required probes; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types'
+    scope = '31 recovered XmlCompiler types; 35 required baseline probes; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types'
     componentModes = @('/Od','/O2'); sdkMode = '/O2'; sdkPlatform = 0
     files = @(); profiles = @(); profileCount = 2; fullMymodGate = $false; originalDllUnchanged = $false
 }
@@ -83,7 +83,7 @@ try {
         $cfg = Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'
         [xml]$xml = Get-Content -Raw $cfg
         $expected = if ($mode -eq 'Recovered') { 'Recovered.XmlPriority.Plugin, Recovered.XmlPriority.Plugin' } else { 'BinaryAssetBuilder.XmlCompiler.Plugin, BinaryAssetBuilder.XmlCompiler' }
-        foreach ($type in @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic')) {
+        foreach ($type in @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic','LogicCommand','PlayerTech','PlayerTechRank','PlayerTechUpgradeBinding','ExperienceLevelTemplate','Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','AIData','UnitAISettings','PlayerTemplate','MultiplayerSettings','AIBuildStateDefinition','AIStrategicStateName')) {
             $handlers = @($xml.configuration.assetbuilder.plugins.plugin | Where-Object { $_.assetTypes.Split(',') -contains $type })
             if ($handlers.Count -ne 1 -or $handlers[0].targetType -ne $expected -or $handlers[0].useBuildCache -ne 'false') { throw "$mode ambiguous or cached $type route" }
         }
@@ -153,3 +153,4 @@ try {
     }
     $summary | ConvertTo-Json -Depth 12 | Set-Content "$report/validation.json"
 }
+

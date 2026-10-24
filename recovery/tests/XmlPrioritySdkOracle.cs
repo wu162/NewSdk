@@ -30,7 +30,24 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlPriority_Particle_Defaults","FXParticleSystemTemplate"},
         {"RecoveryXmlPriority_Particle_Gpu","FXParticleSystemTemplate"},
         {"RecoveryXmlPriority_Particle_Lightning","FXParticleSystemTemplate"},
-        {"RecoveryXmlPriority_Particle_RenderObject","FXParticleSystemTemplate"}
+        {"RecoveryXmlPriority_Particle_RenderObject","FXParticleSystemTemplate"},
+        {"RecoveryXmlAdditional_LogicCommand_Defaults","LogicCommand"},
+        {"RecoveryXmlAdditional_PlayerTech_Defaults","PlayerTech"},
+        {"RecoveryXmlAdditional_PlayerTechRank_Defaults","PlayerTechRank"},
+        {"RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults","PlayerTechUpgradeBinding"},
+        {"RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults","ExperienceLevelTemplate"},
+        {"RecoveryXmlAdditional_Weather_Defaults","Weather"},
+        {"RecoveryXmlAdditional_WaterTransparency_Defaults","WaterTransparency"},
+        {"RecoveryXmlAdditional_WaterSetting_Defaults","WaterSetting"},
+        {"RecoveryXmlAdditional_Environment_Defaults","Environment"},
+        {"RecoveryXmlAdditional_LightingSettings_Defaults","LightingSettings"},
+        {"RecoveryXmlAdditional_WaterTextureList_Defaults","WaterTextureList"},
+        {"RecoveryXmlAdditional_AIData_Defaults","AIData"},
+        {"RecoveryXmlAdditional_UnitAISettings_Defaults","UnitAISettings"},
+        {"RecoveryXmlAdditional_PlayerTemplate_Defaults","PlayerTemplate"},
+        {"RecoveryXmlAdditional_MultiplayerSettings_Defaults","MultiplayerSettings"},
+        {"RecoveryXmlAdditional_AIBuildStateDefinition_Defaults","AIBuildStateDefinition"},
+        {"RecoveryXmlAdditional_AIStrategicStateName_Defaults","AIStrategicStateName"}
     };
     static uint TypeId(string name) {
         if(name=="AttributeModifier")return 3319822471u;
@@ -47,6 +64,23 @@ class XmlPrioritySdkOracle {
         if(name=="AIBudgetStateDefinition")return 2893598307u;
         if(name=="AIStateDefinition")return 3239935619u;
         if(name=="AITargetingHeuristic")return 926814458u;
+        if(name=="LogicCommand")return 2101756272u;
+        if(name=="PlayerTech")return 2131237081u;
+        if(name=="PlayerTechRank")return 1802643394u;
+        if(name=="PlayerTechUpgradeBinding")return 2140592493u;
+        if(name=="ExperienceLevelTemplate")return 1874610847u;
+        if(name=="Weather")return 2430161325u;
+        if(name=="WaterTransparency")return 1479531562u;
+        if(name=="WaterSetting")return 2728605516u;
+        if(name=="Environment")return 680780553u;
+        if(name=="LightingSettings")return 3169690211u;
+        if(name=="WaterTextureList")return 2995571269u;
+        if(name=="AIData")return 3827723072u;
+        if(name=="UnitAISettings")return 2964891936u;
+        if(name=="PlayerTemplate")return 4063352333u;
+        if(name=="MultiplayerSettings")return 191082224u;
+        if(name=="AIBuildStateDefinition")return 1644972043u;
+        if(name=="AIStrategicStateName")return 2010562192u;
         throw new Exception("Unexpected SDK trace type: "+name);
     }
     static InstanceDeclaration Declaration(XmlDocument xml) {
@@ -139,7 +173,7 @@ class XmlPrioritySdkOracle {
             if(!Required.TryGetValue(id,out type) || e.LocalName!=type || !seen.Add(id))
                 throw new Exception("Unexpected, duplicated, or wrong-type source probe: "+id+"/"+e.LocalName);
         }
-        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly eighteen expected SDK assets");
+        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 35 expected SDK assets");
     }
     static void WriteResult(string path,object value) {
         File.WriteAllText(path,new JavaScriptSerializer().Serialize(value));
@@ -168,13 +202,13 @@ class XmlPrioritySdkOracle {
             ++rejected;
         }
         WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
-        Console.WriteLine("PASS SDK full XSD: eighteen assets; 3 negative fixtures rejected.");
+        Console.WriteLine("PASS SDK full XSD: 35 assets; 3 negative fixtures rejected.");
     }
     static void CompareMetadata(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,int platform,ref int fields) {
         if(original.GetVersionNumber()!=recovered.GetVersionNumber())throw new Exception("SDK version differs on platform "+platform);
         if(original.GetAllTypesHash()!=recovered.GetAllTypesHash())throw new Exception("SDK all-types hash differs on platform "+platform);
         fields+=2;
-        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u}) {
+        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u}) {
             object a=original.GetExtendedTypeInformation(id),b=recovered.GetExtendedTypeInformation(id);
             if(a==null || b==null)throw new Exception("Null ExtendedTypeInformation");
             foreach(FieldInfo field in typeof(ExtendedTypeInformation).GetFields(BindingFlags.Public|BindingFlags.Instance)) {
@@ -208,7 +242,7 @@ class XmlPrioritySdkOracle {
             if(!refused)throw new Exception("Recovered SDK plugin accepts unknown ProcessInstance type");++rejections;
         }
         if(fields<16)throw new Exception("No metadata fields were compared");
-        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=14,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
+        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=31,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
     static int Main(string[] args) {
@@ -276,7 +310,7 @@ class XmlPrioritySdkOracle {
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
                 if(isolated)NoOriginalAssemblies();
             }
-            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=14)throw new Exception("Incomplete SDK plugin call coverage");
+            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=31)throw new Exception("Incomplete SDK plugin call coverage");
             foreach(string id in Required.Keys)if(!seen.Contains(id))throw new Exception("No real SDK plugin call for "+id);
             foreach(string extension in new[]{"*.xml","*.bin","*.relo","*.imp"}) {
                 string[] files=Directory.GetFiles(trace,extension,SearchOption.TopDirectoryOnly);
@@ -294,7 +328,7 @@ class XmlPrioritySdkOracle {
                 comparisons=comparisons,typeCalls=typeCalls,idCalls=idCalls,traceManifestSha256=Hash(manifest),
                 probeSha256=Hash(args[4]),modSha256=Hash(args[3]),compilerSha256=Hash(dll),
                 originalDllFilesAbsent=isolated,originalCompilerAssembliesAbsent=isolated,
-                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus eighteen required probes across fourteen priority types":"Reduced disposable SDK MOD with eighteen required probes across fourteen priority types"
+                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus eighteen required probes across 31 recovered types":"Reduced disposable SDK MOD with eighteen required probes across 31 recovered types"
             };
             File.WriteAllText(report,new JavaScriptSerializer().Serialize(result));
             Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, eighteen required assets across fourteen types, isolated={3}",args[0],calls,comparisons,isolated);
@@ -306,4 +340,5 @@ class XmlPrioritySdkOracle {
         }
     }
 }
+
 
