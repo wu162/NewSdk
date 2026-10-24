@@ -59,4 +59,10 @@ scalar offsets/endian. Unknown input boundaries are separately rejected.
 Evidence output: recovery/evidence/xml-effects/validation.json, with
 succeeded/sourceCommit/runId and per-mode per-platform fixture/comparison/refusal
 counts, plus Od-oracle.txt and O2-oracle.txt. Until an actual successful
-Windows run exists, this checkpoint is unvalidated. SDK integration is untested.
+Windows run exists, this checkpoint is unvalidated. SDK integration is untested.FXParticleSystemTemplate has been reassigned. Its substantial unvalidated
+root/inline/keyframe/Wind/Volume/Velocity draft is preserved in disabled
+XmlfxparticleDraft.h/.cpp and XmlfxparticleDraftCompiler.cpp snapshots for the
+new owner to extract. These snapshots are not active code and are not included
+by TestXmleffects.ps1. The active bridge contains no particle compiler class.
+
+

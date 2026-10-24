@@ -38,6 +38,12 @@ Relo::Chunk CompileXmleffectsFXList(const XmleffectsFXListInput& input, bool big
     if (input.hasCullTracking) root->cullTracking = Time(input.cullTracking);
     if (input.hasCullTrackingMin) root->cullTrackingMin = ParseSigned(input.cullTrackingMin);
     if (input.hasCullTrackingMax) root->cullTrackingMax = ParseSigned(input.cullTrackingMax);
+    root->count = static_cast<U32>(input.nuggets.size());
+    if (root->count) {
+        tracker.Push(reinterpret_cast<void**>(&root->nuggets), 4, root->count);
+        for (U32 i=0;i<root->count;++i) MarshalXmleffectsNugget(tracker,&root->nuggets[i],input.nuggets[i],bigEndian);
+        tracker.Pop();
+    }
     if (bigEndian) {
         SwapWord(&root->cullTracking); SwapWord(&root->cullTrackingMin);
         SwapWord(&root->cullTrackingMax); SwapWord(&root->count);
