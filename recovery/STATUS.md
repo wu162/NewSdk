@@ -806,3 +806,10 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 新增移动4、状态/对象操纵7、路由/雷达列表2、资源/创建2，共15类。全部自身字段、完整父240或OCL500/SpecialPower452、nullable Vector3/Filter、typed与结构列表、分配顺序、默认与拒绝边界已覆盖；分组合同见四份GAMEOBJECT_ABILITY文档。76其他已知Marshal仍拒绝、58 Token-only回退保留；SDK0次，原路由及原DLL不变，完整GameObject/正式插件/完整两DLL仍未完成。
 
 中间40128943921/40129220289成功证据保留；失败40128411260（独立断言的String8分配/引用编号预期）和40129487266（C#局部名冲突）保留，最终源码完整复验通过。没有取消回归或降低样例/平台。下一ToggleStatus完整依赖59方法与六PE枚举仅取证，仍拒绝，见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。实际约36分钟，因当前上下文长度在完整验收后提前交接，长期约1小时规则不变。复用父/helper与原证据、SDK未触发；无账号额度数据，不能量化节省。
+
+
+## 2026-10-25 收尾交接：275类已验收，最后8类待验收
+
+用户要求准备交接后停止扩展。原251→275：完整Attach5、Utility13、Area6；最终source3c5c40a4bd95ff62657d4e0776afb4c94ac30a6d，GameObject40140521059 success，基础40140521060 success。/Od/O2各977064 fixtures、2931192三缓冲区比较、20432拒绝、2752不变性，平台0/1/2/99；两模式原始日志和步骤已核对。260中间验收source1e044cd8/run40139405380每模式952632 fixtures、2857896比较、19932拒绝、2352不变性。失败40139056890为原Steal/Leech wrapper的Attach父Token表缺失，已依原方法更正并保留失败证据。
+
+最后8类effects/locomotor支持组已写完整实现、测试、140原方法及14原PE表，本地源一致性检查通过，Windows最终矩阵待检查点提交后核对，不能计入275。细节GAMEOBJECT_EFFECT_SUPPORT.md；源码接受283但仍有8未验收+39未实现，完整余项GAMEOBJECT_REMAINING.md。SDK本轮0次、原DLL与正式路由不变，完整编译器与正式集成未完成。收尾入口RESUME.md按真实验证状态更新，保留并发Actions证据，未强推。

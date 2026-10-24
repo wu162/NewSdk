@@ -3,6 +3,7 @@ void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=244 && choice->kind<=251) EndianSupport(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=238 && choice->kind<=243) EndianArea(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=225 && choice->kind<=237) EndianModuleFieldSet(reinterpret_cast<unsigned char*>(input),utilityFieldSets[choice->kind-225]);
     if(choice && choice->kind>=220 && choice->kind<=224) EndianAttach(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -77,6 +78,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=244 && choice->kind<=251) MarshalSupport(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=238 && choice->kind<=243) MarshalArea(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=225 && choice->kind<=237) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),utilityFieldSets[choice->kind-225],data);
     if(choice && choice->kind>=220 && choice->kind<=224) MarshalAttach(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

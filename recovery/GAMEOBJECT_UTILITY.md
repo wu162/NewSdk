@@ -1,4 +1,4 @@
-# 完整13类辅助模块组（待Windows验收）
+# 完整13类辅助模块组（已通过完整Windows矩阵）
 
 固定原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`。GenerateUtilityFields.py检查完整Marshal/Endian/Token和三个多态dispatcher helper；没有未覆盖子节点或可空依赖。
 
@@ -13,9 +13,9 @@
 
 GameObjectUtilityCases.cs覆盖全部属性、数值边界/时间后缀/非ASCII字符串、独立默认值/布局/Token key及type/分配及padding、容器与列表0/1/2/27/28/29/65边界及非法输入。累计矩阵保留/Od/O2、平台0/1/2/99、全部旧回归、三缓冲区比较；组件验收与正式SDK集成分开。
 
-首批四类已通过source1e044cd8/run40139405380的/Od/O2完整矩阵（每模式952632 fixtures、2857896三缓冲区比较），计入260/322。后续九类当前待最终累计验收，不提前计数。
+首批四类已通过source1e044cd8/run40139405380的/Od/O2完整矩阵（每模式952632 fixtures、2857896三缓冲区比较），计入260/322。后续九类已纳入最终source3c5c40a4/run40140521059完整成功矩阵，计入275/322。
 
-## 后续九类（待最终完整验收）
+## 后续九类（已完整验收）
 
 | 类型 | TypeId/native | 完整自身合同 |
 |---|---|---|
@@ -30,3 +30,5 @@ GameObjectUtilityCases.cs覆盖全部属性、数值边界/时间后缀/非ASCII
 | ClusterBombUpdateModuleData | 3833989627/36 | WeaponName引用8、InitialWeaponName nullable引用4指针12；Radius16=0、NumBomblets signed20=0、MinDelay24=0s、MaxDelay28=0s、BombletFX引用32；Update父Token |
 
 四种12字节类的Marshal字段内联在多态wrapper中，生成器核对原完整wrapper及Token/Endian；不因没有独立Marshal方法而遗漏自身字段。SpecialPowerRestrictionType精确literal为UNRESTRICTED=0、1=1、2=2，单枚举未知1。ObjectFilterRelationship仅ALLIES0/ENEMIES1/NEUTRAL2/SAME_PLAYER3，未知bit0。生成器从固定原PE核对表，不能按类名推断父类。13类均有独立完整默认/padding/Token keys/types/offsets及nullable引用/字符串分配检查。
+
+最终组件验收source3c5c40a4bd95ff62657d4e0776afb4c94ac30a6d/run40140521059 success；/Od、/O2各977064 fixtures、2931192三缓冲区比较、20432拒绝、2752不变性，四平台0/1/2/99；两模式原始日志及作业步骤已核对。SDK未运行。

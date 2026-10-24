@@ -4,6 +4,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=244 && choice->kind<=251) {
+        const auto& set=supportFieldSets[choice->kind-244];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+        if(choice->kind==244 || choice->kind==248) for(const auto& f:upgradeUpgradeModuleDataFields) if(attribute==f.name) return true;
+        return false;
+    }
     if(choice->kind>=238 && choice->kind<=243) {
         const auto& set=areaFieldSets[choice->kind-238];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
         if(choice->kind==243) for(const auto& field:weaponFireWeaponUpdateModuleDataFields) if(attribute==field.name) return true;
@@ -141,6 +146,17 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=244 && kind<=251) {
+        if(kind==244 || kind==248) {if(path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}
+        if((kind==245 || kind==248) && path=="ObjectFilter") return 1;
+        if((kind==245 || kind==248) && (path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing")) return 3;
+        if(kind==246 && path=="DependentObjectRadius") return 3;
+        if(kind==247) {if(path=="Modifier") return 3;if(path=="AllowFilter" || path=="ContainerFilter" || path=="ObjectStatusValidation") return 1;if(path=="AllowFilter/IncludeThing" || path=="AllowFilter/ExcludeThing" || path=="ContainerFilter/IncludeThing" || path=="ContainerFilter/ExcludeThing") return 3;}
+        if(kind==249) {if(path=="Queries") return 2;if(path=="Queries/ObjectFilter") return 1;if(path=="Queries/ObjectFilter/IncludeThing" || path=="Queries/ObjectFilter/ExcludeThing") return 3;}
+        if(kind==250) {if(path=="AddEmotion") return 3;for(const char* f:{"TauntAndPointExcluded","AfraidOf","AlwaysAfraidOf","PointAt"}) {if(path==f) return 1;if(path==std::string(f)+"/IncludeThing" || path==std::string(f)+"/ExcludeThing") return 3;}}
+        if(kind==251) {if(path=="Event") return 2;if(path=="DieMuxData") return 1;}
+        return 0;
+    }
     if(kind>=238 && kind<=243) {
         if(kind==238 && path=="ObjectStatusValidation") return 1;
         if(kind==240 && (path=="ObjectStatusValidation" || path=="TimeDelayRange" || path=="RadiusSpreadRange")) return 1;
@@ -326,6 +342,14 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=244 && kind<=251) {
+        if((kind==244 || kind==248) && path=="CustomAnimAndDuration") {for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;}
+        if(kind==247 && path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";
+        if(kind==249 && path=="Queries") {for(const auto& f:supportQueryFields) if(attribute==f.name) return true;}
+        if(kind==251 && path=="Event") {for(const auto& f:supportFXListBehaviorEventFields) if(attribute==f.name) return true;}
+        if(kind==251 && path=="DieMuxData") {for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;}
+        return false;
+    }
     if(kind>=238 && kind<=243) {
         if(kind==240 && (path=="TimeDelayRange" || path=="RadiusSpreadRange")) return attribute=="Low" || attribute=="High";
         if((kind==238 || kind==240) && path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";
