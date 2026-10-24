@@ -1,19 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 91279; body SHA256 3d127458e7b54cc66f104d70fb9e1e4fccd2ca79dfe7c91807f9139d2028a8e7
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102702; body SHA256 3fbbd335e6023b7e98b4fab9cb1a27071864df5677b1110d3833953a75352205
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, UnitVisionBehaviorModuleData* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -1525845350;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -47846242;
-		((int*)ptr)[1] = 602296504;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		Tokenizer_002ETokenize(table, (RadarUpdateModuleData*)(int)(*(uint*)pointer), tracker);
 	}
 

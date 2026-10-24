@@ -1,7 +1,24 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102948; body SHA256 77a011266d1203ba85c01d80a59f1ac29776453e728dfcc47d3103f75f240397
-// Literals: {}
-internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AInvisibilityBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 19004; body SHA256 f189b11b5a25c0d97fddad6377cddceb9b2a760c4012d5cc3277fcdea407fdc4
+// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_0BJ_0040LDMBBDIG_0040FramesBetweenRadarPulses_003F_0024AA_0040": "FramesBetweenRadarPulses", "_003F_003F_C_0040_0BD_0040OOBAKEON_0040RadarPulseDuration_003F_0024AA_0040": "RadarPulseDuration"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, BeaconClientUpdateModuleData* @object, Tracker* state)
 	{
-		Tokenizer_002ETokenize(table, (InvisibilityBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040LDMBBDIG_0040FramesBetweenRadarPulses_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((int*)@object)[2] = (int)strtoul(ptr2, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040OOBAKEON_0040RadarPulseDuration_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((int*)@object)[3] = (int)strtoul(ptr4, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
 	}
 

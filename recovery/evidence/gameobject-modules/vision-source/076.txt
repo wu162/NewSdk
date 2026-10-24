@@ -1,52 +1,13 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51224; body SHA256 eaaaf8916a2df6a0473c192214c946af0e2213bad3687a1eea9a2aa3c63b58ff
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51181; body SHA256 62c8c0d4b6239fdbd6fe2e54126c1ca2c7502b884eb4e9735e6c8533c834d4b4
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(IList* list, List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* target, Tracker* tracker)
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterRule_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ObjectFilterRule* @object, Tracker* state)
 	{
-		if (list == null)
+		if (value != null)
 		{
-			return;
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ObjectFilterRule_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ObjectFilterRule_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
+			int num = ((ptr == null) ? 1 : ((int*)ptr)[1]);
+			*@object = (ObjectFilterRule)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
 		}
-		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
-		if (num != 0)
-		{
-			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 4u, num);
-			uint num2 = 0u;
-			if (0 < num)
-			{
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
-				do
-				{
-					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
-					try
-					{
-						INode* ptr = (INode*)(int)(*(uint*)num3);
-						TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E* reference = (TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E*)(int)(num2 * 4 + (uint)((int*)target)[1]);
-						if (ptr != null)
-						{
-							IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr + 16)))((nint)ptr);
-							if (ptr2 != null)
-							{
-								Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), reference, tracker);
-								((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
-							}
-						}
-					}
-					catch
-					{
-						//try-fault
-						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
-						throw;
-					}
-					if (*(int*)(&nodeHolder) != 0)
-					{
-						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
-					}
-					num2++;
-				}
-				while (num2 < num);
-			}
-			((int*)((byte*)tracker + 4))[1] += -4;
-		}
-		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
 	}
 

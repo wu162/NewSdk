@@ -1,10 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62137; body SHA256 8d96d2abc6600303d2a49e584d11d16b8625493e210bea7cc1dba4c122994770
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 65322; body SHA256 6301d26ed22ca65dc0c7b8a51ec3e767c8a8845486f393b0ddd1efd8eb41dafe
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASelectiveVisibilityBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarMarkerClientUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		SelectiveVisibilityBehaviorModuleData* ptr = (SelectiveVisibilityBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
-		Marshaler_002EMarshal(node, ptr, tracker);
-		((int*)((byte*)tracker + 4))[1] += -4;
-		*(int*)ptr = 1632936356;
+		Marshaler_002EEndianCorrect((RadarMarkerClientUpdateModuleData*)(int)(*(uint*)pointer), endian);
 	}
 

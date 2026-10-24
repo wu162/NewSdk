@@ -1,33 +1,10 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 19211; body SHA256 9928c787e5cc0dd1c772da956c8538a6bf514ed81f501d52ed84c5922400069c
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62525; body SHA256 b84231194c201a51cdc749cee68e66e1fccb3bc760f7214813882affb8df9e47
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect(RadarMarkerClientUpdateModuleData* @object, EndianHelper* state)
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnitVisionBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
 	{
-		if (*(bool*)state)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
-			*(byte*)(&num) = ((byte*)@object + 8)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
-			((int*)@object)[2] = (int)num;
-			if (*(bool*)state)
-			{
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
-				*(sbyte*)(&num2) = ((sbyte*)@object)[3];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)@object)[2];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)@object)[1];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)@object;
-				*(uint*)@object = num2;
-			}
-		}
-		if (*(bool*)state)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
-			*(byte*)(&num3) = ((byte*)@object + 4)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 4)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 4)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[4];
-			((int*)@object)[1] = (int)num3;
-		}
+		UnitVisionBehaviorModuleData* ptr = (UnitVisionBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -224774448;
 	}
 

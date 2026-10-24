@@ -1,15 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 78138; body SHA256 2c77de5f8344ff0e5bc8b8209bf14e1588025686b7228b6b5a3064a978fb5987
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63493; body SHA256 32bfd79af4f06a0d6af6e6f5da065b597851515087a72534e34157561b587c38
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, BehaviorModuleData* @object, Tracker* state)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AInvisibilityBroadcastUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -681733214;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		Marshaler_002EEndianCorrect((InvisibilityBroadcastUpdateModuleData*)(int)(*(uint*)pointer), endian);
 	}
 

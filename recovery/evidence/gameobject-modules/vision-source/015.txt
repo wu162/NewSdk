@@ -1,16 +1,19 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 19197; body SHA256 058ad9fbcf9f92315aa3e62e355c0cde638bbb20025c39ba641efc9e739a3af5
-// Literals: {"_003F_003F_C_0040_08NNKIOIN_0040TypeName_003F_0024AA_0040": "TypeName"}
-internal unsafe static void Marshaler_002EMarshal(INode* node, RadarMarkerClientUpdateModuleData* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 91171; body SHA256 f728db5becd71d0765d01693e0f5c4a31ca137c433a03246920dbf5bb7ca8910
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, RadarUpdateModuleData* @object, Tracker* state)
 	{
-		if (node != null)
-		{
-			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08NNKIOIN_0040TypeName_003F_0024AA_0040), null);
-			if (ptr != null)
-			{
-				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (String_003Cchar_003E*)((byte*)@object + 8), state);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
-			}
-			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
-		}
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1317406272;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
 	}
 

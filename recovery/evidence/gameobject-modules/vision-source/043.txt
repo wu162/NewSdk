@@ -1,42 +1,19 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 34837; body SHA256 a4d5bb0323627a9c3ec70329db481ca915d425572bed4963cc51b1f3de4162ee
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 87059; body SHA256 fbd07265602c314d30508308aabac5e550b018323c1edd3cbb39bd1a29b62a03
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect(CaptureBehaviorModuleData* @object, EndianHelper* state)
+internal unsafe static void Tokenizer_002ETokenize(void** table, InvisibilityBehaviorModuleData* @object, Tracker* state)
 	{
-		if (*(bool*)state)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
-			*(byte*)(&num) = ((byte*)@object + 8)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
-			((int*)@object)[2] = (int)num;
-		}
-		if (*(bool*)state)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
-			*(byte*)(&num2) = ((byte*)@object + 12)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 12)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 12)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[12];
-			((int*)@object)[3] = (int)num2;
-			if (*(bool*)state)
-			{
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
-				*(sbyte*)(&num3) = ((sbyte*)@object)[3];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((sbyte*)@object)[2];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((sbyte*)@object)[1];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)@object;
-				*(uint*)@object = num3;
-			}
-		}
-		if (*(bool*)state)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
-			*(byte*)(&num4) = ((byte*)@object + 4)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 4)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 4)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((sbyte*)@object)[4];
-			((int*)@object)[1] = (int)num4;
-		}
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1525845350;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1431290504;
+		((int*)ptr)[1] = -1857247387;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
 	}
 

@@ -1,7 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102702; body SHA256 3fbbd335e6023b7e98b4fab9cb1a27071864df5677b1110d3833953a75352205
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102933; body SHA256 2c75ba12d8d621df268c5e7f928afc8a80fd2bc919dcaf4dcf0f278dbaddd2b0
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACaptureBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
 	{
-		Tokenizer_002ETokenize(table, (RadarUpdateModuleData*)(int)(*(uint*)pointer), tracker);
+		Tokenizer_002ETokenize(table, (CaptureBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
 	}
 

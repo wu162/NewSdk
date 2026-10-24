@@ -1,43 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 87650; body SHA256 72cf5d941e32543f6a729aefa1fc6e3fe9a731626a7fce507da1cb8bbea793fc
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103872; body SHA256 fce6cca0c1f65d4cce1e10956820b5b5646fbd47ef1670dd5c4db1f24db8048d
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, SelectiveVisibilityBehaviorModuleData* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABeaconClientUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -1525845350;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -47846242;
-		((int*)ptr)[1] = -1719244312;
-		byte* num = (byte*)@object + 8;
-		void** ptr2 = (void**)((byte*)ptr + 8);
-		uint num2 = *(uint*)num;
-		if (num2 != 0)
-		{
-			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num2, ptr2);
-		}
-		else
-		{
-			*(int*)ptr2 = 0;
-		}
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 1846086947;
-		((int*)ptr)[1] = 1896218355;
-		byte* num3 = (byte*)@object + 12;
-		void** ptr3 = (void**)((byte*)ptr + 8);
-		uint num4 = *(uint*)num3;
-		if (num4 != 0)
-		{
-			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num4, ptr3);
-		}
-		else
-		{
-			*(int*)ptr3 = 0;
-		}
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		Tokenizer_002ETokenize(table, (BeaconClientUpdateModuleData*)(int)(*(uint*)pointer), tracker);
 	}
 

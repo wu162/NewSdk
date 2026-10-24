@@ -1,10 +1,14 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62525; body SHA256 b84231194c201a51cdc749cee68e66e1fccb3bc760f7214813882affb8df9e47
-// Literals: {}
-internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnitVisionBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62388; body SHA256 9c93709224967afc239db3c34728af486c8c7deda45badfecf3a75eed595fb27
+// Literals: {"_003F_003F_C_0040_0M_0040NNELDOPN_0040SAME_PLAYER_003F_0024AA_0040": "SAME_PLAYER", "_003F_003F_C_0040_0BA_0040HKEIEKIK_0040UnificationType_003F_0024AA_0040": "UnificationType"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnifiedControlBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
 	{
-		UnitVisionBehaviorModuleData* ptr = (UnitVisionBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
-		Marshaler_002EMarshal(node, ptr, tracker);
+		UnifiedControlBehaviorModuleData* ptr = (UnifiedControlBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AUnifiedControlType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040HKEIEKIK_0040UnificationType_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040NNELDOPN_0040SAME_PLAYER_003F_0024AA_0040)), (UnifiedControlType*)ptr + 5, tracker);
+			Marshaler_002EMarshal(node, (CaptureBehaviorModuleData*)ptr, tracker);
+		}
 		((int*)((byte*)tracker + 4))[1] += -4;
-		*(int*)ptr = -224774448;
+		*(int*)ptr = -1115849506;
 	}
 

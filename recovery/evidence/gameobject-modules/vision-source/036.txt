@@ -1,7 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63493; body SHA256 32bfd79af4f06a0d6af6e6f5da065b597851515087a72534e34157561b587c38
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 64840; body SHA256 efe625a6a0f7a6853975bc525fc2829ce44919f11bc74a872cd6b68b58c519ef
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AInvisibilityBroadcastUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASelectiveVisibilityBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		Marshaler_002EEndianCorrect((InvisibilityBroadcastUpdateModuleData*)(int)(*(uint*)pointer), endian);
+		Marshaler_002EEndianCorrect((SelectiveVisibilityBehaviorModuleData*)(int)(*(uint*)pointer), endian);
 	}
 

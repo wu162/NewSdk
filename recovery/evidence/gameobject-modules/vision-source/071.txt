@@ -1,13 +1,21 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51181; body SHA256 62c8c0d4b6239fdbd6fe2e54126c1ca2c7502b884eb4e9735e6c8533c834d4b4
-// Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterRule_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ObjectFilterRule* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 14492; body SHA256 fb684dc922e2d1f0b5cf7eaafaf97ff45a6e2bd01569a439d780f5b146e70a69
+// Literals: {"_003F_003F_C_0040_0BA_0040NHHFIBDJ_0040ForbiddenStatus_003F_0024AA_0040": "ForbiddenStatus", "_003F_003F_C_0040_0P_0040NCBPNJON_0040RequiredStatus_003F_0024AA_0040": "RequiredStatus"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ObjectStatusValidationDataType* @object, Tracker* state)
 	{
-		if (value != null)
+		if (node != null)
 		{
-			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ObjectFilterRule_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ObjectFilterRule_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
-			int num = ((ptr == null) ? 1 : ((int*)ptr)[1]);
-			*@object = (ObjectFilterRule)num;
-			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040NHHFIBDJ_0040ForbiddenStatus_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040NCBPNJON_0040RequiredStatus_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)@object + 28), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
 		}
 	}
 

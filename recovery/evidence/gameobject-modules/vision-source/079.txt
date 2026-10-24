@@ -1,6 +1,6 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 74923; body SHA256 803b8053141187431f93b3cd65efcf0b2c7491f7687b6b9f866ec7f11e9bbede
-// Literals: {"_003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040": "ALL", "_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051": "", "_003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A": "", "_003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4RelationshipType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4RelationshipType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B": "Pd\t\u0010\u0002\u0000\u0000\u0000Xd\t\u0010\u0000\u0000\u0000\u0000`d\t\u0010\u0001"}
-internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ARelationshipType_002C3_003E(sbyte* text, BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E* target, Tracker* tracker)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 67066; body SHA256 ade49217be076a8f4bbfe630d2d1ace9c4fb6d451ba4e6db744f37d6608bf04e
+// Literals: {"_003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040": "ALL", "_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051": "", "_003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A": ""}
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020KindOfType_002C284_003E(sbyte* text, BitFlags_003C284_002Cenum_0020KindOfType_003E* target, Tracker* tracker)
 	{
 		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
 		*(int*)(&auto_ptr_003Cchar_003E) = 0;
@@ -57,8 +57,14 @@ internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_00
 					}
 					if (_stricmp(ptr, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040)) == 0)
 					{
-						*(int*)target = -1;
-						goto IL_012e;
+						uint num4 = 0u;
+						do
+						{
+							*(int*)((int)(num4 * 4) + (byte*)target) = -1;
+							num4++;
+						}
+						while (num4 < 9);
+						goto IL_014e;
 					}
 					if ((_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 & 1) == 0)
 					{
@@ -75,37 +81,37 @@ internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_00
 							throw;
 						}
 					}
-					EnumNameGetter_003Cint_003E.EnumPair* ptr3 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(ptr, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4RelationshipType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4RelationshipType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 3u);
-					int num4;
+					EnumNameGetter_003Cint_003E.EnumPair* ptr3 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(ptr, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4KindOfType_0040_0040_0040_0040SA_003FBW4KindOfType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 284u);
+					int num5;
 					if (ptr3 != null)
 					{
-						num4 = ((int*)ptr3)[1];
-						if (num4 == -1 || (uint)num4 >= 3u)
+						num5 = ((int*)ptr3)[1];
+						if (num5 == -1 || (uint)num5 >= 284u)
 						{
-							goto IL_012a;
+							goto IL_014a;
 						}
 					}
 					else
 					{
-						num4 = 2;
+						num5 = 149;
 					}
 					if (flag)
 					{
-						BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E* ptr4 = (BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E*)((num4 >>> 5) * 4 + (byte*)target);
-						*(int*)ptr4 |= 1 << num4;
+						BitFlags_003C284_002Cenum_0020KindOfType_003E* ptr4 = (BitFlags_003C284_002Cenum_0020KindOfType_003E*)((num5 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 |= 1 << num5;
 					}
 					else
 					{
-						BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E* ptr4 = (BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E*)((num4 >>> 5) * 4 + (byte*)target);
-						*(int*)ptr4 ^= 1 << num4;
+						BitFlags_003C284_002Cenum_0020KindOfType_003E* ptr4 = (BitFlags_003C284_002Cenum_0020KindOfType_003E*)((num5 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 ^= 1 << num5;
 					}
-					goto IL_012a;
-					IL_012e:
+					goto IL_014a;
+					IL_014e:
 					num2--;
 					continue;
-					IL_012a:
+					IL_014a:
 					ptr = (int)num3 + ptr;
-					goto IL_012e;
+					goto IL_014e;
 				}
 				while (num2 != 0);
 			}

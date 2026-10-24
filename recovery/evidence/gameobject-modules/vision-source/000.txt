@@ -1,10 +1,10 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61352; body SHA256 d1fe71d6bd5d218dc56a27514388a643510dbea4ba4bcd51a45765b8ddb209a8
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61656; body SHA256 4e2ecf813d6ea343db36a0d5a30c0859dfce49fc45d917c1ab145b448998cdf0
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACaptureBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
 	{
-		RadarUpdateModuleData* ptr = (RadarUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		CaptureBehaviorModuleData* ptr = (CaptureBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
 		Marshaler_002EMarshal(node, ptr, tracker);
 		((int*)((byte*)tracker + 4))[1] += -4;
-		*(int*)ptr = 1768048089;
+		*(int*)ptr = -121329045;
 	}
 

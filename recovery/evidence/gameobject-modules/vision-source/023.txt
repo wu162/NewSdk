@@ -1,23 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 84496; body SHA256 1160f9e07cba79ed315c84e0118cab9702e91cdd71c7e99baf762990d7766418
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103738; body SHA256 14928fe1ff6432aadaf4459788111ec3ba8aec27c138b4f12bd0d2261d1fed84
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, BeaconClientUpdateModuleData* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarMarkerClientUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = 1286434524;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ClientUpdateModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -822342809;
-		((int*)ptr)[1] = 1982953380;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 81432998;
-		((int*)ptr)[1] = 1982953380;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		Tokenizer_002ETokenize(table, (RadarMarkerClientUpdateModuleData*)(int)(*(uint*)pointer), tracker);
 	}
 

@@ -1,10 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62724; body SHA256 236b730cbb3367d1952e23cf058cd3394c3a3883056073bab6ee11e6dda58e17
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 65248; body SHA256 1948cceea8b8362199bbe24e156ff5142759e9949a6e41018f1d4162db89dd5b
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABeaconClientUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnitVisionBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		BeaconClientUpdateModuleData* ptr = (BeaconClientUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
-		Marshaler_002EMarshal(node, ptr, tracker);
-		((int*)((byte*)tracker + 4))[1] += -4;
-		*(int*)ptr = -111444671;
+		Marshaler_002EEndianCorrect((UnitVisionBehaviorModuleData*)(int)(*(uint*)pointer), endian);
 	}
 

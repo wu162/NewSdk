@@ -1,7 +1,19 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 65248; body SHA256 1948cceea8b8362199bbe24e156ff5142759e9949a6e41018f1d4162db89dd5b
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 65103; body SHA256 4ccdf4f0c1124e49f9ee407726a5586e703dcb5bfea4db296d67226daf83932b
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnitVisionBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnifiedControlBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		Marshaler_002EEndianCorrect((UnitVisionBehaviorModuleData*)(int)(*(uint*)pointer), endian);
+		UnifiedControlBehaviorModuleData* ptr = (UnifiedControlBehaviorModuleData*)(int)(*(uint*)pointer);
+		int num = ((int*)ptr)[5];
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)(&num);
+			num = (int)num2;
+		}
+		((int*)ptr)[5] = num;
+		Marshaler_002EEndianCorrect((CaptureBehaviorModuleData*)ptr, endian);
 	}
 

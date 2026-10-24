@@ -1,7 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 64161; body SHA256 3921136402420b7eed404f532bf03ef89c2e65d1c3e96c4d3f9e8ed278e2d39b
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 64427; body SHA256 8b039ac67dfb60a439d333ac5c7fed3a08aaa99ece93762d303bb40f1cb21d54
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACaptureBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
 	{
-		Marshaler_002EEndianCorrect((RadarUpdateModuleData*)(int)(*(uint*)pointer), endian);
+		Marshaler_002EEndianCorrect((CaptureBehaviorModuleData*)(int)(*(uint*)pointer), endian);
 	}
 

@@ -1,0 +1,12 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "UnifiedControlType": {
+    "ALLIED_PLAYERS": 1,
+    "SAME_PLAYER": 0
+  },
+  "RelationshipType": {
+    "ALLIES": 2,
+    "ENEMIES": 0,
+    "NEUTRAL": 1
+  }
+}

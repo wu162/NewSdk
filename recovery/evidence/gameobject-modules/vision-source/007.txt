@@ -1,7 +1,7 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103688; body SHA256 9ef0ff000c86a26b11a2a2fe26981e9c59f3e777c626117dcc79c09af11d39ae
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103586; body SHA256 5f9450c96e993f28370f278789dabfb1dac784873e31a78682bcd5e52bc4d764
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnitVisionBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUnifiedControlBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
 	{
-		Tokenizer_002ETokenize(table, (UnitVisionBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+		Tokenizer_002ETokenize(table, (UnifiedControlBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
 	}
 
