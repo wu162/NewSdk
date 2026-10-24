@@ -1,6 +1,8 @@
 # Keyboard mapping asset group
 
-状态：四根源码和完整差分矩阵已准备，Windows /Od /O2 与联合 SDK 待验收。没有 Joypad 类型或 Joypad 依赖。仅恢复 XmlCompiler，输入仍是 BAB 预处理后的 XML。
+最终验收（2026-10-24）：组件/Od、/O2四平台及联合DLL运行40099095351成功（源码e7580311f36811265e6ed5af5a184ef623f31284）；SDK双profile和无原DLL隔离重放运行40098695436成功（源码92180f9bbd830b9dbd49a696c259e54ffe2d7721）。两锚点的编译器与SDK输入相同，后续仅UI Oracle断言修改，详见XML_PRIORITY_SDK.md及evidence/xml-priority-acceptance.json。 本组两模式合计13144 fixtures、78864数组比较、296显式拒绝。
+
+状态：完整组件与联合SDK已验收，精确锚点见下。
 
 ## 原版证据与 ABI
 

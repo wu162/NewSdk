@@ -1,4 +1,6 @@
-# Audio/video 完整能力组（待统一验收）
+# Audio/video 完整能力组
+
+最终验收（2026-10-24）：组件/Od、/O2四平台及联合DLL运行40099095351成功（源码e7580311f36811265e6ed5af5a184ef623f31284）；SDK双profile和无原DLL隔离重放运行40098695436成功（源码92180f9bbd830b9dbd49a696c259e54ffe2d7721）。两锚点的编译器与SDK输入相同，后续仅UI Oracle断言修改，详见XML_PRIORITY_SDK.md及evidence/xml-priority-acceptance.json。 本组两模式合计33856 fixtures、203136数组比较、576显式拒绝。
 
 目标分支 recovery/xmlcompiler-priority。组件包括 AudioEventLimitGroup、AudioLOD、AudioSettings、Video、VideoEventList，BootupDisplaySequence，以及原 Plugin 的独立 MicrophoneSettings 入口。前六者在原 CnC3Types.xsd 中有全局资产；MicrophoneSettings 只有嵌套 schema，SDK 必须经 AudioSettings 的三个 mic 节点覆盖，不能新增全局 XSD 声明。
 

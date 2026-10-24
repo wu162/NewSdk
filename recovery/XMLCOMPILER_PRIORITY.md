@@ -1,39 +1,33 @@
 # XmlCompiler：当前续接入口
 
-更新：2026-10-24（北京时间）。目标分支 `recovery/xmlcompiler-priority`。本轮按约一小时推进，最多三个子代理并行；实现、修复和下一能力组连续进行，最后冻结代码统一验收。
+更新：2026-10-24（北京时间）。目标分支 `recovery/xmlcompiler-priority`。本轮最多三个子代理并行，完整能力组统一验收；代码与工作分支父历史已全部合入本分支，禁止强推。
 
-## 本轮检查点（2026-10-24）
+## 当前结果
 
-本轮候选由52增至82个独立入口，新增30个；尚未取得本轮Windows/SDK验收，下面52入口结果仅为上一轮成功基线。最多三个子代理的工作分支已保存，统一合并包含damagefx 2、hotkeymaps 4、audio 7（MicrophoneSettings仅嵌套schema）、uisettings 14、soundmaps 3。排除Joypad命名根及GameObject。
+**原 Plugin 301 个登记入口中，已恢复并验收 82 个独立编译入口；本轮新增 30 个，上轮为 52 个。** 80 类是原 CnC3Types.xsd 全局资产；GameStatsModeData、MicrophoneSettings 仅有独立 Plugin 入口及嵌套 schema，通过组件和合法嵌套 SDK 场景覆盖，未修改原 XSD。
 
-源码、完整组件矩阵、Plugin/元数据/SDK接线已准备。联合默认根每模式预期328样本/984数组比较，旧40个completion样本保持；SDK预期159个源资产覆盖80个schema-global类型，另2个入口安排组件和嵌套场景验证。正在统一14组/Od、/O2四平台差分、联合DLL及Reduced/FullMymod真实SDK；不得把本检查点称为验收通过。
+- 最终组件/联合 DLL 源码：`e7580311f36811265e6ed5af5a184ef623f31284`。
+- 十四组完整差分与联合 DLL：[运行40099095351](https://github.com/wu162/NewSdk/actions/runs/40099095351)，completed/success。
+- 真实 SDK：`92180f9bbd830b9dbd49a696c259e54ffe2d7721`，[运行40098695436](https://github.com/wu162/NewSdk/actions/runs/40098695436)，completed/success。
+- SDK 成功后仅修正 UI Oracle 的独立排序断言。两锚点的整个 recovery/src、recovery/sdk、recovery/scripts、SDK、.github 子树以及 XmlPrioritySdkOracle.cs 的 Git SHA 完全相同，因此复用同一 SDK 验收；精确 SHA 和各项门槛见 `evidence/xml-priority-acceptance.json`。
+- 已核最终 validation.json 的 sourceCommit/runId、实际作业日志、两优化模式与平台0/1/2/99、联合进程真实退出码及 SDK 两套隔离重放。之后的纯文档提交不改变验收源码。
+- 三个工作分支与集成检查点均保留父提交并合入本分支，无强推；没有合入另一会话的 compiler-source。
 
+## 本轮新增完整能力组
 
-## 上一轮已验收结果
-
-**已恢复原 Plugin 301 个登记入口中的 52 个独立编译入口，本轮新增 38 个。** 其中 51 类在原 CnC3Types.xsd 允许全局资产；GameStatsModeData 仅有原 Plugin 独立入口和嵌套 schema，独立能力由组件证明，SDK 经 MultiplayerSettings 的嵌套场景覆盖，未修改原 XSD。
-
-- 实际验收源码：`71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`。
-- 九组完整差分、联合 DLL：[运行 40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086)，completed/success。
-- 原版/恢复版真实 SDK 双 profile：[运行 40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016)，completed/success。
-- 已逐份核对 succeeded/sourceCommit/runId、两优化模式与四平台、真实退出码和 SDK 两套重放。之后仅文档提交不改变验收源码。
-- 全部工作分支保留父提交并合入本分支，无强推。未把本轮新增再合入另一会话的 compiler-source；GameObject 仍按其独立交接继续。
-
-## 新增能力组
-
-| 组 | 新增入口数 | 完整范围 |
+| 组 | 入口数 | 完整范围 |
 | --- | ---: | --- |
-| progression | 12 | LogicCommand、PlayerTech、PlayerTechRank、PlayerTechUpgradeBinding、ExperienceLevelTemplate、PlayerTechStoreTemplate、PurchasePlayerTechButtonTemplate、ButtonSingleStateData、UICommandButton、FontDefaultSetting、FontTranslation、FontSubstitution |
-| environment | 12 | Weather、WaterTransparency、WaterSetting、Environment、LightingSettings、WaterTextureList、TerrainParticleMapping、BounceKickTerrainMapping、ShadowMap、OrdersManagerSettings、TerrainVisualSettings、CameraSettings |
-| players | 14 | AIData、UnitAISettings、PlayerTemplate、MultiplayerSettings、AIBuildStateDefinition、AIStrategicStateName、MultiplayerColor、AIPersonalityToAchievementEventMapping、FormationAssistantUnitDefinition、FormationAssistantTemplate、FormationSelectionTemplate、FormationAssistant、GameStatsModeData、SkirmishSettings |
+| damagefx | 2 | DamageFX、DamageFXSettings |
+| hotkeymaps | 4 | GeneralHotKeySlots、DefaultHotKeys、DebugHotKeys、MappableKey |
+| audio | 7 | AudioEventLimitGroup、AudioLOD、AudioSettings、Video、VideoEventList、MicrophoneSettings、BootupDisplaySequence |
+| uisettings | 14 | HotKeySlot、MouseCursor、BasicMouseCursors、UIMouseDragSelectionFeedback、UIFloatingTextDisplay、UIMessageDisplay、UIMilitaryCaptionDisplay、UISubtitleDisplay、UITimerDisplay、DynamicGameLOD、GameLODPreset、StaticGameLOD、UICoopTinting、RadiusCursor |
+| soundmaps | 3 | AnimationSoundSettings、MiscAudio、LargeGroupAudioMap |
 
-原十四类及其完整能力保持回归：AttributeModifier、FXList、SpecialPowerTemplate、ObjectCreationList、LocomotorTemplate、LogicCommandSet、FXParticleSystemTemplate、UpgradeTemplate 及六个 AI 根。FXList 双过滤器和 unknown base fallback、Particle 全 33 模块/Event 都保留。
+前52入口的九组完整能力继续回归：原十四优先类，加 progression12、environment12、players14。精确 TypeId/TypeHash/schemaGlobal 与分组清单见 `catalog/XmlRecoveredTypes.json`。新五组详细布局与拒绝边界见 XML_DAMAGEFX.md、XML_HOTKEYMAPS.md、XML_AUDIO.md、XML_UISETTINGS.md、XML_SOUNDMAPS.md。
 
-精确 TypeId/TypeHash 与 schemaGlobal 标记见 `catalog/XmlRecoveredTypes.json`；详细布局、方法和拒绝边界分别在 XML_PROGRESSION.md、XML_ENVIRONMENT.md、XML_PLAYERS.md、XML_FORMATIONS.md、XML_SKIRMISH.md 及原 XML_*.md。
+## 最终完整差分矩阵
 
-## 完整差分矩阵
-
-每行合计 /Od、/O2，平台 0/1/2/99。数组计数包含相应组件的直接 CompileXml 对照，不能全部称为原 DLL 对照次数。
+每行合计 /Od、/O2，均覆盖平台0/1/2/99。数组数包含适用的直接 CompileXml 对照，不能全部称作独立原 DLL 调用次数。没有减少旧组样本或放宽断言。
 
 | 组 | Fixtures | 数组比较 | 显式拒绝 |
 | --- | ---: | ---: | ---: |
@@ -46,26 +40,37 @@
 | progression | 33280 | 199680 | 976 |
 | environment | 49056 | 294336 | 2448 |
 | players | 44760 | 134280 | 984 |
-| 合计 | 260944 | 1116696 | 9312 |
+| damagefx | 2368 | 14208 | 160 |
+| hotkeymaps | 13144 | 78864 | 296 |
+| audio | 33856 | 203136 | 576 |
+| uisettings | 28232 | 169392 | 2408 |
+| soundmaps | 24448 | 146688 | 232 |
+| 合计 | 362992 | 1728984 | 12984 |
 
-联合 DLL 每模式另有 52×4=208 默认根样本/624 次比较，以及 40 个非空样本/120 次比较。两模式实际进程退出码都为 0。联合 smoke 不代替九组完整矩阵。证据在 evidence/xml-<group>/validation.json 与两模式日志；联合产物在运行的 recovered-xmlcompiler-priority-x86 artifact。
+联合 DLL 每模式另有82×4=328默认根样本/984数组比较，以及40个非空completion样本/120次比较。/Od、/O2实际进程退出码均为0，82个精确公开 ProcessInstance 路由全部加载成功；联合 smoke 不替代组矩阵。DLL 在运行的 `recovered-xmlcompiler-priority-x86` artifact。
 
-## SDK 与关键修复
+## SDK 验收
 
-94 个合法资产强制覆盖 51 个全局类型及缺省、非缺省、真实继承、本地强引用、多层列表。Reduced 实际 94 次调用，原版与隔离恢复版各 282 次三数组比较；FullMymod 保留全部七个原 Includes，再追加相同 probe，97 次调用、各 291 次比较。两 profile 的 bin/manifest/imp/relo 四产物均逐字节一致，imports 非空；复用同一 /O2 DLL，两个原 DLL 指纹保持不变。隔离目录物理排除两原 DLL，并核对无原编译器程序集加载。详见 [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md)。
+159个固定源资产覆盖80个全局类型，包括缺省、非缺省、原版允许的实际继承、本地强引用、多层列表和嵌套结构。Reduced 实际159次恢复插件调用，原版与隔离恢复版分别477次三数组比较；FullMymod 保留全部7个原 Includes，162次调用、分别486次比较。两profile的 bin/manifest/imp/relo 四产物均逐字节相同，imports非空；同一/O2 DLL与插件复用，两原DLL指纹保持不变。隔离重放目录物理排除原 XmlCompiler/Tokenizer DLL，并检查进程未加载这两个程序集。82入口metadata在四平台 Initialize/ReInitialize 对照4608项，另8个未知类型拒绝。详见 XML_PRIORITY_SDK.md。
 
-- 成长组 PlayerTech/Binding 的根 scalar/count endian 转换在原 Plugin 中内联，不能因为没有独立 EndianCorrect 方法而省略。最初错误已通过原差分纠正。
-- OrdersManagerSettings 的 ShaderOverride 是 nullable AssetReference**；present-empty 仍分配四字节，两个 shader 块先于四个 ShadowInfo。不是普通字符串或直接引用。
-- 新组件内部类型置于唯一原生命名空间，避免 C++/CLI 抹除匿名 TU 身份后与旧 AI 的 Layout 发生 LNK2022。动态不可变表使用原生 InitOnce/进程生命周期所有权，正常退出码门槛不放宽。
-- AIBuildStateDefinition 先分配 BuildEntry，再通过新增原生共享 helper 在同一 Tracker 内处理既有 heuristic；未做字节块移植。旧六 AI 全矩阵仍通过。
-- AIData SDK 必须有 LowLodTree/LowLodTreeNoGrab/LowLodTreeNoHarvest 三个 AssetId 字符串。所有类型都兼容 BAB 对具名结构节点注入的裸 TypeId，实际多态分派保留。
-- FontSubstitution 的 XSD 列表限制和底层 Marshal 能力分开测试；底层超出十项仍按原 DLL 输出，不靠 schema 推测 native 截断。
+## 本轮关键合同与修复
 
-## 边界与后续
+- DamageFX列表stride52，Type缺省DEFAULT=-1，未知fallback35；GroundDamageFX为nullable reference**，present-empty仍分配4字节。
+- Hotkey Modifiers保留原BitFlags的unknown ALT、负号XOR、ALL截断行为；MappableKey present-empty KeyDef仍分配字符串。
+- MicrophoneSettings、FontDesc等具名结构兼容BAB注入的裸TypeId；mic的id在原schema必填，不能因嵌套而忽略。
+- UI浮动速度、Radius速度和LargeGroupAudioMap MaximumAudioSpeed按已核实原常量0.2f缩放；不能按常见游戏帧率猜测。
+- MiscAudio的95个direct reference字段逐项核原调用与偏移；LargeGroupAudioMap为48字节根，SoundKeyPair stride24/DuckInfo stride12，完整位集、raw StringHash与小写TypedAssetId分开处理。
+- 原EnumLookup/TimeTag/Tokenize按C字符串在NUL终止；新增DOM构造NUL、ANSI等边界差分，恢复代码不使用原DLL。
+- 引用输出是index+1；Tracker bookmark按源block和value排序，不是按字段地址排序。原版QuickSort同键行为继续由完整三数组差分覆盖；独立ABI检查保留精确字段集合、排序合同、边界和哨兵。
+- SDK原XSD不允许继承的根不造inheritFrom样例。FXList必须有NuggetList；合法继承样例仍先满足原XSD必填项。两次独立UI断言错误和首轮schema样例错误已修复，历史失败运行保留，不能将其冒充成功。
+- 新Native内部类型使用唯一命名空间，动态不可变表保留InitOnce/进程生命周期所有权，未放宽正常退出码门槛。
 
-恢复编译器不调用原 XmlCompiler/Tokenizer；原 DLL 只用于 oracle。仍接受 BAB 预处理后的引用/defaults/继承和数字多态 TypeId，不在组件内重做整个预处理器。未知内容和文档列出的不支持边界继续明确拒绝。SDK 原配置和原 DLL 未替换，切换脚本用于指定 SDK 副本，其他类型仍由原处理器负责。
+## 边界与下一轮
 
-52 个独立入口不是全部 301 入口或完整 Tokenizer 的总替代。Joypad 根仍排除；GameObject 不在本轮修改范围。下一轮继续其他非 Joypad 完整能力组，先核原 Plugin dispatch/Tracker/Marshal/Endian 与完整依赖，再合批差分。可优先调查 DamageFX/DamageFXSettings、其他 UI/字体/音视频或设置类；未取证前不因小型外观假设简单。
+这是82个独立入口的部分替代，仍非完整301入口或完整Tokenizer。Joypad命名根继续排除；BootupDisplaySequence根不是Joypad命名根。GameObject不在本轮源码修改范围。编译器仍接收BAB预处理后的defaults、继承、资源引用与数字TypeId；未知/不支持内容明确拒绝，不重做整个BAB预处理器。原SDK配置和原DLL未替换，切换脚本只针对指定SDK副本，其他类型仍走原处理器。
 
-取证固定原 Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea、Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b、原 DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。复用 evidence/xml-source 的方法索引、小块和静态字节，不必重下整份反编译。历史失败保留在提交和 Actions；只以上述最终 source/run 为验收。按完整组统一运行并复用公共 helper，未量化账号额度节省。
+下一完整能力组已只读取证：五个战术UI热键根，依赖已恢复HotKeySlot，无Joypad依赖。见 `XML_TACTICAL_HOTKEYS_NEXT.md` 的精确方法、布局、枚举fallback、47引用字段与SDK必填规则；**尚未实现或验收，不计入82**。继续前核远程分支头，按完整组补源码/测试后统一差分，达到集成里程碑再SDK验收。
 
+固定原Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。复用 evidence/xml-source 的索引、小块和静态字节。Plugin超过1MB，contents接口可能返回空content；需要全文时可用GitHub插件fetch blob API，先本地筛选再展示，勿输出整份大文件。CLI无法克隆本仓库，继续使用GitHub插件。
+
+本轮复用原源索引、共享helper和已证明的SDK输入，集中修复后完整验收；未量化账号额度节省。

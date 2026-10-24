@@ -1,24 +1,33 @@
-# XmlCompiler SDK：最终验收
+# XmlCompiler SDK：82入口最终验收
 
-实际源码 `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`；[SDK运行 40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016) 与[组件运行 40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086)均 completed/success。
+[SDK运行40098695436](https://github.com/wu162/NewSdk/actions/runs/40098695436)，源码 `92180f9bbd830b9dbd49a696c259e54ffe2d7721`，completed/success。最终十四组组件及联合DLL：[40099095351](https://github.com/wu162/NewSdk/actions/runs/40099095351)，源码 `e7580311f36811265e6ed5af5a184ef623f31284`，completed/success。
 
-52 个原 Plugin 独立入口的 metadata 在平台0/1/2/99的 Initialize/ReInitialize 全部对照，共2928项公开字段/属性/版本/哈希比较及8项未知类型拒绝。版本 Win32/unknown=4、PS3=7、Xbox360=6；ProcessingHash=TypeHash XOR version，Tokenized=false。精确表见 catalog/XmlRecoveredTypes.json。
+两个源码锚点间仅UI组件Oracle的独立断言发生变化；recovery/src、recovery/sdk、recovery/scripts、原SDK、.github子树及SDK Oracle的Git对象相同，详见 `evidence/xml-priority-acceptance.json`。未重复运行未受影响的SDK；不把旧源码结果冒充新实现验收。
 
-原 CnC3Types.xsd 允许其中51类全局资产。GameStatsModeData 无全局element，保留独立组件全矩阵与 MultiplayerSettings 嵌套 SDK 覆盖，不伪造全局注册。94个合法源码资产在 sdk/XmlPriorityAllProbe.xml；三个 XSD 负例均被拒绝。
+## Metadata、schema与范围
 
-| Profile | 实际调用 | 每种重放的三数组比较 | bin字节 | manifest字节 | imp字节 | relo字节 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Reduced | 94 | 282 | 12756 | 11437 | 372 | 928 |
-| FullMymod | 97 | 291 | 222300 | 16334 | 432 | 5580 |
+82个原Plugin入口在四平台0/1/2/99的Initialize/ReInitialize全部对照，共4608项公开字段/属性/版本/哈希比较、8项未知类型拒绝。版本Win32/unknown=4、PS3=7、Xbox360=6；ProcessingHash=TypeHash XOR version，Tokenized=false。表见 catalog/XmlRecoveredTypes.json。
 
-每profile新建原版/恢复版SDK副本、清缓存并新输出；四份产物逐字节一致、imports非空。FullMymod逐项保留原Mod.xml七个Includes，再追加probe。所有额外实际调用也须完整三数组比较并证明进入最终mod.bin。原版重放后，再用物理排除两个原编译器DLL的独立进程重放恢复插件，逐次确认未加载原编译器程序集。仓库原DLL指纹不变。
+159个固定源资产完整通过原CnC3Types.xsd，3个负样本按原schema拒绝。80个全局类型逐类必有实际插件调用。GameStatsModeData、MicrophoneSettings仅有嵌套schema；组件证明独立入口，SDK分别经MultiplayerSettings、AudioSettings嵌套覆盖，未增加全局声明。
 
-同一 /O2 编译产物复用于两profile：联合DLL SHA25615569016e15adaf7f9ed7eac5e0f4733fff19e280610f4c685156e2e600f4355，插件 SHA256168cd3d6c20e2770b953ce4dfcc60016cbe1e0bdd50ee6b6d5307da10552a3158。SDK是Win32验收；/Od、/O2及其余平台另有九组完整组件矩阵。
+新增五组含65个源资产：damagefx5、hotkeymaps11、audio13、uisettings29、soundmaps7。每份片段在 sdk/Xml<group>Probe.fragment.xml，联合源为 sdk/XmlPriorityAllProbe.xml。FXList依赖包含NuggetList；AudioSettings内三个mic有必填id；HotKeySlot继承源在schema阶段仍有必填Name。禁止放宽XSD或用不合法inheritFrom制造覆盖。
 
-入口 scripts/TestXmlPrioritySdk.ps1：先编译独立oracle并完整XSD校验，再构建联合DLL/插件，核对metadata，运行两profile和两种重放。schema oracle集中收集所有错误，避免逐字段重复构建。scripts/SetXmlPriorityPlugin.ps1反复切换后核对唯一显式注册及禁buildcache，保留原#all。Original/Recovered使用相同注册拓扑，避免AssetBuilderPluginsVersion求和差异。原SDK目录不被Test脚本改写。
+## 两套实际SDK profile
 
-证据根目录 evidence/xml-priority-sdk/validation.json记录sourceCommit/runId；schema/metadata在根目录；Reduced与FullMymod分别保存输入/config、四产物、trace、replay/isolated JSON和日志。succeeded、原DLL不变、两profile与隔离标记均已读回。工作流artifact为xml-priority-sdk-evidence；显式[sdk-xml-priority]或workflow_dispatch触发，普通字段变动仍保留组件CI。
+| profile | 实际调用 | 每份原版/隔离重放数组比较 | 必需资产 | 全局类型 | 原Includes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Reduced | 159 | 477 | 159 | 80 | 同一精简reference集合 |
+| FullMymod | 162 | 486 | 159 | 80 | 全部7个保留 |
 
-样例覆盖新科技/命令/成长/字体、天气水体和映射、ShadowMap/Orders及nullable引用、玩家AI配置、编队多层列表、相同输入内strong refs及合法inheritFrom。底层不合法XML、非有限或深度拒绝及不具全局XSD表达的入口由组件验证，不能把94样例称作所有字段的实际游戏内容覆盖。完整mymod仍由原SDK处理其他未恢复类型；隔离重放不等于整个SDK无需原DLL构建。
+两profile均原/恢复输入相同；bin、manifest、imp、relo四产物逐字节相同，imports非空。每个成功调用保存预处理后的XML和三缓冲区，全部逐次用原版和隔离恢复版重放，并确认payload进入最终mod.bin。FullMymod的3个额外调用来自原MOD中的LogicCommand/LogicCommandSet。
 
-此前3733fbc发现匿名命名空间CLR重名、inline endian误判和测试断言问题；d465844进一步查明ShaderOverride nullable引用及AIData schema必需项。均已修复，失败证据保留，最终只引用本页顶部源码和两个成功运行。
+同一/O2 DLL和Plugin用于两个profile：
+- compiler SHA256 `D1DBBA4CC3E7CAC38CDAD1E94FEC242850A4C6A0C4BD4DC07A677D64E7C97200`
+- plugin SHA256 `205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652`
+- probe SHA256 `370D612E4C578ADAD8D250C8E97041A7F7C30F92C19FBF5025F8C0F47ADB2797`
+
+隔离目录物理排除两原compiler DLL，并持续检查进程没有加载原XmlCompiler/Tokenizer程序集。两原DLL指纹未变。Reduced四产物字节数分别17576/18413/992/1380；FullMymod分别227120/23310/1052/6032，原/恢复各对应相同。完整SHA、计数及sourceCommit/runId在 evidence/xml-priority-sdk 中，汇总收据在 evidence/xml-priority-acceptance.json。
+
+## 使用边界
+
+原SDK配置和原DLL未替换；SetXmlPriorityPlugin.ps1只在指定副本中显式路由这82类，其他类型继续原处理器。组件不调用原编译器；原DLL仅用于oracle。SDK/BAB仍负责引用、defaults、继承和数字多态TypeId预处理。这不是全部301入口或完整Tokenizer的替代。Joypad命名根与GameObject恢复继续排除。

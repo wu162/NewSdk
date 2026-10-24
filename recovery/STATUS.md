@@ -716,3 +716,12 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 治疗/维修源码3b2cb3d2687d06b92417c3af56f6656b45e7cc63/run40072240199 success，覆盖完整Upgrade、nullable validation/DieMux/Filter和inline Repair percent/audio；首轮仅拒绝清单末尾AutoHeal ID维护遗漏导致失败，修复后完整矩阵通过。Crate八模块包含基类及所有现存Crate碰撞分派和Spawn，继承强引用顺序保留；Spawn CrateList是重复文本子节点的强引用列表，不是属性字符串，先列表后BlockingUnits。未修改共享Tracker/资源/标量/位集实现。额外WeaponTemplate run40071300487和基础run40071300482/40072240244 success。
 
 下一完整AI Update八模块仅取证：源码bae88f824dd018ba5a46ba390ab5f095cc046d07/run40072829359 success，96精确方法/PE枚举，见GAMEOBJECT_AI_UPDATE_NEXT.md。UnitChooser40与TurretChooser44区分，AIUpdate pointer@68/StandGround bool@72；该组尚未接入，仍拒绝。约45分钟单代理有效实现、10–15分钟检查点、完整组统一差分、SDK降频与正确性门槛均保留。所有提交普通推送，保留并发Actions证据，没有强推/无必要新分支。优化只避免重复上下文/调查/SDK探针，不声称可量化账号额度下降。
+
+
+## 2026-10-24 XmlCompiler 五组扩展：82入口最终验收
+
+目标recovery/xmlcompiler-priority，本轮新增30入口（damagefx2/hotkeymaps4/audio7/uisettings14/soundmaps3），总82个原Plugin入口/80全局schema类型。组件e7580311f36811265e6ed5af5a184ef623f31284，完整14组与联合DLL运行40099095351成功；362992 fixtures、1728984数组比较（含适用CompileXml对照）、12984显式拒绝，均/Od、/O2、四平台0/1/2/99。
+
+SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固定资产，Reduced159/FullMymod162实际调用，各原版与隔离恢复版477/486数组比较，四产物一致，完整7 Includes保留，两原DLL不变。SDK后仅UI Oracle断言修改，src/sdk/scripts/原SDK/.github及SDK Oracle Git对象完全相同，复用有精确证据。历史失败40098375480/40098375483/40098695441保留，最终以成功锚点为准。
+
+源码分支父历史全部合并，无强推。GameObject与Joypad命名根继续排除；不是完整301入口/Tokenizer替代。精确矩阵、限制和下一轮五根战术UI热键证据见XMLCOMPILER_PRIORITY.md、XML_PRIORITY_SDK.md、XML_TACTICAL_HOTKEYS_NEXT.md及evidence/xml-priority-acceptance.json。

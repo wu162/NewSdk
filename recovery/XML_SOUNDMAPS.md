@@ -1,6 +1,8 @@
 # Sound maps: three-root group
 
-状态：源码、独立QA与完整组件差分矩阵准备完毕；Windows /Od、/O2和联合SDK待验收。仅恢复XmlCompiler三个入口，未替换Tokenizer；BAB仍负责引用/defaults/继承预处理。
+最终验收（2026-10-24）：组件/Od、/O2四平台及联合DLL运行40099095351成功（源码e7580311f36811265e6ed5af5a184ef623f31284）；SDK双profile和无原DLL隔离重放运行40098695436成功（源码92180f9bbd830b9dbd49a696c259e54ffe2d7721）。两锚点的编译器与SDK输入相同，后续仅UI Oracle断言修改，详见XML_PRIORITY_SDK.md及evidence/xml-priority-acceptance.json。 本组两模式合计24448 fixtures、146688数组比较、232显式拒绝。
+
+状态：完整组件与联合SDK已验收，精确锚点见下。
 
 ## 原证据与范围
 
