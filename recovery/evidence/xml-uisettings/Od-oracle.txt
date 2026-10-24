@@ -1,9 +1,5 @@
-System.Exception: Radius/list/2 platform=0 xml=<RadiusCursor xmlns="uri:ea.com:eala:asset" id="Oracle"><DecalTemplate><Component Texture="Name\7" Texture2="Name\17" Style="unknown" RotationMin="2" RotationMax="3" RotationDegreesPerSecond="4" OpacityPulsesPerSecond="5" RadiusPulsesPerSecond="6" PositionOffsetMin="7" PositionOffsetMax="8" PositionOffsetPulsesPerSecond="9"><Color R="17" G="34" B="51" A="68" /></Component><Component Texture="Name\8" Texture2="Name\18" Style="unknown" RotationMin="2" RotationMax="3" RotationDegreesPerSecond="4" OpacityPulsesPerSecond="5" RadiusPulsesPerSecond="6" PositionOffsetMin="7" PositionOffsetMax="8" PositionOffsetPulsesPerSecond="9"><Color R="17" G="34" B="51" A="68" /></Component></DecalTemplate></RadiusCursor> ---> System.Exception: Radius/list/2 import sorted unique offsets
-   at XmluisettingsOracle.Check(Boolean test, String label)
-   at XmluisettingsOracle.SideArray(Byte[] bytes, Byte[] instance, Boolean big, Boolean relocation, String label)
-   at XmluisettingsOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   --- End of inner exception stack trace ---
-   at XmluisettingsOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   at XmluisettingsOracle.RadiusAbi(TargetPlatform p)
-   at XmluisettingsOracle.Matrix(TargetPlatform p)
-   at XmluisettingsOracle.Main(String[] args)
+PASS platform=0 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=1 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=2 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=99 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS UI settings fixtures=14116 arrayComparisons=84696 rejections=1204 layoutAssertions=78457
