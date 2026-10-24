@@ -5,9 +5,4 @@ Xmleffects.cpp
 XmleffectsNuggets.cpp
 XmleffectsEnums.cpp
 XmleffectsCompiler.cpp
-recovery/src/Bridge/XmleffectsCompiler.cpp(81): error C2664: 'void Recovered::XmleffectsXml::Field(System::Xml::XmlNode ^,System::String ^,System::String ^,unsigned int,Recovered::Native::XmleffectsFieldKind,System::String ^,Recovered::Native::XmleffectsNuggetInput &)': cannot convert argument 3 from 'const char *' to 'System::String ^'
-recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: No user-defined-conversion operator available, or
-recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: Cannot convert a native type to a managed type
-recovery/src/Bridge/XmleffectsCompiler.cpp(66): note: see declaration of 'Recovered::XmleffectsXml::Field'
-recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: while trying to match the argument list '(System::Xml::XmlNode ^, System::String ^, const char *, unsigned int, Recovered::Native::XmleffectsFieldKind, nullptr, Recovered::Native::XmleffectsNuggetInput)'
 Generating Code...

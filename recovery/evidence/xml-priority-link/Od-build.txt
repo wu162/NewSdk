@@ -7,11 +7,6 @@ ObjectFilter.cpp
 XmlaiCompiler.cpp
 XmlattributesCompiler.cpp
 XmleffectsCompiler.cpp
-D:\a\NewSdk\NewSdk\recovery\src\Bridge\XmleffectsCompiler.cpp(81): error C2664: 'void Recovered::XmleffectsXml::Field(System::Xml::XmlNode ^,System::String ^,System::String ^,unsigned int,Recovered::Native::XmleffectsFieldKind,System::String ^,Recovered::Native::XmleffectsNuggetInput &)': cannot convert argument 3 from 'const char *' to 'System::String ^'
-D:\a\NewSdk\NewSdk\recovery\src\Bridge\XmleffectsCompiler.cpp(81): note: No user-defined-conversion operator available, or
-D:\a\NewSdk\NewSdk\recovery\src\Bridge\XmleffectsCompiler.cpp(81): note: Cannot convert a native type to a managed type
-D:\a\NewSdk\NewSdk\recovery\src\Bridge\XmleffectsCompiler.cpp(66): note: see declaration of 'Recovered::XmleffectsXml::Field'
-D:\a\NewSdk\NewSdk\recovery\src\Bridge\XmleffectsCompiler.cpp(81): note: while trying to match the argument list '(System::Xml::XmlNode ^, System::String ^, const char *, unsigned int, Recovered::Native::XmleffectsFieldKind, nullptr, Recovered::Native::XmleffectsNuggetInput)'
 XmlfxparticleCompiler.cpp
 XmllocomotorCompiler.cpp
 XmlpowersCompiler.cpp

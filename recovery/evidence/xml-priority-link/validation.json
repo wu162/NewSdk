@@ -1,7 +1,7 @@
 {
   "succeeded": false,
-  "sourceCommit": "d3a39fb49700d637ecf954c58572552ddcbf587b",
-  "runId": "40081880533",
+  "sourceCommit": "e5f5eeb5b82d83debdc3a4a9ff5f6f93dd86d58a",
+  "runId": "40082208804",
   "scope": "Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -29,7 +29,7 @@
     99
   ],
   "modes": [],
-  "status": "Od combined XmlCompiler C++/CLI link failed",
+  "status": "Od combined priority default-root smoke failed; all 14 types are required",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -66,7 +66,7 @@
     },
     {
       "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
-      "sha256": "ceef59eb07903e0ceb4cd2ee2f4d6e259e3f4f89a260a1428178796481bda06a"
+      "sha256": "408e8c02536dad93f6fffeefcd18814ed7d5764a787d7d91dcebae1968ec769e"
     },
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
@@ -82,7 +82,7 @@
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
-      "sha256": "022183f3177f52eec45865009dc6b388c46948f77d6df950dde373f20d1073b5"
+      "sha256": "5d7275ccfeb6d6701b44d32b7968159da9ec4c40ec8c7419d98d26c682b81bb9"
     },
     {
       "path": "recovery/src/Native/Xmlattributes.cpp",

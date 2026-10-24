@@ -1,7 +1,7 @@
 {
   "succeeded": false,
-  "sourceCommit": "d3a39fb49700d637ecf954c58572552ddcbf587b",
-  "runId": "40081880533",
+  "sourceCommit": "e5f5eeb5b82d83debdc3a4a9ff5f6f93dd86d58a",
+  "runId": "40082208804",
   "platforms": [
     0,
     1,
@@ -10,5 +10,5 @@
   ],
   "modes": [],
   "scope": "FXList root and fifteen known nugget layouts; two ObjectFilter children and unknown TypeId explicitly refused; component only",
-  "status": "Od C++/CLI build failed"
+  "status": "Od original XmlCompiler differential failed (1)"
 }

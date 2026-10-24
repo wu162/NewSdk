@@ -1,5 +1,5 @@
-System.Exception: personality/extension/instance byte 388 expected 0 actual 3
-   at XmlaiOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmlaiOracle.Test(String label, String text, TargetPlatform platform)
-   at XmlaiOracle.Run(TargetPlatform platform)
-   at XmlaiOracle.Main(String[] args)
+PASS platform=0 fixtures=1964 arrayComparisons=11781 rejections=41 layoutAssertions=321
+PASS platform=1 fixtures=1964 arrayComparisons=11781 rejections=41 layoutAssertions=321
+PASS platform=2 fixtures=1964 arrayComparisons=11781 rejections=41 layoutAssertions=321
+PASS platform=99 fixtures=1964 arrayComparisons=11781 rejections=41 layoutAssertions=321
+PASS total fixtures=7856 arrayComparisons=47124 rejections=164 layoutAssertions=1284
