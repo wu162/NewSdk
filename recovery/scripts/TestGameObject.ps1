@@ -56,6 +56,8 @@ python recovery/scripts/GenerateQueueBuildingFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'Queue/Parking/Building source metadata mismatch' }
 python recovery/scripts/InspectSpawnUpdateEnums.py | Tee-Object -FilePath "$report/spawn-update-enums.txt"
 if ($LASTEXITCODE -ne 0) { throw 'Spawn/OCL Update PE enum inspection failed' }
+python recovery/scripts/InspectEconomyPowerEnums.py | Tee-Object -FilePath "$report/economy-power-enums.txt"
+if ($LASTEXITCODE -ne 0) { throw 'Economy/Power PE enum inspection failed' }
 Copy-Item SDK/tools/*.dll $out
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 $summaries = @()
