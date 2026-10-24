@@ -1,45 +1,74 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 57236; body SHA256 aa3d3c68d85cb8e3b2622ac855a2a8183ca96aeee9bb369928024f04514aeec5
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 12509; body SHA256 a3c4ed77b77f7a9d32d3fd8e1496b10bc859c651bacaf23e4bd5938e52b04f31
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E(IList* list, SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* target, Tracker* tracker)
+internal unsafe static bool Relo_002ETracker_002EExchangePointers(Tracker* P_0, void* a, void* b)
 	{
-		if (list == null)
+		uint num = *(uint*)(((int*)P_0)[2] - 4);
+		Tracker.Block* ptr = (Tracker.Block*)(int)(num * 12 + (uint)((int*)P_0)[5]);
+		int num2 = *(int*)ptr;
+		sbyte* ptr2 = (sbyte*)(((int*)ptr)[1] + num2);
+		if ((nuint)a >= (nuint)num2 && a < ptr2 && (nuint)b >= (nuint)num2 && b < ptr2)
 		{
-			return;
-		}
-		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
-		if (num != 0)
-		{
-			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 72u, num);
-			if (0 < num)
+			uint num3 = (uint)((byte*)a - num2);
+			uint num4 = (uint)((byte*)b - num2);
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[9];
+			if (ptr3 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10])
 			{
-				int num2 = 0;
-				uint num3 = num;
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
 				do
 				{
-					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
-					try
+					if (*(int*)ptr3 == (int)num)
 					{
-						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (WeaponSlot_WeaponData*)(num2 + ((int*)target)[1]), tracker);
+						Relo_002ETracker_002EAlterBookmark_003Cunsigned_0020int_003E(P_0, ptr3, num3, num4, ((uint*)ptr)[2]);
 					}
-					catch
-					{
-						//try-fault
-						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
-						throw;
-					}
-					if (*(int*)(&nodeHolder) != 0)
-					{
-						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
-					}
-					num2 += 72;
-					num3--;
+					ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr3 + 12);
 				}
-				while (num3 != 0);
+				while (ptr3 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10]);
 			}
-			Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002ESort(target, tracker);
-			((int*)((byte*)tracker + 4))[1] += -4;
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[13];
+			if (ptr4 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14])
+			{
+				do
+				{
+					if (*(int*)ptr4 == (int)num)
+					{
+						uint num5 = ((uint*)ptr)[2];
+						uint num6 = ((uint*)ptr4)[1];
+						if (num6 >= num3 && num6 < num5 + num3)
+						{
+							((int*)ptr4)[1] = (int)(num6 - num3 + num4);
+						}
+						else if (num6 >= num4 && num6 < num5 + num4)
+						{
+							((int*)ptr4)[1] = (int)(num6 - num4 + num3);
+						}
+					}
+					ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr4 + 12);
+				}
+				while (ptr4 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14]);
+			}
+			Tracker.GenericBookmark_003Cvoid_0020_002A_003E* ptr5 = (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)(int)((uint*)P_0)[17];
+			if (ptr5 != (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((int*)P_0)[18])
+			{
+				do
+				{
+					if (*(int*)ptr5 == (int)num)
+					{
+						uint num7 = ((uint*)ptr)[2];
+						uint num8 = ((uint*)ptr5)[1];
+						if (num8 >= num3 && num8 < num7 + num3)
+						{
+							((int*)ptr5)[1] = (int)(num8 - num3 + num4);
+						}
+						else if (num8 >= num4 && num8 < num7 + num4)
+						{
+							((int*)ptr5)[1] = (int)(num8 - num4 + num3);
+						}
+					}
+					ptr5 = (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((byte*)ptr5 + 12);
+				}
+				while (ptr5 != (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((int*)P_0)[18]);
+			}
+			return true;
 		}
-		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+		return false;
 	}
 

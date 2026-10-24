@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75656; body SHA256 19ba4b8b56e86b81381af6eccffda829c996861f6106c09f9d565421e30b0cc4
+// Literals: {}
+internal unsafe static void eastl_002Emake_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+	{
+		int num = (int)((nint)((byte*)last - (nuint)first) >> 2);
+		if (num >= 2)
+		{
+			int num2 = (num - 2 >> 1) + 1;
+			do
+			{
+				num2--;
+				int topPosition = num2;
+				int num3 = num2;
+				eastl_002Eadjust_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, topPosition, num, num3, (WeaponSlot_WeaponData*)(int)(*(uint*)(num3 * 4 + (byte*)first)), compare);
+			}
+			while (num2 != 0);
+		}
+	}
+

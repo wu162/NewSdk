@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75673; body SHA256 b7e75a6fc1c76570a9f5a71d7d304ca526c12b8e1bbd5056cc0f8b9bc207694b
+// Literals: {}
+internal unsafe static void eastl_002Eadjust_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, int topPosition, int heapSize, int position, WeaponSlot_WeaponData* value, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+	{
+		int num = position * 2 + 2;
+		if (num < heapSize)
+		{
+			do
+			{
+				if (compare((WeaponSlot_WeaponData*)(int)(*(uint*)(num * 4 + (byte*)first)), (WeaponSlot_WeaponData*)(int)(*((uint*)(num * 4 + (byte*)first) - 1))) != 0)
+				{
+					num--;
+				}
+				*(int*)(position * 4 + (byte*)first) = *(int*)(num * 4 + (byte*)first);
+				position = num;
+				num = num * 2 + 2;
+			}
+			while (num < heapSize);
+		}
+		if (num == heapSize)
+		{
+			*(int*)(position * 4 + (byte*)first) = *((int*)(num * 4 + (byte*)first) - 1);
+			position = num - 1;
+		}
+		eastl_002Epromote_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, topPosition, position, value, compare);
+	}
+

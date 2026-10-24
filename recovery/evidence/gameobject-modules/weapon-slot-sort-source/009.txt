@@ -1,13 +1,33 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51522; body SHA256 5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75581; body SHA256 5f90e62a8c0fa0860b861df2b0e529c23b6d6e05418a03c26463e082f306672a
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)
+internal unsafe static WeaponSlot_WeaponData** eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, WeaponSlot_WeaponData** pivotValue, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
 	{
-		if (value != null)
+		WeaponSlot_WeaponData* ptr = (WeaponSlot_WeaponData*)(int)(*(uint*)pivotValue);
+		while (true)
 		{
-			sbyte b = *((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
-			int num = ((b == 49 || b == 116 || b == 84) ? 1 : 0);
-			*@object = (byte)num != 0;
-			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+			if (compare((WeaponSlot_WeaponData*)(int)(*(uint*)first), ptr) != 0)
+			{
+				first = (WeaponSlot_WeaponData**)((byte*)first + 4);
+				continue;
+			}
+			last = (WeaponSlot_WeaponData**)((byte*)last - 4);
+			if (compare(ptr, (WeaponSlot_WeaponData*)(int)(*(uint*)last)) != 0)
+			{
+				do
+				{
+					last = (WeaponSlot_WeaponData**)((byte*)last - 4);
+				}
+				while (compare(ptr, (WeaponSlot_WeaponData*)(int)(*(uint*)last)) != 0);
+			}
+			if (first >= last)
+			{
+				break;
+			}
+			WeaponSlot_WeaponData* ptr2 = (WeaponSlot_WeaponData*)(int)(*(uint*)first);
+			*(int*)first = *(int*)last;
+			*(int*)last = (int)ptr2;
+			first = (WeaponSlot_WeaponData**)((byte*)first + 4);
 		}
+		return first;
 	}
 

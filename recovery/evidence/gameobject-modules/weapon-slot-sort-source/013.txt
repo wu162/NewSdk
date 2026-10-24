@@ -1,0 +1,23 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75698; body SHA256 430925fd5670406af47e9900d5112c632e93ed8debbb8af8a3a4deadd062aa30
+// Literals: {}
+internal unsafe static void eastl_002Esort_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+	{
+		int num = (int)((nint)((byte*)last - (nuint)first) >> 2);
+		if (num > 1)
+		{
+			WeaponSlot_WeaponData** ptr = (WeaponSlot_WeaponData**)((byte*)last - 4);
+			WeaponSlot_WeaponData** ptr2 = (WeaponSlot_WeaponData**)((nuint)4u - (nuint)first);
+			int num2;
+			do
+			{
+				WeaponSlot_WeaponData* value = (WeaponSlot_WeaponData*)(int)(*(uint*)ptr);
+				*(int*)ptr = *(int*)first;
+				eastl_002Eadjust_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, 0, num - 1, 0, value, compare);
+				ptr = (WeaponSlot_WeaponData**)((byte*)ptr - 4);
+				num2 = (int)((nint)((byte*)ptr2 + (nuint)ptr) >> 2);
+				num = num2;
+			}
+			while (num2 > 1);
+		}
+	}
+

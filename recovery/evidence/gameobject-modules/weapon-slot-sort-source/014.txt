@@ -1,0 +1,21 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75719; body SHA256 90860426a37c78f1a8be5fefbbc8a4ee4bf5e3e69e71b99d411a087355a5367a
+// Literals: {}
+internal unsafe static void eastl_002Epromote_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, int topPosition, int position, WeaponSlot_WeaponData* value, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+	{
+		int num = position - 1 >> 1;
+		if (position > topPosition)
+		{
+			while (compare((WeaponSlot_WeaponData*)(int)(*(uint*)(num * 4 + (byte*)first)), value) != 0)
+			{
+				*(int*)(position * 4 + (byte*)first) = *(int*)(num * 4 + (byte*)first);
+				position = num;
+				num = num - 1 >> 1;
+				if (position <= topPosition)
+				{
+					break;
+				}
+			}
+		}
+		*(int*)(position * 4 + (byte*)first) = (int)value;
+	}
+
