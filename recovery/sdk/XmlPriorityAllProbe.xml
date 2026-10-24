@@ -311,6 +311,45 @@
       <ImageTintColor R="119" G="136" B="153" />
     </FactionSettings>
   </UICommandButton>
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Defaults" Name="Arial">
+    <Settings AntiAliased="false" />
+  </FontDefaultSetting>
+  <FontTranslation id="RecoveryXmlAdditional_FontTranslation_Defaults" Name="Arial" TranslateX="0" TranslateY="0" />
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Defaults" Name="Arial">
+    <Substitute Size="12">
+      <Font Name="Arial" Size="12" />
+    </Substitute>
+    <Substitute Size="18">
+      <Font Name="Arial" Size="18" />
+    </Substitute>
+  </FontSubstitution>
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Combined" Name="Tahoma">
+    <Size>19</Size>
+    <Settings AntiAliased="true" />
+  </FontDefaultSetting>
+  <FontTranslation id="RecoveryXmlAdditional_FontTranslation_Combined" Name="Tahoma" TranslateX="1.25" TranslateY="-2.5" />
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Combined" Name="Tahoma">
+    <Substitute Size="12">
+      <Font Name="Arial" Size="13" Bold="true" />
+    </Substitute>
+    <Substitute Size="18">
+      <Font Name="Tahoma" Size="21" Bold="false" />
+    </Substitute>
+    <Substitute Size="24">
+      <Font Name="Arial" Size="27" Bold="true" />
+    </Substitute>
+  </FontSubstitution>
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Inherited" inheritFrom="RecoveryXmlAdditional_FontDefaultSetting_Combined" Name="Arial">
+    <Settings AntiAliased="false" />
+  </FontDefaultSetting>
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Inherited" inheritFrom="RecoveryXmlAdditional_FontSubstitution_Defaults" Name="Tahoma">
+    <Substitute Size="22">
+      <Font Name="Arial" Size="23" Bold="true" />
+    </Substitute>
+    <Substitute Size="28">
+      <Font Name="Tahoma" Size="29" Bold="false" />
+    </Substitute>
+  </FontSubstitution>
   <Weather id="RecoveryXmlAdditional_Weather_Defaults" />
   <Weather id="RecoveryXmlAdditional_Weather_Combined">
     <Rain IsRaining="true" NumRaindropsPerBox="7" RainBoxWidth="150" WindStrength="0.5" />
@@ -641,7 +680,17 @@
     <Mapping TerrainClass="Rock" BounceMultiplier="10%" />
   </BounceKickTerrainMapping>
   <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Inherited" inheritFrom="RecoveryXmlAdditional_ShadowMap_Defaults" MapSize="4096" />
-  <AIData id="RecoveryXmlAdditional_AIData_Defaults" />
+  <TerrainVisualSettings id="RecoveryXmlAdditional_TerrainVisualSettings_Defaults">
+    <WaterPosition x="0" y="0" z="0" />
+    <WaterExtents x="1" y="1" />
+  </TerrainVisualSettings>
+  <CameraSettings id="RecoveryXmlAdditional_CameraSettings_Defaults" />
+  <TerrainVisualSettings id="RecoveryXmlAdditional_TerrainVisualSettings_Combined">
+    <WaterPosition x="10" y="20" z="-2" />
+    <WaterExtents x="128" y="64" />
+  </TerrainVisualSettings>
+  <CameraSettings id="RecoveryXmlAdditional_CameraSettings_Combined" DefaultMinHeight="1" DefaultMaxHeight="2" DefaultPitchAngle="3" DefaultYawAngle="4" DefaultScrollSpeedScalar="5" DefaultHeightMapSmoothnessScalar="6" ScrollAmountCutoff="7" ScrollPitchMultiplier="8" CameraAdjustSpeed="9" ShakeSubtleIntensity="10" ShakeNormalIntensity="11" ShakeStrongIntensity="12" ShakeSevereIntensity="13" ShakeCineExtremeIntensity="14" ShakeCineInsaneIntensity="15" MaxShakeIntensity="16" MaxShakeRange="17" CameraLockHeightDelta="18" CameraTerrainSampleRadiusForHeight="19" CameraEaseFactor="20" />
+  <AIData id="RecoveryXmlAdditional_AIData_Defaults" LowLodTree="RecoveryTree" LowLodTreeNoGrab="RecoveryTreeNoGrab" LowLodTreeNoHarvest="RecoveryTreeNoHarvest" />
   <UnitAISettings id="RecoveryXmlAdditional_UnitAISettings_Defaults">
     <VictoryConditionUnitObjectFilter />
     <VictoryConditionStructureObjectFilter />
@@ -692,4 +741,7 @@
   </FormationAssistantTemplate>
   <FormationSelectionTemplate id="RecoveryXmlAdditional_FormationSelectionTemplate_Defaults" FormationAssistantTemplate="RecoveryXmlAdditional_FormationAssistantTemplate_Defaults" MaxDragLength="10" MaxUnitsSelected="3" />
   <FormationAssistant id="RecoveryXmlAdditional_FormationAssistant_Defaults" RowPadding="1" ColumnPadding="2" ActivateDragDistance="3" ActivateTime="4" />
+  <SkirmishSettings id="RecoveryXmlAdditional_SkirmishSettings_Defaults">
+    <HandicapBuildSpeed Speed="0.5" />
+  </SkirmishSettings>
 </AssetDeclaration>

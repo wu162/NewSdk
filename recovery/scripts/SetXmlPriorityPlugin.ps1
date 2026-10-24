@@ -7,7 +7,7 @@ $ErrorActionPreference = 'Stop'
 $cfg = Join-Path $SdkRoot 'tools/BinaryAssetBuilder.exe.config'
 [xml]$xml = Get-Content -Raw $cfg
 $plugins = $xml.configuration.assetbuilder.plugins
-$selected = @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic','LogicCommand','PlayerTech','PlayerTechRank','PlayerTechUpgradeBinding','ExperienceLevelTemplate','PlayerTechStoreTemplate','PurchasePlayerTechButtonTemplate','ButtonSingleStateData','UICommandButton','Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','ShadowMap','OrdersManagerSettings','AIData','UnitAISettings','PlayerTemplate','MultiplayerSettings','AIBuildStateDefinition','AIStrategicStateName','MultiplayerColor','AIPersonalityToAchievementEventMapping','FormationAssistantUnitDefinition','FormationAssistantTemplate','FormationSelectionTemplate','FormationAssistant')
+$selected = @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic','LogicCommand','PlayerTech','PlayerTechRank','PlayerTechUpgradeBinding','ExperienceLevelTemplate','PlayerTechStoreTemplate','PurchasePlayerTechButtonTemplate','ButtonSingleStateData','UICommandButton','FontDefaultSetting','FontTranslation','FontSubstitution','Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','ShadowMap','OrdersManagerSettings','TerrainVisualSettings','CameraSettings','AIData','UnitAISettings','PlayerTemplate','MultiplayerSettings','AIBuildStateDefinition','AIStrategicStateName','MultiplayerColor','AIPersonalityToAchievementEventMapping','FormationAssistantUnitDefinition','FormationAssistantTemplate','FormationSelectionTemplate','FormationAssistant','GameStatsModeData','SkirmishSettings')
 foreach ($plugin in @($plugins.plugin)) {
     if ($plugin.targetType -eq 'Recovered.XmlPriority.Plugin, Recovered.XmlPriority.Plugin') {
         $plugins.RemoveChild($plugin) | Out-Null
@@ -20,7 +20,7 @@ foreach ($plugin in @($plugins.plugin)) {
 if (@($plugins.plugin | Where-Object { $_.assetTypes -eq '#all' -and $_.targetType -eq 'BinaryAssetBuilder.XmlCompiler.Plugin, BinaryAssetBuilder.XmlCompiler' }).Count -ne 1) {
     throw 'Expected the original XmlCompiler default handler'
 }
-# Use identical explicit 45-type registration topology in both disposable SDKs.
+# Use identical explicit 52-entry registration topology in both disposable SDKs.
 # PluginRegistry.AssetBuilderPluginsVersion sums each explicit type's version.
 $target = 'BinaryAssetBuilder.XmlCompiler.Plugin, BinaryAssetBuilder.XmlCompiler'
 if ($Mode -eq 'Recovered') {

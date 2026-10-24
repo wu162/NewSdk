@@ -10,7 +10,10 @@
       "PlayerTechStoreTemplate",
       "PurchasePlayerTechButtonTemplate",
       "ButtonSingleStateData",
-      "UICommandButton"
+      "UICommandButton",
+      "FontDefaultSetting",
+      "FontTranslation",
+      "FontSubstitution"
     ],
     "environment": [
       "Weather",
@@ -22,7 +25,9 @@
       "TerrainParticleMapping",
       "BounceKickTerrainMapping",
       "ShadowMap",
-      "OrdersManagerSettings"
+      "OrdersManagerSettings",
+      "TerrainVisualSettings",
+      "CameraSettings"
     ],
     "players": [
       "AIData",
@@ -36,234 +41,323 @@
       "FormationAssistantUnitDefinition",
       "FormationAssistantTemplate",
       "FormationSelectionTemplate",
-      "FormationAssistant"
+      "FormationAssistant",
+      "GameStatsModeData",
+      "SkirmishSettings"
     ]
   },
   "roots": [
     {
       "name": "AttributeModifier",
       "typeId": 3319822471,
-      "typeHash": 4177657499
+      "typeHash": 4177657499,
+      "schemaGlobal": true
     },
     {
       "name": "FXList",
       "typeId": 2254974584,
-      "typeHash": 2601721382
+      "typeHash": 2601721382,
+      "schemaGlobal": true
     },
     {
       "name": "SpecialPowerTemplate",
       "typeId": 2178440954,
-      "typeHash": 984303644
+      "typeHash": 984303644,
+      "schemaGlobal": true
     },
     {
       "name": "ObjectCreationList",
       "typeId": 3899542881,
-      "typeHash": 578005457
+      "typeHash": 578005457,
+      "schemaGlobal": true
     },
     {
       "name": "LocomotorTemplate",
       "typeId": 3972178387,
-      "typeHash": 3392338269
+      "typeHash": 3392338269,
+      "schemaGlobal": true
     },
     {
       "name": "LogicCommandSet",
       "typeId": 3959844197,
-      "typeHash": 2330506892
+      "typeHash": 2330506892,
+      "schemaGlobal": true
     },
     {
       "name": "FXParticleSystemTemplate",
       "typeId": 686292351,
-      "typeHash": 1465656250
+      "typeHash": 1465656250,
+      "schemaGlobal": true
     },
     {
       "name": "UpgradeTemplate",
       "typeId": 3786401627,
-      "typeHash": 1334651241
+      "typeHash": 1334651241,
+      "schemaGlobal": true
     },
     {
       "name": "AIPersonalityDefinition",
       "typeId": 3604279694,
-      "typeHash": 3409747243
+      "typeHash": 3409747243,
+      "schemaGlobal": true
     },
     {
       "name": "AIStrategicStateDefinition",
       "typeId": 607123156,
-      "typeHash": 3594381428
+      "typeHash": 3594381428,
+      "schemaGlobal": true
     },
     {
       "name": "AIMicroManagerData",
       "typeId": 2423780215,
-      "typeHash": 1392447443
+      "typeHash": 1392447443,
+      "schemaGlobal": true
     },
     {
       "name": "AIBudgetStateDefinition",
       "typeId": 2893598307,
-      "typeHash": 2583631670
+      "typeHash": 2583631670,
+      "schemaGlobal": true
     },
     {
       "name": "AIStateDefinition",
       "typeId": 3239935619,
-      "typeHash": 50334453
+      "typeHash": 50334453,
+      "schemaGlobal": true
     },
     {
       "name": "AITargetingHeuristic",
       "typeId": 926814458,
-      "typeHash": 2460454737
+      "typeHash": 2460454737,
+      "schemaGlobal": true
     },
     {
       "name": "LogicCommand",
       "typeId": 2101756272,
-      "typeHash": 1451688104
+      "typeHash": 1451688104,
+      "schemaGlobal": true
     },
     {
       "name": "PlayerTech",
       "typeId": 2131237081,
-      "typeHash": 903715207
+      "typeHash": 903715207,
+      "schemaGlobal": true
     },
     {
       "name": "PlayerTechRank",
       "typeId": 1802643394,
-      "typeHash": 304552910
+      "typeHash": 304552910,
+      "schemaGlobal": true
     },
     {
       "name": "PlayerTechUpgradeBinding",
       "typeId": 2140592493,
-      "typeHash": 3288487200
+      "typeHash": 3288487200,
+      "schemaGlobal": true
     },
     {
       "name": "ExperienceLevelTemplate",
       "typeId": 1874610847,
-      "typeHash": 550595366
+      "typeHash": 550595366,
+      "schemaGlobal": true
     },
     {
       "name": "PlayerTechStoreTemplate",
       "typeId": 1213037816,
-      "typeHash": 981786901
+      "typeHash": 981786901,
+      "schemaGlobal": true
     },
     {
       "name": "PurchasePlayerTechButtonTemplate",
       "typeId": 1566941920,
-      "typeHash": 2999033148
+      "typeHash": 2999033148,
+      "schemaGlobal": true
     },
     {
       "name": "ButtonSingleStateData",
       "typeId": 3048039928,
-      "typeHash": 3780991768
+      "typeHash": 3780991768,
+      "schemaGlobal": true
     },
     {
       "name": "UICommandButton",
       "typeId": 134745024,
-      "typeHash": 2853539982
+      "typeHash": 2853539982,
+      "schemaGlobal": true
+    },
+    {
+      "name": "FontDefaultSetting",
+      "typeId": 1371131236,
+      "typeHash": 197748432,
+      "schemaGlobal": true
+    },
+    {
+      "name": "FontTranslation",
+      "typeId": 1318336226,
+      "typeHash": 1815171461,
+      "schemaGlobal": true
+    },
+    {
+      "name": "FontSubstitution",
+      "typeId": 91719417,
+      "typeHash": 2789100025,
+      "schemaGlobal": true
     },
     {
       "name": "Weather",
       "typeId": 2430161325,
-      "typeHash": 3795761625
+      "typeHash": 3795761625,
+      "schemaGlobal": true
     },
     {
       "name": "WaterTransparency",
       "typeId": 1479531562,
-      "typeHash": 525928939
+      "typeHash": 525928939,
+      "schemaGlobal": true
     },
     {
       "name": "WaterSetting",
       "typeId": 2728605516,
-      "typeHash": 469423908
+      "typeHash": 469423908,
+      "schemaGlobal": true
     },
     {
       "name": "Environment",
       "typeId": 680780553,
-      "typeHash": 1276225790
+      "typeHash": 1276225790,
+      "schemaGlobal": true
     },
     {
       "name": "LightingSettings",
       "typeId": 3169690211,
-      "typeHash": 616355229
+      "typeHash": 616355229,
+      "schemaGlobal": true
     },
     {
       "name": "WaterTextureList",
       "typeId": 2995571269,
-      "typeHash": 1905565848
+      "typeHash": 1905565848,
+      "schemaGlobal": true
     },
     {
       "name": "TerrainParticleMapping",
       "typeId": 1469498551,
-      "typeHash": 2736882942
+      "typeHash": 2736882942,
+      "schemaGlobal": true
     },
     {
       "name": "BounceKickTerrainMapping",
       "typeId": 2368878637,
-      "typeHash": 2109862985
+      "typeHash": 2109862985,
+      "schemaGlobal": true
     },
     {
       "name": "ShadowMap",
       "typeId": 4157475773,
-      "typeHash": 903854585
+      "typeHash": 903854585,
+      "schemaGlobal": true
     },
     {
       "name": "OrdersManagerSettings",
       "typeId": 2996766068,
-      "typeHash": 2164060776
+      "typeHash": 2164060776,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TerrainVisualSettings",
+      "typeId": 1184276792,
+      "typeHash": 1336753171,
+      "schemaGlobal": true
+    },
+    {
+      "name": "CameraSettings",
+      "typeId": 3898802054,
+      "typeHash": 4258032094,
+      "schemaGlobal": true
     },
     {
       "name": "AIData",
       "typeId": 3827723072,
-      "typeHash": 1092854186
+      "typeHash": 1092854186,
+      "schemaGlobal": true
     },
     {
       "name": "UnitAISettings",
       "typeId": 2964891936,
-      "typeHash": 4050675268
+      "typeHash": 4050675268,
+      "schemaGlobal": true
     },
     {
       "name": "PlayerTemplate",
       "typeId": 4063352333,
-      "typeHash": 891373896
+      "typeHash": 891373896,
+      "schemaGlobal": true
     },
     {
       "name": "MultiplayerSettings",
       "typeId": 191082224,
-      "typeHash": 2620092030
+      "typeHash": 2620092030,
+      "schemaGlobal": true
     },
     {
       "name": "AIBuildStateDefinition",
       "typeId": 1644972043,
-      "typeHash": 3400281710
+      "typeHash": 3400281710,
+      "schemaGlobal": true
     },
     {
       "name": "AIStrategicStateName",
       "typeId": 2010562192,
-      "typeHash": 76343204
+      "typeHash": 76343204,
+      "schemaGlobal": true
     },
     {
       "name": "MultiplayerColor",
       "typeId": 2384988189,
-      "typeHash": 320610464
+      "typeHash": 320610464,
+      "schemaGlobal": true
     },
     {
       "name": "AIPersonalityToAchievementEventMapping",
       "typeId": 4086175864,
-      "typeHash": 2395097450
+      "typeHash": 2395097450,
+      "schemaGlobal": true
     },
     {
       "name": "FormationAssistantUnitDefinition",
       "typeId": 838130914,
-      "typeHash": 1672393125
+      "typeHash": 1672393125,
+      "schemaGlobal": true
     },
     {
       "name": "FormationAssistantTemplate",
       "typeId": 2912385462,
-      "typeHash": 156475083
+      "typeHash": 156475083,
+      "schemaGlobal": true
     },
     {
       "name": "FormationSelectionTemplate",
       "typeId": 3374519264,
-      "typeHash": 87133761
+      "typeHash": 87133761,
+      "schemaGlobal": true
     },
     {
       "name": "FormationAssistant",
       "typeId": 1963196508,
-      "typeHash": 1061339997
+      "typeHash": 1061339997,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GameStatsModeData",
+      "typeId": 3249689110,
+      "typeHash": 4003247819,
+      "schemaGlobal": false
+    },
+    {
+      "name": "SkirmishSettings",
+      "typeId": 402082255,
+      "typeHash": 3814569307,
+      "schemaGlobal": true
     }
   ]
 }

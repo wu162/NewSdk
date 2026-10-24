@@ -47,6 +47,9 @@ class XmlPriorityLinkOracle
         new Root("PurchasePlayerTechButtonTemplate", 1566941920u, false),
         new Root("ButtonSingleStateData", 3048039928u, false),
         new Root("UICommandButton", 134745024u, false),
+        new Root("FontDefaultSetting", 1371131236u, false),
+        new Root("FontTranslation", 1318336226u, false),
+        new Root("FontSubstitution", 91719417u, false),
         new Root("Weather", 2430161325u, false),
         new Root("WaterTransparency", 1479531562u, false),
         new Root("WaterSetting", 2728605516u, false),
@@ -57,6 +60,8 @@ class XmlPriorityLinkOracle
         new Root("BounceKickTerrainMapping", 2368878637u, false),
         new Root("ShadowMap", 4157475773u, false),
         new Root("OrdersManagerSettings", 2996766068u, false),
+        new Root("TerrainVisualSettings", 1184276792u, false),
+        new Root("CameraSettings", 3898802054u, false),
         new Root("AIData", 3827723072u, false),
         new Root("UnitAISettings", 2964891936u, false),
         new Root("PlayerTemplate", 4063352333u, false),
@@ -69,6 +74,8 @@ class XmlPriorityLinkOracle
         new Root("FormationAssistantTemplate", 2912385462u, false),
         new Root("FormationSelectionTemplate", 3374519264u, false),
         new Root("FormationAssistant", 1963196508u, false),
+        new Root("GameStatsModeData", 3249689110u, false),
+        new Root("SkirmishSettings", 402082255u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -117,7 +124,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 45 || supplied.Count != 45) throw new Exception("Exactly 45 recovered roots are required");
+        if (Roots.Length != 52 || supplied.Count != 52) throw new Exception("Exactly 52 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -144,7 +151,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 45) throw new Exception("Metadata preflight did not resolve all 45 roots");
+        if (Methods.Count != 52) throw new Exception("Metadata preflight did not resolve all 52 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -227,12 +234,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=45 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=52 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 180 || comparisons != 540 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 45) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 208 || comparisons != 624 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 52) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=45 fixtures=180 comparisons=540 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=52 fixtures=208 comparisons=624 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();

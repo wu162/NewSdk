@@ -8,7 +8,7 @@ $out = Join-Path $tempRoot ("recovered-xml-players-" + $runId)
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
 $result = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId; originalDllSha256 = ''
-    scope = 'Twelve XmlCompiler player/formation roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending'
+    scope = 'Fourteen XmlCompiler player/formation/skirmish roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending'
     modes = @(); status = 'started'; sources = @()
 }
 function Save-Validation { $result | ConvertTo-Json -Depth 12 | Set-Content -Encoding UTF8 "$evidence/validation.json" }

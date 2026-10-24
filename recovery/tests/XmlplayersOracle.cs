@@ -48,6 +48,8 @@ partial class XmlplayersOracle {
         case "FormationAssistantTemplate":return FormationAssistantTemplateCompiler.ProcessInstance(x,p);
         case "FormationSelectionTemplate":return FormationSelectionTemplateCompiler.ProcessInstance(x,p);
         case "FormationAssistant":return FormationAssistantCompiler.ProcessInstance(x,p);
+        case "GameStatsModeData":return GameStatsModeDataCompiler.ProcessInstance(x,p);
+        case "SkirmishSettings":return SkirmishSettingsCompiler.ProcessInstance(x,p);
         default:throw new Exception("Wrong oracle root");}}
     static int RootSize(string name){switch(name){
         case "AIData":return 220;
@@ -62,6 +64,8 @@ partial class XmlplayersOracle {
         case "FormationAssistantTemplate":return 12;
         case "FormationSelectionTemplate":return 16;
         case "FormationAssistant":return 40;
+        case "GameStatsModeData":return 16;
+        case "SkirmishSettings":return 20;
         default:throw new Exception("Wrong root size");}}
     static void Layout(XmlDocument d,AssetBuffer b,bool big){
         Assert(b.InstanceData.Length>=RootSize(d.DocumentElement.LocalName),"no truncated root");
@@ -132,7 +136,7 @@ partial class XmlplayersOracle {
             string all="";foreach(Field f in Fields(type)){string value=f.Kind=="Bool"?"true":f.Kind=="Reference"?"Ref\\7":f.Kind=="String"||f.Kind=="Hash"?"abcd":f.Kind=="Enum"?EnumNames(f.Enum)[0]:f.Kind=="Model"?"ATTACKING MOVING":f.Kind=="Tokens"?"1 2 3":"17.125";all+=A(f.Name,value);}Test(original,p,type+"/all-fields",Context(type,all,""));
             Reject(Context(type,"Bogus='1'",""),p);Reject(Context(type,"xmlns:q='urn:foreign' q:TypeId='1'",""),p);Reject(Context(type,"","<Unknown/>"),p);
         }
-        ChildMatrix(original,p);FixedLayouts(original,p);AiBuildMatrix(original,p);MetadataMatrix(original,p);AdditionalMatrix(original,p);FormationMatrix(original,p);
+        ChildMatrix(original,p);FixedLayouts(original,p);AiBuildMatrix(original,p);MetadataMatrix(original,p);AdditionalMatrix(original,p);FormationMatrix(original,p);SkirmishMatrix(original,p);
     }
     static int Main(string[] args){var result=new Dictionary<string,object>();result["succeeded"]=false;try{
         CultureInfo.CurrentCulture=CultureInfo.GetCultureInfo("de-DE");

@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Register the forty-five recovered types. Every payload is generated
+    // Register the fifty-two recovered entries. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -53,6 +53,9 @@ namespace Recovered.XmlPriority
                 case 1566941920u: info.TypeName = "PurchasePlayerTechButtonTemplate"; info.TypeHash = 2999033148u; break;
                 case 3048039928u: info.TypeName = "ButtonSingleStateData"; info.TypeHash = 3780991768u; break;
                 case 134745024u: info.TypeName = "UICommandButton"; info.TypeHash = 2853539982u; break;
+                case 1371131236u: info.TypeName = "FontDefaultSetting"; info.TypeHash = 197748432u; break;
+                case 1318336226u: info.TypeName = "FontTranslation"; info.TypeHash = 1815171461u; break;
+                case 91719417u: info.TypeName = "FontSubstitution"; info.TypeHash = 2789100025u; break;
                 case 2430161325u: info.TypeName = "Weather"; info.TypeHash = 3795761625u; break;
                 case 1479531562u: info.TypeName = "WaterTransparency"; info.TypeHash = 525928939u; break;
                 case 2728605516u: info.TypeName = "WaterSetting"; info.TypeHash = 469423908u; break;
@@ -63,6 +66,8 @@ namespace Recovered.XmlPriority
                 case 2368878637u: info.TypeName = "BounceKickTerrainMapping"; info.TypeHash = 2109862985u; break;
                 case 4157475773u: info.TypeName = "ShadowMap"; info.TypeHash = 903854585u; break;
                 case 2996766068u: info.TypeName = "OrdersManagerSettings"; info.TypeHash = 2164060776u; break;
+                case 1184276792u: info.TypeName = "TerrainVisualSettings"; info.TypeHash = 1336753171u; break;
+                case 3898802054u: info.TypeName = "CameraSettings"; info.TypeHash = 4258032094u; break;
                 case 3827723072u: info.TypeName = "AIData"; info.TypeHash = 1092854186u; break;
                 case 2964891936u: info.TypeName = "UnitAISettings"; info.TypeHash = 4050675268u; break;
                 case 4063352333u: info.TypeName = "PlayerTemplate"; info.TypeHash = 891373896u; break;
@@ -75,7 +80,9 @@ namespace Recovered.XmlPriority
                 case 2912385462u: info.TypeName = "FormationAssistantTemplate"; info.TypeHash = 156475083u; break;
                 case 3374519264u: info.TypeName = "FormationSelectionTemplate"; info.TypeHash = 87133761u; break;
                 case 1963196508u: info.TypeName = "FormationAssistant"; info.TypeHash = 1061339997u; break;
-                default: throw new NotSupportedException("XmlPriority supports only the forty-five recovered types.");
+                case 3249689110u: info.TypeName = "GameStatsModeData"; info.TypeHash = 4003247819u; break;
+                case 402082255u: info.TypeName = "SkirmishSettings"; info.TypeHash = 3814569307u; break;
+                default: throw new NotSupportedException("XmlPriority supports only the fifty-two recovered entries.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
@@ -203,6 +210,18 @@ namespace Recovered.XmlPriority
                     typeName = "UICommandButton";
                     result = global::Recovered.UICommandButtonCompiler.ProcessInstance(instance, platform);
                     break;
+                case 1371131236u:
+                    typeName = "FontDefaultSetting";
+                    result = global::Recovered.FontDefaultSettingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1318336226u:
+                    typeName = "FontTranslation";
+                    result = global::Recovered.FontTranslationCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 91719417u:
+                    typeName = "FontSubstitution";
+                    result = global::Recovered.FontSubstitutionCompiler.ProcessInstance(instance, platform);
+                    break;
                 case 2430161325u:
                     typeName = "Weather";
                     result = global::Recovered.WeatherCompiler.ProcessInstance(instance, platform);
@@ -242,6 +261,14 @@ namespace Recovered.XmlPriority
                 case 2996766068u:
                     typeName = "OrdersManagerSettings";
                     result = global::Recovered.OrdersManagerSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1184276792u:
+                    typeName = "TerrainVisualSettings";
+                    result = global::Recovered.TerrainVisualSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3898802054u:
+                    typeName = "CameraSettings";
+                    result = global::Recovered.CameraSettingsCompiler.ProcessInstance(instance, platform);
                     break;
                 case 3827723072u:
                     typeName = "AIData";
@@ -291,7 +318,15 @@ namespace Recovered.XmlPriority
                     typeName = "FormationAssistant";
                     result = global::Recovered.FormationAssistantCompiler.ProcessInstance(instance, platform);
                     break;
-                default: throw new NotSupportedException("XmlPriority supports only the forty-five recovered types.");
+                case 3249689110u:
+                    typeName = "GameStatsModeData";
+                    result = global::Recovered.GameStatsModeDataCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 402082255u:
+                    typeName = "SkirmishSettings";
+                    result = global::Recovered.SkirmishSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only the fifty-two recovered entries.");
             }
             }
             catch (Exception error)

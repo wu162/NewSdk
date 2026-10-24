@@ -58,6 +58,14 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined","PurchasePlayerTechButtonTemplate"},
         {"RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined","PlayerTechStoreTemplate"},
         {"RecoveryXmlAdditional_UICommandButton_Combined","UICommandButton"},
+        {"RecoveryXmlAdditional_FontDefaultSetting_Defaults","FontDefaultSetting"},
+        {"RecoveryXmlAdditional_FontTranslation_Defaults","FontTranslation"},
+        {"RecoveryXmlAdditional_FontSubstitution_Defaults","FontSubstitution"},
+        {"RecoveryXmlAdditional_FontDefaultSetting_Combined","FontDefaultSetting"},
+        {"RecoveryXmlAdditional_FontTranslation_Combined","FontTranslation"},
+        {"RecoveryXmlAdditional_FontSubstitution_Combined","FontSubstitution"},
+        {"RecoveryXmlAdditional_FontDefaultSetting_Inherited","FontDefaultSetting"},
+        {"RecoveryXmlAdditional_FontSubstitution_Inherited","FontSubstitution"},
         {"RecoveryXmlAdditional_Weather_Defaults","Weather"},
         {"RecoveryXmlAdditional_Weather_Combined","Weather"},
         {"RecoveryXmlAdditional_WaterTransparency_Defaults","WaterTransparency"},
@@ -82,6 +90,10 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlAdditional_TerrainParticleMapping_Inherited","TerrainParticleMapping"},
         {"RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited","BounceKickTerrainMapping"},
         {"RecoveryXmlAdditional_ShadowMap_Inherited","ShadowMap"},
+        {"RecoveryXmlAdditional_TerrainVisualSettings_Defaults","TerrainVisualSettings"},
+        {"RecoveryXmlAdditional_CameraSettings_Defaults","CameraSettings"},
+        {"RecoveryXmlAdditional_TerrainVisualSettings_Combined","TerrainVisualSettings"},
+        {"RecoveryXmlAdditional_CameraSettings_Combined","CameraSettings"},
         {"RecoveryXmlAdditional_AIData_Defaults","AIData"},
         {"RecoveryXmlAdditional_UnitAISettings_Defaults","UnitAISettings"},
         {"RecoveryXmlAdditional_PlayerTemplate_Defaults","PlayerTemplate"},
@@ -93,7 +105,8 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults","FormationAssistantUnitDefinition"},
         {"RecoveryXmlAdditional_FormationAssistantTemplate_Defaults","FormationAssistantTemplate"},
         {"RecoveryXmlAdditional_FormationSelectionTemplate_Defaults","FormationSelectionTemplate"},
-        {"RecoveryXmlAdditional_FormationAssistant_Defaults","FormationAssistant"}
+        {"RecoveryXmlAdditional_FormationAssistant_Defaults","FormationAssistant"},
+        {"RecoveryXmlAdditional_SkirmishSettings_Defaults","SkirmishSettings"}
     };
     static uint TypeId(string name) {
         if(name=="AttributeModifier")return 3319822471u;
@@ -119,6 +132,9 @@ class XmlPrioritySdkOracle {
         if(name=="PurchasePlayerTechButtonTemplate")return 1566941920u;
         if(name=="ButtonSingleStateData")return 3048039928u;
         if(name=="UICommandButton")return 134745024u;
+        if(name=="FontDefaultSetting")return 1371131236u;
+        if(name=="FontTranslation")return 1318336226u;
+        if(name=="FontSubstitution")return 91719417u;
         if(name=="Weather")return 2430161325u;
         if(name=="WaterTransparency")return 1479531562u;
         if(name=="WaterSetting")return 2728605516u;
@@ -129,6 +145,8 @@ class XmlPrioritySdkOracle {
         if(name=="BounceKickTerrainMapping")return 2368878637u;
         if(name=="ShadowMap")return 4157475773u;
         if(name=="OrdersManagerSettings")return 2996766068u;
+        if(name=="TerrainVisualSettings")return 1184276792u;
+        if(name=="CameraSettings")return 3898802054u;
         if(name=="AIData")return 3827723072u;
         if(name=="UnitAISettings")return 2964891936u;
         if(name=="PlayerTemplate")return 4063352333u;
@@ -141,6 +159,8 @@ class XmlPrioritySdkOracle {
         if(name=="FormationAssistantTemplate")return 2912385462u;
         if(name=="FormationSelectionTemplate")return 3374519264u;
         if(name=="FormationAssistant")return 1963196508u;
+        if(name=="GameStatsModeData")return 3249689110u;
+        if(name=="SkirmishSettings")return 402082255u;
         throw new Exception("Unexpected SDK trace type: "+name);
     }
     static InstanceDeclaration Declaration(XmlDocument xml) {
@@ -233,7 +253,7 @@ class XmlPrioritySdkOracle {
             if(!Required.TryGetValue(id,out type) || e.LocalName!=type || !seen.Add(id))
                 throw new Exception("Unexpected, duplicated, or wrong-type source probe: "+id+"/"+e.LocalName);
         }
-        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 81 expected SDK assets");
+        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 94 expected SDK assets");
     }
     static void WriteResult(string path,object value) {
         File.WriteAllText(path,new JavaScriptSerializer().Serialize(value));
@@ -243,7 +263,17 @@ class XmlPrioritySdkOracle {
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();
         schemas.Add(NS,Path.Combine(sdk,"Schemas/xsd/CnC3Types.xsd"));schemas.Compile();
         var source=new XmlDocument();source.Load(probe);source.Schemas=schemas;
-        source.Validate(delegate(object sender,ValidationEventArgs e){throw new Exception("Legal SDK probe: "+e.Message);});
+        var schemaErrors=new List<string>();
+        source.Validate(delegate(object sender,ValidationEventArgs e){
+            XmlSchemaValidationException invalid=e.Exception as XmlSchemaValidationException;
+            XmlNode failed=invalid==null?null:invalid.SourceObject as XmlNode;
+            XmlNode asset=failed;
+            if(asset is XmlAttribute)asset=((XmlAttribute)asset).OwnerElement;
+            while(asset!=null && asset.ParentNode!=source.DocumentElement)asset=asset.ParentNode;
+            string identity=asset is XmlElement ? ((XmlElement)asset).GetAttribute("id") : "unknown-asset";
+            schemaErrors.Add(identity+": "+e.Message);
+        });
+        if(schemaErrors.Count!=0)throw new Exception("Legal SDK probe schema errors ("+schemaErrors.Count+"): \n"+String.Join("\n",schemaErrors.ToArray()));
         int rejected=0;
         foreach(string kind in new[]{"missing-id","missing-physics","bad-fx-attribute"}) {
             var invalid=new XmlDocument();invalid.Load(probe);invalid.Schemas=schemas;var ns=Namespaces(invalid);
@@ -262,13 +292,13 @@ class XmlPrioritySdkOracle {
             ++rejected;
         }
         WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
-        Console.WriteLine("PASS SDK full XSD: 81 assets; 3 negative fixtures rejected.");
+        Console.WriteLine("PASS SDK full XSD: 94 assets; 3 negative fixtures rejected.");
     }
     static void CompareMetadata(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,int platform,ref int fields) {
         if(original.GetVersionNumber()!=recovered.GetVersionNumber())throw new Exception("SDK version differs on platform "+platform);
         if(original.GetAllTypesHash()!=recovered.GetAllTypesHash())throw new Exception("SDK all-types hash differs on platform "+platform);
         fields+=2;
-        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u,2384988189u,4086175864u,838130914u,2912385462u,3374519264u,1963196508u}) {
+        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u,1371131236u,1318336226u,91719417u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,1184276792u,3898802054u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u,2384988189u,4086175864u,838130914u,2912385462u,3374519264u,1963196508u,3249689110u,402082255u}) {
             object a=original.GetExtendedTypeInformation(id),b=recovered.GetExtendedTypeInformation(id);
             if(a==null || b==null)throw new Exception("Null ExtendedTypeInformation");
             foreach(FieldInfo field in typeof(ExtendedTypeInformation).GetFields(BindingFlags.Public|BindingFlags.Instance)) {
@@ -302,7 +332,7 @@ class XmlPrioritySdkOracle {
             if(!refused)throw new Exception("Recovered SDK plugin accepts unknown ProcessInstance type");++rejections;
         }
         if(fields<16)throw new Exception("No metadata fields were compared");
-        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=45,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
+        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=52,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
     static int Main(string[] args) {
@@ -370,7 +400,7 @@ class XmlPrioritySdkOracle {
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
                 if(isolated)NoOriginalAssemblies();
             }
-            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=45)throw new Exception("Incomplete SDK plugin call coverage");
+            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=51)throw new Exception("Incomplete SDK plugin call coverage");
             foreach(string id in Required.Keys)if(!seen.Contains(id))throw new Exception("No real SDK plugin call for "+id);
             foreach(string extension in new[]{"*.xml","*.bin","*.relo","*.imp"}) {
                 string[] files=Directory.GetFiles(trace,extension,SearchOption.TopDirectoryOnly);

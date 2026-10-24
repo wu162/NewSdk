@@ -330,4 +330,14 @@
     <Mapping TerrainClass="Rock" BounceMultiplier="10%" />
   </BounceKickTerrainMapping>
   <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Inherited" inheritFrom="RecoveryXmlAdditional_ShadowMap_Defaults" MapSize="4096" />
+  <TerrainVisualSettings id="RecoveryXmlAdditional_TerrainVisualSettings_Defaults">
+    <WaterPosition x="0" y="0" z="0" />
+    <WaterExtents x="1" y="1" />
+  </TerrainVisualSettings>
+  <CameraSettings id="RecoveryXmlAdditional_CameraSettings_Defaults" />
+  <TerrainVisualSettings id="RecoveryXmlAdditional_TerrainVisualSettings_Combined">
+    <WaterPosition x="10" y="20" z="-2" />
+    <WaterExtents x="128" y="64" />
+  </TerrainVisualSettings>
+  <CameraSettings id="RecoveryXmlAdditional_CameraSettings_Combined" DefaultMinHeight="1" DefaultMaxHeight="2" DefaultPitchAngle="3" DefaultYawAngle="4" DefaultScrollSpeedScalar="5" DefaultHeightMapSmoothnessScalar="6" ScrollAmountCutoff="7" ScrollPitchMultiplier="8" CameraAdjustSpeed="9" ShakeSubtleIntensity="10" ShakeNormalIntensity="11" ShakeStrongIntensity="12" ShakeSevereIntensity="13" ShakeCineExtremeIntensity="14" ShakeCineInsaneIntensity="15" MaxShakeIntensity="16" MaxShakeRange="17" CameraLockHeightDelta="18" CameraTerrainSampleRadiusForHeight="19" CameraEaseFactor="20" />
 </AssetDeclaration>

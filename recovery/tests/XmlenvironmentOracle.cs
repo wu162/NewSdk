@@ -14,9 +14,9 @@ using Recovered;
 class XmlenvironmentOracle {
     static readonly string[] ModelFlagValues={"ABOUT_TO_HIT","ACCELERATE","ACTIVELY_BEING_CONSTRUCTED","ACTIVELY_CONSTRUCTING","AFFECTED_BY_EMP","AFLAME","AIM_FAR","AIM_HIGH","AIM_LOW","AIM_NEAR","AIM_STRAIGHT","AIR_POWER_EFFECT","ALL","ALTERNATE_FORMATION","ARMORSET_ALTERNATE_FORMATION","ARMORSET_ELITE","ARMORSET_HERO","ARMORSET_MOUNTED","ARMORSET_PLAYER_UPGRADE","ARMORSET_PLAYER_UPGRADE_2","ARMORSET_PLAYER_UPGRADE_3","ARMORSET_UNBESIEGEABLE","ARMORSET_VETERAN","ARMORSET_WEAK_VERSUS_BASEDEFENSES","ATTACHED","ATTACKING","ATTACKING_POSITION","ATTACKING_STRUCTURE","ATTACK_MOVING","AWAITING_CONSTRUCTION","BACKCRUSHED","BACKING_UP","BASE_BUILD","BEING_MAULED","BETWEEN_FIRING_SHOTS_A","BETWEEN_FIRING_SHOTS_B","BETWEEN_FIRING_SHOTS_C","BETWEEN_FIRING_SHOTS_D","BETWEEN_FIRING_SHOTS_E","BUILD_PLACEMENT_CURSOR","BUILD_PLACEMENT_HINT","BUILD_VARIATION_ONE","BUILD_VARIATION_TWO","BURNED","BURNINGDEATH","BURNT_MODEL","BURNT_TEXTURE","CANCEL_CAPTURE","CAPTURED","CAPTURE_0","CAPTURE_100","CAPTURE_25","CAPTURE_50","CAPTURE_75","CAPTURING","CARRYING","CHARGING","CHRONORIFT","CLIMBING","COLLAPSING","COMBINED_CHILD","COMBINED_PARENT","COMING_OUT_OF_FACTORY","CONTINUOUS_FIRE_FAST","CONTINUOUS_FIRE_MEAN","CONTINUOUS_FIRE_SLOW","COVER","DAMAGED","DEATH_1","DEATH_10","DEATH_11","DEATH_12","DEATH_13","DEATH_14","DEATH_15","DEATH_2","DEATH_3","DEATH_4","DEATH_5","DEATH_6","DEATH_7","DEATH_8","DEATH_9","DEBUG","DECAY","DECELERATE","DEFLECT_SPECIAL_POWER","DEPLOYED","DESTROYED_BACK","DESTROYED_FRONT","DESTROYED_LEFT","DESTROYED_RIGHT","DESTROYED_WEAPON","DESTROYED_WHILST_BEING_CONSTRUCTED","DISGUISED","DIVING","DOCKING","DOCKING_ACTIVE","DOCKING_BEGINNING","DOCKING_ENDING","DOCKING_EXTRACT","DOCKING_FILL","DOCKING_MOVEBACK","DOCKING_PRE_DOCK","DOCKING_RETURN","DOOR_1_CLOSING","DOOR_1_OPENING","DOOR_1_WAITING_OPEN","DOOR_1_WAITING_TO_CLOSE","DOOR_2_CLOSING","DOOR_2_OPENING","DOOR_2_WAITING_OPEN","DOOR_2_WAITING_TO_CLOSE","DOOR_3_CLOSING","DOOR_3_OPENING","DOOR_3_WAITING_OPEN","DOOR_3_WAITING_TO_CLOSE","DOOR_4_CLOSING","DOOR_4_OPENING","DOOR_4_WAITING_OPEN","DOOR_4_WAITING_TO_CLOSE","DOOR_HELIPAD_CLOSING","DOOR_HELIPAD_OPENING","DOOR_HELIPAD_WAITING_OPEN","DOOR_HELIPAD_WAITING_TO_CLOSE","DRAFTED","DYING","DYING_WASATTACKING","DYING_WASMOVING","EATING","EMOTION_AFRAID","EMOTION_ALERT","EMOTION_AMUSED","EMOTION_BRACE_FOR_BEING_CRUSHED","EMOTION_CELEBRATING","EMOTION_CHEER_FOR_ABOUT_TO_CRUSH","EMOTION_COWER","EMOTION_DISSIDENT","EMOTION_DOOM","EMOTION_GUNG_HO","EMOTION_LOOK_TO_SKY","EMOTION_MORALE_HIGH","EMOTION_MORALE_LOW","EMOTION_PANIC","EMOTION_POINTING","EMOTION_TAUNTING","EMOTION_TERROR","EMOTION_UNCONTROLLABLY_AFRAID","ENGAGED","EXPLODED_BOUNCING","EXPLODED_FLAILING","FIRING_A","FIRING_B","FIRING_C","FIRING_D","FIRING_E","FIRING_OR_PREATTACK_A","FIRING_OR_PREATTACK_B","FIRING_OR_PREATTACK_C","FIRING_OR_PREATTACK_D","FIRING_OR_PREATTACK_E","FIRING_OR_RELOADING_A","FIRING_OR_RELOADING_B","FIRING_OR_RELOADING_C","FIRING_OR_RELOADING_D","FIRING_OR_RELOADING_E","FLOODED","FLYING","FORMATION_PREVIEW","FREEFALL","FRONTCRUSHED","FROZEN","GARRISONED","GUARDING","HARVEST_ACTION","HARVEST_PREPARATION","HEALTH_PERCENT_0","HEALTH_PERCENT_100","HEALTH_PERCENT_25","HEALTH_PERCENT_50","HEALTH_PERCENT_75","HIDDEN","HIGH_TECH_EFFECT","HIT_LEVEL_1","HIT_LEVEL_2","HIT_LEVEL_3","HIT_REACTION","HORDE_EMPTY","IMPENDING_DOOM","INFILTRATED_DISABLE","INFILTRATED_ENERGY","INFILTRATED_RADAR_FREEZE","INFILTRATED_RESET","INFILTRATED_STEAL_MONEY","INFILTRATED_VISION","INFILTRATED_VISION_UNITS","INSIDE_GARRISON","INVALID","INVISIBLE_CAMOUFLAGE","INVISIBLE_STEALTH","INVULNERABLE","IRONCURTAIN","JETAFTERBURNER","JETEXHAUST","JUST_BUILT","LANDING","LAUNCHED","LEASHED_RETURNING","LEVELED","LOADED","LOCOMOTOR_BURNINGDEATH","LOCOMOTOR_CHANGING_FIRINGARC","LOCOMOTOR_COMBO","LOCOMOTOR_COMBO2","LOCOMOTOR_COMBO3","LOCOMOTOR_CONTAINED","LOCOMOTOR_ENRAGED","LOCOMOTOR_FREEFALL","LOCOMOTOR_MOUNTED","LOCOMOTOR_NORMAL_UPGRADED","LOCOMOTOR_PANIC","LOCOMOTOR_SCARED","LOCOMOTOR_SUPERSONIC","LOCOMOTOR_TAXIING","LOCOMOTOR_WALL_SCALING","LOCOMOTOR_WANDER","MARCHING","MARKED_FOR_HUNT_TACTIC","MARKED_FOR_NO_SKIRMISH_RECRUIT","MONEY_STORED_AMOUNT_1","MONEY_STORED_AMOUNT_2","MONEY_STORED_AMOUNT_3","MONEY_STORED_AMOUNT_4","MOUNTED","MOVING","MOVING_OUT_OF_THE_WAY","NIGHT","OVER_WATER","PACKING","PACKING_TYPE_1","PACKING_TYPE_2","PACKING_TYPE_3","PACKING_TYPE_4","PACKING_TYPE_5","PACKING_TYPE_6","PANICKING","PARACHUTE_LAND","PARACHUTING","PARALYZED","PARKINGPLACE_1_DOOR_CLOSED","PARKINGPLACE_1_DOOR_CLOSING","PARKINGPLACE_1_DOOR_OPEN","PARKINGPLACE_1_DOOR_OPENING","PARKINGPLACE_2_DOOR_CLOSED","PARKINGPLACE_2_DOOR_CLOSING","PARKINGPLACE_2_DOOR_OPEN","PARKINGPLACE_2_DOOR_OPENING","PARKINGPLACE_3_DOOR_CLOSED","PARKINGPLACE_3_DOOR_CLOSING","PARKINGPLACE_3_DOOR_OPEN","PARKINGPLACE_3_DOOR_OPENING","PARKINGPLACE_4_DOOR_CLOSED","PARKINGPLACE_4_DOOR_CLOSING","PARKINGPLACE_4_DOOR_OPEN","PARKINGPLACE_4_DOOR_OPENING","PARKINGPLACE_HELIPAD_DOOR_CLOSED","PARKINGPLACE_HELIPAD_DOOR_CLOSING","PARKINGPLACE_HELIPAD_DOOR_OPEN","PARKINGPLACE_HELIPAD_DOOR_OPENING","PARTIALLY_CONSTRUCTED","PASSENGER","PASSENGER_VARIATION_1","PASSENGER_VARIATION_2","PASSENGER_VARIATION_3","PASSENGER_VARIATION_4","PASSENGER_VARIATION_5","PHANTOM_STRUCTURE","PLAYER_POWER_1","POST_COLLAPSE","POST_RUBBLE","POWER_PLANT_UPGRADED","POWER_PLANT_UPGRADING","PREATTACK_A","PREATTACK_B","PREATTACK_C","PREATTACK_D","PREATTACK_E","PREORDER","PREPARING","PRIMARY_FORMATION","PRONE","RADAR_EXTENDING","RADAR_UPGRADED","RAISING_FLAG","RAPPELLING","REACT_1","REACT_2","REACT_3","REACT_4","REACT_5","REACT_6","REALLYDAMAGED","RELOADING_A","RELOADING_B","RELOADING_C","RELOADING_D","RELOADING_E","REPAIRING_DISABLED","RESURRECTED","RIDER1","RIDER2","RIDER3","RIDER4","RIDER5","RIDER6","RIDER7","RIDER8","RIDERLESS","RUBBLE","RUNNING_OFF_MAP","SAIL_BLOWN_LEFT","SAIL_BLOWN_RIGHT","SAIL_FLAPPING","SCALING_WALL","SCALING_WALL_HORDE","SELECTED","SHRINK_EFFECT","SIEGE_CONTAIN","SMOLDERING","SNOW","SOLD","SPECIALPOWER1_READY","SPECIALPOWER2_READY","SPECIALPOWER3_READY","SPECIALPOWER4_READY","SPECIALPOWER5_READY","SPECIALPOWER6_READY","SPECIALPOWER7_READY","SPECIALPOWER8_READY","SPECIALPOWER9_READY","SPECIAL_CHEERING","SPECIAL_DAMAGED","SPECIAL_ENEMY_NEAR","SPECIAL_POWER_1","SPECIAL_POWER_2","SPECIAL_POWER_3","SPECIAL_WEAPON_FIVE","SPECIAL_WEAPON_FOUR","SPECIAL_WEAPON_ONE","SPECIAL_WEAPON_SIX","SPECIAL_WEAPON_THREE","SPECIAL_WEAPON_TWO","SPLATTED","START_CAPTURE","STRUCTURE_UNPACKING","STUNNED","STUNNED_FLAILING","STUNNED_STANDING_UP","SUCKED_UP_HIGH","SUPPRESSED","SWAPPING_TO_WEAPONSET_1","SWAPPING_TO_WEAPONSET_2","SWAPPING_TO_WEAPONSET_3","SWIMMING","SWOOPING","TAKING_OFF","THROWN_PROJECTILE","TIBERIUM_CRYSTAL_TYPE1","TIBERIUM_CRYSTAL_TYPE2","TIBERIUM_CRYSTAL_TYPE3","TIBERIUM_CRYSTAL_TYPE4","TIBERIUM_CRYSTAL_TYPE5","TIBERIUM_GROWING","TOPPLED","TRANSPORT_MOVING","TRANSPORT_STOPPED","TURN_LEFT","TURN_LEFT_HIGH_SPEED","TURN_RIGHT","TURN_RIGHT_HIGH_SPEED","TURRET_ANGLE_0","TURRET_ANGLE_180","TURRET_ANGLE_270","TURRET_ANGLE_90","TURRET_ROTATE","UNCONTROLLABLE","UNDERPOWERED","UNIT_ACTIVELY_BEING_CONSTRUCTED","UNPACKING","UPGRADED_ARMOR","USER_1","USER_10","USER_2","USER_3","USER_4","USER_5","USER_6","USER_7","USER_8","USER_9","USING_COMBO_LOCOMOTOR","USING_SPECIAL_ABILITY","USING_WEAPON_A","USING_WEAPON_B","USING_WEAPON_C","USING_WEAPON_D","USING_WEAPON_E","VEHICLE_CRUSH_CENTER","VEHICLE_CRUSH_LEFT","VEHICLE_CRUSH_RIGHT","WADING","WALKING","WALL_SEGMENT","WANDER","WEAPONLOCK_PRIMARY","WEAPONLOCK_QUATERNARY","WEAPONLOCK_QUINARY","WEAPONLOCK_SECONDARY","WEAPONLOCK_TERTIARY","WEAPONSET_CLOSE_RANGE","WEAPONSET_CONTAINED","WEAPONSET_CONTESTING_BUILDING","WEAPONSET_ELITE","WEAPONSET_GARRISONED","WEAPONSET_HERO","WEAPONSET_MOUNTED","WEAPONSET_PASSENGER_TYPE_ONE","WEAPONSET_PASSENGER_TYPE_TWO","WEAPONSET_PLAYER_UPGRADE","WEAPONSET_RIDER1","WEAPONSET_RIDER2","WEAPONSET_RIDER3","WEAPONSET_RIDER4","WEAPONSET_SPECIAL_ONE","WEAPONSET_SPECIAL_TWO","WEAPONSET_SPECIAL_UPGRADE","WEAPONSET_TOGGLE_1","WEAPONSET_TOGGLE_2","WEAPONSET_TOGGLE_3","WEAPONSET_VETERAN","WEAPONSLOTID_01","WEAPONSLOTID_02","WEAPONSLOTID_03","WEAPONSLOTID_04","WEAPONSLOTID_05","WEAPONSLOTID_06","WEAPONSLOTID_07","WEAPONSLOTID_08","WEAPONSLOTID_09","WEAPONSLOTID_10","WEAPONSTATE_CLOSE_RANGE","WEAPONSTATE_CONTAINED","WEAPONSTATE_ONE","WEAPONSTATE_THREE","WEAPONSTATE_TWO","WEAPON_TOGGLING","WORLD_BUILDER","UNKNOWN","moving",""," ","+MOVING","-MOVING","MOVING MOVING","MOVING -MOVING","ALL -MOVING","-ALL MOVING","all","NONE","MOVING\tATTACKING"};
     const string NS="uri:ea.com:eala:asset";
-    static readonly string[] Types={"Weather","WaterTransparency","WaterSetting","Environment","LightingSettings","WaterTextureList","TerrainParticleMapping","BounceKickTerrainMapping","ShadowMap","OrdersManagerSettings"};
-    static readonly int[] Sizes={24,16,12,156,48,16,16,12,16,128};
-    static readonly uint[] TypeIds={2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u};
+    static readonly string[] Types={"Weather","WaterTransparency","WaterSetting","Environment","LightingSettings","WaterTextureList","TerrainParticleMapping","BounceKickTerrainMapping","ShadowMap","OrdersManagerSettings","TerrainVisualSettings","CameraSettings"};
+    static readonly int[] Sizes={24,16,12,156,48,16,16,12,16,128,28,84};
+    static readonly uint[] TypeIds={2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,1184276792u,3898802054u};
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","4294967295","4294967296","077","0xff","1e400","-1e400"};
     static readonly string[] Refs={"","Name","Name\\0","Name\\27","Name\\-1","Name\\2147483648","Name\\ +17junk","资源\\7","MIXEDCase"};
     static readonly string[] Bools={"true","false","TRUE","1","0","t","T"," true","yes","","10"};
@@ -177,8 +177,8 @@ class XmlenvironmentOracle {
         new string[]{"ShadowMap","","MaxViewDistance","Float",""},
         new string[]{"ShadowMap","","MinShadowedTerrainHeight","Float",""},
         new string[]{"OrdersManagerSettings","","LineFadeTime","Time",""},
-        new string[]{"OrdersManagerSettings","","FormationPreviewShader","Reference",""},
-        new string[]{"OrdersManagerSettings","","BuildPlacementShader","Reference",""},
+        new string[]{"OrdersManagerSettings","","FormationPreviewShader","NullableReference",""},
+        new string[]{"OrdersManagerSettings","","BuildPlacementShader","NullableReference",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","Width","Float",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","VOffsetRate","Float",""},
         new string[]{"OrdersManagerSettings","ExecutingLine","Texture","Reference",""},
@@ -275,6 +275,32 @@ class XmlenvironmentOracle {
         new string[]{"OrdersManagerSettings","PendingStart","IsRotatingWithObject","Bool",""},
         new string[]{"OrdersManagerSettings","PendingStart","LocalPlayerOnly","Bool",""},
         new string[]{"OrdersManagerSettings","PendingStart","SunAngle","Float",""},
+        new string[]{"TerrainVisualSettings","","LoadAfter","Reference",""},
+        new string[]{"TerrainVisualSettings","WaterPosition","x","Float",""},
+        new string[]{"TerrainVisualSettings","WaterPosition","y","Float",""},
+        new string[]{"TerrainVisualSettings","WaterPosition","z","Float",""},
+        new string[]{"TerrainVisualSettings","WaterExtents","x","Float",""},
+        new string[]{"TerrainVisualSettings","WaterExtents","y","Float",""},
+        new string[]{"CameraSettings","","DefaultMinHeight","Float",""},
+        new string[]{"CameraSettings","","DefaultMaxHeight","Float",""},
+        new string[]{"CameraSettings","","DefaultPitchAngle","Float",""},
+        new string[]{"CameraSettings","","DefaultYawAngle","Float",""},
+        new string[]{"CameraSettings","","DefaultScrollSpeedScalar","Float",""},
+        new string[]{"CameraSettings","","DefaultHeightMapSmoothnessScalar","Float",""},
+        new string[]{"CameraSettings","","ScrollAmountCutoff","Float",""},
+        new string[]{"CameraSettings","","ScrollPitchMultiplier","Float",""},
+        new string[]{"CameraSettings","","CameraAdjustSpeed","Float",""},
+        new string[]{"CameraSettings","","ShakeSubtleIntensity","Float",""},
+        new string[]{"CameraSettings","","ShakeNormalIntensity","Float",""},
+        new string[]{"CameraSettings","","ShakeStrongIntensity","Float",""},
+        new string[]{"CameraSettings","","ShakeSevereIntensity","Float",""},
+        new string[]{"CameraSettings","","ShakeCineExtremeIntensity","Float",""},
+        new string[]{"CameraSettings","","ShakeCineInsaneIntensity","Float",""},
+        new string[]{"CameraSettings","","MaxShakeIntensity","Float",""},
+        new string[]{"CameraSettings","","MaxShakeRange","Float",""},
+        new string[]{"CameraSettings","","CameraLockHeightDelta","Float",""},
+        new string[]{"CameraSettings","","CameraTerrainSampleRadiusForHeight","Float",""},
+        new string[]{"CameraSettings","","CameraEaseFactor","Float",""},
     };
     static void AbiCases(TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
@@ -316,11 +342,22 @@ class XmlenvironmentOracle {
         for(int i=0;i<lines.Length;++i)body.Append("<"+lines[i]+" Texture='Name\\"+i+"'/>");
         for(int i=0;i<nodes.Length;++i)body.Append("<"+nodes[i]+" Texture='Name\\"+(10+i)+"' AdditionalTexture='Name\\"+(20+i)+"'/>");
         AssetBuffer orders=Test("ABI/Orders",Root("OrdersManagerSettings","FormationPreviewShader='Name\\30' BuildPlacementShader='Name\\31'",body.ToString()),p);
-        Check(orders.InstanceData.Length==368&&Word(orders.InstanceData,4,big)==0x3e800000u,"Orders root size/time");
+        Check(orders.InstanceData.Length==376&&Word(orders.InstanceData,4,big)==0x3e800000u,"Orders root size/time");
         for(int i=0;i<lines.Length;++i){Check(Word(orders.InstanceData,16+16*i,big)==0x3fc00000u&&Word(orders.InstanceData,28+16*i,big)==0x41f00000u,"line defaults and inline offsets");}
-        for(int i=0;i<nodes.Length;++i){int at=128+60*i;Check(Word(orders.InstanceData,112+4*i,big)==at,"shadow pointer allocation order");Check(Word(orders.InstanceData,at+36,big)==0x3f800000u&&Word(orders.InstanceData,at+48,big)==0x41a00000u,"shadow initialized defaults");Check(orders.InstanceData[at+56]==0&&orders.InstanceData[at+57]==0&&orders.InstanceData[at+58]==1&&orders.InstanceData[at+59]==0,"shadow packed boolean defaults");}
-        int[] imports={8,12,24,40,56,72,88,104,132,136,192,196,252,256,312,316};Check(orders.ImportsData.Length==4*(imports.Length+1),"Orders import count");for(int i=0;i<imports.Length;++i)Check(Word(orders.ImportsData,4*i,big)==imports[i],"Orders reference field offsets");
+        for(int i=0;i<nodes.Length;++i){int at=136+60*i;Check(Word(orders.InstanceData,112+4*i,big)==at,"shadow pointer allocation order");Check(Word(orders.InstanceData,at+36,big)==0x3f800000u&&Word(orders.InstanceData,at+48,big)==0x41a00000u,"shadow initialized defaults");Check(orders.InstanceData[at+56]==0&&orders.InstanceData[at+57]==0&&orders.InstanceData[at+58]==1&&orders.InstanceData[at+59]==0,"shadow packed boolean defaults");}
+        Check(Word(orders.InstanceData,8,big)==128&&Word(orders.InstanceData,12,big)==132,"nullable shader block allocation order");
+        int[] imports={24,40,56,72,88,104,128,132,140,144,200,204,260,264,320,324};Check(orders.ImportsData.Length==4*(imports.Length+1),"Orders import count");for(int i=0;i<imports.Length;++i)Check(Word(orders.ImportsData,4*i,big)==imports[i],"Orders reference field offsets");
         Reject("duplicate order line",Root("OrdersManagerSettings","","<ExecutingLine/><ExecutingLine/>"));Reject("duplicate order shadow",Root("OrdersManagerSettings","","<PatrolNode/><PatrolNode/>"));
+    }
+    static void CameraAbi(TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        AssetBuffer terrain=Test("ABI/TerrainVisualSettings",Root("TerrainVisualSettings","LoadAfter='Name\\7'","<WaterPosition x='1' y='2' z='3'/><WaterExtents x='4' y='5'/>"),p);
+        Check(terrain.InstanceData.Length==28&&Word(terrain.InstanceData,8,big)==0x3f800000u&&Word(terrain.InstanceData,12,big)==0x40000000u&&Word(terrain.InstanceData,16,big)==0x40400000u&&Word(terrain.InstanceData,20,big)==0x40800000u&&Word(terrain.InstanceData,24,big)==0x40a00000u,"TerrainVisual independent vectors");Check(terrain.RelocationData.Length==0&&Word(terrain.ImportsData,0,big)==4,"TerrainVisual direct LoadAfter import");
+        string[] names=new string[]{"DefaultMinHeight","DefaultMaxHeight","DefaultPitchAngle","DefaultYawAngle","DefaultScrollSpeedScalar","DefaultHeightMapSmoothnessScalar","ScrollAmountCutoff","ScrollPitchMultiplier","CameraAdjustSpeed","ShakeSubtleIntensity","ShakeNormalIntensity","ShakeStrongIntensity","ShakeSevereIntensity","ShakeCineExtremeIntensity","ShakeCineInsaneIntensity","MaxShakeIntensity","MaxShakeRange","CameraLockHeightDelta","CameraTerrainSampleRadiusForHeight","CameraEaseFactor"};StringBuilder attributes=new StringBuilder();
+        for(int i=0;i<names.Length;++i)attributes.Append(names[i]+"='"+(i+1)+"' ");
+        AssetBuffer camera=Test("ABI/CameraSettings",Root("CameraSettings",attributes.ToString(),""),p);Check(camera.InstanceData.Length==84&&camera.RelocationData.Length==0&&camera.ImportsData.Length==0,"Camera independent fixed root size");
+        for(int i=0;i<names.Length;++i)Check(Word(camera.InstanceData,4+4*i,big)==BitConverter.ToUInt32(BitConverter.GetBytes((float)(i+1)),0),"Camera field offset/no angle scaling "+names[i]);
+        Reject("truncated camera literal",Root("CameraSettings","CameraTerrainSampleRadiusForHeig='1'",""));Reject("duplicate terrain water",Root("TerrainVisualSettings","","<WaterPosition/><WaterPosition/>"));
     }
     static void Matrix(TargetPlatform p) {
         original.Initialize(null,p);
@@ -332,7 +369,7 @@ class XmlenvironmentOracle {
             Reject("text/"+Types[i],Root(Types[i],"","payload"));
         }
         foreach(string[] f in FieldCases) {
-            string[] values=f[3]=="Time"?TimeValues:f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="Hash")?Refs:Numbers;
+            string[] values=f[3]=="Time"?TimeValues:f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="NullableReference"||f[3]=="Hash")?Refs:Numbers;
             foreach(string value in values)TestDoc("field/"+f[0]+"/"+f[1]+"/"+f[2]+"/"+value,FieldDocument(f[0],f[1],f[2],value),p);
             XmlDocument metadata=FieldDocument(f[0],f[1],f[2],values[0]);foreach(XmlNode node in metadata.SelectNodes("//*"))((XmlElement)node).SetAttribute("TypeId","1");TestDoc("field-metadata/"+f[0]+"/"+f[1]+"/"+f[2],metadata,p);
             XmlDocument invalid=FieldDocument(f[0],f[1],f[2],values[0]);XmlNodeList nodes=invalid.SelectNodes("//*");((XmlElement)nodes[nodes.Count-1]).SetAttribute("Unknown","1");Reject("nested unknown",invalid.OuterXml);
@@ -360,6 +397,7 @@ class XmlenvironmentOracle {
         AbiCases(p);
         MappingAbi(p);
         OrdersAbi(p);
+        CameraAbi(p);
         bool rejected=false;try{XmlenvironmentCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){rejected=true;}Check(rejected,"null declaration rejected");++rejections;
     }
     static int Main(string[] args) {

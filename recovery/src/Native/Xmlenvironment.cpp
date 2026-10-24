@@ -14,7 +14,7 @@
 #endif
 namespace Recovered { namespace Native { namespace EnvironmentDetail {
 using Relo::U32;
-enum class Kind { Float,Signed,Unsigned,Bool,Reference,Hash,Enum,Percentage,ModelFlags,Time };
+enum class Kind { Float,Signed,Unsigned,Bool,Reference,Hash,Enum,Percentage,ModelFlags,Time,NullableReference };
 struct Field { const char* name; unsigned offset; Kind kind; const char* fallback; const char* enumeration; };
 enum class ChildKind { Inline,Pointer,List };
 struct Child { const char* name; const char* type; unsigned offset; ChildKind kind; };
@@ -80,6 +80,7 @@ struct Builder {
             case Kind::Unsigned:Word(p,ParseUnsigned(text));break;
             case Kind::Bool:*p=ParseBoolean(text);break;
             case Kind::Reference:MarshalReference(data,p,text);break;
+            case Kind::NullableReference:{auto item=Allocate(p,4);MarshalReference(data,item,text);data.Pop();break;}
             case Kind::Hash:Word(p,HashAssetId(text));break;
             case Kind::Enum:Word(p,Enum(f.enumeration,text));break;
             }
@@ -115,6 +116,8 @@ unsigned int XmlenvironmentTypeId(const std::string& name) {
     if(name=="BounceKickTerrainMapping")return 2368878637u;
     if(name=="ShadowMap")return 4157475773u;
     if(name=="OrdersManagerSettings")return 2996766068u;
+    if(name=="TerrainVisualSettings")return 1184276792u;
+    if(name=="CameraSettings")return 3898802054u;
     if(name=="Weather")return 2430161325u;
     if(name=="WaterTransparency")return 1479531562u;
     if(name=="WaterSetting")return 2728605516u;
