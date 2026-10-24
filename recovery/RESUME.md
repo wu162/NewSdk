@@ -8,11 +8,17 @@
 
 AIUpdate/Jet/Horde/SupplyTruck/Transport/Animal/Wander/DeployStyle全部字段、UnitChooser40和完整BaseChooser/VisionRange/Filter依赖已恢复。AI chooser指针@68、bool@72/@73；UnitChooser先强引用@36再BaseChooser。Horde/Transport保留独立Token父层。AutoAcquire未知词设bit4（ATTACK_BUILDINGS），不是忽略；StateMachine未知回退0、LocomotorSet回退12。
 
-## 当前实现批次：经济/采集七模块，未验收
+## 当前实现批次：经济/采集七模块及辅助四模块，未验收
 
 整组DockUpdate28、OreNode72、OreMiner20、SupplyCenterDock36、SupplyWarehouseDock36、GatherSlaves20、GatherEject172已接入并准备完整测试，尚不增加144计数。固定原Tokenizer blob6e40a9ed6c9f961d294d49768d911e6a6f354619的75个方法和枚举在recovery/evidence/gameobject-modules/economy-source；GenerateEconomyFields.py本地证据校验通过，Windows还需原源码/PE核对与/Od、/O2四平台完整差分。
 
 Dock含nullable Filter@20；OreMiner含nullable ObjectStatusValidation@16；GatherEject是inline Vector3@36/@48及完整inline ObjectFilter@60。OreNode的四个Animation是单枚举，未知回退233；不是模型状态bitset。SupplyWarehouse StartingBoxes是signed，GatherSlaves Amount是unsigned。具体合同在生成器/原方法，最终结果以validation sourceCommit/runId及实际终态为准。
+
+辅助四模块完整实现见GAMEOBJECT_ASSIST.md，经济组见GAMEOBJECT_ECONOMY.md。HintObjectMapping20含nullable PlayerTemplate typed-ID、弱HintDisplayObject和nullable Filter；Info36含HintObject列表、nullable PlacementRestriction8及inline Vector3。PlacementHint默认NONE为bit0，未知词设bit3；WeaponSlotType未知回退5。
+
+当前待验收实际源码16a37d05276242c29eddaee4726c6ed92603dac0，GameObject run40078985685、基础run40078985621；不得在实际成功前增加144计数。经济组两次独立断言错误（RequiredStatus应在结构@28、Animation单枚举ALL=454）已修正，最终矩阵保留全部原样本与断言。
+
+下一完整组见GAMEOBJECT_SPAWN_UPDATE_NEXT.md：SpawnBehavior/OCLUpdate/OCLMonitorUpdate。原61方法已核对固定blob；DamageType/DeathType/OCLMonitorOption PE表仍待补齐，三型继续拒绝，取证不计支持。
 
 ## 执行规则与已知限制
 

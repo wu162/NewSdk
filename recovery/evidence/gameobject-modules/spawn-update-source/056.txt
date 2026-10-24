@@ -1,0 +1,61 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 68660; body SHA256 6a43c9e3c03355aaee0b20836745960da6bd92fdb3dd41a5fcad56a0c84fa649
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(sbyte* text, List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* target, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = 0;
+		uint num;
+		try
+		{
+			num = Marshaler_002EUtils_002ETokenize(&auto_ptr_003Cchar_003E, text);
+			if (num != 0)
+			{
+				goto IL_002d;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+		return;
+		IL_002d:
+		try
+		{
+			*(uint*)target = num;
+			List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* ptr = (List_003CRelo_003A_003AString_003Cchar_003E_0020_003E*)((byte*)target + 4);
+			Relo_002ETracker_002EPush(tracker, (void**)ptr, 8u, num);
+			sbyte* ptr2 = (sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E));
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				do
+				{
+					Marshaler_002EMarshal_003Cchar_003E(ptr2, (String_003Cchar_003E*)(int)(num2 * 8 + (uint)(*(int*)ptr)), tracker);
+					sbyte* ptr3 = ptr2;
+					if (*ptr2 != 0)
+					{
+						do
+						{
+							ptr3++;
+						}
+						while (*ptr3 != 0);
+					}
+					ptr2 = ptr3 - (nuint)ptr2 + (nuint)ptr2 + 1;
+					num2++;
+				}
+				while (num2 < num);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}
+

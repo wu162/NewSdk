@@ -1,6 +1,6 @@
 # GameObject 多态模块：公共能力组
 
-当前扩展：46/322个已知Marshal模块已恢复；276个仍拒绝。Body九种XSD、ClientUpdate六种XSD和两个声音播放模块均完整支持，见GAMEOBJECT_BODY.md、GAMEOBJECT_CLIENT_UPDATES.md、GAMEOBJECT_SOUND_PLAYBACK.md。下述31公共类型结果是此前历史锚点。
+本文件保留公共能力组的历史记录；最新已验收总数、拒绝范围及验证锚点以RESUME.md为准。历史扩展记录：46/322个已知Marshal模块已恢复；当时276个仍拒绝。Body九种XSD、ClientUpdate六种XSD和两个声音播放模块均完整支持，见GAMEOBJECT_BODY.md、GAMEOBJECT_CLIENT_UPDATES.md、GAMEOBJECT_SOUND_PLAYBACK.md。下述31公共类型结果是此前历史锚点。
 
 状态：**完整公共能力组已实现并通过原DLL差分。** 源码`afac552209d4880e883f2d37189c896a1823e4a6`；run https://github.com/wu162/NewSdk/actions/runs/39961644190 success。/Od、/O2每模式69,744 fixtures、209,232三缓冲区比较、8,264拒绝、204不变性比较，四平台含99。基础回归run39961644145 success。SDK未运行，原路由保留。
 
@@ -79,3 +79,4 @@
 优先完成Body XSD的其余七种类型（ActiveBody、ShieldBody、ImmortalBody、HighlanderBody、ManagerBody、ManagedActiveBody、ManagedImmortalBody）；InactiveBody和PropBody已经包含在公共组。共享ActiveBody字段和相关Enum/列表/资源一次调查、一次实现、一次完整矩阵。仍须读取实际Marshal/endian/Token和未知helper，不能把nativeSize或类型名称当作字段语义。
 
 Body下一组调查见GAMEOBJECT_BODY.md；不是已恢复声明。
+

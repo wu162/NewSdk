@@ -1,4 +1,6 @@
-# 下一完整能力组：AI Update八模块（尚未实现）
+# AI Update八模块：恢复前交接记录
+
+**已完成：最终源码c7788592d20f1c4fbdc63f422b647595b840253d / run40077851777 success。当前实现、未知词bit4纠正及完整验证见GAMEOBJECT_AI_UPDATE.md和RESUME.md。以下保留恢复前调查，不代表当前拒绝范围。**
 
 原证据已导出：源码bae88f824dd018ba5a46ba390ab5f095cc046d07 / run40072829359 success。recovery/evidence/gameobject-modules/ai-update-source共96个精确方法及enum-source.json；固定原Tokenizer blob6e40a9ed6c9f961d294d49768d911e6a6f354619，按manifest.signature/bodySha定位，不沿用旧文件编号。该成功只是原方法导出，不是组件/SDK支持。
 
@@ -24,3 +26,4 @@ UnitAITargetChooserData包装Marshal076内联完整40字节：先TargetingCompar
 下一步：先读本文件及对应manifest，读取完整Marshal/Token/endian与未知helper，核对原PE枚举；按完整八类型及全部必要依赖一次恢复，测试随代码准备。覆盖六容器、全字段与枚举/fallback、缺失/显式空、强引用/typed ID、nullable字符串/Chooser、原BaseChooser全部VisionRange/Filter依赖、继承Token/sentinel、拒绝与XML次序不变性；统一完整GameObject /Od、/O2四平台0/1/2/99和三缓冲区逐字节差分、适用共享回归。及时普通推送未验证检查点，不把取证当实现；SDK继续按大里程碑集中验证，原路由保留。
 
 本轮收尾补充：weapon-state-source与ai-update-source的BaseChooser、ObjectVisionRangeItem、ObjectFilter共8个同签名Marshal/Token/endian方法bodySHA已逐项比对相同。可复用这部分已验收实现；新UnitChooser包装、各AI具体字段和派生Token仍须独立恢复/验证。
+

@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61470; body SHA256 2b74b342d59bb8fb2e3ab9294aa2cfbf15476285759383c76cacc587113a19b4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AOCLMonitorUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		OCLMonitorUpdateModuleData* ptr = (OCLMonitorUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -247093657;
+	}
+
