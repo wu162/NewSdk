@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 59177; body SHA256 035be9705752d83f53132fa65b50c96ea747da76d79b931d62634c402e02a1ac
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003APlayerTemplate_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, TypedAssetId_003CSageBinaryData_003A_003APlayerTemplate_003E** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003APlayerTemplate_003E(text, (TypedAssetId_003CSageBinaryData_003A_003APlayerTemplate_003E*)(int)(*(uint*)@object), state);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+

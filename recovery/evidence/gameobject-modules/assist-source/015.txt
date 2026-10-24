@@ -1,0 +1,24 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 23309; body SHA256 58406c2616a3d0aa0de012b857dfaa839a7bd53820ca151e85343c14b5698176
+// Literals: {"_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040": "", "_003F_003F_C_0040_0N_0040GMEBHEMC_0040WeaponSlotID_003F_0024AA_0040": "WeaponSlotID", "_003F_003F_C_0040_0P_0040HIOOOIFF_0040WeaponSlotType_003F_0024AA_0040": "WeaponSlotType", "_003F_003F_C_0040_0N_0040PCPHHJLC_0040ObjectStatus_003F_0024AA_0040": "ObjectStatus"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, AttackAssistResponseBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040PCPHHJLC_0040ObjectStatus_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)@object + 8), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040GMEBHEMC_0040WeaponSlotID_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				((int*)@object)[9] = (int)strtoul(ptr3, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal_003Cenum_0020WeaponSlotType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040HIOOOIFF_0040WeaponSlotType_003F_0024AA_0040), null), (WeaponSlotType*)@object + 10, state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+
