@@ -76,6 +76,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectSpecialPowerDerived.h"
 #include "GameObjectPowerRouting.h"
 #include "GameObjectSpecialAbility.h"
+#include "GameObjectAbilityWeapon.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -1013,6 +1014,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 
 

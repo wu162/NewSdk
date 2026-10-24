@@ -4,6 +4,12 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=194 && choice->kind<=197) {
+        for(const auto& field:abilityFields) if(attribute==field.name) return true;
+        const auto& own=abilityWeaponFieldSets[choice->kind-194];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(choice->kind==195) for(const auto& field:abilityWeaponFields0) if(attribute==field.name) return true;
+        return false;
+    }
     if(choice->kind>=191 && choice->kind<=193) {
         for(const auto& field:abilityFields) if(attribute==field.name) return true;return false;
     }
@@ -100,6 +106,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=194 && kind<=197) return GameObjectModuleNodeKind(191,path);
     if(kind>=191 && kind<=193) return path=="CustomAnimAndDuration"?1:0;
     if(kind>=188 && kind<=190) {
         if(kind==188) return path=="InitiateSound"?1:0;
@@ -248,6 +255,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=194 && kind<=197) return GameObjectModuleNodeAttribute(191,path,attribute);
     if(kind>=191 && kind<=193) {
         if(path=="CustomAnimAndDuration") for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;
         return false;
@@ -355,4 +363,5 @@ bool GameObjectModuleChildSupported(const std::string& parent,const std::string&
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
     return false;
 }
+
 
