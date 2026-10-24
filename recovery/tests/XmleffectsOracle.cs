@@ -224,8 +224,9 @@ class XmleffectsOracle {
                         uint at=Word(bits.InstanceData,(int)item+4+4*field,big);
                         if(at==0 || at>bits.InstanceData.Length-60) throw new Exception("Model-condition allocation");
                         for(int word=0;word<15;++word) {
-                            uint expected=modelValues[i]>=0 && modelValues[i]/32==word ? 1u<<(modelValues[i]&31) : 0u;
-                            if(Word(bits.InstanceData,(int)at+4*word,big)!=expected) throw new Exception("Model-condition independent bit layout");
+                            uint expected=modelNames[i]=="ALL" ? UInt32.MaxValue : (modelValues[i]>=0 && modelValues[i]/32==word ? 1u<<(modelValues[i]&31) : 0u);
+                            uint actual=Word(bits.InstanceData,(int)at+4*word,big);
+                            if(actual!=expected) throw new Exception("Model-condition independent bit layout: platform="+platformId+" name="+modelNames[i]+" field="+field+" word="+word+" expected="+expected+" actual="+actual);
                         }
                     }
                 }
