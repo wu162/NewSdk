@@ -1,0 +1,30 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 bb7e1002bcdf220bab83a5878018e8dbdf1055e12f96cee3811d33b8f4d064e5
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(HordeGarrisonContainModuleData* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 160)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 160)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 160)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[160];
+			((int*)@object)[40] = (int)num;
+		}
+		uint num2 = ((uint*)@object)[41];
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num2, state);
+		}
+		uint num3 = ((uint*)@object)[42];
+		if (num3 != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num3, state);
+		}
+		uint num4 = ((uint*)@object)[43];
+		if (num4 != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num4, state);
+		}
+		Marshaler_002EEndianCorrect((GarrisonContainModuleData*)@object, state);
+	}

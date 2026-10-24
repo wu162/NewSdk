@@ -432,7 +432,7 @@ const ModuleField controlTeleportStoredObjectsUpdateModuleDataFields[] = {
     { "GetObjectsCurrentlyAtStorePosition", 56u, ModuleValue::Boolean, "false", nullptr },
     { "Telefrag", 32u, ModuleValue::Enum, "NONE", &controlTelefragType },
     { "SpecialPowerTemplate", 36u, ModuleValue::Reference, nullptr, nullptr },
-    { "Shader", 40u, ModuleValue::Reference, nullptr, nullptr },
+    { "Shader", 40u, ModuleValue::NullableReference, nullptr, nullptr },
     { "DisabledTypesToProcess", 44u, ModuleValue::Bits, "HELD", &controlDisabledType },
 };
 const ModuleToken controlTeleportStoredObjectsUpdateModuleDataTokens[] = {
@@ -446,7 +446,7 @@ const ModuleToken controlTeleportStoredObjectsUpdateModuleDataTokens[] = {
     { 2500963768u, 2011428087u, 56u, nullptr, 0u, 0u },
     { 3770217846u, 2151967288u, 32u, nullptr, 0u, 0u },
     { 2178440954u, 2934454408u, 36u, nullptr, 0u, 0u },
-    { 4090480742u, 2316748305u, 40u, nullptr, 0u, 0u },
+    { 4090480742u, 2316748305u, 40u, nullptr, 2u, 0u },
     { 943614829u, 426078409u, 44u, nullptr, 0u, 0u },
     { 1874456930u, 3832456114u, 48u, nullptr, 7u, 0u },
     { 1324960701u, 3832456114u, 52u, nullptr, 7u, 0u },
@@ -461,12 +461,12 @@ const ModuleToken controlCaptureAndGiveUpgradeBehaviorModuleDataTokens[] = {
 };
 const ModuleLayout controlCaptureAndGiveUpgradeBehaviorModuleData = { controlCaptureAndGiveUpgradeBehaviorModuleDataTokens, 2u };
 const ModuleField controlWeaponScatterEffectUpdateModuleDataFields[] = {
-    { "WeaponTemplate", 8u, ModuleValue::Reference, nullptr, nullptr },
+    { "WeaponTemplate", 8u, ModuleValue::NullableReference, nullptr, nullptr },
     { "RandomScatter3D", 132u, ModuleValue::Boolean, "false", nullptr },
 };
 const ModuleToken controlWeaponScatterEffectUpdateModuleDataTokens[] = {
     { 1u, 4043318533u, 0u, &spawnUpdateModuleData, 0u, 0u },
-    { 2496977262u, 3494305058u, 8u, nullptr, 0u, 0u },
+    { 2496977262u, 3494305058u, 8u, nullptr, 2u, 0u },
     { 2843883817u, 2011428087u, 132u, nullptr, 0u, 0u },
     { 2232828223u, 2653107453u, 12u, &controlScatterDamage, 0u, 0u },
     { 2239343654u, 3832456114u, 20u, nullptr, 8u, 0u },
@@ -520,8 +520,8 @@ const ModuleField controlSqueezeFlingUpdateModuleDataFields[] = {
     { "EffectDistance", 16u, ModuleValue::Float, "125.0", nullptr },
     { "GatherAcceleration", 20u, ModuleValue::Float, "0.01", nullptr },
     { "ModelLength", 24u, ModuleValue::Float, "100.0", nullptr },
-    { "ArmTemplate", 28u, ModuleValue::Reference, nullptr, nullptr },
-    { "VictimShader", 32u, ModuleValue::Reference, nullptr, nullptr },
+    { "ArmTemplate", 28u, ModuleValue::NullableReference, nullptr, nullptr },
+    { "VictimShader", 32u, ModuleValue::NullableReference, nullptr, nullptr },
     { "HeightOffGround", 36u, ModuleValue::Float, "50.0", nullptr },
 };
 const ModuleToken controlSqueezeFlingUpdateModuleDataTokens[] = {
@@ -531,8 +531,8 @@ const ModuleToken controlSqueezeFlingUpdateModuleDataTokens[] = {
     { 1238282684u, 1683514611u, 16u, nullptr, 0u, 0u },
     { 152576142u, 1683514611u, 20u, nullptr, 0u, 0u },
     { 3260099139u, 1683514611u, 24u, nullptr, 0u, 0u },
-    { 2722816387u, 3215691893u, 28u, nullptr, 0u, 0u },
-    { 1381588158u, 2316748305u, 32u, nullptr, 0u, 0u },
+    { 2722816387u, 3215691893u, 28u, nullptr, 2u, 0u },
+    { 1381588158u, 2316748305u, 32u, nullptr, 2u, 0u },
     { 480212168u, 1683514611u, 36u, nullptr, 0u, 0u },
     { 2239343654u, 3832456114u, 40u, nullptr, 8u, 0u },
     { 7583309u, 3832456114u, 152u, nullptr, 7u, 0u },

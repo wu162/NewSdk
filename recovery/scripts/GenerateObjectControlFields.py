@@ -6,12 +6,12 @@ ROOT=Path(__file__).resolve().parents[2];E=ROOT/'recovery/evidence/gameobject-mo
 SETS=[
  [('ToppleFX',8,'Reference',None,None),('BounceFX',12,'Reference',None,None),('StumpId',16,'AssetId',None,None),('InitialVelocityPercent',20,'Percent','20%',None),('InitialAccelPercent',24,'Percent','1%',None),('BounceVelocityPercent',28,'Percent','20%',None),('MinimumToppleSpeed',32,'Float','0.5',None)]+[(n,o,'Boolean','false',None) for n,o in [('KillWhenToppled',36),('KillWhenStartToppled',37),('KillStumpWhenToppled',38),('ToppleLeftOrRightOnly',39),('ReorientToppledRubble',40)]],
  [('InitialDelay',8,'Time','0.5s',None),('LiftVelocity',12,'Float','1.0',None),('DeathHeight',16,'Float','420',None),('Radius',20,'Float','10.0',None),('Duration',24,'Time','10.0s',None)],
- [('TriggerFX',8,'Reference',None,None),('TargetFX',12,'Reference',None,None),('FadeInTime',16,'Time','0s',None),('InitialDelayTime',20,'Time','0s',None),('DelayTime',24,'Time','0s',None),('ScaleFadeInTimeByDistance',28,'Float','0.0',None),('GetObjectsCurrentlyAtStorePosition',56,'Boolean','false',None),('Telefrag',32,'Enum','NONE','TelefragType'),('SpecialPowerTemplate',36,'Reference',None,None),('Shader',40,'Reference',None,None),('DisabledTypesToProcess',44,'Bits','HELD','DisabledType')],
+ [('TriggerFX',8,'Reference',None,None),('TargetFX',12,'Reference',None,None),('FadeInTime',16,'Time','0s',None),('InitialDelayTime',20,'Time','0s',None),('DelayTime',24,'Time','0s',None),('ScaleFadeInTimeByDistance',28,'Float','0.0',None),('GetObjectsCurrentlyAtStorePosition',56,'Boolean','false',None),('Telefrag',32,'Enum','NONE','TelefragType'),('SpecialPowerTemplate',36,'Reference',None,None),('Shader',40,'NullableReference',None,None),('DisabledTypesToProcess',44,'Bits','HELD','DisabledType')],
  [('UnificationType',20,'Enum','SAME_PLAYER','UnifiedControlType')],
- [('WeaponTemplate',8,'Reference',None,None),('RandomScatter3D',132,'Boolean','false',None)],
+ [('WeaponTemplate',8,'NullableReference',None,None),('RandomScatter3D',132,'Boolean','false',None)],
  [('LocomotorSet',8,'Enum',None,'LocomotorSetType'),('UpdatePeriod',12,'Time','1.0s',None),('RevealShroudToAllPlayersRadius',16,'Float','0',None),('MinimumHealth',20,'Percent','0%',None),('ObjectStatusWhileActive',24,'ObjectStatus',None,None),('ModelConditionWhileActive',52,'ModelCondition',None,None)],
  [('ConvergingAngle',44,'Angle',None,None),('AngleRotation',48,'Angle','0d',None),('Radius',52,'Float','10.0',None),('SweepFXList',56,'Reference',None,None),('VeteranSweepFXList',60,'Reference',None,None),('SweepFXTimeout',64,'Time','0s',None),('SweepWeapon',68,'Reference',None,None),('ModelConditions',72,'ModelCondition',None,None),('Lifetime',132,'Time','1s',None)],
- [('ScanTime',8,'Time','0.2s',None),('DelayBetweenVictimsTime',12,'Time','0.3s',None),('EffectDistance',16,'Float','125.0',None),('GatherAcceleration',20,'Float','0.01',None),('ModelLength',24,'Float','100.0',None),('ArmTemplate',28,'Reference',None,None),('VictimShader',32,'Reference',None,None),('HeightOffGround',36,'Float','50.0',None)],
+ [('ScanTime',8,'Time','0.2s',None),('DelayBetweenVictimsTime',12,'Time','0.3s',None),('EffectDistance',16,'Float','125.0',None),('GatherAcceleration',20,'Float','0.01',None),('ModelLength',24,'Float','100.0',None),('ArmTemplate',28,'NullableReference',None,None),('VictimShader',32,'NullableReference',None,None),('HeightOffGround',36,'Float','50.0',None)],
  [('Enabled',36,'Boolean','false',None),('Size',8,'Enum','LIGHT','VehicleSize')],
  [('ScalableDrawModuleId',8,'AssetId',None,None),('ScaledBoneName',12,'String',None,None),('Radius',20,'Float','250.0',None),('MaximumPullVelocity',24,'Float','20.0',None),('MinimumPullVelocity',28,'Float','4.0',None),('VictimStatusToSet',32,'Enum','MAGNETIZED','ObjectStatusType')],
  [('Flags',8,'Bits',None,'SecondaryObjectListenerOption')],
@@ -55,6 +55,7 @@ def generate():
   for c in chunks[:-1]:
    key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',c)[1])&0xffffffff;typ=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',c)[1])&0xffffffff;o=re.search(r'\(byte\*\)@object \+ (\d+)',c);off=int(o[1]) if o else 0;nested=parent if key==1 else 'nullptr';mode=0;stride=0
    for name,o,k,d,e in fields:
+    if off==o and k=='Reference':assert 'BookmarkMemberOffset(state, (void*)(int)' not in c,(n,name,'original nullable reference requires pointee Token')
     if off==o and k=='NullableReference':mode=2
    for name,o,cm,cn in children:
     if off==o:mode=cm;nested=cn;stride={'UpgradeMap':8,'ParticleData':20,'ObjectEffectTuple':120}.get(name,0)

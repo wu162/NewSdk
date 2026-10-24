@@ -90,6 +90,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectSupport.h"
 #include "GameObjectObjectControl.h"
 #include "GameObjectSlowDeath.h"
+#include "GameObjectContainCore.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};

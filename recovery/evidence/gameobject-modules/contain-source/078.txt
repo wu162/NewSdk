@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 19040c312dc21a5f6e6893ad1de51cc5f458e27445f4caa4aecb24b6ee4a14a5
+// Literals: {"_003F_003F_C_0040_0BB_0040FMBIFFFI_0040FlyOffMapOnEmpty_003F_0024AA_0040": "FlyOffMapOnEmpty", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AHordeTransportContainModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		HordeTransportContainModuleData* ptr = (HordeTransportContainModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 336u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040FMBIFFFI_0040FlyOffMapOnEmpty_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)ptr + 332, tracker);
+			Marshaler_002EMarshal(node, (TransportContainModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1083087423;
+	}

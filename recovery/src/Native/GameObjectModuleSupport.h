@@ -4,6 +4,10 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=270 && choice->kind<=277) {
+        for(int index=static_cast<int>(choice->kind)-270;index>=0;index=containParents[index]) {const auto& set=containFieldSets[index];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;}
+        return false;
+    }
     if(choice->kind>=265 && choice->kind<=269) {
         if(choice->kind<269) for(const auto& f:slowSlowDeathBehaviorModuleDataFields) if(attribute==f.name) return true;
         if(choice->kind==266 || choice->kind==267 || choice->kind==269) {const auto& set=slowFieldSets[choice->kind-265];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;}
@@ -157,6 +161,15 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=270 && kind<=277) {
+        if(path=="PassengerFilter" || path=="DieMuxData" || path=="PassengerData/Filter") return 1;
+        if(path=="PassengerData" || path=="MemberTemplateStatusInfo") return 2;
+        if(path=="ModifierToGiveOnExit" || path=="PassengerFilter/IncludeThing" || path=="PassengerFilter/ExcludeThing" || path=="PassengerData/Filter/IncludeThing" || path=="PassengerData/Filter/ExcludeThing") return 3;
+        if(kind!=270 && path=="InitialRoster") return 1;
+        if((kind==272 || kind>=274) && (path=="EntryOffset" || path=="EntryPosition" || path=="ExitOffset")) return 1;
+        if(kind==277) {if(path=="CanAlwaysEnterObjectFilter") return 1;if(path=="CanAlwaysEnterObjectFilter/IncludeThing" || path=="CanAlwaysEnterObjectFilter/ExcludeThing") return 3;}
+        return 0;
+    }
     if(kind>=265 && kind<=269) {
         if(kind==269) {if(path=="Item") return 2;if(path=="DieMuxData") return 1;return 0;}
         if(path=="DieMuxData") return 1;
@@ -381,6 +394,14 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=270 && kind<=277) {
+        if(path=="DieMuxData") {for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;}
+        if(path=="PassengerData") {for(const auto& f:containPassengerDataTypeFields) if(attribute==f.name) return true;}
+        if(path=="MemberTemplateStatusInfo") {for(const auto& f:containMemberTemplateStatusDataFields) if(attribute==f.name) return true;}
+        if(kind!=270 && path=="InitialRoster") {for(const auto& f:containInitialRosterFields) if(attribute==f.name) return true;}
+        if((kind==272 || kind>=274) && (path=="EntryOffset" || path=="EntryPosition" || path=="ExitOffset")) return attribute=="x" || attribute=="y" || attribute=="z";
+        return false;
+    }
     if(kind>=265 && kind<=269) {
         if(path=="DieMuxData") {for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;return false;}
         if(kind==269 && path=="Item") {for(const auto& f:slowBuildingDestructionItemFields) if(attribute==f.name) return true;return false;}
