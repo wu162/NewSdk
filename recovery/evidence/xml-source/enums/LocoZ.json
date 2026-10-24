@@ -1,0 +1,59 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17364,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocoZ_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LocoZ_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ABSOLUTE_HEIGHT",
+      "value": 4
+    },
+    {
+      "name": "DO_NOT_MODIFY_HEIGHT",
+      "value": 11
+    },
+    {
+      "name": "FIXED_ABSOLUTE_HEIGHT",
+      "value": 6
+    },
+    {
+      "name": "FIXED_SURFACE_RELATIVE_HEIGHT",
+      "value": 5
+    },
+    {
+      "name": "FLOATING_Z",
+      "value": 9
+    },
+    {
+      "name": "NO_MOTIVE_FORCE",
+      "value": 0
+    },
+    {
+      "name": "RELATIVE_TO_GROUND_AND_BUILDINGS",
+      "value": 7
+    },
+    {
+      "name": "SCALING_WALLS",
+      "value": 10
+    },
+    {
+      "name": "SEA_LEVEL",
+      "value": 1
+    },
+    {
+      "name": "SEA_LEVEL_SMOOTH_Z",
+      "value": 12
+    },
+    {
+      "name": "SMOOTH_RELATIVE_TO_HIGHEST_LAYER",
+      "value": 8
+    },
+    {
+      "name": "SURFACE_RELATIVE_HEIGHT",
+      "value": 3
+    },
+    {
+      "name": "SURFACE_RELATIVE_HEIGHT_ALLOW_ZERO_HEIGHT",
+      "value": 2
+    }
+  ]
+}

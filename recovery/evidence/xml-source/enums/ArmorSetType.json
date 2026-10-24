@@ -1,0 +1,99 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12378,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ArmorSetType_0040_0040_0040_0040SA_003FBW4ArmorSetType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AIRBORNE",
+      "value": 12
+    },
+    {
+      "name": "ALTERNATE_FORMATION",
+      "value": 6
+    },
+    {
+      "name": "AS_TOWER",
+      "value": 11
+    },
+    {
+      "name": "ELITE",
+      "value": 2
+    },
+    {
+      "name": "HERO",
+      "value": 3
+    },
+    {
+      "name": "INVALID",
+      "value": 0
+    },
+    {
+      "name": "IN_SPIDER_HOLE",
+      "value": 15
+    },
+    {
+      "name": "MOUNTED",
+      "value": 7
+    },
+    {
+      "name": "PLAYER_UPGRADE",
+      "value": 4
+    },
+    {
+      "name": "PLAYER_UPGRADE_2",
+      "value": 8
+    },
+    {
+      "name": "PLAYER_UPGRADE_3",
+      "value": 9
+    },
+    {
+      "name": "SECONDARY_DAMAGE",
+      "value": 13
+    },
+    {
+      "name": "SHIELDBODY_ENABLED",
+      "value": 22
+    },
+    {
+      "name": "SHRINK_EFFECT",
+      "value": 14
+    },
+    {
+      "name": "UNBESIEGEABLE",
+      "value": 10
+    },
+    {
+      "name": "UNUSED_05",
+      "value": 16
+    },
+    {
+      "name": "UNUSED_06",
+      "value": 17
+    },
+    {
+      "name": "UNUSED_07",
+      "value": 18
+    },
+    {
+      "name": "UNUSED_08",
+      "value": 19
+    },
+    {
+      "name": "UNUSED_09",
+      "value": 20
+    },
+    {
+      "name": "UNUSED_10",
+      "value": 21
+    },
+    {
+      "name": "VETERAN",
+      "value": 1
+    },
+    {
+      "name": "WEAK_VERSUS_BASEDEFENSES",
+      "value": 5
+    }
+  ]
+}

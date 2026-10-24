@@ -1,0 +1,39 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17374,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4GameStatsMode_0040_0040_0040_0040SA_003FBW4GameStatsMode_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "CAMPAIGN_GAME",
+      "value": 0
+    },
+    {
+      "name": "LAN_GAME",
+      "value": 2
+    },
+    {
+      "name": "ONLINE_CLAN_1V1_GAME",
+      "value": 6
+    },
+    {
+      "name": "ONLINE_CLAN_2V2_GAME",
+      "value": 7
+    },
+    {
+      "name": "ONLINE_RANKED_1V1_GAME",
+      "value": 4
+    },
+    {
+      "name": "ONLINE_RANKED_2V2_GAME",
+      "value": 5
+    },
+    {
+      "name": "ONLINE_UNRANKED_GAME",
+      "value": 3
+    },
+    {
+      "name": "SKIRMISH_GAME",
+      "value": 1
+    }
+  ]
+}

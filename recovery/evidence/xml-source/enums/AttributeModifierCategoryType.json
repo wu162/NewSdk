@@ -1,0 +1,67 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17400,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeModifierCategoryType_0040_0040_0040_0040SA_003FBW4AttributeModifierCategoryType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "BUFF",
+      "value": 7
+    },
+    {
+      "name": "DEBUFF",
+      "value": 8
+    },
+    {
+      "name": "FORMATION",
+      "value": 2
+    },
+    {
+      "name": "INNATE_ARMOR",
+      "value": 10
+    },
+    {
+      "name": "INNATE_AUTOHEAL",
+      "value": 13
+    },
+    {
+      "name": "INNATE_DAMAGEMULT",
+      "value": 11
+    },
+    {
+      "name": "INNATE_HEALTH",
+      "value": 14
+    },
+    {
+      "name": "INNATE_VISION",
+      "value": 12
+    },
+    {
+      "name": "LEADERSHIP",
+      "value": 1
+    },
+    {
+      "name": "LEVEL",
+      "value": 6
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "SPELL",
+      "value": 3
+    },
+    {
+      "name": "STRUCTURE",
+      "value": 5
+    },
+    {
+      "name": "STUN",
+      "value": 9
+    },
+    {
+      "name": "WEAPON",
+      "value": 4
+    }
+  ]
+}

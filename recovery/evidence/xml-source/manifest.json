@@ -1500,5 +1500,664 @@
   },
   "methodIndex": "method-index.txt",
   "methodCount": 11260,
-  "scope": "Original source evidence only; no recovered support or DLL validation"
+  "scope": "Original source evidence only; no recovered support or DLL validation",
+  "staticDataParts": [
+    "static-data/fields-0000.json",
+    "static-data/fields-0001.json",
+    "static-data/fields-0002.json",
+    "static-data/fields-0003.json",
+    "static-data/fields-0004.json",
+    "static-data/fields-0005.json",
+    "static-data/fields-0006.json",
+    "static-data/fields-0007.json",
+    "static-data/fields-0008.json",
+    "static-data/fields-0009.json",
+    "static-data/fields-0010.json",
+    "static-data/fields-0011.json",
+    "static-data/fields-0012.json",
+    "static-data/fields-0013.json",
+    "static-data/fields-0014.json",
+    "static-data/fields-0015.json",
+    "static-data/fields-0016.json",
+    "static-data/fields-0017.json",
+    "static-data/fields-0018.json",
+    "static-data/fields-0019.json",
+    "static-data/fields-0020.json",
+    "static-data/fields-0021.json",
+    "static-data/fields-0022.json",
+    "static-data/fields-0023.json",
+    "static-data/fields-0024.json",
+    "static-data/fields-0025.json",
+    "static-data/fields-0026.json",
+    "static-data/fields-0027.json",
+    "static-data/fields-0028.json",
+    "static-data/fields-0029.json",
+    "static-data/fields-0030.json",
+    "static-data/fields-0031.json",
+    "static-data/fields-0032.json",
+    "static-data/fields-0033.json",
+    "static-data/fields-0034.json",
+    "static-data/fields-0035.json",
+    "static-data/fields-0036.json",
+    "static-data/fields-0037.json"
+  ],
+  "enums": {
+    "SiegeEvaEventType": {
+      "path": "enums/SiegeEvaEventType.json",
+      "count": 3
+    },
+    "TargetingHeuristicType": {
+      "path": "enums/TargetingHeuristicType.json",
+      "count": 21
+    },
+    "AIUnitBuilderUnitChoiceShape": {
+      "path": "enums/AIUnitBuilderUnitChoiceShape.json",
+      "count": 4
+    },
+    "SpecialPowerTemplateTargetType": {
+      "path": "enums/SpecialPowerTemplateTargetType.json",
+      "count": 5
+    },
+    "AITargetDisposition": {
+      "path": "enums/AITargetDisposition.json",
+      "count": 4
+    },
+    "MapObjectFlagType": {
+      "path": "enums/MapObjectFlagType.json",
+      "count": 8
+    },
+    "AIStrategicDirective": {
+      "path": "enums/AIStrategicDirective.json",
+      "count": 6
+    },
+    "GameplayType": {
+      "path": "enums/GameplayType.json",
+      "count": 5
+    },
+    "ProductionQueueType": {
+      "path": "enums/ProductionQueueType.json",
+      "count": 8
+    },
+    "AISpecialPowerManager": {
+      "path": "enums/AISpecialPowerManager.json",
+      "count": 4
+    },
+    "ScreenStatus": {
+      "path": "enums/ScreenStatus.json",
+      "count": 3
+    },
+    "AudioTypeFlag": {
+      "path": "enums/AudioTypeFlag.json",
+      "count": 8
+    },
+    "DistanceSortPoints": {
+      "path": "enums/DistanceSortPoints.json",
+      "count": 2
+    },
+    "HotKeySlotGroup": {
+      "path": "enums/HotKeySlotGroup.json",
+      "count": 8
+    },
+    "OCLType": {
+      "path": "enums/OCLType.json",
+      "count": 2
+    },
+    "AnimationChannelType": {
+      "path": "enums/AnimationChannelType.json",
+      "count": 5
+    },
+    "TerrainLODType": {
+      "path": "enums/TerrainLODType.json",
+      "count": 4
+    },
+    "GeometryType": {
+      "path": "enums/GeometryType.json",
+      "count": 4
+    },
+    "ShadowType": {
+      "path": "enums/ShadowType.json",
+      "count": 7
+    },
+    "PostGameStatType": {
+      "path": "enums/PostGameStatType.json",
+      "count": 17
+    },
+    "99035a61faccf49b05169895b79a10882ee3d7bc": {
+      "path": "enums/99035a61faccf49b05169895b79a10882ee3d7bc.json",
+      "count": 4
+    },
+    "BuildingPlacementSurface": {
+      "path": "enums/BuildingPlacementSurface.json",
+      "count": 3
+    },
+    "AIEnemySortingType": {
+      "path": "enums/AIEnemySortingType.json",
+      "count": 5
+    },
+    "DynamicsContactTag": {
+      "path": "enums/DynamicsContactTag.json",
+      "count": 8
+    },
+    "EmotionAIType": {
+      "path": "enums/EmotionAIType.json",
+      "count": 6
+    },
+    "BootupDisplayItemType": {
+      "path": "enums/BootupDisplayItemType.json",
+      "count": 3
+    },
+    "EmotionTemplateOptions": {
+      "path": "enums/EmotionTemplateOptions.json",
+      "count": 6
+    },
+    "GameDifficulty": {
+      "path": "enums/GameDifficulty.json",
+      "count": 4
+    },
+    "AudioPriority": {
+      "path": "enums/AudioPriority.json",
+      "count": 6
+    },
+    "MapBorder": {
+      "path": "enums/MapBorder.json",
+      "count": 9
+    },
+    "DistributionType": {
+      "path": "enums/DistributionType.json",
+      "count": 6
+    },
+    "UIConfigType": {
+      "path": "enums/UIConfigType.json",
+      "count": 4
+    },
+    "PathfindingCheckType": {
+      "path": "enums/PathfindingCheckType.json",
+      "count": 3
+    },
+    "AIBaseType": {
+      "path": "enums/AIBaseType.json",
+      "count": 11
+    },
+    "CareerStatType": {
+      "path": "enums/CareerStatType.json",
+      "count": 3
+    },
+    "SlotStateType": {
+      "path": "enums/SlotStateType.json",
+      "count": 4
+    },
+    "AudioVolumeSlider": {
+      "path": "enums/AudioVolumeSlider.json",
+      "count": 6
+    },
+    "ModelConditionFlagType": {
+      "path": "enums/ModelConditionFlagType.json",
+      "count": 457
+    },
+    "RegisteredObjectSetId": {
+      "path": "enums/RegisteredObjectSetId.json",
+      "count": 53
+    },
+    "TextJustificationType": {
+      "path": "enums/TextJustificationType.json",
+      "count": 3
+    },
+    "EmotionType": {
+      "path": "enums/EmotionType.json",
+      "count": 11
+    },
+    "TimeOfDayType": {
+      "path": "enums/TimeOfDayType.json",
+      "count": 6
+    },
+    "InvisibilityNuggetOptions": {
+      "path": "enums/InvisibilityNuggetOptions.json",
+      "count": 5
+    },
+    "AICannotAttackTargetReaction": {
+      "path": "enums/AICannotAttackTargetReaction.json",
+      "count": 4
+    },
+    "ObjectFilterRelationship": {
+      "path": "enums/ObjectFilterRelationship.json",
+      "count": 4
+    },
+    "StringHashBin": {
+      "path": "enums/StringHashBin.json",
+      "count": 4
+    },
+    "ModelLODType": {
+      "path": "enums/ModelLODType.json",
+      "count": 3
+    },
+    "PlayerTemplateType": {
+      "path": "enums/PlayerTemplateType.json",
+      "count": 6
+    },
+    "ThingTemplateVoiceType": {
+      "path": "enums/ThingTemplateVoiceType.json",
+      "count": 67
+    },
+    "AIDifficulty": {
+      "path": "enums/AIDifficulty.json",
+      "count": 4
+    },
+    "JetLocomotorDataOption": {
+      "path": "enums/JetLocomotorDataOption.json",
+      "count": 1
+    },
+    "VideoSoundOverrideEventType": {
+      "path": "enums/VideoSoundOverrideEventType.json",
+      "count": 2
+    },
+    "FontUse": {
+      "path": "enums/FontUse.json",
+      "count": 5
+    },
+    "VeterancyLevel": {
+      "path": "enums/VeterancyLevel.json",
+      "count": 5
+    },
+    "WaterBodyType": {
+      "path": "enums/WaterBodyType.json",
+      "count": 3
+    },
+    "StyleName": {
+      "path": "enums/StyleName.json",
+      "count": 4
+    },
+    "DeathType": {
+      "path": "enums/DeathType.json",
+      "count": 34
+    },
+    "AudioLODType": {
+      "path": "enums/AudioLODType.json",
+      "count": 3
+    },
+    "TacticEndBehavior": {
+      "path": "enums/TacticEndBehavior.json",
+      "count": 4
+    },
+    "JoyPadButtonType": {
+      "path": "enums/JoyPadButtonType.json",
+      "count": 14
+    },
+    "AudioControlFlag": {
+      "path": "enums/AudioControlFlag.json",
+      "count": 9
+    },
+    "KindOfType": {
+      "path": "enums/KindOfType.json",
+      "count": 284
+    },
+    "EffectsLODType": {
+      "path": "enums/EffectsLODType.json",
+      "count": 5
+    },
+    "SpecialPowerTemplateFlag": {
+      "path": "enums/SpecialPowerTemplateFlag.json",
+      "count": 31
+    },
+    "AIDifficultyValue": {
+      "path": "enums/AIDifficultyValue.json",
+      "count": 4
+    },
+    "AIAoeAttackPowerEmanationLocation": {
+      "path": "enums/AIAoeAttackPowerEmanationLocation.json",
+      "count": 2
+    },
+    "ObjectFilterRule": {
+      "path": "enums/ObjectFilterRule.json",
+      "count": 4
+    },
+    "TerrainScorchType": {
+      "path": "enums/TerrainScorchType.json",
+      "count": 18
+    },
+    "c04f42a4acf6733a50247b1a47fd17789fc0820c": {
+      "path": "enums/c04f42a4acf6733a50247b1a47fd17789fc0820c.json",
+      "count": 3
+    },
+    "CommandMode": {
+      "path": "enums/CommandMode.json",
+      "count": 3
+    },
+    "Appearance": {
+      "path": "enums/Appearance.json",
+      "count": 10
+    },
+    "ThingTemplateObjectSpecificVoiceType": {
+      "path": "enums/ThingTemplateObjectSpecificVoiceType.json",
+      "count": 6
+    },
+    "AIAoeAttackPowerLocationPreference": {
+      "path": "enums/AIAoeAttackPowerLocationPreference.json",
+      "count": 3
+    },
+    "AIBeaconType": {
+      "path": "enums/AIBeaconType.json",
+      "count": 4
+    },
+    "LogicCommandOptions": {
+      "path": "enums/LogicCommandOptions.json",
+      "count": 11
+    },
+    "Surface": {
+      "path": "enums/Surface.json",
+      "count": 11
+    },
+    "UpgradeType": {
+      "path": "enums/UpgradeType.json",
+      "count": 2
+    },
+    "ComparisonOperator": {
+      "path": "enums/ComparisonOperator.json",
+      "count": 5
+    },
+    "fba9569e039ad74a4872718fec2e2ee9fe67f6c4": {
+      "path": "enums/fba9569e039ad74a4872718fec2e2ee9fe67f6c4.json",
+      "count": 5
+    },
+    "InvisibilityType": {
+      "path": "enums/InvisibilityType.json",
+      "count": 3
+    },
+    "AITargetLocationType": {
+      "path": "enums/AITargetLocationType.json",
+      "count": 2
+    },
+    "GameplayConditionType": {
+      "path": "enums/GameplayConditionType.json",
+      "count": 3
+    },
+    "AnimationLODType": {
+      "path": "enums/AnimationLODType.json",
+      "count": 5
+    },
+    "6ca9f8923ec4d720f8ebfec04b0856d711ad98f3": {
+      "path": "enums/6ca9f8923ec4d720f8ebfec04b0856d711ad98f3.json",
+      "count": 10
+    },
+    "DispositionType": {
+      "path": "enums/DispositionType.json",
+      "count": 21
+    },
+    "WeatherType": {
+      "path": "enums/WeatherType.json",
+      "count": 7
+    },
+    "RegisteredObjectSetType": {
+      "path": "enums/RegisteredObjectSetType.json",
+      "count": 2
+    },
+    "DestinationType": {
+      "path": "enums/DestinationType.json",
+      "count": 2
+    },
+    "DamageFXType": {
+      "path": "enums/DamageFXType.json",
+      "count": 114
+    },
+    "GameplayModeType": {
+      "path": "enums/GameplayModeType.json",
+      "count": 4
+    },
+    "94cc9480935262655c9b9de79c7b885d06e3c64b": {
+      "path": "enums/94cc9480935262655c9b9de79c7b885d06e3c64b.json",
+      "count": 4
+    },
+    "TeamReleaseType": {
+      "path": "enums/TeamReleaseType.json",
+      "count": 3
+    },
+    "HotKeyModifier": {
+      "path": "enums/HotKeyModifier.json",
+      "count": 3
+    },
+    "MouseHUDFixedElementId": {
+      "path": "enums/MouseHUDFixedElementId.json",
+      "count": 36
+    },
+    "OCNuggetOption": {
+      "path": "enums/OCNuggetOption.json",
+      "count": 44
+    },
+    "InfiltratorEffectType": {
+      "path": "enums/InfiltratorEffectType.json",
+      "count": 10
+    },
+    "AIFeedbackWorthySkirmishGameEvent": {
+      "path": "enums/AIFeedbackWorthySkirmishGameEvent.json",
+      "count": 6
+    },
+    "75adb49398ba83be3ef47c830f8914000f889f62": {
+      "path": "enums/75adb49398ba83be3ef47c830f8914000f889f62.json",
+      "count": 9
+    },
+    "UIMouseTacticalQuickChatDisplayChatDestination": {
+      "path": "enums/UIMouseTacticalQuickChatDisplayChatDestination.json",
+      "count": 2
+    },
+    "ParabolicOption": {
+      "path": "enums/ParabolicOption.json",
+      "count": 1
+    },
+    "c648309d0ca066dccab686c462aa6711ca8c0b0d": {
+      "path": "enums/c648309d0ca066dccab686c462aa6711ca8c0b0d.json",
+      "count": 12
+    },
+    "TerrainClassType": {
+      "path": "enums/TerrainClassType.json",
+      "count": 11
+    },
+    "Tactics": {
+      "path": "enums/Tactics.json",
+      "count": 15
+    },
+    "AIStrategicDirectiveEvent": {
+      "path": "enums/AIStrategicDirectiveEvent.json",
+      "count": 3
+    },
+    "JoyPadActionType": {
+      "path": "enums/JoyPadActionType.json",
+      "count": 15
+    },
+    "PathMusicGameDynamicStateSetCategory": {
+      "path": "enums/PathMusicGameDynamicStateSetCategory.json",
+      "count": 2
+    },
+    "ObjectStatusType": {
+      "path": "enums/ObjectStatusType.json",
+      "count": 223
+    },
+    "FXActionType": {
+      "path": "enums/FXActionType.json",
+      "count": 4
+    },
+    "ArmorSetType": {
+      "path": "enums/ArmorSetType.json",
+      "count": 23
+    },
+    "Stance": {
+      "path": "enums/Stance.json",
+      "count": 4
+    },
+    "AIBankAccountType": {
+      "path": "enums/AIBankAccountType.json",
+      "count": 6
+    },
+    "UnitLocomotorType": {
+      "path": "enums/UnitLocomotorType.json",
+      "count": 4
+    },
+    "AchievementActionType": {
+      "path": "enums/AchievementActionType.json",
+      "count": 4
+    },
+    "ObjectFilterAlignment": {
+      "path": "enums/ObjectFilterAlignment.json",
+      "count": 3
+    },
+    "MoneyTransactionCategory": {
+      "path": "enums/MoneyTransactionCategory.json",
+      "count": 30
+    },
+    "WaterTextureType": {
+      "path": "enums/WaterTextureType.json",
+      "count": 7
+    },
+    "MultisoundControlFlag": {
+      "path": "enums/MultisoundControlFlag.json",
+      "count": 2
+    },
+    "ShadowLODType": {
+      "path": "enums/ShadowLODType.json",
+      "count": 5
+    },
+    "MicroManagerState": {
+      "path": "enums/MicroManagerState.json",
+      "count": 10
+    },
+    "AIBuildHeuristics": {
+      "path": "enums/AIBuildHeuristics.json",
+      "count": 18
+    },
+    "BodyDamageType": {
+      "path": "enums/BodyDamageType.json",
+      "count": 4
+    },
+    "UpgradeOptions": {
+      "path": "enums/UpgradeOptions.json",
+      "count": 4
+    },
+    "ShroudStatusType": {
+      "path": "enums/ShroudStatusType.json",
+      "count": 3
+    },
+    "AITargetSortType": {
+      "path": "enums/AITargetSortType.json",
+      "count": 6
+    },
+    "OutlineDrawType": {
+      "path": "enums/OutlineDrawType.json",
+      "count": 5
+    },
+    "GameLODType": {
+      "path": "enums/GameLODType.json",
+      "count": 7
+    },
+    "ShaderLODType": {
+      "path": "enums/ShaderLODType.json",
+      "count": 4
+    },
+    "FactionType": {
+      "path": "enums/FactionType.json",
+      "count": 5
+    },
+    "StateChangeType": {
+      "path": "enums/StateChangeType.json",
+      "count": 2
+    },
+    "AIUpgradeHeuristicType": {
+      "path": "enums/AIUpgradeHeuristicType.json",
+      "count": 6
+    },
+    "ProcessorType": {
+      "path": "enums/ProcessorType.json",
+      "count": 5
+    },
+    "LogicCommandType": {
+      "path": "enums/LogicCommandType.json",
+      "count": 17
+    },
+    "WeaponSlotType": {
+      "path": "enums/WeaponSlotType.json",
+      "count": 6
+    },
+    "LocoZ": {
+      "path": "enums/LocoZ.json",
+      "count": 13
+    },
+    "SpecialPowerRestrictionType": {
+      "path": "enums/SpecialPowerRestrictionType.json",
+      "count": 3
+    },
+    "ToggleStatusAiHint": {
+      "path": "enums/ToggleStatusAiHint.json",
+      "count": 16
+    },
+    "ViewShakeType": {
+      "path": "enums/ViewShakeType.json",
+      "count": 6
+    },
+    "CareerStatOrder": {
+      "path": "enums/CareerStatOrder.json",
+      "count": 35
+    },
+    "GameStatsMode": {
+      "path": "enums/GameStatsMode.json",
+      "count": 8
+    },
+    "DynamicDecalShaderType": {
+      "path": "enums/DynamicDecalShaderType.json",
+      "count": 2
+    },
+    "AITimerType": {
+      "path": "enums/AITimerType.json",
+      "count": 2
+    },
+    "FXTriggerType": {
+      "path": "enums/FXTriggerType.json",
+      "count": 3
+    },
+    "AIBaseSortingOrder": {
+      "path": "enums/AIBaseSortingOrder.json",
+      "count": 7
+    },
+    "PathMusicEventSetCategory": {
+      "path": "enums/PathMusicEventSetCategory.json",
+      "count": 2
+    },
+    "DecalLODType": {
+      "path": "enums/DecalLODType.json",
+      "count": 3
+    },
+    "EmotionTemplateThreatComparisonType": {
+      "path": "enums/EmotionTemplateThreatComparisonType.json",
+      "count": 3
+    },
+    "DisabledType": {
+      "path": "enums/DisabledType.json",
+      "count": 12
+    },
+    "LocoF": {
+      "path": "enums/LocoF.json",
+      "count": 13
+    },
+    "AttributeType": {
+      "path": "enums/AttributeType.json",
+      "count": 35
+    },
+    "LocomotorSetType": {
+      "path": "enums/LocomotorSetType.json",
+      "count": 19
+    },
+    "AttributeModifierCategoryType": {
+      "path": "enums/AttributeModifierCategoryType.json",
+      "count": 15
+    },
+    "WaterLODType": {
+      "path": "enums/WaterLODType.json",
+      "count": 4
+    },
+    "TeamPriority": {
+      "path": "enums/TeamPriority.json",
+      "count": 9
+    },
+    "AISpecialPowerHeuristic": {
+      "path": "enums/AISpecialPowerHeuristic.json",
+      "count": 25
+    }
+  },
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
 }

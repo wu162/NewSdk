@@ -1,0 +1,79 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12400,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AIBuildHeuristics_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AIBuildHeuristics_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "BEST_UNIT_ACTUAL",
+      "value": 2
+    },
+    {
+      "name": "BEST_UNIT_EXPECTED",
+      "value": 1
+    },
+    {
+      "name": "BEST_UNIT_WEIGHTED",
+      "value": 3
+    },
+    {
+      "name": "BUILD_TEST",
+      "value": 16
+    },
+    {
+      "name": "CONSTANT",
+      "value": 0
+    },
+    {
+      "name": "FACTORY",
+      "value": 8
+    },
+    {
+      "name": "FEWEST_UNIT",
+      "value": 4
+    },
+    {
+      "name": "HARVESTER",
+      "value": 12
+    },
+    {
+      "name": "NEEDED_UNIT",
+      "value": 7
+    },
+    {
+      "name": "POWER",
+      "value": 10
+    },
+    {
+      "name": "RANDOM_UNIT",
+      "value": 5
+    },
+    {
+      "name": "REFINERY",
+      "value": 11
+    },
+    {
+      "name": "TECH",
+      "value": 9
+    },
+    {
+      "name": "UNIQUE",
+      "value": 13
+    },
+    {
+      "name": "UPGRADE",
+      "value": 14
+    },
+    {
+      "name": "UPGRADE_TECH",
+      "value": 15
+    },
+    {
+      "name": "UPGRADE_TEST",
+      "value": 17
+    },
+    {
+      "name": "WORST_UNIT",
+      "value": 6
+    }
+  ]
+}

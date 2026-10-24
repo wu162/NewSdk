@@ -1,0 +1,67 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12370,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4JoyPadActionType_0040Joypad_0040UI_0040Sage_0040_0040_0040_0040SA_003FBW4JoyPadActionType_0040Joypad_0040UI_0040Sage_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "CLICK",
+      "value": 2
+    },
+    {
+      "name": "DOUBLE_CLICK",
+      "value": 3
+    },
+    {
+      "name": "DOWN",
+      "value": 11
+    },
+    {
+      "name": "HOLD",
+      "value": 1
+    },
+    {
+      "name": "LEFT",
+      "value": 8
+    },
+    {
+      "name": "LEFT_OR_RIGHT",
+      "value": 12
+    },
+    {
+      "name": "LINK_WITH_NEXT",
+      "value": 14
+    },
+    {
+      "name": "MOVE",
+      "value": 7
+    },
+    {
+      "name": "ON_GROUND",
+      "value": 4
+    },
+    {
+      "name": "ON_TARGET",
+      "value": 5
+    },
+    {
+      "name": "ON_UNIT_TYPE",
+      "value": 6
+    },
+    {
+      "name": "PRESS",
+      "value": 0
+    },
+    {
+      "name": "RIGHT",
+      "value": 9
+    },
+    {
+      "name": "UP",
+      "value": 10
+    },
+    {
+      "name": "UP_OR_DOWN",
+      "value": 13
+    }
+  ]
+}

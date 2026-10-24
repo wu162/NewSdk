@@ -1,0 +1,55 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12358,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_Priority_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_Priority_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALWAYS_RENDER",
+      "value": 6
+    },
+    {
+      "name": "HIGH_OR_ABOVE",
+      "value": 2
+    },
+    {
+      "name": "HIGH_OR_BELOW",
+      "value": 8
+    },
+    {
+      "name": "INVALID_PRIORITY",
+      "value": 0
+    },
+    {
+      "name": "LOW_OR_ABOVE",
+      "value": 4
+    },
+    {
+      "name": "LOW_OR_BELOW",
+      "value": 10
+    },
+    {
+      "name": "MEDIUM_OR_ABOVE",
+      "value": 3
+    },
+    {
+      "name": "MEDIUM_OR_BELOW",
+      "value": 9
+    },
+    {
+      "name": "ULTRA_HIGH_ONLY",
+      "value": 1
+    },
+    {
+      "name": "ULTRA_HIGH_OR_BELOW",
+      "value": 7
+    },
+    {
+      "name": "VERY_LOW_ONLY",
+      "value": 11
+    },
+    {
+      "name": "VERY_LOW_OR_ABOVE",
+      "value": 5
+    }
+  ]
+}

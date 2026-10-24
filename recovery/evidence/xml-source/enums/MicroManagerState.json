@@ -1,0 +1,47 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12398,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4MicroManagerState_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4MicroManagerState_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALPHA_STRIKE",
+      "value": 0
+    },
+    {
+      "name": "CLEANUP",
+      "value": 3
+    },
+    {
+      "name": "COMBAT",
+      "value": 2
+    },
+    {
+      "name": "DEMOLISH_WALL_OBSTACLE",
+      "value": 9
+    },
+    {
+      "name": "GATHER",
+      "value": 5
+    },
+    {
+      "name": "HARVESTING",
+      "value": 7
+    },
+    {
+      "name": "IDLE",
+      "value": 8
+    },
+    {
+      "name": "OPEN_TARGET",
+      "value": 6
+    },
+    {
+      "name": "RETREAT",
+      "value": 1
+    },
+    {
+      "name": "SIEGE",
+      "value": 4
+    }
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12334,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DamageFXType_0040_0040_0040_0040SA_003FBW4DamageFXType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALIEN_BOMB",
+      "value": 35
+    },
+    {
+      "name": "ALIEN_BUZZER",
+      "value": 32
+    },
+    {
+      "name": "ALIEN_CANNON",
+      "value": 27
+    },
+    {
+      "name": "ALIEN_DISINTEGRATOR",
+      "value": 39
+    },
+    {
+      "name": "ALIEN_GRENADE",
+      "value": 33
+    },
+    {
+      "name": "ALIEN_ION",
+      "value": 36
+    },
+    {
+      "name": "ALIEN_LASER",
+      "value": 30
+    },
+    {
+      "name": "ALIEN_MACHINEGUN",
+      "value": 31
+    },
+    {
+      "name": "ALIEN_MINE",
+      "value": 29
+    },
+    {
+      "name": "ALIEN_PLASMADISK",
+      "value": 28
+    },
+    {
+      "name": "ALIEN_RAILGUN",
+      "value": 38
+    },
+    {
+      "name": "ALIEN_SONIC",
+      "value": 37
+    },
+    {
+      "name": "ALIEN_TIOXIN",
+      "value": 34
+    },
+    {
+      "name": "ALLIED_ATHENA",
+      "value": 74
+    },
+    {
+      "name": "ALLIED_BOMB",
+      "value": 76
+    },
+    {
+      "name": "ALLIED_BOMBLVL1",
+      "value": 77
+    },
+    {
+      "name": "ALLIED_BOMBLVL2",
+      "value": 78
+    },
+    {
+      "name": "ALLIED_BOMBLVL3",
+      "value": 79
+    },
+    {
+      "name": "ALLIED_CANNON",
+      "value": 63
+    },
+    {
+      "name": "ALLIED_CHAINGUN",
+      "value": 71
+    },
+    {
+      "name": "ALLIED_DOG",
+      "value": 70
+    },
+    {
+      "name": "ALLIED_FIGHTER",
+      "value": 72
+    },
+    {
+      "name": "ALLIED_INFANTRYMISSILE",
+      "value": 66
+    },
+    {
+      "name": "ALLIED_MISSILE",
+      "value": 65
+    },
+    {
+      "name": "ALLIED_PAINTER",
+      "value": 69
+    },
+    {
+      "name": "ALLIED_PARTICLE",
+      "value": 75
+    },
+    {
+      "name": "ALLIED_PHALANX",
+      "value": 80
+    },
+    {
+      "name": "ALLIED_PRESISIONBOMB",
+      "value": 82
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNON",
+      "value": 84
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNONVET1",
+      "value": 85
+    },
+    {
+      "name": "ALLIED_PRIMAGECANNONVET2",
+      "value": 86
+    },
+    {
+      "name": "ALLIED_PRISM",
+      "value": 83
+    },
+    {
+      "name": "ALLIED_SAM",
+      "value": 67
+    },
+    {
+      "name": "ALLIED_SCRAMBLER",
+      "value": 81
+    },
+    {
+      "name": "ALLIED_SHOTGUN",
+      "value": 64
+    },
+    {
+      "name": "ALLIED_SONIC",
+      "value": 73
+    },
+    {
+      "name": "ALLIED_TANYA",
+      "value": 68
+    },
+    {
+      "name": "CLUBBING",
+      "value": 110
+    },
+    {
+      "name": "DEFAULT",
+      "value": -1
+    },
+    {
+      "name": "GDI_BOMB",
+      "value": 8
+    },
+    {
+      "name": "GDI_CANNON",
+      "value": 0
+    },
+    {
+      "name": "GDI_FLAMETHROWER",
+      "value": 7
+    },
+    {
+      "name": "GDI_GRENADE",
+      "value": 6
+    },
+    {
+      "name": "GDI_ION",
+      "value": 11
+    },
+    {
+      "name": "GDI_LASER",
+      "value": 3
+    },
+    {
+      "name": "GDI_MACHINEGUN",
+      "value": 4
+    },
+    {
+      "name": "GDI_MINE",
+      "value": 2
+    },
+    {
+      "name": "GDI_MISSILE",
+      "value": 1
+    },
+    {
+      "name": "GDI_RAILGUN",
+      "value": 10
+    },
+    {
+      "name": "GDI_RIFLE",
+      "value": 5
+    },
+    {
+      "name": "GDI_SHOCKWAVE",
+      "value": 12
+    },
+    {
+      "name": "GDI_SONIC",
+      "value": 9
+    },
+    {
+      "name": "GENERIC_FIRE",
+      "value": 108
+    },
+    {
+      "name": "JAPAN_AIRCRAFT",
+      "value": 102
+    },
+    {
+      "name": "JAPAN_AUTOCANNON",
+      "value": 96
+    },
+    {
+      "name": "JAPAN_BEAM",
+      "value": 100
+    },
+    {
+      "name": "JAPAN_BOMB",
+      "value": 97
+    },
+    {
+      "name": "JAPAN_BONZAI",
+      "value": 103
+    },
+    {
+      "name": "JAPAN_CANNON",
+      "value": 95
+    },
+    {
+      "name": "JAPAN_FORCE",
+      "value": 88
+    },
+    {
+      "name": "JAPAN_GUN",
+      "value": 89
+    },
+    {
+      "name": "JAPAN_KAMIKAZE",
+      "value": 104
+    },
+    {
+      "name": "JAPAN_MECHA",
+      "value": 91
+    },
+    {
+      "name": "JAPAN_MECHAMISSILE",
+      "value": 93
+    },
+    {
+      "name": "JAPAN_MECHARUSH",
+      "value": 92
+    },
+    {
+      "name": "JAPAN_MISSILE",
+      "value": 90
+    },
+    {
+      "name": "JAPAN_PLASMA",
+      "value": 99
+    },
+    {
+      "name": "JAPAN_PSIONIC",
+      "value": 101
+    },
+    {
+      "name": "JAPAN_ROCKET",
+      "value": 94
+    },
+    {
+      "name": "JAPAN_RUSH",
+      "value": 98
+    },
+    {
+      "name": "JAPAN_SHIRUKEN",
+      "value": 105
+    },
+    {
+      "name": "JAPAN_TORPEDO",
+      "value": 87
+    },
+    {
+      "name": "NEUTRAL_CANNON",
+      "value": 106
+    },
+    {
+      "name": "NOD_BOMB",
+      "value": 21
+    },
+    {
+      "name": "NOD_CANNON",
+      "value": 13
+    },
+    {
+      "name": "NOD_FLAMETHROWER",
+      "value": 20
+    },
+    {
+      "name": "NOD_GRENADE",
+      "value": 19
+    },
+    {
+      "name": "NOD_HALLUCINE",
+      "value": 26
+    },
+    {
+      "name": "NOD_ION",
+      "value": 24
+    },
+    {
+      "name": "NOD_LASER",
+      "value": 16
+    },
+    {
+      "name": "NOD_MACHINEGUN",
+      "value": 17
+    },
+    {
+      "name": "NOD_MINE",
+      "value": 15
+    },
+    {
+      "name": "NOD_MISSILE",
+      "value": 14
+    },
+    {
+      "name": "NOD_RAILGUN",
+      "value": 23
+    },
+    {
+      "name": "NOD_RIFLE",
+      "value": 18
+    },
+    {
+      "name": "NOD_SEED",
+      "value": 25
+    },
+    {
+      "name": "NOD_SONIC",
+      "value": 22
+    },
+    {
+      "name": "POISON",
+      "value": 109
+    },
+    {
+      "name": "RADIATION",
+      "value": 111
+    },
+    {
+      "name": "REFLECTED",
+      "value": 107
+    },
+    {
+      "name": "SOVIET_AK47",
+      "value": 45
+    },
+    {
+      "name": "SOVIET_BEAR",
+      "value": 54
+    },
+    {
+      "name": "SOVIET_BIGBOMB",
+      "value": 60
+    },
+    {
+      "name": "SOVIET_BOMB",
+      "value": 55
+    },
+    {
+      "name": "SOVIET_CANNON",
+      "value": 40
+    },
+    {
+      "name": "SOVIET_DEBRIS",
+      "value": 59
+    },
+    {
+      "name": "SOVIET_FLAK",
+      "value": 48
+    },
+    {
+      "name": "SOVIET_FLAKVET",
+      "value": 49
+    },
+    {
+      "name": "SOVIET_HARPOON",
+      "value": 42
+    },
+    {
+      "name": "SOVIET_IRONCURTAIN",
+      "value": 62
+    },
+    {
+      "name": "SOVIET_LASER",
+      "value": 44
+    },
+    {
+      "name": "SOVIET_LEECH",
+      "value": 41
+    },
+    {
+      "name": "SOVIET_MACHINEGUN",
+      "value": 46
+    },
+    {
+      "name": "SOVIET_MAGNETICBOMB",
+      "value": 52
+    },
+    {
+      "name": "SOVIET_MISSILE",
+      "value": 43
+    },
+    {
+      "name": "SOVIET_MOLOTOV",
+      "value": 50
+    },
+    {
+      "name": "SOVIET_ORBITAL",
+      "value": 56
+    },
+    {
+      "name": "SOVIET_ORBITAL2",
+      "value": 57
+    },
+    {
+      "name": "SOVIET_ORBITAL3",
+      "value": 58
+    },
+    {
+      "name": "SOVIET_REPAIR",
+      "value": 53
+    },
+    {
+      "name": "SOVIET_SNIPERRIFLE",
+      "value": 47
+    },
+    {
+      "name": "SOVIET_TESLA",
+      "value": 51
+    },
+    {
+      "name": "SOVIET_TORPEDO",
+      "value": 61
+    },
+    {
+      "name": "UNDEFINED",
+      "value": 112
+    }
+  ]
+}

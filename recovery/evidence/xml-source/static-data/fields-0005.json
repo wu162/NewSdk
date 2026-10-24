@@ -1,0 +1,1402 @@
+[
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040PILEKNMB_0040AudioLoopUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2028,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "417564696f4c6f6f70557067726164654d6f64756c654461746100",
+    "text": "AudioLoopUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040PMIJOKPF_0040DelayedUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2030,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "44656c61796564557067726164654d6f64756c654461746100",
+    "text": "DelayedUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040KKFLAIII_0040StatusBitsUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2032,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "53746174757342697473557067726164654d6f64756c654461746100",
+    "text": "StatusBitsUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040FKEFGOAP_0040ExperienceScalarUpgradeModuleDat_0040",
+    "sourceLine": 2034,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "457870657269656e63655363616c6172557067726164654d6f64756c654461746100",
+    "text": "ExperienceScalarUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040JJOMMLJO_0040CostModifierUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2036,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "436f73744d6f646966696572557067726164654d6f64756c654461746100",
+    "text": "CostModifierUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040ICMOMGMD_0040PowerUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2038,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "506f776572557067726164654d6f64756c654461746100",
+    "text": "PowerUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040LIPIDBOD_0040TechUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2040,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "54656368557067726164654d6f64756c654461746100",
+    "text": "TechUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040NPODDCJA_0040TechUpgradeReceiverModuleData_003F_0024AA_0040",
+    "sourceLine": 2042,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "546563685570677261646552656365697665724d6f64756c654461746100",
+    "text": "TechUpgradeReceiverModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040GJIPOPDH_0040OffsetInfo_003F_0024AA_0040",
+    "sourceLine": 2044,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4f6666736574496e666f00",
+    "text": "OffsetInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040CLLNDOMJ_0040AvailableSubStructure_003F_0024AA_0040",
+    "sourceLine": 2046,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "417661696c61626c6553756253747275637475726500",
+    "text": "AvailableSubStructure"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040EHBHGOAI_0040SubStructureBuildUpgradeModuleDa_0040",
+    "sourceLine": 2048,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "5375625374727563747572654275696c64557067726164654d6f64756c654461746100",
+    "text": "SubStructureBuildUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040BGCADILK_0040SubStructureBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2050,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "5375625374727563747572654265686176696f724d6f64756c654461746100",
+    "text": "SubStructureBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040PPIPFCIP_0040SubStructureStorageBehaviorModul_0040",
+    "sourceLine": 2052,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "53756253747275637475726553746f726167654265686176696f724d6f64756c654461746100",
+    "text": "SubStructureStorageBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040GEGMNKCM_0040StoreTemplateIDBehaviorModuleDat_0040",
+    "sourceLine": 2054,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "53746f726554656d706c61746549444265686176696f724d6f64756c654461746100",
+    "text": "StoreTemplateIDBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040NBANEPLE_0040ReplaceDrawModuleBehaviorModuleD_0040",
+    "sourceLine": 2056,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "5265706c616365447261774d6f64756c654265686176696f724d6f64756c654461746100",
+    "text": "ReplaceDrawModuleBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040JOKJBHPM_0040SuckUpObjectsUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2058,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "5375636b55704f626a656374735570646174654d6f64756c654461746100",
+    "text": "SuckUpObjectsUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040MBKHCIMM_0040AutoDepositUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2060,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4175746f4465706f7369745570646174654d6f64756c654461746100",
+    "text": "AutoDepositUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040PHFNCFCL_0040QueueProductionExitUpdateModuleD_0040",
+    "sourceLine": 2062,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "517565756550726f64756374696f6e457869745570646174654d6f64756c654461746100",
+    "text": "QueueProductionExitUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040NPNMPDC_0040TerrainResourceBehaviorModuleDat_0040",
+    "sourceLine": 2064,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "5465727261696e5265736f757263654265686176696f724d6f64756c654461746100",
+    "text": "TerrainResourceBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040FLPFHDFI_0040SubObjectsUpgradeNugget_003F_0024AA_0040",
+    "sourceLine": 2066,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "5375624f626a65637473557067726164654e756767657400",
+    "text": "SubObjectsUpgradeNugget"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040DPOEHBBL_0040SubObjectsUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2068,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5375624f626a65637473557067726164654d6f64756c654461746100",
+    "text": "SubObjectsUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040PCMIDJCK_0040GeometryUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2070,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "47656f6d65747279557067726164654d6f64756c654461746100",
+    "text": "GeometryUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040KGKJKEMO_0040LevelUpUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2072,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4c6576656c5570557067726164654d6f64756c654461746100",
+    "text": "LevelUpUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040LPJNEDJO_0040StealthDetectorUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2074,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "537465616c74684465746563746f725570646174654d6f64756c654461746100",
+    "text": "StealthDetectorUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040IPJHGEHC_0040EmotionTrackerUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2076,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "456d6f74696f6e547261636b65725570646174654d6f64756c654461746100",
+    "text": "EmotionTrackerUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040COODBLF_0040JetAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2078,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "4a657441495570646174654d6f64756c654461746100",
+    "text": "JetAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040OKIKPCB_0040HordeAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2080,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "486f72646541495570646174654d6f64756c654461746100",
+    "text": "HordeAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040KKBCDECP_0040AttributeModifierPoolUpdateModul_0040",
+    "sourceLine": 2082,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "4174747269627574654d6f646966696572506f6f6c5570646174654d6f64756c654461746100",
+    "text": "AttributeModifierPoolUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040PJNDIGPJ_0040AnimalAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2084,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "416e696d616c41495570646174654d6f64756c654461746100",
+    "text": "AnimalAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040MHDBLDPJ_0040StructureUnpackUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2086,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "537472756374757265556e7061636b5570646174654d6f64756c654461746100",
+    "text": "StructureUnpackUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040BNGBCAKM_0040StructureSellUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2088,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "53747275637475726553656c6c5570646174654d6f64756c654461746100",
+    "text": "StructureSellUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040CLHFCFGA_0040SuppressionUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2090,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5375707072657373696f6e5570646174654d6f64756c654461746100",
+    "text": "SuppressionUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040DCLJHECA_0040ClusterBombUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2092,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "436c7573746572426f6d625570646174654d6f64756c654461746100",
+    "text": "ClusterBombUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040BLCLJGIG_0040FindCoverBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2094,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "46696e64436f7665724265686176696f724d6f64756c654461746100",
+    "text": "FindCoverBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040FKFHMKOP_0040AttributeModifierNavalModuleData_0040",
+    "sourceLine": 2096,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "4174747269627574654d6f6469666965724e6176616c4d6f64756c654461746100",
+    "text": "AttributeModifierNavalModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040MFIPFFGN_0040ShieldSphereUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2098,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "536869656c645370686572655570646174654d6f64756c654461746100",
+    "text": "ShieldSphereUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JELKCDCJ_0040SpiderHoleUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2100,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "537069646572486f6c655570646174654d6f64756c654461746100",
+    "text": "SpiderHoleUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040LPIFPGLL_0040LiftObjectUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2102,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4c6966744f626a6563745570646174654d6f64756c654461746100",
+    "text": "LiftObjectUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040JCPOMPKA_0040RandomModelConditionBehaviorModu_0040",
+    "sourceLine": 2104,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "52616e646f6d4d6f64656c436f6e646974696f6e4265686176696f724d6f64756c654461746100",
+    "text": "RandomModelConditionBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040BLHLOMPB_0040TiberiumFieldBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2106,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "546962657269756d4669656c644265686176696f724d6f64756c654461746100",
+    "text": "TiberiumFieldBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040OKHOCKAP_0040TiberiumCrystalBehaviorModuleDat_0040",
+    "sourceLine": 2108,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "546962657269756d4372797374616c4265686176696f724d6f64756c654461746100",
+    "text": "TiberiumCrystalBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040KGFEDFJD_0040TiberiumGrowthModBehaviorModuleD_0040",
+    "sourceLine": 2110,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "546962657269756d47726f7774684d6f644265686176696f724d6f64756c654461746100",
+    "text": "TiberiumGrowthModBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040LFDIEGEI_0040RadarBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2112,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "52616461724265686176696f724d6f64756c654461746100",
+    "text": "RadarBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040GGJKLMNE_0040DockUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2114,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "446f636b5570646174654d6f64756c654461746100",
+    "text": "DockUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040DGNEPONN_0040SupplyTruckAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2116,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "537570706c79547275636b41495570646174654d6f64756c654461746100",
+    "text": "SupplyTruckAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040IMKGEIMD_0040SupplyCenterCreateModuleData_003F_0024AA_0040",
+    "sourceLine": 2118,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "537570706c7943656e7465724372656174654d6f64756c654461746100",
+    "text": "SupplyCenterCreateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040JFIPFCCM_0040GatherSlavesUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2120,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "476174686572536c617665735570646174654d6f64756c654461746100",
+    "text": "GatherSlavesUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040OKCEJIEI_0040SupplyCenterDockUpdateModuleData_0040",
+    "sourceLine": 2122,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "537570706c7943656e746572446f636b5570646174654d6f64756c654461746100",
+    "text": "SupplyCenterDockUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040NPJBDNKP_0040SupplyWarehouseDockUpdateModuleD_0040",
+    "sourceLine": 2124,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "537570706c7957617265686f757365446f636b5570646174654d6f64756c654461746100",
+    "text": "SupplyWarehouseDockUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040BDAOAOPP_0040AimWeaponBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2126,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "41696d576561706f6e4265686176696f724d6f64756c654461746100",
+    "text": "AimWeaponBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040NLPMGAHJ_0040DistributedMoneyBehaviorModuleDa_0040",
+    "sourceLine": 2128,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "44697374726962757465644d6f6e65794265686176696f724d6f64756c654461746100",
+    "text": "DistributedMoneyBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BNKNJDAB_0040Query_003F_0024AA_0040",
+    "sourceLine": 2130,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "517565727900",
+    "text": "Query"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040EGBMOOAK_0040AutoAbilityBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2132,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4175746f4162696c6974794265686176696f724d6f64756c654461746100",
+    "text": "AutoAbilityBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040NCIODNOG_0040FireWeaponWhenDamagedBehaviorMod_0040",
+    "sourceLine": 2134,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "46697265576561706f6e5768656e44616d616765644265686176696f724d6f64756c654461746100",
+    "text": "FireWeaponWhenDamagedBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040BPKPIPND_0040WeaponFireProbabilityType_003F_0024AA_0040",
+    "sourceLine": 2136,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "576561706f6e4669726550726f626162696c6974795479706500",
+    "text": "WeaponFireProbabilityType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040NDALPENC_0040FireWeaponWhenDeadBehaviorModule_0040",
+    "sourceLine": 2138,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "46697265576561706f6e5768656e446561644265686176696f724d6f64756c654461746100",
+    "text": "FireWeaponWhenDeadBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040GNKMABAB_0040ShipSlowDeathBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2140,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "53686970536c6f7744656174684265686176696f724d6f64756c654461746100",
+    "text": "ShipSlowDeathBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040DAIHKJBD_0040StancesBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2142,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "5374616e6365734265686176696f724d6f64756c654461746100",
+    "text": "StancesBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040DOMELCDC_0040HelicopterSlowDeathBehaviorModul_0040",
+    "sourceLine": 2144,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "48656c69636f70746572536c6f7744656174684265686176696f724d6f64756c654461746100",
+    "text": "HelicopterSlowDeathBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CJ_0040DLOIBLCM_0040ModelConditionSoundSelectorOverr_0040",
+    "sourceLine": 2146,
+    "type": "_0024ArrayType_0024_0024_0024BY0CJ_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e536f756e6453656c6563746f724f76657272696465426c6f636b00",
+    "text": "ModelConditionSoundSelectorOverrideBlock"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DE_0040MEHMIEAF_0040ModelConditionSoundSelectorClien_0040",
+    "sourceLine": 2148,
+    "type": "_0024ArrayType_0024_0024_0024BY0DE_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e536f756e6453656c6563746f72436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "ModelConditionSoundSelectorClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CM_0040BDNANFJH_0040ModelConditionEvaEventSelectorOv_0040",
+    "sourceLine": 2150,
+    "type": "_0024ArrayType_0024_0024_0024BY0CM_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e4576614576656e7453656c6563746f724f76657272696465426c6f636b00",
+    "text": "ModelConditionEvaEventSelectorOverrideBlock"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040GBNKFIPJ_0040ModelConditionEvaEventSelectorCl_0040",
+    "sourceLine": 2152,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e4576614576656e7453656c6563746f72436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "ModelConditionEvaEventSelectorClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040LLOHENGH_0040UpgradeSoundSelectorOverrideBloc_0040",
+    "sourceLine": 2154,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55706772616465536f756e6453656c6563746f724f76657272696465426c6f636b00",
+    "text": "UpgradeSoundSelectorOverrideBlock"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CN_0040JJNKGKK_0040UpgradeSoundSelectorClientBehavi_0040",
+    "sourceLine": 2156,
+    "type": "_0024ArrayType_0024_0024_0024BY0CN_0040_0024_0024CBD",
+    "hex": "55706772616465536f756e6453656c6563746f72436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "UpgradeSoundSelectorClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040BIHLFNE_0040BridgeBuilderModuleData_003F_0024AA_0040",
+    "sourceLine": 2158,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "4272696467654275696c6465724d6f64756c654461746100",
+    "text": "BridgeBuilderModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040BKBPPIGP_0040WanderAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2160,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "57616e64657241495570646174654d6f64756c654461746100",
+    "text": "WanderAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040OMEGDDNN_0040DeletionUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2162,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "44656c6574696f6e5570646174654d6f64756c654461746100",
+    "text": "DeletionUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040FDFCGHIL_0040AttachUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2164,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4174746163685570646174654d6f64756c654461746100",
+    "text": "AttachUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040NIIDNPF_0040MoneyGainAttachUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2166,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "4d6f6e65794761696e4174746163685570646174654d6f64756c654461746100",
+    "text": "MoneyGainAttachUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040KHBFEOBJ_0040LeechTargetingAttachUpdateModule_0040",
+    "sourceLine": 2168,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "4c65656368546172676574696e674174746163685570646174654d6f64756c654461746100",
+    "text": "LeechTargetingAttachUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040CHLAEBP_0040LineSegmentDamageUpdateModuleDat_0040",
+    "sourceLine": 2170,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "4c696e655365676d656e7444616d6167655570646174654d6f64756c654461746100",
+    "text": "LineSegmentDamageUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040CBDDANFH_0040ParabolicCurveUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2172,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "50617261626f6c696343757276655570646174654d6f64756c654461746100",
+    "text": "ParabolicCurveUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040JOOCLHDK_0040BoobyTrapUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2174,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "426f6f6279547261705570646174654d6f64756c654461746100",
+    "text": "BoobyTrapUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040KDNCODIB_0040StealUnitUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2176,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "537465616c556e69745570646174654d6f64756c654461746100",
+    "text": "StealUnitUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040MBNJPCAF_0040SpawnCrateUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2178,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "537061776e43726174655570646174654d6f64756c654461746100",
+    "text": "SpawnCrateUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040LPHBKMGJ_0040EMPUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2180,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "454d505570646174654d6f64756c654461746100",
+    "text": "EMPUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040EINDBDDI_0040RadarUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2182,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "52616461725570646174654d6f64756c654461746100",
+    "text": "RadarUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040IIHLANPF_0040AutoHealBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2184,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4175746f4865616c4265686176696f724d6f64756c654461746100",
+    "text": "AutoHealBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040IMDFONLK_0040EnergyDisablingBehaviorModuleDat_0040",
+    "sourceLine": 2186,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "456e6572677944697361626c696e674265686176696f724d6f64756c654461746100",
+    "text": "EnergyDisablingBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040IOLNLDJE_0040UnitVisionBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2188,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "556e6974566973696f6e4265686176696f724d6f64756c654461746100",
+    "text": "UnitVisionBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040EKMMFCG_0040MinefieldBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2190,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4d696e656669656c644265686176696f724d6f64756c654461746100",
+    "text": "MinefieldBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040FFEFOPLC_0040ParkingPlaceBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2192,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "5061726b696e67506c6163654265686176696f724d6f64756c654461746100",
+    "text": "ParkingPlaceBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040BGOPCJME_0040DeployStyleAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2194,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4465706c6f795374796c6541495570646174654d6f64756c654461746100",
+    "text": "DeployStyleAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040MCHMCFKN_0040LaserUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2196,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "4c617365725570646174654d6f64756c654461746100",
+    "text": "LaserUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040CEFLMJDH_0040LaserStateModuleData_003F_0024AA_0040",
+    "sourceLine": 2198,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4c6173657253746174654d6f64756c654461746100",
+    "text": "LaserStateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040PNIPLJIK_0040SweepingLaserStateModuleData_003F_0024AA_0040",
+    "sourceLine": 2200,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "5377656570696e674c6173657253746174654d6f64756c654461746100",
+    "text": "SweepingLaserStateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040NIFBABEF_0040ConvergingLaserStateModuleData_003F_0024AA_0040",
+    "sourceLine": 2202,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "436f6e76657267696e674c6173657253746174654d6f64756c654461746100",
+    "text": "ConvergingLaserStateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040HFODOMIA_0040StreamStateModuleData_003F_0024AA_0040",
+    "sourceLine": 2204,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "53747265616d53746174654d6f64756c654461746100",
+    "text": "StreamStateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040FCBLMOPP_0040ActivateModuleInfo_003F_0024AA_0040",
+    "sourceLine": 2206,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "41637469766174654d6f64756c65496e666f00",
+    "text": "ActivateModuleInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040GLICCHOI_0040ActivateModuleSpecialPower_003F_0024AA_0040",
+    "sourceLine": 2208,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "41637469766174654d6f64756c655370656369616c506f77657200",
+    "text": "ActivateModuleSpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040ONAHOLDI_0040SwitchLocomotorUpdate_003F_0024AA_0040",
+    "sourceLine": 2210,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "5377697463684c6f636f6d6f746f7255706461746500",
+    "text": "SwitchLocomotorUpdate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040CEEBGLOG_0040TrackDamageModuleData_003F_0024AA_0040",
+    "sourceLine": 2212,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "547261636b44616d6167654d6f64756c654461746100",
+    "text": "TrackDamageModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040GJCBICHO_0040WeaponSlot_WeaponData_003F_0024AA_0040",
+    "sourceLine": 2214,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "576561706f6e536c6f745f576561706f6e4461746100",
+    "text": "WeaponSlot_WeaponData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040GBPNHNAB_0040WeaponSlot_Hardpoint_003F_0024AA_0040",
+    "sourceLine": 2216,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "576561706f6e536c6f745f48617264706f696e7400",
+    "text": "WeaponSlot_Hardpoint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040OBGBJLN_0040WeaponSlot_Turret_003F_0024AA_0040",
+    "sourceLine": 2218,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "576561706f6e536c6f745f54757272657400",
+    "text": "WeaponSlot_Turret"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040NCEIOJAJ_0040WeaponSlot_HierarchicalTurret_003F_0024AA_0040",
+    "sourceLine": 2220,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "576561706f6e536c6f745f48696572617263686963616c54757272657400",
+    "text": "WeaponSlot_HierarchicalTurret"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040IBJPAEFJ_0040WeaponSlot_Contained_003F_0024AA_0040",
+    "sourceLine": 2222,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "576561706f6e536c6f745f436f6e7461696e656400",
+    "text": "WeaponSlot_Contained"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040JAMHMMPN_0040WeaponSetUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2224,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "576561706f6e5365745570646174654d6f64756c654461746100",
+    "text": "WeaponSetUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040GDPIAHHJ_0040FiringTrackerModuleData_003F_0024AA_0040",
+    "sourceLine": 2226,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "466972696e67547261636b65724d6f64756c654461746100",
+    "text": "FiringTrackerModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CP_0040BLOJHFPO_0040SpecialPowerTimerRefreshSpecialP_0040",
+    "sourceLine": 2228,
+    "type": "_0024ArrayType_0024_0024_0024BY0CP_0040_0024_0024CBD",
+    "hex": "5370656369616c506f77657254696d6572526566726573685370656369616c506f7765724d6f64756c654461746100",
+    "text": "SpecialPowerTimerRefreshSpecialPowerModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040DPJABOII_0040TransportAIUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2230,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5472616e73706f727441495570646174654d6f64756c654461746100",
+    "text": "TransportAIUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040DNAPCFFH_0040ObjectHelperModuleData_003F_0024AA_0040",
+    "sourceLine": 2232,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4f626a65637448656c7065724d6f64756c654461746100",
+    "text": "ObjectHelperModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040IELBNHOF_0040ObjectDefectionHelperModuleData_003F_0024AA_0040",
+    "sourceLine": 2234,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "4f626a656374446566656374696f6e48656c7065724d6f64756c654461746100",
+    "text": "ObjectDefectionHelperModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040NPMIIHGA_0040ObjectSMCHelperModuleData_003F_0024AA_0040",
+    "sourceLine": 2236,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "4f626a656374534d4348656c7065724d6f64756c654461746100",
+    "text": "ObjectSMCHelperModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040JMHJFDCM_0040HitReactionBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2238,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4869745265616374696f6e4265686176696f724d6f64756c654461746100",
+    "text": "HitReactionBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040IPPKBJG_0040ReplaceObjectNugget_003F_0024AA_0040",
+    "sourceLine": 2240,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "5265706c6163654f626a6563744e756767657400",
+    "text": "ReplaceObjectNugget"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040CIAIIBEG_0040ReplaceObjectUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2242,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "5265706c6163654f626a6563745570646174654d6f64756c654461746100",
+    "text": "ReplaceObjectUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040INBFKELE_0040AIGateUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2244,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4149476174655570646174654d6f64756c654461746100",
+    "text": "AIGateUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CM_0040IGKKAMJO_0040ClearanceTestingSlowDeathBehavio_0040",
+    "sourceLine": 2246,
+    "type": "_0024ArrayType_0024_0024_0024BY0CM_0040_0024_0024CBD",
+    "hex": "436c656172616e636554657374696e67536c6f7744656174684265686176696f724d6f64756c654461746100",
+    "text": "ClearanceTestingSlowDeathBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040HACLPMKD_0040LargeGroupAudioClientUpdateModul_0040",
+    "sourceLine": 2248,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "4c6172676547726f7570417564696f436c69656e745570646174654d6f64756c654461746100",
+    "text": "LargeGroupAudioClientUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040MJNAHACD_0040RepairUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2250,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "5265706169725570646174654d6f64756c654461746100",
+    "text": "RepairUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040GLLMDJND_0040SpawnBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2252,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "537061776e4265686176696f724d6f64756c654461746100",
+    "text": "SpawnBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040PKDCNIPG_0040PassiveAreaEffectBehaviorModuleD_0040",
+    "sourceLine": 2254,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "50617373697665417265614566666563744265686176696f724d6f64756c654461746100",
+    "text": "PassiveAreaEffectBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0ED_0040PJGOJAMC_0040ModelConditionAudioLoopClientBeh_0040",
+    "sourceLine": 2256,
+    "type": "_0024ArrayType_0024_0024_0024BY0ED_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e417564696f4c6f6f70436c69656e744265686176696f724d6f64756c65446174614d6f64656c436f6e646974696f6e536f756e6400",
+    "text": "ModelConditionAudioLoopClientBehaviorModuleDataModelConditionSound"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DA_0040GELPFMGH_0040ModelConditionAudioLoopClientBeh_0040",
+    "sourceLine": 2258,
+    "type": "_0024ArrayType_0024_0024_0024BY0DA_0040_0024_0024CBD",
+    "hex": "4d6f64656c436f6e646974696f6e417564696f4c6f6f70436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "ModelConditionAudioLoopClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040BHDBKPBC_0040EvaAnnounceClientCreateModuleDat_0040",
+    "sourceLine": 2260,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "457661416e6e6f756e6365436c69656e744372656174654d6f64756c654461746100",
+    "text": "EvaAnnounceClientCreateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040MMFOGMHK_0040EvaAnnounceSpecialPowerReadyClie_0040",
+    "sourceLine": 2262,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "457661416e6e6f756e63655370656369616c506f7765725265616479436c69656e745570646174654d6f64756c654461746100",
+    "text": "EvaAnnounceSpecialPowerReadyClientUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040POPPCNLP_0040CrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2264,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "CrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040LNALCCAJ_0040HealCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2266,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4865616c4372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "HealCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040HEKDAKJN_0040AttributeCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2268,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "4174747269627574654372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "AttributeCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040OBHOJKDH_0040RandomCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2270,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "52616e646f6d4372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "RandomCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040OFAELPEE_0040MoneyCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2272,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4d6f6e65794372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "MoneyCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040ICDDPKC_0040UnitCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2274,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "556e69744372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "UnitCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040LNOJBJGC_0040VeterancyCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2276,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "5665746572616e63794372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "VeterancyCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040JGDGHHML_0040SalvageCrateCollideModuleData_003F_0024AA_0040",
+    "sourceLine": 2278,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "53616c766167654372617465436f6c6c6964654d6f64756c654461746100",
+    "text": "SalvageCrateCollideModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040OHCHEMFM_0040AnimationSoundInfo_003F_0024AA_0040",
+    "sourceLine": 2280,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "416e696d6174696f6e536f756e64496e666f00",
+    "text": "AnimationSoundInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040FJIPCABA_0040AnimationSoundClientBehaviorModu_0040",
+    "sourceLine": 2282,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "416e696d6174696f6e536f756e64436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "AnimationSoundClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040GFOKEOMG_0040RadarMarkerClientUpdateModuleDat_0040",
+    "sourceLine": 2284,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "52616461724d61726b6572436c69656e745570646174654d6f64756c654461746100",
+    "text": "RadarMarkerClientUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CM_0040MOOEFJDK_0040RandomSoundSelectorClientBehavio_0040",
+    "sourceLine": 2286,
+    "type": "_0024ArrayType_0024_0024_0024BY0CM_0040_0024_0024CBD",
+    "hex": "52616e646f6d536f756e6453656c6563746f72436c69656e744265686176696f724d6f64756c654461746100",
+    "text": "RandomSoundSelectorClientBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040ENMPAEBD_0040ObjectEffectTuple_003F_0024AA_0040",
+    "sourceLine": 2288,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4f626a6563744566666563745475706c6500",
+    "text": "ObjectEffectTuple"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040HLKMFHLN_0040SecondaryObjectListenerModule_003F_0024AA_0040",
+    "sourceLine": 2290,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "5365636f6e646172794f626a6563744c697374656e65724d6f64756c6500",
+    "text": "SecondaryObjectListenerModule"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040BDAHLBOM_0040CaptureBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2292,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "436170747572654265686176696f724d6f64756c654461746100",
+    "text": "CaptureBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040GAIKIFPP_0040StorePurchasedUpgradeBehaviorMod_0040",
+    "sourceLine": 2294,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "53746f7265507572636861736564557067726164654265686176696f724d6f64756c654461746100",
+    "text": "StorePurchasedUpgradeBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040JIPEBGAO_0040DistributeEnergyToAlliesBehavior_0040",
+    "sourceLine": 2296,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "44697374726962757465456e65726779546f416c6c6965734265686176696f724d6f64756c654461746100",
+    "text": "DistributeEnergyToAlliesBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040KNMJAIKO_0040UnifiedControlBehaviorModuleData_0040",
+    "sourceLine": 2298,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "556e6966696564436f6e74726f6c4265686176696f724d6f64756c654461746100",
+    "text": "UnifiedControlBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040EILFPCHP_0040UnifiedShroudRevealBehaviorModul_0040",
+    "sourceLine": 2300,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "556e69666965645368726f756452657665616c4265686176696f724d6f64756c654461746100",
+    "text": "UnifiedShroudRevealBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040FNINGKEM_0040UpgradeMap_003F_0024AA_0040",
+    "sourceLine": 2302,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "557067726164654d617000",
+    "text": "UpgradeMap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040IDFDCCAD_0040CaptureAndGiveUpgradeBehaviorMod_0040",
+    "sourceLine": 2304,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "43617074757265416e6447697665557067726164654265686176696f724d6f64756c654461746100",
+    "text": "CaptureAndGiveUpgradeBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040BDJJIAAG_0040StoreCurrentStateUpdateModuleDat_0040",
+    "sourceLine": 2306,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "53746f726543757272656e7453746174655570646174654d6f64756c654461746100",
+    "text": "StoreCurrentStateUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040NGLENHF_0040WallHubBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2308,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "57616c6c4875624265686176696f724d6f64756c654461746100",
+    "text": "WallHubBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040MHKPKGHM_0040ToppleUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2310,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "546f70706c655570646174654d6f64756c654461746100",
+    "text": "ToppleUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040KGIHEDIF_0040RunOffMapBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2312,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "52756e4f66664d61704265686176696f724d6f64756c654461746100",
+    "text": "RunOffMapBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040OHCGFFO_0040SkirmishStartCash_003F_0024AA_0040",
+    "sourceLine": 2314,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "536b69726d69736853746172744361736800",
+    "text": "SkirmishStartCash"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040DKFACPGN_0040MpGameRules_003F_0024AA_0040",
+    "sourceLine": 2316,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d7047616d6552756c657300",
+    "text": "MpGameRules"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040GOOFNBJA_0040InvisibilityUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2318,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "496e7669736962696c6974795570646174654d6f64756c654461746100",
+    "text": "InvisibilityUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040LNAKPCEG_0040InvisibilityBroadcastUpdateModul_0040",
+    "sourceLine": 2320,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "496e7669736962696c69747942726f6164636173745570646174654d6f64756c654461746100",
+    "text": "InvisibilityBroadcastUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040BDELDNAF_0040PowerUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2322,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "506f7765725570646174654d6f64756c654461746100",
+    "text": "PowerUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040GGAFDBEG_0040SlaveWatcherBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2324,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "536c617665576174636865724265686176696f724d6f64756c654461746100",
+    "text": "SlaveWatcherBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040PGOLIMAC_0040RemoveUpgradeUpgradeModuleData_003F_0024AA_0040",
+    "sourceLine": 2326,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "52656d6f766555706772616465557067726164654d6f64756c654461746100",
+    "text": "RemoveUpgradeUpgradeModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040LMHHIEBL_0040EffectInfoType_003F_0024AA_0040",
+    "sourceLine": 2328,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "456666656374496e666f5479706500",
+    "text": "EffectInfoType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040NAIKNCIK_0040SecondaryDamageTrackerModuleData_0040",
+    "sourceLine": 2330,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "5365636f6e6461727944616d616765547261636b65724d6f64756c654461746100",
+    "text": "SecondaryDamageTrackerModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JEGDGMIC_0040StrafeAreaUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2332,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "537472616665417265615570646174654d6f64756c654461746100",
+    "text": "StrafeAreaUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OKHMCJAI_0040OCLMonitorUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2334,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4f434c4d6f6e69746f725570646174654d6f64756c654461746100",
+    "text": "OCLMonitorUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040JJJOFCPF_0040KindOfAndStatusAndModelCondition_0040",
+    "sourceLine": 2336,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "4b696e644f66416e64537461747573416e644d6f64656c436f6e646974696f6e5479706500",
+    "text": "KindOfAndStatusAndModelConditionType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040MGNMKFCH_0040RadarScanMapSpecialAbilityUpdate_0040",
+    "sourceLine": 2338,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "52616461725363616e4d61705370656369616c4162696c6974795570646174654d6f64756c654461746100",
+    "text": "RadarScanMapSpecialAbilityUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040CFFEGNB_0040RestrictSpecialPowerBehaviorModu_0040",
+    "sourceLine": 2340,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "52657374726963745370656369616c506f7765724265686176696f724d6f64756c654461746100",
+    "text": "RestrictSpecialPowerBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040BLDDMEIB_0040AreaRestrictSpecialPowerBehavior_0040",
+    "sourceLine": 2342,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "4172656152657374726963745370656369616c506f7765724265686176696f724d6f64756c654461746100",
+    "text": "AreaRestrictSpecialPowerBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040FGOECBGM_0040LinearDamageUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2344,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "4c696e65617244616d6167655570646174654d6f64756c654461746100",
+    "text": "LinearDamageUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040CJIBHHJP_0040CircularDamageUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2346,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "43697263756c617244616d6167655570646174654d6f64756c654461746100",
+    "text": "CircularDamageUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040PCCEGIMI_0040ProjectileMoveBase_003F_0024AA_0040",
+    "sourceLine": 2348,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "50726f6a656374696c654d6f76654261736500",
+    "text": "ProjectileMoveBase"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040DBLAENPL_0040ProjectileMoveToGroundData_003F_0024AA_0040",
+    "sourceLine": 2350,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "50726f6a656374696c654d6f7665546f47726f756e644461746100",
+    "text": "ProjectileMoveToGroundData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040FPMLIHBG_0040ProjectileMoveInStraightLineData_0040",
+    "sourceLine": 2352,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "50726f6a656374696c654d6f7665496e53747261696768744c696e654461746100",
+    "text": "ProjectileMoveInStraightLineData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040HILEHIMI_0040BalloonProjectileMoveToGroundDat_0040",
+    "sourceLine": 2354,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "42616c6c6f6f6e50726f6a656374696c654d6f7665546f47726f756e644461746100",
+    "text": "BalloonProjectileMoveToGroundData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040MNAGHKJB_0040BezierSplineProjectileData_003F_0024AA_0040",
+    "sourceLine": 2356,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "42657a69657253706c696e6550726f6a656374696c654461746100",
+    "text": "BezierSplineProjectileData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OKFEMOGA_0040ProjectileUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2358,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "50726f6a656374696c655570646174654d6f64756c654461746100",
+    "text": "ProjectileUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040GKOHNMLK_0040SetLocomotorSpeedUpdateModuleDat_0040",
+    "sourceLine": 2360,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "5365744c6f636f6d6f746f7253706565645570646174654d6f64756c654461746100",
+    "text": "SetLocomotorSpeedUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040ELHMAKGO_0040DestroyObjectsUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2362,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "44657374726f794f626a656374735570646174654d6f64756c654461746100",
+    "text": "DestroyObjectsUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040KLKOKIDC_0040PlayerPowerManagerBehaviorModule_0040",
+    "sourceLine": 2364,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "506c61796572506f7765724d616e616765724265686176696f724d6f64756c654461746100",
+    "text": "PlayerPowerManagerBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040FFBMLFHI_0040DynamicsUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2366,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "44796e616d6963735570646174654d6f64756c654461746100",
+    "text": "DynamicsUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040GDLPCPEC_0040NotifyWhenAttackingBehaviorModul_0040",
+    "sourceLine": 2368,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "4e6f746966795768656e41747461636b696e674265686176696f724d6f64756c654461746100",
+    "text": "NotifyWhenAttackingBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040EJACDGGC_0040EncloseBehaviorModuleData_003F_0024AA_0040",
+    "sourceLine": 2370,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "456e636c6f73654265686176696f724d6f64756c654461746100",
+    "text": "EncloseBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040POCEGNLH_0040DestructibleEnvironmentUpdateMod_0040",
+    "sourceLine": 2372,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "446573747275637469626c65456e7669726f6e6d656e745570646174654d6f64756c654461746100",
+    "text": "DestructibleEnvironmentUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040ENIMINPO_0040MagneticEffectUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2374,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "4d61676e657469634566666563745570646174654d6f64756c654461746100",
+    "text": "MagneticEffectUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040JNGAFOI_0040TrackIncomingWeaponFireBehaviorM_0040",
+    "sourceLine": 2376,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "547261636b496e636f6d696e67576561706f6e466972654265686176696f724d6f64756c654461746100",
+    "text": "TrackIncomingWeaponFireBehaviorModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KGCCJJFH_0040LoseHealthUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2378,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4c6f73654865616c74685570646174654d6f64756c654461746100",
+    "text": "LoseHealthUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040PIPOEEFE_0040ScatterDamage_003F_0024AA_0040",
+    "sourceLine": 2380,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5363617474657244616d61676500",
+    "text": "ScatterDamage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040MLFGGFHH_0040WeaponScatterEffectUpdateModuleD_0040",
+    "sourceLine": 2382,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "576561706f6e536361747465724566666563745570646174654d6f64756c654461746100",
+    "text": "WeaponScatterEffectUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040CPJMOJLK_0040LaserScatterUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2384,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "4c61736572536361747465725570646174654d6f64756c654461746100",
+    "text": "LaserScatterUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040NMPICBJC_0040GrapplingHookUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2386,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "47726170706c696e67486f6f6b5570646174654d6f64756c654461746100",
+    "text": "GrapplingHookUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040CBGPFLOE_0040ChargeWeaponUpdateModuleData_003F_0024AA_0040",
+    "sourceLine": 2388,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "436861726765576561706f6e5570646174654d6f64756c654461746100",
+    "text": "ChargeWeaponUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DA_0040PEBKDAMJ_0040AssembleStructureSpecialAbilityU_0040",
+    "sourceLine": 2390,
+    "type": "_0024ArrayType_0024_0024_0024BY0DA_0040_0024_0024CBD",
+    "hex": "417373656d626c655374727563747572655370656369616c4162696c6974795570646174654d6f64756c654461746100",
+    "text": "AssembleStructureSpecialAbilityUpdateModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040BCOFBJND_0040BeamTargetModuleData_003F_0024AA_0040",
+    "sourceLine": 2392,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4265616d5461726765744d6f64756c654461746100",
+    "text": "BeamTargetModuleData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040FECGPGGP_0040UnitAISettings_003F_0024AA_0040",
+    "sourceLine": 2394,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "556e6974414953657474696e677300",
+    "text": "UnitAISettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040GDEOLOCK_0040AutoResolveInfo_003F_0024AA_0040",
+    "sourceLine": 2396,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4175746f5265736f6c7665496e666f00",
+    "text": "AutoResolveInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040ICNJGLOF_0040ProjectedBuildabilityInfo_003F_0024AA_0040",
+    "sourceLine": 2398,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "50726f6a65637465644275696c646162696c697479496e666f00",
+    "text": "ProjectedBuildabilityInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040GDCGHEJO_0040ObjectResourceInfo_003F_0024AA_0040",
+    "sourceLine": 2400,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4f626a6563745265736f75726365496e666f00",
+    "text": "ObjectResourceInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040EJMOOPIK_0040GameObject_003F_0024AA_0040",
+    "sourceLine": 2402,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "47616d654f626a65637400",
+    "text": "GameObject"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FEHNEEEH_0040ArmorType_003F_0024AA_0040",
+    "sourceLine": 2404,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "41726d6f725479706500",
+    "text": "ArmorType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040HHLALEFG_0040ArmorTemplateSet_003F_0024AA_0040",
+    "sourceLine": 2406,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "41726d6f7254656d706c61746553657400",
+    "text": "ArmorTemplateSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040HOCHPGBJ_0040LocomotorSet_003F_0024AA_0040",
+    "sourceLine": 2408,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4c6f636f6d6f746f7253657400",
+    "text": "LocomotorSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040EAKOPFME_0040Flammability_003F_0024AA_0040",
+    "sourceLine": 2410,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "466c616d6d6162696c69747900",
+    "text": "Flammability"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040LFOKFNPA_0040SkirmishAIInformation_003F_0024AA_0040",
+    "sourceLine": 2412,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "536b69726d6973684149496e666f726d6174696f6e00",
+    "text": "SkirmishAIInformation"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040PDNDJMAN_0040ReplaceModule_003F_0024AA_0040",
+    "sourceLine": 2414,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5265706c6163654d6f64756c6500",
+    "text": "ReplaceModule"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040KFBFMHLL_0040InheritableModule_003F_0024AA_0040",
+    "sourceLine": 2416,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "496e686572697461626c654d6f64756c6500",
+    "text": "InheritableModule"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040FIJDODPD_0040AutoResolveArmor_003F_0024AA_0040",
+    "sourceLine": 2418,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4175746f5265736f6c766541726d6f7200",
+    "text": "AutoResolveArmor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040BMDLHHFA_0040AutoResolveWeapon_003F_0024AA_0040",
+    "sourceLine": 2420,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4175746f5265736f6c7665576561706f6e00",
+    "text": "AutoResolveWeapon"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040FOPECEH_0040FormationPreviewDecal_003F_0024AA_0040",
+    "sourceLine": 2422,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e50726576696577446563616c00",
+    "text": "FormationPreviewDecal"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040EACOBKJK_0040VisionInfo_003F_0024AA_0040",
+    "sourceLine": 2424,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "566973696f6e496e666f00",
+    "text": "VisionInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040COHOIBE_0040CrusherLevelModelConditionInfo_003F_0024AA_0040",
+    "sourceLine": 2426,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "437275736865724c6576656c4d6f64656c436f6e646974696f6e496e666f00",
+    "text": "CrusherLevelModelConditionInfo"
+  }
+]

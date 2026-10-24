@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12296,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4CommandMode_0040Joypad_0040UI_0040Sage_0040_0040_0040_0040SA_003FBW4CommandMode_0040Joypad_0040UI_0040Sage_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "Sell",
+      "value": 0
+    },
+    {
+      "name": "TogglePower",
+      "value": 1
+    },
+    {
+      "name": "ToggleRepair",
+      "value": 2
+    }
+  ]
+}

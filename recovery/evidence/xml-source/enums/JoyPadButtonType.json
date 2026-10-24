@@ -1,0 +1,63 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12276,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4JoyPadButtonType_0040Joypad_0040UI_0040Sage_0040_0040_0040_0040SA_003FBW4JoyPadButtonType_0040Joypad_0040UI_0040Sage_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "A",
+      "value": 6
+    },
+    {
+      "name": "B",
+      "value": 7
+    },
+    {
+      "name": "BACK",
+      "value": 11
+    },
+    {
+      "name": "D_PAD",
+      "value": 10
+    },
+    {
+      "name": "GUIDE",
+      "value": 13
+    },
+    {
+      "name": "LEFT_BUMPER",
+      "value": 2
+    },
+    {
+      "name": "LEFT_STICK",
+      "value": 0
+    },
+    {
+      "name": "LEFT_TRIGGER",
+      "value": 1
+    },
+    {
+      "name": "RIGHT_BUMPER",
+      "value": 5
+    },
+    {
+      "name": "RIGHT_STICK",
+      "value": 3
+    },
+    {
+      "name": "RIGHT_TRIGGER",
+      "value": 4
+    },
+    {
+      "name": "START",
+      "value": 12
+    },
+    {
+      "name": "X",
+      "value": 8
+    },
+    {
+      "name": "Y",
+      "value": 9
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12326,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DispositionType_0040_0040_0040_0040SA_003FBW4DispositionType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ABSOLUTE_ANGLE",
+      "value": 13
+    },
+    {
+      "name": "ANIMATED",
+      "value": 12
+    },
+    {
+      "name": "BUILDING_CHUNKS",
+      "value": 11
+    },
+    {
+      "name": "CLAMP_TO_GROUND",
+      "value": 18
+    },
+    {
+      "name": "DISPOSITION_NONE",
+      "value": 0
+    },
+    {
+      "name": "FALL_TO_GROUND",
+      "value": 19
+    },
+    {
+      "name": "FLOATING",
+      "value": 7
+    },
+    {
+      "name": "FORWARD_IMPACT",
+      "value": 9
+    },
+    {
+      "name": "INHERIT_VELOCITY",
+      "value": 8
+    },
+    {
+      "name": "LIKE_EXISTING",
+      "value": 1
+    },
+    {
+      "name": "ON_GROUND_ALIGNED",
+      "value": 2
+    },
+    {
+      "name": "RANDOM_FORCE",
+      "value": 6
+    },
+    {
+      "name": "RELATIVE_ANGLE",
+      "value": 15
+    },
+    {
+      "name": "REVERSE_IMPACT",
+      "value": 10
+    },
+    {
+      "name": "SEND_IT_FLYING",
+      "value": 3
+    },
+    {
+      "name": "SEND_IT_OUT",
+      "value": 5
+    },
+    {
+      "name": "SEND_IT_UP",
+      "value": 4
+    },
+    {
+      "name": "SPAWN_AROUND",
+      "value": 14
+    },
+    {
+      "name": "USE_CLIFF",
+      "value": 17
+    },
+    {
+      "name": "USE_DYNAMICS_FOR_FLING",
+      "value": 20
+    },
+    {
+      "name": "USE_WATER_SURFACE",
+      "value": 16
+    }
+  ]
+}

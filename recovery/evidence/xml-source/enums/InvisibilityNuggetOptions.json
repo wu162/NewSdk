@@ -1,0 +1,27 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12240,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4InvisibilityNuggetOptions_0040_0040_0040_0040SA_003FBW4InvisibilityNuggetOptions_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALLOW_NEAR_TREES",
+      "value": 0
+    },
+    {
+      "name": "CAN_ATTACK_WHILE_ACTIVE",
+      "value": 4
+    },
+    {
+      "name": "DETECTED_BY_FRIENDLIES",
+      "value": 1
+    },
+    {
+      "name": "DISCONTINUE_WHEN_REVEALED",
+      "value": 2
+    },
+    {
+      "name": "UNTOGGLE_HIDDEN_WHEN_LEAVING_STEALTH",
+      "value": 3
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12308,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4Surface_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4Surface_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AIR",
+      "value": 3
+    },
+    {
+      "name": "CLIFF",
+      "value": 2
+    },
+    {
+      "name": "CRUSHABLE_OBSTACLE",
+      "value": 9
+    },
+    {
+      "name": "CRUSHABLE_WALL",
+      "value": 10
+    },
+    {
+      "name": "DEEP_WATER",
+      "value": 7
+    },
+    {
+      "name": "GROUND",
+      "value": 0
+    },
+    {
+      "name": "IMPASSABLE",
+      "value": 6
+    },
+    {
+      "name": "OBSTACLE",
+      "value": 5
+    },
+    {
+      "name": "RUBBLE",
+      "value": 4
+    },
+    {
+      "name": "WALL_RAILING",
+      "value": 8
+    },
+    {
+      "name": "WATER",
+      "value": 1
+    }
+  ]
+}

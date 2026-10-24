@@ -1,0 +1,1143 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12280,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4KindOfType_0040_0040_0040_0040SA_003FBW4KindOfType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ACTIVATE_AFTER_UNPACK",
+      "value": 149
+    },
+    {
+      "name": "AIRCRAFT",
+      "value": 14
+    },
+    {
+      "name": "AIRCRAFT_PATH_AROUND",
+      "value": 66
+    },
+    {
+      "name": "AIRCRAFT_TRANSPORT_ONLY_GARRISONABLE_WHILE_PARKED",
+      "value": 251
+    },
+    {
+      "name": "AIRFIELD",
+      "value": 36
+    },
+    {
+      "name": "AI_CAN_UNPACK_NEAR_CONYARD",
+      "value": 143
+    },
+    {
+      "name": "AI_NEEDS_PLAYER_POWER_UPDATE",
+      "value": 137
+    },
+    {
+      "name": "ALLY_TARGETABLE",
+      "value": 3
+    },
+    {
+      "name": "ALWAYS_COLLIDE_WITH_OWN_SHIELD_SPHERES",
+      "value": 187
+    },
+    {
+      "name": "ALWAYS_SELECTABLE",
+      "value": 59
+    },
+    {
+      "name": "ALWAYS_SHOW_HOUSE_COLOR",
+      "value": 171
+    },
+    {
+      "name": "ALWAYS_VISIBLE",
+      "value": 54
+    },
+    {
+      "name": "ALWAYS_VISIBLE_IN_RADAR",
+      "value": 274
+    },
+    {
+      "name": "AMPHIBIOUS",
+      "value": 211
+    },
+    {
+      "name": "ANTI_GARRISON",
+      "value": 242
+    },
+    {
+      "name": "ARMY_SUMMARY",
+      "value": 126
+    },
+    {
+      "name": "ASSAULT_AIRCRAFT",
+      "value": 239
+    },
+    {
+      "name": "ATTACH_ATTACK",
+      "value": 275
+    },
+    {
+      "name": "ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED",
+      "value": 253
+    },
+    {
+      "name": "AUTO_ACQUIRABLE_BY_AI",
+      "value": 230
+    },
+    {
+      "name": "AUTO_RALLYPOINT",
+      "value": 69
+    },
+    {
+      "name": "BALLISTIC_MISSILE",
+      "value": 75
+    },
+    {
+      "name": "BANNER",
+      "value": 157
+    },
+    {
+      "name": "BASE_FOUNDATION",
+      "value": 101
+    },
+    {
+      "name": "BASE_SITE",
+      "value": 118
+    },
+    {
+      "name": "BEACON",
+      "value": 247
+    },
+    {
+      "name": "BEAM_TARGET",
+      "value": 111
+    },
+    {
+      "name": "BEAM_TARGET_REFLECTOR",
+      "value": 112
+    },
+    {
+      "name": "BLOCKING_GATE",
+      "value": 135
+    },
+    {
+      "name": "BOMBER_AIRCRAFT",
+      "value": 240
+    },
+    {
+      "name": "BRIDGE",
+      "value": 23
+    },
+    {
+      "name": "BRIDGE_ENDCAP",
+      "value": 256
+    },
+    {
+      "name": "BRIDGE_GATEHOUSE",
+      "value": 257
+    },
+    {
+      "name": "BRIDGE_SEGMENT",
+      "value": 219
+    },
+    {
+      "name": "BROADCASTS_INVISIBILITY",
+      "value": 144
+    },
+    {
+      "name": "BUFF",
+      "value": 139
+    },
+    {
+      "name": "BUILD_FOR_FREE",
+      "value": 154
+    },
+    {
+      "name": "CANNOT_BE_DETECTED",
+      "value": 229
+    },
+    {
+      "name": "CANNOT_BUILD_NEAR_SUPPLIES",
+      "value": 85
+    },
+    {
+      "name": "CANNOT_HIJACK",
+      "value": 270
+    },
+    {
+      "name": "CANNOT_RETALIATE",
+      "value": 164
+    },
+    {
+      "name": "CANNOT_STOP_ON_WATER",
+      "value": 195
+    },
+    {
+      "name": "CANT_TOGGLE_POWER",
+      "value": 24
+    },
+    {
+      "name": "CAN_ATTACK",
+      "value": 5
+    },
+    {
+      "name": "CAN_ATTACK_STEALTHED",
+      "value": 227
+    },
+    {
+      "name": "CAN_ATTACK_WALLS",
+      "value": 145
+    },
+    {
+      "name": "CAN_BE_CAPTURED",
+      "value": 104
+    },
+    {
+      "name": "CAN_BE_FAVORITE_UNIT",
+      "value": 258
+    },
+    {
+      "name": "CAN_BE_REPULSED",
+      "value": 46
+    },
+    {
+      "name": "CAN_BUILD_ON_DEEP_WATER",
+      "value": 265
+    },
+    {
+      "name": "CAN_BUILD_ON_WATER",
+      "value": 264
+    },
+    {
+      "name": "CAN_CAPTURE",
+      "value": 70
+    },
+    {
+      "name": "CAN_CAST_REFLECTIONS",
+      "value": 7
+    },
+    {
+      "name": "CAN_CLIMB_WALLS",
+      "value": 174
+    },
+    {
+      "name": "CAN_HEAL_ALLIES",
+      "value": 261
+    },
+    {
+      "name": "CAN_NOT_BUILD_ON_LAND",
+      "value": 263
+    },
+    {
+      "name": "CAN_PLACE_CHARGE",
+      "value": 57
+    },
+    {
+      "name": "CAN_PLACE_MANIPULATOR",
+      "value": 83
+    },
+    {
+      "name": "CAN_RAPPEL",
+      "value": 44
+    },
+    {
+      "name": "CAN_SEE_THROUGH_STRUCTURE",
+      "value": 74
+    },
+    {
+      "name": "CAN_SHOOT_OVER_WALLS",
+      "value": 208
+    },
+    {
+      "name": "CAN_SKIP_SHADOW",
+      "value": 190
+    },
+    {
+      "name": "CAN_TOPPLE",
+      "value": 188
+    },
+    {
+      "name": "CAPTURABLE",
+      "value": 50
+    },
+    {
+      "name": "CAPTUREFLAG",
+      "value": 194
+    },
+    {
+      "name": "CARPET_BOMBER",
+      "value": 282
+    },
+    {
+      "name": "CASTLE_CENTER",
+      "value": 19
+    },
+    {
+      "name": "CASTLE_KEEP",
+      "value": 29
+    },
+    {
+      "name": "CAVALRY",
+      "value": 11
+    },
+    {
+      "name": "CHUNK_VENDOR",
+      "value": 130
+    },
+    {
+      "name": "CIVILIAN_BUILDING",
+      "value": 201
+    },
+    {
+      "name": "CIVILIAN_UNIT",
+      "value": 127
+    },
+    {
+      "name": "CLASSIFY_ENTIRE_FOOTPRINT",
+      "value": 58
+    },
+    {
+      "name": "CLEARED_BY_BUILD",
+      "value": 52
+    },
+    {
+      "name": "CLICK_THROUGH",
+      "value": 76
+    },
+    {
+      "name": "COMBO_HORDE",
+      "value": 107
+    },
+    {
+      "name": "COMMANDCENTER",
+      "value": 18
+    },
+    {
+      "name": "COMMANDO",
+      "value": 47
+    },
+    {
+      "name": "CONSTRUCTION_YARD",
+      "value": 207
+    },
+    {
+      "name": "COVER",
+      "value": 217
+    },
+    {
+      "name": "CRANE",
+      "value": 136
+    },
+    {
+      "name": "CRATE",
+      "value": 49
+    },
+    {
+      "name": "CREEP",
+      "value": 165
+    },
+    {
+      "name": "CRUSHABLE_BUILDING",
+      "value": 271
+    },
+    {
+      "name": "CRUSHABLE_OBSTACLE",
+      "value": 231
+    },
+    {
+      "name": "CRUSH_CRUSHABLE_BUILDINGS",
+      "value": 272
+    },
+    {
+      "name": "CYCLE_SELECTION",
+      "value": 189
+    },
+    {
+      "name": "DEBRIS",
+      "value": 280
+    },
+    {
+      "name": "DEFENSIVE_WALL",
+      "value": 61
+    },
+    {
+      "name": "DEFLECT_BY_SPECIAL_POWER",
+      "value": 99
+    },
+    {
+      "name": "DEPLOYED_MINE",
+      "value": 163
+    },
+    {
+      "name": "DEPRECATED",
+      "value": 122
+    },
+    {
+      "name": "DISGUISER",
+      "value": 88
+    },
+    {
+      "name": "DONT_AUTO_CRUSH_INFANTRY",
+      "value": 91
+    },
+    {
+      "name": "DONT_DESTROY_IF_ON_BRIDGE",
+      "value": 281
+    },
+    {
+      "name": "DONT_HIDE_IF_FOGGED",
+      "value": 203
+    },
+    {
+      "name": "DONT_SUBMERGE_BY_WAVES",
+      "value": 84
+    },
+    {
+      "name": "DONT_UNATTACH_WHEN_HEALING",
+      "value": 276
+    },
+    {
+      "name": "DONT_USE_CANCEL_BUILD_BUTTON",
+      "value": 200
+    },
+    {
+      "name": "DOZER",
+      "value": 16
+    },
+    {
+      "name": "DOZER_FACTORY",
+      "value": 184
+    },
+    {
+      "name": "DO_NOT_CLASSIFY",
+      "value": 147
+    },
+    {
+      "name": "DO_NOT_PICK_ME_WHEN_BUILDING",
+      "value": 168
+    },
+    {
+      "name": "DRAWABLE_ONLY",
+      "value": 37
+    },
+    {
+      "name": "DRONE",
+      "value": 73
+    },
+    {
+      "name": "ECONOMY_STRUCTURE",
+      "value": 186
+    },
+    {
+      "name": "EGG",
+      "value": 245
+    },
+    {
+      "name": "ENCLOSURE",
+      "value": 268
+    },
+    {
+      "name": "ENGINEER",
+      "value": 243
+    },
+    {
+      "name": "ENVIRONMENT",
+      "value": 98
+    },
+    {
+      "name": "EXPANSION_PAD",
+      "value": 210
+    },
+    {
+      "name": "EXPANSION_UNIT",
+      "value": 244
+    },
+    {
+      "name": "FIGHTER_AIRCRAFT",
+      "value": 241
+    },
+    {
+      "name": "FORCEATTACKABLE",
+      "value": 68
+    },
+    {
+      "name": "FS_AIR_FIELD",
+      "value": 223
+    },
+    {
+      "name": "FS_BARRACKS",
+      "value": 221
+    },
+    {
+      "name": "FS_BASE_DEFENSE",
+      "value": 64
+    },
+    {
+      "name": "FS_CASH_PRODUCER",
+      "value": 133
+    },
+    {
+      "name": "FS_FACTORY",
+      "value": 63
+    },
+    {
+      "name": "FS_MONEY_STORAGE",
+      "value": 213
+    },
+    {
+      "name": "FS_POWER",
+      "value": 62
+    },
+    {
+      "name": "FS_RADAR",
+      "value": 222
+    },
+    {
+      "name": "FS_TECHNOLOGY",
+      "value": 65
+    },
+    {
+      "name": "FS_TECH_CENTER",
+      "value": 224
+    },
+    {
+      "name": "FS_WAR_FACTORY",
+      "value": 220
+    },
+    {
+      "name": "GARRISON",
+      "value": 116
+    },
+    {
+      "name": "GARRISONABLE_UNTIL_DESTROYED",
+      "value": 79
+    },
+    {
+      "name": "GRABBABLE",
+      "value": 206
+    },
+    {
+      "name": "GRAB_AND_DROP",
+      "value": 140
+    },
+    {
+      "name": "GRAB_AND_KILL",
+      "value": 96
+    },
+    {
+      "name": "GRANTS_VETERANCY",
+      "value": 273
+    },
+    {
+      "name": "HARVESTABLE",
+      "value": 205
+    },
+    {
+      "name": "HARVESTER",
+      "value": 17
+    },
+    {
+      "name": "HAS_HEALTH_BAR",
+      "value": 161
+    },
+    {
+      "name": "HEAL_PAD",
+      "value": 33
+    },
+    {
+      "name": "HEAVY_MELEE_HITTER",
+      "value": 202
+    },
+    {
+      "name": "HIDE_IF_FOGGED",
+      "value": 170
+    },
+    {
+      "name": "HORDE",
+      "value": 106
+    },
+    {
+      "name": "HUGE_VEHICLE",
+      "value": 15
+    },
+    {
+      "name": "HULK",
+      "value": 82
+    },
+    {
+      "name": "HUSK",
+      "value": 248
+    },
+    {
+      "name": "IGNORED_IN_FINDPOSITIONAROUND",
+      "value": 105
+    },
+    {
+      "name": "IGNORED_IN_GUI",
+      "value": 48
+    },
+    {
+      "name": "IGNORES_SELECT_ALL",
+      "value": 90
+    },
+    {
+      "name": "IGNORE_CAN_NOT_BUILD",
+      "value": 234
+    },
+    {
+      "name": "IGNORE_FORCE_MOVE",
+      "value": 249
+    },
+    {
+      "name": "IGNORE_FOR_EVA_SPEECH_POSITION",
+      "value": 155
+    },
+    {
+      "name": "IGNORE_FOR_VICTORY",
+      "value": 146
+    },
+    {
+      "name": "IGNORE_IN_AI_HUNT_TACTIC",
+      "value": 162
+    },
+    {
+      "name": "IMMOBILE",
+      "value": 4
+    },
+    {
+      "name": "IMMUNE_TO_CAPTURE",
+      "value": 81
+    },
+    {
+      "name": "IMMUNE_TO_CYCLONIC_SHOCKWAVE",
+      "value": 228
+    },
+    {
+      "name": "INERT",
+      "value": 89
+    },
+    {
+      "name": "INERT_SHROUD_REVEALER",
+      "value": 119
+    },
+    {
+      "name": "INFANTRY",
+      "value": 10
+    },
+    {
+      "name": "INFILTRATOR",
+      "value": 218
+    },
+    {
+      "name": "KEEP_CLASSIFIED_WHEN_DEAD",
+      "value": 129
+    },
+    {
+      "name": "LARGE_RECTANGLE_PATHFIND",
+      "value": 176
+    },
+    {
+      "name": "LEAVE_PARKING_ON_BUILD_COMPLETE",
+      "value": 267
+    },
+    {
+      "name": "LIMITED_PRODUCTION_AIRCRAFT",
+      "value": 266
+    },
+    {
+      "name": "LINE_OF_SIGHT_IGNORES_BUILDINGS",
+      "value": 250
+    },
+    {
+      "name": "LINKED_TO_FLAG",
+      "value": 51
+    },
+    {
+      "name": "LOW_OVERLAPPABLE",
+      "value": 67
+    },
+    {
+      "name": "MACHINE",
+      "value": 13
+    },
+    {
+      "name": "MCV",
+      "value": 260
+    },
+    {
+      "name": "MELEE_HORDE",
+      "value": 117
+    },
+    {
+      "name": "MINE",
+      "value": 56
+    },
+    {
+      "name": "MINE_TRIGGER",
+      "value": 138
+    },
+    {
+      "name": "MONSTER",
+      "value": 12
+    },
+    {
+      "name": "MOVE_FOR_NOONE",
+      "value": 172
+    },
+    {
+      "name": "MOVE_ONLY",
+      "value": 132
+    },
+    {
+      "name": "MP_COUNT_FOR_VICTORY",
+      "value": 38
+    },
+    {
+      "name": "NEED_BASE_FOUNDATION",
+      "value": 102
+    },
+    {
+      "name": "NEUTRAL_TECH",
+      "value": 232
+    },
+    {
+      "name": "NEVER_CULL_FOR_MP",
+      "value": 199
+    },
+    {
+      "name": "NONOCCLUDING",
+      "value": 108
+    },
+    {
+      "name": "NOTIFY_OF_PREATTACK",
+      "value": 115
+    },
+    {
+      "name": "NOT_AUTOACQUIRABLE",
+      "value": 128
+    },
+    {
+      "name": "NOT_SELLABLE",
+      "value": 151
+    },
+    {
+      "name": "NO_BASE_CAPTURE",
+      "value": 125
+    },
+    {
+      "name": "NO_COLLIDE",
+      "value": 31
+    },
+    {
+      "name": "NO_FORMATION_MOVEMENT",
+      "value": 124
+    },
+    {
+      "name": "NO_FREEWILL_ENTER",
+      "value": 109
+    },
+    {
+      "name": "NO_GARRISON",
+      "value": 28
+    },
+    {
+      "name": "NO_HEAL_ICON",
+      "value": 43
+    },
+    {
+      "name": "NO_SHADOW",
+      "value": 175
+    },
+    {
+      "name": "OBSTACLE",
+      "value": 0
+    },
+    {
+      "name": "OCL_BIT",
+      "value": 120
+    },
+    {
+      "name": "OPTIMIZED_PROP",
+      "value": 97
+    },
+    {
+      "name": "OPTIMIZED_SOUND",
+      "value": 182
+    },
+    {
+      "name": "ORE_NODE",
+      "value": 159
+    },
+    {
+      "name": "ORIENTS_TO_CAMERA",
+      "value": 198
+    },
+    {
+      "name": "OUTPOST",
+      "value": 246
+    },
+    {
+      "name": "PARACHUTABLE",
+      "value": 45
+    },
+    {
+      "name": "PARACHUTE",
+      "value": 78
+    },
+    {
+      "name": "PASS_EXPERIENCE_TO_CONTAINED",
+      "value": 183
+    },
+    {
+      "name": "PASS_EXPERIENCE_TO_CONTAINER",
+      "value": 196
+    },
+    {
+      "name": "PASS_EXPERIENCE_TO_PRODUCER",
+      "value": 209
+    },
+    {
+      "name": "PASS_EXPERIENCE_TO_SLAVER",
+      "value": 160
+    },
+    {
+      "name": "PATH_THROUGH_EACH_OTHER",
+      "value": 114
+    },
+    {
+      "name": "PATH_THROUGH_INFANTRY",
+      "value": 123
+    },
+    {
+      "name": "PORT",
+      "value": 178
+    },
+    {
+      "name": "POWERED",
+      "value": 71
+    },
+    {
+      "name": "POWERED_POWERS_ONLY",
+      "value": 166
+    },
+    {
+      "name": "PRELOAD",
+      "value": 27
+    },
+    {
+      "name": "PRODUCED_AT_HELIPAD",
+      "value": 72
+    },
+    {
+      "name": "PROJECTILE",
+      "value": 26
+    },
+    {
+      "name": "PROJECT_BUILDABILITY_FOR_ALLIES",
+      "value": 262
+    },
+    {
+      "name": "RADAR_SCRAMBLER",
+      "value": 269
+    },
+    {
+      "name": "REACT_WHEN_SELECTED",
+      "value": 103
+    },
+    {
+      "name": "REBUILD_HOLE",
+      "value": 39
+    },
+    {
+      "name": "REFINERY",
+      "value": 131
+    },
+    {
+      "name": "REPAIR_PAD",
+      "value": 32
+    },
+    {
+      "name": "RESIST_EMP",
+      "value": 197
+    },
+    {
+      "name": "REVEAL_TO_ALL",
+      "value": 87
+    },
+    {
+      "name": "ROCK",
+      "value": 94
+    },
+    {
+      "name": "ROCK_VENDOR",
+      "value": 134
+    },
+    {
+      "name": "SALVAGER",
+      "value": 20
+    },
+    {
+      "name": "SCALEABLE_WALL",
+      "value": 191
+    },
+    {
+      "name": "SCARY",
+      "value": 142
+    },
+    {
+      "name": "SCORE",
+      "value": 40
+    },
+    {
+      "name": "SCORE_CREATE",
+      "value": 41
+    },
+    {
+      "name": "SCORE_DESTROY",
+      "value": 42
+    },
+    {
+      "name": "SELECTABLE",
+      "value": 1
+    },
+    {
+      "name": "SHADOW_ULTRA_HIGH_ONLY",
+      "value": 30
+    },
+    {
+      "name": "SHIP",
+      "value": 181
+    },
+    {
+      "name": "SHOW_BEHIND_OCCLUDERS",
+      "value": 212
+    },
+    {
+      "name": "SHRUBBERY",
+      "value": 8
+    },
+    {
+      "name": "SIEGE_TOWER",
+      "value": 92
+    },
+    {
+      "name": "SIEGE_WEAPON",
+      "value": 25
+    },
+    {
+      "name": "SIMPLE_OBJECT_PROP",
+      "value": 180
+    },
+    {
+      "name": "SKIP_DEFECT_IF_UNCOMBINED",
+      "value": 254
+    },
+    {
+      "name": "SKIP_IDLE_WHEN_CAPTURED",
+      "value": 255
+    },
+    {
+      "name": "SKIRMISH_AI_ATTEMPT_TO_DODGE",
+      "value": 238
+    },
+    {
+      "name": "SKIRMISH_AI_CAN_BUILD_DURING_EMERGENCY_NO_INCOME",
+      "value": 80
+    },
+    {
+      "name": "SKIRMISH_AI_DONT_CONSIDER_THREAT",
+      "value": 235
+    },
+    {
+      "name": "SKIRMISH_AI_DONT_GARRISON",
+      "value": 236
+    },
+    {
+      "name": "SKIRMISH_AI_DONT_MULTI_TARGET",
+      "value": 150
+    },
+    {
+      "name": "SKIRMISH_AI_DONT_REPAIR",
+      "value": 237
+    },
+    {
+      "name": "SKYBOX",
+      "value": 192
+    },
+    {
+      "name": "SLAVE_OWNER",
+      "value": 259
+    },
+    {
+      "name": "SMALL_MISSILE",
+      "value": 53
+    },
+    {
+      "name": "SNIPER",
+      "value": 252
+    },
+    {
+      "name": "SPELL_BOOK",
+      "value": 121
+    },
+    {
+      "name": "STEALTH_GARRISON",
+      "value": 34
+    },
+    {
+      "name": "STICK_TO_TERRAIN_SLOPE",
+      "value": 6
+    },
+    {
+      "name": "STRUCTURE",
+      "value": 9
+    },
+    {
+      "name": "SUBMARINE",
+      "value": 177
+    },
+    {
+      "name": "SUMMONED",
+      "value": 169
+    },
+    {
+      "name": "SUPER_WEAPON",
+      "value": 233
+    },
+    {
+      "name": "SUPPLY_GATHERING_CENTER",
+      "value": 35
+    },
+    {
+      "name": "SUPPLY_SOURCE",
+      "value": 86
+    },
+    {
+      "name": "SUPPLY_SOURCE_ON_PREVIEW",
+      "value": 77
+    },
+    {
+      "name": "SURPRISE_ATTACKER",
+      "value": 216
+    },
+    {
+      "name": "T1_UNIT",
+      "value": 277
+    },
+    {
+      "name": "T2_UNIT",
+      "value": 278
+    },
+    {
+      "name": "T3_UNIT",
+      "value": 279
+    },
+    {
+      "name": "TACTICAL_MARKER",
+      "value": 113
+    },
+    {
+      "name": "TARGETABLE",
+      "value": 2
+    },
+    {
+      "name": "TERRAIN_LIKE_GROUND_OBJECT",
+      "value": 283
+    },
+    {
+      "name": "THREAT_FINDER",
+      "value": 185
+    },
+    {
+      "name": "THROWN_OBJECT",
+      "value": 95
+    },
+    {
+      "name": "TIBERIUM",
+      "value": 226
+    },
+    {
+      "name": "TIBERIUM_BASED",
+      "value": 225
+    },
+    {
+      "name": "TIBERIUM_FIELD",
+      "value": 110
+    },
+    {
+      "name": "TIME_BOMB",
+      "value": 93
+    },
+    {
+      "name": "TRANSFORMER",
+      "value": 141
+    },
+    {
+      "name": "TRANSPORT",
+      "value": 22
+    },
+    {
+      "name": "UNATTACKABLE",
+      "value": 55
+    },
+    {
+      "name": "UNIQUE_UNIT",
+      "value": 215
+    },
+    {
+      "name": "UNPACKS_INTO_BUILDING",
+      "value": 158
+    },
+    {
+      "name": "VALID_TARGET_FOR_C4",
+      "value": 214
+    },
+    {
+      "name": "VEHICLE",
+      "value": 204
+    },
+    {
+      "name": "VITAL_FOR_BASE_SURVIVAL",
+      "value": 167
+    },
+    {
+      "name": "WALK_ON_TOP_OF_WALL",
+      "value": 60
+    },
+    {
+      "name": "WALL_GATE",
+      "value": 193
+    },
+    {
+      "name": "WALL_HUB",
+      "value": 153
+    },
+    {
+      "name": "WALL_PIECE",
+      "value": 152
+    },
+    {
+      "name": "WALL_SEGMENT",
+      "value": 179
+    },
+    {
+      "name": "WALL_UPGRADE",
+      "value": 148
+    },
+    {
+      "name": "WB_DISPLAY_SCRIPT_NAME",
+      "value": 173
+    },
+    {
+      "name": "WEAPON_SALVAGER",
+      "value": 21
+    },
+    {
+      "name": "WORKING_PASSENGER",
+      "value": 100
+    },
+    {
+      "name": "WORLDBUILDER_SNAP_TO_GRID",
+      "value": 156
+    }
+  ]
+}

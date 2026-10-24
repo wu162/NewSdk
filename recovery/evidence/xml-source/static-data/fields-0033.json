@@ -1,0 +1,1202 @@
+[
+  {
+    "symbol": "_003FTypeHash_0040BridgeBuilderModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 13994,
+    "type": "uint",
+    "hex": "a7ef73ba"
+  },
+  {
+    "symbol": "_003FTypeHash_0040OCLMonitorUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 13998,
+    "type": "uint",
+    "hex": "1e2398ad"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIStateTechBuildingShareHeuristic_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14000,
+    "type": "uint",
+    "hex": "3e48d53a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalToggleRepairModeButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14002,
+    "type": "uint",
+    "hex": "f7455287"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LeechPercentMaxHealthDamageNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14004,
+    "type": "uint",
+    "hex": "47151dcc"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ShieldBodyModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14016,
+    "type": "uint",
+    "hex": "41aade3f"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataAIStrategicDirective_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14020,
+    "type": "uint",
+    "hex": "9767cf5a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentInputBridge_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14022,
+    "type": "uint",
+    "hex": "c2244885"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AssembleStructureSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14026,
+    "type": "uint",
+    "hex": "c6a282dd"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Query_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14032,
+    "type": "uint",
+    "hex": "8c10cdef"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DefaultProductionExitUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14062,
+    "type": "uint",
+    "hex": "4fcad590"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataSetStance_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14066,
+    "type": "uint",
+    "hex": "54624355"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentOptionsSettingsNetwork_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14068,
+    "type": "uint",
+    "hex": "fe021776"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AttributeModifierListType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14072,
+    "type": "uint",
+    "hex": "2607cd1f"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SupplyCenterDockUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14074,
+    "type": "uint",
+    "hex": "8d80964f"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ConquerCardDefinitionBase_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14076,
+    "type": "uint",
+    "hex": "68f27214"
+  },
+  {
+    "symbol": "_003FTypeHash_0040StartPositionObject_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14082,
+    "type": "uint",
+    "hex": "9eb2d527"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIBaseSelectionCriteria_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14086,
+    "type": "uint",
+    "hex": "836bb2ef"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentOptionsSettingsGeneral_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14090,
+    "type": "uint",
+    "hex": "de089cb0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentCoopCommander_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14092,
+    "type": "uint",
+    "hex": "b2aee5e6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SubStructureStorageBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14096,
+    "type": "uint",
+    "hex": "0f8b4576"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ReplaceObjectUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14098,
+    "type": "uint",
+    "hex": "4b07c634"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIStateIntervalHeuristic_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14106,
+    "type": "uint",
+    "hex": "5916eadb"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalCoOpAIButtonsNormalButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14108,
+    "type": "uint",
+    "hex": "1963f911"
+  },
+  {
+    "symbol": "_003FTypeHash_0040CommandSet_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14114,
+    "type": "uint",
+    "hex": "7fa6cbf8"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AttributeModifierAuraUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14116,
+    "type": "uint",
+    "hex": "87b531ac"
+  },
+  {
+    "symbol": "_003FTypeHash_0040GiveOrRestoreUpgradeSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14118,
+    "type": "uint",
+    "hex": "0f2e21bf"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LaserUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14120,
+    "type": "uint",
+    "hex": "cfe5f1d6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalQuickChatDisplayCloseItem_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14124,
+    "type": "uint",
+    "hex": "e3a1fa73"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Flammability_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14128,
+    "type": "uint",
+    "hex": "e286f253"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UpgradeModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14132,
+    "type": "uint",
+    "hex": "82e5da45"
+  },
+  {
+    "symbol": "_003FTypeHash_0040BeaconClientUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14134,
+    "type": "uint",
+    "hex": "fe3c123c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplate_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14140,
+    "type": "uint",
+    "hex": "3ccc1329"
+  },
+  {
+    "symbol": "_003FTypeHash_0040BoxMinMax_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14144,
+    "type": "uint",
+    "hex": "b0c233be"
+  },
+  {
+    "symbol": "_003FTypeHash_0040BeamTargetModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14146,
+    "type": "uint",
+    "hex": "556cbac4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ModelConditionSoundSelectorOverrideBlock_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14150,
+    "type": "uint",
+    "hex": "9ece429c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DynamicsContactTagMapping_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14152,
+    "type": "uint",
+    "hex": "9db08a35"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataPlayerTargetedPower_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14154,
+    "type": "uint",
+    "hex": "9ecf34e2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ParabolicCurveNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14162,
+    "type": "uint",
+    "hex": "32388256"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ActivateLaserNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14166,
+    "type": "uint",
+    "hex": "de0127d3"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SubStructureBuildUpgradeModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14168,
+    "type": "uint",
+    "hex": "933c0e32"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ActivateModuleSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14172,
+    "type": "uint",
+    "hex": "dc2380b2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIDecalDestinationMarker_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14174,
+    "type": "uint",
+    "hex": "a2ffc9f4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentObjectAction_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14178,
+    "type": "uint",
+    "hex": "2ea90a76"
+  },
+  {
+    "symbol": "_003FTypeHash_0040NotifyWhenAttackingBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14180,
+    "type": "uint",
+    "hex": "42131c84"
+  },
+  {
+    "symbol": "_003FTypeHash_0040StringHashTable_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14182,
+    "type": "uint",
+    "hex": "ebc3feeb"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIDecalDestinationMarkerDestinationTypeSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14184,
+    "type": "uint",
+    "hex": "4bfbbc98"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ButtonSingleStateData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14186,
+    "type": "uint",
+    "hex": "185b5de1"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVelocityOrtho_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14188,
+    "type": "uint",
+    "hex": "76878e66"
+  },
+  {
+    "symbol": "_003FTypeHash_0040PathfindSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14204,
+    "type": "uint",
+    "hex": "f1f9bc9c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentCommandBar_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14206,
+    "type": "uint",
+    "hex": "8f7ca913"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TransportAIUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14218,
+    "type": "uint",
+    "hex": "bd8b13bc"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataOpenStancesStanceSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14228,
+    "type": "uint",
+    "hex": "5f97acef"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalFastForwardButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14230,
+    "type": "uint",
+    "hex": "f2a695ba"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TestModules_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14238,
+    "type": "uint",
+    "hex": "a28e2eda"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LargeGroupAudioClientUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14240,
+    "type": "uint",
+    "hex": "84ce58c0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ConquerCardUnit_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14242,
+    "type": "uint",
+    "hex": "ed1937d6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIPersonalityDefinition_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14244,
+    "type": "uint",
+    "hex": "2b9d3ccb"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TerrainParticleMap_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14248,
+    "type": "uint",
+    "hex": "4a700546"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DynamicsBoxShapeType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14250,
+    "type": "uint",
+    "hex": "03d96680"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentOnlinePlayerList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14256,
+    "type": "uint",
+    "hex": "c69b1d4e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LaserFXNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14260,
+    "type": "uint",
+    "hex": "fb3b537e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SoundFXNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14262,
+    "type": "uint",
+    "hex": "3f4e3ca7"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14264,
+    "type": "uint",
+    "hex": "c592f622"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ArticulationBone_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14266,
+    "type": "uint",
+    "hex": "2dba03ec"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ConstructionYardAIUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14268,
+    "type": "uint",
+    "hex": "cb4ae3f2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MaxHealthUpgradeModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14274,
+    "type": "uint",
+    "hex": "88abcbe2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ActivateStreamNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14282,
+    "type": "uint",
+    "hex": "5d45968e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UpgradeMap_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14284,
+    "type": "uint",
+    "hex": "869f9346"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LeechTargetingAttachUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14286,
+    "type": "uint",
+    "hex": "e094c3b5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIBuildState_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14292,
+    "type": "uint",
+    "hex": "d85fe618"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MappableKey_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14296,
+    "type": "uint",
+    "hex": "c1aeb684"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentVoiceChat_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14298,
+    "type": "uint",
+    "hex": "b6cffe70"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Triangle_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14304,
+    "type": "uint",
+    "hex": "9e12b070"
+  },
+  {
+    "symbol": "_003FTypeHash_0040EnergyDisablingBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14308,
+    "type": "uint",
+    "hex": "bde458ae"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataUpgrade_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14314,
+    "type": "uint",
+    "hex": "65079f1d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalCoOpAIButtonsHelpButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14316,
+    "type": "uint",
+    "hex": "709f5abc"
+  },
+  {
+    "symbol": "_003FTypeHash_0040W3DAnimationRuntime_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14320,
+    "type": "uint",
+    "hex": "e15c50d6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AutoParticleSystemSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14332,
+    "type": "uint",
+    "hex": "6717584a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UICoopTinting_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14334,
+    "type": "uint",
+    "hex": "ce5a4f05"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MapListType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14338,
+    "type": "uint",
+    "hex": "2704408e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MultiplayerSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14340,
+    "type": "uint",
+    "hex": "7e6e2b9c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UncombineSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14350,
+    "type": "uint",
+    "hex": "dfaef95e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040CampaignAICommander_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14354,
+    "type": "uint",
+    "hex": "fc084e32"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataAutoControlGroup_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14364,
+    "type": "uint",
+    "hex": "c699ebe2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentDisconnect_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14366,
+    "type": "uint",
+    "hex": "8d9611ea"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ShaderOverrideRule_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14368,
+    "type": "uint",
+    "hex": "7a41a110"
+  },
+  {
+    "symbol": "_003FTypeHash_0040W3DAnimation_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14370,
+    "type": "uint",
+    "hex": "e85f4555"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TeleportStoredObjectsUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14378,
+    "type": "uint",
+    "hex": "8a941092"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamageState_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14380,
+    "type": "uint",
+    "hex": "fd6037ff"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ExperienceScalarUpgradeModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14382,
+    "type": "uint",
+    "hex": "5c50df58"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FontTranslation_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14392,
+    "type": "uint",
+    "hex": "8551316c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040GameScriptParameterObjectType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14394,
+    "type": "uint",
+    "hex": "53320d73"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleBaseModule_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14400,
+    "type": "uint",
+    "hex": "71dd1935"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MapObject_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14406,
+    "type": "uint",
+    "hex": "291c2a33"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TestModuleA_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14414,
+    "type": "uint",
+    "hex": "1f1ec6e1"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Weather_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14418,
+    "type": "uint",
+    "hex": "d9b93ee2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LocomotorSetModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14420,
+    "type": "uint",
+    "hex": "e61ceabb"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalCommandHarvest_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14426,
+    "type": "uint",
+    "hex": "d0250a60"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TerrainTextureAtlasRuntime_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14434,
+    "type": "uint",
+    "hex": "bc077d46"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RefundDieModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14438,
+    "type": "uint",
+    "hex": "e5c762dc"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIBankBudgetListType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14442,
+    "type": "uint",
+    "hex": "1668bac4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AptDatData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14444,
+    "type": "uint",
+    "hex": "301cb60d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14448,
+    "type": "uint",
+    "hex": "261e139b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVelocityWavefront_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14450,
+    "type": "uint",
+    "hex": "2b8db9e0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ProjectileUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14454,
+    "type": "uint",
+    "hex": "82ec6883"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DeletionUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14456,
+    "type": "uint",
+    "hex": "c24b39c1"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIRedAlertHeuristic_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14458,
+    "type": "uint",
+    "hex": "cc9bd57d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalBuildQueueTabQueueTypeSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14464,
+    "type": "uint",
+    "hex": "b9a65da2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TheVersion_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14466,
+    "type": "uint",
+    "hex": "6f84dfa5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVolumeBase_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14468,
+    "type": "uint",
+    "hex": "a2dcebd7"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamageNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14472,
+    "type": "uint",
+    "hex": "0adc37f4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TintObjectsNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14474,
+    "type": "uint",
+    "hex": "83c234ec"
+  },
+  {
+    "symbol": "_003FTypeHash_0040CaptureBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14476,
+    "type": "uint",
+    "hex": "c75f53a3"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIConfigList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14484,
+    "type": "uint",
+    "hex": "9d7899e5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentFormation_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14488,
+    "type": "uint",
+    "hex": "4cc00a55"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14500,
+    "type": "uint",
+    "hex": "331df165"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UnitAISettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14502,
+    "type": "uint",
+    "hex": "446670f1"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ScorchMarkSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14504,
+    "type": "uint",
+    "hex": "fa0d8d69"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SpecialPowerUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14510,
+    "type": "uint",
+    "hex": "57b4d1c4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040OCLUpgradePair_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14514,
+    "type": "uint",
+    "hex": "446f1005"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseVoiceChat_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14522,
+    "type": "uint",
+    "hex": "17cceeb3"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalOpenAdvancedCommandsButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14524,
+    "type": "uint",
+    "hex": "7146938d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040EngagingContentGroup_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14528,
+    "type": "uint",
+    "hex": "87ace059"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentObjectSelector_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14530,
+    "type": "uint",
+    "hex": "fb52bdbe"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ObjectFilterAsset_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14532,
+    "type": "uint",
+    "hex": "5e195243"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamageContainedNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14540,
+    "type": "uint",
+    "hex": "b8f3aaaa"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleColor_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14560,
+    "type": "uint",
+    "hex": "546ceb2a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RGBColorKeyframe_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14562,
+    "type": "uint",
+    "hex": "324701fd"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RealRange_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14566,
+    "type": "uint",
+    "hex": "e0e0eaf4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040StatusBitsUpgradeModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14574,
+    "type": "uint",
+    "hex": "6ca5df69"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataAssembleStructure_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14576,
+    "type": "uint",
+    "hex": "e3bf9696"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MusicScriptConditionNugget_Not_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14580,
+    "type": "uint",
+    "hex": "8e5a0533"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamageFXSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14582,
+    "type": "uint",
+    "hex": "2c61577a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AreaRestrictSpecialPowerBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14586,
+    "type": "uint",
+    "hex": "2ac490fd"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LessonData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14588,
+    "type": "uint",
+    "hex": "a438ce82"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentShellMultiplayer_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14590,
+    "type": "uint",
+    "hex": "f7d04a8e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentOptions_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14592,
+    "type": "uint",
+    "hex": "b5c3a197"
+  },
+  {
+    "symbol": "_003FTypeHash_0040WaterTextureList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14598,
+    "type": "uint",
+    "hex": "98a09471"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DOTNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14600,
+    "type": "uint",
+    "hex": "45189794"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RestrictSpecialPowerBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14602,
+    "type": "uint",
+    "hex": "af945473"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MoneyCrateCollideModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14604,
+    "type": "uint",
+    "hex": "39ea42c4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentRadar_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14612,
+    "type": "uint",
+    "hex": "443505ba"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MultiplayerColor_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14614,
+    "type": "uint",
+    "hex": "a0201c13"
+  },
+  {
+    "symbol": "_003FTypeHash_0040W3DStreamDrawModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14618,
+    "type": "uint",
+    "hex": "373f1307"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AssignSlavesTargetObjectSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14622,
+    "type": "uint",
+    "hex": "4e625783"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIPlayerPowerChoice_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14624,
+    "type": "uint",
+    "hex": "a45bb479"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ButtonState_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14630,
+    "type": "uint",
+    "hex": "277d6d2e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040WeaponOCLNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14642,
+    "type": "uint",
+    "hex": "6f7ab27e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AchievementEvent_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14654,
+    "type": "uint",
+    "hex": "b3bfdbaa"
+  },
+  {
+    "symbol": "_003FTypeHash_0040PlayerUpgradeSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14658,
+    "type": "uint",
+    "hex": "ce3ff700"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SoundKeyPair_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14664,
+    "type": "uint",
+    "hex": "c0136fd6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040PathMusicGameDynamicStateSet_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14670,
+    "type": "uint",
+    "hex": "379d1d51"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleAlpha_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14672,
+    "type": "uint",
+    "hex": "84c97b06"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVolumeCylinder_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14674,
+    "type": "uint",
+    "hex": "21371112"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MinefieldBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14676,
+    "type": "uint",
+    "hex": "eb12ee02"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SwitchLocomotorsSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14678,
+    "type": "uint",
+    "hex": "00309409"
+  },
+  {
+    "symbol": "_003FTypeHash_0040GrantUpgradeCreateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14680,
+    "type": "uint",
+    "hex": "995bbe3d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TerrainTextureAtlas_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14684,
+    "type": "uint",
+    "hex": "ea13e918"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MusicScriptConditionNugget_ObjectsOfTypeExist_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14688,
+    "type": "uint",
+    "hex": "c18464a9"
+  },
+  {
+    "symbol": "_003FTypeHash_0040StrafeAreaNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14690,
+    "type": "uint",
+    "hex": "a1cee75c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataUnpack_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14698,
+    "type": "uint",
+    "hex": "94569761"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalForceMoveButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14702,
+    "type": "uint",
+    "hex": "1f50e299"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MetaImpactNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14718,
+    "type": "uint",
+    "hex": "fa47f33d"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RepairSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14720,
+    "type": "uint",
+    "hex": "6167c1c0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AISpecificUnitCap_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14724,
+    "type": "uint",
+    "hex": "00035345"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AutoResolveInfo_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14728,
+    "type": "uint",
+    "hex": "77703bdd"
+  },
+  {
+    "symbol": "_003FTypeHash_0040WeaponSlot_Turret_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14730,
+    "type": "uint",
+    "hex": "55106b13"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ProductionModifier_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14734,
+    "type": "uint",
+    "hex": "787210da"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DuckInfo_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14738,
+    "type": "uint",
+    "hex": "f7d614cf"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentOnlineGameList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14740,
+    "type": "uint",
+    "hex": "6ad41f8e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MusicScriptConditionNugget_PathMusicStateLastActive_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14742,
+    "type": "uint",
+    "hex": "6fb60a8c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVelocityBase_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14748,
+    "type": "uint",
+    "hex": "6d1eed20"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ProjectileMoveToGroundData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14752,
+    "type": "uint",
+    "hex": "492d5219"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ActivateModuleSpecialPower_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14754,
+    "type": "uint",
+    "hex": "ba321065"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MoveToPositionAndReplaceSelfSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14756,
+    "type": "uint",
+    "hex": "242c0b8b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalPauseButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14766,
+    "type": "uint",
+    "hex": "c3fa063c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AudioArraySound_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14768,
+    "type": "uint",
+    "hex": "caf06ad5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SingleCommandList_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14772,
+    "type": "uint",
+    "hex": "664cd90f"
+  },
+  {
+    "symbol": "_003FTypeHash_0040StrafeAreaUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14780,
+    "type": "uint",
+    "hex": "a04bd2d4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ResourceSettings_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14782,
+    "type": "uint",
+    "hex": "27bdfb5c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataPlayerMultiplePowersTargetedPower_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14786,
+    "type": "uint",
+    "hex": "d4d7d172"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SpendStolenTiberiumNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14796,
+    "type": "uint",
+    "hex": "75958f9b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AttachNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14798,
+    "type": "uint",
+    "hex": "db9fbbe6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FireWeaponWhenDamagedBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14802,
+    "type": "uint",
+    "hex": "3fc124f5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040RankInfoType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14804,
+    "type": "uint",
+    "hex": "cac8961b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AIWeightedOpeningMove_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14806,
+    "type": "uint",
+    "hex": "e042ec5c"
+  },
+  {
+    "symbol": "_003FTypeHash_0040PlayerTechStoreTemplate_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14808,
+    "type": "uint",
+    "hex": "15e1843a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIDecalDestinationMarkerRenderInfo_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14810,
+    "type": "uint",
+    "hex": "f544061b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataOpenPlayerPowers_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14812,
+    "type": "uint",
+    "hex": "b40c1f28"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Credits_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14816,
+    "type": "uint",
+    "hex": "ee57d610"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentPlayerTechStore_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14820,
+    "type": "uint",
+    "hex": "656496a0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ContainModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14824,
+    "type": "uint",
+    "hex": "7950c216"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXShaderMaterial_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14828,
+    "type": "uint",
+    "hex": "53bd2bee"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LinearDamageUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14830,
+    "type": "uint",
+    "hex": "01b0b70a"
+  },
+  {
+    "symbol": "_003FTypeHash_0040LineSegmentDamageUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14832,
+    "type": "uint",
+    "hex": "fdd87c51"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarTemplate_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14846,
+    "type": "uint",
+    "hex": "d971c474"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalUnitIntroButton_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14848,
+    "type": "uint",
+    "hex": "a32bb7f0"
+  },
+  {
+    "symbol": "_003FTypeHash_0040AptAptData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14850,
+    "type": "uint",
+    "hex": "c3fa38e2"
+  },
+  {
+    "symbol": "_003FTypeHash_0040CampaignMovie_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 14852,
+    "type": "uint",
+    "hex": "9c26ff79"
+  }
+]

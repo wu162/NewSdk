@@ -1,0 +1,219 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12232,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4RegisteredObjectSetId_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4RegisteredObjectSetId_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AIRCRAFT",
+      "value": 26
+    },
+    {
+      "name": "AI_PLAYER_POWER_UPDATABLE",
+      "value": 48
+    },
+    {
+      "name": "BASE_DEFENSES",
+      "value": 46
+    },
+    {
+      "name": "BASE_DEFENSES_AND_GARRISONS",
+      "value": 16
+    },
+    {
+      "name": "BEACONS",
+      "value": 14
+    },
+    {
+      "name": "CONYARDS",
+      "value": 33
+    },
+    {
+      "name": "DOZERS",
+      "value": 19
+    },
+    {
+      "name": "ENCLOSURES",
+      "value": 52
+    },
+    {
+      "name": "ENEMY_BASE_DEFENSES",
+      "value": 47
+    },
+    {
+      "name": "ENEMY_ENGINEERS",
+      "value": 31
+    },
+    {
+      "name": "ENGINEERS",
+      "value": 30
+    },
+    {
+      "name": "FACTION_STRUCTURES",
+      "value": 11
+    },
+    {
+      "name": "FACTORIES",
+      "value": 34
+    },
+    {
+      "name": "FARMS",
+      "value": 45
+    },
+    {
+      "name": "GARRISONS",
+      "value": 1
+    },
+    {
+      "name": "GLOBAL_HARVESTERS",
+      "value": 6
+    },
+    {
+      "name": "GLOBAL_ORE_REFINERIES",
+      "value": 8
+    },
+    {
+      "name": "GLOBAL_SIGMA_REFINERIES",
+      "value": 9
+    },
+    {
+      "name": "GLOBAL_TIBERIUM_REFINERIES",
+      "value": 7
+    },
+    {
+      "name": "HARVESTERS",
+      "value": 20
+    },
+    {
+      "name": "HORDES",
+      "value": 28
+    },
+    {
+      "name": "HORDE_MEMBERS",
+      "value": 29
+    },
+    {
+      "name": "INFANTRY",
+      "value": 23
+    },
+    {
+      "name": "MCVS",
+      "value": 18
+    },
+    {
+      "name": "MOBILE_GROUND_UNITS",
+      "value": 17
+    },
+    {
+      "name": "NEUTRAL_TECH",
+      "value": 2
+    },
+    {
+      "name": "ORE_MINES",
+      "value": 4
+    },
+    {
+      "name": "ORE_REFINERIES",
+      "value": 42
+    },
+    {
+      "name": "OUTPOSTS",
+      "value": 22
+    },
+    {
+      "name": "PLAYER_EVERYTHING",
+      "value": 0
+    },
+    {
+      "name": "PLAYER_NEUTRAL_TECH",
+      "value": 12
+    },
+    {
+      "name": "POWER_PLANTS",
+      "value": 38
+    },
+    {
+      "name": "RADARS",
+      "value": 36
+    },
+    {
+      "name": "REFINERIES",
+      "value": 39
+    },
+    {
+      "name": "REFINERIES_AND_REFINERY_EGGS",
+      "value": 40
+    },
+    {
+      "name": "SHIPS",
+      "value": 25
+    },
+    {
+      "name": "SIGMA_FIELDS",
+      "value": 5
+    },
+    {
+      "name": "SIGMA_REFINERIES",
+      "value": 43
+    },
+    {
+      "name": "SILOS",
+      "value": 44
+    },
+    {
+      "name": "SKIRMISH_AI_DEFENSE_TARGETS",
+      "value": 49
+    },
+    {
+      "name": "SKIRMISH_AI_NORMAL_COMBAT_UNITS",
+      "value": 51
+    },
+    {
+      "name": "SKIRMISH_AI_THREATS_TO_DODGE",
+      "value": 50
+    },
+    {
+      "name": "STRUCTURES",
+      "value": 10
+    },
+    {
+      "name": "SURVEYORS",
+      "value": 21
+    },
+    {
+      "name": "TECH_CENTERS",
+      "value": 37
+    },
+    {
+      "name": "TIBERIUM_FIELDS",
+      "value": 3
+    },
+    {
+      "name": "TIBERIUM_REFINERIES",
+      "value": 41
+    },
+    {
+      "name": "UNITS",
+      "value": 13
+    },
+    {
+      "name": "UNITS_AND_STRUCTURES",
+      "value": 15
+    },
+    {
+      "name": "UNIT_FACTORIES",
+      "value": 35
+    },
+    {
+      "name": "UNPACKS_INTO_BUILDING_UNITS",
+      "value": 27
+    },
+    {
+      "name": "VEHICLES",
+      "value": 24
+    },
+    {
+      "name": "VICTORY_CONDITION_STRUCTURES",
+      "value": 32
+    }
+  ]
+}

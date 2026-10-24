@@ -1,0 +1,1402 @@
+[
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040KELLHDOG_0040XferAlternateEvent_003F_0024AA_0040",
+    "sourceLine": 8428,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "58666572416c7465726e6174654576656e7400",
+    "text": "XferAlternateEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040IFDBOOL_0040IsXferable_003F_0024AA_0040",
+    "sourceLine": 8430,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "49735866657261626c6500",
+    "text": "IsXferable"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040JOBPOBCA_0040EnterEvent_003F_0024AA_0040",
+    "sourceLine": 8432,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "456e7465724576656e7400",
+    "text": "EnterEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09NEPLKGFB_0040ExitEvent_003F_0024AA_0040",
+    "sourceLine": 8434,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "457869744576656e7400",
+    "text": "ExitEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040CACIDCOI_0040Transition_003F_0024AA_0040",
+    "sourceLine": 8436,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "5472616e736974696f6e00",
+    "text": "Transition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05EICGPFPA_00400_003F425s_003F_0024AA_0040",
+    "sourceLine": 8438,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "302e32357300",
+    "text": "0.25s"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040FOEEINE_0040TimeBetweenUpdates_003F_0024AA_0040",
+    "sourceLine": 8440,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "54696d654265747765656e5570646174657300",
+    "text": "TimeBetweenUpdates"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_01FAMBOPH_00404_003F_0024AA_0040",
+    "sourceLine": 8442,
+    "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBD",
+    "hex": "3400",
+    "text": "4"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040BNFCEGGD_0040UpdatesToSkipAfterStart_003F_0024AA_0040",
+    "sourceLine": 8444,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "55706461746573546f536b69704166746572537461727400",
+    "text": "UpdatesToSkipAfterStart"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040DIHFMLMA_0040UpdatesToSkipAfterSaveFileLoad_003F_0024AA_0040",
+    "sourceLine": 8446,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55706461746573546f536b697041667465725361766546696c654c6f616400",
+    "text": "UpdatesToSkipAfterSaveFileLoad"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040NJAKDOG_0040UpdatesToSkipAfterTargetPlayerCh_0040",
+    "sourceLine": 8448,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "55706461746573546f536b69704166746572546172676574506c617965724368616e67657300",
+    "text": "UpdatesToSkipAfterTargetPlayerChanges"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040EPNGPIBA_0040ProducerObjectFilter_003F_0024AA_0040",
+    "sourceLine": 8450,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "50726f64756365724f626a65637446696c74657200",
+    "text": "ProducerObjectFilter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040BGIKGKNP_0040RequiredModelConditionsAny_003F_0024AA_0040",
+    "sourceLine": 8452,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "52657175697265644d6f64656c436f6e646974696f6e73416e7900",
+    "text": "RequiredModelConditionsAny"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040HLPPIPAM_0040ForbiddenModelConditions_003F_0024AA_0040",
+    "sourceLine": 8454,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "466f7262696464656e4d6f64656c436f6e646974696f6e7300",
+    "text": "ForbiddenModelConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040FGOKADGB_0040RequiredObjectStatusAny_003F_0024AA_0040",
+    "sourceLine": 8456,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "52657175697265644f626a656374537461747573416e7900",
+    "text": "RequiredObjectStatusAny"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040GPHBIGDP_0040RequiredObject_003F_0024AA_0040",
+    "sourceLine": 8458,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "52657175697265644f626a65637400",
+    "text": "RequiredObject"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040GCIEGBIG_0040NeededUpgrade_003F_0024AA_0040",
+    "sourceLine": 8460,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4e65656465645570677261646500",
+    "text": "NeededUpgrade"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040MLHPPPJP_0040DisplayName_003F_0024AA_0040",
+    "sourceLine": 8462,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "446973706c61794e616d6500",
+    "text": "DisplayName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040OHKMKKDH_0040Description_003F_0024AA_0040",
+    "sourceLine": 8464,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4465736372697074696f6e00",
+    "text": "Description"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040LIKDJADA_0040TargetType_003F_0024AA_0040",
+    "sourceLine": 8466,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "5461726765745479706500",
+    "text": "TargetType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040GHENAEKH_0040NumTargets_003F_0024AA_0040",
+    "sourceLine": 8468,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4e756d5461726765747300",
+    "text": "NumTargets"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040FNGEDJGL_0040ReloadTime_003F_0024AA_0040",
+    "sourceLine": 8470,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "52656c6f616454696d6500",
+    "text": "ReloadTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040NHIBOLBI_0040InitiateSound_003F_0024AA_0040",
+    "sourceLine": 8472,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "496e697469617465536f756e6400",
+    "text": "InitiateSound"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040OIELJDLP_0040InitiateAtLocationSound_003F_0024AA_0040",
+    "sourceLine": 8474,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "496e69746961746541744c6f636174696f6e536f756e6400",
+    "text": "InitiateAtLocationSound"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040DAGMKPJN_0040ViewObjectDuration_003F_0024AA_0040",
+    "sourceLine": 8476,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "566965774f626a6563744475726174696f6e00",
+    "text": "ViewObjectDuration"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040MEPLONAC_0040ViewObjectRange_003F_0024AA_0040",
+    "sourceLine": 8478,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "566965774f626a65637452616e676500",
+    "text": "ViewObjectRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040CBPFFDII_0040RadiusCursorRadius_003F_0024AA_0040",
+    "sourceLine": 8480,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "526164697573437572736f7252616469757300",
+    "text": "RadiusCursorRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040JADMDNGD_0040PreventConditions_003F_0024AA_0040",
+    "sourceLine": 8482,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "50726576656e74436f6e646974696f6e7300",
+    "text": "PreventConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040NNDHJCGG_0040RequiredConditions_003F_0024AA_0040",
+    "sourceLine": 8484,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "5265717569726564436f6e646974696f6e7300",
+    "text": "RequiredConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040BCPNCHHP_0040DisallowedTargetModelStates_003F_0024AA_0040",
+    "sourceLine": 8486,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "446973616c6c6f7765645461726765744d6f64656c53746174657300",
+    "text": "DisallowedTargetModelStates"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040GGOMGMID_0040RequiredTargetObjectStatus_003F_0024AA_0040",
+    "sourceLine": 8488,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "52657175697265645461726765744f626a65637453746174757300",
+    "text": "RequiredTargetObjectStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040FJBMEAAC_0040DisallowedTargetObjectStatus_003F_0024AA_0040",
+    "sourceLine": 8490,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "446973616c6c6f7765645461726765744f626a65637453746174757300",
+    "text": "DisallowedTargetObjectStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07NFIEECMO_00401000000_003F_0024AA_0040",
+    "sourceLine": 8492,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "3130303030303000",
+    "text": "1000000"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040JCKOKFAA_0040MaxCastRange_003F_0024AA_0040",
+    "sourceLine": 8494,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4d61784361737452616e676500",
+    "text": "MaxCastRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040NCOBNNHG_0040MinCastRange_003F_0024AA_0040",
+    "sourceLine": 8496,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4d696e4361737452616e676500",
+    "text": "MinCastRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040HNBBMCKO_0040ForbiddenObjectRange_003F_0024AA_0040",
+    "sourceLine": 8498,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "466f7262696464656e4f626a65637452616e676500",
+    "text": "ForbiddenObjectRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040LNJCEIPA_0040EvaEventToPlayOnSuccess_003F_0024AA_0040",
+    "sourceLine": 8500,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "4576614576656e74546f506c61794f6e5375636365737300",
+    "text": "EvaEventToPlayOnSuccess"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040BKNEMMKG_0040EvaEventToPlayWhenSelectingTarge_0040",
+    "sourceLine": 8502,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "4576614576656e74546f506c61795768656e53656c656374696e6754617267657400",
+    "text": "EvaEventToPlayWhenSelectingTarget"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040FLDOHOJB_0040EvaEventToPlayOnInitiateOwner_003F_0024AA_0040",
+    "sourceLine": 8504,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4576614576656e74546f506c61794f6e496e6974696174654f776e657200",
+    "text": "EvaEventToPlayOnInitiateOwner"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040IDAAHLGD_0040EvaEventToPlayOnInitiateAlly_003F_0024AA_0040",
+    "sourceLine": 8506,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "4576614576656e74546f506c61794f6e496e697469617465416c6c7900",
+    "text": "EvaEventToPlayOnInitiateAlly"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040KNLDKHHG_0040EvaEventToPlayOnInitiateEnemy_003F_0024AA_0040",
+    "sourceLine": 8508,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4576614576656e74546f506c61794f6e496e697469617465456e656d7900",
+    "text": "EvaEventToPlayOnInitiateEnemy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CO_0040JAMMHAJP_0040NameOfVoiceNameToUseAsInitiateIn_0040",
+    "sourceLine": 8510,
+    "type": "_0024ArrayType_0024_0024_0024BY0CO_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173496e697469617465496e74656e64546f446f566f69636500",
+    "text": "NameOfVoiceNameToUseAsInitiateIntendToDoVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040MLOGECIO_0040NameOfVoiceNameToUseAsInitiateIn_0040",
+    "sourceLine": 8512,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173496e697469617465496e74656e64546f446f41667465724d6f7665566f69636500",
+    "text": "NameOfVoiceNameToUseAsInitiateIntendToDoAfterMoveVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DO_0040BNFCPPLD_0040NameOfVoiceNameToUseAsInitiateIn_0040",
+    "sourceLine": 8514,
+    "type": "_0024ArrayType_0024_0024_0024BY0DO_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173496e697469617465496e74656e64546f446f5768696c65556e64657241747461636b566f69636500",
+    "text": "NameOfVoiceNameToUseAsInitiateIntendToDoWhileUnderAttackVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0EH_0040MACMGKGN_0040NameOfVoiceNameToUseAsInitiateIn_0040",
+    "sourceLine": 8516,
+    "type": "_0024ArrayType_0024_0024_0024BY0EH_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173496e697469617465496e74656e64546f446f41667465724d6f76655768696c65556e64657241747461636b566f69636500",
+    "text": "NameOfVoiceNameToUseAsInitiateIntendToDoAfterMoveWhileUnderAttackVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DI_0040NDBFBCNI_0040NameOfVoiceNameToUseAsEnterState_0040",
+    "sourceLine": 8518,
+    "type": "_0024ArrayType_0024_0024_0024BY0DI_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173456e7465725374617465496e697469617465496e74656e64546f446f566f69636500",
+    "text": "NameOfVoiceNameToUseAsEnterStateInitiateIntendToDoVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0EB_0040FEEMLFNC_0040NameOfVoiceNameToUseAsEnterState_0040",
+    "sourceLine": 8520,
+    "type": "_0024ArrayType_0024_0024_0024BY0EB_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173456e7465725374617465496e697469617465496e74656e64546f446f41667465724d6f7665566f69636500",
+    "text": "NameOfVoiceNameToUseAsEnterStateInitiateIntendToDoAfterMoveVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0EI_0040COAECDBE_0040NameOfVoiceNameToUseAsEnterState_0040",
+    "sourceLine": 8522,
+    "type": "_0024ArrayType_0024_0024_0024BY0EI_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173456e7465725374617465496e697469617465496e74656e64546f446f5768696c65556e64657241747461636b566f69636500",
+    "text": "NameOfVoiceNameToUseAsEnterStateInitiateIntendToDoWhileUnderAttackVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0FB_0040NDLAEPJF_0040NameOfVoiceNameToUseAsEnterState_0040",
+    "sourceLine": 8524,
+    "type": "_0024ArrayType_0024_0024_0024BY0FB_0040_0024_0024CBD",
+    "hex": "4e616d654f66566f6963654e616d65546f5573654173456e7465725374617465496e697469617465496e74656e64546f446f41667465724d6f76655768696c65556e64657241747461636b566f69636500",
+    "text": "NameOfVoiceNameToUseAsEnterStateInitiateIntendToDoAfterMoveWhileUnderAttackVoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040KCELCACM_0040RestrictionType_003F_0024AA_0040",
+    "sourceLine": 8526,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "5265737472696374696f6e5479706500",
+    "text": "RestrictionType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05INIBOMDG_0040Money_003F_0024AA_0040",
+    "sourceLine": 8528,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "4d6f6e657900",
+    "text": "Money"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040IAEGFNDC_0040WaypointModeTerminal_003F_0024AA_0040",
+    "sourceLine": 8530,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "576179706f696e744d6f64655465726d696e616c00",
+    "text": "WaypointModeTerminal"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040KAEAPMFI_0040TimerImage_003F_0024AA_0040",
+    "sourceLine": 8532,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "54696d6572496d61676500",
+    "text": "TimerImage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040LEAOMGAI_0040ReachableTargetsCircleDisplayRad_0040",
+    "sourceLine": 8534,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "526561636861626c6554617267657473436972636c65446973706c617952616469757300",
+    "text": "ReachableTargetsCircleDisplayRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040LPAICNHH_0040RequiredPlayerTech_003F_0024AA_0040",
+    "sourceLine": 8536,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "5265717569726564506c617965725465636800",
+    "text": "RequiredPlayerTech"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040GLLEBFPI_0040ForbiddenObjectFilter_003F_0024AA_0040",
+    "sourceLine": 8538,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "466f7262696464656e4f626a65637446696c74657200",
+    "text": "ForbiddenObjectFilter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040NOHGDKHE_0040GameDependency_003F_0024AA_0040",
+    "sourceLine": 8540,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "47616d65446570656e64656e637900",
+    "text": "GameDependency"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040JLOJALBD_0040ForbiddenPlayerTech_003F_0024AA_0040",
+    "sourceLine": 8542,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "466f7262696464656e506c617965725465636800",
+    "text": "ForbiddenPlayerTech"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OFDHLECF_0040TypeDescription_003F_0024AA_0040",
+    "sourceLine": 8544,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "547970654465736372697074696f6e00",
+    "text": "TypeDescription"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040IOLIEPKI_0040AcquireHint_003F_0024AA_0040",
+    "sourceLine": 8546,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4163717569726548696e7400",
+    "text": "AcquireHint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09PPOBAANA_0040BuildTime_003F_0024AA_0040",
+    "sourceLine": 8548,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4275696c6454696d6500",
+    "text": "BuildTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09ENCLLJPE_0040BuildCost_003F_0024AA_0040",
+    "sourceLine": 8550,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4275696c64436f737400",
+    "text": "BuildCost"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040BKGCKBO_0040ResearchSound_003F_0024AA_0040",
+    "sourceLine": 8552,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5265736561726368536f756e6400",
+    "text": "ResearchSound"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040KCKBEIBC_0040ResearchCompleteEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8554,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "5265736561726368436f6d706c6574654576614576656e7400",
+    "text": "ResearchCompleteEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040NDICCPFO_0040UnitSpecificSound_003F_0024AA_0040",
+    "sourceLine": 8556,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "556e69745370656369666963536f756e6400",
+    "text": "UnitSpecificSound"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09LHKFFNJN_0040UpgradeFX_003F_0024AA_0040",
+    "sourceLine": 8558,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "55706772616465465800",
+    "text": "UpgradeFX"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040EDKCDKE_0040LocalPlayerGainsUpgradeEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8560,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "4c6f63616c506c617965724761696e73557067726164654576614576656e7400",
+    "text": "LocalPlayerGainsUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040LDJMGILE_0040AlliedPlayerGainsUpgradeEvaEvent_0040",
+    "sourceLine": 8562,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "416c6c696564506c617965724761696e73557067726164654576614576656e7400",
+    "text": "AlliedPlayerGainsUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040HENOMPHB_0040EnemyPlayerGainsUpgradeEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8564,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "456e656d79506c617965724761696e73557067726164654576614576656e7400",
+    "text": "EnemyPlayerGainsUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040NAKOLAEG_0040LocalPlayerLosesUpgradeEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8566,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "4c6f63616c506c617965724c6f736573557067726164654576614576656e7400",
+    "text": "LocalPlayerLosesUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040GHAIPLFG_0040AlliedPlayerLosesUpgradeEvaEvent_0040",
+    "sourceLine": 8568,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "416c6c696564506c617965724c6f736573557067726164654576614576656e7400",
+    "text": "AlliedPlayerLosesUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040KAEKFMJD_0040EnemyPlayerLosesUpgradeEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8570,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "456e656d79506c617965724c6f736573557067726164654576614576656e7400",
+    "text": "EnemyPlayerLosesUpgradeEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040EBOKDCCE_0040LocalPlayerProductionStartedEvaE_0040",
+    "sourceLine": 8572,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "4c6f63616c506c6179657250726f64756374696f6e537461727465644576614576656e7400",
+    "text": "LocalPlayerProductionStartedEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040EEOEBMFI_0040LocalPlayerBuildOnHoldEvaEvent_003F_0024AA_0040",
+    "sourceLine": 8574,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "4c6f63616c506c617965724275696c644f6e486f6c644576614576656e7400",
+    "text": "LocalPlayerBuildOnHoldEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040LOGJIOHH_0040LocalPlayerBuildCancelledEvaEven_0040",
+    "sourceLine": 8576,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "4c6f63616c506c617965724275696c6443616e63656c6c65644576614576656e7400",
+    "text": "LocalPlayerBuildCancelledEvaEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040KCNCOFIE_0040UseObjectTemplateForCostDiscount_0040",
+    "sourceLine": 8578,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "5573654f626a65637454656d706c617465466f72436f7374446973636f756e7400",
+    "text": "UseObjectTemplateForCostDiscount"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09DOCDJBIG_0040GroupName_003F_0024AA_0040",
+    "sourceLine": 8580,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "47726f75704e616d6500",
+    "text": "GroupName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040IIPIGPIN_0040GroupOrder_003F_0024AA_0040",
+    "sourceLine": 8582,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "47726f75704f7264657200",
+    "text": "GroupOrder"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040FMCAJFFM_0040SkirmishAIHeuristic_003F_0024AA_0040",
+    "sourceLine": 8584,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "536b69726d697368414948657572697374696300",
+    "text": "SkirmishAIHeuristic"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FGALLJFE_0040IconImage_003F_0024AA_0040",
+    "sourceLine": 8586,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "49636f6e496d61676500",
+    "text": "IconImage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040DPOLPAAD_0040WaypointQueueable_003F_0024AA_0040",
+    "sourceLine": 8588,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "576179706f696e74517565756561626c6500",
+    "text": "WaypointQueueable"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08FFHEGJCK_0040ImageRef_003F_0024AA_0040",
+    "sourceLine": 8590,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "496d61676552656600",
+    "text": "ImageRef"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08FDCJCDOL_0040FileName_003F_0024AA_0040",
+    "sourceLine": 8592,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "46696c654e616d6500",
+    "text": "FileName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040NOAGLDHO_0040ScreenName_003F_0024AA_0040",
+    "sourceLine": 8594,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "53637265656e4e616d6500",
+    "text": "ScreenName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08IFPGPJHB_0040Portrait_003F_0024AA_0040",
+    "sourceLine": 8596,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "506f72747261697400",
+    "text": "Portrait"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040EEDIKPF_0040Personality_003F_0024AA_0040",
+    "sourceLine": 8598,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "506572736f6e616c69747900",
+    "text": "Personality"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07CEAHOFOL_0040Faction_003F_0024AA_0040",
+    "sourceLine": 8600,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "46616374696f6e00",
+    "text": "Faction"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040GFLEPKKP_0040ConsoleAutosaveFilename_003F_0024AA_0040",
+    "sourceLine": 8602,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "436f6e736f6c654175746f7361766546696c656e616d6500",
+    "text": "ConsoleAutosaveFilename"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07PLHEGJFB_0040Mission_003F_0024AA_0040",
+    "sourceLine": 8604,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4d697373696f6e00",
+    "text": "Mission"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040PKPNAHKE_0040FinalMovie_003F_0024AA_0040",
+    "sourceLine": 8606,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "46696e616c4d6f76696500",
+    "text": "FinalMovie"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040CMBLGMLL_0040AlternateFinalMovie_003F_0024AA_0040",
+    "sourceLine": 8608,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "416c7465726e61746546696e616c4d6f76696500",
+    "text": "AlternateFinalMovie"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040ENGAJKAM_0040ShortDisplayName_003F_0024AA_0040",
+    "sourceLine": 8610,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "53686f7274446973706c61794e616d6500",
+    "text": "ShortDisplayName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040OENIBEB_0040OverviewTalkingHead_003F_0024AA_0040",
+    "sourceLine": 8612,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4f7665727669657754616c6b696e674865616400",
+    "text": "OverviewTalkingHead"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040CCBENOLE_0040OverviewBackground_003F_0024AA_0040",
+    "sourceLine": 8614,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4f766572766965774261636b67726f756e6400",
+    "text": "OverviewBackground"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05PABKJLOM_0040Title_003F_0024AA_0040",
+    "sourceLine": 8616,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "5469746c6500",
+    "text": "Title"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07DCHKAMOF_0040MapName_003F_0024AA_0040",
+    "sourceLine": 8618,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4d61704e616d6500",
+    "text": "MapName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040PKOBHIOA_0040BriefingFLA_003F_0024AA_0040",
+    "sourceLine": 8620,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4272696566696e67464c4100",
+    "text": "BriefingFLA"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040KEOOOGOH_0040BriefingSummary_003F_0024AA_0040",
+    "sourceLine": 8622,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4272696566696e6753756d6d61727900",
+    "text": "BriefingSummary"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040MDNECMJI_0040VictoryAchEvent_003F_0024AA_0040",
+    "sourceLine": 8624,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "566963746f72794163684576656e7400",
+    "text": "VictoryAchEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040BKMLAMPJ_0040VictoryAchEventMedium_003F_0024AA_0040",
+    "sourceLine": 8626,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "566963746f72794163684576656e744d656469756d00",
+    "text": "VictoryAchEventMedium"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040BDGHHEKN_0040VictoryAchEventHard_003F_0024AA_0040",
+    "sourceLine": 8628,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "566963746f72794163684576656e744861726400",
+    "text": "VictoryAchEventHard"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040LODINFPJ_0040VictoryAchEventCoop_003F_0024AA_0040",
+    "sourceLine": 8630,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "566963746f72794163684576656e74436f6f7000",
+    "text": "VictoryAchEventCoop"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040DOPEMNF_0040VictoryAchEventBonusObj_003F_0024AA_0040",
+    "sourceLine": 8632,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "566963746f72794163684576656e74426f6e75734f626a00",
+    "text": "VictoryAchEventBonusObj"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040LGMEHHLL_0040Prerequisite_003F_0024AA_0040",
+    "sourceLine": 8634,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "50726572657175697369746500",
+    "text": "Prerequisite"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09BFBOLFMF_0040Objective_003F_0024AA_0040",
+    "sourceLine": 8636,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4f626a65637469766500",
+    "text": "Objective"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040LGEPDLJP_0040BonusObjective_003F_0024AA_0040",
+    "sourceLine": 8638,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "426f6e75734f626a65637469766500",
+    "text": "BonusObjective"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040NHMKOIME_0040AICommander_003F_0024AA_0040",
+    "sourceLine": 8640,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4149436f6d6d616e64657200",
+    "text": "AICommander"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040HBOLAMKB_0040IntroMovie_003F_0024AA_0040",
+    "sourceLine": 8642,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "496e74726f4d6f76696500",
+    "text": "IntroMovie"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06GEPAIIFE_0040FxList_003F_0024AA_0040",
+    "sourceLine": 8644,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "46784c69737400",
+    "text": "FxList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04DMNEFAGJ_0040Rank_003F_0024AA_0040",
+    "sourceLine": 8646,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "52616e6b00",
+    "text": "Rank"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040OLMFCOFI_0040RequiredExperience_003F_0024AA_0040",
+    "sourceLine": 8648,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "5265717569726564457870657269656e636500",
+    "text": "RequiredExperience"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OKOANCEG_0040ExperienceAward_003F_0024AA_0040",
+    "sourceLine": 8650,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "457870657269656e6365417761726400",
+    "text": "ExperienceAward"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040MHMLJNH_0040ExperienceAwardOwnGuysDie_003F_0024AA_0040",
+    "sourceLine": 8652,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "457870657269656e636541776172644f776e4775797344696500",
+    "text": "ExperienceAwardOwnGuysDie"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040GALGDKGO_0040LevelUpOCL_003F_0024AA_0040",
+    "sourceLine": 8654,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4c6576656c55704f434c00",
+    "text": "LevelUpOCL"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040NADEDFJP_0040InformUpdateModule_003F_0024AA_0040",
+    "sourceLine": 8656,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "496e666f726d5570646174654d6f64756c6500",
+    "text": "InformUpdateModule"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040MDCOHMIJ_0040SinglePlayerOnly_003F_0024AA_0040",
+    "sourceLine": 8658,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "53696e676c65506c617965724f6e6c7900",
+    "text": "SinglePlayerOnly"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040CFJGMPM_0040MultiPlayerOnly_003F_0024AA_0040",
+    "sourceLine": 8660,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4d756c7469506c617965724f6e6c7900",
+    "text": "MultiPlayerOnly"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OEMJAEBL_0040ShowLevelUpTint_003F_0024AA_0040",
+    "sourceLine": 8662,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "53686f774c6576656c557054696e7400",
+    "text": "ShowLevelUpTint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040",
+    "sourceLine": 8664,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "302e307300",
+    "text": "0.0s"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040IHECJEML_0040LevelUpTintPreColorTime_003F_0024AA_0040",
+    "sourceLine": 8666,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e74507265436f6c6f7254696d6500",
+    "text": "LevelUpTintPreColorTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040OILLGPOM_0040LevelUpTintPostColorTime_003F_0024AA_0040",
+    "sourceLine": 8668,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e74506f7374436f6c6f7254696d6500",
+    "text": "LevelUpTintPostColorTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040HGCPGMAD_0040LevelUpTintSustainColorTime_003F_0024AA_0040",
+    "sourceLine": 8670,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e745375737461696e436f6c6f7254696d6500",
+    "text": "LevelUpTintSustainColorTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040PAJBJED_0040LevelUpTintFrequency_003F_0024AA_0040",
+    "sourceLine": 8672,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e744672657175656e637900",
+    "text": "LevelUpTintFrequency"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040OBEKKKEP_0040LevelUpTintAmplitude_003F_0024AA_0040",
+    "sourceLine": 8674,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e74416d706c697475646500",
+    "text": "LevelUpTintAmplitude"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040HPJILANG_0040LevelUpTintColor_003F_0024AA_0040",
+    "sourceLine": 8676,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4c6576656c557054696e74436f6c6f7200",
+    "text": "LevelUpTintColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07CJFOONCK_0040Upgrade_003F_0024AA_0040",
+    "sourceLine": 8678,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "5570677261646500",
+    "text": "Upgrade"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040OFANEOEF_0040LevelUpFxList_003F_0024AA_0040",
+    "sourceLine": 8680,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4c6576656c557046784c69737400",
+    "text": "LevelUpFxList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06FGANPIPG_0040Target_003F_0024AA_0040",
+    "sourceLine": 8682,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "54617267657400",
+    "text": "Target"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040OCOFMLFG_0040CustomData_003F_0024AA_0040",
+    "sourceLine": 8684,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "437573746f6d4461746100",
+    "text": "CustomData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07MMBCICBA_0040Modules_003F_0024AA_0040",
+    "sourceLine": 8686,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4d6f64756c657300",
+    "text": "Modules"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040FDNLCBHL_0040TextureCollection_003F_0024AA_0040",
+    "sourceLine": 8688,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "54657874757265436f6c6c656374696f6e00",
+    "text": "TextureCollection"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040GKELEJFL_0040TargetMarkerTemplate_003F_0024AA_0040",
+    "sourceLine": 8690,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "5461726765744d61726b657254656d706c61746500",
+    "text": "TargetMarkerTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040FDFHEEHD_0040TargetMarkerFXList_003F_0024AA_0040",
+    "sourceLine": 8692,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "5461726765744d61726b657246584c69737400",
+    "text": "TargetMarkerFXList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040KHMKGABM_0040TargetCount_003F_0024AA_0040",
+    "sourceLine": 8694,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "546172676574436f756e7400",
+    "text": "TargetCount"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040LLHPMDLE_0040MinTargetDistance_003F_0024AA_0040",
+    "sourceLine": 8696,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4d696e54617267657444697374616e636500",
+    "text": "MinTargetDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040GJFEDFIF_0040SpecialPower_003F_0024AA_0040",
+    "sourceLine": 8698,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "5370656369616c506f77657200",
+    "text": "SpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08IECGKIJ_0040RGBColor_003F_0024AA_0040",
+    "sourceLine": 8700,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "524742436f6c6f7200",
+    "text": "RGBColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09EKLLOBLO_0040RGBColorT_003F_0024AA_0040",
+    "sourceLine": 8702,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "524742436f6c6f725400",
+    "text": "RGBColorT"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040MDLMMOBA_0040RGBNightColor_003F_0024AA_0040",
+    "sourceLine": 8704,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5247424e69676874436f6c6f7200",
+    "text": "RGBNightColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040ODAKDNBC_0040TooltipName_003F_0024AA_0040",
+    "sourceLine": 8706,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "546f6f6c7469704e616d6500",
+    "text": "TooltipName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040EMHOKJFH_0040AvailableInMetaGame_003F_0024AA_0040",
+    "sourceLine": 8708,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "417661696c61626c65496e4d65746147616d6500",
+    "text": "AvailableInMetaGame"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040BDECIGO_0040CurrentRoom_003F_0024AA_0040",
+    "sourceLine": 8710,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "43757272656e74526f6f6d00",
+    "text": "CurrentRoom"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08PCNLIFBC_0040ChatRoom_003F_0024AA_0040",
+    "sourceLine": 8712,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "43686174526f6f6d00",
+    "text": "ChatRoom"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04IBBNLEM_0040Game_003F_0024AA_0040",
+    "sourceLine": 8714,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "47616d6500",
+    "text": "Game"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08OMLHNNO_0040GameFull_003F_0024AA_0040",
+    "sourceLine": 8716,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "47616d6546756c6c00",
+    "text": "GameFull"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040CPHGHLEF_0040GameCRCMismatch_003F_0024AA_0040",
+    "sourceLine": 8718,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "47616d654352434d69736d6174636800",
+    "text": "GameCRCMismatch"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040JAELLAEP_0040PlayerNormal_003F_0024AA_0040",
+    "sourceLine": 8720,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "506c617965724e6f726d616c00",
+    "text": "PlayerNormal"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040BFIDBHLB_0040PlayerBuddy_003F_0024AA_0040",
+    "sourceLine": 8722,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "506c61796572427564647900",
+    "text": "PlayerBuddy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040FOFGAEJH_0040PlayerOwner_003F_0024AA_0040",
+    "sourceLine": 8724,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "506c617965724f776e657200",
+    "text": "PlayerOwner"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040HJBKEJKD_0040OfflinePlayerBuddy_003F_0024AA_0040",
+    "sourceLine": 8726,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4f66666c696e65506c61796572427564647900",
+    "text": "OfflinePlayerBuddy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040EBFPOLFC_0040PlayerSelf_003F_0024AA_0040",
+    "sourceLine": 8728,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "506c6179657253656c6600",
+    "text": "PlayerSelf"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040JNOBKMBC_0040PlayerIgnored_003F_0024AA_0040",
+    "sourceLine": 8730,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "506c6179657249676e6f72656400",
+    "text": "PlayerIgnored"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040GJMGMMKL_0040OfflinePlayerIgnored_003F_0024AA_0040",
+    "sourceLine": 8732,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4f66666c696e65506c6179657249676e6f72656400",
+    "text": "OfflinePlayerIgnored"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040FNHFNFJC_0040ChatNormal_003F_0024AA_0040",
+    "sourceLine": 8734,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "436861744e6f726d616c00",
+    "text": "ChatNormal"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09JMCFMMJD_0040ChatEmote_003F_0024AA_0040",
+    "sourceLine": 8736,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "43686174456d6f746500",
+    "text": "ChatEmote"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09LHDFEKGC_0040ChatOwner_003F_0024AA_0040",
+    "sourceLine": 8738,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "436861744f776e657200",
+    "text": "ChatOwner"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040IIHPBDGI_0040ChatOwnerEmote_003F_0024AA_0040",
+    "sourceLine": 8740,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "436861744f776e6572456d6f746500",
+    "text": "ChatOwnerEmote"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040FPKGAEL_0040ChatPrivate_003F_0024AA_0040",
+    "sourceLine": 8742,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "436861745072697661746500",
+    "text": "ChatPrivate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040MHCBAMAA_0040ChatPrivateEmote_003F_0024AA_0040",
+    "sourceLine": 8744,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4368617450726976617465456d6f746500",
+    "text": "ChatPrivateEmote"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040OMDBIKPB_0040ChatPrivateOwner_003F_0024AA_0040",
+    "sourceLine": 8746,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "43686174507269766174654f776e657200",
+    "text": "ChatPrivateOwner"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040DGNCIMON_0040ChatPrivateOwnerEmote_003F_0024AA_0040",
+    "sourceLine": 8748,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "43686174507269766174654f776e6572456d6f746500",
+    "text": "ChatPrivateOwnerEmote"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09PMOAFJEE_0040ChatBuddy_003F_0024AA_0040",
+    "sourceLine": 8750,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "43686174427564647900",
+    "text": "ChatBuddy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08EBLECLFE_0040ChatSelf_003F_0024AA_0040",
+    "sourceLine": 8752,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4368617453656c6600",
+    "text": "ChatSelf"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040HOEFIPEI_0040AcceptTrue_003F_0024AA_0040",
+    "sourceLine": 8754,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4163636570745472756500",
+    "text": "AcceptTrue"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040DMBHJKNK_0040AcceptFalse_003F_0024AA_0040",
+    "sourceLine": 8756,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "41636365707446616c736500",
+    "text": "AcceptFalse"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040PPEMLFME_0040MapSelected_003F_0024AA_0040",
+    "sourceLine": 8758,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d617053656c656374656400",
+    "text": "MapSelected"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040NJKHLCJB_0040MapUnselected_003F_0024AA_0040",
+    "sourceLine": 8760,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4d6170556e73656c656374656400",
+    "text": "MapUnselected"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040PPPBGANL_0040MessageOfTheDay_003F_0024AA_0040",
+    "sourceLine": 8762,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4d6573736167654f6654686544617900",
+    "text": "MessageOfTheDay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040KIFGDDFC_0040MessageOfTheDayHeading_003F_0024AA_0040",
+    "sourceLine": 8764,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4d6573736167654f6654686544617948656164696e6700",
+    "text": "MessageOfTheDayHeading"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040KMOFIMBN_0040GameStatsMode_003F_0024AA_0040",
+    "sourceLine": 8766,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "47616d6553746174734d6f646500",
+    "text": "GameStatsMode"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040ODMHPEDH_0040AvailableMapName_003F_0024AA_0040",
+    "sourceLine": 8768,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "417661696c61626c654d61704e616d6500",
+    "text": "AvailableMapName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040EPCBPBEE_0040InitialCreditsVeryLow_003F_0024AA_0040",
+    "sourceLine": 8770,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "496e697469616c43726564697473566572794c6f7700",
+    "text": "InitialCreditsVeryLow"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040GBJMIBLM_0040InitialCreditsLow_003F_0024AA_0040",
+    "sourceLine": 8772,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "496e697469616c437265646974734c6f7700",
+    "text": "InitialCreditsLow"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040PDIOLDCI_0040InitialCreditsMedium_003F_0024AA_0040",
+    "sourceLine": 8774,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "496e697469616c437265646974734d656469756d00",
+    "text": "InitialCreditsMedium"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040KDFPNIOF_0040InitialCreditsHigh_003F_0024AA_0040",
+    "sourceLine": 8776,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "496e697469616c437265646974734869676800",
+    "text": "InitialCreditsHigh"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040BABHBPLL_0040InitialCreditsVeryHigh_003F_0024AA_0040",
+    "sourceLine": 8778,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "496e697469616c43726564697473566572794869676800",
+    "text": "InitialCreditsVeryHigh"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040DOHPANBN_0040StartCountdownTimer_003F_0024AA_0040",
+    "sourceLine": 8780,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "5374617274436f756e74646f776e54696d657200",
+    "text": "StartCountdownTimer"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040KDOJKGLB_0040MaxBeaconsPerPlayer_003F_0024AA_0040",
+    "sourceLine": 8782,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4d6178426561636f6e73506572506c6179657200",
+    "text": "MaxBeaconsPerPlayer"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FHALKFLF_0040UseShroud_003F_0024AA_0040",
+    "sourceLine": 8784,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "5573655368726f756400",
+    "text": "UseShroud"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040OBLIIDHA_0040ShowRandomPlayerTemplate_003F_0024AA_0040",
+    "sourceLine": 8786,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "53686f7752616e646f6d506c6179657254656d706c61746500",
+    "text": "ShowRandomPlayerTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040DIBIJPGM_0040ShowRandomStartPos_003F_0024AA_0040",
+    "sourceLine": 8788,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "53686f7752616e646f6d5374617274506f7300",
+    "text": "ShowRandomStartPos"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040LDGBLBOF_0040ShowRandomColor_003F_0024AA_0040",
+    "sourceLine": 8790,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "53686f7752616e646f6d436f6c6f7200",
+    "text": "ShowRandomColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040OFNBIJMN_0040ProgressLock_003F_0024AA_0040",
+    "sourceLine": 8792,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "50726f67726573734c6f636b00",
+    "text": "ProgressLock"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040KDKGBNPC_0040MovieImage_003F_0024AA_0040",
+    "sourceLine": 8794,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4d6f766965496d61676500",
+    "text": "MovieImage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040OBGLLPJI_0040OnScreenName_003F_0024AA_0040",
+    "sourceLine": 8796,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4f6e53637265656e4e616d6500",
+    "text": "OnScreenName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05PHEBDHHP_0040Movie_003F_0024AA_0040",
+    "sourceLine": 8798,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "4d6f76696500",
+    "text": "Movie"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040EBMLCLCG_0040MissionSpec_003F_0024AA_0040",
+    "sourceLine": 8800,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d697373696f6e5370656300",
+    "text": "MissionSpec"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040GIGIGABI_0040FactionMovieArchive_003F_0024AA_0040",
+    "sourceLine": 8802,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "46616374696f6e4d6f7669654172636869766500",
+    "text": "FactionMovieArchive"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040BNKMFIHO_0040RelayLeftStickPosition_003F_0024AA_0040",
+    "sourceLine": 8804,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "52656c61794c656674537469636b506f736974696f6e00",
+    "text": "RelayLeftStickPosition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040IDLJAOGA_0040RelayRightStickPosition_003F_0024AA_0040",
+    "sourceLine": 8806,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "52656c61795269676874537469636b506f736974696f6e00",
+    "text": "RelayRightStickPosition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040BPEHKHAF_0040MovieComponentName_003F_0024AA_0040",
+    "sourceLine": 8808,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4d6f766965436f6d706f6e656e744e616d6500",
+    "text": "MovieComponentName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_01EKENIIDA_00403_003F_0024AA_0040",
+    "sourceLine": 8810,
+    "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBD",
+    "hex": "3300",
+    "text": "3"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040BNLEHPBO_0040MaxNumberOfStream_003F_0024AA_0040",
+    "sourceLine": 8812,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4d61784e756d6265724f6653747265616d00",
+    "text": "MaxNumberOfStream"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09PEODJELK_0040FileToken_003F_0024AA_0040",
+    "sourceLine": 8814,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "46696c65546f6b656e00",
+    "text": "FileToken"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040PMLFEOKL_0040ButtonName_003F_0024AA_0040",
+    "sourceLine": 8816,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "427574746f6e4e616d6500",
+    "text": "ButtonName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040PIMEKEJN_0040ButtonAction_003F_0024AA_0040",
+    "sourceLine": 8818,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "427574746f6e416374696f6e00",
+    "text": "ButtonAction"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040JLGPALCD_0040Difficulty_003F_0024AA_0040",
+    "sourceLine": 8820,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "446966666963756c747900",
+    "text": "Difficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04BMBKCMOD_00401_003F430_003F_0024AA_0040",
+    "sourceLine": 8822,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "312e333000",
+    "text": "1.30"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05NJHBHDO_0040Gamma_003F_0024AA_0040",
+    "sourceLine": 8824,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "47616d6d6100",
+    "text": "Gamma"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04CFPHHJOB_00400_003F450_003F_0024AA_0040",
+    "sourceLine": 8826,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "302e353000",
+    "text": "0.50"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12236,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4EmotionType_0040_0040_0040_0040SA_003FBW4EmotionType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALERT",
+      "value": 8
+    },
+    {
+      "name": "BRACE_FOR_BEING_CRUSHED",
+      "value": 9
+    },
+    {
+      "name": "CHEER",
+      "value": 1
+    },
+    {
+      "name": "CHEER_FOR_ABOUT_TO_CRUSH",
+      "value": 10
+    },
+    {
+      "name": "DOOM",
+      "value": 7
+    },
+    {
+      "name": "FEAR",
+      "value": 4
+    },
+    {
+      "name": "HERO_CHEER",
+      "value": 2
+    },
+    {
+      "name": "POINT",
+      "value": 3
+    },
+    {
+      "name": "TAUNT",
+      "value": 0
+    },
+    {
+      "name": "TERROR",
+      "value": 6
+    },
+    {
+      "name": "UNCONTROLLABLE_FEAR",
+      "value": 5
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12270,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DeathType_0040_0040_0040_0040SA_003FBW4DeathType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ALL",
+      "value": 33
+    },
+    {
+      "name": "BITTEN",
+      "value": 24
+    },
+    {
+      "name": "BURNED",
+      "value": 3
+    },
+    {
+      "name": "CATALYST",
+      "value": 19
+    },
+    {
+      "name": "CRUSHED",
+      "value": 2
+    },
+    {
+      "name": "DETONATED",
+      "value": 10
+    },
+    {
+      "name": "ELECTROCUTED",
+      "value": 11
+    },
+    {
+      "name": "EXPLODED",
+      "value": 4
+    },
+    {
+      "name": "EXTRA_1",
+      "value": 26
+    },
+    {
+      "name": "EXTRA_2",
+      "value": 27
+    },
+    {
+      "name": "EXTRA_3",
+      "value": 28
+    },
+    {
+      "name": "EXTRA_4",
+      "value": 29
+    },
+    {
+      "name": "EXTRA_5",
+      "value": 30
+    },
+    {
+      "name": "EXTRA_6",
+      "value": 31
+    },
+    {
+      "name": "EXTRA_7",
+      "value": 32
+    },
+    {
+      "name": "FADED",
+      "value": 17
+    },
+    {
+      "name": "FLOODED",
+      "value": 7
+    },
+    {
+      "name": "INTERNAL_DESTRUCTION",
+      "value": 21
+    },
+    {
+      "name": "IRRADIATED",
+      "value": 22
+    },
+    {
+      "name": "KNOCKBACK",
+      "value": 15
+    },
+    {
+      "name": "LASERED",
+      "value": 9
+    },
+    {
+      "name": "MAULED",
+      "value": 23
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "NORMAL",
+      "value": 1
+    },
+    {
+      "name": "POISONED",
+      "value": 5
+    },
+    {
+      "name": "POISONED_BETA",
+      "value": 14
+    },
+    {
+      "name": "PRODUCTION_CANCELLED",
+      "value": 25
+    },
+    {
+      "name": "SHATTERED",
+      "value": 20
+    },
+    {
+      "name": "SLAUGHTERED",
+      "value": 18
+    },
+    {
+      "name": "SPLATTED",
+      "value": 13
+    },
+    {
+      "name": "STABBED",
+      "value": 12
+    },
+    {
+      "name": "SUICIDED",
+      "value": 8
+    },
+    {
+      "name": "SUPERNATURAL",
+      "value": 16
+    },
+    {
+      "name": "TOPPLED",
+      "value": 6
+    }
+  ]
+}

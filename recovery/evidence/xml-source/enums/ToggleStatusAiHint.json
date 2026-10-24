@@ -1,0 +1,71 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17368,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ToggleStatusAiHint_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ToggleStatusAiHint_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "TOGGLE_ALWAYS",
+      "value": 1
+    },
+    {
+      "name": "TOGGLE_AOE_ATTACK",
+      "value": 11
+    },
+    {
+      "name": "TOGGLE_DEFAULT",
+      "value": 0
+    },
+    {
+      "name": "TOGGLE_DEFENSE_PROTECT_OTHERS",
+      "value": 3
+    },
+    {
+      "name": "TOGGLE_DEFENSE_SELF_ONLY",
+      "value": 4
+    },
+    {
+      "name": "TOGGLE_HARPOON",
+      "value": 15
+    },
+    {
+      "name": "TOGGLE_IMMOBILIZE",
+      "value": 8
+    },
+    {
+      "name": "TOGGLE_LEECH_HEALTH_AND_WEAPON",
+      "value": 12
+    },
+    {
+      "name": "TOGGLE_LOCKDOWN",
+      "value": 9
+    },
+    {
+      "name": "TOGGLE_NO_HINT",
+      "value": 10
+    },
+    {
+      "name": "TOGGLE_ONE_PER_TARGET",
+      "value": 2
+    },
+    {
+      "name": "TOGGLE_SHIELD",
+      "value": 14
+    },
+    {
+      "name": "TOGGLE_SHORT_RANGE_WEAPON",
+      "value": 7
+    },
+    {
+      "name": "TOGGLE_STEALTH_OTHERS",
+      "value": 13
+    },
+    {
+      "name": "TOGGLE_TRANSFORM",
+      "value": 6
+    },
+    {
+      "name": "TOGGLE_WEAPON",
+      "value": 5
+    }
+  ]
+}
