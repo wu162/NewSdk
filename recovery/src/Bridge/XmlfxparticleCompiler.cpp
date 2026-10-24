@@ -86,7 +86,8 @@ public:
         if(child == nullptr) return;
         array<String^>^ axes=rgb ? gcnew array<String^>{"R","G","B"} : gcnew array<String^>{"x","y","z"};
         Attributes(child,axes); Empty(child);
-        for(int i=0;i<3;++i) Field(child,axes[i],rgb ? nullptr : "0.0",offset+4*i,Native::ParticleFloat,nullptr,input);
+        String^ fallback = "0.0"; if(rgb) fallback = nullptr;
+        for(int i=0;i<3;++i) Field(child,axes[i],fallback,offset+4*i,Native::ParticleFloat,nullptr,input);
     }
     static void ModuleRandom(XmlNode^ node, String^ name, unsigned int offset, Native::XmlfxparticleModuleInput& input) {
         XmlNode^ child=Child(node,name);
@@ -107,38 +108,47 @@ public:
         input.present=true; input.typeId=Native::ParseUnsigned(Attr(node,"TypeId","0"));
         Native::XmlfxparticleNuggetInput values;
         switch(input.typeId) {
-        case 877888681u: // FXParticlePhysicsBase
+        case 877888681u: { // FXParticlePhysicsBase
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
-        case 3201797789u: // FXParticleDrawBase
+        }
+        case 3201797789u: { // FXParticleDrawBase
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
-        case 3809157760u: // FXParticleDrawStreak
+        }
+        case 3809157760u: { // FXParticleDrawStreak
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
-        case 2268785311u: // FXParticleEmissionVelocityBase
+        }
+        case 2268785311u: { // FXParticleEmissionVelocityBase
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
-        case 1903056374u: // FXParticleUpdateBase
+        }
+        case 1903056374u: { // FXParticleUpdateBase
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
-        case 612354849u: // FXParticleEmissionVolumeBase
+        }
+        case 612354849u: { // FXParticleEmissionVolumeBase
             input.size=8; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{},false);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 3543124331u: // FXParticleEmissionVolumePoint
+        }
+        case 3543124331u: { // FXParticleEmissionVolumePoint
             input.size=8; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{},false);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 1423381183u: // FXParticleEmissionVolumeLightning
+        }
+        case 1423381183u: { // FXParticleEmissionVolumeLightning
             input.size=8; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{},false);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 1373300932u: // FXParticleDrawLightSource
+        }
+        case 1373300932u: { // FXParticleDrawLightSource
             input.size=8; Attributes(node,gcnew array<String^>{"TypeId","MaximumIntensityRadiusRatio"}); Children(node,gcnew array<String^>{},false);
             Field(node,"MaximumIntensityRadiusRatio","0.0",4,Native::ParticleFloat,nullptr,values);
             break;
-        case 1865622437u: // FXParticleDrawTrail
+        }
+        case 1865622437u: { // FXParticleDrawTrail
             input.size=24; Attributes(node,gcnew array<String^>{"TypeId","TrailLife","UTile","VTile","UScrollRate","VScrollRate"}); Children(node,gcnew array<String^>{},false);
             Field(node,"TrailLife","30",4,Native::ParticleSigned,nullptr,values);
             Field(node,"UTile","1.0",8,Native::ParticleFloat,nullptr,values);
@@ -146,7 +156,8 @@ public:
             Field(node,"UScrollRate","0.0",16,Native::ParticleFloat,nullptr,values);
             Field(node,"VScrollRate","0.0",20,Native::ParticleFloat,nullptr,values);
             break;
-        case 2381754661u: // FXParticleDrawSwarm
+        }
+        case 2381754661u: { // FXParticleDrawSwarm
             input.size=24; Attributes(node,gcnew array<String^>{"TypeId","OpaqueSpeed","TransparentSpeed","SpeedStretchAmount","AttractStrength","EnvironmentTexture"}); Children(node,gcnew array<String^>{},false);
             Field(node,"OpaqueSpeed","0",4,Native::ParticleFloat,nullptr,values);
             Field(node,"TransparentSpeed","100.0",8,Native::ParticleFloat,nullptr,values);
@@ -154,7 +165,8 @@ public:
             Field(node,"AttractStrength","0.0",16,Native::ParticleFloat,nullptr,values);
             Field(node,"EnvironmentTexture",nullptr,20,Native::ParticleReference,nullptr,values);
             break;
-        case 3110487039u: // FXParticleDefaultPhysics
+        }
+        case 3110487039u: { // FXParticleDefaultPhysics
             input.size=36; Attributes(node,gcnew array<String^>{"TypeId","Gravity","Swirly","ParticlesAttachToBone"}); Children(node,gcnew array<String^>{"VelocityDamping","DriftVelocity"},false);
             Field(node,"Gravity",nullptr,4,Native::ParticleFloat,nullptr,values);
             Field(node,"Swirly",nullptr,32,Native::ParticleBoolean,nullptr,values);
@@ -162,21 +174,25 @@ public:
             ModuleRandom(node,"VelocityDamping",8,input);
             Vector(node,"DriftVelocity",20,false,values);
             break;
-        case 1976375475u: // FXParticleSwarmPhysics
+        }
+        case 1976375475u: { // FXParticleSwarmPhysics
             input.size=8; Attributes(node,gcnew array<String^>{"TypeId","AttractStrength"}); Children(node,gcnew array<String^>{},false);
             Field(node,"AttractStrength","0.0",4,Native::ParticleFloat,nullptr,values);
             break;
-        case 3992468329u: // FXParticleEmissionVolumeSphere
+        }
+        case 3992468329u: { // FXParticleEmissionVolumeSphere
             input.size=12; Attributes(node,gcnew array<String^>{"TypeId","Radius","IsHollow"}); Children(node,gcnew array<String^>{},false);
             Field(node,"Radius",nullptr,8,Native::ParticleFloat,nullptr,values);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 1242273524u: // FXParticleEmissionVolumeBox
+        }
+        case 1242273524u: { // FXParticleEmissionVolumeBox
             input.size=20; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{"HalfSize"},false);
             Vector(node,"HalfSize",8,false,values);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 1552576278u: // FXParticleEmissionVolumeCylinder
+        }
+        case 1552576278u: { // FXParticleEmissionVolumeCylinder
             input.size=32; Attributes(node,gcnew array<String^>{"TypeId","Radius","RadiusRate","Length","IsHollow"}); Children(node,gcnew array<String^>{"Offset"},false);
             Field(node,"Radius",nullptr,8,Native::ParticleFloat,nullptr,values);
             Field(node,"RadiusRate",nullptr,12,Native::ParticleFloat,nullptr,values);
@@ -184,19 +200,22 @@ public:
             Vector(node,"Offset",20,false,values);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 795809322u: // FXParticleEmissionVolumeSpline
+        }
+        case 795809322u: { // FXParticleEmissionVolumeSpline
             input.size=32; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{"StartPoint","EndPoint"},false);
             Vector(node,"StartPoint",8,false,values);
             Vector(node,"EndPoint",20,false,values);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 228810652u: // FXParticleEmissionVolumeLine
+        }
+        case 228810652u: { // FXParticleEmissionVolumeLine
             input.size=32; Attributes(node,gcnew array<String^>{"TypeId","IsHollow"}); Children(node,gcnew array<String^>{"StartPoint","EndPoint"},false);
             Vector(node,"StartPoint",8,false,values);
             Vector(node,"EndPoint",20,false,values);
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 3772792373u: // FXParticleEmissionVolumeTerrainFire
+        }
+        case 3772792373u: { // FXParticleEmissionVolumeTerrainFire
             input.size=48; Attributes(node,gcnew array<String^>{"TypeId","CellEmissionChance","IsHollow"}); Children(node,gcnew array<String^>{"Offset"},false);
             Field(node,"CellEmissionChance",nullptr,8,Native::ParticleFloat,nullptr,values);
             if(Child(node,"Offset")!=nullptr) {
@@ -205,32 +224,38 @@ public:
             }
             Field(node,"IsHollow",nullptr,4,Native::ParticleBoolean,nullptr,values);
             break;
-        case 2343798068u: // FXParticleEmissionVelocitySphere
+        }
+        case 2343798068u: { // FXParticleEmissionVelocitySphere
             input.size=16; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{"Speed"},false);
             ModuleRandom(node,"Speed",4,input);
             break;
-        case 3082112962u: // FXParticleEmissionVelocityHemisphere
+        }
+        case 3082112962u: { // FXParticleEmissionVelocityHemisphere
             input.size=16; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{"Speed"},false);
             ModuleRandom(node,"Speed",4,input);
             break;
-        case 3476018911u: // FXParticleEmissionVelocityOutward
+        }
+        case 3476018911u: { // FXParticleEmissionVelocityOutward
             input.size=28; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{"Speed","OtherSpeed"},false);
             ModuleRandom(node,"Speed",4,input);
             ModuleRandom(node,"OtherSpeed",16,input);
             break;
-        case 4058790702u: // FXParticleEmissionVelocityCylinder
+        }
+        case 4058790702u: { // FXParticleEmissionVelocityCylinder
             input.size=28; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{"Radial","Normal"},false);
             ModuleRandom(node,"Radial",4,input);
             ModuleRandom(node,"Normal",16,input);
             break;
-        case 3880943874u: // FXParticleEmissionVelocityOrtho
+        }
+        case 3880943874u: { // FXParticleEmissionVelocityOrtho
             input.size=40; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{"Position"},false);
             if(Child(node,"Position")!=nullptr) {
                 XmlNode^ coord=Child(node,"Position"); Attributes(coord,gcnew array<String^>(0)); Children(coord,gcnew array<String^>{"x","y","z"},false);
                 ModuleRandom(coord,"x",4,input); ModuleRandom(coord,"y",16,input); ModuleRandom(coord,"z",28,input);
             }
             break;
-        case 3975650247u: // FXParticleEmissionVelocityWavefront
+        }
+        case 3975650247u: { // FXParticleEmissionVelocityWavefront
             input.size=68; Attributes(node,gcnew array<String^>{"TypeId","Shape"}); Children(node,gcnew array<String^>{"Velocity","Amplitude","InitialRadius","LineWidth","LineAngle"},false);
             Field(node,"Shape","CIRCLE",4,Native::ParticleEnum,"FXParticleSystem_WavefrontShape",values);
             ModuleRandom(node,"Velocity",8,input);
@@ -239,18 +264,20 @@ public:
             ModuleRandom(node,"LineWidth",44,input);
             ModuleRandom(node,"LineAngle",56,input);
             break;
-        case 2693838876u: throw gcnew NotSupportedException("Unrecovered FXParticleEventBase");
-        case 2933826200u: throw gcnew NotSupportedException("Unrecovered FXParticleUpdateDefault");
-        case 234581578u: throw gcnew NotSupportedException("Unrecovered FXParticleUpdateRenderObject");
-        case 2248017887u: throw gcnew NotSupportedException("Unrecovered FXParticleDrawGpu");
-        case 3036920908u: throw gcnew NotSupportedException("Unrecovered FXParticleDrawLightning");
-        case 3408220251u: throw gcnew NotSupportedException("Unrecovered FXParticleDrawRenderObject");
-        case 1075723135u: throw gcnew NotSupportedException("Unrecovered FXParticleEventCollision");
-        case 3465979181u: throw gcnew NotSupportedException("Unrecovered FXParticleEventLife");
-        default:
+        }
+        case 2693838876u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventBase"); }
+        case 2933826200u: { throw gcnew NotSupportedException("Unrecovered FXParticleUpdateDefault"); }
+        case 234581578u: { throw gcnew NotSupportedException("Unrecovered FXParticleUpdateRenderObject"); }
+        case 2248017887u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawGpu"); }
+        case 3036920908u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawLightning"); }
+        case 3408220251u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawRenderObject"); }
+        case 1075723135u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventCollision"); }
+        case 3465979181u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventLife"); }
+        default: {
             // Original MarshalUnknownPolymorphicType allocates four zero bytes.
             Attributes(node,gcnew array<String^>{"TypeId"}); Empty(node);
             input.size=4; input.typeId=0; break;
+        }
         }
         input.fields=values.fields;
     }
