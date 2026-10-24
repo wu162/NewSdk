@@ -553,3 +553,5 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectAbilityFinishRuntime.h"
 
 #include "GameObjectAttachRuntime.h"
+
+#include "GameObjectAreaRuntime.h"

@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 48d6550388a2e8bc00a3a595d775db2d5ea810f167cd5a3524ce20fe6a5ce08d
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AStrafeAreaUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		StrafeAreaUpdateModuleData* ptr = (StrafeAreaUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 56u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 163451004;
+	}

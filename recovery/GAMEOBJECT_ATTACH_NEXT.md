@@ -1,6 +1,6 @@
 # 下一完整组：AttachUpdate家族（仍拒绝）
 
-2026-10-25已实现完整五类，当前待最终Windows累计矩阵验收，不计入251已验收数。`attach-next-source/manifest.json`保存78完整原方法与10张原PE表，来自只读run40134582402/source9ee04e9f350b4604a6fe7973a94a84fd89f7260d。固定原Tokenizer源码blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。ExportAttachNextMethods.py按**精确参数类型**递归原方法及直接装饰helper，重新核对全文指纹和PE表。初始run40134524611也成功，但用类型后缀匹配，最终归档以修正后的40134582402为准。
+2026-10-25已实现完整五类，已通过source1e044cd8/run40139405380的/Od/O2完整累计矩阵，各952632 fixtures、2857896三缓冲区比较、19932拒绝、2352不变性，平台0/1/2/99；计入260已验收数，SDK未集成。`attach-next-source/manifest.json`保存78完整原方法与10张原PE表，来自只读run40134582402/source9ee04e9f350b4604a6fe7973a94a84fd89f7260d。固定原Tokenizer源码blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。ExportAttachNextMethods.py按**精确参数类型**递归原方法及直接装饰helper，重新核对全文指纹和PE表。初始run40134524611也成功，但用类型后缀匹配，最终归档以修正后的40134582402为准。
 
 ## 五类及父层
 
