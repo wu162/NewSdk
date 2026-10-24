@@ -38,7 +38,8 @@ if b"".join((OUT / p["path"]).read_bytes() for p in chunks) != raw:
     raise RuntimeError("Split source does not reconstruct exact original bytes")
 methods = []
 for n, line in enumerate(lines):
-    if re.match(r"^\t(?:public|private|internal|protected)\b.*\(", line):
+    if (re.match(r"^\t(?:public|private|internal|protected)\b.*\(", line)
+            and n + 1 < len(lines) and lines[n + 1].strip() == "{"):
         methods.append({"line": n + 1, "part": n // 500,
                         "signature": line.strip()})
 index = "\n".join("%d\tparts/part-%04d.cs.txt\t%s" %
