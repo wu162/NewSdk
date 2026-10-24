@@ -44,6 +44,46 @@
       "FormationAssistant",
       "GameStatsModeData",
       "SkirmishSettings"
+    ],
+    "damagefx": [
+      "DamageFX",
+      "DamageFXSettings"
+    ],
+    "hotkeymaps": [
+      "GeneralHotKeySlots",
+      "DefaultHotKeys",
+      "DebugHotKeys",
+      "MappableKey"
+    ],
+    "audio": [
+      "AudioEventLimitGroup",
+      "AudioLOD",
+      "AudioSettings",
+      "Video",
+      "VideoEventList",
+      "MicrophoneSettings",
+      "BootupDisplaySequence"
+    ],
+    "uisettings": [
+      "HotKeySlot",
+      "MouseCursor",
+      "BasicMouseCursors",
+      "UIMouseDragSelectionFeedback",
+      "UIFloatingTextDisplay",
+      "UIMessageDisplay",
+      "UIMilitaryCaptionDisplay",
+      "UISubtitleDisplay",
+      "UITimerDisplay",
+      "DynamicGameLOD",
+      "GameLODPreset",
+      "StaticGameLOD",
+      "UICoopTinting",
+      "RadiusCursor"
+    ],
+    "soundmaps": [
+      "AnimationSoundSettings",
+      "MiscAudio",
+      "LargeGroupAudioMap"
     ]
   },
   "roots": [
@@ -357,6 +397,186 @@
       "name": "SkirmishSettings",
       "typeId": 402082255,
       "typeHash": 3814569307,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DamageFX",
+      "typeId": 2905958645,
+      "typeHash": 187609259,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DamageFXSettings",
+      "typeId": 75989905,
+      "typeHash": 2052546860,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GeneralHotKeySlots",
+      "typeId": 417176643,
+      "typeHash": 655411104,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DefaultHotKeys",
+      "typeId": 3741098742,
+      "typeHash": 1229544125,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DebugHotKeys",
+      "typeId": 3359870461,
+      "typeHash": 73026796,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MappableKey",
+      "typeId": 1350608344,
+      "typeHash": 2226564801,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AudioEventLimitGroup",
+      "typeId": 3906227957,
+      "typeHash": 2503036394,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AudioLOD",
+      "typeId": 299416263,
+      "typeHash": 21805907,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AudioSettings",
+      "typeId": 1443425905,
+      "typeHash": 3631141684,
+      "schemaGlobal": true
+    },
+    {
+      "name": "Video",
+      "typeId": 587347702,
+      "typeHash": 2217996198,
+      "schemaGlobal": true
+    },
+    {
+      "name": "VideoEventList",
+      "typeId": 1447728787,
+      "typeHash": 2530876419,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MicrophoneSettings",
+      "typeId": 1826140078,
+      "typeHash": 1624658388,
+      "schemaGlobal": false
+    },
+    {
+      "name": "BootupDisplaySequence",
+      "typeId": 3370391592,
+      "typeHash": 3238903012,
+      "schemaGlobal": true
+    },
+    {
+      "name": "HotKeySlot",
+      "typeId": 2800139175,
+      "typeHash": 2481075826,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MouseCursor",
+      "typeId": 3784442503,
+      "typeHash": 334318473,
+      "schemaGlobal": true
+    },
+    {
+      "name": "BasicMouseCursors",
+      "typeId": 611271731,
+      "typeHash": 1517904520,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseDragSelectionFeedback",
+      "typeId": 611126373,
+      "typeHash": 549522065,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIFloatingTextDisplay",
+      "typeId": 1559937240,
+      "typeHash": 2264980354,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMessageDisplay",
+      "typeId": 1697313181,
+      "typeHash": 3604410282,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMilitaryCaptionDisplay",
+      "typeId": 1043989897,
+      "typeHash": 779899080,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UISubtitleDisplay",
+      "typeId": 165611890,
+      "typeHash": 1129081393,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UITimerDisplay",
+      "typeId": 951036436,
+      "typeHash": 2082140658,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DynamicGameLOD",
+      "typeId": 2901356964,
+      "typeHash": 1764459959,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GameLODPreset",
+      "typeId": 354222972,
+      "typeHash": 3645429389,
+      "schemaGlobal": true
+    },
+    {
+      "name": "StaticGameLOD",
+      "typeId": 531798225,
+      "typeHash": 1251212385,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UICoopTinting",
+      "typeId": 4243804314,
+      "typeHash": 89086670,
+      "schemaGlobal": true
+    },
+    {
+      "name": "RadiusCursor",
+      "typeId": 544776545,
+      "typeHash": 2695845168,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AnimationSoundSettings",
+      "typeId": 1302035577,
+      "typeHash": 3170370516,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MiscAudio",
+      "typeId": 2070603733,
+      "typeHash": 1484343325,
+      "schemaGlobal": true
+    },
+    {
+      "name": "LargeGroupAudioMap",
+      "typeId": 534008255,
+      "typeHash": 1045439046,
       "schemaGlobal": true
     }
   ]

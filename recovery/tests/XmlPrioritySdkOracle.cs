@@ -106,7 +106,72 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlAdditional_FormationAssistantTemplate_Defaults","FormationAssistantTemplate"},
         {"RecoveryXmlAdditional_FormationSelectionTemplate_Defaults","FormationSelectionTemplate"},
         {"RecoveryXmlAdditional_FormationAssistant_Defaults","FormationAssistant"},
-        {"RecoveryXmlAdditional_SkirmishSettings_Defaults","SkirmishSettings"}
+        {"RecoveryXmlAdditional_SkirmishSettings_Defaults","SkirmishSettings"},
+        {"RecoveryDamageFxLeaf","FXList"},
+        {"RecoveryDamageFxDefault","DamageFX"},
+        {"RecoveryDamageFxNonDefault","DamageFX"},
+        {"RecoveryDamageFxSettingsDefault","DamageFXSettings"},
+        {"RecoveryDamageFxSettingsNonDefault","DamageFXSettings"},
+        {"RecoveryHotkeyGeneralDefault","GeneralHotKeySlots"},
+        {"RecoveryHotkeyGeneralNonDefault","GeneralHotKeySlots"},
+        {"RecoveryHotkeyKeyDefault","MappableKey"},
+        {"RecoveryHotkeyKeyNonDefault","MappableKey"},
+        {"RecoveryHotkeyKeyInherited","MappableKey"},
+        {"RecoveryHotkeyDefaultDefault","DefaultHotKeys"},
+        {"RecoveryHotkeyDefaultNonDefault","DefaultHotKeys"},
+        {"RecoveryHotkeyDefaultInherited","DefaultHotKeys"},
+        {"RecoveryHotkeyDebugDefault","DebugHotKeys"},
+        {"RecoveryHotkeyDebugNonDefault","DebugHotKeys"},
+        {"RecoveryHotkeyDebugInherited","DebugHotKeys"},
+        {"RecoveryXmlAudio_Limit_Defaults","AudioEventLimitGroup"},
+        {"RecoveryXmlAudio_Limit_Nondefault","AudioEventLimitGroup"},
+        {"RecoveryXmlAudio_Limit_Inherited","AudioEventLimitGroup"},
+        {"RecoveryXmlAudio_Lod_Defaults","AudioLOD"},
+        {"RecoveryXmlAudio_Lod_Nondefault","AudioLOD"},
+        {"RecoveryXmlAudio_Settings_Defaults","AudioSettings"},
+        {"RecoveryXmlAudio_Settings_Nondefault","AudioSettings"},
+        {"RecoveryXmlAudio_Video_Defaults","Video"},
+        {"RecoveryXmlAudio_Video_Nondefault","Video"},
+        {"RecoveryXmlAudio_Sequence_Defaults","VideoEventList"},
+        {"RecoveryXmlAudio_Sequence_Nondefault","VideoEventList"},
+        {"RecoveryXmlAudio_Bootup_Defaults","BootupDisplaySequence"},
+        {"RecoveryXmlAudio_Bootup_Nondefault","BootupDisplaySequence"},
+        {"RecoveryUiHotKeyDefault","HotKeySlot"},
+        {"RecoveryUiHotKey","HotKeySlot"},
+        {"RecoveryUiHotKeyInherited","HotKeySlot"},
+        {"RecoveryUiCursorDefault","MouseCursor"},
+        {"RecoveryUiCursor","MouseCursor"},
+        {"RecoveryUiCursorsDefault","BasicMouseCursors"},
+        {"RecoveryUiCursors","BasicMouseCursors"},
+        {"RecoveryUiDragDefault","UIMouseDragSelectionFeedback"},
+        {"RecoveryUiDrag","UIMouseDragSelectionFeedback"},
+        {"RecoveryUiFloatingDefault","UIFloatingTextDisplay"},
+        {"RecoveryUiFloating","UIFloatingTextDisplay"},
+        {"RecoveryUiMessageDefault","UIMessageDisplay"},
+        {"RecoveryUiMessage","UIMessageDisplay"},
+        {"RecoveryUiMilitaryDefault","UIMilitaryCaptionDisplay"},
+        {"RecoveryUiMilitary","UIMilitaryCaptionDisplay"},
+        {"RecoveryUiSubtitleDefault","UISubtitleDisplay"},
+        {"RecoveryUiSubtitle","UISubtitleDisplay"},
+        {"RecoveryUiTimerDefault","UITimerDisplay"},
+        {"RecoveryUiTimer","UITimerDisplay"},
+        {"RecoveryUiDynamicLodDefault","DynamicGameLOD"},
+        {"RecoveryUiDynamicLod","DynamicGameLOD"},
+        {"RecoveryUiLodPresetDefault","GameLODPreset"},
+        {"RecoveryUiLodPreset","GameLODPreset"},
+        {"RecoveryUiStaticLodDefault","StaticGameLOD"},
+        {"RecoveryUiStaticLod","StaticGameLOD"},
+        {"RecoveryUiCoopDefault","UICoopTinting"},
+        {"RecoveryUiCoop","UICoopTinting"},
+        {"RecoveryUiRadiusDefault","RadiusCursor"},
+        {"RecoveryUiRadius","RadiusCursor"},
+        {"RecoverySoundAnimationDefault","AnimationSoundSettings"},
+        {"RecoverySoundAnimationNonDefault","AnimationSoundSettings"},
+        {"RecoverySoundMiscDefault","MiscAudio"},
+        {"RecoverySoundMiscNonDefault","MiscAudio"},
+        {"RecoverySoundMapDefault","LargeGroupAudioMap"},
+        {"RecoverySoundMapNonDefault","LargeGroupAudioMap"},
+        {"RecoverySoundMapInherited","LargeGroupAudioMap"},
     };
     static uint TypeId(string name) {
         if(name=="AttributeModifier")return 3319822471u;
@@ -161,6 +226,37 @@ class XmlPrioritySdkOracle {
         if(name=="FormationAssistant")return 1963196508u;
         if(name=="GameStatsModeData")return 3249689110u;
         if(name=="SkirmishSettings")return 402082255u;
+        if(name=="DamageFX")return 2905958645u;
+        if(name=="DamageFXSettings")return 75989905u;
+        if(name=="GeneralHotKeySlots")return 417176643u;
+        if(name=="DefaultHotKeys")return 3741098742u;
+        if(name=="DebugHotKeys")return 3359870461u;
+        if(name=="MappableKey")return 1350608344u;
+        if(name=="AudioEventLimitGroup")return 3906227957u;
+        if(name=="AudioLOD")return 299416263u;
+        if(name=="AudioSettings")return 1443425905u;
+        if(name=="Video")return 587347702u;
+        if(name=="VideoEventList")return 1447728787u;
+        if(name=="MicrophoneSettings")return 1826140078u;
+        if(name=="BootupDisplaySequence")return 3370391592u;
+        if(name=="HotKeySlot")return 2800139175u;
+        if(name=="MouseCursor")return 3784442503u;
+        if(name=="BasicMouseCursors")return 611271731u;
+        if(name=="UIMouseDragSelectionFeedback")return 611126373u;
+        if(name=="UIFloatingTextDisplay")return 1559937240u;
+        if(name=="UIMessageDisplay")return 1697313181u;
+        if(name=="UIMilitaryCaptionDisplay")return 1043989897u;
+        if(name=="UISubtitleDisplay")return 165611890u;
+        if(name=="UITimerDisplay")return 951036436u;
+        if(name=="DynamicGameLOD")return 2901356964u;
+        if(name=="GameLODPreset")return 354222972u;
+        if(name=="StaticGameLOD")return 531798225u;
+        if(name=="UICoopTinting")return 4243804314u;
+        if(name=="RadiusCursor")return 544776545u;
+        if(name=="AnimationSoundSettings")return 1302035577u;
+        if(name=="MiscAudio")return 2070603733u;
+        if(name=="LargeGroupAudioMap")return 534008255u;
+
         throw new Exception("Unexpected SDK trace type: "+name);
     }
     static InstanceDeclaration Declaration(XmlDocument xml) {
@@ -253,7 +349,7 @@ class XmlPrioritySdkOracle {
             if(!Required.TryGetValue(id,out type) || e.LocalName!=type || !seen.Add(id))
                 throw new Exception("Unexpected, duplicated, or wrong-type source probe: "+id+"/"+e.LocalName);
         }
-        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 94 expected SDK assets");
+        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 159 expected SDK assets");
     }
     static void WriteResult(string path,object value) {
         File.WriteAllText(path,new JavaScriptSerializer().Serialize(value));
@@ -292,13 +388,13 @@ class XmlPrioritySdkOracle {
             ++rejected;
         }
         WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
-        Console.WriteLine("PASS SDK full XSD: 94 assets; 3 negative fixtures rejected.");
+        Console.WriteLine("PASS SDK full XSD: 159 assets; 3 negative fixtures rejected.");
     }
     static void CompareMetadata(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,int platform,ref int fields) {
         if(original.GetVersionNumber()!=recovered.GetVersionNumber())throw new Exception("SDK version differs on platform "+platform);
         if(original.GetAllTypesHash()!=recovered.GetAllTypesHash())throw new Exception("SDK all-types hash differs on platform "+platform);
         fields+=2;
-        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u,1371131236u,1318336226u,91719417u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,1184276792u,3898802054u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u,2384988189u,4086175864u,838130914u,2912385462u,3374519264u,1963196508u,3249689110u,402082255u}) {
+        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u,1371131236u,1318336226u,91719417u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,1184276792u,3898802054u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u,2384988189u,4086175864u,838130914u,2912385462u,3374519264u,1963196508u,3249689110u,402082255u,2905958645u,75989905u,417176643u,3741098742u,3359870461u,1350608344u,3906227957u,299416263u,1443425905u,587347702u,1447728787u,1826140078u,3370391592u,2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u,2901356964u,354222972u,531798225u,4243804314u,544776545u,1302035577u,2070603733u,534008255u}) {
             object a=original.GetExtendedTypeInformation(id),b=recovered.GetExtendedTypeInformation(id);
             if(a==null || b==null)throw new Exception("Null ExtendedTypeInformation");
             foreach(FieldInfo field in typeof(ExtendedTypeInformation).GetFields(BindingFlags.Public|BindingFlags.Instance)) {
@@ -332,7 +428,7 @@ class XmlPrioritySdkOracle {
             if(!refused)throw new Exception("Recovered SDK plugin accepts unknown ProcessInstance type");++rejections;
         }
         if(fields<16)throw new Exception("No metadata fields were compared");
-        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=52,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
+        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=82,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
     static int Main(string[] args) {
@@ -374,7 +470,7 @@ class XmlPrioritySdkOracle {
                 string[] fields=row.Split('\t');
                 if(fields.Length!=4)throw new Exception("Malformed SDK trace manifest row");
                 string type=fields[0],id=fields[1],stem=fields[2],expectedType;
-                TypeId(type); // Reject every type outside the fourteen registered priority types.
+                TypeId(type); // Reject every type outside the registered recovered priority types.
                 if(String.IsNullOrEmpty(id))throw new Exception("SDK trace asset id is empty");
                 if(Required.TryGetValue(id,out expectedType)) {
                     if(type!=expectedType)throw new Exception("Wrong SDK probe type: "+type+"/"+id);
@@ -400,7 +496,7 @@ class XmlPrioritySdkOracle {
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
                 if(isolated)NoOriginalAssemblies();
             }
-            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=51)throw new Exception("Incomplete SDK plugin call coverage");
+            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=80)throw new Exception("Incomplete SDK plugin call coverage");
             foreach(string id in Required.Keys)if(!seen.Contains(id))throw new Exception("No real SDK plugin call for "+id);
             foreach(string extension in new[]{"*.xml","*.bin","*.relo","*.imp"}) {
                 string[] files=Directory.GetFiles(trace,extension,SearchOption.TopDirectoryOnly);
@@ -418,10 +514,10 @@ class XmlPrioritySdkOracle {
                 comparisons=comparisons,typeCalls=typeCalls,idCalls=idCalls,traceManifestSha256=Hash(manifest),
                 probeSha256=Hash(args[4]),modSha256=Hash(args[3]),compilerSha256=Hash(dll),
                 originalDllFilesAbsent=isolated,originalCompilerAssembliesAbsent=isolated,
-                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus 81 required probes across 45 recovered types":"Reduced disposable SDK MOD with 81 required probes across 45 recovered types"
+                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus 159 required probes across 80 recovered global types":"Reduced disposable SDK MOD with 159 required probes across 80 recovered global types"
             };
             File.WriteAllText(report,new JavaScriptSerializer().Serialize(result));
-            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, 81 required assets across fourteen types, isolated={3}",args[0],calls,comparisons,isolated);
+            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, 159 required assets across 80 recovered global types, isolated={3}",args[0],calls,comparisons,isolated);
             return 0;
         } catch(Exception e) {
             Console.Error.WriteLine(e);
@@ -430,5 +526,6 @@ class XmlPrioritySdkOracle {
         }
     }
 }
+
 
 

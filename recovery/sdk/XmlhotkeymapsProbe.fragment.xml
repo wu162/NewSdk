@@ -1,0 +1,19 @@
+<!-- Insert inside AssetDeclaration after the uisettings probe: RecoveryUiHotKey is its HotKeySlot dependency. -->
+<GeneralHotKeySlots id="RecoveryHotkeyGeneralDefault"/>
+<GeneralHotKeySlots id="RecoveryHotkeyGeneralNonDefault" TakeScreenShot="RecoveryUiHotKey" ReloadRapidIterationFeature="RecoveryUiHotKey"/>
+<MappableKey id="RecoveryHotkeyKeyDefault" KeyDef=""/>
+<MappableKey id="RecoveryHotkeyKeyNonDefault" KeyDef="KEY_A"/>
+<MappableKey id="RecoveryHotkeyKeyInherited" inheritFrom="RecoveryHotkeyKeyNonDefault" KeyDef="KEY_B"/>
+<DefaultHotKeys id="RecoveryHotkeyDefaultDefault"><Map/></DefaultHotKeys>
+<DefaultHotKeys id="RecoveryHotkeyDefaultNonDefault">
+  <Map>
+    <HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyNonDefault" Modifiers="CTRL SHIFT"/>
+    <HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyInherited" Modifiers="ALT"/>
+  </Map>
+</DefaultHotKeys>
+<DefaultHotKeys id="RecoveryHotkeyDefaultInherited" inheritFrom="RecoveryHotkeyDefaultNonDefault"><Map/></DefaultHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugDefault"><Map/></DebugHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugNonDefault">
+  <Map><HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyNonDefault" Modifiers="CTRL ALT SHIFT"/></Map>
+</DebugHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugInherited" inheritFrom="RecoveryHotkeyDebugNonDefault"><Map/></DebugHotKeys>

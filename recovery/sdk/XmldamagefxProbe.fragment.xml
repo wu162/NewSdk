@@ -1,0 +1,14 @@
+<!-- Insert inside AssetDeclaration. All IDs are private to this probe. -->
+<FXList id="RecoveryDamageFxLeaf"/>
+<DamageFX id="RecoveryDamageFxDefault"/>
+<DamageFX id="RecoveryDamageFxNonDefault">
+  <FXGroup Type="SOVIET_TESLA" Amount="12.25" ThrottleTime="250ms"
+    MajorFX="RecoveryDamageFxLeaf" MinorFX="RecoveryDamageFxLeaf"
+    RearFX="RecoveryDamageFxLeaf" SideFX="RecoveryDamageFxLeaf"
+    TopFX="RecoveryDamageFxLeaf" VeteranMajorFX="RecoveryDamageFxLeaf"
+    VeteranMinorFX="RecoveryDamageFxLeaf" VeteranRearFX="RecoveryDamageFxLeaf"
+    VeteranSideFX="RecoveryDamageFxLeaf" VeteranTopFX="RecoveryDamageFxLeaf"/>
+  <FXGroup Type="DEFAULT" Amount="1.5" ThrottleTime="1s" MajorFX="RecoveryDamageFxLeaf"/>
+</DamageFX>
+<DamageFXSettings id="RecoveryDamageFxSettingsDefault"/>
+<DamageFXSettings id="RecoveryDamageFxSettingsNonDefault" GroundDamageFX="RecoveryDamageFxNonDefault"/>

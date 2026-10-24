@@ -76,6 +76,36 @@ class XmlPriorityLinkOracle
         new Root("FormationAssistant", 1963196508u, false),
         new Root("GameStatsModeData", 3249689110u, false),
         new Root("SkirmishSettings", 402082255u, false),
+        new Root("DamageFX", 2905958645u, false),
+        new Root("DamageFXSettings", 75989905u, false),
+        new Root("GeneralHotKeySlots", 417176643u, false),
+        new Root("DefaultHotKeys", 3741098742u, false),
+        new Root("DebugHotKeys", 3359870461u, false),
+        new Root("MappableKey", 1350608344u, false),
+        new Root("AudioEventLimitGroup", 3906227957u, false),
+        new Root("AudioLOD", 299416263u, false),
+        new Root("AudioSettings", 1443425905u, false),
+        new Root("Video", 587347702u, false),
+        new Root("VideoEventList", 1447728787u, false),
+        new Root("MicrophoneSettings", 1826140078u, false),
+        new Root("BootupDisplaySequence", 3370391592u, false),
+        new Root("HotKeySlot", 2800139175u, false),
+        new Root("MouseCursor", 3784442503u, false),
+        new Root("BasicMouseCursors", 611271731u, false),
+        new Root("UIMouseDragSelectionFeedback", 611126373u, false),
+        new Root("UIFloatingTextDisplay", 1559937240u, false),
+        new Root("UIMessageDisplay", 1697313181u, false),
+        new Root("UIMilitaryCaptionDisplay", 1043989897u, false),
+        new Root("UISubtitleDisplay", 165611890u, false),
+        new Root("UITimerDisplay", 951036436u, false),
+        new Root("DynamicGameLOD", 2901356964u, false),
+        new Root("GameLODPreset", 354222972u, false),
+        new Root("StaticGameLOD", 531798225u, false),
+        new Root("UICoopTinting", 4243804314u, false),
+        new Root("RadiusCursor", 544776545u, false),
+        new Root("AnimationSoundSettings", 1302035577u, false),
+        new Root("MiscAudio", 2070603733u, false),
+        new Root("LargeGroupAudioMap", 534008255u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -124,7 +154,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 52 || supplied.Count != 52) throw new Exception("Exactly 52 recovered entries are required");
+        if (Roots.Length != 82 || supplied.Count != 82) throw new Exception("Exactly 82 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -151,7 +181,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 52) throw new Exception("Metadata preflight did not resolve all 52 entries");
+        if (Methods.Count != 82) throw new Exception("Metadata preflight did not resolve all 82 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -234,12 +264,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=52 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=82 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 208 || comparisons != 624 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 52) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 328 || comparisons != 984 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 82) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=52 fixtures=208 comparisons=624 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=82 fixtures=328 comparisons=984 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();
@@ -254,5 +284,6 @@ class XmlPriorityLinkOracle
         }
     }
 }
+
 
 

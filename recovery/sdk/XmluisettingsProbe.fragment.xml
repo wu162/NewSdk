@@ -1,0 +1,32 @@
+<!-- Original schema legal assets; these are merged into the parent probe AssetDeclaration. -->
+<HotKeySlot id="RecoveryUiHotKeyDefault" Name="RecoveryDefault" />
+<HotKeySlot id="RecoveryUiHotKey" Group="UnitCommands" Index="7" Name="RecoveryAction" VersionAdded="3" />
+<HotKeySlot id="RecoveryUiHotKeyInherited" inheritFrom="RecoveryUiHotKey" Index="9" />
+<MouseCursor id="RecoveryUiCursorDefault" />
+<MouseCursor id="RecoveryUiCursor" File="data/cursors/recovery.ani" NumDirections="8" />
+<BasicMouseCursors id="RecoveryUiCursorsDefault" />
+<BasicMouseCursors id="RecoveryUiCursors" Normal="RecoveryUiCursor" Arrow="RecoveryUiCursorDefault" Invalid="RecoveryUiCursor" EnterText="RecoveryUiCursorDefault" />
+<UIMouseDragSelectionFeedback id="RecoveryUiDragDefault"><BoxColor R="0" G="0" B="0" A="255"/><LassoColor R="0" G="0" B="0" A="255"/></UIMouseDragSelectionFeedback>
+<UIMouseDragSelectionFeedback id="RecoveryUiDrag" BoxEdgeWidth="3.25" LassoWidth="1.75"><BoxColor R="17" G="34" B="51" A="68"/><LassoColor R="51" G="34" B="17" A="136"/></UIMouseDragSelectionFeedback>
+<UIFloatingTextDisplay id="RecoveryUiFloatingDefault"><Font Name="Arial" Size="12"/></UIFloatingTextDisplay>
+<UIFloatingTextDisplay id="RecoveryUiFloating" TimeOut="1250ms" MoveUpSpeed="3.25" MoveVanishRate="0.75"><Font Name="Courier New" Size="18" Bold="true"/></UIFloatingTextDisplay>
+<UIMessageDisplay id="RecoveryUiMessageDefault"><Color1 R="0" G="0" B="0"/><Color2 R="0" G="0" B="0"/><Font Name="Arial" Size="12"/></UIMessageDisplay>
+<UIMessageDisplay id="RecoveryUiMessage" Delay="1250ms"><Color1 R="17" G="34" B="51"/><Color2 R="51" G="34" B="17"/><Font Name="Courier New" Size="18" Bold="true"/></UIMessageDisplay>
+<UIMilitaryCaptionDisplay id="RecoveryUiMilitaryDefault"><Color R="0" G="0" B="0"/><Position x="0" y="0"/><TitleFont Name="Arial" Size="12"/><Font Name="Arial" Size="12"/></UIMilitaryCaptionDisplay>
+<UIMilitaryCaptionDisplay id="RecoveryUiMilitary" Centered="true" Delay="1750ms"><Color R="17" G="34" B="51"/><Position x="0.25" y="0.75"/><TitleFont Name="Arial" Size="24" Bold="true"/><Font Name="Courier New" Size="18"/></UIMilitaryCaptionDisplay>
+<UISubtitleDisplay id="RecoveryUiSubtitleDefault"><Font Name="Arial" Size="12"/><PanelColor R="0" G="0" B="0" A="255"/><TextColor R="0" G="0" B="0"/></UISubtitleDisplay>
+<UISubtitleDisplay id="RecoveryUiSubtitle" HoldTime="1250ms" LineCount="4"><Font Name="Arial" Size="18" Bold="true"/><PanelColor R="17" G="34" B="51" A="68"/><TextColor R="51" G="34" B="17"/></UISubtitleDisplay>
+<UITimerDisplay id="RecoveryUiTimerDefault"><Position x="0" y="0"/><FlashColor R="0" G="0" B="0"/><NormalFont Name="Arial" Size="12"/><NormalColor R="0" G="0" B="0"/><ReadyFont Name="Arial" Size="12"/><ReadyColor R="0" G="0" B="0"/></UITimerDisplay>
+<UITimerDisplay id="RecoveryUiTimer" Centered="true" FlashDuration="1250ms"><Position x="0.25" y="0.75"/><FlashColor R="17" G="34" B="51"/><NormalFont Name="Arial" Size="18"/><NormalColor R="51" G="34" B="17"/><ReadyFont Name="Courier New" Size="24" Bold="true"/><ReadyColor R="34" G="51" B="17"/></UITimerDisplay>
+
+<DynamicGameLOD id="RecoveryUiDynamicLodDefault"/>
+<DynamicGameLOD id="RecoveryUiDynamicLod" Level="HIGH" MinimumFPS="24" ParticleSkipMask="3" DebrisSkipMask="5" SlowDeathScale="0.75"/>
+<GameLODPreset id="RecoveryUiLodPresetDefault"><Processor Type="UNKNOWN" MinMHz="0"/></GameLODPreset>
+<GameLODPreset id="RecoveryUiLodPreset" Level="HIGH" SystemMemory="2048" Xres="1920" YRes="1080"><Processor Type="CORE_DUO" MinMHz="2000"/><Processor Type="ATHLON_64" MinMHz="2400"/><Processor Type="PENTIUM_4" MinMHz="3000"/></GameLODPreset>
+<StaticGameLOD id="RecoveryUiStaticLodDefault"/>
+<StaticGameLOD id="RecoveryUiStaticLod" Level="HIGH" ModelLOD="LOW" EffectsLOD="ULTRA_HIGH" MaxParticleCount="1234" UseShadowDecals="false" UseShadowMapping="true" ShadowLOD="HIGH" TerrainLOD="HIGH" UseTerrainNormalMap="true" WaterLOD="HIGH" MaxTankTrackEdges="80" MaxTankTrackOpaqueEdges="20" MaxTankTrackFadeDelay="2500" ShowProps="false" TextureReductionFactor="2" AnimationLOD="LOW" ShaderLOD="HIGH" DecalLOD="LOW" MinParticlePriority="HIGH_OR_ABOVE" MinParticleSkipPriority="VERY_LOW_OR_ABOVE" AntiAliasingQuality="2" EnableVSync="false"/>
+<UICoopTinting id="RecoveryUiCoopDefault"><TintColor R="0" G="0" B="0"/></UICoopTinting>
+<UICoopTinting id="RecoveryUiCoop" FadeInFrames="5" FadeOutFrames="7" SustainFrames="13" TintFrequency="2.25" TintAmplitude="0.75"><TintColor R="17" G="34" B="51"/></UICoopTinting>
+
+<RadiusCursor id="RecoveryUiRadiusDefault"><DecalTemplate/></RadiusCursor>
+<RadiusCursor id="RecoveryUiRadius"><DecalTemplate><Component Style="ALPHA_DECAL" OpacityMin="25%" OpacityMax="75%" OpacityPulsesPerSecond="2.5" RotationMin="12" RotationMax="45" RotationDegreesPerSecond="15" MinRadius="3.25" MaxRadius="7.5" RadiusPulsesPerSecond="1.5" PositionOffsetMin="-1.25" PositionOffsetMax="2.5" PositionOffsetPulsesPerSecond="0.75"><Color R="17" G="34" B="51" A="68"/></Component><Component Style="ADDITIVE_DECAL" MinRadius="1.5" MaxRadius="4.5"/></DecalTemplate></RadiusCursor>

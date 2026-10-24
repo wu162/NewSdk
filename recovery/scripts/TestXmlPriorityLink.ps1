@@ -60,6 +60,36 @@ $expectedRootTypeIds = [ordered]@{
     FormationAssistant = [uint32]1963196508
     GameStatsModeData = [uint32]3249689110
     SkirmishSettings = [uint32]402082255
+    DamageFX = [uint32]2905958645
+    DamageFXSettings = [uint32]75989905
+    GeneralHotKeySlots = [uint32]417176643
+    DefaultHotKeys = [uint32]3741098742
+    DebugHotKeys = [uint32]3359870461
+    MappableKey = [uint32]1350608344
+    AudioEventLimitGroup = [uint32]3906227957
+    AudioLOD = [uint32]299416263
+    AudioSettings = [uint32]1443425905
+    Video = [uint32]587347702
+    VideoEventList = [uint32]1447728787
+    MicrophoneSettings = [uint32]1826140078
+    BootupDisplaySequence = [uint32]3370391592
+    HotKeySlot = [uint32]2800139175
+    MouseCursor = [uint32]3784442503
+    BasicMouseCursors = [uint32]611271731
+    UIMouseDragSelectionFeedback = [uint32]611126373
+    UIFloatingTextDisplay = [uint32]1559937240
+    UIMessageDisplay = [uint32]1697313181
+    UIMilitaryCaptionDisplay = [uint32]1043989897
+    UISubtitleDisplay = [uint32]165611890
+    UITimerDisplay = [uint32]951036436
+    DynamicGameLOD = [uint32]2901356964
+    GameLODPreset = [uint32]354222972
+    StaticGameLOD = [uint32]531798225
+    UICoopTinting = [uint32]4243804314
+    RadiusCursor = [uint32]544776545
+    AnimationSoundSettings = [uint32]1302035577
+    MiscAudio = [uint32]2070603733
+    LargeGroupAudioMap = [uint32]534008255
 }
 $sourceCommit = $env:GITHUB_SHA
 if (-not $sourceCommit) { $sourceCommit = (& git rev-parse HEAD).Trim(); if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve sourceCommit' } }
@@ -68,8 +98,8 @@ if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHm
 $validation = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId
     scope = 'Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate'
-    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 52
-    expectedFixturesPerMode = 208; expectedComparisonsPerMode = 624
+    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 82
+    expectedFixturesPerMode = 328; expectedComparisonsPerMode = 984
     expectedCompletionFixturesPerMode = 40; expectedCompletionComparisonsPerMode = 120
     platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
@@ -79,7 +109,7 @@ $originalHash = (Get-FileHash $originalPath -Algorithm SHA256).Hash.ToLowerInvar
 $validation['originalDllSha256'] = $originalHash
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run in an x86 VS2022 devshell' }
-    if ($expectedRootTypeIds.Count -ne 52) { throw 'Expected root map must contain all 52 recovered entries' }
+    if ($expectedRootTypeIds.Count -ne 82) { throw 'Expected root map must contain all 82 recovered entries' }
     if ($originalHash -ne 'd4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6') { throw 'Unexpected original XmlCompiler DLL fingerprint' }
     $native = Join-Path $repo 'recovery/src/Native'
     $bridge = Join-Path $repo 'recovery/src/Bridge'
@@ -91,7 +121,7 @@ try {
     $excluded = @($candidates | Where-Object { $_.Name -match 'Draft' })
     $formal = @($candidates | Where-Object { $_.Name -notmatch 'Draft' } | Sort-Object FullName)
     if ($formal.Count -eq 0) { throw 'No formal Xml sources found' }
-    # A #if 0 snapshot does not satisfy the 52-class reflection preflight below.
+    # A #if 0 snapshot does not satisfy the 82-class reflection preflight below.
     $sources = @($common) + @($formal | ForEach-Object { $_.FullName })
     $sources = @($sources | Select-Object -Unique)
     $validation['sources'] = @($sources | ForEach-Object {
@@ -109,7 +139,7 @@ try {
         if (Test-Path $modeOut) { Remove-Item $modeOut -Recurse -Force }
         New-Item -ItemType Directory -Force $modeOut | Out-Null
         Copy-Item SDK/tools/*.dll $modeOut -Force
-        & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.XmlCompilerPriority.dll" @sources *> "$evidence/$mode-build.txt"
+        & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.XmlCompilerPriority.dll" @sources *> "$evidence/$mode-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-build.txt"; throw "$mode combined XmlCompiler C++/CLI link failed" }
         & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlPriorityLinkOracle.exe" $oracleSource *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode priority link oracle build failed" }
@@ -133,10 +163,10 @@ try {
         "PROCESS EXIT mode=$mode exitCode=$code exitCodeHex=$exitCodeHex" | Add-Content "$evidence/$mode-oracle.txt"
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
         Get-Content "$evidence/$mode-oracle.txt"
-        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 52 types and a clean process exit are required" }
+        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 82 types and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
-        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 52 -or $result.fixtures -ne 208 -or $result.comparisons -ne 624 -or $result.completionFixtures -ne 40 -or $result.completionComparisons -ne 120 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
-        if (@($result.typeCoverage.PSObject.Properties).Count -ne 52) { throw "$mode incomplete per-type coverage" }
+        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 82 -or $result.fixtures -ne 328 -or $result.comparisons -ne 984 -or $result.completionFixtures -ne 40 -or $result.completionComparisons -ne 120 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
+        if (@($result.typeCoverage.PSObject.Properties).Count -ne 82) { throw "$mode incomplete per-type coverage" }
         foreach ($entry in $expectedRootTypeIds.GetEnumerator()) {
             if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
         }
@@ -153,7 +183,7 @@ try {
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     }
     $validation.succeeded = $true
-    $validation.status = 'All 52 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
+    $validation.status = 'All 82 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
 } catch {
     $validation.status = $_.Exception.Message
     throw
@@ -164,5 +194,6 @@ try {
     $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     if ($afterHash -ne $originalHash) { throw 'Original XmlCompiler DLL changed during smoke' }
 }
+
 
 

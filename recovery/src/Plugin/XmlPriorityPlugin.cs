@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Register the fifty-two recovered entries. Every payload is generated
+    // Register the 82 recovered entries. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -82,7 +82,37 @@ namespace Recovered.XmlPriority
                 case 1963196508u: info.TypeName = "FormationAssistant"; info.TypeHash = 1061339997u; break;
                 case 3249689110u: info.TypeName = "GameStatsModeData"; info.TypeHash = 4003247819u; break;
                 case 402082255u: info.TypeName = "SkirmishSettings"; info.TypeHash = 3814569307u; break;
-                default: throw new NotSupportedException("XmlPriority supports only the fifty-two recovered entries.");
+                case 2905958645u: info.TypeName = "DamageFX"; info.TypeHash = 187609259u; break;
+                case 75989905u: info.TypeName = "DamageFXSettings"; info.TypeHash = 2052546860u; break;
+                case 417176643u: info.TypeName = "GeneralHotKeySlots"; info.TypeHash = 655411104u; break;
+                case 3741098742u: info.TypeName = "DefaultHotKeys"; info.TypeHash = 1229544125u; break;
+                case 3359870461u: info.TypeName = "DebugHotKeys"; info.TypeHash = 73026796u; break;
+                case 1350608344u: info.TypeName = "MappableKey"; info.TypeHash = 2226564801u; break;
+                case 3906227957u: info.TypeName = "AudioEventLimitGroup"; info.TypeHash = 2503036394u; break;
+                case 299416263u: info.TypeName = "AudioLOD"; info.TypeHash = 21805907u; break;
+                case 1443425905u: info.TypeName = "AudioSettings"; info.TypeHash = 3631141684u; break;
+                case 587347702u: info.TypeName = "Video"; info.TypeHash = 2217996198u; break;
+                case 1447728787u: info.TypeName = "VideoEventList"; info.TypeHash = 2530876419u; break;
+                case 1826140078u: info.TypeName = "MicrophoneSettings"; info.TypeHash = 1624658388u; break;
+                case 3370391592u: info.TypeName = "BootupDisplaySequence"; info.TypeHash = 3238903012u; break;
+                case 2800139175u: info.TypeName = "HotKeySlot"; info.TypeHash = 2481075826u; break;
+                case 3784442503u: info.TypeName = "MouseCursor"; info.TypeHash = 334318473u; break;
+                case 611271731u: info.TypeName = "BasicMouseCursors"; info.TypeHash = 1517904520u; break;
+                case 611126373u: info.TypeName = "UIMouseDragSelectionFeedback"; info.TypeHash = 549522065u; break;
+                case 1559937240u: info.TypeName = "UIFloatingTextDisplay"; info.TypeHash = 2264980354u; break;
+                case 1697313181u: info.TypeName = "UIMessageDisplay"; info.TypeHash = 3604410282u; break;
+                case 1043989897u: info.TypeName = "UIMilitaryCaptionDisplay"; info.TypeHash = 779899080u; break;
+                case 165611890u: info.TypeName = "UISubtitleDisplay"; info.TypeHash = 1129081393u; break;
+                case 951036436u: info.TypeName = "UITimerDisplay"; info.TypeHash = 2082140658u; break;
+                case 2901356964u: info.TypeName = "DynamicGameLOD"; info.TypeHash = 1764459959u; break;
+                case 354222972u: info.TypeName = "GameLODPreset"; info.TypeHash = 3645429389u; break;
+                case 531798225u: info.TypeName = "StaticGameLOD"; info.TypeHash = 1251212385u; break;
+                case 4243804314u: info.TypeName = "UICoopTinting"; info.TypeHash = 89086670u; break;
+                case 544776545u: info.TypeName = "RadiusCursor"; info.TypeHash = 2695845168u; break;
+                case 1302035577u: info.TypeName = "AnimationSoundSettings"; info.TypeHash = 3170370516u; break;
+                case 2070603733u: info.TypeName = "MiscAudio"; info.TypeHash = 1484343325u; break;
+                case 534008255u: info.TypeName = "LargeGroupAudioMap"; info.TypeHash = 1045439046u; break;
+                default: throw new NotSupportedException("XmlPriority supports only the 82 recovered entries.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
@@ -326,7 +356,127 @@ namespace Recovered.XmlPriority
                     typeName = "SkirmishSettings";
                     result = global::Recovered.SkirmishSettingsCompiler.ProcessInstance(instance, platform);
                     break;
-                default: throw new NotSupportedException("XmlPriority supports only the fifty-two recovered entries.");
+                case 2905958645u:
+                    typeName = "DamageFX";
+                    result = global::Recovered.DamageFXCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 75989905u:
+                    typeName = "DamageFXSettings";
+                    result = global::Recovered.DamageFXSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 417176643u:
+                    typeName = "GeneralHotKeySlots";
+                    result = global::Recovered.GeneralHotKeySlotsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3741098742u:
+                    typeName = "DefaultHotKeys";
+                    result = global::Recovered.DefaultHotKeysCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3359870461u:
+                    typeName = "DebugHotKeys";
+                    result = global::Recovered.DebugHotKeysCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1350608344u:
+                    typeName = "MappableKey";
+                    result = global::Recovered.MappableKeyCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3906227957u:
+                    typeName = "AudioEventLimitGroup";
+                    result = global::Recovered.AudioEventLimitGroupCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 299416263u:
+                    typeName = "AudioLOD";
+                    result = global::Recovered.AudioLODCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1443425905u:
+                    typeName = "AudioSettings";
+                    result = global::Recovered.AudioSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 587347702u:
+                    typeName = "Video";
+                    result = global::Recovered.VideoCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1447728787u:
+                    typeName = "VideoEventList";
+                    result = global::Recovered.VideoEventListCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1826140078u:
+                    typeName = "MicrophoneSettings";
+                    result = global::Recovered.MicrophoneSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3370391592u:
+                    typeName = "BootupDisplaySequence";
+                    result = global::Recovered.BootupDisplaySequenceCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2800139175u:
+                    typeName = "HotKeySlot";
+                    result = global::Recovered.HotKeySlotCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3784442503u:
+                    typeName = "MouseCursor";
+                    result = global::Recovered.MouseCursorCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 611271731u:
+                    typeName = "BasicMouseCursors";
+                    result = global::Recovered.BasicMouseCursorsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 611126373u:
+                    typeName = "UIMouseDragSelectionFeedback";
+                    result = global::Recovered.UIMouseDragSelectionFeedbackCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1559937240u:
+                    typeName = "UIFloatingTextDisplay";
+                    result = global::Recovered.UIFloatingTextDisplayCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1697313181u:
+                    typeName = "UIMessageDisplay";
+                    result = global::Recovered.UIMessageDisplayCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1043989897u:
+                    typeName = "UIMilitaryCaptionDisplay";
+                    result = global::Recovered.UIMilitaryCaptionDisplayCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 165611890u:
+                    typeName = "UISubtitleDisplay";
+                    result = global::Recovered.UISubtitleDisplayCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 951036436u:
+                    typeName = "UITimerDisplay";
+                    result = global::Recovered.UITimerDisplayCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2901356964u:
+                    typeName = "DynamicGameLOD";
+                    result = global::Recovered.DynamicGameLODCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 354222972u:
+                    typeName = "GameLODPreset";
+                    result = global::Recovered.GameLODPresetCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 531798225u:
+                    typeName = "StaticGameLOD";
+                    result = global::Recovered.StaticGameLODCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 4243804314u:
+                    typeName = "UICoopTinting";
+                    result = global::Recovered.UICoopTintingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 544776545u:
+                    typeName = "RadiusCursor";
+                    result = global::Recovered.RadiusCursorCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1302035577u:
+                    typeName = "AnimationSoundSettings";
+                    result = global::Recovered.AnimationSoundSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2070603733u:
+                    typeName = "MiscAudio";
+                    result = global::Recovered.MiscAudioCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 534008255u:
+                    typeName = "LargeGroupAudioMap";
+                    result = global::Recovered.LargeGroupAudioMapCompiler.ProcessInstance(instance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only the 82 recovered entries.");
             }
             }
             catch (Exception error)
@@ -356,6 +506,7 @@ namespace Recovered.XmlPriority
         }
     }
 }
+
 
 
 

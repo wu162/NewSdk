@@ -39,7 +39,7 @@ jobs:
         shell: python
         run: |
           import json, os, pathlib
-          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle", "progression", "environment", "players"]
+          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle", "progression", "environment", "players", "damagefx", "hotkeymaps", "audio", "uisettings", "soundmaps"]
           groups = [g for g in expected if pathlib.Path("recovery/scripts/TestXml" + g + ".ps1").is_file()]
           if not groups:
               raise RuntimeError("No recovered component test scripts available")
@@ -122,7 +122,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for group in attributes effects powers locomotor ai fxparticle progression environment players priority-link; do
+          for group in attributes effects powers locomotor ai fxparticle progression environment players damagefx hotkeymaps audio uisettings soundmaps priority-link; do
             src="/tmp/xml-priority-results/xml-priority-$group"
             if [ -d "$src" ]; then
               mkdir -p "recovery/evidence/xml-$group"
@@ -144,5 +144,6 @@ jobs:
         run: |
           test "$DIFFERENTIAL_RESULT" = success
           if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; fi
+
 
 

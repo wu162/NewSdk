@@ -2,7 +2,14 @@
 
 更新：2026-10-24（北京时间）。目标分支 `recovery/xmlcompiler-priority`。本轮按约一小时推进，最多三个子代理并行；实现、修复和下一能力组连续进行，最后冻结代码统一验收。
 
-## 当前结果
+## 本轮检查点（2026-10-24）
+
+本轮候选由52增至82个独立入口，新增30个；尚未取得本轮Windows/SDK验收，下面52入口结果仅为上一轮成功基线。最多三个子代理的工作分支已保存，统一合并包含damagefx 2、hotkeymaps 4、audio 7（MicrophoneSettings仅嵌套schema）、uisettings 14、soundmaps 3。排除Joypad命名根及GameObject。
+
+源码、完整组件矩阵、Plugin/元数据/SDK接线已准备。联合默认根每模式预期328样本/984数组比较，旧40个completion样本保持；SDK预期159个源资产覆盖80个schema-global类型，另2个入口安排组件和嵌套场景验证。正在统一14组/Od、/O2四平台差分、联合DLL及Reduced/FullMymod真实SDK；不得把本检查点称为验收通过。
+
+
+## 上一轮已验收结果
 
 **已恢复原 Plugin 301 个登记入口中的 52 个独立编译入口，本轮新增 38 个。** 其中 51 类在原 CnC3Types.xsd 允许全局资产；GameStatsModeData 仅有原 Plugin 独立入口和嵌套 schema，独立能力由组件证明，SDK 经 MultiplayerSettings 的嵌套场景覆盖，未修改原 XSD。
 
@@ -61,3 +68,4 @@
 52 个独立入口不是全部 301 入口或完整 Tokenizer 的总替代。Joypad 根仍排除；GameObject 不在本轮修改范围。下一轮继续其他非 Joypad 完整能力组，先核原 Plugin dispatch/Tracker/Marshal/Endian 与完整依赖，再合批差分。可优先调查 DamageFX/DamageFXSettings、其他 UI/字体/音视频或设置类；未取证前不因小型外观假设简单。
 
 取证固定原 Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea、Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b、原 DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。复用 evidence/xml-source 的方法索引、小块和静态字节，不必重下整份反编译。历史失败保留在提交和 Actions；只以上述最终 source/run 为验收。按完整组统一运行并复用公共 helper，未量化账号额度节省。
+

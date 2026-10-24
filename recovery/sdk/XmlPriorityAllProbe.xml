@@ -744,4 +744,213 @@
   <SkirmishSettings id="RecoveryXmlAdditional_SkirmishSettings_Defaults">
     <HandicapBuildSpeed Speed="0.5" />
   </SkirmishSettings>
+
+<!-- Insert inside AssetDeclaration. All IDs are private to this probe. -->
+<FXList id="RecoveryDamageFxLeaf"/>
+<DamageFX id="RecoveryDamageFxDefault"/>
+<DamageFX id="RecoveryDamageFxNonDefault">
+  <FXGroup Type="SOVIET_TESLA" Amount="12.25" ThrottleTime="250ms"
+    MajorFX="RecoveryDamageFxLeaf" MinorFX="RecoveryDamageFxLeaf"
+    RearFX="RecoveryDamageFxLeaf" SideFX="RecoveryDamageFxLeaf"
+    TopFX="RecoveryDamageFxLeaf" VeteranMajorFX="RecoveryDamageFxLeaf"
+    VeteranMinorFX="RecoveryDamageFxLeaf" VeteranRearFX="RecoveryDamageFxLeaf"
+    VeteranSideFX="RecoveryDamageFxLeaf" VeteranTopFX="RecoveryDamageFxLeaf"/>
+  <FXGroup Type="DEFAULT" Amount="1.5" ThrottleTime="1s" MajorFX="RecoveryDamageFxLeaf"/>
+</DamageFX>
+<DamageFXSettings id="RecoveryDamageFxSettingsDefault"/>
+<DamageFXSettings id="RecoveryDamageFxSettingsNonDefault" GroundDamageFX="RecoveryDamageFxNonDefault"/>
+
+
+<!-- Insert inside AssetDeclaration after the uisettings probe: RecoveryUiHotKey is its HotKeySlot dependency. -->
+<GeneralHotKeySlots id="RecoveryHotkeyGeneralDefault"/>
+<GeneralHotKeySlots id="RecoveryHotkeyGeneralNonDefault" TakeScreenShot="RecoveryUiHotKey" ReloadRapidIterationFeature="RecoveryUiHotKey"/>
+<MappableKey id="RecoveryHotkeyKeyDefault" KeyDef=""/>
+<MappableKey id="RecoveryHotkeyKeyNonDefault" KeyDef="KEY_A"/>
+<MappableKey id="RecoveryHotkeyKeyInherited" inheritFrom="RecoveryHotkeyKeyNonDefault" KeyDef="KEY_B"/>
+<DefaultHotKeys id="RecoveryHotkeyDefaultDefault"><Map/></DefaultHotKeys>
+<DefaultHotKeys id="RecoveryHotkeyDefaultNonDefault">
+  <Map>
+    <HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyNonDefault" Modifiers="CTRL SHIFT"/>
+    <HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyInherited" Modifiers="ALT"/>
+  </Map>
+</DefaultHotKeys>
+<DefaultHotKeys id="RecoveryHotkeyDefaultInherited" inheritFrom="RecoveryHotkeyDefaultNonDefault"><Map/></DefaultHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugDefault"><Map/></DebugHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugNonDefault">
+  <Map><HotKey Slot="RecoveryUiHotKey" Key="RecoveryHotkeyKeyNonDefault" Modifiers="CTRL ALT SHIFT"/></Map>
+</DebugHotKeys>
+<DebugHotKeys id="RecoveryHotkeyDebugInherited" inheritFrom="RecoveryHotkeyDebugNonDefault"><Map/></DebugHotKeys>
+
+
+<!-- Audio/video batch: source XML only; BAB supplies numeric dynamic TypeId and reference indices. MicrophoneSettings has no global asset declaration in CnC3Types.xsd and is exercised by all three nested microphone settings. -->
+<AudioEventLimitGroup id="RecoveryXmlAudio_Limit_Defaults" Limit="0"/>
+<AudioEventLimitGroup id="RecoveryXmlAudio_Limit_Nondefault" Limit="17"/>
+<AudioEventLimitGroup id="RecoveryXmlAudio_Limit_Inherited" inheritFrom="RecoveryXmlAudio_Limit_Nondefault" Limit="23"/>
+<AudioLOD id="RecoveryXmlAudio_Lod_Defaults" Level="LOW" AllowReverb="false" MaximumAmbientStreams="0" AllowCPULimiter="false" CPULimiterLevel="0" CPULimiterLevelDebug="0" MaxVoices="0" OutputBitRate="0" AllowVolumeCompressor="false" MinimumLogicalProcessors="0"/>
+<AudioLOD id="RecoveryXmlAudio_Lod_Nondefault" Level="HIGH" AllowReverb="true" MaximumAmbientStreams="7" AllowCPULimiter="true" CPULimiterLevel="75.5" CPULimiterLevelDebug="55.25" MaxVoices="64" OutputBitRate="44100" AllowVolumeCompressor="true" MinimumLogicalProcessors="2"><Processor Type="CORE_DUO" MinMHz="3200"/><Processor Type="ATHLON_64" MinMHz="2500"/></AudioLOD>
+<AudioSettings id="RecoveryXmlAudio_Settings_Defaults"><AutomaticSubtitleWindowColor R="0.1" G="0.2" B="0.3" A="0.4"/><AutomaticSubtitleTextColor R="0.4" G="0.3" B="0.2" A="1"/><TacticalMicSettings/><LivingWorldMicSettings/><ShellMicSettings/><VolumeCompressorSettings/></AudioSettings>
+<AudioSettings id="RecoveryXmlAudio_Settings_Nondefault" StreamBufferSizePerChannel="17" MaxRequestsPerStream="17" ForceResetTime="250ms" EmergencyResetTime="250ms" SuppressOcclusion="true" MinOcclusion="25.5" DelayPriorToPlayingToReadSoundFile="250ms" ReadAheadTime="250ms" QueueAheadTime="250ms" LongTime="250ms" AudioFootprintInBytes="17" DontLoadThirdVariationWhenFileReadQueueIsLongerThan="17" DontLoadSecondVariationWhenFileReadQueueIsLongerThan="17" DontLoadForLowPrioritySoundsWhenFileReadQueueIsLongerThan="17" WhatIsLowPriorityForDontLoadForLowPrioritySoundsWhenFileReadQueueIsLongerThan="CRITICAL" VolumeToGainConversionFactor="3.125" DefaultSoundVolume="25.5" DefaultVoiceVolume="25.5" DefaultMusicVolume="25.5" DefaultMovieVolume="25.5" DefaultAmbientVolume="25.5" AutomaticSubtitleDuration="250ms" AutomaticSubtitleLines="17" PanRadiusScaleValue="3.125" PanSize="3.125" MinSampleVolume="25.5" PositionDeltaForReverbCheck="3.125" TimeToFadeAudio="250ms" AmbientStreamHysteresisVolume="17" VolumeMultiplierFor2DSounds="25.5" VolumeMultiplierFor3DSounds="25.5" VoiceMoveToCampMaxCampnessAtStartPoint="17" VoiceMoveToCampMinCampnessAtEndPoint="17" MinDelayBetweenEnterStateVoice="250ms" TimeSinceLastAttackForVoiceRetreatToCastle="250ms" DistanceToLookForEnemiesForVoiceRetreatToCastle="3.125" PostPostGameMusicWait="250ms" PlayEnemySightedEventsOnlyFromNearbyUnits="true" CapturedUnitsVoicePriorityOffset="17" UISelectionVoicePriorityOffset="17" AddToSelectionVoiceTimeout="250ms" MinVolumeBeforeFade="25.5" MaxVolumeBeforeFade="25.5" PathMusicBufferTime="250ms" PathMusicLatencyMilisec="17"><AutomaticSubtitleWindowColor R="0.1" G="0.2" B="0.3" A="0.4"/><AutomaticSubtitleTextColor R="0.4" G="0.3" B="0.2" A="1"/><VolumeSliderMultiplierForMovie Slider="VOICE" Multiplier="1.25"/><VolumeSliderMultiplierForMovie Slider="MUSIC" Multiplier="0.75"/><TacticalMicSettings MicrophonePreferredFractionCameraToGround="25.5" VolumeMicrophonePullTowardsTerrainLookAtPoint="25.5" PanningMicrophonePullTowardsTerrainLookAtPoint="25.5" MicrophoneMinDistanceToCamera="123.25" MicrophoneMaxDistanceToCamera="123.25" ZoomMinDistance="123.25" ZoomMaxDistance="123.25" ZoomSoundVolumePercentageAmount="25.5" ZoomFadeDistanceForMaxEffect="123.25" ZoomFadeZeroEffectEdgeLength="123.25" ZoomFadeFullEffectEdgeLength="123.25"/><LivingWorldMicSettings MicrophonePreferredFractionCameraToGround="25.5" VolumeMicrophonePullTowardsTerrainLookAtPoint="25.5" PanningMicrophonePullTowardsTerrainLookAtPoint="25.5" MicrophoneMinDistanceToCamera="123.25" MicrophoneMaxDistanceToCamera="123.25" ZoomMinDistance="123.25" ZoomMaxDistance="123.25" ZoomSoundVolumePercentageAmount="25.5" ZoomFadeDistanceForMaxEffect="123.25" ZoomFadeZeroEffectEdgeLength="123.25" ZoomFadeFullEffectEdgeLength="123.25"/><ShellMicSettings MicrophonePreferredFractionCameraToGround="25.5" VolumeMicrophonePullTowardsTerrainLookAtPoint="25.5" PanningMicrophonePullTowardsTerrainLookAtPoint="25.5" MicrophoneMinDistanceToCamera="123.25" MicrophoneMaxDistanceToCamera="123.25" ZoomMinDistance="123.25" ZoomMaxDistance="123.25" ZoomSoundVolumePercentageAmount="25.5" ZoomFadeDistanceForMaxEffect="123.25" ZoomFadeZeroEffectEdgeLength="123.25" ZoomFadeFullEffectEdgeLength="123.25"/><VolumeCompressorSettings Threshold="17" Ratio="2.5" AttackTime="125ms" ReleaseTime="750ms" AppliesEquallyToAllChannels="false"/></AudioSettings>
+<Video id="RecoveryXmlAudio_Video_Defaults" Filename="RecoveryXmlAudio_default.vp6"/>
+<Video id="RecoveryXmlAudio_Video_Nondefault" Filename="RecoveryXmlAudio_nondefault.vp6" Comment="Audio and video probe" Volume="25.5" SoundOverride="NO_DUCK"/>
+<VideoEventList id="RecoveryXmlAudio_Sequence_Defaults"><EventList/></VideoEventList>
+<VideoEventList id="RecoveryXmlAudio_Sequence_Nondefault"><EventList><Movie MovieAsset="RecoveryXmlAudio_Video_Defaults"><FadeIn FrameCount="5"><StartColor r="0" g="0" b="0"/><EndColor r="1" g="1" b="1"/></FadeIn><FadeOut FrameCount="7"><StartColor r="1" g="1" b="1"/><EndColor r="0" g="0" b="0"/></FadeOut></Movie><TitleCard DisplayTime="1250ms"><FadeIn FrameCount="5"><StartColor r="0" g="0" b="0"/><EndColor r="1" g="1" b="1"/></FadeIn><FadeOut FrameCount="7"><StartColor r="1" g="1" b="1"/><EndColor r="0" g="0" b="0"/></FadeOut><TextInstance TextId="GUI:Title GUI:Subtitle" Justification="CENTER" XOffset="0.25" YOffset="0.5" Font="Arial" PointSize="17"><TextColor r="1" g="0.5" b="0.25"/></TextInstance><TextInstance TextId="GUI:Other" Justification="RIGHT" XOffset="-0.25" YOffset="-0.5" Font="Arial" PointSize="23"><TextColor r="0" g="0.5" b="1"/></TextInstance></TitleCard><Movie MovieAsset="RecoveryXmlAudio_Video_Nondefault"/></EventList></VideoEventList>
+
+<BootupDisplaySequence id="RecoveryXmlAudio_Bootup_Defaults" LoadingTextTexture="loadingText"/>
+<BootupDisplaySequence id="RecoveryXmlAudio_Bootup_Nondefault" LoadingTextTexture="loadingText"><DisplayItem Type="STATIC_SCREEN" Duration="5" Priority="1" ShowOnReboot="true"><RandomTexture>loadingText</RandomTexture><RandomTexture>loadingText</RandomTexture><Movie>EA:Intro</Movie></DisplayItem><DisplayItem Type="MOVIE" Duration="3" Priority="2" ShowOnReboot="false"><Movie/></DisplayItem><DisplayItem Type="LOAD_SCREEN" Duration="7" Priority="3" ShowOnReboot="true"><RandomTexture>loadingText</RandomTexture></DisplayItem></BootupDisplaySequence>
+
+
+<!-- Original schema legal assets; these are merged into the parent probe AssetDeclaration. -->
+<HotKeySlot id="RecoveryUiHotKeyDefault" Name="RecoveryDefault" />
+<HotKeySlot id="RecoveryUiHotKey" Group="UnitCommands" Index="7" Name="RecoveryAction" VersionAdded="3" />
+<HotKeySlot id="RecoveryUiHotKeyInherited" inheritFrom="RecoveryUiHotKey" Index="9" />
+<MouseCursor id="RecoveryUiCursorDefault" />
+<MouseCursor id="RecoveryUiCursor" File="data/cursors/recovery.ani" NumDirections="8" />
+<BasicMouseCursors id="RecoveryUiCursorsDefault" />
+<BasicMouseCursors id="RecoveryUiCursors" Normal="RecoveryUiCursor" Arrow="RecoveryUiCursorDefault" Invalid="RecoveryUiCursor" EnterText="RecoveryUiCursorDefault" />
+<UIMouseDragSelectionFeedback id="RecoveryUiDragDefault"><BoxColor R="0" G="0" B="0" A="255"/><LassoColor R="0" G="0" B="0" A="255"/></UIMouseDragSelectionFeedback>
+<UIMouseDragSelectionFeedback id="RecoveryUiDrag" BoxEdgeWidth="3.25" LassoWidth="1.75"><BoxColor R="17" G="34" B="51" A="68"/><LassoColor R="51" G="34" B="17" A="136"/></UIMouseDragSelectionFeedback>
+<UIFloatingTextDisplay id="RecoveryUiFloatingDefault"><Font Name="Arial" Size="12"/></UIFloatingTextDisplay>
+<UIFloatingTextDisplay id="RecoveryUiFloating" TimeOut="1250ms" MoveUpSpeed="3.25" MoveVanishRate="0.75"><Font Name="Courier New" Size="18" Bold="true"/></UIFloatingTextDisplay>
+<UIMessageDisplay id="RecoveryUiMessageDefault"><Color1 R="0" G="0" B="0"/><Color2 R="0" G="0" B="0"/><Font Name="Arial" Size="12"/></UIMessageDisplay>
+<UIMessageDisplay id="RecoveryUiMessage" Delay="1250ms"><Color1 R="17" G="34" B="51"/><Color2 R="51" G="34" B="17"/><Font Name="Courier New" Size="18" Bold="true"/></UIMessageDisplay>
+<UIMilitaryCaptionDisplay id="RecoveryUiMilitaryDefault"><Color R="0" G="0" B="0"/><Position x="0" y="0"/><TitleFont Name="Arial" Size="12"/><Font Name="Arial" Size="12"/></UIMilitaryCaptionDisplay>
+<UIMilitaryCaptionDisplay id="RecoveryUiMilitary" Centered="true" Delay="1750ms"><Color R="17" G="34" B="51"/><Position x="0.25" y="0.75"/><TitleFont Name="Arial" Size="24" Bold="true"/><Font Name="Courier New" Size="18"/></UIMilitaryCaptionDisplay>
+<UISubtitleDisplay id="RecoveryUiSubtitleDefault"><Font Name="Arial" Size="12"/><PanelColor R="0" G="0" B="0" A="255"/><TextColor R="0" G="0" B="0"/></UISubtitleDisplay>
+<UISubtitleDisplay id="RecoveryUiSubtitle" HoldTime="1250ms" LineCount="4"><Font Name="Arial" Size="18" Bold="true"/><PanelColor R="17" G="34" B="51" A="68"/><TextColor R="51" G="34" B="17"/></UISubtitleDisplay>
+<UITimerDisplay id="RecoveryUiTimerDefault"><Position x="0" y="0"/><FlashColor R="0" G="0" B="0"/><NormalFont Name="Arial" Size="12"/><NormalColor R="0" G="0" B="0"/><ReadyFont Name="Arial" Size="12"/><ReadyColor R="0" G="0" B="0"/></UITimerDisplay>
+<UITimerDisplay id="RecoveryUiTimer" Centered="true" FlashDuration="1250ms"><Position x="0.25" y="0.75"/><FlashColor R="17" G="34" B="51"/><NormalFont Name="Arial" Size="18"/><NormalColor R="51" G="34" B="17"/><ReadyFont Name="Courier New" Size="24" Bold="true"/><ReadyColor R="34" G="51" B="17"/></UITimerDisplay>
+
+<DynamicGameLOD id="RecoveryUiDynamicLodDefault"/>
+<DynamicGameLOD id="RecoveryUiDynamicLod" Level="HIGH" MinimumFPS="24" ParticleSkipMask="3" DebrisSkipMask="5" SlowDeathScale="0.75"/>
+<GameLODPreset id="RecoveryUiLodPresetDefault"><Processor Type="UNKNOWN" MinMHz="0"/></GameLODPreset>
+<GameLODPreset id="RecoveryUiLodPreset" Level="HIGH" SystemMemory="2048" Xres="1920" YRes="1080"><Processor Type="CORE_DUO" MinMHz="2000"/><Processor Type="ATHLON_64" MinMHz="2400"/><Processor Type="PENTIUM_4" MinMHz="3000"/></GameLODPreset>
+<StaticGameLOD id="RecoveryUiStaticLodDefault"/>
+<StaticGameLOD id="RecoveryUiStaticLod" Level="HIGH" ModelLOD="LOW" EffectsLOD="ULTRA_HIGH" MaxParticleCount="1234" UseShadowDecals="false" UseShadowMapping="true" ShadowLOD="HIGH" TerrainLOD="HIGH" UseTerrainNormalMap="true" WaterLOD="HIGH" MaxTankTrackEdges="80" MaxTankTrackOpaqueEdges="20" MaxTankTrackFadeDelay="2500" ShowProps="false" TextureReductionFactor="2" AnimationLOD="LOW" ShaderLOD="HIGH" DecalLOD="LOW" MinParticlePriority="HIGH_OR_ABOVE" MinParticleSkipPriority="VERY_LOW_OR_ABOVE" AntiAliasingQuality="2" EnableVSync="false"/>
+<UICoopTinting id="RecoveryUiCoopDefault"><TintColor R="0" G="0" B="0"/></UICoopTinting>
+<UICoopTinting id="RecoveryUiCoop" FadeInFrames="5" FadeOutFrames="7" SustainFrames="13" TintFrequency="2.25" TintAmplitude="0.75"><TintColor R="17" G="34" B="51"/></UICoopTinting>
+
+<RadiusCursor id="RecoveryUiRadiusDefault"><DecalTemplate/></RadiusCursor>
+<RadiusCursor id="RecoveryUiRadius"><DecalTemplate><Component Style="ALPHA_DECAL" OpacityMin="25%" OpacityMax="75%" OpacityPulsesPerSecond="2.5" RotationMin="12" RotationMax="45" RotationDegreesPerSecond="15" MinRadius="3.25" MaxRadius="7.5" RadiusPulsesPerSecond="1.5" PositionOffsetMin="-1.25" PositionOffsetMax="2.5" PositionOffsetPulsesPerSecond="0.75"><Color R="17" G="34" B="51" A="68"/></Component><Component Style="ADDITIVE_DECAL" MinRadius="1.5" MaxRadius="4.5"/></DecalTemplate></RadiusCursor>
+
+
+<!-- Audio.xml is already a reference include in the SDK harness. RadarOn/RadarOff are existing audio resources, not new source assets. -->
+<AnimationSoundSettings id="RecoverySoundAnimationDefault"/>
+<AnimationSoundSettings id="RecoverySoundAnimationNonDefault" MinMicrophoneDistanceToDirty="-17"/>
+<MiscAudio id="RecoverySoundMiscDefault"/>
+<MiscAudio id="RecoverySoundMiscNonDefault"
+  RadarNotifyHarvesterUnderAttackSound="RadarOn"
+  RadarNotifyStructureUnderAttackSound="RadarOn"
+  RadarNotifyInfiltrationSound="RadarOn"
+  RadarNotifyOnlineSound="RadarOn"
+  RadarNotifyOfflineSound="RadarOn"
+  GenericRadarEvent="RadarOn"
+  BeaconPlacedSound="RadarOn"
+  BeaconPlacementFailed="RadarOn"
+  DefectorTimerTickSound="RadarOn"
+  DefectorTimerDingSound="RadarOn"
+  AllCheerSound="RadarOn"
+  NoCanDoSound="RadarOn"
+  StealthDiscoveredSound="RadarOn"
+  StealthNeutralizedSound="RadarOn"
+  MoneyDepositSound="RadarOn"
+  MoneyWithdrawSound="RadarOn"
+  LowPower="RadarOn"
+  SufficientPower="RadarOn"
+  BuildingDisabled="RadarOn"
+  BuildingReenabled="RadarOn"
+  VehicleDisabled="RadarOn"
+  VehicleReenabled="RadarOn"
+  SplatterVehiclePilotsBrain="RadarOn"
+  UnitPromoted="RadarOn"
+  RepairSparks="RadarOn"
+  EnterCloseCombat="RadarOn"
+  ExitCloseCombat="RadarOn"
+  IncomingChatNotification="RadarOn"
+  PrivateMessageNotification="RadarOn"
+  BuddyMessageNotification="RadarOn"
+  EnabledHotKeyPressed="RadarOn"
+  DisabledHotKeyPressed="RadarOn"
+  DisabledButtonClicked="RadarOn"
+  LowLODShellMusic="RadarOn"
+  HighLODShellMusic="RadarOn"
+  ScoreScreenMusic="RadarOn"
+  ShellMapLoadMusic="RadarOn"
+  FullScreenSubMenuMusic="RadarOn"
+  SaveFileLoadMusic="RadarOn"
+  CreditsMusic="RadarOn"
+  VolumeSampleMusic="RadarOn"
+  VolumeSampleSoundFX="RadarOn"
+  VolumeSampleVoice="RadarOn"
+  VolumeSampleAmbient="RadarOn"
+  VolumeSampleMovie="RadarOn"
+  MissionBriefingCharacterClick="RadarOn"
+  ComboBoxClick="RadarOn"
+  GameSpyCommunicatorOpen="RadarOn"
+  MPSecondsCountdownBeep="RadarOn"
+  RIFThingTemplateReloadedSound="RadarOn"
+  RIFObjectsRefreshedSound="RadarOn"
+  FastForwardModeOn="RadarOn"
+  FastForwardModeOff="RadarOn"
+  RallyPointSet="RadarOn"
+  UnableToSetRallyPoint="RadarOn"
+  PlanningModeOrderGiven="RadarOn"
+  BuildingPlacementSound="RadarOn"
+  BadBuildingPlacementSound="RadarOn"
+  WallPlacementSound="RadarOn"
+  AircraftWheelScreech="RadarOn"
+  LockonTickSound="RadarOn"
+  TargetObjectWithSpecialPowerSound="RadarOn"
+  ObjectiveCompletedSound="RadarOn"
+  CameraBookmarkPlacedSound="RadarOn"
+  GuiFixedButtonClickedSound="RadarOn"
+  GuiBuildQueueButtonClickedSound="RadarOn"
+  GuiSelectionRefinementButtonClickedSound="RadarOn"
+  GuiFactorySelectionButtonClickedSound="RadarOn"
+  GuiTogglePowerObjectClickedSound="RadarOn"
+  GuiToggleRepairObjectClickedSound="RadarOn"
+  GuiSellObjectClickedSound="RadarOn"
+  GuiCommandButtonClickedSound="RadarOn"
+  GuiCommandButtonRightClickedSound="RadarOn"
+  GuiControlGroupSetSound="RadarOn"
+  GuiDisabledCommandButtonClickedSound="RadarOn"
+  GuiDisabledCommandButtonRightClickedSound="RadarOn"
+  GuiPlayerPowerButtonClickedSound="RadarOn"
+  GuiPauseDialogButtonClickedSound="RadarOn"
+  GuiPauseDialogButtonMouseOverSound="RadarOn"
+  GuiPauseDialogButtonMouseOutSound="RadarOn"
+  GuiYesNoDialogButtonClickedSound="RadarOn"
+  GuiYesNoDialogButtonMouseOverSound="RadarOn"
+  GuiYesNoDialogButtonMouseOutSound="RadarOn"
+  GuiTextChatDialogButtonClickedSound="RadarOn"
+  GuiTextChatDialogButtonMouseOverSound="RadarOn"
+  GuiTextChatDialogButtonMouseOutSound="RadarOn"
+  GuiTechStoreDialogOpenButtonClicked="RadarOn"
+  GuiTechStoreDialogOpenButtonMouseOver="RadarOn"
+  GuiTechStoreDialogPowerButtonSelected="RadarOn"
+  GuiTechStoreDialogPowerButtonDeselected="RadarOn"
+  GuiTechStoreDialogPowerButtonMouseOver="RadarOn"
+  GuiTechStoreDialogConfirmButtonClicked="RadarOn"
+  GuiTechStoreDialogCancelButtonClicked="RadarOn"
+  GuiTechStoreDialogConfirmButtonMouseOver="RadarOn"
+  GuiTechStoreDialogCancelButtonMouseOver="RadarOn"/>
+<LargeGroupAudioMap id="RecoverySoundMapDefault" StartThreshold="0" StopThreshold="0">
+  <Sound Name="RecoverySoundBase" Sound="RadarOn"><Key>RecoveryBaseKey</Key></Sound>
+</LargeGroupAudioMap>
+<LargeGroupAudioMap id="RecoverySoundMapNonDefault"
+  RequiredModelConditionFlags="MOVING" ExcludedModelConditionFlags="DYING"
+  RequiredObjectStatusBits="HIDDEN" ExcludedObjectStatusBits="DESTROYED"
+  Size="250" StartThreshold="5" StopThreshold="4" HandOffModeTime="250ms"
+  MaximumAudioSpeed="125" IgnoreStealthedUnits="false">
+  <Sound Name="RecoverySoundFirst" Sound="RadarOn">
+    <Key>RecoveryKey</Key><Key>recoverykey</Key>
+    <Duck AudioMap="RecoverySoundMapDefault" SoundRef="RecoverySoundBase" VolumeMultiplier="25%"/>
+  </Sound>
+  <Sound Name="RecoverySoundSecond" Sound="RadarOff"><Key>RecoverySecondKey</Key></Sound>
+</LargeGroupAudioMap>
+<LargeGroupAudioMap id="RecoverySoundMapInherited" inheritFrom="RecoverySoundMapNonDefault" StartThreshold="7" StopThreshold="3">
+  <Sound Name="RecoverySoundInherited" Sound="RadarOn"><Key>RecoveryInheritedKey</Key></Sound>
+</LargeGroupAudioMap>
+
+
+
 </AssetDeclaration>
