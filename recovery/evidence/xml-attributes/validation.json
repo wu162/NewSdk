@@ -1,40 +1,40 @@
 {
   "succeeded": true,
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
   "platforms": [
     0,
     1,
     2,
     99
   ],
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
+  "runId": "40094119491",
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
   "modes": [
     {
-      "exitCode": 0,
       "log": "Od-oracle.txt",
+      "succeeded": true,
+      "exitCode": 0,
       "mode": "Od",
       "summaries": [
         "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
-      ],
-      "succeeded": true
+      ]
     },
     {
-      "exitCode": 0,
       "log": "O2-oracle.txt",
+      "succeeded": true,
+      "exitCode": 0,
       "mode": "O2",
       "summaries": [
         "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
-      ],
-      "succeeded": true
+      ]
     }
-  ],
-  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
-  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
-  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
-  "runId": "40093373602"
+  ]
 }

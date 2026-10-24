@@ -7,15 +7,24 @@ ObjectFilter.cpp
 XmlaiCompiler.cpp
 XmlattributesCompiler.cpp
 XmleffectsCompiler.cpp
+XmlenvironmentCompiler.cpp
 XmlfxparticleCompiler.cpp
 XmllocomotorCompiler.cpp
+XmlplayersCompiler.cpp
 XmlpowersCompiler.cpp
+XmlprogressionCompiler.cpp
 Xmlai.cpp
 Xmlattributes.cpp
 Xmleffects.cpp
 XmleffectsEnums.cpp
 XmleffectsNuggets.cpp
+Generating Code...
+Compiling...
+Xmlenvironment.cpp
 Xmlfxparticle.cpp
 Xmllocomotor.cpp
+Xmlplayers.cpp
 Xmlpowers.cpp
+Xmlprogression.cpp
+XmlprogressionUi.cpp
 Generating Code...

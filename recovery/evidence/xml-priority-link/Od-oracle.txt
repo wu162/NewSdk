@@ -12,6 +12,37 @@ ROUTE root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler
 ROUTE root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler
 ROUTE root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler
 ROUTE root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler
+ROUTE root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler
+ROUTE root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler
+ROUTE root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler
+ROUTE root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler
+ROUTE root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler
+ROUTE root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler
+ROUTE root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler
+ROUTE root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler
+ROUTE root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler
+ROUTE root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler
+ROUTE root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler
+ROUTE root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler
+ROUTE root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler
+ROUTE root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler
+ROUTE root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler
+ROUTE root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler
+ROUTE root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler
+ROUTE root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler
+ROUTE root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler
+ROUTE root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler
+ROUTE root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler
+ROUTE root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler
+ROUTE root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler
+ROUTE root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler
+ROUTE root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler
+ROUTE root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler
+ROUTE root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler
+ROUTE root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler
+ROUTE root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler
+ROUTE root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler
+ROUTE root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -26,6 +57,37 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=108 relocations=0 imports=0
+PASS root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler platform=0 fixtures=1 comparisons=3 instance=156 relocations=0 imports=0
+PASS root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler platform=0 fixtures=1 comparisons=3 instance=220 relocations=0 imports=0
+PASS root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler platform=0 fixtures=1 comparisons=3 instance=448 relocations=0 imports=0
+PASS root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=0 imports=0
+PASS root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler platform=0 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -36,7 +98,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=0 types=14 fixtures=14 comparisons=42
+PASS platform=0 types=45 fixtures=45 comparisons=135
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -51,6 +113,37 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=108 relocations=0 imports=0
+PASS root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler platform=1 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler platform=1 fixtures=1 comparisons=3 instance=156 relocations=0 imports=0
+PASS root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler platform=1 fixtures=1 comparisons=3 instance=220 relocations=0 imports=0
+PASS root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler platform=1 fixtures=1 comparisons=3 instance=448 relocations=0 imports=0
+PASS root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=0 imports=0
+PASS root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler platform=1 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -61,7 +154,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=1 types=14 fixtures=14 comparisons=42
+PASS platform=1 types=45 fixtures=45 comparisons=135
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -76,6 +169,37 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=108 relocations=0 imports=0
+PASS root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler platform=2 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler platform=2 fixtures=1 comparisons=3 instance=156 relocations=0 imports=0
+PASS root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler platform=2 fixtures=1 comparisons=3 instance=220 relocations=0 imports=0
+PASS root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler platform=2 fixtures=1 comparisons=3 instance=448 relocations=0 imports=0
+PASS root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=0 imports=0
+PASS root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler platform=2 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -86,7 +210,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=2 types=14 fixtures=14 comparisons=42
+PASS platform=2 types=45 fixtures=45 comparisons=135
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -101,6 +225,37 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=108 relocations=0 imports=0
+PASS root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler platform=99 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler platform=99 fixtures=1 comparisons=3 instance=156 relocations=0 imports=0
+PASS root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler platform=99 fixtures=1 comparisons=3 instance=220 relocations=0 imports=0
+PASS root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler platform=99 fixtures=1 comparisons=3 instance=448 relocations=0 imports=0
+PASS root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=0 imports=0
+PASS root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler platform=99 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -111,6 +266,6 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=99 types=14 fixtures=14 comparisons=42
-PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only
+PASS platform=99 types=45 fixtures=45 comparisons=135
+PASS XmlPriorityLink types=45 fixtures=180 comparisons=540 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only
 PROCESS EXIT mode=Od exitCode=0 exitCodeHex=0x00000000

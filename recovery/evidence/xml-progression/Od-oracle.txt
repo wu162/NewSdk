@@ -1,7 +1,5 @@
-PASS platform=0 fixtures=3701 threeArrayComparisons=11103 directArrayComparisons=11103 rejections=76 independentLayouts=3717
-System.Exception: tech-number:1/instance byte=4 original=0 recovered=1
-   at XmlprogressionOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmlprogressionOracle.TestDocument(IAssetBuilderPlugin original, Int32 root, String label, XmlDocument d, TargetPlatform platform)
-   at XmlprogressionOracle.Test(IAssetBuilderPlugin original, Int32 root, String label, String attrs, String children, TargetPlatform platform)
-   at XmlprogressionOracle.Cases(IAssetBuilderPlugin original, TargetPlatform platform)
-   at XmlprogressionOracle.Main(String[] args)
+PASS platform=0 fixtures=3860 threeArrayComparisons=11580 directArrayComparisons=11580 rejections=91 independentLayouts=3878
+PASS platform=1 fixtures=3860 threeArrayComparisons=11580 directArrayComparisons=11580 rejections=91 independentLayouts=3878
+PASS platform=2 fixtures=3860 threeArrayComparisons=11580 directArrayComparisons=11580 rejections=91 independentLayouts=3878
+PASS platform=99 fixtures=3860 threeArrayComparisons=11580 directArrayComparisons=11580 rejections=91 independentLayouts=3878
+RESULT fixtures=15440 threeArrayComparisons=46320 directArrayComparisons=46320 rejections=364 independentLayouts=15512

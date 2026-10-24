@@ -1,9 +1,5 @@
-FAIL player-all-lists-27/platform=0
-System.Exception: player-all-lists-27/platform=0 bookmark order
-   at XmlplayersOracle.Assert(Boolean condition, String message)
-   at XmlplayersOracle.Layout(XmlDocument d, AssetBuffer b, Boolean big)
-   at XmlplayersOracle.TestDoc(IAssetBuilderPlugin original, TargetPlatform p, String label, XmlDocument d)
-   at XmlplayersOracle.Test(IAssetBuilderPlugin o, TargetPlatform p, String label, String xml)
-   at XmlplayersOracle.ChildMatrix(IAssetBuilderPlugin o, TargetPlatform p)
-   at XmlplayersOracle.Matrix(IAssetBuilderPlugin original, TargetPlatform p)
-   at XmlplayersOracle.Main(String[] args)
+PASS platform=0 fixtures=5480 arrayComparisons=16440 rejections=109 layoutAssertions=77065
+PASS platform=1 fixtures=5480 arrayComparisons=16440 rejections=109 layoutAssertions=77065
+PASS platform=2 fixtures=5480 arrayComparisons=16440 rejections=109 layoutAssertions=77065
+PASS platform=99 fixtures=5480 arrayComparisons=16440 rejections=109 layoutAssertions=77065
+PASS Players fixtures=21920 comparisons=65760 rejections=436 layouts=308260

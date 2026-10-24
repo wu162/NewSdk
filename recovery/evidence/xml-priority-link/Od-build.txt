@@ -26,8 +26,5 @@ Xmllocomotor.cpp
 Xmlplayers.cpp
 Xmlpowers.cpp
 Xmlprogression.cpp
+XmlprogressionUi.cpp
 Generating Code...
-Xmlenvironment.obj : error LNK2022: metadata operation failed (8013118D) : Inconsistent layout information in duplicated types (std.pair<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const ,Recovered::Native::`anonymous namespace'::Layout>): (0x020001cf).
-Xmlenvironment.obj : error LNK2022: metadata operation failed (8013118D) : Inconsistent layout information in duplicated types (std._Tree_node<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const ,Recovered::Native::`anonymous namespace'::Layout>,void *>): (0x02000207).
-Xmlenvironment.obj : error LNK2032: metadata inconsistent with COFF symbol table: symbol '??1?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ULayout@?A0x1be8791c@Native@Recovered@@@std@@$$FQAE@XZ' (0A0000EF) mapped to '<unknown symbol>' (060003C4) in Xmlai.obj
-LINK : fatal error LNK1255: link failed because of metadata errors

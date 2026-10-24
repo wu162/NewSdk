@@ -1,14 +1,93 @@
 {
-  "succeeded": false,
-  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
-  "runId": "40093373602",
+  "succeeded": true,
+  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
+  "runId": "40094119491",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "modes": [],
-  "scope": "Eight complete progression roots and their nested AI/decal dependencies; component only",
-  "status": "Od original XmlCompiler differential failed (1)"
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 1,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 2,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 99,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        }
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 1,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 2,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        },
+        {
+          "platform": 99,
+          "fixtures": 3860,
+          "threeArrayComparisons": 11580,
+          "directArrayComparisons": 11580,
+          "rejections": 91,
+          "independentLayouts": 3878
+        }
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "scope": "Nine complete progression roots and their nested AI/decal dependencies; component only",
+  "status": "Od and O2 four-platform three-buffer differential passed for documented support boundary"
 }
