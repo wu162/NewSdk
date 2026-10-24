@@ -116,6 +116,8 @@ unsigned int XmlenvironmentTypeId(const std::string& name) {
     if(name=="BounceKickTerrainMapping")return 2368878637u;
     if(name=="ShadowMap")return 4157475773u;
     if(name=="OrdersManagerSettings")return 2996766068u;
+    if(name=="TerrainVisualSettings")return 1184276792u;
+    if(name=="CameraSettings")return 3898802054u;
     if(name=="Weather")return 2430161325u;
     if(name=="WaterTransparency")return 1479531562u;
     if(name=="WaterSetting")return 2728605516u;

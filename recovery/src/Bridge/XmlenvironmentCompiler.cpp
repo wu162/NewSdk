@@ -179,4 +179,30 @@ public:
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
     }
 };
+public ref class TerrainVisualSettingsCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="TerrainVisualSettings")throw gcnew NotSupportedException("Expected TerrainVisualSettings root.");
+        return XmlenvironmentCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=1184276792u)throw gcnew NotSupportedException("Expected TerrainVisualSettings TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class CameraSettingsCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="CameraSettings")throw gcnew NotSupportedException("Expected CameraSettings root.");
+        return XmlenvironmentCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=3898802054u)throw gcnew NotSupportedException("Expected CameraSettings TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
 }
