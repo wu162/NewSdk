@@ -32,7 +32,7 @@ $validation = [ordered]@{
     scope = 'Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate'
     expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 14
     expectedFixturesPerMode = 56; expectedComparisonsPerMode = 168
-    platforms = @(0,1,2,99); modes = @(); status = 'started'
+    platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
 $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
 $originalPath = (Resolve-Path 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll').Path
@@ -82,8 +82,19 @@ try {
         Copy-Item $dllPath (Join-Path $artifactDirectory 'Recovered.XmlCompilerPriority.dll') -Force
         & "$modeOut/XmlPriorityLinkOracle.exe" $originalPath $dllPath "$evidence/$mode-result.json" $manifestPath $sourceCommit $runId *> "$evidence/$mode-oracle.txt"
         $code = $LASTEXITCODE
+        # Preserve the real child-process status before any later command or parsing.
+        $exitCodeHex = '0x' + [BitConverter]::ToUInt32([BitConverter]::GetBytes([int32]$code), 0).ToString('X8')
+        $exitRecord = [ordered]@{
+            mode = $mode; exitCode = [int32]$code; exitCodeHex = $exitCodeHex
+            sourceCommit = $sourceCommit; runId = $runId
+            processSucceeded = ($code -eq 0)
+        }
+        $validation.processExits += $exitRecord
+        $exitRecord | ConvertTo-Json -Depth 4 | Set-Content "$evidence/$mode-exit.json"
+        "PROCESS EXIT mode=$mode exitCode=$code exitCodeHex=$exitCodeHex" | Add-Content "$evidence/$mode-oracle.txt"
+        $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
         Get-Content "$evidence/$mode-oracle.txt"
-        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed; all 14 types are required" }
+        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 14 types and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
         if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 14 -or $result.fixtures -ne 56 -or $result.comparisons -ne 168 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
         if (@($result.typeCoverage.PSObject.Properties).Count -ne 14) { throw "$mode incomplete per-type coverage" }
@@ -91,7 +102,7 @@ try {
             if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
         }
         $validation.modes += [ordered]@{
-            mode = $mode; succeeded = $true; types = $result.types
+            mode = $mode; succeeded = $true; exitCode = [int32]$code; exitCodeHex = $exitCodeHex; types = $result.types
             fixtures = $result.fixtures; comparisons = $result.comparisons
             platforms = $result.platforms; typeCoverage = $result.typeCoverage
             compilerClasses = $result.compilerClasses
