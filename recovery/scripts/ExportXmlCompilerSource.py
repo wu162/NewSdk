@@ -126,3 +126,19 @@ manifest["originalDllSha256"] = hashlib.sha256(pe).hexdigest()
 (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 print("Resolved %d static fields and %d enum maps from original PE" %
       (len(literal_rows), len(enum_manifest)))
+
+# Pin every literal referenced by each requested root method next to that root.
+literals_by_symbol = {row["symbol"]: row for row in literal_rows}
+for name in TYPES:
+    root_text = (roots / (name + ".cs.txt")).read_text(encoding="utf-8")
+    symbols = sorted(set(re.findall(r"Unsafe.AsPointer\(ref ([^)]+)\)", root_text)))
+    missing = [symbol for symbol in symbols if symbol not in literals_by_symbol]
+    if missing:
+        raise RuntimeError("Missing root literal fields for " + name + ": " + repr(missing))
+    path = "roots/" + name + ".static.json"
+    payload = {"sourceBlob": blob, "type": name,
+               "fields": [literals_by_symbol[symbol] for symbol in symbols]}
+    (OUT / path).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    manifest["roots"][name]["staticFields"] = path
+    manifest["roots"][name]["staticFieldCount"] = len(symbols)
+(OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
