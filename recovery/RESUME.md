@@ -4,11 +4,11 @@
 
 ## 当前轮次进行中（2026-10-24 北京时间19:34起，目标约20:34）
 
-用户要求本轮按实际约1小时持续推进，最多3子代理。当前已验收181/322（本轮164→181，共17新），141种其他已知Marshal仍拒绝。
+用户要求本轮按实际约1小时持续推进，最多3子代理。当前正式已验收181/322，本轮164→181；141种其他已知Marshal仍拒绝。有效源码c32069c1ac0c7509b851c76d6f8c00bafebccdf1，GameObject40091859893与基础40091859870均success；每/Od、/O2为366576 fixtures、1099728三缓冲区比较、13448拒绝、964不变性，四平台0/1/2/99，日志/JSON/sourceCommit/runId/终态已核对。首批10新df3d0.../40091269128/40091269124亦success。
 
-第二批EMP/Suppression2、StealthDetector/Invisibility2、Tiberium3已完整验收：有效源码c32069c1ac0c7509b851c76d6f8c00bafebccdf1；GameObject40091859893与基础40091859870均success。/Od、/O2每模式366576 fixtures、1099728三缓冲区比较、13448拒绝、964不变性，四平台0/1/2/99；实际日志与validation sourceCommit/runId已核对。首批经济/电力4、墙桥/放置3、战斗响应3的source df3d0fcead1eb71c0d812faf74f4f7df751980b7/run40091269128/base40091269124亦success，后批完整包含其回归。
+最终批次源码已准备：第三批WallHub/Enclose2、ResourceAllies2、StateEvent2的6新，加ModelCondition3、MotionCleanup3，共另12新；完整通过后本轮实际29新，总193/322、拒绝129。取得实际成功前不能提前计入181。第三批6429b0cda58367ecd9bd114874950c0f24473bca/run40092685797的/Od曾因Enclose独立Imports断言失败，原/恢复三缓冲区未报差异；已依据原Plugin.cs blob641761fc1420ce2ab6a9a75aa443dd35c970bda8 line716的ImportsData=new byte[0]修正精确空返回断言，保留FX24/String4/pointer+140/tail148全部约束。最终完整矩阵必须包含修正后的全部回归，不把失败checkpoint标支持。
 
-第三批WallHub/Enclose2、ResourceAllies2、StateEvent2共6新已准备并提交验证；未取得本批成功前不计入181。附带下一ModelConditionActionType只读PE取证，不代表该下一组已支持。新增组运行实现均独立Runtime.h并保留原位include顺序；简单标量组直接复用通用fieldsets分派。后续连续推进，不因一组完成提前结束本轮。下节为上一轮164基线历史，当前数量与锚点以上面本轮段为准。
+ModelConditionActionType原PE唯一DUMP_ORE=0已取证并逐表生成；SpecialPower下一组本轮只取原方法与三表，不实现或计数。新增能力组Runtime均独立头/原位置include，简单标量组直接通用fieldsets；不再往主cpp堆实现。阶段最终结果/下一入口待本批真实终态后更新，下节旧164为历史基线。
 
 ## 上一轮基线164/322已知Marshal模块
 

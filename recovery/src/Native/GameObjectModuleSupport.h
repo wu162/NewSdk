@@ -4,6 +4,8 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=159 && choice->kind<=161) {const auto& fields=motionCleanupFieldSets[choice->kind-159];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
+    if(choice->kind>=156 && choice->kind<=158) {const auto& fields=modelConditionFieldSets[choice->kind-156];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=154 && choice->kind<=155) {const auto& fields=stateEventFieldSets[choice->kind-154];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=152 && choice->kind<=153) {
         const auto& fields=resourceAlliesFieldSets[choice->kind-152];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
@@ -80,6 +82,12 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=159 && kind<=161) {
+        if(kind==160) {if(path=="ObjectFilter") return 1;if(path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;}
+        if(kind==161) {if(path=="ObjectStatusValidation" || path=="KeepAliveObjectFilter") return 1;if(path=="KeepAliveObjectFilter/IncludeThing" || path=="KeepAliveObjectFilter/ExcludeThing") return 3;}
+        return 0;
+    }
+    if(kind>=156 && kind<=158) return 0;
     if(kind>=154 && kind<=155) return 0;
     if(kind>=152 && kind<=153) {
         if(kind==153) {if(path=="ObjectFilter") return 1;if(path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;}
@@ -201,6 +209,8 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=159 && kind<=161) return kind==161 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
+    if(kind>=156 && kind<=158) return false;
     if(kind>=154 && kind<=155) return false;
     if(kind>=152 && kind<=153) return false;
     if(kind>=150 && kind<=151) return false;

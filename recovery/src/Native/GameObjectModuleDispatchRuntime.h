@@ -1,6 +1,8 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=159 && choice->kind<=161) EndianMotionCleanup(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=156 && choice->kind<=158) EndianModuleFieldSet(reinterpret_cast<unsigned char*>(input),modelConditionFieldSets[choice->kind-156]);
     if(choice && choice->kind>=154 && choice->kind<=155) EndianModuleFieldSet(reinterpret_cast<unsigned char*>(input),stateEventFieldSets[choice->kind-154]);
     if(choice && choice->kind>=152 && choice->kind<=153) EndianResourceAllies(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=150 && choice->kind<=151) EndianWallEnclose(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -58,6 +60,8 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto choice=FindModule(type);
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=159 && choice->kind<=161) MarshalMotionCleanup(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=156 && choice->kind<=158) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),modelConditionFieldSets[choice->kind-156],data);
     if(choice && choice->kind>=154 && choice->kind<=155) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),stateEventFieldSets[choice->kind-154],data);
     if(choice && choice->kind>=152 && choice->kind<=153) MarshalResourceAllies(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=150 && choice->kind<=151) MarshalWallEnclose(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

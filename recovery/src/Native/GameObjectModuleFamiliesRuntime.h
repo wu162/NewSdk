@@ -526,3 +526,5 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectWallEncloseRuntime.h"
 
 #include "GameObjectResourceAlliesRuntime.h"
+
+#include "GameObjectMotionCleanupRuntime.h"
