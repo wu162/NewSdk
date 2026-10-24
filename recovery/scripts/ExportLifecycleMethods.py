@@ -61,7 +61,7 @@ while queue:
     for call in re.finditer(r'\b((?:Marshaler_002E(?:Marshal|EndianCorrect)|Tokenizer_002ETokenize)(?:_\w+)?)\(([^;\n]+)',body):
         name,args=call.groups()
         if name in ['Marshaler_002EMarshal','Marshaler_002EEndianCorrect','Tokenizer_002ETokenize']:
-            types=re.findall(r'\((\w+)\*\)',args)
+            types=re.findall(r'\(([\w.]+)\*\)',args)
             for typ in types:
                 required.extend(s for s in signatures if s.startswith('internal unsafe static void '+name+'(') and (', '+typ+'* @object,' in s or '('+typ+'* @object,' in s))
         else:
@@ -106,3 +106,8 @@ if '--weapon-behaviors' in sys.argv:
         try: maps[group]=enum_values(source,pe,group)
         except StopIteration: pass
     (out/'enum-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,**maps},indent=2)+'\n',encoding='utf-8')
+
+if '--weapon-behaviors' in sys.argv:
+    symbol='DataInitializers_002ESECONDS_PER_LOGICFRAME_REAL'
+    rows=[{'line':i+1,'text':line.strip()}for i,line in enumerate(source.splitlines())if 'SECONDS_PER_LOGICFRAME_REAL' in line]
+    (out/'constants-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,'logicFrameReferences':rows},indent=2)+'\n',encoding='utf-8')
