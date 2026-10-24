@@ -36,6 +36,16 @@
         if(value=="UNIFORM")return 1u;
         return 0u;
     }
+    if(type=="ShadowType") {
+        if(value=="ADDITIVE_DECAL")return 3u;
+        if(value=="ADDITIVE_DECAL_DYNAMIC")return 5u;
+        if(value=="ALPHA_DECAL")return 2u;
+        if(value=="ALPHA_DECAL_DYNAMIC")return 4u;
+        if(value=="DECAL")return 1u;
+        if(value=="MERGE_DECAL")return 6u;
+        if(value=="NONE")return 0u;
+        return 3u;
+    }
     if(type=="TerrainClassType") {
         if(value=="Cliff")return 3u;
         if(value=="Dirt")return 2u;

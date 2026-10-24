@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-  <!-- Eight new root types. Binding requires both strong references and at
+  <!-- Nine new root types. Binding requires both strong references and at
        least one Binding, so one already recovered UpgradeTemplate support
        asset is included. All references are local; no raw TypeId/reference
        index or external resource is injected by these source fixtures. -->
@@ -26,4 +26,5 @@
     <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
     <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
   </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Defaults" />
 </AssetDeclaration>

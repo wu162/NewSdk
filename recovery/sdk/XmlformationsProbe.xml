@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <FormationAssistantUnitDefinition id="RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults">
+    <IncludeObjectFilter />
+  </FormationAssistantUnitDefinition>
+  <FormationAssistantTemplate id="RecoveryXmlAdditional_FormationAssistantTemplate_Defaults">
+    <Row><Cell><Definition>RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults</Definition></Cell></Row>
+  </FormationAssistantTemplate>
+  <FormationSelectionTemplate id="RecoveryXmlAdditional_FormationSelectionTemplate_Defaults"
+      FormationAssistantTemplate="RecoveryXmlAdditional_FormationAssistantTemplate_Defaults"
+      MaxDragLength="10" MaxUnitsSelected="3" />
+  <FormationAssistant id="RecoveryXmlAdditional_FormationAssistant_Defaults"
+      RowPadding="1" ColumnPadding="2" ActivateDragDistance="3" ActivateTime="4" />
+</AssetDeclaration>

@@ -13,8 +13,9 @@ binding root HandleType directly allocates list at +4 with 8-byte elements.
 Experience31677/31798 and LevelUpFxList31663 (0063);
 RadiusDecal component26539/26650/template26989 (0053), list64165 (0128).
 Tracker constructors97980,100437,100528,100619,95159 pin root allocation sizes.
-PlayerTech and Binding root HandleType omit EndianCorrect: retain little-endian
-scalar/list counts on big targets, while Tracker writes references/pointers big.
+PlayerTech and Binding root HandleType inline their endian corrections:
+TechPointsRequired@4/TechDependency count@8 and Binding count@4 are corrected
+on big targets; Tracker writes references/pointers in the target endian.
 Other roots traverse their complete fields and nested values before FinalizeTracker.
 Single Tracker, absolute offset zero, no Tokenizer procedure table; preserve imports.
 
@@ -53,3 +54,43 @@ Experience requires LevelUpTintColor; ButtonSingleStateData requires State;
 Purchase requires PlayerTech and StateData; Store requires Faction and exactly
 five Rows of exactly three Buttons. All refs resolve locally. Eight-root SDK
 probe remains pending full CnC3Types validation and real BAB integration.
+
+Additional SDK source cases are in sdk/XmlprogressionCombinedProbe.xml, included
+alongside the eight defaults probe. This adds eight _Combined declarations and
+five _Inherited declarations (all five initial roots are BaseInheritableAsset),
+plus three already recovered support assets: FXList/ObjectCreationList/
+AttributeModifier. Required Binding and LevelUpTintColor source children remain
+present even in inherited declarations so raw XSD validation remains meaningful.
+The original BAB must expand inheritance; no numeric TypeId or resolved resource
+suffix is fabricated. Logic combined exercises enum flags, nullable refs,
+AISpecialPowerInfo scalar/bitset/nullable/ObjectFilter fields; Experience combined
+exercises nullable prerequisite, OCL/FX/modifier refs, typed upgrade, strings,
+color, model bits and a two-component Decal. Rank/Tech/Binding/Store exercise
+nonempty lists; ButtonSingleStateData exercises three nonempty strings, referenced
+by Purchase and five-by-three Store. All support references resolve to probe
+assets. Raw XML parsing passed locally; full XSD, original BAB, recovered BAB,
+four outputs and isolated replay remain required before accepting these cases.
+
+The initial matrix at run40093373602/source3733fbc passed Win32 but failed the
+first nonzero PlayerTech scalar on platform1. Investigation found inline endian
+operations in Plugin.HandleType which had been missed by filtering for named
+EndianCorrect calls. The recovery and independent scalar/count expectations
+were corrected; full final four-platform validation is required. The failed
+run is preserved and is not an acceptance anchor.
+
+Ninth root: UICommandButton12, TypeId134745024/TypeHash2853539982,
+ProcessingHash=version XOR hash, Tokenized=false. Complete original Marshal for
+FactionSettings is49069 (part0098), list Marshal75836/Endian75878 (part0151),
+Tracker constructor108445 (part0216), inline root HandleType in fixed Plugin.
+Root list count/pointer@4/8; each12-byte record has Faction@0, LockedImage ref@4,
+packed ImageTintColor@8. Faction five-entry enum unknown fallback0; target endian
+corrects root count, faction and packed color; Tracker finalizes image imports.
+Missing ImageTintColor remains zero, present empty defaults alpha255; byte channels
+wrap. Duplicate color, bad attributes/namespaces/text/nested data refuse explicitly.
+Native implementation is isolated in XmlprogressionUi.cpp; the partial oracle in
+XmlprogressionUiCases.cs covers all enums, malformed/numeric/reference/color
+boundaries, independent stride/ARGB/import offsets and list counts up to257.
+SDK default adds no required child; combined has Allies/Soviet/Japan entries,
+each with schema-required ImageTintColor RGB and no image resource dependency.
+UICommandButton directly extends BaseAssetType, so no inheritance fixture exists.
+Both probes now contain nine target root types, with unchanged prior IDs.

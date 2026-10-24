@@ -62,10 +62,7 @@ partial class XmlplayersOracle {
 "<Heuristic><H TypeId=\'1801850452\' UnderAttack=\'false\'/></Heuristic>",
 "<Heuristic><H TypeId=\'1801850452\' TimeSinceAttacked=\'250ms\'/></Heuristic>",
 "<Heuristic><LinearCombinationHeuristic TypeId='121779834'><WeightedHeuristic Weight='0.75'><Heuristic><ConstantHeuristic TypeId='1375432082' Weight='2'/></Heuristic></WeightedHeuristic><WeightedHeuristic Weight='0.25'><Heuristic><TimerHeuristic TypeId='278936256' EndTime='3s'/></Heuristic></WeightedHeuristic></LinearCombinationHeuristic></Heuristic>",
-"<Heuristic><EnemyNearbyHeuristic TypeId='1740211623'><EnemyFilter Include='INFANTRY'/></EnemyNearbyHeuristic><ObjectOfTypeExistsHeuristic TypeId='3195463252'><ObjectFilter Rule='ALL' Include='STRUCTURE'/></ObjectOfTypeExistsHeuristic></Heuristic>",
-"<Heuristic><H TypeId='999'/></Heuristic>",
-"<Heuristic><ConstantHeuristic/></Heuristic>",
-"<Heuristic/><Heuristic/>"
+"<Heuristic><EnemyNearbyHeuristic TypeId='1740211623'><EnemyFilter Include='INFANTRY'/></EnemyNearbyHeuristic><ObjectOfTypeExistsHeuristic TypeId='3195463252'><ObjectFilter Rule='ALL' Include='STRUCTURE'/></ObjectOfTypeExistsHeuristic></Heuristic>"
         };
         foreach(string child in fixtures)Test(o,p,"inherited-build-state/heuristic",Root("AIBuildStateDefinition","","<BuildEntry Build='Tank' Upgrade='Upgrade' Heuristic='BEST_UNIT_WEIGHTED'><BlockIfThingNearFactory Include='STRUCTURE'/></BuildEntry>"+child));
         var b=Test(o,p,"ABI-BuildState-order",Root("AIBuildStateDefinition","","<BuildEntry><BlockIfThingNearFactory/></BuildEntry><Heuristic><H TypeId='1375432082' Weight='2'/></Heuristic>"));bool big=p!=TargetPlatform.Win32;

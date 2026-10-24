@@ -11,7 +11,7 @@ $sourceCommit = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git rev-parse
 $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $summary = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId; status = 'started'
-    scope = '38 recovered XmlCompiler types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types'
+    scope = '45 recovered XmlCompiler types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types'
     componentModes = @('/Od','/O2'); sdkMode = '/O2'; sdkPlatform = 0
     files = @(); profiles = @(); profileCount = 2; fullMymodGate = $false; originalDllUnchanged = $false
 }
@@ -22,6 +22,12 @@ foreach ($name in @('BinaryAssetBuilder.Tokenizer.dll','BinaryAssetBuilder.XmlCo
 try {
     Copy-Item SDK/tools/*.dll $build
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+    & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$build/BinaryAssetBuilder.Core.dll" "/out:$build/XmlPrioritySdkOracle.exe" (Resolve-Path 'recovery/tests/XmlPrioritySdkOracle.cs').Path *> "$report/oracle-build.txt"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$report/oracle-build.txt"; throw 'SDK oracle build failed' }
+    '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$build/XmlPrioritySdkOracle.exe.config"
+    $probe = (Resolve-Path 'recovery/sdk/XmlPriorityAllProbe.xml').Path
+    & "$build/XmlPrioritySdkOracle.exe" schema (Join-Path $root 'SDK') $probe "$report/schema.json" *> "$report/schema.txt"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$report/schema.txt"; throw 'Full XSD validation or negative cases failed' }
     $native = Join-Path $root 'recovery/src/Native'
     $common = @('Relocation','ScalarParsing','DataInitializers','ResourceMarshaling','EnumBitset','ObjectFilter')
     $sources = @($common | ForEach-Object { (Join-Path $native "$_.cpp") })
@@ -31,12 +37,6 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/build.txt"; throw 'Combined SDK compiler build failed' }
     & $csc /nologo /target:library /platform:x86 "/r:$build/BinaryAssetBuilder.Core.dll" "/r:$build/Recovered.XmlCompilerPriority.dll" "/out:$build/Recovered.XmlPriority.Plugin.dll" (Resolve-Path 'recovery/src/Plugin/XmlPriorityPlugin.cs').Path *> "$report/plugin-build.txt"
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/plugin-build.txt"; throw 'SDK plugin build failed' }
-    & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$build/BinaryAssetBuilder.Core.dll" "/out:$build/XmlPrioritySdkOracle.exe" (Resolve-Path 'recovery/tests/XmlPrioritySdkOracle.cs').Path *> "$report/oracle-build.txt"
-    if ($LASTEXITCODE -ne 0) { Get-Content "$report/oracle-build.txt"; throw 'SDK oracle build failed' }
-    '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$build/XmlPrioritySdkOracle.exe.config"
-    $probe = (Resolve-Path 'recovery/sdk/XmlPriorityAllProbe.xml').Path
-    & "$build/XmlPrioritySdkOracle.exe" schema (Join-Path $root 'SDK') $probe "$report/schema.json" *> "$report/schema.txt"
-    if ($LASTEXITCODE -ne 0) { Get-Content "$report/schema.txt"; throw 'Full XSD validation or negative cases failed' }
     & "$build/XmlPrioritySdkOracle.exe" metadata "$build/BinaryAssetBuilder.XmlCompiler.dll" "$build/Recovered.XmlPriority.Plugin.dll" "$report/metadata.json" *> "$report/metadata.txt"
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/metadata.txt"; throw 'Original XmlCompiler metadata comparison failed' }
     foreach ($profile in @('Reduced','FullMymod')) {
@@ -83,7 +83,7 @@ try {
         $cfg = Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'
         [xml]$xml = Get-Content -Raw $cfg
         $expected = if ($mode -eq 'Recovered') { 'Recovered.XmlPriority.Plugin, Recovered.XmlPriority.Plugin' } else { 'BinaryAssetBuilder.XmlCompiler.Plugin, BinaryAssetBuilder.XmlCompiler' }
-        foreach ($type in @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic','LogicCommand','PlayerTech','PlayerTechRank','PlayerTechUpgradeBinding','ExperienceLevelTemplate','PlayerTechStoreTemplate','PurchasePlayerTechButtonTemplate','ButtonSingleStateData','Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','AIData','UnitAISettings','PlayerTemplate','MultiplayerSettings','AIBuildStateDefinition','AIStrategicStateName','MultiplayerColor','AIPersonalityToAchievementEventMapping')) {
+        foreach ($type in @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic','LogicCommand','PlayerTech','PlayerTechRank','PlayerTechUpgradeBinding','ExperienceLevelTemplate','PlayerTechStoreTemplate','PurchasePlayerTechButtonTemplate','ButtonSingleStateData','UICommandButton','Weather','WaterTransparency','WaterSetting','Environment','LightingSettings','WaterTextureList','TerrainParticleMapping','BounceKickTerrainMapping','ShadowMap','OrdersManagerSettings','AIData','UnitAISettings','PlayerTemplate','MultiplayerSettings','AIBuildStateDefinition','AIStrategicStateName','MultiplayerColor','AIPersonalityToAchievementEventMapping','FormationAssistantUnitDefinition','FormationAssistantTemplate','FormationSelectionTemplate','FormationAssistant')) {
             $handlers = @($xml.configuration.assetbuilder.plugins.plugin | Where-Object { $_.assetTypes.Split(',') -contains $type })
             if ($handlers.Count -ne 1 -or $handlers[0].targetType -ne $expected -or $handlers[0].useBuildCache -ne 'false') { throw "$mode ambiguous or cached $type route" }
         }

@@ -239,6 +239,7 @@ const Child childrenMultiplayerColor[]={
 {"TooltipName","StringText",16,ChildKind::Inline},
 {"AvailableInMetaGame","BoolText",24,ChildKind::Inline},
 };
+#include "XmlplayersFormations.inc"
 Layout GetLayout(const std::string& name) {
 if(name=="AIData") return {220,3827723072u,fieldsAIData,60,nullptr,0};
 if(name=="UnitAISettings") return {448,2964891936u,fieldsUnitAISettings,42,childrenUnitAISettings,2};
@@ -261,5 +262,6 @@ if(name=="AIBuildStateDefinition") return {20,1644972043u,nullptr,0,childrenAIBu
 if(name=="SignedText") return {4,0u,nullptr,0,nullptr,0};
 if(name=="BoolText") return {1,0u,nullptr,0,nullptr,0};
 if(name=="MultiplayerColor") return {28,2384988189u,nullptr,0,childrenMultiplayerColor,5};
+Layout formation; if(GetFormationLayout(name,formation))return formation;
 throw std::invalid_argument("Unsupported player type: "+name);
 }

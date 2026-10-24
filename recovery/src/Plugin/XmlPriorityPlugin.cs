@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Register the thirty-eight recovered types. Every payload is generated
+    // Register the forty-five recovered types. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -52,6 +52,7 @@ namespace Recovered.XmlPriority
                 case 1213037816u: info.TypeName = "PlayerTechStoreTemplate"; info.TypeHash = 981786901u; break;
                 case 1566941920u: info.TypeName = "PurchasePlayerTechButtonTemplate"; info.TypeHash = 2999033148u; break;
                 case 3048039928u: info.TypeName = "ButtonSingleStateData"; info.TypeHash = 3780991768u; break;
+                case 134745024u: info.TypeName = "UICommandButton"; info.TypeHash = 2853539982u; break;
                 case 2430161325u: info.TypeName = "Weather"; info.TypeHash = 3795761625u; break;
                 case 1479531562u: info.TypeName = "WaterTransparency"; info.TypeHash = 525928939u; break;
                 case 2728605516u: info.TypeName = "WaterSetting"; info.TypeHash = 469423908u; break;
@@ -60,6 +61,8 @@ namespace Recovered.XmlPriority
                 case 2995571269u: info.TypeName = "WaterTextureList"; info.TypeHash = 1905565848u; break;
                 case 1469498551u: info.TypeName = "TerrainParticleMapping"; info.TypeHash = 2736882942u; break;
                 case 2368878637u: info.TypeName = "BounceKickTerrainMapping"; info.TypeHash = 2109862985u; break;
+                case 4157475773u: info.TypeName = "ShadowMap"; info.TypeHash = 903854585u; break;
+                case 2996766068u: info.TypeName = "OrdersManagerSettings"; info.TypeHash = 2164060776u; break;
                 case 3827723072u: info.TypeName = "AIData"; info.TypeHash = 1092854186u; break;
                 case 2964891936u: info.TypeName = "UnitAISettings"; info.TypeHash = 4050675268u; break;
                 case 4063352333u: info.TypeName = "PlayerTemplate"; info.TypeHash = 891373896u; break;
@@ -68,7 +71,11 @@ namespace Recovered.XmlPriority
                 case 2010562192u: info.TypeName = "AIStrategicStateName"; info.TypeHash = 76343204u; break;
                 case 2384988189u: info.TypeName = "MultiplayerColor"; info.TypeHash = 320610464u; break;
                 case 4086175864u: info.TypeName = "AIPersonalityToAchievementEventMapping"; info.TypeHash = 2395097450u; break;
-                default: throw new NotSupportedException("XmlPriority supports only the thirty-eight recovered types.");
+                case 838130914u: info.TypeName = "FormationAssistantUnitDefinition"; info.TypeHash = 1672393125u; break;
+                case 2912385462u: info.TypeName = "FormationAssistantTemplate"; info.TypeHash = 156475083u; break;
+                case 3374519264u: info.TypeName = "FormationSelectionTemplate"; info.TypeHash = 87133761u; break;
+                case 1963196508u: info.TypeName = "FormationAssistant"; info.TypeHash = 1061339997u; break;
+                default: throw new NotSupportedException("XmlPriority supports only the forty-five recovered types.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
@@ -192,6 +199,10 @@ namespace Recovered.XmlPriority
                     typeName = "ButtonSingleStateData";
                     result = global::Recovered.ButtonSingleStateDataCompiler.ProcessInstance(instance, platform);
                     break;
+                case 134745024u:
+                    typeName = "UICommandButton";
+                    result = global::Recovered.UICommandButtonCompiler.ProcessInstance(instance, platform);
+                    break;
                 case 2430161325u:
                     typeName = "Weather";
                     result = global::Recovered.WeatherCompiler.ProcessInstance(instance, platform);
@@ -223,6 +234,14 @@ namespace Recovered.XmlPriority
                 case 2368878637u:
                     typeName = "BounceKickTerrainMapping";
                     result = global::Recovered.BounceKickTerrainMappingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 4157475773u:
+                    typeName = "ShadowMap";
+                    result = global::Recovered.ShadowMapCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2996766068u:
+                    typeName = "OrdersManagerSettings";
+                    result = global::Recovered.OrdersManagerSettingsCompiler.ProcessInstance(instance, platform);
                     break;
                 case 3827723072u:
                     typeName = "AIData";
@@ -256,7 +275,23 @@ namespace Recovered.XmlPriority
                     typeName = "AIPersonalityToAchievementEventMapping";
                     result = global::Recovered.AIPersonalityToAchievementEventMappingCompiler.ProcessInstance(instance, platform);
                     break;
-                default: throw new NotSupportedException("XmlPriority supports only the thirty-eight recovered types.");
+                case 838130914u:
+                    typeName = "FormationAssistantUnitDefinition";
+                    result = global::Recovered.FormationAssistantUnitDefinitionCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2912385462u:
+                    typeName = "FormationAssistantTemplate";
+                    result = global::Recovered.FormationAssistantTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3374519264u:
+                    typeName = "FormationSelectionTemplate";
+                    result = global::Recovered.FormationSelectionTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1963196508u:
+                    typeName = "FormationAssistant";
+                    result = global::Recovered.FormationAssistantCompiler.ProcessInstance(instance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only the forty-five recovered types.");
             }
             }
             catch (Exception error)

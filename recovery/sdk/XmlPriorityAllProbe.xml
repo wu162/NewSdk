@@ -222,6 +222,95 @@
       <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
     </Row>
   </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Defaults" />
+  <FXList id="RecoveryXmlAdditional_FXList_Support">
+    <NuggetList />
+  </FXList>
+  <ObjectCreationList id="RecoveryXmlAdditional_ObjectCreationList_Support" />
+  <AttributeModifier id="RecoveryXmlAdditional_AttributeModifier_Support" />
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Combined" Type="PLAYER_UPGRADE" Options="AUTO_ABILITY_TRIGGERED OK_FOR_MULTI_EXECUTE">
+    <Upgrade>RecoveryXmlAdditional_UpgradeTemplate_Support</Upgrade>
+    <AISpecialPowerInfo Heuristic="CAPTURE" Manager="MICRO_MANAGER" Distance="123.5" HealthFraction="0.25" TargetObjectInclude="VEHICLE STRUCTURE" TargetObjectExclude="INFANTRY" UseOnlyWhenPowerAdvantageIsAbove="1.25" NeverUseWhileRetreating="true" NeverUseWhilePullingBack="true" InvulnerabilityDamageLookAheadTime="250ms" InvulnerabilityDamageLookBehindTime="1.5s" InvulnerabilityDamageFractionWhenOutOfRangeOfTarget="0.125" InvulnerabilityDamageFractionWhenInRangeOfTarget="0.375" InvulnerabilityAvoidUseIfAngleToNextPathNodeIsMoreThan="90d" MaxTargetSpeed="23.5" RequireKillTargets="false" MinKillValue="75.25" MinTargetsHit="3" MinEnemiesNearby="4" NextLogicCommand="RecoveryXmlAdditional_LogicCommand_Defaults" UseInMicroManagerState="COMBAT RETREAT" UseNearTacticalTarget="true" UseWhenOutOfAmmo="true" SearchRadius="333.5" Location="Land" MaxUpdatables="9" UseToCounterGarrison="true">
+      <ObjectFilter Rule="ANY" Include="VEHICLE" Exclude="STRUCTURE" Relationship="ENEMIES" StatusBitFlags="STEALTHED" StatusBitFlagsExclude="UNDER_CONSTRUCTION" />
+    </AISpecialPowerInfo>
+  </LogicCommand>
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Inherited" inheritFrom="RecoveryXmlAdditional_LogicCommand_Combined" Type="OBJECT_UPGRADE" />
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Combined" TechPointsRequired="7">
+    <TechDependency>RecoveryXmlAdditional_PlayerTech_Defaults</TechDependency>
+  </PlayerTech>
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Inherited" inheritFrom="RecoveryXmlAdditional_PlayerTech_Combined" TechPointsRequired="11" />
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Combined" ExperiencePointsToNextRank="55" TechPointsGranted="23">
+    <TechGranted>RecoveryXmlAdditional_PlayerTech_Defaults</TechGranted>
+    <TechGranted>RecoveryXmlAdditional_PlayerTech_Combined</TechGranted>
+  </PlayerTechRank>
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Inherited" inheritFrom="RecoveryXmlAdditional_PlayerTechRank_Combined" ExperiencePointsToNextRank="99" />
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Defaults" UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Combined" UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited" inheritFrom="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Inherited" UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Combined" Rank="3" RequiredExperience="11" ExperienceAward="17" ExperienceAwardOwnGuysDie="19" Prerequisite="RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults" LevelUpOCL="RecoveryXmlAdditional_ObjectCreationList_Support" ModelConditionState="MOVING ATTACKING" InformUpdateModule="true" SinglePlayerOnly="true" ShowLevelUpTint="true" LevelUpTintPreColorTime="125ms" LevelUpTintPostColorTime="250ms" LevelUpTintSustainColorTime="750ms" LevelUpTintFrequency="1.25" LevelUpTintAmplitude="0.375">
+    <LevelUpTintColor r="0.125" g="0.25" b="0.5" a="0.75" />
+    <Upgrade>RecoveryXmlAdditional_UpgradeTemplate_Support</Upgrade>
+    <LevelUpFxList FxList="RecoveryXmlAdditional_FXList_Support" BoneName="RecoveryBoneA" />
+    <LevelUpFxList FxList="RecoveryXmlAdditional_FXList_Support" BoneName="RecoveryBoneB" />
+    <AttributeModifier>RecoveryXmlAdditional_AttributeModifier_Support</AttributeModifier>
+    <Decal>
+      <Component Style="ALPHA_DECAL" OpacityMin="25%" OpacityMax="75%" OpacityPulsesPerSecond="0.25" RotationMin="1.25" RotationMax="2.5" RotationDegreesPerSecond="3.75" MinRadius="4.5" MaxRadius="5.25" RadiusPulsesPerSecond="0.375" PositionOffsetMin="6.5" PositionOffsetMax="7.25" PositionOffsetPulsesPerSecond="0.625">
+        <Color R="17" G="34" B="51" A="68" />
+      </Component>
+      <Component Style="ADDITIVE_DECAL" OpacityMin="50%" OpacityMax="100%" MinRadius="8.5" MaxRadius="9.75">
+        <Color R="85" G="102" B="119" A="136" />
+      </Component>
+    </Decal>
+  </ExperienceLevelTemplate>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited" inheritFrom="RecoveryXmlAdditional_ExperienceLevelTemplate_Combined" Rank="4" ExperienceAward="29">
+    <LevelUpTintColor r="0.875" />
+  </ExperienceLevelTemplate>
+  <ButtonSingleStateData id="RecoveryXmlAdditional_ButtonSingleStateData_Combined">
+    <State Title="Recovery title" Description="Recovery description" TypeDescription="Recovery type" />
+  </ButtonSingleStateData>
+  <PurchasePlayerTechButtonTemplate id="RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined" PlayerTech="RecoveryXmlAdditional_PlayerTech_Combined" StateData="RecoveryXmlAdditional_ButtonSingleStateData_Combined" />
+  <PlayerTechStoreTemplate id="RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined" Faction="Soviet">
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+  </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Combined">
+    <FactionSettings Faction="Allies">
+      <ImageTintColor R="17" G="34" B="51" />
+    </FactionSettings>
+    <FactionSettings Faction="Soviet">
+      <ImageTintColor R="68" G="85" B="102" />
+    </FactionSettings>
+    <FactionSettings Faction="Japan">
+      <ImageTintColor R="119" G="136" B="153" />
+    </FactionSettings>
+  </UICommandButton>
   <Weather id="RecoveryXmlAdditional_Weather_Defaults" />
   <Weather id="RecoveryXmlAdditional_Weather_Combined">
     <Rain IsRaining="true" NumRaindropsPerBox="7" RainBoxWidth="150" WindStrength="0.5" />
@@ -520,6 +609,38 @@
   <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Combined">
     <Mapping TerrainClass="Sand" BounceMultiplier="25%" />
   </BounceKickTerrainMapping>
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Defaults" />
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Combined" MapSize="2048" MaxViewDistance="800" MinShadowedTerrainHeight="-2.5" />
+  <OrdersManagerSettings id="RecoveryXmlAdditional_OrdersManagerSettings_Defaults">
+    <ExecutingLine />
+    <PendingLine />
+    <PatrolLine />
+    <PatrolPendingLine />
+    <TargetMoveLine />
+    <TargetAttackLine />
+  </OrdersManagerSettings>
+  <OrdersManagerSettings id="RecoveryXmlAdditional_OrdersManagerSettings_Combined" LineFadeTime="0.5s">
+    <ExecutingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PendingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolPendingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <TargetMoveLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <TargetAttackLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolNode Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PatrolStart Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PendingNode Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PendingStart Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+  </OrdersManagerSettings>
+  <Weather id="RecoveryXmlAdditional_Weather_Inherited" inheritFrom="RecoveryXmlAdditional_Weather_Defaults">
+    <Rain IsRaining="true" NumRaindropsPerBox="9" />
+  </Weather>
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Inherited" inheritFrom="RecoveryXmlAdditional_TerrainParticleMapping_Defaults" AccelerationMultiplier="60%">
+    <Mapping TerrainClass="Grass" RequiredModelConditions="MOVING" />
+  </TerrainParticleMapping>
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited" inheritFrom="RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults">
+    <Mapping TerrainClass="Rock" BounceMultiplier="10%" />
+  </BounceKickTerrainMapping>
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Inherited" inheritFrom="RecoveryXmlAdditional_ShadowMap_Defaults" MapSize="4096" />
   <AIData id="RecoveryXmlAdditional_AIData_Defaults" />
   <UnitAISettings id="RecoveryXmlAdditional_UnitAISettings_Defaults">
     <VictoryConditionUnitObjectFilter />
@@ -559,4 +680,16 @@
     <AvailableInMetaGame>false</AvailableInMetaGame>
   </MultiplayerColor>
   <AIPersonalityToAchievementEventMapping id="RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults" AIPersonalityDef="RecoveryXmlPriority_Personality_Defaults" AchievementEventId="17" />
+  <FormationAssistantUnitDefinition id="RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults">
+    <IncludeObjectFilter />
+  </FormationAssistantUnitDefinition>
+  <FormationAssistantTemplate id="RecoveryXmlAdditional_FormationAssistantTemplate_Defaults">
+    <Row>
+      <Cell>
+        <Definition>RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults</Definition>
+      </Cell>
+    </Row>
+  </FormationAssistantTemplate>
+  <FormationSelectionTemplate id="RecoveryXmlAdditional_FormationSelectionTemplate_Defaults" FormationAssistantTemplate="RecoveryXmlAdditional_FormationAssistantTemplate_Defaults" MaxDragLength="10" MaxUnitsSelected="3" />
+  <FormationAssistant id="RecoveryXmlAdditional_FormationAssistant_Defaults" RowPadding="1" ColumnPadding="2" ActivateDragDistance="3" ActivateTime="4" />
 </AssetDeclaration>
