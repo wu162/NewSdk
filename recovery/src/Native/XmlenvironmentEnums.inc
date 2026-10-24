@@ -1,1 +1,39 @@
-    if(type=="WeatherType") {\n        if(value=="CLOUDY")return 1u;\n        if(value=="CLOUDYRAINY")return 3u;\n        if(value=="INVALID")return 6u;\n        if(value=="NORMAL")return 0u;\n        if(value=="RAINY")return 2u;\n        if(value=="SNOWY")return 5u;\n        if(value=="SUNNY")return 4u;\n        return 1u;\n    }\n    if(type=="TimeOfDayType") {\n        if(value=="AFTERNOON")return 2u;\n        if(value=="EVENING")return 3u;\n        if(value=="INTERPOLATE")return 5u;\n        if(value=="INVALID")return 0u;\n        if(value=="MORNING")return 1u;\n        if(value=="NIGHT")return 4u;\n        return 2u;\n    }\n    if(type=="WaterTextureType") {\n        if(value=="BUMP")return 1u;\n        if(value=="FIRST")return 0u;\n        if(value=="NOISE")return 4u;\n        if(value=="NORMAL")return 2u;\n        if(value=="RIVER")return 0u;\n        if(value=="SKY")return 3u;\n        if(value=="SPARKLE")return 5u;\n        return 1u;\n    }\n    if(type=="DistributionType") {\n        if(value=="CONSTANT")return 0u;\n        if(value=="GAUSSIAN")return 2u;\n        if(value=="HIGH_BIAS")return 5u;\n        if(value=="LOW_BIAS")return 4u;\n        if(value=="TRIANGULAR")return 3u;\n        if(value=="UNIFORM")return 1u;\n        return 0u;\n    }\n
+    if(type=="WeatherType") {
+        if(value=="CLOUDY")return 1u;
+        if(value=="CLOUDYRAINY")return 3u;
+        if(value=="INVALID")return 6u;
+        if(value=="NORMAL")return 0u;
+        if(value=="RAINY")return 2u;
+        if(value=="SNOWY")return 5u;
+        if(value=="SUNNY")return 4u;
+        return 1u;
+    }
+    if(type=="TimeOfDayType") {
+        if(value=="AFTERNOON")return 2u;
+        if(value=="EVENING")return 3u;
+        if(value=="INTERPOLATE")return 5u;
+        if(value=="INVALID")return 0u;
+        if(value=="MORNING")return 1u;
+        if(value=="NIGHT")return 4u;
+        return 2u;
+    }
+    if(type=="WaterTextureType") {
+        if(value=="BUMP")return 1u;
+        if(value=="FIRST")return 0u;
+        if(value=="NOISE")return 4u;
+        if(value=="NORMAL")return 2u;
+        if(value=="RIVER")return 0u;
+        if(value=="SKY")return 3u;
+        if(value=="SPARKLE")return 5u;
+        return 1u;
+    }
+    if(type=="DistributionType") {
+        if(value=="CONSTANT")return 0u;
+        if(value=="GAUSSIAN")return 2u;
+        if(value=="HIGH_BIAS")return 5u;
+        if(value=="LOW_BIAS")return 4u;
+        if(value=="TRIANGULAR")return 3u;
+        if(value=="UNIFORM")return 1u;
+        return 0u;
+    }
+

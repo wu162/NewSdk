@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Weather id="RecoveryXmlAdditional_Weather_Defaults" />
+  <Weather id="RecoveryXmlAdditional_Weather_Combined">
+    <Rain IsRaining="true" NumRaindropsPerBox="7" RainBoxWidth="150" WindStrength="0.5" />
+    <Lightning LightningDuration="15" LightningChance="0.25">
+      <LightningFactor Type="UNIFORM" Low="0.5" High="1.5" />
+    </Lightning>
+    <Cloud>
+      <CloudTextureSize x="128" y="64" />
+      <CloudOffsetPerSecond x="0.5" y="-0.25" />
+    </Cloud>
+    <WeatherData id="RAINY" HasLightning="true" />
+  </Weather>
+  <WaterTransparency id="RecoveryXmlAdditional_WaterTransparency_Defaults" />
+  <WaterTransparency id="RecoveryXmlAdditional_WaterTransparency_Combined" TransparentWaterDepth="9" TransparentWaterMinOpacity="0.75" />
+  <WaterSetting id="RecoveryXmlAdditional_WaterSetting_Defaults" TimeOfDay="MORNING">
+    <DiffuseColor R="0" G="0" B="0" A="255" />
+  </WaterSetting>
+  <WaterSetting id="RecoveryXmlAdditional_WaterSetting_Combined" TimeOfDay="MORNING">
+    <DiffuseColor R="32" G="64" B="96" A="255" />
+  </WaterSetting>
+  <WaterTextureList id="RecoveryXmlAdditional_WaterTextureList_Defaults" Type="RIVER">
+    <Texture>RecoveryWater</Texture>
+  </WaterTextureList>
+  <WaterTextureList id="RecoveryXmlAdditional_WaterTextureList_Combined" Type="RIVER">
+    <Texture>RecoveryWaterA</Texture>
+    <Texture>RecoveryWaterB</Texture>
+  </WaterTextureList>
+  <Environment id="RecoveryXmlAdditional_Environment_Defaults">
+    <CloudEffect />
+  </Environment>
+  <LightingSettings id="RecoveryXmlAdditional_LightingSettings_Defaults" TimeOfDay="MORNING">
+    <LightingMultiplierIfNoClouds R="1" G="1" B="1" />
+    <CurrentLightingSettings TimeOfDay="MORNING">
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+    </CurrentLightingSettings>
+    <TerrainLighting>
+      <LightingTimeGroup TimeOfDay="INVALID">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="MORNING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="AFTERNOON">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="EVENING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="NIGHT">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="INTERPOLATE">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+    </TerrainLighting>
+  </LightingSettings>
+  <LightingSettings id="RecoveryXmlAdditional_LightingSettings_Combined" TimeOfDay="MORNING" OccludedLuminanceScale="0.75">
+    <LightingMultiplierIfNoClouds R="1" G="1" B="1" />
+    <CurrentLightingSettings TimeOfDay="MORNING">
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+    </CurrentLightingSettings>
+    <TerrainLighting>
+      <LightingTimeGroup TimeOfDay="INVALID">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="MORNING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="AFTERNOON">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="EVENING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="NIGHT">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="INTERPOLATE">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+    </TerrainLighting>
+  </LightingSettings>
+  <Environment id="RecoveryXmlAdditional_Environment_Combined">
+    <CloudEffect PropagateSpeed="1.25" Angle="30" DarkeningRate="2" LighteningRate="3" CloudScrollSpeed="0.5" DissipateStartLevel="0.2" DissipateSpeed="0.3" DissipateRateScale="0.4" LightningShadows="true" JitterLightningLightIntensity="true" JitterLightningLightPosition="false" LightningChance="0.1" LightningFrequency="2" LightningShadowIntensity="0.75">
+      <DarkeningFactor R="0.1" G="0.2" B="0.3" />
+      <DarkeningFactorRain R="0.1" G="0.2" B="0.3" />
+      <LightningShadowColor R="0.1" G="0.2" B="0.3" />
+      <LightningLightPosition1 x="1" y="2" />
+      <LightningLightPosition2 x="1" y="2" />
+      <LightningLightPosition3 x="1" y="2" />
+      <LightningIntensity Type="UNIFORM" Low="1" High="3" />
+      <LightningDuration Type="UNIFORM" Low="1" High="3" />
+    </CloudEffect>
+  </Environment>
+</AssetDeclaration>
