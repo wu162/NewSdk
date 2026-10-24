@@ -1,0 +1,59 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 91472; body SHA256 0ed9395bf373cfbda20e5ea70249310dddaf9ccd27ca59ffd295176a1e657181
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, LaserStateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 8u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1118104655;
+		((int*)ptr)[1] = 602296504;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -997534834;
+		((int*)ptr)[1] = 438907818;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1897971278;
+		((int*)ptr)[1] = 1139920438;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXParticleSystemTemplate_002Cclass_0020FXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AFXParticleSystemTemplate_002CFXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E*)((byte*)@object + 20), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 2120060954;
+		((int*)ptr)[1] = 1139920438;
+		Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXParticleSystemTemplate_002Cclass_0020FXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AFXParticleSystemTemplate_002CFXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E*)((byte*)@object + 28), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -980507368;
+		((int*)ptr)[1] = 691437687;
+		byte* num = (byte*)@object + 36;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num2, ptr2);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -361501601;
+		((int*)ptr)[1] = 1049596812;
+		byte* num3 = (byte*)@object + 40;
+		void** ptr3 = (void**)((byte*)ptr + 8);
+		uint num4 = *(uint*)num3;
+		if (num4 != 0)
+		{
+			Tokenizer_002ETokenize(ptr3, (ObjectStatusValidationDataType*)(int)num4, state);
+		}
+		else
+		{
+			*(int*)ptr3 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

@@ -1,0 +1,28 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 34613; body SHA256 e170be60f68f933db71be020dc77410f31fbfeaa336894b1be59b967a7ca0eda
+// Literals: {"_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040": "0s", "_003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040": "Radius", "_003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040": "10.0", "_003F_003F_C_0040_0M_0040JEHDMBLA_0040SweepFXList_003F_0024AA_0040": "SweepFXList", "_003F_003F_C_0040_0BD_0040OKLANBJH_0040VeteranSweepFXList_003F_0024AA_0040": "VeteranSweepFXList", "_003F_003F_C_0040_0P_0040GPJNDOFG_0040SweepFXTimeout_003F_0024AA_0040": "SweepFXTimeout", "_003F_003F_C_0040_0M_0040FMGPBBNG_0040SweepWeapon_003F_0024AA_0040": "SweepWeapon"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SweepingLaserStateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[11] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040JEHDMBLA_0040SweepFXList_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 48), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040OKLANBJH_0040VeteranSweepFXList_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 52), state);
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040GPJNDOFG_0040SweepFXTimeout_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 14, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AWeaponTemplate_002Cclass_0020WeaponTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040FMGPBBNG_0040SweepWeapon_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AWeaponTemplate_002CWeaponTemplate_003E*)((byte*)@object + 60), state);
+			Marshaler_002EMarshal(node, (LaserStateModuleData*)@object, state);
+		}
+	}
+

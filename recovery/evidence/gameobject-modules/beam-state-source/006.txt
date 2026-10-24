@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 60790; body SHA256 9915c7802d63584e3878c1a0187f90cd3c8ef44771128e4d3b84b3ff1e19ef35
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASweepingLaserStateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		SweepingLaserStateModuleData* ptr = (SweepingLaserStateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 64u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1016285011;
+	}
+

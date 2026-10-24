@@ -1,0 +1,17 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 34769; body SHA256 b0179a1af8f91fc148b58adcc8f6962b754f525b12bb449ac58e6668511fec2e
+// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_08EKDJDPKM_0040StreamId_003F_0024AA_0040": "StreamId"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, StreamStateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08EKDJDPKM_0040StreamId_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((int*)@object)[2] = strtol(ptr2, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+
