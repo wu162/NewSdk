@@ -6,12 +6,20 @@
       "text": "internal static float DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL/*Field data (rva=0x18fb08) could not be foundin any section!*/;"
     },
     {
+      "line": 9617,
+      "text": "internal static float DataInitializers_002E_003FA0xf4a5029c_002ELOGICFRAMES_PER_SECONDS_REAL/* Not supported: data(00 00 A0 40) */;"
+    },
+    {
       "line": 9633,
       "text": "internal unsafe static delegate*<void> DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL_0024initializer_0024/* Not supported: data(1A 00 00 06) */;"
     },
     {
       "line": 12151,
       "text": "internal static float DataInitializers_002E_003FA0x7c8a1876_002ESECONDS_PER_LOGICFRAME_REAL/*Field data (rva=0x1956b0) could not be foundin any section!*/;"
+    },
+    {
+      "line": 12159,
+      "text": "internal static float DataInitializers_002E_003FA0x7c8a1876_002ELOGICFRAMES_PER_SECONDS_REAL/* Not supported: data(00 00 A0 40) */;"
     },
     {
       "line": 12165,
