@@ -17,7 +17,7 @@ partial class GameObjectOracle {
     static string[] AIUpdateLocomotorSetTypeValues={"ATTACKING","BURNINGDEATH","CHANGING_FIRINGARC","COMBO","CONTAINED","ENRAGED","EXITING_PRODUCTION_STRUCTURE","FREEFALL","INVALID","MOUNTED","MOVING_TO_TRANSPORT","NORMAL","NORMAL_UPGRADED","PANIC","SCARED","SUPERSONIC","TAXIING","WALL_SCALING","WANDER","","UNKNOWN","all","ALL","-ALL","+ALL","0","-1"," NORMAL","NORMAL ","normal","YES NO","YES -YES","YES UNKNOWN"};
     static string[] AIUpdateAutoAcquireEnemiesTypeValues={"ATTACK_BUILDINGS","NO","NOTWHILEATTACKING","STEALTHED","YES","","UNKNOWN","all","ALL","-ALL","+ALL","0","-1"," NORMAL","NORMAL ","normal","YES NO","YES -YES","YES UNKNOWN"};
     static string AIUpdateXML(int group,string attrs="",string children="") {
-        return "<Behaviors><"+AIUpdateNames[group]+" TypeId='"+AIUpdateTypes[group]+"' id='AIUpdate' "+attrs+">"+children+"</"+AIUpdateNames[group]+"></Behaviors>";
+        return "<Behaviors><ObjectSMCHelper TypeId='"+AIUpdateTypes[group]+"' id='AIUpdate' "+attrs+">"+children+"</ObjectSMCHelper></Behaviors>";
     }
     static string[] AIUpdateSamples(Field f) {
         if(f.Name=="StateMachine")return AIUpdateStateMachineTypeValues;
@@ -43,6 +43,7 @@ partial class GameObjectOracle {
             if(group==1 && (Word(b,at+92,big)!=0 || Word(b,at+96,big)!=0))throw new Exception("Independent Jet empty Eva/default booleans");
             if(group==3 && (Word(b,at+92,big)!=0x44fa0000u || b[at+111]!=1 || b[at+112]!=1))throw new Exception("Independent Supply defaults");
             if(group==5 && (Word(b,at+76,big)!=20 || Word(b,at+80,big)!=100 || Word(b,at+84,big)!=35 || Word(b,at+88,big)!=15 || Word(b,at+92,big)!=50 || Word(b,at+96,big)!=25 || Word(b,at+100,big)!=0x3f4ccccdu || Word(b,at+104,big)!=0x40000000u || Word(b,at+108,big)!=0x42480000u || b[at+112]!=1))throw new Exception("Independent Animal integer/time/float defaults");
+            Check(original,p,"","<AI><"+AIUpdateNames[group]+" TypeId='"+AIUpdateTypes[group]+"' id='AIUpdate' AttackPriority='a bb' SpecialContactPoints='One Two'>"+chooser+"</"+AIUpdateNames[group]+"></AI>");
             foreach(var container in ModuleContainers)Check(original,p,"",ModuleXML(container[0],container[1],"TypeId='"+AIUpdateTypes[group]+"' id='Ai'"));
             foreach(var fields in new[]{AIUpdateFields[group],group==0?new Field[0]:AIUpdateFields[0]})foreach(var f in fields)foreach(string value in AIUpdateSamples(f))Check(original,p,"",AIUpdateXML(group,f.Name+"='"+Escape(value)+"'"));
             foreach(string bad in new[]{"Unknown='1'","xmlns='foreign'","xmlns:f='foreign' f:TypeId='1'"})Reject(p,"",AIUpdateXML(group,bad));
