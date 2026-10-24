@@ -21,6 +21,8 @@ on:
       - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
       - 'recovery/scripts/GeneratePowerRoutingFields.py'
       - 'recovery/scripts/GenerateSpecialAbilityFields.py'
+      - 'recovery/scripts/GenerateAbilityToggleFields.py'
+      - 'recovery/scripts/ExportAbilityToggleMethods.py'
       - 'recovery/scripts/GenerateAbilityResourceFields.py'
       - 'recovery/scripts/ExportAbilityResourceMethods.py'
       - 'recovery/scripts/GenerateAbilityRoutingFields.py'
@@ -86,6 +88,7 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
 
 

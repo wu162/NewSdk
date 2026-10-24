@@ -3,6 +3,7 @@ void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind==215) EndianAbilityToggle(reinterpret_cast<unsigned char*>(input));
     if(choice && choice->kind>=211 && choice->kind<=212) EndianAbilityRouting(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=204 && choice->kind<=210) EndianAbilityState(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=200 && choice->kind<=203) EndianAbilityMovement(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -72,6 +73,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind==215) MarshalAbilityToggle(input,reinterpret_cast<unsigned char*>(target),data);
     if(choice && choice->kind>=211 && choice->kind<=212) MarshalAbilityRouting(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=204 && choice->kind<=210) MarshalAbilityState(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=200 && choice->kind<=203) MarshalAbilityMovement(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -175,6 +177,7 @@ void TokenizeModuleList(NativeList* list,void** slot,Relo::Tracker& procedures) 
 }
 
 // Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.
+
 
 
 

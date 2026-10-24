@@ -1,5 +1,5 @@
 """Bounded exact original methods for the ToggleStatus and full AI toggle dependency group.
-Source preparation only: no new module is enabled or counted by this script.
+Source evidence validation is independent of implementation/support status.
 """
 import hashlib,json,re,sys
 from pathlib import Path
@@ -15,7 +15,7 @@ for line in s.splitlines():
  if m:
   try:literals[m[1]]=bytes.fromhex(m[2]).rstrip(b'\0').decode('ascii')
   except UnicodeDecodeError:pass
-manifest={'status':'source evidence only; ToggleStatus remains rejected','sourceBlob':BLOB,'sharedParentManifest':'../special-ability-source/manifest.json','modules':[],'methods':[]};bodies={};queue=[]
+manifest={'status':'original method evidence for the complete ToggleStatus dependency group','sourceBlob':BLOB,'sharedParentManifest':'../special-ability-source/manifest.json','modules':[],'methods':[]};bodies={};queue=[]
 for typ in TYPES:
  meta=inv['marshal'][str(typ)];manifest['modules'].append({'name':meta['name'],'typeId':typ,'nativeSize':meta['nativeSize']})
  for family in ['marshal','endian','token']:queue.append(inv[family][str(typ)]['helperSignature'])
@@ -41,6 +41,7 @@ if '--check' in sys.argv:
 else:
  E.mkdir(parents=True,exist_ok=True);(E/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
  for file,text in exports.items():(E/file).write_text(text)
-print('PASS source preparation only: rejected ToggleStatus module and AI dependencies, '+str(len(exports))+' complete original method fingerprints')
+print('PASS original ToggleStatus and AI dependency evidence, '+str(len(exports))+' complete original method fingerprints')
+
 
 

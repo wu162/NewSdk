@@ -4,6 +4,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind==215) {if(attribute=="ReloadAllWeaponsOnToggle") return true;for(const auto& f:abilityFields) if(attribute==f.name) return true;return false;}
     if(choice->kind==213) {for(const auto& f:abilityFields) if(attribute==f.name) return true;for(const auto& f:abilityResourceTheftFields) if(attribute==f.name) return true;return false;}
     if(choice->kind==214) {for(const auto& f:specialPowerSpecialPowerModuleDataFields) if(attribute==f.name) return true;for(const auto& f:powerCreationFields0) if(attribute==f.name) return true;return false;}
     if(choice->kind>=211 && choice->kind<=212) {for(const auto& field:abilityFields) if(attribute==field.name) return true;return false;}
@@ -124,6 +125,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind==215) {if(path=="ToggleState" || path=="ToggleState/Module") return 2;if(path=="ToggleState/SkirmishAiInfo" || path=="ToggleState/SkirmishAiInfo/StateWeapon") return 1;return GameObjectModuleNodeKind(191,path);}
     if(kind==213) return GameObjectModuleNodeKind(191,path);
     if(kind==214) {if(path=="FXOffset") return 1;return GameObjectModuleNodeKind(198,path);}
     if(kind>=211 && kind<=212) {if((kind==211 && path=="SpecialPowerModules") || (kind==212 && path=="IntersectionFlagsFilter")) return 2;return GameObjectModuleNodeKind(191,path);}
@@ -290,6 +292,13 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind==215) {
+        if(path=="ToggleState") {for(const auto& f:abilityToggleToggleStatusNuggetFields) if(attribute==f.name) return true;return false;}
+        if(path=="ToggleState/SkirmishAiInfo") {for(const auto& f:abilityToggleAIToggleSpecialPowerInfoFields) if(attribute==f.name) return true;return false;}
+        if(path=="ToggleState/SkirmishAiInfo/StateWeapon") {for(const auto& f:abilityToggleAISpecialPowerWeaponDataFields) if(attribute==f.name) return true;return false;}
+        if(path=="ToggleState/Module") {for(const auto& f:abilityRoutingSpecialPowerModuleInfoFields) if(attribute==f.name) return true;return false;}
+        return GameObjectModuleNodeAttribute(191,path,attribute);
+    }
     if(kind==213) return GameObjectModuleNodeAttribute(191,path,attribute);
     if(kind==214) {if(path=="FXOffset") return attribute=="x" || attribute=="y" || attribute=="z";return GameObjectModuleNodeAttribute(198,path,attribute);}
     if(kind>=211 && kind<=212) {
@@ -408,6 +417,7 @@ bool GameObjectModuleChildSupported(const std::string& parent,const std::string&
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
     return false;
 }
+
 
 
 

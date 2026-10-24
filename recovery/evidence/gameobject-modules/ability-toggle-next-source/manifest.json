@@ -1,5 +1,5 @@
 {
-  "status": "source evidence only; ToggleStatus remains rejected",
+  "status": "original method evidence for the complete ToggleStatus dependency group",
   "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
   "sharedParentManifest": "../special-ability-source/manifest.json",
   "modules": [
@@ -307,3 +307,4 @@
     }
   ]
 }
+
