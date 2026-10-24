@@ -62,7 +62,7 @@ while queue:
     signature=queue.pop()
     body,_=selected[signature]
     required=[]
-    for call in re.finditer(r'\b((?:Marshaler_002E(?:Marshal|EndianCorrect)|Tokenizer_002ETokenize)(?:_\w+)?)\(([^;\n]+)',body):
+    for call in re.finditer(r'\b((?:Marshaler_002E(?:Marshal(?:SinglePolymorphic|PolymorphicType)?|EndianCorrect(?:PolymorphicType)?)|Tokenizer_002ETokenize(?:SinglePolymorphic|PolymorphicType)?)(?:_\w+)?)\(([^;\n]+)',body):
         name,args=call.groups()
         if name in ['Marshaler_002EMarshal','Marshaler_002EEndianCorrect','Tokenizer_002ETokenize']:
             types=re.findall(r'\(([\w.]+)\*\)',args)
