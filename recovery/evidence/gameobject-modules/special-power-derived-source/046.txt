@@ -1,0 +1,33 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 ea6425dc4ccd08f5ef1127425197d7bf4e03d5b43533e7eaed361e77c3b09fed
+// Literals: {"_003F_003F_C_0040_0BI_0040IHDJIACO_0040CombineWithObjectFilter_003F_0024AA_0040": "CombineWithObjectFilter"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, CombineSpecialPowerModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040IHDJIACO_0040CombineWithObjectFilter_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			ObjectFilter** ptr2 = (ObjectFilter**)((byte*)@object + 452);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 112u, 1u);
+				Marshaler_002EMarshal(ptr, (ObjectFilter*)(int)(*(uint*)ptr2), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (SpecialPowerModuleData*)@object, state);
+	}

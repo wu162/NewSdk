@@ -1,0 +1,13 @@
+# SpecialPower完整派生组（23种，验证中）
+
+2026-10-24。11种仅继承SpecialPower452父合同的类型，以及RadarSpy/RadarFreeze、Combine、RecallUnits、CaptureAndGiveCommandSet、TeleportStoredObjects、Invisibility、StoreObjects、GiveProductionBonus、TemporaryOwner、PlayerUpgrade、GrantUpgradeAreaOfEffect。精确TypeId/native/kind/Token count见`evidence/gameobject-modules/special-power-derived-source/manifest.json`；kind165–187。本组未经成功暂不计入196，SDK未运行。
+
+原blob`6e40a9ed6c9f961d294d49768d911e6a6f354619`；98个直接Marshal/Endian/Token/wrapper及强Upgrade列表helper以完整源码和含尾LF的bodySHA保存，父闭包复用special-power-base-source的78方法。生成器从原source和完整TypeId分派清单逐类核对，不能因native大小相同就猜类型支持。HordeDispatch的原Endian分派直接走SpecialPower父，但自身Token仍增加SpecialPower父层。
+
+所有类型先Marshal本层，再Marshal完整SpecialPower父；所有父属性、StringList、inline Filter和nullable声音结构均完整继承。两个Radar的TargetFilter是StringList8@452、duration@460。Recall的MaxAircraftToRecall为signed@452默认4，bool@456默认true。CommandSet和TargetMarkerObjectRef为弱typed-ID。OCL/InvisibilityTemplate为强引用。六个生产加成均Percent，TemporaryOwner是完整223位inline状态掩码28@452。Combine/Invisibility/Grant的自身Filter是nullable112@452/@464/@456，额外过滤器与父三个inline Filter不同。
+
+PlayerUpgrade的Upgrade与Grant的UpgradeTemplate是重复文本子节点强引用列表，元素4、count/指针共8；只交换count，最终强引用值交Tracker。Grant分配顺序是自身Filter→自身Upgrade列表→完整父，所有XML子节点反序仍须相同输出。每个仅继承父的派生类型native452仍多一层SpecialPower Token表，不能复用父根Token布局跳过本层。
+
+代码分离GameObjectSpecialPowerDerived.h和Runtime.h。严格Bridge校验保留所有未知字段、命名空间、重复单节点、结构文本和未知子节点拒绝。完整既有/Od、/O2四平台矩阵增加23类所有父字段/模型枚举/三PE枚举/本层字段、过滤器/声音/列表、0/1/2/27/28/29/65分配边界、独立native默认/Token/nullable/强引用/百分比/状态golden和schema顺序不变性。其他103种已知Marshal继续拒绝，58 Token-only fallback保留。
+
+验收sourceCommit/runId待本组最终矩阵补齐。ActivateModule/SpecialPowerDispatch/OCL/Movement等其他派生类型仍拒绝，不因父完成而自动计数。

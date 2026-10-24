@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 b629b1e0579799161eabeb0f1ff736f9d8229e6f5f4d6e7d8d686267721808f4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AHordeDispatchSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		HordeDispatchSpecialPowerModuleData* ptr = (HordeDispatchSpecialPowerModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 452u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (SpecialPowerModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1867959973;
+	}

@@ -1,6 +1,10 @@
-# 当前检查点（2026-10-24，未验收）
+# 当前检查点（2026-10-24）
 
-已完成SpecialPowerModuleData452与RadarHack464/RadarJam460整组源码、生成器及差分测试，正在启动完整Windows矩阵。此前193种已验收，本组3种暂不计数；SDK未运行、原路由保留。先核对当前Actions实际终态及sourceCommit，再看GAMEOBJECT_SPECIAL_POWER_BASE.md。原续接记录和全部验证证据保留如下。
+首批SpecialPower452/RadarHack464/RadarJam460已验收：源码8bf01e126379fa964fa04d469774daabed594e34，GameObject40096181697、基础40096181708均success；每模式396080 fixtures/1188240三缓冲区比较/14392拒绝/1104不变性，已验收196/322。
+
+第二完整组23种SpecialPower派生源码、98方法证据与完整差分测试已保存，正在启动Windows完整矩阵，未验收暂不计数。见GAMEOBJECT_SPECIAL_POWER_BASE.md、GAMEOBJECT_SPECIAL_POWER_DERIVED.md。SDK本轮未运行，原路由保留；约1小时阶段继续推进。先核实际sourceCommit/runId，不能把首批成功算成第二组成功。
+
+---
 
 # 编译器恢复：当前续接入口
 

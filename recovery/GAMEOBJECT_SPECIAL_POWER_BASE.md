@@ -17,3 +17,7 @@
 源码：GameObjectSpecialPowerBase.h（元数据）、GameObjectSpecialPowerBaseRuntime.h（运行）、GenerateSpecialPowerBaseFields.py（指纹/生成检查）。高kind入口独立早返回，Bridge三个Filter走严格ReadDependencyFilter。差分：GameObjectSpecialPowerBaseCases.cs，随原完整矩阵执行，保留三缓冲区、全部既有样本、平台0/1/2/99、两优化模式、独立默认/大小/Token/声音分配/枚举边界与拒绝，覆盖schema顺序不变性、列表0/1/2/27/28/29/65及混合模块。其他126已知Marshal仍拒绝，58 Token-only fallback保留。
 
 验收结果由本组最终sourceCommit/runId补齐，未经成功不能宣称正式DLL或SDK支持。
+
+## 首批验收
+
+源码`8bf01e126379fa964fa04d469774daabed594e34` / GameObject run40096181697 success，基础run40096181708 success。原日志两模式各396080 fixtures、1188240三缓冲区比较、14392拒绝、1104不变性；平台0/1/2/99，78方法/原PE三表默认完整检查成功。两模式合计2376480次缓冲区比较。此时193→196；后续派生组独立等待验收。

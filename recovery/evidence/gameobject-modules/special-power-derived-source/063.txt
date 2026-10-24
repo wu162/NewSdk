@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 62747e78c39c77cb4695e14fcdb895356c1f36bc23d2c5b543f7f847414ee5ea
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AInvisibilitySpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		InvisibilitySpecialPowerModuleData* ptr = (InvisibilitySpecialPowerModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 472u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -759050302;
+	}

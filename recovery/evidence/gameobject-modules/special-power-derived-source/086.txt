@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 4f017d255744d6da0be249d0ae94ad7c5a54696c6996389e0db292896114595b
+// Literals: {"_003F_003F_C_0040_07CJFOONCK_0040Upgrade_003F_0024AA_0040": "Upgrade"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003APlayerUpgradeSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		PlayerUpgradeSpecialPowerModuleData* ptr = (PlayerUpgradeSpecialPowerModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 460u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07CJFOONCK_0040Upgrade_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E_0020_003E*)((byte*)ptr + 452), tracker);
+			Marshaler_002EMarshal(node, (SpecialPowerModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 5980302;
+	}

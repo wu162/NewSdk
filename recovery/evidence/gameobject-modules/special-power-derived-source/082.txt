@@ -1,0 +1,8 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 0b64542f3969420dc27c5f6d13d027f1542ae66e644f057aa2528b52370d55a2
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATemporaryOwnerSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		TemporaryOwnerSpecialPowerModuleData* ptr = (TemporaryOwnerSpecialPowerModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)ptr + 452), endian);
+		Marshaler_002EEndianCorrect((SpecialPowerModuleData*)ptr, endian);
+	}
