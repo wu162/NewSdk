@@ -1,0 +1,1 @@
+PASS WeaponSlot ordering: 720 original permutations plus 1024 signed-key property cases; recovered WeaponSetUpdate remains refused

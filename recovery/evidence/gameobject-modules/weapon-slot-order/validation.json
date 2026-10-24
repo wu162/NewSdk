@@ -1,0 +1,21 @@
+{
+  "originalProbeRun": "40069703938",
+  "runId": "40070276350",
+  "succeeded": true,
+  "scope": "ordering helper only; Tracker exchanges and full WeaponSetUpdate not implemented; module remains refused",
+  "originalPermutations": 720,
+  "modes": [
+    {
+      "summary": "PASS WeaponSlot ordering: 720 original permutations plus 1024 signed-key property cases; recovered WeaponSetUpdate remains refused",
+      "mode": "Od"
+    },
+    {
+      "summary": "PASS WeaponSlot ordering: 720 original permutations plus 1024 signed-key property cases; recovered WeaponSetUpdate remains refused",
+      "mode": "O2"
+    }
+  ],
+  "signedKeyCases": 1024,
+  "sdkStatus": "not run; original route retained",
+  "originalProbeSource": "72b573545f0d8b88f6057d0e245bdb6a5d419f72",
+  "sourceCommit": "e5ba9e6858c0bbb20016ec65f8beeba72aafb5f2"
+}
