@@ -55,6 +55,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectHealing.h"
 #include "GameObjectCrate.h"
 #include "GameObjectAIUpdate.h"
+#include "GameObjectEconomy.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -255,6 +256,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:economyChoices) if(choice.type==type) return &choice;
     for(const auto& choice:aiUpdateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:crateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:healingChoices) if(choice.type==type) return &choice;
@@ -805,8 +807,36 @@ void EndianAIUpdate(unsigned char* output,unsigned kind) {
     auto chooser=*reinterpret_cast<unsigned char**>(output+68);
     if(chooser) EndianWeaponSetNode(chooser,8);
 }
+void MarshalEconomy(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    unsigned group=kind-112;MarshalModuleFieldSet(input,output,economyFieldSets[group],data);
+    if(group==0 || group==3 || group==4) {
+        if(group) MarshalModuleFieldSet(input,output,economyFieldSets[0],data);
+        for(const auto& child:input.children) if(child.name=="ForVoiceRetreatThisIsASafeHarborToObjectFilter") {
+            auto at=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(output+20),112,1));MarshalUpgradeFilter(child,at,data);data.Pop();
+        }
+    }
+    if(group==2) for(const auto& child:input.children) if(child.name=="ObjectStatusValidation") {
+        auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+16),56,1));MarshalModuleFieldSet(child,at,lifecycleFieldSets[6],data);data.Pop();
+    }
+    if(group==6) {
+        // The original visits vectors before its inline Filter, independent of XML order.
+        for(const auto& child:input.children) if(child.name=="RotationSpeed") MarshalModuleFieldSet(child,output+36,economyFieldSets[7],data);
+        for(const auto& child:input.children) if(child.name=="UnitSpacing") MarshalModuleFieldSet(child,output+48,economyFieldSets[7],data);
+        for(const auto& child:input.children) if(child.name=="Filter") MarshalUpgradeFilter(child,reinterpret_cast<ObjectFilter*>(output+60),data);
+    }
+}
+void EndianEconomy(unsigned char* output,unsigned kind) {
+    unsigned group=kind-112;EndianModuleFieldSet(output,economyFieldSets[group]);
+    if(group==0 || group==3 || group==4) {
+        if(group) EndianModuleFieldSet(output,economyFieldSets[0]);
+        auto filter=*reinterpret_cast<ObjectFilter**>(output+20);if(filter) EndianObjectFilter(filter);
+    }
+    if(group==2) {auto status=*reinterpret_cast<unsigned char**>(output+16);if(status) EndianModuleFieldSet(status,lifecycleFieldSets[6]);}
+    if(group==6) {EndianModuleFieldSet(output+36,economyFieldSets[7]);EndianModuleFieldSet(output+48,economyFieldSets[7]);EndianObjectFilter(reinterpret_cast<ObjectFilter*>(output+60));}
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=112 && choice->kind<=118) EndianEconomy(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=104 && choice->kind<=111) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=96 && choice->kind<=103) EndianCrate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=92 && choice->kind<=95) EndianHealing(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -854,6 +884,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=112 && choice->kind<=118) MarshalEconomy(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=104 && choice->kind<=111) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=96 && choice->kind<=103) MarshalCrate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=92 && choice->kind<=95) MarshalHealing(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -959,6 +990,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=112 && choice->kind<=118) {
+        unsigned group=choice->kind-112;const auto& own=economyFieldSets[group];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(group==3 || group==4) for(unsigned i=0;i<economyFieldSets[0].count;++i) if(attribute==economyFieldSets[0].fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=104 && choice->kind<=111) {
         for(const auto& set:{aiUpdateFieldSets[choice->kind-104],aiUpdateFieldSets[0]}) for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
         return false;
@@ -1004,6 +1040,15 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=112 && kind<=118) {
+        if(kind==112 || kind==115 || kind==116) {
+            if(path=="ForVoiceRetreatThisIsASafeHarborToObjectFilter") return 1;
+            if(path=="ForVoiceRetreatThisIsASafeHarborToObjectFilter/IncludeThing" || path=="ForVoiceRetreatThisIsASafeHarborToObjectFilter/ExcludeThing") return 3;
+        }
+        if(kind==114 && path=="ObjectStatusValidation") return 1;
+        if(kind==118) {if(path=="RotationSpeed" || path=="UnitSpacing" || path=="Filter") return 1;if(path=="Filter/IncludeThing" || path=="Filter/ExcludeThing") return 3;}
+        return 0;
+    }
     if(kind>=104 && kind<=111) {
         if(path=="UnitAITargetChooserData" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter") return 1;
         if(path=="UnitAITargetChooserData/ObjectVisionRange") return 2;
@@ -1065,6 +1110,11 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=112 && kind<=118) {
+        if(kind==114 && path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";
+        if(kind==118 && (path=="RotationSpeed" || path=="UnitSpacing")) return attribute=="x" || attribute=="y" || attribute=="z";
+        return false;
+    }
     if(kind>=104 && kind<=111) {
         if(path=="UnitAITargetChooserData") {
             if(attribute=="TargetingCompareList") return true;

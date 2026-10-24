@@ -1,0 +1,17 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63030; body SHA256 d6bea44e9f0548222a405dd7007e78fbe373211fa8831746799e210841c3d625
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASupplyCenterDockUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		SupplyCenterDockUpdateModuleData* ptr = (SupplyCenterDockUpdateModuleData*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 28)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 28)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 28)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[28];
+			((int*)ptr)[7] = (int)num;
+		}
+		Marshaler_002EEndianCorrect((DockUpdateModuleData*)ptr, endian);
+	}
+

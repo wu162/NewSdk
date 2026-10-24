@@ -1,0 +1,49 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 36277; body SHA256 c54166adfd4722f18fb9e34258628526af8992e9085b94a05c459265df378968
+// Literals: {"_003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040": "1s", "_003F_003F_C_0040_0BH_0040EFEJCJJL_0040ObjectStatusValidation_003F_0024AA_0040": "ObjectStatusValidation", "_003F_003F_C_0040_04KOJKLCBG_00401000_003F_0024AA_0040": "1000", "_003F_003F_C_0040_0N_0040NFCCONIF_0040DeliveryTime_003F_0024AA_0040": "DeliveryTime", "_003F_003F_C_0040_0BB_0040JJNDFJLD_0040DeliveryCapacity_003F_0024AA_0040": "DeliveryCapacity"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, OreMinerModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040JJNDFJLD_0040DeliveryCapacity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04KOJKLCBG_00401000_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			((int*)@object)[2] = (int)strtoul(ptr2, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NFCCONIF_0040DeliveryTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040));
+		if (ptr3 != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+			DataInitializers_002EInitialize((float*)@object + 3, text, &timeTag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040EFEJCJJL_0040ObjectStatusValidation_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr4 = (INode*)(int)(*(uint*)num);
+			ObjectStatusValidationDataType** ptr5 = (ObjectStatusValidationDataType**)((byte*)@object + 16);
+			if (ptr4 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr5, 56u, 1u);
+				Marshaler_002EMarshal(ptr4, (ObjectStatusValidationDataType*)(int)(*(uint*)ptr5), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+	}
+
