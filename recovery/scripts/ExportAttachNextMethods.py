@@ -15,7 +15,7 @@ for line in s.splitlines():
  if m:
   try:literals[m[1]]=bytes.fromhex(m[2]).rstrip(b'\0').decode('ascii')
   except UnicodeDecodeError:pass
-manifest={'status':'original method evidence only; Attach family remains rejected','sourceBlob':BLOB,'sharedParentManifest':'../special-ability-source/manifest.json','modules':[],'methods':[]};bodies={};queue=[]
+manifest={'status':'original method evidence only; Attach family remains rejected','sourceBlob':BLOB,'dependencyClosure':'complete direct method and decorated helper closure','modules':[],'methods':[]};bodies={};queue=[]
 for typ in TYPES:
  meta=inv['marshal'][str(typ)];manifest['modules'].append({'name':meta['name'],'typeId':typ,'nativeSize':meta['nativeSize']})
  for family in ['marshal','endian','token']:queue.append(inv[family][str(typ)]['helperSignature'])
@@ -35,7 +35,7 @@ while queue:
  for name in set(re.findall(r'\(([A-Za-z][A-Za-z0-9_]*)\*\)',body)):
   for sigs in signatures.values():
    for direct in sigs:
-    if name+'* @object' in direct and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
+    if ('('+name+'* @object' in direct or ', '+name+'* @object' in direct) and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
 from GenerateUpgradeFields import enum_values
 pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
 enumNames=sorted(set(re.findall(r'EnumNameGetter_0040W4([A-Za-z][A-Za-z0-9]*)_0040', '\n'.join(bodies.values()))))
