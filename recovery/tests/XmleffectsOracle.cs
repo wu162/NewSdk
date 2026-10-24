@@ -174,7 +174,13 @@ class XmleffectsOracle {
                 };
                 string[] nuggetChildren={"","","","","","","<Offset x='1.25' y='-2.5' z='3.75'/>","<PrimaryOffset x='1' y='2' z='3'/><SecondaryOffset x='4' y='5' z='6'/>","<Color R='0.1' G='0.2' B='0.3'/>","<Color R='0.4' G='0.5' B='0.6'/>","","<RandomRange Low='SCORCH_2' High='SCORCH_15'/>","<Offset x='1.25' y='2.5' z='3.75'/>","<Color R='0x12' G='0x34' B='0x56' A='0x78'/><Offset x='1.25' y='-2.5'/>","<Rotate X='90d' Y='0.5r' Z='-45d'/><Offset x='1' y='2' z='3'/><TargetOffset x='4' y='5' z='6'/><Radius Type='GAUSSIAN' Low='1.25' High='2.5'/><Height Type='TRIANGULAR' Low='3.5' High='4.75'/><InitialDelay Type='CONSTANT' Low='5' High='6'/>"};
                 for(int i=0;i<nuggetIds.Length;++i) {
-                    Test(original,"nugget-default-"+i,FX("","<NuggetList>"+Nugget(nuggetIds[i],"","")+"</NuggetList>"),platform);
+                    AssetBuffer defaults=Test(original,"nugget-default-"+i,FX("","<NuggetList>"+Nugget(nuggetIds[i],"","")+"</NuggetList>"),platform);
+                    if(i==14) {
+                        uint item=Word(defaults.InstanceData,28,big);
+                        if(Word(defaults.InstanceData,(int)item+128,big)!=0 || Word(defaults.InstanceData,(int)item+132,big)!=0xbf800000u || Word(defaults.InstanceData,(int)item+136,big)!=0xbf800000u)
+                            throw new Exception("Particle InitialDelay independent default layout");
+                        ++layouts;
+                    }
                     AssetBuffer distinct=Test(original,"nugget-fields-"+i,FX("","<NuggetList>"+Nugget(nuggetIds[i],nuggetAttrs[i]+" StopIfPlayed='true' Weather='RAINY' OnlyIfOnLand='1' PlayIfSourceIsStealthed='T'",nuggetChildren[i])+"</NuggetList>"),platform);
                     uint payload=Word(distinct.InstanceData,28,big);
                     if(Word(distinct.InstanceData,(int)payload+20,big)!=2 || distinct.InstanceData[(int)payload+40]!=1 || distinct.InstanceData[(int)payload+41]!=1 || distinct.InstanceData[(int)payload+42]!=1) throw new Exception("Nugget base scalar offsets");
@@ -249,6 +255,9 @@ class XmleffectsOracle {
                     Test(original,"distribution-enum:"+value,FX("","<NuggetList>"+Nugget(751572338u,"","<Radius Type='"+value+"' Low='1.25' High='2.75'/><Height Type='"+value+"'/><InitialDelay Type='"+value+"'/>")+"</NuggetList>"),platform);
                 foreach(string value in new string[]{"0x1e08c8fb","03602144373"})
                     Test(original,"typeid-numeric:"+value,FX("","<NuggetList><Nugget TypeId='"+value+"' Value='Audio\\17'/></NuggetList>"),platform);
+
+                foreach(string child in new string[]{"<InitialDelay/>","<InitialDelay Low='0'/>","<InitialDelay High='0'/>","<InitialDelay Type='GAUSSIAN'/>","<InitialDelay Type='unknown' Low='2.25'/>","<InitialDelay Low='-1' High='-1'/>"})
+                    Test(original,"particle-initialdelay-partial:"+child,FX("","<NuggetList>"+Nugget(751572338u,"",child)+"</NuggetList>"),platform);
                 Console.WriteLine("PASS platform={0} fixtures={1} threeArrayComparisons={2} directArrayComparisons={3} rejections={4} independentLayouts={5}",
                     platformId, fixtures-startFixtures, (comparisons-startComparisons)/2, (comparisons-startComparisons)/2, rejections-startRejections, layouts-startLayouts);
             }
