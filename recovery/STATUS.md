@@ -734,3 +734,18 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 自动审批拒绝了扩展带自动推送的源码导出工作流及包含AGENTS修改的交接提交；均未生效。采用本地只读原源码提取和现有测试脚本内只读PE探针；保留AGENTS，仅在时长/交接文档记录用户明确1小时约定。无强推，最终提交前重读分支头，保留并发Actions证据。
 
 本轮避免反复整库下载、重复旧排序探针和SDK运行，后两组已定位修正与辅助整组共用最终完整验收；没有账号额度计量，不能量化节省。
+
+
+## 2026-10-24：Spawn/OCL、SlaveWatcher、Queue/Parking、Building整批与源码拆分
+
+本轮实际新增9种，已验收155→164/322：SpawnBehavior/OCLUpdate/OCLMonitorUpdate，SlaveWatcherBehavior，QueueDock/ParkingPlaceBehavior，BuildingBehavior/StructureUnpackUpdate/StructureSellUpdate。SpawnCrate早已由kind103支持，本轮仅强化回归，未重复实现/分派/计数。候选已按TypeId对全部元数据choice去重。
+
+最终有效源码922f44602683fc8a048d99fa2eb8ce8887ee0d72；GameObject run40089743442 success，基础run40089743457 success。每/Od、/O2：335812 fixtures、1007436三缓冲区逐字节比较、12596拒绝、892不变性；平台0/1/2/99，两模式合计2014872缓冲区比较。validation.json、两模式实际日志、sourceCommit/runId及终态均已核对；源码之后仅自动证据提交，未改待验收代码。首组source3f0f0e017380dac81a210a0a8d4055da6d4de5ad/run40088179574及基础40088179650亦success，最终矩阵包含全部首组回归。
+
+按用户要求将GameObject.cpp约15万字符拆为68070字符/1007行，四份Runtime/Support头分别承载通用字段、各组Marshal/endian、多态分派/Token、公开输入校验。原位展开字节相同且独立review通过，最终完整矩阵覆盖拆分。Parking Bridge Filter路径完整接入严格原过滤器读取；其余正式路由保留。
+
+各组61/44/47/31原方法指纹、Marshal/Token/endian/实际helper已核对。独立测试覆盖原枚举表、缺省/显式空、nullable分配、typed/强引用差异、列表边界与schema顺序；保留全部旧比较及拒绝。构建前纠正了测试独立断言的原逻辑帧常量0.005f及TrackerFinalize后的平台引用字节；未改公共恢复逻辑或放宽断言。SpawnCrate重复候选在提交前移除，避免覆写既存支持。
+
+158种其他已知Marshal仍拒绝，58 Token-only回退保留；完整GameObject/完整替代DLL/正式插件未完成，本轮SDK0次，原路由保留。首组与最终整批统一验证，复用已验收公共helper和PE表；没有账号额度计量，无法量化节省。
+
+下一完整经济/电力组四种仍拒绝：PowerUpdate、PlayerPowerManagerBehavior、AutoDepositUpdate、DistributedMoneyBehavior。固定原blob46方法与必要helper闭包已提取并核对，未实现或计数；三项原PE表待取证。精确布局、方法指纹、schema列表顺序、百分比默认和Token父链见GAMEOBJECT_ECONOMY_POWER_NEXT.md及economy-power-source，当前入口以RESUME.md为准。

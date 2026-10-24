@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "status": "pending original PE string-address decoding; source table bytes and fallback semantics only; no runtime support",
+  "required": [
+    {
+      "name": "PowerUpdateType",
+      "entryCount": 2,
+      "unknown": 0,
+      "kind": "single enum value",
+      "tableData": "20 DD 09 10 00 00 00 00 9C 30 09 10 01 00 00 00"
+    },
+    {
+      "name": "AutoDepositFlagsType",
+      "entryCount": 2,
+      "unknown": 1,
+      "kind": "bitset index",
+      "tableData": "84 CB 09 10 01 00 00 00 28 64 09 10 00 00 00 00"
+    },
+    {
+      "name": "MoneyTransactionCategory",
+      "entryCount": 30,
+      "unknown": 22,
+      "kind": "single enum value",
+      "tableData": "F8 C9 09 10 16 00 00 00 08 CA 09 10 04 00 00 00 18 CA 09 10 06 00 00 00 20 CA 09 10 10 00 00 00 30 CA 09 10 09 00 00 00 40 CA 09 10 03 00 00 00 50 CA 09 10 07 00 00 00 5C CA 09 10 1A 00 00 00 68 CA 09 10 0B 00 00 00 78 CA 09 10 08 00 00 00 84 CA 09 10 11 00 00 00 DC 42 09 10 02 00 00 00 7C 44 09 10 1B 00 00 00 94 CA 09 10 0A 00 00 00 A0 CA 09 10 1C 00 00 00 A8 CA 09 10 13 00 00 00 B8 CA 09 10 18 00 00 00 C8 CA 09 10 17 00 00 00 B8 A5 09 10 0F 00 00 00 DC CA 09 10 14 00 00 00 F4 CA 09 10 12 00 00 00 00 CB 09 10 05 00 00 00 0C CB 09 10 0E 00 00 00 1C CB 09 10 0C 00 00 00 28 CB 09 10 15 00 00 00 38 CB 09 10 01 00 00 00 64 C7 09 10 1D 00 00 00 48 CB 09 10 0D 00 00 00 5C CB 09 10 19 00 00 00 6C CB 09 10 00 00 00 00"
+    }
+  ],
+  "reusable": [
+    "DeathType complete original 34-name table; single enum unknown33"
+  ],
+  "note": "Do not infer enum name/value maps from schema ordering. Use existing enum_values(source, originalPE, group) readonly probe. Modules remain rejected."
+}

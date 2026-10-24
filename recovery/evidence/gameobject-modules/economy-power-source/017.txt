@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63877; body SHA256 826bf080c1db83aa9a02c94f35ddee1df59adc182697f48bfa82cbf54b4946d2
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ADistributedMoneyBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((DistributedMoneyBehaviorModuleData*)(int)(*(uint*)pointer), endian);
+	}

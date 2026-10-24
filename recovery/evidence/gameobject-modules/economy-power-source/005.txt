@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41254; body SHA256 821c9ff7e42749083a215eefd234e4c98110da34dfa7115ce55045b29b4d80de
+// Literals: {"_003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040": "SpecialPowerTemplate", "_003F_003F_C_0040_0BE_0040FALMKHFL_0040OnAvailableEvaEvent_003F_0024AA_0040": "OnAvailableEvaEvent", "_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040": ""}
+internal unsafe static void Marshaler_002EMarshal(INode* node, PlayerPowerManagerBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_002Cclass_0020SpecialPowerTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040CAGBJFJD_0040SpecialPowerTemplate_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ASpecialPowerTemplate_002CSpecialPowerTemplate_003E*)((byte*)@object + 8), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AEvaEvent_002Cstruct_0020SageBinaryData_003A_003AEvaEvent_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040FALMKHFL_0040OnAvailableEvaEvent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040)), (AssetReference_003CSageBinaryData_003A_003AEvaEvent_002CSageBinaryData_003A_003AEvaEvent_003E*)((byte*)@object + 12), state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}

@@ -1,6 +1,6 @@
 # GameObject SlaveWatcher新增与既存SpawnCrate回归
 
-2026-10-24。本组源码和测试准备中，尚未计为验收通过。SDK未运行，原路由保留。**本轮只新增SlaveWatcherBehavior。SpawnCrateUpdate已由既存crateChoices kind103完整支持，本轮只加强其回归，不重复实现、分派或计数。**
+2026-10-24。本组新增SlaveWatcher已通过最终整批差分；既存SpawnCrate仅强化回归。SDK未运行，原路由保留。**本轮只新增SlaveWatcherBehavior。SpawnCrateUpdate已由既存crateChoices kind103完整支持，本轮只加强其回归，不重复实现、分派或计数。**
 
 | 类型 | TypeId | native |
 |---|---:|---:|
@@ -16,3 +16,9 @@ SlaveWatcher GrantUpgrade/RemoveUpgrade为强引用@8/@12，ShareUpgrades/LetSla
 测试`GameObjectSpawnCrateWatcherCases.cs`保留所有旧矩阵，并覆盖完整标量/时间/引用/布尔/枚举词、默认/显式空/未知/ALL/正负词、列表0/1/2/27/28/29/65/129项、nullable Filter及完整过滤器、schema顺序与拒绝边界。最终须核对/Od、/O2、平台0/1/2/99、三缓冲区逐字节比较和实际sourceCommit/runId。
 
 同时对GameObject实现作机械拆分：通用模块字段运行逻辑、各能力组Marshal/endian、分派与Token、公开输入校验分别移至`GameObjectModuleFieldsRuntime.h`、`GameObjectModuleFamiliesRuntime.h`、`GameObjectModuleDispatchRuntime.h`、`GameObjectModuleSupport.h`。均在原位置include，保留命名空间、定义顺序和同一编译单元；本地逐字节展开比较与拆分前一致，最终仍由完整差分验收。
+
+## 本轮最终整批验收
+
+最终整批源码`922f44602683fc8a048d99fa2eb8ce8887ee0d72`；GameObject run **40089743442 success**，基础run **40089743457 success**。/Od、/O2每模式335812 fixtures、1007436三缓冲区逐字节比较、12596拒绝、892不变性，平台0/1/2/99；两模式合计2014872缓冲区比较。validation.json、实际两模式日志及sourceCommit/runId/终态已逐项核对。
+
+9种实际新增模块与源码拆分均包含在该矩阵中，总数155→164/322，158种其他已知Marshal仍拒绝。SpawnCrate沿用既存kind103，仅强化回归，不重复计数。本轮SDK0次，原路由保留；组件成功不代表完整GameObject、正式插件或SDK集成完成。

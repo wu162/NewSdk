@@ -1,0 +1,24 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 32771; body SHA256 88c2a6e0192b1fee314633868a9cc87f407ce03aa5e02c924dd275a6e78670e8
+// Literals: {"_003F_003F_C_0040_08PINBMPEF_0040Capacity_003F_0024AA_0040": "Capacity", "_003F_003F_C_0040_01HIHLOKLC_00401_003F_0024AA_0040": "1", "_003F_003F_C_0040_0BF_0040CAAADNG_0040OnDieSpawnPercentage_003F_0024AA_0040": "OnDieSpawnPercentage", "_003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040": "1.0", "_003F_003F_C_0040_0BN_0040JCHNFBAL_0040RedistributeMoneyOnDeathType_003F_0024AA_0040": "RedistributeMoneyOnDeathType", "_003F_003F_C_0040_08LEGBBDFA_0040SUICIDED_003F_0024AA_0040": "SUICIDED"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DistributedMoneyBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08PINBMPEF_0040Capacity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01HIHLOKLC_00401_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((int*)@object)[2] = (int)strtoul(ptr2, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040CAAADNG_0040OnDieSpawnPercentage_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((float*)@object)[3] = (float)atof(ptr4) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			Marshaler_002EMarshal_003Cenum_0020DeathType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BN_0040JCHNFBAL_0040RedistributeMoneyOnDeathType_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08LEGBBDFA_0040SUICIDED_003F_0024AA_0040)), (DeathType*)@object + 4, state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}

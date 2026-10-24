@@ -1,6 +1,6 @@
 # BuildingBehavior / StructureUnpack / StructureSell
 
-状态：原方法已核对，本组源码与差分测试尚未验收；不计入已支持模块数量。最终 sourceCommit、runId 和矩阵结果由本轮验收后补充。本页不代表完整 GameObject、插件或 SDK 集成完成。
+状态：原方法已核对，本组源码与差分测试已通过最终整批验收，精确锚点见本页末尾。本页不代表完整 GameObject、插件或 SDK 集成完成。
 
 原始依据：Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`。精确签名、原行号、包含尾 LF 的 body SHA256、字符串 literal 与 31 个模块/必要 helper 方法见 `evidence/gameobject-modules/building-structure-source/manifest.json` 及同目录编号文件。三个类型的 Marshal、Token、endian 和实际依赖已按固定原方法核对，无新枚举表需求。
 
@@ -42,7 +42,13 @@ ActiveModelCondition 使用完整 457 名称原表，未知/显式空回退 233�
 
 Building、Unpack、Sell 的有效 Token 条目分别为 5、4、3，另各有终止项；原 name/type hash、顺序及偏移完整记录于证据方法。
 
-Building endian 交换四个字符串的 length 及 ModuleData 两字，不交换字符串字节或指针。Unpack 只交换 Time@8、Float@16 及 ModuleData 两字；可空强引用的指针和值均不交换，这是原方法行为。Sell 交换 Time@8、单枚举@12 及 ModuleData 两字。三者均无 schema 子节点，不能因公共 helper 可复用而放宽嵌套输入。
+Building endian 交换四个字符串的 length 及 ModuleData 两字，不交换字符串字节或指针。Unpack 只交换 Time@8、Float@16 及 ModuleData 两字；模块endian helper不交换可空强引用的指针和值；最终引用值由TrackerFinalize按目标平台写入，不能据此断言最终保持little-endian。Sell 交换 Time@8、单枚举@12 及 ModuleData 两字。三者均无 schema 子节点，不能因公共 helper 可复用而放宽嵌套输入。
 
-整组仍需完整 /Od、/O2、平台 0/1/2/99、三缓冲区逐字节差分、独立布局、字符串/引用空值边界及拒绝测试。组件通过后仍须与完整 GameObject、正式插件和 SDK 集成状态分开陈述。
+整组已完成 /Od、/O2、平台 0/1/2/99、三缓冲区逐字节差分、独立布局、字符串/引用空值边界及拒绝测试。组件通过后仍须与完整 GameObject、正式插件和 SDK 集成状态分开陈述。
 
+
+## 本轮最终整批验收
+
+最终整批源码`922f44602683fc8a048d99fa2eb8ce8887ee0d72`；GameObject run **40089743442 success**，基础run **40089743457 success**。/Od、/O2每模式335812 fixtures、1007436三缓冲区逐字节比较、12596拒绝、892不变性，平台0/1/2/99；两模式合计2014872缓冲区比较。validation.json、实际两模式日志及sourceCommit/runId/终态已逐项核对。
+
+9种实际新增模块与源码拆分均包含在该矩阵中，总数155→164/322，158种其他已知Marshal仍拒绝。SpawnCrate沿用既存kind103，仅强化回归，不重复计数。本轮SDK0次，原路由保留；组件成功不代表完整GameObject、正式插件或SDK集成完成。
