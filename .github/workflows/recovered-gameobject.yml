@@ -33,6 +33,7 @@ on:
       - 'recovery/scripts/GenerateAIUpdateFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
+      - 'recovery/tests/GameObject*.cs'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
       - 'recovery/tests/GameObjectKindOf.cs'
