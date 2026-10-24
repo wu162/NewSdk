@@ -1,7 +1,7 @@
 {
   "succeeded": false,
-  "sourceCommit": "bb23fad74244f3ea66621c396b4133954f04504d",
-  "runId": "40141089972",
+  "sourceCommit": "3aacf569b453ab5a9073e9b424b8584a6eec19eb",
+  "runId": "40142137629",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -278,13 +278,25 @@
     "AptGeometryData": 1034587168,
     "BaseRenderAssetType": 2989459401,
     "AudioFileRuntime": 584092973,
-    "Mouse": 2525492603
+    "Mouse": 2525492603,
+    "UnitAbilityButtonTemplate": 3517887782,
+    "PlayerPowerButtonTemplate": 4044322798,
+    "TestTexture": 2826773070,
+    "TestTextureCollection": 49556361,
+    "TerrainAssetCollection": 582251659,
+    "TerrainTextureAtlasRuntime": 3878948534,
+    "W3DHierarchy": 1641540160,
+    "W3DContainer": 4042295058,
+    "W3DAnimationRuntime": 3534264507,
+    "W3DCollisionBox": 3810008068,
+    "MapMetaData": 1603703110,
+    "GameScriptList": 3737094024
   },
-  "expectedTypes": 275,
-  "expectedFixturesPerMode": 1100,
-  "expectedComparisonsPerMode": 3300,
-  "expectedCompletionFixturesPerMode": 176,
-  "expectedCompletionComparisonsPerMode": 528,
+  "expectedTypes": 287,
+  "expectedFixturesPerMode": 1148,
+  "expectedComparisonsPerMode": 3444,
+  "expectedCompletionFixturesPerMode": 200,
+  "expectedCompletionComparisonsPerMode": 600,
   "platforms": [
     0,
     1,
@@ -297,12 +309,12 @@
       "mode": "Od",
       "exitCode": 1,
       "exitCodeHex": "0x00000001",
-      "sourceCommit": "bb23fad74244f3ea66621c396b4133954f04504d",
-      "runId": "40141089972",
+      "sourceCommit": "3aacf569b453ab5a9073e9b424b8584a6eec19eb",
+      "runId": "40142137629",
       "processSucceeded": false
     }
   ],
-  "status": "Od combined priority default-root smoke failed: exitCode=1 (0x00000001); all 275 types and a clean process exit are required",
+  "status": "Od combined priority default-root smoke failed: exitCode=1 (0x00000001); all 287 types and a clean process exit are required",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -328,6 +340,10 @@
     {
       "path": "recovery/src/Native/ObjectFilter.cpp",
       "sha256": "e494f5d7ba09e0ff98a171edac7771cca238ab61b3f0962f6933911068764f11"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlabilitybuttonsCompiler.cpp",
+      "sha256": "80b36f00caeb49899b95056acad1ad575d7859e51692413965858377a668de61"
     },
     {
       "path": "recovery/src/Bridge/XmlaiCompiler.cpp",
@@ -422,6 +438,10 @@
       "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
     },
     {
+      "path": "recovery/src/Bridge/XmlgamescriptsCompiler.cpp",
+      "sha256": "770c0276bdd1a7c5a5de2a4295776f24a9ce0088402573c060fd0d721e89e2ff"
+    },
+    {
       "path": "recovery/src/Bridge/XmlhealthbarsCompiler.cpp",
       "sha256": "5e58f91cc39d31915aae25c93b9d935a9ec57aabcf39e8e7a9c82e9517a49e0f"
     },
@@ -436,6 +456,10 @@
     {
       "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
       "sha256": "e70540a622524fc7423273f41fcfc5668f8d93bfaca539fb3e42574900f824fb"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlmapmetadataCompiler.cpp",
+      "sha256": "4efeeab7ed7cfce17b713c4e5b8690e40e648e831599f2aebacc7ba0dfd6b24a"
     },
     {
       "path": "recovery/src/Bridge/XmlmaterialrulesCompiler.cpp",
@@ -518,6 +542,14 @@
       "sha256": "46c4af30b0aacaaf5a38a7027e4220bc4d92351c2de6f466532e9884632f008c"
     },
     {
+      "path": "recovery/src/Bridge/XmlterrainCompiler.cpp",
+      "sha256": "d42314faec0b880dbcd6d0f5e61c88193d382927c83fc9213a27852056d01b2c"
+    },
+    {
+      "path": "recovery/src/Bridge/XmltesttexturesCompiler.cpp",
+      "sha256": "edb5b8b4fe8621e32274f837c0b3e2958f447d59131579eedd8979d623b1ef88"
+    },
+    {
       "path": "recovery/src/Bridge/XmluichatCompiler.cpp",
       "sha256": "d640ca548b5016f4c8909fceb12c4c3cfe06460c1f5ec5179452a376a2c234bc"
     },
@@ -548,6 +580,14 @@
     {
       "path": "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp",
       "sha256": "4bd373133d2812a7bcf411b130bd9058b5863c4ae522491c85c538d53959c0f4"
+    },
+    {
+      "path": "recovery/src/Bridge/Xmlw3dCompiler.cpp",
+      "sha256": "01d4c6b661e2f981730d9d05d98e4b902ed0060c5ed4c869f2a65f375e68d99a"
+    },
+    {
+      "path": "recovery/src/Native/Xmlabilitybuttons.cpp",
+      "sha256": "466338fda2452812200d4a8adee466a72eada8e98212328c1fb4ed9200f0beb1"
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
@@ -650,6 +690,10 @@
       "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
     },
     {
+      "path": "recovery/src/Native/Xmlgamescripts.cpp",
+      "sha256": "d037364ab607896f05809b795b00f9498538836310f43bdebcc3a16e0b8dd113"
+    },
+    {
       "path": "recovery/src/Native/Xmlhealthbars.cpp",
       "sha256": "13e3ddad69aed0bbd9279022a03f86ef82cb0854bd9b0d2234816fe827778f5c"
     },
@@ -664,6 +708,10 @@
     {
       "path": "recovery/src/Native/Xmllocomotor.cpp",
       "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713"
+    },
+    {
+      "path": "recovery/src/Native/Xmlmapmetadata.cpp",
+      "sha256": "4b87725d9fef74d842f3c1a182b16cb7e80372e9b911718e23841eb9882bdde5"
     },
     {
       "path": "recovery/src/Native/Xmlmaterialrules.cpp",
@@ -754,6 +802,14 @@
       "sha256": "e750df2595561ed83ab112d1ae6c6704bc0389b222d3cef5c190031692a87786"
     },
     {
+      "path": "recovery/src/Native/Xmlterrain.cpp",
+      "sha256": "67ddc3492fa6b48d40a22518a9b05fc41694fcc026962b5f806e92371334b28c"
+    },
+    {
+      "path": "recovery/src/Native/Xmltesttextures.cpp",
+      "sha256": "ecc60c562aa6cb2e2e674a67daebabbe4b64178edbe3e1c7c90842ad18a727f6"
+    },
+    {
       "path": "recovery/src/Native/Xmluichat.cpp",
       "sha256": "c94e492ed7953a68773c097272e6680c07b12c43dfa7e6839aa8ec07749a4fa3"
     },
@@ -784,6 +840,10 @@
     {
       "path": "recovery/src/Native/Xmlvisualsystems.cpp",
       "sha256": "47b97911828effd9f0b1049740faa3ee6d1d50c836978c90989c3a7cb138153d"
+    },
+    {
+      "path": "recovery/src/Native/Xmlw3d.cpp",
+      "sha256": "4c1fd841903c23ce4662aed3af6d408eaf8356543f0390b952ecc22ac1d9d072"
     }
   ],
   "excludedDraftSources": [],

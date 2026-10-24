@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "3aacf569b453ab5a9073e9b424b8584a6eec19eb",
+  "runId": "40142137629",
+  "scope": "XmlCompiler w3d four-root component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "failed",
+  "error": "Od original ProcessInstance differential failed (exit 1)"
+}

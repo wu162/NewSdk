@@ -1,40 +1,40 @@
 {
-  "sourceCommit": "bb23fad74244f3ea66621c396b4133954f04504d",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "succeeded": true,
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
-  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
-  "runId": "40141089972",
+  "runId": "40142137629",
+  "succeeded": true,
   "modes": [
     {
-      "succeeded": true,
       "summaries": [
         "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
       ],
+      "succeeded": true,
+      "log": "Od-oracle.txt",
       "mode": "Od",
-      "exitCode": 0,
-      "log": "Od-oracle.txt"
+      "exitCode": 0
     },
     {
-      "succeeded": true,
       "summaries": [
         "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
       ],
+      "succeeded": true,
+      "log": "O2-oracle.txt",
       "mode": "O2",
-      "exitCode": 0,
-      "log": "O2-oracle.txt"
+      "exitCode": 0
     }
   ],
-  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea"
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
+  "sourceCommit": "3aacf569b453ab5a9073e9b424b8584a6eec19eb"
 }

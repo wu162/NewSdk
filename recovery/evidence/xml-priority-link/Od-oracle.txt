@@ -273,6 +273,18 @@ ROUTE root=AptGeometryData TypeId=1034587168 compiler=Recovered.AptGeometryDataC
 ROUTE root=BaseRenderAssetType TypeId=2989459401 compiler=Recovered.BaseRenderAssetTypeCompiler
 ROUTE root=AudioFileRuntime TypeId=584092973 compiler=Recovered.AudioFileRuntimeCompiler
 ROUTE root=Mouse TypeId=2525492603 compiler=Recovered.MouseCompiler
+ROUTE root=UnitAbilityButtonTemplate TypeId=3517887782 compiler=Recovered.UnitAbilityButtonTemplateCompiler
+ROUTE root=PlayerPowerButtonTemplate TypeId=4044322798 compiler=Recovered.PlayerPowerButtonTemplateCompiler
+ROUTE root=TestTexture TypeId=2826773070 compiler=Recovered.TestTextureCompiler
+ROUTE root=TestTextureCollection TypeId=49556361 compiler=Recovered.TestTextureCollectionCompiler
+ROUTE root=TerrainAssetCollection TypeId=582251659 compiler=Recovered.TerrainAssetCollectionCompiler
+ROUTE root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.TerrainTextureAtlasRuntimeCompiler
+ROUTE root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler
+ROUTE root=W3DContainer TypeId=4042295058 compiler=Recovered.W3DContainerCompiler
+ROUTE root=W3DAnimationRuntime TypeId=3534264507 compiler=Recovered.W3DAnimationRuntimeCompiler
+ROUTE root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCompiler
+ROUTE root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler
+ROUTE root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -548,6 +560,18 @@ PASS root=AptGeometryData TypeId=1034587168 compiler=Recovered.AptGeometryDataCo
 PASS root=BaseRenderAssetType TypeId=2989459401 compiler=Recovered.BaseRenderAssetTypeCompiler platform=0 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
 PASS root=AudioFileRuntime TypeId=584092973 compiler=Recovered.AudioFileRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
 PASS root=Mouse TypeId=2525492603 compiler=Recovered.MouseCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UnitAbilityButtonTemplate TypeId=3517887782 compiler=Recovered.UnitAbilityButtonTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=PlayerPowerButtonTemplate TypeId=4044322798 compiler=Recovered.PlayerPowerButtonTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TestTexture TypeId=2826773070 compiler=Recovered.TestTextureCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=TestTextureCollection TypeId=49556361 compiler=Recovered.TestTextureCollectionCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TerrainAssetCollection TypeId=582251659 compiler=Recovered.TerrainAssetCollectionCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.TerrainTextureAtlasRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=W3DContainer TypeId=4042295058 compiler=Recovered.W3DContainerCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=W3DAnimationRuntime TypeId=3534264507 compiler=Recovered.W3DAnimationRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -581,10 +605,24 @@ PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColors
 PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=0 fixtures=1 comparisons=3 instance=76 relocations=20 imports=8
 PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=0 fixtures=1 comparisons=3 instance=44 relocations=16 imports=0
 PASS root=TutorialMapData TypeId=3408790761 compiler=Recovered.TutorialMapDataCompiler platform=0 fixtures=1 comparisons=3 instance=56 relocations=20 imports=0
-FAIL LocalBuildListMonitor completion platform=0: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NotSupportedException: Unknown Build economy child.
-   at Recovered.XmlbuildeconomyCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
-   at Recovered.LocalBuildListMonitorCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
-   at Recovered.LocalBuildListMonitorCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+PASS root=LocalBuildListMonitor TypeId=315614191 compiler=Recovered.LocalBuildListMonitorCompiler platform=0 fixtures=1 comparisons=3 instance=136 relocations=8 imports=0
+PASS root=DynamicsContactTagMapping TypeId=1044178106 compiler=Recovered.DynamicsContactTagMappingCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=8 imports=8
+PASS root=ConnectionLineManager TypeId=105587076 compiler=Recovered.ConnectionLineManagerCompiler platform=0 fixtures=1 comparisons=3 instance=52 relocations=12 imports=0
+PASS root=RedAlertTemplate TypeId=4141306833 compiler=Recovered.RedAlertTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=96 relocations=8 imports=8
+PASS root=ConquerCardPrebuiltDeck TypeId=2806522526 compiler=Recovered.ConquerCardPrebuiltDeckCompiler platform=0 fixtures=1 comparisons=3 instance=68 relocations=16 imports=12
+PASS root=ArmyDefinition TypeId=3587539190 compiler=Recovered.ArmyDefinitionCompiler platform=0 fixtures=1 comparisons=3 instance=76 relocations=12 imports=0
+PASS root=DLContent TypeId=212695140 compiler=Recovered.DLContentCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=20 imports=0
+PASS root=MeshInstanceTemplate TypeId=815686049 compiler=Recovered.MeshInstanceTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=12 imports=0
+PASS root=AptGeometryData TypeId=1034587168 compiler=Recovered.AptGeometryDataCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=AudioFileRuntime TypeId=584092973 compiler=Recovered.AudioFileRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=Mouse TypeId=2525492603 compiler=Recovered.MouseCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UnitAbilityButtonTemplate TypeId=3517887782 compiler=Recovered.UnitAbilityButtonTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=8 imports=8
+PASS root=TestTextureCollection TypeId=49556361 compiler=Recovered.TestTextureCollectionCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=8 imports=12
+PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.TerrainTextureAtlasRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=40 relocations=8 imports=0
+FAIL W3DHierarchy completion platform=0: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NotSupportedException: Unknown w3d attribute
+   at Recovered.Xmlw3dCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.W3DHierarchyCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.W3DHierarchyCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
    --- End of inner exception stack trace ---
    at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
    at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
@@ -592,8 +630,8 @@ FAIL LocalBuildListMonitor completion platform=0: System.Reflection.TargetInvoca
    at XmlPriorityLinkOracle.Test(IAssetBuilderPlugin original, Root root, Int32 platform, String body, String attributes)
    at XmlPriorityLinkOracle.Completion(IAssetBuilderPlugin original, Int32 platform)
    at XmlPriorityLinkOracle.Main(String[] args)
-System.NotSupportedException: Unknown Build economy child.
-   at Recovered.XmlbuildeconomyCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
-   at Recovered.LocalBuildListMonitorCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
-   at Recovered.LocalBuildListMonitorCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+System.NotSupportedException: Unknown w3d attribute
+   at Recovered.Xmlw3dCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.W3DHierarchyCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.W3DHierarchyCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
 PROCESS EXIT mode=Od exitCode=1 exitCodeHex=0x00000001
