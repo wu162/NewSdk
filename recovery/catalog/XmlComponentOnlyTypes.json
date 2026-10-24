@@ -118,6 +118,35 @@
       "UIMouseTacticalRadarTelestrator",
       "UIMouseTacticalTelestrator",
       "UIMouseTacticalThreatMeter"
+    ],
+    "conditions": [
+      "BaseConditionData",
+      "ObjectConditionData",
+      "UpgradeConditionData",
+      "GameplayConditionData"
+    ],
+    "targeting": [
+      "TargetingBaseCompare",
+      "TargetingDistanceCompare",
+      "TargetingCombatChainCompare",
+      "TargetingInTurretArcCompare",
+      "TargetingCompareList"
+    ],
+    "evaachievement": [
+      "SiegeEvaEvent",
+      "EvaSettings",
+      "EvaEvent",
+      "MiscEvaEvents",
+      "AchievementEvent",
+      "MapNameToAchievementEventMapping",
+      "GameplayAchievementTriggerData"
+    ],
+    "healthbars": [
+      "HealthBarTemplate",
+      "HealthBarSettings"
+    ],
+    "unitoverlay": [
+      "UnitOverlayIconSettings"
     ]
   },
   "roots": [
@@ -825,6 +854,139 @@
       "name": "UIMouseTacticalThreatMeter",
       "typeId": 4143989686,
       "typeHash": 472971368,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "BaseConditionData",
+      "typeId": 3899256902,
+      "typeHash": 2796907385,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "ObjectConditionData",
+      "typeId": 519519951,
+      "typeHash": 3621799508,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "UpgradeConditionData",
+      "typeId": 76901015,
+      "typeHash": 2863617245,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "GameplayConditionData",
+      "typeId": 2309012900,
+      "typeHash": 3176926574,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TargetingBaseCompare",
+      "typeId": 3600209407,
+      "typeHash": 4157686172,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "typeId": 2359666647,
+      "typeHash": 3222028787,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "typeId": 89767986,
+      "typeHash": 3054734349,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "typeId": 2007776008,
+      "typeHash": 1553493937,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TargetingCompareList",
+      "typeId": 3188107749,
+      "typeHash": 1300486550,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "SiegeEvaEvent",
+      "typeId": 1268003905,
+      "typeHash": 277018796,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EvaSettings",
+      "typeId": 2361666546,
+      "typeHash": 2947372396,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EvaEvent",
+      "typeId": 357806494,
+      "typeHash": 1889946602,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MiscEvaEvents",
+      "typeId": 1807540972,
+      "typeHash": 3038881679,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AchievementEvent",
+      "typeId": 4230032093,
+      "typeHash": 2866528179,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MapNameToAchievementEventMapping",
+      "typeId": 3594283852,
+      "typeHash": 1078828637,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "GameplayAchievementTriggerData",
+      "typeId": 348670903,
+      "typeHash": 478718253,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "HealthBarTemplate",
+      "typeId": 1507490649,
+      "typeHash": 2857307522,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "HealthBarSettings",
+      "typeId": 3919360587,
+      "typeHash": 4130115945,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "typeId": 2421413379,
+      "typeHash": 3893526655,
       "schemaGlobal": true,
       "sdkValidated": false
     }

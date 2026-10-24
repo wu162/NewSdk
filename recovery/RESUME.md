@@ -1,3 +1,5 @@
+> 2026-10-25新一轮进行中：新增条件4、目标比较5、Eva/成就7、健康条2、单位叠层1，共19入口源码/完整测试已准备；Windows组件完整矩阵待验收。下面183入口成功记录仍是上一轮基线，不是本轮202入口验证。SDK真实编译继续禁止，实际0次。
+
 # XmlCompiler分支续接
 
 更新：2026-10-25（北京时间）。目标recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md，再读[XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)。

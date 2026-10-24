@@ -207,6 +207,25 @@ class XmlPriorityLinkOracle
         new Root("UIMouseTacticalRadarTelestrator", 3366599054u, false),
         new Root("UIMouseTacticalTelestrator", 1921726501u, false),
         new Root("UIMouseTacticalThreatMeter", 4143989686u, false),
+        new Root("BaseConditionData", 3899256902u, false),
+        new Root("ObjectConditionData", 519519951u, false),
+        new Root("UpgradeConditionData", 76901015u, false),
+        new Root("GameplayConditionData", 2309012900u, false),
+        new Root("TargetingBaseCompare", 3600209407u, false),
+        new Root("TargetingDistanceCompare", 2359666647u, false),
+        new Root("TargetingCombatChainCompare", 89767986u, false),
+        new Root("TargetingInTurretArcCompare", 2007776008u, false),
+        new Root("TargetingCompareList", 3188107749u, false),
+        new Root("SiegeEvaEvent", 1268003905u, false),
+        new Root("EvaSettings", 2361666546u, false),
+        new Root("EvaEvent", 357806494u, false),
+        new Root("MiscEvaEvents", 1807540972u, false),
+        new Root("AchievementEvent", 4230032093u, false),
+        new Root("MapNameToAchievementEventMapping", 3594283852u, false),
+        new Root("GameplayAchievementTriggerData", 348670903u, false),
+        new Root("HealthBarTemplate", 1507490649u, false),
+        new Root("HealthBarSettings", 3919360587u, false),
+        new Root("UnitOverlayIconSettings", 2421413379u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -255,7 +274,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 183 || supplied.Count != 183) throw new Exception("Exactly 183 recovered entries are required");
+        if (Roots.Length != 202 || supplied.Count != 202) throw new Exception("Exactly 202 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -282,7 +301,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 183) throw new Exception("Metadata preflight did not resolve all 183 entries");
+        if (Methods.Count != 202) throw new Exception("Metadata preflight did not resolve all 202 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -346,6 +365,12 @@ class XmlPriorityLinkOracle
             "<Event><Anything TypeId='2693838876' EventFX='Event\\3'/>" +
             "<Anything TypeId='3465979181'><EventTime Low='1' High='5'/></Anything></Event>" +
             "<Update><Anything TypeId='234581578'/></Update>");
+        Test(original, Array.Find(Roots, r => r.Name == "GameplayConditionData"), platform,
+            "<PrimaryObject Count='2'><ObjectFilter Include='INFANTRY'><IncludeThing>T</IncludeThing></ObjectFilter></PrimaryObject><RequiredUpgradeCondition><UpgradeRequired>UpgradeA</UpgradeRequired></RequiredUpgradeCondition>");
+        Test(original, Array.Find(Roots, r => r.Name == "TargetingCompareList"), platform, "<Compare>T\\7</Compare><Compare>T\\1</Compare>");
+        Test(original, Array.Find(Roots, r => r.Name == "EvaEvent"), platform, "<SideSound Sound='S\\3' Side='Allies'/><OtherEvaEventToBlock>Blocked</OtherEvaEventToBlock>");
+        Test(original, Array.Find(Roots, r => r.Name == "HealthBarSettings"), platform, "<ObjectMapping HealthBar='H\\2'><ObjectFilter Include='VEHICLE'><IncludeThing>Tank</IncludeThing></ObjectFilter></ObjectMapping>");
+        Test(original, Array.Find(Roots, r => r.Name == "UnitOverlayIconSettings"), platform, "<FactionVeterancy Faction='Soviet'><RankIcon Rank='1' Image='I\\9'/></FactionVeterancy>");
     }
     static int Main(string[] args)
     {
@@ -365,12 +390,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=183 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=202 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 732 || comparisons != 2196 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 183) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 808 || comparisons != 2424 || completionFixtures != 60 || completionComparisons != 180 || Methods.Count != 202) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=183 fixtures=732 comparisons=2196 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=202 fixtures=808 comparisons=2424 completionFixtures=60 completionComparisons=180 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();

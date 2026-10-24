@@ -1,0 +1,13 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "UnitOverlayIconSettings",
+      "typeId": 2421413379,
+      "typeHash": 3893526655,
+      "schemaGlobal": true
+    }
+  ]
+}

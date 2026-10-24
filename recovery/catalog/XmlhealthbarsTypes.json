@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "HealthBarTemplate",
+      "typeId": 1507490649,
+      "typeHash": 2857307522,
+      "schemaGlobal": true
+    },
+    {
+      "name": "HealthBarSettings",
+      "typeId": 3919360587,
+      "typeHash": 4130115945,
+      "schemaGlobal": true
+    }
+  ]
+}
