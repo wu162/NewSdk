@@ -716,3 +716,21 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 治疗/维修源码3b2cb3d2687d06b92417c3af56f6656b45e7cc63/run40072240199 success，覆盖完整Upgrade、nullable validation/DieMux/Filter和inline Repair percent/audio；首轮仅拒绝清单末尾AutoHeal ID维护遗漏导致失败，修复后完整矩阵通过。Crate八模块包含基类及所有现存Crate碰撞分派和Spawn，继承强引用顺序保留；Spawn CrateList是重复文本子节点的强引用列表，不是属性字符串，先列表后BlockingUnits。未修改共享Tracker/资源/标量/位集实现。额外WeaponTemplate run40071300487和基础run40071300482/40072240244 success。
 
 下一完整AI Update八模块仅取证：源码bae88f824dd018ba5a46ba390ab5f095cc046d07/run40072829359 success，96精确方法/PE枚举，见GAMEOBJECT_AI_UPDATE_NEXT.md。UnitChooser40与TurretChooser44区分，AIUpdate pointer@68/StandGround bool@72；该组尚未接入，仍拒绝。约45分钟单代理有效实现、10–15分钟检查点、完整组统一差分、SDK降频与正确性门槛均保留。所有提交普通推送，保留并发Actions证据，没有强推/无必要新分支。优化只避免重复上下文/调查/SDK探针，不声称可量化账号额度下降。
+
+## 2026-10-24：136→155，AI Update / 经济采集 / 辅助协同三个完整组
+
+用户允许任务时长提高至约1小时，已记录STAGE_DURATION.md/EFFICIENCY.md，旧45分钟引用以新约定为准。AGENTS保持远程原文。
+
+新增19种完整模块：AI Update八型、Dock/Ore/采集七型、辅助放置/协同响应四型；详见GAMEOBJECT_AI_UPDATE.md、GAMEOBJECT_ECONOMY.md、GAMEOBJECT_ASSIST.md。原证据固定Tokenizer blob6e40a9ed6c9f961d294d49768d911e6a6f354619，三个组分别96/75/63个方法，最终Windows均逐项检查原源码和PE。NullableAssetId用于HintObjectMapping的4字节可空PlayerTemplate typed-ID；公共Tracker/原排序/位集/解析及资源实现保持，复用已验证依赖。
+
+最终有效源码16a37d05276242c29eddaee4726c6ed92603dac0：GameObject run40078985685 success、基础run40078985621 success。每/Od、/O2均318592 fixtures、955776三缓冲区比较、12160拒绝、844不变性，平台0/1/2/99；两模式合计1911552次缓冲区逐字节比较。validation.json及两模式实际日志/sourceCommit/runId和终态已核对。
+
+原失败保留：AI错误容器测试和AutoAcquire未知bit4差异已修正；经济组RequiredStatus应在结构@28、OreNode Animation的ALL单枚举值454两个独立断言已修正。没有减样本、放宽比较、改变拒绝或以失败运行取代最终成功。原PE AssistanceHintType/WeaponSlotType探针取自a936ac2b575259c27e58c4fb2ff08597eb0116bf / run40078557180日志，最终实际源码又与原PE逐项复核。
+
+167种其他已知Marshal仍拒绝，58 Token-only维持未知Marshal回退。SDK本轮0次，原路由保留；完整GameObject、完整两份替代DLL及正式GameObject插件未完成。
+
+下一组SpawnBehavior/OCLUpdate/OCLMonitorUpdate的61方法已对照原blob提取，PE表DamageType/DeathType/OCLMonitorOption待补齐，三型仍拒绝，见GAMEOBJECT_SPAWN_UPDATE_NEXT.md及enum-status.json。取证不是支持。
+
+自动审批拒绝了扩展带自动推送的源码导出工作流及包含AGENTS修改的交接提交；均未生效。采用本地只读原源码提取和现有测试脚本内只读PE探针；保留AGENTS，仅在时长/交接文档记录用户明确1小时约定。无强推，最终提交前重读分支头，保留并发Actions证据。
+
+本轮避免反复整库下载、重复旧排序探针和SDK运行，后两组已定位修正与辅助整组共用最终完整验收；没有账号额度计量，不能量化节省。

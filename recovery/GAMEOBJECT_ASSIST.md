@@ -1,6 +1,6 @@
 # 辅助放置与协同响应完整能力组
 
-2026-10-24：完整实现，最终完整差分验证中，尚不计入144/322已验收范围。
+2026-10-24：完整实现并通过完整差分；随本轮136→155/322已验收。
 
 | 类型 | TypeId | native |
 |---|---:|---:|
@@ -19,4 +19,4 @@ AssistedPlacement20：PlacementHint为4位AssistanceHintType@8，默认NONE设�
 
 GameObjectAssistCases.cs覆盖四型全部字段、六容器、Token/sentinel、完整HintObject列表容量边界、nullable typed-ID的缺失/空/大小写/ANSI/资源外观字符串、弱typed-ID与强引用区别、完整Restriction/Vector3/Filter、所有枚举与status词、位集未知词回退、分配顺序及三缓冲区不变性、命名空间/结构文本/未知节点属性/重复单节点拒绝。与经济组修正及全部原GameObject回归统一运行/Od、/O2、平台0/1/2/99和三缓冲区逐字节比较。
 
-最终源码16a37d05276242c29eddaee4726c6ed92603dac0：GameObject run40078985685、基础run40078985621验证中。SDK0次、原路由保留，组件成功不等于完整DLL或正式SDK插件验收。
+最终有效源码16a37d05276242c29eddaee4726c6ed92603dac0：GameObject run40078985685 success、基础run40078985621 success。每/Od、/O2均318592 fixtures、955776三缓冲区比较、12160拒绝、844不变性，平台0/1/2/99；两模式合计1911552次缓冲区逐字节比较。validation.json及两模式实际日志/sourceCommit/runId和终态已核对。SDK0次、原路由保留，组件成功不等于完整DLL或正式SDK插件验收。

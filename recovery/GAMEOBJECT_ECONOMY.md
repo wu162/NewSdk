@@ -1,6 +1,6 @@
 # Dock、矿石与采集完整能力组
 
-2026-10-24：整组实现，最终完整差分验证中，尚不计入144/322已验收范围。
+2026-10-24：整组实现并通过完整差分；随本轮136→155/322已验收。
 
 | 类型 | TypeId | native |
 |---|---:|---:|
@@ -22,4 +22,4 @@ GatherSlaves的SlaveTemplate是强引用@8，Radius为float@12，Amount为uint@1
 
 GameObjectEconomyCases.cs覆盖七型全部根字段、枚举/数字/布尔/强引用边界、六容器、完整父Token与sentinel、nullable Filter/status、inline Vector3/Filter、全部status词和掩码、重复列表容量边界、命名空间/未知属性/重复单节点/结构文本拒绝、独立默认/大小/offset/引用及分配顺序。与既有GameObject矩阵统一/Od、/O2、平台0/1/2/99、三缓冲区全部字节比较。
 
-源码733210317aa82c8ecef155bdb80db8c5f834d396 / run40078348035和a936ac2b575259c27e58c4fb2ff08597eb0116bf / run40078557180的失败分别是独立测试RequiredStatus偏移和ALL单枚举值写错；已按原方法/PE修正，未放宽比较或拒绝。最终验证锚点待记录。SDK本组0次，原路由保留，组件不代表完整DLL/SDK验收。
+源码733210317aa82c8ecef155bdb80db8c5f834d396 / run40078348035和a936ac2b575259c27e58c4fb2ff08597eb0116bf / run40078557180的失败分别是独立测试RequiredStatus偏移和ALL单枚举值写错；已按原方法/PE修正，未放宽比较或拒绝。最终有效源码16a37d05276242c29eddaee4726c6ed92603dac0：GameObject run40078985685 success、基础run40078985621 success。每/Od、/O2均318592 fixtures、955776三缓冲区比较、12160拒绝、844不变性，平台0/1/2/99；两模式合计1911552次缓冲区逐字节比较。validation.json及两模式实际日志/sourceCommit/runId和终态已核对。SDK本组0次，原路由保留，组件不代表完整DLL/SDK验收。
