@@ -38,7 +38,7 @@ partial class GameObjectOracle {
             string payload=EconomyPayload(group);
             b=Check(original,p,"Browser='a bb'",EconomyXML(group,"",payload)).InstanceData;at=LifecycleAt(b,big);
             if(EconomyDock(group) && Word(b,at+20,big)!=at+sizes[group])throw new Exception("Independent Dock nullable Filter native allocation");
-            if(group==2) {int status=(int)Word(b,at+16,big);if(status!=at+20 || b.Length!=at+76)throw new Exception("Independent OreMiner status allocation");for(int i=0;i<7;++i)if(Word(b,status+4*i,big)!=0xffffffffu)throw new Exception("Independent OreMiner full required mask");}
+            if(group==2) {int status=(int)Word(b,at+16,big);if(status!=at+20 || b.Length!=at+76)throw new Exception("Independent OreMiner status allocation");for(int i=0;i<7;++i)if(Word(b,status+28+4*i,big)!=0xffffffffu)throw new Exception("Independent OreMiner full required mask");}
             if(group==6 && (Word(b,at+36,big)!=0x3f800000u || Word(b,at+40,big)!=0x40000000u || Word(b,at+44,big)!=0x40400000u || Word(b,at+48,big)!=0x40800000u || Word(b,at+52,big)!=0x40a00000u || Word(b,at+56,big)!=0x40c00000u))throw new Exception("Independent GatherEject inline vectors");
             foreach(int count in new[]{0,1,2,27,28,29,65}) {
                 string modules="";for(int i=0;i<count;++i)modules+="<ObjectSMCHelper TypeId='"+EconomyTypes[group]+"' id='E"+i+"'>"+payload+"</ObjectSMCHelper>";

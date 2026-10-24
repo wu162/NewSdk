@@ -46,6 +46,8 @@ python recovery/scripts/GenerateAIUpdateFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'AI Update source metadata mismatch' }
 python recovery/scripts/GenerateEconomyFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'Economy source metadata mismatch' }
+python recovery/scripts/InspectAssistEnums.py
+if ($LASTEXITCODE -ne 0) { throw 'Assistance PE map inspection failed' }
 Copy-Item SDK/tools/*.dll $out
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 $summaries = @()
