@@ -1,7 +1,7 @@
 <!-- Original schema legal assets; these are merged into the parent probe AssetDeclaration. -->
 <HotKeySlot id="RecoveryUiHotKeyDefault" Name="RecoveryDefault" />
 <HotKeySlot id="RecoveryUiHotKey" Group="UnitCommands" Index="7" Name="RecoveryAction" VersionAdded="3" />
-<HotKeySlot id="RecoveryUiHotKeyInherited" inheritFrom="RecoveryUiHotKey" Index="9" />
+<HotKeySlot id="RecoveryUiHotKeyInherited" inheritFrom="RecoveryUiHotKey" Name="RecoveryInheritedAction" Index="9" />
 <MouseCursor id="RecoveryUiCursorDefault" />
 <MouseCursor id="RecoveryUiCursor" File="data/cursors/recovery.ani" NumDirections="8" />
 <BasicMouseCursors id="RecoveryUiCursorsDefault" />
