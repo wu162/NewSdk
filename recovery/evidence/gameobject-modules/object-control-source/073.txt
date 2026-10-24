@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1be2e3fb2827733608d0cd62063e119b813bdd5bc6c9cbb7bbe49817c3f482f5
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpiderHoleUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		SpiderHoleUpdateModuleData* ptr = (SpiderHoleUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 128u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -862713808;
+	}

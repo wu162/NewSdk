@@ -1,3 +1,9 @@
+# 新一轮进行中：剩余对象交互完整13类
+
+用户要求继续一小时，已恢复扩展。新增完整13类与Capture20/Laser44、Tuple120/UpgradeSelf强列表、Shadow60、Particle20、UpgradeMap8已实现并补测试；源检查通过，**待累计Windows验收，不能提前计数**。合同GAMEOBJECT_OBJECT_CONTROL.md。上一轮8类run40141560682仍在运行；先核实终态并修复差异。SDK本轮0次，路由不变。以下旧交接为进入本轮时的基线，后续以新run/sourceCommit为准。
+
+---
+
 # 编译器恢复：当前交接入口
 
 更新：2026-10-25（北京时间）。分支 `recovery/compiler-source`。用户已要求开始交接，停止扩展新组。
