@@ -1,0 +1,14 @@
+{
+  "succeeded": false,
+  "sourceCommit": "f25007a85f3560e925c0769972cc12c1ea6d74f8",
+  "runId": "40081481727",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "scope": "FXList complete root attributes and empty NuggetList; FXParticleSystemTemplate explicitly refused; component only",
+  "status": "Od C++/CLI build failed"
+}

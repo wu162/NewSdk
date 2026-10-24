@@ -1,0 +1,118 @@
+{
+  "succeeded": false,
+  "sourceCommit": "f25007a85f3560e925c0769972cc12c1ea6d74f8",
+  "runId": "40081481727",
+  "scope": "Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate",
+  "expectedRootTypeIds": {
+    "AttributeModifier": 3319822471,
+    "FXList": 2254974584,
+    "SpecialPowerTemplate": 2178440954,
+    "ObjectCreationList": 3899542881,
+    "LocomotorTemplate": 3972178387,
+    "LogicCommandSet": 3959844197,
+    "FXParticleSystemTemplate": 686292351,
+    "UpgradeTemplate": 3786401627,
+    "AIPersonalityDefinition": 3604279694,
+    "AIStrategicStateDefinition": 607123156,
+    "AIMicroManagerData": 2423780215,
+    "AIBudgetStateDefinition": 2893598307,
+    "AIStateDefinition": 3239935619,
+    "AITargetingHeuristic": 926814458
+  },
+  "expectedTypes": 14,
+  "expectedFixturesPerMode": 56,
+  "expectedComparisonsPerMode": 168,
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "Od combined XmlCompiler C++/CLI link failed",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "sources": [
+    {
+      "path": "recovery/src/Native/Relocation.cpp",
+      "sha256": "1cf8c667ea71cf37ac16d21bdbe78179c4b9c3c28d93b917db5d5abbfa3731c9"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.cpp",
+      "sha256": "f9f31a6537e601936097e5a6b4b8f764a412f5d08f3b3b6ad77bb25a75b9fe79"
+    },
+    {
+      "path": "recovery/src/Native/DataInitializers.cpp",
+      "sha256": "0628632c12f14fd1f37cb31219b7cac706ca179f381b474d6738443f7a895a60"
+    },
+    {
+      "path": "recovery/src/Native/ResourceMarshaling.cpp",
+      "sha256": "2946042bfb72f73310edd642900fe36f7491faa1029d7988ea3a261a2fc7ac4c"
+    },
+    {
+      "path": "recovery/src/Native/EnumBitset.cpp",
+      "sha256": "8e486f18fef0f85fd4c28f9c23e6eabcc086b4ff75ef2c68228e108edc8f4fa4"
+    },
+    {
+      "path": "recovery/src/Native/ObjectFilter.cpp",
+      "sha256": "e494f5d7ba09e0ff98a171edac7771cca238ab61b3f0962f6933911068764f11"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlaiCompiler.cpp",
+      "sha256": "131fb070c1d012041221266b7605355428df05841b234c0b0f0194937c5467e4"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlattributesCompiler.cpp",
+      "sha256": "6d5609679478fafbd572860fa1956c81cae35faf6df1b41524d8faec62f22dfe"
+    },
+    {
+      "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
+      "sha256": "f15c7a18bd5de091cd0806ee033d6973ae17b3d359943a16dc47f680f8bcaa22"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
+      "sha256": "ac9ff90438116a803c48fa7d91f4239c7a6af730797ac1a5c3851ee117063d36"
+    },
+    {
+      "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
+      "sha256": "762f45123422b0c4bce71cb7f693dec18db49158402b44dd3a03c2cf4034a9ee"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlpowersCompiler.cpp",
+      "sha256": "7c2a75b009504f834a43ecc93a59b61d4dde4cce9fce5e3183b940186e02ab6a"
+    },
+    {
+      "path": "recovery/src/Native/Xmlai.cpp",
+      "sha256": "736fbf8e31055b7694c851b7ab21e1225c09491ebb5f1fd93ec4b42c93041726"
+    },
+    {
+      "path": "recovery/src/Native/Xmlattributes.cpp",
+      "sha256": "0862341ac4346d06e45a3026dc024474fe3ed7a6f8b31440b377f84c7363f3a4"
+    },
+    {
+      "path": "recovery/src/Native/Xmleffects.cpp",
+      "sha256": "be86b94a3dce715e864b8aa53463ae0daf2d0dfe9a2b39c8433506bf30450f4a"
+    },
+    {
+      "path": "recovery/src/Native/XmleffectsEnums.cpp",
+      "sha256": "fa66a63c76c5bbe72977094a2aa86fe829f8bff65af5fe38b4ad87d10ba56556"
+    },
+    {
+      "path": "recovery/src/Native/XmleffectsNuggets.cpp",
+      "sha256": "31fa39ffc15c3390158151c394e6517dc5709f2993d82f308bf8ce183927f472"
+    },
+    {
+      "path": "recovery/src/Native/Xmlfxparticle.cpp",
+      "sha256": "909ea19890a4be6190e519f4081318f62fc0362a1f84645a8d41acd94943f074"
+    },
+    {
+      "path": "recovery/src/Native/Xmllocomotor.cpp",
+      "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713"
+    },
+    {
+      "path": "recovery/src/Native/Xmlpowers.cpp",
+      "sha256": "8a0b32b6d6782ebadff6798c0a1a55e30541ab22c6da027ba556a3f7345a5190"
+    }
+  ],
+  "excludedDraftSources": [],
+  "originalDllUnchanged": true
+}

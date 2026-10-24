@@ -1,0 +1,212 @@
+Relocation.cpp
+ScalarParsing.cpp
+ResourceMarshaling.cpp
+Xmlfxparticle.cpp
+XmlfxparticleCompiler.cpp
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(89): error C2664: 'void Recovered::XmlfxparticleXml::Field(System::Xml::XmlNode ^,System::String ^,System::String ^,unsigned int,Recovered::Native::XmlfxparticleFieldKind,System::String ^,Recovered::Native::XmlfxparticleNuggetInput &)': cannot convert argument 3 from 'const char *' to 'System::String ^'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(89): note: No user-defined-conversion operator available, or
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(89): note: Cannot convert a native type to a managed type
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(74): note: see declaration of 'Recovered::XmlfxparticleXml::Field'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(89): note: while trying to match the argument list '(System::Xml::XmlNode ^, System::String ^, const char *, unsigned int, Recovered::Native::XmlfxparticleFieldKind, nullptr, Recovered::Native::XmlfxparticleNuggetInput)'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(113): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(113): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(116): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(116): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(116): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(116): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(119): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(122): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S20'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S19'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(125): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S22'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S21' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S21'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S20'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S19'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(129): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S24' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S24'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S23' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S23'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S22'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S21' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S21'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S20'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S19'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(133): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S26' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S26'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S25' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S25'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S24' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S24'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S23' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S23'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S22'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S21' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S21'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S20'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S19'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(137): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S28' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(138): note: see declaration of '$S28'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S27' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(138): note: see declaration of '$S27'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S26' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S26'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S25' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S25'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S24' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S24'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S23' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S23'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S22'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S21' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S21'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S20'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(123): note: see declaration of '$S19'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S18'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(120): note: see declaration of '$S17'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S16'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(117): note: see declaration of '$S15'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S14'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(114): note: see declaration of '$S13'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S12'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(141): error C2360: initialization of '$S11' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(111): note: see declaration of '$S11'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S30' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(142): note: see declaration of '$S30'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S29' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(142): note: see declaration of '$S29'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S28' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(138): note: see declaration of '$S28'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S27' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(138): note: see declaration of '$S27'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S26' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S26'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S25' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(134): note: see declaration of '$S25'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S24' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S24'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S23' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(130): note: see declaration of '$S23'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S22'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): error C2360: initialization of '$S21' is skipped by 'case' label
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(126): note: see declaration of '$S21'
+recovery/src/Bridge/XmlfxparticleCompiler.cpp(149): fatal error C1003: error count exceeds 100; stopping compilation
+Generating Code...

@@ -1,0 +1,175 @@
+Relocation.cpp
+ScalarParsing.cpp
+ResourceMarshaling.cpp
+Xmleffects.cpp
+XmleffectsNuggets.cpp
+XmleffectsEnums.cpp
+XmleffectsCompiler.cpp
+recovery/src/Bridge/XmleffectsCompiler.cpp(81): error C2664: 'void Recovered::XmleffectsXml::Field(System::Xml::XmlNode ^,System::String ^,System::String ^,unsigned int,Recovered::Native::XmleffectsFieldKind,System::String ^,Recovered::Native::XmleffectsNuggetInput &)': cannot convert argument 3 from 'const char *' to 'System::String ^'
+recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: No user-defined-conversion operator available, or
+recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: Cannot convert a native type to a managed type
+recovery/src/Bridge/XmleffectsCompiler.cpp(66): note: see declaration of 'Recovered::XmleffectsXml::Field'
+recovery/src/Bridge/XmleffectsCompiler.cpp(81): note: while trying to match the argument list '(System::Xml::XmlNode ^, System::String ^, const char *, unsigned int, Recovered::Native::XmleffectsFieldKind, nullptr, Recovered::Native::XmleffectsNuggetInput)'
+recovery/src/Bridge/XmleffectsCompiler.cpp(111): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(115): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(115): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(120): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(120): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(120): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(125): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(125): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(125): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(125): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(129): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(129): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(129): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(129): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(129): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(136): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(144): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(145): note: see declaration of '$S19'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(149): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(150): note: see declaration of '$S20'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(145): note: see declaration of '$S19'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(158): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(159): note: see declaration of '$S22'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(150): note: see declaration of '$S20'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(145): note: see declaration of '$S19'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(167): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S24' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(169): note: see declaration of '$S24'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S23' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(168): note: see declaration of '$S23'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S22' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(159): note: see declaration of '$S22'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S20' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(150): note: see declaration of '$S20'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S19' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(145): note: see declaration of '$S19'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S18' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S17' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S16' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S15' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S14' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S13' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(193): error C2360: initialization of '$S12' is skipped by 'case' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S28' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(195): note: see declaration of '$S28'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S27' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(194): note: see declaration of '$S27'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S24' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(169): note: see declaration of '$S24'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S23' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(168): note: see declaration of '$S23'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S22' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(159): note: see declaration of '$S22'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S20' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(150): note: see declaration of '$S20'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S19' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(145): note: see declaration of '$S19'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S18' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(137): note: see declaration of '$S18'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S17' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(130): note: see declaration of '$S17'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S16' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(126): note: see declaration of '$S16'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S15' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(121): note: see declaration of '$S15'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S14' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(116): note: see declaration of '$S14'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S13' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(112): note: see declaration of '$S13'
+recovery/src/Bridge/XmleffectsCompiler.cpp(220): error C2361: initialization of '$S12' is skipped by 'default' label
+recovery/src/Bridge/XmleffectsCompiler.cpp(107): note: see declaration of '$S12'
+Generating Code...
