@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 ccddf71fe2369087026354be28a7aa5b3e0cb4ffbb044420a70ac114f4fa77e5
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATeleportSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (TeleportSpecialAbilityUpdateModuleData*)(int)(*(uint*)pointer), tracker);
+	}

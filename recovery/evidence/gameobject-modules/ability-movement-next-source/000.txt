@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 fde23579934ded83c91de71ce01c8eec319297cde5d012df74004891525fd501
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASwitchLocomotorsSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		SwitchLocomotorsSpecialAbilityUpdateModuleData* ptr = (SwitchLocomotorsSpecialAbilityUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 260u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 350237090;
+	}
