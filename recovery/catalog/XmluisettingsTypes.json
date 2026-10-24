@@ -53,6 +53,30 @@
       "typeId": 951036436,
       "typeHash": 2082140658,
       "schemaGlobal": true
+    },
+    {
+      "name": "DynamicGameLOD",
+      "typeId": 2901356964,
+      "typeHash": 1764459959,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GameLODPreset",
+      "typeId": 354222972,
+      "typeHash": 3645429389,
+      "schemaGlobal": true
+    },
+    {
+      "name": "StaticGameLOD",
+      "typeId": 531798225,
+      "typeHash": 1251212385,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UICoopTinting",
+      "typeId": 4243804314,
+      "typeHash": 89086670,
+      "schemaGlobal": true
     }
   ]
 }

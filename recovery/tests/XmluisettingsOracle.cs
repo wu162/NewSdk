@@ -13,9 +13,9 @@ using BinaryAssetBuilder.Core;
 using Recovered;
 class XmluisettingsOracle {
     const string NS="uri:ea.com:eala:asset";
-    static readonly string[] Types={"HotKeySlot","MouseCursor","BasicMouseCursors","UIMouseDragSelectionFeedback","UIFloatingTextDisplay","UIMessageDisplay","UIMilitaryCaptionDisplay","UISubtitleDisplay","UITimerDisplay"};
-    static readonly int[] Sizes={24,16,20,20,32,32,56,36,64};
-    static readonly uint[] TypeIds={2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u};
+    static readonly string[] Types={"HotKeySlot","MouseCursor","BasicMouseCursors","UIMouseDragSelectionFeedback","UIFloatingTextDisplay","UIMessageDisplay","UIMilitaryCaptionDisplay","UISubtitleDisplay","UITimerDisplay","DynamicGameLOD","GameLODPreset","StaticGameLOD","UICoopTinting"};
+    static readonly int[] Sizes={24,16,20,20,32,32,56,36,64,24,28,80,28};
+    static readonly uint[] TypeIds={2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u,2901356964u,354222972u,531798225u,4243804314u};
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","4294967295","4294967296","077","0xff","1e400","-1e400"};
     static readonly string[] Refs={"","Name","Name\\0","Name\\27","Name\\-1","Name\\2147483648","Name\\ +17junk","资源\\7","MIXEDCase"};
     static readonly string[] Bools={"true","false","TRUE","1","0","t","T"," true","yes","","10"};
@@ -62,7 +62,7 @@ class XmluisettingsOracle {
     static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmluisettingsCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
     static XmlDocument FieldDocument(string root,string path,string name,string value){XmlDocument d=Parse(Root(root,"",""));XmlElement node=d.DocumentElement;if(path.Length!=0)foreach(string part in path.Split('/')){XmlElement child=d.CreateElement(part,NS);node.AppendChild(child);node=child;}node.SetAttribute(name,value);return d;}
     static readonly string[][] Fields={
-        new string[]{"HotKeySlot","","Group","Enum"},
+        new string[]{"HotKeySlot","","Group","Enum:HotKeySlotGroup"},
         new string[]{"HotKeySlot","","Index","Signed"},
         new string[]{"HotKeySlot","","Name","String"},
         new string[]{"HotKeySlot","","VersionAdded","Signed"},
@@ -149,14 +149,67 @@ class XmluisettingsOracle {
         new string[]{"UITimerDisplay","ReadyColor","G","Unsigned"},
         new string[]{"UITimerDisplay","ReadyColor","B","Unsigned"},
         new string[]{"UITimerDisplay","ReadyColor","A","Unsigned"},
+        new string[]{"DynamicGameLOD","","Level","Enum:GameLODType"},
+        new string[]{"DynamicGameLOD","","MinimumFPS","Signed"},
+        new string[]{"DynamicGameLOD","","ParticleSkipMask","Signed"},
+        new string[]{"DynamicGameLOD","","DebrisSkipMask","Signed"},
+        new string[]{"DynamicGameLOD","","SlowDeathScale","Float"},
+        new string[]{"GameLODPreset","","Level","Enum:GameLODType"},
+        new string[]{"GameLODPreset","","SystemMemory","Signed"},
+        new string[]{"GameLODPreset","","Xres","Signed"},
+        new string[]{"GameLODPreset","","YRes","Signed"},
+        new string[]{"GameLODPreset","Processor","Type","Enum:ProcessorType"},
+        new string[]{"GameLODPreset","Processor","MinMHz","Signed"},
+        new string[]{"StaticGameLOD","","Level","Enum:GameLODType"},
+        new string[]{"StaticGameLOD","","ModelLOD","Enum:ModelLODType"},
+        new string[]{"StaticGameLOD","","EffectsLOD","Enum:EffectsLODType"},
+        new string[]{"StaticGameLOD","","MaxParticleCount","Signed"},
+        new string[]{"StaticGameLOD","","UseShadowDecals","Bool"},
+        new string[]{"StaticGameLOD","","UseShadowMapping","Bool"},
+        new string[]{"StaticGameLOD","","ShadowLOD","Enum:ShadowLODType"},
+        new string[]{"StaticGameLOD","","TerrainLOD","Enum:TerrainLODType"},
+        new string[]{"StaticGameLOD","","UseTerrainNormalMap","Bool"},
+        new string[]{"StaticGameLOD","","WaterLOD","Enum:WaterLODType"},
+        new string[]{"StaticGameLOD","","MaxTankTrackEdges","Signed"},
+        new string[]{"StaticGameLOD","","MaxTankTrackOpaqueEdges","Signed"},
+        new string[]{"StaticGameLOD","","MaxTankTrackFadeDelay","Signed"},
+        new string[]{"StaticGameLOD","","ShowProps","Bool"},
+        new string[]{"StaticGameLOD","","TextureReductionFactor","Signed"},
+        new string[]{"StaticGameLOD","","AnimationLOD","Enum:AnimationLODType"},
+        new string[]{"StaticGameLOD","","ShaderLOD","Enum:ShaderLODType"},
+        new string[]{"StaticGameLOD","","DecalLOD","Enum:DecalLODType"},
+        new string[]{"StaticGameLOD","","MinParticlePriority","Enum:FXParticleSystem_Priority"},
+        new string[]{"StaticGameLOD","","MinParticleSkipPriority","Enum:FXParticleSystem_Priority"},
+        new string[]{"StaticGameLOD","","AntiAliasingQuality","Signed"},
+        new string[]{"StaticGameLOD","","EnableVSync","Bool"},
+        new string[]{"UICoopTinting","","FadeInFrames","Signed"},
+        new string[]{"UICoopTinting","","FadeOutFrames","Signed"},
+        new string[]{"UICoopTinting","","SustainFrames","Signed"},
+        new string[]{"UICoopTinting","","TintFrequency","Float"},
+        new string[]{"UICoopTinting","","TintAmplitude","Float"},
+        new string[]{"UICoopTinting","TintColor","R","Unsigned"},
+        new string[]{"UICoopTinting","TintColor","G","Unsigned"},
+        new string[]{"UICoopTinting","TintColor","B","Unsigned"},
+        new string[]{"UICoopTinting","TintColor","A","Unsigned"},
     };
     static readonly string[] Strings={"","a","abc","abcd","abcde","A&B<font>","é","资源","😀","e\u0301",new string('x',257),"a\0tail","\0leading","多字节\0尾部"};
     static string[] Values(string kind) {
+        if(kind=="Enum:AnimationLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:DecalLODType")return new string[]{"HIGH","LOW","OFF","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:EffectsLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:GameLODType")return new string[]{"CUSTOM","HIGH","LOW","MEDIUM","ULTRA_HIGH","UNKNOWN","VERY_LOW","unknown","","0","custom","CUSTOM unknown"};
+        if(kind=="Enum:ModelLODType")return new string[]{"HIGH","LOW","MEDIUM","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:ProcessorType")return new string[]{"ATHLON","ATHLON_64","CORE_DUO","PENTIUM_4","UNKNOWN","unknown","","0","athlon","ATHLON unknown"};
+        if(kind=="Enum:ShaderLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:ShadowLODType")return new string[]{"HIGH","LOW","MEDIUM","OFF","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:TerrainLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:WaterLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
+        if(kind=="Enum:FXParticleSystem_Priority")return new string[]{"ALWAYS_RENDER","HIGH_OR_ABOVE","HIGH_OR_BELOW","INVALID_PRIORITY","LOW_OR_ABOVE","LOW_OR_BELOW","MEDIUM_OR_ABOVE","MEDIUM_OR_BELOW","ULTRA_HIGH_ONLY","ULTRA_HIGH_OR_BELOW","VERY_LOW_ONLY","VERY_LOW_OR_ABOVE","unknown","","0","always_render","ALWAYS_RENDER unknown"};
         if(kind=="Time")return TimeValues;
         if(kind=="Bool")return Bools;
         if(kind=="Reference")return Refs;
         if(kind=="String")return Strings;
-        if(kind=="Enum")return new string[]{"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands","misc","unknown","","0","Camera Misc"};
+        if(kind=="Enum:HotKeySlotGroup")return new string[]{"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands","misc","unknown","","0","Camera Misc"};
         return Numbers;
     }
     static XmlDocument SetField(string[] f,string value){XmlDocument d=FieldDocument(f[0],f[1],f[2],"");XmlElement last=(XmlElement)d.SelectNodes("//*")[d.SelectNodes("//*").Count-1];last.SetAttribute(f[2],value);return d;}
@@ -164,6 +217,7 @@ class XmluisettingsOracle {
         const string color=" R='17' G='34' B='51'";
         const string font=" Name='Arial' Size='18' Bold='true'";
         switch(type) {
+        case "UICoopTinting":return "<TintColor"+color+"/>";
         case "UIMouseDragSelectionFeedback":return "<BoxColor"+color+" A='68'/><LassoColor"+color+" A='136'/>";
         case "UIFloatingTextDisplay":return "<Font"+font+"/>";
         case "UIMessageDisplay":return "<Color1"+color+"/><Color2"+color+"/><Font"+font+"/>";
@@ -215,7 +269,33 @@ class XmluisettingsOracle {
         Reject("unknown root",Root("Unknown","",""));Reject("foreign root","<MouseCursor xmlns='other'/>");
         bool caught=false;try{XmluisettingsCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){caught=true;}Check(caught,"null declaration");++rejections;
         Abi(p);
+        LodAbi(p);
     }
+    static void LodAbi(TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        AssetBuffer dynamic=Test("LOD/default dynamic",Root("DynamicGameLOD","",""),p);
+        uint[] dv={2,10,1,0,0x3f800000};for(int i=0;i<dv.Length;++i)ExpectWord(dynamic,4+4*i,dv[i],big,"dynamic defaults");
+        AssetBuffer unknown=Test("LOD/unknown",Root("DynamicGameLOD","Level='unknown' MinimumFPS='-2' ParticleSkipMask='0x12345678' DebrisSkipMask='-1' SlowDeathScale='2.5'",""),p);
+        uint[] uv={5,0xfffffffe,0x12345678,0xffffffff,0x40200000};for(int i=0;i<uv.Length;++i)ExpectWord(unknown,4+4*i,uv[i],big,"dynamic offsets");
+        AssetBuffer stat=Test("LOD/static defaults",Root("StaticGameLOD","",""),p);
+        uint[] sv={2,2,2,1500,2,1,1,100,25,30000,0,3,1,2,3,6,0};for(int i=0;i<sv.Length;++i)ExpectWord(stat,4+4*i,sv[i],big,"static defaults");
+        byte[] bools={1,0,0,1,1,0,0,0};for(int i=0;i<bools.Length;++i)Check(stat.InstanceData[72+i]==bools[i],"static packed booleans and padding");
+        stat=Test("LOD/static enums fallback",Root("StaticGameLOD","Level='unknown' ModelLOD='unknown' EffectsLOD='unknown' ShadowLOD='unknown' TerrainLOD='unknown' WaterLOD='unknown' AnimationLOD='unknown' ShaderLOD='unknown' DecalLOD='unknown' MinParticlePriority='unknown' MinParticleSkipPriority='unknown' UseShadowDecals='false' UseShadowMapping='true' UseTerrainNormalMap='true' ShowProps='false' EnableVSync='false'",""),p);
+        int[] offsets={4,8,12,20,24,28,48,52,56,60,64};uint[] fallback={5,2,3,3,2,2,3,2,2,6,6};for(int i=0;i<offsets.Length;++i)ExpectWord(stat,offsets[i],fallback[i],big,"static enum fallback");
+        byte[] setbools={0,1,1,0,0,0,0,0};for(int i=0;i<setbools.Length;++i)Check(stat.InstanceData[72+i]==setbools[i],"static alternate packed booleans");
+        foreach(int count in new int[]{0,1,2,3,4,15,16,27,28,29,64,257}) {
+            StringBuilder nodes=new StringBuilder();for(int i=0;i<count;++i)nodes.Append("<Processor Type='CORE_DUO' MinMHz='"+(i+100)+"'/>");
+            AssetBuffer preset=Test("LOD/processor-list/"+count,Root("GameLODPreset","",nodes.ToString()),p);
+            Check(preset.InstanceData.Length==28+8*count,"processor stride/count ABI");ExpectWord(preset,4,2,big,"preset level");ExpectWord(preset,8,500,big,"preset memory");ExpectWord(preset,12,1024,big,"preset Xres literal case");ExpectWord(preset,16,768,big,"preset YRes literal case");ExpectWord(preset,20,(uint)count,big,"processor count");ExpectWord(preset,24,count==0?0u:28u,big,"processor list pointer");
+            Check(preset.ImportsData.Length==0,"processors no imports");Check(preset.RelocationData.Length==(count==0?0:8),"processor sole relocation");if(count>0)Check(Word(preset.RelocationData,0,big)==24,"processor pointer relocation offset");
+            for(int i=0;i<count;++i){ExpectWord(preset,28+8*i,2,big,"processor enum stride");ExpectWord(preset,32+8*i,(uint)(100+i),big,"processor signed MHz stride");}
+        }
+        AssetBuffer empty=Test("LOD/empty processor",Root("GameLODPreset","","<Processor/>"),p);ExpectWord(empty,28,0,big,"absent processor enum remains zero");ExpectWord(empty,32,0,big,"absent processor MHz remains zero");
+        empty=Test("LOD/unknown processor",Root("GameLODPreset","","<Processor Type='unknown' MinMHz='-1'/>"),p);ExpectWord(empty,28,3,big,"processor enum fallback ATHLON");ExpectWord(empty,32,0xffffffff,big,"processor signed MHz");
+        Reject("wrong Xres case",Root("GameLODPreset","XRes='1'",""));Reject("wrong YRes case",Root("GameLODPreset","Yres='1'",""));Reject("processor content",Root("GameLODPreset","","<Processor>text</Processor>"));Reject("processor unknown",Root("GameLODPreset","","<Processor Unknown='1'/>"));Reject("processor nested",Root("GameLODPreset","","<Processor><Unknown/></Processor>"));
+        AssetBuffer coop=Test("Coop/default",Root("UICoopTinting","","<TintColor R='17' G='34' B='51'/>"),p);uint[] cv={3,3,10,0x3f800000,0x3f800000,0xff112233};for(int i=0;i<cv.Length;++i)ExpectWord(coop,4+4*i,cv[i],big,"coop defaults/offsets");
+    }
+
     static int Main(string[] args) {
         Dictionary<string,object> result=new Dictionary<string,object>();result["succeeded"]=false;
         try {

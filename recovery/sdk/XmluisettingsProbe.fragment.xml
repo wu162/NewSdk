@@ -18,3 +18,12 @@
 <UISubtitleDisplay id="RecoveryUiSubtitle" HoldTime="1250ms" LineCount="4"><Font Name="Arial" Size="18" Bold="true"/><PanelColor R="17" G="34" B="51" A="68"/><TextColor R="51" G="34" B="17"/></UISubtitleDisplay>
 <UITimerDisplay id="RecoveryUiTimerDefault"><Position x="0" y="0"/><FlashColor R="0" G="0" B="0"/><NormalFont Name="Arial" Size="12"/><NormalColor R="0" G="0" B="0"/><ReadyFont Name="Arial" Size="12"/><ReadyColor R="0" G="0" B="0"/></UITimerDisplay>
 <UITimerDisplay id="RecoveryUiTimer" Centered="true" FlashDuration="1250ms"><Position x="0.25" y="0.75"/><FlashColor R="17" G="34" B="51"/><NormalFont Name="Arial" Size="18"/><NormalColor R="51" G="34" B="17"/><ReadyFont Name="Courier New" Size="24" Bold="true"/><ReadyColor R="34" G="51" B="17"/></UITimerDisplay>
+
+<DynamicGameLOD id="RecoveryUiDynamicLodDefault"/>
+<DynamicGameLOD id="RecoveryUiDynamicLod" Level="HIGH" MinimumFPS="24" ParticleSkipMask="3" DebrisSkipMask="5" SlowDeathScale="0.75"/>
+<GameLODPreset id="RecoveryUiLodPresetDefault"><Processor Type="UNKNOWN" MinMHz="0"/></GameLODPreset>
+<GameLODPreset id="RecoveryUiLodPreset" Level="HIGH" SystemMemory="2048" Xres="1920" YRes="1080"><Processor Type="CORE_DUO" MinMHz="2000"/><Processor Type="ATHLON_64" MinMHz="2400"/><Processor Type="PENTIUM_4" MinMHz="3000"/></GameLODPreset>
+<StaticGameLOD id="RecoveryUiStaticLodDefault"/>
+<StaticGameLOD id="RecoveryUiStaticLod" Level="HIGH" ModelLOD="LOW" EffectsLOD="ULTRA_HIGH" MaxParticleCount="1234" UseShadowDecals="false" UseShadowMapping="true" ShadowLOD="HIGH" TerrainLOD="HIGH" UseTerrainNormalMap="true" WaterLOD="HIGH" MaxTankTrackEdges="80" MaxTankTrackOpaqueEdges="20" MaxTankTrackFadeDelay="2500" ShowProps="false" TextureReductionFactor="2" AnimationLOD="LOW" ShaderLOD="HIGH" DecalLOD="LOW" MinParticlePriority="HIGH_OR_ABOVE" MinParticleSkipPriority="VERY_LOW_OR_ABOVE" AntiAliasingQuality="2" EnableVSync="false"/>
+<UICoopTinting id="RecoveryUiCoopDefault"><TintColor R="0" G="0" B="0"/></UICoopTinting>
+<UICoopTinting id="RecoveryUiCoop" FadeInFrames="5" FadeOutFrames="7" SustainFrames="13" TintFrequency="2.25" TintAmplitude="0.75"><TintColor R="17" G="34" B="51"/></UICoopTinting>

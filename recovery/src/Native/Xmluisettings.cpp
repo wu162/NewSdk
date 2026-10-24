@@ -31,11 +31,104 @@ const std::map<std::string,Layout>& Layouts() {
     if(!InitOnceExecuteOnce(&UiSettingsRegistryOnce,InitializeUiSettingsRegistry,nullptr,nullptr))throw std::runtime_error("UiSettings layout initialization failed.");
     return *UiSettingsRegistry;
 }
-U32 Enum(const std::string&,const std::string& value) {
+U32 Enum(const std::string& type,const std::string& value) {
+    if(type=="AnimationLODType") {
+        if(value=="HIGH")return 3u;
+        if(value=="LOW")return 1u;
+        if(value=="MEDIUM")return 2u;
+        if(value=="ULTRA_HIGH")return 4u;
+        if(value=="VERY_LOW")return 0u;
+        return 3u;
+    }
+    if(type=="DecalLODType") {
+        if(value=="HIGH")return 2u;
+        if(value=="LOW")return 1u;
+        if(value=="OFF")return 0u;
+        return 2u;
+    }
+    if(type=="EffectsLODType") {
+        if(value=="HIGH")return 3u;
+        if(value=="LOW")return 1u;
+        if(value=="MEDIUM")return 2u;
+        if(value=="ULTRA_HIGH")return 4u;
+        if(value=="VERY_LOW")return 0u;
+        return 3u;
+    }
+    if(type=="GameLODType") {
+        if(value=="CUSTOM")return 5u;
+        if(value=="HIGH")return 3u;
+        if(value=="LOW")return 1u;
+        if(value=="MEDIUM")return 2u;
+        if(value=="ULTRA_HIGH")return 4u;
+        if(value=="UNKNOWN")return 4294967295u;
+        if(value=="VERY_LOW")return 0u;
+        return 5u;
+    }
+    if(type=="ModelLODType") {
+        if(value=="HIGH")return 2u;
+        if(value=="LOW")return 0u;
+        if(value=="MEDIUM")return 1u;
+        return 2u;
+    }
+    if(type=="ProcessorType") {
+        if(value=="ATHLON")return 3u;
+        if(value=="ATHLON_64")return 4u;
+        if(value=="CORE_DUO")return 2u;
+        if(value=="PENTIUM_4")return 1u;
+        if(value=="UNKNOWN")return 0u;
+        return 3u;
+    }
+    if(type=="ShaderLODType") {
+        if(value=="HIGH")return 2u;
+        if(value=="LOW")return 0u;
+        if(value=="MEDIUM")return 1u;
+        if(value=="ULTRA_HIGH")return 3u;
+        return 2u;
+    }
+    if(type=="ShadowLODType") {
+        if(value=="HIGH")return 3u;
+        if(value=="LOW")return 1u;
+        if(value=="MEDIUM")return 2u;
+        if(value=="OFF")return 0u;
+        if(value=="ULTRA_HIGH")return 4u;
+        return 3u;
+    }
+    if(type=="TerrainLODType") {
+        if(value=="HIGH")return 2u;
+        if(value=="LOW")return 0u;
+        if(value=="MEDIUM")return 1u;
+        if(value=="ULTRA_HIGH")return 3u;
+        return 2u;
+    }
+    if(type=="WaterLODType") {
+        if(value=="HIGH")return 2u;
+        if(value=="LOW")return 0u;
+        if(value=="MEDIUM")return 1u;
+        if(value=="ULTRA_HIGH")return 3u;
+        return 2u;
+    }
+    if(type=="FXParticleSystem_Priority") {
+        if(value=="ALWAYS_RENDER")return 6u;
+        if(value=="HIGH_OR_ABOVE")return 2u;
+        if(value=="HIGH_OR_BELOW")return 8u;
+        if(value=="INVALID_PRIORITY")return 0u;
+        if(value=="LOW_OR_ABOVE")return 4u;
+        if(value=="LOW_OR_BELOW")return 10u;
+        if(value=="MEDIUM_OR_ABOVE")return 3u;
+        if(value=="MEDIUM_OR_BELOW")return 9u;
+        if(value=="ULTRA_HIGH_ONLY")return 1u;
+        if(value=="ULTRA_HIGH_OR_BELOW")return 7u;
+        if(value=="VERY_LOW_ONLY")return 11u;
+        if(value=="VERY_LOW_OR_ABOVE")return 5u;
+        return 6u;
+    }
+    if(type=="HotKeySlotGroup") {
     const char* names[]={"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands"};
     const U32 numbers[]={3,0,7,5,6,4,1,2};
     for(unsigned i=0;i<8;++i)if(value==names[i])return numbers[i];
-    return 3; // Original HotKeySlotGroup unknown fallback (not Misc default).
+    return 3;
+    }
+    throw std::invalid_argument("Unknown UI settings enumeration.");
 }
 const Layout& Get(const std::string& name) {
     const auto& all=Layouts();auto it=all.find(name);
@@ -125,6 +218,10 @@ unsigned int XmluisettingsTypeId(const std::string& name) {
     if(name=="UIMilitaryCaptionDisplay")return 1043989897u;
     if(name=="UISubtitleDisplay")return 165611890u;
     if(name=="UITimerDisplay")return 951036436u;
+    if(name=="DynamicGameLOD")return 2901356964u;
+    if(name=="GameLODPreset")return 354222972u;
+    if(name=="StaticGameLOD")return 531798225u;
+    if(name=="UICoopTinting")return 4243804314u;
     return 0;
 }
 Relo::Chunk CompileXmluisettings(const XmluisettingsNode& node,bool bigEndian) {

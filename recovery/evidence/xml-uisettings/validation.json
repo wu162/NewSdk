@@ -10,6 +10,10 @@
     "UIMessageDisplay",
     "UIMilitaryCaptionDisplay",
     "UISubtitleDisplay",
-    "UITimerDisplay"
+    "UITimerDisplay",
+    "DynamicGameLOD",
+    "GameLODPreset",
+    "StaticGameLOD",
+    "UICoopTinting"
   ]
 }

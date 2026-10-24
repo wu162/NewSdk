@@ -166,4 +166,56 @@ public:
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
     }
 };
+public ref class DynamicGameLODCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="DynamicGameLOD")throw gcnew NotSupportedException("Expected DynamicGameLOD root.");
+        return XmluisettingsCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=2901356964u)throw gcnew NotSupportedException("Expected DynamicGameLOD TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class GameLODPresetCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="GameLODPreset")throw gcnew NotSupportedException("Expected GameLODPreset root.");
+        return XmluisettingsCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=354222972u)throw gcnew NotSupportedException("Expected GameLODPreset TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class StaticGameLODCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="StaticGameLOD")throw gcnew NotSupportedException("Expected StaticGameLOD root.");
+        return XmluisettingsCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=531798225u)throw gcnew NotSupportedException("Expected StaticGameLOD TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class UICoopTintingCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UICoopTinting")throw gcnew NotSupportedException("Expected UICoopTinting root.");
+        return XmluisettingsCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=4243804314u)throw gcnew NotSupportedException("Expected UICoopTinting TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
 }
