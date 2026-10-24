@@ -488,7 +488,7 @@ class XmlPriorityLinkOracle
         Test(original, Array.Find(Roots, r => r.Name == "UnitAbilityButtonTemplate"), platform, "<Data><Anything TypeId='988387268'/></Data>", "LogicCommand='L\\2'");
         Test(original, Array.Find(Roots, r => r.Name == "TestTextureCollection"), platform, "<Texture>T\\9</Texture><Texture>T\\1</Texture>", "");
         Test(original, Array.Find(Roots, r => r.Name == "TerrainTextureAtlasRuntime"), platform, "<Tile/> ");
-        Test(original, Array.Find(Roots, r => r.Name == "W3DHierarchy"), platform, "<Pivot Name='Bone' Parent='-1'><Translation x='1' y='2' z='3'/></Pivot>");
+        Test(original, Array.Find(Roots, r => r.Name == "W3DHierarchy"), platform, "<Pivot Name='Bone' Parent='-1'><Translation X='1' Y='2' Z='3'/></Pivot>");
         Test(original, Array.Find(Roots, r => r.Name == "MapMetaData"), platform, "<MapMetaData/>");
         Test(original, Array.Find(Roots, r => r.Name == "GameScriptList"), platform, "<ScriptSet/>");
     }
