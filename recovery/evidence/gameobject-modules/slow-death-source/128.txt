@@ -1,0 +1,28 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 350a29022d7ee5715fdbe62d6ad386b85b46351086b3a4d2b2874655c21ec22a
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASlowDeathSoundType_003E(void** table, List_003CSageBinaryData_003A_003ASlowDeathSoundType_003E* list, Tracker* tracker)
+	{
+		uint objectCount = (uint)(*(int*)list + 1);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
+		((int*)ptr)[1] = 1564774360;
+		*(int*)ptr = 1820487795;
+		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		uint num = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			List_003CSageBinaryData_003A_003ASlowDeathSoundType_003E* ptr2 = (List_003CSageBinaryData_003A_003ASlowDeathSoundType_003E*)((byte*)list + 4);
+			int num2 = 0;
+			do
+			{
+				((int*)ptr)[1] = 0;
+				*(int*)ptr = -1320050453;
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SlowDeathSoundType*)(num2 + *(int*)ptr2), tracker);
+				num++;
+				num2 += 12;
+				ptr = (ProcTableElement*)((byte*)ptr + 12);
+			}
+			while (num < (uint)(*(int*)list));
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}

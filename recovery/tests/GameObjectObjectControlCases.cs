@@ -10,7 +10,7 @@ partial class GameObjectOracle {
     }
     static uint ControlFloat(float f) {return BitConverter.ToUInt32(BitConverter.GetBytes(f),0);}
     static uint ControlDefault(int g,int pos) {
-        if(g==0)return pos==20 || pos==28?ControlFloat(.2f):pos==24?ControlFloat(.01f):pos==32?ControlFloat(.5f):0u;
+        if(g==0)return pos==20 || pos==28?0x3e4cccccu:pos==24?ControlFloat(.01f):pos==32?ControlFloat(.5f):0u;
         if(g==1)return pos==8?ControlFloat(.5f):pos==12?ControlFloat(1f):pos==16?ControlFloat(420f):pos==20 || pos==24?ControlFloat(10f):0u;
         if(g==2)return pos==44?8u:0u;
         if(g==5)return pos==12?ControlFloat(1f):0u;

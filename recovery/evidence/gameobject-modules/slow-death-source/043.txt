@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 405acf6c2060db791f72d073d07a3fc94f541090db506caba92af4347ae037a2
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal(INode* node, UpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}

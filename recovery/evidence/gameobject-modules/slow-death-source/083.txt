@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 f2f22445c52657ac2454e448eabf5c5bbdc003a2eccc6dac6ea342f6e134d6f4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASlowDeathOCLType_002C4_003E(IList* list, SizedList_003CSageBinaryData_003A_003ASlowDeathOCLType_002C4_003E* target, Tracker* tracker)
+	{
+		Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASlowDeathOCLType_003E(list, (List_003CSageBinaryData_003A_003ASlowDeathOCLType_003E*)target, tracker);
+	}

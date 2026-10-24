@@ -4,6 +4,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=265 && choice->kind<=269) {
+        if(choice->kind<269) for(const auto& f:slowSlowDeathBehaviorModuleDataFields) if(attribute==f.name) return true;
+        if(choice->kind==266 || choice->kind==267 || choice->kind==269) {const auto& set=slowFieldSets[choice->kind-265];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;}
+        return false;
+    }
     if(choice->kind>=252 && choice->kind<=264) {
         const auto& set=controlFieldSets[choice->kind-252];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
         if(choice->kind==255) for(unsigned i=0;i<visionFieldSets[0].count;++i) if(attribute==visionFieldSets[0].fields[i].name) return true;
@@ -152,6 +157,18 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=265 && kind<=269) {
+        if(kind==269) {if(path=="Item") return 2;if(path=="DieMuxData") return 1;return 0;}
+        if(path=="DieMuxData") return 1;
+        for(const char* n:{"FX","OCL","Weapon","Sound"}) {if(path==n) return 2;if(std::string(n)!="Sound" && path==std::string(n)+"/"+n) return 3;}
+        if(kind==266) {
+            if(path=="ClearanceGeometry" || path=="ClearanceGeometryOffset") return 1;
+            if(path=="ClearanceGeometry/Shapes") return 2;
+            for(const char* n:{"RotationAnchorOffset","Center","HighestContactPoint","InnermostContactPoint","ContactPoints"}) if(path==std::string("ClearanceGeometry/")+n) return 1;
+            if(path=="ClearanceGeometry/Shapes/Offset" || path=="ClearanceGeometry/ContactPoints/Pos") return 1;
+        }
+        return 0;
+    }
     if(kind>=252 && kind<=264) {
         if(kind==255 && path=="UpgradeMap") return 2;
         if(kind==256 && path=="ScatterSettings") return 1;
@@ -364,6 +381,22 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=265 && kind<=269) {
+        if(path=="DieMuxData") {for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;return false;}
+        if(kind==269 && path=="Item") {for(const auto& f:slowBuildingDestructionItemFields) if(attribute==f.name) return true;return false;}
+        if(kind!=269) {
+            if(path=="FX" || path=="OCL" || path=="Weapon") return attribute=="Type";
+            if(path=="Sound") return attribute=="Type" || attribute=="List";
+            if(kind==266) {
+                if(path=="ClearanceGeometry") {for(const auto& f:slowGeometryInfoFields) if(attribute==f.name) return true;return false;}
+                if(path=="ClearanceGeometry/Shapes") {for(const auto& f:slowGeometryShapeFields) if(attribute==f.name) return true;return false;}
+                if(path=="ClearanceGeometry/ContactPoints") return attribute=="Label";
+                if(path=="ClearanceGeometry/RotationAnchorOffset") return attribute=="x" || attribute=="y";
+                if(path=="ClearanceGeometryOffset" || path=="ClearanceGeometry/Center" || path=="ClearanceGeometry/HighestContactPoint" || path=="ClearanceGeometry/InnermostContactPoint" || path=="ClearanceGeometry/Shapes/Offset" || path=="ClearanceGeometry/ContactPoints/Pos") return attribute=="x" || attribute=="y" || attribute=="z";
+            }
+        }
+        return false;
+    }
     if(kind>=252 && kind<=264) {
         if(kind==255 && path=="UpgradeMap") {for(const auto& f:controlUpgradeMapFields) if(attribute==f.name) return true;}
         if(kind==256 && path=="ScatterSettings") {for(const auto& f:controlScatterDamageFields) if(attribute==f.name) return true;}

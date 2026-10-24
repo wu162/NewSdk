@@ -559,3 +559,5 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectSupportRuntime.h"
 
 #include "GameObjectObjectControlRuntime.h"
+
+#include "GameObjectSlowDeathRuntime.h"
