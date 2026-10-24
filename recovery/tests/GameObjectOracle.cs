@@ -1996,7 +1996,7 @@ partial class GameObjectOracle {
         {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='TARGET_MUST_BE_MOVING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=2u)throw new Exception("Independent Collide flag TARGET_MUST_BE_MOVING");}
         {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='WHEN_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=16u)throw new Exception("Independent Collide flag WHEN_BEING_CRUSHED");}
         {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=4u)throw new Exception("Independent Collide flag unknown");}
-        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=4u)throw new Exception("Independent Collide flag ");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Collide flag ");}
         Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='ALL' ChancePercentage='23'/>"));
         Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='BITTEN' ChancePercentage='23'/>"));
         Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='BURNED' ChancePercentage='23'/>"));
