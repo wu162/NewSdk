@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
-  "runId": "40098375480",
+  "sourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+  "runId": "40098695441",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -284,7 +284,7 @@
         "LargeGroupAudioMap": "Recovered.LargeGroupAudioMapCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "502fa9bff282382745a2cba23cf01af6979d240a6524a41beb2cd33150ff02aa",
+      "linkedAssemblySha256": "bdda66b40d3131fe11e4c1fadf77fd40276703f8c43cb7b60442ab96e6cd7075",
       "log": "Od-oracle.txt"
     },
     {
@@ -472,7 +472,7 @@
         "LargeGroupAudioMap": "Recovered.LargeGroupAudioMapCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "44a18962a85d6d56bb4334c9832f640e4727f0e24ba7c5b0744624955f5b2376",
+      "linkedAssemblySha256": "efd206abf366128a31216f1e4373ab057517c506298faca7732b222aee993204",
       "log": "O2-oracle.txt"
     }
   ],
@@ -481,16 +481,16 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
-      "runId": "40098375480",
+      "sourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+      "runId": "40098695441",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
-      "runId": "40098375480",
+      "sourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+      "runId": "40098695441",
       "processSucceeded": true
     }
   ],
