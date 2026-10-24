@@ -23,6 +23,7 @@ on:
       - 'recovery/scripts/GenerateVisionFields.py'
       - 'recovery/scripts/GenerateWeaponBehaviorFields.py'
       - 'recovery/scripts/GenerateBeamStateFields.py'
+      - 'recovery/scripts/GenerateMotionFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'

@@ -178,8 +178,30 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadMotionMovement(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name="Movement";
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {if(a->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement attribute.");}while(a->MoveToNextAttribute());
+        auto nodes=node->SelectChildren(XPathNodeType::Element);
+        while(nodes->MoveNext()) {
+            auto child=nodes->Current;if(child->NamespaceURI!=node->NamespaceURI) throw gcnew NotSupportedException("Unsupported Movement namespace.");
+            Native::GameObjectChild move;move.name=marshal_as<std::string>(child->LocalName);std::string typeId=marshal_as<std::string>(child->GetAttribute("TypeId",""));move.attributes["TypeId"]=typeId;
+            auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
+                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectMotionMoveAttribute(typeId,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported typed Movement attribute.");
+                move.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
+            }while(attrs->MoveToNextAttribute());
+            auto paths=child->SelectChildren(XPathNodeType::Element);while(paths->MoveNext()) {
+                auto path=paths->Current;if(!Native::GameObjectMotionMovePaths(typeId) || path->LocalName!="Path" || path->NamespaceURI!=node->NamespaceURI || path->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported typed Movement child.");
+                auto pa=path->Clone();if(pa->MoveToFirstAttribute()) do {if(pa->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(pa->NamespaceURI->Length==0 && pa->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement Path attribute.");}while(pa->MoveToNextAttribute());
+                Native::GameObjectChild item;item.name="Path";item.text=marshal_as<std::string>(path->Value);move.children.push_back(item);
+            }
+            NoStructuredText(child);result.children.push_back(move);
+        }
+        NoStructuredText(node);return result;
+    }
     static Native::GameObjectChild ReadModuleNode(XPathNavigator^ node,unsigned kind,std::string path) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
+        if(kind==80 && path=="Movement") return ReadMotionMovement(node);
         unsigned shape=Native::GameObjectModuleNodeKind(kind,path);
         if(!shape) throw gcnew NotSupportedException("Unsupported Upgrade nested node.");
         if(path=="ObjectFilter" || path=="BroadcastObjectFilter" || path=="ProductionModifier/ModifierFilter") {auto filter=ReadDependencyFilter(node);filter.name=marshal_as<std::string>(node->LocalName);return filter;}

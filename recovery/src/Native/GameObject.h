@@ -22,6 +22,8 @@ bool GameObjectModuleChildSupported(const std::string& parent, const std::string
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId);
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path);
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute);
+bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& attribute);
+bool GameObjectMotionMovePaths(const std::string& typeId);
 struct GameObjectChild {
     std::string name, text;
     std::map<std::string,std::string> attributes;

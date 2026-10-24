@@ -1508,11 +1508,177 @@ partial class GameObjectOracle {
         }
     }
 
+
+    static readonly string[] MotionTypes={"290244143","358254523","4230098692","4235893941"};
+    static readonly string[] MoveTypes={"2240593884","2272689654","3012512132","442194537","4294967295"};
+    static string MotionXML(int group,string attrs="",string children="") {return "<Behaviors><ObjectSMCHelper TypeId='"+MotionTypes[group]+"' id='MotionTest' "+attrs+">"+children+"</ObjectSMCHelper></Behaviors>";}
+    static string MoveXML(int group,string attrs="",string children="") {return "<Movement><Move TypeId='"+MoveTypes[group]+"' "+attrs+">"+children+"</Move></Movement>";}
+    static int MotionTable(byte[] bytes,bool big) {int list=(int)Word(bytes,Token(bytes,0,3015298429u,big)+8,big),wrapper=(int)Word(bytes,list+20,big);return (int)Word(bytes,wrapper+8,big);}
+    static void MotionFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] numbers={"","0","-0","1","-1","23","0x10","010","1.25"," 23tail","2147483647","2147483648","-2147483648","-2147483649","4294967295","4294967296","nan","inf","-inf","1e39","-1e39","1e-50","text","25%"};
+        string[] refs={"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23tail","K\\0x10","L\\ 23","M\\text"};
+        int[] sizes={28,32,80,12},counts={6,7,5,2};
+        for(int group=0;group<4;++group) {
+            byte[] bytes=Check(original,p,"",MotionXML(group)).InstanceData;int at=LifecycleAt(bytes,big),table=MotionTable(bytes,big);
+            if(bytes.Length!=at+sizes[group] || Word(bytes,at,big)!=uint.Parse(MotionTypes[group]) || Word(bytes,table,big)!=1 || Word(bytes,table+4,big)!=(group==3?1894105347u:4043318533u))throw new Exception("Independent Motion native size/type/parent "+group);
+            for(int i=0;i<12;++i)if(bytes[table+12*counts[group]+i]!=0)throw new Exception("Independent Motion sentinel "+group);
+            if(group==0 && (Word(bytes,at+8,big)!=0 || Word(bytes,at+20,big)!=0 || Word(bytes,at+24,big)!=0))throw new Exception("Independent Projectile missing values");
+            if(group==1)for(int i=8;i<32;i+=4)if(Word(bytes,at+i,big)!=0)throw new Exception("Independent Dynamics defaults");
+            if(group==2 && (Word(bytes,at+68,big)!=0 || Word(bytes,at+72,big)!=0x3f800000u || Word(bytes,at+76,big)!=0x41700000u))throw new Exception("Independent Freefall defaults");
+            if(group==3 && Word(bytes,at+8,big)!=0x3dcccccdu)throw new Exception("Independent Weight default");
+            string payload=group==0?MoveXML(2,"Velocity='23' Range='17'","<Path>A\\23</Path><Path>B\\1</Path>"):group==1?"<Volume><Sphere Radius='23'><Translation x='1'/><Rotation w='1'/></Sphere><Box HalfSizeX='2'/><Triangle X1='3'/></Volume>":"";
+            foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+MotionTypes[group]+"'>"+payload+"</"+container[1]+"></"+container[0]+">");
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {string modules="";for(int i=0;i<count;++i)modules+="<ObjectSMCHelper TypeId='"+MotionTypes[group]+"' id='M"+i+"'>"+payload+"</ObjectSMCHelper>";Check(original,p,"Browser='a bb'","<Behaviors>"+modules+"<FireWeaponUpdate TypeId='2995535186'><FireWeaponNugget WeaponName='W\\23'><Offset/></FireWeaponNugget></FireWeaponUpdate></Behaviors>");}
+            foreach(string bad in new[]{"<Unknown/>","<ObjectFilter/>","<Offset/>","<Color/>"})Reject(p,"",MotionXML(group,"",bad));Reject(p,"",MotionXML(group,"Unknown='1'"));Reject(p,"",MotionXML(group,"MaxHealth='23'"));
+            if(group!=0)Reject(p,"",MotionXML(group,"","<Movement/>"));if(group!=1)Reject(p,"",MotionXML(group,"","<Volume/>"));
+        }
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"MinDetonationHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"MinTargetDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(2,"InitialVelocity='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(2,"Acceleration='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(2,"TerminalVelocity='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(3,"Weight='"+Escape(value)+"'"));
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='BalloonProjectile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent StateMachine enum BalloonProjectile");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='BezierSplineProjectile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=3u)throw new Exception("Independent StateMachine enum BezierSplineProjectile");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='BombProjectile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=0u)throw new Exception("Independent StateMachine enum BombProjectile");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='StraightLineProjectile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent StateMachine enum StraightLineProjectile");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent StateMachine enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent StateMachine enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent StateMachine enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"StateMachine='balloonprojectile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent StateMachine enum balloonprojectile");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='SIMULATED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Motion enum SIMULATED");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='STATIC'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent Motion enum STATIC");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='TRACKED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=0u)throw new Exception("Independent Motion enum TRACKED");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Motion enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Motion enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Motion enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Motion='simulated'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Motion enum simulated");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='INTERCOLLIDING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collision enum INTERCOLLIDING");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='NONCOLLIDING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=3u)throw new Exception("Independent Collision enum NONCOLLIDING");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='NONINTERCOLLIDING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Collision enum NONINTERCOLLIDING");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='OMNICOLLIDING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=2u)throw new Exception("Independent Collision enum OMNICOLLIDING");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collision enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collision enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collision enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"Collision='intercolliding'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collision enum intercolliding");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='COLLIDES_WITH_EVERYTHING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=2u)throw new Exception("Independent IntuitiveCollision enum COLLIDES_WITH_EVERYTHING");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='COLLIDES_WITH_GROUND_AND_VEHICLES'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=1u)throw new Exception("Independent IntuitiveCollision enum COLLIDES_WITH_GROUND_AND_VEHICLES");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='COLLIDES_WITH_GROUND_ONLY'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=0u)throw new Exception("Independent IntuitiveCollision enum COLLIDES_WITH_GROUND_ONLY");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=2u)throw new Exception("Independent IntuitiveCollision enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=2u)throw new Exception("Independent IntuitiveCollision enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=2u)throw new Exception("Independent IntuitiveCollision enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"IntuitiveCollision='collides_with_everything'")).InstanceData;if(Word(b,LifecycleAt(b,big)+16,big)!=2u)throw new Exception("Independent IntuitiveCollision enum collides_with_everything");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='DEBRIS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=7u)throw new Exception("Independent ContactTag enum DEBRIS");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='GROUND'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=1u)throw new Exception("Independent ContactTag enum GROUND");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='NONE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=0u)throw new Exception("Independent ContactTag enum NONE");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='PROP'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=4u)throw new Exception("Independent ContactTag enum PROP");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='TREE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=6u)throw new Exception("Independent ContactTag enum TREE");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='VEHICLE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=3u)throw new Exception("Independent ContactTag enum VEHICLE");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='WALL'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=5u)throw new Exception("Independent ContactTag enum WALL");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='WATER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=2u)throw new Exception("Independent ContactTag enum WATER");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=7u)throw new Exception("Independent ContactTag enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=7u)throw new Exception("Independent ContactTag enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=7u)throw new Exception("Independent ContactTag enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"ContactTag='debris'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=7u)throw new Exception("Independent ContactTag enum debris");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='MUST_BE_DRAWN'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=2u)throw new Exception("Independent DrawPriority enum MUST_BE_DRAWN");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='REMOVABLE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=0u)throw new Exception("Independent DrawPriority enum REMOVABLE");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='REMOVE_ONLY_IF_NEEDED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=1u)throw new Exception("Independent DrawPriority enum REMOVE_ONLY_IF_NEEDED");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=2u)throw new Exception("Independent DrawPriority enum ");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=2u)throw new Exception("Independent DrawPriority enum unknown");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=2u)throw new Exception("Independent DrawPriority enum 0");}
+        {byte[] b=Check(original,p,"",MotionXML(1,"DrawPriority='must_be_drawn'")).InstanceData;if(Word(b,LifecycleAt(b,big)+24,big)!=2u)throw new Exception("Independent DrawPriority enum must_be_drawn");}
+
+        foreach(string value in new[]{"","ALL","all","UNKNOWN","LAUNCH_AT_TARGET_POS","-LAUNCH_AT_TARGET_POS","ALL -LAUNCH_AT_TARGET_POS","-LAUNCH_AT_TARGET_POS -LAUNCH_AT_TARGET_POS","+","-"})Check(original,p,"",MotionXML(0,"Flags='"+value+"'"));
+        foreach(string value in new[]{"","ALL","all","UNKNOWN","DAMAGED","EMOTION_CELEBRATING","ALL -DAMAGED","-DAMAGED -DAMAGED","+","-","NONE","MOUNTED"})Check(original,p,"",MotionXML(2,"ModelConditionsToSet='"+value+"'"));
+        {byte[] b=Check(original,p,"",MotionXML(0,"Flags='ALL -LAUNCH_AT_TARGET_POS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=0xfffffffeu)throw new Exception("Independent Projectile full storage ALL and XOR");}
+        {byte[] b=Check(original,p,"",MotionXML(2,"ModelConditionsToSet='ALL'")).InstanceData;int at=LifecycleAt(b,big);for(int i=0;i<15;++i)if(Word(b,at+8+4*i,big)!=0xffffffffu)throw new Exception("Independent Freefall full 60-byte mask");}
+        int[] moveSizes={16,28,24,4,4},moveCounts={4,7,5,1,0};
+        for(int group=0;group<5;++group) {
+            byte[] bytes=Check(original,p,"",MotionXML(0,"",MoveXML(group))).InstanceData;int at=LifecycleAt(bytes,big),move=(int)Word(bytes,at+24,big),table=MotionTable(bytes,big),wrapper=(int)Word(bytes,Token(bytes,table,2697616422u,big)+8,big);
+            if(move!=at+28 || bytes.Length!=move+moveSizes[group] || Word(bytes,move,big)!=(group==4?0u:uint.Parse(MoveTypes[group])) || Word(bytes,wrapper,big)!=2 || Word(bytes,wrapper+4,big)!=(group==4?0u:uint.Parse(MoveTypes[group])))throw new Exception("Independent Movement allocation and typed wrapper "+group);
+            int mt=(int)Word(bytes,wrapper+8,big);if(group==4) {if(mt!=0)throw new Exception("Independent unknown Movement Token fallback");continue;}
+            if(Word(bytes,mt,big)!=1 || Word(bytes,mt+4,big)!=2882646154u)throw new Exception("Independent Movement base Token "+group);for(int i=0;i<12;++i)if(bytes[mt+12*moveCounts[group]+i]!=0)throw new Exception("Independent Movement sentinel "+group);
+            int parent=(int)Word(bytes,mt+8,big);if(Word(bytes,parent,big)!=430981792u || Word(bytes,parent+8,big)!=move)throw new Exception("Independent Movement TypeId bookmark "+group);
+            if(group==1 && (Word(bytes,move+20,big)!=0x3fc90fdbu || Word(bytes,move+24,big)!=0x3f800000u))throw new Exception("Independent ground movement angle/percent defaults");
+            if(group==2 && Word(bytes,move+12,big)!=0x3f800000u)throw new Exception("Independent Bezier gravity default");
+            foreach(string bad in new[]{"<Unknown/>","<Translation/>","<Path id='bad'/>","<Path xmlns='foreign'/>","<Path><Unknown/></Path>"})Reject(p,"",MotionXML(0,"",MoveXML(group,"",bad)));Reject(p,"",MotionXML(0,"",MoveXML(group,"Unknown='1'")));
+            if(group!=2)Reject(p,"",MotionXML(0,"",MoveXML(group,"","<Path/>")));
+        }
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(0,"MuzzleVelocity='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(0,"Acceleration='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(0,"TerminalVelocity='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"InitialSpeed='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"Acceleration='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"TerminalVelocity='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"RotationSpeedPerSecond='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"TerminalRotation='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(1,"ForwardVelocityDamping='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(2,"Velocity='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(2,"Range='"+Escape(value)+"'")));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(0,"",MoveXML(2,"Gravity='"+Escape(value)+"'")));
+
+        foreach(string field in new[]{"RotationSpeedPerSecond","TerminalRotation"})foreach(string value in new[]{"90d","180d","3.14r","1r","23","","-17d","23ms","nan","inf","text"})Check(original,p,"",MotionXML(0,"",MoveXML(1,field+"='"+value+"'")));
+        foreach(string value in refs)Check(original,p,"",MotionXML(0,"",MoveXML(2,"","<Path>"+Escape(value)+"</Path>")));
+        foreach(int count in new[]{0,1,2,27,28,29,65}) {string paths="";for(int i=0;i<count;++i)paths+="<Path>P\\23</Path>";Check(original,p,"Browser='a bb'",MotionXML(0,"",MoveXML(2,"",paths)));}
+        foreach(string children in new[]{"<Movement/>","<Movement><Move/></Movement>","<Movement><Move TypeId='0'/></Movement>","<Movement><Move TypeId='0x859afddc'/></Movement>","<Movement><Move TypeId='2240593884'/><Move TypeId='2272689654'/></Movement>"})Check(original,p,"",MotionXML(0,"",children));
+        {byte[] b=Check(original,p,"",MotionXML(0,"","<Movement><Move TypeId='2240593884'/><Move TypeId='2272689654'/></Movement>")).InstanceData;int at=LifecycleAt(b,big);if(b.Length!=at+28 || Word(b,at+24,big)!=0)throw new Exception("Independent Movement cardinality");}
+        foreach(string bad in new[]{"<Movement/><Movement/>","<Movement Unknown='1'/>","<Movement>text</Movement>","<Movement xmlns='foreign'/>","<Movement><Move xmlns='foreign'/></Movement>","<Movement><Move xmlns:f='foreign' f:TypeId='1'/></Movement>","<Movement><Move TypeId='2240593884' InitialSpeed='1'/></Movement>","<Movement><Move TypeId='442194537' Velocity='1'/></Movement>","<Movement><Move TypeId='0' Velocity='1'/></Movement>"})Reject(p,"",MotionXML(0,"",bad));
+        {byte[] b=Check(original,p,"",MotionXML(1,"","<Volume/>")).InstanceData;int at=LifecycleAt(b,big),v=(int)Word(b,at+28,big);if(v!=at+32 || b.Length!=v+76 || Word(b,v,big)!=0 || Word(b,v+4,big)!=0x3e999999u || Word(b,v+8,big)!=0x40000000u || Word(b,v+12,big)!=0x3f19999au || Word(b,v+16,big)!=0x3f000000u || Word(b,v+20,big)!=0x3dcccccdu || Word(b,v+24,big)!=0x3dcccccdu || Word(b,v+28,big)!=0 || Word(b,v+72,big)!=0)throw new Exception("Independent complete Volume defaults/padding");}
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume Mass='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume Bounciness='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume Spinniness='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume StaticFriction='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume KineticFriction='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume AngularDrag='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume LinearDrag='"+Escape(value)+"'/>"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"})Check(original,p,"",MotionXML(1,"","<Volume ReportContacts='"+Escape(value)+"'/>"));
+        foreach(string value in new[]{"DEBRIS","GROUND","NONE","PROP","TREE","VEHICLE","WALL","WATER","","none","UNKNOWN"})Check(original,p,"",MotionXML(1,"","<Volume ContactTag='"+Escape(value)+"'/>"));
+
+        string[] shapeNames={"Sphere","Capsule","Box","Cylinder","Triangle"};int[] shapeSizes={12,16,24,20,48};
+        string transforms="<Translation x='1' y='2' z='3'/><Rotation x='4' y='5' z='6' w='7'/>";
+        for(int group=0;group<5;++group) {
+            string name=shapeNames[group];byte[] bytes=Check(original,p,"",MotionXML(1,"","<Volume><"+name+">"+transforms+"</"+name+"></Volume>")).InstanceData;int at=LifecycleAt(bytes,big),v=(int)Word(bytes,at+28,big),shape=(int)Word(bytes,v+36+8*group,big),tr=(int)Word(bytes,shape,big),rot=(int)Word(bytes,shape+4,big);
+            if(Word(bytes,v+32+8*group,big)!=1 || shape!=v+76 || tr!=shape+shapeSizes[group] || rot!=tr+12 || bytes.Length!=rot+16 || Word(bytes,tr,big)!=0x3f800000u || Word(bytes,tr+8,big)!=0x40400000u || Word(bytes,rot,big)!=0x40800000u || Word(bytes,rot+12,big)!=0x40e00000u)throw new Exception("Independent shape stride/Translation/Quaternion allocation "+group);
+            int table=MotionTable(bytes,big),vt=(int)Word(bytes,Token(bytes,table,3707251233u,big)+8,big);uint[] keys={3222474882u,2241289593u,1212192353u,3480105696u,1533886466u};int list=(int)Word(bytes,Token(bytes,vt,keys[group],big)+8,big),st=(int)Word(bytes,list+20,big),bt=(int)Word(bytes,st+8,big);
+            if(Word(bytes,list,big)!=1820487795u || Word(bytes,list+8,big)!=v+32+8*group || Word(bytes,st,big)!=1 || Word(bytes,st+4,big)!=977547402u || Word(bytes,Token(bytes,bt,2267787263u,big)+8,big)!=tr || Word(bytes,Token(bytes,bt,3046282137u,big)+8,big)!=rot)throw new Exception("Independent Dynamics list/base/pointee Tokens "+group);
+            foreach(string empty in new[]{"","<Translation/>","<Rotation/>","<Translation/><Rotation/>"})Check(original,p,"",MotionXML(1,"","<Volume><"+name+">"+empty+"</"+name+"></Volume>"));
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {string shapes="";for(int i=0;i<count;++i)shapes+="<"+name+">"+transforms+"</"+name+">";Check(original,p,"Browser='a bb'",MotionXML(1,"","<Volume>"+shapes+"</Volume>"));}
+            foreach(string child in new[]{"Translation","Rotation"})foreach(string field in child=="Translation"?new[]{"x","y","z"}:new[]{"x","y","z","w"})foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><"+name+"><"+child+" "+field+"='"+Escape(value)+"'/></"+name+"></Volume>"));
+            foreach(string bad in new[]{"<Unknown/>","<Translation/><Translation/>","<Rotation/><Rotation/>","<Translation w='1'/>","<Rotation Unknown='1'/>","<Translation xmlns='foreign'/>","<Rotation xmlns:f='foreign' f:x='1'/>","<Translation><Unknown/></Translation>","<Rotation>text</Rotation>"})Reject(p,"",MotionXML(1,"","<Volume><"+name+">"+bad+"</"+name+"></Volume>"));Reject(p,"",MotionXML(1,"","<Volume><"+name+" Unknown='1'/></Volume>"));
+        }
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Sphere Radius='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Capsule Radius='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Capsule HalfLength='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Box HalfSizeX='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Box HalfSizeY='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Box HalfSizeZ='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Box EdgeRadius='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Cylinder Radius='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Cylinder HalfLength='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Cylinder EdgeRadius='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle X1='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Y1='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Z1='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle X2='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Y2='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Z2='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle X3='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Y3='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle Z3='"+Escape(value)+"'/></Volume>"));
+        foreach(string value in numbers)Check(original,p,"",MotionXML(1,"","<Volume><Triangle EdgeRadius='"+Escape(value)+"'/></Volume>"));
+
+        foreach(string bad in new[]{"<Volume/><Volume/>","<Volume Unknown='1'/>","<Volume>text</Volume>","<Volume xmlns='foreign'/>","<Volume><Unknown/></Volume>","<Volume><Sphere xmlns='foreign'/></Volume>","<Volume><Sphere HalfLength='1'/></Volume>","<Volume><Capsule HalfSizeX='1'/></Volume>"})Reject(p,"",MotionXML(1,"",bad));
+        string forward="<Volume Mass='23' ReportContacts='true'><Sphere Radius='1'>"+transforms+"</Sphere><Capsule Radius='2'/><Box HalfSizeX='3'/><Cylinder HalfLength='4'/><Triangle X1='5'/></Volume>";
+        string reverse="<Volume ReportContacts='true' Mass='23'><Triangle X1='5'/><Cylinder HalfLength='4'/><Box HalfSizeX='3'/><Capsule Radius='2'/><Sphere Radius='1'><Rotation w='7' z='6' y='5' x='4'/><Translation z='3' y='2' x='1'/></Sphere></Volume>";
+        var ordered=Check(original,p,"",MotionXML(1,"",forward));var reordered=Check(original,p,"",MotionXML(1,"",reverse));Equal(ordered.InstanceData,reordered.InstanceData,"Motion schema allocation order",false);Equal(ordered.RelocationData,reordered.RelocationData,"Motion schema relocation order",false);
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
