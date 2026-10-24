@@ -1,0 +1,56 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 d671497ebe77a8fde961f504b7ad4ef712762b1f34c765b863099a7103b65c9c
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AOCLUpgradePair_003E(void** table, List_003CSageBinaryData_003A_003AOCLUpgradePair_003E* list, Tracker* tracker)
+	{
+		uint objectCount = (uint)(*(int*)list + 1);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
+		((int*)ptr)[1] = 1564774360;
+		*(int*)ptr = 1820487795;
+		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		uint num = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			List_003CSageBinaryData_003A_003AOCLUpgradePair_003E* ptr2 = (List_003CSageBinaryData_003A_003AOCLUpgradePair_003E*)((byte*)list + 4);
+			Tracker* ptr3 = (Tracker*)((byte*)tracker + 8);
+			Tracker* ptr4 = (Tracker*)((byte*)tracker + 20);
+			vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr5 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)tracker + 68);
+			vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr6 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)ptr5 + 8);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cvoid_0020_002A_003E obj);
+			do
+			{
+				((int*)ptr)[1] = 0;
+				*(int*)ptr = -1320050453;
+				OCLUpgradePair* ptr7 = (OCLUpgradePair*)(int)(num * 4 + (uint)(*(int*)ptr2));
+				ProcTableElement* ptr8 = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, (void**)((byte*)ptr + 8), 12u, 2u);
+				*(int*)ptr8 = -1324985526;
+				((int*)ptr8)[1] = 1122298321;
+				System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cvoid_0020_002A_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 4)) = (int)((byte*)ptr8 - *(int*)((*(int*)(&obj) = *(int*)(*(int*)ptr3 - 4)) * 12 + *(int*)ptr4) + 8);
+				System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cvoid_0020_002A_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 8)) = (int)ptr7;
+				uint num2 = ((uint*)ptr5)[1];
+				if (num2 < (uint)(*(int*)ptr6))
+				{
+					int num3 = (int)num2;
+					((int*)ptr5)[1] = (int)(num2 + 12);
+					if (num3 != 0)
+					{
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(num3, ref obj, 12);
+					}
+				}
+				else
+				{
+					eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(ptr5, (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)(int)num2, &obj);
+				}
+				ptr8 = (ProcTableElement*)((byte*)ptr8 + 12);
+				*(int*)ptr8 = 0;
+				((int*)ptr8)[1] = 0;
+				((int*)ptr8)[2] = 0;
+				((int*)((byte*)tracker + 4))[1] += -4;
+				num++;
+				ptr = (ProcTableElement*)((byte*)ptr + 12);
+			}
+			while (num < (uint)(*(int*)list));
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}

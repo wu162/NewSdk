@@ -1,6 +1,6 @@
 # 本轮30分钟检查点（2026-10-24）
 
-四种SpecialAbility武器/光束/状态完整实现及测试已提交，Windows完整矩阵待运行；当前验收仍为225/322，不把未验证四种计数。新增`GenerateAbilityWeaponFields.py`从既有32方法归档生成字段/Token并核对指纹；TestGameObject先对固定原始源码执行ExportAbilityWeaponMethods --check。全部旧回归保留；/Od、/O2、平台0/1/2/99统一差分，SDK原路由保留。本轮用户指定仅30分钟，不改变长期1小时规则。后续先查本检查点对应Actions最终结果，再更新精确sourceCommit/runId及不可变证据。
+六种完整类型代码/测试已提交，Windows完整矩阵验证中，验收计数仍225/322。首批WeaponFire/DelayedWeaponFire/Beam/ObjectStatus见204765b，run40105748576；随后完整OCL500/Movement488包含28原方法闭包、PE枚举检查、列表/nullable/父层/拒绝/不变性测试。以后先查最新源码完整run终态及不可变证据，不能把待验收6种计数。全部旧回归和/Od、/O2、平台0/1/2/99保留，SDK未运行、原路由保留。本轮用户指定仅30分钟，不修改长期1小时规则。
 
 # 编译器恢复：当前续接入口
 
@@ -35,4 +35,3 @@ a125/run40100525642两模式组件步骤均通过，但旧共享证据文件reba
 原分派全TypeId清单source-inventory.json定位精确方法。大原源码用fetch_blob取得并局部提取；fetch_file对>1MB文件行范围可能返回空，不能当方法不存在。后续保留/Od、/O2、四平台含99、三缓冲区逐字节、完整旧回归和独立布局/拒绝/不变性。GameObject公开ImportsData为空，不能把Tracker中间引用表当公开Imports。正式启用前SDK同输入/XSD/真实调用/四产物/适用无原DLL重放与完整mymod门槛不降低。
 
 本轮复用完整父/helper/PE表、合并完整能力组验收；除定位真实差异及修复证据发布外未人为重复同源码矩阵。未取得账号额度计量，不能量化节省。
-

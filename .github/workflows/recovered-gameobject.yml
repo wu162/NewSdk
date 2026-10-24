@@ -23,6 +23,8 @@ on:
       - 'recovery/scripts/GenerateSpecialAbilityFields.py'
       - 'recovery/scripts/GenerateAbilityWeaponFields.py'
       - 'recovery/scripts/ExportAbilityWeaponMethods.py'
+      - 'recovery/scripts/GeneratePowerCreationFields.py'
+      - 'recovery/scripts/ExportPowerCreationMethods.py'
       - 'recovery/scripts/GenerateUpgradeRemaining.py'
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'
