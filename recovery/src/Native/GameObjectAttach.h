@@ -213,10 +213,14 @@ const ModuleToken attachBoobyTrapUpdateModuleDataTokens[] = {
     { 2269495249u, 3832456114u, 396u, nullptr, 7u, 0u },
 };
 const ModuleLayout attachBoobyTrapUpdateModuleData = { attachBoobyTrapUpdateModuleDataTokens, 6u };
+const ModuleToken attachStealUnitUpdateModuleDataTokens[] = { { 1u, 3925677257u, 0u, &attachAttachUpdateModuleData, 0u, 0u } };
+const ModuleLayout attachStealUnitUpdateModuleData = { attachStealUnitUpdateModuleDataTokens, 1u };
+const ModuleToken attachLeechTargetingAttachUpdateModuleDataTokens[] = { { 1u, 3925677257u, 0u, &attachAttachUpdateModuleData, 0u, 0u } };
+const ModuleLayout attachLeechTargetingAttachUpdateModuleData = { attachLeechTargetingAttachUpdateModuleDataTokens, 1u };
 const ModuleChoice attachChoices[] = {
     { 3925677257u, &attachAttachUpdateModuleData, 336u, 220u },
-    { 554078198u, &attachAttachUpdateModuleData, 336u, 221u },
-    { 3395303590u, &attachAttachUpdateModuleData, 336u, 222u },
+    { 554078198u, &attachStealUnitUpdateModuleData, 336u, 221u },
+    { 3395303590u, &attachLeechTargetingAttachUpdateModuleData, 336u, 222u },
     { 2980398469u, &attachMoneyGainAttachUpdateModuleData, 348u, 223u },
     { 3842124126u, &attachBoobyTrapUpdateModuleData, 404u, 224u },
 };

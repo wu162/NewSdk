@@ -4,6 +4,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=225 && choice->kind<=228) {const auto& set=utilityFieldSets[choice->kind-225];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=220 && choice->kind<=224) {
         for(const auto& f:attachAttachUpdateModuleDataFields) if(attribute==f.name) return true;
         if(choice->kind==223) for(const auto& f:attachMoneyGainAttachUpdateModuleDataFields) if(attribute==f.name) return true;
@@ -135,6 +136,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=225 && kind<=228) return 0;
     if(kind>=220 && kind<=224) {
         if(path=="ObjectFilter" || (kind==224 && path=="PreventEnteringFilter") || (kind==223 && path=="MoneyGainObjectStatusValidation")) return 1;
         if(path=="ModifierToLeechFromParent" || path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing" || (kind==224 && (path=="PreventEnteringFilter/IncludeThing" || path=="PreventEnteringFilter/ExcludeThing"))) return 3;

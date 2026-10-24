@@ -43,7 +43,11 @@ def generate():
  emit('AttachUpdateModuleData',BASE,[('ObjectFilter',324,7,'nullptr'),('ModifierToLeechFromParent',328,3,'nullptr')],'&spawnUpdateModuleData')
  emit('MoneyGainAttachUpdateModuleData',MONEY,[('MoneyGainObjectStatusValidation',344,4,'&attachObjectStatusValidationDataType')],'&attachAttachUpdateModuleData')
  emit('BoobyTrapUpdateModuleData',BOOBY,[('PreventEnteringFilter',396,7,'nullptr')],'&attachAttachUpdateModuleData')
- lines+=['const ModuleChoice attachChoices[] = {']+[f'    {{ {x["typeId"]}u, &attach{x["name"] if i>=3 else "AttachUpdateModuleData"}, {x["nativeSize"]}u, {220+i}u }},' for i,x in enumerate(m['modules'])]+['};','']
+ for name in ['StealUnitUpdateModuleData','LeechTargetingAttachUpdateModuleData']:
+  sig=next(sig for sig in bodies if sig.startswith('internal unsafe static void Tokenizer_002ETokenizePolymorphicType_') and ('_003A_003A'+name+'_002C') in sig)
+  tb,_=bodies[sig];assert '12u, 2u' in tb and '((int*)ptr2)[1] = -369290039;' in tb and '(AttachUpdateModuleData*)ptr, tracker);' in tb
+  lines += ['const ModuleToken attach'+name+'Tokens[] = { { 1u, 3925677257u, 0u, &attachAttachUpdateModuleData, 0u, 0u } };', 'const ModuleLayout attach'+name+' = { attach'+name+'Tokens, 1u };']
+ lines+=['const ModuleChoice attachChoices[] = {']+[f'    {{ {x["typeId"]}u, &attach{x["name"]}, {x["nativeSize"]}u, {220+i}u }},' for i,x in enumerate(m['modules'])]+['};','']
  return '\n'.join(lines)
 if __name__=='__main__':
  from GenerateUpgradeFields import enum_values
