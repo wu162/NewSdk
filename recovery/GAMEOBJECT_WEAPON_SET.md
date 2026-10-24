@@ -1,6 +1,6 @@
 # WeaponSetUpdate 完整组件恢复
 
-状态：完整四槽及必要依赖已接入，并通过源码45625616880eb075147618813786d27794ee38c2 / GameObject run40071300506完整差分。每/Od、/O2：238272 fixtures、714816三缓冲区逐字节比较、11196拒绝、472不变性，四平台0/1/2/99。SDK未运行，原路由保留。后续新增组合场景随治疗/维修组最终矩阵验收，见RESUME.md最新锚点。
+状态：完整四槽及必要依赖已验收，含后补组合场景。最终源码1ef49469cd7a9f290b76952c4040cd2df0a2a147 / GameObject run40072750732 success；每/Od、/O2：275032 fixtures、825096三缓冲区逐字节比较、11352拒绝、712不变性，四平台0/1/2/99。validation.json、两模式实际日志和终态已核对，SDK未运行，原路由保留。首轮WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success保留为历史锚点。
 
 TypeId1125589673，native40；四列表@8/16/24/32，Hardpoint28、Turret124、Hierarchical128、Contained28。WeaponData72，Ordering@0 signed比较，Template/Upgrade强引用@4/8，ObjectStatus@12/40各28字节，bool@68/69，padding@70/71；排序保持字段/引用配对。Hardpoint TypeId@0保持分配时0，ID unsigned@4，bool@24/25；不按子XML TypeId分派，不把列表视为指针多态。
 

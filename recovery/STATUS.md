@@ -705,3 +705,14 @@ RESUME已重写为当前入口；下一完整组为Body的其余七类型，GAME
 源码调查首次11模块触发150依赖上限（run40049720082），收敛到完整直接开火/跟踪组后恢复，未放宽保护。新增点号类型、SinglePolymorphic/PolymorphicType及typed-pointer/typed-local callee证据导出支持。下一组Projectile/Dynamics/Freefall/EnableDynamicsCollide原97方法已导出，sourceCommit76ea42b0ab846d3f594887a72dfa1146aad28f58、run40051656143 success；含完整Movement分派/typed wrapper/具体Marshal与Dynamics Volume五类shape依赖，见GAMEOBJECT_MOTION_NEXT.md，尚未实现、尚未计支持。期间并发Actions提交均保留；ref lease变化先读新头重建树普通推送，没有强推。
 
 本轮按完整能力组统一矩阵，复用已验证公共实现及相同原方法证据，未重复触发SDK；没有可比账号计量，不量化额度节省。
+
+
+## 2026-10-24：WeaponSet及治疗/Crate三完整组，123→136已验收
+
+新增13种完整Marshal模块：WeaponSetUpdate1、治疗/维修4、Crate碰撞/生成8；具体范围/布局见GAMEOBJECT_WEAPON_SET.md、GAMEOBJECT_HEALING.md、GAMEOBJECT_CRATE.md。最终源码1ef49469cd7a9f290b76952c4040cd2df0a2a147，GameObject run40072750732、基础run40072750706均success；每/Od、/O2：275032 fixtures、825096三缓冲区逐字节比较、11352拒绝、712不变性，平台0/1/2/99。两模式合计1650192次缓冲区比较，validation.json、两模式日志、sourceCommit/runId及终态已核对。186已知Marshal仍拒绝，58 Token-only fallback不变；组件不等于完整GameObject/完整替代DLL/SDK插件。SDK本轮0次，原路由保留。
+
+WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success；完整四槽/WeaponData排序/炮塔/Chooser/VisionRange/inline Filter已恢复。原Tracker ExchangePointers与AlterBookmark逐条核对：只移动offset，value不变；既有实现正确，纠正旧交接歧义。排序用既有EASTL排列及逆映射，先交换bookmark再交换72字节数据，未提前重排XML。重复key/阈值/引用与bool配对及依赖组合分配均覆盖；复用原720排序探针和既有/Od/O2 helper证据，未重复相同探针。
+
+治疗/维修源码3b2cb3d2687d06b92417c3af56f6656b45e7cc63/run40072240199 success，覆盖完整Upgrade、nullable validation/DieMux/Filter和inline Repair percent/audio；首轮仅拒绝清单末尾AutoHeal ID维护遗漏导致失败，修复后完整矩阵通过。Crate八模块包含基类及所有现存Crate碰撞分派和Spawn，继承强引用顺序保留；Spawn CrateList是重复文本子节点的强引用列表，不是属性字符串，先列表后BlockingUnits。未修改共享Tracker/资源/标量/位集实现。额外WeaponTemplate run40071300487和基础run40071300482/40072240244 success。
+
+下一完整AI Update八模块仅取证：源码bae88f824dd018ba5a46ba390ab5f095cc046d07/run40072829359 success，96精确方法/PE枚举，见GAMEOBJECT_AI_UPDATE_NEXT.md。UnitChooser40与TurretChooser44区分，AIUpdate pointer@68/StandGround bool@72；该组尚未接入，仍拒绝。约45分钟单代理有效实现、10–15分钟检查点、完整组统一差分、SDK降频与正确性门槛均保留。所有提交普通推送，保留并发Actions证据，没有强推/无必要新分支。优化只避免重复上下文/调查/SDK探针，不声称可量化账号额度下降。
