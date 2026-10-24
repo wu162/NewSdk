@@ -41,6 +41,38 @@ U32 HashRaw(const std::string& text) {
     case 1:hash+=sb(*p);hash^=hash<<10;hash+=hash>>1;break;}
     hash^=hash<<3;hash+=hash>>5;hash^=hash<<2;hash+=hash>>15;return(hash<<10)^hash;
 }
+
+// Original EASTL pointer introsort: 28-element threshold, median-of-three,
+// right partition first, right-child preference in heap fallback.
+using SortItem=const XmlaiNode*;
+float Distance(SortItem p) { auto i=p->attributes.find("Distance");return i==p->attributes.end()?0:ParseFloat(i->second); }
+bool DistanceLess(SortItem a,SortItem b) { return static_cast<double>(Distance(a))<static_cast<double>(Distance(b)); }
+void DistanceHeap(SortItem* first,int top,int size,int pos,SortItem value) {
+    int child=pos*2+2;
+    while(child<size){if(DistanceLess(first[child],first[child-1]))--child;first[pos]=first[child];pos=child;child=child*2+2;}
+    if(child==size){first[pos]=first[child-1];pos=child-1;}
+    int parent=(pos-1)/2;
+    while(pos>top&&DistanceLess(first[parent],value)){first[pos]=first[parent];pos=parent;parent=(pos-1)/2;}
+    first[pos]=value;
+}
+void DistanceQuick(SortItem* first,SortItem* last,int depth) {
+    while(last-first>28&&depth>0){
+        auto a=first,b=first+(last-first)/2,c=last-1;
+        auto median=DistanceLess(*a,*b)?(DistanceLess(*b,*c)?b:(DistanceLess(*a,*c)?c:a)):
+            (DistanceLess(*a,*c)?a:(DistanceLess(*b,*c)?c:b));
+        auto pivot=*median;auto lo=first,hi=last;
+        for(;;){while(DistanceLess(*lo,pivot))++lo;do{--hi;}while(DistanceLess(pivot,*hi));if(lo>=hi)break;std::swap(*lo,*hi);++lo;}
+        --depth;DistanceQuick(lo,last,depth);last=lo;
+    }
+    if(depth==0){int size=static_cast<int>(last-first);if(size>=2)for(int i=(size-2)/2;i>=0;--i)DistanceHeap(first,i,size,i,first[i]);
+        while(size>1){auto value=first[size-1];first[size-1]=first[0];--size;DistanceHeap(first,0,size,0,value);}}
+}
+void DistanceSort(std::vector<SortItem>& values) {
+    if(values.empty())return;int bits=0;for(auto n=values.size();n;n>>=1)++bits;
+    DistanceQuick(values.data(),values.data()+values.size(),bits*2-2);
+    for(std::size_t i=1;i<values.size();++i){auto v=values[i];auto j=i;while(j&&DistanceLess(v,values[j-1])){values[j]=values[j-1];--j;}values[j]=v;}
+}
+
 struct Builder {
     Relo::Tracker data;
     std::vector<void*> words;
@@ -52,7 +84,7 @@ struct Builder {
     }
     void FieldValue(const Field& f,unsigned char* root,const std::string& text) {
         unsigned char* p=root+f.offset;
-        if(f.pointer){p=Allocate(p,f.kind==Kind::String?8:4);}
+        if(f.pointer){p=Allocate(p,f.kind==Kind::String?8:f.kind==Kind::Status?28:f.kind==Kind::Flags?((f.bits+31)/32)*4:4);}
         switch(f.kind){
         case Kind::Bool:*p=ParseBoolean(text)?1:0;break;
         case Kind::Float:Float(p,ParseFloat(text));break;
@@ -129,9 +161,7 @@ struct Builder {
             if(r.kind==ChildKind::List||r.kind==ChildKind::Sorted){
                 if(r.kind==ChildKind::Sorted){
                     for(auto c:children){auto i=c->attributes.find("Distance");if(i!=c->attributes.end()&&!std::isfinite(ParseFloat(i->second)))throw std::invalid_argument("Nonfinite sorted distance.");}
-                    std::stable_sort(children.begin(),children.end(),[](const XmlaiNode* a,const XmlaiNode* b){
-                        auto av=a->attributes.find("Distance"),bv=b->attributes.find("Distance");
-                        return (av==a->attributes.end()?0:ParseFloat(av->second))<(bv==b->attributes.end()?0:ParseFloat(bv->second));});
+                    DistanceSort(children);
                 }
                 Word(at,static_cast<U32>(children.size()));
                 if(!children.empty()){
