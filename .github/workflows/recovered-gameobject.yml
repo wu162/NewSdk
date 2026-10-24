@@ -20,6 +20,7 @@ on:
       - 'recovery/scripts/GenerateCreateFields.py'
       - 'recovery/scripts/GenerateSlavedFields.py'
       - 'recovery/scripts/GenerateTechReceiverFields.py'
+      - 'recovery/scripts/GenerateVisionFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'

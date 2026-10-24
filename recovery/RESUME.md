@@ -1,41 +1,25 @@
 # 编译器恢复：当前续接入口
 
-更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md和本文件。旧STATUS.md只按需查历史；不要全量加载旧交接和大型反编译。
+更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md及本文件；旧STATUS按需查，不全量加载。
 
-## 已验收：93/322已知Marshal模块
+## 已验收94/322已知Marshal模块
 
-本阶段由63增加至93，新增30种，完成五个连贯组：11种Upgrade基类/派生、其余11种命名Upgrade派生及完整嵌套依赖、3种Production Update/exit、4种剩余Create、完整SlavedUpdate。**229种仍明确拒绝**；58 Token-only沿原未知Marshal回退路径。根范围88属性/38类子节点，六容器不代表全部模块已恢复。
+新增完整TechUpgradeReceiver（GAMEOBJECT_TECH_RECEIVER.md）。有效源码fa250611af72d2639c141a532df858a9837bd0b8：GameObject run40048856796 success、基础run40048856747 success。每/Od、/O2：185152 fixtures、555456三缓冲区比较、9612拒绝、352不变性；平台0/1/2/99。远端validation.json的sourceCommit/runId与终态已核对。两模式合计1110912次缓冲区比较。
 
-有效源码 **17e4a7093436532ab843022defa278bcf744ce25**：
-- GameObject run **40047664340** success；基础 run **40047664346** success。
-- 远端evidence/gameobject-root/validation.json、sourceCommit/runId、两模式日志及terminal状态均核对。
-- 每/Od、/O2：**181796 fixtures、545388三缓冲区逐字节比较、9544拒绝、344不变性**；平台0/1/2/99；两模式合计**1090776**次缓冲区比较。
-- SDK本阶段**0次**，原路由保留。artifact recovered-gameobject-component-x86仍是组件；完整GameObject、两份完整替代DLL及正式GameObject插件尚未完成。
+此前完整93模块（Slaved/Upgrade/Production/Create等）的回归均保留；根范围88属性/38类子节点。228种已知Marshal仍拒绝，58 Token-only沿原未知Marshal回退。SDK本阶段0次；原路由保留，完整GameObject、两份完整替代DLL及正式GameObject插件未完成。
 
-中间成功锚点：Upgrade基础d39c891/run40034294614；其余Upgrade aed221a/run40035310226；Production add4887/run40036066958；Create 38c17e1/run40036586975；最终Slaved即上方17e4a70。全部既有Body、ClientUpdate、声音、生命周期、Die、AI及根结构回归包含在最终矩阵内。
+## 当前检查点：八种雷达/可见性/共享控制模块（待统一验证）
 
-## 文档与关键契约
+GenerateVisionFields.py及GameObjectVision.h新增CaptureBehavior、UnifiedControlBehavior、RadarUpdate、UnitVisionBehavior、SelectiveVisibilityBehavior、InvisibilityBehavior、InvisibilityBroadcastUpdate、UnifiedShroudRevealBehavior，全部字段、父链、嵌套filter/validation、Token/Endian。Beacon/RadarMarker此前已完成，本次源码导出包含二者供核对，不重复计数。
 
-- GAMEOBJECT_UPGRADE_NEXT.md：已完成11种Upgrade基础组；Power独立Token父层，AnimState scalar枚举，Frames/Trigger unsigned；弱Upgrade ID列表不同于强引用。
-- GAMEOBJECT_UPGRADE_REMAINING.md：其余11种派生，Nugget/ReplaceTexture/AvailableSubStructure/OffsetInfo，Cost可空filter与Tech inline filter，原版拼错属性与plain float Percentages。
-- GAMEOBJECT_PRODUCTION.md：3种Production组；SizedList<ProductionModifier,2>原helper没有两项限制；Default出口可空Vector3、Queue出口inline Vector3；GiveUpgradeToProduced含强引用translations。
-- GAMEOBJECT_CREATE.md：4种Create；Grant/Inherit/Experience使用Create父链；ActivateSpecialPowerOnCreate实际使用Update父链及强SpecialPower列表。已有EvaAnnounceClientCreate未重复计数。
-- GAMEOBJECT_SLAVED.md：全部27属性+可空GuardPosOffset，39/34 scalar枚举；Range/帧数主要signed/base0，RepairWhenHealthBelowPercentage是普通整数，FadeTime是unsigned；4bool@108..111。scalar模板Token指针算术按int/uint单位4、bool单位1；GuardPosOffset直接bookmark可空Vector3数据，不生成递归子表。
-- 各Generate*Fields.py核对固定原blob **6e40a9ed6c9f961d294d49768d911e6a6f354619**、原Marshal次序/fallback、PE枚举、完整Token和sentinel，全部接入TestGameObject.ps1。
-- 更早GAMEOBJECT_SOUND_SELECTORS.md、GAMEOBJECT_LIFECYCLE.md、GAMEOBJECT_DIE.md等继续有效；STATUS.md保留历史。
+本地已核对原导出87方法body SHA256、枚举证据及生成一致性；提交将触发TestGameObject.ps1的原blob/PE校验和完整/Od、/O2四平台差分。未取得该源码run的最终成功前不得计为102或声称支持，检查完整validation.json及双模式终态；失败集中修复。GAMEOBJECT_VISION.md记录实现契约。
 
-## 下一完整模块：TechUpgradeReceiver（尚未实现）
+## 关键路径及持续规则
 
-先读 **GAMEOBJECT_TECH_RECEIVER_NEXT.md**。TypeId393460526、native180字节仍拒绝。44个原方法的精确签名/行号/SHA256已保存在evidence/gameobject-modules/tech-receiver-source/manifest.json，首次导出run40047754601 success；源及独立PE枚举完整导出run40048070974 success。enum-source.json已核对ReceiverDistanceType为CIRCULAR=0、RECTANGULAR=1，未知0，Token类型仍与发送端不同。
+原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；对应evidence/gameobject-modules/*-source/manifest.json存精确签名、行号与SHA256。各Generate*Fields.py接入TestGameObject.ps1，原DLL逐字节差分、独立布局/Token/sentinel/拒绝矩阵保留。
 
-与已实现TechUpgrade发送端相似，但ReceiverDistanceType是不同类型；RadarDrawModule@56是弱ModuleData ID；RadarRotateSpeed/Offset是Angle；inline ObjectFilter移至68（112字节），不能套用发送端56偏移。完整7自身属性、公共Upgrade基类及所有子依赖、Token/Endian应整组实现，再统一完整矩阵，不能仅追加3个雷达字段或据相同枚举项数假定类型相同。
+默认单代理，约45分钟有效实现阶段；完整能力组实现后统一验收，中断检查点每约10–15分钟普通推送。不能用空等、重复读取、反复运行凑时长；不强推、不新建无必要分支。并发Actions会写证据，更新ref前读新头重建树，保留所有并发内容。
 
-## 中断记录与持续规则
+SDK跨阶段累计降频；组件成功不冒充集成。适用XSD、同输入原/恢复、真实调用、四产物及适用无原DLL重放门槛不降低。本轮未改变SDK路由与输入，不重跑既有Weapon/Armor SDK。
 
-本阶段因自动审批额度上限中断，Create源码38c17e1此前已推送并验收；恢复时核对实际新头、重建树并成功保存Slaved源检查点。未执行旧的失败ref更新，未强推。后续一次ref因并发Actions写证据发生API错误，也先读新头再重建树保留证据。
-
-默认单代理；按约45分钟有效实现阶段推进，中断前后续接累计，不用空等/重复运行凑时长。完整能力组实现后统一/Od、/O2、0/1/2/99三缓冲区、独立布局/Token/sentinel、拒绝矩阵。每约10–15分钟普通推送有意义检查点，注明验证状态；不强推，不新建不必要分支。
-
-SDK跨阶段累计降频，组件通过不冒充正式集成；适用XSD、同输入原/恢复、真实调用、四产物及适用无原DLL重放门槛不降低。Weapon/Armor及SDK输入/路由未改变，本阶段不重跑其已验收SDK。
-
-Git命令行本环境无凭据，使用GitHub插件；API异常先查实际头和lease，不盲重试旧树。大原反编译按ExportLifecycleMethods.py导出小文件；共用sound-selector-source.yml。额度优化只减少重复读取/无依据重复运行，没有可比账号计量，不声称具体节省比例。
+Git命令行无凭据，使用GitHub插件。大原文件按ExportLifecycleMethods.py+sound-selector-source.yml导出有界方法；fetch_file对巨大原文件行范围本环境返回空，不能把空结果当无实现。原证据相同可按signature/bodySha复用，仅下载新增方法；不重复全量导出下载。

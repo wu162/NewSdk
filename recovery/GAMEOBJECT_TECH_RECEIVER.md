@@ -1,0 +1,11 @@
+# 完整 TechUpgradeReceiver
+
+已验收源码 fa250611af72d2639c141a532df858a9837bd0b8；GameObject run40048856796、基础run40048856747均success。每/Od、/O2：185152 fixtures、555456三缓冲区逐字节比较、9612拒绝、352不变性，平台0/1/2/99。SDK未运行，原路由保留。
+
+TypeId393460526，native180字节。固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；44个精确方法与SHA256见evidence/gameobject-modules/tech-receiver-source/manifest.json。GenerateTechReceiverFields.py验证原blob、所有导出方法体、PE独立枚举、全部Marshal字段次序/fallback、Endian关键偏移及9条Token+sentinel；已接入TestGameObject.ps1。
+
+自身属性及布局见GAMEOBJECT_TECH_RECEIVER_NEXT.md。保留公共Upgrade五bool、CustomAnimAndDuration及TriggeredBy/ConflictsWith弱ID列表；WaypointModeTerminal默认true。ReceiverDistanceType与发送端DistanceCheckType独立，Token类型873624354。RadarDrawModule是弱ModuleData ID，不产生strong-reference translation；RadarRotateSpeed/Offset为Angle（默认0.1r/0r）。ObjectFilter为inline@68，缺失全零，显式空才写默认。
+
+依赖分配顺序：RadiusY@40的pointee、FXLineBoneName内容、filter的IncludeThing/ExcludeThing、父层动画、父层两弱列表。各分配项与完整Token表均有独立断言；空RadiusY仍分配一个零float。缺省、枚举/大小写/空白/未知、Angle单位与数值边界、float边界、Unicode弱ID、六容器、0/1/2/27/28/29/65模块及依赖列表、schema次序不变性和拒绝矩阵均包含在最终回归。
+
+组件成功不等于正式GameObject插件或两份完整替代DLL已完成。
