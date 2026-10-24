@@ -106,6 +106,107 @@ class XmlPriorityLinkOracle
         new Root("AnimationSoundSettings", 1302035577u, false),
         new Root("MiscAudio", 2070603733u, false),
         new Root("LargeGroupAudioMap", 534008255u, false),
+        new Root("UIMouseTacticalSelectionDetailsButtonHotKeys", 1296329066u, false),
+        new Root("UIMouseTacticalMainCommandBarHotKeys", 2591692061u, false),
+        new Root("UIMouseTacticalPlayerPowerHotKeys", 2283998413u, false),
+        new Root("UIMouseTacticalMiscHotKeys", 2014061824u, false),
+        new Root("UIMouseHUDElementHotKeyGate", 2738273474u, false),
+        new Root("UIQuickChatMessage", 4098431913u, false),
+        new Root("UIMouseTacticalQuickChatDisplay", 2891878770u, false),
+        new Root("UIMouseVoiceChat", 3746130610u, false),
+        new Root("UIDecalGrid", 2599418799u, false),
+        new Root("UIDecalCloud", 2524893660u, false),
+        new Root("UIDecalDestinationMarker", 1532214660u, false),
+        new Root("UIWorldBuilderDecalGrid", 1238702511u, false),
+        new Root("BaseAudioEventInfo", 1079232276u, false),
+        new Root("BaseSingleSound", 3228425025u, false),
+        new Root("AudioEvent", 2219670431u, false),
+        new Root("MusicTrack", 1883691512u, false),
+        new Root("MP3MusicTrack", 1013434420u, false),
+        new Root("DialogEvent", 3558134211u, false),
+        new Root("MP3DialogEvent", 1479988269u, false),
+        new Root("AmbientStream", 3928762264u, false),
+        new Root("MP3AmbientStream", 1813598662u, false),
+        new Root("Multisound", 2745675575u, false),
+        new Root("PathMusicGameDynamicState", 97402485u, false),
+        new Root("PathMusicGameDynamicStateSet", 343094706u, false),
+        new Root("PathMusicGameDynamicTransition", 2343360052u, false),
+        new Root("PathMusicEventRuntime", 1122327197u, false),
+        new Root("PathMusicEventSet", 3339496789u, false),
+        new Root("PathMusicMapRuntime", 2026048286u, false),
+        new Root("MusicPalette", 2407383451u, false),
+        new Root("MusicScriptConditionNuggetBase", 2292378780u, false),
+        new Root("MusicScriptConditionExpensiveNuggetBase", 849624115u, false),
+        new Root("MusicScriptConditionNugget_LocalPlayerIsObserver", 188286714u, false),
+        new Root("MusicScriptConditionNugget_UnitsFarFromBase", 2620791304u, false),
+        new Root("MusicScriptConditionNugget_TimeFromStartOfLevel", 1464425282u, false),
+        new Root("MusicScriptConditionNugget_TrackPlayedCount", 57370491u, false),
+        new Root("MusicScriptConditionNugget_SpecificTrackTypePlaying", 739280456u, false),
+        new Root("MusicScriptConditionNugget_AnyTrackPlaying", 3402992833u, false),
+        new Root("MusicScriptConditionNugget_ObjectsOfTypeExist", 4286308287u, false),
+        new Root("MusicScriptConditionNugget_EvaEventPlayedRecently", 2743973749u, false),
+        new Root("MusicScriptConditionNugget_ObjectsNearEvaEvent", 3386715757u, false),
+        new Root("MusicScriptConditionNugget_ScoredKillCount", 3620764004u, false),
+        new Root("MusicScriptConditionNugget_Not", 4007043648u, false),
+        new Root("MusicScriptConditionNugget_Or", 2281773838u, false),
+        new Root("MusicScriptConditionNugget_And", 1343682755u, false),
+        new Root("MusicScriptConditionNugget_PathMusicStateLastActive", 2912435838u, false),
+        new Root("MusicScriptConditionNugget_PathMusicStateCurrentlyActive", 3727134806u, false),
+        new Root("MusicScriptConditionNugget_EngagementCount", 3476397162u, false),
+        new Root("MusicScriptConditionNugget_LocalPlayerKillRatio", 2818967523u, false),
+        new Root("MusicScriptConditionNugget_HitBySuperWeapon", 1634186921u, false),
+        new Root("MusicScriptTrack", 1038067901u, false),
+        new Root("UIMouseTacticalCoOpAIButtonsHelpButton", 104126924u, false),
+        new Root("UIMouseTacticalCommandCommunicateWithAllies", 113029208u, false),
+        new Root("UIMouseTacticalToggleRepairModeButton", 346077409u, false),
+        new Root("UIMouseTacticalAttackMoveButton", 442957564u, false),
+        new Root("UIMouseTacticalCommandPlaceWall", 485977567u, false),
+        new Root("UIMouseTacticalForceAttackMoveButton", 694838069u, false),
+        new Root("UIMouseTacticalCoOpAIButtonsHoldObjectButton", 772462768u, false),
+        new Root("UIMouseTacticalExitContainerButton", 1014034471u, false),
+        new Root("UIMouseTacticalPlayerTechStoreButton", 1138847078u, false),
+        new Root("UIMouseTacticalCommandMove", 1234485619u, false),
+        new Root("UIMouseTacticalCommandSell", 1249197161u, false),
+        new Root("UIMouseTacticalUnitIntroButton", 1277109486u, false),
+        new Root("UIMouseTacticalCommandSelect", 1334543376u, false),
+        new Root("UIMouseTacticalCoOpAIButtonsNormalButton", 1371977384u, false),
+        new Root("UIMouseTacticalCommandPlaceRallyPoint", 1474300054u, false),
+        new Root("UIMouseTacticalCommandHarvest", 1499648070u, false),
+        new Root("UIMouseTacticalCommandToggleSelfRepair", 1956336137u, false),
+        new Root("UIMouseTacticalBuildQueueTab", 1974922393u, false),
+        new Root("UIMouseTacticalCommandGetCrate", 2067763016u, false),
+        new Root("UIMouseTacticalDeactivateMissionHotSpotsButton", 2047841880u, false),
+        new Root("UIMouseTacticalCommandForceAttack", 2074164365u, false),
+        new Root("UIMouseTacticalPlanningModeButton", 2278083954u, false),
+        new Root("UIMouseTacticalCommandMisc", 2505151835u, false),
+        new Root("UIMouseTacticalSelectionRefinementTab", 2635272840u, false),
+        new Root("UIMouseTacticalCommandForceMove", 2697587777u, false),
+        new Root("UIMouseTacticalOpenAdvancedCommandsButton", 2808773267u, false),
+        new Root("UIMouseTacticalSetStanceButton", 2873949396u, false),
+        new Root("UIMouseTacticalCoOpAIButtonsHoldPositionButton", 2914137727u, false),
+        new Root("UIMouseTacticalCommandMineOre", 2957071942u, false),
+        new Root("UIMouseTacticalWaypointModeButton", 2958905921u, false),
+        new Root("UIMouseTacticalReverseMoveButton", 2987234945u, false),
+        new Root("UIMouseTacticalCommandEnter", 3057018816u, false),
+        new Root("UIMouseTacticalCoOpAIButtonsAssaultButton", 3094553884u, false),
+        new Root("UIMouseTacticalPauseButton", 3420020972u, false),
+        new Root("UIMouseTacticalCommandAttack", 3548787763u, false),
+        new Root("UIMouseTacticalCommandAttackMove", 3575834349u, false),
+        new Root("UIMouseTacticalForceMoveButton", 3716369729u, false),
+        new Root("UIMouseTacticalForceAttackButton", 3756168709u, false),
+        new Root("UIMouseTacticalCommandPlaceAIBeacon", 3809842710u, false),
+        new Root("UIMouseTacticalCommandDock", 3976885676u, false),
+        new Root("UIMouseTacticalCommandReverseMove", 4026878150u, false),
+        new Root("UIMouseTacticalBuildQueueTypeTab", 4094578721u, false),
+        new Root("UIMouseTacticalSellModeButton", 4102242385u, false),
+        new Root("UIMouseTacticalStopButton", 4140422551u, false),
+        new Root("UIMouseTacticalCommandSetRallyPoint", 4180354873u, false),
+        new Root("UIMouseTacticalFastForwardButton", 4232364483u, false),
+        new Root("UIMouseTacticalGroupSelection", 241329492u, false),
+        new Root("UIMouseTacticalLookAt", 1795213437u, false),
+        new Root("UIMouseTacticalRadarTelestrator", 3366599054u, false),
+        new Root("UIMouseTacticalTelestrator", 1921726501u, false),
+        new Root("UIMouseTacticalThreatMeter", 4143989686u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -154,7 +255,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 82 || supplied.Count != 82) throw new Exception("Exactly 82 recovered entries are required");
+        if (Roots.Length != 183 || supplied.Count != 183) throw new Exception("Exactly 183 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -181,7 +282,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 82) throw new Exception("Metadata preflight did not resolve all 82 entries");
+        if (Methods.Count != 183) throw new Exception("Metadata preflight did not resolve all 183 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -264,12 +365,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=82 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=183 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 328 || comparisons != 984 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 82) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 732 || comparisons != 2196 || completionFixtures != 40 || completionComparisons != 120 || Methods.Count != 183) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=82 fixtures=328 comparisons=984 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=183 fixtures=732 comparisons=2196 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();

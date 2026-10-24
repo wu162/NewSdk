@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "UIQuickChatMessage",
+      "typeId": 4098431913,
+      "typeHash": 743017490,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "typeId": 2891878770,
+      "typeHash": 884927254,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "typeId": 3746130610,
+      "typeHash": 3018771479,
+      "schemaGlobal": true
+    }
+  ]
+}

@@ -2,7 +2,13 @@
 
 更新：2026-10-24（北京时间）。目标分支 `recovery/xmlcompiler-priority`。本轮最多三个子代理并行，完整能力组统一验收；代码与工作分支父历史已全部合入本分支，禁止强推。
 
-## 当前结果
+## 2026-10-25 本轮冻结，待完整组件验收
+
+用户本轮要求一小时、最多三个子代理，**禁止触发SDK真实编译**。七组候选新增101入口（战术热键5、聊天3、贴花4、单音效10、PathMusic7、MusicScript21、战术UI51），联合组件候选183。现统一运行21组完整/Od、/O2四平台差分与183入口联合DLL；未经最终sourceCommit/runId证明不计入组件成功。
+
+新增清单在catalog/XmlComponentOnlyTypes.json，所有新增条目sdkValidated=false。现有catalog/XmlRecoveredTypes.json、主Plugin/SDK路由/原SDK及SDK工作流保持不变；旧82类SDK成功仅为历史基线，新联合DLL本轮没有SDK验收。不发送SDK触发标记，不手动dispatch SDK。
+
+## 上轮已验收结果
 
 **原 Plugin 301 个登记入口中，已恢复并验收 82 个独立编译入口；本轮新增 30 个，上轮为 52 个。** 80 类是原 CnC3Types.xsd 全局资产；GameStatsModeData、MicrophoneSettings 仅有独立 Plugin 入口及嵌套 schema，通过组件和合法嵌套 SDK 场景覆盖，未修改原 XSD。
 

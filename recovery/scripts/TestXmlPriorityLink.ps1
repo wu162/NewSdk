@@ -90,6 +90,107 @@ $expectedRootTypeIds = [ordered]@{
     AnimationSoundSettings = [uint32]1302035577
     MiscAudio = [uint32]2070603733
     LargeGroupAudioMap = [uint32]534008255
+    UIMouseTacticalSelectionDetailsButtonHotKeys = [uint32]1296329066
+    UIMouseTacticalMainCommandBarHotKeys = [uint32]2591692061
+    UIMouseTacticalPlayerPowerHotKeys = [uint32]2283998413
+    UIMouseTacticalMiscHotKeys = [uint32]2014061824
+    UIMouseHUDElementHotKeyGate = [uint32]2738273474
+    UIQuickChatMessage = [uint32]4098431913
+    UIMouseTacticalQuickChatDisplay = [uint32]2891878770
+    UIMouseVoiceChat = [uint32]3746130610
+    UIDecalGrid = [uint32]2599418799
+    UIDecalCloud = [uint32]2524893660
+    UIDecalDestinationMarker = [uint32]1532214660
+    UIWorldBuilderDecalGrid = [uint32]1238702511
+    BaseAudioEventInfo = [uint32]1079232276
+    BaseSingleSound = [uint32]3228425025
+    AudioEvent = [uint32]2219670431
+    MusicTrack = [uint32]1883691512
+    MP3MusicTrack = [uint32]1013434420
+    DialogEvent = [uint32]3558134211
+    MP3DialogEvent = [uint32]1479988269
+    AmbientStream = [uint32]3928762264
+    MP3AmbientStream = [uint32]1813598662
+    Multisound = [uint32]2745675575
+    PathMusicGameDynamicState = [uint32]97402485
+    PathMusicGameDynamicStateSet = [uint32]343094706
+    PathMusicGameDynamicTransition = [uint32]2343360052
+    PathMusicEventRuntime = [uint32]1122327197
+    PathMusicEventSet = [uint32]3339496789
+    PathMusicMapRuntime = [uint32]2026048286
+    MusicPalette = [uint32]2407383451
+    MusicScriptConditionNuggetBase = [uint32]2292378780
+    MusicScriptConditionExpensiveNuggetBase = [uint32]849624115
+    MusicScriptConditionNugget_LocalPlayerIsObserver = [uint32]188286714
+    MusicScriptConditionNugget_UnitsFarFromBase = [uint32]2620791304
+    MusicScriptConditionNugget_TimeFromStartOfLevel = [uint32]1464425282
+    MusicScriptConditionNugget_TrackPlayedCount = [uint32]57370491
+    MusicScriptConditionNugget_SpecificTrackTypePlaying = [uint32]739280456
+    MusicScriptConditionNugget_AnyTrackPlaying = [uint32]3402992833
+    MusicScriptConditionNugget_ObjectsOfTypeExist = [uint32]4286308287
+    MusicScriptConditionNugget_EvaEventPlayedRecently = [uint32]2743973749
+    MusicScriptConditionNugget_ObjectsNearEvaEvent = [uint32]3386715757
+    MusicScriptConditionNugget_ScoredKillCount = [uint32]3620764004
+    MusicScriptConditionNugget_Not = [uint32]4007043648
+    MusicScriptConditionNugget_Or = [uint32]2281773838
+    MusicScriptConditionNugget_And = [uint32]1343682755
+    MusicScriptConditionNugget_PathMusicStateLastActive = [uint32]2912435838
+    MusicScriptConditionNugget_PathMusicStateCurrentlyActive = [uint32]3727134806
+    MusicScriptConditionNugget_EngagementCount = [uint32]3476397162
+    MusicScriptConditionNugget_LocalPlayerKillRatio = [uint32]2818967523
+    MusicScriptConditionNugget_HitBySuperWeapon = [uint32]1634186921
+    MusicScriptTrack = [uint32]1038067901
+    UIMouseTacticalCoOpAIButtonsHelpButton = [uint32]104126924
+    UIMouseTacticalCommandCommunicateWithAllies = [uint32]113029208
+    UIMouseTacticalToggleRepairModeButton = [uint32]346077409
+    UIMouseTacticalAttackMoveButton = [uint32]442957564
+    UIMouseTacticalCommandPlaceWall = [uint32]485977567
+    UIMouseTacticalForceAttackMoveButton = [uint32]694838069
+    UIMouseTacticalCoOpAIButtonsHoldObjectButton = [uint32]772462768
+    UIMouseTacticalExitContainerButton = [uint32]1014034471
+    UIMouseTacticalPlayerTechStoreButton = [uint32]1138847078
+    UIMouseTacticalCommandMove = [uint32]1234485619
+    UIMouseTacticalCommandSell = [uint32]1249197161
+    UIMouseTacticalUnitIntroButton = [uint32]1277109486
+    UIMouseTacticalCommandSelect = [uint32]1334543376
+    UIMouseTacticalCoOpAIButtonsNormalButton = [uint32]1371977384
+    UIMouseTacticalCommandPlaceRallyPoint = [uint32]1474300054
+    UIMouseTacticalCommandHarvest = [uint32]1499648070
+    UIMouseTacticalCommandToggleSelfRepair = [uint32]1956336137
+    UIMouseTacticalBuildQueueTab = [uint32]1974922393
+    UIMouseTacticalCommandGetCrate = [uint32]2067763016
+    UIMouseTacticalDeactivateMissionHotSpotsButton = [uint32]2047841880
+    UIMouseTacticalCommandForceAttack = [uint32]2074164365
+    UIMouseTacticalPlanningModeButton = [uint32]2278083954
+    UIMouseTacticalCommandMisc = [uint32]2505151835
+    UIMouseTacticalSelectionRefinementTab = [uint32]2635272840
+    UIMouseTacticalCommandForceMove = [uint32]2697587777
+    UIMouseTacticalOpenAdvancedCommandsButton = [uint32]2808773267
+    UIMouseTacticalSetStanceButton = [uint32]2873949396
+    UIMouseTacticalCoOpAIButtonsHoldPositionButton = [uint32]2914137727
+    UIMouseTacticalCommandMineOre = [uint32]2957071942
+    UIMouseTacticalWaypointModeButton = [uint32]2958905921
+    UIMouseTacticalReverseMoveButton = [uint32]2987234945
+    UIMouseTacticalCommandEnter = [uint32]3057018816
+    UIMouseTacticalCoOpAIButtonsAssaultButton = [uint32]3094553884
+    UIMouseTacticalPauseButton = [uint32]3420020972
+    UIMouseTacticalCommandAttack = [uint32]3548787763
+    UIMouseTacticalCommandAttackMove = [uint32]3575834349
+    UIMouseTacticalForceMoveButton = [uint32]3716369729
+    UIMouseTacticalForceAttackButton = [uint32]3756168709
+    UIMouseTacticalCommandPlaceAIBeacon = [uint32]3809842710
+    UIMouseTacticalCommandDock = [uint32]3976885676
+    UIMouseTacticalCommandReverseMove = [uint32]4026878150
+    UIMouseTacticalBuildQueueTypeTab = [uint32]4094578721
+    UIMouseTacticalSellModeButton = [uint32]4102242385
+    UIMouseTacticalStopButton = [uint32]4140422551
+    UIMouseTacticalCommandSetRallyPoint = [uint32]4180354873
+    UIMouseTacticalFastForwardButton = [uint32]4232364483
+    UIMouseTacticalGroupSelection = [uint32]241329492
+    UIMouseTacticalLookAt = [uint32]1795213437
+    UIMouseTacticalRadarTelestrator = [uint32]3366599054
+    UIMouseTacticalTelestrator = [uint32]1921726501
+    UIMouseTacticalThreatMeter = [uint32]4143989686
 }
 $sourceCommit = $env:GITHUB_SHA
 if (-not $sourceCommit) { $sourceCommit = (& git rev-parse HEAD).Trim(); if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve sourceCommit' } }
@@ -98,8 +199,8 @@ if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHm
 $validation = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId
     scope = 'Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate'
-    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 82
-    expectedFixturesPerMode = 328; expectedComparisonsPerMode = 984
+    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 183
+    expectedFixturesPerMode = 732; expectedComparisonsPerMode = 2196
     expectedCompletionFixturesPerMode = 40; expectedCompletionComparisonsPerMode = 120
     platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
@@ -109,7 +210,7 @@ $originalHash = (Get-FileHash $originalPath -Algorithm SHA256).Hash.ToLowerInvar
 $validation['originalDllSha256'] = $originalHash
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run in an x86 VS2022 devshell' }
-    if ($expectedRootTypeIds.Count -ne 82) { throw 'Expected root map must contain all 82 recovered entries' }
+    if ($expectedRootTypeIds.Count -ne 183) { throw 'Expected root map must contain all 183 recovered entries' }
     if ($originalHash -ne 'd4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6') { throw 'Unexpected original XmlCompiler DLL fingerprint' }
     $native = Join-Path $repo 'recovery/src/Native'
     $bridge = Join-Path $repo 'recovery/src/Bridge'
@@ -121,7 +222,7 @@ try {
     $excluded = @($candidates | Where-Object { $_.Name -match 'Draft' })
     $formal = @($candidates | Where-Object { $_.Name -notmatch 'Draft' } | Sort-Object FullName)
     if ($formal.Count -eq 0) { throw 'No formal Xml sources found' }
-    # A #if 0 snapshot does not satisfy the 82-class reflection preflight below.
+    # A #if 0 snapshot does not satisfy the 183-class reflection preflight below.
     $sources = @($common) + @($formal | ForEach-Object { $_.FullName })
     $sources = @($sources | Select-Object -Unique)
     $validation['sources'] = @($sources | ForEach-Object {
@@ -163,10 +264,10 @@ try {
         "PROCESS EXIT mode=$mode exitCode=$code exitCodeHex=$exitCodeHex" | Add-Content "$evidence/$mode-oracle.txt"
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
         Get-Content "$evidence/$mode-oracle.txt"
-        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 82 types and a clean process exit are required" }
+        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 183 types and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
-        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 82 -or $result.fixtures -ne 328 -or $result.comparisons -ne 984 -or $result.completionFixtures -ne 40 -or $result.completionComparisons -ne 120 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
-        if (@($result.typeCoverage.PSObject.Properties).Count -ne 82) { throw "$mode incomplete per-type coverage" }
+        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 183 -or $result.fixtures -ne 732 -or $result.comparisons -ne 2196 -or $result.completionFixtures -ne 40 -or $result.completionComparisons -ne 120 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
+        if (@($result.typeCoverage.PSObject.Properties).Count -ne 183) { throw "$mode incomplete per-type coverage" }
         foreach ($entry in $expectedRootTypeIds.GetEnumerator()) {
             if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
         }
@@ -183,7 +284,7 @@ try {
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     }
     $validation.succeeded = $true
-    $validation.status = 'All 82 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
+    $validation.status = 'All 183 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
 } catch {
     $validation.status = $_.Exception.Message
     throw

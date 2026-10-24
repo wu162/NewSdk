@@ -1,0 +1,64 @@
+{
+  "roots": [
+    {
+      "name": "BaseAudioEventInfo",
+      "typeId": 1079232276,
+      "typeHash": 1604640258,
+      "schemaGlobal": false
+    },
+    {
+      "name": "BaseSingleSound",
+      "typeId": 3228425025,
+      "typeHash": 2950045545,
+      "schemaGlobal": false
+    },
+    {
+      "name": "AudioEvent",
+      "typeId": 2219670431,
+      "typeHash": 1443638853,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicTrack",
+      "typeId": 1883691512,
+      "typeHash": 130352738,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MP3MusicTrack",
+      "typeId": 1013434420,
+      "typeHash": 2141170629,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DialogEvent",
+      "typeId": 3558134211,
+      "typeHash": 3525217272,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MP3DialogEvent",
+      "typeId": 1479988269,
+      "typeHash": 2018565112,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AmbientStream",
+      "typeId": 3928762264,
+      "typeHash": 1830167803,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MP3AmbientStream",
+      "typeId": 1813598662,
+      "typeHash": 525549002,
+      "schemaGlobal": true
+    },
+    {
+      "name": "Multisound",
+      "typeId": 2745675575,
+      "typeHash": 4154219145,
+      "schemaGlobal": true
+    }
+  ]
+}

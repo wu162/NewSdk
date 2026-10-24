@@ -1,0 +1,836 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "sdkAcceptedCatalog": "XmlRecoveredTypes.json",
+  "sdkAcceptedEntries": 82,
+  "scope": "Component implementations only; not enabled in SDK plugin routes and not SDK validated. See exact run/source evidence before claiming component acceptance.",
+  "groups": {
+    "tacticalhotkeys": [
+      "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "UIMouseTacticalMainCommandBarHotKeys",
+      "UIMouseTacticalPlayerPowerHotKeys",
+      "UIMouseTacticalMiscHotKeys",
+      "UIMouseHUDElementHotKeyGate"
+    ],
+    "uichat": [
+      "UIQuickChatMessage",
+      "UIMouseTacticalQuickChatDisplay",
+      "UIMouseVoiceChat"
+    ],
+    "uidecals": [
+      "UIDecalGrid",
+      "UIDecalCloud",
+      "UIDecalDestinationMarker",
+      "UIWorldBuilderDecalGrid"
+    ],
+    "singlesound": [
+      "BaseAudioEventInfo",
+      "BaseSingleSound",
+      "AudioEvent",
+      "MusicTrack",
+      "MP3MusicTrack",
+      "DialogEvent",
+      "MP3DialogEvent",
+      "AmbientStream",
+      "MP3AmbientStream",
+      "Multisound"
+    ],
+    "pathmusic": [
+      "PathMusicGameDynamicState",
+      "PathMusicGameDynamicStateSet",
+      "PathMusicGameDynamicTransition",
+      "PathMusicEventRuntime",
+      "PathMusicEventSet",
+      "PathMusicMapRuntime",
+      "MusicPalette"
+    ],
+    "musicscript": [
+      "MusicScriptConditionNuggetBase",
+      "MusicScriptConditionExpensiveNuggetBase",
+      "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "MusicScriptConditionNugget_UnitsFarFromBase",
+      "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "MusicScriptConditionNugget_TrackPlayedCount",
+      "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "MusicScriptConditionNugget_AnyTrackPlaying",
+      "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "MusicScriptConditionNugget_ScoredKillCount",
+      "MusicScriptConditionNugget_Not",
+      "MusicScriptConditionNugget_Or",
+      "MusicScriptConditionNugget_And",
+      "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "MusicScriptConditionNugget_EngagementCount",
+      "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "MusicScriptConditionNugget_HitBySuperWeapon",
+      "MusicScriptTrack"
+    ],
+    "uitactical": [
+      "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "UIMouseTacticalCommandCommunicateWithAllies",
+      "UIMouseTacticalToggleRepairModeButton",
+      "UIMouseTacticalAttackMoveButton",
+      "UIMouseTacticalCommandPlaceWall",
+      "UIMouseTacticalForceAttackMoveButton",
+      "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "UIMouseTacticalExitContainerButton",
+      "UIMouseTacticalPlayerTechStoreButton",
+      "UIMouseTacticalCommandMove",
+      "UIMouseTacticalCommandSell",
+      "UIMouseTacticalUnitIntroButton",
+      "UIMouseTacticalCommandSelect",
+      "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "UIMouseTacticalCommandPlaceRallyPoint",
+      "UIMouseTacticalCommandHarvest",
+      "UIMouseTacticalCommandToggleSelfRepair",
+      "UIMouseTacticalBuildQueueTab",
+      "UIMouseTacticalCommandGetCrate",
+      "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "UIMouseTacticalCommandForceAttack",
+      "UIMouseTacticalPlanningModeButton",
+      "UIMouseTacticalCommandMisc",
+      "UIMouseTacticalSelectionRefinementTab",
+      "UIMouseTacticalCommandForceMove",
+      "UIMouseTacticalOpenAdvancedCommandsButton",
+      "UIMouseTacticalSetStanceButton",
+      "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "UIMouseTacticalCommandMineOre",
+      "UIMouseTacticalWaypointModeButton",
+      "UIMouseTacticalReverseMoveButton",
+      "UIMouseTacticalCommandEnter",
+      "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "UIMouseTacticalPauseButton",
+      "UIMouseTacticalCommandAttack",
+      "UIMouseTacticalCommandAttackMove",
+      "UIMouseTacticalForceMoveButton",
+      "UIMouseTacticalForceAttackButton",
+      "UIMouseTacticalCommandPlaceAIBeacon",
+      "UIMouseTacticalCommandDock",
+      "UIMouseTacticalCommandReverseMove",
+      "UIMouseTacticalBuildQueueTypeTab",
+      "UIMouseTacticalSellModeButton",
+      "UIMouseTacticalStopButton",
+      "UIMouseTacticalCommandSetRallyPoint",
+      "UIMouseTacticalFastForwardButton",
+      "UIMouseTacticalGroupSelection",
+      "UIMouseTacticalLookAt",
+      "UIMouseTacticalRadarTelestrator",
+      "UIMouseTacticalTelestrator",
+      "UIMouseTacticalThreatMeter"
+    ]
+  },
+  "roots": [
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "typeId": 1296329066,
+      "typeHash": 1187295208,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "typeId": 2591692061,
+      "typeHash": 1944261033,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "typeId": 2283998413,
+      "typeHash": 2326182616,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "typeId": 2014061824,
+      "typeHash": 3544626863,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "typeId": 2738273474,
+      "typeHash": 3442548366,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIQuickChatMessage",
+      "typeId": 4098431913,
+      "typeHash": 743017490,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "typeId": 2891878770,
+      "typeHash": 884927254,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "typeId": 3746130610,
+      "typeHash": 3018771479,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIDecalGrid",
+      "typeId": 2599418799,
+      "typeHash": 4073471,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIDecalCloud",
+      "typeId": 2524893660,
+      "typeHash": 325319211,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "typeId": 1532214660,
+      "typeHash": 4106878882,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "typeId": 1238702511,
+      "typeHash": 1469314420,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "BaseAudioEventInfo",
+      "typeId": 1079232276,
+      "typeHash": 1604640258,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "BaseSingleSound",
+      "typeId": 3228425025,
+      "typeHash": 2950045545,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "AudioEvent",
+      "typeId": 2219670431,
+      "typeHash": 1443638853,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicTrack",
+      "typeId": 1883691512,
+      "typeHash": 130352738,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MP3MusicTrack",
+      "typeId": 1013434420,
+      "typeHash": 2141170629,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "DialogEvent",
+      "typeId": 3558134211,
+      "typeHash": 3525217272,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MP3DialogEvent",
+      "typeId": 1479988269,
+      "typeHash": 2018565112,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AmbientStream",
+      "typeId": 3928762264,
+      "typeHash": 1830167803,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MP3AmbientStream",
+      "typeId": 1813598662,
+      "typeHash": 525549002,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "Multisound",
+      "typeId": 2745675575,
+      "typeHash": 4154219145,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "typeId": 97402485,
+      "typeHash": 3806481831,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "typeId": 343094706,
+      "typeHash": 1360895287,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "typeId": 2343360052,
+      "typeHash": 2196796046,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicEventRuntime",
+      "typeId": 1122327197,
+      "typeHash": 692705748,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicEventSet",
+      "typeId": 3339496789,
+      "typeHash": 1644774436,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathMusicMapRuntime",
+      "typeId": 2026048286,
+      "typeHash": 290548124,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicPalette",
+      "typeId": 2407383451,
+      "typeHash": 3647979872,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNuggetBase",
+      "typeId": 2292378780,
+      "typeHash": 3971458299,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionExpensiveNuggetBase",
+      "typeId": 849624115,
+      "typeHash": 2261613772,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "typeId": 188286714,
+      "typeHash": 1810715368,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "typeId": 2620791304,
+      "typeHash": 3492519332,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "typeId": 1464425282,
+      "typeHash": 1158381935,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "typeId": 57370491,
+      "typeHash": 4012559760,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "typeId": 739280456,
+      "typeHash": 3851927382,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "typeId": 3402992833,
+      "typeHash": 1748534571,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "typeId": 4286308287,
+      "typeHash": 2841937089,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "typeId": 2743973749,
+      "typeHash": 1875528998,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "typeId": 3386715757,
+      "typeHash": 1958333769,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "typeId": 3620764004,
+      "typeHash": 3267267860,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "typeId": 4007043648,
+      "typeHash": 855988878,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "typeId": 2281773838,
+      "typeHash": 4074957085,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "typeId": 1343682755,
+      "typeHash": 532337471,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "typeId": 2912435838,
+      "typeHash": 2349512303,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "typeId": 3727134806,
+      "typeHash": 3386360116,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "typeId": 3476397162,
+      "typeHash": 3050031378,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "typeId": 2818967523,
+      "typeHash": 3311890413,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "typeId": 1634186921,
+      "typeHash": 607961670,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MusicScriptTrack",
+      "typeId": 1038067901,
+      "typeHash": 3151900516,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "typeId": 104126924,
+      "typeHash": 3160055664,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "typeId": 113029208,
+      "typeHash": 2342677506,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "typeId": 346077409,
+      "typeHash": 2270316023,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "typeId": 442957564,
+      "typeHash": 1448492760,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "typeId": 485977567,
+      "typeHash": 1542859068,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "typeId": 694838069,
+      "typeHash": 4192036989,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "typeId": 772462768,
+      "typeHash": 875756023,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "typeId": 1014034471,
+      "typeHash": 2969006564,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "typeId": 1138847078,
+      "typeHash": 1373916399,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "typeId": 1234485619,
+      "typeHash": 3237545121,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "typeId": 1249197161,
+      "typeHash": 2873907483,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "typeId": 1277109486,
+      "typeHash": 4038536099,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "typeId": 1334543376,
+      "typeHash": 3689232783,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "typeId": 1371977384,
+      "typeHash": 301556505,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "typeId": 1474300054,
+      "typeHash": 1098794956,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "typeId": 1499648070,
+      "typeHash": 1611277776,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "typeId": 1956336137,
+      "typeHash": 693782642,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "typeId": 1974922393,
+      "typeHash": 276486244,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "typeId": 2067763016,
+      "typeHash": 2390364070,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "typeId": 2047841880,
+      "typeHash": 3936894160,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "typeId": 2074164365,
+      "typeHash": 3494287844,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "typeId": 2278083954,
+      "typeHash": 3993871439,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "typeId": 2505151835,
+      "typeHash": 96366804,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "typeId": 2635272840,
+      "typeHash": 4048847353,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "typeId": 2697587777,
+      "typeHash": 129995987,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "typeId": 2808773267,
+      "typeHash": 2375239281,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "typeId": 2873949396,
+      "typeHash": 4072122752,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "typeId": 2914137727,
+      "typeHash": 1938882503,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "typeId": 2957071942,
+      "typeHash": 3017648610,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "typeId": 2958905921,
+      "typeHash": 2908721247,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "typeId": 2987234945,
+      "typeHash": 1863152725,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "typeId": 3057018816,
+      "typeHash": 1130654826,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "typeId": 3094553884,
+      "typeHash": 3862996978,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "typeId": 3420020972,
+      "typeHash": 1007090371,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "typeId": 3548787763,
+      "typeHash": 45961792,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "typeId": 3575834349,
+      "typeHash": 3529865568,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "typeId": 3716369729,
+      "typeHash": 2581745695,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "typeId": 3756168709,
+      "typeHash": 144321893,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "typeId": 3809842710,
+      "typeHash": 4187711090,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "typeId": 3976885676,
+      "typeHash": 2900176681,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "typeId": 4026878150,
+      "typeHash": 3889487240,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "typeId": 4094578721,
+      "typeHash": 4253066583,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "typeId": 4102242385,
+      "typeHash": 3000504919,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "typeId": 4140422551,
+      "typeHash": 3882873771,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "typeId": 4180354873,
+      "typeHash": 3463571609,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "typeId": 4232364483,
+      "typeHash": 3130369778,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "typeId": 241329492,
+      "typeHash": 1267843369,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "typeId": 1795213437,
+      "typeHash": 1676252299,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "typeId": 3366599054,
+      "typeHash": 2875609897,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "typeId": 1921726501,
+      "typeHash": 916455758,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "typeId": 4143989686,
+      "typeHash": 472971368,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    }
+  ],
+  "sdkBaselineSourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+  "sdkBaselineRunId": "40098695436",
+  "currentCombinedDllSdkValidated": false,
+  "realSdkCompilationThisRound": false
+}
