@@ -12,104 +12,111 @@
     },
     {
       "file": "001.txt",
+      "signature": "internal unsafe static void Relo_002ETracker_002EAlterBookmark_003Cunsigned_0020int_003E(Tracker* P_0, Tracker.GenericBookmark_003Cunsigned_0020int_003E* bookmark, uint aStart, uint bStart, uint elementSize)",
+      "line": 50973,
+      "bodySha256": "acdf34ba240c9b7991ad33793ed15e61357c0afcc1ad57dbe4bb9b7362c3fb79",
+      "literals": []
+    },
+    {
+      "file": "002.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E(IList* list, SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* target, Tracker* tracker)",
       "line": 57236,
       "bodySha256": "aa3d3c68d85cb8e3b2622ac855a2a8183ca96aeee9bb369928024f04514aeec5",
       "literals": []
     },
     {
-      "file": "002.txt",
+      "file": "003.txt",
       "signature": "internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002ESort(SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* list, Tracker* tracker)",
       "line": 66623,
       "bodySha256": "d309ed73798b78da3df36f19f4bccb2d7729e94f6403a99d159b9b314dfe94d2",
       "literals": []
     },
     {
-      "file": "003.txt",
+      "file": "004.txt",
       "signature": "internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002EListElementCompare(WeaponSlot_WeaponData* left, WeaponSlot_WeaponData* right)",
       "line": 66708,
       "bodySha256": "4e276f02ae1f52af0fbcb456f231d1f1c366ffdd214dd234744d90d61c1499dc",
       "literals": []
     },
     {
-      "file": "004.txt",
+      "file": "005.txt",
       "signature": "internal unsafe static void eastl_002Equick_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75224,
       "bodySha256": "72dff35e6ab301f3f1de3881b545f071406a80ffe84121587d81d2f645ddf7bf",
       "literals": []
     },
     {
-      "file": "005.txt",
+      "file": "006.txt",
       "signature": "internal unsafe static void eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, int kRecursionCount, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75399,
       "bodySha256": "8f5df9f1115939b7f7f09f2e2ccffdf10056571077516172cb7e081b39cc3d1c",
       "literals": []
     },
     {
-      "file": "006.txt",
+      "file": "007.txt",
       "signature": "internal unsafe static void eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75422,
       "bodySha256": "b673f144256f54ad7d26d4bf81d32981cb5dc9e96582d4660749db2ef617f425",
       "literals": []
     },
     {
-      "file": "007.txt",
+      "file": "008.txt",
       "signature": "internal unsafe static void eastl_002Einsertion_sort_simple_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75456,
       "bodySha256": "0ea1084ff17dd8e18576df95cd32163be51a44d6ac37ef52eedf57889ee8fed6",
       "literals": []
     },
     {
-      "file": "008.txt",
+      "file": "009.txt",
       "signature": "internal unsafe static WeaponSlot_WeaponData** eastl_002Emedian_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** a, WeaponSlot_WeaponData** b, WeaponSlot_WeaponData** c, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75556,
       "bodySha256": "60f2cd21fb9422d6c466252944edbd8b4bf1afd629492e919d912f3857ff27e2",
       "literals": []
     },
     {
-      "file": "009.txt",
+      "file": "010.txt",
       "signature": "internal unsafe static WeaponSlot_WeaponData** eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, WeaponSlot_WeaponData** pivotValue, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75581,
       "bodySha256": "5f90e62a8c0fa0860b861df2b0e529c23b6d6e05418a03c26463e082f306672a",
       "literals": []
     },
     {
-      "file": "010.txt",
+      "file": "011.txt",
       "signature": "internal unsafe static void eastl_002Epartial_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** middle, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75612,
       "bodySha256": "cab39f9dee40d50f361caf4b154377150b1d6709ad4265caf9ae1ffea4fc9c33",
       "literals": []
     },
     {
-      "file": "011.txt",
+      "file": "012.txt",
       "signature": "internal unsafe static void eastl_002Emake_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75656,
       "bodySha256": "19ba4b8b56e86b81381af6eccffda829c996861f6106c09f9d565421e30b0cc4",
       "literals": []
     },
     {
-      "file": "012.txt",
+      "file": "013.txt",
       "signature": "internal unsafe static void eastl_002Eadjust_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, int topPosition, int heapSize, int position, WeaponSlot_WeaponData* value, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75673,
       "bodySha256": "b7e75a6fc1c76570a9f5a71d7d304ca526c12b8e1bbd5056cc0f8b9bc207694b",
       "literals": []
     },
     {
-      "file": "013.txt",
+      "file": "014.txt",
       "signature": "internal unsafe static void eastl_002Esort_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75698,
       "bodySha256": "430925fd5670406af47e9900d5112c632e93ed8debbb8af8a3a4deadd062aa30",
       "literals": []
     },
     {
-      "file": "014.txt",
+      "file": "015.txt",
       "signature": "internal unsafe static void eastl_002Epromote_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, int topPosition, int position, WeaponSlot_WeaponData* value, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)",
       "line": 75719,
       "bodySha256": "90860426a37c78f1a8be5fefbbc8a4ee4bf5e3e69e71b99d411a087355a5367a",
       "literals": []
     },
     {
-      "file": "015.txt",
+      "file": "016.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, uint* @object, Tracker* tracker, ColorTag* __unnamed003)",
       "line": 13200,
       "bodySha256": "ee534fc1de542adb3a0b8919256861492c915dd811d9e276c28de42559fb4e8d",
@@ -123,7 +130,7 @@
       ]
     },
     {
-      "file": "016.txt",
+      "file": "017.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, WeaponSlot_WeaponData* @object, Tracker* state)",
       "line": 31366,
       "bodySha256": "8be33298326517b8236148e04b5fde299ea9b98271103d0a24dc41b4a67d6c71",
@@ -140,28 +147,28 @@
       ]
     },
     {
-      "file": "017.txt",
+      "file": "018.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020WeaponSlotType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, WeaponSlotType* @object, Tracker* state)",
       "line": 52024,
       "bodySha256": "c171bf73c80d21bdc0b490a3e407ade65e2fbb69ebeeeb6d9326bf4f4adeb386",
       "literals": []
     },
     {
-      "file": "018.txt",
+      "file": "019.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AWeaponTemplate_002Cclass_0020WeaponTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AWeaponTemplate_002CWeaponTemplate_003E* @object, Tracker* state)",
       "line": 52640,
       "bodySha256": "0272073f12535276d0b922f5038aeed69d76484f09ea674161b02fcf7a706972",
       "literals": []
     },
     {
-      "file": "019.txt",
+      "file": "020.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E* @object, Tracker* state)",
       "line": 55609,
       "bodySha256": "1beafb094f971e3cc9acaaaa1c21aa63dc8cd5c346f5c08df567ca0b01c4486e",
       "literals": []
     },
     {
-      "file": "020.txt",
+      "file": "021.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(sbyte* text, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, Tracker* tracker)",
       "line": 67448,
       "bodySha256": "568a444c711880f434a3602bd121236b0833b2efe865130b8c6933765cb504bd",
@@ -172,7 +179,7 @@
       ]
     },
     {
-      "file": "021.txt",
+      "file": "022.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)",
       "line": 51522,
       "bodySha256": "5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932",

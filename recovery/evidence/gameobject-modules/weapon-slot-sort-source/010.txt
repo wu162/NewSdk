@@ -1,23 +1,33 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75612; body SHA256 cab39f9dee40d50f361caf4b154377150b1d6709ad4265caf9ae1ffea4fc9c33
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75581; body SHA256 5f90e62a8c0fa0860b861df2b0e529c23b6d6e05418a03c26463e082f306672a
 // Literals: {}
-internal unsafe static void eastl_002Epartial_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** middle, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+internal unsafe static WeaponSlot_WeaponData** eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, WeaponSlot_WeaponData** pivotValue, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
 	{
-		eastl_002Emake_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, middle, compare);
-		WeaponSlot_WeaponData** ptr = middle;
-		if (middle < last)
+		WeaponSlot_WeaponData* ptr = (WeaponSlot_WeaponData*)(int)(*(uint*)pivotValue);
+		while (true)
 		{
-			do
+			if (compare((WeaponSlot_WeaponData*)(int)(*(uint*)first), ptr) != 0)
 			{
-				if (compare((WeaponSlot_WeaponData*)(int)(*(uint*)ptr), (WeaponSlot_WeaponData*)(int)(*(uint*)first)) != 0)
-				{
-					WeaponSlot_WeaponData* value = (WeaponSlot_WeaponData*)(int)(*(uint*)ptr);
-					*(int*)ptr = *(int*)first;
-					eastl_002Eadjust_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, 0, (int)((nint)((byte*)middle - (nuint)first) >> 2), 0, value, compare);
-				}
-				ptr = (WeaponSlot_WeaponData**)((byte*)ptr + 4);
+				first = (WeaponSlot_WeaponData**)((byte*)first + 4);
+				continue;
 			}
-			while (ptr < last);
+			last = (WeaponSlot_WeaponData**)((byte*)last - 4);
+			if (compare(ptr, (WeaponSlot_WeaponData*)(int)(*(uint*)last)) != 0)
+			{
+				do
+				{
+					last = (WeaponSlot_WeaponData**)((byte*)last - 4);
+				}
+				while (compare(ptr, (WeaponSlot_WeaponData*)(int)(*(uint*)last)) != 0);
+			}
+			if (first >= last)
+			{
+				break;
+			}
+			WeaponSlot_WeaponData* ptr2 = (WeaponSlot_WeaponData*)(int)(*(uint*)first);
+			*(int*)first = *(int*)last;
+			*(int*)last = (int)ptr2;
+			first = (WeaponSlot_WeaponData**)((byte*)first + 4);
 		}
-		eastl_002Esort_heap_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, middle, compare);
+		return first;
 	}
 

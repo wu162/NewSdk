@@ -1,25 +1,33 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75399; body SHA256 8f5df9f1115939b7f7f09f2e2ccffdf10056571077516172cb7e081b39cc3d1c
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75224; body SHA256 72dff35e6ab301f3f1de3881b545f071406a80ffe84121587d81d2f645ddf7bf
 // Literals: {}
-internal unsafe static void eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, int kRecursionCount, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+internal unsafe static void eastl_002Equick_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
 	{
-		if ((nint)((nuint)((byte*)last - (nuint)first) & unchecked((nuint)(-4))) > (nint)112)
+		if (first == last)
 		{
-			while (kRecursionCount > 0)
-			{
-				WeaponSlot_WeaponData** ptr = eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, last, eastl_002Emedian_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, (WeaponSlot_WeaponData**)(((nint)((byte*)last - (nuint)first) >> 2) / 2 * 4 + (byte*)first), (WeaponSlot_WeaponData**)((byte*)last - 4), compare), compare);
-				kRecursionCount--;
-				eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(ptr, last, kRecursionCount, compare);
-				last = ptr;
-				if ((nint)((nuint)((byte*)ptr - (nuint)first) & unchecked((nuint)(-4))) <= (nint)112)
-				{
-					break;
-				}
-			}
+			return;
 		}
-		if (kRecursionCount == 0)
+		int num = (int)((nint)((byte*)last - (nuint)first) >> 2);
+		int num2 = num;
+		int num3 = 0;
+		if (num2 != 0)
 		{
-			WeaponSlot_WeaponData** intPtr = last;
-			eastl_002Epartial_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, intPtr, intPtr, compare);
+			do
+			{
+				num2 >>= 1;
+				num3++;
+			}
+			while (num2 != 0);
+		}
+		eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, last, num3 * 2 - 2, compare);
+		if (num > 28)
+		{
+			WeaponSlot_WeaponData** ptr = (WeaponSlot_WeaponData**)((byte*)first + 112);
+			eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, ptr, compare);
+			eastl_002Einsertion_sort_simple_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(ptr, last, compare);
+		}
+		else
+		{
+			eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, last, compare);
 		}
 	}
 

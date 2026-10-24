@@ -1,33 +1,9 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 75224; body SHA256 72dff35e6ab301f3f1de3881b545f071406a80ffe84121587d81d2f645ddf7bf
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 66708; body SHA256 4e276f02ae1f52af0fbcb456f231d1f1c366ffdd214dd234744d90d61c1499dc
 // Literals: {}
-internal unsafe static void eastl_002Equick_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(WeaponSlot_WeaponData** first, WeaponSlot_WeaponData** last, delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte> compare)
+internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002EListElementCompare(WeaponSlot_WeaponData* left, WeaponSlot_WeaponData* right)
 	{
-		if (first == last)
-		{
-			return;
-		}
-		int num = (int)((nint)((byte*)last - (nuint)first) >> 2);
-		int num2 = num;
-		int num3 = 0;
-		if (num2 != 0)
-		{
-			do
-			{
-				num2 >>= 1;
-				num3++;
-			}
-			while (num2 != 0);
-		}
-		eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, last, num3 * 2 - 2, compare);
-		if (num > 28)
-		{
-			WeaponSlot_WeaponData** ptr = (WeaponSlot_WeaponData**)((byte*)first + 112);
-			eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, ptr, compare);
-			eastl_002Einsertion_sort_simple_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(ptr, last, compare);
-		}
-		else
-		{
-			eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(first, last, compare);
-		}
+		int num = *(int*)left;
+		int num2 = *(int*)right;
+		return num < num2;
 	}
 
