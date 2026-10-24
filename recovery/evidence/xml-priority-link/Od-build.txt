@@ -13,13 +13,20 @@ XmlenvironmentCompiler.cpp
 XmlfxparticleCompiler.cpp
 XmlhotkeymapsCompiler.cpp
 XmllocomotorCompiler.cpp
+XmlmusicscriptCompiler.cpp
+XmlpathmusicCompiler.cpp
 XmlplayersCompiler.cpp
 XmlpowersCompiler.cpp
 XmlprogressionCompiler.cpp
-XmlsoundmapsCompiler.cpp
-XmluisettingsCompiler.cpp
 Generating Code...
 Compiling...
+XmlsinglesoundCompiler.cpp
+XmlsoundmapsCompiler.cpp
+XmltacticalhotkeysCompiler.cpp
+XmluichatCompiler.cpp
+XmluidecalsCompiler.cpp
+XmluisettingsCompiler.cpp
+XmluitacticalCompiler.cpp
 Xmlai.cpp
 Xmlattributes.cpp
 Xmlaudio.cpp
@@ -31,11 +38,20 @@ Xmlenvironment.cpp
 Xmlfxparticle.cpp
 Xmlhotkeymaps.cpp
 Xmllocomotor.cpp
+Xmlmusicscript.cpp
+Xmlpathmusic.cpp
+Generating Code...
+Compiling...
 Xmlplayers.cpp
 Xmlpowers.cpp
 Xmlprogression.cpp
 XmlprogressionFont.cpp
 XmlprogressionUi.cpp
+Xmlsinglesound.cpp
 Xmlsoundmaps.cpp
+Xmltacticalhotkeys.cpp
+Xmluichat.cpp
+Xmluidecals.cpp
 Xmluisettings.cpp
+Xmluitactical.cpp
 Generating Code...

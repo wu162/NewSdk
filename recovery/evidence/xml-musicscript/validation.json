@@ -1,0 +1,93 @@
+{
+  "succeeded": true,
+  "sourceCommit": "ab40abb7777ee0e4bda6ff472f382f0c5897836d",
+  "runId": "40132183077",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 1,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 2,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 99,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        }
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 1,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 2,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        },
+        {
+          "platform": 99,
+          "fixtures": 11593,
+          "threeArrayComparisons": 34779,
+          "directArrayComparisons": 34779,
+          "rejections": 127,
+          "independentLayouts": 11683
+        }
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "scope": "Twenty-one complete music-script condition and track roots; component-only; no SDK invocation or active routing change",
+  "status": "Od and O2 four-platform three-buffer differential passed for documented support boundary"
+}

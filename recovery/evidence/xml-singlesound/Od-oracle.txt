@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=10343 threeArrayComparisons=31029 directArrayComparisons=31029 rejections=334 independentLayouts=10521
+PASS platform=1 fixtures=10343 threeArrayComparisons=31029 directArrayComparisons=31029 rejections=334 independentLayouts=10521
+PASS platform=2 fixtures=10343 threeArrayComparisons=31029 directArrayComparisons=31029 rejections=334 independentLayouts=10521
+PASS platform=99 fixtures=10343 threeArrayComparisons=31029 directArrayComparisons=31029 rejections=334 independentLayouts=10521
+RESULT fixtures=41372 threeArrayComparisons=124116 directArrayComparisons=124116 rejections=1336 independentLayouts=42084

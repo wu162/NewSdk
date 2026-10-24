@@ -1,0 +1,93 @@
+{
+  "succeeded": true,
+  "sourceCommit": "ab40abb7777ee0e4bda6ff472f382f0c5897836d",
+  "runId": "40132183077",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 1,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 2,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 99,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        }
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 1,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 2,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        },
+        {
+          "platform": 99,
+          "fixtures": 1996,
+          "threeArrayComparisons": 5988,
+          "directArrayComparisons": 5988,
+          "rejections": 48,
+          "independentLayouts": 2099
+        }
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "scope": "Seven complete path-music XmlCompiler entries including two runtime-only handlers; component-only; no custom MusicCompiler or real SDK compilation",
+  "status": "Od and O2 four-platform three-buffer differential passed for documented support boundary"
+}
