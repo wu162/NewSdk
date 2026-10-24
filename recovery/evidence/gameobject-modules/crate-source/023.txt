@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62651; body SHA256 b4a466a738dcdb84a214a18a76f5b2417b587e6449e745192e25e53fbaddcdf4
+// Literals: {"_003F_003F_C_0040_0BC_0040IDKPMEAJ_0040AttributeModifier_003F_0024AA_0040": "AttributeModifier", "_003F_003F_C_0040_0CH_0040PGJJMDJ_0040AttributeModifier_Invulnerabilit_0040": "AttributeModifier_InvulnerabilityCrate"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAttributeCrateCollideModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		AttributeCrateCollideModuleData* ptr = (AttributeCrateCollideModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 112u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAttributeModifier_002Cclass_0020AttributeModifierContainer_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040IDKPMEAJ_0040AttributeModifier_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0CH_0040PGJJMDJ_0040AttributeModifier_Invulnerabilit_0040)), (AssetReference_003CSageBinaryData_003A_003AAttributeModifier_002CAttributeModifierContainer_003E*)((byte*)ptr + 108), tracker);
+			Marshaler_002EMarshal(node, (CrateCollideModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1212396263;
+	}
+

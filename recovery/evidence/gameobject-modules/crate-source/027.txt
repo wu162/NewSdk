@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 60607; body SHA256 a747e720b5c822cc10ab1159fa47f424ebd44c6285537533ac87c136b8719c84
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARandomCrateCollideModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		RandomCrateCollideModuleData* ptr = (RandomCrateCollideModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 140u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 482350304;
+	}
+
