@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 86868; body SHA256 c3814cd706f60314dbbe9f2f2aea8448565a8e4aedd0c5a4982aac1936e0c667
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, DamageStateListModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 39586775;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DamageModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1712341983;
+		((int*)ptr)[1] = -1286725278;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADamageState_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ADamageState_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

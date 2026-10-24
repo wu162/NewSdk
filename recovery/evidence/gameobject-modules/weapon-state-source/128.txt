@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 57204; body SHA256 ba1117c75fb2b517b5c9643b3b3dc7b2824a8658ba117c2710d4b796150a5657
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ATurretAITargetChooserData_003E(INode* node, TurretAITargetChooserData** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 44u, 1u);
+			Marshaler_002EMarshal(node, (TurretAITargetChooserData*)(int)(*(uint*)pointer), tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+

@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 62549; body SHA256 a2c4d881722b4c7ce36639260fba6c89c823a8cf6cc15fbb13ca14c5c8cf94e7
+// Literals: {"_003F_003F_C_0040_04DICKPMGH_0040Data_003F_0024AA_0040": "Data"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ADamageStateListModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		DamageStateListModuleData* ptr = (DamageStateListModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADamageState_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04DICKPMGH_0040Data_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ADamageState_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -133719035;
+	}
+

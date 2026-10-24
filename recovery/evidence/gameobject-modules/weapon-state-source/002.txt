@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 63781; body SHA256 83795267722156d7dddfe83f875144f15ab720d52ff45860d06b6a20c72a6dc3
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AWeaponSetUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((WeaponSetUpdateModuleData*)(int)(*(uint*)pointer), endian);
+	}
+

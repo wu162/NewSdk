@@ -1,0 +1,28 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 57477; body SHA256 575d53d5abcc36e0f7e2539af03839f1b45969ed1ff6588a66591dbc603ecb8c
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Turret_003E(List_003CSageBinaryData_003A_003AWeaponSlot_Turret_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		WeaponSlot_Turret* ptr = (WeaponSlot_Turret*)num;
+		WeaponSlot_Turret* ptr2 = (WeaponSlot_Turret*)(*(int*)list * 124 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect((TurretAIData*)((byte*)ptr + 28), endian);
+				Marshaler_002EEndianCorrect((WeaponSlot_Hardpoint*)ptr, endian);
+				ptr = (WeaponSlot_Turret*)((byte*)ptr + 124);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+

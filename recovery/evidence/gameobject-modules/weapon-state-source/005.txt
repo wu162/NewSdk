@@ -1,0 +1,31 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 91857; body SHA256 662eb443ed7922a85ad2b7f0d4f41c5ae918da64b53c74752788102f4ce6d78a
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, WeaponSetUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 6u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1151544716;
+		((int*)ptr)[1] = -833072169;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Hardpoint_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1767331716;
+		((int*)ptr)[1] = 1326752513;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Turret_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AWeaponSlot_Turret_003E*)((byte*)@object + 16), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 2014210431;
+		((int*)ptr)[1] = -997703599;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_HierarchicalTurret_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AWeaponSlot_HierarchicalTurret_003E*)((byte*)@object + 24), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1187408286;
+		((int*)ptr)[1] = -1171426590;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Contained_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AWeaponSlot_Contained_003E*)((byte*)@object + 32), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

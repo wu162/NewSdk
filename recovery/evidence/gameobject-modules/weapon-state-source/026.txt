@@ -1,0 +1,24 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 33200; body SHA256 9e2c92b3d55c4bdb5261d7b51c2ca313ccbca4a2bc9ba3a0ce66216e2c4ce341
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(FireWeaponWhenDeadBehaviorModuleData* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 36)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 36)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 36)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[36];
+			((int*)@object)[9] = (int)num;
+		}
+		Marshaler_002EEndianCorrect_003Cenum_0020KindOfType_002C284_003E((BitFlags_003C284_002Cenum_0020KindOfType_003E*)((byte*)@object + 44), state);
+		uint num2 = ((uint*)@object)[20];
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num2, state);
+		}
+		Marshaler_002EEndianCorrect((DieMuxDataType*)((byte*)@object + 84), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AWeaponFireProbabilityType_003E((List_003CSageBinaryData_003A_003AWeaponFireProbabilityType_003E*)((byte*)@object + 128), state);
+		Marshaler_002EEndianCorrect((UpgradeModuleData*)@object, state);
+	}
+

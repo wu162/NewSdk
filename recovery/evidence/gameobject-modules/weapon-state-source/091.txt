@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 91823; body SHA256 2c4b67f5184671d1081b0cc81c581749ebc3af25e96f101137fbde57a3a4f5c1
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, WeaponSlot_Turret* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -833072169;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (WeaponSlot_Hardpoint*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1834535317;
+		((int*)ptr)[1] = -160092061;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (TurretAIData*)((byte*)@object + 28), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

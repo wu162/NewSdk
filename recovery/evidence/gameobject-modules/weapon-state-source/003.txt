@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 31493; body SHA256 7e1e9ff34e69996955349d7cee2441250d1eb026c363e4840eba87d1b2d21dfc
+// Literals: {"_003F_003F_C_0040_0BE_0040DGAOKFPC_0040WeaponSlotHardpoint_003F_0024AA_0040": "WeaponSlotHardpoint", "_003F_003F_C_0040_0BB_0040KMJOPCLB_0040WeaponSlotTurret_003F_0024AA_0040": "WeaponSlotTurret", "_003F_003F_C_0040_0BN_0040OMNGGDPE_0040WeaponSlotHierarchicalTurret_003F_0024AA_0040": "WeaponSlotHierarchicalTurret", "_003F_003F_C_0040_0BE_0040NGGMNMKK_0040WeaponSlotContained_003F_0024AA_0040": "WeaponSlotContained"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, WeaponSetUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Hardpoint_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040DGAOKFPC_0040WeaponSlotHardpoint_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003E*)((byte*)@object + 8), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Turret_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040KMJOPCLB_0040WeaponSlotTurret_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AWeaponSlot_Turret_003E*)((byte*)@object + 16), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_HierarchicalTurret_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BN_0040OMNGGDPE_0040WeaponSlotHierarchicalTurret_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AWeaponSlot_HierarchicalTurret_003E*)((byte*)@object + 24), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Contained_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040NGGMNMKK_0040WeaponSlotContained_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AWeaponSlot_Contained_003E*)((byte*)@object + 32), state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+

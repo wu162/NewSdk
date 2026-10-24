@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 52057; body SHA256 32dc6bc1f1d4f487f376f5cae39ca1e1976a4be0c4ee75aa60ddb279fc50d6a3
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020AngleTag_003E(IValue* value, float* @object, Tracker* state, AngleTag* tag)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			DataInitializers_002EInitialize(@object, text, tag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
