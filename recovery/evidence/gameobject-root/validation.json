@@ -1,23 +1,23 @@
 {
-  "succeeded": true,
   "sdkStatus": "not run; original route retained",
-  "runId": "40047664340",
+  "modes": [
+    {
+      "mode": "Od",
+      "summary": "PASS recovered GameObject root: fixtures=185152 threeBufferComparisons=555456 refusals=9612 invarianceComparisons=352; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    },
+    {
+      "mode": "O2",
+      "summary": "PASS recovered GameObject root: fixtures=185152 threeBufferComparisons=555456 refusals=9612 invarianceComparisons=352; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
+    }
+  ],
+  "succeeded": true,
+  "runId": "40048856796",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "scope": "88 root attributes; thirty-eight child nodes including module containers with 31 complete base-only types plus all seven remaining Body types (all nine XSD Body choices), full DamageRangeModifier and nullable ShieldArmor; all six ClientUpdate types including exact-case Key hash lists and ushort UnitWeight; complete SlavedUpdate and four remaining Create modules and three-type Production Update/exit family and twenty-two-type named Upgrade group and seven-type shared Die family and six lifecycle Updates and four sound/EVA selectors and AnimationSound/ModelConditionAudioLoop playback groups (nullable masks/range, signed Frame list and inline masks); unknown fallback (229 other known module types rejected); complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected",
-  "sourceCommit": "17e4a7093436532ab843022defa278bcf744ce25",
-  "modes": [
-    {
-      "summary": "PASS recovered GameObject root: fixtures=181796 threeBufferComparisons=545388 refusals=9544 invarianceComparisons=344; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "Od"
-    },
-    {
-      "summary": "PASS recovered GameObject root: fixtures=181796 threeBufferComparisons=545388 refusals=9544 invarianceComparisons=344; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run",
-      "mode": "O2"
-    }
-  ]
+  "sourceCommit": "fa250611af72d2639c141a532df858a9837bd0b8",
+  "scope": "88 root attributes; thirty-eight child nodes including module containers with 31 complete base-only types plus all seven remaining Body types (all nine XSD Body choices), full DamageRangeModifier and nullable ShieldArmor; all six ClientUpdate types including exact-case Key hash lists and ushort UnitWeight; complete TechUpgradeReceiver and SlavedUpdate and four remaining Create modules and three-type Production Update/exit family and twenty-two-type named Upgrade group and seven-type shared Die family and six lifecycle Updates and four sound/EVA selectors and AnimationSound/ModelConditionAudioLoop playback groups (nullable masks/range, signed Frame list and inline masks); unknown fallback (228 other known module types rejected); complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected"
 }
