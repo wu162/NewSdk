@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 452e4e2059d2543544b9651be4a991452acac024eef5befec4b4b14dd0e6e37c
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AObjectStatusValidationDataType_003E(void** table, ObjectStatusValidationDataType** pointer, Tracker* tracker)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Tokenizer_002ETokenize(table, (ObjectStatusValidationDataType*)(int)num, tracker);
+		}
+		else
+		{
+			*(int*)table = 0;
+		}
+	}

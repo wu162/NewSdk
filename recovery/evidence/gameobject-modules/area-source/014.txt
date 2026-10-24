@@ -1,0 +1,21 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 830fba288d9173b121a12bdb4e87247b458bb8be143b527c88a0f25c8b451409
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ADamageFieldUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		DamageFieldUpdateModuleData* ptr = (DamageFieldUpdateModuleData*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 32)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 32)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 32)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[32];
+			((int*)ptr)[8] = (int)num;
+		}
+		uint num2 = ((uint*)ptr)[10];
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((ObjectFilter*)(int)num2, endian);
+		}
+		Marshaler_002EEndianCorrect((FireWeaponUpdateModuleData*)ptr, endian);
+	}

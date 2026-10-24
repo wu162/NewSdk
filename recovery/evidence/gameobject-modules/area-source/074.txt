@@ -1,0 +1,44 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 4f0873c8a0f0b2d5b4856c33104372a0bee3cc3ee342e09695e026d58001ff11
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, FireWeaponUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 7u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1028252425;
+		((int*)ptr)[1] = -1719244312;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1775687299;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 28, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 445571954;
+		((int*)ptr)[1] = 426078409;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1071974514;
+		((int*)ptr)[1] = -1922759046;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E*)((byte*)@object + 16), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -361501601;
+		((int*)ptr)[1] = 1049596812;
+		byte* num = (byte*)@object + 24;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (ObjectStatusValidationDataType*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

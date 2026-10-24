@@ -1,0 +1,55 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 3b9fe1c9112b704ac09810891935fcc363d75706effcf43f7b2fceab8a7d0f3e
+// Literals: {"_003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040": "Flags", "_003F_003F_C_0040_09EIMKMJLA_0040MaxRadius_003F_0024AA_0040": "MaxRadius", "_003F_003F_C_0040_05DNIEJHGK_0040100_003F40_003F_0024AA_0040": "100.0", "_003F_003F_C_0040_0M_0040JPCLMOOC_0040ArcDistance_003F_0024AA_0040": "ArcDistance", "_003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040": "10.0", "_003F_003F_C_0040_0M_0040JEHDMBLA_0040SweepFXList_003F_0024AA_0040": "SweepFXList", "_003F_003F_C_0040_0M_0040FMGPBBNG_0040SweepWeapon_003F_0024AA_0040": "SweepWeapon", "_003F_003F_C_0040_09BGINOCKP_0040FXTimeout_003F_0024AA_0040": "FXTimeout", "_003F_003F_C_0040_05EICGPFPA_00400_003F425s_003F_0024AA_0040": "0.25s", "_003F_003F_C_0040_0N_0040IFPEINBO_0040ObjectFilter_003F_0024AA_0040": "ObjectFilter"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, CircularDamageUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ACircularDamageUpdateOptionsType_002C1_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C1_002Cenum_0020SageBinaryData_003A_003ACircularDamageUpdateOptionsType_003E*)((byte*)@object + 8), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09EIMKMJLA_0040MaxRadius_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05DNIEJHGK_0040100_003F40_003F_0024AA_0040));
+			if (ptr2 != null)
+			{
+				sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				((float*)@object)[3] = (float)atof(ptr3);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			IValue* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040JPCLMOOC_0040ArcDistance_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040));
+			if (ptr4 != null)
+			{
+				sbyte* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr4)))((nint)ptr4);
+				((float*)@object)[4] = (float)atof(ptr5);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr4 + 4)))((nint)ptr4);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040JEHDMBLA_0040SweepFXList_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 20), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AWeaponTemplate_002Cclass_0020WeaponTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040FMGPBBNG_0040SweepWeapon_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AWeaponTemplate_002CWeaponTemplate_003E*)((byte*)@object + 24), state);
+			IValue* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09BGINOCKP_0040FXTimeout_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05EICGPFPA_00400_003F425s_003F_0024AA_0040));
+			if (ptr6 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr6)))((nint)ptr6);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 7, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr6 + 4)))((nint)ptr6);
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040IFPEINBO_0040ObjectFilter_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ObjectFilter*)((byte*)@object + 32), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
