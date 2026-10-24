@@ -48,6 +48,8 @@ python recovery/scripts/GenerateEconomyFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'Economy source metadata mismatch' }
 python recovery/scripts/GenerateAssistFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'Assistance source metadata mismatch' }
+python recovery/scripts/InspectSpawnUpdateEnums.py | Tee-Object -FilePath "$report/spawn-update-enums.txt"
+if ($LASTEXITCODE -ne 0) { throw 'Spawn/OCL Update PE enum inspection failed' }
 Copy-Item SDK/tools/*.dll $out
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 $summaries = @()
