@@ -23,6 +23,6 @@
 
 `scripts/TestXmldamagefx.ps1` 在 /Od 与 /O2 各运行平台0/1/2/99；`tests/XmldamagefxOracle.cs` 每样本比较原 ProcessInstance 和恢复 ProcessInstance、CompileXml 三数组，共6数组比较。114个枚举及大小写/空/未知/空白、Amount完整数值边界、Time单位与非法输入、10个reference字段及nullable的全部引用边界、NUL/ANSI、0/1/2/3/27/28/29/64/257项列表，配独立偏移、缺省、bookmark增长、import index+1、relo/import哨兵与显式拒绝。测试未删减原组覆盖。
 
-新公开组类 `Recovered.XmldamagefxCompiler` 及 `DamageFXCompiler`、`DamageFXSettingsCompiler`。组件源清单在脚本；联合DLL追加 Native/Xmldamagefx.cpp、Bridge/XmldamagefxCompiler.cpp。Plugin/catalog统一接线由集成代理完成；新 metadata 是 catalog/XmldamagefxTypes.json，合法SDK片段在 sdk/XmldamagefxProbe.fragment.xml（包含FXList依赖、两根缺省/非缺省/实际继承）。
+新公开组类 `Recovered.XmldamagefxCompiler` 及 `DamageFXCompiler`、`DamageFXSettingsCompiler`。组件源清单在脚本；联合DLL追加 Native/Xmldamagefx.cpp、Bridge/XmldamagefxCompiler.cpp。Plugin/catalog统一接线由集成代理完成；新 metadata 是 catalog/XmldamagefxTypes.json，合法SDK片段在 sdk/XmldamagefxProbe.fragment.xml（包含FXList依赖、两根缺省/非缺省；两根schema均不允许inheritFrom，不伪造继承场景）。
 
 最终是否验收必须以统一运行 sourceCommit/runId、validation.json 和实际退出码判断，不能以本实现文档代替成功结果。

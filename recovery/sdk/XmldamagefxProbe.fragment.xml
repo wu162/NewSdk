@@ -10,7 +10,5 @@
     VeteranSideFX="RecoveryDamageFxLeaf" VeteranTopFX="RecoveryDamageFxLeaf"/>
   <FXGroup Type="DEFAULT" Amount="1.5" ThrottleTime="1s" MajorFX="RecoveryDamageFxLeaf"/>
 </DamageFX>
-<DamageFX id="RecoveryDamageFxInherited" inheritFrom="RecoveryDamageFxNonDefault"/>
 <DamageFXSettings id="RecoveryDamageFxSettingsDefault"/>
 <DamageFXSettings id="RecoveryDamageFxSettingsNonDefault" GroundDamageFX="RecoveryDamageFxNonDefault"/>
-<DamageFXSettings id="RecoveryDamageFxSettingsInherited" inheritFrom="RecoveryDamageFxSettingsNonDefault"/>
