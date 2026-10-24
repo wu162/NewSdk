@@ -1,0 +1,46 @@
+{
+  "roots": [
+    {
+      "name": "PathMusicGameDynamicState",
+      "typeId": 97402485,
+      "typeHash": 3806481831,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "typeId": 343094706,
+      "typeHash": 1360895287,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "typeId": 2343360052,
+      "typeHash": 2196796046,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PathMusicEventRuntime",
+      "typeId": 1122327197,
+      "typeHash": 692705748,
+      "schemaGlobal": false
+    },
+    {
+      "name": "PathMusicEventSet",
+      "typeId": 3339496789,
+      "typeHash": 1644774436,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PathMusicMapRuntime",
+      "typeId": 2026048286,
+      "typeHash": 290548124,
+      "schemaGlobal": false
+    },
+    {
+      "name": "MusicPalette",
+      "typeId": 2407383451,
+      "typeHash": 3647979872,
+      "schemaGlobal": true
+    }
+  ]
+}
