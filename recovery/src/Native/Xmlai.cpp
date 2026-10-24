@@ -109,7 +109,10 @@ bool HasPayloadAttributes(const XmlaiNode& node) {
 }
 
 struct Builder {
-    Relo::Tracker data;
+    Relo::Tracker ownedData;
+    Relo::Tracker& data;
+    Builder():data(ownedData){}
+    explicit Builder(Relo::Tracker& tracker):data(tracker){}
     std::vector<void*> words;
     std::vector<ObjectFilter*> filters;
     void Word(void* p,U32 n) { std::memcpy(p,&n,4);words.push_back(p); }
@@ -238,6 +241,10 @@ struct Builder {
     }
 };
 }
+void MarshalXmlaiHeuristics(Relo::Tracker& tracker,void* list,const XmlaiNode& wrapper,bool bigEndian) {
+    Builder b(tracker);b.HeuristicList(wrapper,static_cast<unsigned char*>(list),0);
+    if(bigEndian){for(void* p:b.words)Swap(p);for(auto f:b.filters)EndianObjectFilter(f);}
+}
 unsigned int XmlaiTypeId(const std::string& name) {
     if(name=="AIPersonalityDefinition")return 3604279694u;
     if(name=="AIStrategicStateDefinition")return 607123156u;
@@ -259,4 +266,5 @@ Relo::Chunk CompileXmlai(const XmlaiNode& node,bool bigEndian) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
