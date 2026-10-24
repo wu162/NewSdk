@@ -94,46 +94,55 @@ public:
         System::Collections::Generic::List<String^>^ attrs=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"TypeId","StopIfPlayed","Weather","OnlyIfOnLand","PlayIfSourceIsStealthed","RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"});
         System::Collections::Generic::List<String^>^ children=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"SourceMustNotHaveBeenDisabledThisFrameByType"});
         switch(input.typeId) {
-        case 503892219u:
+        case 503892219u: {
             input.size=48; attrs->Add("Value");
             Field(node,"Value",nullptr,44,Native::EffectReference,nullptr,input); break;
-        case 638391350u:
+        }
+        case 638391350u: {
             input.size=48; attrs->Add("Event");
             Field(node,"Event",nullptr,44,Native::EffectReference,nullptr,input); break;
-        case 4011332978u:
+        }
+        case 4011332978u: {
             input.size=48; attrs->Add("Type");
             Field(node,"Type",nullptr,44,Native::EffectEnum,"ViewShakeType",input); break;
-        case 2424288100u:
+        }
+        case 2424288100u: {
             input.size=56; attrs->AddRange(gcnew array<String^>{"EvaEventOwner","EvaEventAlly","EvaEventEnemy"});
             Field(node,"EvaEventOwner","",44,Native::EffectReference,nullptr,input);
             Field(node,"EvaEventAlly","",48,Native::EffectReference,nullptr,input);
             Field(node,"EvaEventEnemy","",52,Native::EffectReference,nullptr,input); break;
-        case 4234415617u:
+        }
+        case 4234415617u: {
             input.size=56; attrs->AddRange(gcnew array<String^>{"FX","Bone"});
             Field(node,"FX",nullptr,44,Native::EffectReference,nullptr,input);
             Field(node,"Bone",nullptr,48,Native::EffectString,nullptr,input); break;
-        case 2263385183u:
+        }
+        case 2263385183u: {
             input.size=56; attrs->AddRange(gcnew array<String^>{"Model","RandomlyRotate","ExpireTimer"});
             Field(node,"Model",nullptr,44,Native::EffectReference,nullptr,input);
             Field(node,"RandomlyRotate","false",52,Native::EffectBoolean,nullptr,input);
             Field(node,"ExpireTimer","8s",48,Native::EffectTime,nullptr,input); break;
-        case 904475169u:
+        }
+        case 904475169u: {
             input.size=64; attrs->AddRange(gcnew array<String^>{"LaserTemplate","LaserBackwards"}); children->Add("Offset");
             Field(node,"LaserTemplate",nullptr,44,Native::EffectHash,nullptr,input);
             Field(node,"LaserBackwards","false",60,Native::EffectBoolean,nullptr,input);
             Vector(node,"Offset",48,false,input); break;
-        case 2386148390u:
+        }
+        case 2386148390u: {
             input.size=72; attrs->Add("Thing"); children->AddRange(gcnew array<String^>{"PrimaryOffset","SecondaryOffset"});
             Field(node,"Thing",nullptr,44,Native::EffectHash,nullptr,input);
             Vector(node,"PrimaryOffset",48,false,input); Vector(node,"SecondaryOffset",60,false,input); break;
-        case 4293352609u:
+        }
+        case 4293352609u: {
             input.size=72; attrs->AddRange(gcnew array<String^>{"Radius","RadiusAsPercentOfObjectSize","IncreaseTime","DecreaseTime"}); children->Add("Color");
             Field(node,"Radius",nullptr,44,Native::EffectFloat,nullptr,input);
             Field(node,"RadiusAsPercentOfObjectSize",nullptr,48,Native::EffectPercentage,nullptr,input);
             Field(node,"IncreaseTime",nullptr,52,Native::EffectUnsigned,nullptr,input);
             Field(node,"DecreaseTime",nullptr,56,Native::EffectUnsigned,nullptr,input);
             Vector(node,"Color",60,true,input); break;
-        case 2106748504u:
+        }
+        case 2106748504u: {
             input.size=76; attrs->AddRange(gcnew array<String^>{"PreColorTime","PostColorTime","SustainedColorTime","Frequency","Amplitude"}); children->Add("Color");
             Field(node,"PreColorTime","2s",44,Native::EffectTime,nullptr,input);
             Field(node,"PostColorTime","2s",48,Native::EffectTime,nullptr,input);
@@ -141,12 +150,14 @@ public:
             Field(node,"Frequency","1.0",56,Native::EffectFloat,nullptr,input);
             Field(node,"Amplitude","1.0",60,Native::EffectFloat,nullptr,input);
             Vector(node,"Color",64,true,input); break;
-        case 3768725989u:
+        }
+        case 3768725989u: {
             input.size=56; attrs->AddRange(gcnew array<String^>{"Radius","Duration","Amplitude"});
             Field(node,"Radius",nullptr,44,Native::EffectFloat,nullptr,input);
             Field(node,"Duration",nullptr,48,Native::EffectTime,nullptr,input);
             Field(node,"Amplitude",nullptr,52,Native::EffectAngle,nullptr,input); break;
-        case 138194854u:
+        }
+        case 138194854u: {
             input.size=56; attrs->AddRange(gcnew array<String^>{"Type","Radius"}); children->Add("RandomRange");
             Field(node,"Type","RANDOM",44,Native::EffectEnum,"TerrainScorchType",input);
             Field(node,"Radius",nullptr,48,Native::EffectFloat,nullptr,input);
@@ -155,7 +166,8 @@ public:
                 input.hasRange=true; input.rangeLow=Attr(range,"Low","SCORCH_1"); input.rangeHigh=Attr(range,"High","SCORCH_4");
             } break;
 
-        case 3121289073u:
+        }
+        case 3121289073u: {
             input.size=84; attrs->AddRange(gcnew array<String^>{"Bone","RequireFrequentUpdate","TriggerType","HoldBetweenStateID","ActionType","Particle"}); children->Add("Offset");
             Field(node,"Bone",nullptr,44,Native::EffectString,nullptr,input);
             Field(node,"RequireFrequentUpdate",nullptr,80,Native::EffectBoolean,nullptr,input);
@@ -164,7 +176,8 @@ public:
             Field(node,"ActionType",nullptr,60,Native::EffectEnum,"FXActionType",input);
             Field(node,"Particle",nullptr,64,Native::EffectReference,nullptr,input);
             Vector(node,"Offset",68,false,input); break;
-        case 866573550u:
+        }
+        case 866573550u: {
             input.size=108; attrs->AddRange(gcnew array<String^>{"Decal","Shader","Size","OrientToObject","OpacityStart","OpacityPeak","OpacityEnd","OpacityFadeTimeOne","OpacityFadeTimeTwo","OpacityPeakTime","StartingDelay","Lifetime","AllowOnObjects"});
             children->AddRange(gcnew array<String^>{"Color","Offset"});
             Field(node,"Decal",nullptr,44,Native::EffectString,nullptr,input);
@@ -190,7 +203,8 @@ public:
                 XmlNode^ offset=Child(node,"Offset"); Attributes(offset,gcnew array<String^>{"x","y"}); Empty(offset);
                 Field(offset,"x","0.0",96,Native::EffectFloat,nullptr,input); Field(offset,"y","0.0",100,Native::EffectFloat,nullptr,input);
             } break;
-        case 751572338u:
+        }
+        case 751572338u: {
             input.size=148; attrs->AddRange(gcnew array<String^>{"Particle","Count","OrientToObject","Ricochet","CreateAtGroundHeight","CreateOverrideBone","UseTarget","TargetOverrideBone","TargetCoeff","SystemLife","SetTargetMatrix","OnlyIfOnWater"});
             children->AddRange(gcnew array<String^>{"Rotate","Offset","TargetOffset","Radius","Height","InitialDelay"});
             Field(node,"Particle",nullptr,44,Native::EffectReference,nullptr,input);
@@ -217,6 +231,7 @@ public:
                 for(int i=0;i<3;++i) input.targetOffset[i]=Attr(offset,axes[i],"0.0");
             }
             NuggetRandom(node,"Radius",104,input); NuggetRandom(node,"Height",116,input); NuggetRandom(node,"InitialDelay",128,input); break;
+        }
         default: throw gcnew NotSupportedException("Unrecovered FXNugget TypeId");
         }
         Attributes(node,attrs->ToArray());
