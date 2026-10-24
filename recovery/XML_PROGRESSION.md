@@ -53,3 +53,19 @@ Experience requires LevelUpTintColor; ButtonSingleStateData requires State;
 Purchase requires PlayerTech and StateData; Store requires Faction and exactly
 five Rows of exactly three Buttons. All refs resolve locally. Eight-root SDK
 probe remains pending full CnC3Types validation and real BAB integration.
+
+Additional SDK source cases are in sdk/XmlprogressionCombinedProbe.xml, included
+alongside the eight defaults probe. This adds eight _Combined declarations and
+five _Inherited declarations (all five initial roots are BaseInheritableAsset),
+plus three already recovered support assets: FXList/ObjectCreationList/
+AttributeModifier. Required Binding and LevelUpTintColor source children remain
+present even in inherited declarations so raw XSD validation remains meaningful.
+The original BAB must expand inheritance; no numeric TypeId or resolved resource
+suffix is fabricated. Logic combined exercises enum flags, nullable refs,
+AISpecialPowerInfo scalar/bitset/nullable/ObjectFilter fields; Experience combined
+exercises nullable prerequisite, OCL/FX/modifier refs, typed upgrade, strings,
+color, model bits and a two-component Decal. Rank/Tech/Binding/Store exercise
+nonempty lists; ButtonSingleStateData exercises three nonempty strings, referenced
+by Purchase and five-by-three Store. All support references resolve to probe
+assets. Raw XML parsing passed locally; full XSD, original BAB, recovered BAB,
+four outputs and isolated replay remain required before accepting these cases.
