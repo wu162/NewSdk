@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=818 arrayComparisons=4908 rejections=52 layoutAssertions=8118
+PASS platform=1 fixtures=818 arrayComparisons=4908 rejections=52 layoutAssertions=8118
+PASS platform=2 fixtures=818 arrayComparisons=4908 rejections=52 layoutAssertions=8118
+PASS platform=99 fixtures=818 arrayComparisons=4908 rejections=52 layoutAssertions=8118
+PASS Render assets fixtures=3272 arrayComparisons=19632 rejections=208 layoutAssertions=32473

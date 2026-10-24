@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=588 arrayComparisons=3528 rejections=18 layoutAssertions=9914
+PASS platform=1 fixtures=588 arrayComparisons=3528 rejections=18 layoutAssertions=9914
+PASS platform=2 fixtures=588 arrayComparisons=3528 rejections=18 layoutAssertions=9914
+PASS platform=99 fixtures=588 arrayComparisons=3528 rejections=18 layoutAssertions=9914
+PASS Army opening fixtures=2352 arrayComparisons=14112 rejections=72 layoutAssertions=39657

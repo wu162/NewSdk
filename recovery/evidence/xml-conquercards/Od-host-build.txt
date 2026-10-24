@@ -1,0 +1,1 @@
+recovery\tests\XmlconquercardsOracle.cs(83,21): error CS0136: A local variable named 'd' cannot be declared in this scope because it would give a different meaning to 'd', which is already used in a 'child' scope to denote something else

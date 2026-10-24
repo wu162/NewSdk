@@ -5,43 +5,55 @@ ResourceMarshaling.cpp
 EnumBitset.cpp
 ObjectFilter.cpp
 XmlaiCompiler.cpp
+XmlaptdataCompiler.cpp
+XmlarmyopeningCompiler.cpp
+XmlassetindexesCompiler.cpp
 XmlattributesCompiler.cpp
 XmlaudioCompiler.cpp
+XmlbuildeconomyCompiler.cpp
+XmlcampaignCompiler.cpp
 XmlchatcolorsCompiler.cpp
 XmlcommandsetCompiler.cpp
 XmlconditionsCompiler.cpp
+XmlconnectionsCompiler.cpp
+XmlconquercardsCompiler.cpp
 XmlcontentCompiler.cpp
+Generating Code...
+Compiling...
 XmlcrowdCompiler.cpp
 XmldamagefxCompiler.cpp
+XmldynamicsCompiler.cpp
 XmleffectsCompiler.cpp
 XmlemotionsCompiler.cpp
 XmlenvironmentCompiler.cpp
 XmlevaachievementCompiler.cpp
 XmlforcefeedbackCompiler.cpp
-Generating Code...
-Compiling...
 XmlfxparticleCompiler.cpp
 XmlhealthbarsCompiler.cpp
 XmlhotkeymapsCompiler.cpp
 XmllocalizationCompiler.cpp
 XmllocomotorCompiler.cpp
 XmlmaterialrulesCompiler.cpp
+XmlmouseCompiler.cpp
 XmlmoviearchiveCompiler.cpp
 XmlmusicscriptCompiler.cpp
 XmlobjectsetsCompiler.cpp
 XmlpathmusicCompiler.cpp
 XmlplayersCompiler.cpp
+Generating Code...
+Compiling...
 XmlpowersCompiler.cpp
 XmlprogressionCompiler.cpp
 XmlprojectilepathCompiler.cpp
 XmlradarCompiler.cpp
+XmlredalertCompiler.cpp
+XmlrenderassetsCompiler.cpp
 XmlrenderdeviceCompiler.cpp
+XmlruntimeopaqueCompiler.cpp
 XmlsinglesoundCompiler.cpp
 XmlsoundmapsCompiler.cpp
 XmlsystemsettingsCompiler.cpp
 XmltacticalhotkeysCompiler.cpp
-Generating Code...
-Compiling...
 XmltargetingCompiler.cpp
 XmluichatCompiler.cpp
 XmluidecalsCompiler.cpp
@@ -50,16 +62,26 @@ XmluisettingsCompiler.cpp
 XmluitacticalCompiler.cpp
 XmlunitoverlayCompiler.cpp
 XmlvisibilityCompiler.cpp
+Generating Code...
+Compiling...
 XmlvisualsystemsCompiler.cpp
 Xmlai.cpp
+Xmlaptdata.cpp
+Xmlarmyopening.cpp
+Xmlassetindexes.cpp
 Xmlattributes.cpp
 Xmlaudio.cpp
+Xmlbuildeconomy.cpp
+Xmlcampaign.cpp
 Xmlchatcolors.cpp
 Xmlcommandset.cpp
 Xmlconditions.cpp
+Xmlconnections.cpp
+Xmlconquercards.cpp
 Xmlcontent.cpp
 Xmlcrowd.cpp
 Xmldamagefx.cpp
+Xmldynamics.cpp
 Xmleffects.cpp
 XmleffectsEnums.cpp
 Generating Code...
@@ -75,6 +97,7 @@ Xmlhotkeymaps.cpp
 Xmllocalization.cpp
 Xmllocomotor.cpp
 Xmlmaterialrules.cpp
+Xmlmouse.cpp
 Xmlmoviearchive.cpp
 Xmlmusicscript.cpp
 Xmlobjectsets.cpp
@@ -83,12 +106,15 @@ Xmlplayers.cpp
 Xmlpowers.cpp
 Xmlprogression.cpp
 XmlprogressionFont.cpp
-XmlprogressionUi.cpp
 Generating Code...
 Compiling...
+XmlprogressionUi.cpp
 Xmlprojectilepath.cpp
 Xmlradar.cpp
+Xmlredalert.cpp
+Xmlrenderassets.cpp
 Xmlrenderdevice.cpp
+Xmlruntimeopaque.cpp
 Xmlsinglesound.cpp
 Xmlsoundmaps.cpp
 Xmlsystemsettings.cpp

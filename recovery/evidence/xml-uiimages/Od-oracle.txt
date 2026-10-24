@@ -1,4 +1,5 @@
-System.Exception: font exact UTF8 C-string length andpadding
-   at XmluiimagesOracle.Check(Boolean test, String label)
-   at XmluiimagesOracle.Matrix(TargetPlatform p)
-   at XmluiimagesOracle.Main(String[] args)
+PASS platform=0 fixtures=590 arrayComparisons=3540 rejections=38 layoutAssertions=14229
+PASS platform=1 fixtures=590 arrayComparisons=3540 rejections=38 layoutAssertions=14229
+PASS platform=2 fixtures=590 arrayComparisons=3540 rejections=38 layoutAssertions=14229
+PASS platform=99 fixtures=590 arrayComparisons=3540 rejections=38 layoutAssertions=14229
+PASS UI images fixtures=2360 arrayComparisons=14160 rejections=152 layoutAssertions=56917

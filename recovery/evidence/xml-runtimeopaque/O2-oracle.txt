@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=410 arrayComparisons=2460 rejections=17 layoutAssertions=14044
+PASS platform=1 fixtures=410 arrayComparisons=2460 rejections=17 layoutAssertions=14044
+PASS platform=2 fixtures=410 arrayComparisons=2460 rejections=17 layoutAssertions=14044
+PASS platform=99 fixtures=410 arrayComparisons=2460 rejections=17 layoutAssertions=14044
+PASS exact XmlCompiler no-op roots fixtures=1640 arrayComparisons=9840 rejections=68 layoutAssertions=56177

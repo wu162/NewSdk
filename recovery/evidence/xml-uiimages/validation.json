@@ -1,7 +1,7 @@
 {
-  "succeeded": false,
-  "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
-  "runId": "40140206386",
+  "succeeded": true,
+  "sourceCommit": "bb23fad74244f3ea66621c396b4133954f04504d",
+  "runId": "40141089972",
   "scope": "XmlCompiler uiimages three-root component; original ProcessInstance three buffers; SDK integration pending",
   "platforms": [
     0,
@@ -9,7 +9,91 @@
     2,
     99
   ],
-  "modes": [],
-  "status": "failed",
-  "error": "Od original ProcessInstance differential failed (exit 1)"
+  "modes": [
+    {
+      "mode": "/Od",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6",
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 1,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 2,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 99,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          }
+        ],
+        "fixtures": 2360,
+        "arrayComparisons": 14160,
+        "rejections": 152,
+        "layoutAssertions": 56917
+      },
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "/O2",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6",
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 1,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 2,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          },
+          {
+            "platform": 99,
+            "fixtures": 590,
+            "arrayComparisons": 3540,
+            "rejections": 38,
+            "layoutAssertions": 14229
+          }
+        ],
+        "fixtures": 2360,
+        "arrayComparisons": 14160,
+        "rejections": 152,
+        "layoutAssertions": 56917
+      },
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "status": "Od and O2 passed; four platforms, all three buffers, independent ABI, explicit rejection boundaries"
 }
