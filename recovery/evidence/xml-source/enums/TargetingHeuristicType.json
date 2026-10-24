@@ -1,0 +1,91 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12144,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4TargetingHeuristicType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4TargetingHeuristicType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "Beacon",
+      "value": 12
+    },
+    {
+      "name": "Bridge",
+      "value": 11
+    },
+    {
+      "name": "Crate",
+      "value": 13
+    },
+    {
+      "name": "EnemyGarrison",
+      "value": 8
+    },
+    {
+      "name": "EnemyStructure",
+      "value": 0
+    },
+    {
+      "name": "EnemyStructureCloseToShore",
+      "value": 6
+    },
+    {
+      "name": "EnemyUnit",
+      "value": 2
+    },
+    {
+      "name": "EnemyUnitCloseToShore",
+      "value": 5
+    },
+    {
+      "name": "Expansion",
+      "value": 9
+    },
+    {
+      "name": "FriendlyStructure",
+      "value": 1
+    },
+    {
+      "name": "FriendlyUnit",
+      "value": 3
+    },
+    {
+      "name": "Help",
+      "value": 14
+    },
+    {
+      "name": "Husk",
+      "value": 15
+    },
+    {
+      "name": "NamedObject",
+      "value": 18
+    },
+    {
+      "name": "NeutralGarrison",
+      "value": 7
+    },
+    {
+      "name": "Point",
+      "value": 16
+    },
+    {
+      "name": "Team",
+      "value": 20
+    },
+    {
+      "name": "TechBuilding",
+      "value": 10
+    },
+    {
+      "name": "UnderAttackBy",
+      "value": 4
+    },
+    {
+      "name": "UnpackBuildingPlacement",
+      "value": 17
+    },
+    {
+      "name": "Waypoint",
+      "value": 19
+    }
+  ]
+}

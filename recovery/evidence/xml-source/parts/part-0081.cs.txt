@@ -1,0 +1,500 @@
+
+	internal unsafe static void Marshaler_002EEndianCorrect(UIBaseComponent** pointer, EndianHelper* state)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			switch (*(int*)(int)num)
+			{
+			case -2112857619:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLobby_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -2133596120:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlinePlayerList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -2099274222:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSUDs_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -2082044609:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentShellVisibility_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -2001285372:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLogin_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1903036942:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPause_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1947634968:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSpecialPowers_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1950041243:
+				Marshaler_002EEndianCorrect((UIComponentOnlineInvite*)(int)num, state);
+				break;
+			case -1623955449:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCoopCommander_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1477673480:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameInfo_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1550362713:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInGameText_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1308792163:
+				Marshaler_002EEndianCorrect((UIComponentProfileManager*)(int)num, state);
+				break;
+			case -1287331631:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineGameList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1257306021:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentComlinkNotification_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -950044894:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSound_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1139662586:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouse_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -1196731604:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLoadScreen_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -911333027:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentShell_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -779530453:
+				Marshaler_002EEndianCorrect((UIComponentPlayerPowers*)(int)num, state);
+				break;
+			case -888289158:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCursor_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -741708952:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsAudio_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -706770537:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentTicker_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -702849190:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentVoiceChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -458405372:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCredits_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -617712079:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSaveLoad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -641422966:
+				Marshaler_002EEndianCorrect((UIComponentOnlineBuddyList*)(int)num, state);
+				break;
+			case -421276910:
+				Marshaler_002EEndianCorrect((UIComponentGameViewJoypad*)(int)num, state);
+				break;
+			case -371966100:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPostGame_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -410667187:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLanLobby_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -291068935:
+				Marshaler_002EEndianCorrect((UIComponentShellMultiplayer*)(int)num, state);
+				break;
+			case -272600345:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentVictoryDefeat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -260791364:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouseInGame_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -41816666:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectives_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -48940959:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsHotkeys_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case -72725422:
+				Marshaler_002EEndianCorrect((UIComponentPcSaveLoad*)(int)num, state);
+				break;
+			case 133731258:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMovie_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 172478244:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectAction_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 145221318:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMovieArchive_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 179455844:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlasmaInterface_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 216165117:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectSelector_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 346843115:
+				Marshaler_002EEndianCorrect((UIComponentKeyboard*)(int)num, state);
+				break;
+			case 489894998:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAptMediator_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 488322475:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLobbyList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 429483379:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentDisconnect_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 521477685:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentJoypadTactical_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 668315732:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlayerTechStore_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 638067136:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCommandList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 820184420:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 836201403:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsNetwork_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1206483093:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAptJoypad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1394517147:
+				Marshaler_002EEndianCorrect((UIComponentFormation*)(int)num, state);
+				break;
+			case 1391293877:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptions_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1356364876:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentTutorial_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1395831105:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMode_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1520523841:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAutoMatch_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1498808370:
+				Marshaler_002EEndianCorrect((UIComponentOptionsSettingsGraphics*)(int)num, state);
+				break;
+			case 1537649639:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMapList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1568450771:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInGameShowHide_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1596408516:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCampaign_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1729048602:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentBootup_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1688289936:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMessage_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1653095567:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouseTactical_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1779284912:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCareerStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2047963295:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCommandBar_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2006261339:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInputBridge_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 1786017422:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCheats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2054456400:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsGeneral_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			default:
+				Marshaler_002EEndianCorrectUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2130185433:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentRadar_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2115806557:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameSetup_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			case 2095311623:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(pointer, state);
+				break;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIDynamicConfig* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040), null);
+		if (ptr != null)
+		{
+			sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			sbyte* ptr3 = ptr2;
+			if (*ptr2 != 0)
+			{
+				do
+				{
+					ptr3++;
+				}
+				while (*ptr3 != 0);
+			}
+			uint num = (uint)(ptr3 - (nuint)ptr2);
+			*(uint*)@object = FastHashInternal_002EFastHashFn(num, ptr2, num);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		Marshaler_002EMarshal_003Cenum_0020Sage_003A_003AUI_003A_003ASettings_003A_003AUIConfigType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04KOACHJEN_0040Type_003F_0024AA_0040), null), (UIConfigType*)@object + 1, state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040NDHFNACN_0040ComponentList_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr4 = (INode*)(int)(*(uint*)num2);
+			if (ptr4 != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_0020_002A_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)ptr4 + 4)))((nint)ptr4, null), (List_003CSageBinaryData_003A_003AUIBaseComponent_0020_002A_003E*)((byte*)@object + 8), state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, PackedTextureImage* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATexture_002Cclass_0020RNA_003A_003ATextureC_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07GKACAEDJ_0040Texture_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ATexture_002CRNA_003A_003ATextureC_003E*)((byte*)@object + 4), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07GPBBGJKI_0040Rotated_003F_0024AA_0040), null), (bool*)@object + 32, state);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040NDPLFEJ_0040Dimensions_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ICoord2D*)((byte*)@object + 8), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+			int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06HPEKDDKI_0040Coords_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num2), (ICoord2D*)((byte*)@object + 16), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+				throw;
+			}
+			if (*(int*)(&nodeHolder2) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder3);
+			int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder3, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040DNKOBHHC_0040TextureDimensions_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (ICoord2D*)((byte*)@object + 24), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder3);
+				throw;
+			}
+			if (*(int*)(&nodeHolder3) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder3)))))((IntPtr)(*(int*)(&nodeHolder3)));
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(PackedTextureImage* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 8 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 8 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 8 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((byte*)@object + 8)[4];
+			((int*)((byte*)@object + 8))[1] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 16)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 16)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 16)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[16];
+			((int*)@object)[4] = (int)num3;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 16 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 16 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 16 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((byte*)@object + 16)[4];
+			((int*)((byte*)@object + 16))[1] = (int)num4;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(byte*)(&num5) = ((byte*)@object + 24)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((byte*)@object + 24)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((byte*)@object + 24)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = ((sbyte*)@object)[24];
+			((int*)@object)[6] = (int)num5;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+			*(byte*)(&num6) = ((byte*)@object + 24 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((byte*)@object + 24 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((byte*)@object + 24 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = ((byte*)@object + 24)[4];
+			((int*)((byte*)@object + 24))[1] = (int)num6;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, OnDemandTextureImage* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AOnDemandTexture_002Cclass_0020Texture_003A_003AOnDemandLoader_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07GKACAEDJ_0040Texture_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AOnDemandTexture_002CTexture_003A_003AOnDemandLoader_003E*)((byte*)@object + 4), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07GPBBGJKI_0040Rotated_003F_0024AA_0040), null), (bool*)@object + 32, state);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040NDPLFEJ_0040Dimensions_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ICoord2D*)((byte*)@object + 8), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+			int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06HPEKDDKI_0040Coords_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num2), (ICoord2D*)((byte*)@object + 16), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+				throw;
+			}
+			if (*(int*)(&nodeHolder2) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder3);
+			int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder3, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040DNKOBHHC_0040TextureDimensions_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (ICoord2D*)((byte*)@object + 24), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder3);
+				throw;
+			}
+			if (*(int*)(&nodeHolder3) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder3)))))((IntPtr)(*(int*)(&nodeHolder3)));
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(OnDemandTextureImage* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 8 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 8 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 8 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((byte*)@object + 8)[4];
+			((int*)((byte*)@object + 8))[1] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 16)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 16)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 16)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[16];
+			((int*)@object)[4] = (int)num3;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 16 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 16 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 16 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((byte*)@object + 16)[4];
+			((int*)((byte*)@object + 16))[1] = (int)num4;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(byte*)(&num5) = ((byte*)@object + 24)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((byte*)@object + 24)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((byte*)@object + 24)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = ((sbyte*)@object)[24];
+			((int*)@object)[6] = (int)num5;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+			*(byte*)(&num6) = ((byte*)@object + 24 + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((byte*)@object + 24 + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((byte*)@object + 24 + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = ((byte*)@object + 24)[4];
+			((int*)((byte*)@object + 24))[1] = (int)num6;
+		}
+	}

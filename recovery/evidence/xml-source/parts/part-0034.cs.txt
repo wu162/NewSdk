@@ -1,0 +1,500 @@
+
+	internal unsafe static sbyte* _003FTypeName_0040CommandButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(64 9D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Sphere_0040SageBinaryData_0040_00402IB/* Not supported: data(F8 1A 7B C6) */;
+
+	internal static uint _003FTypeHash_0040MiscAudio_0040SageBinaryData_0040_00402IB/* Not supported: data(1D 48 79 58) */;
+
+	internal static uint _003FTypeHash_0040UnifiedShroudRevealBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(F2 B0 CD 1C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GrapplingHookUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(7C 26 0A 10) */;
+
+	internal static uint _003FTypeHash_0040RecallUnitsSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(AE 6D F4 41) */;
+
+	internal static uint _003FTypeHash_0040TransportContainModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C4 1A 92 63) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SalvageCrateCollideModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(34 2D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MemberTemplateStatusData_0040SageBinaryData_0040_00402IB/* Not supported: data(C6 42 D2 64) */;
+
+	internal static uint _003FTypeHash_0040ManagedActiveBodyModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(09 D1 AA 3C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStrategicDirectiveFeedbackMap_0040SageBinaryData_0040_00402PBDB/* Not supported: data(94 57 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DynamicsShapeType_0040SageBinaryData_0040_00402IB/* Not supported: data(C0 45 0E C4) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalBuildQueueTab_0040SageBinaryData_0040_00402PBDB/* Not supported: data(90 76 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseHUDElementHotKeyGate_0040SageBinaryData_0040_00402IB/* Not supported: data(8E 1E 31 CD) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FontSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(2C 78 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DLContentObject_0040SageBinaryData_0040_00402IB/* Not supported: data(96 BC 7D AE) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StartPositionObject_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 84 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GamePointsSetting_0040SageBinaryData_0040_00402PBDB/* Not supported: data(0C 84 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionNuggetBase_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D0 8E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXListAtBonePosFXNugget_0040SageBinaryData_0040_00402PBDB/* Not supported: data(08 90 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ClientUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(60 56 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ArmorTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(1C 8A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AudioFileRuntime_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F8 A3 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DestructibleEnvironmentUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(37 E1 63 71) */;
+
+	internal static uint _003FTypeHash_0040TeleportStoredObjectsSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CA 0A AD 26) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040RemoveUpgradeUpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(50 2A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIPersonalityDefMap_0040SageBinaryData_0040_00402PBDB/* Not supported: data(CC 57 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIStateIsBuildingHeuristic_0040SageBinaryData_0040_00402IB/* Not supported: data(B6 CF 6E AD) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StaticGameLOD_0040SageBinaryData_0040_00402PBDB/* Not supported: data(90 60 0A 10) */;
+
+	internal static uint _003FTypeHash_0040GameLODPreset_0040SageBinaryData_0040_00402IB/* Not supported: data(8D D6 48 D9) */;
+
+	internal static uint _003FTypeHash_0040PlacementRestriction_0040SageBinaryData_0040_00402IB/* Not supported: data(8E 1D 83 F8) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CostModifierUpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(FC 3B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040InheritUpgradeCreateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(D2 91 29 62) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ActiveBodyModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(BC 52 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarTemplateButtonSlot_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C0 6C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalWaypointModeButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(10 6D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIDifficultySetting_0040SageBinaryData_0040_00402IB/* Not supported: data(BC 28 62 44) */;
+
+	internal static uint _003FTypeHash_0040InformTargetNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(98 6B 82 B7) */;
+
+	internal static uint _003FTypeHash_0040TechUpgradeModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C5 26 A8 40) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InitialRoster_0040SageBinaryData_0040_00402PBDB/* Not supported: data(8C 4E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ToggleStatusSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(50 44 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040TargetingBaseCompare_0040SageBinaryData_0040_00402PBDB/* Not supported: data(58 4D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandSellFactionCursorSet_0040SageBinaryData_0040_00402PBDB/* Not supported: data(48 73 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCommandForceMove_0040SageBinaryData_0040_00402IB/* Not supported: data(D3 94 BF 07) */;
+
+	internal static uint _003FTypeHash_0040MusicScriptConditionNugget_AnyTrackPlaying_0040SageBinaryData_0040_00402IB/* Not supported: data(2B 85 38 68) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040OCNugget_0040SageBinaryData_0040_00402PBDB/* Not supported: data(90 8F 0A 10) */;
+
+	internal static uint _003FTypeHash_0040InvisibilityTemplate_0040SageBinaryData_0040_00402IB/* Not supported: data(69 F3 FC 18) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DOTNuggetType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D8 97 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ParalyzeNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(DD 9A 96 02) */;
+
+	internal static uint _003FTypeHash_0040ClearanceTestingSlowDeathBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(D5 92 3E 17) */;
+
+	internal static uint _003FTypeHash_0040TerrainVisualSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(13 3C AD 4F) */;
+
+	internal static uint _003FTypeHash_0040RadiusCursor_0040SageBinaryData_0040_00402IB/* Not supported: data(30 55 AF A0) */;
+
+	internal static uint _003FTypeHash_0040UIDecalGrid_0040SageBinaryData_0040_00402IB/* Not supported: data(FF 27 3E 00) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandReverseMove_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B8 73 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentOptionsSettingsAudio_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B4 81 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FXListAtBonePosFXNugget_0040SageBinaryData_0040_00402IB/* Not supported: data(DA 43 3D 62) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ParticleSysBone_0040SageBinaryData_0040_00402PBDB/* Not supported: data(0C 56 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleAlpha_0040SageBinaryData_0040_00402PBDB/* Not supported: data(44 99 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SuppressionUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(EC 1F 2B 8B) */;
+
+	internal static uint _003FTypeHash_0040MapAnalysisType_0040SageBinaryData_0040_00402IB/* Not supported: data(C1 73 2A CB) */;
+
+	internal static uint _003FTypeHash_0040ConquerCardDefinitionStructure_0040SageBinaryData_0040_00402IB/* Not supported: data(F8 96 29 CA) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalDeactivateMissionHotSpotsButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D0 71 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FontSubstitution_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F8 77 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentCredits_0040SageBinaryData_0040_00402PBDB/* Not supported: data(58 80 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MusicScriptConditionNugget_EngagementCount_0040SageBinaryData_0040_00402IB/* Not supported: data(12 C9 CB B5) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleBaseModule_0040SageBinaryData_0040_00402PBDB/* Not supported: data(40 9D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AutoResolveWeapon_0040SageBinaryData_0040_00402PBDB/* Not supported: data(14 25 0A 10) */;
+
+	internal static uint _003FTypeHash_0040EncloseBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(E2 C1 99 41) */;
+
+	internal static uint _003FTypeHash_0040SetLocomotorSpeedUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(92 8A 32 0B) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040HeightDieUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(4C 48 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DynamicGameLOD_0040SageBinaryData_0040_00402IB/* Not supported: data(B7 85 2B 69) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ProjectilePath_0040SageBinaryData_0040_00402PBDB/* Not supported: data(1C 62 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataPlayerPower_0040SageBinaryData_0040_00402PBDB/* Not supported: data(2C 67 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataEnterCommandMode_0040SageBinaryData_0040_00402IB/* Not supported: data(53 4B 52 CE) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AnimAndDuration_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D8 56 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040Weather_0040SageBinaryData_0040_00402PBDB/* Not supported: data(28 94 0A 10) */;
+
+	internal static uint _003FTypeHash_0040GrantUpgradeAreaOfEffectSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CD 8B A5 3D) */;
+
+	internal static uint _003FTypeHash_0040SpecialPowerDispatchSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C0 43 4C 5C) */;
+
+	internal static uint _003FTypeHash_0040SqueezeFlingUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(2C 8E 55 9C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CreateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F8 51 0A 10) */;
+
+	internal static uint _003FTypeHash_0040GiftManagerSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(45 A5 3F C9) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIJoypadCommandBarButtonBuild_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 64 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCommandSellFactionCursorSet_0040SageBinaryData_0040_00402IB/* Not supported: data(83 04 20 37) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040W3DMesh_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C0 A3 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AttributeCrateCollideModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CC 4C 9B CC) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FireWeaponUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(4C 50 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandForceAttack_0040SageBinaryData_0040_00402PBDB/* Not supported: data(30 75 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TitleCardEvent_0040SageBinaryData_0040_00402IB/* Not supported: data(F9 CC 26 A9) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AudioObjectSpecificVoiceEntry_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 A2 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AudioArraySound_0040SageBinaryData_0040_00402PBDB/* Not supported: data(5C A2 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040PostGameStatData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(80 80 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentVoiceChat_0040SageBinaryData_0040_00402PBDB/* Not supported: data(7C 22 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TargetedPlayerPowerButtonTemplateData_0040SageBinaryData_0040_00402IB/* Not supported: data(68 44 84 2E) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionExpensiveNuggetBase_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 8E 0A 10) */;
+
+	internal static uint _003FTypeHash_0040BuildUnitUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402IB/* Not supported: data(F6 C8 93 64) */;
+
+	internal static uint _003FTypeHash_0040UnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402IB/* Not supported: data(3D 7B DC 33) */;
+
+	internal static uint _003FTypeHash_0040FXParticleDrawGpu_0040SageBinaryData_0040_00402IB/* Not supported: data(A0 0C F3 F4) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AnimationSoundSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D0 A1 0A 10) */;
+
+	internal static uint _003FTypeHash_0040InformationWarfareNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(0C FC 3A E2) */;
+
+	internal static uint _003FTypeHash_0040TiberiumCrystalBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(F5 72 4B 4B) */;
+
+	internal static uint _003FTypeHash_0040EnableDynamicsCollideModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(09 C2 C2 01) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DynamicsBoxShapeType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(20 A0 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataSpecialPower_0040SageBinaryData_0040_00402PBDB/* Not supported: data(50 6B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalAttackMoveButton_0040SageBinaryData_0040_00402IB/* Not supported: data(D8 3E 56 56) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040LogicCommand_0040SageBinaryData_0040_00402PBDB/* Not supported: data(60 7D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040InvisibilityNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(1B 97 5F 50) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ToggleSpecialPowerUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(58 91 0A 10) */;
+
+	internal static uint _003FTypeHash_0040RainType_0040SageBinaryData_0040_00402IB/* Not supported: data(C2 EC 7F A7) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GiveProductionBonusSpecialPowerModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(EC 3E 0A 10) */;
+
+	internal static uint _003FTypeHash_0040HelicopterSlowDeathBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C9 3E F3 CF) */;
+
+	internal static uint _003FTypeHash_0040DamageStateListModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(50 4B 26 77) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StatusBitsUpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(40 3C 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TiberiumGrowthModBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(3A 4A 4E D7) */;
+
+	internal static uint _003FTypeHash_0040WeaponSetUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(21 AA 3C 6C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SlowDeathFXListType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(3C 51 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateHarvesterCapHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(AC 5C 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalMainCommandBarHotKeys_0040SageBinaryData_0040_00402IB/* Not supported: data(A9 11 E3 73) */;
+
+	internal static uint _003FTypeHash_0040MusicScriptConditionNugget_TrackPlayedCount_0040SageBinaryData_0040_00402IB/* Not supported: data(90 CD 2A EF) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ObjectFilterAsset_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F0 8E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040TerrainAsset_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D8 94 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Color3f_0040SageBinaryData_0040_00402IB/* Not supported: data(16 5A D0 9B) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SkirmishAIInformation_0040SageBinaryData_0040_00402PBDB/* Not supported: data(60 25 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ScatterRadiusType_0040SageBinaryData_0040_00402IB/* Not supported: data(0D 29 CF 93) */;
+
+	internal static uint _003FTypeHash_0040LUAEventListBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CD 58 38 24) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SecondaryObjectListenerModule_0040SageBinaryData_0040_00402PBDB/* Not supported: data(74 2C 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIStrategicStateDefinition_0040SageBinaryData_0040_00402IB/* Not supported: data(74 E8 3D D6) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateOpenNodeHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B0 5B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040GeometryShape_0040SageBinaryData_0040_00402IB/* Not supported: data(7C 44 45 2C) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_0040SageBinaryData_0040_00402IB/* Not supported: data(96 BC 49 11) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MapMetaData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(04 7D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040BuildingPlacementDistance_0040SageBinaryData_0040_00402IB/* Not supported: data(55 E7 8D 18) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040OnlineChatColors_0040SageBinaryData_0040_00402PBDB/* Not supported: data(40 88 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UnitAbilityButtonTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(18 91 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SlavesAttackNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(6A 63 F4 9E) */;
+
+	internal static uint _003FTypeHash_0040SlaughterHordeContainModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(07 8D 93 47) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BeamSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A0 49 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ProductionModifier_0040SageBinaryData_0040_00402PBDB/* Not supported: data(2C 47 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FormationAssistantTemplate_0040SageBinaryData_0040_00402IB/* Not supported: data(CB 9E 53 09) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FadeData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B0 7A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AudioVoiceEntry_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C8 A2 0A 10) */;
+
+	internal static uint _003FTypeHash_0040GameTimeSetting_0040SageBinaryData_0040_00402IB/* Not supported: data(5F 41 0D 73) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MultiplayerSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(18 88 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AttributeModifier_0040SageBinaryData_0040_00402PBDB/* Not supported: data(74 9D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040IntRange_0040SageBinaryData_0040_00402IB/* Not supported: data(B5 BF 53 89) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GameObject_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B8 25 0A 10) */;
+
+	internal static uint _003FTypeHash_0040WeaponFireSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(F1 EC 3C 75) */;
+
+	internal static uint _003FTypeHash_0040TurretAIData_0040SageBinaryData_0040_00402IB/* Not supported: data(2A AD B3 38) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UpgradeCreation_0040SageBinaryData_0040_00402PBDB/* Not supported: data(30 4F 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXListBehaviorEvent_0040SageBinaryData_0040_00402PBDB/* Not supported: data(70 42 0A 10) */;
+
+	internal static uint _003FTypeHash_0040InactiveBodyModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(82 9A 53 17) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040HotKeySlot_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D8 7B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UpgradeTemplate_0040SageBinaryData_0040_00402IB/* Not supported: data(69 29 8D 4F) */;
+
+	internal static uint _003FTypeHash_0040DamageFX_0040SageBinaryData_0040_00402IB/* Not supported: data(AB B0 2E 0B) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MultiplePowersTargetedSpecialPowerUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E0 91 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MovementSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(AA 92 9A C5) */;
+
+	internal static uint _003FTypeHash_0040PassiveAreaEffectBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(1B 5E D4 E9) */;
+
+	internal static uint _003FTypeHash_0040DestroyModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(35 B4 D2 F8) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CaptureSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(78 49 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SpawnBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(2A F9 2C 22) */;
+
+	internal static uint _003FTypeHash_0040GameMap_0040SageBinaryData_0040_00402IB/* Not supported: data(12 7C 65 F4) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIMicroManagerData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(6C 5D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SkirmishAIInformation_0040SageBinaryData_0040_00402IB/* Not supported: data(17 E9 53 92) */;
+
+	internal static uint _003FTypeHash_0040DamagerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(A2 1F 3D 28) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040PhysicsBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 4F 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FXListBehaviorEvent_0040SageBinaryData_0040_00402IB/* Not supported: data(AB 1F D7 24) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AnimationSoundInfo_0040SageBinaryData_0040_00402PBDB/* Not supported: data(20 2D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ConquerCard_0040SageBinaryData_0040_00402IB/* Not supported: data(1B A0 15 C6) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GraphicsHardware_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B0 60 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMilitaryCaptionDisplay_0040SageBinaryData_0040_00402IB/* Not supported: data(C8 50 7C 2E) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIJoypadCommandBarSingleUnit_0040SageBinaryData_0040_00402PBDB/* Not supported: data(0C 64 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 65 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataObjectUpgrade_0040SageBinaryData_0040_00402IB/* Not supported: data(72 E3 47 B1) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCommandSell_0040SageBinaryData_0040_00402IB/* Not supported: data(1B 59 4C AB) */;
+
+	internal static uint _003FTypeHash_0040Language_0040SageBinaryData_0040_00402IB/* Not supported: data(D6 81 FF BF) */;
+
+	internal static uint _003FTypeHash_0040CrowdResponse_0040SageBinaryData_0040_00402IB/* Not supported: data(8C A3 BC 07) */;
+
+	internal static uint _003FTypeHash_0040UIComponentJoypadTactical_0040SageBinaryData_0040_00402IB/* Not supported: data(2A A0 37 32) */;
+
+	internal static uint _003FTypeHash_0040DynamicDecalFXNugget_0040SageBinaryData_0040_00402IB/* Not supported: data(0B 10 29 92) */;
+
+	internal static uint _003FTypeHash_0040FXParticleEmissionVelocityOutward_0040SageBinaryData_0040_00402IB/* Not supported: data(6C 7F 7D CC) */;
+
+	internal static uint _003FTypeHash_0040BaseSingleSound_0040SageBinaryData_0040_00402IB/* Not supported: data(69 1F D6 AF) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LogicCommandType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LogicCommandType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(08 71 0B 10 0A 00 00 00 14 71 0B 10 0B 00 00 00 28 71 0B 10 0C 00 00 00 38 71 0B 10 10 00 00 00 40 71 0B 10 0D 00 00 00 5C 71 0B 10 05 00 00 00 6C 71 0B 10 07 00 00 00 78 71 0B 10 08 00 00 00 88 71 0B 10 0F 00 00 00 9C 71 0B 10 0E 00 00 00 58 C6 0A 10 00 00 00 00 B4 71 0B 10 03 00 00 00 38 13 0B 10 04 00 00 00 C4 71 0B 10 09 00 00 00 D0 71 0B 10 01 00 00 00 E0 71 0B 10 02 00 00 00 E8 71 0B 10 06 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY05_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4WeaponSlotType_0040_0040_0040_0040SA_003FBW4WeaponSlotType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(34 CD 0A 10 05 00 00 00 40 CD 0A 10 00 00 00 00 50 CD 0A 10 03 00 00 00 64 CD 0A 10 04 00 00 00 74 CD 0A 10 01 00 00 00 88 CD 0A 10 02 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocoZ_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LocoZ_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(30 1E 0B 10 04 00 00 00 40 1E 0B 10 0B 00 00 00 58 1E 0B 10 06 00 00 00 70 1E 0B 10 05 00 00 00 90 1E 0B 10 09 00 00 00 9C 1E 0B 10 00 00 00 00 AC 1E 0B 10 07 00 00 00 D0 1E 0B 10 0A 00 00 00 E0 1E 0B 10 01 00 00 00 EC 1E 0B 10 0C 00 00 00 00 1F 0B 10 08 00 00 00 24 1F 0B 10 03 00 00 00 3C 1F 0B 10 02 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4SpecialPowerRestrictionType_0040_0040_0040_0040SA_003FBW4SpecialPowerRestrictionType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(CC 53 0B 10 01 00 00 00 D0 53 0B 10 02 00 00 00 D4 53 0B 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ToggleStatusAiHint_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ToggleStatusAiHint_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(F0 6D 0B 10 01 00 00 00 00 6E 0B 10 0B 00 00 00 14 6E 0B 10 00 00 00 00 24 6E 0B 10 03 00 00 00 44 6E 0B 10 04 00 00 00 60 6E 0B 10 0F 00 00 00 70 6E 0B 10 08 00 00 00 84 6E 0B 10 0C 00 00 00 A4 6E 0B 10 09 00 00 00 B4 6E 0B 10 0A 00 00 00 C4 6E 0B 10 02 00 00 00 DC 6E 0B 10 0E 00 00 00 EC 6E 0B 10 07 00 00 00 08 6F 0B 10 0D 00 00 00 20 6F 0B 10 06 00 00 00 34 6F 0B 10 05 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY05_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ViewShakeType_0040_0040_0040_0040SA_003FBW4ViewShakeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(68 3E 0B 10 04 00 00 00 78 3E 0B 10 05 00 00 00 B8 C7 0A 10 01 00 00 00 84 3E 0B 10 03 00 00 00 8C 3E 0B 10 02 00 00 00 94 3E 0B 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4CareerStatOrder_0040_0040_0040_0040SA_003FBW4CareerStatOrder_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(E8 5D 0B 10 21 00 00 00 04 5E 0B 10 20 00 00 00 1C 5E 0B 10 08 00 00 00 2C 5E 0B 10 17 00 00 00 40 5E 0B 10 11 00 00 00 54 5E 0B 10 0F 00 00 00 64 5E 0B 10 05 00 00 00 74 5E 0B 10 06 00 00 00 80 5E 0B 10 01 00 00 00 94 5E 0B 10 00 00 00 00 A8 5E 0B 10 1C 00 00 00 B8 5E 0B 10 1B 00 00 00 D0 5E 0B 10 1F 00 00 00 E8 5E 0B 10 03 00 00 00 FC 5E 0B 10 02 00 00 00 10 5F 0B 10 19 00 00 00 24 5F 0B 10 1A 00 00 00 34 5F 0B 10 18 00 00 00 48 5F 0B 10 0A 00 00 00 58 5F 0B 10 0D 00 00 00 6C 5F 0B 10 0E 00 00 00 88 5F 0B 10 0C 00 00 00 9C 5F 0B 10 22 00 00 00 B4 5F 0B 10 0B 00 00 00 C4 5F 0B 10 12 00 00 00 D4 5F 0B 10 10 00 00 00 E8 5F 0B 10 04 00 00 00 FC 5F 0B 10 09 00 00 00 0C 60 0B 10 16 00 00 00 20 60 0B 10 13 00 00 00 2C 60 0B 10 15 00 00 00 38 60 0B 10 14 00 00 00 44 60 0B 10 1E 00 00 00 58 60 0B 10 1D 00 00 00 6C 60 0B 10 07 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY07_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4GameStatsMode_0040_0040_0040_0040SA_003FBW4GameStatsMode_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(20 59 0B 10 00 00 00 00 30 59 0B 10 02 00 00 00 3C 59 0B 10 06 00 00 00 54 59 0B 10 07 00 00 00 6C 59 0B 10 04 00 00 00 84 59 0B 10 05 00 00 00 9C 59 0B 10 03 00 00 00 B4 59 0B 10 01 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DynamicDecalShaderType_0040_0040_0040_0040SA_003FBW4DynamicDecalShaderType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(88 18 0B 10 01 00 00 00 C0 18 0B 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AITimerType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AITimerType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(4C 92 0B 10 01 00 00 00 58 92 0B 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXTriggerType_0040_0040_0040_0040SA_003FBW4FXTriggerType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(24 40 0B 10 01 00 00 00 58 C6 0A 10 00 00 00 00 34 40 0B 10 02 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY06_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AIBaseSortingOrder_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AIBaseSortingOrder_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(D0 66 0B 10 06 00 00 00 E0 66 0B 10 03 00 00 00 F0 66 0B 10 05 00 00 00 10 67 0B 10 04 00 00 00 30 67 0B 10 01 00 00 00 40 67 0B 10 00 00 00 00 50 67 0B 10 02 00 00 00) */;
+
+	internal unsafe static sbyte* std_002E_003FA0x0a42ecd9_002E_bad_alloc_Message/* Not supported: data(0C A4 0A 10) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4PathMusicEventSetCategory_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4PathMusicEventSetCategory_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(18 53 0B 10 01 00 00 00 20 53 0B 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DecalLODType_0040_0040_0040_0040SA_003FBW4DecalLODType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(9C C7 0A 10 02 00 00 00 AC C7 0A 10 01 00 00 00 A8 C9 0A 10 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4EmotionTemplateThreatComparisonType_0040_0040_0040_0040SA_003FBW4EmotionTemplateThreatComparisonType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(58 C6 0A 10 00 00 00 00 44 7E 0B 10 02 00 00 00 54 7E 0B 10 01 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DisabledType_0040_0040_0040_0040SA_003FBW4DisabledType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(E8 CB 0A 10 00 00 00 00 F0 CB 0A 10 02 00 00 00 F4 CB 0A 10 07 00 00 00 00 CC 0A 10 03 00 00 00 08 CC 0A 10 0B 00 00 00 14 CC 0A 10 04 00 00 00 20 CC 0A 10 09 00 00 00 30 CC 0A 10 0A 00 00 00 44 CC 0A 10 08 00 00 00 58 CC 0A 10 06 00 00 00 68 CC 0A 10 05 00 00 00 74 CC 0A 10 01 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocoF_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LocoF_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(D0 1F 0B 10 0A 00 00 00 DC 1F 0B 10 0B 00 00 00 E8 1F 0B 10 0C 00 00 00 F4 1F 0B 10 01 00 00 00 00 20 0B 10 02 00 00 00 0C 20 0B 10 03 00 00 00 18 20 0B 10 04 00 00 00 20 20 0B 10 05 00 00 00 28 20 0B 10 06 00 00 00 30 20 0B 10 00 00 00 00 40 20 0B 10 07 00 00 00 4C 20 0B 10 08 00 00 00 58 20 0B 10 09 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeType_0040_0040_0040_0040SA_003FBW4AttributeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(18 15 0B 10 20 00 00 00 28 15 0B 10 01 00 00 00 30 15 0B 10 14 00 00 00 3C 15 0B 10 12 00 00 00 50 15 0B 10 22 00 00 00 60 15 0B 10 21 00 00 00 80 15 0B 10 19 00 00 00 94 15 0B 10 1A 00 00 00 A4 15 0B 10 1B 00 00 00 B8 15 0B 10 18 00 00 00 C8 15 0B 10 09 00 00 00 DC 15 0B 10 02 00 00 00 E8 15 0B 10 03 00 00 00 F4 15 0B 10 17 00 00 00 10 16 0B 10 06 00 00 00 1C 16 0B 10 0F 00 00 00 24 16 0B 10 10 00 00 00 E8 EA 0A 10 1C 00 00 00 30 16 0B 10 13 00 00 00 58 C6 0A 10 00 00 00 00 50 16 0B 10 1F 00 00 00 5C 16 0B 10 0D 00 00 00 68 16 0B 10 0E 00 00 00 78 16 0B 10 07 00 00 00 80 16 0B 10 16 00 00 00 90 16 0B 10 0C 00 00 00 A0 16 0B 10 1E 00 00 00 AC 16 0B 10 04 00 00 00 B8 16 0B 10 0A 00 00 00 CC 16 0B 10 05 00 00 00 DC 16 0B 10 15 00 00 00 EC 16 0B 10 08 00 00 00 F4 16 0B 10 0B 00 00 00 04 17 0B 10 1D 00 00 00 14 17 0B 10 11 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocomotorSetType_0040_0040_0040_0040SA_003FBW4LocomotorSetType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(30 CE 0A 10 0C 00 00 00 3C CE 0A 10 10 00 00 00 4C CE 0A 10 0F 00 00 00 60 CE 0A 10 0B 00 00 00 68 CE 0A 10 0A 00 00 00 74 CE 0A 10 08 00 00 00 7C CE 0A 10 11 00 00 00 F4 CB 0A 10 02 00 00 00 64 CB 0A 10 FF FF FF FF 9C CE 0A 10 07 00 00 00 A4 CE 0A 10 0D 00 00 00 B8 C7 0A 10 00 00 00 00 B8 CE 0A 10 01 00 00 00 C8 CE 0A 10 04 00 00 00 D0 CE 0A 10 09 00 00 00 D8 CE 0A 10 06 00 00 00 E4 CE 0A 10 05 00 00 00 EC CE 0A 10 0E 00 00 00 FC CE 0A 10 03 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeModifierCategoryType_0040_0040_0040_0040SA_003FBW4AttributeModifierCategoryType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(98 17 0B 10 07 00 00 00 A0 17 0B 10 08 00 00 00 A8 17 0B 10 02 00 00 00 B4 17 0B 10 0A 00 00 00 C4 17 0B 10 0D 00 00 00 D4 17 0B 10 0B 00 00 00 E8 17 0B 10 0E 00 00 00 F8 17 0B 10 0C 00 00 00 08 18 0B 10 01 00 00 00 14 18 0B 10 06 00 00 00 58 C6 0A 10 00 00 00 00 1C 18 0B 10 03 00 00 00 24 18 0B 10 05 00 00 00 30 18 0B 10 09 00 00 00 38 18 0B 10 04 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY03_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4WaterLODType_0040_0040_0040_0040SA_003FBW4WaterLODType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(9C C7 0A 10 02 00 00 00 AC C7 0A 10 00 00 00 00 4C C9 0A 10 01 00 00 00 54 C9 0A 10 03 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY08_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4TeamPriority_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4TeamPriority_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(E0 90 0B 10 06 00 00 00 E8 CB 0A 10 00 00 00 00 B4 8E 0B 10 01 00 00 00 E8 90 0B 10 04 00 00 00 9C C7 0A 10 05 00 00 00 F8 90 0B 10 08 00 00 00 AC C7 0A 10 02 00 00 00 38 53 0B 10 07 00 00 00 44 53 0B 10 03 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040 _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B/* Not supported: data(28 6C 0B 10 04 00 00 00 34 6C 0B 10 10 00 00 00 40 65 0B 10 01 00 00 00 44 6C 0B 10 0A 00 00 00 4C 6C 0B 10 12 00 00 00 58 6C 0B 10 08 00 00 00 64 6C 0B 10 07 00 00 00 70 6C 0B 10 0C 00 00 00 7C 6C 0B 10 0E 00 00 00 88 6C 0B 10 0F 00 00 00 98 6C 0B 10 09 00 00 00 A0 6C 0B 10 00 00 00 00 AC 6C 0B 10 03 00 00 00 B4 6C 0B 10 13 00 00 00 C8 6C 0B 10 15 00 00 00 D8 6C 0B 10 14 00 00 00 EC 6C 0B 10 16 00 00 00 04 6D 0B 10 17 00 00 00 1C 6D 0B 10 18 00 00 00 3C 6D 0B 10 11 00 00 00 48 6D 0B 10 0B 00 00 00 54 6D 0B 10 06 00 00 00 60 6D 0B 10 05 00 00 00 68 6D 0B 10 02 00 00 00 48 65 0B 10 0D 00 00 00) */;
+
+	public unsafe static int** __unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z/* Not supported: data(B0 11 00 10) */;
+
+	public unsafe static int** __unep_0040_003FListElementCompare_0040_003F_0024SortedListHelper_0040UBuildingPlacementDistance_0040SageBinaryData_0040_0040UBuildingPlacementDistanceListComparer_0040AITargetingHeuristic_00402_0040_0040Marshaler_0040_0040_0024_0024FCA_NPBUBuildingPlacementDistance_0040SageBinaryData_0040_00400_0040Z/* Not supported: data(10 AB 00 10) */;
+
+	public unsafe static int** __unep_0040_003F_003F_0024BookmarkCompare_0040U_003F_0024GenericBookmark_0040I_0040Tracker_0040Relo_0040_0040_0040Tracker_0040Relo_0040_0040_0024_0024FCA_NABU_003F_0024GenericBookmark_0040I_004001_00400_0040Z/* Not supported: data(60 56 01 10) */;
+
+	internal unsafe static sbyte* std_002E_003FA0x03a5cd6c_002E_bad_alloc_Message/* Not supported: data(0C A4 0A 10) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3IList_0040Marshaler_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 01 00 00 00 B8 A5 1C 10) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_4 _003F_003F_R2INode_0040Marshaler_0040_00408/* Not supported: data(78 A5 1C 10 00) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4Value_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 90 C4 1C 10 F0 A5 1C 10) */;
+
+	internal static set_003CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_003E _lists/* Not supported: data(00 00 00 00 8C C3 1C 10 8C C3 1C 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00) */;
+
+	internal unsafe static delegate*<void> _003FA0x8eb05638_002E_lists_0024initializer_0024/* Not supported: data(34 09 00 06) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_8 _003F_003F_R2Value_0040_00408/* Not supported: data(0C A6 1C 10 30 A5 1C 10 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY05Q6AXXZ _003F_003F_7List_0040_00406B_0040/* Not supported: data(20 EF 09 10 D0 EE 09 10 40 ED 09 10 C0 E4 09 10 70 F8 09 10 D4 5D 0C 10) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_12 _003F_003F_R0_003FAVValue_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 56 61 6C 75 65 40 40 00) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040Node_0040_00408/* Not supported: data(C0 C4 1C 10 01 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 3C A6 1C 10) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_8 _003F_003F_R2List_0040_00408/* Not supported: data(A4 A6 1C 10 C0 A5 1C 10 00) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3INode_0040Marshaler_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 01 00 00 00 70 A5 1C 10) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY03Q6AXXZ _003F_003F_7Value_0040_00406B_0040/* Not supported: data(E0 E4 09 10 10 E5 09 10 70 F0 09 10 D4 5D 0C 10) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040IList_0040Marshaler_0040_00408/* Not supported: data(4C C4 1C 10 00 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 A8 A5 1C 10) */;
+
+	internal static set_003CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_003E _values/* Not supported: data(00 00 00 00 A8 C3 1C 10 A8 C3 1C 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY06Q6AXXZ _003F_003F_7Node_0040_00406B_0040/* Not supported: data(90 E4 09 10 20 F4 09 10 50 EB 09 10 00 F6 09 10 20 F7 09 10 40 F2 09 10 D4 5D 0C 10) */;
+
+	internal static set_003CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_003E _nodes/* Not supported: data(00 00 00 00 70 C3 1C 10 70 C3 1C 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4IList_0040Marshaler_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 4C C4 1C 10 A8 A5 1C 10) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3IValue_0040Marshaler_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 01 00 00 00 28 A5 1C 10) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_23 _003F_003F_R0_003FAVIValue_0040Marshaler_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 49 56 61 6C 75 65 40 4D 61 72 73 68 61 6C 65 72 40 40 00) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3List_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 02 00 00 00 98 A6 1C 10) */;
+
+	internal unsafe static delegate*<void> _003FA0x8eb05638_002E_values_0024initializer_0024/* Not supported: data(36 09 00 06) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY06Q6AXXZ _003F_003F_7INode_0040Marshaler_0040_00406B_0040/* Not supported: data(D0 F9 09 10 D0 F9 09 10 D0 F9 09 10 D0 F9 09 10 D0 F9 09 10 F0 E3 09 10 D4 5D 0C 10) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4IValue_0040Marshaler_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 D0 C3 1C 10 18 A5 1C 10) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040Value_0040_00408/* Not supported: data(90 C4 1C 10 01 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 F0 A5 1C 10) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4Node_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 C0 C4 1C 10 3C A6 1C 10) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3Value_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 02 00 00 00 00 A6 1C 10) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_11 _003F_003F_R0_003FAVNode_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 4E 6F 64 65 40 40 00) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_22 _003F_003F_R0_003FAVINode_0040Marshaler_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 49 4E 6F 64 65 40 4D 61 72 73 68 61 6C 65 72 40 40 00) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_22 _003F_003F_R0_003FAVIList_0040Marshaler_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 49 4C 69 73 74 40 4D 61 72 73 68 61 6C 65 72 40 40 00) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_4 _003F_003F_R2IList_0040Marshaler_0040_00408/* Not supported: data(C0 A5 1C 10 00) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_4 _003F_003F_R2IValue_0040Marshaler_0040_00408/* Not supported: data(30 A5 1C 10 00) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040List_0040_00408/* Not supported: data(F0 C4 1C 10 01 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 88 A6 1C 10) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040IValue_0040Marshaler_0040_00408/* Not supported: data(D0 C3 1C 10 00 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 18 A5 1C 10) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY03Q6AXXZ _003F_003F_7IValue_0040Marshaler_0040_00406B_0040/* Not supported: data(D0 F9 09 10 D0 F9 09 10 80 E3 09 10 D4 5D 0C 10) */;
+
+	internal static _0024_s__RTTIBaseClassArray_0024_extraBytes_8 _003F_003F_R2Node_0040_00408/* Not supported: data(58 A6 1C 10 78 A5 1C 10 00) */;
+
+	internal static _s__RTTIClassHierarchyDescriptor _003F_003F_R3Node_0040_00408/* Not supported: data(00 00 00 00 00 00 00 00 02 00 00 00 4C A6 1C 10) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4INode_0040Marshaler_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 10 C4 1C 10 60 A5 1C 10) */;
+
+	internal static _s__RTTICompleteObjectLocator _003F_003F_R4List_0040_00406B_0040/* Not supported: data(00 00 00 00 00 00 00 00 00 00 00 00 F0 C4 1C 10 88 A6 1C 10) */;
+
+	internal unsafe static delegate*<void> _003FA0x8eb05638_002E_nodes_0024initializer_0024/* Not supported: data(32 09 00 06) */;
+
+	internal unsafe static sbyte* std_002E_003FA0x8eb05638_002E_bad_alloc_Message/* Not supported: data(0C A4 0A 10) */;
+
+	internal static _s__RTTIBaseClassDescriptor2 _003F_003F_R1A_0040_003F0A_0040EA_0040INode_0040Marshaler_0040_00408/* Not supported: data(10 C4 1C 10 00 00 00 00 00 00 00 00 FF FF FF FF 00 00 00 00 40 00 00 00 60 A5 1C 10) */;
+
+	internal static _0024_TypeDescriptor_0024_extraBytes_11 _003F_003F_R0_003FAVList_0040_0040_00408/* Not supported: data(D4 5D 0C 10 00 00 00 00 2E 3F 41 56 4C 69 73 74 40 40 00) */;
+
+	internal static _0024ArrayType_0024_0024_0024BY05Q6AXXZ _003F_003F_7IList_0040Marshaler_0040_00406B_0040/* Not supported: data(D0 F9 09 10 D0 F9 09 10 D0 F9 09 10 D0 F9 09 10 60 E4 09 10 D4 5D 0C 10) */;

@@ -1,0 +1,151 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12344,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4MouseHUDFixedElementId_0040_0040_0040_0040SA_003FBW4MouseHUDFixedElementId_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AggressiveStanceButton",
+      "value": 21
+    },
+    {
+      "name": "AircraftTab",
+      "value": 11
+    },
+    {
+      "name": "AttackMoveButton",
+      "value": 13
+    },
+    {
+      "name": "CoOpAIAssaultOrderButton",
+      "value": 29
+    },
+    {
+      "name": "CoOpAIHoldObjectOrderButton",
+      "value": 30
+    },
+    {
+      "name": "CoOpAIHoldPositionOrderButton",
+      "value": 31
+    },
+    {
+      "name": "CoOpAINormalOrderButton",
+      "value": 28
+    },
+    {
+      "name": "CoOpAIOrderPanel",
+      "value": 34
+    },
+    {
+      "name": "DeactivateHotSpotButton",
+      "value": 32
+    },
+    {
+      "name": "EnergyMeter",
+      "value": 0
+    },
+    {
+      "name": "ForceAttackButton",
+      "value": 14
+    },
+    {
+      "name": "ForceAttackMoveButton",
+      "value": 17
+    },
+    {
+      "name": "ForceMoveButton",
+      "value": 15
+    },
+    {
+      "name": "GuardStanceButton",
+      "value": 22
+    },
+    {
+      "name": "HoldFireStanceButton",
+      "value": 23
+    },
+    {
+      "name": "HoldGroundStanceButton",
+      "value": 24
+    },
+    {
+      "name": "InfantryTab",
+      "value": 9
+    },
+    {
+      "name": "Invalid",
+      "value": -1
+    },
+    {
+      "name": "MainStructuresTab",
+      "value": 7
+    },
+    {
+      "name": "OpenAdvancedCommandsButton",
+      "value": 25
+    },
+    {
+      "name": "OpenPlayerTechStoreButton",
+      "value": 27
+    },
+    {
+      "name": "OtherStructuresTab",
+      "value": 8
+    },
+    {
+      "name": "PauseButton",
+      "value": 4
+    },
+    {
+      "name": "PlanningModeButton",
+      "value": 19
+    },
+    {
+      "name": "Radar",
+      "value": 5
+    },
+    {
+      "name": "RepairButton",
+      "value": 3
+    },
+    {
+      "name": "Resources",
+      "value": 1
+    },
+    {
+      "name": "ReverseMoveButton",
+      "value": 16
+    },
+    {
+      "name": "SelectionRefinementTab",
+      "value": 6
+    },
+    {
+      "name": "SellButton",
+      "value": 2
+    },
+    {
+      "name": "StopButton",
+      "value": 18
+    },
+    {
+      "name": "ThreatMeter",
+      "value": 26
+    },
+    {
+      "name": "UnitIntroButton",
+      "value": 33
+    },
+    {
+      "name": "VehicleTab",
+      "value": 10
+    },
+    {
+      "name": "WatercraftTab",
+      "value": 12
+    },
+    {
+      "name": "WaypointModeButton",
+      "value": 20
+    }
+  ]
+}

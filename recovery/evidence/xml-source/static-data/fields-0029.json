@@ -1,0 +1,1402 @@
+[
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040DHKCPACL_0040PathExists_003F_0024AA_0040",
+    "sourceLine": 11628,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "5061746845786973747300",
+    "text": "PathExists"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06CFOEHDKN_0040Budget_003F_0024AA_0040",
+    "sourceLine": 11630,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "42756467657400",
+    "text": "Budget"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040JLHCBMOE_0040EnemyNearby_003F_0024AA_0040",
+    "sourceLine": 11632,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "456e656d794e656172627900",
+    "text": "EnemyNearby"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040JJBMMDNA_0040MinEnemyValue_003F_0024AA_0040",
+    "sourceLine": 11634,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4d696e456e656d7956616c756500",
+    "text": "MinEnemyValue"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040OEBPMGNL_0040EnemyFilter_003F_0024AA_0040",
+    "sourceLine": 11636,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "456e656d7946696c74657200",
+    "text": "EnemyFilter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040BPPNJNOH_0040PassIfExists_003F_0024AA_0040",
+    "sourceLine": 11638,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "50617373496645786973747300",
+    "text": "PassIfExists"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040DGADFBKF_0040BuildEntry_003F_0024AA_0040",
+    "sourceLine": 11640,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4275696c64456e74727900",
+    "text": "BuildEntry"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06EFLIMDEH_0040Tactic_003F_0024AA_0040",
+    "sourceLine": 11642,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "54616374696300",
+    "text": "Tactic"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040CNODIANO_0040Targetless_003F_0024AA_0040",
+    "sourceLine": 11644,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "5461726765746c65737300",
+    "text": "Targetless"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040ILOEIBOI_0040EndBehavior_003F_0024AA_0040",
+    "sourceLine": 11646,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "456e644265686176696f7200",
+    "text": "EndBehavior"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040POEBAICO_0040DisbandAfterRetreatTeamSize_003F_0024AA_0040",
+    "sourceLine": 11648,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "44697362616e644166746572526574726561745465616d53697a6500",
+    "text": "DisbandAfterRetreatTeamSize"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040FAKFCLDI_0040EndIfStateTurnsOff_003F_0024AA_0040",
+    "sourceLine": 11650,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "456e64496653746174655475726e734f666600",
+    "text": "EndIfStateTurnsOff"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040LOMIPBKH_0040UseAestheticsManager_003F_0024AA_0040",
+    "sourceLine": 11652,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "557365416573746865746963734d616e6167657200",
+    "text": "UseAestheticsManager"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040EOIBIMFA_0040AestheticsManagerPatrolIdleTime_003F_0024AA_0040",
+    "sourceLine": 11654,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "416573746865746963734d616e61676572506174726f6c49646c6554696d6500",
+    "text": "AestheticsManagerPatrolIdleTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05HAEMDGGB_0040300_003F40_003F_0024AA_0040",
+    "sourceLine": 11656,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "3330302e3000",
+    "text": "300.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040EPKNFCM_0040AestheticsManagerMinDistanceFrom_0040",
+    "sourceLine": 11658,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "416573746865746963734d616e616765724d696e44697374616e636546726f6d48617276657374657200",
+    "text": "AestheticsManagerMinDistanceFromHarvester"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040KFMOFELC_0040EASY_003F5MEDIUM_003F5HARD_003F5BRUTAL_003F_0024AA_0040",
+    "sourceLine": 11660,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "45415359204d454449554d20484152442042525554414c00",
+    "text": "EASY MEDIUM HARD BRUTAL"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040LBFONNI_0040CombatLeashSlack_003F_0024AA_0040",
+    "sourceLine": 11662,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "436f6d6261744c65617368536c61636b00",
+    "text": "CombatLeashSlack"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JBFCALPK_0040TargetDispositionToDisplay_003F_0024AA_0040",
+    "sourceLine": 11664,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "546172676574446973706f736974696f6e546f446973706c617900",
+    "text": "TargetDispositionToDisplay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040MDNOJDHF_0040GatherWaypoint_003F_0024AA_0040",
+    "sourceLine": 11666,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "476174686572576179706f696e7400",
+    "text": "GatherWaypoint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040NFJNFBLC_0040UseTransports_003F_0024AA_0040",
+    "sourceLine": 11668,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5573655472616e73706f72747300",
+    "text": "UseTransports"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040HONNFEHN_0040TargetBaseCriteria_003F_0024AA_0040",
+    "sourceLine": 11670,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "54617267657442617365437269746572696100",
+    "text": "TargetBaseCriteria"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040JOHIDCNC_0040HomeBaseCriteria_003F_0024AA_0040",
+    "sourceLine": 11672,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "486f6d6542617365437269746572696100",
+    "text": "HomeBaseCriteria"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040PONGPCLP_0040TeamTemplate_003F_0024AA_0040",
+    "sourceLine": 11674,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "5465616d54656d706c61746500",
+    "text": "TeamTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040DGLNEEAK_0040MaxTargets_003F_0024AA_0040",
+    "sourceLine": 11676,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4d61785461726765747300",
+    "text": "MaxTargets"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040JPKFHFOL_0040MaxRunningCopies_003F_0024AA_0040",
+    "sourceLine": 11678,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4d617852756e6e696e67436f7069657300",
+    "text": "MaxRunningCopies"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040PPJKIHCC_0040MaxInactiveCopies_003F_0024AA_0040",
+    "sourceLine": 11680,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4d6178496e616374697665436f7069657300",
+    "text": "MaxInactiveCopies"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040FEBDFPNE_0040PathfindingCheckType_003F_0024AA_0040",
+    "sourceLine": 11682,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "5061746866696e64696e67436865636b5479706500",
+    "text": "PathfindingCheckType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040IANMMPNC_0040CannotAttackTargetReaction_003F_0024AA_0040",
+    "sourceLine": 11684,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "43616e6e6f7441747461636b5461726765745265616374696f6e00",
+    "text": "CannotAttackTargetReaction"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KLMEPCCL_0040TeamGatherBeginFeedbackKey_003F_0024AA_0040",
+    "sourceLine": 11686,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "5465616d476174686572426567696e466565646261636b4b657900",
+    "text": "TeamGatherBeginFeedbackKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040NCEMKMBN_0040ExecutionBeginFeedbackKey_003F_0024AA_0040",
+    "sourceLine": 11688,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "457865637574696f6e426567696e466565646261636b4b657900",
+    "text": "ExecutionBeginFeedbackKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040LDDFFNBG_0040ExecutionCanceledFeedbackKey_003F_0024AA_0040",
+    "sourceLine": 11690,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "457865637574696f6e43616e63656c6564466565646261636b4b657900",
+    "text": "ExecutionCanceledFeedbackKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040ECHEJDF_0040ExecutionCompleteFeedbackKey_003F_0024AA_0040",
+    "sourceLine": 11692,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "457865637574696f6e436f6d706c657465466565646261636b4b657900",
+    "text": "ExecutionCompleteFeedbackKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07ILBLCBLB_0040Deposit_003F_0024AA_0040",
+    "sourceLine": 11694,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4465706f73697400",
+    "text": "Deposit"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05NEHACHKB_0040Order_003F_0024AA_0040",
+    "sourceLine": 11696,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "4f7264657200",
+    "text": "Order"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040HDIIDDON_0040OnlyIfLocalPlayerIs_003F_0024AA_0040",
+    "sourceLine": 11698,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4f6e6c7949664c6f63616c506c61796572497300",
+    "text": "OnlyIfLocalPlayerIs"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040DMDLCBAB_0040TimeoutAfterPlaying_003F_0024AA_0040",
+    "sourceLine": 11700,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "54696d656f75744166746572506c6179696e6700",
+    "text": "TimeoutAfterPlaying"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040KOAKHGKP_0040TimeBetweenScans_003F_0024AA_0040",
+    "sourceLine": 11702,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "54696d654265747765656e5363616e7300",
+    "text": "TimeBetweenScans"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040HOEPHENG_0040TimeThatConditionsMustBeMet_003F_0024AA_0040",
+    "sourceLine": 11704,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "54696d6554686174436f6e646974696f6e734d75737442654d657400",
+    "text": "TimeThatConditionsMustBeMet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040HDPIBEFN_0040NumberOfObjectsRecentlyLost_003F_0024AA_0040",
+    "sourceLine": 11706,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4e756d6265724f664f626a65637473526563656e746c794c6f737400",
+    "text": "NumberOfObjectsRecentlyLost"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040HOPLPMBB_0040TimeForNumberOfObjectLost_003F_0024AA_0040",
+    "sourceLine": 11708,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "54696d65466f724e756d6265724f664f626a6563744c6f737400",
+    "text": "TimeForNumberOfObjectLost"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040FECPDAGL_0040ObjectLostFilter_003F_0024AA_0040",
+    "sourceLine": 11710,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4f626a6563744c6f737446696c74657200",
+    "text": "ObjectLostFilter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CN_0040HIJEICCP_0040MinPowerAdvantageEnemiesInMyBase_0040",
+    "sourceLine": 11712,
+    "type": "_0024ArrayType_0024_0024_0024BY0CN_0040_0024_0024CBD",
+    "hex": "4d696e506f776572416476616e74616765456e656d696573496e4d79426173655673416c6c4d79556e69747300",
+    "text": "MinPowerAdvantageEnemiesInMyBaseVsAllMyUnits"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040GPMPMBBB_0040FeedbackKey_003F_0024AA_0040",
+    "sourceLine": 11714,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "466565646261636b4b657900",
+    "text": "FeedbackKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040EIJKKGAF_0040MinEffectiveness_003F_0024AA_0040",
+    "sourceLine": 11716,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4d696e4566666563746976656e65737300",
+    "text": "MinEffectiveness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040FNBBHCPH_0040MaxEffectiveness_003F_0024AA_0040",
+    "sourceLine": 11718,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4d61784566666563746976656e65737300",
+    "text": "MaxEffectiveness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040DBAPNCNG_0040MinStandardDeviation_003F_0024AA_0040",
+    "sourceLine": 11720,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4d696e5374616e64617264446576696174696f6e00",
+    "text": "MinStandardDeviation"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040CCEKDEHN_0040MaxStandardDeviation_003F_0024AA_0040",
+    "sourceLine": 11722,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4d61785374616e64617264446576696174696f6e00",
+    "text": "MaxStandardDeviation"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040KANLCLDH_0040MinEfficiency_003F_0024AA_0040",
+    "sourceLine": 11724,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4d696e456666696369656e637900",
+    "text": "MinEfficiency"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040BJPNLAEG_0040MaxEfficiency_003F_0024AA_0040",
+    "sourceLine": 11726,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4d6178456666696369656e637900",
+    "text": "MaxEfficiency"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03DBDAAPNB_0040Cap_003F_0024AA_0040",
+    "sourceLine": 11728,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "43617000",
+    "text": "Cap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040EBKGKIJL_0040UseAllAvailableQueues_003F_0024AA_0040",
+    "sourceLine": 11730,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "557365416c6c417661696c61626c6551756575657300",
+    "text": "UseAllAvailableQueues"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08CBAFBIHN_0040MinDelay_003F_0024AA_0040",
+    "sourceLine": 11732,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d696e44656c617900",
+    "text": "MinDelay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08PGOOKKDM_0040MaxDelay_003F_0024AA_0040",
+    "sourceLine": 11734,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d617844656c617900",
+    "text": "MaxDelay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040NBFHHAIP_0040PlayerPower_003F_0024AA_0040",
+    "sourceLine": 11736,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "506c61796572506f77657200",
+    "text": "PlayerPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03EIABCFLO_004020_003F_0024CF_003F_0024AA_0040",
+    "sourceLine": 11738,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "32302500",
+    "text": "20%"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040GKBJCPCC_0040StrategicDirective_003F_0024AA_0040",
+    "sourceLine": 11740,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "53747261746567696344697265637469766500",
+    "text": "StrategicDirective"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040GKJDIJEO_0040Percentage_003F_0024AA_0040",
+    "sourceLine": 11742,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "50657263656e7461676500",
+    "text": "Percentage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040GDGJIKPB_0040StandardDeviation_003F_0024AA_0040",
+    "sourceLine": 11744,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "5374616e64617264446576696174696f6e00",
+    "text": "StandardDeviation"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04BOICIEDE_0040Unit_003F_0024AA_0040",
+    "sourceLine": 11746,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "556e697400",
+    "text": "Unit"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040LKCJJILB_0040OffensiveModifier_003F_0024AA_0040",
+    "sourceLine": 11748,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4f6666656e736976654d6f64696669657200",
+    "text": "OffensiveModifier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040BEGELAFL_0040DefensiveModifier_003F_0024AA_0040",
+    "sourceLine": 11750,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "446566656e736976654d6f64696669657200",
+    "text": "DefensiveModifier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040NCKFJIDI_0040MinTTKRatio_003F_0024AA_0040",
+    "sourceLine": 11752,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d696e54544b526174696f00",
+    "text": "MinTTKRatio"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040ECNGIINC_0040MaxTTKRatio_003F_0024AA_0040",
+    "sourceLine": 11754,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d617854544b526174696f00",
+    "text": "MaxTTKRatio"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040HABKOMCE_0040ALLIES_003F5ENEMIES_003F5NEUTRAL_003F_0024AA_0040",
+    "sourceLine": 11756,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "414c4c49455320454e454d494553204e45555452414c00",
+    "text": "ALLIES ENEMIES NEUTRAL"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040LLPKDFIJ_0040FeedbackTo_003F_0024AA_0040",
+    "sourceLine": 11758,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "466565646261636b546f00",
+    "text": "FeedbackTo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040BGPMNBLD_0040PersonalityType_003F_0024AA_0040",
+    "sourceLine": 11760,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "506572736f6e616c6974795479706500",
+    "text": "PersonalityType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040FFMHFDPN_0040PersonalityUIName_003F_0024AA_0040",
+    "sourceLine": 11762,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "506572736f6e616c69747955494e616d6500",
+    "text": "PersonalityUIName"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040KCFGBMAI_0040SkirmishPersonality_003F_0024AA_0040",
+    "sourceLine": 11764,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "536b69726d697368506572736f6e616c69747900",
+    "text": "SkirmishPersonality"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OCJAIEOC_0040CoopPersonality_003F_0024AA_0040",
+    "sourceLine": 11766,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "436f6f70506572736f6e616c69747900",
+    "text": "CoopPersonality"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040OEOGPNIO_0040SecondsTillTargetsExpire_003F_0024AA_0040",
+    "sourceLine": 11768,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "5365636f6e647354696c6c5461726765747345787069726500",
+    "text": "SecondsTillTargetsExpire"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040FMCJKKKF_0040DesiredExcessPowerBuffer_003F_0024AA_0040",
+    "sourceLine": 11770,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "44657369726564457863657373506f77657242756666657200",
+    "text": "DesiredExcessPowerBuffer"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040NKBFMGKL_0040BaseCompactness_003F_0024AA_0040",
+    "sourceLine": 11772,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "42617365436f6d706163746e65737300",
+    "text": "BaseCompactness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040BHGDHCPG_0040DefaultThreatFindRadius_003F_0024AA_0040",
+    "sourceLine": 11774,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "44656661756c7454687265617446696e6452616469757300",
+    "text": "DefaultThreatFindRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040FIIEKPNN_0040UnitBuilderCostEffectivenessWeig_0040",
+    "sourceLine": 11776,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572436f73744566666563746976656e65737357656967687400",
+    "text": "UnitBuilderCostEffectivenessWeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040FKLCLCCL_0040UnitBuilderMoneyVersusTimePrefer_0040",
+    "sourceLine": 11778,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "556e69744275696c6465724d6f6e657956657273757354696d65507265666572656e636500",
+    "text": "UnitBuilderMoneyVersusTimePreference"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040BFMMEIOC_0040UnitBuilderOverallOffensivePrefe_0040",
+    "sourceLine": 11780,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "556e69744275696c6465724f766572616c6c4f6666656e73697665507265666572656e636500",
+    "text": "UnitBuilderOverallOffensivePreference"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040IEOIFFDD_0040UnitBuilderOverallDefensivePrefe_0040",
+    "sourceLine": 11782,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "556e69744275696c6465724f766572616c6c446566656e73697665507265666572656e636500",
+    "text": "UnitBuilderOverallDefensivePreference"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040ELAOPEFA_0040UnitBuilderEnemyTowerWeight_003F_0024AA_0040",
+    "sourceLine": 11784,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572456e656d79546f77657257656967687400",
+    "text": "UnitBuilderEnemyTowerWeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BKILMGKC_0040800_003F40_003F_0024AA_0040",
+    "sourceLine": 11786,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "3830302e3000",
+    "text": "800.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040MKGDALNP_0040UnitBuilderEnemyNearbyDistance_003F_0024AA_0040",
+    "sourceLine": 11788,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572456e656d794e656172627944697374616e636500",
+    "text": "UnitBuilderEnemyNearbyDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040DFHEAPCC_0040UnitBuilderEnemyNearbyMultiplier_0040",
+    "sourceLine": 11790,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572456e656d794e65617262794d756c7469706c69657200",
+    "text": "UnitBuilderEnemyNearbyMultiplier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040JCPKHBOL_0040BuildTechEfficiencyThreshold_003F_0024AA_0040",
+    "sourceLine": 11792,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "4275696c6454656368456666696369656e63795468726573686f6c6400",
+    "text": "BuildTechEfficiencyThreshold"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040HLPKLMAO_0040BuildTechMinPowerAdvantage_003F_0024AA_0040",
+    "sourceLine": 11794,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "4275696c64546563684d696e506f776572416476616e7461676500",
+    "text": "BuildTechMinPowerAdvantage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04LNAMEDFH_0040240s_003F_0024AA_0040",
+    "sourceLine": 11796,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "3234307300",
+    "text": "240s"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040PPAFPMOJ_0040BuildExtraFactoryMinTime_003F_0024AA_0040",
+    "sourceLine": 11798,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4275696c644578747261466163746f72794d696e54696d6500",
+    "text": "BuildExtraFactoryMinTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040LBKLNDID_0040ResourceNodeSearchRadius_003F_0024AA_0040",
+    "sourceLine": 11800,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "5265736f757263654e6f646553656172636852616469757300",
+    "text": "ResourceNodeSearchRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040MODPADJJ_0040ResourceNodeValueRemainingForExp_0040",
+    "sourceLine": 11802,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "5265736f757263654e6f646556616c756552656d61696e696e67466f72457870616e73696f6e00",
+    "text": "ResourceNodeValueRemainingForExpansion"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040FGMMIBP_0040RefineryPlacementStartDistanceDe_0040",
+    "sourceLine": 11804,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "526566696e657279506c6163656d656e74537461727444697374616e636544656c746100",
+    "text": "RefineryPlacementStartDistanceDelta"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040LHBHIBHF_0040RefineryPlacementIncreaseTickAmo_0040",
+    "sourceLine": 11806,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "526566696e657279506c6163656d656e74496e6372656173655469636b416d6f756e7400",
+    "text": "RefineryPlacementIncreaseTickAmount"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DF_0040HGEAMMNP_0040RefineryPlacementNumberOfIncreas_0040",
+    "sourceLine": 11808,
+    "type": "_0024ArrayType_0024_0024_0024BY0DF_0040_0024_0024CBD",
+    "hex": "526566696e657279506c6163656d656e744e756d6265724f66496e6372656173655469636b734265666f7265476976696e67557000",
+    "text": "RefineryPlacementNumberOfIncreaseTicksBeforeGivingUp"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06JJKKDFPP_00401200_003F40_003F_0024AA_0040",
+    "sourceLine": 11810,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "313230302e3000",
+    "text": "1200.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040GDCJCNAB_0040ReactiveDefenseRadius_003F_0024AA_0040",
+    "sourceLine": 11812,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "5265616374697665446566656e736552616469757300",
+    "text": "ReactiveDefenseRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040MJPAOBND_0040RepairBuildingsAtDifficulty_003F_0024AA_0040",
+    "sourceLine": 11814,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5265706169724275696c64696e67734174446966666963756c747900",
+    "text": "RepairBuildingsAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040PBJJAGGA_0040UsePlayerPowersAtDifficulty_003F_0024AA_0040",
+    "sourceLine": 11816,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "557365506c61796572506f776572734174446966666963756c747900",
+    "text": "UsePlayerPowersAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040NNOINLAB_0040EmergencyManagerHandleNoPowerAtD_0040",
+    "sourceLine": 11818,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "456d657267656e63794d616e6167657248616e646c654e6f506f7765724174446966666963756c747900",
+    "text": "EmergencyManagerHandleNoPowerAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040BFJKOBJK_0040EmergencyManagerHandleNoIncomeAt_0040",
+    "sourceLine": 11820,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "456d657267656e63794d616e6167657248616e646c654e6f496e636f6d654174446966666963756c747900",
+    "text": "EmergencyManagerHandleNoIncomeAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CM_0040PGKLPCAF_0040EmergencyManagerHandleNoConyardA_0040",
+    "sourceLine": 11822,
+    "type": "_0024ArrayType_0024_0024_0024BY0CM_0040_0024_0024CBD",
+    "hex": "456d657267656e63794d616e6167657248616e646c654e6f436f6e796172644174446966666963756c747900",
+    "text": "EmergencyManagerHandleNoConyardAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CO_0040PFMJJIGG_0040EmergencyManagerHandleUnderAttac_0040",
+    "sourceLine": 11824,
+    "type": "_0024ArrayType_0024_0024_0024BY0CO_0040_0024_0024CBD",
+    "hex": "456d657267656e63794d616e6167657248616e646c65556e64657241747461636b4174446966666963756c747900",
+    "text": "EmergencyManagerHandleUnderAttackAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DC_0040ONCDHNN_0040EmergencyManagerHandleConyardInD_0040",
+    "sourceLine": 11826,
+    "type": "_0024ArrayType_0024_0024_0024BY0DC_0040_0024_0024CBD",
+    "hex": "456d657267656e63794d616e6167657248616e646c65436f6e79617264496e44616e6765724174446966666963756c747900",
+    "text": "EmergencyManagerHandleConyardInDangerAtDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040MJBJBPNK_0040ConyardInDangerEmergencyUnderAtt_0040",
+    "sourceLine": 11828,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "436f6e79617264496e44616e676572456d657267656e6379556e64657241747461636b54696d6500",
+    "text": "ConyardInDangerEmergencyUnderAttackTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040CPMJCJOJ_0040ConyardInDangerEmergencyHealthPe_0040",
+    "sourceLine": 11830,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "436f6e79617264496e44616e676572456d657267656e63794865616c746850657263656e7400",
+    "text": "ConyardInDangerEmergencyHealthPercent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CJ_0040CJADNPNC_0040ConyardInDangerEmergencyEngineer_0040",
+    "sourceLine": 11832,
+    "type": "_0024ArrayType_0024_0024_0024BY0CJ_0040_0024_0024CBD",
+    "hex": "436f6e79617264496e44616e676572456d657267656e6379456e67696e65657244697374616e636500",
+    "text": "ConyardInDangerEmergencyEngineerDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040LKPKKKIN_0040EnemySortingBrutalDifficulty_003F_0024AA_0040",
+    "sourceLine": 11834,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "456e656d79536f7274696e6742727574616c446966666963756c747900",
+    "text": "EnemySortingBrutalDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KBDIANFG_0040EnemySortingHardDifficulty_003F_0024AA_0040",
+    "sourceLine": 11836,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "456e656d79536f7274696e6748617264446966666963756c747900",
+    "text": "EnemySortingHardDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040KEGMNHAA_0040EnemySortingMediumDifficulty_003F_0024AA_0040",
+    "sourceLine": 11838,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "456e656d79536f7274696e674d656469756d446966666963756c747900",
+    "text": "EnemySortingMediumDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040BCBHEKMN_0040EnemySortingEasyDifficulty_003F_0024AA_0040",
+    "sourceLine": 11840,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "456e656d79536f7274696e6745617379446966666963756c747900",
+    "text": "EnemySortingEasyDifficulty"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03LAJOLCGJ_004015s_003F_0024AA_0040",
+    "sourceLine": 11842,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "31357300",
+    "text": "15s"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040KHKLABGG_0040EnemyResortingTime_003F_0024AA_0040",
+    "sourceLine": 11844,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "456e656d795265736f7274696e6754696d6500",
+    "text": "EnemyResortingTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040KJFLJBFJ_0040CleanupRefineries_003F_0024AA_0040",
+    "sourceLine": 11846,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "436c65616e7570526566696e657269657300",
+    "text": "CleanupRefineries"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KPCBFJEN_0040CanBuildInAlliedBuildRadii_003F_0024AA_0040",
+    "sourceLine": 11848,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "43616e4275696c64496e416c6c6965644275696c64526164696900",
+    "text": "CanBuildInAlliedBuildRadii"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040IKJGNBIN_0040StructureSaveChanceEasy_003F_0024AA_0040",
+    "sourceLine": 11850,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "537472756374757265536176654368616e63654561737900",
+    "text": "StructureSaveChanceEasy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040NHDHCBPP_0040StructureSaveChanceMedium_003F_0024AA_0040",
+    "sourceLine": 11852,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "537472756374757265536176654368616e63654d656469756d00",
+    "text": "StructureSaveChanceMedium"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040IMKIBDBH_0040StructureSaveChanceHard_003F_0024AA_0040",
+    "sourceLine": 11854,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "537472756374757265536176654368616e63654861726400",
+    "text": "StructureSaveChanceHard"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040NBIGMAGI_0040BaseBuilderKeepUnderAttackFlagOn_0040",
+    "sourceLine": 11856,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "426173654275696c6465724b656570556e64657241747461636b466c61674f6e54696d6500",
+    "text": "BaseBuilderKeepUnderAttackFlagOnTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BCJIMKJL_0040200ms_003F_0024AA_0040",
+    "sourceLine": 11858,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "3230306d7300",
+    "text": "200ms"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040IFCLHFNN_0040BaseBuilderUpdateUnderAttackTime_0040",
+    "sourceLine": 11860,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "426173654275696c646572557064617465556e64657241747461636b54696d6500",
+    "text": "BaseBuilderUpdateUnderAttackTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040KAGLMHKA_0040BaseBuilderUpdateEnemiesInBaseTi_0040",
+    "sourceLine": 11862,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "426173654275696c646572557064617465456e656d696573496e4261736554696d6500",
+    "text": "BaseBuilderUpdateEnemiesInBaseTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040HBDDEBIK_0040MinHarvesters_003F_0024AA_0040",
+    "sourceLine": 11864,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4d696e4861727665737465727300",
+    "text": "MinHarvesters"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040INAOPDAA_0040MaxStrategicTargets_003F_0024AA_0040",
+    "sourceLine": 11866,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4d61785374726174656769635461726765747300",
+    "text": "MaxStrategicTargets"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040HGPAELOI_0040AssaultBeaconRadius_003F_0024AA_0040",
+    "sourceLine": 11868,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "41737361756c74426561636f6e52616469757300",
+    "text": "AssaultBeaconRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040OGDCLMBK_0040HoldObjectBeaconRadius_003F_0024AA_0040",
+    "sourceLine": 11870,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "486f6c644f626a656374426561636f6e52616469757300",
+    "text": "HoldObjectBeaconRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040KCEMMFHE_0040HoldPositionBeaconRadius_003F_0024AA_0040",
+    "sourceLine": 11872,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "486f6c64506f736974696f6e426561636f6e52616469757300",
+    "text": "HoldPositionBeaconRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040CFAIGIIB_0040RedAlertPowerAdvantage_003F_0024AA_0040",
+    "sourceLine": 11874,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "526564416c657274506f776572416476616e7461676500",
+    "text": "RedAlertPowerAdvantage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040POLBMPID_0040RedAlertIncome_003F_0024AA_0040",
+    "sourceLine": 11876,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "526564416c657274496e636f6d6500",
+    "text": "RedAlertIncome"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040EOGACHCH_0040RedAlertProductionBuildings_003F_0024AA_0040",
+    "sourceLine": 11878,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "526564416c65727450726f64756374696f6e4275696c64696e677300",
+    "text": "RedAlertProductionBuildings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040CMKNEJJK_0040RedAlertAttackTime_003F_0024AA_0040",
+    "sourceLine": 11880,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "526564416c65727441747461636b54696d6500",
+    "text": "RedAlertAttackTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040MIKBAMIN_0040MaxWallDestroyTimeToCountAsGoThr_0040",
+    "sourceLine": 11882,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "4d617857616c6c44657374726f7954696d65546f436f756e744173476f5468726f75676857616c6c7300",
+    "text": "MaxWallDestroyTimeToCountAsGoThroughWalls"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040HNLJDCJJ_0040AI_Portrait_TEMP_003F_0024AA_0040",
+    "sourceLine": 11884,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "41495f506f7274726169745f54454d5000",
+    "text": "AI_Portrait_TEMP"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040HCBPJDGD_0040CommanderPortrait_003F_0024AA_0040",
+    "sourceLine": 11886,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "436f6d6d616e646572506f72747261697400",
+    "text": "CommanderPortrait"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040INCBNLKN_0040SkirmishTimeTillGreeting_003F_0024AA_0040",
+    "sourceLine": 11888,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "536b69726d69736854696d6554696c6c4772656574696e6700",
+    "text": "SkirmishTimeTillGreeting"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040BCDOCAIK_0040CoopMonitorUpdateTime_003F_0024AA_0040",
+    "sourceLine": 11890,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "436f6f704d6f6e69746f7255706461746554696d6500",
+    "text": "CoopMonitorUpdateTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040JCOCIJNF_0040PersonalityMap_003F_0024AA_0040",
+    "sourceLine": 11892,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "506572736f6e616c6974794d617000",
+    "text": "PersonalityMap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07JALANNCD_0040UnitCap_003F_0024AA_0040",
+    "sourceLine": 11894,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "556e697443617000",
+    "text": "UnitCap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040BECNBEI_0040BuildDelay_003F_0024AA_0040",
+    "sourceLine": 11896,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4275696c6444656c617900",
+    "text": "BuildDelay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040PHJBJAON_0040BuildDelayRange_003F_0024AA_0040",
+    "sourceLine": 11898,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4275696c6444656c617952616e676500",
+    "text": "BuildDelayRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040PPKFDKNJ_0040UnitBuilderUnitChoiceStrategy_003F_0024AA_0040",
+    "sourceLine": 11900,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572556e697443686f696365537472617465677900",
+    "text": "UnitBuilderUnitChoiceStrategy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040CPNFFGOJ_0040UnitBuilderUnitChoiceStrategyAda_0040",
+    "sourceLine": 11902,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "556e69744275696c646572556e697443686f6963655374726174656779416461707469766500",
+    "text": "UnitBuilderUnitChoiceStrategyAdaptive"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040OGMIMCNH_0040UnitBuilderEvaluationDelayRange_003F_0024AA_0040",
+    "sourceLine": 11904,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "556e69744275696c6465724576616c756174696f6e44656c617952616e676500",
+    "text": "UnitBuilderEvaluationDelayRange"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040KMGACPFL_0040ResourceMultiplierCheat_003F_0024AA_0040",
+    "sourceLine": 11906,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "5265736f757263654d756c7469706c696572436865617400",
+    "text": "ResourceMultiplierCheat"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KGGFJJOD_0040StrategicDirectiveFeedback_003F_0024AA_0040",
+    "sourceLine": 11908,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "537472617465676963446972656374697665466565646261636b00",
+    "text": "StrategicDirectiveFeedback"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040HKKMIMEG_0040SkirmishGameEventFeedback_003F_0024AA_0040",
+    "sourceLine": 11910,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "536b69726d69736847616d654576656e74466565646261636b00",
+    "text": "SkirmishGameEventFeedback"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040JHKJNNI_0040PowerChoice_003F_0024AA_0040",
+    "sourceLine": 11912,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "506f77657243686f69636500",
+    "text": "PowerChoice"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040BBJMJFIH_0040OpeningMove_003F_0024AA_0040",
+    "sourceLine": 11914,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4f70656e696e674d6f766500",
+    "text": "OpeningMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040FHDJLLDL_0040StrategicState_003F_0024AA_0040",
+    "sourceLine": 11916,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "537472617465676963537461746500",
+    "text": "StrategicState"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040PJIFAPJA_0040BudgetState_003F_0024AA_0040",
+    "sourceLine": 11918,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "427564676574537461746500",
+    "text": "BudgetState"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040EMOBLJEC_0040BuildState_003F_0024AA_0040",
+    "sourceLine": 11920,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4275696c64537461746500",
+    "text": "BuildState"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040CFCAMI_0040SpecificUnitCap_003F_0024AA_0040",
+    "sourceLine": 11922,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "5370656369666963556e697443617000",
+    "text": "SpecificUnitCap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040IECLEHKO_0040UnitModifier_003F_0024AA_0040",
+    "sourceLine": 11924,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "556e69744d6f64696669657200",
+    "text": "UnitModifier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040EKNCOELO_0040DefaultTacticHomeBaseCriteria_003F_0024AA_0040",
+    "sourceLine": 11926,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "44656661756c74546163746963486f6d6542617365437269746572696100",
+    "text": "DefaultTacticHomeBaseCriteria"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040ENOEBJGK_0040CountAsStructureForBuildPurposes_0040",
+    "sourceLine": 11928,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "436f756e744173537472756374757265466f724275696c64507572706f73657346696c74657200",
+    "text": "CountAsStructureForBuildPurposesFilter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040MHDCNPJM_0040InTroubleSkirmishFeedbackControl_0040",
+    "sourceLine": 11930,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "496e54726f75626c65536b69726d697368466565646261636b436f6e74726f6c00",
+    "text": "InTroubleSkirmishFeedbackControl"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040KJICEIME_0040FeedbackEntry_003F_0024AA_0040",
+    "sourceLine": 11932,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "466565646261636b456e74727900",
+    "text": "FeedbackEntry"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040BDJKMNGK_0040MCVTemplate_003F_0024AA_0040",
+    "sourceLine": 11934,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d435654656d706c61746500",
+    "text": "MCVTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040CFAHPHMH_0040GathererTemplate_003F_0024AA_0040",
+    "sourceLine": 11936,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "476174686572657254656d706c61746500",
+    "text": "GathererTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040OKKBDKNM_0040ExpanderTemplate_003F_0024AA_0040",
+    "sourceLine": 11938,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "457870616e64657254656d706c61746500",
+    "text": "ExpanderTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040HAADLLO_0040EnergyProducer_003F_0024AA_0040",
+    "sourceLine": 11940,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "456e6572677950726f647563657200",
+    "text": "EnergyProducer"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040NEDONKKM_0040PrimaryResourceNodeCollector_003F_0024AA_0040",
+    "sourceLine": 11942,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "5072696d6172795265736f757263654e6f6465436f6c6c6563746f7200",
+    "text": "PrimaryResourceNodeCollector"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040HDNHPEK_0040PrimaryResourceThingToBuild_003F_0024AA_0040",
+    "sourceLine": 11944,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5072696d6172795265736f757263655468696e67546f4275696c6400",
+    "text": "PrimaryResourceThingToBuild"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040PEIENJCA_0040SecondaryResourceNodeCollector_003F_0024AA_0040",
+    "sourceLine": 11946,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "5365636f6e646172795265736f757263654e6f6465436f6c6c6563746f7200",
+    "text": "SecondaryResourceNodeCollector"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040GKOOCOAP_0040VehicleRepairFacility_003F_0024AA_0040",
+    "sourceLine": 11948,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "56656869636c65526570616972466163696c69747900",
+    "text": "VehicleRepairFacility"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040KALCJIAA_0040NavalRepairFacility_003F_0024AA_0040",
+    "sourceLine": 11950,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4e6176616c526570616972466163696c69747900",
+    "text": "NavalRepairFacility"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040FFPDMLC_0040AircraftRepairFacility_003F_0024AA_0040",
+    "sourceLine": 11952,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4169726372616674526570616972466163696c69747900",
+    "text": "AircraftRepairFacility"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09BLIPMFL_0040WallPiece_003F_0024AA_0040",
+    "sourceLine": 11954,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "57616c6c506965636500",
+    "text": "WallPiece"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040IIIBOMAM_0040TechStructure_003F_0024AA_0040",
+    "sourceLine": 11956,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5465636853747275637475726500",
+    "text": "TechStructure"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04PDPAKIIA_0040Card_003F_0024AA_0040",
+    "sourceLine": 11958,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "4361726400",
+    "text": "Card"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04FICPKHNF_0040Cost_003F_0024AA_0040",
+    "sourceLine": 11960,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "436f737400",
+    "text": "Cost"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07DNPCLKOE_0040Maximum_003F_0024AA_0040",
+    "sourceLine": 11962,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4d6178696d756d00",
+    "text": "Maximum"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09MCDCJMIE_0040Veterancy_003F_0024AA_0040",
+    "sourceLine": 11964,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "5665746572616e637900",
+    "text": "Veterancy"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09CCBABJPD_0040Structure_003F_0024AA_0040",
+    "sourceLine": 11966,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "53747275637475726500",
+    "text": "Structure"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05OJFJFJLN_0040Cards_003F_0024AA_0040",
+    "sourceLine": 11968,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "436172647300",
+    "text": "Cards"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05PMCMDMKN_0040Power_003F_0024AA_0040",
+    "sourceLine": 11970,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "506f77657200",
+    "text": "Power"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07MBOMJGGF_0040Compare_003F_0024AA_0040",
+    "sourceLine": 11972,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "436f6d7061726500",
+    "text": "Compare"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09BKMALBOE_0040Tolerance_003F_0024AA_0040",
+    "sourceLine": 11974,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "546f6c6572616e636500",
+    "text": "Tolerance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05CFMCGLCK_0040Range_003F_0024AA_0040",
+    "sourceLine": 11976,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "52616e676500",
+    "text": "Range"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06HPMAAHFK_0040LoCash_003F_0024AA_0040",
+    "sourceLine": 11978,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "4c6f4361736800",
+    "text": "LoCash"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06FNNGMAFE_0040HiCash_003F_0024AA_0040",
+    "sourceLine": 11980,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "48694361736800",
+    "text": "HiCash"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040PJLODKHK_0040ChoiceStepAmount_003F_0024AA_0040",
+    "sourceLine": 11982,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "43686f69636553746570416d6f756e7400",
+    "text": "ChoiceStepAmount"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040MBCHFIEA_0040DefaultChoiceIndex_003F_0024AA_0040",
+    "sourceLine": 11984,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "44656661756c7443686f696365496e64657800",
+    "text": "DefaultChoiceIndex"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040NJFBJENJ_0040NumMinutesBeforePlayersCanTransf_0040",
+    "sourceLine": 11986,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "4e756d4d696e757465734265666f7265506c617965727343616e5472616e736665724d6f6e657900",
+    "text": "NumMinutesBeforePlayersCanTransferMoney"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_02PEECMOAB_004090_003F_0024AA_0040",
+    "sourceLine": 11988,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+    "hex": "393000",
+    "text": "90"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040KADOLAKM_0040SupplyBoxesPerTree_003F_0024AA_0040",
+    "sourceLine": 11990,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "537570706c79426f7865735065725472656500",
+    "text": "SupplyBoxesPerTree"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03FKNPJMHG_0040400_003F_0024AA_0040",
+    "sourceLine": 11992,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "34303000",
+    "text": "400"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040PMKNHINF_0040ValuePerSupplyBox_003F_0024AA_0040",
+    "sourceLine": 11994,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "56616c7565506572537570706c79426f7800",
+    "text": "ValuePerSupplyBox"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040PAMGIILK_0040MinDistFromEdgeOfMapForBuild_003F_0024AA_0040",
+    "sourceLine": 11996,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "4d696e4469737446726f6d456467654f664d6170466f724275696c6400",
+    "text": "MinDistFromEdgeOfMapForBuild"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040OKHJNOIE_0040SupplyBuildBorder_003F_0024AA_0040",
+    "sourceLine": 11998,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "537570706c794275696c64426f7264657200",
+    "text": "SupplyBuildBorder"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040HACGHFPA_0040MaxLineBuildObjects_003F_0024AA_0040",
+    "sourceLine": 12000,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4d61784c696e654275696c644f626a6563747300",
+    "text": "MaxLineBuildObjects"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040NNNEPADD_0040MaxTunnelCapacity_003F_0024AA_0040",
+    "sourceLine": 12002,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4d617854756e6e656c436170616369747900",
+    "text": "MaxTunnelCapacity"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040HMBBEDOK_0040MinLowEnergyProductionSpeed_003F_0024AA_0040",
+    "sourceLine": 12004,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4d696e4c6f77456e6572677950726f64756374696f6e537065656400",
+    "text": "MinLowEnergyProductionSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03LNMAPFD_00400_003F48_003F_0024AA_0040",
+    "sourceLine": 12006,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "302e3800",
+    "text": "0.8"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040CLBPBDKJ_0040MaxLowEnergyProductionSpeed_003F_0024AA_0040",
+    "sourceLine": 12008,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4d61784c6f77456e6572677950726f64756374696f6e537065656400",
+    "text": "MaxLowEnergyProductionSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040DKADAEGE_0040LowEnergyPenaltyModifier_003F_0024AA_0040",
+    "sourceLine": 12010,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4c6f77456e6572677950656e616c74794d6f64696669657200",
+    "text": "LowEnergyPenaltyModifier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040PBNEJNAD_0040DamageRadiusMinimumForSplash_003F_0024AA_0040",
+    "sourceLine": 12012,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "44616d6167655261646975734d696e696d756d466f7253706c61736800",
+    "text": "DamageRadiusMinimumForSplash"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040PIEMBGGG_0040SellPercentage_003F_0024AA_0040",
+    "sourceLine": 12014,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "53656c6c50657263656e7461676500",
+    "text": "SellPercentage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040HJKEKNHP_0040UnlookPersistDuration_003F_0024AA_0040",
+    "sourceLine": 12016,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "556e6c6f6f6b506572736973744475726174696f6e00",
+    "text": "UnlookPersistDuration"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03GLBKNLE_00408_003F40_003F_0024AA_0040",
+    "sourceLine": 12018,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "382e3000",
+    "text": "8.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040OPHCEPKK_0040DefaultStructureRubbleHeight_003F_0024AA_0040",
+    "sourceLine": 12020,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "44656661756c74537472756374757265527562626c6548656967687400",
+    "text": "DefaultStructureRubbleHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040IICLNKHA_0040TimeAfterDamageUntilRepairAllowe_0040",
+    "sourceLine": 12022,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "54696d65416674657244616d616765556e74696c526570616972416c6c6f77656400",
+    "text": "TimeAfterDamageUntilRepairAllowed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040ENLDAEBA_0040SelectionFlashSaturationFactor_003F_0024AA_0040",
+    "sourceLine": 12024,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "53656c656374696f6e466c61736853617475726174696f6e466163746f7200",
+    "text": "SelectionFlashSaturationFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040DLGKPLK_0040SelectionFlashHouseColor_003F_0024AA_0040",
+    "sourceLine": 12026,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "53656c656374696f6e466c617368486f757365436f6c6f7200",
+    "text": "SelectionFlashHouseColor"
+  }
+]

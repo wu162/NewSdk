@@ -1,0 +1,1402 @@
+[
+  {
+    "symbol": "_003F_003F_C_0040_03LFBNDGPP_004015d_003F_0024AA_0040",
+    "sourceLine": 7628,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "31356400",
+    "text": "15d"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040BKLJGHAM_0040TurnThreshold_003F_0024AA_0040",
+    "sourceLine": 7630,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5475726e5468726573686f6c6400",
+    "text": "TurnThreshold"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04LFPJACKJ_0040180d_003F_0024AA_0040",
+    "sourceLine": 7632,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "3138306400",
+    "text": "180d"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040JAHMHDKB_0040TurnThresholdHS_003F_0024AA_0040",
+    "sourceLine": 7634,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "5475726e5468726573686f6c64485300",
+    "text": "TurnThresholdHS"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040GKFPEIBI_0040AccelerationSeconds_003F_0024AA_0040",
+    "sourceLine": 7636,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "416363656c65726174696f6e5365636f6e647300",
+    "text": "AccelerationSeconds"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04OFPJAOED_0040Lift_003F_0024AA_0040",
+    "sourceLine": 7638,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "4c69667400",
+    "text": "Lift"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04KFIOCBIK_0040_003F91_003F40_003F_0024AA_0040",
+    "sourceLine": 7640,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "2d312e3000",
+    "text": "-1.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040JCDOCMFP_0040LiftDamaged_003F_0024AA_0040",
+    "sourceLine": 7642,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4c69667444616d6167656400",
+    "text": "LiftDamaged"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040BAFADJCE_0040BrakingSeconds_003F_0024AA_0040",
+    "sourceLine": 7644,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "4272616b696e675365636f6e647300",
+    "text": "BrakingSeconds"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040LCPJJIDN_0040MinTurnSpeed_003F_0024AA_0040",
+    "sourceLine": 7646,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4d696e5475726e537065656400",
+    "text": "MinTurnSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040GFGAGFAK_0040PreferredHeight_003F_0024AA_0040",
+    "sourceLine": 7648,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "50726566657272656448656967687400",
+    "text": "PreferredHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040MKHAJDCC_0040PreferredAttackHeight_003F_0024AA_0040",
+    "sourceLine": 7650,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "50726566657272656441747461636b48656967687400",
+    "text": "PreferredAttackHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040IKPGGFBF_0040PreferredHeightDamping_003F_0024AA_0040",
+    "sourceLine": 7652,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "50726566657272656448656967687444616d70696e6700",
+    "text": "PreferredHeightDamping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040",
+    "sourceLine": 7654,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "31302e3000",
+    "text": "10.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040MCPDNDKJ_0040PreferredHeightPitchingEpsilon_003F_0024AA_0040",
+    "sourceLine": 7656,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "5072656665727265644865696768745069746368696e67457073696c6f6e00",
+    "text": "PreferredHeightPitchingEpsilon"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040GGKAPPHI_0040CirclingRadius_003F_0024AA_0040",
+    "sourceLine": 7658,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "436972636c696e6752616469757300",
+    "text": "CirclingRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040BLGLECNK_0040CirclingSpeed_003F_0024AA_0040",
+    "sourceLine": 7660,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "436972636c696e67537065656400",
+    "text": "CirclingSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09IDDMGNPF_0040BehaviorZ_003F_0024AA_0040",
+    "sourceLine": 7662,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4265686176696f725a00",
+    "text": "BehaviorZ"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040FLMELPGD_0040Appearance_003F_0024AA_0040",
+    "sourceLine": 7664,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "417070656172616e636500",
+    "text": "Appearance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040LOHACLMH_0040FormationPriority_003F_0024AA_0040",
+    "sourceLine": 7666,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e5072696f7269747900",
+    "text": "FormationPriority"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040OMKIBBMF_0040ActiveModelConditions_003F_0024AA_0040",
+    "sourceLine": 7668,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "4163746976654d6f64656c436f6e646974696f6e7300",
+    "text": "ActiveModelConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040GPHCAKOC_0040ActiveObjectStatus_003F_0024AA_0040",
+    "sourceLine": 7670,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4163746976654f626a65637453746174757300",
+    "text": "ActiveObjectStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040DGNCJKLO_0040EnteringModelConditions_003F_0024AA_0040",
+    "sourceLine": 7672,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "456e746572696e674d6f64656c436f6e646974696f6e7300",
+    "text": "EnteringModelConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040KCKFCAJI_0040EnteringModelConditionsTime_003F_0024AA_0040",
+    "sourceLine": 7674,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "456e746572696e674d6f64656c436f6e646974696f6e7354696d6500",
+    "text": "EnteringModelConditionsTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03LOHCHBBO_00400_003F45_003F_0024AA_0040",
+    "sourceLine": 7676,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "302e3500",
+    "text": "0.5"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040HBCAJEBL_0040AccDecTrigger_003F_0024AA_0040",
+    "sourceLine": 7678,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4163634465635472696767657200",
+    "text": "AccDecTrigger"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040GIBFALOH_0040WalkDistance_003F_0024AA_0040",
+    "sourceLine": 7680,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "57616c6b44697374616e636500",
+    "text": "WalkDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04CPOGCGPK_0040360d_003F_0024AA_0040",
+    "sourceLine": 7682,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "3336306400",
+    "text": "360d"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040ILILAMFI_0040MaxTurnWithoutReform_003F_0024AA_0040",
+    "sourceLine": 7684,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4d61785475726e576974686f75745265666f726d00",
+    "text": "MaxTurnWithoutReform"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_02CFEEGNNO_00400d_003F_0024AA_0040",
+    "sourceLine": 7686,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+    "hex": "306400",
+    "text": "0d"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040DJLGGHFI_0040AccelPitchLimit_003F_0024AA_0040",
+    "sourceLine": 7688,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "416363656c50697463684c696d697400",
+    "text": "AccelPitchLimit"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040CBHFLIG_0040BounceKick_003F_0024AA_0040",
+    "sourceLine": 7690,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "426f756e63654b69636b00",
+    "text": "BounceKick"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03NKBOLEBK_00400_003F41_003F_0024AA_0040",
+    "sourceLine": 7692,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "302e3100",
+    "text": "0.1"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040DFPEAEGP_0040PitchStiffness_003F_0024AA_0040",
+    "sourceLine": 7694,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "506974636853746966666e65737300",
+    "text": "PitchStiffness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040MIGIBAKO_0040RollStiffness_003F_0024AA_0040",
+    "sourceLine": 7696,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "526f6c6c53746966666e65737300",
+    "text": "RollStiffness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03BCMHDOBC_00400_003F49_003F_0024AA_0040",
+    "sourceLine": 7698,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "302e3900",
+    "text": "0.9"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040DMBPLBOF_0040PitchDamping_003F_0024AA_0040",
+    "sourceLine": 7700,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "506974636844616d70696e6700",
+    "text": "PitchDamping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040FLPNNHN_0040RollDamping_003F_0024AA_0040",
+    "sourceLine": 7702,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "526f6c6c44616d70696e6700",
+    "text": "RollDamping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040NGKNCNOK_0040PitchByZVelCoef_003F_0024AA_0040",
+    "sourceLine": 7704,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "506974636842795a56656c436f656600",
+    "text": "PitchByZVelCoef"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040GECGFAEI_0040YawStiffness_003F_0024AA_0040",
+    "sourceLine": 7706,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "59617753746966666e65737300",
+    "text": "YawStiffness"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040NOBJLICO_0040YawDamping_003F_0024AA_0040",
+    "sourceLine": 7708,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "59617744616d70696e6700",
+    "text": "YawDamping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BBNAKBKL_00401e_003F_0024CL37_003F_0024AA_0040",
+    "sourceLine": 7710,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "31652b333700",
+    "text": "1e+37"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040BEGEFKN_0040MaxOverlappedHeight_003F_0024AA_0040",
+    "sourceLine": 7712,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4d61784f7665726c617070656448656967687400",
+    "text": "MaxOverlappedHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OONMHGLL_0040ForwardVelocityPitchFactor_003F_0024AA_0040",
+    "sourceLine": 7714,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "466f727761726456656c6f636974795069746368466163746f7200",
+    "text": "ForwardVelocityPitchFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040EMKIOIFO_0040LateralVelocityRollFactor_003F_0024AA_0040",
+    "sourceLine": 7716,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "4c61746572616c56656c6f63697479526f6c6c466163746f7200",
+    "text": "LateralVelocityRollFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040NGBOBMCN_0040ForwardAccelerationPitchFactor_003F_0024AA_0040",
+    "sourceLine": 7718,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "466f7277617264416363656c65726174696f6e5069746368466163746f7200",
+    "text": "ForwardAccelerationPitchFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040COOMMAMH_0040LateralAccelerationRollFactor_003F_0024AA_0040",
+    "sourceLine": 7720,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "4c61746572616c416363656c65726174696f6e526f6c6c466163746f7200",
+    "text": "LateralAccelerationRollFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040BGODKDBE_0040UniformAxialDamping_003F_0024AA_0040",
+    "sourceLine": 7722,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "556e69666f726d417869616c44616d70696e6700",
+    "text": "UniformAxialDamping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040IEMPPCGI_0040TurnPivotOffset_003F_0024AA_0040",
+    "sourceLine": 7724,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "5475726e5069766f744f666673657400",
+    "text": "TurnPivotOffset"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040BBDHAFHM_0040AirborneTargetingHeight_003F_0024AA_0040",
+    "sourceLine": 7726,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "416972626f726e65546172676574696e6748656967687400",
+    "text": "AirborneTargetingHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040CNOLKJGA_0040CloseEnoughDist_003F_0024AA_0040",
+    "sourceLine": 7728,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "436c6f7365456e6f7567684469737400",
+    "text": "CloseEnoughDist"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040GNNLCHF_0040IsCloseEnoughDist3D_003F_0024AA_0040",
+    "sourceLine": 7730,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4973436c6f7365456e6f75676844697374334400",
+    "text": "IsCloseEnoughDist3D"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040LKBNIOL_0040DontNegateDeceleratePitchFactor_003F_0024AA_0040",
+    "sourceLine": 7732,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "446f6e744e6567617465446563656c65726174655069746368466163746f7200",
+    "text": "DontNegateDeceleratePitchFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040MELENPOE_0040LocomotorWorksWhenDead_003F_0024AA_0040",
+    "sourceLine": 7734,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4c6f636f6d6f746f72576f726b735768656e4465616400",
+    "text": "LocomotorWorksWhenDead"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040EBEMKALK_0040AllowMotiveForceWhileAirborne_003F_0024AA_0040",
+    "sourceLine": 7736,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "416c6c6f774d6f74697665466f7263655768696c65416972626f726e6500",
+    "text": "AllowMotiveForceWhileAirborne"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040PDALHJHD_0040Apply2DFrictionWhenAirborne_003F_0024AA_0040",
+    "sourceLine": 7738,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4170706c7932444672696374696f6e5768656e416972626f726e6500",
+    "text": "Apply2DFrictionWhenAirborne"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040GKBLAMEF_0040DownhillOnly_003F_0024AA_0040",
+    "sourceLine": 7740,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "446f776e68696c6c4f6e6c7900",
+    "text": "DownhillOnly"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040LPMBJKKA_0040StickToGround_003F_0024AA_0040",
+    "sourceLine": 7742,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "537469636b546f47726f756e6400",
+    "text": "StickToGround"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040IDILHLEJ_0040CanMoveBackward_003F_0024AA_0040",
+    "sourceLine": 7744,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "43616e4d6f76654261636b7761726400",
+    "text": "CanMoveBackward"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040OKBBKIGP_0040CanReverseMove_003F_0024AA_0040",
+    "sourceLine": 7746,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "43616e526576657273654d6f766500",
+    "text": "CanReverseMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03HJBEBHGH_004075_003F_0024CF_003F_0024AA_0040",
+    "sourceLine": 7748,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "37352500",
+    "text": "75%"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040EJGHOMJ_0040ReverseMoveSpeed_003F_0024AA_0040",
+    "sourceLine": 7750,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "526576657273654d6f7665537065656400",
+    "text": "ReverseMoveSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040BONMCJNK_0040UpdateWaterWadingConditions_003F_0024AA_0040",
+    "sourceLine": 7752,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "5570646174655761746572576164696e67436f6e646974696f6e7300",
+    "text": "UpdateWaterWadingConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040ODIOEBJD_0040HasSuspension_003F_0024AA_0040",
+    "sourceLine": 7754,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "48617353757370656e73696f6e00",
+    "text": "HasSuspension"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040CDNCOMEK_0040MaximumWheelExtension_003F_0024AA_0040",
+    "sourceLine": 7756,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "4d6178696d756d576865656c457874656e73696f6e00",
+    "text": "MaximumWheelExtension"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040PLFDNHNJ_0040MaximumWheelCompression_003F_0024AA_0040",
+    "sourceLine": 7758,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "4d6178696d756d576865656c436f6d7072657373696f6e00",
+    "text": "MaximumWheelCompression"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04PNOLCDFK_00400_003F40d_003F_0024AA_0040",
+    "sourceLine": 7760,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "302e306400",
+    "text": "0.0d"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040FJFEIDIB_0040WheelTurnAngle_003F_0024AA_0040",
+    "sourceLine": 7762,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "576865656c5475726e416e676c6500",
+    "text": "WheelTurnAngle"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040PBMHELDD_0040UseTerrainSmoothing_003F_0024AA_0040",
+    "sourceLine": 7764,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "5573655465727261696e536d6f6f7468696e6700",
+    "text": "UseTerrainSmoothing"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040IPPJFOKE_0040WanderWidthFactor_003F_0024AA_0040",
+    "sourceLine": 7766,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "57616e6465725769647468466163746f7200",
+    "text": "WanderWidthFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040BEDDHPHL_0040WanderLengthFactor_003F_0024AA_0040",
+    "sourceLine": 7768,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "57616e6465724c656e677468466163746f7200",
+    "text": "WanderLengthFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040OBGMMKNF_0040WanderAboutPointRadius_003F_0024AA_0040",
+    "sourceLine": 7770,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "57616e64657241626f7574506f696e7452616469757300",
+    "text": "WanderAboutPointRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040DKMEEBJK_0040BurniningDeathRadius_003F_0024AA_0040",
+    "sourceLine": 7772,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4275726e696e696e67446561746852616469757300",
+    "text": "BurniningDeathRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040FMAHPAEH_0040BurniningDeathIsCavalry_003F_0024AA_0040",
+    "sourceLine": 7774,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "4275726e696e696e6744656174684973436176616c727900",
+    "text": "BurniningDeathIsCavalry"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040MFLNMMMK_0040ChargeMaxSpeed_003F_0024AA_0040",
+    "sourceLine": 7776,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "4368617267654d6178537065656400",
+    "text": "ChargeMaxSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040MMNEBLIL_0040ChargeAvailable_003F_0024AA_0040",
+    "sourceLine": 7778,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "436861726765417661696c61626c6500",
+    "text": "ChargeAvailable"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040MPPGEEEP_0040ChargeIgnoresCondition_003F_0024AA_0040",
+    "sourceLine": 7780,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "43686172676549676e6f726573436f6e646974696f6e00",
+    "text": "ChargeIgnoresCondition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040ONGLLPAJ_0040EnableHighSpeedTurnFlags_003F_0024AA_0040",
+    "sourceLine": 7782,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "456e61626c654869676853706565645475726e466c61677300",
+    "text": "EnableHighSpeedTurnFlags"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040MIJIMAGO_0040WaitForFormation_003F_0024AA_0040",
+    "sourceLine": 7784,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "57616974466f72466f726d6174696f6e00",
+    "text": "WaitForFormation"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040GMJMHDEK_0040RudderCorrectionDegree_003F_0024AA_0040",
+    "sourceLine": 7786,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "527564646572436f7272656374696f6e44656772656500",
+    "text": "RudderCorrectionDegree"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040BPONBLPJ_0040RudderCorrectionRate_003F_0024AA_0040",
+    "sourceLine": 7788,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "527564646572436f7272656374696f6e5261746500",
+    "text": "RudderCorrectionRate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040CNEPDGON_0040ElevatorCorrectionDegree_003F_0024AA_0040",
+    "sourceLine": 7790,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "456c657661746f72436f7272656374696f6e44656772656500",
+    "text": "ElevatorCorrectionDegree"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040CNPIFOBI_0040ElevatorCorrectionRate_003F_0024AA_0040",
+    "sourceLine": 7792,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "456c657661746f72436f7272656374696f6e5261746500",
+    "text": "ElevatorCorrectionRate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040NMMGJDEP_0040AeleronCorrectionDegree_003F_0024AA_0040",
+    "sourceLine": 7794,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "41656c65726f6e436f7272656374696f6e44656772656500",
+    "text": "AeleronCorrectionDegree"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040CADINOC_0040AeleronCorrectionRate_003F_0024AA_0040",
+    "sourceLine": 7796,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "41656c65726f6e436f7272656374696f6e5261746500",
+    "text": "AeleronCorrectionRate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040EPJDJLGK_0040SwoopStandoffRadius_003F_0024AA_0040",
+    "sourceLine": 7798,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "53776f6f705374616e646f666652616469757300",
+    "text": "SwoopStandoffRadius"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040FEFMAPJK_0040SwoopStandoffHeight_003F_0024AA_0040",
+    "sourceLine": 7800,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "53776f6f705374616e646f666648656967687400",
+    "text": "SwoopStandoffHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04GMHNCNMN_00400_003F407_003F_0024AA_0040",
+    "sourceLine": 7802,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "302e303700",
+    "text": "0.07"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040BKONAJOG_0040SwoopTerminalVelocity_003F_0024AA_0040",
+    "sourceLine": 7804,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "53776f6f705465726d696e616c56656c6f6369747900",
+    "text": "SwoopTerminalVelocity"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BEJNLAJF_00400_003F4003_003F_0024AA_0040",
+    "sourceLine": 7806,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "302e30303300",
+    "text": "0.003"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040HEIKODND_0040SwoopAccelerationRate_003F_0024AA_0040",
+    "sourceLine": 7808,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "53776f6f70416363656c65726174696f6e5261746500",
+    "text": "SwoopAccelerationRate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040FMGDBBMA_0040SwoopSpeedTuningFactor_003F_0024AA_0040",
+    "sourceLine": 7810,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "53776f6f70537065656454756e696e67466163746f7200",
+    "text": "SwoopSpeedTuningFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040KMNMEBGI_0040BackingUpSpeed_003F_0024AA_0040",
+    "sourceLine": 7812,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "4261636b696e675570537065656400",
+    "text": "BackingUpSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040CAMDOBKG_0040BackingUpStopWhenTurning_003F_0024AA_0040",
+    "sourceLine": 7814,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4261636b696e67557053746f705768656e5475726e696e6700",
+    "text": "BackingUpStopWhenTurning"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040JIDJINDI_0040BackingUpDistanceMin_003F_0024AA_0040",
+    "sourceLine": 7816,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4261636b696e67557044697374616e63654d696e00",
+    "text": "BackingUpDistanceMin"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040IKLCGJFH_0040BackingUpDistanceMax_003F_0024AA_0040",
+    "sourceLine": 7818,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4261636b696e67557044697374616e63654d617800",
+    "text": "BackingUpDistanceMax"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040IBNBAJFO_0040BackingUpAngle_003F_0024AA_0040",
+    "sourceLine": 7820,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "4261636b696e675570416e676c6500",
+    "text": "BackingUpAngle"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040MFCFKIN_0040RiverModifier_003F_0024AA_0040",
+    "sourceLine": 7822,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "52697665724d6f64696669657200",
+    "text": "RiverModifier"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040EGPGAOLK_0040ScalesWalls_003F_0024AA_0040",
+    "sourceLine": 7824,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "5363616c657357616c6c7300",
+    "text": "ScalesWalls"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OMIONNNJ_0040TurnWhileMoving_003F_0024AA_0040",
+    "sourceLine": 7826,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "5475726e5768696c654d6f76696e6700",
+    "text": "TurnWhileMoving"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040CHKJHFMJ_0040ClampOrientationToPathTangent_003F_0024AA_0040",
+    "sourceLine": 7828,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "436c616d704f7269656e746174696f6e546f5061746854616e67656e7400",
+    "text": "ClampOrientationToPathTangent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040JPFOLEGM_0040ReorientIfTurnTooSharp_003F_0024AA_0040",
+    "sourceLine": 7830,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "52656f7269656e7449665475726e546f6f536861727000",
+    "text": "ReorientIfTurnTooSharp"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040EBHIHBFJ_0040BrakeBeforeReorienting_003F_0024AA_0040",
+    "sourceLine": 7832,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4272616b654265666f726552656f7269656e74696e6700",
+    "text": "BrakeBeforeReorienting"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040GJLBPLAF_0040TakeOffAndLandingSpeed_003F_0024AA_0040",
+    "sourceLine": 7834,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "54616b654f6666416e644c616e64696e67537065656400",
+    "text": "TakeOffAndLandingSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04MIFMLGIO_004025_003F40_003F_0024AA_0040",
+    "sourceLine": 7836,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "32352e3000",
+    "text": "25.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040HDFDLPOD_0040TakeOffAndLandingSlowDownDelta_003F_0024AA_0040",
+    "sourceLine": 7838,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "54616b654f6666416e644c616e64696e67536c6f77446f776e44656c746100",
+    "text": "TakeOffAndLandingSlowDownDelta"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040MNDBFAFE_0040TakeOffAndLandingSlowDownTime_003F_0024AA_0040",
+    "sourceLine": 7840,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "54616b654f6666416e644c616e64696e67536c6f77446f776e54696d6500",
+    "text": "TakeOffAndLandingSlowDownTime"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040OPDNMOHJ_0040EasingTakeOffAndLanding_003F_0024AA_0040",
+    "sourceLine": 7842,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "456173696e6754616b654f6666416e644c616e64696e6700",
+    "text": "EasingTakeOffAndLanding"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040GLEPMPKE_0040EasingPercentage_003F_0024AA_0040",
+    "sourceLine": 7844,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "456173696e6750657263656e7461676500",
+    "text": "EasingPercentage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040IKAKNIAB_0040AttackPathTrailDistance_003F_0024AA_0040",
+    "sourceLine": 7846,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "41747461636b50617468547261696c44697374616e636500",
+    "text": "AttackPathTrailDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040LLOOOEJF_0040AttackPathTrailDistanceMinScale_003F_0024AA_0040",
+    "sourceLine": 7848,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "41747461636b50617468547261696c44697374616e63654d696e5363616c6500",
+    "text": "AttackPathTrailDistanceMinScale"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040GMAFFGNE_0040AttackPathTrailDistanceMaxScale_003F_0024AA_0040",
+    "sourceLine": 7850,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "41747461636b50617468547261696c44697374616e63654d61785363616c6500",
+    "text": "AttackPathTrailDistanceMaxScale"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07EOFPODGE_0040_003F91000_003F40_003F_0024AA_0040",
+    "sourceLine": 7852,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "2d313030302e3000",
+    "text": "-1000.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040OGFNFPFP_0040AbsoluteMinHeightWorldSpace_003F_0024AA_0040",
+    "sourceLine": 7854,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4162736f6c7574654d696e486569676874576f726c64537061636500",
+    "text": "AbsoluteMinHeightWorldSpace"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040KDBNCGLN_0040SpeedBasedHeightOffset_003F_0024AA_0040",
+    "sourceLine": 7856,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "537065656442617365644865696768744f666673657400",
+    "text": "SpeedBasedHeightOffset"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04LPMINNBM_00403_003F40s_003F_0024AA_0040",
+    "sourceLine": 7858,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "332e307300",
+    "text": "3.0s"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040KKMAKHLH_0040ResubmergeDelay_003F_0024AA_0040",
+    "sourceLine": 7860,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "52657375626d6572676544656c617900",
+    "text": "ResubmergeDelay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040KFFDLKKD_0040WaterToAirTransitionFX_003F_0024AA_0040",
+    "sourceLine": 7862,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "5761746572546f4169725472616e736974696f6e465800",
+    "text": "WaterToAirTransitionFX"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040MPKKPLBB_0040WaterSurfaceHeightOffset_003F_0024AA_0040",
+    "sourceLine": 7864,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "5761746572537572666163654865696768744f666673657400",
+    "text": "WaterSurfaceHeightOffset"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040BMLHOBFE_0040ForbiddenObjectStatus_003F_0024AA_0040",
+    "sourceLine": 7866,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "466f7262696464656e4f626a65637453746174757300",
+    "text": "ForbiddenObjectStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040BOBIBLDE_0040BounceKickTerrainMap_003F_0024AA_0040",
+    "sourceLine": 7868,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "426f756e63654b69636b5465727261696e4d617000",
+    "text": "BounceKickTerrainMap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040PJLPDGLG_0040CloudTextureSize_003F_0024AA_0040",
+    "sourceLine": 7870,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "436c6f75645465787475726553697a6500",
+    "text": "CloudTextureSize"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040HALPEEKN_0040CloudOffsetPerSecond_003F_0024AA_0040",
+    "sourceLine": 7872,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "436c6f75644f66667365745065725365636f6e6400",
+    "text": "CloudOffsetPerSecond"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040ENGJLBOH_0040HasLightning_003F_0024AA_0040",
+    "sourceLine": 7874,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4861734c696768746e696e6700",
+    "text": "HasLightning"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040IMLMOFNI_0040RainTexture_003F_0024AA_0040",
+    "sourceLine": 7876,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "5261696e5465787475726500",
+    "text": "RainTexture"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09KKBEMDGE_0040IsRaining_003F_0024AA_0040",
+    "sourceLine": 7878,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "49735261696e696e6700",
+    "text": "IsRaining"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05KEHMOMLA_004016000_003F_0024AA_0040",
+    "sourceLine": 7880,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "313630303000",
+    "text": "16000"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040MAONIFKM_0040NumRaindropsPerBox_003F_0024AA_0040",
+    "sourceLine": 7882,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4e756d5261696e64726f7073506572426f7800",
+    "text": "NumRaindropsPerBox"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03HPLEMDKK_0040200_003F_0024AA_0040",
+    "sourceLine": 7884,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "32303000",
+    "text": "200"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040CHAEOMIA_0040RainBoxWidth_003F_0024AA_0040",
+    "sourceLine": 7886,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "5261696e426f78576964746800",
+    "text": "RainBoxWidth"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040EPIANEOI_0040RainBoxLength_003F_0024AA_0040",
+    "sourceLine": 7888,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5261696e426f784c656e67746800",
+    "text": "RainBoxLength"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040PKKECLKC_0040RainBoxHeight_003F_0024AA_0040",
+    "sourceLine": 7890,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "5261696e426f7848656967687400",
+    "text": "RainBoxHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08ONDHOPCN_0040MinWidth_003F_0024AA_0040",
+    "sourceLine": 7892,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d696e576964746800",
+    "text": "MinWidth"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03GMOBGHL_00401_003F45_003F_0024AA_0040",
+    "sourceLine": 7894,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "312e3500",
+    "text": "1.5"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08DKNMFNGM_0040MaxWidth_003F_0024AA_0040",
+    "sourceLine": 7896,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d6178576964746800",
+    "text": "MaxWidth"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03PENLHFGJ_00405_003F40_003F_0024AA_0040",
+    "sourceLine": 7898,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "352e3000",
+    "text": "5.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FCAJMHPE_0040MinHeight_003F_0024AA_0040",
+    "sourceLine": 7900,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4d696e48656967687400",
+    "text": "MinHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04IPPMMMFO_004015_003F40_003F_0024AA_0040",
+    "sourceLine": 7902,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "31352e3000",
+    "text": "15.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FDAFFNEA_0040MaxHeight_003F_0024AA_0040",
+    "sourceLine": 7904,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4d617848656967687400",
+    "text": "MaxHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04ENKCJKKM_004050_003F40_003F_0024AA_0040",
+    "sourceLine": 7906,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "35302e3000",
+    "text": "50.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05PFGEBIBK_0040150_003F40_003F_0024AA_0040",
+    "sourceLine": 7908,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "3135302e3000",
+    "text": "150.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08MFFAALKH_0040MaxSpeed_003F_0024AA_0040",
+    "sourceLine": 7910,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d6178537065656400",
+    "text": "MaxSpeed"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08OLNNKAEO_0040MinAlpha_003F_0024AA_0040",
+    "sourceLine": 7912,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d696e416c70686100",
+    "text": "MinAlpha"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08DMDGBCAP_0040MaxAlpha_003F_0024AA_0040",
+    "sourceLine": 7914,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4d6178416c70686100",
+    "text": "MaxAlpha"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040NFADFNHO_0040WindStrength_003F_0024AA_0040",
+    "sourceLine": 7916,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "57696e64537472656e67746800",
+    "text": "WindStrength"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040MLGAOMDD_0040LightningDuration_003F_0024AA_0040",
+    "sourceLine": 7918,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "4c696768746e696e674475726174696f6e00",
+    "text": "LightningDuration"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040OJNDOCNA_0040LightningChance_003F_0024AA_0040",
+    "sourceLine": 7920,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4c696768746e696e674368616e636500",
+    "text": "LightningChance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040NFBJAFNG_0040LightningFactor_003F_0024AA_0040",
+    "sourceLine": 7922,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4c696768746e696e67466163746f7200",
+    "text": "LightningFactor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04EEOMLCKJ_0040Rain_003F_0024AA_0040",
+    "sourceLine": 7924,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "5261696e00",
+    "text": "Rain"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09JCCOMJEA_0040Lightning_003F_0024AA_0040",
+    "sourceLine": 7926,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4c696768746e696e6700",
+    "text": "Lightning"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05KLNNFPJP_0040Cloud_003F_0024AA_0040",
+    "sourceLine": 7928,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "436c6f756400",
+    "text": "Cloud"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04MJHCKDHM_00401024_003F_0024AA_0040",
+    "sourceLine": 7930,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "3130323400",
+    "text": "1024"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07HGNHMCMM_0040MapSize_003F_0024AA_0040",
+    "sourceLine": 7932,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4d617053697a6500",
+    "text": "MapSize"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_06NEGCJEPE_00401000_003F40_003F_0024AA_0040",
+    "sourceLine": 7934,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+    "hex": "313030302e3000",
+    "text": "1000.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040BDFIHBHD_0040MaxViewDistance_003F_0024AA_0040",
+    "sourceLine": 7936,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4d61785669657744697374616e636500",
+    "text": "MaxViewDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040OMFCGHNF_0040MinShadowedTerrainHeight_003F_0024AA_0040",
+    "sourceLine": 7938,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4d696e536861646f7765645465727261696e48656967687400",
+    "text": "MinShadowedTerrainHeight"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_03NBLACKLF_00403_003F40_003F_0024AA_0040",
+    "sourceLine": 7940,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+    "hex": "332e3000",
+    "text": "3.0"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040MFDAJOJG_0040TransparentWaterDepth_003F_0024AA_0040",
+    "sourceLine": 7942,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "5472616e73706172656e745761746572446570746800",
+    "text": "TransparentWaterDepth"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OOMLDDAO_0040TransparentWaterMinOpacity_003F_0024AA_0040",
+    "sourceLine": 7944,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "5472616e73706172656e7457617465724d696e4f70616369747900",
+    "text": "TransparentWaterMinOpacity"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040ILHMCMEG_0040StandingWaterTexture_003F_0024AA_0040",
+    "sourceLine": 7946,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "5374616e64696e6757617465725465787475726500",
+    "text": "StandingWaterTexture"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09IFMIMGPK_0040TimeOfDay_003F_0024AA_0040",
+    "sourceLine": 7948,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "54696d654f6644617900",
+    "text": "TimeOfDay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040KAGFAILC_0040DiffuseColor_003F_0024AA_0040",
+    "sourceLine": 7950,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "44696666757365436f6c6f7200",
+    "text": "DiffuseColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09LOLBAGGK_0040StateData_003F_0024AA_0040",
+    "sourceLine": 7952,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "53746174654461746100",
+    "text": "StateData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05OLOIDPAB_0040Arrow_003F_0024AA_0040",
+    "sourceLine": 7954,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "4172726f7700",
+    "text": "Arrow"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040JCOCDKOL_0040ValidTargetCursor_003F_0024AA_0040",
+    "sourceLine": 7956,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "56616c6964546172676574437572736f7200",
+    "text": "ValidTargetCursor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040JFNPBHFD_0040InvalidTargetCursor_003F_0024AA_0040",
+    "sourceLine": 7958,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "496e76616c6964546172676574437572736f7200",
+    "text": "InvalidTargetCursor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040HMNBLFOB_0040ValidTargetOutline_003F_0024AA_0040",
+    "sourceLine": 7960,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "56616c69645461726765744f75746c696e6500",
+    "text": "ValidTargetOutline"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040GIEDBKEM_0040ValidTargetTintColor_003F_0024AA_0040",
+    "sourceLine": 7962,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "56616c696454617267657454696e74436f6c6f7200",
+    "text": "ValidTargetTintColor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040BBKFNFPL_0040AdditionalSpecialPowerTemplate_003F_0024AA_0040",
+    "sourceLine": 7964,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "4164646974696f6e616c5370656369616c506f77657254656d706c61746500",
+    "text": "AdditionalSpecialPowerTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040NBPKDICH_0040AdditionalRadiusCursor_003F_0024AA_0040",
+    "sourceLine": 7966,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4164646974696f6e616c526164697573437572736f7200",
+    "text": "AdditionalRadiusCursor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040DIFJOMBC_0040AdditionalValidTargetCursor_003F_0024AA_0040",
+    "sourceLine": 7968,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "4164646974696f6e616c56616c6964546172676574437572736f7200",
+    "text": "AdditionalValidTargetCursor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04DICKPMGH_0040Data_003F_0024AA_0040",
+    "sourceLine": 7970,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "4461746100",
+    "text": "Data"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040EIHFPMCL_0040Relationship_003F_0024AA_0040",
+    "sourceLine": 7972,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "52656c6174696f6e7368697000",
+    "text": "Relationship"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FBMAGD_0040Alignment_003F_0024AA_0040",
+    "sourceLine": 7974,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "416c69676e6d656e7400",
+    "text": "Alignment"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07KOJBIFOA_0040Include_003F_0024AA_0040",
+    "sourceLine": 7976,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "496e636c75646500",
+    "text": "Include"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07PNDADJFL_0040Exclude_003F_0024AA_0040",
+    "sourceLine": 7978,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4578636c75646500",
+    "text": "Exclude"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040EKBNEHJF_0040StatusBitFlags_003F_0024AA_0040",
+    "sourceLine": 7980,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "537461747573426974466c61677300",
+    "text": "StatusBitFlags"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040KEJJJBOI_0040StatusBitFlagsExclude_003F_0024AA_0040",
+    "sourceLine": 7982,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "537461747573426974466c6167734578636c75646500",
+    "text": "StatusBitFlagsExclude"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040COIABHNI_0040IncludeThing_003F_0024AA_0040",
+    "sourceLine": 7984,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "496e636c7564655468696e6700",
+    "text": "IncludeThing"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040FHBPOGDP_0040ExcludeThing_003F_0024AA_0040",
+    "sourceLine": 7986,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4578636c7564655468696e6700",
+    "text": "ExcludeThing"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0NC_0040BGDIMDEH_0040PREATTACK_A_003F5FIRING_A_003F5FIRING_OR_P_0040",
+    "sourceLine": 7988,
+    "type": "_0024ArrayType_0024_0024_0024BY0NC_0040_0024_0024CBD",
+    "hex": "50524541545441434b5f4120464952494e475f4120464952494e475f4f525f50524541545441434b5f412052454c4f4144494e475f41205553494e475f574541504f4e5f412050524541545441434b5f4220464952494e475f4220464952494e475f4f525f50524541545441434b5f422052454c4f4144494e475f42205553494e475f574541504f4e5f422050524541545441434b5f4320464952494e475f4320464952494e475f4f525f50524541545441434b5f432052454c4f4144494e475f43205553494e475f574541504f4e5f4300",
+    "text": "PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A PREATTACK_B FIRING_B FIRING_OR_PREATTACK_B RELOADING_B USING_WEAPON_B PREATTACK_C FIRING_C FIRING_OR_PREATTACK_C RELOADING_C USING_WEAPON_C"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040PJNGLEAC_0040ForbiddenConditions_003F_0024AA_0040",
+    "sourceLine": 7990,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "466f7262696464656e436f6e646974696f6e7300",
+    "text": "ForbiddenConditions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040JDIHHIHC_0040ForbiddenConditionExceptions_003F_0024AA_0040",
+    "sourceLine": 7992,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "466f7262696464656e436f6e646974696f6e457863657074696f6e7300",
+    "text": "ForbiddenConditionExceptions"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0FL_0040CCJNMBJE_0040IS_FIRING_WEAPON_003F5IS_AIMING_WEAPO_0040",
+    "sourceLine": 7994,
+    "type": "_0024ArrayType_0024_0024_0024BY0FL_0040_0024_0024CBD",
+    "hex": "49535f464952494e475f574541504f4e2049535f41494d494e475f574541504f4e205350454349414c5f4142494c4954595f5041434b494e475f554e5041434b494e475f4f525f5553494e47205553494e475f4142494c49545900",
+    "text": "IS_FIRING_WEAPON IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING USING_ABILITY"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040NHHFIBDJ_0040ForbiddenStatus_003F_0024AA_0040",
+    "sourceLine": 7996,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "466f7262696464656e53746174757300",
+    "text": "ForbiddenStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040JKDAGJNM_0040CamouflageLevel_003F_0024AA_0040",
+    "sourceLine": 7998,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "43616d6f75666c6167654c6576656c00",
+    "text": "CamouflageLevel"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040FEKHLMFO_0040InvisibilityType_003F_0024AA_0040",
+    "sourceLine": 8000,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "496e7669736962696c6974795479706500",
+    "text": "InvisibilityType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040HFHCCHFI_0040EnteringStealthFX_003F_0024AA_0040",
+    "sourceLine": 8002,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "456e746572696e67537465616c7468465800",
+    "text": "EnteringStealthFX"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040KEPBOPGF_0040LeavingStealthFX_003F_0024AA_0040",
+    "sourceLine": 8004,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "4c656176696e67537465616c7468465800",
+    "text": "LeavingStealthFX"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040BGIHFLCL_0040HintDetectableStates_003F_0024AA_0040",
+    "sourceLine": 8006,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "48696e7444657465637461626c6553746174657300",
+    "text": "HintDetectableStates"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040KLJFDBCJ_0040NoStealthForAttackWindow_003F_0024AA_0040",
+    "sourceLine": 8008,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4e6f537465616c7468466f7241747461636b57696e646f7700",
+    "text": "NoStealthForAttackWindow"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040NCBPNJON_0040RequiredStatus_003F_0024AA_0040",
+    "sourceLine": 8010,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "526571756972656453746174757300",
+    "text": "RequiredStatus"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040JIIAOJKH_0040IgnoreTreeCheckUpgrade_003F_0024AA_0040",
+    "sourceLine": 8012,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "49676e6f726554726565436865636b5570677261646500",
+    "text": "IgnoreTreeCheckUpgrade"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08LCBPNOHN_0040Texture2_003F_0024AA_0040",
+    "sourceLine": 8014,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "546578747572653200",
+    "text": "Texture2"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05IHAFCALK_0040Style_003F_0024AA_0040",
+    "sourceLine": 8016,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "5374796c6500",
+    "text": "Style"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040JNKEOGCE_0040OpacityMin_003F_0024AA_0040",
+    "sourceLine": 8018,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4f7061636974794d696e00",
+    "text": "OpacityMin"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040IPCPACEL_0040OpacityMax_003F_0024AA_0040",
+    "sourceLine": 8020,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4f7061636974794d617800",
+    "text": "OpacityMax"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BH_0040GFNLCMAM_0040OpacityPulsesPerSecond_003F_0024AA_0040",
+    "sourceLine": 8022,
+    "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+    "hex": "4f70616369747950756c7365735065725365636f6e6400",
+    "text": "OpacityPulsesPerSecond"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040BPGOPLGB_0040RotationMin_003F_0024AA_0040",
+    "sourceLine": 8024,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "526f746174696f6e4d696e00",
+    "text": "RotationMin"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040NOFBPAO_0040RotationMax_003F_0024AA_0040",
+    "sourceLine": 8026,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "526f746174696f6e4d617800",
+    "text": "RotationMax"
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "succeeded": true,
+  "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
+  "runId": "40083102908",
+  "scope": "XmlCompiler powers components; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "fixtures": 17296,
+      "comparisons": 51888,
+      "rejections": 520,
+      "independent": 82176,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "fixtures": 17296,
+      "comparisons": 51888,
+      "rejections": 520,
+      "independent": 82176,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "status": "Od and O2 passed original XmlCompiler ProcessInstance differential, independent layout and explicit rejection tests",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+}

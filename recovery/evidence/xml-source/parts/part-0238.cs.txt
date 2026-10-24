@@ -1,0 +1,330 @@
+				break;
+			}
+		}
+		finally
+		{
+			IntPtr hglobal = new IntPtr(ptr);
+			Marshal.FreeHGlobal(hglobal);
+		}
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static int _atexit_m_appdomain(delegate*<void> func)
+	{
+		delegate*<void>* ptr = (delegate*<void>*)_decode_pointer(__onexitbegin_app_domain);
+		delegate*<void>* ptr2 = (delegate*<void>*)_decode_pointer(__onexitend_app_domain);
+		int result = _atexit_helper((delegate*<void>)_encode_pointer(func), (uint*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __exit_list_size_app_domain), &ptr2, &ptr);
+		__onexitbegin_app_domain = (delegate*<void>*)_encode_pointer(ptr);
+		__onexitend_app_domain = (delegate*<void>*)_encode_pointer(ptr2);
+		return result;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static object _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002EGet(_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E* P_0)
+	{
+		ValueType valueType = _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_handle(P_0);
+		if (valueType != null)
+		{
+			return ((GCHandle)valueType).Target;
+		}
+		return null;
+	}
+
+	internal unsafe static void _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_007Bdtor_007D(_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E* P_0)
+	{
+		ValueType valueType = _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_handle(P_0);
+		if (valueType != null)
+		{
+			((GCHandle)valueType).Free();
+			*(int*)P_0 = 0;
+		}
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static ValueType _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_handle(_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E* P_0)
+	{
+		uint num = *(uint*)P_0;
+		if (num != 0)
+		{
+			IntPtr value = new IntPtr((void*)(int)num);
+			return GCHandle.FromIntPtr(value);
+		}
+		return null;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002ESet(_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E* P_0, object value)
+	{
+		ValueType valueType = _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_handle(P_0);
+		if (valueType == null)
+		{
+			valueType = GCHandle.Alloc(value);
+			*(int*)P_0 = (int)GCHandle.ToIntPtr((GCHandle)valueType).ToPointer();
+		}
+		else
+		{
+			((GCHandle)valueType).Target = value;
+		}
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static int _initterm_e(delegate* unmanaged[Cdecl, Cdecl]<int>* pfbegin, delegate* unmanaged[Cdecl, Cdecl]<int>* pfend)
+	{
+		int num = 0;
+		if (pfbegin < pfend)
+		{
+			while (num == 0)
+			{
+				uint num2 = *(uint*)pfbegin;
+				if (num2 != 0)
+				{
+					num = ((delegate* unmanaged[Cdecl, Cdecl]<int>)(int)num2)();
+				}
+				pfbegin = (delegate* unmanaged[Cdecl, Cdecl]<int>*)((byte*)pfbegin + 4);
+				if (pfbegin >= pfend)
+				{
+					break;
+				}
+			}
+		}
+		return num;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _initterm(delegate* unmanaged[Cdecl, Cdecl]<void>* pfbegin, delegate* unmanaged[Cdecl, Cdecl]<void>* pfend)
+	{
+		if (pfbegin >= pfend)
+		{
+			return;
+		}
+		do
+		{
+			uint num = *(uint*)pfbegin;
+			if (num != 0)
+			{
+				((delegate* unmanaged[Cdecl, Cdecl]<void>)(int)num)();
+			}
+			pfbegin = (delegate* unmanaged[Cdecl, Cdecl]<void>*)((byte*)pfbegin + 4);
+		}
+		while (pfbegin < pfend);
+	}
+
+	[DebuggerStepThrough]
+	internal static ModuleHandle _003CCrtImplementationDetails_003E_002EThisModule_002EHandle()
+	{
+		return typeof(_003CCrtImplementationDetails_003E.ThisModule).Module.ModuleHandle;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _initterm_m(delegate*<void*>* pfbegin, delegate*<void*>* pfend)
+	{
+		if (pfbegin >= pfend)
+		{
+			return;
+		}
+		do
+		{
+			uint num = *(uint*)pfbegin;
+			if (num != 0)
+			{
+				_003CCrtImplementationDetails_003E_002EThisModule_002EResolveMethod_003Cvoid_0020const_0020_002A_0020__clrcall_0028void_0029_003E((delegate*<void*>)(int)num)();
+			}
+			pfbegin = (delegate*<void*>*)((byte*)pfbegin + 4);
+		}
+		while (pfbegin < pfend);
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static delegate*<void*> _003CCrtImplementationDetails_003E_002EThisModule_002EResolveMethod_003Cvoid_0020const_0020_002A_0020__clrcall_0028void_0029_003E(delegate*<void*> methodToken)
+	{
+		return (delegate*<void*>)_003CCrtImplementationDetails_003E_002EThisModule_002EHandle().ResolveMethodHandle((int)methodToken).GetFunctionPointer().ToPointer();
+	}
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* @new(uint P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int fclose(_iobuf* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern double atof(sbyte* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int fseek(_iobuf* P_0, int P_1, int P_2);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern uint strtoul(sbyte* P_0, sbyte** P_1, int P_2);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int ftell(_iobuf* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void delete(void* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern uint fread(void* P_0, uint P_1, uint P_2, _iobuf* P_3);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void delete_005B_005D(void* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern _iobuf* fopen(sbyte* P_0, sbyte* P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern int tolower(int P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int strtol(sbyte* P_0, sbyte** P_1, int P_2);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int atoi(sbyte* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern sbyte* strchr(sbyte* P_0, int P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern sbyte* strstr(sbyte* P_0, sbyte* P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* malloc(uint P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* calloc(uint P_0, uint P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void free(void* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern int isspace(int P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* new_005B_005D(uint P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* memmove(void* P_0, void* P_1, uint P_2);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int _stricmp(sbyte* P_0, sbyte* P_1);
+
+	[MethodImpl(MethodImplOptions.Unmanaged | MethodImplOptions.PreserveSig, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* _getFiberPtrId();
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _amsg_exit(int P_0);
+
+	[MethodImpl(MethodImplOptions.Unmanaged | MethodImplOptions.PreserveSig, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void __security_init_cookie();
+
+	[DllImport("", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void Sleep(uint P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _003CCrtImplementationDetails_003E_002EThrowModuleLoadException(string P_0, Exception P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _003CCrtImplementationDetails_003E_002EThrowModuleLoadException(string P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _003CCrtImplementationDetails_003E_002EDoDllLanguageSupportValidation();
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _003CCrtImplementationDetails_003E_002EThrowNestedModuleLoadException(Exception P_0, Exception P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _003CCrtImplementationDetails_003E_002ERegisterModuleUninitializer(EventHandler P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void _003CCrtImplementationDetails_003E_002EDoCallBackInDefaultDomain(delegate* unmanaged[Stdcall, Stdcall]<void*, int> P_0, void* P_1);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void _cexit();
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern int __FrameUnwindFilter(global::_EXCEPTION_POINTERS* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public static extern void terminate();
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* _encode_pointer(void* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* _decode_pointer(void* P_0);
+
+	[DllImport("", CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+	[MethodImpl(MethodImplOptions.Unmanaged, MethodCodeType = MethodCodeType.Native)]
+	[SuppressUnmanagedCodeSecurity]
+	public unsafe static extern void* _encoded_null();
+}

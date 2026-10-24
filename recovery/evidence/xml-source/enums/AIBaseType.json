@@ -1,0 +1,51 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12222,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AIBaseType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AIBaseType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "CAPTURED",
+      "value": 2
+    },
+    {
+      "name": "ENEMIES_IN_BASE",
+      "value": 6
+    },
+    {
+      "name": "EXPANSION",
+      "value": 1
+    },
+    {
+      "name": "LAND_CENTERED",
+      "value": 4
+    },
+    {
+      "name": "MAIN_BASE",
+      "value": 0
+    },
+    {
+      "name": "MOST_RECENT_OF_TYPE",
+      "value": 8
+    },
+    {
+      "name": "NO_BUILD_RADIUS",
+      "value": 9
+    },
+    {
+      "name": "OLDEST_OF_TYPE",
+      "value": 7
+    },
+    {
+      "name": "POINT_CENTERED",
+      "value": 3
+    },
+    {
+      "name": "PRIMARY_TYPE_MAX",
+      "value": 2
+    },
+    {
+      "name": "UNDER_ATTACK",
+      "value": 5
+    }
+  ]
+}

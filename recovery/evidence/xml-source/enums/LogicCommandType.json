@@ -1,0 +1,75 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17360,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LogicCommandType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LogicCommandType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ATTACK_MOVE",
+      "value": 10
+    },
+    {
+      "name": "CANCEL_UNIT_BUILD",
+      "value": 11
+    },
+    {
+      "name": "CANCEL_UPGRADE",
+      "value": 12
+    },
+    {
+      "name": "COLLECT",
+      "value": 16
+    },
+    {
+      "name": "CONSTRUCTION_YARD_CONSTRUCT",
+      "value": 13
+    },
+    {
+      "name": "DOZER_CONSTRUCT",
+      "value": 5
+    },
+    {
+      "name": "EVACUATE",
+      "value": 7
+    },
+    {
+      "name": "EXIT_CONTAINER",
+      "value": 8
+    },
+    {
+      "name": "GARRISON_BUILDING",
+      "value": 15
+    },
+    {
+      "name": "HORDE_TOGGLE_FORMATION",
+      "value": 14
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "OBJECT_UPGRADE",
+      "value": 3
+    },
+    {
+      "name": "PLAYER_UPGRADE",
+      "value": 4
+    },
+    {
+      "name": "SET_STANCE",
+      "value": 9
+    },
+    {
+      "name": "SPECIAL_POWER",
+      "value": 1
+    },
+    {
+      "name": "STOP",
+      "value": 2
+    },
+    {
+      "name": "UNIT_BUILD",
+      "value": 6
+    }
+  ]
+}

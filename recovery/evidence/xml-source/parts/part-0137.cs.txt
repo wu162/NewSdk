@@ -1,0 +1,500 @@
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(sbyte*)(&num5) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = *(sbyte*)list;
+			*(uint*)list = num5;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentDisconnect_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentDisconnect* ptr = (UIComponentDisconnect*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 429483379;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentShellVisibility_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentShellVisibility* ptr = (UIComponentShellVisibility*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2082044609;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSound_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentSound* ptr = (UIComponentSound*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -950044894;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentJoypadTactical_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentJoypadTactical* ptr = (UIComponentJoypadTactical*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 521477685;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineBuddyList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOnlineBuddyList* ptr = (UIComponentOnlineBuddyList*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -641422966;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPause_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentPause* ptr = (UIComponentPause*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1903036942;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentFormation_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentFormation* ptr = (UIComponentFormation*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1394517147;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineInvite_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOnlineInvite* ptr = (UIComponentOnlineInvite*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1950041243;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlayerPowers_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentPlayerPowers* ptr = (UIComponentPlayerPowers*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -779530453;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInGameShowHide_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentInGameShowHide* ptr = (UIComponentInGameShowHide*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1568450771;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMessage_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentMessage* ptr = (UIComponentMessage*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1688289936;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameViewJoypad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentGameViewJoypad* ptr = (UIComponentGameViewJoypad*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 116u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -421276910;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentTutorial_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentTutorial* ptr = (UIComponentTutorial*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1356364876;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentKeyboard_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentKeyboard* ptr = (UIComponentKeyboard*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 346843115;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAptJoypad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentAptJoypad* ptr = (UIComponentAptJoypad*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1206483093;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouse_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentMouse* ptr = (UIComponentMouse*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1139662586;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPcSaveLoad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentPcSaveLoad* ptr = (UIComponentPcSaveLoad*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -72725422;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsGraphics_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptionsSettingsGraphics* ptr = (UIComponentOptionsSettingsGraphics*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 212u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1498808370;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentShellMultiplayer_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentShellMultiplayer* ptr = (UIComponentShellMultiplayer*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 72u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -291068935;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectAction_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentObjectAction* ptr = (UIComponentObjectAction*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 172478244;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentProfileManager_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentProfileManager* ptr = (UIComponentProfileManager*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1308792163;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCommandBar_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCommandBar* ptr = (UIComponentCommandBar*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 184u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2047963295;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsHotkeys_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptionsSettingsHotkeys* ptr = (UIComponentOptionsSettingsHotkeys*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -48940959;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentRadar_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentRadar* ptr = (UIComponentRadar*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 44u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2130185433;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCampaign_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCampaign* ptr = (UIComponentCampaign*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1596408516;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLanLobby_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentLanLobby* ptr = (UIComponentLanLobby*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -410667187;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSpecialPowers_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentSpecialPowers* ptr = (UIComponentSpecialPowers*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1947634968;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentVictoryDefeat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentVictoryDefeat* ptr = (UIComponentVictoryDefeat*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -272600345;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCursor_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCursor* ptr = (UIComponentCursor*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -888289158;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsGeneral_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptionsSettingsGeneral* ptr = (UIComponentOptionsSettingsGeneral*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 36u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2054456400;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouseInGame_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentMouseInGame* ptr = (UIComponentMouseInGame*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -260791364;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCheats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCheats* ptr = (UIComponentCheats*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1786017422;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectives_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentObjectives* ptr = (UIComponentObjectives*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -41816666;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsAudio_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptionsSettingsAudio* ptr = (UIComponentOptionsSettingsAudio*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -741708952;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentChat* ptr = (UIComponentChat*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2095311623;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCareerStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCareerStats* ptr = (UIComponentCareerStats*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1779284912;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptions_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptions* ptr = (UIComponentOptions*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 112u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1391293877;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLobby_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentLobby* ptr = (UIComponentLobby*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 264u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2112857619;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAutoMatch_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentAutoMatch* ptr = (UIComponentAutoMatch*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1520523841;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSUDs_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentSUDs* ptr = (UIComponentSUDs*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2099274222;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCredits_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentCredits* ptr = (UIComponentCredits*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -458405372;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsNetwork_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOptionsSettingsNetwork* ptr = (UIComponentOptionsSettingsNetwork*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 836201403;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentVoiceChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentVoiceChat* ptr = (UIComponentVoiceChat*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040JGHFKBIE_0040TalkHotKeySlot_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -702849190;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLobbyList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOnlineLobbyList* ptr = (UIComponentOnlineLobbyList*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 488322475;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameInfo_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentGameInfo* ptr = (UIComponentGameInfo*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 120u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1477673480;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLogin_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOnlineLogin* ptr = (UIComponentOnlineLogin*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2001285372;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMovie_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentMovie* ptr = (UIComponentMovie*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 133731258;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPostGame_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentPostGame* ptr = (UIComponentPostGame*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -371966100;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAptMediator_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentAptMediator* ptr = (UIComponentAptMediator*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 104u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 489894998;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlayerTechStore_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentPlayerTechStore* ptr = (UIComponentPlayerTechStore*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 668315732;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlinePlayerList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentOnlinePlayerList* ptr = (UIComponentOnlinePlayerList*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2133596120;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInputBridge_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentInputBridge* ptr = (UIComponentInputBridge*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2006261339;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLoadScreen_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentLoadScreen* ptr = (UIComponentLoadScreen*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (UIBaseComponent*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1196731604;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(INode* node, UIBaseComponent** pointer, Tracker* tracker)
+	{
+		UIComponentStats* ptr = (UIComponentStats*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 820184420;

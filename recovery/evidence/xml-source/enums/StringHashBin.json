@@ -1,0 +1,23 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12248,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4StringHashBin_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4StringHashBin_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "INSTANCEID",
+      "value": 1
+    },
+    {
+      "name": "POID",
+      "value": 2
+    },
+    {
+      "name": "STRINGHASH",
+      "value": 3
+    },
+    {
+      "name": "TYPEID",
+      "value": 0
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "succeeded": true,
+  "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
+  "runId": "40083102908",
+  "scope": "XmlCompiler LocomotorTemplate component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "/Od",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6",
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 1,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 2,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 99,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          }
+        ],
+        "fixtures": 16508,
+        "arrayComparisons": 49524,
+        "rejections": 988,
+        "layoutAssertions": 16512
+      },
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "/O2",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6",
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 1,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 2,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          },
+          {
+            "platform": 99,
+            "fixtures": 4127,
+            "arrayComparisons": 12381,
+            "rejections": 247,
+            "layoutAssertions": 4128
+          }
+        ],
+        "fixtures": 16508,
+        "arrayComparisons": 49524,
+        "rejections": 988,
+        "layoutAssertions": 16512
+      },
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "status": "Od and O2 passed; four platforms, all three buffers, independent ABI, explicit rejection boundaries"
+}

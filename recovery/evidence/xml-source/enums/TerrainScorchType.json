@@ -1,0 +1,79 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12292,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4TerrainScorchType_0040_0040_0040_0040SA_003FBW4TerrainScorchType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "RANDOM",
+      "value": -1
+    },
+    {
+      "name": "SCORCH_1",
+      "value": 0
+    },
+    {
+      "name": "SCORCH_10",
+      "value": 9
+    },
+    {
+      "name": "SCORCH_11",
+      "value": 10
+    },
+    {
+      "name": "SCORCH_12",
+      "value": 11
+    },
+    {
+      "name": "SCORCH_13",
+      "value": 12
+    },
+    {
+      "name": "SCORCH_14",
+      "value": 13
+    },
+    {
+      "name": "SCORCH_15",
+      "value": 14
+    },
+    {
+      "name": "SCORCH_16",
+      "value": 15
+    },
+    {
+      "name": "SCORCH_2",
+      "value": 1
+    },
+    {
+      "name": "SCORCH_3",
+      "value": 2
+    },
+    {
+      "name": "SCORCH_4",
+      "value": 3
+    },
+    {
+      "name": "SCORCH_5",
+      "value": 4
+    },
+    {
+      "name": "SCORCH_6",
+      "value": 5
+    },
+    {
+      "name": "SCORCH_7",
+      "value": 6
+    },
+    {
+      "name": "SCORCH_8",
+      "value": 7
+    },
+    {
+      "name": "SCORCH_9",
+      "value": 8
+    },
+    {
+      "name": "TERRAIN_MAPPED",
+      "value": 16
+    }
+  ]
+}

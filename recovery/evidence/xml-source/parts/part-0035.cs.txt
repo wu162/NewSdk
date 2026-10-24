@@ -1,0 +1,500 @@
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xc_mp_z/* Not supported: data(00 00 00 00) */;
+
+	[FixedAddressValueType]
+	internal static int _003FUninitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FUninitialized_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(60 09 00 06) */;
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xi_vt_a/* Not supported: data(00 00 00 00) */;
+
+	[FixedAddressValueType]
+	internal static _003CCrtImplementationDetails_003E.Progress.State _003FInitializedPerAppDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FInitializedPerAppDomain_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(65 09 00 06) */;
+
+	[FixedAddressValueType]
+	internal static bool _003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FIsDefaultDomain_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(61 09 00 06) */;
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xc_ma_a/* Not supported: data(00 00 00 00) */;
+
+	[FixedAddressValueType]
+	internal static _003CCrtImplementationDetails_003E.Progress.State _003FInitializedNative_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FInitializedNative_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(63 09 00 06) */;
+
+	[FixedAddressValueType]
+	internal static int _003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FInitialized_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(5F 09 00 06) */;
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xc_ma_z/* Not supported: data(00 00 00 00) */;
+
+	[FixedAddressValueType]
+	internal static _003CCrtImplementationDetails_003E.Progress.State _003FInitializedVtables_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FInitializedVtables_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(62 09 00 06) */;
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xi_vt_z/* Not supported: data(00 00 00 00) */;
+
+	[FixedAddressValueType]
+	internal static _003CCrtImplementationDetails_003E.Progress.State _003FInitializedPerProcess_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A;
+
+	internal unsafe static delegate*<void> _003FA0x176e81b8_002E_003FInitializedPerProcess_0024initializer_0024_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2P6MXXZA/* Not supported: data(64 09 00 06) */;
+
+	internal static bool _003FInitializedPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA/*Field data (rva=0x1d6a6f) could not be foundin any section!*/;
+
+	internal static bool _003FEntered_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA/*Field data (rva=0x1d6a6c) could not be foundin any section!*/;
+
+	internal static bool _003FInitializedNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA/*Field data (rva=0x1d6a6d) could not be foundin any section!*/;
+
+	internal static int _003FCount_0040AllDomains_0040_003CCrtImplementationDetails_003E_0040_00402HA/*Field data (rva=0x1d6a68) could not be foundin any section!*/;
+
+	internal static _003CCrtImplementationDetails_003E.TriBool.State _003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A/* Not supported: data() */;
+
+	internal static _003CCrtImplementationDetails_003E.TriBool.State _003FhasPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A/* Not supported: data() */;
+
+	internal static bool _003FInitializedNativeFromCCTOR_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA/*Field data (rva=0x1d6a6e) could not be foundin any section!*/;
+
+	internal static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ _003FA0x176e81b8_002E__xc_mp_a/* Not supported: data(00 00 00 00) */;
+
+	public unsafe static int** __unep_0040_003FDoNothing_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024FCGJPAX_0040Z/* Not supported: data(55 03 0A 10) */;
+
+	public unsafe static int** __unep_0040_003F_UninitializeDefaultDomain_0040LanguageSupport_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024FCGJPAX_0040Z/* Not supported: data(D1 04 0A 10) */;
+
+	[FixedAddressValueType]
+	internal static uint __exit_list_size_app_domain;
+
+	[FixedAddressValueType]
+	internal static _003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A;
+
+	internal unsafe static delegate*<void> _003FA0x23130d9f_002E_003F_lock_0024initializer_0024_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0P6MXXZA/* Not supported: data(7E 09 00 06) */;
+
+	[FixedAddressValueType]
+	internal unsafe static delegate*<void>* __onexitbegin_app_domain;
+
+	internal static uint _003FA0x23130d9f_002E__exit_list_size/*Field data (rva=0x1d6b6c) could not be foundin any section!*/;
+
+	[FixedAddressValueType]
+	internal unsafe static delegate*<void>* __onexitend_app_domain;
+
+	internal unsafe static delegate*<void>* _003FA0x23130d9f_002E__onexitbegin_m/*Field data (rva=0x1d6b64) could not be foundin any section!*/;
+
+	internal unsafe static delegate*<void>* _003FA0x23130d9f_002E__onexitend_m/*Field data (rva=0x1d6b68) could not be foundin any section!*/;
+
+	public static uint eastl_002EgEmptyString/*Field data (rva=0x1d6660) could not be foundin any section!*/;
+
+	public static _0024ArrayType_0024_0024_0024BY01Q6AXXZ _003F_003F_7type_info_0040_00406B_0040/* Not supported: data(87 F9 09 10 00 00 00 00) */;
+
+	public static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY0A_0040P6AXXZ __xc_z/* Not supported: data(00) */;
+
+	public static volatile uint __native_vcclrit_reason/* Not supported: data(FF FF FF FF) */;
+
+	public static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY0A_0040P6AXXZ __xc_a/* Not supported: data(00) */;
+
+	public static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY0A_0040P6AHXZ __xi_a/* Not supported: data(00) */;
+
+	public static volatile global::__enative_startup_state __native_startup_state/* Not supported: data() */;
+
+	public static _003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY0A_0040P6AHXZ __xi_z/* Not supported: data(00) */;
+
+	public unsafe static void* __native_startup_lock/*Field data (rva=0x1d6ba4) could not be foundin any section!*/;
+
+	public static volatile uint __native_dllmain_reason/* Not supported: data(FF FF FF FF) */;
+
+	internal unsafe static uint FastHashInternal_002EFastHashFn(uint hash, sbyte* data, uint len)
+	{
+		if (len != 0 && data != null)
+		{
+			uint num = len & 3;
+			len >>= 2;
+			if (len != 0)
+			{
+				do
+				{
+					hash = *(ushort*)data + hash;
+					hash ^= (((ushort*)data)[1] ^ (hash << 5)) << 11;
+					data += 4;
+					hash = (hash >> 11) + hash;
+					len--;
+				}
+				while (len != 0);
+			}
+			switch (num)
+			{
+			case 3u:
+				hash = *(ushort*)data + hash;
+				hash ^= ((uint)(data[2] << 2) ^ hash) << 16;
+				hash = (hash >> 11) + hash;
+				break;
+			case 2u:
+			{
+				hash = *(ushort*)data + hash;
+				uint num3 = hash;
+				hash = num3 ^ (num3 << 11);
+				hash = (hash >> 17) + hash;
+				break;
+			}
+			case 1u:
+			{
+				hash = (uint)(*data) + hash;
+				uint num2 = hash;
+				hash = num2 ^ (num2 << 10);
+				hash = (hash >> 1) + hash;
+				break;
+			}
+			}
+			uint num4 = hash;
+			hash = num4 ^ (num4 << 3);
+			hash = (hash >> 5) + hash;
+			uint num5 = hash;
+			hash = num5 ^ (num5 << 2);
+			hash = (hash >> 15) + hash;
+			return (hash << 10) ^ hash;
+		}
+		return 0u;
+	}
+
+	internal unsafe static void delete(void* P_0, void* P_1)
+	{
+	}
+
+	internal unsafe static INode* Marshaler_002ENodeHolder_002EGetNode(NodeHolder* P_0)
+	{
+		return (INode*)(int)(*(uint*)P_0);
+	}
+
+	internal unsafe static void Marshaler_002ENodeHolder_002E_007Bdtor_007D(NodeHolder* P_0)
+	{
+		uint num = *(uint*)P_0;
+		if (num != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)num)))((IntPtr)(int)num);
+		}
+	}
+
+	internal unsafe static int Endian_002EEndianHelper_002EEndianToPlatform(EndianHelper* P_0, int value)
+	{
+		if (*(bool*)P_0)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 3));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 2));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 1));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)(&value);
+			value = (int)num;
+		}
+		return value;
+	}
+
+	internal unsafe static uint Endian_002EEndianHelper_002EEndianToPlatform(EndianHelper* P_0, uint value)
+	{
+		if (*(bool*)P_0)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 3));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 2));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref value, 1));
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)(&value);
+			value = num;
+		}
+		return value;
+	}
+
+	internal unsafe static void Relo_002EChunk_002E_007Bdtor_007D(Relo.Chunk* P_0)
+	{
+		uint num = ((uint*)P_0)[2];
+		if (num != 0)
+		{
+			free((void*)(int)num);
+			((int*)P_0)[2] = 0;
+		}
+		uint num2 = ((uint*)P_0)[4];
+		if (num2 != 0)
+		{
+			free((void*)(int)num2);
+			((int*)P_0)[4] = 0;
+		}
+		uint num3 = *(uint*)P_0;
+		if (num3 != 0)
+		{
+			free((void*)(int)num3);
+			*(int*)P_0 = 0;
+		}
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool Relo_002EChunk_002EAllocate(Relo.Chunk* P_0, uint instanceBufferSize, uint relocationBufferSize, uint importsBufferSize)
+	{
+		((int*)P_0)[3] = (int)relocationBufferSize;
+		((int*)P_0)[1] = (int)instanceBufferSize;
+		((int*)P_0)[5] = (int)importsBufferSize;
+		if (relocationBufferSize != 0)
+		{
+			((int*)P_0)[2] = (int)malloc(relocationBufferSize);
+		}
+		uint num = ((uint*)P_0)[5];
+		if (num != 0)
+		{
+			((int*)P_0)[4] = (int)malloc(num);
+		}
+		*(int*)P_0 = (int)malloc(((uint*)P_0)[1]);
+		return true;
+	}
+
+	internal unsafe static void* Relo_002ETracker_002EPush(Tracker* P_0, void** pointerLocation, uint objectSize, uint objectCount)
+	{
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)((byte*)P_0 + 4);
+		if (((((int*)ptr)[1] - *(int*)ptr) & -4) == 0)
+		{
+			uint num = Relo_002ETracker_002EAllocate(P_0, objectCount, objectSize);
+			stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr2 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)((byte*)P_0 + 4);
+			uint num2 = ((uint*)ptr2)[1];
+			if (num2 < (uint)((int*)ptr2)[2])
+			{
+				int num3 = (int)num2;
+				((int*)ptr2)[1] = (int)(num2 + 4);
+				if (num3 != 0)
+				{
+					*(uint*)num3 = num;
+				}
+			}
+			else
+			{
+				eastl_002Evector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue((vector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E*)ptr2, (uint*)(int)num2, &num);
+			}
+			return (void*)(*(int*)pointerLocation = *(int*)(int)(num * 12 + (uint)((int*)P_0)[5]));
+		}
+		uint num4 = *(uint*)(((int*)P_0)[2] - 4);
+		uint num5 = Relo_002ETracker_002EAllocate(P_0, objectCount, objectSize);
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr3 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)((byte*)P_0 + 4);
+		uint num6 = ((uint*)ptr3)[1];
+		if (num6 < (uint)((int*)ptr3)[2])
+		{
+			int num7 = (int)num6;
+			((int*)ptr3)[1] = (int)(num6 + 4);
+			if (num7 != 0)
+			{
+				*(uint*)num7 = num5;
+			}
+		}
+		else
+		{
+			eastl_002Evector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue((vector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E*)ptr3, (uint*)(int)num6, &num5);
+		}
+		if (pointerLocation != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E obj);
+			*(uint*)(&obj) = num4;
+			int num8 = ((int*)P_0)[5];
+			System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cunsigned_0020int_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 4)) = (int)((byte*)pointerLocation - *(int*)(int)(num4 * 12 + (uint)num8));
+			System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cunsigned_0020int_003E, uint>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 8)) = num5;
+			*(int*)pointerLocation = *(int*)(int)(num5 * 12 + (uint)num8);
+			vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+			uint num9 = ((uint*)ptr4)[1];
+			if (num9 < (uint)((int*)ptr4)[2])
+			{
+				int num10 = (int)num9;
+				((int*)ptr4)[1] = (int)(num9 + 12);
+				if (num10 != 0)
+				{
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(num10, ref obj, 12);
+				}
+			}
+			else
+			{
+				eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(ptr4, (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)num9, &obj);
+			}
+			return (void*)(int)(*(uint*)pointerLocation);
+		}
+		return null;
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool Relo_002ETracker_002EExchangePointers(Tracker* P_0, void* a, void* b)
+	{
+		uint num = *(uint*)(((int*)P_0)[2] - 4);
+		Tracker.Block* ptr = (Tracker.Block*)(int)(num * 12 + (uint)((int*)P_0)[5]);
+		int num2 = *(int*)ptr;
+		sbyte* ptr2 = (sbyte*)(((int*)ptr)[1] + num2);
+		if ((nuint)a >= (nuint)num2 && a < ptr2 && (nuint)b >= (nuint)num2 && b < ptr2)
+		{
+			uint num3 = (uint)((byte*)a - num2);
+			uint num4 = (uint)((byte*)b - num2);
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[9];
+			if (ptr3 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10])
+			{
+				do
+				{
+					if (*(int*)ptr3 == (int)num)
+					{
+						Relo_002ETracker_002EAlterBookmark_003Cunsigned_0020int_003E(P_0, ptr3, num3, num4, ((uint*)ptr)[2]);
+					}
+					ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr3 + 12);
+				}
+				while (ptr3 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10]);
+			}
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[13];
+			if (ptr4 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14])
+			{
+				do
+				{
+					if (*(int*)ptr4 == (int)num)
+					{
+						uint num5 = ((uint*)ptr)[2];
+						uint num6 = ((uint*)ptr4)[1];
+						if (num6 >= num3 && num6 < num5 + num3)
+						{
+							((int*)ptr4)[1] = (int)(num6 - num3 + num4);
+						}
+						else if (num6 >= num4 && num6 < num5 + num4)
+						{
+							((int*)ptr4)[1] = (int)(num6 - num4 + num3);
+						}
+					}
+					ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr4 + 12);
+				}
+				while (ptr4 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14]);
+			}
+			Tracker.GenericBookmark_003Cvoid_0020_002A_003E* ptr5 = (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)(int)((uint*)P_0)[17];
+			if (ptr5 != (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((int*)P_0)[18])
+			{
+				do
+				{
+					if (*(int*)ptr5 == (int)num)
+					{
+						uint num7 = ((uint*)ptr)[2];
+						uint num8 = ((uint*)ptr5)[1];
+						if (num8 >= num3 && num8 < num7 + num3)
+						{
+							((int*)ptr5)[1] = (int)(num8 - num3 + num4);
+						}
+						else if (num8 >= num4 && num8 < num7 + num4)
+						{
+							((int*)ptr5)[1] = (int)(num8 - num4 + num3);
+						}
+					}
+					ptr5 = (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((byte*)ptr5 + 12);
+				}
+				while (ptr5 != (Tracker.GenericBookmark_003Cvoid_0020_002A_003E*)((int*)P_0)[18]);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	internal unsafe static Tracker* Relo_002ETracker_002E_007Bctor_007D(Tracker* P_0)
+	{
+		*(int*)P_0 = 0;
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)((byte*)P_0 + 4);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		try
+		{
+			vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr2 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 20);
+			*(int*)ptr2 = 0;
+			((int*)ptr2)[1] = 0;
+			((int*)ptr2)[2] = 0;
+			try
+			{
+				vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr3 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+				*(int*)ptr3 = 0;
+				((int*)ptr3)[1] = 0;
+				((int*)ptr3)[2] = 0;
+				try
+				{
+					vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+					*(int*)ptr4 = 0;
+					((int*)ptr4)[1] = 0;
+					((int*)ptr4)[2] = 0;
+					try
+					{
+						vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr5 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 68);
+						*(int*)ptr5 = 0;
+						((int*)ptr5)[1] = 0;
+						((int*)ptr5)[2] = 0;
+						try
+						{
+							((int*)P_0)[21] = 0;
+							return P_0;
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 68);
+							throw;
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 52);
+						throw;
+					}
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 36);
+					throw;
+				}
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 20);
+				throw;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*, void>)(&eastl_002Estack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+			throw;
+		}
+	}
+
+	internal unsafe static void Relo_002ETracker_002E_007Bdtor_007D(Tracker* P_0)
+	{
+		try
+		{
+			Tracker* ptr;
+			try
+			{
+				try
+				{
+					try
+					{
+						try
+						{
+							ptr = (Tracker*)((byte*)P_0 + 20);
+							while (true)
+							{
+								vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr2 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr;
+								if (*(int*)ptr2 == ((int*)ptr2)[1])
+								{
+									break;
+								}
+								free((void*)(int)(*(uint*)(((int*)P_0)[6] - 12)));
+								vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr3 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr;
+								((int*)ptr3)[1] += -12;
+							}
+							uint num = ((uint*)P_0)[21];
+							if (num != 0)
+							{
+								delete_005B_005D((void*)(int)num);
+							}
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 68);
+							throw;
+						}
+						vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 68);
+						int num2 = *(int*)ptr4;
+						if (num2 != 0)

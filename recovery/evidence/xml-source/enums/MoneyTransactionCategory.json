@@ -1,0 +1,127 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12390,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4MoneyTransactionCategory_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4MoneyTransactionCategory_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AI_MONEY_LENDER",
+      "value": 22
+    },
+    {
+      "name": "AUTO_DEPOSIT",
+      "value": 4
+    },
+    {
+      "name": "BOUNTY",
+      "value": 6
+    },
+    {
+      "name": "BUILD_WALLSPAN",
+      "value": 16
+    },
+    {
+      "name": "CANCEL_BUILD",
+      "value": 9
+    },
+    {
+      "name": "CAPTURE_BONUS",
+      "value": 3
+    },
+    {
+      "name": "CASH_CHEAT",
+      "value": 7
+    },
+    {
+      "name": "CASH_HACK",
+      "value": 26
+    },
+    {
+      "name": "DEATH_REFUND",
+      "value": 11
+    },
+    {
+      "name": "DEVASTATE",
+      "value": 8
+    },
+    {
+      "name": "DOZER_CONSTRUCT",
+      "value": 17
+    },
+    {
+      "name": "HARVESTER",
+      "value": 2
+    },
+    {
+      "name": "INFILTRATOR",
+      "value": 27
+    },
+    {
+      "name": "MONEY_CRATE",
+      "value": 10
+    },
+    {
+      "name": "PILLAGE",
+      "value": 28
+    },
+    {
+      "name": "PLAYERKILLED",
+      "value": 19
+    },
+    {
+      "name": "PLAYER_CLONE",
+      "value": 24
+    },
+    {
+      "name": "PLAYER_GIVE_MONEY",
+      "value": 23
+    },
+    {
+      "name": "PRODUCTION",
+      "value": 15
+    },
+    {
+      "name": "SCRIPTED_MONEY_ACTION",
+      "value": 20
+    },
+    {
+      "name": "SELF_REPAIR",
+      "value": 18
+    },
+    {
+      "name": "SELL_OBJECT",
+      "value": 5
+    },
+    {
+      "name": "SHARED_DEPOSIT",
+      "value": 14
+    },
+    {
+      "name": "SLAUGHTER",
+      "value": 12
+    },
+    {
+      "name": "SPECIAL_POWER",
+      "value": 21
+    },
+    {
+      "name": "STARTING_CASH",
+      "value": 1
+    },
+    {
+      "name": "STEAL_MONEY",
+      "value": 29
+    },
+    {
+      "name": "TERRAIN_RESOURCE",
+      "value": 13
+    },
+    {
+      "name": "TRANSFER_ASSETS",
+      "value": 25
+    },
+    {
+      "name": "UNKNOWN",
+      "value": 0
+    }
+  ]
+}

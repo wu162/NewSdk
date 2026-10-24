@@ -1,0 +1,500 @@
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = *(sbyte*)list;
+			*(uint*)list = num4;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AFXShaderMaterial_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, TypedAssetId_003CSageBinaryData_003A_003AFXShaderMaterial_003E** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AFXShaderMaterial_003E(text, (TypedAssetId_003CSageBinaryData_003A_003AFXShaderMaterial_003E*)(int)(*(uint*)@object), state);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AShaderOverrideRule_003E(IList* list, List_003CSageBinaryData_003A_003AShaderOverrideRule_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 16u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (ShaderOverrideRule*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 16;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AShaderOverrideRule_003E(List_003CSageBinaryData_003A_003AShaderOverrideRule_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		ShaderOverrideRule* ptr = (ShaderOverrideRule*)num;
+		ShaderOverrideRule* ptr2 = (ShaderOverrideRule*)(*(int*)list * 16 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (ShaderOverrideRule*)((byte*)ptr + 16);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020AttributeType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AttributeType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeType_0040_0040_0040_0040SA_003FBW4AttributeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 35u);
+			int num = ((ptr == null) ? 32 : ((int*)ptr)[1]);
+			*@object = (AttributeType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020AttributeModifierCategoryType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AttributeModifierCategoryType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeModifierCategoryType_0040_0040_0040_0040SA_003FBW4AttributeModifierCategoryType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 15u);
+			int num = ((ptr == null) ? 7 : ((int*)ptr)[1]);
+			*@object = (AttributeModifierCategoryType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 60u, 1u);
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(text, (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)(int)(*(uint*)@object), state);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020BitFlags_003C223_002Cenum_0020ObjectStatusType_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 28u, 1u);
+			Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(text, (BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)(int)(*(uint*)@object), state);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ArmorSetType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ArmorSetType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ArmorSetType_0040_0040_0040_0040SA_003FBW4ArmorSetType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 23u);
+			int num = ((ptr == null) ? 12 : ((int*)ptr)[1]);
+			*@object = (ArmorSetType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAttributeModifierListType_003E(IList* list, List_003CSageBinaryData_003A_003AAttributeModifierListType_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 8u, num);
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (AttributeModifierListType*)(int)(num2 * 8 + (uint)((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2++;
+				}
+				while (num2 < num);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E_0020_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E** pointer, EndianHelper* endian)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E((BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)(int)num, endian);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020BitFlags_003C223_002Cenum_0020ObjectStatusType_003E_0020_003E(BitFlags_003C223_002Cenum_0020ObjectStatusType_003E** pointer, EndianHelper* endian)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)(int)num, endian);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAttributeModifierListType_003E(List_003CSageBinaryData_003A_003AAttributeModifierListType_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		AttributeModifierListType* ptr = (AttributeModifierListType*)num;
+		AttributeModifierListType* ptr2 = (AttributeModifierListType*)(*(int*)list * 8 + num);
+		if (ptr != ptr2)
+		{
+			AttributeModifierListType* ptr3 = (AttributeModifierListType*)((byte*)ptr + 6);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			do
+			{
+				int num2 = *(int*)ptr;
+				if (*(bool*)endian)
+				{
+					*(sbyte*)(&num3) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1));
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)(&num2);
+					num2 = (int)num3;
+				}
+				*(int*)ptr = num2;
+				if (*(bool*)endian)
+				{
+					*(sbyte*)(&num4) = ((sbyte*)ptr3)[1];
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = *(sbyte*)ptr3;
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = *((sbyte*)ptr3 - 1);
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = *((sbyte*)ptr3 - 2);
+					*(uint*)((byte*)ptr3 - 2) = num4;
+				}
+				ptr = (AttributeModifierListType*)((byte*)ptr + 8);
+				ptr3 = (AttributeModifierListType*)((byte*)ptr3 + 8);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(sbyte*)(&num5) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = *(sbyte*)list;
+			*(uint*)list = num5;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeSphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeSphere* ptr = (FXParticleEmissionVolumeSphere*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -302498967;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityOutward_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocityOutward* ptr = (FXParticleEmissionVelocityOutward*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 28u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -818948385;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticlePhysicsBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = 877888681;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumePoint_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumePoint* ptr = (FXParticleEmissionVolumePoint*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08MJJJPPDE_0040IsHollow_003F_0024AA_0040), null), (bool*)ptr + 4, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -751842965;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeBase* ptr = (FXParticleEmissionVolumeBase*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08MJJJPPDE_0040IsHollow_003F_0024AA_0040), null), (bool*)ptr + 4, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 612354849;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeSpline_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeSpline* ptr = (FXParticleEmissionVolumeSpline*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 795809322;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleSwarmPhysics_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleSwarmPhysics* ptr = (FXParticleSwarmPhysics*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1976375475;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEventBase* ptr = (FXParticleEventBase*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1601128420;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeBox_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeBox* ptr = (FXParticleEmissionVolumeBox*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1242273524;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawLightSource_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawLightSource* ptr = (FXParticleDrawLightSource*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1373300932;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleUpdateDefault_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleUpdateDefault* ptr = (FXParticleUpdateDefault*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 104u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1361141096;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleUpdateRenderObject_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleUpdateRenderObject* ptr = (FXParticleUpdateRenderObject*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 200u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 234581578;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawGpu_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawGpu* ptr = (FXParticleDrawGpu*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 60u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2046949409;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawLightning_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawLightning* ptr = (FXParticleDrawLightning*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 36u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1258046388;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawRenderObject_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawRenderObject* ptr = (FXParticleDrawRenderObject*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -886747045;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityCylinder_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocityCylinder* ptr = (FXParticleEmissionVelocityCylinder*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 28u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -236176594;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityWavefront_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocityWavefront* ptr = (FXParticleEmissionVelocityWavefront*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 68u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -319317049;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeCylinder_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeCylinder* ptr = (FXParticleEmissionVolumeCylinder*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1552576278;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocitySphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocitySphere* ptr = (FXParticleEmissionVelocitySphere*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1951169228;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawTrail_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawTrail* ptr = (FXParticleDrawTrail*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1865622437;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeLightning_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeLightning* ptr = (FXParticleEmissionVolumeLightning*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08MJJJPPDE_0040IsHollow_003F_0024AA_0040), null), (bool*)ptr + 4, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1423381183;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = -1093169507;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = -2026181985;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventCollision_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEventCollision* ptr = (FXParticleEventCollision*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 28u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1075723135;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawSwarm_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDrawSwarm* ptr = (FXParticleDrawSwarm*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1913212635;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeLine_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeLine* ptr = (FXParticleEmissionVolumeLine*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 228810652;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventLife_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEventLife* ptr = (FXParticleEventLife*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -828988115;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityHemisphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocityHemisphere* ptr = (FXParticleEmissionVelocityHemisphere*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (FXParticleEmissionVelocitySphere*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1212854334;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDefaultPhysics_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleDefaultPhysics* ptr = (FXParticleDefaultPhysics*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 36u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1184480257;
+	}

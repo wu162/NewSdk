@@ -1,0 +1,500 @@
+				{
+					_003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeDefaultDomain();
+				}
+			}
+		});
+	}
+
+	[DebuggerStepThrough]
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002E_Initialize(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA = AppDomain.CurrentDomain.IsDefaultAppDomain();
+		if (_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA)
+		{
+			_003FEntered_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = true;
+		}
+		_003CCrtImplementationDetails_003E_002EDoDllLanguageSupportValidation();
+		void* ptr = _getFiberPtrId();
+		int num = 0;
+		int num2 = 0;
+		RuntimeHelpers.PrepareConstrainedRegions();
+		try
+		{
+			while (num2 == 0)
+			{
+				try
+				{
+				}
+				finally
+				{
+					IntPtr comparand = (IntPtr)0;
+					IntPtr value = (IntPtr)ptr;
+					void* ptr2 = (void*)Interlocked.CompareExchange(ref System.Runtime.CompilerServices.Unsafe.As<void*, IntPtr>(ref __native_startup_lock), value, comparand);
+					if (ptr2 == null)
+					{
+						num2 = 1;
+					}
+					else if (ptr2 == ptr)
+					{
+						num = 1;
+						num2 = 1;
+					}
+				}
+				if (num2 == 0)
+				{
+					Sleep(1000u);
+				}
+			}
+			if (!_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA && _003CCrtImplementationDetails_003E_002EDefaultDomain_002ENeedsInitialization())
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeDefaultAppDomain(P_0);
+			}
+		}
+		finally
+		{
+			if (num == 0)
+			{
+				IntPtr value2 = (IntPtr)0;
+				Interlocked.Exchange(ref System.Runtime.CompilerServices.Unsafe.As<void*, IntPtr>(ref __native_startup_lock), value2);
+			}
+		}
+		_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeVtables(P_0);
+		if (_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA)
+		{
+			_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeNative(P_0);
+			_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializePerProcess(P_0);
+		}
+		_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializePerAppDomain(P_0);
+		_003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA = 1;
+		_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeUninitializer(P_0);
+	}
+
+	internal static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeAppDomain()
+	{
+		_app_exit_callback();
+	}
+
+	internal unsafe static int _003CCrtImplementationDetails_003E_002ELanguageSupport_002E_UninitializeDefaultDomain(void* cookie)
+	{
+		_exit_callback();
+		_003FInitializedPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = false;
+		if (_003FInitializedNativeFromCCTOR_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA)
+		{
+			_cexit();
+			__native_startup_state = (global::__enative_startup_state)0;
+			_003FInitializedNativeFromCCTOR_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = false;
+		}
+		_003FInitializedNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = false;
+		return 0;
+	}
+
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeDefaultDomain()
+	{
+		if (_003FEntered_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA)
+		{
+			if (AppDomain.CurrentDomain.IsDefaultAppDomain())
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002E_UninitializeDefaultDomain(null);
+			}
+			else
+			{
+				_003CCrtImplementationDetails_003E_002EDoCallBackInDefaultDomain((delegate* unmanaged[Stdcall, Stdcall]<void*, int>)__unep_0040_003F_UninitializeDefaultDomain_0040LanguageSupport_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024FCGJPAX_0040Z, null);
+			}
+		}
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	[PrePrepareMethod]
+	internal static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EDomainUnload(object source, EventArgs arguments)
+	{
+		if (_003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA != 0 && Interlocked.Exchange(ref _003FUninitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA, 1) == 0)
+		{
+			bool num = Interlocked.Decrement(ref _003FCount_0040AllDomains_0040_003CCrtImplementationDetails_003E_0040_00402HA) == 0;
+			_app_exit_callback();
+			if (num)
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeDefaultDomain();
+			}
+		}
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002ECleanup(_003CCrtImplementationDetails_003E.LanguageSupport* P_0, Exception innerException)
+	{
+		try
+		{
+			bool flag = Interlocked.Decrement(ref _003FCount_0040AllDomains_0040_003CCrtImplementationDetails_003E_0040_00402HA) == 0;
+			_003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeAppDomain();
+			if (flag)
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002EUninitializeDefaultDomain();
+			}
+		}
+		catch (Exception ex)
+		{
+			_003CCrtImplementationDetails_003E_002EThrowNestedModuleLoadException(innerException, ex);
+		}
+		catch
+		{
+			_003CCrtImplementationDetails_003E_002EThrowNestedModuleLoadException(innerException, null);
+		}
+	}
+
+	[DebuggerStepThrough]
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitialize(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		bool flag = false;
+		RuntimeHelpers.PrepareConstrainedRegions();
+		try
+		{
+			gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load.\n");
+			RuntimeHelpers.PrepareConstrainedRegions();
+			try
+			{
+			}
+			finally
+			{
+				Interlocked.Increment(ref _003FCount_0040AllDomains_0040_003CCrtImplementationDetails_003E_0040_00402HA);
+				flag = true;
+			}
+			_003CCrtImplementationDetails_003E_002ELanguageSupport_002E_Initialize(P_0);
+		}
+		catch (Exception ex)
+		{
+			if (flag)
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002ECleanup(P_0, ex);
+			}
+			_003CCrtImplementationDetails_003E_002EThrowModuleLoadException(gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_002EP_0024AAVString_0040System_0040_0040((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0), ex);
+		}
+		catch
+		{
+			if (flag)
+			{
+				_003CCrtImplementationDetails_003E_002ELanguageSupport_002ECleanup(P_0, null);
+			}
+			_003CCrtImplementationDetails_003E_002EThrowModuleLoadException(gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_002EP_0024AAVString_0040System_0040_0040((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0), null);
+		}
+	}
+
+	[DebuggerStepThrough]
+	static unsafe _003CModule_003E()
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _003CCrtImplementationDetails_003E.LanguageSupport languageSupport);
+		_003CCrtImplementationDetails_003E_002ELanguageSupport_002E_007Bctor_007D(&languageSupport);
+		try
+		{
+			_003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitialize(&languageSupport);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<_003CCrtImplementationDetails_003E.LanguageSupport*, void>)(&_003CCrtImplementationDetails_003E_002ELanguageSupport_002E_007Bdtor_007D), &languageSupport);
+			throw;
+		}
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bdtor_007D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)(&languageSupport));
+	}
+
+	internal unsafe static _003CCrtImplementationDetails_003E.LanguageSupport* _003CCrtImplementationDetails_003E_002ELanguageSupport_002E_007Bctor_007D(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bctor_007D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0);
+		return P_0;
+	}
+
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002E_007Bdtor_007D(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bdtor_007D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0);
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static global::gcroot_003CSystem_003A_003AString_0020_005E_003E* gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bctor_007D(global::gcroot_003CSystem_003A_003AString_0020_005E_003E* P_0)
+	{
+		*(int*)P_0 = (int)((IntPtr)GCHandle.Alloc(null)).ToPointer();
+		return P_0;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static global::gcroot_003CSystem_003A_003AString_0020_005E_003E* gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D(global::gcroot_003CSystem_003A_003AString_0020_005E_003E* P_0, string t)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		GCHandle gCHandle = (GCHandle)intPtr;
+		gCHandle.Target = t;
+		return P_0;
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static void ___CxxCallUnwindDtor(delegate*<void*, void> pDtor, void* pThis)
+	{
+		try
+		{
+			pDtor(pThis);
+		}
+		catch when (__FrameUnwindFilter((global::_EXCEPTION_POINTERS*)Marshal.GetExceptionPointers()) != 0)
+		{
+		}
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static void __ehvec_dtor(void* ptr, uint size, int count, delegate*<void*, void> pDtor)
+	{
+		int num = 0;
+		ptr = (int)size * count + (byte*)ptr;
+		try
+		{
+			while (true)
+			{
+				count--;
+				if (count < 0)
+				{
+					break;
+				}
+				ptr = (byte*)ptr - (int)size;
+				pDtor(ptr);
+			}
+			num = 1;
+		}
+		finally
+		{
+			if (num == 0)
+			{
+				__ArrayUnwind(ptr, size, count, pDtor);
+			}
+		}
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static int _003FA0x21b573b5_002EArrayUnwindFilter(global::_EXCEPTION_POINTERS* pExPtrs)
+	{
+		if (*(int*)(int)(*(uint*)pExPtrs) != -529697949)
+		{
+			return 0;
+		}
+		terminate();
+		return 0;
+	}
+
+	[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+	internal unsafe static void __ArrayUnwind(void* ptr, uint size, int count, delegate*<void*, void> pDtor)
+	{
+		try
+		{
+			while (true)
+			{
+				count--;
+				if (count >= 0)
+				{
+					ptr = (byte*)ptr - (int)size;
+					pDtor(ptr);
+					continue;
+				}
+				break;
+			}
+		}
+		catch when (_003FA0x21b573b5_002EArrayUnwindFilter((global::_EXCEPTION_POINTERS*)Marshal.GetExceptionPointers()) != 0)
+		{
+		}
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002EAtExitLock_002EInitialize()
+	{
+		object value = new object();
+		System.Runtime.CompilerServices.Unsafe.As<_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E, int>(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A) = 0;
+		_003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002ESet((_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A), value);
+	}
+
+	[DebuggerStepThrough]
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool _003CCrtImplementationDetails_003E_002EAtExitLock_002EIsInitialized()
+	{
+		return _003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002EGet((_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A)) != null;
+	}
+
+	internal unsafe static void _003FA0x23130d9f_002E_003F_003F__E_003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A_0040_0040YMXXZ()
+	{
+		_atexit_m_appdomain((delegate*<void>)(&_003FA0x23130d9f_002E_003F_003F__F_003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A_0040_0040YMXXZ));
+	}
+
+	internal unsafe static void _003FA0x23130d9f_002E_003F_003F__F_003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A_0040_0040YMXXZ()
+	{
+		_003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002E_007Bdtor_007D((_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A));
+	}
+
+	[DebuggerStepThrough]
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool _003FA0x23130d9f_002E__global_lock()
+	{
+		bool result = false;
+		if (_003CCrtImplementationDetails_003E_002EAtExitLock_002EIsInitialized())
+		{
+			Monitor.Enter(_003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002EGet((_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A)));
+			result = true;
+		}
+		return result;
+	}
+
+	[DebuggerStepThrough]
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool _003FA0x23130d9f_002E__global_unlock()
+	{
+		bool result = false;
+		if (_003CCrtImplementationDetails_003E_002EAtExitLock_002EIsInitialized())
+		{
+			Monitor.Exit(_003CCrtImplementationDetails_003E_002EHandle_003CSystem_003A_003AObject_0020_005E_003E_002EGet((_003CCrtImplementationDetails_003E.Handle_003CSystem_003A_003AObject_0020_005E_003E*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_lock_0040AtExitLock_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q0V_003F_0024Handle_0040P_0024AAVObject_0040System_0040_0040_00402_0040A)));
+			result = true;
+		}
+		return result;
+	}
+
+	[DebuggerStepThrough]
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal static bool _003FA0x23130d9f_002E__alloc_global_lock()
+	{
+		if (!_003CCrtImplementationDetails_003E_002EAtExitLock_002EIsInitialized())
+		{
+			_003CCrtImplementationDetails_003E_002EAtExitLock_002EInitialize();
+		}
+		return _003CCrtImplementationDetails_003E_002EAtExitLock_002EIsInitialized();
+	}
+
+	internal unsafe static int _atexit_helper(delegate*<void> func, uint* __pexit_list_size, delegate*<void>** __ponexitend, delegate*<void>** __ponexitbegin)
+	{
+		delegate*<void> delegate_002A = null;
+		if (func == (delegate*<void>)null)
+		{
+			return -1;
+		}
+		if (_003FA0x23130d9f_002E__global_lock())
+		{
+			try
+			{
+				if (*__pexit_list_size - 1 < (uint)(*(int*)__ponexitend - *(int*)__ponexitbegin >>> 2))
+				{
+					try
+					{
+						uint num = *__pexit_list_size * 4;
+						uint num2 = ((num >= 2048) ? 2048u : num);
+						IntPtr cb = new IntPtr((int)(num + num2));
+						IntPtr pv = new IntPtr((void*)(int)(*(uint*)__ponexitbegin));
+						IntPtr intPtr = Marshal.ReAllocHGlobal(pv, cb);
+						*(int*)__ponexitend = (int)(*(int*)__ponexitend + ((byte*)intPtr.ToPointer() - *(int*)__ponexitbegin));
+						*(int*)__ponexitbegin = (int)intPtr.ToPointer();
+						uint num3 = *__pexit_list_size;
+						uint num4 = ((512 >= num3) ? num3 : 512u);
+						*__pexit_list_size = num3 + num4;
+					}
+					catch (OutOfMemoryException)
+					{
+						IntPtr cb2 = new IntPtr((int)(*__pexit_list_size * 4 + 8));
+						IntPtr pv2 = new IntPtr((void*)(int)(*(uint*)__ponexitbegin));
+						IntPtr intPtr2 = Marshal.ReAllocHGlobal(pv2, cb2);
+						*(int*)__ponexitend = (int)(*(int*)__ponexitend + ((byte*)intPtr2.ToPointer() - *(int*)__ponexitbegin));
+						*(int*)__ponexitbegin = (int)intPtr2.ToPointer();
+						*__pexit_list_size += 4u;
+					}
+				}
+				*(int*)(int)(*(uint*)__ponexitend) = (int)func;
+				*(int*)__ponexitend += 4;
+				delegate_002A = func;
+			}
+			catch (OutOfMemoryException)
+			{
+			}
+			finally
+			{
+				_003FA0x23130d9f_002E__global_unlock();
+			}
+			if (delegate_002A != (delegate*<void>)null)
+			{
+				return 0;
+			}
+		}
+		return -1;
+	}
+
+	internal unsafe static void _exit_callback()
+	{
+		delegate*<void>* ptr = (delegate*<void>*)_decode_pointer(_003FA0x23130d9f_002E__onexitbegin_m);
+		delegate*<void>* ptr2 = (delegate*<void>*)_decode_pointer(_003FA0x23130d9f_002E__onexitend_m);
+		if (ptr == (delegate*<void>*)(-1) || ptr == null || ptr2 == null)
+		{
+			return;
+		}
+		ptr2 = (delegate*<void>*)((byte*)ptr2 - 4);
+		if (ptr2 >= ptr)
+		{
+			do
+			{
+				uint num = *(uint*)ptr2;
+				if ((void*)(int)num != _encoded_null())
+				{
+					((delegate*<void>)_decode_pointer((void*)(int)num))();
+				}
+				ptr2 = (delegate*<void>*)((byte*)ptr2 - 4);
+			}
+			while (ptr2 >= ptr);
+		}
+		IntPtr hglobal = new IntPtr(ptr);
+		Marshal.FreeHGlobal(hglobal);
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static int _initatexit_m()
+	{
+		int result = 0;
+		if (_003FA0x23130d9f_002E__alloc_global_lock())
+		{
+			_003FA0x23130d9f_002E__onexitbegin_m = (delegate*<void>*)_encode_pointer(Marshal.AllocHGlobal(128).ToPointer());
+			_003FA0x23130d9f_002E__onexitend_m = _003FA0x23130d9f_002E__onexitbegin_m;
+			_003FA0x23130d9f_002E__exit_list_size = 32u;
+			result = 1;
+		}
+		return result;
+	}
+
+	internal unsafe static int _atexit_m(delegate*<void> func)
+	{
+		delegate*<void>* ptr = (delegate*<void>*)_decode_pointer(_003FA0x23130d9f_002E__onexitbegin_m);
+		delegate*<void>* ptr2 = (delegate*<void>*)_decode_pointer(_003FA0x23130d9f_002E__onexitend_m);
+		int result = _atexit_helper((delegate*<void>)_encode_pointer(func), (uint*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x23130d9f_002E__exit_list_size), &ptr2, &ptr);
+		_003FA0x23130d9f_002E__onexitbegin_m = (delegate*<void>*)_encode_pointer(ptr);
+		_003FA0x23130d9f_002E__onexitend_m = (delegate*<void>*)_encode_pointer(ptr2);
+		return result;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static int _initatexit_app_domain()
+	{
+		if (_003FA0x23130d9f_002E__alloc_global_lock())
+		{
+			__onexitbegin_app_domain = (delegate*<void>*)_encode_pointer(Marshal.AllocHGlobal(128).ToPointer());
+			__onexitend_app_domain = __onexitbegin_app_domain;
+			__exit_list_size_app_domain = 32u;
+		}
+		return 1;
+	}
+
+	internal unsafe static void _app_exit_callback()
+	{
+		delegate*<void>* ptr = (delegate*<void>*)_decode_pointer(__onexitbegin_app_domain);
+		delegate*<void>* ptr2 = (delegate*<void>*)_decode_pointer(__onexitend_app_domain);
+		if (ptr == (delegate*<void>*)(-1) || ptr == null || ptr2 == null)
+		{
+			return;
+		}
+		try
+		{
+			while (true)
+			{
+				ptr2 = (delegate*<void>*)((byte*)ptr2 - 4);
+				if (ptr2 >= ptr)
+				{
+					if ((void*)(*(int*)ptr2) != _encoded_null())
+					{
+						((delegate*<void>)_decode_pointer((void*)(int)(*(uint*)ptr2)))();
+					}
+					continue;
+				}

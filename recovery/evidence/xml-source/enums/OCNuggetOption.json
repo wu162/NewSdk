@@ -1,0 +1,183 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12346,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4OCNuggetOption_0040_0040_0040_0040SA_003FBW4OCNuggetOption_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ATTACH_TO_SOURCE",
+      "value": 38
+    },
+    {
+      "name": "CLEAR_REMOVEABLES",
+      "value": 6
+    },
+    {
+      "name": "CONTAIN_INSIDE_SOURCE_OBJECT",
+      "value": 18
+    },
+    {
+      "name": "COPY_CREATORS_UPGRADES",
+      "value": 32
+    },
+    {
+      "name": "COPY_PRODUCTION_QUEUE_INDEX",
+      "value": 35
+    },
+    {
+      "name": "CREATE_AT_TARGET",
+      "value": 36
+    },
+    {
+      "name": "DONT_SET_PRODUCER",
+      "value": 26
+    },
+    {
+      "name": "DO_NOT_COPY_SCALE",
+      "value": 43
+    },
+    {
+      "name": "DO_NOT_COPY_SHADERS",
+      "value": 42
+    },
+    {
+      "name": "DO_NOT_TREAT_AS_STRUCTURE",
+      "value": 29
+    },
+    {
+      "name": "FADE_IN",
+      "value": 12
+    },
+    {
+      "name": "FADE_OUT",
+      "value": 13
+    },
+    {
+      "name": "FIRE_SPECIAL_POWER",
+      "value": 41
+    },
+    {
+      "name": "IGNORE_ALLY_UNITS",
+      "value": 17
+    },
+    {
+      "name": "IGNORE_ALL_OBJECTS",
+      "value": 15
+    },
+    {
+      "name": "IGNORE_COMMANDPOINT_LIMIT",
+      "value": 21
+    },
+    {
+      "name": "IGNORE_ENEMY_UNITS",
+      "value": 16
+    },
+    {
+      "name": "INHERIT_ATTRIBUTES_FROM_SOURCE",
+      "value": 22
+    },
+    {
+      "name": "INHERIT_PRICE_PURCHASED",
+      "value": 24
+    },
+    {
+      "name": "INHERIT_SCRIPTING_NAME",
+      "value": 23
+    },
+    {
+      "name": "ISSUE_ATTACK_AFTER_CREATION",
+      "value": 3
+    },
+    {
+      "name": "ISSUE_MOVE_AFTER_CREATION",
+      "value": 2
+    },
+    {
+      "name": "MOVE_TARGET_USES_DISPOSITION_OFFSET",
+      "value": 8
+    },
+    {
+      "name": "MOVE_TARGET_USES_OFFSET",
+      "value": 33
+    },
+    {
+      "name": "MOVE_USES_EVACUATE_AND_EXIT",
+      "value": 9
+    },
+    {
+      "name": "MOVE_USES_STRAFE_UPDATE",
+      "value": 7
+    },
+    {
+      "name": "OCCOMMONNUGGETOPTION_NONE",
+      "value": 0
+    },
+    {
+      "name": "OFFSET_IN_LOCAL_SPACE",
+      "value": 10
+    },
+    {
+      "name": "OK_TO_CHANGE_MODEL_COLOR",
+      "value": 25
+    },
+    {
+      "name": "ORIENT_IN_FORCE_DIRECTION",
+      "value": 1
+    },
+    {
+      "name": "ORIENT_IN_PRIMARY_DIRECTION",
+      "value": 4
+    },
+    {
+      "name": "ORIENT_IN_SECONDARY_DIRECTION",
+      "value": 5
+    },
+    {
+      "name": "ORIENT_TOWARD_MOVE_DESTINATION",
+      "value": 39
+    },
+    {
+      "name": "OWNED_BY_SECONDARY_OBJECT",
+      "value": 40
+    },
+    {
+      "name": "PRESERVE_LAYER",
+      "value": 14
+    },
+    {
+      "name": "REQUIRES_LIVE_PLAYER",
+      "value": 20
+    },
+    {
+      "name": "RETURN_TO_SOURCE",
+      "value": 37
+    },
+    {
+      "name": "SCALE_ION_STORM",
+      "value": 28
+    },
+    {
+      "name": "SCALE_TIBERIUM_FIELD",
+      "value": 27
+    },
+    {
+      "name": "SKIP_IF_SIGNIFICANTLY_AIRBORNE",
+      "value": 19
+    },
+    {
+      "name": "SPREAD_FORMATION",
+      "value": 11
+    },
+    {
+      "name": "TRANSFER_TEMPORARY_SLAVE",
+      "value": 34
+    },
+    {
+      "name": "USE_CREATORS_HEALTH_AS_BASE",
+      "value": 30
+    },
+    {
+      "name": "USE_CREATORS_HEALTH_PERCENTAGE",
+      "value": 31
+    }
+  ]
+}

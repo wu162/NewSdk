@@ -1,0 +1,55 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "FXList",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040",
+      "sourceLine": 2502,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "66616c736500",
+      "text": "false"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040IOPFPBIA_0040CullTrackingMin_003F_0024AA_0040",
+      "sourceLine": 8176,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "43756c6c547261636b696e674d696e00",
+      "text": "CullTrackingMin"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040JMHOBFOP_0040CullTrackingMax_003F_0024AA_0040",
+      "sourceLine": 8178,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "43756c6c547261636b696e674d617800",
+      "text": "CullTrackingMax"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BD_0040DODMNLNC_0040PlayEvenIfShrouded_003F_0024AA_0040",
+      "sourceLine": 8170,
+      "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+      "hex": "506c61794576656e49665368726f7564656400",
+      "text": "PlayEvenIfShrouded"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040ECJAFBOF_0040Tailorable_003F_0024AA_0040",
+      "sourceLine": 8172,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "5461696c6f7261626c6500",
+      "text": "Tailorable"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040GNPODMEG_0040NuggetList_003F_0024AA_0040",
+      "sourceLine": 8180,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "4e75676765744c69737400",
+      "text": "NuggetList"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040HPGDALFA_0040CullTracking_003F_0024AA_0040",
+      "sourceLine": 8174,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "43756c6c547261636b696e6700",
+      "text": "CullTracking"
+    }
+  ]
+}

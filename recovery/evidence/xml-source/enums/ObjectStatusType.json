@@ -1,0 +1,899 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12374,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ObjectStatusType_0040_0040_0040_0040SA_003FBW4ObjectStatusType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ABSORBED_DAMAGE",
+      "value": 198
+    },
+    {
+      "name": "ADVANCED_MISSILE_PACKS",
+      "value": 182
+    },
+    {
+      "name": "AFLAME",
+      "value": 11
+    },
+    {
+      "name": "AIRBORNE_TARGET",
+      "value": 7
+    },
+    {
+      "name": "AIRCRAFT_IGNORE_SAMEPLAYER_HANGAR_RULE",
+      "value": 151
+    },
+    {
+      "name": "AIR_LOCOMOTOR_ACTIVE",
+      "value": 161
+    },
+    {
+      "name": "ANTI_GARRISON",
+      "value": 222
+    },
+    {
+      "name": "ATTACHED",
+      "value": 102
+    },
+    {
+      "name": "ATTACKING_GARRISONED_STRUCTURE",
+      "value": 135
+    },
+    {
+      "name": "BOOBY_TRAPPED",
+      "value": 109
+    },
+    {
+      "name": "BOOBY_TRAP_EXPLODE",
+      "value": 146
+    },
+    {
+      "name": "BOOKENDING",
+      "value": 86
+    },
+    {
+      "name": "BRIDGE_IMPASSABLE",
+      "value": 140
+    },
+    {
+      "name": "BROADCASTING_INVISIBILITY",
+      "value": 214
+    },
+    {
+      "name": "BUILD_BEING_CANCELED",
+      "value": 89
+    },
+    {
+      "name": "BURNED",
+      "value": 12
+    },
+    {
+      "name": "CANNOT_BE_SOLD",
+      "value": 13
+    },
+    {
+      "name": "CANNOT_LAND_AT_AIRFIELD",
+      "value": 202
+    },
+    {
+      "name": "CAN_ATTACK",
+      "value": 1
+    },
+    {
+      "name": "CAN_ATTACK_WHILE_STEALTHED",
+      "value": 156
+    },
+    {
+      "name": "CAN_CONTEST_GARRISON",
+      "value": 88
+    },
+    {
+      "name": "CAN_ENTER_ANYTHING",
+      "value": 96
+    },
+    {
+      "name": "CAN_NOT_WALK_ON",
+      "value": 80
+    },
+    {
+      "name": "CAN_STEALTH",
+      "value": 20
+    },
+    {
+      "name": "CAN_STEALTH_FROM_PRODUCER",
+      "value": 154
+    },
+    {
+      "name": "CARRYING_FLAG",
+      "value": 148
+    },
+    {
+      "name": "CHANTING",
+      "value": 57
+    },
+    {
+      "name": "CHARGING_BASE_DEFENSES",
+      "value": 98
+    },
+    {
+      "name": "CHARGING_WEAPON",
+      "value": 177
+    },
+    {
+      "name": "CLEARED_FOR_LANDING",
+      "value": 171
+    },
+    {
+      "name": "CLONED",
+      "value": 76
+    },
+    {
+      "name": "COMBINED_ATTACHED",
+      "value": 133
+    },
+    {
+      "name": "COMBINED_CHILD",
+      "value": 132
+    },
+    {
+      "name": "COMBINED_PARENT",
+      "value": 131
+    },
+    {
+      "name": "COMMAND_BUTTON_TOGGLED",
+      "value": 104
+    },
+    {
+      "name": "CONTAINER_OCCUPIED",
+      "value": 164
+    },
+    {
+      "name": "CONTESTED",
+      "value": 38
+    },
+    {
+      "name": "CONTESTING_BUILDING",
+      "value": 39
+    },
+    {
+      "name": "DAMAGED",
+      "value": 43
+    },
+    {
+      "name": "DEATH_1",
+      "value": 33
+    },
+    {
+      "name": "DEATH_2",
+      "value": 34
+    },
+    {
+      "name": "DEATH_3",
+      "value": 35
+    },
+    {
+      "name": "DEATH_4",
+      "value": 36
+    },
+    {
+      "name": "DEATH_5",
+      "value": 37
+    },
+    {
+      "name": "DEFLECT_INCOMING_FIRE",
+      "value": 166
+    },
+    {
+      "name": "DELAYED_ENTER_STRUCTURE",
+      "value": 137
+    },
+    {
+      "name": "DEPART_FROM_BOARDING",
+      "value": 167
+    },
+    {
+      "name": "DEPLOYED",
+      "value": 62
+    },
+    {
+      "name": "DEPLOYING",
+      "value": 67
+    },
+    {
+      "name": "DESTROYED",
+      "value": 0
+    },
+    {
+      "name": "DETECTED",
+      "value": 19
+    },
+    {
+      "name": "DOCKING",
+      "value": 138
+    },
+    {
+      "name": "DOES_CONTAIN_TIBERIUM",
+      "value": 119
+    },
+    {
+      "name": "DONT_CLEAR_FOR_BUILD",
+      "value": 114
+    },
+    {
+      "name": "DO_NOT_AVOID_TALLBUILDING",
+      "value": 197
+    },
+    {
+      "name": "DO_NOT_PICK_ME",
+      "value": 82
+    },
+    {
+      "name": "DO_NOT_SCORE",
+      "value": 79
+    },
+    {
+      "name": "ENABLE_TRACER_DRAW",
+      "value": 179
+    },
+    {
+      "name": "ENCLOSED",
+      "value": 64
+    },
+    {
+      "name": "END_FIRE_STATE",
+      "value": 85
+    },
+    {
+      "name": "ENRAGED",
+      "value": 58
+    },
+    {
+      "name": "ENTERING_GOAL",
+      "value": 97
+    },
+    {
+      "name": "EXCEEDED_PATH_NEIGHBOR_COUNT",
+      "value": 201
+    },
+    {
+      "name": "EXECUTING_STORED_COMMAND",
+      "value": 111
+    },
+    {
+      "name": "EXITING_COMBINED",
+      "value": 136
+    },
+    {
+      "name": "EXPLOSIVES_ATTACHED",
+      "value": 209
+    },
+    {
+      "name": "EXPLOSIVES_DETONATING",
+      "value": 210
+    },
+    {
+      "name": "FLEE_OFF_MAP",
+      "value": 54
+    },
+    {
+      "name": "FOLLOWING_THROUGH",
+      "value": 31
+    },
+    {
+      "name": "FORCE_ATTACKING",
+      "value": 142
+    },
+    {
+      "name": "FORCE_ATTACK_MOVING",
+      "value": 143
+    },
+    {
+      "name": "GARRISONED",
+      "value": 108
+    },
+    {
+      "name": "GARRISON_CAN_STEALTH",
+      "value": 155
+    },
+    {
+      "name": "GENERIC_TOGGLE_STATE",
+      "value": 87
+    },
+    {
+      "name": "GRAPPLE_UPDATE_ACTIVE",
+      "value": 189
+    },
+    {
+      "name": "GRAPPLE_UPDATE_BEING_MOVED",
+      "value": 219
+    },
+    {
+      "name": "GROUND_LOCOMOTOR_ACTIVE",
+      "value": 160
+    },
+    {
+      "name": "HARVESTING",
+      "value": 139
+    },
+    {
+      "name": "HAS_SECONDARY_DAMAGE",
+      "value": 169
+    },
+    {
+      "name": "HAS_TIBERIUM_GROWTH_MOD",
+      "value": 116
+    },
+    {
+      "name": "HAS_TIBERIUM_UPGRADE",
+      "value": 117
+    },
+    {
+      "name": "HEALTH_PERCENT_0",
+      "value": 123
+    },
+    {
+      "name": "HEALTH_PERCENT_100",
+      "value": 127
+    },
+    {
+      "name": "HEALTH_PERCENT_25",
+      "value": 124
+    },
+    {
+      "name": "HEALTH_PERCENT_50",
+      "value": 125
+    },
+    {
+      "name": "HEALTH_PERCENT_75",
+      "value": 126
+    },
+    {
+      "name": "HIDDEN",
+      "value": 18
+    },
+    {
+      "name": "HIJACKED",
+      "value": 10
+    },
+    {
+      "name": "HIT_SHIELD_SPHERE",
+      "value": 175
+    },
+    {
+      "name": "HORDE_MEMBER",
+      "value": 40
+    },
+    {
+      "name": "IGNORE_AI_COMMAND",
+      "value": 77
+    },
+    {
+      "name": "IGNORING_POWER_DOWN",
+      "value": 200
+    },
+    {
+      "name": "IGNORING_STEALTH",
+      "value": 29
+    },
+    {
+      "name": "IMMOBILE",
+      "value": 51
+    },
+    {
+      "name": "IMMOBILE_ALLOW_ROTATE",
+      "value": 52
+    },
+    {
+      "name": "IMMUNE_TO_BARK",
+      "value": 204
+    },
+    {
+      "name": "INAUDIBLE",
+      "value": 56
+    },
+    {
+      "name": "INHERITED_FROM_ALLY_TEAM",
+      "value": 83
+    },
+    {
+      "name": "INSIDE_GARRISON",
+      "value": 61
+    },
+    {
+      "name": "INVISIBLE_DETECTED",
+      "value": 100
+    },
+    {
+      "name": "INVISIBLE_DETECTED_BY_FRIEND",
+      "value": 99
+    },
+    {
+      "name": "IN_COVER",
+      "value": 113
+    },
+    {
+      "name": "IN_FORMATION_TEMPLATE",
+      "value": 92
+    },
+    {
+      "name": "IN_NANOHIVE",
+      "value": 212
+    },
+    {
+      "name": "IN_SHIELD_SPHERE",
+      "value": 174
+    },
+    {
+      "name": "IN_SPIDER_HOLE",
+      "value": 221
+    },
+    {
+      "name": "IN_STASIS",
+      "value": 48
+    },
+    {
+      "name": "IRRADIATED",
+      "value": 46
+    },
+    {
+      "name": "IS_AIMING_WEAPON",
+      "value": 27
+    },
+    {
+      "name": "IS_ATTACKING",
+      "value": 24
+    },
+    {
+      "name": "IS_BEING_DRAGGED",
+      "value": 170
+    },
+    {
+      "name": "IS_BEING_HARVESTED",
+      "value": 120
+    },
+    {
+      "name": "IS_BRAKING",
+      "value": 16
+    },
+    {
+      "name": "IS_ENGAGED",
+      "value": 147
+    },
+    {
+      "name": "IS_FIRING_WEAPON",
+      "value": 14
+    },
+    {
+      "name": "IS_HIDEOUT",
+      "value": 110
+    },
+    {
+      "name": "IS_LEAVING_FACTORY",
+      "value": 93
+    },
+    {
+      "name": "IS_MELEE_ATTACKING",
+      "value": 30
+    },
+    {
+      "name": "IS_MOVING_TO_RALLY_POINT",
+      "value": 149
+    },
+    {
+      "name": "IS_RELOADING_WEAPON",
+      "value": 15
+    },
+    {
+      "name": "LANDING_IN_PROGRESS",
+      "value": 207
+    },
+    {
+      "name": "LEASHED_RETURNING",
+      "value": 32
+    },
+    {
+      "name": "LEECHED_TARGET_ACTIVE",
+      "value": 183
+    },
+    {
+      "name": "LIFTED_INTO_AIR",
+      "value": 211
+    },
+    {
+      "name": "LINE_SEGMENT_DAMAGE_ACTIVE",
+      "value": 181
+    },
+    {
+      "name": "LOADED_FROM_MAP",
+      "value": 134
+    },
+    {
+      "name": "MAGNETIZED",
+      "value": 216
+    },
+    {
+      "name": "MARCH_OF_DEATH",
+      "value": 81
+    },
+    {
+      "name": "MATCH_TARGETS_SPEED",
+      "value": 115
+    },
+    {
+      "name": "MOVING_TO_DISMOUNT",
+      "value": 94
+    },
+    {
+      "name": "NEXT_MOVE_IS_FORCE_ATTACK_MOVE",
+      "value": 152
+    },
+    {
+      "name": "NEXT_MOVE_IS_REVERSE",
+      "value": 50
+    },
+    {
+      "name": "NON_AUTOACQUIRABLE",
+      "value": 176
+    },
+    {
+      "name": "NOT_IN_WORLD",
+      "value": 55
+    },
+    {
+      "name": "NO_ATTACK",
+      "value": 5
+    },
+    {
+      "name": "NO_ATTACK_FROM_AI",
+      "value": 28
+    },
+    {
+      "name": "NO_AUTO_ACQUIRE",
+      "value": 25
+    },
+    {
+      "name": "NO_BRIBE",
+      "value": 199
+    },
+    {
+      "name": "NO_COLLISIONS",
+      "value": 4
+    },
+    {
+      "name": "NO_HERO_PROPERTIES",
+      "value": 95
+    },
+    {
+      "name": "NO_REFUND",
+      "value": 121
+    },
+    {
+      "name": "NO_SHADOW",
+      "value": 47
+    },
+    {
+      "name": "NO_SPECIAL_ABILITY",
+      "value": 6
+    },
+    {
+      "name": "NO_SQUISHCOLLIDE_DELAY",
+      "value": 70
+    },
+    {
+      "name": "OCLMONITOR_COMPLETED_TASK",
+      "value": 105
+    },
+    {
+      "name": "OCLMONITOR_MONITOR_RELEASED",
+      "value": 106
+    },
+    {
+      "name": "OUT_OF_PHASE",
+      "value": 49
+    },
+    {
+      "name": "OVERCHARGING_WEAPON",
+      "value": 178
+    },
+    {
+      "name": "OVER_WATER",
+      "value": 163
+    },
+    {
+      "name": "PARACHUTING",
+      "value": 8
+    },
+    {
+      "name": "PARKED_AT_AIRFIELD",
+      "value": 173
+    },
+    {
+      "name": "PAUSING",
+      "value": 53
+    },
+    {
+      "name": "PENDING_CONSTRUCTION",
+      "value": 90
+    },
+    {
+      "name": "PHANTOM_STRUCTURE",
+      "value": 91
+    },
+    {
+      "name": "PLACED_BY_PLAYER",
+      "value": 165
+    },
+    {
+      "name": "PLAYER_POWER_1",
+      "value": 184
+    },
+    {
+      "name": "PLAYER_POWER_2",
+      "value": 185
+    },
+    {
+      "name": "PLAYER_POWER_3",
+      "value": 186
+    },
+    {
+      "name": "PLAYER_POWER_4",
+      "value": 187
+    },
+    {
+      "name": "PLAYER_POWER_5",
+      "value": 188
+    },
+    {
+      "name": "POINT_DEFENSE_DRONE_ATTACHED",
+      "value": 218
+    },
+    {
+      "name": "PORTER_TAGGED",
+      "value": 69
+    },
+    {
+      "name": "POWERED_DOWN_EMP",
+      "value": 141
+    },
+    {
+      "name": "PREEMPT_PRE_ATTACK",
+      "value": 180
+    },
+    {
+      "name": "RAMPAGING",
+      "value": 60
+    },
+    {
+      "name": "REALLYDAMAGED",
+      "value": 44
+    },
+    {
+      "name": "RECONSTRUCTING",
+      "value": 23
+    },
+    {
+      "name": "REPAIR_ALLIES_WHEN_IDLE",
+      "value": 196
+    },
+    {
+      "name": "REPULSOR",
+      "value": 9
+    },
+    {
+      "name": "RESET_GOAL_POSITION",
+      "value": 157
+    },
+    {
+      "name": "RIDER_IS_PILOT",
+      "value": 42
+    },
+    {
+      "name": "RIFT_OCCUPIED",
+      "value": 158
+    },
+    {
+      "name": "RIOT_SHIELDED",
+      "value": 217
+    },
+    {
+      "name": "RUBBLE",
+      "value": 45
+    },
+    {
+      "name": "RUNNING_DOWN_FROM_BEHIND",
+      "value": 78
+    },
+    {
+      "name": "SCARED_CIVILIAN_CAR",
+      "value": 144
+    },
+    {
+      "name": "SCRAMBLED",
+      "value": 215
+    },
+    {
+      "name": "SHIELDBODY_ENABLED",
+      "value": 122
+    },
+    {
+      "name": "SHROUD_REVEAL_TO_ALL",
+      "value": 190
+    },
+    {
+      "name": "SHRUNK",
+      "value": 101
+    },
+    {
+      "name": "SINKING",
+      "value": 59
+    },
+    {
+      "name": "SKIRMISH_AI_DO_NOT_ATTACK",
+      "value": 193
+    },
+    {
+      "name": "SKIRMISH_AI_DO_NOT_TAKE",
+      "value": 194
+    },
+    {
+      "name": "SOLD",
+      "value": 21
+    },
+    {
+      "name": "SPECIALABILITY_ACTIVE",
+      "value": 153
+    },
+    {
+      "name": "SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING",
+      "value": 73
+    },
+    {
+      "name": "SPECIAL_ARMOR_ACTIVE",
+      "value": 150
+    },
+    {
+      "name": "STAND_GROUND",
+      "value": 71
+    },
+    {
+      "name": "STEALTHED",
+      "value": 17
+    },
+    {
+      "name": "STEAL_NEXT_UNIT_TRAPPED",
+      "value": 118
+    },
+    {
+      "name": "SUBMERGED",
+      "value": 192
+    },
+    {
+      "name": "SURFACED",
+      "value": 191
+    },
+    {
+      "name": "SURFACED_IMMOBILE",
+      "value": 213
+    },
+    {
+      "name": "SWITCHED_WEAPONS",
+      "value": 84
+    },
+    {
+      "name": "TAGGED",
+      "value": 66
+    },
+    {
+      "name": "TARGETED_FOR_REPAIR",
+      "value": 220
+    },
+    {
+      "name": "TEMPORARILY_DEFECTED",
+      "value": 65
+    },
+    {
+      "name": "TIBERIUM_VIBRATING",
+      "value": 74
+    },
+    {
+      "name": "TOPPLING",
+      "value": 68
+    },
+    {
+      "name": "TRANSFORMATION_TOGGLE_STATE",
+      "value": 195
+    },
+    {
+      "name": "TRANSPORT_MOVING_TO_CONTAIN",
+      "value": 41
+    },
+    {
+      "name": "UNATTACKABLE",
+      "value": 63
+    },
+    {
+      "name": "UNCONTROLLABLY_SCARED",
+      "value": 72
+    },
+    {
+      "name": "UNDERGOING_REPAIR",
+      "value": 22
+    },
+    {
+      "name": "UNDER_CONSTRUCTION",
+      "value": 2
+    },
+    {
+      "name": "UNDER_FROZEN",
+      "value": 206
+    },
+    {
+      "name": "UNDER_IRON_CURTAIN",
+      "value": 208
+    },
+    {
+      "name": "UNDER_RUSH_ATTACK",
+      "value": 205
+    },
+    {
+      "name": "UNIT_WANTS_TO_REGARRISON",
+      "value": 112
+    },
+    {
+      "name": "UNPACKING",
+      "value": 162
+    },
+    {
+      "name": "UNSELECTABLE",
+      "value": 3
+    },
+    {
+      "name": "UPDATING_AI",
+      "value": 75
+    },
+    {
+      "name": "USER_PARALYZED",
+      "value": 145
+    },
+    {
+      "name": "USER_POWERED_DOWN",
+      "value": 107
+    },
+    {
+      "name": "USING_ABILITY",
+      "value": 26
+    },
+    {
+      "name": "VEHICLE_ATTACHED",
+      "value": 172
+    },
+    {
+      "name": "WAITING_FOR_BOARDING",
+      "value": 168
+    },
+    {
+      "name": "WALL_SEGMENT",
+      "value": 203
+    },
+    {
+      "name": "WATER_LOCOMOTOR_ACTIVE",
+      "value": 159
+    },
+    {
+      "name": "WEAPON_UPGRADED_01",
+      "value": 128
+    },
+    {
+      "name": "WEAPON_UPGRADED_02",
+      "value": 129
+    },
+    {
+      "name": "WEAPON_UPGRADED_03",
+      "value": 130
+    },
+    {
+      "name": "WONT_RIDE_WITH_YOU",
+      "value": 103
+    }
+  ]
+}

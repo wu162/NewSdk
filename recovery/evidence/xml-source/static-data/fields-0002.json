@@ -1,0 +1,1402 @@
+[
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040MCAJCHKJ_0040AIPersonalityToAchievementEventM_0040",
+    "sourceLine": 828,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "4149506572736f6e616c697479546f416368696576656d656e744576656e744d617070696e6700",
+    "text": "AIPersonalityToAchievementEventMapping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040GADCGMCC_0040BaseConditionData_003F_0024AA_0040",
+    "sourceLine": 830,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "42617365436f6e646974696f6e4461746100",
+    "text": "BaseConditionData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040HMACDPNC_0040ObjectConditionData_003F_0024AA_0040",
+    "sourceLine": 832,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "4f626a656374436f6e646974696f6e4461746100",
+    "text": "ObjectConditionData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040PCEANGFA_0040UpgradeConditionData_003F_0024AA_0040",
+    "sourceLine": 834,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "55706772616465436f6e646974696f6e4461746100",
+    "text": "UpgradeConditionData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040DEKIAEGG_0040GameplayConditionData_003F_0024AA_0040",
+    "sourceLine": 836,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "47616d65706c6179436f6e646974696f6e4461746100",
+    "text": "GameplayConditionData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040OJMGEEAM_0040GameplayAchievementTriggerData_003F_0024AA_0040",
+    "sourceLine": 838,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "47616d65706c6179416368696576656d656e74547269676765724461746100",
+    "text": "GameplayAchievementTriggerData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040LDIGJNLI_0040EngagingContent_003F_0024AA_0040",
+    "sourceLine": 840,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "456e676167696e67436f6e74656e7400",
+    "text": "EngagingContent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040MKMCFNIG_0040EngagingContentGroup_003F_0024AA_0040",
+    "sourceLine": 842,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "456e676167696e67436f6e74656e7447726f757000",
+    "text": "EngagingContentGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040OJGFJPI_0040EngagingContentSequence_003F_0024AA_0040",
+    "sourceLine": 844,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "456e676167696e67436f6e74656e7453657175656e636500",
+    "text": "EngagingContentSequence"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040CJLBGMNG_0040FontDirectory_003F_0024AA_0040",
+    "sourceLine": 846,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "466f6e744469726563746f727900",
+    "text": "FontDirectory"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040CMPIAEIE_0040StanceDefinition_003F_0024AA_0040",
+    "sourceLine": 848,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "5374616e6365446566696e6974696f6e00",
+    "text": "StanceDefinition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040GKCJAGMI_0040StanceTemplate_003F_0024AA_0040",
+    "sourceLine": 850,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "5374616e636554656d706c61746500",
+    "text": "StanceTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040EBIFJMFN_0040AIBaseSelectionCriteria_003F_0024AA_0040",
+    "sourceLine": 852,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "41494261736553656c656374696f6e437269746572696100",
+    "text": "AIBaseSelectionCriteria"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040EGMGCFBL_0040BuildingPlacementDistance_003F_0024AA_0040",
+    "sourceLine": 854,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "4275696c64696e67506c6163656d656e7444697374616e636500",
+    "text": "BuildingPlacementDistance"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040BIEDPLCH_0040AITargetingHeuristic_003F_0024AA_0040",
+    "sourceLine": 856,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4149546172676574696e6748657572697374696300",
+    "text": "AITargetingHeuristic"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040JEABJEIF_0040AISpecialPowerWeaponData_003F_0024AA_0040",
+    "sourceLine": 858,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "41495370656369616c506f776572576561706f6e4461746100",
+    "text": "AISpecialPowerWeaponData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040KPJMABHN_0040AIToggleSpecialPowerInfo_003F_0024AA_0040",
+    "sourceLine": 860,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4149546f67676c655370656369616c506f776572496e666f00",
+    "text": "AIToggleSpecialPowerInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040PJDIGGAD_0040AISpecialPowerInfo_003F_0024AA_0040",
+    "sourceLine": 862,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "41495370656369616c506f776572496e666f00",
+    "text": "AISpecialPowerInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040HDOPPNKB_0040LogicCommand_003F_0024AA_0040",
+    "sourceLine": 864,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4c6f676963436f6d6d616e6400",
+    "text": "LogicCommand"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040JFOKECEI_0040LogicCommandSet_003F_0024AA_0040",
+    "sourceLine": 866,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "4c6f676963436f6d6d616e6453657400",
+    "text": "LogicCommandSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_04FAMPHMKI_0040Road_003F_0024AA_0040",
+    "sourceLine": 868,
+    "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+    "hex": "526f616400",
+    "text": "Road"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040DEFJEGPB_0040CloudEffectType_003F_0024AA_0040",
+    "sourceLine": 870,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "436c6f75644566666563745479706500",
+    "text": "CloudEffectType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040OAOKKMLA_0040Environment_003F_0024AA_0040",
+    "sourceLine": 872,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "456e7669726f6e6d656e7400",
+    "text": "Environment"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09HLCHFPPJ_0040Threshold_003F_0024AA_0040",
+    "sourceLine": 874,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "5468726573686f6c6400",
+    "text": "Threshold"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040EMKEMB_0040CrowdResponse_003F_0024AA_0040",
+    "sourceLine": 876,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "43726f7764526573706f6e736500",
+    "text": "CrowdResponse"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040CAFLNFCD_0040MapMetaData_003F_0024AA_0040",
+    "sourceLine": 878,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d61704d6574614461746100",
+    "text": "MapMetaData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08IGHAPFLN_0040DuckInfo_003F_0024AA_0040",
+    "sourceLine": 880,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4475636b496e666f00",
+    "text": "DuckInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040DPALFOOH_0040SoundKeyPair_003F_0024AA_0040",
+    "sourceLine": 882,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "536f756e644b65795061697200",
+    "text": "SoundKeyPair"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040DBGNHOKH_0040LargeGroupAudioMap_003F_0024AA_0040",
+    "sourceLine": 884,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "4c6172676547726f7570417564696f4d617000",
+    "text": "LargeGroupAudioMap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040HBBBKFLD_0040GameScriptParameterBase_003F_0024AA_0040",
+    "sourceLine": 886,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "47616d65536372697074506172616d657465724261736500",
+    "text": "GameScriptParameterBase"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040EPNCJIO_0040GameScriptParameterObjectType_003F_0024AA_0040",
+    "sourceLine": 888,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "47616d65536372697074506172616d657465724f626a6563745479706500",
+    "text": "GameScriptParameterObjectType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040FKKMIALE_0040GameScriptParameterObjectTypeLis_0040",
+    "sourceLine": 890,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "47616d65536372697074506172616d657465724f626a656374547970654c69737400",
+    "text": "GameScriptParameterObjectTypeList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040EMLPJHLL_0040GameScriptAction_003F_0024AA_0040",
+    "sourceLine": 892,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "47616d65536372697074416374696f6e00",
+    "text": "GameScriptAction"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040CGMKLEEH_0040GameScript_003F_0024AA_0040",
+    "sourceLine": 894,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "47616d6553637269707400",
+    "text": "GameScript"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040KICKHAEF_0040GameScriptGroup_003F_0024AA_0040",
+    "sourceLine": 896,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "47616d6553637269707447726f757000",
+    "text": "GameScriptGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040OBEFOLEL_0040GameScriptList_003F_0024AA_0040",
+    "sourceLine": 898,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "47616d655363726970744c69737400",
+    "text": "GameScriptList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040BNADHDLE_0040UnitTypeIcon_003F_0024AA_0040",
+    "sourceLine": 900,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "556e69745479706549636f6e00",
+    "text": "UnitTypeIcon"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040EAKDDGHH_0040AptAptData_003F_0024AA_0040",
+    "sourceLine": 902,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4170744170744461746100",
+    "text": "AptAptData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040IFNDGAGN_0040AptConstData_003F_0024AA_0040",
+    "sourceLine": 904,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "417074436f6e73744461746100",
+    "text": "AptConstData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040MJOKKPGJ_0040AptDatData_003F_0024AA_0040",
+    "sourceLine": 906,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4170744461744461746100",
+    "text": "AptDatData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040JJDEGGOJ_0040AptGeometryData_003F_0024AA_0040",
+    "sourceLine": 908,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "41707447656f6d657472794461746100",
+    "text": "AptGeometryData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040GPCOFOIG_0040MappableKey_003F_0024AA_0040",
+    "sourceLine": 910,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d61707061626c654b657900",
+    "text": "MappableKey"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040PCJPFHCC_0040HotKeySlot_003F_0024AA_0040",
+    "sourceLine": 912,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "486f744b6579536c6f7400",
+    "text": "HotKeySlot"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09LJOCDGJG_0040HotKeyDef_003F_0024AA_0040",
+    "sourceLine": 914,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "486f744b657944656600",
+    "text": "HotKeyDef"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09NPHLGEBH_0040HotKeyMap_003F_0024AA_0040",
+    "sourceLine": 916,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "486f744b65794d617000",
+    "text": "HotKeyMap"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040PPAJBDDA_0040DefaultHotKeys_003F_0024AA_0040",
+    "sourceLine": 918,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "44656661756c74486f744b65797300",
+    "text": "DefaultHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040HGEIGJBA_0040DebugHotKeys_003F_0024AA_0040",
+    "sourceLine": 920,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "4465627567486f744b65797300",
+    "text": "DebugHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040CBBBNNFG_0040BootupDisplayItem_003F_0024AA_0040",
+    "sourceLine": 922,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "426f6f747570446973706c61794974656d00",
+    "text": "BootupDisplayItem"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040FJFMJGLE_0040BootupDisplaySequence_003F_0024AA_0040",
+    "sourceLine": 924,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "426f6f747570446973706c617953657175656e636500",
+    "text": "BootupDisplaySequence"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040ICJDLCCD_0040IntelDBEntry_003F_0024AA_0040",
+    "sourceLine": 926,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "496e74656c4442456e74727900",
+    "text": "IntelDBEntry"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07HCMLDJCC_0040IntelDB_003F_0024AA_0040",
+    "sourceLine": 928,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "496e74656c444200",
+    "text": "IntelDB"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040GPLGFOFG_0040ImageSequence_003F_0024AA_0040",
+    "sourceLine": 930,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "496d61676553657175656e636500",
+    "text": "ImageSequence"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040DFODJHND_0040VeterancyRankOverlayIcon_003F_0024AA_0040",
+    "sourceLine": 932,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "5665746572616e637952616e6b4f7665726c617949636f6e00",
+    "text": "VeterancyRankOverlayIcon"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040OPHMMPNP_0040FactionVeterancyOverlayIcons_003F_0024AA_0040",
+    "sourceLine": 934,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "46616374696f6e5665746572616e63794f7665726c617949636f6e7300",
+    "text": "FactionVeterancyOverlayIcons"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040NLOMJKKI_0040UnitOverlayIconSettings_003F_0024AA_0040",
+    "sourceLine": 936,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "556e69744f7665726c617949636f6e53657474696e677300",
+    "text": "UnitOverlayIconSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040FPHEJPJH_0040DLContentObject_003F_0024AA_0040",
+    "sourceLine": 938,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "444c436f6e74656e744f626a65637400",
+    "text": "DLContentObject"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040IPCMNHHK_0040DLLicenseGroup_003F_0024AA_0040",
+    "sourceLine": 940,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "444c4c6963656e736547726f757000",
+    "text": "DLLicenseGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07BPJFAGJL_0040DLPatch_003F_0024AA_0040",
+    "sourceLine": 942,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "444c506174636800",
+    "text": "DLPatch"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09FCCAEMIO_0040DLContent_003F_0024AA_0040",
+    "sourceLine": 944,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "444c436f6e74656e7400",
+    "text": "DLContent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_05BIPFLOHN_0040Video_003F_0024AA_0040",
+    "sourceLine": 946,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+    "hex": "566964656f00",
+    "text": "Video"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08IOAIDDGD_0040FadeData_003F_0024AA_0040",
+    "sourceLine": 948,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "466164654461746100",
+    "text": "FadeData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040OBBOOHOM_0040VideoEvent_003F_0024AA_0040",
+    "sourceLine": 950,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "566964656f4576656e7400",
+    "text": "VideoEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040BADOPENC_0040MovieEvent_003F_0024AA_0040",
+    "sourceLine": 952,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "4d6f7669654576656e7400",
+    "text": "MovieEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040PLCIAEMH_0040TitleCardEvent_003F_0024AA_0040",
+    "sourceLine": 954,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "5469746c65436172644576656e7400",
+    "text": "TitleCardEvent"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040PFIBLCKO_0040VideoEventList_003F_0024AA_0040",
+    "sourceLine": 956,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "566964656f4576656e744c69737400",
+    "text": "VideoEventList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040ELODCKAK_0040ConnectionLineManager_003F_0024AA_0040",
+    "sourceLine": 958,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "436f6e6e656374696f6e4c696e654d616e6167657200",
+    "text": "ConnectionLineManager"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040FKAGMOKK_0040VersionType_003F_0024AA_0040",
+    "sourceLine": 960,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "56657273696f6e5479706500",
+    "text": "VersionType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040MEFPLNLB_0040TheVersion_003F_0024AA_0040",
+    "sourceLine": 962,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "54686556657273696f6e00",
+    "text": "TheVersion"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040EAFPHJPC_0040RedAlertTemplate_003F_0024AA_0040",
+    "sourceLine": 964,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "526564416c65727454656d706c61746500",
+    "text": "RedAlertTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040GGKAFNPB_0040PlayerTech_003F_0024AA_0040",
+    "sourceLine": 966,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "506c617965725465636800",
+    "text": "PlayerTech"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040FFGBOMCO_0040PlayerTechRank_003F_0024AA_0040",
+    "sourceLine": 968,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "506c617965725465636852616e6b00",
+    "text": "PlayerTechRank"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040DMBGLEDB_0040PlayerTechUpgradeBindingInfo_003F_0024AA_0040",
+    "sourceLine": 970,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "506c61796572546563685570677261646542696e64696e67496e666f00",
+    "text": "PlayerTechUpgradeBindingInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040MMABNBPH_0040PlayerTechUpgradeBinding_003F_0024AA_0040",
+    "sourceLine": 972,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "506c61796572546563685570677261646542696e64696e6700",
+    "text": "PlayerTechUpgradeBinding"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040OHAKENP_0040StartingUnitInfoType_003F_0024AA_0040",
+    "sourceLine": 974,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "5374617274696e67556e6974496e666f5479706500",
+    "text": "StartingUnitInfoType"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040GAIELDAD_0040PlayerTemplateAIBeaconSettings_003F_0024AA_0040",
+    "sourceLine": 976,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "506c6179657254656d706c6174654149426561636f6e53657474696e677300",
+    "text": "PlayerTemplateAIBeaconSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BI_0040BOGKIPLL_0040TechProductionBonusInfo_003F_0024AA_0040",
+    "sourceLine": 978,
+    "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+    "hex": "5465636850726f64756374696f6e426f6e7573496e666f00",
+    "text": "TechProductionBonusInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040HLPIBKEK_0040PlayerTemplate_003F_0024AA_0040",
+    "sourceLine": 980,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "506c6179657254656d706c61746500",
+    "text": "PlayerTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BA_0040CCHCEOMF_0040EmotionTemplate_003F_0024AA_0040",
+    "sourceLine": 982,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+    "hex": "456d6f74696f6e54656d706c61746500",
+    "text": "EmotionTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0P_0040MMPCFKNA_0040HeaderTemplate_003F_0024AA_0040",
+    "sourceLine": 984,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+    "hex": "48656164657254656d706c61746500",
+    "text": "HeaderTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040PGLIJNCI_0040DrawGroupInfo_003F_0024AA_0040",
+    "sourceLine": 986,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "4472617747726f7570496e666f00",
+    "text": "DrawGroupInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BE_0040INIKHFBB_0040RegisteredObjectSet_003F_0024AA_0040",
+    "sourceLine": 988,
+    "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+    "hex": "526567697374657265644f626a65637453657400",
+    "text": "RegisteredObjectSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_09NLPKLPI_0040MatchRule_003F_0024AA_0040",
+    "sourceLine": 990,
+    "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+    "hex": "4d6174636852756c6500",
+    "text": "MatchRule"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BF_0040CCLEMGFM_0040MeshInstanceTemplate_003F_0024AA_0040",
+    "sourceLine": 992,
+    "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+    "hex": "4d657368496e7374616e636554656d706c61746500",
+    "text": "MeshInstanceTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040LPIBGBOL_0040SeparatorList_003F_0024AA_0040",
+    "sourceLine": 994,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "536570617261746f724c69737400",
+    "text": "SeparatorList"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040NEDAILDB_0040FontDefine_003F_0024AA_0040",
+    "sourceLine": 996,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "466f6e74446566696e6500",
+    "text": "FontDefine"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_08BENDAOKD_0040Language_003F_0024AA_0040",
+    "sourceLine": 998,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+    "hex": "4c616e677561676500",
+    "text": "Language"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040EDCGIHCI_0040FormationAssistantUnitDefinition_0040",
+    "sourceLine": 1000,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e417373697374616e74556e6974446566696e6974696f6e00",
+    "text": "FormationAssistantUnitDefinition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040IKNBHDNK_0040FormationAssistantCellContainer_003F_0024AA_0040",
+    "sourceLine": 1002,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e417373697374616e7443656c6c436f6e7461696e657200",
+    "text": "FormationAssistantCellContainer"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040CPHJNBLP_0040FormationAssistantRowDefinition_003F_0024AA_0040",
+    "sourceLine": 1004,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e417373697374616e74526f77446566696e6974696f6e00",
+    "text": "FormationAssistantRowDefinition"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040ICAHEBME_0040FormationAssistantTemplate_003F_0024AA_0040",
+    "sourceLine": 1006,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e417373697374616e7454656d706c61746500",
+    "text": "FormationAssistantTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KFJBCMBJ_0040FormationSelectionTemplate_003F_0024AA_0040",
+    "sourceLine": 1008,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e53656c656374696f6e54656d706c61746500",
+    "text": "FormationSelectionTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040DCNDOPEI_0040FormationAssistant_003F_0024AA_0040",
+    "sourceLine": 1010,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "466f726d6174696f6e417373697374616e7400",
+    "text": "FormationAssistant"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0N_0040BHDEJGLB_0040FontSettings_003F_0024AA_0040",
+    "sourceLine": 1012,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+    "hex": "466f6e7453657474696e677300",
+    "text": "FontSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040NBOFICMB_0040FontDefaultSetting_003F_0024AA_0040",
+    "sourceLine": 1014,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "466f6e7444656661756c7453657474696e6700",
+    "text": "FontDefaultSetting"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040EGACOOCB_0040Subtitution_003F_0024AA_0040",
+    "sourceLine": 1016,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "5375627469747574696f6e00",
+    "text": "Subtitution"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040OJICJOED_0040FontSubstitution_003F_0024AA_0040",
+    "sourceLine": 1018,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "466f6e74537562737469747574696f6e00",
+    "text": "FontSubstitution"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0L_0040ILGPIAED_0040ScrollInfo_003F_0024AA_0040",
+    "sourceLine": 1020,
+    "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+    "hex": "5363726f6c6c496e666f00",
+    "text": "ScrollInfo"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040ENGDJJHA_0040CreditStyle_003F_0024AA_0040",
+    "sourceLine": 1022,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4372656469745374796c6500",
+    "text": "CreditStyle"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0O_0040IGHEEPI_0040CreditElement_003F_0024AA_0040",
+    "sourceLine": 1024,
+    "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+    "hex": "437265646974456c656d656e7400",
+    "text": "CreditElement"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_07GDHHDJMO_0040Credits_003F_0024AA_0040",
+    "sourceLine": 1026,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+    "hex": "4372656469747300",
+    "text": "Credits"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BD_0040COMCKMJM_0040GeneralHotKeySlots_003F_0024AA_0040",
+    "sourceLine": 1028,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+    "hex": "47656e6572616c486f744b6579536c6f747300",
+    "text": "GeneralHotKeySlots"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0M_0040CCJJCKEB_0040MouseCursor_003F_0024AA_0040",
+    "sourceLine": 1030,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+    "hex": "4d6f757365437572736f7200",
+    "text": "MouseCursor"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BC_0040BEMADDON_0040BasicMouseCursors_003F_0024AA_0040",
+    "sourceLine": 1032,
+    "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+    "hex": "42617369634d6f757365437572736f727300",
+    "text": "BasicMouseCursors"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040FBBEIDPJ_0040UIMouseDragSelectionFeedback_003F_0024AA_0040",
+    "sourceLine": 1034,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "55494d6f7573654472616753656c656374696f6e466565646261636b00",
+    "text": "UIMouseDragSelectionFeedback"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040GDPMDNKA_0040UIMouseHUDElementHotKeyMapping_003F_0024AA_0040",
+    "sourceLine": 1036,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55494d6f757365485544456c656d656e74486f744b65794d617070696e6700",
+    "text": "UIMouseHUDElementHotKeyMapping"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040NEOFPIID_0040UIMouseHUDElementHotKeyGate_003F_0024AA_0040",
+    "sourceLine": 1038,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "55494d6f757365485544456c656d656e74486f744b65794761746500",
+    "text": "UIMouseHUDElementHotKeyGate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OGHJPMKP_0040InGameUISimpleHelpTemplate_003F_0024AA_0040",
+    "sourceLine": 1040,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "496e47616d65554953696d706c6548656c7054656d706c61746500",
+    "text": "InGameUISimpleHelpTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040CKIJGGPE_0040UIMouseSimpleFixedButton_003F_0024AA_0040",
+    "sourceLine": 1042,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "55494d6f75736553696d706c654669786564427574746f6e00",
+    "text": "UIMouseSimpleFixedButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040JKJNLKFI_0040UIMouseTacticalAttackMoveButton_003F_0024AA_0040",
+    "sourceLine": 1044,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c41747461636b4d6f7665427574746f6e00",
+    "text": "UIMouseTacticalAttackMoveButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CO_0040PFAAEGBC_0040UIMouseTacticalBuildQueueTabQueu_0040",
+    "sourceLine": 1046,
+    "type": "_0024ArrayType_0024_0024_0024BY0CO_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4275696c64517565756554616251756575655479706553657474696e677300",
+    "text": "UIMouseTacticalBuildQueueTabQueueTypeSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040NDJBJDOL_0040UIMouseTacticalBuildQueueTab_003F_0024AA_0040",
+    "sourceLine": 1048,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4275696c64517565756554616200",
+    "text": "UIMouseTacticalBuildQueueTab"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DC_0040GEBBOMFJ_0040UIMouseTacticalBuildQueueTypeTab_0040",
+    "sourceLine": 1050,
+    "type": "_0024ArrayType_0024_0024_0024BY0DC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4275696c6451756575655479706554616251756575655479706553657474696e677300",
+    "text": "UIMouseTacticalBuildQueueTypeTabQueueTypeSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040JIOHEBGG_0040UIMouseTacticalBuildQueueTypeTab_0040",
+    "sourceLine": 1052,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4275696c6451756575655479706554616200",
+    "text": "UIMouseTacticalBuildQueueTypeTab"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040BNGDLEIA_0040UIMouseTacticalCommandAttack_003F_0024AA_0040",
+    "sourceLine": 1054,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6441747461636b00",
+    "text": "UIMouseTacticalCommandAttack"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040IJAIEEOH_0040UIMouseTacticalCommandAttackMove_0040",
+    "sourceLine": 1056,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6441747461636b4d6f766500",
+    "text": "UIMouseTacticalCommandAttackMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CM_0040DKBDDFKB_0040UIMouseTacticalCommandCommunicat_0040",
+    "sourceLine": 1058,
+    "type": "_0024ArrayType_0024_0024_0024BY0CM_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64436f6d6d756e696361746557697468416c6c69657300",
+    "text": "UIMouseTacticalCommandCommunicateWithAllies"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040GHBBMAHL_0040UIMouseTacticalCommandDock_003F_0024AA_0040",
+    "sourceLine": 1060,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64446f636b00",
+    "text": "UIMouseTacticalCommandDock"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DJ_0040JOAIKOHA_0040UIMouseTacticalCommandEnterInfil_0040",
+    "sourceLine": 1062,
+    "type": "_0024ArrayType_0024_0024_0024BY0DJ_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64456e746572496e66696c747261746f724566666563745479706553657474696e677300",
+    "text": "UIMouseTacticalCommandEnterInfiltratorEffectTypeSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BM_0040OLNFBKDJ_0040UIMouseTacticalCommandEnter_003F_0024AA_0040",
+    "sourceLine": 1064,
+    "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64456e74657200",
+    "text": "UIMouseTacticalCommandEnter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040DCONLDAF_0040UIMouseTacticalCommandForceAttac_0040",
+    "sourceLine": 1066,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64466f72636541747461636b00",
+    "text": "UIMouseTacticalCommandForceAttack"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040JLPFMKFE_0040UIMouseTacticalCommandForceMove_003F_0024AA_0040",
+    "sourceLine": 1068,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64466f7263654d6f766500",
+    "text": "UIMouseTacticalCommandForceMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040HKPBPIH_0040UIMouseTacticalCommandGetCrate_003F_0024AA_0040",
+    "sourceLine": 1070,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64476574437261746500",
+    "text": "UIMouseTacticalCommandGetCrate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040LPJIPBLP_0040UIMouseTacticalCommandHarvest_003F_0024AA_0040",
+    "sourceLine": 1072,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e644861727665737400",
+    "text": "UIMouseTacticalCommandHarvest"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040KFHJIHD_0040UIMouseTacticalCommandMineOre_003F_0024AA_0040",
+    "sourceLine": 1074,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e644d696e654f726500",
+    "text": "UIMouseTacticalCommandMineOre"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JLJFNEKO_0040UIMouseTacticalCommandMisc_003F_0024AA_0040",
+    "sourceLine": 1076,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e644d69736300",
+    "text": "UIMouseTacticalCommandMisc"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040OOGPOOBP_0040UIMouseTacticalCommandMove_003F_0024AA_0040",
+    "sourceLine": 1078,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e644d6f766500",
+    "text": "UIMouseTacticalCommandMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DA_0040ECHJJCEC_0040UIMouseTacticalCommandPlaceAIBea_0040",
+    "sourceLine": 1080,
+    "type": "_0024ArrayType_0024_0024_0024BY0DA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64506c6163654149426561636f6e5479706553657474696e677300",
+    "text": "UIMouseTacticalCommandPlaceAIBeaconTypeSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040DOEICFOP_0040UIMouseTacticalCommandPlaceAIBea_0040",
+    "sourceLine": 1082,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64506c6163654149426561636f6e00",
+    "text": "UIMouseTacticalCommandPlaceAIBeacon"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040OOBCGDBD_0040UIMouseTacticalCommandPlaceRally_0040",
+    "sourceLine": 1084,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64506c61636552616c6c79506f696e7400",
+    "text": "UIMouseTacticalCommandPlaceRallyPoint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040HAAAFEAJ_0040UIMouseTacticalCommandPlaceWall_003F_0024AA_0040",
+    "sourceLine": 1086,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64506c61636557616c6c00",
+    "text": "UIMouseTacticalCommandPlaceWall"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040OMCFFIFE_0040UIMouseTacticalCommandReverseMov_0040",
+    "sourceLine": 1088,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64526576657273654d6f766500",
+    "text": "UIMouseTacticalCommandReverseMove"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BN_0040DHAAKNND_0040UIMouseTacticalCommandSelect_003F_0024AA_0040",
+    "sourceLine": 1090,
+    "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6453656c65637400",
+    "text": "UIMouseTacticalCommandSelect"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040OEIMLFOI_0040UIMouseTacticalCommandSellCursor_0040",
+    "sourceLine": 1092,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6453656c6c437572736f7253657400",
+    "text": "UIMouseTacticalCommandSellCursorSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040BIIJIELG_0040UIMouseTacticalCommandSellFactio_0040",
+    "sourceLine": 1094,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6453656c6c46616374696f6e437572736f7253657400",
+    "text": "UIMouseTacticalCommandSellFactionCursorSet"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JOHBLKHH_0040UIMouseTacticalCommandSell_003F_0024AA_0040",
+    "sourceLine": 1096,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6453656c6c00",
+    "text": "UIMouseTacticalCommandSell"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CE_0040OMJBAEAP_0040UIMouseTacticalCommandSetRallyPo_0040",
+    "sourceLine": 1098,
+    "type": "_0024ArrayType_0024_0024_0024BY0CE_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e6453657452616c6c79506f696e7400",
+    "text": "UIMouseTacticalCommandSetRallyPoint"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040CBAKEICH_0040UIMouseTacticalCommandToggleSelf_0040",
+    "sourceLine": 1100,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f6d6d616e64546f67676c6553656c6652657061697200",
+    "text": "UIMouseTacticalCommandToggleSelfRepair"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040BDEHOIAH_0040UIMouseTacticalCoOpAIButtonsAssa_0040",
+    "sourceLine": 1102,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f4f704149427574746f6e7341737361756c74427574746f6e00",
+    "text": "UIMouseTacticalCoOpAIButtonsAssaultButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CH_0040JCPMBJAD_0040UIMouseTacticalCoOpAIButtonsHelp_0040",
+    "sourceLine": 1104,
+    "type": "_0024ArrayType_0024_0024_0024BY0CH_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f4f704149427574746f6e7348656c70427574746f6e00",
+    "text": "UIMouseTacticalCoOpAIButtonsHelpButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CN_0040IKGALHLE_0040UIMouseTacticalCoOpAIButtonsHold_0040",
+    "sourceLine": 1106,
+    "type": "_0024ArrayType_0024_0024_0024BY0CN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f4f704149427574746f6e73486f6c644f626a656374427574746f6e00",
+    "text": "UIMouseTacticalCoOpAIButtonsHoldObjectButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CP_0040NDFIABMB_0040UIMouseTacticalCoOpAIButtonsHold_0040",
+    "sourceLine": 1108,
+    "type": "_0024ArrayType_0024_0024_0024BY0CP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f4f704149427574746f6e73486f6c64506f736974696f6e427574746f6e00",
+    "text": "UIMouseTacticalCoOpAIButtonsHoldPositionButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CJ_0040GDECLHCB_0040UIMouseTacticalCoOpAIButtonsNorm_0040",
+    "sourceLine": 1110,
+    "type": "_0024ArrayType_0024_0024_0024BY0CJ_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c436f4f704149427574746f6e734e6f726d616c427574746f6e00",
+    "text": "UIMouseTacticalCoOpAIButtonsNormalButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CP_0040FHOEDJOJ_0040UIMouseTacticalDeactivateMission_0040",
+    "sourceLine": 1112,
+    "type": "_0024ArrayType_0024_0024_0024BY0CP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c446561637469766174654d697373696f6e486f7453706f7473427574746f6e00",
+    "text": "UIMouseTacticalDeactivateMissionHotSpotsButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040EPDCGMFE_0040UIMouseTacticalExitContainerButt_0040",
+    "sourceLine": 1114,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c45786974436f6e7461696e6572427574746f6e00",
+    "text": "UIMouseTacticalExitContainerButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040CDBBBMOK_0040UIMouseTacticalForceAttackButton_0040",
+    "sourceLine": 1116,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c466f72636541747461636b427574746f6e00",
+    "text": "UIMouseTacticalForceAttackButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040GIHEAIPL_0040UIMouseTacticalForceMoveButton_003F_0024AA_0040",
+    "sourceLine": 1118,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c466f7263654d6f7665427574746f6e00",
+    "text": "UIMouseTacticalForceMoveButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040NNCFKNCJ_0040UIMouseTacticalGroupSelectionGro_0040",
+    "sourceLine": 1120,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c47726f757053656c656374696f6e47726f757000",
+    "text": "UIMouseTacticalGroupSelectionGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040LPBECFPE_0040UIMouseTacticalGroupSelection_003F_0024AA_0040",
+    "sourceLine": 1122,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c47726f757053656c656374696f6e00",
+    "text": "UIMouseTacticalGroupSelection"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040NKMFMPLP_0040UIMouseTacticalLookAtViewBookmar_0040",
+    "sourceLine": 1124,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4c6f6f6b417456696577426f6f6b6d61726b00",
+    "text": "UIMouseTacticalLookAtViewBookmark"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040CICBDABB_0040UIMouseTacticalLookAt_003F_0024AA_0040",
+    "sourceLine": 1126,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4c6f6f6b417400",
+    "text": "UIMouseTacticalLookAt"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CP_0040PDOLMBIL_0040UIMouseTacticalMainCommandBarHot_0040",
+    "sourceLine": 1128,
+    "type": "_0024ArrayType_0024_0024_0024BY0CP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4d61696e436f6d6d616e64426172486f744b6579734275696c64517565756500",
+    "text": "UIMouseTacticalMainCommandBarHotKeysBuildQueue"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040LKPLCPFK_0040UIMouseTacticalMainCommandBarHot_0040",
+    "sourceLine": 1130,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4d61696e436f6d6d616e64426172486f744b65797300",
+    "text": "UIMouseTacticalMainCommandBarHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CJ_0040MCJFNFNO_0040UIMouseTacticalMiscHotKeysStance_0040",
+    "sourceLine": 1132,
+    "type": "_0024ArrayType_0024_0024_0024BY0CJ_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4d697363486f744b6579735374616e636553657474696e677300",
+    "text": "UIMouseTacticalMiscHotKeysStanceSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040KKOPAKPH_0040UIMouseTacticalMiscHotKeys_003F_0024AA_0040",
+    "sourceLine": 1134,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c4d697363486f744b65797300",
+    "text": "UIMouseTacticalMiscHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040IBDGFJL_0040UIMouseTacticalPauseButton_003F_0024AA_0040",
+    "sourceLine": 1136,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c5061757365427574746f6e00",
+    "text": "UIMouseTacticalPauseButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040NNPOKFLI_0040UIMouseTacticalPlanningModeButto_0040",
+    "sourceLine": 1138,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c506c616e6e696e674d6f6465427574746f6e00",
+    "text": "UIMouseTacticalPlanningModeButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040ODKGLNOK_0040UIMouseTacticalPlayerPowerHotKey_0040",
+    "sourceLine": 1140,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c506c61796572506f776572486f744b65797300",
+    "text": "UIMouseTacticalPlayerPowerHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CF_0040OMPFMAAB_0040UIMouseTacticalPlayerTechStoreBu_0040",
+    "sourceLine": 1142,
+    "type": "_0024ArrayType_0024_0024_0024BY0CF_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c506c617965725465636853746f7265427574746f6e00",
+    "text": "UIMouseTacticalPlayerTechStoreButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CJ_0040IDOEOAOL_0040UIMouseTacticalQuickChatDisplayC_0040",
+    "sourceLine": 1144,
+    "type": "_0024ArrayType_0024_0024_0024BY0CJ_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c517569636b43686174446973706c6179436c6f73654974656d00",
+    "text": "UIMouseTacticalQuickChatDisplayCloseItem"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040ODKAAPPG_0040UIMouseTacticalQuickChatDisplayM_0040",
+    "sourceLine": 1146,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c517569636b43686174446973706c61794d656e754974656d436861744d65737361676500",
+    "text": "UIMouseTacticalQuickChatDisplayMenuItemChatMessage"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DI_0040LMDDPFIH_0040UIMouseTacticalQuickChatDisplayM_0040",
+    "sourceLine": 1148,
+    "type": "_0024ArrayType_0024_0024_0024BY0DI_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c517569636b43686174446973706c61794d656e754974656d436861744d65737361676547726f757000",
+    "text": "UIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CI_0040HAIILINE_0040UIMouseTacticalQuickChatDisplayM_0040",
+    "sourceLine": 1150,
+    "type": "_0024ArrayType_0024_0024_0024BY0CI_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c517569636b43686174446973706c61794d656e754974656d00",
+    "text": "UIMouseTacticalQuickChatDisplayMenuItem"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040LIGDECAO_0040UIMouseTacticalQuickChatDisplay_003F_0024AA_0040",
+    "sourceLine": 1152,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c517569636b43686174446973706c617900",
+    "text": "UIMouseTacticalQuickChatDisplay"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CA_0040GJFGKELK_0040UIMouseTacticalRadarTelestrator_003F_0024AA_0040",
+    "sourceLine": 1154,
+    "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c526164617254656c6573747261746f7200",
+    "text": "UIMouseTacticalRadarTelestrator"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CB_0040IPCJOPKF_0040UIMouseTacticalReverseMoveButton_0040",
+    "sourceLine": 1156,
+    "type": "_0024ArrayType_0024_0024_0024BY0CB_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c526576657273654d6f7665427574746f6e00",
+    "text": "UIMouseTacticalReverseMoveButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CN_0040GFFBBIOM_0040UIMouseTacticalSelectionDetailsB_0040",
+    "sourceLine": 1158,
+    "type": "_0024ArrayType_0024_0024_0024BY0CN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c53656c656374696f6e44657461696c73427574746f6e486f744b65797300",
+    "text": "UIMouseTacticalSelectionDetailsButtonHotKeys"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040PBBEFJPP_0040UIMouseTacticalSelectionRefineme_0040",
+    "sourceLine": 1160,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c53656c656374696f6e526566696e656d656e7454616200",
+    "text": "UIMouseTacticalSelectionRefinementTab"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BO_0040LKONPAME_0040UIMouseTacticalSellModeButton_003F_0024AA_0040",
+    "sourceLine": 1162,
+    "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c53656c6c4d6f6465427574746f6e00",
+    "text": "UIMouseTacticalSellModeButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CN_0040GPOGFHDJ_0040UIMouseTacticalSetStanceButtonSt_0040",
+    "sourceLine": 1164,
+    "type": "_0024ArrayType_0024_0024_0024BY0CN_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c5365745374616e6365427574746f6e5374616e636553657474696e677300",
+    "text": "UIMouseTacticalSetStanceButtonStanceSettings"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040HOBAOAHP_0040UIMouseTacticalSetStanceButton_003F_0024AA_0040",
+    "sourceLine": 1166,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c5365745374616e6365427574746f6e00",
+    "text": "UIMouseTacticalSetStanceButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BK_0040BMDLHNNE_0040UIMouseTacticalStopButton_003F_0024AA_0040",
+    "sourceLine": 1168,
+    "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c53746f70427574746f6e00",
+    "text": "UIMouseTacticalStopButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040JNLIGBGM_0040UIMouseTacticalTelestrator_003F_0024AA_0040",
+    "sourceLine": 1170,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c54656c6573747261746f7200",
+    "text": "UIMouseTacticalTelestrator"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BL_0040FMOODNAI_0040UIMouseTacticalThreatMeter_003F_0024AA_0040",
+    "sourceLine": 1172,
+    "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c5468726561744d6574657200",
+    "text": "UIMouseTacticalThreatMeter"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CG_0040ONDAIDIM_0040UIMouseTacticalToggleRepairModeB_0040",
+    "sourceLine": 1174,
+    "type": "_0024ArrayType_0024_0024_0024BY0CG_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c546f67676c655265706169724d6f6465427574746f6e00",
+    "text": "UIMouseTacticalToggleRepairModeButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BP_0040OPLJLGAI_0040UIMouseTacticalUnitIntroButton_003F_0024AA_0040",
+    "sourceLine": 1176,
+    "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c556e6974496e74726f427574746f6e00",
+    "text": "UIMouseTacticalUnitIntroButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CC_0040JBPCBLCK_0040UIMouseTacticalWaypointModeButto_0040",
+    "sourceLine": 1178,
+    "type": "_0024ArrayType_0024_0024_0024BY0CC_0040_0024_0024CBD",
+    "hex": "55494d6f757365546163746963616c576179706f696e744d6f6465427574746f6e00",
+    "text": "UIMouseTacticalWaypointModeButton"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BB_0040LLAIFJMP_0040UIMouseVoiceChat_003F_0024AA_0040",
+    "sourceLine": 1180,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+    "hex": "55494d6f757365566f6963654368617400",
+    "text": "UIMouseVoiceChat"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BG_0040GKNOCEAI_0040ButtonSingleStateData_003F_0024AA_0040",
+    "sourceLine": 1182,
+    "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+    "hex": "427574746f6e53696e676c6553746174654461746100",
+    "text": "ButtonSingleStateData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040CMAJMGHE_0040JoypadCommandBarTemplateButtonSl_0040",
+    "sourceLine": 1184,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e6442617254656d706c617465427574746f6e536c6f7400",
+    "text": "JoypadCommandBarTemplateButtonSlot"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0BJ_0040GANFNGOD_0040JoypadCommandBarTemplate_003F_0024AA_0040",
+    "sourceLine": 1186,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e6442617254656d706c61746500",
+    "text": "JoypadCommandBarTemplate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CD_0040CAJAAGG_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1188,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c6174654461746100",
+    "text": "JoypadCommandBarButtonTemplateData"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CO_0040NBNNDAFK_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1190,
+    "type": "_0024ArrayType_0024_0024_0024BY0CO_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c6174654461746153696e676c65537461746500",
+    "text": "JoypadCommandBarButtonTemplateDataSingleState"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DC_0040BKIAKCHB_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1192,
+    "type": "_0024ArrayType_0024_0024_0024BY0DC_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614163746976617465486f7453706f7400",
+    "text": "JoypadCommandBarButtonTemplateDataActivateHotSpot"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040GOIJHPNN_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1194,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461414953747261746567696344697265637469766500",
+    "text": "JoypadCommandBarButtonTemplateDataAIStrategicDirective"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CO_0040BBCMCBMH_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1196,
+    "type": "_0024ArrayType_0024_0024_0024BY0CO_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461556e69744162696c69747900",
+    "text": "JoypadCommandBarButtonTemplateDataUnitAbility"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040DMAJJKCE_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1198,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461426173655370656369616c506f77657200",
+    "text": "JoypadCommandBarButtonTemplateDataBaseSpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CP_0040IMFDEGFM_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1200,
+    "type": "_0024ArrayType_0024_0024_0024BY0CP_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174615370656369616c506f77657200",
+    "text": "JoypadCommandBarButtonTemplateDataSpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040NBBNECJC_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1202,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c6174654461746150726f647563655374727563747572654261736500",
+    "text": "JoypadCommandBarButtonTemplateDataProduceStructureBase"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DE_0040MBBNJJNP_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1204,
+    "type": "_0024ArrayType_0024_0024_0024BY0DE_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461417373656d626c6553747275637475726500",
+    "text": "JoypadCommandBarButtonTemplateDataAssembleStructure"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040DOGKLOLG_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1206,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614175746f436f6e74726f6c47726f757000",
+    "text": "JoypadCommandBarButtonTemplateDataAutoControlGroup"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040IHDMHINH_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1208,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461456e746572436f6d6d616e644d6f646500",
+    "text": "JoypadCommandBarButtonTemplateDataEnterCommandMode"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CL_0040OPAKOPNJ_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1210,
+    "type": "_0024ArrayType_0024_0024_0024BY0CL_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c61746544617461457661637561746500",
+    "text": "JoypadCommandBarButtonTemplateDataEvacuate"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040JLBDCDFC_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1212,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c6174654461746154617267657465645370656369616c506f77657200",
+    "text": "JoypadCommandBarButtonTemplateDataTargetedSpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0EF_0040EMNDNLBP_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1214,
+    "type": "_0024ArrayType_0024_0024_0024BY0EF_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614d756c7469706c65506f7765727354617267657465645370656369616c506f77657200",
+    "text": "JoypadCommandBarButtonTemplateDataMultiplePowersTargetedSpecialPower"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0CK_0040PMPMBOJJ_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1216,
+    "type": "_0024ArrayType_0024_0024_0024BY0CK_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174615570677261646500",
+    "text": "JoypadCommandBarButtonTemplateDataUpgrade"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DA_0040GPNGJJCM_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1218,
+    "type": "_0024ArrayType_0024_0024_0024BY0DA_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614f626a6563745570677261646500",
+    "text": "JoypadCommandBarButtonTemplateDataObjectUpgrade"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DH_0040KCOLEMB_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1220,
+    "type": "_0024ArrayType_0024_0024_0024BY0DH_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614f70656e436f6f70436f6d6d756e696361746f7200",
+    "text": "JoypadCommandBarButtonTemplateDataOpenCoopCommunicator"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DE_0040DKBJNMNA_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1222,
+    "type": "_0024ArrayType_0024_0024_0024BY0DE_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614f70656e436f6e74726f6c47726f75707300",
+    "text": "JoypadCommandBarButtonTemplateDataOpenControlGroups"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DD_0040FPMIDABI_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1224,
+    "type": "_0024ArrayType_0024_0024_0024BY0DD_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614f70656e506c61796572506f7765727300",
+    "text": "JoypadCommandBarButtonTemplateDataOpenPlayerPowers"
+  },
+  {
+    "symbol": "_003F_003F_C_0040_0DG_0040PEFDEBJ_0040JoypadCommandBarButtonTemplateDa_0040",
+    "sourceLine": 1226,
+    "type": "_0024ArrayType_0024_0024_0024BY0DG_0040_0024_0024CBD",
+    "hex": "4a6f79706164436f6d6d616e64426172427574746f6e54656d706c617465446174614f70656e506c617965725465636853746f726500",
+    "text": "JoypadCommandBarButtonTemplateDataOpenPlayerTechStore"
+  }
+]

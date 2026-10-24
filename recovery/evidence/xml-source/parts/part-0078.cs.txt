@@ -1,0 +1,500 @@
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder5);
+			throw;
+		}
+		if (*(int*)(&nodeHolder5) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder5)))))((IntPtr)(*(int*)(&nodeHolder5)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder6);
+		int num6 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder6, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040IOECLGNI_0040DefaultAlternateMouse_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr3 = (INode*)(int)(*(uint*)num6);
+			if (ptr3 != null)
+			{
+				Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr3 + 16)))((nint)ptr3), (bool*)@object + 32, state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder6);
+			throw;
+		}
+		if (*(int*)(&nodeHolder6) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder6)))))((IntPtr)(*(int*)(&nodeHolder6)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder7);
+		int num7 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder7, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040LLNCJHDD_0040DefaultShowNews_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr4 = (INode*)(int)(*(uint*)num7);
+			if (ptr4 != null)
+			{
+				Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr4 + 16)))((nint)ptr4), (bool*)@object + 33, state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder7);
+			throw;
+		}
+		if (*(int*)(&nodeHolder7) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder7)))))((IntPtr)(*(int*)(&nodeHolder7)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder8);
+		int num8 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder8, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040CNBBKPFG_0040DefaultShowAds_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr5 = (INode*)(int)(*(uint*)num8);
+			if (ptr5 != null)
+			{
+				Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr5 + 16)))((nint)ptr5), (bool*)@object + 34, state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder8);
+			throw;
+		}
+		if (*(int*)(&nodeHolder8) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder8)))))((IntPtr)(*(int*)(&nodeHolder8)));
+		}
+		Marshaler_002EMarshal(node, (UIBaseComponent*)@object, state);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(UIComponentOptionsSettingsGeneral* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 16)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 16)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 16)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[16];
+			((int*)@object)[4] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 20)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 20)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 20)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[20];
+			((int*)@object)[5] = (int)num3;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 24)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 24)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 24)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((sbyte*)@object)[24];
+			((int*)@object)[6] = (int)num4;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(byte*)(&num5) = ((byte*)@object + 28)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((byte*)@object + 28)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((byte*)@object + 28)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = ((sbyte*)@object)[28];
+			((int*)@object)[7] = (int)num5;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+				*(sbyte*)(&num6) = ((sbyte*)@object)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((sbyte*)@object)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((sbyte*)@object)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = *(sbyte*)@object;
+				*(uint*)@object = num6;
+			}
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num7);
+			*(byte*)(&num7) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num7;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIComponentOptionsSettingsGraphics* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040MOOGKDME_0040LoadVarQueryReturnToken_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num), (String_003Cchar_003E*)((byte*)@object + 8), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+			int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040OEJFEGJK_0040DefaultBrightness_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num2), (float*)@object + 4, state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+				throw;
+			}
+			if (*(int*)(&nodeHolder2) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder3);
+			int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder3, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040PHJJIEH_0040PresetsAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num3), (String_003Cchar_003E*)((byte*)@object + 20), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder3);
+				throw;
+			}
+			if (*(int*)(&nodeHolder3) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder3)))))((IntPtr)(*(int*)(&nodeHolder3)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder4);
+			int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder4, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040FDKGPFKP_0040PresetsStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num4), (String_003Cchar_003E*)((byte*)@object + 28), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder4);
+				throw;
+			}
+			if (*(int*)(&nodeHolder4) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder4)))))((IntPtr)(*(int*)(&nodeHolder4)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder5);
+			int num5 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder5, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040CCPOPFHH_0040ResolutionAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num5), (String_003Cchar_003E*)((byte*)@object + 36), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder5);
+				throw;
+			}
+			if (*(int*)(&nodeHolder5) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder5)))))((IntPtr)(*(int*)(&nodeHolder5)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder6);
+			int num6 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder6, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040DLPHHFJE_0040AntialiasingAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num6), (String_003Cchar_003E*)((byte*)@object + 44), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder6);
+				throw;
+			}
+			if (*(int*)(&nodeHolder6) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder6)))))((IntPtr)(*(int*)(&nodeHolder6)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder7);
+			int num7 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder7, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BN_0040DIDBKLPE_0040AntialiasingOffStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num7), (String_003Cchar_003E*)((byte*)@object + 52), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder7);
+				throw;
+			}
+			if (*(int*)(&nodeHolder7) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder7)))))((IntPtr)(*(int*)(&nodeHolder7)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder8);
+			int num8 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder8, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BM_0040LJFPDNFJ_0040AntialiasingOnStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num8), (String_003Cchar_003E*)((byte*)@object + 60), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder8);
+				throw;
+			}
+			if (*(int*)(&nodeHolder8) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder8)))))((IntPtr)(*(int*)(&nodeHolder8)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder9);
+			int num9 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder9, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040JADBHLAJ_0040TerrainDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num9), (String_003Cchar_003E*)((byte*)@object + 68), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder9);
+				throw;
+			}
+			if (*(int*)(&nodeHolder9) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder9)))))((IntPtr)(*(int*)(&nodeHolder9)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder10);
+			int num10 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder10, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040MCFNNBNL_0040TerrainDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num10), (String_003Cchar_003E*)((byte*)@object + 76), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder10);
+				throw;
+			}
+			if (*(int*)(&nodeHolder10) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder10)))))((IntPtr)(*(int*)(&nodeHolder10)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder11);
+			int num11 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder11, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040KNCDGLP_0040WaterDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num11), (String_003Cchar_003E*)((byte*)@object + 84), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder11);
+				throw;
+			}
+			if (*(int*)(&nodeHolder11) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder11)))))((IntPtr)(*(int*)(&nodeHolder11)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder12);
+			int num12 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder12, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040OAMFCECP_0040WaterDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num12), (String_003Cchar_003E*)((byte*)@object + 92), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder12);
+				throw;
+			}
+			if (*(int*)(&nodeHolder12) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder12)))))((IntPtr)(*(int*)(&nodeHolder12)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder13);
+			int num13 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder13, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040MDDFCCGM_0040ModelDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num13), (String_003Cchar_003E*)((byte*)@object + 100), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder13);
+				throw;
+			}
+			if (*(int*)(&nodeHolder13) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder13)))))((IntPtr)(*(int*)(&nodeHolder13)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder14);
+			int num14 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder14, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040PPNGEAFF_0040ModelDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num14), (String_003Cchar_003E*)((byte*)@object + 108), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder14);
+				throw;
+			}
+			if (*(int*)(&nodeHolder14) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder14)))))((IntPtr)(*(int*)(&nodeHolder14)));
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder15);
+			int num15 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder15, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040IGIHJIGM_0040TextureQualityAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num15), (String_003Cchar_003E*)((byte*)@object + 116), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder15);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder15);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder16);
+			int num16 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder16, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BM_0040PPJDPCOP_0040TextureQualityStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E((INode*)(int)(*(uint*)num16), (String_003Cchar_003E*)((byte*)@object + 124), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder16);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder16);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder17);
+			int num17 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder17, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040FNFEDIBL_0040ShaderDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num17), (String_003Cchar_003E*)((byte*)@object + 132), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder17);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder17);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder18);
+			int num18 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder18, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040DBCJMFNA_0040ShaderDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num18), (String_003Cchar_003E*)((byte*)@object + 140), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder18);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder18);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder19);
+			int num19 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder19, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040PCDJAMLB_0040VFXDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num19), (String_003Cchar_003E*)((byte*)@object + 148), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder19);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder19);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder20);
+			int num20 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder20, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040HIFOCBC_0040VFXDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num20), (String_003Cchar_003E*)((byte*)@object + 156), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder20);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder20);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder21);
+			int num21 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder21, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040LHOIOAAP_0040ShadowDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num21), (String_003Cchar_003E*)((byte*)@object + 164), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder21);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder21);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder22);
+			int num22 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder22, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040CLBJKNHF_0040ShadowDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num22), (String_003Cchar_003E*)((byte*)@object + 172), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder22);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder22);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder23);
+			int num23 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder23, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BM_0040KHBLJMFP_0040AnimationDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num23), (String_003Cchar_003E*)((byte*)@object + 180), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder23);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder23);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder24);
+			int num24 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder24, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BN_0040EAGCAPPN_0040AnimationDetailStrLookupSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num24), (String_003Cchar_003E*)((byte*)@object + 188), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder24);
+				throw;
+			}
+			Marshaler_002ENodeHolder_002E_007Bdtor_007D(&nodeHolder24);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder25);
+			int num25 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder25, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040KBCNBMB_0040DecalDetailAptTokenSpec_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(Marshaler_002ENodeHolder_002EGetNode((NodeHolder*)num25), (String_003Cchar_003E*)((byte*)@object + 196), state);

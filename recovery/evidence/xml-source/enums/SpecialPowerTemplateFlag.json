@@ -1,0 +1,131 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12284,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4SpecialPowerTemplateFlag_0040_0040_0040_0040SA_003FBW4SpecialPowerTemplateFlag_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "CANNOT_LEAVE_ENCLOSURE",
+      "value": 25
+    },
+    {
+      "name": "CANNOT_TARGET_SELF",
+      "value": 29
+    },
+    {
+      "name": "CAN_NOT_BE_SCRAMBLED",
+      "value": 28
+    },
+    {
+      "name": "CHECK_SPECIALPOWERSTORE_CANUSE",
+      "value": 23
+    },
+    {
+      "name": "DISABLE_FOR_MULTIPLE_SELECTION",
+      "value": 22
+    },
+    {
+      "name": "DO_NOT_REACQUIRE_TARGET",
+      "value": 26
+    },
+    {
+      "name": "FIND_REACHABLE_TARGETS",
+      "value": 15
+    },
+    {
+      "name": "FOGGED_SHROUDED_CELLS_OK",
+      "value": 9
+    },
+    {
+      "name": "HAS_PUBLIC_TIMER",
+      "value": 13
+    },
+    {
+      "name": "IGNORE_MAP_EXTENTS",
+      "value": 16
+    },
+    {
+      "name": "IGNORE_SELF_IN_NEEDED_OBJECT_FILTER",
+      "value": 17
+    },
+    {
+      "name": "IS_PLAYER_POWER",
+      "value": 14
+    },
+    {
+      "name": "KILL_SPECIAL_OBJECTS",
+      "value": 10
+    },
+    {
+      "name": "LIMIT_DISTANCE",
+      "value": 5
+    },
+    {
+      "name": "NEEDS_OBJECT_FILTER",
+      "value": 1
+    },
+    {
+      "name": "NEEDS_TARGET",
+      "value": 0
+    },
+    {
+      "name": "NOT_BENEATH_BRIDGE",
+      "value": 20
+    },
+    {
+      "name": "NOT_CLIFF_CELL",
+      "value": 8
+    },
+    {
+      "name": "NOT_IN_NANOSWARM",
+      "value": 18
+    },
+    {
+      "name": "NOT_ON_BRIDGE",
+      "value": 19
+    },
+    {
+      "name": "NOT_ON_OBSTACLES",
+      "value": 27
+    },
+    {
+      "name": "NOT_WHILE_BENEATH_BRIDGE",
+      "value": 21
+    },
+    {
+      "name": "NO_FORBIDDEN_MODEL_STATES",
+      "value": 3
+    },
+    {
+      "name": "NO_FORBIDDEN_OBJECTS",
+      "value": 2
+    },
+    {
+      "name": "PATHABLE_ONLY",
+      "value": 7
+    },
+    {
+      "name": "RESPECT_RECHARGE_TIME_DISCOUNT",
+      "value": 6
+    },
+    {
+      "name": "SHARED_SYNC",
+      "value": 12
+    },
+    {
+      "name": "TARGET_NEEDS_OBJECT_STATUS",
+      "value": 11
+    },
+    {
+      "name": "TREAT_BRIDGES_AS_LOCATIONS",
+      "value": 30
+    },
+    {
+      "name": "USE_CHAINED_COMMAND_MONEY",
+      "value": 24
+    },
+    {
+      "name": "WATER_OK",
+      "value": 4
+    }
+  ]
+}

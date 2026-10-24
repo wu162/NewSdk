@@ -1,0 +1,90 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "AIStrategicStateDefinition",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_01HIHLOKLC_00401_003F_0024AA_0040",
+      "sourceLine": 5358,
+      "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBD",
+      "hex": "3100",
+      "text": "1"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_06EFLIMDEH_0040Tactic_003F_0024AA_0040",
+      "sourceLine": 11642,
+      "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+      "hex": "54616374696300",
+      "text": "Tactic"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040KLONJAB_0040TargetHeuristic_003F_0024AA_0040",
+      "sourceLine": 11584,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "54617267657448657572697374696300",
+      "text": "TargetHeuristic"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BB_0040JPKFHFOL_0040MaxRunningCopies_003F_0024AA_0040",
+      "sourceLine": 11678,
+      "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+      "hex": "4d617852756e6e696e67436f7069657300",
+      "text": "MaxRunningCopies"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BC_0040PPJKIHCC_0040MaxInactiveCopies_003F_0024AA_0040",
+      "sourceLine": 11680,
+      "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+      "hex": "4d6178496e616374697665436f7069657300",
+      "text": "MaxInactiveCopies"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040FEBDFPNE_0040PathfindingCheckType_003F_0024AA_0040",
+      "sourceLine": 11682,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "5061746866696e64696e67436865636b5479706500",
+      "text": "PathfindingCheckType"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BK_0040NCEMKMBN_0040ExecutionBeginFeedbackKey_003F_0024AA_0040",
+      "sourceLine": 11688,
+      "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+      "hex": "457865637574696f6e426567696e466565646261636b4b657900",
+      "text": "ExecutionBeginFeedbackKey"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BL_0040IANMMPNC_0040CannotAttackTargetReaction_003F_0024AA_0040",
+      "sourceLine": 11684,
+      "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+      "hex": "43616e6e6f7441747461636b5461726765745265616374696f6e00",
+      "text": "CannotAttackTargetReaction"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BL_0040KLMEPCCL_0040TeamGatherBeginFeedbackKey_003F_0024AA_0040",
+      "sourceLine": 11686,
+      "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+      "hex": "5465616d476174686572426567696e466565646261636b4b657900",
+      "text": "TeamGatherBeginFeedbackKey"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BN_0040ECHEJDF_0040ExecutionCompleteFeedbackKey_003F_0024AA_0040",
+      "sourceLine": 11692,
+      "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+      "hex": "457865637574696f6e436f6d706c657465466565646261636b4b657900",
+      "text": "ExecutionCompleteFeedbackKey"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BN_0040LDDFFNBG_0040ExecutionCanceledFeedbackKey_003F_0024AA_0040",
+      "sourceLine": 11690,
+      "type": "_0024ArrayType_0024_0024_0024BY0BN_0040_0024_0024CBD",
+      "hex": "457865637574696f6e43616e63656c6564466565646261636b4b657900",
+      "text": "ExecutionCanceledFeedbackKey"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040DGLNEEAK_0040MaxTargets_003F_0024AA_0040",
+      "sourceLine": 11676,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "4d61785461726765747300",
+      "text": "MaxTargets"
+    }
+  ]
+}

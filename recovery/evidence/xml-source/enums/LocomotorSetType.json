@@ -1,0 +1,83 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17398,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocomotorSetType_0040_0040_0040_0040SA_003FBW4LocomotorSetType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ATTACKING",
+      "value": 12
+    },
+    {
+      "name": "BURNINGDEATH",
+      "value": 16
+    },
+    {
+      "name": "CHANGING_FIRINGARC",
+      "value": 15
+    },
+    {
+      "name": "COMBO",
+      "value": 11
+    },
+    {
+      "name": "CONTAINED",
+      "value": 10
+    },
+    {
+      "name": "ENRAGED",
+      "value": 8
+    },
+    {
+      "name": "EXITING_PRODUCTION_STRUCTURE",
+      "value": 17
+    },
+    {
+      "name": "FREEFALL",
+      "value": 2
+    },
+    {
+      "name": "INVALID",
+      "value": -1
+    },
+    {
+      "name": "MOUNTED",
+      "value": 7
+    },
+    {
+      "name": "MOVING_TO_TRANSPORT",
+      "value": 13
+    },
+    {
+      "name": "NORMAL",
+      "value": 0
+    },
+    {
+      "name": "NORMAL_UPGRADED",
+      "value": 1
+    },
+    {
+      "name": "PANIC",
+      "value": 4
+    },
+    {
+      "name": "SCARED",
+      "value": 9
+    },
+    {
+      "name": "SUPERSONIC",
+      "value": 6
+    },
+    {
+      "name": "TAXIING",
+      "value": 5
+    },
+    {
+      "name": "WALL_SCALING",
+      "value": 14
+    },
+    {
+      "name": "WANDER",
+      "value": 3
+    }
+  ]
+}

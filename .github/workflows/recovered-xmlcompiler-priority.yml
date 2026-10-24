@@ -1,0 +1,145 @@
+name: XmlCompiler priority type differential validation
+
+on:
+  push:
+    branches: [recovery/xmlcompiler-priority, recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-xmlcompiler-priority.yml'
+      - 'recovery/src/**/Xml*'
+      - 'recovery/src/Native/AttributeModifier.*'
+      - 'recovery/src/Native/UpgradeTemplate.*'
+      - 'recovery/src/Native/LogicCommandSet.*'
+      - 'recovery/src/Native/FX*'
+      - 'recovery/src/Native/SpecialPowerTemplate.*'
+      - 'recovery/src/Native/ObjectCreationList.*'
+      - 'recovery/src/Native/LocomotorTemplate.*'
+      - 'recovery/src/Native/AI*'
+      - 'recovery/tests/Xml*Oracle.cs'
+      - 'recovery/scripts/TestXml*.ps1'
+      - 'recovery/src/Native/Relocation.*'
+      - 'recovery/src/Native/ScalarParsing.*'
+      - 'recovery/src/Native/DataInitializers.*'
+      - 'recovery/src/Native/ResourceMarshaling.*'
+      - 'recovery/src/Native/EnumBitset.*'
+      - 'recovery/src/Native/ObjectFilter.*'
+      - 'recovery/src/Bridge/XmlNodeAdapter.h'
+permissions:
+  contents: write
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    outputs:
+      groups: ${{ steps.groups.outputs.groups }}
+      link_ready: ${{ steps.groups.outputs.link_ready }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: groups
+        name: Select implemented group test entry points
+        shell: python
+        run: |
+          import json, os, pathlib
+          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle"]
+          groups = [g for g in expected if pathlib.Path("recovery/scripts/TestXml" + g + ".ps1").is_file()]
+          if not groups:
+              raise RuntimeError("No recovered component test scripts available")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as stream:
+              stream.write("groups=" + json.dumps(groups) + "\n")
+              ready = len(groups) == len(expected) and pathlib.Path("recovery/scripts/TestXmlPriorityLink.ps1").is_file()
+              stream.write("link_ready=" + str(ready).lower() + "\n")
+          print("Validating implemented group scripts: " + ", ".join(groups))
+          print("Not yet present: " + ", ".join(g for g in expected if g not in groups))
+  differential:
+    needs: inventory
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJSON(needs.inventory.outputs.groups) }}
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare recovered group against original XmlCompiler
+        shell: pwsh
+        env:
+          XML_GROUP: ${{ matrix.group }}
+        run: |
+          & "./recovery/scripts/TestXml$env:XML_GROUP.ps1"
+          if ($LASTEXITCODE -ne 0) { throw "Group $env:XML_GROUP failed" }
+          $path = "recovery/evidence/xml-$env:XML_GROUP/validation.json"
+          $result = Get-Content $path -Raw | ConvertFrom-Json
+          if ($result.succeeded -ne $true -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) {
+            throw 'Missing or mismatched validation evidence'
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-priority-${{ matrix.group }}
+          path: recovery/evidence/xml-${{ matrix.group }}
+          if-no-files-found: error
+  link:
+    needs: inventory
+    if: needs.inventory.outputs.link_ready == 'true'
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Link all recovered groups and compare fourteen default roots
+        shell: pwsh
+        run: ./recovery/scripts/TestXmlPriorityLink.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-priority-priority-link
+          path: |
+            recovery/evidence/xml-priority-link
+            !recovery/evidence/xml-priority-link/**/*.dll
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: recovered-xmlcompiler-priority-x86
+          path: ${{ runner.temp }}/ra3-recovered-xml-priority-link/**/Recovered.XmlCompilerPriority.dll
+          if-no-files-found: error
+  evidence:
+    needs: [inventory, differential, link]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: xml-priority-*
+          path: /tmp/xml-priority-results
+      - name: Preserve complete validation logs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for group in attributes effects powers locomotor ai fxparticle priority-link; do
+            src="/tmp/xml-priority-results/xml-priority-$group"
+            if [ -d "$src" ]; then
+              mkdir -p "recovery/evidence/xml-$group"
+              cp -a "$src/." "recovery/evidence/xml-$group/"
+            fi
+          done
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/xml-*
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "recovery: record XmlCompiler priority validation for $GITHUB_SHA"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Require all differential groups to pass
+        env:
+          DIFFERENTIAL_RESULT: ${{ needs.differential.result }}
+          LINK_READY: ${{ needs.inventory.outputs.link_ready }}
+          LINK_RESULT: ${{ needs.link.result }}
+        run: |
+          test "$DIFFERENTIAL_RESULT" = success
+          if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; fi

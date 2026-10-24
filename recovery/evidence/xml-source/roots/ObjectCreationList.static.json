@@ -1,0 +1,62 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "ObjectCreationList",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040",
+      "sourceLine": 2538,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "4e4f4e4500",
+      "text": "NONE"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040",
+      "sourceLine": 8348,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "466c61677300",
+      "text": "Flags"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_06FDAMAAOH_0040Attack_003F_0024AA_0040",
+      "sourceLine": 7040,
+      "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+      "hex": "41747461636b00",
+      "text": "Attack"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040FHHCCN_0040StrafeAreaSquad_003F_0024AA_0040",
+      "sourceLine": 8354,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "53747261666541726561537175616400",
+      "text": "StrafeAreaSquad"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040IPKIKAM_0040FireWeapon_003F_0024AA_0040",
+      "sourceLine": 8350,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "46697265576561706f6e00",
+      "text": "FireWeapon"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0M_0040ELAAPJMG_0040FlingObject_003F_0024AA_0040",
+      "sourceLine": 8352,
+      "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+      "hex": "466c696e674f626a65637400",
+      "text": "FlingObject"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040DLJIDING_0040CreateObject_003F_0024AA_0040",
+      "sourceLine": 8238,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "4372656174654f626a65637400",
+      "text": "CreateObject"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040IPPIEOL_0040ParabolicCurve_003F_0024AA_0040",
+      "sourceLine": 8356,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "50617261626f6c6963437572766500",
+      "text": "ParabolicCurve"
+    }
+  ]
+}

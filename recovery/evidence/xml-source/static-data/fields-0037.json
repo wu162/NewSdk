@@ -1,0 +1,590 @@
+[
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17258,
+    "type": "uint",
+    "hex": "96bc4911"
+  },
+  {
+    "symbol": "_003FTypeHash_0040BuildingPlacementDistance_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17262,
+    "type": "uint",
+    "hex": "55e78d18"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SlavesAttackNuggetType_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17268,
+    "type": "uint",
+    "hex": "6a63f49e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SlaughterHordeContainModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17270,
+    "type": "uint",
+    "hex": "078d9347"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FormationAssistantTemplate_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17276,
+    "type": "uint",
+    "hex": "cb9e5309"
+  },
+  {
+    "symbol": "_003FTypeHash_0040GameTimeSetting_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17282,
+    "type": "uint",
+    "hex": "5f410d73"
+  },
+  {
+    "symbol": "_003FTypeHash_0040IntRange_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17288,
+    "type": "uint",
+    "hex": "b5bf5389"
+  },
+  {
+    "symbol": "_003FTypeHash_0040WeaponFireSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17292,
+    "type": "uint",
+    "hex": "f1ec3c75"
+  },
+  {
+    "symbol": "_003FTypeHash_0040TurretAIData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17294,
+    "type": "uint",
+    "hex": "2aadb338"
+  },
+  {
+    "symbol": "_003FTypeHash_0040InactiveBodyModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17300,
+    "type": "uint",
+    "hex": "829a5317"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UpgradeTemplate_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17304,
+    "type": "uint",
+    "hex": "69298d4f"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamageFX_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17306,
+    "type": "uint",
+    "hex": "abb02e0b"
+  },
+  {
+    "symbol": "_003FTypeHash_0040MovementSpecialPowerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17310,
+    "type": "uint",
+    "hex": "aa929ac5"
+  },
+  {
+    "symbol": "_003FTypeHash_0040PassiveAreaEffectBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17312,
+    "type": "uint",
+    "hex": "1b5ed4e9"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DestroyModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17314,
+    "type": "uint",
+    "hex": "35b4d2f8"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SpawnBehaviorModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17318,
+    "type": "uint",
+    "hex": "2af92c22"
+  },
+  {
+    "symbol": "_003FTypeHash_0040GameMap_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17320,
+    "type": "uint",
+    "hex": "127c65f4"
+  },
+  {
+    "symbol": "_003FTypeHash_0040SkirmishAIInformation_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17324,
+    "type": "uint",
+    "hex": "17e95392"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DamagerModuleData_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17326,
+    "type": "uint",
+    "hex": "a21f3d28"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXListBehaviorEvent_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17330,
+    "type": "uint",
+    "hex": "ab1fd724"
+  },
+  {
+    "symbol": "_003FTypeHash_0040ConquerCard_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17334,
+    "type": "uint",
+    "hex": "1ba015c6"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMilitaryCaptionDisplay_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17338,
+    "type": "uint",
+    "hex": "c8507c2e"
+  },
+  {
+    "symbol": "_003FTypeHash_0040JoypadCommandBarButtonTemplateDataObjectUpgrade_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17344,
+    "type": "uint",
+    "hex": "72e347b1"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIMouseTacticalCommandSell_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17346,
+    "type": "uint",
+    "hex": "1b594cab"
+  },
+  {
+    "symbol": "_003FTypeHash_0040Language_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17348,
+    "type": "uint",
+    "hex": "d681ffbf"
+  },
+  {
+    "symbol": "_003FTypeHash_0040CrowdResponse_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17350,
+    "type": "uint",
+    "hex": "8ca3bc07"
+  },
+  {
+    "symbol": "_003FTypeHash_0040UIComponentJoypadTactical_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17352,
+    "type": "uint",
+    "hex": "2aa03732"
+  },
+  {
+    "symbol": "_003FTypeHash_0040DynamicDecalFXNugget_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17354,
+    "type": "uint",
+    "hex": "0b102992"
+  },
+  {
+    "symbol": "_003FTypeHash_0040FXParticleEmissionVelocityOutward_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17356,
+    "type": "uint",
+    "hex": "6c7f7dcc"
+  },
+  {
+    "symbol": "_003FTypeHash_0040BaseSingleSound_0040SageBinaryData_0040_00402IB",
+    "sourceLine": 17358,
+    "type": "uint",
+    "hex": "691fd6af"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LogicCommandType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LogicCommandType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17360,
+    "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "08710b100a00000014710b100b00000028710b100c00000038710b101000000040710b100d0000005c710b10050000006c710b100700000078710b100800000088710b100f0000009c710b100e00000058c60a1000000000b4710b100300000038130b1004000000c4710b1009000000d0710b1001000000e0710b1002000000e8710b1006000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4WeaponSlotType_0040_0040_0040_0040SA_003FBW4WeaponSlotType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17362,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "34cd0a100500000040cd0a100000000050cd0a100300000064cd0a100400000074cd0a100100000088cd0a1002000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocoZ_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LocoZ_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17364,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "301e0b1004000000401e0b100b000000581e0b1006000000701e0b1005000000901e0b10090000009c1e0b1000000000ac1e0b1007000000d01e0b100a000000e01e0b1001000000ec1e0b100c000000001f0b1008000000241f0b10030000003c1f0b1002000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4SpecialPowerRestrictionType_0040_0040_0040_0040SA_003FBW4SpecialPowerRestrictionType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17366,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "cc530b1001000000d0530b1002000000d4530b1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ToggleStatusAiHint_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ToggleStatusAiHint_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17368,
+    "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "f06d0b1001000000006e0b100b000000146e0b1000000000246e0b1003000000446e0b1004000000606e0b100f000000706e0b1008000000846e0b100c000000a46e0b1009000000b46e0b100a000000c46e0b1002000000dc6e0b100e000000ec6e0b1007000000086f0b100d000000206f0b1006000000346f0b1005000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ViewShakeType_0040_0040_0040_0040SA_003FBW4ViewShakeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17370,
+    "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "683e0b1004000000783e0b1005000000b8c70a1001000000843e0b10030000008c3e0b1002000000943e0b1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4CareerStatOrder_0040_0040_0040_0040SA_003FBW4CareerStatOrder_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17372,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "e85d0b1021000000045e0b10200000001c5e0b10080000002c5e0b1017000000405e0b1011000000545e0b100f000000645e0b1005000000745e0b1006000000805e0b1001000000945e0b1000000000a85e0b101c000000b85e0b101b000000d05e0b101f000000e85e0b1003000000fc5e0b1002000000105f0b1019000000245f0b101a000000345f0b1018000000485f0b100a000000585f0b100d0000006c5f0b100e000000885f0b100c0000009c5f0b1022000000b45f0b100b000000c45f0b1012000000d45f0b1010000000e85f0b1004000000fc5f0b10090000000c600b101600000020600b10130000002c600b101500000038600b101400000044600b101e00000058600b101d0000006c600b1007000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4GameStatsMode_0040_0040_0040_0040SA_003FBW4GameStatsMode_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17374,
+    "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "20590b100000000030590b10020000003c590b100600000054590b10070000006c590b100400000084590b10050000009c590b1003000000b4590b1001000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DynamicDecalShaderType_0040_0040_0040_0040SA_003FBW4DynamicDecalShaderType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17376,
+    "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "88180b1001000000c0180b1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AITimerType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AITimerType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17378,
+    "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "4c920b100100000058920b1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXTriggerType_0040_0040_0040_0040SA_003FBW4FXTriggerType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17380,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "24400b100100000058c60a100000000034400b1002000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AIBaseSortingOrder_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AIBaseSortingOrder_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17382,
+    "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "d0660b1006000000e0660b1003000000f0660b100500000010670b100400000030670b100100000040670b100000000050670b1002000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4PathMusicEventSetCategory_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4PathMusicEventSetCategory_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17386,
+    "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "18530b100100000020530b1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DecalLODType_0040_0040_0040_0040SA_003FBW4DecalLODType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17388,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "9cc70a1002000000acc70a1001000000a8c90a1000000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4EmotionTemplateThreatComparisonType_0040_0040_0040_0040SA_003FBW4EmotionTemplateThreatComparisonType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17390,
+    "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "58c60a1000000000447e0b1002000000547e0b1001000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DisabledType_0040_0040_0040_0040SA_003FBW4DisabledType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17392,
+    "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "e8cb0a1000000000f0cb0a1002000000f4cb0a100700000000cc0a100300000008cc0a100b00000014cc0a100400000020cc0a100900000030cc0a100a00000044cc0a100800000058cc0a100600000068cc0a100500000074cc0a1001000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocoF_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4LocoF_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17394,
+    "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "d01f0b100a000000dc1f0b100b000000e81f0b100c000000f41f0b100100000000200b10020000000c200b100300000018200b100400000020200b100500000028200b100600000030200b100000000040200b10070000004c200b100800000058200b1009000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeType_0040_0040_0040_0040SA_003FBW4AttributeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17396,
+    "type": "_0024ArrayType_0024_0024_0024BY0CD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "18150b102000000028150b100100000030150b10140000003c150b101200000050150b102200000060150b102100000080150b101900000094150b101a000000a4150b101b000000b8150b1018000000c8150b1009000000dc150b1002000000e8150b1003000000f4150b101700000010160b10060000001c160b100f00000024160b1010000000e8ea0a101c00000030160b101300000058c60a100000000050160b101f0000005c160b100d00000068160b100e00000078160b100700000080160b101600000090160b100c000000a0160b101e000000ac160b1004000000b8160b100a000000cc160b1005000000dc160b1015000000ec160b1008000000f4160b100b00000004170b101d00000014170b1011000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4LocomotorSetType_0040_0040_0040_0040SA_003FBW4LocomotorSetType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17398,
+    "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "30ce0a100c0000003cce0a10100000004cce0a100f00000060ce0a100b00000068ce0a100a00000074ce0a10080000007cce0a1011000000f4cb0a100200000064cb0a10ffffffff9cce0a1007000000a4ce0a100d000000b8c70a1000000000b8ce0a1001000000c8ce0a1004000000d0ce0a1009000000d8ce0a1006000000e4ce0a1005000000ecce0a100e000000fcce0a1003000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeModifierCategoryType_0040_0040_0040_0040SA_003FBW4AttributeModifierCategoryType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17400,
+    "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "98170b1007000000a0170b1008000000a8170b1002000000b4170b100a000000c4170b100d000000d4170b100b000000e8170b100e000000f8170b100c00000008180b100100000014180b100600000058c60a10000000001c180b100300000024180b100500000030180b100900000038180b1004000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4WaterLODType_0040_0040_0040_0040SA_003FBW4WaterLODType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17402,
+    "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "9cc70a1002000000acc70a10000000004cc90a100100000054c90a1003000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4TeamPriority_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4TeamPriority_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17404,
+    "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "e0900b1006000000e8cb0a1000000000b48e0b1001000000e8900b10040000009cc70a1005000000f8900b1008000000acc70a100200000038530b100700000044530b1003000000"
+  },
+  {
+    "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+    "sourceLine": 17406,
+    "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040",
+    "hex": "286c0b1004000000346c0b101000000040650b1001000000446c0b100a0000004c6c0b1012000000586c0b1008000000646c0b1007000000706c0b100c0000007c6c0b100e000000886c0b100f000000986c0b1009000000a06c0b1000000000ac6c0b1003000000b46c0b1013000000c86c0b1015000000d86c0b1014000000ec6c0b1016000000046d0b10170000001c6d0b10180000003c6d0b1011000000486d0b100b000000546d0b1006000000606d0b1005000000686d0b100200000048650b100d000000"
+  },
+  {
+    "symbol": "_003F_003F_R3IList_0040Marshaler_0040_00408",
+    "sourceLine": 17416,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "000000000000000001000000b8a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R2INode_0040Marshaler_0040_00408",
+    "sourceLine": 17418,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_4",
+    "hex": "78a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_R4Value_0040_00406B_0040",
+    "sourceLine": 17420,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "00000000000000000000000090c41c10f0a51c10"
+  },
+  {
+    "symbol": "_lists",
+    "sourceLine": 17422,
+    "type": "set_003CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_003E",
+    "hex": "000000008cc31c108cc31c1000000000000000000000000000000000"
+  },
+  {
+    "symbol": "_003F_003F_R2Value_0040_00408",
+    "sourceLine": 17426,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_8",
+    "hex": "0ca61c1030a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_7List_0040_00406B_0040",
+    "sourceLine": 17428,
+    "type": "_0024ArrayType_0024_0024_0024BY05Q6AXXZ",
+    "hex": "20ef0910d0ee091040ed0910c0e4091070f80910d45d0c10"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVValue_0040_0040_00408",
+    "sourceLine": 17430,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_12",
+    "hex": "d45d0c10000000002e3f415656616c7565404000"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040Node_0040_00408",
+    "sourceLine": 17432,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "c0c41c100100000000000000ffffffff00000000400000003ca61c10"
+  },
+  {
+    "symbol": "_003F_003F_R2List_0040_00408",
+    "sourceLine": 17434,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_8",
+    "hex": "a4a61c10c0a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_R3INode_0040Marshaler_0040_00408",
+    "sourceLine": 17436,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "00000000000000000100000070a51c10"
+  },
+  {
+    "symbol": "_003F_003F_7Value_0040_00406B_0040",
+    "sourceLine": 17438,
+    "type": "_0024ArrayType_0024_0024_0024BY03Q6AXXZ",
+    "hex": "e0e4091010e5091070f00910d45d0c10"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040IList_0040Marshaler_0040_00408",
+    "sourceLine": 17440,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "4cc41c100000000000000000ffffffff0000000040000000a8a51c10"
+  },
+  {
+    "symbol": "_values",
+    "sourceLine": 17442,
+    "type": "set_003CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_003E",
+    "hex": "00000000a8c31c10a8c31c1000000000000000000000000000000000"
+  },
+  {
+    "symbol": "_003F_003F_7Node_0040_00406B_0040",
+    "sourceLine": 17444,
+    "type": "_0024ArrayType_0024_0024_0024BY06Q6AXXZ",
+    "hex": "90e4091020f4091050eb091000f6091020f7091040f20910d45d0c10"
+  },
+  {
+    "symbol": "_nodes",
+    "sourceLine": 17446,
+    "type": "set_003CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_003E",
+    "hex": "0000000070c31c1070c31c1000000000000000000000000000000000"
+  },
+  {
+    "symbol": "_003F_003F_R4IList_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17448,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "0000000000000000000000004cc41c10a8a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R3IValue_0040Marshaler_0040_00408",
+    "sourceLine": 17450,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "00000000000000000100000028a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVIValue_0040Marshaler_0040_0040_00408",
+    "sourceLine": 17452,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_23",
+    "hex": "d45d0c10000000002e3f41564956616c7565404d61727368616c6572404000"
+  },
+  {
+    "symbol": "_003F_003F_R3List_0040_00408",
+    "sourceLine": 17454,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "00000000000000000200000098a61c10"
+  },
+  {
+    "symbol": "_003F_003F_7INode_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17458,
+    "type": "_0024ArrayType_0024_0024_0024BY06Q6AXXZ",
+    "hex": "d0f90910d0f90910d0f90910d0f90910d0f90910f0e30910d45d0c10"
+  },
+  {
+    "symbol": "_003F_003F_R4IValue_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17460,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "000000000000000000000000d0c31c1018a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040Value_0040_00408",
+    "sourceLine": 17462,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "90c41c100100000000000000ffffffff0000000040000000f0a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R4Node_0040_00406B_0040",
+    "sourceLine": 17464,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "000000000000000000000000c0c41c103ca61c10"
+  },
+  {
+    "symbol": "_003F_003F_R3Value_0040_00408",
+    "sourceLine": 17466,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "00000000000000000200000000a61c10"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVNode_0040_0040_00408",
+    "sourceLine": 17468,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_11",
+    "hex": "d45d0c10000000002e3f41564e6f6465404000"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVINode_0040Marshaler_0040_0040_00408",
+    "sourceLine": 17470,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_22",
+    "hex": "d45d0c10000000002e3f4156494e6f6465404d61727368616c6572404000"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVIList_0040Marshaler_0040_0040_00408",
+    "sourceLine": 17472,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_22",
+    "hex": "d45d0c10000000002e3f4156494c697374404d61727368616c6572404000"
+  },
+  {
+    "symbol": "_003F_003F_R2IList_0040Marshaler_0040_00408",
+    "sourceLine": 17474,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_4",
+    "hex": "c0a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_R2IValue_0040Marshaler_0040_00408",
+    "sourceLine": 17476,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_4",
+    "hex": "30a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040List_0040_00408",
+    "sourceLine": 17478,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "f0c41c100100000000000000ffffffff000000004000000088a61c10"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040IValue_0040Marshaler_0040_00408",
+    "sourceLine": 17480,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "d0c31c100000000000000000ffffffff000000004000000018a51c10"
+  },
+  {
+    "symbol": "_003F_003F_7IValue_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17482,
+    "type": "_0024ArrayType_0024_0024_0024BY03Q6AXXZ",
+    "hex": "d0f90910d0f9091080e30910d45d0c10"
+  },
+  {
+    "symbol": "_003F_003F_R2Node_0040_00408",
+    "sourceLine": 17484,
+    "type": "_0024_s__RTTIBaseClassArray_0024_extraBytes_8",
+    "hex": "58a61c1078a51c1000"
+  },
+  {
+    "symbol": "_003F_003F_R3Node_0040_00408",
+    "sourceLine": 17486,
+    "type": "_s__RTTIClassHierarchyDescriptor",
+    "hex": "0000000000000000020000004ca61c10"
+  },
+  {
+    "symbol": "_003F_003F_R4INode_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17488,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "00000000000000000000000010c41c1060a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R4List_0040_00406B_0040",
+    "sourceLine": 17490,
+    "type": "_s__RTTICompleteObjectLocator",
+    "hex": "000000000000000000000000f0c41c1088a61c10"
+  },
+  {
+    "symbol": "_003F_003F_R1A_0040_003F0A_0040EA_0040INode_0040Marshaler_0040_00408",
+    "sourceLine": 17496,
+    "type": "_s__RTTIBaseClassDescriptor2",
+    "hex": "10c41c100000000000000000ffffffff000000004000000060a51c10"
+  },
+  {
+    "symbol": "_003F_003F_R0_003FAVList_0040_0040_00408",
+    "sourceLine": 17498,
+    "type": "_0024_TypeDescriptor_0024_extraBytes_11",
+    "hex": "d45d0c10000000002e3f41564c697374404000"
+  },
+  {
+    "symbol": "_003F_003F_7IList_0040Marshaler_0040_00406B_0040",
+    "sourceLine": 17500,
+    "type": "_0024ArrayType_0024_0024_0024BY05Q6AXXZ",
+    "hex": "d0f90910d0f90910d0f90910d0f9091060e40910d45d0c10"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xc_mp_z",
+    "sourceLine": 17502,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xi_vt_a",
+    "sourceLine": 17509,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xc_ma_a",
+    "sourceLine": 17521,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xc_ma_z",
+    "sourceLine": 17533,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xi_vt_z",
+    "sourceLine": 17540,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  },
+  {
+    "symbol": "_003FA0x176e81b8_002E__xc_mp_a",
+    "sourceLine": 17561,
+    "type": "_003CCppImplementationDetails_003E._0024ArrayType_0024_0024_0024BY00Q6MPBXXZ",
+    "hex": "00000000"
+  }
+]

@@ -1,0 +1,107 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17406,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AISpecialPowerHeuristic_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AOE_ATTACK",
+      "value": 4
+    },
+    {
+      "name": "ATTACHED_BOMB",
+      "value": 16
+    },
+    {
+      "name": "CAPTURE",
+      "value": 1
+    },
+    {
+      "name": "DEPLOY",
+      "value": 10
+    },
+    {
+      "name": "DISCHARGE",
+      "value": 18
+    },
+    {
+      "name": "DISGUISE",
+      "value": 8
+    },
+    {
+      "name": "DOMINATE",
+      "value": 7
+    },
+    {
+      "name": "DUMB_FIRE",
+      "value": 12
+    },
+    {
+      "name": "INSTAKILL",
+      "value": 14
+    },
+    {
+      "name": "INVULNERABILITY",
+      "value": 15
+    },
+    {
+      "name": "JUMP",
+      "value": 9
+    },
+    {
+      "name": "MOVEMENT",
+      "value": 0
+    },
+    {
+      "name": "PACK",
+      "value": 3
+    },
+    {
+      "name": "PLAYER_AOE_ATTACK",
+      "value": 19
+    },
+    {
+      "name": "PLAYER_AOE_BUFF",
+      "value": 21
+    },
+    {
+      "name": "PLAYER_AOE_DEBUFF",
+      "value": 20
+    },
+    {
+      "name": "PLAYER_AOE_SHROUD_CLEAR",
+      "value": 22
+    },
+    {
+      "name": "PLAYER_POSITION_SWAP",
+      "value": 23
+    },
+    {
+      "name": "PLAYER_POWER_MAGNETIC_SATELLITE",
+      "value": 24
+    },
+    {
+      "name": "RUSH_ATTACK",
+      "value": 17
+    },
+    {
+      "name": "SPEED_BOOST",
+      "value": 11
+    },
+    {
+      "name": "TIME_WARP",
+      "value": 6
+    },
+    {
+      "name": "TOGGLE",
+      "value": 5
+    },
+    {
+      "name": "UNPACK",
+      "value": 2
+    },
+    {
+      "name": "UPGRADE",
+      "value": 13
+    }
+  ]
+}

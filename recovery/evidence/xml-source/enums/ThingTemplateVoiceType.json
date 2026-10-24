@@ -1,0 +1,275 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 12254,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ThingTemplateVoiceType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ThingTemplateVoiceType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "voiceAlert",
+      "value": 32
+    },
+    {
+      "name": "voiceAttack",
+      "value": 17
+    },
+    {
+      "name": "voiceAttackAfterMoving",
+      "value": 23
+    },
+    {
+      "name": "voiceAttackAir",
+      "value": 22
+    },
+    {
+      "name": "voiceAttackCharge",
+      "value": 18
+    },
+    {
+      "name": "voiceAttackGarrisonedStructure",
+      "value": 20
+    },
+    {
+      "name": "voiceAttackMachine",
+      "value": 21
+    },
+    {
+      "name": "voiceAttackStructure",
+      "value": 19
+    },
+    {
+      "name": "voiceBombard",
+      "value": 25
+    },
+    {
+      "name": "voiceBuildResponse",
+      "value": 43
+    },
+    {
+      "name": "voiceCaptureBuildingComplete",
+      "value": 47
+    },
+    {
+      "name": "voiceCombatDrop",
+      "value": 38
+    },
+    {
+      "name": "voiceCombineWithHorde",
+      "value": 27
+    },
+    {
+      "name": "voiceCreated",
+      "value": 15
+    },
+    {
+      "name": "voiceDefectingAway",
+      "value": 29
+    },
+    {
+      "name": "voiceDefectingTowards",
+      "value": 30
+    },
+    {
+      "name": "voiceDeliverRing",
+      "value": 13
+    },
+    {
+      "name": "voiceDesperateAttack",
+      "value": 24
+    },
+    {
+      "name": "voiceDock",
+      "value": 35
+    },
+    {
+      "name": "voiceEnter",
+      "value": 39
+    },
+    {
+      "name": "voiceEnterHostile",
+      "value": 40
+    },
+    {
+      "name": "voiceEnterStateAttack",
+      "value": 52
+    },
+    {
+      "name": "voiceEnterStateAttackAfterMoving",
+      "value": 58
+    },
+    {
+      "name": "voiceEnterStateAttackAir",
+      "value": 54
+    },
+    {
+      "name": "voiceEnterStateAttackCharge",
+      "value": 53
+    },
+    {
+      "name": "voiceEnterStateAttackGarrisonedStructure",
+      "value": 56
+    },
+    {
+      "name": "voiceEnterStateAttackMachine",
+      "value": 57
+    },
+    {
+      "name": "voiceEnterStateAttackStructure",
+      "value": 55
+    },
+    {
+      "name": "voiceEnterStateMove",
+      "value": 59
+    },
+    {
+      "name": "voiceEnterStateMoveLandToWater",
+      "value": 65
+    },
+    {
+      "name": "voiceEnterStateMoveOverWalls",
+      "value": 61
+    },
+    {
+      "name": "voiceEnterStateMoveToCamp",
+      "value": 63
+    },
+    {
+      "name": "voiceEnterStateMoveToHigherGround",
+      "value": 60
+    },
+    {
+      "name": "voiceEnterStateMoveWaterToLand",
+      "value": 66
+    },
+    {
+      "name": "voiceEnterStateMoveWhileAttacking",
+      "value": 64
+    },
+    {
+      "name": "voiceEnterStateRetreatToCastle",
+      "value": 62
+    },
+    {
+      "name": "voiceFear",
+      "value": 26
+    },
+    {
+      "name": "voiceFullyCreated",
+      "value": 16
+    },
+    {
+      "name": "voiceGarrison",
+      "value": 42
+    },
+    {
+      "name": "voiceGetHealed",
+      "value": 41
+    },
+    {
+      "name": "voiceGuard",
+      "value": 31
+    },
+    {
+      "name": "voiceLowFuel",
+      "value": 51
+    },
+    {
+      "name": "voiceMove",
+      "value": 5
+    },
+    {
+      "name": "voiceMoveLandToWater",
+      "value": 9
+    },
+    {
+      "name": "voiceMoveOverWalls",
+      "value": 7
+    },
+    {
+      "name": "voiceMoveToCamp",
+      "value": 12
+    },
+    {
+      "name": "voiceMoveToHigherGround",
+      "value": 6
+    },
+    {
+      "name": "voiceMoveWaterToLand",
+      "value": 10
+    },
+    {
+      "name": "voiceMoveWhileAttacking",
+      "value": 8
+    },
+    {
+      "name": "voiceNoBuild",
+      "value": 50
+    },
+    {
+      "name": "voicePrimaryWeaponMode",
+      "value": 44
+    },
+    {
+      "name": "voiceRapidFire",
+      "value": 48
+    },
+    {
+      "name": "voiceRepair",
+      "value": 37
+    },
+    {
+      "name": "voiceRetreatToCastle",
+      "value": 11
+    },
+    {
+      "name": "voiceSalvage",
+      "value": 33
+    },
+    {
+      "name": "voiceSecondaryWeaponMode",
+      "value": 45
+    },
+    {
+      "name": "voiceSelect",
+      "value": 0
+    },
+    {
+      "name": "voiceSelectBattle",
+      "value": 2
+    },
+    {
+      "name": "voiceSelectIdleWorker",
+      "value": 3
+    },
+    {
+      "name": "voiceSelectUnderConstruction",
+      "value": 1
+    },
+    {
+      "name": "voiceSelectUnderFire",
+      "value": 4
+    },
+    {
+      "name": "voiceSendToSlaughterhouse",
+      "value": 14
+    },
+    {
+      "name": "voiceStartCharging",
+      "value": 49
+    },
+    {
+      "name": "voiceSupply",
+      "value": 34
+    },
+    {
+      "name": "voiceTaskComplete",
+      "value": 28
+    },
+    {
+      "name": "voiceTertiaryWeaponMode",
+      "value": 46
+    },
+    {
+      "name": "voiceUnload",
+      "value": 36
+    }
+  ]
+}

@@ -1,0 +1,2191 @@
+{
+  "sourceCommit": "ba7a3d6845be5e124d08320cb2c56fda552d9fbe",
+  "sourcePath": "recovery/decompiled/BinaryAssetBuilder.XmlCompiler/-Module-.cs",
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sha256": "be379d88db4c9f6de9cb4844bfc86a58d880d7a88a6b28cc76ba1c1bfc0fc6c1",
+  "lineCount": 119330,
+  "parts": [
+    {
+      "path": "parts/part-0000.cs.txt",
+      "firstLine": 1,
+      "lastLine": 500,
+      "sha256": "3dcb13cc14c27d2afb78a81cb8b4851cf3de5a2b027ad3918b671b54b6344094"
+    },
+    {
+      "path": "parts/part-0001.cs.txt",
+      "firstLine": 501,
+      "lastLine": 1000,
+      "sha256": "6034abd33c3649ea21e04a5ada8494f2f33a1f24c86951f2a97cb714dbb602d3"
+    },
+    {
+      "path": "parts/part-0002.cs.txt",
+      "firstLine": 1001,
+      "lastLine": 1500,
+      "sha256": "eb041e32cf44f5bfa72ebc683d89bbe4dfedc7e73a5d69340bb7505d7553a59a"
+    },
+    {
+      "path": "parts/part-0003.cs.txt",
+      "firstLine": 1501,
+      "lastLine": 2000,
+      "sha256": "5494df5404eb0bf50785ac249f0571409447c717a0b430095fcaf007f8cf8587"
+    },
+    {
+      "path": "parts/part-0004.cs.txt",
+      "firstLine": 2001,
+      "lastLine": 2500,
+      "sha256": "323aad0038252162d433de053c79bbc92769931e94c843eada53498dd7cb3112"
+    },
+    {
+      "path": "parts/part-0005.cs.txt",
+      "firstLine": 2501,
+      "lastLine": 3000,
+      "sha256": "6a6b0239e65250331918c6f33daa79e67ab60d1180c8ea31bebb72ed95a39f99"
+    },
+    {
+      "path": "parts/part-0006.cs.txt",
+      "firstLine": 3001,
+      "lastLine": 3500,
+      "sha256": "4451912ef6b8ea870380ee421ba19ce0f3920a147972fb4213ca181d681c63ed"
+    },
+    {
+      "path": "parts/part-0007.cs.txt",
+      "firstLine": 3501,
+      "lastLine": 4000,
+      "sha256": "526b2897e30a27115360ac7fcf6ec3a14c7c1b5baf6340df5fc7acbbebaf2598"
+    },
+    {
+      "path": "parts/part-0008.cs.txt",
+      "firstLine": 4001,
+      "lastLine": 4500,
+      "sha256": "9cb390d681608367b95774b0e2879f940351804ba7299f4848f248b07dee00da"
+    },
+    {
+      "path": "parts/part-0009.cs.txt",
+      "firstLine": 4501,
+      "lastLine": 5000,
+      "sha256": "dd1ea391b0fec0d9292737e0e6289e9464ed15f3e0633e40340b6f55c69a68a5"
+    },
+    {
+      "path": "parts/part-0010.cs.txt",
+      "firstLine": 5001,
+      "lastLine": 5500,
+      "sha256": "05f40fc7e482684b9719b889e059747f48b260060451b25a469b41c340377172"
+    },
+    {
+      "path": "parts/part-0011.cs.txt",
+      "firstLine": 5501,
+      "lastLine": 6000,
+      "sha256": "d84cab6c6d6590b030ec92340c0d9483575fa62ca87d7b430b82c075caa56087"
+    },
+    {
+      "path": "parts/part-0012.cs.txt",
+      "firstLine": 6001,
+      "lastLine": 6500,
+      "sha256": "a26975603b85dfc223f2a655dda1b01aa85a150da1677c62d413e5b5b906e369"
+    },
+    {
+      "path": "parts/part-0013.cs.txt",
+      "firstLine": 6501,
+      "lastLine": 7000,
+      "sha256": "3519994937b4bbcefcd4f740eabc0afe4f6409be5b557ab18543c9a3ab560e85"
+    },
+    {
+      "path": "parts/part-0014.cs.txt",
+      "firstLine": 7001,
+      "lastLine": 7500,
+      "sha256": "69483396b618c1a353773edde3d41d1d880d2a6da54a383156efc2127bc14825"
+    },
+    {
+      "path": "parts/part-0015.cs.txt",
+      "firstLine": 7501,
+      "lastLine": 8000,
+      "sha256": "13e536c93b5be318d44b67a5c8d457a79082d680d86e83b9eb90b68d0b9ccdf9"
+    },
+    {
+      "path": "parts/part-0016.cs.txt",
+      "firstLine": 8001,
+      "lastLine": 8500,
+      "sha256": "d00ceef8fa56c0f527794c281d891aba9eb28877ad3219521dccbef3d43d8f71"
+    },
+    {
+      "path": "parts/part-0017.cs.txt",
+      "firstLine": 8501,
+      "lastLine": 9000,
+      "sha256": "87c1db1f3fc738c3390067cabf63bb2c41001cea6d3a3258bc643011ae441d08"
+    },
+    {
+      "path": "parts/part-0018.cs.txt",
+      "firstLine": 9001,
+      "lastLine": 9500,
+      "sha256": "bbb113c7b888cac3a61ef4821789858c93bc42b9639af3217e6f53c2bad06ab3"
+    },
+    {
+      "path": "parts/part-0019.cs.txt",
+      "firstLine": 9501,
+      "lastLine": 10000,
+      "sha256": "46fb36233e75acc8a34b986d2a58f81dfe1625d46052adc206d97ddd580b309a"
+    },
+    {
+      "path": "parts/part-0020.cs.txt",
+      "firstLine": 10001,
+      "lastLine": 10500,
+      "sha256": "a25f4e73fb37417b14b9ff026dbc2a6bdb99d96d74aa71dc78a9eaad18339c83"
+    },
+    {
+      "path": "parts/part-0021.cs.txt",
+      "firstLine": 10501,
+      "lastLine": 11000,
+      "sha256": "ccee5def8a77f2c90a9a344a29e5577bf7bd9ea9e281ee0524730207aa8f16a9"
+    },
+    {
+      "path": "parts/part-0022.cs.txt",
+      "firstLine": 11001,
+      "lastLine": 11500,
+      "sha256": "c9a5258d60ded43c4c52a0a3f29bcf5a3b9d4e001bf39989deeba59c0677c89e"
+    },
+    {
+      "path": "parts/part-0023.cs.txt",
+      "firstLine": 11501,
+      "lastLine": 12000,
+      "sha256": "feffc4b047a6c64d06affd115688f02f97d9d53971c351efd2893e67d06c1a98"
+    },
+    {
+      "path": "parts/part-0024.cs.txt",
+      "firstLine": 12001,
+      "lastLine": 12500,
+      "sha256": "a718e97cc46151df5f727e8035618bb663e3ccf356ea9fc6e55e3516fda44e08"
+    },
+    {
+      "path": "parts/part-0025.cs.txt",
+      "firstLine": 12501,
+      "lastLine": 13000,
+      "sha256": "846b76dedfdc0d596da83c6251b35757e126dab6e85816f2e5035a2e2e883b7b"
+    },
+    {
+      "path": "parts/part-0026.cs.txt",
+      "firstLine": 13001,
+      "lastLine": 13500,
+      "sha256": "389dd0552f8313b5f0f76e7c65bb428bbf4f6f812ae49b84c3deb89e288372c8"
+    },
+    {
+      "path": "parts/part-0027.cs.txt",
+      "firstLine": 13501,
+      "lastLine": 14000,
+      "sha256": "6fc81759b8afacd00de87b410ea9fc97936402b022a066ff77d5275f9487b3f9"
+    },
+    {
+      "path": "parts/part-0028.cs.txt",
+      "firstLine": 14001,
+      "lastLine": 14500,
+      "sha256": "e38f980386306df9dcab8b08e4025053596abe07eb343dc4b9a95d32ba638b6d"
+    },
+    {
+      "path": "parts/part-0029.cs.txt",
+      "firstLine": 14501,
+      "lastLine": 15000,
+      "sha256": "fb404eedd0fe7544948747750275be7971929da0e22a4092624d2f4a87f32329"
+    },
+    {
+      "path": "parts/part-0030.cs.txt",
+      "firstLine": 15001,
+      "lastLine": 15500,
+      "sha256": "13c2fbfd5f96709f7115cd3e575797ae00cb218251ff3e99c668225ac6c21324"
+    },
+    {
+      "path": "parts/part-0031.cs.txt",
+      "firstLine": 15501,
+      "lastLine": 16000,
+      "sha256": "92ad2a4966c2f065e10944390808a0405b451974a67a13d994885bf3a759b0a2"
+    },
+    {
+      "path": "parts/part-0032.cs.txt",
+      "firstLine": 16001,
+      "lastLine": 16500,
+      "sha256": "157d7d9b86aec0cc590df7e1f13ecfec4473935123cdc96c3720430abd915da1"
+    },
+    {
+      "path": "parts/part-0033.cs.txt",
+      "firstLine": 16501,
+      "lastLine": 17000,
+      "sha256": "8fed993a6de817a059a73c665901441afc2c2d69070c20656651c5b00ab29b1f"
+    },
+    {
+      "path": "parts/part-0034.cs.txt",
+      "firstLine": 17001,
+      "lastLine": 17500,
+      "sha256": "d247b680c4164cecdf057abb65f3b1a4ce04cc2c2392df96046ea2f7169cb132"
+    },
+    {
+      "path": "parts/part-0035.cs.txt",
+      "firstLine": 17501,
+      "lastLine": 18000,
+      "sha256": "b14366ea08859ca41a6533bfaaf89fccdcdb3ea4971db0a98dede0ec738597fe"
+    },
+    {
+      "path": "parts/part-0036.cs.txt",
+      "firstLine": 18001,
+      "lastLine": 18500,
+      "sha256": "cac5375fc562dcbf7b70f0c69494a27f3649f6ffaadac357cfe9b9740195486d"
+    },
+    {
+      "path": "parts/part-0037.cs.txt",
+      "firstLine": 18501,
+      "lastLine": 19000,
+      "sha256": "d3748485e64d5dd68008e09ddf076afad0f0ccd4b7a55a1a5445275954ed4a08"
+    },
+    {
+      "path": "parts/part-0038.cs.txt",
+      "firstLine": 19001,
+      "lastLine": 19500,
+      "sha256": "8cb5d3f453530723122f92761c552c5c822f1b5c3a5fcc8565242eb224368704"
+    },
+    {
+      "path": "parts/part-0039.cs.txt",
+      "firstLine": 19501,
+      "lastLine": 20000,
+      "sha256": "5e0f593a23f181a9eceb1580585831f77c04eccbfd169f36aaa5f6508cb1093f"
+    },
+    {
+      "path": "parts/part-0040.cs.txt",
+      "firstLine": 20001,
+      "lastLine": 20500,
+      "sha256": "771557960de253cdb5e9b8108ac36661a809dbaf9e93865a2b2f67b9dd843c6c"
+    },
+    {
+      "path": "parts/part-0041.cs.txt",
+      "firstLine": 20501,
+      "lastLine": 21000,
+      "sha256": "3694609b83d5dcfe4e156438b9be42225399f765d0a8fad5442f9dd59d49fc00"
+    },
+    {
+      "path": "parts/part-0042.cs.txt",
+      "firstLine": 21001,
+      "lastLine": 21500,
+      "sha256": "0bb40f9a02f1782e3f48df64ecb6ab3b5ba6fad23d9ae8dc930990e703de9ce9"
+    },
+    {
+      "path": "parts/part-0043.cs.txt",
+      "firstLine": 21501,
+      "lastLine": 22000,
+      "sha256": "d74d8b1aff8b17de2182a113149df5b0058aa7b7b00a61a4ee4070d9163faac2"
+    },
+    {
+      "path": "parts/part-0044.cs.txt",
+      "firstLine": 22001,
+      "lastLine": 22500,
+      "sha256": "770ce48813fe9150ace5260b7d15f7b9b9c4c538446b15157c73685f480d2106"
+    },
+    {
+      "path": "parts/part-0045.cs.txt",
+      "firstLine": 22501,
+      "lastLine": 23000,
+      "sha256": "ac6b07d46312d2a6eeb3784006326a44573061e1627a3bcadc2c242f3fe6f051"
+    },
+    {
+      "path": "parts/part-0046.cs.txt",
+      "firstLine": 23001,
+      "lastLine": 23500,
+      "sha256": "0356023e0a49e1af111e6bebd5b44881ff2b2a161cd195094c0708e64adcd54d"
+    },
+    {
+      "path": "parts/part-0047.cs.txt",
+      "firstLine": 23501,
+      "lastLine": 24000,
+      "sha256": "43a519df6ed7d1c68e71d5ed223fc29b2abc24ac2436e5939d317ea2a5a05c09"
+    },
+    {
+      "path": "parts/part-0048.cs.txt",
+      "firstLine": 24001,
+      "lastLine": 24500,
+      "sha256": "1141b47946fe3f4d460a75e603e891a189a89f4872d863e6d24b999acf99ed58"
+    },
+    {
+      "path": "parts/part-0049.cs.txt",
+      "firstLine": 24501,
+      "lastLine": 25000,
+      "sha256": "3899d8dd06f904e628b3929234599bf4b6a512c4ac8339b4709cf0eb310acd0b"
+    },
+    {
+      "path": "parts/part-0050.cs.txt",
+      "firstLine": 25001,
+      "lastLine": 25500,
+      "sha256": "09714a58afbff4fe169739053c952b0049221cd28db723c59582689285987e5a"
+    },
+    {
+      "path": "parts/part-0051.cs.txt",
+      "firstLine": 25501,
+      "lastLine": 26000,
+      "sha256": "74183415670d06ad5ce54999225b2b23ad36c7f311c739105be61a29cb6b0a04"
+    },
+    {
+      "path": "parts/part-0052.cs.txt",
+      "firstLine": 26001,
+      "lastLine": 26500,
+      "sha256": "a28817443118a7afbd931f543cc39a8ae0f25bdeaa717331856fd34e1db0c403"
+    },
+    {
+      "path": "parts/part-0053.cs.txt",
+      "firstLine": 26501,
+      "lastLine": 27000,
+      "sha256": "078fcf4f459d169efe36a0e0ad38c628af174a927fecdb8542da0785b912adb6"
+    },
+    {
+      "path": "parts/part-0054.cs.txt",
+      "firstLine": 27001,
+      "lastLine": 27500,
+      "sha256": "5f371c9e94716b4dbcfc6281a3591c4a8a9601f7dd9ebb433d5ceb324ff57ae6"
+    },
+    {
+      "path": "parts/part-0055.cs.txt",
+      "firstLine": 27501,
+      "lastLine": 28000,
+      "sha256": "79d6b7f259447353447febf9be1fa3a33a183415c3dd99c51c25ad3e556beae1"
+    },
+    {
+      "path": "parts/part-0056.cs.txt",
+      "firstLine": 28001,
+      "lastLine": 28500,
+      "sha256": "5924e3c5501005f0d429a0de541b8c56271bb5a9cab7e3e9fa5c943a3ca84ea9"
+    },
+    {
+      "path": "parts/part-0057.cs.txt",
+      "firstLine": 28501,
+      "lastLine": 29000,
+      "sha256": "8c91e0444218c69bfbd232650922e72cfb07ded07aedab1edb9161f14b650f3a"
+    },
+    {
+      "path": "parts/part-0058.cs.txt",
+      "firstLine": 29001,
+      "lastLine": 29500,
+      "sha256": "bf85ef692790568ceb2843af50c0601332a3582603cfcf2171f6489b5a33b982"
+    },
+    {
+      "path": "parts/part-0059.cs.txt",
+      "firstLine": 29501,
+      "lastLine": 30000,
+      "sha256": "343d056b7ff027edbcc065613ecbde12da95edade8047962fbf4d35d04296130"
+    },
+    {
+      "path": "parts/part-0060.cs.txt",
+      "firstLine": 30001,
+      "lastLine": 30500,
+      "sha256": "56fbfea04b776dd4a3a7c4a6233065fef2321ba09862444633204e0fb460ff67"
+    },
+    {
+      "path": "parts/part-0061.cs.txt",
+      "firstLine": 30501,
+      "lastLine": 31000,
+      "sha256": "408aa4d82859fce63db03a8a755d81a8ec117fa2a685e75bfb3182fcd1e4d6ad"
+    },
+    {
+      "path": "parts/part-0062.cs.txt",
+      "firstLine": 31001,
+      "lastLine": 31500,
+      "sha256": "f15db6b817a1e83a37671fb4860789b0de6e3fb31a2abd26848083ba8a3bee0f"
+    },
+    {
+      "path": "parts/part-0063.cs.txt",
+      "firstLine": 31501,
+      "lastLine": 32000,
+      "sha256": "22d7af80c9a3d70ea8cefd29396bc33bd83c3c6f7112f279c8309d62317d8e7b"
+    },
+    {
+      "path": "parts/part-0064.cs.txt",
+      "firstLine": 32001,
+      "lastLine": 32500,
+      "sha256": "f5bbd6f4c47c9b4bc181e1a77af8f17948c8fc4bbd6381339781a7e8ae624aff"
+    },
+    {
+      "path": "parts/part-0065.cs.txt",
+      "firstLine": 32501,
+      "lastLine": 33000,
+      "sha256": "3c996cc82436196dd4af43a7310f8540cfb3f159ee374e120cb3dd9b0e39e022"
+    },
+    {
+      "path": "parts/part-0066.cs.txt",
+      "firstLine": 33001,
+      "lastLine": 33500,
+      "sha256": "be6bfb6cf5331e38be5c0589150988109a98059d663df785e2d806a59193437c"
+    },
+    {
+      "path": "parts/part-0067.cs.txt",
+      "firstLine": 33501,
+      "lastLine": 34000,
+      "sha256": "4bc66456fe29f6d3c87b9fd4bb8e0599fa7cf15244b8e8dbc7398b4092598f5d"
+    },
+    {
+      "path": "parts/part-0068.cs.txt",
+      "firstLine": 34001,
+      "lastLine": 34500,
+      "sha256": "9a672bb50a046306c1b730a8551f9db0aa8beacb64c5051ddc8aa45b4bfa0e72"
+    },
+    {
+      "path": "parts/part-0069.cs.txt",
+      "firstLine": 34501,
+      "lastLine": 35000,
+      "sha256": "fafabfee7afede08e3ba3b6b79acd8b1a90294d5e5215f651081e306528ed999"
+    },
+    {
+      "path": "parts/part-0070.cs.txt",
+      "firstLine": 35001,
+      "lastLine": 35500,
+      "sha256": "dcdc1db19591c7c469ccef22c0c836108a5f68bfc151dded463fbbc2521ccba3"
+    },
+    {
+      "path": "parts/part-0071.cs.txt",
+      "firstLine": 35501,
+      "lastLine": 36000,
+      "sha256": "39ec54b9e5ad5c724a563603aa47bb615f5fec9f890b134c0656777ea969a411"
+    },
+    {
+      "path": "parts/part-0072.cs.txt",
+      "firstLine": 36001,
+      "lastLine": 36500,
+      "sha256": "621e2de409d0faee60692e72f1d83af965b23a4495d7ec0f6851b4432fb4a997"
+    },
+    {
+      "path": "parts/part-0073.cs.txt",
+      "firstLine": 36501,
+      "lastLine": 37000,
+      "sha256": "5a4a79f4a41e47bca62c5a8f7a348804cb13a20b1cb7447f52716f1e0ac238d7"
+    },
+    {
+      "path": "parts/part-0074.cs.txt",
+      "firstLine": 37001,
+      "lastLine": 37500,
+      "sha256": "24e28927b764bb66c9f4603a0fd1f08dfc632c2aa8392637779b047805a6bc67"
+    },
+    {
+      "path": "parts/part-0075.cs.txt",
+      "firstLine": 37501,
+      "lastLine": 38000,
+      "sha256": "d884c9834d304e47a91685c2ab17b104f07f01939396be5165412c446fd2098f"
+    },
+    {
+      "path": "parts/part-0076.cs.txt",
+      "firstLine": 38001,
+      "lastLine": 38500,
+      "sha256": "c76f326c04b0be753e3f92de0953bf6729f32bb0506c6ff2437cd1e11d2de5bc"
+    },
+    {
+      "path": "parts/part-0077.cs.txt",
+      "firstLine": 38501,
+      "lastLine": 39000,
+      "sha256": "0b27cb2e60abea6fb0a051e3200ee41c5d00e2f5f7f6c7535f1834cdedf3030b"
+    },
+    {
+      "path": "parts/part-0078.cs.txt",
+      "firstLine": 39001,
+      "lastLine": 39500,
+      "sha256": "1d3fdc2c128245bf60ec4e21591ddf013ef3e04ef12f21351581993d5f75cc80"
+    },
+    {
+      "path": "parts/part-0079.cs.txt",
+      "firstLine": 39501,
+      "lastLine": 40000,
+      "sha256": "7688ef1695cf6bd0b5c0906abbf7bde5447059af36fdf7b77c30ed2499992f31"
+    },
+    {
+      "path": "parts/part-0080.cs.txt",
+      "firstLine": 40001,
+      "lastLine": 40500,
+      "sha256": "d07422e14a86919bf28780c781e09bcd607181214083101feb5f89f9a503c4d3"
+    },
+    {
+      "path": "parts/part-0081.cs.txt",
+      "firstLine": 40501,
+      "lastLine": 41000,
+      "sha256": "4419b46580554c09734cfc0083e1f769fd829bc55cc2e319432f0eb2d5de77cb"
+    },
+    {
+      "path": "parts/part-0082.cs.txt",
+      "firstLine": 41001,
+      "lastLine": 41500,
+      "sha256": "68c0bce3c525a314a503cdf32e2b5eca02a24be4c25c24f564aa15fe7c67ccee"
+    },
+    {
+      "path": "parts/part-0083.cs.txt",
+      "firstLine": 41501,
+      "lastLine": 42000,
+      "sha256": "a83dd527e02cb153adf2e6cc0458784ae01ee2878ca4ba52c9e2ee42594e3445"
+    },
+    {
+      "path": "parts/part-0084.cs.txt",
+      "firstLine": 42001,
+      "lastLine": 42500,
+      "sha256": "95373dc7e2181569357e79d4ce1f5c05eb6d8938f8692878ddba3df9f12d68d1"
+    },
+    {
+      "path": "parts/part-0085.cs.txt",
+      "firstLine": 42501,
+      "lastLine": 43000,
+      "sha256": "15f14a35604b85b168a43b96d49887ed621f1ebfe72005001d4b8bb69c62d7d9"
+    },
+    {
+      "path": "parts/part-0086.cs.txt",
+      "firstLine": 43001,
+      "lastLine": 43500,
+      "sha256": "7dce1aa9aa129bbb089373fbab796602d7448a75d7e972edc1d0493b3b620792"
+    },
+    {
+      "path": "parts/part-0087.cs.txt",
+      "firstLine": 43501,
+      "lastLine": 44000,
+      "sha256": "7319e69bf2bd90788c4aa174303186d8dd4f2308718ee2197c2f31231a8d455e"
+    },
+    {
+      "path": "parts/part-0088.cs.txt",
+      "firstLine": 44001,
+      "lastLine": 44500,
+      "sha256": "cd77617c4174d404292c23df196ee05a13e94c6e25eebc84fd31196c17417e16"
+    },
+    {
+      "path": "parts/part-0089.cs.txt",
+      "firstLine": 44501,
+      "lastLine": 45000,
+      "sha256": "40b1e5afb31454a596f6935f742208e62ffd469afb9960036d46e08f8dbc2b5b"
+    },
+    {
+      "path": "parts/part-0090.cs.txt",
+      "firstLine": 45001,
+      "lastLine": 45500,
+      "sha256": "abb7844fe18f28e13d00b00e4231aa876bb0de9d42df0c0888299f87146bd466"
+    },
+    {
+      "path": "parts/part-0091.cs.txt",
+      "firstLine": 45501,
+      "lastLine": 46000,
+      "sha256": "a4de3527623d7ee8489478f65e7641538f0897be1e74ea4d14a511eafb20a764"
+    },
+    {
+      "path": "parts/part-0092.cs.txt",
+      "firstLine": 46001,
+      "lastLine": 46500,
+      "sha256": "2bd7266bda3063005a4c04f4aa702fa043220afce15b83cc45d2aaf4b4287b8d"
+    },
+    {
+      "path": "parts/part-0093.cs.txt",
+      "firstLine": 46501,
+      "lastLine": 47000,
+      "sha256": "6926d6e2b2274146d49246b79248facfa475895c5fcdaa83f2a5a040c0eb9786"
+    },
+    {
+      "path": "parts/part-0094.cs.txt",
+      "firstLine": 47001,
+      "lastLine": 47500,
+      "sha256": "669c637926abf6f42690fcab770e91a07abcdd497f30f78f5a653554d0d6a3c7"
+    },
+    {
+      "path": "parts/part-0095.cs.txt",
+      "firstLine": 47501,
+      "lastLine": 48000,
+      "sha256": "47c71a14cee7639b7aa3dc82c202347031092244a678a1da4b8673c5b91d8b1d"
+    },
+    {
+      "path": "parts/part-0096.cs.txt",
+      "firstLine": 48001,
+      "lastLine": 48500,
+      "sha256": "747eaea1d0377306981baf4c0fba958caaa72b6b2e990f63f82b1555b66f2b00"
+    },
+    {
+      "path": "parts/part-0097.cs.txt",
+      "firstLine": 48501,
+      "lastLine": 49000,
+      "sha256": "83a2aaf17240ccf66460abe9c9c709ebd7047feb06217b450e7f6aa6a9fa394f"
+    },
+    {
+      "path": "parts/part-0098.cs.txt",
+      "firstLine": 49001,
+      "lastLine": 49500,
+      "sha256": "f85b17859fc582270d8f952364248c0e619b532b78adcc9a024510098409da69"
+    },
+    {
+      "path": "parts/part-0099.cs.txt",
+      "firstLine": 49501,
+      "lastLine": 50000,
+      "sha256": "cb7b25d0aba2f6eea6794847d0fa7dd5136da519eec814bbe780f51fc7d1534d"
+    },
+    {
+      "path": "parts/part-0100.cs.txt",
+      "firstLine": 50001,
+      "lastLine": 50500,
+      "sha256": "8714d618fb121a94b6c8f7efd1f7b33601a4a51e3821fad71c310fa7951bbf08"
+    },
+    {
+      "path": "parts/part-0101.cs.txt",
+      "firstLine": 50501,
+      "lastLine": 51000,
+      "sha256": "60d444c7a7099c34c3f215845ff67c00f227cb930aac76cf38d389dbbdc622cd"
+    },
+    {
+      "path": "parts/part-0102.cs.txt",
+      "firstLine": 51001,
+      "lastLine": 51500,
+      "sha256": "63bf5338201fa5f930e6f043d27a7045be7ef928ad466f5733d4dc15c687b11b"
+    },
+    {
+      "path": "parts/part-0103.cs.txt",
+      "firstLine": 51501,
+      "lastLine": 52000,
+      "sha256": "452cec312e0fde0d0edc47a0258cf1dadcb0acc5ed9228d181bbe74e5b2f873a"
+    },
+    {
+      "path": "parts/part-0104.cs.txt",
+      "firstLine": 52001,
+      "lastLine": 52500,
+      "sha256": "1aa637e3231b704469c67a3b8cf470be6b57ea0fcce89a062fa84784cbef471e"
+    },
+    {
+      "path": "parts/part-0105.cs.txt",
+      "firstLine": 52501,
+      "lastLine": 53000,
+      "sha256": "1ff63e0752e4085fd665b776c9e836d0e946c902229662100b658fed62de4a56"
+    },
+    {
+      "path": "parts/part-0106.cs.txt",
+      "firstLine": 53001,
+      "lastLine": 53500,
+      "sha256": "19bd277e554b7beea30e981a7d966b662d47f0f09aaa3ec4edb0f631cb1dfb23"
+    },
+    {
+      "path": "parts/part-0107.cs.txt",
+      "firstLine": 53501,
+      "lastLine": 54000,
+      "sha256": "79b628440f6eb4cf7834ff44dc0787dc2037eeb1d3a50fb5ce1391df3a20113c"
+    },
+    {
+      "path": "parts/part-0108.cs.txt",
+      "firstLine": 54001,
+      "lastLine": 54500,
+      "sha256": "ff1ad2b2a57c0c909159aad28b529ccfcf97707e6c6810b66ccd2b769316ff00"
+    },
+    {
+      "path": "parts/part-0109.cs.txt",
+      "firstLine": 54501,
+      "lastLine": 55000,
+      "sha256": "fc7876d34a8a3646ab707d1aa8b340d197ff6a04e8edaa3d358a6926c9be624d"
+    },
+    {
+      "path": "parts/part-0110.cs.txt",
+      "firstLine": 55001,
+      "lastLine": 55500,
+      "sha256": "ce137b6c64480b301ff838496c1269b6bb45cd6fef42feb8c7c2deccf7bd5b76"
+    },
+    {
+      "path": "parts/part-0111.cs.txt",
+      "firstLine": 55501,
+      "lastLine": 56000,
+      "sha256": "f6626828a73c97c6b72fa1da6948f51bfa22fa5e30c787f2d2d35369cf654e0b"
+    },
+    {
+      "path": "parts/part-0112.cs.txt",
+      "firstLine": 56001,
+      "lastLine": 56500,
+      "sha256": "f03ddf1e299a576b52173ab00fcba59d9327bae1c1083fdc68740b54e8f07718"
+    },
+    {
+      "path": "parts/part-0113.cs.txt",
+      "firstLine": 56501,
+      "lastLine": 57000,
+      "sha256": "c581e78fa01199d9213904bdc28c210ef807211f58c8eb2817d958ec199d21f1"
+    },
+    {
+      "path": "parts/part-0114.cs.txt",
+      "firstLine": 57001,
+      "lastLine": 57500,
+      "sha256": "ed9a0a3d94c87acf62ad88bf3e2ae9a5f857dc8b20f7ceba4ab23ac039c537cb"
+    },
+    {
+      "path": "parts/part-0115.cs.txt",
+      "firstLine": 57501,
+      "lastLine": 58000,
+      "sha256": "d3e205cccdb34e531e9ab1467f6ce9a546317892bbc4cd810cffcf3ae6cc3aaf"
+    },
+    {
+      "path": "parts/part-0116.cs.txt",
+      "firstLine": 58001,
+      "lastLine": 58500,
+      "sha256": "0d435603fa366c08050f8b3eeb8d8c7e1df50f1383793e204da833005a343cf8"
+    },
+    {
+      "path": "parts/part-0117.cs.txt",
+      "firstLine": 58501,
+      "lastLine": 59000,
+      "sha256": "6bb7bd727ff5d6a9d96b14907f7a902f05b05fd7f5fe3e429728895041a4e450"
+    },
+    {
+      "path": "parts/part-0118.cs.txt",
+      "firstLine": 59001,
+      "lastLine": 59500,
+      "sha256": "ddc760ef1220ec81f44fcb554fd4be3e03bee330f3199feb550c60fdbafe4b69"
+    },
+    {
+      "path": "parts/part-0119.cs.txt",
+      "firstLine": 59501,
+      "lastLine": 60000,
+      "sha256": "db345117acf4206d1274035cb9c48e4ffffa291c8072b55e9c40d5e7025096ae"
+    },
+    {
+      "path": "parts/part-0120.cs.txt",
+      "firstLine": 60001,
+      "lastLine": 60500,
+      "sha256": "52d1726a8f35b88df4027b0944da26fef0d4f2bbc608a6c08af5ae4f49728ba9"
+    },
+    {
+      "path": "parts/part-0121.cs.txt",
+      "firstLine": 60501,
+      "lastLine": 61000,
+      "sha256": "9dbf99303cf2711d9f40c81957d73175a3c04bf95aea197d071fc30a344c5263"
+    },
+    {
+      "path": "parts/part-0122.cs.txt",
+      "firstLine": 61001,
+      "lastLine": 61500,
+      "sha256": "658d6b6f8327671128c34993b77278803504348dad83a648f990f2376ca3460f"
+    },
+    {
+      "path": "parts/part-0123.cs.txt",
+      "firstLine": 61501,
+      "lastLine": 62000,
+      "sha256": "096bf058f5568de594172c0244494a5efed9c83e06d7e68734e2c8dc10421a88"
+    },
+    {
+      "path": "parts/part-0124.cs.txt",
+      "firstLine": 62001,
+      "lastLine": 62500,
+      "sha256": "98e4e1f66113569e732ead4f11dd4202de065b987497a269a509a71168e68a8d"
+    },
+    {
+      "path": "parts/part-0125.cs.txt",
+      "firstLine": 62501,
+      "lastLine": 63000,
+      "sha256": "a5f3dfdfcdbebe22dd82f5b3e6b1c72c25abf8bf427b050ba906d16179d30b34"
+    },
+    {
+      "path": "parts/part-0126.cs.txt",
+      "firstLine": 63001,
+      "lastLine": 63500,
+      "sha256": "59587c7cb8f5b1e67e5f2812a236e6939ac63bca47798b8fc674412766120ef0"
+    },
+    {
+      "path": "parts/part-0127.cs.txt",
+      "firstLine": 63501,
+      "lastLine": 64000,
+      "sha256": "e714e2f01d099a3fbaec10e1c0e3e76a3d6b4beb111326d148be89827cd84cbe"
+    },
+    {
+      "path": "parts/part-0128.cs.txt",
+      "firstLine": 64001,
+      "lastLine": 64500,
+      "sha256": "8affefddd402b571a7548325ee05414b4fed48b9d13a246e0f482f381b1bd63c"
+    },
+    {
+      "path": "parts/part-0129.cs.txt",
+      "firstLine": 64501,
+      "lastLine": 65000,
+      "sha256": "90bb4d84386cd13d9eeb38a7e5e4487f71a7114491ca19d8db31484a2fdd1775"
+    },
+    {
+      "path": "parts/part-0130.cs.txt",
+      "firstLine": 65001,
+      "lastLine": 65500,
+      "sha256": "01f26ae0500c51d4be884b8fd6d660c49bc77c27c60b0d1c74a78c991073af76"
+    },
+    {
+      "path": "parts/part-0131.cs.txt",
+      "firstLine": 65501,
+      "lastLine": 66000,
+      "sha256": "b0afa57e6b3cd72195cc4aa683bba3aeeaaa83f9dd835f8e6ad729ccda8cb297"
+    },
+    {
+      "path": "parts/part-0132.cs.txt",
+      "firstLine": 66001,
+      "lastLine": 66500,
+      "sha256": "a5dc7f252f0c14d0a9312993ed658b7dab825d2b0fbed113c9d66b3bf21a49d9"
+    },
+    {
+      "path": "parts/part-0133.cs.txt",
+      "firstLine": 66501,
+      "lastLine": 67000,
+      "sha256": "7d49f000fafcd79bb3275d3400d20416dc51b881febb7aa198414546c3bcdca4"
+    },
+    {
+      "path": "parts/part-0134.cs.txt",
+      "firstLine": 67001,
+      "lastLine": 67500,
+      "sha256": "0dce4fd457ae7f0705f09251ee6d6c40258f43f570fd31889440287f92982795"
+    },
+    {
+      "path": "parts/part-0135.cs.txt",
+      "firstLine": 67501,
+      "lastLine": 68000,
+      "sha256": "03859f12f5e12d37646fc05da1ca2de8d0d945f2d553fa61886cb30e34b8b2a9"
+    },
+    {
+      "path": "parts/part-0136.cs.txt",
+      "firstLine": 68001,
+      "lastLine": 68500,
+      "sha256": "f8682f193b5ba2f26bad028197449ffd393a4d9185ca9d433f885cba5aaf10c2"
+    },
+    {
+      "path": "parts/part-0137.cs.txt",
+      "firstLine": 68501,
+      "lastLine": 69000,
+      "sha256": "5ec105c28f84f4e0b2dd277886b93bed989e9608387906c0c8a8a2d18ef83eae"
+    },
+    {
+      "path": "parts/part-0138.cs.txt",
+      "firstLine": 69001,
+      "lastLine": 69500,
+      "sha256": "1fa4dc600f08d21e5caac86ccd58fd9bc4b1e6fa91caa9537f18a3ad6c8fdc01"
+    },
+    {
+      "path": "parts/part-0139.cs.txt",
+      "firstLine": 69501,
+      "lastLine": 70000,
+      "sha256": "096b935956271d5f53faca50accb07d342d633168bf1efb3f43bb68cb9c1774c"
+    },
+    {
+      "path": "parts/part-0140.cs.txt",
+      "firstLine": 70001,
+      "lastLine": 70500,
+      "sha256": "8c27c9b4975c8a3e7467d997f75dfab8f2496c2241ba3995f37deea56faa6a23"
+    },
+    {
+      "path": "parts/part-0141.cs.txt",
+      "firstLine": 70501,
+      "lastLine": 71000,
+      "sha256": "b361a9957719a4932835028c1c20fc3846eded753bbd054b7210e2a1c52cff35"
+    },
+    {
+      "path": "parts/part-0142.cs.txt",
+      "firstLine": 71001,
+      "lastLine": 71500,
+      "sha256": "c1af281640d0b41c7548b58dd2dd11209e9b6e4f3853b4debbfadddc1649d95f"
+    },
+    {
+      "path": "parts/part-0143.cs.txt",
+      "firstLine": 71501,
+      "lastLine": 72000,
+      "sha256": "6c188ddf57dde8fb8c5d2bd3fd105ab4bb276187fa35c7ce2732747ba38bb6f9"
+    },
+    {
+      "path": "parts/part-0144.cs.txt",
+      "firstLine": 72001,
+      "lastLine": 72500,
+      "sha256": "46df3b738c85bae92be007e094c7141008ac3f1b349cb4d1dae66f7a93636c66"
+    },
+    {
+      "path": "parts/part-0145.cs.txt",
+      "firstLine": 72501,
+      "lastLine": 73000,
+      "sha256": "7a96dfa05f96a56410c8516b663c01476b64f5a946962b47aea9261b04f2b01a"
+    },
+    {
+      "path": "parts/part-0146.cs.txt",
+      "firstLine": 73001,
+      "lastLine": 73500,
+      "sha256": "a07eaa5d75ddf1bd6ea15dc9fcf647dd11eee18f627c94e99eb1e502927e03db"
+    },
+    {
+      "path": "parts/part-0147.cs.txt",
+      "firstLine": 73501,
+      "lastLine": 74000,
+      "sha256": "e70bd569d58700f7ce718ddb66644130d7d66792a20dd5a25362b12338d108a1"
+    },
+    {
+      "path": "parts/part-0148.cs.txt",
+      "firstLine": 74001,
+      "lastLine": 74500,
+      "sha256": "7b757f7d469c506e68e085876bd38f8f6c72527e8479f9aa47d246ed18f58430"
+    },
+    {
+      "path": "parts/part-0149.cs.txt",
+      "firstLine": 74501,
+      "lastLine": 75000,
+      "sha256": "9d9bdf55670509ae90153f902442b9de02c7443d91d05ac62a4383c08ff53339"
+    },
+    {
+      "path": "parts/part-0150.cs.txt",
+      "firstLine": 75001,
+      "lastLine": 75500,
+      "sha256": "a747df5c775af1e87f05c3605abca50aecda4b05644928a7bef3383ab92b0e71"
+    },
+    {
+      "path": "parts/part-0151.cs.txt",
+      "firstLine": 75501,
+      "lastLine": 76000,
+      "sha256": "06baed12cffb8233a1af8eb6ff5278b954c34eeaecc2de9cf70729a8a912e943"
+    },
+    {
+      "path": "parts/part-0152.cs.txt",
+      "firstLine": 76001,
+      "lastLine": 76500,
+      "sha256": "cb236fc939c300db30413318088f743d2291e60097576c15f5e8c053d93ed881"
+    },
+    {
+      "path": "parts/part-0153.cs.txt",
+      "firstLine": 76501,
+      "lastLine": 77000,
+      "sha256": "36a7cb5a181152193ab7f3e46995d0e94ca32c9bf49922e41e3e010a676a3c2a"
+    },
+    {
+      "path": "parts/part-0154.cs.txt",
+      "firstLine": 77001,
+      "lastLine": 77500,
+      "sha256": "bf0cf0396f4762cfa1f973462c5fc7170030c52e8bd32a564a87f54918d1180b"
+    },
+    {
+      "path": "parts/part-0155.cs.txt",
+      "firstLine": 77501,
+      "lastLine": 78000,
+      "sha256": "69d215464b5992c6b57ccbd67b5cdc0c5d87bb8e313fdb9ef4e0bf6f3fe5bad1"
+    },
+    {
+      "path": "parts/part-0156.cs.txt",
+      "firstLine": 78001,
+      "lastLine": 78500,
+      "sha256": "fbcea4c0349e36492d0992afd9abae6ee43d1cd0fd00cb1b71c5d649195b6157"
+    },
+    {
+      "path": "parts/part-0157.cs.txt",
+      "firstLine": 78501,
+      "lastLine": 79000,
+      "sha256": "6e42dc119adc86e7b5707911973c4f666b4faf69af96909878923c42b43bb3cf"
+    },
+    {
+      "path": "parts/part-0158.cs.txt",
+      "firstLine": 79001,
+      "lastLine": 79500,
+      "sha256": "b7c9e86761dc9999643685a4faf5c3b30a608da043fb5d1b709e8ef56167fd68"
+    },
+    {
+      "path": "parts/part-0159.cs.txt",
+      "firstLine": 79501,
+      "lastLine": 80000,
+      "sha256": "a88405b073dd175b63f975c338d3fa996533187f644091fa5223f9d7d80b2249"
+    },
+    {
+      "path": "parts/part-0160.cs.txt",
+      "firstLine": 80001,
+      "lastLine": 80500,
+      "sha256": "fbc9861d0eb97e4d05b1f4c3014f3504dfa66f014b169806b03e8b3890b5c12b"
+    },
+    {
+      "path": "parts/part-0161.cs.txt",
+      "firstLine": 80501,
+      "lastLine": 81000,
+      "sha256": "d80a2a2b0daa5389f72c5226bef59ca8997f77112fb2b7ddd67d1e396268a7bb"
+    },
+    {
+      "path": "parts/part-0162.cs.txt",
+      "firstLine": 81001,
+      "lastLine": 81500,
+      "sha256": "45d20635002cc0d75901e4518b600f93b98b2394544611f6328e623ff2ae1566"
+    },
+    {
+      "path": "parts/part-0163.cs.txt",
+      "firstLine": 81501,
+      "lastLine": 82000,
+      "sha256": "514f01078cbf5a5d3a03446be42493955e1157cde80f089cded4e8121c864826"
+    },
+    {
+      "path": "parts/part-0164.cs.txt",
+      "firstLine": 82001,
+      "lastLine": 82500,
+      "sha256": "b0c8ea097ccdddfbb5a1c66a3b1b87e11b95e93abce778c7ad33c621c8fa00f6"
+    },
+    {
+      "path": "parts/part-0165.cs.txt",
+      "firstLine": 82501,
+      "lastLine": 83000,
+      "sha256": "0a7c3cf8807eb153e2307d4800792ee33e6634b3d9d5d3f0dabaf5d8417e623e"
+    },
+    {
+      "path": "parts/part-0166.cs.txt",
+      "firstLine": 83001,
+      "lastLine": 83500,
+      "sha256": "b5e4085f388e88b3943b1890b6a413f100c71c47b8b539830269b187e33631d1"
+    },
+    {
+      "path": "parts/part-0167.cs.txt",
+      "firstLine": 83501,
+      "lastLine": 84000,
+      "sha256": "03912f6f805c1c027f925da57224aebcd65620d19301671c7d770ec1c9cfa0a7"
+    },
+    {
+      "path": "parts/part-0168.cs.txt",
+      "firstLine": 84001,
+      "lastLine": 84500,
+      "sha256": "08c6b28eee2f1eb9d8c65f49e4cd2941c23b0d8fc1538a054c99db2b81eb7291"
+    },
+    {
+      "path": "parts/part-0169.cs.txt",
+      "firstLine": 84501,
+      "lastLine": 85000,
+      "sha256": "5998c50a18951efbaacd37536c7d8178fadc17dc5870f94ccea18a907dd10717"
+    },
+    {
+      "path": "parts/part-0170.cs.txt",
+      "firstLine": 85001,
+      "lastLine": 85500,
+      "sha256": "244ef775714c09b7a82f7444f7a4890396e2a21868d2b4685be8f66788e2ec94"
+    },
+    {
+      "path": "parts/part-0171.cs.txt",
+      "firstLine": 85501,
+      "lastLine": 86000,
+      "sha256": "58f11fb476879a9c6daddc572c572e5155ac7db636c9a097f55f0c0537da002f"
+    },
+    {
+      "path": "parts/part-0172.cs.txt",
+      "firstLine": 86001,
+      "lastLine": 86500,
+      "sha256": "4f2220d88f68fc504efe97152f0a66b065169e5cb61e69e9cd05ac19ae0027c5"
+    },
+    {
+      "path": "parts/part-0173.cs.txt",
+      "firstLine": 86501,
+      "lastLine": 87000,
+      "sha256": "5a699b0bca8e50fc33744abea439a899fe02d0e07312a7b87f3a01a2b5954638"
+    },
+    {
+      "path": "parts/part-0174.cs.txt",
+      "firstLine": 87001,
+      "lastLine": 87500,
+      "sha256": "c9b31bde3db79a283f23898423b6e0c7c834c050d43cf5665f3d5aefb1070c6d"
+    },
+    {
+      "path": "parts/part-0175.cs.txt",
+      "firstLine": 87501,
+      "lastLine": 88000,
+      "sha256": "c3b8f183bf43ab06a7a20f84536414aba17cf6f8b40d9b0397a68ee445d595a6"
+    },
+    {
+      "path": "parts/part-0176.cs.txt",
+      "firstLine": 88001,
+      "lastLine": 88500,
+      "sha256": "0f96f3f3151db5f4d250ca69e693c94a37d2ee3bb85fcc003d29fa74f3ff1209"
+    },
+    {
+      "path": "parts/part-0177.cs.txt",
+      "firstLine": 88501,
+      "lastLine": 89000,
+      "sha256": "5a542b7e31252a812a648921b51889aa3cc051ab9a2788f8a1ae2dd4b88d39a2"
+    },
+    {
+      "path": "parts/part-0178.cs.txt",
+      "firstLine": 89001,
+      "lastLine": 89500,
+      "sha256": "9b69df9f70fc7bc24fbc26a259be725fdba81df3fd4d7ace3408d0435e287de2"
+    },
+    {
+      "path": "parts/part-0179.cs.txt",
+      "firstLine": 89501,
+      "lastLine": 90000,
+      "sha256": "5386eeb470ba782dd80d771d5b668667b48bc78072834b524d6cd1cff1b1425d"
+    },
+    {
+      "path": "parts/part-0180.cs.txt",
+      "firstLine": 90001,
+      "lastLine": 90500,
+      "sha256": "4152f8636d42b78694a86a82f9f18bf872d1d6057e58ecc100f9568eba53537a"
+    },
+    {
+      "path": "parts/part-0181.cs.txt",
+      "firstLine": 90501,
+      "lastLine": 91000,
+      "sha256": "96c5d2927909e7658ca9f418798cc2dbd7b82f8366e1c3854739d49b134b8790"
+    },
+    {
+      "path": "parts/part-0182.cs.txt",
+      "firstLine": 91001,
+      "lastLine": 91500,
+      "sha256": "c638ee5c163d4bab56fd661566ce98f5ddcf50c27e0bab32e4ebb503fb51d584"
+    },
+    {
+      "path": "parts/part-0183.cs.txt",
+      "firstLine": 91501,
+      "lastLine": 92000,
+      "sha256": "dc0c19aebe8e8b615654160433122456a749cbe17616e506b37064ca71d66ffa"
+    },
+    {
+      "path": "parts/part-0184.cs.txt",
+      "firstLine": 92001,
+      "lastLine": 92500,
+      "sha256": "cbae9911d94c138cedbbb27722a0f0157553d3e8fd0dbb012376f22c20c283c4"
+    },
+    {
+      "path": "parts/part-0185.cs.txt",
+      "firstLine": 92501,
+      "lastLine": 93000,
+      "sha256": "5c7ce93258e3f10bc2118631e9970843c3a217b31cd9142a135f46dd69434513"
+    },
+    {
+      "path": "parts/part-0186.cs.txt",
+      "firstLine": 93001,
+      "lastLine": 93500,
+      "sha256": "937b9cd2d3a55126f67b7d112e20a22260f1d3e2ee61ca80748de8fe5dfa76c5"
+    },
+    {
+      "path": "parts/part-0187.cs.txt",
+      "firstLine": 93501,
+      "lastLine": 94000,
+      "sha256": "e69947f0d80ce80793ea710f92e1f7976a45e518ee579284607d6063fe9c2f33"
+    },
+    {
+      "path": "parts/part-0188.cs.txt",
+      "firstLine": 94001,
+      "lastLine": 94500,
+      "sha256": "5e8ba616dd022413b20851505a204ffbc5109867e31519e4fee0db03d01adc63"
+    },
+    {
+      "path": "parts/part-0189.cs.txt",
+      "firstLine": 94501,
+      "lastLine": 95000,
+      "sha256": "12467fc14a251952afaaa6266acfb9b74d2290b7cc5d81fa6a9fa181ee5b2f28"
+    },
+    {
+      "path": "parts/part-0190.cs.txt",
+      "firstLine": 95001,
+      "lastLine": 95500,
+      "sha256": "682d2a79df0a61004d35d5ee0397045b74a125a0974a55a39e2ada5eb5ce8e07"
+    },
+    {
+      "path": "parts/part-0191.cs.txt",
+      "firstLine": 95501,
+      "lastLine": 96000,
+      "sha256": "23989562408629b972528412d0321502435d8bf32dbe207f012924b2db9afb40"
+    },
+    {
+      "path": "parts/part-0192.cs.txt",
+      "firstLine": 96001,
+      "lastLine": 96500,
+      "sha256": "1dc125ce5fb1291e4bf11f06aabbe7a87c9b2abca64d2bcfd65b149daa7977c0"
+    },
+    {
+      "path": "parts/part-0193.cs.txt",
+      "firstLine": 96501,
+      "lastLine": 97000,
+      "sha256": "0bdb5abfe3c6901f6250a22143796e122e085ca5e4fa5bde5b586f8b4f594f2d"
+    },
+    {
+      "path": "parts/part-0194.cs.txt",
+      "firstLine": 97001,
+      "lastLine": 97500,
+      "sha256": "4214f4db040389405a7825549a5e12d6dbf25446fcc6887bf725c5f56682b7fc"
+    },
+    {
+      "path": "parts/part-0195.cs.txt",
+      "firstLine": 97501,
+      "lastLine": 98000,
+      "sha256": "b4e6025754ebabbee1c253a35acd3cfdc956e006fe80fad5b1e5223b80e1419e"
+    },
+    {
+      "path": "parts/part-0196.cs.txt",
+      "firstLine": 98001,
+      "lastLine": 98500,
+      "sha256": "15b4f97d19f68571c5b902aa592280fa6b02bc91e99da41b4014f9aac9e7a4a5"
+    },
+    {
+      "path": "parts/part-0197.cs.txt",
+      "firstLine": 98501,
+      "lastLine": 99000,
+      "sha256": "ba8e6235f4783fc7bd6e338c89714ea054e867916d1aa6a1d93cdba7a75f73b3"
+    },
+    {
+      "path": "parts/part-0198.cs.txt",
+      "firstLine": 99001,
+      "lastLine": 99500,
+      "sha256": "42fe73abedc0a07da7affe934d4346c1718d3861601dbdda22370463406abe27"
+    },
+    {
+      "path": "parts/part-0199.cs.txt",
+      "firstLine": 99501,
+      "lastLine": 100000,
+      "sha256": "265076bea91681ba7b3f3e14c4c6a15b7a441ec3ee365f4fe0d4c39960ae89f9"
+    },
+    {
+      "path": "parts/part-0200.cs.txt",
+      "firstLine": 100001,
+      "lastLine": 100500,
+      "sha256": "629814a63b544070eee6631a1cf1a1bc51aa83e595d493ca248ef0fc377a8d4f"
+    },
+    {
+      "path": "parts/part-0201.cs.txt",
+      "firstLine": 100501,
+      "lastLine": 101000,
+      "sha256": "3d4b3e5919f4e7cb5d93364a1550f8e003da25aa1e2982ca3521b4c359a629d9"
+    },
+    {
+      "path": "parts/part-0202.cs.txt",
+      "firstLine": 101001,
+      "lastLine": 101500,
+      "sha256": "95f077699b30fafbf0e00d87c4a0fa9693825c4ba35cc0da5df8296f9844cee3"
+    },
+    {
+      "path": "parts/part-0203.cs.txt",
+      "firstLine": 101501,
+      "lastLine": 102000,
+      "sha256": "4768579355c881f21de79748fad0d50db835925006063454ab6a5f8e0ec13a87"
+    },
+    {
+      "path": "parts/part-0204.cs.txt",
+      "firstLine": 102001,
+      "lastLine": 102500,
+      "sha256": "2d7b90f438b28165abf7703810c854d4657503438a980ffce34bbbb8775d73a6"
+    },
+    {
+      "path": "parts/part-0205.cs.txt",
+      "firstLine": 102501,
+      "lastLine": 103000,
+      "sha256": "7eb32443899ac7d2d6c2e28bf952d1bf5feaff2a11eeb9ec215b86bd2170d555"
+    },
+    {
+      "path": "parts/part-0206.cs.txt",
+      "firstLine": 103001,
+      "lastLine": 103500,
+      "sha256": "a7b54d9e6911b7b27bec272e2c06871b94540ff5cccb2eb86812a3b85845c833"
+    },
+    {
+      "path": "parts/part-0207.cs.txt",
+      "firstLine": 103501,
+      "lastLine": 104000,
+      "sha256": "202cf6e9f48cc559d6ea740d7f78531cb4c6891a43bd3cd146b3b70d2edd7326"
+    },
+    {
+      "path": "parts/part-0208.cs.txt",
+      "firstLine": 104001,
+      "lastLine": 104500,
+      "sha256": "0ab0830094ded81d4609514145fac7898247ea4d552f13e9d88529c2e9c61eaf"
+    },
+    {
+      "path": "parts/part-0209.cs.txt",
+      "firstLine": 104501,
+      "lastLine": 105000,
+      "sha256": "6b67860335dbee6b7784c0bc45d4d426033c8d0f6e4c8d7b0d287c64477d355e"
+    },
+    {
+      "path": "parts/part-0210.cs.txt",
+      "firstLine": 105001,
+      "lastLine": 105500,
+      "sha256": "c734af6e90a09e35115b09741c80cb484a5a80ec5a7c75469bf9a0af45a0d0a7"
+    },
+    {
+      "path": "parts/part-0211.cs.txt",
+      "firstLine": 105501,
+      "lastLine": 106000,
+      "sha256": "f2bfea448b5c0f09cf9d17adb381c7b58c33b6c2cf6c777b48bdb109ee793980"
+    },
+    {
+      "path": "parts/part-0212.cs.txt",
+      "firstLine": 106001,
+      "lastLine": 106500,
+      "sha256": "eba2783545a68dc31e7e6944ebff8d1b17a4a98404c2d781689529e3ab66f127"
+    },
+    {
+      "path": "parts/part-0213.cs.txt",
+      "firstLine": 106501,
+      "lastLine": 107000,
+      "sha256": "3aee896336bb36c359d2086a0b90ed11044d3154a902958c5b98082b56e4be26"
+    },
+    {
+      "path": "parts/part-0214.cs.txt",
+      "firstLine": 107001,
+      "lastLine": 107500,
+      "sha256": "b5a903521d3b86ecba9f75776eb1afae459416d0079fe8e37ea6ee9b24f07982"
+    },
+    {
+      "path": "parts/part-0215.cs.txt",
+      "firstLine": 107501,
+      "lastLine": 108000,
+      "sha256": "0c1b0d8845f8ad77bd9bfd288c9352630a4fb456faa02bbaf22c78b751e753b5"
+    },
+    {
+      "path": "parts/part-0216.cs.txt",
+      "firstLine": 108001,
+      "lastLine": 108500,
+      "sha256": "9bbab80697e146736e6995d63df685bd2f5f183b3839907d92eea9fd139b23b7"
+    },
+    {
+      "path": "parts/part-0217.cs.txt",
+      "firstLine": 108501,
+      "lastLine": 109000,
+      "sha256": "60f3dacc1dc524b8a556c206db0b4e9394fe056388cf8b884fde6e167ae483dd"
+    },
+    {
+      "path": "parts/part-0218.cs.txt",
+      "firstLine": 109001,
+      "lastLine": 109500,
+      "sha256": "398ce1c4fee7df19b6bacfd59ce1f1497fba1b4c9f658c635bcde1ffdfd47eb2"
+    },
+    {
+      "path": "parts/part-0219.cs.txt",
+      "firstLine": 109501,
+      "lastLine": 110000,
+      "sha256": "f9f8d79e3baa06d8f968fc1fc4b2ca139c8d8aa89bcf4d3d64743cd54deb5d3d"
+    },
+    {
+      "path": "parts/part-0220.cs.txt",
+      "firstLine": 110001,
+      "lastLine": 110500,
+      "sha256": "2889abf8becd3d0f05b4b4d9d32e8ae54cf5dd79cb59ecf455d77a43cdb1dd81"
+    },
+    {
+      "path": "parts/part-0221.cs.txt",
+      "firstLine": 110501,
+      "lastLine": 111000,
+      "sha256": "1a13f680cf629e01c7432f8ddb731af3a75cdc1e9de8dbbc726b43457d31cf91"
+    },
+    {
+      "path": "parts/part-0222.cs.txt",
+      "firstLine": 111001,
+      "lastLine": 111500,
+      "sha256": "974ae1583176e455ed2fb78d7b90f55717b4cb5021845672dae5488048a55c2b"
+    },
+    {
+      "path": "parts/part-0223.cs.txt",
+      "firstLine": 111501,
+      "lastLine": 112000,
+      "sha256": "785cce54d6f1699539ca3816e9a6ed1ef6c56d0b0c353d950c584132202c82c9"
+    },
+    {
+      "path": "parts/part-0224.cs.txt",
+      "firstLine": 112001,
+      "lastLine": 112500,
+      "sha256": "166c075a2fe850a880d81af6a692618a114dd30cc10d6cb013dcd189b81088f9"
+    },
+    {
+      "path": "parts/part-0225.cs.txt",
+      "firstLine": 112501,
+      "lastLine": 113000,
+      "sha256": "e256af0df93d872fb276402656b200910ff90b0707904c59fcfad684e6d48082"
+    },
+    {
+      "path": "parts/part-0226.cs.txt",
+      "firstLine": 113001,
+      "lastLine": 113500,
+      "sha256": "40053457172e07a973238764ebe36cad948ab5008ec7f6a84df447c8e412cbb0"
+    },
+    {
+      "path": "parts/part-0227.cs.txt",
+      "firstLine": 113501,
+      "lastLine": 114000,
+      "sha256": "1e00d2fdfe7b76bcd0b99924597caa89ee4cabfa436803ab0843bb7c6baf9338"
+    },
+    {
+      "path": "parts/part-0228.cs.txt",
+      "firstLine": 114001,
+      "lastLine": 114500,
+      "sha256": "0b696383f78e4e3c7fe828d5d68212de03418c907301ffde7bed717e3f6a0f15"
+    },
+    {
+      "path": "parts/part-0229.cs.txt",
+      "firstLine": 114501,
+      "lastLine": 115000,
+      "sha256": "4257d37bcd86ba87a2fe7220211dedb8b9f2e8c3f51f2d30cca542bc55fc41e2"
+    },
+    {
+      "path": "parts/part-0230.cs.txt",
+      "firstLine": 115001,
+      "lastLine": 115500,
+      "sha256": "115460dbcd99da7a5397316ffc10da69874568bac2a7875227848783f11d84f0"
+    },
+    {
+      "path": "parts/part-0231.cs.txt",
+      "firstLine": 115501,
+      "lastLine": 116000,
+      "sha256": "ba94379324e137106621321057b3aab3e31677aa2ee775177169378dcc56321f"
+    },
+    {
+      "path": "parts/part-0232.cs.txt",
+      "firstLine": 116001,
+      "lastLine": 116500,
+      "sha256": "4c768d105507ad8dde6cd6742e8029e205624b39d105fc56dee1ea130f4b0ef5"
+    },
+    {
+      "path": "parts/part-0233.cs.txt",
+      "firstLine": 116501,
+      "lastLine": 117000,
+      "sha256": "368dadef006812026071ff035349b3002e95285da598cf25f8abd343e04d11f6"
+    },
+    {
+      "path": "parts/part-0234.cs.txt",
+      "firstLine": 117001,
+      "lastLine": 117500,
+      "sha256": "7763070b5ccd7da07fdc4e229843e767a90dba8e277efac838110bc975daf3c7"
+    },
+    {
+      "path": "parts/part-0235.cs.txt",
+      "firstLine": 117501,
+      "lastLine": 118000,
+      "sha256": "960bbb611748f49249653ffae8a2bbd17292a2d500a582e60dfae9d2117401d2"
+    },
+    {
+      "path": "parts/part-0236.cs.txt",
+      "firstLine": 118001,
+      "lastLine": 118500,
+      "sha256": "3a753644ac50b643ac78302df4496c3b1ef5e89661c5717b4cc01ff69a07d721"
+    },
+    {
+      "path": "parts/part-0237.cs.txt",
+      "firstLine": 118501,
+      "lastLine": 119000,
+      "sha256": "e1eb173deb9d6f3fdc130284fb360b8dd943154b038bc118813abf943a940845"
+    },
+    {
+      "path": "parts/part-0238.cs.txt",
+      "firstLine": 119001,
+      "lastLine": 119330,
+      "sha256": "0802210ed7c7807849fc3ffea5c8eab771a5ba1fa715e4d8dd06ce7a3caf5ddf"
+    }
+  ],
+  "roots": {
+    "AttributeModifier": {
+      "path": "roots/AttributeModifier.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/AttributeModifier.static.json",
+      "staticFieldCount": 18
+    },
+    "FXList": {
+      "path": "roots/FXList.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/FXList.static.json",
+      "staticFieldCount": 7
+    },
+    "SpecialPowerTemplate": {
+      "path": "roots/SpecialPowerTemplate.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/SpecialPowerTemplate.static.json",
+      "staticFieldCount": 48
+    },
+    "ObjectCreationList": {
+      "path": "roots/ObjectCreationList.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/ObjectCreationList.static.json",
+      "staticFieldCount": 8
+    },
+    "LocomotorTemplate": {
+      "path": "roots/LocomotorTemplate.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/LocomotorTemplate.static.json",
+      "staticFieldCount": 149
+    },
+    "LogicCommandSet": {
+      "path": "roots/LogicCommandSet.cs.txt",
+      "methodCount": 1,
+      "staticFields": "roots/LogicCommandSet.static.json",
+      "staticFieldCount": 0
+    },
+    "FXParticleSystemTemplate": {
+      "path": "roots/FXParticleSystemTemplate.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/FXParticleSystemTemplate.static.json",
+      "staticFieldCount": 36
+    },
+    "UpgradeTemplate": {
+      "path": "roots/UpgradeTemplate.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/UpgradeTemplate.static.json",
+      "staticFieldCount": 30
+    },
+    "AIPersonalityDefinition": {
+      "path": "roots/AIPersonalityDefinition.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/AIPersonalityDefinition.static.json",
+      "staticFieldCount": 117
+    },
+    "AIStrategicStateDefinition": {
+      "path": "roots/AIStrategicStateDefinition.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/AIStrategicStateDefinition.static.json",
+      "staticFieldCount": 12
+    },
+    "AIMicroManagerData": {
+      "path": "roots/AIMicroManagerData.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/AIMicroManagerData.static.json",
+      "staticFieldCount": 76
+    },
+    "AIBudgetStateDefinition": {
+      "path": "roots/AIBudgetStateDefinition.cs.txt",
+      "methodCount": 2,
+      "staticFields": "roots/AIBudgetStateDefinition.static.json",
+      "staticFieldCount": 2
+    },
+    "AIStateDefinition": {
+      "path": "roots/AIStateDefinition.cs.txt",
+      "methodCount": 2,
+      "staticFields": "roots/AIStateDefinition.static.json",
+      "staticFieldCount": 1
+    },
+    "AITargetingHeuristic": {
+      "path": "roots/AITargetingHeuristic.cs.txt",
+      "methodCount": 3,
+      "staticFields": "roots/AITargetingHeuristic.static.json",
+      "staticFieldCount": 30
+    }
+  },
+  "methodIndex": "method-index.txt",
+  "methodCount": 2449,
+  "scope": "Original source evidence only; no recovered support or DLL validation",
+  "staticDataParts": [
+    "static-data/fields-0000.json",
+    "static-data/fields-0001.json",
+    "static-data/fields-0002.json",
+    "static-data/fields-0003.json",
+    "static-data/fields-0004.json",
+    "static-data/fields-0005.json",
+    "static-data/fields-0006.json",
+    "static-data/fields-0007.json",
+    "static-data/fields-0008.json",
+    "static-data/fields-0009.json",
+    "static-data/fields-0010.json",
+    "static-data/fields-0011.json",
+    "static-data/fields-0012.json",
+    "static-data/fields-0013.json",
+    "static-data/fields-0014.json",
+    "static-data/fields-0015.json",
+    "static-data/fields-0016.json",
+    "static-data/fields-0017.json",
+    "static-data/fields-0018.json",
+    "static-data/fields-0019.json",
+    "static-data/fields-0020.json",
+    "static-data/fields-0021.json",
+    "static-data/fields-0022.json",
+    "static-data/fields-0023.json",
+    "static-data/fields-0024.json",
+    "static-data/fields-0025.json",
+    "static-data/fields-0026.json",
+    "static-data/fields-0027.json",
+    "static-data/fields-0028.json",
+    "static-data/fields-0029.json",
+    "static-data/fields-0030.json",
+    "static-data/fields-0031.json",
+    "static-data/fields-0032.json",
+    "static-data/fields-0033.json",
+    "static-data/fields-0034.json",
+    "static-data/fields-0035.json",
+    "static-data/fields-0036.json",
+    "static-data/fields-0037.json"
+  ],
+  "enums": {
+    "SiegeEvaEventType": {
+      "path": "enums/SiegeEvaEventType.json",
+      "count": 3
+    },
+    "TargetingHeuristicType": {
+      "path": "enums/TargetingHeuristicType.json",
+      "count": 21
+    },
+    "AIUnitBuilderUnitChoiceShape": {
+      "path": "enums/AIUnitBuilderUnitChoiceShape.json",
+      "count": 4
+    },
+    "SpecialPowerTemplateTargetType": {
+      "path": "enums/SpecialPowerTemplateTargetType.json",
+      "count": 5
+    },
+    "AITargetDisposition": {
+      "path": "enums/AITargetDisposition.json",
+      "count": 4
+    },
+    "MapObjectFlagType": {
+      "path": "enums/MapObjectFlagType.json",
+      "count": 8
+    },
+    "AIStrategicDirective": {
+      "path": "enums/AIStrategicDirective.json",
+      "count": 6
+    },
+    "GameplayType": {
+      "path": "enums/GameplayType.json",
+      "count": 5
+    },
+    "ProductionQueueType": {
+      "path": "enums/ProductionQueueType.json",
+      "count": 8
+    },
+    "AISpecialPowerManager": {
+      "path": "enums/AISpecialPowerManager.json",
+      "count": 4
+    },
+    "ScreenStatus": {
+      "path": "enums/ScreenStatus.json",
+      "count": 3
+    },
+    "AudioTypeFlag": {
+      "path": "enums/AudioTypeFlag.json",
+      "count": 8
+    },
+    "DistanceSortPoints": {
+      "path": "enums/DistanceSortPoints.json",
+      "count": 2
+    },
+    "HotKeySlotGroup": {
+      "path": "enums/HotKeySlotGroup.json",
+      "count": 8
+    },
+    "OCLType": {
+      "path": "enums/OCLType.json",
+      "count": 2
+    },
+    "AnimationChannelType": {
+      "path": "enums/AnimationChannelType.json",
+      "count": 5
+    },
+    "TerrainLODType": {
+      "path": "enums/TerrainLODType.json",
+      "count": 4
+    },
+    "GeometryType": {
+      "path": "enums/GeometryType.json",
+      "count": 4
+    },
+    "ShadowType": {
+      "path": "enums/ShadowType.json",
+      "count": 7
+    },
+    "PostGameStatType": {
+      "path": "enums/PostGameStatType.json",
+      "count": 17
+    },
+    "99035a61faccf49b05169895b79a10882ee3d7bc": {
+      "path": "enums/99035a61faccf49b05169895b79a10882ee3d7bc.json",
+      "count": 4
+    },
+    "BuildingPlacementSurface": {
+      "path": "enums/BuildingPlacementSurface.json",
+      "count": 3
+    },
+    "AIEnemySortingType": {
+      "path": "enums/AIEnemySortingType.json",
+      "count": 5
+    },
+    "DynamicsContactTag": {
+      "path": "enums/DynamicsContactTag.json",
+      "count": 8
+    },
+    "EmotionAIType": {
+      "path": "enums/EmotionAIType.json",
+      "count": 6
+    },
+    "BootupDisplayItemType": {
+      "path": "enums/BootupDisplayItemType.json",
+      "count": 3
+    },
+    "EmotionTemplateOptions": {
+      "path": "enums/EmotionTemplateOptions.json",
+      "count": 6
+    },
+    "GameDifficulty": {
+      "path": "enums/GameDifficulty.json",
+      "count": 4
+    },
+    "AudioPriority": {
+      "path": "enums/AudioPriority.json",
+      "count": 6
+    },
+    "MapBorder": {
+      "path": "enums/MapBorder.json",
+      "count": 9
+    },
+    "DistributionType": {
+      "path": "enums/DistributionType.json",
+      "count": 6
+    },
+    "UIConfigType": {
+      "path": "enums/UIConfigType.json",
+      "count": 4
+    },
+    "PathfindingCheckType": {
+      "path": "enums/PathfindingCheckType.json",
+      "count": 3
+    },
+    "AIBaseType": {
+      "path": "enums/AIBaseType.json",
+      "count": 11
+    },
+    "CareerStatType": {
+      "path": "enums/CareerStatType.json",
+      "count": 3
+    },
+    "SlotStateType": {
+      "path": "enums/SlotStateType.json",
+      "count": 4
+    },
+    "AudioVolumeSlider": {
+      "path": "enums/AudioVolumeSlider.json",
+      "count": 6
+    },
+    "ModelConditionFlagType": {
+      "path": "enums/ModelConditionFlagType.json",
+      "count": 457
+    },
+    "RegisteredObjectSetId": {
+      "path": "enums/RegisteredObjectSetId.json",
+      "count": 53
+    },
+    "TextJustificationType": {
+      "path": "enums/TextJustificationType.json",
+      "count": 3
+    },
+    "EmotionType": {
+      "path": "enums/EmotionType.json",
+      "count": 11
+    },
+    "TimeOfDayType": {
+      "path": "enums/TimeOfDayType.json",
+      "count": 6
+    },
+    "InvisibilityNuggetOptions": {
+      "path": "enums/InvisibilityNuggetOptions.json",
+      "count": 5
+    },
+    "AICannotAttackTargetReaction": {
+      "path": "enums/AICannotAttackTargetReaction.json",
+      "count": 4
+    },
+    "ObjectFilterRelationship": {
+      "path": "enums/ObjectFilterRelationship.json",
+      "count": 4
+    },
+    "StringHashBin": {
+      "path": "enums/StringHashBin.json",
+      "count": 4
+    },
+    "ModelLODType": {
+      "path": "enums/ModelLODType.json",
+      "count": 3
+    },
+    "PlayerTemplateType": {
+      "path": "enums/PlayerTemplateType.json",
+      "count": 6
+    },
+    "ThingTemplateVoiceType": {
+      "path": "enums/ThingTemplateVoiceType.json",
+      "count": 67
+    },
+    "AIDifficulty": {
+      "path": "enums/AIDifficulty.json",
+      "count": 4
+    },
+    "JetLocomotorDataOption": {
+      "path": "enums/JetLocomotorDataOption.json",
+      "count": 1
+    },
+    "VideoSoundOverrideEventType": {
+      "path": "enums/VideoSoundOverrideEventType.json",
+      "count": 2
+    },
+    "FontUse": {
+      "path": "enums/FontUse.json",
+      "count": 5
+    },
+    "VeterancyLevel": {
+      "path": "enums/VeterancyLevel.json",
+      "count": 5
+    },
+    "WaterBodyType": {
+      "path": "enums/WaterBodyType.json",
+      "count": 3
+    },
+    "StyleName": {
+      "path": "enums/StyleName.json",
+      "count": 4
+    },
+    "DeathType": {
+      "path": "enums/DeathType.json",
+      "count": 34
+    },
+    "AudioLODType": {
+      "path": "enums/AudioLODType.json",
+      "count": 3
+    },
+    "TacticEndBehavior": {
+      "path": "enums/TacticEndBehavior.json",
+      "count": 4
+    },
+    "JoyPadButtonType": {
+      "path": "enums/JoyPadButtonType.json",
+      "count": 14
+    },
+    "AudioControlFlag": {
+      "path": "enums/AudioControlFlag.json",
+      "count": 9
+    },
+    "KindOfType": {
+      "path": "enums/KindOfType.json",
+      "count": 284
+    },
+    "EffectsLODType": {
+      "path": "enums/EffectsLODType.json",
+      "count": 5
+    },
+    "SpecialPowerTemplateFlag": {
+      "path": "enums/SpecialPowerTemplateFlag.json",
+      "count": 31
+    },
+    "AIDifficultyValue": {
+      "path": "enums/AIDifficultyValue.json",
+      "count": 4
+    },
+    "AIAoeAttackPowerEmanationLocation": {
+      "path": "enums/AIAoeAttackPowerEmanationLocation.json",
+      "count": 2
+    },
+    "ObjectFilterRule": {
+      "path": "enums/ObjectFilterRule.json",
+      "count": 4
+    },
+    "TerrainScorchType": {
+      "path": "enums/TerrainScorchType.json",
+      "count": 18
+    },
+    "c04f42a4acf6733a50247b1a47fd17789fc0820c": {
+      "path": "enums/c04f42a4acf6733a50247b1a47fd17789fc0820c.json",
+      "count": 3
+    },
+    "CommandMode": {
+      "path": "enums/CommandMode.json",
+      "count": 3
+    },
+    "Appearance": {
+      "path": "enums/Appearance.json",
+      "count": 10
+    },
+    "ThingTemplateObjectSpecificVoiceType": {
+      "path": "enums/ThingTemplateObjectSpecificVoiceType.json",
+      "count": 6
+    },
+    "AIAoeAttackPowerLocationPreference": {
+      "path": "enums/AIAoeAttackPowerLocationPreference.json",
+      "count": 3
+    },
+    "AIBeaconType": {
+      "path": "enums/AIBeaconType.json",
+      "count": 4
+    },
+    "LogicCommandOptions": {
+      "path": "enums/LogicCommandOptions.json",
+      "count": 11
+    },
+    "Surface": {
+      "path": "enums/Surface.json",
+      "count": 11
+    },
+    "UpgradeType": {
+      "path": "enums/UpgradeType.json",
+      "count": 2
+    },
+    "ComparisonOperator": {
+      "path": "enums/ComparisonOperator.json",
+      "count": 5
+    },
+    "fba9569e039ad74a4872718fec2e2ee9fe67f6c4": {
+      "path": "enums/fba9569e039ad74a4872718fec2e2ee9fe67f6c4.json",
+      "count": 5
+    },
+    "InvisibilityType": {
+      "path": "enums/InvisibilityType.json",
+      "count": 3
+    },
+    "AITargetLocationType": {
+      "path": "enums/AITargetLocationType.json",
+      "count": 2
+    },
+    "GameplayConditionType": {
+      "path": "enums/GameplayConditionType.json",
+      "count": 3
+    },
+    "AnimationLODType": {
+      "path": "enums/AnimationLODType.json",
+      "count": 5
+    },
+    "6ca9f8923ec4d720f8ebfec04b0856d711ad98f3": {
+      "path": "enums/6ca9f8923ec4d720f8ebfec04b0856d711ad98f3.json",
+      "count": 10
+    },
+    "DispositionType": {
+      "path": "enums/DispositionType.json",
+      "count": 21
+    },
+    "WeatherType": {
+      "path": "enums/WeatherType.json",
+      "count": 7
+    },
+    "RegisteredObjectSetType": {
+      "path": "enums/RegisteredObjectSetType.json",
+      "count": 2
+    },
+    "DestinationType": {
+      "path": "enums/DestinationType.json",
+      "count": 2
+    },
+    "DamageFXType": {
+      "path": "enums/DamageFXType.json",
+      "count": 114
+    },
+    "GameplayModeType": {
+      "path": "enums/GameplayModeType.json",
+      "count": 4
+    },
+    "94cc9480935262655c9b9de79c7b885d06e3c64b": {
+      "path": "enums/94cc9480935262655c9b9de79c7b885d06e3c64b.json",
+      "count": 4
+    },
+    "TeamReleaseType": {
+      "path": "enums/TeamReleaseType.json",
+      "count": 3
+    },
+    "HotKeyModifier": {
+      "path": "enums/HotKeyModifier.json",
+      "count": 3
+    },
+    "MouseHUDFixedElementId": {
+      "path": "enums/MouseHUDFixedElementId.json",
+      "count": 36
+    },
+    "OCNuggetOption": {
+      "path": "enums/OCNuggetOption.json",
+      "count": 44
+    },
+    "InfiltratorEffectType": {
+      "path": "enums/InfiltratorEffectType.json",
+      "count": 10
+    },
+    "AIFeedbackWorthySkirmishGameEvent": {
+      "path": "enums/AIFeedbackWorthySkirmishGameEvent.json",
+      "count": 6
+    },
+    "75adb49398ba83be3ef47c830f8914000f889f62": {
+      "path": "enums/75adb49398ba83be3ef47c830f8914000f889f62.json",
+      "count": 9
+    },
+    "UIMouseTacticalQuickChatDisplayChatDestination": {
+      "path": "enums/UIMouseTacticalQuickChatDisplayChatDestination.json",
+      "count": 2
+    },
+    "ParabolicOption": {
+      "path": "enums/ParabolicOption.json",
+      "count": 1
+    },
+    "c648309d0ca066dccab686c462aa6711ca8c0b0d": {
+      "path": "enums/c648309d0ca066dccab686c462aa6711ca8c0b0d.json",
+      "count": 12
+    },
+    "TerrainClassType": {
+      "path": "enums/TerrainClassType.json",
+      "count": 11
+    },
+    "Tactics": {
+      "path": "enums/Tactics.json",
+      "count": 15
+    },
+    "AIStrategicDirectiveEvent": {
+      "path": "enums/AIStrategicDirectiveEvent.json",
+      "count": 3
+    },
+    "JoyPadActionType": {
+      "path": "enums/JoyPadActionType.json",
+      "count": 15
+    },
+    "PathMusicGameDynamicStateSetCategory": {
+      "path": "enums/PathMusicGameDynamicStateSetCategory.json",
+      "count": 2
+    },
+    "ObjectStatusType": {
+      "path": "enums/ObjectStatusType.json",
+      "count": 223
+    },
+    "FXActionType": {
+      "path": "enums/FXActionType.json",
+      "count": 4
+    },
+    "ArmorSetType": {
+      "path": "enums/ArmorSetType.json",
+      "count": 23
+    },
+    "Stance": {
+      "path": "enums/Stance.json",
+      "count": 4
+    },
+    "AIBankAccountType": {
+      "path": "enums/AIBankAccountType.json",
+      "count": 6
+    },
+    "UnitLocomotorType": {
+      "path": "enums/UnitLocomotorType.json",
+      "count": 4
+    },
+    "AchievementActionType": {
+      "path": "enums/AchievementActionType.json",
+      "count": 4
+    },
+    "ObjectFilterAlignment": {
+      "path": "enums/ObjectFilterAlignment.json",
+      "count": 3
+    },
+    "MoneyTransactionCategory": {
+      "path": "enums/MoneyTransactionCategory.json",
+      "count": 30
+    },
+    "WaterTextureType": {
+      "path": "enums/WaterTextureType.json",
+      "count": 7
+    },
+    "MultisoundControlFlag": {
+      "path": "enums/MultisoundControlFlag.json",
+      "count": 2
+    },
+    "ShadowLODType": {
+      "path": "enums/ShadowLODType.json",
+      "count": 5
+    },
+    "MicroManagerState": {
+      "path": "enums/MicroManagerState.json",
+      "count": 10
+    },
+    "AIBuildHeuristics": {
+      "path": "enums/AIBuildHeuristics.json",
+      "count": 18
+    },
+    "BodyDamageType": {
+      "path": "enums/BodyDamageType.json",
+      "count": 4
+    },
+    "UpgradeOptions": {
+      "path": "enums/UpgradeOptions.json",
+      "count": 4
+    },
+    "ShroudStatusType": {
+      "path": "enums/ShroudStatusType.json",
+      "count": 3
+    },
+    "AITargetSortType": {
+      "path": "enums/AITargetSortType.json",
+      "count": 6
+    },
+    "OutlineDrawType": {
+      "path": "enums/OutlineDrawType.json",
+      "count": 5
+    },
+    "GameLODType": {
+      "path": "enums/GameLODType.json",
+      "count": 7
+    },
+    "ShaderLODType": {
+      "path": "enums/ShaderLODType.json",
+      "count": 4
+    },
+    "FactionType": {
+      "path": "enums/FactionType.json",
+      "count": 5
+    },
+    "StateChangeType": {
+      "path": "enums/StateChangeType.json",
+      "count": 2
+    },
+    "AIUpgradeHeuristicType": {
+      "path": "enums/AIUpgradeHeuristicType.json",
+      "count": 6
+    },
+    "ProcessorType": {
+      "path": "enums/ProcessorType.json",
+      "count": 5
+    },
+    "LogicCommandType": {
+      "path": "enums/LogicCommandType.json",
+      "count": 17
+    },
+    "WeaponSlotType": {
+      "path": "enums/WeaponSlotType.json",
+      "count": 6
+    },
+    "LocoZ": {
+      "path": "enums/LocoZ.json",
+      "count": 13
+    },
+    "SpecialPowerRestrictionType": {
+      "path": "enums/SpecialPowerRestrictionType.json",
+      "count": 3
+    },
+    "ToggleStatusAiHint": {
+      "path": "enums/ToggleStatusAiHint.json",
+      "count": 16
+    },
+    "ViewShakeType": {
+      "path": "enums/ViewShakeType.json",
+      "count": 6
+    },
+    "CareerStatOrder": {
+      "path": "enums/CareerStatOrder.json",
+      "count": 35
+    },
+    "GameStatsMode": {
+      "path": "enums/GameStatsMode.json",
+      "count": 8
+    },
+    "DynamicDecalShaderType": {
+      "path": "enums/DynamicDecalShaderType.json",
+      "count": 2
+    },
+    "AITimerType": {
+      "path": "enums/AITimerType.json",
+      "count": 2
+    },
+    "FXTriggerType": {
+      "path": "enums/FXTriggerType.json",
+      "count": 3
+    },
+    "AIBaseSortingOrder": {
+      "path": "enums/AIBaseSortingOrder.json",
+      "count": 7
+    },
+    "PathMusicEventSetCategory": {
+      "path": "enums/PathMusicEventSetCategory.json",
+      "count": 2
+    },
+    "DecalLODType": {
+      "path": "enums/DecalLODType.json",
+      "count": 3
+    },
+    "EmotionTemplateThreatComparisonType": {
+      "path": "enums/EmotionTemplateThreatComparisonType.json",
+      "count": 3
+    },
+    "DisabledType": {
+      "path": "enums/DisabledType.json",
+      "count": 12
+    },
+    "LocoF": {
+      "path": "enums/LocoF.json",
+      "count": 13
+    },
+    "AttributeType": {
+      "path": "enums/AttributeType.json",
+      "count": 35
+    },
+    "LocomotorSetType": {
+      "path": "enums/LocomotorSetType.json",
+      "count": 19
+    },
+    "AttributeModifierCategoryType": {
+      "path": "enums/AttributeModifierCategoryType.json",
+      "count": 15
+    },
+    "WaterLODType": {
+      "path": "enums/WaterLODType.json",
+      "count": 4
+    },
+    "TeamPriority": {
+      "path": "enums/TeamPriority.json",
+      "count": 9
+    },
+    "AISpecialPowerHeuristic": {
+      "path": "enums/AISpecialPowerHeuristic.json",
+      "count": 25
+    }
+  },
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+}

@@ -1,0 +1,500 @@
+				//try-fault
+				delete(ptr2, ptr);
+				throw;
+			}
+			*(int*)(&first) += 12;
+			*(int*)P_0 = num + 12;
+		}
+		return P_0;
+	}
+
+	internal unsafe static generic_iterator_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E* eastl_002Euninitialized_copy_impl_003Cclass_0020eastl_003A_003Ageneric_iterator_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E_002Cclass_0020eastl_003A_003Ageneric_iterator_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E_0020_003E(generic_iterator_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E* P_0, generic_iterator_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E first, generic_iterator_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E last, generic_iterator_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cvoid_003E dest, integral_constant_003Cbool_002C0_003E __unnamed003)
+	{
+		// IL cpblk instruction
+		System.Runtime.CompilerServices.Unsafe.CopyBlock(P_0, ref dest, 4);
+		while ((byte)((*(int*)(&first) != *(int*)(&last)) ? 1u : 0u) != 0)
+		{
+			int num = *(int*)P_0;
+			void* ptr = (void*)num;
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr2 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)ptr;
+			try
+			{
+				if (ptr != null)
+				{
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr, *(int*)(&first), 12);
+				}
+			}
+			catch
+			{
+				//try-fault
+				delete(ptr2, ptr);
+				throw;
+			}
+			*(int*)(&first) += 12;
+			*(int*)P_0 = num + 12;
+		}
+		return P_0;
+	}
+
+	internal unsafe static Tracker.GenericBookmark_003Cunsigned_0020int_003E* eastl_002Emedian_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* a, Tracker.GenericBookmark_003Cunsigned_0020int_003E* b, Tracker.GenericBookmark_003Cunsigned_0020int_003E* c, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		if (compare(a, b) != 0)
+		{
+			if (compare(b, c) != 0)
+			{
+				return b;
+			}
+			if (compare(a, c) != 0)
+			{
+				return c;
+			}
+			return a;
+		}
+		if (compare(a, c) != 0)
+		{
+			return a;
+		}
+		if (compare(b, c) != 0)
+		{
+			return c;
+		}
+		return b;
+	}
+
+	internal unsafe static Tracker.GenericBookmark_003Cunsigned_0020int_003E* eastl_002Eget_partition_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, Tracker.GenericBookmark_003Cunsigned_0020int_003E* last, Tracker.GenericBookmark_003Cunsigned_0020int_003E* pivotValue, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E obj);
+		// IL cpblk instruction
+		System.Runtime.CompilerServices.Unsafe.CopyBlock(ref obj, pivotValue, 12);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E obj2);
+		while (true)
+		{
+			if (compare(first, &obj) != 0)
+			{
+				first = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)first + 12);
+				continue;
+			}
+			last = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)last - 12);
+			if (compare(&obj, last) != 0)
+			{
+				do
+				{
+					last = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)last - 12);
+				}
+				while (compare(&obj, last) != 0);
+			}
+			if (first >= last)
+			{
+				break;
+			}
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(ref obj2, first, 12);
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(first, last, 12);
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(last, ref obj2, 12);
+			first = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)first + 12);
+		}
+		return first;
+	}
+
+	internal unsafe static void eastl_002Epartial_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, Tracker.GenericBookmark_003Cunsigned_0020int_003E* middle, Tracker.GenericBookmark_003Cunsigned_0020int_003E* last, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		eastl_002Emake_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, middle, compare);
+		Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr = middle;
+		if (middle < last)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E value);
+			do
+			{
+				if (compare(ptr, first) != 0)
+				{
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(ref value, ptr, 12);
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr, first, 12);
+					eastl_002Eadjust_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, 0, (int)((nint)((byte*)middle - (nuint)first) / (nint)12), 0, value, compare);
+				}
+				ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr + 12);
+			}
+			while (ptr < last);
+		}
+		eastl_002Esort_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, middle, compare);
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AEvaEvent_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AEvaEvent_003E* reference, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+		*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) = 0;
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		uint num = (uint)(ptr - (nuint)text);
+		eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002ERangeInitialize(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, text, (int)num + text);
+		try
+		{
+			delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte> _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z = (delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte>)__unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z;
+			sbyte* ptr2 = (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			if (*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)))
+			{
+				do
+				{
+					sbyte* intPtr = ptr2;
+					*intPtr = _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z(*intPtr);
+					ptr2++;
+				}
+				while (ptr2 != (sbyte*)System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)));
+			}
+			uint num2 = (uint)(System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			*(uint*)reference = FastHashInternal_002EFastHashFn(num2, (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)), num2);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), &basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+			throw;
+		}
+		if (System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) > 1 && *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != 0)
+		{
+			delete_005B_005D((void*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADLContentObject_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003ADLContentObject_003E* reference, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+		*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) = 0;
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		uint num = (uint)(ptr - (nuint)text);
+		eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002ERangeInitialize(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, text, (int)num + text);
+		try
+		{
+			delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte> _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z = (delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte>)__unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z;
+			sbyte* ptr2 = (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			if (*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)))
+			{
+				do
+				{
+					sbyte* intPtr = ptr2;
+					*intPtr = _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z(*intPtr);
+					ptr2++;
+				}
+				while (ptr2 != (sbyte*)System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)));
+			}
+			uint num2 = (uint)(System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			*(uint*)reference = FastHashInternal_002EFastHashFn(num2, (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)), num2);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), &basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+			throw;
+		}
+		if (System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) > 1 && *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != 0)
+		{
+			delete_005B_005D((void*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ARedAlertTemplate_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003ARedAlertTemplate_003E* reference, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+		*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) = 0;
+		System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) = 0;
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		uint num = (uint)(ptr - (nuint)text);
+		eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002ERangeInitialize(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, text, (int)num + text);
+		try
+		{
+			delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte> _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z = (delegate* unmanaged[Cdecl, Cdecl]<sbyte, sbyte>)__unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z;
+			sbyte* ptr2 = (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			if (*(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)))
+			{
+				do
+				{
+					sbyte* intPtr = ptr2;
+					*intPtr = _unep_0040_003FCharToLower_0040Utils_0040Marshaler_0040_0040_0024_0024FYADD_0040Z(*intPtr);
+					ptr2++;
+				}
+				while (ptr2 != (sbyte*)System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)));
+			}
+			uint num2 = (uint)(System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 4)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E));
+			*(uint*)reference = FastHashInternal_002EFastHashFn(num2, (sbyte*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)), num2);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Ebasic_string_003Cchar_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), &basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E);
+			throw;
+		}
+		if (System.Runtime.CompilerServices.Unsafe.As<basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E, 8)) - *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) > 1 && *(int*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E) != 0)
+		{
+			delete_005B_005D((void*)(int)(*(uint*)(&basic_string_003Cchar_002Ceastl_003A_003Aallocator_003E)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003APurchasePlayerTechButtonTemplate_002Cclass_0020Sage_003A_003AUI_003A_003APurchasePlayerTechButtonTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003APurchasePlayerTechButtonTemplate_002CSage_003A_003AUI_003A_003APurchasePlayerTechButtonTemplate_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** first, BuildingPlacementDistance** last, int kRecursionCount, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		if ((nint)((nuint)((byte*)last - (nuint)first) & unchecked((nuint)(-4))) > (nint)112)
+		{
+			while (kRecursionCount > 0)
+			{
+				BuildingPlacementDistance** ptr = eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(first, last, eastl_002Emedian_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(first, (BuildingPlacementDistance**)(((nint)((byte*)last - (nuint)first) >> 2) / 2 * 4 + (byte*)first), (BuildingPlacementDistance**)((byte*)last - 4), compare), compare);
+				kRecursionCount--;
+				eastl_002Equick_sort_impl_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(ptr, last, kRecursionCount, compare);
+				last = ptr;
+				if ((nint)((nuint)((byte*)ptr - (nuint)first) & unchecked((nuint)(-4))) <= (nint)112)
+				{
+					break;
+				}
+			}
+		}
+		if (kRecursionCount == 0)
+		{
+			BuildingPlacementDistance** intPtr = last;
+			eastl_002Epartial_sort_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(first, intPtr, intPtr, compare);
+		}
+	}
+
+	internal unsafe static void eastl_002Einsertion_sort_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** first, BuildingPlacementDistance** last, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		if (first == last)
+		{
+			return;
+		}
+		BuildingPlacementDistance** ptr = (BuildingPlacementDistance**)((byte*)first + 4);
+		if (ptr == last)
+		{
+			return;
+		}
+		do
+		{
+			BuildingPlacementDistance* ptr2 = (BuildingPlacementDistance*)(int)(*(uint*)ptr);
+			BuildingPlacementDistance** ptr3 = ptr;
+			if (ptr != first)
+			{
+				while (compare(ptr2, (BuildingPlacementDistance*)(int)(*((uint*)ptr3 - 1))) != 0)
+				{
+					BuildingPlacementDistance** num = ptr3;
+					*(int*)num = *((int*)num - 1);
+					ptr3 = (BuildingPlacementDistance**)((byte*)ptr3 - 4);
+					if (ptr3 == first)
+					{
+						break;
+					}
+				}
+			}
+			*(int*)ptr3 = (int)ptr2;
+			ptr = (BuildingPlacementDistance**)((byte*)ptr + 4);
+		}
+		while (ptr != last);
+	}
+
+	internal unsafe static void eastl_002Einsertion_sort_simple_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** first, BuildingPlacementDistance** last, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		BuildingPlacementDistance** ptr = first;
+		if (first == last)
+		{
+			return;
+		}
+		do
+		{
+			BuildingPlacementDistance** ptr2 = ptr;
+			BuildingPlacementDistance* ptr3 = (BuildingPlacementDistance*)(int)(*(uint*)ptr);
+			BuildingPlacementDistance** ptr4 = (BuildingPlacementDistance**)((byte*)ptr - 4);
+			if (compare(ptr3, (BuildingPlacementDistance*)(int)(*((uint*)ptr - 1))) != 0)
+			{
+				do
+				{
+					*(int*)ptr2 = *(int*)ptr4;
+					ptr2 = (BuildingPlacementDistance**)((byte*)ptr2 - 4);
+					ptr4 = (BuildingPlacementDistance**)((byte*)ptr4 - 4);
+				}
+				while (compare(ptr3, (BuildingPlacementDistance*)(int)(*(uint*)ptr4)) != 0);
+			}
+			*(int*)ptr2 = (int)ptr3;
+			ptr = (BuildingPlacementDistance**)((byte*)ptr + 4);
+		}
+		while (ptr != last);
+	}
+
+	internal unsafe static void eastl_002Emake_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, Tracker.GenericBookmark_003Cunsigned_0020int_003E* last, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		int num = (int)((nint)((byte*)last - (nuint)first) / (nint)12);
+		if (num >= 2)
+		{
+			int num2 = (num - 2 >> 1) + 1;
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(num2 * 12 + (byte*)first);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E value);
+			do
+			{
+				num2--;
+				ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr - 12);
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ref value, ptr, 12);
+				eastl_002Eadjust_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, num2, num, num2, value, compare);
+			}
+			while (num2 != 0);
+		}
+	}
+
+	internal unsafe static void eastl_002Eadjust_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, int topPosition, int heapSize, int position, Tracker.GenericBookmark_003Cunsigned_0020int_003E value, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		int num = position * 2 + 2;
+		if (num < heapSize)
+		{
+			do
+			{
+				byte* num2 = (byte*)first + num * 12;
+				if (compare((Tracker.GenericBookmark_003Cunsigned_0020int_003E*)num2, (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(num2 - 12)) != 0)
+				{
+					num--;
+				}
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(position * 12 + (byte*)first, num * 12 + (byte*)first, 12);
+				position = num;
+				num = num * 2 + 2;
+			}
+			while (num < heapSize);
+		}
+		if (num == heapSize)
+		{
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(position * 12 + (byte*)first, (byte*)first + num * 12 - 12, 12);
+			position = num - 1;
+		}
+		eastl_002Epromote_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, topPosition, position, value, compare);
+	}
+
+	internal unsafe static void eastl_002Esort_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, Tracker.GenericBookmark_003Cunsigned_0020int_003E* last, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		int num = (int)((nint)((byte*)last - (nuint)first) / (nint)12);
+		if (num > 1)
+		{
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)last - 12);
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr2 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((nuint)12u - (nuint)first);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E value);
+			int num2;
+			do
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ref value, ptr, 12);
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr, first, 12);
+				eastl_002Eadjust_heap_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, 0, num - 1, 0, value, compare);
+				ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr - 12);
+				num2 = (int)((nint)((byte*)ptr2 + (nuint)ptr) / (nint)12);
+				num = num2;
+			}
+			while (num2 > 1);
+		}
+	}
+
+	internal unsafe static BuildingPlacementDistance** eastl_002Emedian_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** a, BuildingPlacementDistance** b, BuildingPlacementDistance** c, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		if (compare((BuildingPlacementDistance*)(int)(*(uint*)a), (BuildingPlacementDistance*)(int)(*(uint*)b)) != 0)
+		{
+			if (compare((BuildingPlacementDistance*)(int)(*(uint*)b), (BuildingPlacementDistance*)(int)(*(uint*)c)) != 0)
+			{
+				return b;
+			}
+			if (compare((BuildingPlacementDistance*)(int)(*(uint*)a), (BuildingPlacementDistance*)(int)(*(uint*)c)) != 0)
+			{
+				return c;
+			}
+			return a;
+		}
+		if (compare((BuildingPlacementDistance*)(int)(*(uint*)a), (BuildingPlacementDistance*)(int)(*(uint*)c)) != 0)
+		{
+			return a;
+		}
+		if (compare((BuildingPlacementDistance*)(int)(*(uint*)b), (BuildingPlacementDistance*)(int)(*(uint*)c)) != 0)
+		{
+			return c;
+		}
+		return b;
+	}
+
+	internal unsafe static BuildingPlacementDistance** eastl_002Eget_partition_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** first, BuildingPlacementDistance** last, BuildingPlacementDistance** pivotValue, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		BuildingPlacementDistance* ptr = (BuildingPlacementDistance*)(int)(*(uint*)pivotValue);
+		while (true)
+		{
+			if (compare((BuildingPlacementDistance*)(int)(*(uint*)first), ptr) != 0)
+			{
+				first = (BuildingPlacementDistance**)((byte*)first + 4);
+				continue;
+			}
+			last = (BuildingPlacementDistance**)((byte*)last - 4);
+			if (compare(ptr, (BuildingPlacementDistance*)(int)(*(uint*)last)) != 0)
+			{
+				do
+				{
+					last = (BuildingPlacementDistance**)((byte*)last - 4);
+				}
+				while (compare(ptr, (BuildingPlacementDistance*)(int)(*(uint*)last)) != 0);
+			}
+			if (first >= last)
+			{
+				break;
+			}
+			BuildingPlacementDistance* ptr2 = (BuildingPlacementDistance*)(int)(*(uint*)first);
+			*(int*)first = *(int*)last;
+			*(int*)last = (int)ptr2;
+			first = (BuildingPlacementDistance**)((byte*)first + 4);
+		}
+		return first;
+	}
+
+	internal unsafe static void eastl_002Epartial_sort_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(BuildingPlacementDistance** first, BuildingPlacementDistance** middle, BuildingPlacementDistance** last, delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte> compare)
+	{
+		eastl_002Emake_heap_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(first, middle, compare);
+		BuildingPlacementDistance** ptr = middle;
+		if (middle < last)
+		{
+			do
+			{
+				if (compare((BuildingPlacementDistance*)(int)(*(uint*)ptr), (BuildingPlacementDistance*)(int)(*(uint*)first)) != 0)
+				{

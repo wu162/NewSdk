@@ -1,0 +1,147 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17372,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4CareerStatOrder_0040_0040_0040_0040SA_003FBW4CareerStatOrder_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "ActivatedCommanderPowers",
+      "value": 33
+    },
+    {
+      "name": "ActivatedUnitAbilities",
+      "value": 32
+    },
+    {
+      "name": "AvgGameLength",
+      "value": 8
+    },
+    {
+      "name": "AvgIncomePerMinute",
+      "value": 23
+    },
+    {
+      "name": "BridgesDestroyed",
+      "value": 17
+    },
+    {
+      "name": "CaptureRatio",
+      "value": 15
+    },
+    {
+      "name": "CareerLosses",
+      "value": 5
+    },
+    {
+      "name": "CareerWins",
+      "value": 6
+    },
+    {
+      "name": "CurrentLossStreak",
+      "value": 1
+    },
+    {
+      "name": "CurrentWinStreak",
+      "value": 0
+    },
+    {
+      "name": "EfficiencyRatio",
+      "value": 28
+    },
+    {
+      "name": "FormationPreviewUsed",
+      "value": 27
+    },
+    {
+      "name": "FriendlyFireIncidents",
+      "value": 31
+    },
+    {
+      "name": "LongestLosingStreak",
+      "value": 3
+    },
+    {
+      "name": "LongestWinStreak",
+      "value": 2
+    },
+    {
+      "name": "ResourcesGathered",
+      "value": 25
+    },
+    {
+      "name": "ResourcesSpent",
+      "value": 26
+    },
+    {
+      "name": "SecondsInLowPower",
+      "value": 24
+    },
+    {
+      "name": "StructuresBuilt",
+      "value": 10
+    },
+    {
+      "name": "StructuresCaptured",
+      "value": 13
+    },
+    {
+      "name": "StructuresCapturedByEnemy",
+      "value": 14
+    },
+    {
+      "name": "StructuresDestroyed",
+      "value": 12
+    },
+    {
+      "name": "StructuresInfiltrated",
+      "value": 34
+    },
+    {
+      "name": "StructuresLost",
+      "value": 11
+    },
+    {
+      "name": "StructuresSold",
+      "value": 18
+    },
+    {
+      "name": "SuperWeaponsBuilt",
+      "value": 16
+    },
+    {
+      "name": "TotalMatchesPlayed",
+      "value": 4
+    },
+    {
+      "name": "TotalTimePlayed",
+      "value": 9
+    },
+    {
+      "name": "UnitKillLostRatio",
+      "value": 22
+    },
+    {
+      "name": "UnitsBuilt",
+      "value": 19
+    },
+    {
+      "name": "UnitsKilled",
+      "value": 21
+    },
+    {
+      "name": "UnitsLost",
+      "value": 20
+    },
+    {
+      "name": "ValueOfUnitsKilled",
+      "value": 30
+    },
+    {
+      "name": "ValueOfUnitsLost",
+      "value": 29
+    },
+    {
+      "name": "WinLossRatio",
+      "value": 7
+    }
+  ]
+}

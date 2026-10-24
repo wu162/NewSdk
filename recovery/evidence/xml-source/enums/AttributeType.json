@@ -1,0 +1,147 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceLine": 17396,
+  "symbol": "_003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AttributeType_0040_0040_0040_0040SA_003FBW4AttributeType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B",
+  "entries": [
+    {
+      "name": "AREA_OF_EFFECT",
+      "value": 32
+    },
+    {
+      "name": "ARMOR",
+      "value": 1
+    },
+    {
+      "name": "AUTO_HEAL",
+      "value": 20
+    },
+    {
+      "name": "BOUNTY_PERCENTAGE",
+      "value": 18
+    },
+    {
+      "name": "BROADCAST_RANGE",
+      "value": 34
+    },
+    {
+      "name": "COLLISION_GEOMETRY_SIZE_MULT",
+      "value": 33
+    },
+    {
+      "name": "COMMAND_POINT_BONUS",
+      "value": 25
+    },
+    {
+      "name": "CRUSHABLE_LEVEL",
+      "value": 26
+    },
+    {
+      "name": "CRUSHED_DECELERATE",
+      "value": 27
+    },
+    {
+      "name": "CRUSHER_LEVEL",
+      "value": 24
+    },
+    {
+      "name": "CRUSH_DECELERATE",
+      "value": 9
+    },
+    {
+      "name": "DAMAGE_ADD",
+      "value": 2
+    },
+    {
+      "name": "DAMAGE_MULT",
+      "value": 3
+    },
+    {
+      "name": "DAMAGE_STRUCTURE_BOUNTY_ADD",
+      "value": 23
+    },
+    {
+      "name": "EXPERIENCE",
+      "value": 6
+    },
+    {
+      "name": "HEALTH",
+      "value": 15
+    },
+    {
+      "name": "HEALTH_MULT",
+      "value": 16
+    },
+    {
+      "name": "INVULNERABLE",
+      "value": 28
+    },
+    {
+      "name": "MIN_CRUSH_VELOCITY_PERCENTAGE",
+      "value": 19
+    },
+    {
+      "name": "NONE",
+      "value": 0
+    },
+    {
+      "name": "POWER_BOOST",
+      "value": 31
+    },
+    {
+      "name": "PRODUCTION",
+      "value": 13
+    },
+    {
+      "name": "PRODUCTION_COST",
+      "value": 14
+    },
+    {
+      "name": "RANGE",
+      "value": 7
+    },
+    {
+      "name": "RATE_OF_FIRE",
+      "value": 22
+    },
+    {
+      "name": "RECHARGE_TIME",
+      "value": 12
+    },
+    {
+      "name": "RESIST_EMP",
+      "value": 30
+    },
+    {
+      "name": "RESIST_FEAR",
+      "value": 4
+    },
+    {
+      "name": "RESIST_KNOCKBACK",
+      "value": 10
+    },
+    {
+      "name": "RESIST_TERROR",
+      "value": 5
+    },
+    {
+      "name": "SHROUD_CLEARING",
+      "value": 21
+    },
+    {
+      "name": "SPEED",
+      "value": 8
+    },
+    {
+      "name": "SPELL_DAMAGE",
+      "value": 11
+    },
+    {
+      "name": "SUPPRESSABILITY",
+      "value": 29
+    },
+    {
+      "name": "VISION",
+      "value": 17
+    }
+  ]
+}
