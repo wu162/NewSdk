@@ -1,3 +1,9 @@
+# 本轮第二批进行中：对象控制与护盾完整组
+
+ToggleStatus完整依赖组已通过source9332547080c480dd229e3a78e73ca659ffd4cbfb/run40133419399的/Od、/O2完整矩阵，各832768 fixtures、2498304三缓冲区比较、19332拒绝、1832不变性；实际原日志已核对，已验收计数247/322。新增GiveUpgradeUpdate256、ReplaceObjectUpdate260及完整Nugget12依赖、ShieldSphereUpdate264及全部vector/filter、SpecialDisguiseUpdate264及TerrainData8已实现，51原方法与三PE表取证完成。**新四类待累计完整矩阵，仍不能按251计数。** 合同见GAMEOBJECT_ABILITY_FINISH.md。用户本轮40分钟；SDK本轮0次，原路由不变。
+
+---
+
 # 本轮进行中：ToggleStatus完整依赖组（2026-10-25）
 
 用户本轮指定40分钟，不修改长期时长。已实现ToggleStatus252、ToggleState280、inline AI148、nullable StateWeapon28及ModuleInfo12；新增完整属性/枚举/Token/独立布局/分配顺序/拒绝/列表边界测试。**当前待Windows完整矩阵验证，仍以246/322为已验收计数；不得把此检查点当成功。** 原证据59方法和9个PE表随测试重核，父层与现有公共helper复用；SDK本轮尚未运行。下一步核对本次提交的Actions终态、修复差异并更新精确证据。

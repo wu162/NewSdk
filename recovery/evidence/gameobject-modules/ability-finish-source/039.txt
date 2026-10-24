@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 c22dea2e9f92a25792a5b4f86a4ff41da148008dbb1879b842cd575ccb620cc4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(INode* node, ObjectFilter** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 112u, 1u);
+			Marshaler_002EMarshal(node, (ObjectFilter*)(int)(*(uint*)pointer), tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}

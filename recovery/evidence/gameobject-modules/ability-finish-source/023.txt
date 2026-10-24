@@ -1,0 +1,32 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 0cd8c3ac07ceeacc7fd0c01ef7a828cee57f81450bcf454a7767a80e33f46ca1
+// Literals: {"_003F_003F_C_0040_0BD_0040BJHJEKPC_0040TargetObjectFilter_003F_0024AA_0040": "TargetObjectFilter", "_003F_003F_C_0040_0BC_0040HNBAILMC_0040ReplacementObject_003F_0024AA_0040": "ReplacementObject"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ReplaceObjectNugget* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040BJHJEKPC_0040TargetObjectFilter_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)@object, 112u, 1u);
+				Marshaler_002EMarshal(ptr, (ObjectFilter*)(int)(*(uint*)@object), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040HNBAILMC_0040ReplacementObject_003F_0024AA_0040)), (List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E*)((byte*)@object + 4), state);
+	}

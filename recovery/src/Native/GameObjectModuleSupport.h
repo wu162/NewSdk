@@ -4,6 +4,10 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=216 && choice->kind<=219) {
+        const auto& set=abilityFinishFieldSets[choice->kind-216];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+        if(choice->kind!=218) for(const auto& f:abilityFields) if(attribute==f.name) return true;return false;
+    }
     if(choice->kind==215) {if(attribute=="ReloadAllWeaponsOnToggle") return true;for(const auto& f:abilityFields) if(attribute==f.name) return true;return false;}
     if(choice->kind==213) {for(const auto& f:abilityFields) if(attribute==f.name) return true;for(const auto& f:abilityResourceTheftFields) if(attribute==f.name) return true;return false;}
     if(choice->kind==214) {for(const auto& f:specialPowerSpecialPowerModuleDataFields) if(attribute==f.name) return true;for(const auto& f:powerCreationFields0) if(attribute==f.name) return true;return false;}
@@ -125,6 +129,12 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=216 && kind<=219) {
+        if(kind==217) {if(path=="ReplaceObjectNugget") return 2;if(path=="ReplaceObjectNugget/TargetObjectFilter") return 1;if(path=="ReplaceObjectNugget/ReplacementObject" || path=="ReplaceObjectNugget/TargetObjectFilter/IncludeThing" || path=="ReplaceObjectNugget/TargetObjectFilter/ExcludeThing") return 3;}
+        if(kind==219 && path=="TerrainData") return 2;
+        if(kind==218) {if(path=="PositionOffset" || path=="ObjectFilter" || path=="IgnoreInsideToInsideCheck") return 1;if(path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing" || path=="IgnoreInsideToInsideCheck/IncludeThing" || path=="IgnoreInsideToInsideCheck/ExcludeThing") return 3;return 0;}
+        return GameObjectModuleNodeKind(191,path);
+    }
     if(kind==215) {if(path=="ToggleState" || path=="ToggleState/Module") return 2;if(path=="ToggleState/SkirmishAiInfo" || path=="ToggleState/SkirmishAiInfo/StateWeapon") return 1;return GameObjectModuleNodeKind(191,path);}
     if(kind==213) return GameObjectModuleNodeKind(191,path);
     if(kind==214) {if(path=="FXOffset") return 1;return GameObjectModuleNodeKind(198,path);}
@@ -292,6 +302,13 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=216 && kind<=219) {
+        if(kind==219 && path=="TerrainData") {for(const auto& f:abilityFinishSpecialDisguiseTerrainDataFields) if(attribute==f.name) return true;return false;}
+        if(kind==217 && path=="ReplaceObjectNugget") return false;
+        if(kind==217 && path=="ReplaceObjectNugget/ReplacementObject") return false;
+        if(kind==218) {if(path=="PositionOffset") return attribute=="x" || attribute=="y" || attribute=="z";return false;}
+        return GameObjectModuleNodeAttribute(191,path,attribute);
+    }
     if(kind==215) {
         if(path=="ToggleState") {for(const auto& f:abilityToggleToggleStatusNuggetFields) if(attribute==f.name) return true;return false;}
         if(path=="ToggleState/SkirmishAiInfo") {for(const auto& f:abilityToggleAIToggleSpecialPowerInfoFields) if(attribute==f.name) return true;return false;}
