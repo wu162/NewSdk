@@ -14,12 +14,13 @@ using Recovered;
 class XmlenvironmentOracle {
     static readonly string[] ModelFlagValues={"ABOUT_TO_HIT","ACCELERATE","ACTIVELY_BEING_CONSTRUCTED","ACTIVELY_CONSTRUCTING","AFFECTED_BY_EMP","AFLAME","AIM_FAR","AIM_HIGH","AIM_LOW","AIM_NEAR","AIM_STRAIGHT","AIR_POWER_EFFECT","ALL","ALTERNATE_FORMATION","ARMORSET_ALTERNATE_FORMATION","ARMORSET_ELITE","ARMORSET_HERO","ARMORSET_MOUNTED","ARMORSET_PLAYER_UPGRADE","ARMORSET_PLAYER_UPGRADE_2","ARMORSET_PLAYER_UPGRADE_3","ARMORSET_UNBESIEGEABLE","ARMORSET_VETERAN","ARMORSET_WEAK_VERSUS_BASEDEFENSES","ATTACHED","ATTACKING","ATTACKING_POSITION","ATTACKING_STRUCTURE","ATTACK_MOVING","AWAITING_CONSTRUCTION","BACKCRUSHED","BACKING_UP","BASE_BUILD","BEING_MAULED","BETWEEN_FIRING_SHOTS_A","BETWEEN_FIRING_SHOTS_B","BETWEEN_FIRING_SHOTS_C","BETWEEN_FIRING_SHOTS_D","BETWEEN_FIRING_SHOTS_E","BUILD_PLACEMENT_CURSOR","BUILD_PLACEMENT_HINT","BUILD_VARIATION_ONE","BUILD_VARIATION_TWO","BURNED","BURNINGDEATH","BURNT_MODEL","BURNT_TEXTURE","CANCEL_CAPTURE","CAPTURED","CAPTURE_0","CAPTURE_100","CAPTURE_25","CAPTURE_50","CAPTURE_75","CAPTURING","CARRYING","CHARGING","CHRONORIFT","CLIMBING","COLLAPSING","COMBINED_CHILD","COMBINED_PARENT","COMING_OUT_OF_FACTORY","CONTINUOUS_FIRE_FAST","CONTINUOUS_FIRE_MEAN","CONTINUOUS_FIRE_SLOW","COVER","DAMAGED","DEATH_1","DEATH_10","DEATH_11","DEATH_12","DEATH_13","DEATH_14","DEATH_15","DEATH_2","DEATH_3","DEATH_4","DEATH_5","DEATH_6","DEATH_7","DEATH_8","DEATH_9","DEBUG","DECAY","DECELERATE","DEFLECT_SPECIAL_POWER","DEPLOYED","DESTROYED_BACK","DESTROYED_FRONT","DESTROYED_LEFT","DESTROYED_RIGHT","DESTROYED_WEAPON","DESTROYED_WHILST_BEING_CONSTRUCTED","DISGUISED","DIVING","DOCKING","DOCKING_ACTIVE","DOCKING_BEGINNING","DOCKING_ENDING","DOCKING_EXTRACT","DOCKING_FILL","DOCKING_MOVEBACK","DOCKING_PRE_DOCK","DOCKING_RETURN","DOOR_1_CLOSING","DOOR_1_OPENING","DOOR_1_WAITING_OPEN","DOOR_1_WAITING_TO_CLOSE","DOOR_2_CLOSING","DOOR_2_OPENING","DOOR_2_WAITING_OPEN","DOOR_2_WAITING_TO_CLOSE","DOOR_3_CLOSING","DOOR_3_OPENING","DOOR_3_WAITING_OPEN","DOOR_3_WAITING_TO_CLOSE","DOOR_4_CLOSING","DOOR_4_OPENING","DOOR_4_WAITING_OPEN","DOOR_4_WAITING_TO_CLOSE","DOOR_HELIPAD_CLOSING","DOOR_HELIPAD_OPENING","DOOR_HELIPAD_WAITING_OPEN","DOOR_HELIPAD_WAITING_TO_CLOSE","DRAFTED","DYING","DYING_WASATTACKING","DYING_WASMOVING","EATING","EMOTION_AFRAID","EMOTION_ALERT","EMOTION_AMUSED","EMOTION_BRACE_FOR_BEING_CRUSHED","EMOTION_CELEBRATING","EMOTION_CHEER_FOR_ABOUT_TO_CRUSH","EMOTION_COWER","EMOTION_DISSIDENT","EMOTION_DOOM","EMOTION_GUNG_HO","EMOTION_LOOK_TO_SKY","EMOTION_MORALE_HIGH","EMOTION_MORALE_LOW","EMOTION_PANIC","EMOTION_POINTING","EMOTION_TAUNTING","EMOTION_TERROR","EMOTION_UNCONTROLLABLY_AFRAID","ENGAGED","EXPLODED_BOUNCING","EXPLODED_FLAILING","FIRING_A","FIRING_B","FIRING_C","FIRING_D","FIRING_E","FIRING_OR_PREATTACK_A","FIRING_OR_PREATTACK_B","FIRING_OR_PREATTACK_C","FIRING_OR_PREATTACK_D","FIRING_OR_PREATTACK_E","FIRING_OR_RELOADING_A","FIRING_OR_RELOADING_B","FIRING_OR_RELOADING_C","FIRING_OR_RELOADING_D","FIRING_OR_RELOADING_E","FLOODED","FLYING","FORMATION_PREVIEW","FREEFALL","FRONTCRUSHED","FROZEN","GARRISONED","GUARDING","HARVEST_ACTION","HARVEST_PREPARATION","HEALTH_PERCENT_0","HEALTH_PERCENT_100","HEALTH_PERCENT_25","HEALTH_PERCENT_50","HEALTH_PERCENT_75","HIDDEN","HIGH_TECH_EFFECT","HIT_LEVEL_1","HIT_LEVEL_2","HIT_LEVEL_3","HIT_REACTION","HORDE_EMPTY","IMPENDING_DOOM","INFILTRATED_DISABLE","INFILTRATED_ENERGY","INFILTRATED_RADAR_FREEZE","INFILTRATED_RESET","INFILTRATED_STEAL_MONEY","INFILTRATED_VISION","INFILTRATED_VISION_UNITS","INSIDE_GARRISON","INVALID","INVISIBLE_CAMOUFLAGE","INVISIBLE_STEALTH","INVULNERABLE","IRONCURTAIN","JETAFTERBURNER","JETEXHAUST","JUST_BUILT","LANDING","LAUNCHED","LEASHED_RETURNING","LEVELED","LOADED","LOCOMOTOR_BURNINGDEATH","LOCOMOTOR_CHANGING_FIRINGARC","LOCOMOTOR_COMBO","LOCOMOTOR_COMBO2","LOCOMOTOR_COMBO3","LOCOMOTOR_CONTAINED","LOCOMOTOR_ENRAGED","LOCOMOTOR_FREEFALL","LOCOMOTOR_MOUNTED","LOCOMOTOR_NORMAL_UPGRADED","LOCOMOTOR_PANIC","LOCOMOTOR_SCARED","LOCOMOTOR_SUPERSONIC","LOCOMOTOR_TAXIING","LOCOMOTOR_WALL_SCALING","LOCOMOTOR_WANDER","MARCHING","MARKED_FOR_HUNT_TACTIC","MARKED_FOR_NO_SKIRMISH_RECRUIT","MONEY_STORED_AMOUNT_1","MONEY_STORED_AMOUNT_2","MONEY_STORED_AMOUNT_3","MONEY_STORED_AMOUNT_4","MOUNTED","MOVING","MOVING_OUT_OF_THE_WAY","NIGHT","OVER_WATER","PACKING","PACKING_TYPE_1","PACKING_TYPE_2","PACKING_TYPE_3","PACKING_TYPE_4","PACKING_TYPE_5","PACKING_TYPE_6","PANICKING","PARACHUTE_LAND","PARACHUTING","PARALYZED","PARKINGPLACE_1_DOOR_CLOSED","PARKINGPLACE_1_DOOR_CLOSING","PARKINGPLACE_1_DOOR_OPEN","PARKINGPLACE_1_DOOR_OPENING","PARKINGPLACE_2_DOOR_CLOSED","PARKINGPLACE_2_DOOR_CLOSING","PARKINGPLACE_2_DOOR_OPEN","PARKINGPLACE_2_DOOR_OPENING","PARKINGPLACE_3_DOOR_CLOSED","PARKINGPLACE_3_DOOR_CLOSING","PARKINGPLACE_3_DOOR_OPEN","PARKINGPLACE_3_DOOR_OPENING","PARKINGPLACE_4_DOOR_CLOSED","PARKINGPLACE_4_DOOR_CLOSING","PARKINGPLACE_4_DOOR_OPEN","PARKINGPLACE_4_DOOR_OPENING","PARKINGPLACE_HELIPAD_DOOR_CLOSED","PARKINGPLACE_HELIPAD_DOOR_CLOSING","PARKINGPLACE_HELIPAD_DOOR_OPEN","PARKINGPLACE_HELIPAD_DOOR_OPENING","PARTIALLY_CONSTRUCTED","PASSENGER","PASSENGER_VARIATION_1","PASSENGER_VARIATION_2","PASSENGER_VARIATION_3","PASSENGER_VARIATION_4","PASSENGER_VARIATION_5","PHANTOM_STRUCTURE","PLAYER_POWER_1","POST_COLLAPSE","POST_RUBBLE","POWER_PLANT_UPGRADED","POWER_PLANT_UPGRADING","PREATTACK_A","PREATTACK_B","PREATTACK_C","PREATTACK_D","PREATTACK_E","PREORDER","PREPARING","PRIMARY_FORMATION","PRONE","RADAR_EXTENDING","RADAR_UPGRADED","RAISING_FLAG","RAPPELLING","REACT_1","REACT_2","REACT_3","REACT_4","REACT_5","REACT_6","REALLYDAMAGED","RELOADING_A","RELOADING_B","RELOADING_C","RELOADING_D","RELOADING_E","REPAIRING_DISABLED","RESURRECTED","RIDER1","RIDER2","RIDER3","RIDER4","RIDER5","RIDER6","RIDER7","RIDER8","RIDERLESS","RUBBLE","RUNNING_OFF_MAP","SAIL_BLOWN_LEFT","SAIL_BLOWN_RIGHT","SAIL_FLAPPING","SCALING_WALL","SCALING_WALL_HORDE","SELECTED","SHRINK_EFFECT","SIEGE_CONTAIN","SMOLDERING","SNOW","SOLD","SPECIALPOWER1_READY","SPECIALPOWER2_READY","SPECIALPOWER3_READY","SPECIALPOWER4_READY","SPECIALPOWER5_READY","SPECIALPOWER6_READY","SPECIALPOWER7_READY","SPECIALPOWER8_READY","SPECIALPOWER9_READY","SPECIAL_CHEERING","SPECIAL_DAMAGED","SPECIAL_ENEMY_NEAR","SPECIAL_POWER_1","SPECIAL_POWER_2","SPECIAL_POWER_3","SPECIAL_WEAPON_FIVE","SPECIAL_WEAPON_FOUR","SPECIAL_WEAPON_ONE","SPECIAL_WEAPON_SIX","SPECIAL_WEAPON_THREE","SPECIAL_WEAPON_TWO","SPLATTED","START_CAPTURE","STRUCTURE_UNPACKING","STUNNED","STUNNED_FLAILING","STUNNED_STANDING_UP","SUCKED_UP_HIGH","SUPPRESSED","SWAPPING_TO_WEAPONSET_1","SWAPPING_TO_WEAPONSET_2","SWAPPING_TO_WEAPONSET_3","SWIMMING","SWOOPING","TAKING_OFF","THROWN_PROJECTILE","TIBERIUM_CRYSTAL_TYPE1","TIBERIUM_CRYSTAL_TYPE2","TIBERIUM_CRYSTAL_TYPE3","TIBERIUM_CRYSTAL_TYPE4","TIBERIUM_CRYSTAL_TYPE5","TIBERIUM_GROWING","TOPPLED","TRANSPORT_MOVING","TRANSPORT_STOPPED","TURN_LEFT","TURN_LEFT_HIGH_SPEED","TURN_RIGHT","TURN_RIGHT_HIGH_SPEED","TURRET_ANGLE_0","TURRET_ANGLE_180","TURRET_ANGLE_270","TURRET_ANGLE_90","TURRET_ROTATE","UNCONTROLLABLE","UNDERPOWERED","UNIT_ACTIVELY_BEING_CONSTRUCTED","UNPACKING","UPGRADED_ARMOR","USER_1","USER_10","USER_2","USER_3","USER_4","USER_5","USER_6","USER_7","USER_8","USER_9","USING_COMBO_LOCOMOTOR","USING_SPECIAL_ABILITY","USING_WEAPON_A","USING_WEAPON_B","USING_WEAPON_C","USING_WEAPON_D","USING_WEAPON_E","VEHICLE_CRUSH_CENTER","VEHICLE_CRUSH_LEFT","VEHICLE_CRUSH_RIGHT","WADING","WALKING","WALL_SEGMENT","WANDER","WEAPONLOCK_PRIMARY","WEAPONLOCK_QUATERNARY","WEAPONLOCK_QUINARY","WEAPONLOCK_SECONDARY","WEAPONLOCK_TERTIARY","WEAPONSET_CLOSE_RANGE","WEAPONSET_CONTAINED","WEAPONSET_CONTESTING_BUILDING","WEAPONSET_ELITE","WEAPONSET_GARRISONED","WEAPONSET_HERO","WEAPONSET_MOUNTED","WEAPONSET_PASSENGER_TYPE_ONE","WEAPONSET_PASSENGER_TYPE_TWO","WEAPONSET_PLAYER_UPGRADE","WEAPONSET_RIDER1","WEAPONSET_RIDER2","WEAPONSET_RIDER3","WEAPONSET_RIDER4","WEAPONSET_SPECIAL_ONE","WEAPONSET_SPECIAL_TWO","WEAPONSET_SPECIAL_UPGRADE","WEAPONSET_TOGGLE_1","WEAPONSET_TOGGLE_2","WEAPONSET_TOGGLE_3","WEAPONSET_VETERAN","WEAPONSLOTID_01","WEAPONSLOTID_02","WEAPONSLOTID_03","WEAPONSLOTID_04","WEAPONSLOTID_05","WEAPONSLOTID_06","WEAPONSLOTID_07","WEAPONSLOTID_08","WEAPONSLOTID_09","WEAPONSLOTID_10","WEAPONSTATE_CLOSE_RANGE","WEAPONSTATE_CONTAINED","WEAPONSTATE_ONE","WEAPONSTATE_THREE","WEAPONSTATE_TWO","WEAPON_TOGGLING","WORLD_BUILDER","UNKNOWN","moving",""," ","+MOVING","-MOVING","MOVING MOVING","MOVING -MOVING","ALL -MOVING","-ALL MOVING","all","NONE","MOVING\tATTACKING"};
     const string NS="uri:ea.com:eala:asset";
-    static readonly string[] Types={"Weather","WaterTransparency","WaterSetting","Environment","LightingSettings","WaterTextureList","TerrainParticleMapping","BounceKickTerrainMapping"};
-    static readonly int[] Sizes={24,16,12,156,48,16,16,12};
-    static readonly uint[] TypeIds={2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u};
+    static readonly string[] Types={"Weather","WaterTransparency","WaterSetting","Environment","LightingSettings","WaterTextureList","TerrainParticleMapping","BounceKickTerrainMapping","ShadowMap","OrdersManagerSettings"};
+    static readonly int[] Sizes={24,16,12,156,48,16,16,12,16,128};
+    static readonly uint[] TypeIds={2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u};
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","4294967295","4294967296","077","0xff","1e400","-1e400"};
     static readonly string[] Refs={"","Name","Name\\0","Name\\27","Name\\-1","Name\\2147483648","Name\\ +17junk","资源\\7","MIXEDCase"};
     static readonly string[] Bools={"true","false","TRUE","1","0","t","T"," true","yes","","10"};
+    static readonly string[] TimeValues={"0s","1s","250ms","1.25s","0.5m","2d1s","-1s","1s junk","2ms","1000ms","garbage","","1e30s","2147483648ms","25,5s"};
     static IAssetBuilderPlugin original;
     static int fixtures,comparisons,rejections,layouts;
     static XmlDocument Parse(string text){XmlDocument d=new XmlDocument();d.LoadXml(text);return d;}
@@ -61,7 +62,7 @@ class XmlenvironmentOracle {
     static AssetBuffer Test(string label,string xml,TargetPlatform p){return TestDoc(label,Parse(xml),p);}
     static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmlenvironmentCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
     static XmlDocument FieldDocument(string root,string path,string name,string value){XmlDocument d=Parse(Root(root,"",""));XmlElement node=d.DocumentElement;if(path.Length!=0)foreach(string part in path.Split('/')){XmlElement child=d.CreateElement(part,NS);node.AppendChild(child);node=child;}node.SetAttribute(name,value);return d;}
-    static string[] EnumValues(string name){switch(name){case "WeatherType":return new string[]{"CLOUDY","CLOUDYRAINY","INVALID","NORMAL","RAINY","SNOWY","SUNNY","unknown","normal","","0"};case "TimeOfDayType":return new string[]{"AFTERNOON","EVENING","INTERPOLATE","INVALID","MORNING","NIGHT","unknown","morning","","0"};case "WaterTextureType":return new string[]{"BUMP","FIRST","NOISE","NORMAL","RIVER","SKY","SPARKLE","unknown","river","","0"};case "TerrainClassType":return new string[]{"Cliff","Dirt","Grass","Misc","Mud","Road","Rock","Sand","Shrub","Snow","UNSPECIFIED","unknown","grass","","0"};case "DistributionType":return new string[]{"CONSTANT","GAUSSIAN","HIGH_BIAS","LOW_BIAS","TRIANGULAR","UNIFORM","unknown","uniform","","0"};default:throw new Exception("Unknown test enum");}}
+    static string[] EnumValues(string name){switch(name){case "WeatherType":return new string[]{"CLOUDY","CLOUDYRAINY","INVALID","NORMAL","RAINY","SNOWY","SUNNY","unknown","normal","","0"};case "TimeOfDayType":return new string[]{"AFTERNOON","EVENING","INTERPOLATE","INVALID","MORNING","NIGHT","unknown","morning","","0"};case "WaterTextureType":return new string[]{"BUMP","FIRST","NOISE","NORMAL","RIVER","SKY","SPARKLE","unknown","river","","0"};case "TerrainClassType":return new string[]{"Cliff","Dirt","Grass","Misc","Mud","Road","Rock","Sand","Shrub","Snow","UNSPECIFIED","unknown","grass","","0"};case "ShadowType":return new string[]{"ADDITIVE_DECAL","ADDITIVE_DECAL_DYNAMIC","ALPHA_DECAL","ALPHA_DECAL_DYNAMIC","DECAL","MERGE_DECAL","NONE","unknown","none","","0"};case "DistributionType":return new string[]{"CONSTANT","GAUSSIAN","HIGH_BIAS","LOW_BIAS","TRIANGULAR","UNIFORM","unknown","uniform","","0"};default:throw new Exception("Unknown test enum");}}
     static string[][] FieldCases=new string[][] {
         new string[]{"Weather","Rain","RainTexture","Reference",""},
         new string[]{"Weather","Rain","IsRaining","Bool",""},
@@ -172,6 +173,108 @@ class XmlenvironmentOracle {
         new string[]{"TerrainParticleMapping","Mapping","ForbiddenModelConditions","ModelFlags",""},
         new string[]{"BounceKickTerrainMapping","Mapping","TerrainClass","Enum","TerrainClassType"},
         new string[]{"BounceKickTerrainMapping","Mapping","BounceMultiplier","Percentage",""},
+        new string[]{"ShadowMap","","MapSize","Signed",""},
+        new string[]{"ShadowMap","","MaxViewDistance","Float",""},
+        new string[]{"ShadowMap","","MinShadowedTerrainHeight","Float",""},
+        new string[]{"OrdersManagerSettings","","LineFadeTime","Time",""},
+        new string[]{"OrdersManagerSettings","","FormationPreviewShader","Reference",""},
+        new string[]{"OrdersManagerSettings","","BuildPlacementShader","Reference",""},
+        new string[]{"OrdersManagerSettings","ExecutingLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","ExecutingLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","ExecutingLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","ExecutingLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","PendingLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","PendingLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","PendingLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PendingLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolPendingLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolPendingLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolPendingLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolPendingLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","TargetMoveLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","TargetMoveLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","TargetMoveLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","TargetMoveLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","TargetAttackLine","Width","Float",""},
+        new string[]{"OrdersManagerSettings","TargetAttackLine","VOffsetRate","Float",""},
+        new string[]{"OrdersManagerSettings","TargetAttackLine","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","TargetAttackLine","TextureTileSize","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","Type","Enum","ShadowType"},
+        new string[]{"OrdersManagerSettings","PatrolNode","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","AdditionalTexture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","SizeX","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","SizeY","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OffsetX","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OffsetY","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OpacityStart","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OpacityFadeInTime","Time",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OpacityPeak","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OpacityFadeOutTime","Time",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OpacityEnd","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","MaxHeight","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","OverrideLODVisibility","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","UseHouseColor","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","IsRotatingWithObject","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","LocalPlayerOnly","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolNode","SunAngle","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","Type","Enum","ShadowType"},
+        new string[]{"OrdersManagerSettings","PatrolStart","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","AdditionalTexture","Reference",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","SizeX","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","SizeY","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OffsetX","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OffsetY","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OpacityStart","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OpacityFadeInTime","Time",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OpacityPeak","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OpacityFadeOutTime","Time",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OpacityEnd","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","MaxHeight","Float",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","OverrideLODVisibility","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","UseHouseColor","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","IsRotatingWithObject","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","LocalPlayerOnly","Bool",""},
+        new string[]{"OrdersManagerSettings","PatrolStart","SunAngle","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","Type","Enum","ShadowType"},
+        new string[]{"OrdersManagerSettings","PendingNode","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PendingNode","AdditionalTexture","Reference",""},
+        new string[]{"OrdersManagerSettings","PendingNode","SizeX","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","SizeY","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OffsetX","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OffsetY","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OpacityStart","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OpacityFadeInTime","Time",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OpacityPeak","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OpacityFadeOutTime","Time",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OpacityEnd","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","MaxHeight","Float",""},
+        new string[]{"OrdersManagerSettings","PendingNode","OverrideLODVisibility","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingNode","UseHouseColor","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingNode","IsRotatingWithObject","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingNode","LocalPlayerOnly","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingNode","SunAngle","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","Type","Enum","ShadowType"},
+        new string[]{"OrdersManagerSettings","PendingStart","Texture","Reference",""},
+        new string[]{"OrdersManagerSettings","PendingStart","AdditionalTexture","Reference",""},
+        new string[]{"OrdersManagerSettings","PendingStart","SizeX","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","SizeY","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OffsetX","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OffsetY","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OpacityStart","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OpacityFadeInTime","Time",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OpacityPeak","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OpacityFadeOutTime","Time",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OpacityEnd","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","MaxHeight","Float",""},
+        new string[]{"OrdersManagerSettings","PendingStart","OverrideLODVisibility","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingStart","UseHouseColor","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingStart","IsRotatingWithObject","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingStart","LocalPlayerOnly","Bool",""},
+        new string[]{"OrdersManagerSettings","PendingStart","SunAngle","Float",""},
     };
     static void AbiCases(TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
@@ -205,6 +308,20 @@ class XmlenvironmentOracle {
         AssetBuffer bounce=Test("ABI/BounceKickTerrainMapping",Root("BounceKickTerrainMapping","","<Mapping TerrainClass='Dirt' BounceMultiplier='50%'/><Mapping TerrainClass='unknown' BounceMultiplier='garbage'/>"),p);
         Check(bounce.InstanceData.Length==28&&Word(bounce.InstanceData,4,big)==2&&Word(bounce.InstanceData,8,big)==12&&Word(bounce.InstanceData,12,big)==2&&Word(bounce.InstanceData,16,big)==0x3f000000u&&Word(bounce.InstanceData,20,big)==3&&Word(bounce.InstanceData,24,big)==0,"bounce independent list and percentage");
     }
+    static void OrdersAbi(TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        AssetBuffer shadow=Test("ABI/ShadowMap",Root("ShadowMap","MapSize='2048' MaxViewDistance='512' MinShadowedTerrainHeight='-2.5'",""),p);
+        Check(shadow.InstanceData.Length==16&&Word(shadow.InstanceData,4,big)==2048&&Word(shadow.InstanceData,8,big)==0x44000000u&&Word(shadow.InstanceData,12,big)==0xc0200000u,"ShadowMap independent signed/float words");
+        string[] lines={"ExecutingLine","PendingLine","PatrolLine","PatrolPendingLine","TargetMoveLine","TargetAttackLine"};string[] nodes={"PatrolNode","PatrolStart","PendingNode","PendingStart"};StringBuilder body=new StringBuilder();
+        for(int i=0;i<lines.Length;++i)body.Append("<"+lines[i]+" Texture='Name\\"+i+"'/>");
+        for(int i=0;i<nodes.Length;++i)body.Append("<"+nodes[i]+" Texture='Name\\"+(10+i)+"' AdditionalTexture='Name\\"+(20+i)+"'/>");
+        AssetBuffer orders=Test("ABI/Orders",Root("OrdersManagerSettings","FormationPreviewShader='Name\\30' BuildPlacementShader='Name\\31'",body.ToString()),p);
+        Check(orders.InstanceData.Length==368&&Word(orders.InstanceData,4,big)==0x3e800000u,"Orders root size/time");
+        for(int i=0;i<lines.Length;++i){Check(Word(orders.InstanceData,16+16*i,big)==0x3fc00000u&&Word(orders.InstanceData,28+16*i,big)==0x41f00000u,"line defaults and inline offsets");}
+        for(int i=0;i<nodes.Length;++i){int at=128+60*i;Check(Word(orders.InstanceData,112+4*i,big)==at,"shadow pointer allocation order");Check(Word(orders.InstanceData,at+36,big)==0x3f800000u&&Word(orders.InstanceData,at+48,big)==0x41a00000u,"shadow initialized defaults");Check(orders.InstanceData[at+56]==0&&orders.InstanceData[at+57]==0&&orders.InstanceData[at+58]==1&&orders.InstanceData[at+59]==0,"shadow packed boolean defaults");}
+        int[] imports={8,12,24,40,56,72,88,104,132,136,192,196,252,256,312,316};Check(orders.ImportsData.Length==4*(imports.Length+1),"Orders import count");for(int i=0;i<imports.Length;++i)Check(Word(orders.ImportsData,4*i,big)==imports[i],"Orders reference field offsets");
+        Reject("duplicate order line",Root("OrdersManagerSettings","","<ExecutingLine/><ExecutingLine/>"));Reject("duplicate order shadow",Root("OrdersManagerSettings","","<PatrolNode/><PatrolNode/>"));
+    }
     static void Matrix(TargetPlatform p) {
         original.Initialize(null,p);
         for(int i=0;i<Types.Length;++i) {
@@ -215,7 +332,7 @@ class XmlenvironmentOracle {
             Reject("text/"+Types[i],Root(Types[i],"","payload"));
         }
         foreach(string[] f in FieldCases) {
-            string[] values=f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="Hash")?Refs:Numbers;
+            string[] values=f[3]=="Time"?TimeValues:f[3]=="ModelFlags"?ModelFlagValues:f[3]=="Enum"?EnumValues(f[4]):f[3]=="Bool"?Bools:(f[3]=="Reference"||f[3]=="Hash")?Refs:Numbers;
             foreach(string value in values)TestDoc("field/"+f[0]+"/"+f[1]+"/"+f[2]+"/"+value,FieldDocument(f[0],f[1],f[2],value),p);
             XmlDocument metadata=FieldDocument(f[0],f[1],f[2],values[0]);foreach(XmlNode node in metadata.SelectNodes("//*"))((XmlElement)node).SetAttribute("TypeId","1");TestDoc("field-metadata/"+f[0]+"/"+f[1]+"/"+f[2],metadata,p);
             XmlDocument invalid=FieldDocument(f[0],f[1],f[2],values[0]);XmlNodeList nodes=invalid.SelectNodes("//*");((XmlElement)nodes[nodes.Count-1]).SetAttribute("Unknown","1");Reject("nested unknown",invalid.OuterXml);
@@ -242,6 +359,7 @@ class XmlenvironmentOracle {
         Reject("duplicate Rain",Root("Weather","","<Rain/><Rain/>"));Reject("duplicate color",Root("WaterSetting","","<DiffuseColor/><DiffuseColor/>"));Reject("string child",Root("WaterTextureList","","<Texture><Unknown/></Texture>"));Reject("unknown root",Root("Unknown","",""));
         AbiCases(p);
         MappingAbi(p);
+        OrdersAbi(p);
         bool rejected=false;try{XmlenvironmentCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){rejected=true;}Check(rejected,"null declaration rejected");++rejections;
     }
     static int Main(string[] args) {

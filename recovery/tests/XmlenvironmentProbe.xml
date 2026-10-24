@@ -298,4 +298,36 @@
   <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Combined">
     <Mapping TerrainClass="Sand" BounceMultiplier="25%" />
   </BounceKickTerrainMapping>
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Defaults" />
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Combined" MapSize="2048" MaxViewDistance="800" MinShadowedTerrainHeight="-2.5" />
+  <OrdersManagerSettings id="RecoveryXmlAdditional_OrdersManagerSettings_Defaults">
+    <ExecutingLine />
+    <PendingLine />
+    <PatrolLine />
+    <PatrolPendingLine />
+    <TargetMoveLine />
+    <TargetAttackLine />
+  </OrdersManagerSettings>
+  <OrdersManagerSettings id="RecoveryXmlAdditional_OrdersManagerSettings_Combined" LineFadeTime="0.5s">
+    <ExecutingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PendingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolPendingLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <TargetMoveLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <TargetAttackLine Width="2" VOffsetRate="0.5" TextureTileSize="64" />
+    <PatrolNode Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PatrolStart Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PendingNode Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+    <PendingStart Type="ALPHA_DECAL" SizeX="10" SizeY="12" OpacityStart="0.5" OpacityPeak="0.75" OpacityFadeInTime="0.25s" OpacityFadeOutTime="0.5s" MaxHeight="25" OverrideLODVisibility="true" UseHouseColor="false" IsRotatingWithObject="false" LocalPlayerOnly="true" SunAngle="0.5" />
+  </OrdersManagerSettings>
+  <Weather id="RecoveryXmlAdditional_Weather_Inherited" inheritFrom="RecoveryXmlAdditional_Weather_Defaults">
+    <Rain IsRaining="true" NumRaindropsPerBox="9" />
+  </Weather>
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Inherited" inheritFrom="RecoveryXmlAdditional_TerrainParticleMapping_Defaults" AccelerationMultiplier="60%">
+    <Mapping TerrainClass="Grass" RequiredModelConditions="MOVING" />
+  </TerrainParticleMapping>
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited" inheritFrom="RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults">
+    <Mapping TerrainClass="Rock" BounceMultiplier="10%" />
+  </BounceKickTerrainMapping>
+  <ShadowMap id="RecoveryXmlAdditional_ShadowMap_Inherited" inheritFrom="RecoveryXmlAdditional_ShadowMap_Defaults" MapSize="4096" />
 </AssetDeclaration>
