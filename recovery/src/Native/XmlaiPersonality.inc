@@ -151,7 +151,7 @@ m["AIPersonalityDefinition"].children = {
     {"SpecificUnitCap","AISpecificUnitCap",364,ChildKind::List},
     {"UnitModifier","AIUnitBuilderModifier",372,ChildKind::List},
     {"DefaultTacticHomeBaseCriteria","AIBaseSelectionCriteria",380,ChildKind::Pointer},
-    {"CountAsStructureForBuildPurposes","ObjectFilter",384,ChildKind::Inline},
+    {"CountAsStructureForBuildPurposesFilter","ObjectFilter",384,ChildKind::Inline},
     {"InTroubleSkirmishFeedbackControl","AIInTroubleSkirmishFeedbackControl",496,ChildKind::Pointer},
     {"FeedbackEntry","AIStateFeedbackEntry",500,ChildKind::List}
 };
