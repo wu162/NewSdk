@@ -1,7 +1,7 @@
 {
-  "succeeded": true,
-  "sourceCommit": "aac2279c99abf4c55d7f4d682b3e68bbe3a77107",
-  "runId": "40091218825",
+  "succeeded": false,
+  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
+  "runId": "40093373602",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -17,11 +17,35 @@
     "AIMicroManagerData": 2423780215,
     "AIBudgetStateDefinition": 2893598307,
     "AIStateDefinition": 3239935619,
-    "AITargetingHeuristic": 926814458
+    "AITargetingHeuristic": 926814458,
+    "LogicCommand": 2101756272,
+    "PlayerTech": 2131237081,
+    "PlayerTechRank": 1802643394,
+    "PlayerTechUpgradeBinding": 2140592493,
+    "ExperienceLevelTemplate": 1874610847,
+    "PlayerTechStoreTemplate": 1213037816,
+    "PurchasePlayerTechButtonTemplate": 1566941920,
+    "ButtonSingleStateData": 3048039928,
+    "Weather": 2430161325,
+    "WaterTransparency": 1479531562,
+    "WaterSetting": 2728605516,
+    "Environment": 680780553,
+    "LightingSettings": 3169690211,
+    "WaterTextureList": 2995571269,
+    "TerrainParticleMapping": 1469498551,
+    "BounceKickTerrainMapping": 2368878637,
+    "AIData": 3827723072,
+    "UnitAISettings": 2964891936,
+    "PlayerTemplate": 4063352333,
+    "MultiplayerSettings": 191082224,
+    "AIBuildStateDefinition": 1644972043,
+    "AIStrategicStateName": 2010562192,
+    "MultiplayerColor": 2384988189,
+    "AIPersonalityToAchievementEventMapping": 4086175864
   },
-  "expectedTypes": 14,
-  "expectedFixturesPerMode": 56,
-  "expectedComparisonsPerMode": 168,
+  "expectedTypes": 38,
+  "expectedFixturesPerMode": 152,
+  "expectedComparisonsPerMode": 456,
   "expectedCompletionFixturesPerMode": 40,
   "expectedCompletionComparisonsPerMode": 120,
   "platforms": [
@@ -30,131 +54,9 @@
     2,
     99
   ],
-  "modes": [
-    {
-      "mode": "Od",
-      "succeeded": true,
-      "exitCode": 0,
-      "exitCodeHex": "0x00000000",
-      "types": 14,
-      "fixtures": 56,
-      "comparisons": 168,
-      "completionFixtures": 40,
-      "completionComparisons": 120,
-      "platforms": [
-        0,
-        1,
-        2,
-        99
-      ],
-      "typeCoverage": {
-        "AttributeModifier": 4,
-        "FXList": 4,
-        "SpecialPowerTemplate": 4,
-        "ObjectCreationList": 4,
-        "LocomotorTemplate": 4,
-        "LogicCommandSet": 4,
-        "FXParticleSystemTemplate": 4,
-        "UpgradeTemplate": 4,
-        "AIPersonalityDefinition": 4,
-        "AIStrategicStateDefinition": 4,
-        "AIMicroManagerData": 4,
-        "AIBudgetStateDefinition": 4,
-        "AIStateDefinition": 4,
-        "AITargetingHeuristic": 4
-      },
-      "compilerClasses": {
-        "AttributeModifier": "Recovered.AttributeModifierCompiler",
-        "FXList": "Recovered.FXListCompiler",
-        "SpecialPowerTemplate": "Recovered.SpecialPowerTemplateCompiler",
-        "ObjectCreationList": "Recovered.ObjectCreationListCompiler",
-        "LocomotorTemplate": "Recovered.LocomotorTemplateCompiler",
-        "LogicCommandSet": "Recovered.LogicCommandSetCompiler",
-        "FXParticleSystemTemplate": "Recovered.FXParticleSystemTemplateCompiler",
-        "UpgradeTemplate": "Recovered.UpgradeTemplateCompiler",
-        "AIPersonalityDefinition": "Recovered.XmlaiCompiler",
-        "AIStrategicStateDefinition": "Recovered.XmlaiCompiler",
-        "AIMicroManagerData": "Recovered.XmlaiCompiler",
-        "AIBudgetStateDefinition": "Recovered.XmlaiCompiler",
-        "AIStateDefinition": "Recovered.XmlaiCompiler",
-        "AITargetingHeuristic": "Recovered.XmlaiCompiler"
-      },
-      "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "5dcca70eb4e03dfba54c33945bf250cefe8532bb235c497fa28a921c0306f20c",
-      "log": "Od-oracle.txt"
-    },
-    {
-      "mode": "O2",
-      "succeeded": true,
-      "exitCode": 0,
-      "exitCodeHex": "0x00000000",
-      "types": 14,
-      "fixtures": 56,
-      "comparisons": 168,
-      "completionFixtures": 40,
-      "completionComparisons": 120,
-      "platforms": [
-        0,
-        1,
-        2,
-        99
-      ],
-      "typeCoverage": {
-        "AttributeModifier": 4,
-        "FXList": 4,
-        "SpecialPowerTemplate": 4,
-        "ObjectCreationList": 4,
-        "LocomotorTemplate": 4,
-        "LogicCommandSet": 4,
-        "FXParticleSystemTemplate": 4,
-        "UpgradeTemplate": 4,
-        "AIPersonalityDefinition": 4,
-        "AIStrategicStateDefinition": 4,
-        "AIMicroManagerData": 4,
-        "AIBudgetStateDefinition": 4,
-        "AIStateDefinition": 4,
-        "AITargetingHeuristic": 4
-      },
-      "compilerClasses": {
-        "AttributeModifier": "Recovered.AttributeModifierCompiler",
-        "FXList": "Recovered.FXListCompiler",
-        "SpecialPowerTemplate": "Recovered.SpecialPowerTemplateCompiler",
-        "ObjectCreationList": "Recovered.ObjectCreationListCompiler",
-        "LocomotorTemplate": "Recovered.LocomotorTemplateCompiler",
-        "LogicCommandSet": "Recovered.LogicCommandSetCompiler",
-        "FXParticleSystemTemplate": "Recovered.FXParticleSystemTemplateCompiler",
-        "UpgradeTemplate": "Recovered.UpgradeTemplateCompiler",
-        "AIPersonalityDefinition": "Recovered.XmlaiCompiler",
-        "AIStrategicStateDefinition": "Recovered.XmlaiCompiler",
-        "AIMicroManagerData": "Recovered.XmlaiCompiler",
-        "AIBudgetStateDefinition": "Recovered.XmlaiCompiler",
-        "AIStateDefinition": "Recovered.XmlaiCompiler",
-        "AITargetingHeuristic": "Recovered.XmlaiCompiler"
-      },
-      "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "e47d2799531ec867e17e9aa4f7500a9ad57a94c90ead5f905442c66b3fca37b6",
-      "log": "O2-oracle.txt"
-    }
-  ],
-  "processExits": [
-    {
-      "mode": "Od",
-      "exitCode": 0,
-      "exitCodeHex": "0x00000000",
-      "sourceCommit": "aac2279c99abf4c55d7f4d682b3e68bbe3a77107",
-      "runId": "40091218825",
-      "processSucceeded": true
-    },
-    {
-      "mode": "O2",
-      "exitCode": 0,
-      "exitCodeHex": "0x00000000",
-      "sourceCommit": "aac2279c99abf4c55d7f4d682b3e68bbe3a77107",
-      "runId": "40091218825",
-      "processSucceeded": true
-    }
-  ],
-  "status": "All 14 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "modes": [],
+  "processExits": [],
+  "status": "Od combined XmlCompiler C++/CLI link failed",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -194,6 +96,10 @@
       "sha256": "4bd1e7b7049922cb00f80c5689100f4b2f53dc1d623903aa793ebb3907b75446"
     },
     {
+      "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp",
+      "sha256": "4501fcd09cc370fa11c786c80531d1455ce01ee66d40a74208fad1735a82e787"
+    },
+    {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
       "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
     },
@@ -202,12 +108,20 @@
       "sha256": "e70540a622524fc7423273f41fcfc5668f8d93bfaca539fb3e42574900f824fb"
     },
     {
+      "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
+      "sha256": "e31ab9025bc6ab0ed8f746e7cc68e9004a97e362ad26a65c91c80ea18a1ce2e0"
+    },
+    {
       "path": "recovery/src/Bridge/XmlpowersCompiler.cpp",
       "sha256": "98809651c0d75914a5d28c6e9a3ce6c8a725eaaa6852a11fe2a4872acc63bfa4"
     },
     {
+      "path": "recovery/src/Bridge/XmlprogressionCompiler.cpp",
+      "sha256": "d151af9d30e6c39fd9b89e51e0ed9cb1679541a959399b830cc58dddbfa16a2d"
+    },
+    {
       "path": "recovery/src/Native/Xmlai.cpp",
-      "sha256": "2bd3b1419b1af752b28c9d4198bccff298bb7492751c5bb963f2f9b71090047b"
+      "sha256": "fbe7ab6b597a4cf7b5952b6bbd47618417cde450b6bc5a1179d58713eb204254"
     },
     {
       "path": "recovery/src/Native/Xmlattributes.cpp",
@@ -226,6 +140,10 @@
       "sha256": "476fdbbfe3bd3169f5e567607e1e08d190f402905f46ae7cda9e2956350deecb"
     },
     {
+      "path": "recovery/src/Native/Xmlenvironment.cpp",
+      "sha256": "2b1341eac80a54aa4e21a7d140029b2620723d18dfaf99593cdb8de75b0df989"
+    },
+    {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
       "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
     },
@@ -234,8 +152,16 @@
       "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713"
     },
     {
+      "path": "recovery/src/Native/Xmlplayers.cpp",
+      "sha256": "ef16dc446a2ca50f84e150b133ed022f680c829c16943abd958095bba271f133"
+    },
+    {
       "path": "recovery/src/Native/Xmlpowers.cpp",
       "sha256": "8a0b32b6d6782ebadff6798c0a1a55e30541ab22c6da027ba556a3f7345a5190"
+    },
+    {
+      "path": "recovery/src/Native/Xmlprogression.cpp",
+      "sha256": "b58e2277082fa872822d36f12f681b6208aeed7cbf809b305c55eb9cffeaa78b"
     }
   ],
   "excludedDraftSources": [],

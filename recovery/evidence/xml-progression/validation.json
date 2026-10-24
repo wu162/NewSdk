@@ -1,0 +1,14 @@
+{
+  "succeeded": false,
+  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
+  "runId": "40093373602",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "scope": "Eight complete progression roots and their nested AI/decal dependencies; component only",
+  "status": "Od original XmlCompiler differential failed (1)"
+}
