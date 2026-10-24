@@ -12,7 +12,7 @@
 #ifdef _MANAGED
 #pragma managed(push,off)
 #endif
-namespace Recovered { namespace Native { namespace {
+namespace Recovered { namespace Native { namespace PlayersDetail {
 using U32=Relo::U32;
 enum class Kind { Float,Unsigned,Signed,Bool,Byte,Time,Angle,Percent,String,Hash,Reference,Enum,Model,Tokens };
 enum class ChildKind { Inline,Pointer,List };
@@ -114,6 +114,7 @@ struct Builder {
     }
 };
 }
+using namespace PlayersDetail;
 unsigned XmlplayersTypeId(const std::string& name) { try{return GetLayout(name).typeId;}catch(const std::exception&){return 0;} }
 Relo::Chunk CompileXmlplayers(const XmlplayersNode& node,bool big) {
     static_assert(sizeof(void*)==4,"Players requires x86");
