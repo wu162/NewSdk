@@ -27,7 +27,7 @@
 
 scripts/TestXmluichat.ps1在/Od、/O2各跑平台0/1/2/99。Oracle每fixture对原ProcessInstance与恢复ProcessInstance、CompileXml比较完整三数组，共6比较。覆盖所有字符串字段/空缺/对齐/1024长串/NUL/ANSI，全部强引用字段与signed-atoi溢出，时间单位、完整Destination/Faction枚举和缺省未知区别、TypedAssetId大小写/NUL/类型前缀、三级列表0/1/2/3/8/9/10/15/16/17/27/28/29/64/257增长、递归深度到32及独立ABI。
 
-独立ABI固定156字节递归菜单实例及其12个pointer目标/target-block排序、Voice108字节四字符串帮助分配顺序，显式证明relocation顺序不按field address排序、Weak MessageRef不生成import。公共SideArray仅断言唯一/对齐/界限/哨兵，不假设单调偏移。未知/限定属性、外命名空间、未知child、结构非空文本、duplicate singleton、root/handle不符显式拒绝。沿用桥接深度32边界，33明确拒绝，不声称支持更深树。
+独立ABI固定156字节递归菜单实例及其12个pointer目标/owner-block/target-block排序、Voice108字节四字符串帮助分配顺序，显式证明relocation顺序先按owner block，再按该block内target-block/value排序，不按field address排序、Weak MessageRef不生成import。公共SideArray仅断言唯一/对齐/界限/哨兵，不假设单调偏移。未知/限定属性、外命名空间、未知child、结构非空文本、duplicate singleton、root/handle不符显式拒绝。沿用桥接深度32边界，33明确拒绝，不声称支持更深树。
 
 三根原XSD分别UI/QuickChatMessage.xsd、UI/Mouse/Tactical/QuickChatDisplay.xsd、UI/Mouse/VoiceChat.xsd；均BaseAssetType不支持inheritFrom。Display schema要求CloseKey、1..9 MenuItem、root CloseMenuItem，各Title必填；底层Marshal不限制9，组件特测10和257不伪造截断。SDK本轮未运行，未放宽原XSD，schema合法样例应在未来获准SDK批次单独补齐。
 

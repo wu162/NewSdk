@@ -85,7 +85,7 @@ class XmluichatOracle {
         int[] at={24,32,40,48,76};uint[] targets={52u,56u,60u,64u,104u};for(int i=0;i<at.Length;++i)Check(Word(voice.InstanceData,at[i],big)==targets[i],"voice nested string target "+i);
         Check(Word(voice.InstanceData,20,big)==1&&Word(voice.InstanceData,28,big)==2&&Word(voice.InstanceData,36,big)==3&&Word(voice.InstanceData,44,big)==4,"help four string lengths");
         Offsets(voice.ImportsData,new uint[]{8,4},big,"voice imports sortbyvalue");
-        Offsets(voice.RelocationData,new uint[]{12,24,32,40,48,16,76},big,"voice relocations targetblockorder");
+        Offsets(voice.RelocationData,new uint[]{12,16,24,32,40,48,76},big,"voice relocations ownerblock then targetblock");
         AssetBuffer menus=Test("ABI/recursive-display",Root(Display,"CloseKey='K\\7' DelayDuration='250ms'",
             "<CloseMenuItem Title='Root'/><MenuItem Title='A' ChatDestination='Everyone'><CloseMenuItem Title='D'/><MenuItem Title='BB'><CloseMenuItem Title='C'/></MenuItem><ChatMessageGroup><ChatMessage MessageRef='A'/><ChatMessage MessageRef='a'/></ChatMessageGroup></MenuItem>"),p);
         Check(menus.InstanceData.Length==156&&Word(menus.InstanceData,4,big)==8&&Word(menus.InstanceData,8,big)==0x3e800000u,"display28-root/full recursive size/time");
@@ -94,7 +94,7 @@ class XmluichatOracle {
         Check(Word(menus.InstanceData,12,big)==1&&Word(menus.InstanceData,40,big)==1&&Word(menus.InstanceData,48,big)==1&&Word(menus.InstanceData,72,big)==2,"recursive list counts");
         Check(Word(menus.InstanceData,64,big)==1&&Word(menus.InstanceData,68,big)==3,"Everyone=1 anddefaultFactionNeutral=3");
         Check(Word(menus.InstanceData,80,big)==1214652683u&&Word(menus.InstanceData,84,big)==1214652683u,"weakMessageRef lower-case typedhash");
-        uint[] relos=new uint[pointers.Length];for(int i=0;i<pointers.Length;++i)relos[i]=(uint)pointers[i];Offsets(menus.RelocationData,relos,big,"recursive preorder targetblock sort");
+        Offsets(menus.RelocationData,new uint[]{16,24,32,36,44,52,56,76,92,116,128,140},big,"recursive relocation ownerblock then targetblock");
         Offsets(menus.ImportsData,new uint[]{4},big,"typed MessageRef isnotanimport");
         AssetBuffer destination=Test("ABI/destination-empty",Root(Display,"","<MenuItem ChatDestination=''/>"),p);
         Check(destination.InstanceData.Length==64&&Word(destination.InstanceData,36,big)==60&&Word(destination.InstanceData,60,big)==0,"present-empty destination allocates enum4/fallbackAllies");
