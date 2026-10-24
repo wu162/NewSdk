@@ -32,6 +32,7 @@ jobs:
           python recovery/scripts/ExportLifecycleMethods.py --production-family
           python recovery/scripts/ExportLifecycleMethods.py --create-family
           python recovery/scripts/ExportLifecycleMethods.py --slaved-family
+          python recovery/scripts/ExportLifecycleMethods.py --tech-receiver
           python recovery/scripts/GenerateLifecycleFields.py
           python recovery/scripts/GenerateLifecycleFields.py --check
           python recovery/scripts/GenerateDieFields.py
@@ -50,7 +51,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/gameobject-modules/sound-selector-methods recovery/evidence/gameobject-modules/lifecycle-source recovery/evidence/gameobject-modules/die-source recovery/evidence/gameobject-modules/upgrade-source recovery/evidence/gameobject-modules/upgrade-remaining-source recovery/evidence/gameobject-modules/production-source recovery/evidence/gameobject-modules/create-source recovery/evidence/gameobject-modules/slaved-source recovery/src/Native/GameObjectLifecycle.h recovery/src/Native/GameObjectDie.h recovery/src/Native/GameObjectUpgrade.h recovery/src/Native/GameObjectUpgradeRemaining.h recovery/src/Native/GameObjectProduction.h recovery/src/Native/GameObjectCreate.h recovery/src/Native/GameObjectSlaved.h
+          git add recovery/evidence/gameobject-modules/sound-selector-methods recovery/evidence/gameobject-modules/lifecycle-source recovery/evidence/gameobject-modules/die-source recovery/evidence/gameobject-modules/upgrade-source recovery/evidence/gameobject-modules/upgrade-remaining-source recovery/evidence/gameobject-modules/production-source recovery/evidence/gameobject-modules/create-source recovery/evidence/gameobject-modules/slaved-source recovery/evidence/gameobject-modules/tech-receiver-source recovery/src/Native/GameObjectLifecycle.h recovery/src/Native/GameObjectDie.h recovery/src/Native/GameObjectUpgrade.h recovery/src/Native/GameObjectUpgradeRemaining.h recovery/src/Native/GameObjectProduction.h recovery/src/Native/GameObjectCreate.h recovery/src/Native/GameObjectSlaved.h
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "recovery: export module source methods from $GITHUB_SHA"
           git pull --rebase origin recovery/compiler-source
