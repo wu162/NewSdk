@@ -60,7 +60,7 @@ for name in names:
 # Seed this dispatch explicitly rather than pretending the wrapper is the implementation.
 if '--motion-family' in sys.argv:
     for signature in signatures:
-        if 'ProjectileMoveBase**' in signature:
+        if 'ProjectileMoveBase**' in signature or any(re.search(r'\b'+re.escape(typ)+r'\* @object[,)]',signature) for typ in ['ProjectileMoveBase','ProjectileMoveToGroundData','ProjectileMoveInStraightLineData','BezierSplineProjectileData','BalloonProjectileMoveToGroundData']):
             add(signature)
 # Include called concrete bases and named template helpers, preserving exact overloads.
 queue=list(selected)
