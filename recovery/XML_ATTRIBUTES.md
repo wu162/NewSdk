@@ -1,7 +1,8 @@
 # XmlCompiler attributes group
 
 Fixed baseline ba7a3d6845be5e124d08320cb2c56fda552d9fbe; branch recovery/xmlcompiler-attributes.
-Status: full three-type implementation checkpoint; new AttributeModifier/UpgradeTemplate matrix awaits Windows execution. LogicCommandSet first checkpoint dd7a532 was validated by coordinator at source 3b075e8, run40079501172 (/Od, /O2, platforms 0/1/2/99). That result does not validate the expanded code.
+Status: all three components validated against the original XmlCompiler. Final run40080474059 is completed/success at sourceCommit 977313a17647051df333e223f7a6c45f732bdc63. The six implementation/test/script files at that source were compared with branch implementation cccc6bccf0b4bbc65660b152e3ba548116799cd6 and are byte-identical (LF-normalized text).
+LogicCommandSet first checkpoint dd7a532 had also passed at source3b075e8/run40079501172; final acceptance uses the expanded matrix below.
 
 ## Interfaces
 Recovered::LogicCommandSetCompiler, Recovered::AttributeModifierCompiler and Recovered::UpgradeTemplateCompiler each expose:
@@ -39,7 +40,16 @@ Original IL in fixed-baseline recovery/evidence/BinaryAssetBuilder.XmlCompiler/m
 Run recovery/scripts/TestXmlattributes.ps1 in Windows x86 VS2022 developer shell. The script builds /Od and /O2 separately, compiles an old-syntax x86 .NET Framework C# host, configures CLR4 legacy activation, and launches fresh processes against original XmlCompiler.dll.
 Every mode tests platforms 0/1/2/99, compares all three arrays for every fixture, and checks independent root offsets, endian words, string/pointer allocations, list counts, nullable masks, reference imports, all 13 exact PE enum maps and fallback behavior. It includes every model/status/KindOf entry; full root and nested combinations; empty vs absent; integer/time boundaries; unknown input rejection and canonical-original vs prefixed-direct navigation checks. Prefixed declarations are not passed as canonical original TypeIds.
 Output recovery/evidence/xml-attributes/validation.json contains succeeded/sourceCommit/runId, mode exit codes and four platform summaries per mode. Individual logs are Od-oracle.txt/O2-oracle.txt and mode build/host logs. Failure initializes/finalizes succeeded=false.
-No Windows result for this expanded checkpoint is claimed yet; no SDK integration, replacement DLL or formal plugin routing has been validated.
+Final evidence was inspected in recovery/xmlcompiler-priority at recovery/evidence/xml-attributes/validation.json, Od-oracle.txt, O2-oracle.txt. validation.json succeeded=true; sourceCommit=977313a17647051df333e223f7a6c45f732bdc63; runId=40080474059. Both modes have exitCode=0 and four platform summaries (0/1/2/99). Actual attributes job120832813604 and whole run completed/success; collector job succeeded.
+
+| Mode | Fixtures | Three-array byte comparisons | Rejections | Independent layouts |
+| --- | ---: | ---: | ---: | ---: |
+| /Od | 4716 | 14148 | 116 | 4560 |
+| /O2 | 4716 | 14148 | 116 | 4560 |
+
+Each platform in each mode:1179 fixtures,3537 array comparisons,29 rejections,1140 independent layouts. Across both modes:9432 fixtures,28296 array comparisons,232 rejections,9120 layouts.
+Original DLL SHA256=d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6, asserted by the script and preserved in validation.json.
+No SDK integration, replacement DLL or formal plugin routing has been validated. Component success is not SDK acceptance.
 
 ## Explicit input boundary
 Only asset-namespace roots with matching ea namespace manager and matching ProcessInstance TypeId are routed. Unknown root/nested attributes, unknown/foreign children, nested text-list elements, duplicate singleton GameDependency/ObjectFilter, and non-whitespace structure text are rejected instead of silently dropped. Root metadata id/inheritFrom is accepted as already handled by BAB. Arbitrary schema/preprocessing/inheritance resolution is outside this component. No original DLL is called by recovered compiler implementation; the original is loaded only by the differential oracle.

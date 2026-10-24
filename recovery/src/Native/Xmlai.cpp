@@ -20,6 +20,9 @@ struct Field { const char* name; const char* fallback; unsigned offset; Kind kin
 struct Child { const char* name; const char* type; unsigned offset; ChildKind kind; };
 struct Layout { unsigned size; U32 hash; std::vector<Field> fields; std::vector<Child> children; };
 struct EnumView { const EnumNameValue* entries; std::size_t count; };
+#if __has_include("XmlaiPersonalityEnums.inc")
+#include "XmlaiPersonalityEnums.inc"
+#endif
 #include "XmlaiLayouts.inc"
 const std::map<std::string,Layout>& Layouts() { static const auto result=MakeLayouts(); return result; }
 const Layout& Get(const std::string& name) {
@@ -107,6 +110,7 @@ struct Builder {
         if(f.pointer)data.Pop();
     }
     void Filter(const XmlaiNode& node,unsigned char* root) {
+        if(node.value.find_first_not_of(" \t\r\n")!=std::string::npos)throw std::invalid_argument("Unexpected ObjectFilter text.");
         ObjectFilterInput input;input.attributes=node.attributes;
         for(const auto& c:node.children){
             if(!c.attributes.empty()||!c.children.empty())throw std::invalid_argument("ObjectFilter thing must be text.");
@@ -142,7 +146,7 @@ struct Builder {
         if(!node.value.empty()&&node.value.find_first_not_of(" \t\r\n")!=std::string::npos)
             throw std::invalid_argument("Unexpected Xmlai text.");
         for(const auto& a:node.attributes){
-            if(a.first=="id"||a.first=="inheritFrom"||(layout.hash&&a.first=="TypeId"))continue;
+            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||(layout.hash&&a.first=="TypeId"))continue;
             bool found=false;for(const auto& f:layout.fields)if(a.first==f.name){found=true;break;}
             if(!found)throw std::invalid_argument("Unknown Xmlai attribute: "+a.first);
         }

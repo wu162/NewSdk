@@ -9,7 +9,7 @@ if (-not $tempRoot) { $tempRoot = [IO.Path]::GetTempPath() }
 $out = Join-Path $tempRoot ('recovered-xml-effects-' + $runId)
 $evidence = 'recovery/evidence/xml-effects'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
-$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='FXList complete root attributes and empty NuggetList; FXParticleSystemTemplate explicitly refused; component only'; status='started' }
+$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='FXList root and fifteen known nugget layouts; two ObjectFilter children and unknown TypeId explicitly refused; component only'; status='started' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run from the VS2022 x86 developer shell' }
