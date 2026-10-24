@@ -1,4 +1,5 @@
-System.Exception: Expected rejection: nonfinite sorted distance
-   at XmlaiOracle.Reject(String label, String text)
+System.Exception: personality/extension/instance byte 388 expected 0 actual 3
+   at XmlaiOracle.Equal(String label, Byte[] a, Byte[] b)
+   at XmlaiOracle.Test(String label, String text, TargetPlatform platform)
    at XmlaiOracle.Run(TargetPlatform platform)
    at XmlaiOracle.Main(String[] args)

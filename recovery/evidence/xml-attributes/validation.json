@@ -1,16 +1,7 @@
 {
-  "runId": "40081481727",
-  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "platforms": [
-    0,
-    1,
-    2,
-    99
-  ],
-  "succeeded": true,
   "modes": [
     {
-      "succeeded": true,
+      "mode": "Od",
       "exitCode": 0,
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
@@ -19,10 +10,10 @@
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
       "log": "Od-oracle.txt",
-      "mode": "Od"
+      "succeeded": true
     },
     {
-      "succeeded": true,
+      "mode": "O2",
       "exitCode": 0,
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
@@ -31,10 +22,19 @@
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
       "log": "O2-oracle.txt",
-      "mode": "O2"
+      "succeeded": true
     }
   ],
-  "sourceCommit": "f25007a85f3560e925c0769972cc12c1ea6d74f8",
+  "sourceCommit": "d3a39fb49700d637ecf954c58572552ddcbf587b",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
-  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated"
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "succeeded": true,
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "runId": "40081880533"
 }
