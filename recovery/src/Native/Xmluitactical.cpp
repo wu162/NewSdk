@@ -219,6 +219,11 @@ unsigned int XmluitacticalTypeId(const std::string& name) {
     if(name=="UIMouseTacticalStopButton")return 4140422551u;
     if(name=="UIMouseTacticalCommandSetRallyPoint")return 4180354873u;
     if(name=="UIMouseTacticalFastForwardButton")return 4232364483u;
+    if(name=="UIMouseTacticalGroupSelection")return 241329492u;
+    if(name=="UIMouseTacticalLookAt")return 1795213437u;
+    if(name=="UIMouseTacticalRadarTelestrator")return 3366599054u;
+    if(name=="UIMouseTacticalTelestrator")return 1921726501u;
+    if(name=="UIMouseTacticalThreatMeter")return 4143989686u;
     return 0;
 }
 Relo::Chunk CompileXmluitactical(const XmluitacticalNode& node,bool bigEndian) {

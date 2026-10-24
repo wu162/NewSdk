@@ -275,6 +275,36 @@
       "typeId": 4232364483,
       "typeHash": 3130369778,
       "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "typeId": 241329492,
+      "typeHash": 1267843369,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "typeId": 1795213437,
+      "typeHash": 1676252299,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "typeId": 3366599054,
+      "typeHash": 2875609897,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "typeId": 1921726501,
+      "typeHash": 916455758,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "typeId": 4143989686,
+      "typeHash": 472971368,
+      "schemaGlobal": true
     }
   ]
 }

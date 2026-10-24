@@ -46,6 +46,11 @@ std::map<std::string,Layout> MakeLayouts() { return {
     {"UIMouseTacticalStopButton",{36,{},{{"MouseOverHelp","InGameUISimpleHelpTemplate",4,ChildKind::Inline}}}},
     {"UIMouseTacticalCommandSetRallyPoint",{8,{{"Cursor",4,Kind::Reference,nullptr,""}},{}}},
     {"UIMouseTacticalFastForwardButton",{36,{},{{"MouseOverHelp","InGameUISimpleHelpTemplate",4,ChildKind::Inline}}}},
+    {"UIMouseTacticalGroupSelection",{12,{},{{"Group","UIMouseTacticalGroupSelectionGroup",4,ChildKind::List}}}},
+    {"UIMouseTacticalLookAt",{60,{{"ScrollCursor",4,Kind::Reference,nullptr,""},{"ScrollLeftHotKeySlot",8,Kind::Reference,nullptr,""},{"ScrollRightHotKeySlot",12,Kind::Reference,nullptr,""},{"ScrollUpHotKeySlot",16,Kind::Reference,nullptr,""},{"ScrollDownHotKeySlot",20,Kind::Reference,nullptr,""},{"RotateLeftHotKeySlot",24,Kind::Reference,nullptr,""},{"RotateRightHotKeySlot",28,Kind::Reference,nullptr,""},{"ZoomInHotKeySlot",32,Kind::Reference,nullptr,""},{"ZoomOutHotKeySlot",36,Kind::Reference,nullptr,""},{"KeyScrollFactor",40,Kind::Percentage,nullptr,""},{"MouseDragScrollFactor",44,Kind::Percentage,nullptr,""},{"MouseEdgeScrollFactor",48,Kind::Percentage,nullptr,""}},{{"ViewBookmark","UIMouseTacticalLookAtViewBookmark",52,ChildKind::List}}}},
+    {"UIMouseTacticalRadarTelestrator",{12,{{"StrokeSustainDuration",4,Kind::Time,"10s",""},{"StrokeFadeDuration",8,Kind::Time,"2s",""}},{}}},
+    {"UIMouseTacticalTelestrator",{8,{{"DrawCursor",4,Kind::Reference,nullptr,""}},{}}},
+    {"UIMouseTacticalThreatMeter",{36,{},{{"MouseOverHelp","InGameUISimpleHelpTemplate",4,ChildKind::Inline}}}},
     {"InGameUISimpleHelpTemplate",{32,{{"Title",0,Kind::String,nullptr,""},{"Description",8,Kind::String,nullptr,""},{"TypeDescription",16,Kind::String,nullptr,""},{"Instructions",24,Kind::String,nullptr,""}},{}}},
     {"ObjectFilter",{112,{},{}}},
     {"UIMouseTacticalBuildQueueTabQueueTypeSettings",{36,{{"QueueType",0,Kind::Enum,nullptr,"ProductionQueueType"}},{{"MouseOverHelp","InGameUISimpleHelpTemplate",4,ChildKind::Inline}}}},
@@ -55,4 +60,6 @@ std::map<std::string,Layout> MakeLayouts() { return {
     {"UIMouseTacticalCommandSellCursorSet",{8,{{"ValidTarget",0,Kind::Reference,nullptr,""},{"InvalidTarget",4,Kind::Reference,nullptr,""}},{}}},
     {"UIMouseTacticalCommandSellFactionCursorSet",{12,{{"Faction",0,Kind::Enum,nullptr,"FactionType"}},{{"Cursors","UIMouseTacticalCommandSellCursorSet",4,ChildKind::Inline}}}},
     {"UIMouseTacticalCommandPlaceAIBeaconTypeSettings",{20,{{"Type",0,Kind::Enum,nullptr,"AIBeaconType"},{"PlaceUnattachedCursor",4,Kind::Reference,nullptr,""},{"PlaceAttachedCursor",8,Kind::Reference,nullptr,""},{"CanTargetObjects",16,Kind::Bool,"true",""},{"CanTargetPosition",17,Kind::Bool,"true",""}},{{"AttachableObjectFilter","ObjectFilter",12,ChildKind::Pointer}}}},
+    {"UIMouseTacticalGroupSelectionGroup",{16,{{"CreateHotKeySlot",0,Kind::Reference,nullptr,""},{"AddToHotKeySlot",4,Kind::Reference,nullptr,""},{"SelectHotKeySlot",8,Kind::Reference,nullptr,""},{"ViewHotKeySlot",12,Kind::Reference,nullptr,""}},{}}},
+    {"UIMouseTacticalLookAtViewBookmark",{8,{{"GoToHotKeySlot",0,Kind::Reference,nullptr,""},{"SaveHotKeySlot",4,Kind::Reference,nullptr,""}},{}}},
 }; }

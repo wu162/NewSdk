@@ -2,7 +2,7 @@
 
 Implementation checkpoint: component differential pending; SDK real compilation explicitly prohibited for this round. No SDK plugin route or existing82-root SDK catalog is changed.
 
-46 complete roots:20 tactical commands plus26 tactical buttons/tabs. Precise original type IDs/hashes/schemaGlobal are in catalog/XmluitacticalTypes.json. All46 appear in unchanged CnC3Types.xsd global asset choices. Full source-derived layouts are in src/Native/XmluitacticalLayouts.inc, original Module/Plugin/Tracker/Marshal/Endian evidence in evidence/xml-uitactical/source-methods.json. Fixed Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea, Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b and original DLL SHA256d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6 remain unchanged. No original compiler is used by recovered code.
+51 complete roots:20 tactical commands plus31 tactical buttons/tabs/navigation roots. Precise original type IDs/hashes/schemaGlobal are in catalog/XmluitacticalTypes.json. All51 appear in unchanged CnC3Types.xsd global asset choices. Full source-derived layouts are in src/Native/XmluitacticalLayouts.inc, original Module/Plugin/Tracker/Marshal/Endian evidence in evidence/xml-uitactical/source-methods.json. Fixed Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea, Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b and original DLL SHA256d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6 remain unchanged. No original compiler is used by recovered code.
 
 ## Complete roots and source Tracker sizes
 
@@ -54,6 +54,11 @@ Implementation checkpoint: component differential pending; SDK real compilation 
 | UIMouseTacticalStopButton | 36 |
 | UIMouseTacticalCommandSetRallyPoint | 8 |
 | UIMouseTacticalFastForwardButton | 36 |
+| UIMouseTacticalGroupSelection | 12 |
+| UIMouseTacticalLookAt | 60 |
+| UIMouseTacticalRadarTelestrator | 12 |
+| UIMouseTacticalTelestrator | 8 |
+| UIMouseTacticalThreatMeter | 36 |
 
 ## Layout and allocation contracts
 
@@ -69,8 +74,15 @@ Absent enums remain zero unless source supplies defaults. Unknown ProductionQueu
 
 ## Full component differential
 
-scripts/TestXmluitactical.ps1 runs/Od and/O2, four platforms0/1/2/99, fixed-original ProcessInstance and direct CompileXml three-array exact comparisons, all46 root defaults/full values, every field/parser/enum member/NUL/ANSI case, all nullable-present/absent/empty states and six list families at counts0/1/2/3/4/15/16/27/28/29/64/257. Both nullable Filter paths additionally cover complete KindOf and ObjectStatus vocabularies, bitset sign/ALL/unknown forms, status-pointer allocation and IncludeThing/ExcludeThing lists with ANSI/NUL hashes. Native layout/enum syntax and source-selector/Tracker-size checks pass locally; Windows results remain authoritative.
+scripts/TestXmluitactical.ps1 runs/Od and/O2, four platforms0/1/2/99, fixed-original ProcessInstance and direct CompileXml three-array exact comparisons, all51 root defaults/full values, every field/parser/enum member/NUL/ANSI case, all nullable-present/absent/empty states and six list families at counts0/1/2/3/4/15/16/27/28/29/64/257. Both nullable Filter paths additionally cover complete KindOf and ObjectStatus vocabularies, bitset sign/ALL/unknown forms, status-pointer allocation and IncludeThing/ExcludeThing lists with ANSI/NUL hashes. Native layout/enum syntax and source-selector/Tracker-size checks pass locally; Windows results remain authoritative.
 
 Independent ABI checks preserve source-grounded sizes, complete seven-reference Attack field/value/offset set, block/index import ordering, String counts and payload order, derived nullable allocation order, list strides and exact pointers, enum unknown defaults, packed booleans and filter112 allocation. Generic side arrays enforce sentinel/alignment/bounds/unique addresses, never assume global field-address order; original QuickSort equal-key behavior remains covered by exact arrays including duplicate IDs and list boundaries. Unknown root/attrs/children/namespaces, qualified attrs, unexpected text and duplicate singleton children reject explicitly. Unqualified BAB TypeId metadata is accepted.
 
-SDK remains pending by explicit user instruction. Component/combined DLL evidence cannot be presented as SDK support; the existing82-root SDK route is frozen. Next independent UI groups include QuickChatDisplay, GroupSelection/LookAt/Telestrator, not partial subsets of the46 completed roots.
+SDK remains pending by explicit user instruction. Component/combined DLL evidence cannot be presented as SDK support; the existing82-root SDK route is frozen. Next independent UI groups include QuickChatDisplay, GroupSelection/LookAt/Telestrator, not partial subsets of the51 completed roots.
+
+
+## Navigation addition and local C-string review
+
+GroupSelection12 contains Group list@4, stride16, with Create/AddTo/Select/View HotKeySlot refs@0/4/8/12. LookAt60 has ScrollCursor@4, eight directional/rotate/zoom HotKeySlot refs@8..36, percentages KeyScrollFactor@40/MouseDragScrollFactor@44/MouseEdgeScrollFactor@48 without source fallbacks, and ViewBookmark list@52, stride8 with GoTo/Save refs@0/4. RadarTelestrator12 has Time StrokeSustainDuration@4 default10s and StrokeFadeDuration@8 default2s. Telestrator8 has direct DrawCursor@4. ThreatMeter36 uses the same full help template inline@4. All source selectors, Tracker sizes, list strides and inlined Plugin endian paths are retained in source-methods.json. Full field/list matrices and independent fixed size/offset/import/time/percentage checks cover these five additions.
+
+Local review only: native original IValue values terminate at NUL. This new adapter normalizes all ObjectFilter attributes before invoking the existing shared helper; IncludeThing/ExcludeThing text reaches HashAssetId, which already constructs its input from text.c_str(). All five tactical enums and filter Rule/Alignment/bitset vocabularies receive DOM-constructed valid-NUL-tail, leadingNUL and unknown-NUL-known fixtures. Existing other components have not been audited or changed by this task, and no old-group regression claim follows from this local finding. SDK real compilation remains prohibited and is not run.

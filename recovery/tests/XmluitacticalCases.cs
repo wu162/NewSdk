@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 partial class XmluitacticalOracle {
-    static readonly string[] LayoutNames={"UIMouseTacticalCoOpAIButtonsHelpButton","UIMouseTacticalCommandCommunicateWithAllies","UIMouseTacticalToggleRepairModeButton","UIMouseTacticalAttackMoveButton","UIMouseTacticalCommandPlaceWall","UIMouseTacticalForceAttackMoveButton","UIMouseTacticalCoOpAIButtonsHoldObjectButton","UIMouseTacticalExitContainerButton","UIMouseTacticalPlayerTechStoreButton","UIMouseTacticalCommandMove","UIMouseTacticalCommandSell","UIMouseTacticalUnitIntroButton","UIMouseTacticalCommandSelect","UIMouseTacticalCoOpAIButtonsNormalButton","UIMouseTacticalCommandPlaceRallyPoint","UIMouseTacticalCommandHarvest","UIMouseTacticalCommandToggleSelfRepair","UIMouseTacticalBuildQueueTab","UIMouseTacticalCommandGetCrate","UIMouseTacticalDeactivateMissionHotSpotsButton","UIMouseTacticalCommandForceAttack","UIMouseTacticalPlanningModeButton","UIMouseTacticalCommandMisc","UIMouseTacticalSelectionRefinementTab","UIMouseTacticalCommandForceMove","UIMouseTacticalOpenAdvancedCommandsButton","UIMouseTacticalSetStanceButton","UIMouseTacticalCoOpAIButtonsHoldPositionButton","UIMouseTacticalCommandMineOre","UIMouseTacticalWaypointModeButton","UIMouseTacticalReverseMoveButton","UIMouseTacticalCommandEnter","UIMouseTacticalCoOpAIButtonsAssaultButton","UIMouseTacticalPauseButton","UIMouseTacticalCommandAttack","UIMouseTacticalCommandAttackMove","UIMouseTacticalForceMoveButton","UIMouseTacticalForceAttackButton","UIMouseTacticalCommandPlaceAIBeacon","UIMouseTacticalCommandDock","UIMouseTacticalCommandReverseMove","UIMouseTacticalBuildQueueTypeTab","UIMouseTacticalSellModeButton","UIMouseTacticalStopButton","UIMouseTacticalCommandSetRallyPoint","UIMouseTacticalFastForwardButton","InGameUISimpleHelpTemplate","ObjectFilter","UIMouseTacticalBuildQueueTabQueueTypeSettings","UIMouseTacticalBuildQueueTypeTabQueueTypeSettings","UIMouseTacticalSetStanceButtonStanceSettings","UIMouseTacticalCommandEnterInfiltratorEffectTypeSettings","UIMouseTacticalCommandSellCursorSet","UIMouseTacticalCommandSellFactionCursorSet","UIMouseTacticalCommandPlaceAIBeaconTypeSettings"};
-    static readonly int[] LayoutSizes={36,20,36,36,8,36,36,20,40,12,20,36,16,36,8,8,12,12,8,36,12,36,16,36,8,36,12,36,8,36,36,20,36,36,32,12,36,36,12,8,8,12,36,36,8,36,32,112,36,36,36,8,8,12,20};
+    static readonly string[] LayoutNames={"UIMouseTacticalCoOpAIButtonsHelpButton","UIMouseTacticalCommandCommunicateWithAllies","UIMouseTacticalToggleRepairModeButton","UIMouseTacticalAttackMoveButton","UIMouseTacticalCommandPlaceWall","UIMouseTacticalForceAttackMoveButton","UIMouseTacticalCoOpAIButtonsHoldObjectButton","UIMouseTacticalExitContainerButton","UIMouseTacticalPlayerTechStoreButton","UIMouseTacticalCommandMove","UIMouseTacticalCommandSell","UIMouseTacticalUnitIntroButton","UIMouseTacticalCommandSelect","UIMouseTacticalCoOpAIButtonsNormalButton","UIMouseTacticalCommandPlaceRallyPoint","UIMouseTacticalCommandHarvest","UIMouseTacticalCommandToggleSelfRepair","UIMouseTacticalBuildQueueTab","UIMouseTacticalCommandGetCrate","UIMouseTacticalDeactivateMissionHotSpotsButton","UIMouseTacticalCommandForceAttack","UIMouseTacticalPlanningModeButton","UIMouseTacticalCommandMisc","UIMouseTacticalSelectionRefinementTab","UIMouseTacticalCommandForceMove","UIMouseTacticalOpenAdvancedCommandsButton","UIMouseTacticalSetStanceButton","UIMouseTacticalCoOpAIButtonsHoldPositionButton","UIMouseTacticalCommandMineOre","UIMouseTacticalWaypointModeButton","UIMouseTacticalReverseMoveButton","UIMouseTacticalCommandEnter","UIMouseTacticalCoOpAIButtonsAssaultButton","UIMouseTacticalPauseButton","UIMouseTacticalCommandAttack","UIMouseTacticalCommandAttackMove","UIMouseTacticalForceMoveButton","UIMouseTacticalForceAttackButton","UIMouseTacticalCommandPlaceAIBeacon","UIMouseTacticalCommandDock","UIMouseTacticalCommandReverseMove","UIMouseTacticalBuildQueueTypeTab","UIMouseTacticalSellModeButton","UIMouseTacticalStopButton","UIMouseTacticalCommandSetRallyPoint","UIMouseTacticalFastForwardButton","UIMouseTacticalGroupSelection","UIMouseTacticalLookAt","UIMouseTacticalRadarTelestrator","UIMouseTacticalTelestrator","UIMouseTacticalThreatMeter","InGameUISimpleHelpTemplate","ObjectFilter","UIMouseTacticalBuildQueueTabQueueTypeSettings","UIMouseTacticalBuildQueueTypeTabQueueTypeSettings","UIMouseTacticalSetStanceButtonStanceSettings","UIMouseTacticalCommandEnterInfiltratorEffectTypeSettings","UIMouseTacticalCommandSellCursorSet","UIMouseTacticalCommandSellFactionCursorSet","UIMouseTacticalCommandPlaceAIBeaconTypeSettings","UIMouseTacticalGroupSelectionGroup","UIMouseTacticalLookAtViewBookmark"};
+    static readonly int[] LayoutSizes={36,20,36,36,8,36,36,20,40,12,20,36,16,36,8,8,12,12,8,36,12,36,16,36,8,36,12,36,8,36,36,20,36,36,32,12,36,36,12,8,8,12,36,36,8,36,12,60,12,8,36,32,112,36,36,36,8,8,12,20,16,8};
     static readonly string[][] LayoutFields={
         new string[]{"UIMouseTacticalCommandCommunicateWithAllies","PlaceUnattachedBeaconCursor","4","Reference","",""},
         new string[]{"UIMouseTacticalCommandCommunicateWithAllies","PlaceAttachedBeaconCursor","8","Reference","",""},
@@ -44,6 +44,21 @@ partial class XmluitacticalOracle {
         new string[]{"UIMouseTacticalCommandDock","Cursor","4","Reference","",""},
         new string[]{"UIMouseTacticalCommandReverseMove","Cursor","4","Reference","",""},
         new string[]{"UIMouseTacticalCommandSetRallyPoint","Cursor","4","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ScrollCursor","4","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ScrollLeftHotKeySlot","8","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ScrollRightHotKeySlot","12","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ScrollUpHotKeySlot","16","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ScrollDownHotKeySlot","20","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","RotateLeftHotKeySlot","24","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","RotateRightHotKeySlot","28","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ZoomInHotKeySlot","32","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","ZoomOutHotKeySlot","36","Reference","",""},
+        new string[]{"UIMouseTacticalLookAt","KeyScrollFactor","40","Percentage","",""},
+        new string[]{"UIMouseTacticalLookAt","MouseDragScrollFactor","44","Percentage","",""},
+        new string[]{"UIMouseTacticalLookAt","MouseEdgeScrollFactor","48","Percentage","",""},
+        new string[]{"UIMouseTacticalRadarTelestrator","StrokeSustainDuration","4","Time","","10s"},
+        new string[]{"UIMouseTacticalRadarTelestrator","StrokeFadeDuration","8","Time","","2s"},
+        new string[]{"UIMouseTacticalTelestrator","DrawCursor","4","Reference","",""},
         new string[]{"InGameUISimpleHelpTemplate","Title","0","String","",""},
         new string[]{"InGameUISimpleHelpTemplate","Description","8","String","",""},
         new string[]{"InGameUISimpleHelpTemplate","TypeDescription","16","String","",""},
@@ -61,6 +76,12 @@ partial class XmluitacticalOracle {
         new string[]{"UIMouseTacticalCommandPlaceAIBeaconTypeSettings","PlaceAttachedCursor","8","Reference","",""},
         new string[]{"UIMouseTacticalCommandPlaceAIBeaconTypeSettings","CanTargetObjects","16","Bool","","true"},
         new string[]{"UIMouseTacticalCommandPlaceAIBeaconTypeSettings","CanTargetPosition","17","Bool","","true"},
+        new string[]{"UIMouseTacticalGroupSelectionGroup","CreateHotKeySlot","0","Reference","",""},
+        new string[]{"UIMouseTacticalGroupSelectionGroup","AddToHotKeySlot","4","Reference","",""},
+        new string[]{"UIMouseTacticalGroupSelectionGroup","SelectHotKeySlot","8","Reference","",""},
+        new string[]{"UIMouseTacticalGroupSelectionGroup","ViewHotKeySlot","12","Reference","",""},
+        new string[]{"UIMouseTacticalLookAtViewBookmark","GoToHotKeySlot","0","Reference","",""},
+        new string[]{"UIMouseTacticalLookAtViewBookmark","SaveHotKeySlot","4","Reference","",""},
     };
     static readonly string[][] LayoutChildren={
         new string[]{"UIMouseTacticalCoOpAIButtonsHelpButton","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
@@ -93,6 +114,9 @@ partial class XmluitacticalOracle {
         new string[]{"UIMouseTacticalSellModeButton","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
         new string[]{"UIMouseTacticalStopButton","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
         new string[]{"UIMouseTacticalFastForwardButton","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
+        new string[]{"UIMouseTacticalGroupSelection","Group","UIMouseTacticalGroupSelectionGroup","4","List"},
+        new string[]{"UIMouseTacticalLookAt","ViewBookmark","UIMouseTacticalLookAtViewBookmark","52","List"},
+        new string[]{"UIMouseTacticalThreatMeter","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
         new string[]{"UIMouseTacticalBuildQueueTabQueueTypeSettings","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
         new string[]{"UIMouseTacticalBuildQueueTypeTabQueueTypeSettings","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},
         new string[]{"UIMouseTacticalSetStanceButtonStanceSettings","MouseOverHelp","InGameUISimpleHelpTemplate","4","Inline"},

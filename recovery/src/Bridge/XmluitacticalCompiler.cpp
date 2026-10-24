@@ -647,4 +647,69 @@ public:
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
     }
 };
+public ref class UIMouseTacticalGroupSelectionCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UIMouseTacticalGroupSelection")throw gcnew NotSupportedException("Expected UIMouseTacticalGroupSelection root.");
+        return XmluitacticalCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=241329492u)throw gcnew NotSupportedException("Expected UIMouseTacticalGroupSelection TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class UIMouseTacticalLookAtCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UIMouseTacticalLookAt")throw gcnew NotSupportedException("Expected UIMouseTacticalLookAt root.");
+        return XmluitacticalCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=1795213437u)throw gcnew NotSupportedException("Expected UIMouseTacticalLookAt TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class UIMouseTacticalRadarTelestratorCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UIMouseTacticalRadarTelestrator")throw gcnew NotSupportedException("Expected UIMouseTacticalRadarTelestrator root.");
+        return XmluitacticalCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=3366599054u)throw gcnew NotSupportedException("Expected UIMouseTacticalRadarTelestrator TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class UIMouseTacticalTelestratorCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UIMouseTacticalTelestrator")throw gcnew NotSupportedException("Expected UIMouseTacticalTelestrator root.");
+        return XmluitacticalCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=1921726501u)throw gcnew NotSupportedException("Expected UIMouseTacticalTelestrator TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
+public ref class UIMouseTacticalThreatMeterCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="UIMouseTacticalThreatMeter")throw gcnew NotSupportedException("Expected UIMouseTacticalThreatMeter root.");
+        return XmluitacticalCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=4143989686u)throw gcnew NotSupportedException("Expected UIMouseTacticalThreatMeter TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
 }
