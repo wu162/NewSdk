@@ -498,11 +498,16 @@ class XmlaiOracle {
         Assert(Word(hf57.InstanceData,20,big)==0x3e800000u,"AIStateStructureOrHarvesterUnderAttackHeuristic/TimeSinceAttacked independent layout");
         Test("state/nested",Root("AIStateDefinition","","<Heuristic><LinearCombinationHeuristic TypeId='121779834'><WeightedHeuristic Weight='0.75'><Heuristic><ConstantHeuristic TypeId='1375432082' Weight='2'/></Heuristic></WeightedHeuristic><WeightedHeuristic Weight='0.25'><Heuristic><TimerHeuristic TypeId='278936256' EndTime='3s'/></Heuristic></WeightedHeuristic></LinearCombinationHeuristic></Heuristic>"),platform);
         Test("state/filters",Root("AIStateDefinition","","<Heuristic><EnemyNearbyHeuristic TypeId='1740211623'><EnemyFilter Include='INFANTRY'/></EnemyNearbyHeuristic><ObjectOfTypeExistsHeuristic TypeId='3195463252'><ObjectFilter Rule='ALL' Include='STRUCTURE'/></ObjectOfTypeExistsHeuristic></Heuristic>"),platform);
-        Reject("nonfinite sorted distance",Root("AITargetingHeuristic","","<BuildingPlacementDistance Distance='nan'/>"));
+        foreach(string legacyFloat in new string[]{"nan","NaN","INF","Infinity","-INF"})
+            Test("target/legacy-numeric-prefix/"+legacyFloat,Root("AITargetingHeuristic","","<BuildingPlacementDistance Distance='"+legacyFloat+"'/><BuildingPlacementDistance Distance='0'/>"),platform);
+        foreach(string overflow in new string[]{"1e400","-1e400","1e39"})
+            Reject("nonfinite parsed sorted distance",Root("AITargetingHeuristic","","<BuildingPlacementDistance Distance='"+overflow+"'/>"));
         Reject("unknown heuristic",Root("AIStateDefinition","","<Heuristic><H TypeId='999'/></Heuristic>"));
         Reject("heuristic missing TypeId",Root("AIStateDefinition","","<Heuristic><ConstantHeuristic/></Heuristic>"));
         Reject("duplicate wrapper",Root("AIStateDefinition","","<Heuristic/><Heuristic/>"));
         Reject("unknown budget child",Root("AIBudgetStateDefinition","","<Budget><Unknown/></Budget>"));
+        Reject("unknown nested metadata",Root("AIMicroManagerData","","<TargetBias id='Unsupported'/>"));
+        Reject("filter text",Root("AIMicroManagerData","","<IgnoreTargets>unknown</IgnoreTargets>"));
         Reject("unknown tactic child",Root("AIStrategicStateDefinition","","<Tactic><Unknown/></Tactic>"));
 #if XMLAI_PERSONALITY_EXTENSION
         foreach(string extensionXml in XmlaiPersonalityCases.Cases())

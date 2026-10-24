@@ -110,6 +110,7 @@ struct Builder {
         if(f.pointer)data.Pop();
     }
     void Filter(const XmlaiNode& node,unsigned char* root) {
+        if(node.value.find_first_not_of(" \t\r\n")!=std::string::npos)throw std::invalid_argument("Unexpected ObjectFilter text.");
         ObjectFilterInput input;input.attributes=node.attributes;
         for(const auto& c:node.children){
             if(!c.attributes.empty()||!c.children.empty())throw std::invalid_argument("ObjectFilter thing must be text.");
@@ -145,7 +146,7 @@ struct Builder {
         if(!node.value.empty()&&node.value.find_first_not_of(" \t\r\n")!=std::string::npos)
             throw std::invalid_argument("Unexpected Xmlai text.");
         for(const auto& a:node.attributes){
-            if(a.first=="id"||a.first=="inheritFrom"||(layout.hash&&a.first=="TypeId"))continue;
+            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||(layout.hash&&a.first=="TypeId"))continue;
             bool found=false;for(const auto& f:layout.fields)if(a.first==f.name){found=true;break;}
             if(!found)throw std::invalid_argument("Unknown Xmlai attribute: "+a.first);
         }

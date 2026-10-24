@@ -34,3 +34,7 @@ Personality extension integration points optionally include XmlaiPersonalityEnum
 
 
 Static audit after the first Windows mismatch: all 138 root attributes were compared against the complete original static literal bytes (not mangled symbol guesses); no name/default mismatch remains. Original IL scaling was scanned for every root atof initializer; the three UnitBuilderOverallOffensivePreference/OverallDefensivePreference/EnemyTowerWeight fields use percentage scaling and are now Kind::Percent with 100% defaults. Generated layouts contain no unresolved ?$ escape strings. First-run source f13ddae7 failed before this correction and is not a validation success.
+
+The direct roots/*.static.json audit additionally matched 238 root-related original static strings with zero mismatches. Metadata id/inheritFrom is accepted only for the six asset roots (and explicit id fields); nested unsupported attributes and non-whitespace ObjectFilter text are rejected.
+
+Run 40081481727 exposed an oracle assumption, not a serializer difference: legacy numeric-prefix parsing converts nan/NaN/INF spellings to zero. Those inputs now receive accepted original differential fixtures; only real parsed overflow (1e400, -1e400, 1e39) is asserted rejected in sorted distances. The failed run is not validation success.
