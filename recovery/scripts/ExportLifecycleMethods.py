@@ -54,9 +54,8 @@ selected={}
 def add(signature):
     if signature not in selected:
         body,line=method(source,signature)
-        if not signature.startswith('internal unsafe static void '):
-            from GenerateLifecycleFields import body_of
-            body=body_of(source,signature)+'\n'
+        from GenerateLifecycleFields import body_of
+        body=body_of(source,signature)+'\n'
         selected[signature]=(body,line)
 for name in names:
     key,row=next((k,v) for k,v in inventory['marshal'].items() if v['name']==name)

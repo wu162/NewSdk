@@ -1,0 +1,45 @@
+name: WeaponSlot ordering helper validation
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - 'recovery/src/Native/WeaponSlotOrder.*'
+      - 'recovery/tests/WeaponSlotOrderTest.cpp'
+      - 'recovery/scripts/TestWeaponSlotOrder.ps1'
+      - '.github/workflows/weapon-slot-order.yml'
+      - 'recovery/evidence/gameobject-modules/weapon-slot-sort-probe/permutations.tsv'
+permissions:
+  contents: write
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare helper with existing original permutations
+        shell: pwsh
+        run: ./recovery/scripts/TestWeaponSlotOrder.ps1
+      - name: Persist ordering helper evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/gameobject-modules/weapon-slot-order
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect evidence' }
+          git commit -m "recovery: WeaponSlot ordering helper validation from $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to commit ordering evidence' }
+          git pull --rebase origin recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to preserve concurrent changes' }
+          git push origin HEAD:recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to push ordering evidence' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weapon-slot-ordering-helper-evidence
+          path: recovery/evidence/gameobject-modules/weapon-slot-order
