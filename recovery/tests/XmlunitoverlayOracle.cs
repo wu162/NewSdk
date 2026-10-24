@@ -74,7 +74,9 @@ class XmlunitoverlayOracle {
             "<FactionVeterancy Faction='Soviet'><RankIcon Rank='1' Image='T\\7'/><RankIcon Rank='-1' Image='T\\3'/></FactionVeterancy><FactionVeterancy Faction='Japan'><RankIcon Rank='4' Image='T\\2'/></FactionVeterancy>"),p);
         Check(a.InstanceData.Length==152,"root104/faction12/rank8 total152");
         Check(Word(a.InstanceData,4,big)==10&&Word(a.InstanceData,52,big)==2,"root13strong reference offsets");
-        Check(Word(a.InstanceData,56,big)==0x3f000000u&&Word(a.InstanceData,60,big)==unchecked((uint)-17)&&Word(a.InstanceData,92,big)==0x3fc00000u,"percentage/int/time ABI");
+        Check(Word(a.InstanceData,56,big)==0x3f000000u,"percentage50 ABI actual="+Word(a.InstanceData,56,big).ToString("X8"));
+        Check(Word(a.InstanceData,60,big)==unchecked((uint)-17),"signedRange ABI actual="+Word(a.InstanceData,60,big).ToString("X8"));
+        Check(Word(a.InstanceData,92,big)==0x3fc00001u,"Time1500ms preserves binary32 unit-scale rounding actual="+Word(a.InstanceData,92,big).ToString("X8"));
         for(int i=1;i<ScaleOffsets.Length;++i)Check(Word(a.InstanceData,ScaleOffsets[i],big)==0x3f800000u,"partialattrs retain independent100percent default");
         Check(Word(a.InstanceData,96,big)==2&&Word(a.InstanceData,100,big)==104,"root faction count/pointer");
         Check(Word(a.InstanceData,104,big)==1&&Word(a.InstanceData,108,big)==2&&Word(a.InstanceData,112,big)==128,"first faction enum/count/ranks pointer");

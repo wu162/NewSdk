@@ -1,0 +1,13 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ForceFeedbackEvent",
+      "typeId": 474482543,
+      "typeHash": 3791548904,
+      "schemaGlobal": true
+    }
+  ]
+}

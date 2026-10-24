@@ -147,6 +147,81 @@
     ],
     "unitoverlay": [
       "UnitOverlayIconSettings"
+    ],
+    "objectsets": [
+      "ObjectFilterAsset",
+      "RegisteredObjectSet",
+      "ObjectVisionRangeItem"
+    ],
+    "visibility": [
+      "InvisibilityTemplate",
+      "InvisibilityManagerSettings"
+    ],
+    "emotions": [
+      "StanceTemplate",
+      "EmotionTemplate"
+    ],
+    "projectilepath": [
+      "ProjectilePath"
+    ],
+    "forcefeedback": [
+      "ForceFeedbackEvent"
+    ],
+    "content": [
+      "EngagingContent",
+      "EngagingContentGroup",
+      "EngagingContentSequence",
+      "IntelDB",
+      "UnitIntro"
+    ],
+    "visualsystems": [
+      "BreezeInfo",
+      "ModelSettings",
+      "AutoParticleSystemSettings"
+    ],
+    "crowd": [
+      "CrowdResponse"
+    ],
+    "radar": [
+      "RadarTerrainImage",
+      "UIRadarObjectsLayer"
+    ],
+    "renderdevice": [
+      "W3DDeviceSettings",
+      "ScorchMarkSettings"
+    ],
+    "localization": [
+      "Language",
+      "HeaderTemplate",
+      "FontDirectory",
+      "TheVersion",
+      "Credits"
+    ],
+    "commandset": [
+      "CommandSet"
+    ],
+    "materialrules": [
+      "Road",
+      "ShaderOverride",
+      "ShaderOverrideRule"
+    ],
+    "uiimages": [
+      "ImageSequence",
+      "UnitTypeIcon",
+      "DrawGroupInfo"
+    ],
+    "chatcolors": [
+      "OnlineChatColors"
+    ],
+    "moviearchive": [
+      "ArchivableMovie",
+      "ArchiveMovieList"
+    ],
+    "systemsettings": [
+      "NetworkSettings",
+      "PathfindSettings",
+      "ResourceSettings",
+      "GraphicsHardware"
     ]
   },
   "roots": [
@@ -987,6 +1062,293 @@
       "name": "UnitOverlayIconSettings",
       "typeId": 2421413379,
       "typeHash": 3893526655,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "typeId": 1151702845,
+      "typeHash": 1129453918,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "typeId": 814796096,
+      "typeHash": 235028480,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ObjectVisionRangeItem",
+      "typeId": 772930644,
+      "typeHash": 1028521956,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "InvisibilityTemplate",
+      "typeId": 1431290504,
+      "typeHash": 419230569,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "typeId": 254471188,
+      "typeHash": 1688533139,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "StanceTemplate",
+      "typeId": 2525284163,
+      "typeHash": 1210708834,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EmotionTemplate",
+      "typeId": 2836737428,
+      "typeHash": 1088041681,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ProjectilePath",
+      "typeId": 1710207315,
+      "typeHash": 955128953,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ForceFeedbackEvent",
+      "typeId": 474482543,
+      "typeHash": 3791548904,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EngagingContent",
+      "typeId": 3058114834,
+      "typeHash": 725292512,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EngagingContentGroup",
+      "typeId": 11280974,
+      "typeHash": 1507896455,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "EngagingContentSequence",
+      "typeId": 3799634821,
+      "typeHash": 226620221,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "IntelDB",
+      "typeId": 530081230,
+      "typeHash": 751047049,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UnitIntro",
+      "typeId": 1870180772,
+      "typeHash": 1460143826,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "BreezeInfo",
+      "typeId": 1626415288,
+      "typeHash": 890675481,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ModelSettings",
+      "typeId": 1968811301,
+      "typeHash": 2503358751,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "typeId": 3278684478,
+      "typeHash": 1247287143,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "CrowdResponse",
+      "typeId": 400896388,
+      "typeHash": 129803148,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "RadarTerrainImage",
+      "typeId": 1099769729,
+      "typeHash": 4223091486,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "typeId": 4039592522,
+      "typeHash": 2176451698,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "W3DDeviceSettings",
+      "typeId": 1469055344,
+      "typeHash": 2638871790,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "typeId": 2383722691,
+      "typeHash": 1770851834,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "Language",
+      "typeId": 2915726794,
+      "typeHash": 3221193174,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "HeaderTemplate",
+      "typeId": 1218703046,
+      "typeHash": 1075836011,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "FontDirectory",
+      "typeId": 3569007303,
+      "typeHash": 3617141059,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TheVersion",
+      "typeId": 4236434438,
+      "typeHash": 2782889071,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "Credits",
+      "typeId": 3978455785,
+      "typeHash": 282482670,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "CommandSet",
+      "typeId": 2584759047,
+      "typeHash": 4174095999,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "Road",
+      "typeId": 3516764358,
+      "typeHash": 738011492,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ShaderOverride",
+      "typeId": 3166846828,
+      "typeHash": 1029381398,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ShaderOverrideRule",
+      "typeId": 3648907125,
+      "typeHash": 279003514,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "ImageSequence",
+      "typeId": 565855655,
+      "typeHash": 2717629172,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UnitTypeIcon",
+      "typeId": 3614134471,
+      "typeHash": 4192635734,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "DrawGroupInfo",
+      "typeId": 2913856066,
+      "typeHash": 1181471134,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "OnlineChatColors",
+      "typeId": 1345252658,
+      "typeHash": 1378748105,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ArchivableMovie",
+      "typeId": 3741496377,
+      "typeHash": 291064791,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "ArchiveMovieList",
+      "typeId": 2099472558,
+      "typeHash": 131545626,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "NetworkSettings",
+      "typeId": 4272453293,
+      "typeHash": 2097642646,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PathfindSettings",
+      "typeId": 970663416,
+      "typeHash": 2629630449,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ResourceSettings",
+      "typeId": 3279338544,
+      "typeHash": 1560001831,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "GraphicsHardware",
+      "typeId": 2846460739,
+      "typeHash": 1118458536,
       "schemaGlobal": true,
       "sdkValidated": false
     }

@@ -226,6 +226,47 @@ class XmlPriorityLinkOracle
         new Root("HealthBarTemplate", 1507490649u, false),
         new Root("HealthBarSettings", 3919360587u, false),
         new Root("UnitOverlayIconSettings", 2421413379u, false),
+        new Root("ObjectFilterAsset", 1151702845u, false),
+        new Root("RegisteredObjectSet", 814796096u, false),
+        new Root("ObjectVisionRangeItem", 772930644u, false),
+        new Root("InvisibilityTemplate", 1431290504u, false),
+        new Root("InvisibilityManagerSettings", 254471188u, false),
+        new Root("StanceTemplate", 2525284163u, false),
+        new Root("EmotionTemplate", 2836737428u, false),
+        new Root("ProjectilePath", 1710207315u, false),
+        new Root("ForceFeedbackEvent", 474482543u, false),
+        new Root("EngagingContent", 3058114834u, false),
+        new Root("EngagingContentGroup", 11280974u, false),
+        new Root("EngagingContentSequence", 3799634821u, false),
+        new Root("IntelDB", 530081230u, false),
+        new Root("UnitIntro", 1870180772u, false),
+        new Root("BreezeInfo", 1626415288u, false),
+        new Root("ModelSettings", 1968811301u, false),
+        new Root("AutoParticleSystemSettings", 3278684478u, false),
+        new Root("CrowdResponse", 400896388u, false),
+        new Root("RadarTerrainImage", 1099769729u, false),
+        new Root("UIRadarObjectsLayer", 4039592522u, false),
+        new Root("W3DDeviceSettings", 1469055344u, false),
+        new Root("ScorchMarkSettings", 2383722691u, false),
+        new Root("Language", 2915726794u, false),
+        new Root("HeaderTemplate", 1218703046u, false),
+        new Root("FontDirectory", 3569007303u, false),
+        new Root("TheVersion", 4236434438u, false),
+        new Root("Credits", 3978455785u, false),
+        new Root("CommandSet", 2584759047u, false),
+        new Root("Road", 3516764358u, false),
+        new Root("ShaderOverride", 3166846828u, false),
+        new Root("ShaderOverrideRule", 3648907125u, false),
+        new Root("ImageSequence", 565855655u, false),
+        new Root("UnitTypeIcon", 3614134471u, false),
+        new Root("DrawGroupInfo", 2913856066u, false),
+        new Root("OnlineChatColors", 1345252658u, false),
+        new Root("ArchivableMovie", 3741496377u, false),
+        new Root("ArchiveMovieList", 2099472558u, false),
+        new Root("NetworkSettings", 4272453293u, false),
+        new Root("PathfindSettings", 970663416u, false),
+        new Root("ResourceSettings", 3279338544u, false),
+        new Root("GraphicsHardware", 2846460739u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -274,7 +315,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 202 || supplied.Count != 202) throw new Exception("Exactly 202 recovered entries are required");
+        if (Roots.Length != 243 || supplied.Count != 243) throw new Exception("Exactly 243 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -301,7 +342,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 202) throw new Exception("Metadata preflight did not resolve all 202 entries");
+        if (Methods.Count != 243) throw new Exception("Metadata preflight did not resolve all 243 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -323,13 +364,13 @@ class XmlPriorityLinkOracle
                 throw new Exception(current + "/" + buffer + " byte=" + i + " original=" + original[i] + " recovered=" + recovered[i]);
         if (completion) ++completionComparisons; else ++comparisons;
     }
-    static void Test(IAssetBuilderPlugin original, Root root, int platform, string body = null)
+    static void Test(IAssetBuilderPlugin original, Root root, int platform, string body = null, string attributes = "")
     {
         bool completion = body != null;
         current = root.Name + (completion ? " completion" : " defaults") + " platform=" + platform;
         XmlDocument xml = new XmlDocument();
         // Unprefixed canonical root is essential: InstanceDeclaration may hash root.Name.
-        xml.LoadXml("<" + root.Name + " xmlns='" + AssetNamespace + "' id='PriorityLinkSmoke'>" + (body ?? "") + "</" + root.Name + ">");
+        xml.LoadXml("<" + root.Name + " xmlns='" + AssetNamespace + "' id='PriorityLinkSmoke' " + attributes + ">" + (body ?? "") + "</" + root.Name + ">");
         XmlNamespaceManager namespaces = new XmlNamespaceManager(xml.NameTable);
         namespaces.AddNamespace("ea", AssetNamespace);
         InstanceDeclaration declaration = Declaration(xml, namespaces);
@@ -371,6 +412,23 @@ class XmlPriorityLinkOracle
         Test(original, Array.Find(Roots, r => r.Name == "EvaEvent"), platform, "<SideSound Sound='S\\3' Side='Allies'/><OtherEvaEventToBlock>Blocked</OtherEvaEventToBlock>");
         Test(original, Array.Find(Roots, r => r.Name == "HealthBarSettings"), platform, "<ObjectMapping HealthBar='H\\2'><ObjectFilter Include='VEHICLE'><IncludeThing>Tank</IncludeThing></ObjectFilter></ObjectMapping>");
         Test(original, Array.Find(Roots, r => r.Name == "UnitOverlayIconSettings"), platform, "<FactionVeterancy Faction='Soviet'><RankIcon Rank='1' Image='I\\9'/></FactionVeterancy>");
+        Test(original, Array.Find(Roots, r => r.Name == "ObjectFilterAsset"), platform, "<Filter Include='INFANTRY'><IncludeThing>Unit</IncludeThing></Filter>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "InvisibilityManagerSettings"), platform, "<CamouflageDetectorObjectFilter Include='VEHICLE'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "StanceTemplate"), platform, "<StanceDefinition Type='AGGRESSIVE' AttributeModifier='A\\3'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ProjectilePath"), platform, "<ComponentScale x='1'/><Point x='2' y='3'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ForceFeedbackEvent"), platform, "", "LeftMotorUse='50%' RightMotorUse='25%' Duration='1s' PlayCount='2'");
+        Test(original, Array.Find(Roots, r => r.Name == "EngagingContentGroup"), platform, "<EngagingContent>C\\2</EngagingContent>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "AutoParticleSystemSettings"), platform, "<Aflame ParticlePrefix='AB' ParticleSystemId='Effect' ParticleMax='17'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "CrowdResponse"), platform, "<Threshold NumUnits='3'><AudioArrayVoice><NamedEntry Name='Command' Sound='S\\2' EvaEvent='E\\1'/></AudioArrayVoice></Threshold>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "UIRadarObjectsLayer"), platform, "<SpecialIcon Image='I\\1'><ObjectFilter Include='INFANTRY'/></SpecialIcon>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "W3DDeviceSettings"), platform, "<StandardPublicBone>Bone</StandardPublicBone><TreeFadeObjectFilter Include='VEHICLE'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "Credits"), platform, "<Style Name='TITLE'><Color R='1' G='2' B='3'/></Style><CreditItem><Text>Author</Text></CreditItem>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "CommandSet"), platform, "<CommandButton Name='Command' Index='2'><InitialDelay Low='1' High='3'/></CommandButton>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ShaderOverride"), platform, "<Rule IfOriginalShaderIs='Original' ReplaceShaderName='Replacement' ReplaceTechniqueName='Technique'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ImageSequence"), platform, "<Image>I\\2</Image><Image>I\\1</Image>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "OnlineChatColors"), platform, "<Default R='1' G='2' B='3'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ArchiveMovieList"), platform, "<Movie ProgressLock='2' MovieImage='I\\1' FileName='intro.bik' OnScreenName='Intro' Description='Description'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "GraphicsHardware"), platform, "<Device VendorId='17' DeviceId='2' Name='GPU' Level='HIGH' MacLevel='LOW'/>", "");
     }
     static int Main(string[] args)
     {
@@ -390,12 +448,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=202 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=243 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 808 || comparisons != 2424 || completionFixtures != 60 || completionComparisons != 180 || Methods.Count != 202) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 972 || comparisons != 2916 || completionFixtures != 128 || completionComparisons != 384 || Methods.Count != 243) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=202 fixtures=808 comparisons=2424 completionFixtures=60 completionComparisons=180 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=243 fixtures=972 comparisons=2916 completionFixtures=128 completionComparisons=384 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();
