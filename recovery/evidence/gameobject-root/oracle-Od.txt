@@ -1,3 +1,3 @@
-System.Exception: Independent Enclose strong FX/import, typed ModuleID, inlineString8/Filter112
-   at GameObjectOracle.WallEncloseFamily(IAssetBuilderPlugin original, TargetPlatform p)
+System.Exception: Independent original PE DUMP_ORE0 flag and XOR-negative contract: ALL -DUMP_ORE
+   at GameObjectOracle.ModelConditionFamily(IAssetBuilderPlugin original, TargetPlatform p)
    at GameObjectOracle.Main(String[] args)
