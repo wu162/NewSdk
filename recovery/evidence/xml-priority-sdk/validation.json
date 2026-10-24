@@ -1,156 +1,19 @@
 {
-  "succeeded": true,
-  "sourceCommit": "aac2279c99abf4c55d7f4d682b3e68bbe3a77107",
-  "runId": "40091218796",
-  "status": "Full XSD and negatives; exact original metadata on four platforms; same compiled DLL/plugin: Reduced and FullMymod original/recovered Win32 SDK; all shipped mymod Includes preserved; four identical outputs per profile; every actual call replayed with and without original DLLs",
-  "scope": "Fourteen XmlCompiler priority types; eighteen required probes; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types",
+  "succeeded": false,
+  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
+  "runId": "40093373572",
+  "status": "failed",
+  "scope": "38 recovered XmlCompiler types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types",
   "componentModes": [
     "/Od",
     "/O2"
   ],
   "sdkMode": "/O2",
   "sdkPlatform": 0,
-  "files": [
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.bin",
-      "bytes": 4660,
-      "sha256": "775DF9FF7840EBBD9B677BE64E605A2170EDA9D6FBF0BFEA390FC0AC3035EDC1"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.manifest",
-      "bytes": 2058,
-      "sha256": "8759933ABC0C216469870B28F9EE617C9CEB0EEA4423B35E24856421A3DE8770"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.imp",
-      "bytes": 16,
-      "sha256": "DF92FA42B470E8AD49AF7D845947039E4779B38BE2D51F22DECE1FB9805E0852"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.relo",
-      "bytes": 224,
-      "sha256": "2BEE277D7D17F9AB5F2839992D8218CEC2CBA0A64B2C57BD3CA1D83D0013F5B3"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.bin",
-      "bytes": 4660,
-      "sha256": "775DF9FF7840EBBD9B677BE64E605A2170EDA9D6FBF0BFEA390FC0AC3035EDC1"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.manifest",
-      "bytes": 2058,
-      "sha256": "8759933ABC0C216469870B28F9EE617C9CEB0EEA4423B35E24856421A3DE8770"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.imp",
-      "bytes": 16,
-      "sha256": "DF92FA42B470E8AD49AF7D845947039E4779B38BE2D51F22DECE1FB9805E0852"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.relo",
-      "bytes": 224,
-      "sha256": "2BEE277D7D17F9AB5F2839992D8218CEC2CBA0A64B2C57BD3CA1D83D0013F5B3"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.bin",
-      "bytes": 214204,
-      "sha256": "3EE5227B03A53C8D15C09D6A172E0592CD974DE4E08DF5AD507D22F736FAA142"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.manifest",
-      "bytes": 6955,
-      "sha256": "D9E94AD3D6C3D27808C245BCA5982B63844189CA14179A79E43795DD565EE3BC"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.imp",
-      "bytes": 76,
-      "sha256": "D521DF377F054EA12BE3F3028D7C99A745F664E7C004C1A482A3FB29A9B70F2F"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.relo",
-      "bytes": 4876,
-      "sha256": "9B72E5E47BA2FD4175D17BB10A7870A7189D34F2ADFD4AE1BBC4D8227ABC3299"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.bin",
-      "bytes": 214204,
-      "sha256": "3EE5227B03A53C8D15C09D6A172E0592CD974DE4E08DF5AD507D22F736FAA142"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.manifest",
-      "bytes": 6955,
-      "sha256": "D9E94AD3D6C3D27808C245BCA5982B63844189CA14179A79E43795DD565EE3BC"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.imp",
-      "bytes": 76,
-      "sha256": "D521DF377F054EA12BE3F3028D7C99A745F664E7C004C1A482A3FB29A9B70F2F"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.relo",
-      "bytes": 4876,
-      "sha256": "9B72E5E47BA2FD4175D17BB10A7870A7189D34F2ADFD4AE1BBC4D8227ABC3299"
-    }
-  ],
-  "profiles": [
-    {
-      "name": "Reduced",
-      "succeeded": true,
-      "fullMymod": false,
-      "inputSha256": "F84CBC869182CE68033F423E0F5D72DD98D318AF786E1C9B3ADE4B66DE018A7E",
-      "fourOutputsIdentical": true,
-      "compilerSha256": "48658316633586FA182CF4FFFB82A80C76ADC32CE19D262F2C362304EB12A44D",
-      "pluginSha256": "791EA21EF4E69490D97EE4B18E77A5256C13E411DC671F66422B1A5DF7ACE22C",
-      "originalAndIsolatedReplay": true
-    },
-    {
-      "name": "FullMymod",
-      "succeeded": true,
-      "fullMymod": true,
-      "shippedIncludesPreserved": 7,
-      "inputSha256": "2F3A52439CA1CA8702222299C6C1CB7F44569A54864A5485DC62F961974B10B3",
-      "fourOutputsIdentical": true,
-      "compilerSha256": "48658316633586FA182CF4FFFB82A80C76ADC32CE19D262F2C362304EB12A44D",
-      "pluginSha256": "791EA21EF4E69490D97EE4B18E77A5256C13E411DC671F66422B1A5DF7ACE22C",
-      "originalAndIsolatedReplay": true
-    }
-  ],
+  "files": [],
+  "profiles": [],
   "profileCount": 2,
-  "fullMymodGate": true,
+  "fullMymodGate": false,
   "originalDllUnchanged": true,
-  "probeSha256": "1A44D9F517ECAD3B26EF5DD612F1547C933181BFC5FB44E2A3A399E38FDAAFEB",
-  "compilerSha256": "48658316633586FA182CF4FFFB82A80C76ADC32CE19D262F2C362304EB12A44D",
-  "pluginSha256": "791EA21EF4E69490D97EE4B18E77A5256C13E411DC671F66422B1A5DF7ACE22C"
+  "error": "Combined SDK compiler build failed"
 }

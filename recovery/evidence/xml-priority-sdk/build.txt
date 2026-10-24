@@ -9,13 +9,25 @@ Xmlattributes.cpp
 Xmleffects.cpp
 XmleffectsEnums.cpp
 XmleffectsNuggets.cpp
+Xmlenvironment.cpp
 Xmlfxparticle.cpp
 Xmllocomotor.cpp
+Xmlplayers.cpp
 Xmlpowers.cpp
+Xmlprogression.cpp
 XmlaiCompiler.cpp
 XmlattributesCompiler.cpp
 XmleffectsCompiler.cpp
+Generating Code...
+Compiling...
+XmlenvironmentCompiler.cpp
 XmlfxparticleCompiler.cpp
 XmllocomotorCompiler.cpp
+XmlplayersCompiler.cpp
 XmlpowersCompiler.cpp
+XmlprogressionCompiler.cpp
 Generating Code...
+Xmlenvironment.obj : error LNK2022: metadata operation failed (8013118D) : Inconsistent layout information in duplicated types (std.pair<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const ,Recovered::Native::`anonymous namespace'::Layout>): (0x020001d2).
+Xmlenvironment.obj : error LNK2022: metadata operation failed (8013118D) : Inconsistent layout information in duplicated types (std._Tree_node<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const ,Recovered::Native::`anonymous namespace'::Layout>,void *>): (0x0200020e).
+Xmlenvironment.obj : error LNK2032: metadata inconsistent with COFF symbol table: symbol '??1?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ULayout@?A0x98871472@Native@Recovered@@@std@@$$FQAE@XZ' (0A0000F1) mapped to '<unknown symbol>' (060003C2) in Xmlai.obj
+LINK : fatal error LNK1255: link failed because of metadata errors
