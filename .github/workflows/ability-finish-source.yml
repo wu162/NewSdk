@@ -4,6 +4,7 @@ on:
     branches: [recovery/compiler-source]
     paths:
       - 'recovery/scripts/ExportAbilityFinishMethods.py'
+      - 'recovery/scripts/ExportAttachNextMethods.py'
       - '.github/workflows/ability-finish-source.yml'
 permissions:
   contents: read
@@ -14,14 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python recovery/scripts/ExportAbilityFinishMethods.py
+      - run: python recovery/scripts/ExportAttachNextMethods.py
       - name: Emit bounded original methods for review
         run: |
           python - <<'PYCODE'
           import json,pathlib
           p=pathlib.Path('recovery/evidence/gameobject-modules/ability-finish-source')
           print('ORIGINAL_METHOD_ARCHIVE='+json.dumps({str(f):f.read_text() for f in sorted(p.iterdir())}))
+          p=pathlib.Path('recovery/evidence/gameobject-modules/attach-next-source')
+          print('ATTACH_METHOD_ARCHIVE='+json.dumps({str(f):f.read_text() for f in sorted(p.iterdir())}))
           PYCODE
       - uses: actions/upload-artifact@v4
         with:
           name: original-ability-finish-source
-          path: recovery/evidence/gameobject-modules/ability-finish-source
+          path: |
+            recovery/evidence/gameobject-modules/ability-finish-source
+            recovery/evidence/gameobject-modules/attach-next-source
