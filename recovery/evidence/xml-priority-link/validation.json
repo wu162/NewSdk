@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "44fc877dd1f88edec6dc174de03d521f5c577fd4",
-  "runId": "40090297403",
+  "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
+  "runId": "40090655218",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -80,7 +80,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "fdb50e1a5eddcd5dc23d858927c6b91c2f9b4de437868cc13ea43c5ea9e7c424",
+      "linkedAssemblySha256": "a8dc6cc7905c24fc3213342b7a9bd1795da5b00e82f6feb50d1cff2d17bad680",
       "log": "Od-oracle.txt"
     },
     {
@@ -132,7 +132,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "c8e6bc185865cf60d5b0d03b69105400e4affccea51dcb631f176b4b491346c7",
+      "linkedAssemblySha256": "38a441c40c742f3c69c8ecd927823c76d7a3673dcd05460cf818847b86fc73bf",
       "log": "O2-oracle.txt"
     }
   ],
@@ -141,16 +141,16 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "44fc877dd1f88edec6dc174de03d521f5c577fd4",
-      "runId": "40090297403",
+      "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
+      "runId": "40090655218",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "44fc877dd1f88edec6dc174de03d521f5c577fd4",
-      "runId": "40090297403",
+      "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
+      "runId": "40090655218",
       "processSucceeded": true
     }
   ],
@@ -191,11 +191,11 @@
     },
     {
       "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
-      "sha256": "e57f9ab141be6c37f121822aa3f1627480e2e7a493fb309267f7d96fdce75ad5"
+      "sha256": "4bd1e7b7049922cb00f80c5689100f4b2f53dc1d623903aa793ebb3907b75446"
     },
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
-      "sha256": "85656339ed13150963af2b41a7b5b3b3a2dfb72753a5694fe7377c0290cd2a1c"
+      "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
     },
     {
       "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
