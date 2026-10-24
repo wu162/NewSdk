@@ -1,8 +1,8 @@
 {
   "mode": "Od",
-  "exitCode": 1,
-  "exitCodeHex": "0x00000001",
-  "sourceCommit": "3aacf569b453ab5a9073e9b424b8584a6eec19eb",
-  "runId": "40142137629",
-  "processSucceeded": false
+  "exitCode": 0,
+  "exitCodeHex": "0x00000000",
+  "sourceCommit": "0f0ab2fce098fef2d78d6a165f3f5ce86c591077",
+  "runId": "40142560815",
+  "processSucceeded": true
 }
