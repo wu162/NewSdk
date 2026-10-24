@@ -3,8 +3,8 @@
 // Child Marshal/Endian source: parts0113-0116, original lines56927-57964.
 // Sizes: original SageBinaryData StructLayout; field order is Marshal order.
 // Requires GetEnum fallback to GetXmlaiPersonalityEnum (XmlaiPersonalityEnums.inc).
-// Explicitly unsupported: Side text-reference list; OpeningMove/Heuristic
-// nullable pointer-to-list. Do not substitute an inline Heuristics child at @12.
+// The core registry supplies Side text references and OpeningMove/Heuristic
+// nullable pointer-to-list after this include. Do not substitute an inline list at @12.
 // Original Marshal line 57069
 m["AIPersonalityDefMap"] = Layout{8,0u,{
     {"Side",nullptr,0,Kind::Reference,false,"",0,0},

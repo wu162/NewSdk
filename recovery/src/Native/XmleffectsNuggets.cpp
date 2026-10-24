@@ -66,6 +66,17 @@ void MarshalXmleffectsNugget(Relo::Tracker& tracker, void** pointer, const Xmlef
         case EffectPercentage: Float(at,ParseFloat(field.text)*0.01f); break;
         }
     }
+    if(input.typeId==751572338u) {
+        // Original ParticleSystemFXNugget initializes InitialDelay to
+        // CONSTANT / Low=-1 / High=-1 before marshaling its optional child.
+        bool lowPresent=false, highPresent=false;
+        for(const auto& field:input.fields) {
+            if(field.offset==132) lowPresent=true;
+            if(field.offset==136) highPresent=true;
+        }
+        if(!lowPresent) {Float(target+132,-1.0f); if(bigEndian) Swap(target+132);}
+        if(!highPresent) {Float(target+136,-1.0f); if(bigEndian) Swap(target+136);}
+    }
     if(input.hasPackedColor) {
         U32 red=ParseUnsigned(input.rgba[0])&255u, green=ParseUnsigned(input.rgba[1])&255u;
         U32 blue=ParseUnsigned(input.rgba[2])&255u, alpha=ParseUnsigned(input.rgba[3])&255u;

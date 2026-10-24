@@ -88,7 +88,7 @@ booleans@40/41/42. Exact derived offsets are in the adapter descriptors.
 Time searches ms before s, angle searches r before d; atof first rounds to
 float, then multiplies in double by the float scale, then rounds to float.
 Signed/unsigned integer fields retain their original CRT/base-zero contracts.
-RandomVariable absent remains zero; present missing Type defaults UNIFORM.
+RandomVariable absent normally remains zero; ParticleSystemFXNugget.InitialDelay instead starts CONSTANT/Low=-1/High=-1, even when its child is present but omits Low/High. Present missing Type defaults UNIFORM.
 Color channels wrap to bytes; DynamicDecal Color packs A:R:G:B into a word.
 String absence differs from present empty (which allocates a NUL).
 References use the decimal suffix after first backslash; typed IDs hash the
