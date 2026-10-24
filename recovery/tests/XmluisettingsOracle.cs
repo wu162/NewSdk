@@ -13,9 +13,9 @@ using BinaryAssetBuilder.Core;
 using Recovered;
 class XmluisettingsOracle {
     const string NS="uri:ea.com:eala:asset";
-    static readonly string[] Types={"HotKeySlot","MouseCursor","BasicMouseCursors","UIMouseDragSelectionFeedback","UIFloatingTextDisplay","UIMessageDisplay","UIMilitaryCaptionDisplay","UISubtitleDisplay","UITimerDisplay","DynamicGameLOD","GameLODPreset","StaticGameLOD","UICoopTinting"};
-    static readonly int[] Sizes={24,16,20,20,32,32,56,36,64,24,28,80,28};
-    static readonly uint[] TypeIds={2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u,2901356964u,354222972u,531798225u,4243804314u};
+    static readonly string[] Types={"HotKeySlot","MouseCursor","BasicMouseCursors","UIMouseDragSelectionFeedback","UIFloatingTextDisplay","UIMessageDisplay","UIMilitaryCaptionDisplay","UISubtitleDisplay","UITimerDisplay","DynamicGameLOD","GameLODPreset","StaticGameLOD","UICoopTinting","RadiusCursor"};
+    static readonly int[] Sizes={24,16,20,20,32,32,56,36,64,24,28,80,28,12};
+    static readonly uint[] TypeIds={2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u,2901356964u,354222972u,531798225u,4243804314u,544776545u};
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","4294967295","4294967296","077","0xff","1e400","-1e400"};
     static readonly string[] Refs={"","Name","Name\\0","Name\\27","Name\\-1","Name\\2147483648","Name\\ +17junk","资源\\7","MIXEDCase"};
     static readonly string[] Bools={"true","false","TRUE","1","0","t","T"," true","yes","","10"};
@@ -191,25 +191,46 @@ class XmluisettingsOracle {
         new string[]{"UICoopTinting","TintColor","G","Unsigned"},
         new string[]{"UICoopTinting","TintColor","B","Unsigned"},
         new string[]{"UICoopTinting","TintColor","A","Unsigned"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","Texture","Reference"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","Texture2","Reference"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","Style","Enum:ShadowType"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","OpacityMin","Percentage"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","OpacityMax","Percentage"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","OpacityPulsesPerSecond","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","RotationMin","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","RotationMax","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","RotationDegreesPerSecond","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","MinRadius","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","MaxRadius","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","RadiusPulsesPerSecond","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","PositionOffsetMin","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","PositionOffsetMax","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component","PositionOffsetPulsesPerSecond","Float"},
+        new string[]{"RadiusCursor","DecalTemplate/Component/Color","R","Unsigned"},
+        new string[]{"RadiusCursor","DecalTemplate/Component/Color","G","Unsigned"},
+        new string[]{"RadiusCursor","DecalTemplate/Component/Color","B","Unsigned"},
+        new string[]{"RadiusCursor","DecalTemplate/Component/Color","A","Unsigned"},
     };
+    static string[] WithNulEnumCases(string[] input) { List<string> values=new List<string>(input);foreach(string value in input)values.Add(value+"\0tail");values.Add("\0HIGH");values.Add("unknown\0HIGH");return values.ToArray(); }
     static readonly string[] Strings={"","a","abc","abcd","abcde","A&B<font>","é","资源","😀","e\u0301",new string('x',257),"a\0tail","\0leading","多字节\0尾部"};
     static string[] Values(string kind) {
-        if(kind=="Enum:AnimationLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:DecalLODType")return new string[]{"HIGH","LOW","OFF","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:EffectsLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:GameLODType")return new string[]{"CUSTOM","HIGH","LOW","MEDIUM","ULTRA_HIGH","UNKNOWN","VERY_LOW","unknown","","0","custom","CUSTOM unknown"};
-        if(kind=="Enum:ModelLODType")return new string[]{"HIGH","LOW","MEDIUM","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:ProcessorType")return new string[]{"ATHLON","ATHLON_64","CORE_DUO","PENTIUM_4","UNKNOWN","unknown","","0","athlon","ATHLON unknown"};
-        if(kind=="Enum:ShaderLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:ShadowLODType")return new string[]{"HIGH","LOW","MEDIUM","OFF","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:TerrainLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:WaterLODType")return new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"};
-        if(kind=="Enum:FXParticleSystem_Priority")return new string[]{"ALWAYS_RENDER","HIGH_OR_ABOVE","HIGH_OR_BELOW","INVALID_PRIORITY","LOW_OR_ABOVE","LOW_OR_BELOW","MEDIUM_OR_ABOVE","MEDIUM_OR_BELOW","ULTRA_HIGH_ONLY","ULTRA_HIGH_OR_BELOW","VERY_LOW_ONLY","VERY_LOW_OR_ABOVE","unknown","","0","always_render","ALWAYS_RENDER unknown"};
+        if(kind=="Enum:AnimationLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:DecalLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","OFF","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:EffectsLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","VERY_LOW","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:GameLODType")return WithNulEnumCases(new string[]{"CUSTOM","HIGH","LOW","MEDIUM","ULTRA_HIGH","UNKNOWN","VERY_LOW","unknown","","0","custom","CUSTOM unknown"});
+        if(kind=="Enum:ModelLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:ProcessorType")return WithNulEnumCases(new string[]{"ATHLON","ATHLON_64","CORE_DUO","PENTIUM_4","UNKNOWN","unknown","","0","athlon","ATHLON unknown"});
+        if(kind=="Enum:ShaderLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:ShadowLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","OFF","ULTRA_HIGH","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:TerrainLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:WaterLODType")return WithNulEnumCases(new string[]{"HIGH","LOW","MEDIUM","ULTRA_HIGH","unknown","","0","high","HIGH unknown"});
+        if(kind=="Enum:FXParticleSystem_Priority")return WithNulEnumCases(new string[]{"ALWAYS_RENDER","HIGH_OR_ABOVE","HIGH_OR_BELOW","INVALID_PRIORITY","LOW_OR_ABOVE","LOW_OR_BELOW","MEDIUM_OR_ABOVE","MEDIUM_OR_BELOW","ULTRA_HIGH_ONLY","ULTRA_HIGH_OR_BELOW","VERY_LOW_ONLY","VERY_LOW_OR_ABOVE","unknown","","0","always_render","ALWAYS_RENDER unknown"});
+        if(kind=="Enum:ShadowType")return WithNulEnumCases(new string[]{"ADDITIVE_DECAL","ADDITIVE_DECAL_DYNAMIC","ALPHA_DECAL","ALPHA_DECAL_DYNAMIC","DECAL","MERGE_DECAL","NONE","unknown","","0","additive_decal","ADDITIVE_DECAL unknown"});
         if(kind=="Time")return TimeValues;
         if(kind=="Bool")return Bools;
         if(kind=="Reference")return Refs;
         if(kind=="String")return Strings;
-        if(kind=="Enum:HotKeySlotGroup")return new string[]{"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands","misc","unknown","","0","Camera Misc"};
+        if(kind=="Enum:HotKeySlotGroup")return WithNulEnumCases(new string[]{"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands","misc","unknown","","0","Camera Misc"});
         return Numbers;
     }
     static XmlDocument SetField(string[] f,string value){XmlDocument d=FieldDocument(f[0],f[1],f[2],"");XmlElement last=(XmlElement)d.SelectNodes("//*")[d.SelectNodes("//*").Count-1];last.SetAttribute(f[2],value);return d;}
@@ -217,6 +238,7 @@ class XmluisettingsOracle {
         const string color=" R='17' G='34' B='51'";
         const string font=" Name='Arial' Size='18' Bold='true'";
         switch(type) {
+        case "RadiusCursor":return "<DecalTemplate><Component Style='DECAL' OpacityMin='25%' OpacityMax='75%'><Color"+color+" A='68'/></Component></DecalTemplate>";
         case "UICoopTinting":return "<TintColor"+color+"/>";
         case "UIMouseDragSelectionFeedback":return "<BoxColor"+color+" A='68'/><LassoColor"+color+" A='136'/>";
         case "UIFloatingTextDisplay":return "<Font"+font+"/>";
@@ -270,6 +292,7 @@ class XmluisettingsOracle {
         bool caught=false;try{XmluisettingsCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){caught=true;}Check(caught,"null declaration");++rejections;
         Abi(p);
         LodAbi(p);
+        RadiusAbi(p);
     }
     static void LodAbi(TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
@@ -294,6 +317,19 @@ class XmluisettingsOracle {
         empty=Test("LOD/unknown processor",Root("GameLODPreset","","<Processor Type='unknown' MinMHz='-1'/>"),p);ExpectWord(empty,28,3,big,"processor enum fallback ATHLON");ExpectWord(empty,32,0xffffffff,big,"processor signed MHz");
         Reject("wrong Xres case",Root("GameLODPreset","XRes='1'",""));Reject("wrong YRes case",Root("GameLODPreset","Yres='1'",""));Reject("processor content",Root("GameLODPreset","","<Processor>text</Processor>"));Reject("processor unknown",Root("GameLODPreset","","<Processor Unknown='1'/>"));Reject("processor nested",Root("GameLODPreset","","<Processor><Unknown/></Processor>"));
         AssetBuffer coop=Test("Coop/default",Root("UICoopTinting","","<TintColor R='17' G='34' B='51'/>"),p);uint[] cv={3,3,10,0x3f800000,0x3f800000,0xff112233};for(int i=0;i<cv.Length;++i)ExpectWord(coop,4+4*i,cv[i],big,"coop defaults/offsets");
+    }
+    static void RadiusAbi(TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        foreach(int count in new int[]{0,1,2,3,4,15,16,27,28,29,64,257}) {
+            StringBuilder children=new StringBuilder();for(int i=0;i<count;++i)children.Append("<Component Texture='Name\\"+(i+7)+"' Texture2='Name\\"+(i+17)+"' Style='unknown' RotationMin='2' RotationMax='3' RotationDegreesPerSecond='4' OpacityPulsesPerSecond='5' RadiusPulsesPerSecond='6' PositionOffsetMin='7' PositionOffsetMax='8' PositionOffsetPulsesPerSecond='9'><Color R='17' G='34' B='51' A='68'/></Component>");
+            AssetBuffer b=Test("Radius/list/"+count,Root("RadiusCursor","","<DecalTemplate>"+children+"</DecalTemplate>"),p);
+            Check(b.InstanceData.Length==12+64*count,"radius component64 stride");ExpectWord(b,4,(uint)count,big,"radius count");ExpectWord(b,8,count==0?0u:12u,big,"radius inline list pointer");Check(b.RelocationData.Length==(count==0?0:8),"radius sole relocation");if(count>0)Check(Word(b.RelocationData,0,big)==8,"radius pointer bookmark");Check(b.ImportsData.Length==(count==0?0:4*(count*2+1)),"radius paired imports count");
+            for(int i=0;i<count;++i) {
+                int at=12+64*i;ExpectWord(b,at,(uint)(i+7),big,"radius texture");ExpectWord(b,at+4,(uint)(i+17),big,"radius texture2");ExpectWord(b,at+8,3,big,"radius ShadowType unknown ADDITIVE_DECAL");ExpectWord(b,at+12,BitConverter.ToUInt32(BitConverter.GetBytes(0.01f),0),big,"radius default min opacity one percent");ExpectWord(b,at+16,BitConverter.ToUInt32(BitConverter.GetBytes(0.01f),0),big,"radius default max opacity one percent");ExpectWord(b,at+20,0x40a00000,big,"radius opacity frequency");ExpectWord(b,at+24,0x40000000,big,"radius rotation min raw");ExpectWord(b,at+28,0x40400000,big,"radius rotation max raw");ExpectWord(b,at+32,0x40800000,big,"radius degree speed raw");ExpectWord(b,at+36,0x3f800000,big,"radius min default");ExpectWord(b,at+40,0x3f800000,big,"radius max default");ExpectWord(b,at+44,0x40c00000,big,"radius pulse");ExpectWord(b,at+48,0x40e00000,big,"radius offset min");ExpectWord(b,at+52,0x41000000,big,"radius offset max");ExpectWord(b,at+56,0x41100000,big,"radius offset frequency");ExpectWord(b,at+60,0x44112233,big,"radius inline ARGB");Check(Word(b.ImportsData,8*i,big)==at&&Word(b.ImportsData,8*i+4,big)==at+4,"radius imported field addresses");
+            }
+        }
+        AssetBuffer empty=Test("Radius/component defaults",Root("RadiusCursor","","<DecalTemplate><Component/></DecalTemplate>"),p);ExpectWord(empty,20,0,big,"radius absent Style remains0");ExpectWord(empty,72,0,big,"radius absent color remains0");Check(empty.ImportsData.Length==0,"radius absent refs do not import");
+        Reject("radius duplicate template",Root("RadiusCursor","","<DecalTemplate/><DecalTemplate/>"));Reject("radius unknown template attr",Root("RadiusCursor","","<DecalTemplate Unknown='1'/>"));Reject("radius unknown template child",Root("RadiusCursor","","<DecalTemplate><Unknown/></DecalTemplate>"));Reject("radius duplicate color",Root("RadiusCursor","","<DecalTemplate><Component><Color/><Color/></Component></DecalTemplate>"));
     }
 
     static int Main(string[] args) {

@@ -218,4 +218,17 @@ public:
         return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
     }
 };
+public ref class RadiusCursorCompiler abstract sealed {
+public:
+    static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+        if(node->LocalName!="RadiusCursor")throw gcnew NotSupportedException("Expected RadiusCursor root.");
+        return XmluisettingsCompiler::CompileXml(node,namespaces,bigEndian);
+    }
+    static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform) {
+        if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+        if(declaration->Handle->TypeId!=544776545u)throw gcnew NotSupportedException("Expected RadiusCursor TypeId.");
+        return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+    }
+};
 }

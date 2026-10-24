@@ -77,6 +77,12 @@
       "typeId": 4243804314,
       "typeHash": 89086670,
       "schemaGlobal": true
+    },
+    {
+      "name": "RadiusCursor",
+      "typeId": 544776545,
+      "typeHash": 2695845168,
+      "schemaGlobal": true
     }
   ]
 }

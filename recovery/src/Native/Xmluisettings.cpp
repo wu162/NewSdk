@@ -31,7 +31,8 @@ const std::map<std::string,Layout>& Layouts() {
     if(!InitOnceExecuteOnce(&UiSettingsRegistryOnce,InitializeUiSettingsRegistry,nullptr,nullptr))throw std::runtime_error("UiSettings layout initialization failed.");
     return *UiSettingsRegistry;
 }
-U32 Enum(const std::string& type,const std::string& value) {
+U32 Enum(const std::string& type,const std::string& input) {
+    const std::string value(input.c_str()); // Original EnumLookup compares NUL-terminated C strings.
     if(type=="AnimationLODType") {
         if(value=="HIGH")return 3u;
         if(value=="LOW")return 1u;
@@ -121,6 +122,16 @@ U32 Enum(const std::string& type,const std::string& value) {
         if(value=="VERY_LOW_ONLY")return 11u;
         if(value=="VERY_LOW_OR_ABOVE")return 5u;
         return 6u;
+    }
+    if(type=="ShadowType") {
+        if(value=="ADDITIVE_DECAL")return 3u;
+        if(value=="ADDITIVE_DECAL_DYNAMIC")return 5u;
+        if(value=="ALPHA_DECAL")return 2u;
+        if(value=="ALPHA_DECAL_DYNAMIC")return 4u;
+        if(value=="DECAL")return 1u;
+        if(value=="MERGE_DECAL")return 6u;
+        if(value=="NONE")return 0u;
+        return 3u;
     }
     if(type=="HotKeySlotGroup") {
     const char* names[]={"Bookmarks","Camera","Cheat","Misc","NonConfigurable","PlayerPowersBar","SideBar","UnitCommands"};
@@ -222,6 +233,7 @@ unsigned int XmluisettingsTypeId(const std::string& name) {
     if(name=="GameLODPreset")return 354222972u;
     if(name=="StaticGameLOD")return 531798225u;
     if(name=="UICoopTinting")return 4243804314u;
+    if(name=="RadiusCursor")return 544776545u;
     return 0;
 }
 Relo::Chunk CompileXmluisettings(const XmluisettingsNode& node,bool bigEndian) {
