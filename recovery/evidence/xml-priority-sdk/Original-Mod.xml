@@ -1,1 +1,0 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Tags/><Includes><Include type="reference" source="DATA:static.xml"/><Include type="reference" source="DATA:global.xml"/><Include type="reference" source="DATA:audio.xml"/><Include type="all" source="RecoveryXmlPriorityProbe.xml"/></Includes></AssetDeclaration>

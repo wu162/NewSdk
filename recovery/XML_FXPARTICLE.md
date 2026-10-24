@@ -1,6 +1,6 @@
 # FXParticleSystemTemplate XmlCompiler component
 
-Status: all 33 known module types and the Event pointer list are implemented. The first expanded component matrix passed at source 77231712d8a56bd385044a9eb9c08ae871dea227, run 40089824762. Later Unicode/embedded-NUL and BAB TypeId metadata changes need their own final successful matrix; SDK integration is not yet accepted.
+Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
 Fixed base commit: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Public interface: Recovered::FXParticleSystemTemplateCompiler::CompileXml(XmlNode^, XmlNamespaceManager^, bool)
 and ProcessInstance(InstanceDeclaration^, TargetPlatform); TypeId 686292351.
@@ -107,7 +107,7 @@ Unknown or qualified attributes, foreign/unknown child content, duplicate single
 
 EventBase and unknown-type fallback are component capabilities; they are not a claim that those forms satisfy the shipped XSD. BAB preprocessing, inheritance and dependency resolution remain external. Some malformed inputs are ignored by the original, so component guards do not claim identical malformed-XML permissiveness.
 
-Recovered.XmlPriority.Plugin currently registers FXList and FXParticleSystemTemplate explicitly and uses original XmlCompiler metadata (XMLCOMPILER_METADATA.md). The initial SDK batch uses six legal assets across these two roots and required dependencies. It does not cover the complete MOD or all 301 XmlCompiler types. SDK originals remain unchanged; the recovered implementation never calls them.
+Recovered.XmlPriority.Plugin explicitly registers all fourteen priority roots with original XmlCompiler metadata (XMLCOMPILER_METADATA.md). The final SDK batch uses eighteen legal probes and both Reduced and FullMymod profiles, preserving all seven shipped includes. It does not replace all 301 XmlCompiler types. SDK originals remain unchanged; the recovered implementation never calls them.
 
 ## Validation
 
@@ -115,4 +115,4 @@ Run recovery/scripts/TestXmlfxparticle.ps1 under Windows VS2022 x86. It builds /
 
 The first expanded matrix succeeded at source 77231712d8a56bd385044a9eb9c08ae871dea227, run40089824762. Each mode completed 13792 fixtures, 41376 three-buffer comparisons, 364 refusals and 13792 independent layouts across four platforms. Both modes total 27584 fixtures and 82752 array comparisons. Evidence is recovery/evidence/xml-fxparticle/validation.json plus per-mode result and build/oracle logs. This anchor does not validate later test/code changes.
 
-Run40090297467 (source44fc877dd1f88edec6dc174de03d521f5c577fd4) did not establish SDK acceptance: BAB inserted root TypeId, triggering a component refusal. The follow-up accepts structural TypeId metadata and records failed-input XML/error files separately from successful calls.tsv entries. A new successful exact-source anchor is still required for the complete post-fix matrix, Unicode cases, same-input SDK four-artifact comparison, trace replay and isolated replay without the original compiler DLL.
+Run40090297467 (source44fc877dd1f88edec6dc174de03d521f5c577fd4) did not establish SDK acceptance: BAB inserted root TypeId, triggering a component refusal. The follow-up accepts structural TypeId metadata and records failed-input XML/error files separately from successful calls.tsv entries. The final exact-source anchors above now establish the post-fix matrix, Unicode/NUL cases, same-input SDK four-artifact comparisons in both profiles, actual-call trace replay and original-free isolated replay.

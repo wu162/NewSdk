@@ -21,4 +21,4 @@ Evidence: original Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`, metho
 | LogicCommandSet | 3959844197 | 2330506892 |
 | LocomotorTemplate | 3972178387 | 3392338269 |
 
-The current XmlPriority plugin is explicitly registered for FXList and FXParticleSystemTemplate only. This table does not add support for the remaining roots or claim SDK validation.
+The current XmlPriority plugin explicitly registers all fourteen roots above. The original and recovered plugin metadata passed 800 field/property/hash comparisons on platforms 0/1/2/99 with Initialize/ReInitialize, plus 8 unknown-type rejection checks. SDK source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, run 40091218796; see XML_PRIORITY_SDK.md for Reduced and FullMymod acceptance.

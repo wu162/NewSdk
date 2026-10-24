@@ -2,9 +2,7 @@
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Branch: recovery/xmlcompiler-priority (completion work: recovery/xmlcompiler-fxlist-completion).
-The original fifteen-layout component was accepted at 0e153b8/run40083102908.
-The filter/base-fallback completion below is prepared for the unified Windows
-matrix, **not yet validated**; the earlier result does not validate new code.
+Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
 
 ## Active interface and exact boundary
 
@@ -63,16 +61,9 @@ hash lists. Unknown nugget TypeId uses the original 44-byte base fallback and
 writes TypeId zero; known branches retain their concrete TypeId.
 Unknown attributes, foreign namespaces,
 duplicate singleton containers/children and non-whitespace unexpected text
-are refused. This completion remains pending final matrix verification.
+are refused. This completion is covered by the final matrix cited above.
 Valid known enum fields retain the
 original unknown-text fallbacks; enum misspellings are not schema errors here.
-
-FXParticleSystemTemplate has been reassigned. No particle compiler or stub
-exists in the active Xmleffects bridge/test/script. Substantial unvalidated
-particle root/keyframe/Wind/Velocity/Volume work was preserved for its new owner
-in disabled XmlfxparticleDraft.h/.cpp and XmlfxparticleDraftCompiler.cpp snapshots
-at checkpoint baca81ec04503d2eabeca1be28f41e49e62b9277. They are excluded from the
-active build and should be extracted into the new independent component.
 
 ## Original evidence and important contracts
 
@@ -140,11 +131,6 @@ threeArrayComparisons, directArrayComparisons, rejections and independentLayouts
 counts. Build/host logs and Od-oracle.txt/O2-oracle.txt are retained.
 The script writes succeeded=false before building and on any failure.
 
-Local native syntax-only checking passed with g++ C++17; x86 ABI assertions
-were disabled solely for that x64 host syntax check. This is not Windows ABI,
-C++/CLI, oracle, SDK or replacement-DLL validation. Unified Actions must supply
-the actual sourceCommit/runId success before any such claim.
-
 ## Filter and unknown-base completion evidence (2026-10-24)
 
 Original sourceBlob remains 2d2f471c8008b7c2e1f78e39752d0726da395cea.
@@ -170,7 +156,5 @@ with independent bit layout checks on both filters, enum fallbacks, signed
 bitset operations, absent/empty values, repeated typed hash lists at
 0/1/2/27/28/29/64/257 and structural/namespace rejection boundaries.
 The /Od /O2 four-platform full matrix and three-array/direct comparisons remain
-mandatory. No SDK route, original DLL, common native helper or GameObject file
-changes are made by this completion.
-
+mandatory and passed at the final source above. The fourteen-type SDK plugin and temporary-SDK switch are documented in XML_PRIORITY_SDK.md; original SDK DLLs, public common native helpers and GameObject source remain unchanged.
 
