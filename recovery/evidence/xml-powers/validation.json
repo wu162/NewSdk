@@ -1,7 +1,7 @@
 {
-  "succeeded": false,
-  "sourceCommit": "acb799f602217fcff139a66934abcd48b4a0288c",
-  "runId": "40080079994",
+  "succeeded": true,
+  "sourceCommit": "977313a17647051df333e223f7a6c45f732bdc63",
+  "runId": "40080474059",
   "scope": "XmlCompiler powers components; SDK integration pending",
   "platforms": [
     0,
@@ -9,7 +9,38 @@
     2,
     99
   ],
-  "modes": [],
-  "status": "Od Xmlpowers oracle build failed",
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "fixtures": 17296,
+      "comparisons": 51888,
+      "rejections": 520,
+      "independent": 82176,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "fixtures": 17296,
+      "comparisons": 51888,
+      "rejections": 520,
+      "independent": 82176,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "status": "Od and O2 passed original XmlCompiler ProcessInstance differential, independent layout and explicit rejection tests",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
 }

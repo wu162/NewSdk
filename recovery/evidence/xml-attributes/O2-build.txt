@@ -1,5 +1,7 @@
 Relocation.cpp
 ResourceMarshaling.cpp
+ScalarParsing.cpp
+EnumBitset.cpp
 Xmlattributes.cpp
 XmlattributesCompiler.cpp
 Generating Code...

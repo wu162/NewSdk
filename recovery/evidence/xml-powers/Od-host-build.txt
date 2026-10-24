@@ -1,1 +1,0 @@
-error CS1504: Source file 'd:\a\NewSdk\NewSdk\XmlpowersOracle.cs' could not be opened ('The system cannot find the file specified. ')

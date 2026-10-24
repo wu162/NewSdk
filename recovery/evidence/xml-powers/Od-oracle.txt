@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=4324 comparisons=12972 rejections=130 independent=20544
+PASS platform=1 fixtures=4324 comparisons=12972 rejections=130 independent=20544
+PASS platform=2 fixtures=4324 comparisons=12972 rejections=130 independent=20544
+PASS platform=99 fixtures=4324 comparisons=12972 rejections=130 independent=20544
+PASS Xmlpowers fixtures=17296 comparisons=51888 rejections=520 independent=82176; original XmlCompiler ProcessInstance for every fixture

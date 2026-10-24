@@ -5,34 +5,36 @@
     2,
     99
   ],
+  "runId": "40080474059",
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "sourceCommit": "977313a17647051df333e223f7a6c45f732bdc63",
   "modes": [
     {
-      "summaries": [
-        "SUMMARY platform=0 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=1 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=2 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=99 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13"
-      ],
-      "log": "Od-oracle.txt",
       "exitCode": 0,
       "succeeded": true,
+      "log": "Od-oracle.txt",
+      "summaries": [
+        "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
+      ],
       "mode": "Od"
     },
     {
-      "summaries": [
-        "SUMMARY platform=0 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=1 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=2 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
-        "SUMMARY platform=99 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13"
-      ],
-      "log": "O2-oracle.txt",
       "exitCode": 0,
       "succeeded": true,
+      "log": "O2-oracle.txt",
+      "summaries": [
+        "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
+        "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
+      ],
       "mode": "O2"
     }
   ],
-  "sourceCommit": "acb799f602217fcff139a66934abcd48b4a0288c",
-  "scope": "LogicCommandSet component; AttributeModifier/UpgradeTemplate blocked on original Marshal evidence; SDK not integrated",
-  "runId": "40080079994",
-  "succeeded": true
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "succeeded": true,
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated"
 }
