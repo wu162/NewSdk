@@ -1,44 +1,13 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58734; body SHA256 95c4faf8e1681f5ede596011f6b22271b7aad14f48db292113225b13acfaeee9
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58681; body SHA256 2d93d99360d5d848154d59ac0ffa4de35a567868b7500f75ff3dec6bc9a22e95
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADynamicsCapsuleShapeType_003E(IList* list, List_003CSageBinaryData_003A_003ADynamicsCapsuleShapeType_003E* target, Tracker* tracker)
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsContactTag_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, DynamicsContactTag* @object, Tracker* state)
 	{
-		if (list == null)
+		if (value != null)
 		{
-			return;
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DynamicsContactTag_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4DynamicsContactTag_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 8u);
+			int num = ((ptr == null) ? 7 : ((int*)ptr)[1]);
+			*@object = (DynamicsContactTag)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
 		}
-		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
-		if (num != 0)
-		{
-			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 16u, num);
-			if (0 < num)
-			{
-				int num2 = 0;
-				uint num3 = num;
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
-				do
-				{
-					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
-					try
-					{
-						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (DynamicsCapsuleShapeType*)(num2 + ((int*)target)[1]), tracker);
-					}
-					catch
-					{
-						//try-fault
-						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
-						throw;
-					}
-					if (*(int*)(&nodeHolder) != 0)
-					{
-						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
-					}
-					num2 += 16;
-					num3--;
-				}
-				while (num3 != 0);
-			}
-			((int*)((byte*)tracker + 4))[1] += -4;
-		}
-		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
 	}
 

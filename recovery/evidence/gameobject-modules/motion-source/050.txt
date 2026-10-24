@@ -1,23 +1,15 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51651; body SHA256 06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33
-// Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 14411; body SHA256 52226af0f3f01be4f8f1ee44915c5c1bcf1138bc4ccdbc93411c3943de289ef6
+// Literals: {"_003F_003F_C_0040_02EGCJHIOB_0040id_003F_0024AA_0040": "id"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ModuleData* @object, Tracker* state)
 	{
-		BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)target + 2);
-		uint num = 15u;
-		System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
-		do
+		if (node != null)
 		{
-			if (*(bool*)endian)
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02EGCJHIOB_0040id_003F_0024AA_0040), null);
+			if (ptr != null)
 			{
-				*(sbyte*)(&num2) = ((sbyte*)ptr)[1];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr;
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr - 1);
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr - 2);
-				*(uint*)((byte*)ptr - 2) = num2;
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModuleData_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AModuleData_003E*)((byte*)@object + 4), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
 			}
-			ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)ptr + 4);
-			num--;
 		}
-		while (num != 0);
 	}
 

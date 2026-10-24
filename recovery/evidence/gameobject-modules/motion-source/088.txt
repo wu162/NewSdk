@@ -1,24 +1,57 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41699; body SHA256 ba57d4bb86168670c9902fa5dab6dba080c7b2f19e966956f4ef106cdf27ec9d
-// Literals: {"_003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040": "Radius", "_003F_003F_C_0040_0L_0040MPLIKECK_0040HalfLength_003F_0024AA_0040": "HalfLength"}
-internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsCapsuleShapeType* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41354; body SHA256 5b95daa4c2ca6ba5a269885ccd99d36581a264e6a806eadf19dbf06f49b3c9a1
+// Literals: {"_003F_003F_C_0040_0M_0040OIHFNOAG_0040Translation_003F_0024AA_0040": "Translation", "_003F_003F_C_0040_08GFJPCMMD_0040Rotation_003F_0024AA_0040": "Rotation"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsShapeType* @object, Tracker* state)
 	{
-		if (node != null)
+		if (node == null)
 		{
-			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040), null);
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040OIHFNOAG_0040Translation_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
 			if (ptr != null)
 			{
-				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
-				((float*)@object)[2] = (float)atof(ptr2);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+				Relo_002ETracker_002EPush(state, (void**)@object, 12u, 1u);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out VectorHack vectorHack);
+				Marshaler_002EMarshal(ptr, (Vector3*)(int)(*(uint*)@object), state, &vectorHack);
+				((int*)((byte*)state + 4))[1] += -4;
 			}
-			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040MPLIKECK_0040HalfLength_003F_0024AA_0040), null);
-			if (ptr3 != null)
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08GFJPCMMD_0040Rotation_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr2 = (INode*)(int)(*(uint*)num2);
+			Quaternion** ptr3 = (Quaternion**)((byte*)@object + 4);
+			if (ptr2 != null)
 			{
-				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
-				((float*)@object)[3] = (float)atof(ptr4);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+				Relo_002ETracker_002EPush(state, (void**)ptr3, 16u, 1u);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out VectorHack vectorHack2);
+				Marshaler_002EMarshal(ptr2, (Quaternion*)(int)(*(uint*)ptr3), state, &vectorHack2);
+				((int*)((byte*)state + 4))[1] += -4;
 			}
-			Marshaler_002EMarshal(node, (DynamicsShapeType*)@object, state);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+			throw;
+		}
+		if (*(int*)(&nodeHolder2) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
 		}
 	}
 

@@ -1,29 +1,23 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98316; body SHA256 e62d194b233ea3a901514aff3ce1e6888c2938ed3076f6f5e7e7282906721259
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51651; body SHA256 06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADynamicsBoxShapeType_003E(void** table, List_003CSageBinaryData_003A_003ADynamicsBoxShapeType_003E* list, Tracker* tracker)
+internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)
 	{
-		uint objectCount = (uint)(*(int*)list + 1);
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
-		((int*)ptr)[1] = 1564774360;
-		*(int*)ptr = 1820487795;
-		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		uint num = 0u;
-		if (0u < (uint)(*(int*)list))
+		BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)target + 2);
+		uint num = 15u;
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+		do
 		{
-			List_003CSageBinaryData_003A_003ADynamicsBoxShapeType_003E* ptr2 = (List_003CSageBinaryData_003A_003ADynamicsBoxShapeType_003E*)((byte*)list + 4);
-			int num2 = 0;
-			do
+			if (*(bool*)endian)
 			{
-				((int*)ptr)[1] = 0;
-				*(int*)ptr = -1320050453;
-				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsBoxShapeType*)(num2 + *(int*)ptr2), tracker);
-				num++;
-				num2 += 24;
-				ptr = (ProcTableElement*)((byte*)ptr + 12);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr;
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr - 1);
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr - 2);
+				*(uint*)((byte*)ptr - 2) = num2;
 			}
-			while (num < (uint)(*(int*)list));
+			ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)ptr + 4);
+			num--;
 		}
-		((int*)((byte*)tracker + 4))[1] += -4;
+		while (num != 0);
 	}
 

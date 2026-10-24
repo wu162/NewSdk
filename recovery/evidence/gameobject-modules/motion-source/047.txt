@@ -1,15 +1,15 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 12970; body SHA256 5b45cf5946e45be7eac555e742e5d965d70428a65ce75a3618ed536c223e1fe7
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 80729; body SHA256 444e1f38325bfa6a8f33b59960f71b9a72401478f0598bbb2a8bfea9ed100c2d
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect(uint* @object, EndianHelper* endian)
+internal unsafe static void Tokenizer_002ETokenize(void** table, CollideModuleData* @object, Tracker* state)
 	{
-		if (*(bool*)endian)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
-			*(sbyte*)(&num) = ((sbyte*)@object)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
-			*@object = num;
-		}
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1525845350;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
 	}
 

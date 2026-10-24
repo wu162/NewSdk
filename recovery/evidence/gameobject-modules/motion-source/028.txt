@@ -1,9 +1,53 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58400; body SHA256 24d72239a0f12838d606c2b045f08d288d075f8294d68c53d85104cc6ad41b07
-// Literals: {}
-internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABalloonProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(INode* node, ProjectileMoveBase** pointer, Tracker* tracker)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39718; body SHA256 c778f8ea50d55645a9edb0337c8639c44f5cd7550c8f975c0ab2210edb31c3d0
+// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_04JJCPFEAC_0040100_003F_0024CF_003F_0024AA_0040": "100%", "_003F_003F_C_0040_02CFEEGNNO_00400d_003F_0024AA_0040": "0d", "_003F_003F_C_0040_0N_0040FJCOIFIG_0040Acceleration_003F_0024AA_0040": "Acceleration", "_003F_003F_C_0040_0BB_0040NCCAGJGG_0040TerminalVelocity_003F_0024AA_0040": "TerminalVelocity", "_003F_003F_C_0040_0N_0040EPOBJLPD_0040InitialSpeed_003F_0024AA_0040": "InitialSpeed", "_003F_003F_C_0040_0BH_0040GLJCFJPM_0040RotationSpeedPerSecond_003F_0024AA_0040": "RotationSpeedPerSecond", "_003F_003F_C_0040_03HGGCNMPL_004090d_003F_0024AA_0040": "90d", "_003F_003F_C_0040_0BB_0040LHAHBEOO_0040TerminalRotation_003F_0024AA_0040": "TerminalRotation", "_003F_003F_C_0040_0BH_0040DIPMNDKI_0040ForwardVelocityDamping_003F_0024AA_0040": "ForwardVelocityDamping"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ProjectileMoveToGroundData* @object, Tracker* state)
 	{
-		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
-		((int*)((byte*)tracker + 4))[1] += -4;
-		*(int*)intPtr = 442194537;
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040EPOBJLPD_0040InitialSpeed_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[1] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040FJCOIFIG_0040Acceleration_003F_0024AA_0040), null);
+			if (ptr3 != null)
+			{
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((float*)@object)[2] = (float)atof(ptr4);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040NCCAGJGG_0040TerminalVelocity_003F_0024AA_0040), null);
+			if (ptr5 != null)
+			{
+				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+				((float*)@object)[3] = (float)atof(ptr6);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
+			}
+			IValue* ptr7 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040GLJCFJPM_0040RotationSpeedPerSecond_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CFEEGNNO_00400d_003F_0024AA_0040));
+			if (ptr7 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr7)))((nint)ptr7);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out AngleTag angleTag);
+				DataInitializers_002EInitialize((float*)@object + 4, text, &angleTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr7 + 4)))((nint)ptr7);
+			}
+			IValue* ptr8 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040LHAHBEOO_0040TerminalRotation_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03HGGCNMPL_004090d_003F_0024AA_0040));
+			if (ptr8 != null)
+			{
+				sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr8)))((nint)ptr8);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out AngleTag angleTag2);
+				DataInitializers_002EInitialize((float*)@object + 5, text2, &angleTag2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr8 + 4)))((nint)ptr8);
+			}
+			IValue* ptr9 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040DIPMNDKI_0040ForwardVelocityDamping_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04JJCPFEAC_0040100_003F_0024CF_003F_0024AA_0040));
+			if (ptr9 != null)
+			{
+				sbyte* ptr10 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr9)))((nint)ptr9);
+				((float*)@object)[6] = (float)atof(ptr10) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr9 + 4)))((nint)ptr9);
+			}
+		}
 	}
 

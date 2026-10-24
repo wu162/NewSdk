@@ -1,13 +1,27 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 59049; body SHA256 11a37b1d9615429fd1c69a9a19c46feb515ea1b2b54990dc11ab429673d4e9de
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58952; body SHA256 b089bbcfcc5baeb64048949fc07fe77c3e77b7c742d5dbf5d2c5ce0fb6352986
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AIntuitiveCollisionType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, IntuitiveCollisionType* @object, Tracker* state)
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADynamicsBoxShapeType_003E(List_003CSageBinaryData_003A_003ADynamicsBoxShapeType_003E* list, EndianHelper* endian)
 	{
-		if (value != null)
+		int num = ((int*)list)[1];
+		DynamicsBoxShapeType* ptr = (DynamicsBoxShapeType*)num;
+		DynamicsBoxShapeType* ptr2 = (DynamicsBoxShapeType*)(*(int*)list * 24 + num);
+		if (ptr != ptr2)
 		{
-			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4IntuitiveCollisionType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4IntuitiveCollisionType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 3u);
-			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
-			*@object = (IntuitiveCollisionType)num;
-			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (DynamicsBoxShapeType*)((byte*)ptr + 24);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
 		}
 	}
 

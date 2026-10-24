@@ -1,15 +1,10 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 94892; body SHA256 fd1d09dca5d3afc799064010db41cb8f1dc3cda83a0fb6345f9a73729b6556fd
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58392; body SHA256 51392b76618e405ab3aa0d4cb9fd0e513c1984ac0e8475512e0d7f649d55b541
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, ProjectileMoveBase* @object, Tracker* state)
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(INode* node, ProjectileMoveBase** pointer, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
-		*(int*)ptr = 430981792;
-		((int*)ptr)[1] = 602296504;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		ProjectileMoveToGroundData* ptr = (ProjectileMoveToGroundData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 28u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2022277642;
 	}
 

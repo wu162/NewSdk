@@ -1,27 +1,27 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58902; body SHA256 4d8774e738238f7970164788e98641188190c5eaae9220809fa67ab9b92ed044
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77621; body SHA256 d134cb2908ac36f5053e7da28a81d482aff4265390f49fc7762c306ddca61ce6
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADynamicsSphereShapeType_003E(List_003CSageBinaryData_003A_003ADynamicsSphereShapeType_003E* list, EndianHelper* endian)
+internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsCylinderShapeType* @object, Tracker* state)
 	{
-		int num = ((int*)list)[1];
-		DynamicsSphereShapeType* ptr = (DynamicsSphereShapeType*)num;
-		DynamicsSphereShapeType* ptr2 = (DynamicsSphereShapeType*)(*(int*)list * 12 + num);
-		if (ptr != ptr2)
-		{
-			do
-			{
-				Marshaler_002EEndianCorrect(ptr, endian);
-				ptr = (DynamicsSphereShapeType*)((byte*)ptr + 12);
-			}
-			while (ptr != ptr2);
-		}
-		if (*(bool*)endian)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
-			*(sbyte*)(&num2) = ((sbyte*)list)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
-			*(uint*)list = num2;
-		}
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 5u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 977547402;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsShapeType*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1328662213;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2026757801;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1800093031;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 16, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
 	}
 

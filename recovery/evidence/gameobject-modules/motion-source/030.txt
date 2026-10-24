@@ -1,35 +1,31 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58471; body SHA256 0efb738d88d53a29f6ca937186055612d7aee8b33bffdb054fc0fe6be455b102
-// Literals: {}
-internal unsafe static void Marshaler_002EMarshalSinglePolymorphic_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(INode* node, ProjectileMoveBase** target, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39836; body SHA256 0b3d7f275be2864798e8b5f1edec1f060324bc84aef2724c444f678e400653a0
+// Literals: {"_003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040": "1.0", "_003F_003F_C_0040_05CFMCGLCK_0040Range_003F_0024AA_0040": "Range", "_003F_003F_C_0040_08LIFBEL_0040Velocity_003F_0024AA_0040": "Velocity", "_003F_003F_C_0040_07JMGDFJEK_0040Gravity_003F_0024AA_0040": "Gravity", "_003F_003F_C_0040_04HMIIHGGM_0040Path_003F_0024AA_0040": "Path"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, BezierSplineProjectileData* @object, Tracker* state)
 	{
-		if (node == null)
+		if (node != null)
 		{
-			return;
-		}
-		IList* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, null);
-		if (ptr == null)
-		{
-			return;
-		}
-		if (((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)ptr + 8)))((nint)ptr) == 1)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
-			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr, &nodeHolder);
-			try
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08LIFBEL_0040Velocity_003F_0024AA_0040), null);
+			if (ptr != null)
 			{
-				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), target, state);
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[1] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
 			}
-			catch
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05CFMCGLCK_0040Range_003F_0024AA_0040), null);
+			if (ptr3 != null)
 			{
-				//try-fault
-				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
-				throw;
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((float*)@object)[2] = (float)atof(ptr4);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
 			}
-			if (*(int*)(&nodeHolder) != 0)
+			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07JMGDFJEK_0040Gravity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040));
+			if (ptr5 != null)
 			{
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+				((float*)@object)[3] = (float)atof(ptr6);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
 			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AProjectilePath_002Cclass_0020ProjectilePath_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04HMIIHGGM_0040Path_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AProjectilePath_002CProjectilePath_003E_0020_003E*)((byte*)@object + 16), state);
 		}
-		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 12)))((nint)ptr);
 	}
 

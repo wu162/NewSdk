@@ -1,31 +1,29 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77684; body SHA256 17a56a5adbc904c8521055708bf1dd4c9e2e7f5339094ad471c30d56f4f8859c
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98343; body SHA256 190f59f41ff13da97466af3f42eadc47f1309b770fe38398d9bcffa62b64424f
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsBoxShapeType* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADynamicsCylinderShapeType_003E(void** table, List_003CSageBinaryData_003A_003ADynamicsCylinderShapeType_003E* list, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 6u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = 977547402;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsShapeType*)@object, state);
+		uint objectCount = (uint)(*(int*)list + 1);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
+		((int*)ptr)[1] = 1564774360;
+		*(int*)ptr = 1820487795;
+		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
 		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -1011490140;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -959884833;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -1063090356;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 16, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -1800093031;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 20, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		uint num = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			List_003CSageBinaryData_003A_003ADynamicsCylinderShapeType_003E* ptr2 = (List_003CSageBinaryData_003A_003ADynamicsCylinderShapeType_003E*)((byte*)list + 4);
+			int num2 = 0;
+			do
+			{
+				((int*)ptr)[1] = 0;
+				*(int*)ptr = -1320050453;
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsCylinderShapeType*)(num2 + *(int*)ptr2), tracker);
+				num++;
+				num2 += 20;
+				ptr = (ProcTableElement*)((byte*)ptr + 12);
+			}
+			while (num < (uint)(*(int*)list));
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
 	}
 

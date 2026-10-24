@@ -1,16 +1,10 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 101467; body SHA256 9b67c16c1ba2cf1ffb978840a6a1bbf831d0da1b85fe273323a50394495588e9
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58384; body SHA256 2464bd158cecd86506176bc8544c5c23d55020ad4a74c9b15a11569111cd44c0
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABalloonProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(void** table, ProjectileMoveBase** pointer, Tracker* tracker)
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABezierSplineProjectileData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(INode* node, ProjectileMoveBase** pointer, Tracker* tracker)
 	{
-		BalloonProjectileMoveToGroundData* ptr = (BalloonProjectileMoveToGroundData*)(int)(*(uint*)pointer);
-		ProcTableElement* ptr2 = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, 2u);
-		*(int*)ptr2 = 1;
-		((int*)ptr2)[1] = -1412321142;
-		Tokenizer_002ETokenize((void**)((byte*)ptr2 + 8), (ProjectileMoveBase*)ptr, tracker);
-		ptr2 = (ProcTableElement*)((byte*)ptr2 + 12);
-		*(int*)ptr2 = 0;
-		((int*)ptr2)[1] = 0;
-		((int*)ptr2)[2] = 0;
+		BezierSplineProjectileData* ptr = (BezierSplineProjectileData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 24u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
 		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1282455164;
 	}
 

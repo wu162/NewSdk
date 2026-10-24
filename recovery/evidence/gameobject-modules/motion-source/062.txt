@@ -1,23 +1,29 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77663; body SHA256 ece7c9c720def9625a452d21a8190ca73fc9f393fafe3e7bf4a36f14126ff676
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98370; body SHA256 ba85d9e2c71bac898d2ac194333dd7baa8dbc8040eae2dbd5f97c3e2691ae5f7
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsCapsuleShapeType* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADynamicsTriangleShapeType_003E(void** table, List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* list, Tracker* tracker)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = 977547402;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsShapeType*)@object, state);
+		uint objectCount = (uint)(*(int*)list + 1);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
+		((int*)ptr)[1] = 1564774360;
+		*(int*)ptr = 1820487795;
+		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
 		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 1328662213;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -2026757801;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		uint num = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* ptr2 = (List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E*)((byte*)list + 4);
+			int num2 = 0;
+			do
+			{
+				((int*)ptr)[1] = 0;
+				*(int*)ptr = -1320050453;
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsTriangleShapeType*)(num2 + *(int*)ptr2), tracker);
+				num++;
+				num2 += 48;
+				ptr = (ProcTableElement*)((byte*)ptr + 12);
+			}
+			while (num < (uint)(*(int*)list));
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
 	}
 
