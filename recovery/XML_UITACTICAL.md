@@ -1,6 +1,8 @@
 # Tactical mouse UI component
 
-Implementation checkpoint: component differential pending; SDK real compilation explicitly prohibited for this round. No SDK plugin route or existing82-root SDK catalog is changed.
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计64952 fixtures、389712数组比较、4416拒绝。
+
+Implementation checkpoint: component differential accepted; SDK real compilation explicitly prohibited for this round. No SDK plugin route or existing82-root SDK catalog is changed.
 
 51 complete roots:20 tactical commands plus31 tactical buttons/tabs/navigation roots. Precise original type IDs/hashes/schemaGlobal are in catalog/XmluitacticalTypes.json. All51 appear in unchanged CnC3Types.xsd global asset choices. Full source-derived layouts are in src/Native/XmluitacticalLayouts.inc, original Module/Plugin/Tracker/Marshal/Endian evidence in evidence/xml-uitactical/source-methods.json. Fixed Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea, Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b and original DLL SHA256d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6 remain unchanged. No original compiler is used by recovered code.
 
@@ -74,11 +76,11 @@ Absent enums remain zero unless source supplies defaults. Unknown ProductionQueu
 
 ## Full component differential
 
-scripts/TestXmluitactical.ps1 runs/Od and/O2, four platforms0/1/2/99, fixed-original ProcessInstance and direct CompileXml three-array exact comparisons, all51 root defaults/full values, every field/parser/enum member/NUL/ANSI case, all nullable-present/absent/empty states and six list families at counts0/1/2/3/4/15/16/27/28/29/64/257. Both nullable Filter paths additionally cover complete KindOf and ObjectStatus vocabularies, bitset sign/ALL/unknown forms, status-pointer allocation and IncludeThing/ExcludeThing lists with ANSI/NUL hashes. Native layout/enum syntax and source-selector/Tracker-size checks pass locally; Windows results remain authoritative.
+scripts/TestXmluitactical.ps1 runs/Od and/O2, four platforms0/1/2/99, fixed-original ProcessInstance and direct CompileXml three-array exact comparisons, all51 root defaults/full values, every field/parser/enum member/NUL/ANSI case, all nullable-present/absent/empty states and eight list families at counts0/1/2/3/4/15/16/27/28/29/64/257. Both nullable Filter paths additionally cover complete KindOf and ObjectStatus vocabularies, bitset sign/ALL/unknown forms, status-pointer allocation and IncludeThing/ExcludeThing lists with ANSI/NUL hashes. Native layout/enum syntax and source-selector/Tracker-size checks pass locally; Windows results remain authoritative.
 
 Independent ABI checks preserve source-grounded sizes, complete seven-reference Attack field/value/offset set, block/index import ordering, String counts and payload order, derived nullable allocation order, list strides and exact pointers, enum unknown defaults, packed booleans and filter112 allocation. Generic side arrays enforce sentinel/alignment/bounds/unique addresses, never assume global field-address order; original QuickSort equal-key behavior remains covered by exact arrays including duplicate IDs and list boundaries. Unknown root/attrs/children/namespaces, qualified attrs, unexpected text and duplicate singleton children reject explicitly. Unqualified BAB TypeId metadata is accepted.
 
-SDK remains pending by explicit user instruction. Component/combined DLL evidence cannot be presented as SDK support; the existing82-root SDK route is frozen. Next independent UI groups include QuickChatDisplay, GroupSelection/LookAt/Telestrator, not partial subsets of the51 completed roots.
+SDK remains pending by explicit user instruction. Component/combined DLL evidence cannot be presented as SDK support; the existing82-root SDK route is frozen. QuickChatDisplay is accepted in the separate uichat group; GroupSelection/LookAt/Telestrator are included in these51 completed roots. Choose genuinely unrestored groups from the main handoff.
 
 
 ## Navigation addition and local C-string review

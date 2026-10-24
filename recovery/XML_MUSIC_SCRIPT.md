@@ -1,5 +1,7 @@
 # MusicScript condition / track family — component only
 
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计92744 fixtures、556464数组比较、1016拒绝。
+
 完整21个原XmlCompiler独立入口：MusicScriptConditionNuggetBase、MusicScriptConditionExpensiveNuggetBase、18个具体条件/逻辑节点及MusicScriptTrack（精确列表与TypeId/TypeHash见catalog/XmlmusicscriptTypes.json）。两Base是原schema抽象、无全局声明，schemaGlobal=false，其余19global。本轮仅组件恢复，不运行SDK、不改活跃82入口插件路由，不称SDK已支持。
 
 ## 原证据和完整布局
@@ -25,5 +27,5 @@ Filter只允许原ObjectFilter的id、Rule、Relationship、Alignment、Include�
 
 TestXmlmusicscript.ps1编本组+Relo/Scalar/Resource/EnumBitset/ObjectFilter，三份C# Oracle/Cases/FilterCases。完整/Od、/O2，平台0/1/2/99，原ProcessInstance三数组逐字节和CompileXml另三数组。全部21根缺省独立字节ABI；所有字段/原枚举值/未知回退/nullable/ref/原CRT和TimeTag/ANSI/DOM NUL；所有457 ModelCondition枚举（两个inline字段）、284 KindOf（两Filter路径的Include/Exclude）、223 ObjectStatus（两路径status正/排除）、Rule/Relationship/Alignment及NUL后缀/leading NUL；两Filter完整Thing/status分配，长度跨28/29/30/31/32/65/129；逻辑/Timeout长列表；每根128轮完整组合及显式拒绝。
 
-本地g++ -Wall/-Wextra/-Werror语法及三C#词法结构检查通过。Windows完整矩阵仍待主代理统一执行，证据目录evidence/xml-musicscript/validation.json与两优化日志；最终须核sourceCommit/runId和实际终态。此未验证检查点不计入已验收数量，无任何真实SDK编译、SDK输入或正式路由变更。
+本地g++ -Wall/-Wextra/-Werror语法及三C#词法结构检查通过。Windows完整矩阵已通过最终主分支统一运行，证据目录evidence/xml-musicscript/validation.json与两优化日志；最终须核sourceCommit/runId和实际终态。本组已计入组件183入口，无任何真实SDK编译、SDK输入或正式路由变更。
 

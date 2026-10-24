@@ -1,6 +1,6 @@
-# 下一轮：五根战术UI热键完整能力组
+# 已实施：五根战术UI热键原始续接笔记
 
-2026-10-24只读取证；**尚未实现、未运行差分或SDK，不计入已验收82入口**。唯一资产依赖HotKeySlot已恢复，无Joypad依赖。继续时先核远程头及XMLCOMPILER_PRIORITY.md，再按这些锚点定点读原方法，不把本笔记当成功证据。
+2026-10-24原始取证，已于2026-10-25完成组件实现及完整差分（源码d9908f5，运行40132543491）。**SDK尚未运行，仍未加入活跃SDK路由**。详见XML_TACTICAL_HOTKEYS.md；以下保留原取证锚点，不再是待恢复任务。唯一资产依赖HotKeySlot已恢复，无Joypad依赖。继续时先核远程头及XMLCOMPILER_PRIORITY.md，再按这些锚点定点读原方法，不把本笔记当成功证据。
 
 固定原Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`，Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`。以下行号为完整原Module或Plugin；parts在 evidence/xml-source/parts，索引为 evidence/xml-source/method-index.txt。
 
@@ -58,4 +58,4 @@ ToggleRepairMode, ViewHomeBase, ViewLastEvaEvent, WaypointMode
 
 合法非空样例中Gate项需ElementId/HotKeySlot，BuildQueuePage需QueueType，StanceSettings需Stance；引用可复用RecoveryUiHotKey。仍需逐项schema验证，不放宽原约束。
 
-没有已知布局或依赖阻塞，但尚未写实现。按完整五根一批补Native/Bridge、全部enum与47字段引用边界、缺省/未知/NUL/ANSI、list增长与跨list分配顺序、独立ABI和拒绝矩阵；完成后统一/Od、/O2、四平台三数组原DLL对照及联合SDK验收。同步Plugin/catalog/联合根数量/固定SDK覆盖清单，不用联合smoke替代完整组矩阵。
+以下为已完成组件实现时的要求；未来SDK批次仍须另行获准真实编译。按完整五根一批补Native/Bridge、全部enum与47字段引用边界、缺省/未知/NUL/ANSI、list增长与跨list分配顺序、独立ABI和拒绝矩阵；完成后统一/Od、/O2、四平台三数组原DLL对照及联合SDK验收。同步Plugin/catalog/联合根数量/固定SDK覆盖清单，不用联合smoke替代完整组矩阵。

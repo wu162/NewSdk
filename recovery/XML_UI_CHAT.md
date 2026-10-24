@@ -1,6 +1,8 @@
 # UI chat: three-root component
 
-2026-10-25（北京时间）。完整源码与组件差分矩阵准备，Windows待统一验证。本轮用户禁止真实SDK编译，未接SDK活跃Plugin、未改SDK配置；三根仅候选组件，不增加SDK82计数。
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计4072 fixtures、24432数组比较、336拒绝。
+
+2026-10-25（北京时间）。完整源码与组件差分矩阵准备，Windows组件完整验证已通过。本轮用户禁止真实SDK编译，未接SDK活跃Plugin、未改SDK配置；三根仅候选组件，不增加SDK82计数。
 
 固定原Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea、Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b、DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。复用原方法索引与小块缓存，仅按必要方法扩展依赖，无原DLL回调。
 

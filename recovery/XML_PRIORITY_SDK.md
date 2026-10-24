@@ -1,5 +1,7 @@
 # XmlCompiler SDK：82入口最终验收
 
+2026-10-25状态说明：本页仅记录旧82入口及旧DLL的历史SDK基线。本轮用户禁止SDK真实编译，实际0次；新增101入口仅组件验收，当前183入口联合DLL尚未SDK验收。主Plugin/SDK路由与本页旧证据不变，不能把下列历史结果用于宣称新联合DLL已集成。当前状态见XMLCOMPILER_PRIORITY.md。
+
 [SDK运行40098695436](https://github.com/wu162/NewSdk/actions/runs/40098695436)，源码 `92180f9bbd830b9dbd49a696c259e54ffe2d7721`，completed/success。最终十四组组件及联合DLL：[40099095351](https://github.com/wu162/NewSdk/actions/runs/40099095351)，源码 `e7580311f36811265e6ed5af5a184ef623f31284`，completed/success。
 
 两个源码锚点间仅UI组件Oracle的独立断言发生变化；recovery/src、recovery/sdk、recovery/scripts、原SDK、.github子树及SDK Oracle的Git对象相同，详见 `evidence/xml-priority-acceptance.json`。未重复运行未受影响的SDK；不把旧源码结果冒充新实现验收。

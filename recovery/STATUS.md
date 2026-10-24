@@ -725,3 +725,10 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固定资产，Reduced159/FullMymod162实际调用，各原版与隔离恢复版477/486数组比较，四产物一致，完整7 Includes保留，两原DLL不变。SDK后仅UI Oracle断言修改，src/sdk/scripts/原SDK/.github及SDK Oracle Git对象完全相同，复用有精确证据。历史失败40098375480/40098375483/40098695441保留，最终以成功锚点为准。
 
 源码分支父历史全部合并，无强推。GameObject与Joypad命名根继续排除；不是完整301入口/Tokenizer替代。精确矩阵、限制和下一轮五根战术UI热键证据见XMLCOMPILER_PRIORITY.md、XML_PRIORITY_SDK.md、XML_TACTICAL_HOTKEYS_NEXT.md及evidence/xml-priority-acceptance.json。
+
+
+## 2026-10-25：101新增组件，183入口差分通过；SDK0
+
+用户要求一小时/最多3子代理/本轮禁止SDK真实编译。七组新增101：tacticalhotkeys5、uichat3、uidecals4、singlesound10、pathmusic7、musicscript21、uitactical51。最终源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success，21完整组/Od/O2/四平台与183入口联合DLL全过。645344 fixtures、3423096数组比较（含direct）、22704拒绝；联合每模式732/2196与40/120 completion，实际退出0。
+
+首轮40132183077真实LookAt三个100%默认值漏失已按原静态symbol修正，加defaults/partial独立ABI；历史失败保留。SDK真实编译0次，SDK工作流最近仍40098695436。主Plugin/SDK配置/scripts/oracle/probe/SDK工作流及原82SDK清单未改，保护SHA见evidence/xml-component-acceptance-20261025.json。新增101全部sdkValidated=false，原82历史SDK证据不冒充当前183联合DLL验收；原SDK未替换。下一轮按XMLCOMPILER_PRIORITY.md选择新的完整组，或仅在明确获准SDK时批量集成新增能力。

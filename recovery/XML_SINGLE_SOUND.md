@@ -1,5 +1,7 @@
 # Single-sound family — component-only recovery
 
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计82744 fixtures、496464数组比较、2672拒绝。
+
 本批完整十入口：BaseAudioEventInfo、BaseSingleSound、AudioEvent、MusicTrack、MP3MusicTrack、DialogEvent、MP3DialogEvent、AmbientStream、MP3AmbientStream、Multisound。BaseAudioEventInfo和BaseSingleSound是原schema抽象类型，无全局资产声明，仍有原Plugin独立入口；前者也没有任何Marshal字段。Catalog分别标schemaGlobal=false。此批未接入正式SDK路由，未运行真实SDK编译，不能称SDK已支持。
 
 ## 固定原版证据
@@ -38,5 +40,5 @@
 
 组件矩阵/Od、/O2，平台0/1/2/99，每个原ProcessInstance对照Instance/Relocation/Imports三数组，另CompileXml直接3数组对照。全部根缺省独立逐字节布局；所有inline/nullable/range字段边界、全部枚举/位集、全部列表/nullable缺失与present-empty、六Filename引用路径、长列表跨28/29/30/31/32/65排序边界、128轮完整继承图及Multisound、独立stride/指针/enumfallback/ALLpadding断言和拒绝矩阵。DOM构造embedded NUL，覆盖C字符串边界；另含ANSI/非ASCII后缀、空白、旧CRT浮点/整数行为。
 
-本地g++语法检查、C#词法结构检查通过；Windows完整矩阵待主代理统一运行。证据将写evidence/xml-singlesound/validation.json与两优化日志，最终应核实际sourceCommit/runId及成功终态。当前不计入已验收82，未验证检查点不冒充完成。
+本地g++语法检查、C#词法结构检查通过；Windows完整矩阵已通过最终统一运行。证据将写evidence/xml-singlesound/validation.json与两优化日志，最终应核实际sourceCommit/runId及成功终态。本组已计入组件183，不计入SDK历史82，未验证检查点不冒充完成。
 

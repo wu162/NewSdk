@@ -1,6 +1,8 @@
 # Tactical UI hotkeys: five-root component
 
-2026-10-25（北京时间）。源码和完整差分矩阵准备；Windows验证待集成代理统一运行。本轮用户禁止真实SDK编译，因此不改SDK活跃路由、不增加SDK支持82计数。本组五根只标组件候选。
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计10464 fixtures、62784数组比较、400拒绝。
+
+2026-10-25（北京时间）。源码和完整差分矩阵已通过最终Windows统一运行。本轮用户禁止真实SDK编译，因此不改SDK活跃路由、不增加SDK支持82计数。本组五根已组件验收，SDK仍待验证。
 
 原证据完整锚点见 XML_TACTICAL_HOTKEYS_NEXT.md。固定 Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea、Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b，原DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。本轮复用上轮已完整核对的Marshal/Endian/Tracker/dispatch/schema取证与缓存，未重下大型反编译。
 

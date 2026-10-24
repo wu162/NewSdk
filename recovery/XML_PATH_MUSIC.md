@@ -1,5 +1,7 @@
 # PathMusic XmlCompiler entries — component only
 
+组件最终验收（2026-10-25）：源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success；/Od、/O2及平台0/1/2/99全部通过，183入口联合DLL也通过。用户明确禁止本轮SDK真实编译，实际0次；本组SDK仍待验收，未加入活跃82类SDK路由。精确汇总见evidence/xml-component-acceptance-20261025.json。 本组两模式合计15968 fixtures、95808数组比较、384拒绝。
+
 本组完整七个原Plugin独立入口：PathMusicGameDynamicState、PathMusicGameDynamicStateSet、PathMusicGameDynamicTransition、PathMusicEventRuntime、PathMusicEventSet、PathMusicMapRuntime、MusicPalette。后两个Runtime命名入口中的EventRuntime/MapRuntime无原CnC3Types全局声明（源资产PathMusicEvent/PathMusicMap另经专用编译器），catalog标schemaGlobal=false；其余五个为全局XML资产。本轮不运行真实SDK，不改活跃82入口路由，不宣称SDK已集成。
 
 ## 原版证据
@@ -37,5 +39,5 @@ Native/Bridge独立Xmlpathmusic、Oracle/Cases和TestXmlpathmusic.ps1。原DLL�
 
 完整/Od、/O2、平台0/1/2/99，原ProcessInstance三数组逐字节和CompileXml另三数组；全部根缺省独立逐字节ABI，所有字段的缺失/空/非缺省、数值边界、两枚举所有值和未知回退、所有strong/weak/nullable引用与分配、列表长度0/1/2/3/7/28/29/30/31/32/65/129，256轮完整每根组合，输入拒绝矩阵。DOM构造NUL覆盖enum strcmp、hash及reference C字符串终止，ANSI/非ASCII值和大小写hash不变性；Map no-op有非空文本、CDATA和NUL的直接原版对照。
 
-本地g++ -Wall/-Wextra/-Werror语法检查和C#词法结构检查通过。Windows完整矩阵待主代理统一运行，结果写evidence/xml-pathmusic/validation.json与两优化日志；最终须核sourceCommit/runId及实际成功终态。此检查点不计入已验收82，不运行SDK，也不把组件结果冒充SDK支持。
+本地g++ -Wall/-Wextra/-Werror语法检查和C#词法结构检查通过。Windows完整矩阵已通过最终统一运行，结果写evidence/xml-pathmusic/validation.json与两优化日志；最终须核sourceCommit/runId及实际成功终态。此检查点不计入已验收82，不运行SDK，也不把组件结果冒充SDK支持。
 

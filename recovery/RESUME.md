@@ -1,13 +1,11 @@
-# XmlCompiler 分支续接
+# XmlCompiler分支续接
 
-更新：2026-10-24（北京时间）。本入口适用于 `recovery/xmlcompiler-priority`；先读AGENTS.md、EFFICIENCY.md，再读 [XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)。
+更新：2026-10-25（北京时间）。目标recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md，再读[XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)。
 
-已验收82/301个原Plugin独立入口，本轮新增30个；80类全局资产，GameStatsModeData/MicrophoneSettings仅嵌套schema。十四组完整/Od、/O2、平台0/1/2/99矩阵与联合DLL运行40099095351成功，组件源码e7580311f36811265e6ed5af5a184ef623f31284。
+组件已验证183/301入口，本轮新增101，七组；完整21组/Od、/O2、平台0/1/2/99及183入口联合DLL运行40132543491成功，源码d9908f57107f11b7ab875ac5787fce2bf23e00a9。合计645344 fixtures、3423096数组比较（含适用CompileXml对照）、22704拒绝；联合两模式均实际退出0。
 
-SDK源码92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功：159资产，Reduced159调用/477比较，FullMymod162调用/486比较，每profile原版和隔离重放均通过、四产物相同。之后仅UI测试断言改动；所有SDK输入/编译器源码树与SDK Oracle的Git SHA相同，精确复用依据见 evidence/xml-priority-acceptance.json。
+用户明确本轮禁止SDK真实编译，实际0次。新增101在catalog/XmlComponentOnlyTypes.json，全部SDK pending。原82类历史SDK清单catalog/XmlRecoveredTypes.json及主Plugin/配置/SDK工作流/原SDK未改，旧SDK成功40098695436只对应旧源码92180f9，不能作为本轮联合DLL的SDK成功。精确证明见evidence/xml-component-acceptance-20261025.json。
 
-下一轮完整能力组：五个战术UI热键根，已只读取证，尚未实现，不计入82。先读 [XML_TACTICAL_HOTKEYS_NEXT.md](XML_TACTICAL_HOTKEYS_NEXT.md)，不要重复调查已核共享helper；未知内容仍须原证据/必要探针核实。
+已实施上一轮五热键笔记，并扩展聊天/贴花/完整单音效/PathMusic/MusicScript/51种战术UI。下一轮先调查未恢复的条件/目标比较、Eva/成就、健康条等连贯完整组，不能重复恢复或把单独计数当总代码进度。若下一轮仍禁SDK，继续组件-only；仅未来明确允许时再批量接新增SDK路由与真实验证。
 
-仅GitHub插件访问仓库，禁止强推；保留并发提交与Actions证据，每10–15分钟保存有意义检查点。按用户授权的一小时工作窗口推进完整组，集中差分/SDK验收，不删样本、不以组件成功冒充SDK成功。
-
-Joypad命名根继续排除；本轮不恢复GameObject或完整Tokenizer，不替换原SDK配置/DLL。GameObject的独立进度在recovery/compiler-source分支，本入口不替代该分支交接。
+每10–15分钟保存可复现检查点；大型原始证据拆小/复用blob，不阻塞可构建代码。用GitHub插件、禁止强推、保留并发证据；完整原DLL差分/独立ABI/拒绝边界不降低。Joypad命名根及GameObject源码不在本分支当前任务范围；不是完整Tokenizer替代。
