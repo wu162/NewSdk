@@ -1,23 +1,6 @@
 {
   "sdkStatus": "not run; original route retained",
-  "modes": [
-    {
-      "mode": "Od",
-      "summary": "PASS recovered GameObject root: fixtures=300060 threeBufferComparisons=900180 refusals=11896 invarianceComparisons=808; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver and complete radar/visibility/Capture group and seven new firing/tracking modules and full three-type beam states, complete four-type Projectile Dynamics Freefall group and Physics Bezier Missile group, complete WeaponSetUpdate, healing/repair, crate and complete eight-type AI Update groups, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
-    },
-    {
-      "mode": "O2",
-      "summary": "PASS recovered GameObject root: fixtures=300060 threeBufferComparisons=900180 refusals=11896 invarianceComparisons=808; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver and complete radar/visibility/Capture group and seven new firing/tracking modules and full three-type beam states, complete four-type Projectile Dynamics Freefall group and Physics Bezier Missile group, complete WeaponSetUpdate, healing/repair, crate and complete eight-type AI Update groups, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run"
-    }
-  ],
-  "sourceCommit": "c7788592d20f1c4fbdc63f422b647595b840253d",
-  "runId": "40077851777",
-  "platforms": [
-    0,
-    1,
-    2,
-    99
-  ],
-  "succeeded": true,
-  "scope": "88 root attributes; thirty-eight child nodes including module containers with 31 complete base-only types plus all seven remaining Body types (all nine XSD Body choices), full DamageRangeModifier and nullable ShieldArmor; all six ClientUpdate types including exact-case Key hash lists and ushort UnitWeight; complete eight-type AI Update family (full AI/Jet/Horde/SupplyTruck/Transport/Animal/Wander/DeployStyle, UnitChooser40/BaseChooser/VisionRange/Filter) and complete eight-type Crate collision/spawn family (base/Money/Unit/Veterancy/Attribute/Random/Salvage/Spawn, strong reference list and nullable BlockingUnits) and complete AutoHealBehavior/RepairUpdate/InitiateRepairDie/HealCrateCollide (full Upgrade/Crate/DieMux, nullable validation/filter, inline percent/audio) and complete WeaponSetUpdate (four slots, sorted WeaponData, full TurretAI/Chooser/VisionRange/ObjectFilter) and complete DamageState and three reactive fire modules and complete Physics/Bezier/Missile group and complete four-type Projectile/Dynamics/Freefall/Collide group (four Movement choices, full Volume/five shapes/Quaternion) and complete three-type beam state group and seven-type firing tracking group and eight-type radar visibility Capture group and TechUpgradeReceiver and SlavedUpdate and four remaining Create modules and three-type Production Update/exit family and twenty-two-type named Upgrade group and seven-type shared Die family and six lifecycle Updates and four sound/EVA selectors and AnimationSound/ModelConditionAudioLoop playback groups (nullable masks/range, signed Frame list and inline masks); unknown fallback (178 other known module types rejected); complete empty ReplaceModule/InheritableModule and complete SkirmishAIInformation dependency group (64 fields, contextual power lists, base criteria, nullable references and filters); AudioArrayVoice (all three lists), AudioArraySound and EvaEventArray; complete raw Geometry with PlacementShape/Shape/ContactPoint lists and Vector2/Vector3; CrusherInfo/ExtraCrushLevels and repeated ProjectedBuildabilityInfo with nullable RadiusY, all masks and AllowedObjectFilter; GameDependency masks/typed lists/ObjectFilter; ObjectResourceInfo/BuildCost (pointer StringLists on XSD-valid text surface); AutoResolve family with nested upgrade lists including visual metadata, leaf structures, repeated lists, ArmorSet and LocomotorSet; other children rejected"
+  "runId": "40078348035",
+  "sourceCommit": "733210317aa82c8ecef155bdb80db8c5f834d396",
+  "succeeded": false
 }
