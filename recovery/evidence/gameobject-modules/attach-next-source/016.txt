@@ -1,0 +1,36 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 de08ec35fad4111d4d8a2107bb7e36108588fbc75e10961bc7d2df0fa258d5f9
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, MoneyGainAttachUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 5u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -369290039;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (AttachUpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1523688535;
+		((int*)ptr)[1] = -1652338421;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 336, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -867382021;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 340, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2130842740;
+		((int*)ptr)[1] = 1049596812;
+		byte* num = (byte*)@object + 344;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (ObjectStatusValidationDataType*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

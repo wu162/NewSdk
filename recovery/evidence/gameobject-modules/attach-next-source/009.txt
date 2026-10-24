@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 8c3d4010a7659367fc63192ed21a041766c1d5ff20798b2ca865285d26b0b0ce
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ALeechTargetingAttachUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		LeechTargetingAttachUpdateModuleData* ptr = (LeechTargetingAttachUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 336u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal(node, (AttachUpdateModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -899663706;
+	}
