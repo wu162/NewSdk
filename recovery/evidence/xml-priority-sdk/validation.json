@@ -1,8 +1,8 @@
 {
-  "succeeded": false,
-  "sourceCommit": "44fc877dd1f88edec6dc174de03d521f5c577fd4",
-  "runId": "40090297467",
-  "status": "failed",
+  "succeeded": true,
+  "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
+  "runId": "40090655209",
+  "status": "Full XSD and negatives; exact original metadata on four platforms; fresh original/recovered Win32 SDK; four identical outputs; actual calls and original-free three-buffer replay",
   "scope": "FXList and FXParticleSystemTemplate only; O2 Win32 real SDK, reduced disposable MOD; not full mymod or other twelve priority types",
   "componentModes": [
     "/Od",
@@ -34,8 +34,34 @@
       "file": "mod.relo",
       "bytes": 180,
       "sha256": "D6D0866A3BA1002DFFEB73D3F12E4CB062F5B36DA131524A5FF95B8E631D955D"
+    },
+    {
+      "mode": "Recovered",
+      "file": "mod.bin",
+      "bytes": 2408,
+      "sha256": "EFF504574D388DBCCCE508B11D3600DEDEA9CCC80D044F60DE7A97172CF1D9B3"
+    },
+    {
+      "mode": "Recovered",
+      "file": "mod.manifest",
+      "bytes": 765,
+      "sha256": "A6838D948A75E514802CD9C8B909568C36295D69B09716DA0FA41B68731FD9D9"
+    },
+    {
+      "mode": "Recovered",
+      "file": "mod.imp",
+      "bytes": 4,
+      "sha256": "0E18253C2D5FFD7E36117A26A234EA10402D6EB8FF99ED7172684156F929452B"
+    },
+    {
+      "mode": "Recovered",
+      "file": "mod.relo",
+      "bytes": 180,
+      "sha256": "D6D0866A3BA1002DFFEB73D3F12E4CB062F5B36DA131524A5FF95B8E631D955D"
     }
   ],
   "originalDllUnchanged": true,
-  "error": "Recovered SDK failed: -1"
+  "probeSha256": "EF71EBD246A0156F82FFF4057CDEA697D63EBBF86BA58AF6E9E9CBF025D32D6E",
+  "compilerSha256": "5B5EB854BD5AF697A1FA79D7430C9DEB7F2CA2EDD6521092A84C6A7322B54E99",
+  "pluginSha256": "2FF19733B5641A848EE541DC246AFFBC26920A63007D0624ECCC33652277B580"
 }

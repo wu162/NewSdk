@@ -1,0 +1,7 @@
+PASS isolated recovered SDK replay FXList/RecoveryXmlPriority_FX_Defaults, bytes=28
+PASS isolated recovered SDK replay FXList/RecoveryXmlPriority_FX_Filters, bytes=564
+PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_Defaults, bytes=176
+PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_Gpu, bytes=524
+PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_Lightning, bytes=524
+PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_RenderObject, bytes=588
+PASS isolated: 6 SDK calls, 18 exact buffer comparisons, six expected assets, isolated=True
