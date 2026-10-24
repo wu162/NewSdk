@@ -59,7 +59,7 @@ internal static class XmlaiPersonalityCases
         var combined=new StringBuilder();
         for(int i=0;i<names.Length;i++) combined.Append(Item(names[i],full[i]));
         combined.Append("<InTroubleSkirmishFeedbackControl OnlyIfLocalPlayerIs='ALLIES -ENEMIES' TimeoutAfterPlaying='250ms' TimeBetweenScans='250ms' TimeThatConditionsMustBeMet='250ms' NumberOfObjectsRecentlyLost='-3' TimeForNumberOfObjectLost='250ms' ObjectLostFilter='Resource\\3' MinPowerAdvantageEnemiesInMyBaseVsAllMyUnits='1.25'/>");
-        combined.Append("<DefaultTacticHomeBaseCriteria/><CountAsStructureForBuildPurposes/>");
+        combined.Append("<DefaultTacticHomeBaseCriteria/><CountAsStructureForBuildPurposesFilter/>");
         yield return Root(combined.ToString());
         foreach(string difficulty in new[]{"","EASY","MEDIUM HARD","ALL","all -EASY","-BRUTAL -BRUTAL","nonsense","+HARD -HARD"}) {
             yield return Root("<UnitCap Difficulty='"+difficulty+"'/><BuildDelay Difficulty='"+difficulty+"'/><OpeningMove Difficulty='"+difficulty+"'/><SpecificUnitCap Difficulty='"+difficulty+"'/>");

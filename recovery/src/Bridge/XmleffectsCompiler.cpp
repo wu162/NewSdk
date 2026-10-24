@@ -78,7 +78,9 @@ public:
         if(child == nullptr) return;
         array<String^>^ axes=rgb ? gcnew array<String^>{"R","G","B"} : gcnew array<String^>{"x","y","z"};
         Attributes(child,axes); Empty(child);
-        for(int i=0;i<3;++i) Field(child,axes[i],rgb ? nullptr : "0.0",offset+4*i,Native::EffectFloat,nullptr,input);
+        String^ fallback = nullptr;
+        if (!rgb) fallback = "0.0";
+        for(int i=0;i<3;++i) Field(child,axes[i],fallback,offset+4*i,Native::EffectFloat,nullptr,input);
     }
 
     static void NuggetRandom(XmlNode^ owner, String^ name, unsigned int offset, Native::XmleffectsNuggetInput& input) {
@@ -197,7 +199,11 @@ public:
                 XmlNode^ color=Child(node,"Color"); Attributes(color,gcnew array<String^>{"R","G","B","A"}); Empty(color);
                 input.hasPackedColor=true;
                 array<String^>^ channels={"R","G","B","A"};
-                for(int i=0;i<4;++i) input.rgba[i]=Attr(color,channels[i],i==3 ? "255" : "0");
+                for(int i=0;i<4;++i) {
+                    String^ fallback = "0";
+                    if(i==3) fallback = "255";
+                    input.rgba[i]=Attr(color,channels[i],fallback);
+                }
             }
             if(Child(node,"Offset")!=nullptr) {
                 XmlNode^ offset=Child(node,"Offset"); Attributes(offset,gcnew array<String^>{"x","y"}); Empty(offset);

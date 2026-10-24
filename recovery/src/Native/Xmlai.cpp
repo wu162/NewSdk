@@ -15,7 +15,7 @@ namespace Recovered { namespace Native {
 namespace {
 using U32=std::uint32_t;
 enum class Kind { Bool,Float,Time,Percent,Signed,Unsigned,Enum,Flags,Status,String,Hash,CaseHash,Reference,Reject };
-enum class ChildKind { List,Sorted,Pointer,Inline,Heuristics,Budget,SingleHeuristic };
+enum class ChildKind { List,Sorted,Pointer,Inline,Heuristics,Budget,SingleHeuristic,ReferenceList,PointerHeuristics };
 struct Field { const char* name; const char* fallback; unsigned offset; Kind kind; bool pointer; const char* enumeration; unsigned bits; int unknown; };
 struct Child { const char* name; const char* type; unsigned offset; ChildKind kind; };
 struct Layout { unsigned size; U32 hash; std::vector<Field> fields; std::vector<Child> children; };
@@ -162,7 +162,18 @@ struct Builder {
         for(const auto& r:layout.children){
             std::vector<const XmlaiNode*> children;for(const auto& c:node.children)if(c.name==r.name)children.push_back(&c);
             auto at=root+r.offset;
-            if(r.kind==ChildKind::List||r.kind==ChildKind::Sorted){
+            if(r.kind==ChildKind::ReferenceList){
+                Word(at,static_cast<U32>(children.size()));
+                if(!children.empty()){
+                    auto p=Allocate(at+4,4,static_cast<unsigned>(children.size()));
+                    for(unsigned i=0;i<children.size();++i){
+                        const auto& c=*children[i];
+                        if(!c.attributes.empty()||!c.children.empty())throw std::invalid_argument("Reference list element must contain only text.");
+                        MarshalReference(data,p+4*i,c.value);
+                    }
+                    data.Pop();
+                }
+            } else if(r.kind==ChildKind::List||r.kind==ChildKind::Sorted){
                 if(r.kind==ChildKind::Sorted){
                     for(auto c:children){auto i=c->attributes.find("Distance");if(i!=c->attributes.end()&&!std::isfinite(ParseFloat(i->second)))throw std::invalid_argument("Nonfinite sorted distance.");}
                     DistanceSort(children);
@@ -180,6 +191,7 @@ struct Builder {
                 if(r.kind==ChildKind::Pointer){unsigned size=std::string(r.type)=="ObjectFilter"?112:Get(r.type).size;auto p=Allocate(at,size);Apply(r.type,c,p,depth+1);data.Pop();}
                 else if(r.kind==ChildKind::Inline)Apply(r.type,c,at,depth+1);
                 else if(r.kind==ChildKind::Heuristics)HeuristicList(c,at,depth+1);
+                else if(r.kind==ChildKind::PointerHeuristics){auto p=Allocate(at,8);HeuristicList(c,p,depth+1);data.Pop();}
                 else if(r.kind==ChildKind::Budget){
                     if(!c.attributes.empty()||!c.value.empty())throw std::invalid_argument("Budget wrapper contents.");
                     for(const auto& item:c.children)if(item.name!="AccountShare")throw std::invalid_argument("Unknown Budget child.");
