@@ -1,7 +1,7 @@
 # XmlCompiler LocomotorTemplate
 
-Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
-Component and the documented fourteen-type SDK batch are accepted; this is not an all-type replacement DLL.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
+Component and the documented 52-entry/51-schema-type SDK batch are accepted; this is not an all-type replacement DLL.
 
 ## Public interface
 

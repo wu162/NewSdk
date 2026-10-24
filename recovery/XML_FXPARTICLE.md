@@ -1,6 +1,6 @@
 # FXParticleSystemTemplate XmlCompiler component
 
-Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 Fixed base commit: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Public interface: Recovered::FXParticleSystemTemplateCompiler::CompileXml(XmlNode^, XmlNamespaceManager^, bool)
 and ProcessInstance(InstanceDeclaration^, TargetPlatform); TypeId 686292351.

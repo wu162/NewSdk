@@ -2,7 +2,7 @@
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Branch: recovery/xmlcompiler-priority (completion work: recovery/xmlcompiler-fxlist-completion).
-Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 
 ## Active interface and exact boundary
 
@@ -156,5 +156,5 @@ with independent bit layout checks on both filters, enum fallbacks, signed
 bitset operations, absent/empty values, repeated typed hash lists at
 0/1/2/27/28/29/64/257 and structural/namespace rejection boundaries.
 The /Od /O2 four-platform full matrix and three-array/direct comparisons remain
-mandatory and passed at the final source above. The fourteen-type SDK plugin and temporary-SDK switch are documented in XML_PRIORITY_SDK.md; original SDK DLLs, public common native helpers and GameObject source remain unchanged.
+mandatory and passed at the final source above. The 52-entry/51-schema-type SDK plugin and temporary-SDK switch are documented in XML_PRIORITY_SDK.md; original SDK DLLs, public common native helpers and GameObject source remain unchanged.
 

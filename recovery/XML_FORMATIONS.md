@@ -1,6 +1,6 @@
 # Formation assistant XmlCompiler group
 
-Checkpoint: implementation and complete component matrices ready; Windows acceptance pending.
+Windows component acceptance passed at source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, run `40095358086` (players job `120876360758`). The complete 14-root players/formation/skirmish group passed `/Od` and `/O2` on platforms 0/1/2/99: 44,760 fixtures, 134,280 three-buffer comparisons, and 984 rejection checks across both modes. SDK acceptance and its exact global-root scope are recorded centrally in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md); standalone GameStatsModeData is component-tested, while SDK coverage uses MultiplayerSettings nesting because the original global schema choice omits it.
 This extends the player/settings component from eight to twelve public root compilers.
 
 | Root | TypeId | TypeHash | Root bytes |

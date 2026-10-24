@@ -1,7 +1,7 @@
 # XmlCompiler attributes group
 
 Fixed baseline ba7a3d6845be5e124d08320cb2c56fda552d9fbe; branch recovery/xmlcompiler-attributes.
-Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 LogicCommandSet first checkpoint dd7a532 had also passed at source3b075e8/run40079501172; final acceptance uses the expanded matrix below.
 
 ## Interfaces
@@ -49,7 +49,7 @@ Final evidence was inspected in recovery/xmlcompiler-priority at recovery/eviden
 
 Each platform in each mode:1179 fixtures,3537 array comparisons,29 rejections,1140 independent layouts. Across both modes:9432 fixtures,28296 array comparisons,232 rejections,9120 layouts.
 Original DLL SHA256=d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6, asserted by the script and preserved in validation.json.
-Fourteen-type formal plugin routing and the current full shipped mymod input passed SDK parity; see XML_PRIORITY_SDK.md. All-type replacement DLL acceptance remains outside this scope.
+52-entry/51-schema-type formal plugin routing and the current full shipped mymod input passed SDK parity; see XML_PRIORITY_SDK.md. All-type replacement DLL acceptance remains outside this scope.
 
 ## Explicit input boundary
 Only asset-namespace roots with matching ea namespace manager and matching ProcessInstance TypeId are routed. Unknown root/nested attributes, unknown/foreign children, nested text-list elements, duplicate singleton GameDependency/ObjectFilter, and non-whitespace structure text are rejected instead of silently dropped. Root metadata id/inheritFrom is accepted as already handled by BAB. Arbitrary schema/preprocessing/inheritance resolution is outside this component. No original DLL is called by recovered compiler implementation; the original is loaded only by the differential oracle.

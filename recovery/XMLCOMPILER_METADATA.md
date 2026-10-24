@@ -1,24 +1,9 @@
-# Original XmlCompiler plugin metadata
+# 原 XmlCompiler metadata 与入口清单
 
-Evidence: original Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`, methods at source lines 38771, 38776 and 38791. Core ExtendedTypeInformation blob `79159bf28b844f8728fba643f760cde3e795621e` has plain public fields and no constructor initializers.
+原Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b；原Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea。52个已恢复入口的精确TypeId、TypeHash、能力组和schemaGlobal标记见 [catalog/XmlRecoveredTypes.json](catalog/XmlRecoveredTypes.json)。原Plugin共301个登记入口，列表中未恢复项不因metadata取证而宣称支持。
 
-`GetAllTypesHash()` returns 1424942948. `GetVersionNumber()` returns 4 for Win32 and unknown platforms, 7 for PlayStation3, 6 for Xbox360. For every listed root, `ProcessingHash = TypeHash ^ GetVersionNumber()`. HasCustomData is explicitly false; Tokenized and UseBuildCache remain their false field defaults. These are XmlCompiler values; Tokenizer metadata must not be substituted.
+GetAllTypesHash=1424942948；GetVersionNumber默认/Win32=4、PS3=7、Xbox360=6；ProcessingHash=TypeHash XOR version；HasCustomData、Tokenized、UseBuildCache默认false。不能套用Tokenizer的版本号或相加规则。
 
-| TypeName | TypeId | TypeHash |
-| --- | ---: | ---: |
-| AIStrategicStateDefinition | 607123156 | 3594381428 |
-| FXParticleSystemTemplate | 686292351 | 1465656250 |
-| AITargetingHeuristic | 926814458 | 2460454737 |
-| SpecialPowerTemplate | 2178440954 | 984303644 |
-| FXList | 2254974584 | 2601721382 |
-| AIMicroManagerData | 2423780215 | 1392447443 |
-| AIBudgetStateDefinition | 2893598307 | 2583631670 |
-| AIStateDefinition | 3239935619 | 50334453 |
-| AttributeModifier | 3319822471 | 4177657499 |
-| AIPersonalityDefinition | 3604279694 | 3409747243 |
-| UpgradeTemplate | 3786401627 | 1334651241 |
-| ObjectCreationList | 3899542881 | 578005457 |
-| LogicCommandSet | 3959844197 | 2330506892 |
-| LocomotorTemplate | 3972178387 | 3392338269 |
+最终源码71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7、SDK运行40095358016：52入口、四平台Initialize/ReInitialize、2928项公开字段/属性/哈希/版本比较、8项未知类型拒绝均通过。原DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。
 
-The current XmlPriority plugin explicitly registers all fourteen roots above. The original and recovered plugin metadata passed 800 field/property/hash comparisons on platforms 0/1/2/99 with Initialize/ReInitialize, plus 8 unknown-type rejection checks. SDK source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, run 40091218796; see XML_PRIORITY_SDK.md for Reduced and FullMymod acceptance.
+独立原Plugin入口不总等于合法全局XSD资产。GameStatsModeData有独立Handler/Tracker/Marshal和完整组件恢复，但CnC3Types全局choice未注册；SDK仅使用其MultiplayerSettings嵌套形式。其他51入口均在原全局choice逐名核对并有实际SDK调用，见 [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md)。

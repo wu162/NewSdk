@@ -3,7 +3,7 @@
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
 Integrated branch: recovery/xmlcompiler-priority.
 
-Latest acceptance (2026-10-24): source `aac2279c99abf4c55d7f4d682b3e68bbe3a77107`, component run [40091218825](https://github.com/wu162/NewSdk/actions/runs/40091218825), /Od and /O2, platforms 0/1/2/99. Fourteen-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40091218796](https://github.com/wu162/NewSdk/actions/runs/40091218796). Full replacement of all XmlCompiler types remains outside this acceptance.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 
 Public classes: Recovered.SpecialPowerTemplateCompiler and Recovered.ObjectCreationListCompiler.
 Both expose CompileXml(XmlNode, XmlNamespaceManager, bool) and
@@ -96,7 +96,7 @@ the original Marshal audit verified 39 CreateObject, 3 Attack, 6 FlingObject,
 Resource references/imports, scalar/endian fields, dynamic strings/hashes,
 nested vectors/ranges, list allocation order and relocations are reconstructed.
 
-Remaining boundaries: full replacement DLLs for all types and additional real-content field coverage are not validated. The current fourteen-type SDK/full-mymod batch is accepted. Prefix-root declarations have not been treated as valid
+Remaining boundaries: full replacement DLLs for all types and additional real-content field coverage are not validated. The current 52-entry/51-schema-type SDK/full-mymod batch is accepted. Prefix-root declarations have not been treated as valid
 ProcessInstance handles; direct CompileXml prefix-navigation and arbitrary
 namespace-manager bindings were not separately tested by this oracle.
 Strict rejection boundaries above remain intentional.
