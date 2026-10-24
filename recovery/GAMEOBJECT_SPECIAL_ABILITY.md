@@ -1,6 +1,6 @@
-# 完整SpecialAbility240与Capture/OCLMonitor（验证中）
+# 完整SpecialAbility240与Capture/OCLMonitor（已验收）
 
-三种完整类型：SpecialAbilityUpdateModuleData2891550594/kind191，CaptureSpecialAbilityUpdateModuleData825858229/kind192，OCLMonitorSpecialAbilityUpdateModuleData3356383339/kind193；native均240。45个完整根属性及nullable CustomAnimAndDuration12@232。未经本组最终Windows矩阵成功不计入219；SDK未运行。
+三种完整类型：SpecialAbilityUpdateModuleData2891550594/kind191，CaptureSpecialAbilityUpdateModuleData825858229/kind192，OCLMonitorSpecialAbilityUpdateModuleData3356383339/kind193；native均240。45个完整根属性及nullable CustomAnimAndDuration12@232。本组三种完整验收后222→225；SDK未运行。
 
 固定原Tokenizer blob6e40a9ed6c9f961d294d49768d911e6a6f354619，19个直接Marshal/Endian/Token/wrapper及Options31/Conditions3/Anim12方法完整指纹见special-ability-source/manifest.json。复用SpecialPower父闭包中的资源/模型枚举/Disabled12/状态223公共helper与Upgrade的Anim12合同，不能因名称相似就继承SpecialPower452或SpecialPowerUpdate24：本类型Marshal直达ModuleData，Token继承Update。两派生类各自增加SpecialAbility父Token层。
 
@@ -10,4 +10,10 @@ SpecialObject弱lowercase typed-ID@60；SpecialObjectAttachToBone String8@64和C
 
 代码分离GameObjectSpecialAbility.h/Runtime.h，45属性依原序统一Marshal/Endian。高kind独立早返回，唯一子节点CustomAnim12严格校验AnimState/Frames/Trigger，拒绝452父的过滤器、声音与其他未知字段。差分3类全部45属性、457单模型枚举、完整31/3/12位表、31×31正词与双负词组合、223状态输入、Anim12、混合模块和0/1/2/27/28/29/65边界；独立240逐字节默认、完整Token/sentinel、String/String/Anim分配与显式空串NUL、强弱引用、符号/uint/booleans、fallback5/0、ALL/XOR/padding的golden均保留，三缓冲区完整矩阵不降标准。
 
-本组加入后225/322为待验收上限，其他97种已知Marshal仍拒绝，58 Token-only fallback保留；实际完成数以最终sourceCommit/runId为准。下一能力组优先SpecialAbility派生的武器/光束/Teleport等，或OCLSpecialPower/Movement；未知原PE表已准备，不要猜表。
+本组已验收，累计225/322，其他97种已知Marshal仍拒绝，58 Token-only fallback保留；实际完成数以最终sourceCommit/runId为准。下一能力组优先SpecialAbility派生的武器/光束/Teleport等，或OCLSpecialPower/Movement；未知原PE表已准备，不要猜表。
+
+## 最终验收
+
+最终共同验收：sourceCommit `b6a1516c1b3dc73a069bf229534dacbb02eef8f3` / GameObject run **40101248219 success**。/Od、/O2各566456 fixtures、1699368三缓冲区逐字节比较、17812拒绝、1580不变性；平台0/1/2/99。两模式合计3398736次缓冲区比较，完整原PE/生成器检查与归档发布均成功。不可变证据：`evidence/gameobject-runs/40101248219-1`；最终根目录快照同步到该树。SDK未运行，原路由保留。
+
+源码a1252b0339664cf41be311ea0c9e6a6d106401b2 / run40100525642的组件步骤两模式均通过，但旧自动证据发布与较早routing运行的共享oracle/validation.json发生rebase冲突，运行终态failure；不能将该终态写成success。未改变恢复逻辑/样本，发布改为独立detached工作树与run-attempt不可变目录，普通pull/rebase/push保留并发证据；本地竞争推送模拟及最终Windows实际归档均通过。最终source与a125之间Native/Bridge/测试/生成器无改动，最终工作流仍完整重跑并通过全部矩阵。

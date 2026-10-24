@@ -1,6 +1,6 @@
 # SpecialPower公共父与Radar子类
 
-本组2026-10-24实现，待完整Windows矩阵验收。此前193种已验收；本组3种未验收，不能提前计数。SDK未运行，原路由保留。
+本组2026-10-24完整验收，193→196；随后所有新增能力组共同完整验收达到225/322。SDK未运行，原路由保留。
 
 | 类型 | TypeId | native | kind |
 |---|---:|---:|---:|
@@ -16,8 +16,12 @@
 
 源码：GameObjectSpecialPowerBase.h（元数据）、GameObjectSpecialPowerBaseRuntime.h（运行）、GenerateSpecialPowerBaseFields.py（指纹/生成检查）。高kind入口独立早返回，Bridge三个Filter走严格ReadDependencyFilter。差分：GameObjectSpecialPowerBaseCases.cs，随原完整矩阵执行，保留三缓冲区、全部既有样本、平台0/1/2/99、两优化模式、独立默认/大小/Token/声音分配/枚举边界与拒绝，覆盖schema顺序不变性、列表0/1/2/27/28/29/65及混合模块。其他126已知Marshal仍拒绝，58 Token-only fallback保留。
 
-验收结果由本组最终sourceCommit/runId补齐，未经成功不能宣称正式DLL或SDK支持。
+本组组件已验收；完整DLL与SDK正式集成尚未完成。
 
 ## 首批验收
 
 源码`8bf01e126379fa964fa04d469774daabed594e34` / GameObject run40096181697 success，基础run40096181708 success。原日志两模式各396080 fixtures、1188240三缓冲区比较、14392拒绝、1104不变性；平台0/1/2/99，78方法/原PE三表默认完整检查成功。两模式合计2376480次缓冲区比较。此时193→196；后续派生组独立等待验收。
+
+## 最终验收
+
+最终共同验收：sourceCommit `b6a1516c1b3dc73a069bf229534dacbb02eef8f3` / GameObject run **40101248219 success**。/Od、/O2各566456 fixtures、1699368三缓冲区逐字节比较、17812拒绝、1580不变性；平台0/1/2/99。两模式合计3398736次缓冲区比较，完整原PE/生成器检查与归档发布均成功。不可变证据：`evidence/gameobject-runs/40101248219-1`；最终根目录快照同步到该树。SDK未运行，原路由保留。

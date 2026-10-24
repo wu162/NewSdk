@@ -1,0 +1,17 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 d0584f7800bcd82975a1827257ab2613aaddccca49f7e6bf494e623ae9d788cd
+// Literals: {"_003F_003F_C_0040_09ELOJLJGK_0040FireDelay_003F_0024AA_0040": "FireDelay", "_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040": "0s"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DelayedWeaponFireSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09ELOJLJGK_0040FireDelay_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 68, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal(node, (WeaponFireSpecialAbilityUpdateModuleData*)@object, state);
+		}
+	}

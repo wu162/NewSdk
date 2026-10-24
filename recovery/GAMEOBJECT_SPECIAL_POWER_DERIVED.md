@@ -1,6 +1,6 @@
-# SpecialPower完整派生组（23种，验证中）
+# SpecialPower完整派生组（23种，已验收）
 
-2026-10-24。11种仅继承SpecialPower452父合同的类型，以及RadarSpy/RadarFreeze、Combine、RecallUnits、CaptureAndGiveCommandSet、TeleportStoredObjects、Invisibility、StoreObjects、GiveProductionBonus、TemporaryOwner、PlayerUpgrade、GrantUpgradeAreaOfEffect。精确TypeId/native/kind/Token count见`evidence/gameobject-modules/special-power-derived-source/manifest.json`；kind165–187。本组未经成功暂不计入196，SDK未运行。
+2026-10-24。11种仅继承SpecialPower452父合同的类型，以及RadarSpy/RadarFreeze、Combine、RecallUnits、CaptureAndGiveCommandSet、TeleportStoredObjects、Invisibility、StoreObjects、GiveProductionBonus、TemporaryOwner、PlayerUpgrade、GrantUpgradeAreaOfEffect。精确TypeId/native/kind/Token count见`evidence/gameobject-modules/special-power-derived-source/manifest.json`；kind165–187。本组完整验收后196→219，最终共同矩阵覆盖本组；SDK未运行。
 
 原blob`6e40a9ed6c9f961d294d49768d911e6a6f354619`；98个直接Marshal/Endian/Token/wrapper及强Upgrade列表helper以完整源码和含尾LF的bodySHA保存，父闭包复用special-power-base-source的78方法。生成器从原source和完整TypeId分派清单逐类核对，不能因native大小相同就猜类型支持。HordeDispatch的原Endian分派直接走SpecialPower父，但自身Token仍增加SpecialPower父层。
 
@@ -10,8 +10,12 @@ PlayerUpgrade的Upgrade与Grant的UpgradeTemplate是重复文本子节点强引�
 
 代码分离GameObjectSpecialPowerDerived.h和Runtime.h。严格Bridge校验保留所有未知字段、命名空间、重复单节点、结构文本和未知子节点拒绝。完整既有/Od、/O2四平台矩阵增加23类所有父字段/模型枚举/三PE枚举/本层字段、过滤器/声音/列表、0/1/2/27/28/29/65分配边界、独立native默认/Token/nullable/强引用/百分比/状态golden和schema顺序不变性。其他103种已知Marshal继续拒绝，58 Token-only fallback保留。
 
-验收sourceCommit/runId待本组最终矩阵补齐。ActivateModule/SpecialPowerDispatch/OCL/Movement等其他派生类型仍拒绝，不因父完成而自动计数。
+本组最终成功锚点见文末。ActivateModule/SpecialPowerDispatch/OCL/Movement等其他派生类型仍拒绝，不因父完成而自动计数。
 
 ## 首次矩阵失败与修正
 
 源码87c026ebac1f5d1506630f7d1a1f13bdd7d41b16 / GameObject40096821430在/Od的RadarSpy默认差分失败：原Instance3804、恢复3792。根因是生成器同时匹配native `@object`与表指针`ptr`，误取Token目标槽`ptr+8`，使父层偏移变8、TargetFilter错过StringList嵌套模式。已优先匹配native `@object`、父层强制0；增加所有本层Token偏移与完整Marshal字段/Filter/列表偏移序列的独立一致性检查。98原方法和原始差分断言不变，未删样本。修复后等待完整矩阵，不将此失败算成成功。
+
+## 最终验收
+
+最终共同验收：sourceCommit `b6a1516c1b3dc73a069bf229534dacbb02eef8f3` / GameObject run **40101248219 success**。/Od、/O2各566456 fixtures、1699368三缓冲区逐字节比较、17812拒绝、1580不变性；平台0/1/2/99。两模式合计3398736次缓冲区比较，完整原PE/生成器检查与归档发布均成功。不可变证据：`evidence/gameobject-runs/40101248219-1`；最终根目录快照同步到该树。SDK未运行，原路由保留。

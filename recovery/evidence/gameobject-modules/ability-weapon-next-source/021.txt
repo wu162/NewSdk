@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 75a8c431b83b26e65555be20b48d2012822e1c3cc65d1dd137004a949477bcdb
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ObjectStatusSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1403416702;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SpecialAbilityUpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 311101648;
+		((int*)ptr)[1] = -1480752866;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 240, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1787144159;
+		((int*)ptr)[1] = -1480752866;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 268, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

@@ -766,3 +766,16 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 源码继续按职责拆分：新增9个组Runtime头，State/Model纯字段组直接通用分派；原位置include展开字节等价，本轮新增后主cpp68469字符（没有重新堆大文件）。32个FieldSet count/边界、200根Token模式/stride及133–161高kind guard已独立静态审查；29ID唯一、原始322集合均命中。工作流仅增加GameObject*.cs测试路径，确保新Cases单文件修正自动触发原完整矩阵，未改权限/自动证据流程或关闭旧回归。
 
 下一完整SpecialPower父452+RadarHack464+RadarJam460仅完成原78方法闭包与完整Weather7/Disabled12/Distance5 PE表（成功最终运行复读确认），仍未实现、仍拒绝，不计193；NEXT及special-power-base-source已保存。当前续接入口以RESUME.md为准。SDK本轮0次、原路由保留，完整GameObject/两替代DLL/正式插件仍未完成。复用已验收公共helper/原表并整组验证；没有账号额度计量，无法量化节省。
+
+
+## 2026-10-24：SpecialPower / Routing / SpecialAbility完整恢复，193→225
+
+- 本轮新增32个完整已知Marshal类型：SpecialPower父/RadarHack/RadarJam 3，SpecialPower派生23，PowerUpdate/ActivateModule/Dispatch 3，SpecialAbility240/Capture/OCLMonitor 3。97已知Marshal继续拒绝，58 Token-only fallback保留；SDK0次，原路由保留，完整DLL/正式GameObject插件尚未完成。
+- 最终有效sourceCommit b6a1516c1b3dc73a069bf229534dacbb02eef8f3 / GameObject run40101248219 success。/Od与/O2各566456 fixtures、1699368三缓冲区逐字节比较、17812拒绝、1580不变性，平台0/1/2/99，合计3398736缓冲区比较。两模式真实日志、validation.json identity、原source/PE检查、归档发布与产物终态均逐项核对。基础run40100525692 success（a125原生/Bridge/测试/生成器与b6a相同）。
+- 不可变原始证据 evidence/gameobject-runs/40101248219-1，tree d1cb2dce51dc062e468409689175f817ad66ad47；根gameobject-root快照同步同树。以后以RESUME的精确run/source及不可变档案核验，自动发布只写run-attempt目录，不将共享根快照当最新运行保证。
+- 首批8bf01e1/run40096181697及基础40096181708 success，193→196。23派生87c026/run40096821430在RadarSpy默认Instance3804/3792差分失败，因元数据生成器误将Token槽ptr+8当native偏移；优先native指针、父层0，并新增全部字段偏移序列检查后60c7cf/run40099429813和基础40099429815 success，196→219。未删比较或golden。
+- Routing a0d1f09/run40100044990及基础40100044953 success，219→222。SpecialAbility a125/run40100525642两模式组件步骤全通过，但旧共享oracle/validation.json在rebase证据提交时冲突，终态failure；保留该事实，不冒充完整工作流成功。发布改成独立detached工作树、唯一run-attempt目录、最多三次普通pull/rebase/push；原测试checkout不变。本地两个发布者竞争普通推送模拟与最终Windows真实发布均通过。新b6a工作流完整重跑，不使用skip-ci、不减少任何样本/平台/断言。
+- SpecialPower452的三个inline Filter112、StringList8与nullable Sound8/强Sound4完整；11个父合同派生保留独立父Token层。RadarSpy/Freeze TargetFilter是StringList；Upgrade是强引用文本子节点list。PowerUpdate只有24且父Update；ActivateModule条目16含弱ModuleId/TriggerType/booleans；Dispatch条目4但每项有独立一字段+sentinel表。SpecialAbility45完整根属性、两inline223掩码、两String8及最后nullable Anim12；Options31未知bit5、Conditions3未知bit0、Disabled12未知bit0，ALL覆盖完整word且不推进token，负词XOR，单模型枚举未知233，padding保持零。
+- 新原PE只读取证73f2d67/run40099572191 success保存Trigger3/Conditions3/Options31/SPMovement3/OCLCreateLoc15，原PE/source指纹固定，生成器仍重读原PE验证。新增代码继续拆独立metadata/Runtime/输入校验/Cases，不堆回主cpp。完整矩阵增大后超时10→15分钟，生成器变化自动回归。
+- 下一完整组为WeaponFire507880339/272、DelayedWeaponFire915350037/276、Beam2695497697/272、ObjectStatus127626925/296。32精确方法及直接装饰helper闭包已导出并逐签名/含尾LF SHA256核对，仍拒绝未计数。见GAMEOBJECT_ABILITY_WEAPON_NEXT.md与ability-weapon-next-source/manifest.json。Native/Bridge/测试不因只读取证改变。
+- 本轮复用完整父/公共helper/PE表，并按完整能力组合并矩阵；仅真实差异与证据发布故障触发必要复验。没有账号额度计量，不能量化节省。
