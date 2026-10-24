@@ -1,0 +1,57 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "logicFrameReferences": [
+    {
+      "line": 9609,
+      "text": "internal static float DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL/*Field data (rva=0x18fb08) could not be foundin any section!*/;"
+    },
+    {
+      "line": 9633,
+      "text": "internal unsafe static delegate*<void> DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL_0024initializer_0024/* Not supported: data(1A 00 00 06) */;"
+    },
+    {
+      "line": 12151,
+      "text": "internal static float DataInitializers_002E_003FA0x7c8a1876_002ESECONDS_PER_LOGICFRAME_REAL/*Field data (rva=0x1956b0) could not be foundin any section!*/;"
+    },
+    {
+      "line": 12165,
+      "text": "internal unsafe static delegate*<void> DataInitializers_002E_003FA0x7c8a1876_002ESECONDS_PER_LOGICFRAME_REAL_0024initializer_0024/* Not supported: data(1B 08 00 06) */;"
+    },
+    {
+      "line": 13071,
+      "text": "internal static void _003FA0xf4a5029c_002E_003F_003F__E_003FA0xf4a5029c_0040SECONDS_PER_LOGICFRAME_REAL_0040DataInitializers_0040_0040YMXXZ()"
+    },
+    {
+      "line": 13073,
+      "text": "DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL = (float)(1.0 / (double)DataInitializers_002E_003FA0xf4a5029c_002ELOGICFRAMES_PER_SECONDS_REAL);"
+    },
+    {
+      "line": 28525,
+      "text": "((float*)@object)[2] = (float)((double)DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL * (double)num);"
+    },
+    {
+      "line": 40746,
+      "text": "((float*)@object)[7] = (float)((double)DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL * (double)num);"
+    },
+    {
+      "line": 45352,
+      "text": "((float*)@object)[4] = (float)((double)DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL * (double)num);"
+    },
+    {
+      "line": 45373,
+      "text": "((float*)@object)[7] = (float)((double)DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL * (double)num2);"
+    },
+    {
+      "line": 55205,
+      "text": "*@object = (float)((double)DataInitializers_002E_003FA0xf4a5029c_002ESECONDS_PER_LOGICFRAME_REAL * (double)num);"
+    },
+    {
+      "line": 76709,
+      "text": "internal static void _003FA0x7c8a1876_002E_003F_003F__E_003FA0x7c8a1876_0040SECONDS_PER_LOGICFRAME_REAL_0040DataInitializers_0040_0040YMXXZ()"
+    },
+    {
+      "line": 76711,
+      "text": "DataInitializers_002E_003FA0x7c8a1876_002ESECONDS_PER_LOGICFRAME_REAL = (float)(1.0 / (double)DataInitializers_002E_003FA0x7c8a1876_002ELOGICFRAMES_PER_SECONDS_REAL);"
+    }
+  ]
+}

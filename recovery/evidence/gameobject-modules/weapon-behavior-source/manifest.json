@@ -704,20 +704,27 @@
     },
     {
       "file": "078.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FireWeaponUpdateModuleData.FireWeaponNugget* @object, Tracker* state)",
+      "line": 82409,
+      "bodySha256": "98dd3fb9b7187e6d4196df8386cc154ddae5376362e73df6a46a0f2639b262ca",
+      "literals": []
+    },
+    {
+      "file": "079.txt",
       "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E(List_003CSageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E* list, EndianHelper* endian)",
       "line": 55472,
       "bodySha256": "b81e0e7535e6e22e2ba484d9215735be52aeb49c01914a6f351f4d3acae16dc1",
       "literals": []
     },
     {
-      "file": "079.txt",
+      "file": "080.txt",
       "signature": "internal unsafe static void Marshaler_002EEndianCorrect(Vector3* @object, EndianHelper* state)",
       "line": 13832,
       "bodySha256": "e84224f48c2fae9db10303e19a883c43a89882869b9b4c9b0deac061662b63da",
       "literals": []
     },
     {
-      "file": "080.txt",
+      "file": "081.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020DisabledType_002C12_003E(sbyte* text, BitFlags_003C12_002Cenum_0020DisabledType_003E* target, Tracker* tracker)",
       "line": 67191,
       "bodySha256": "d3d9ce5607249b615fb7846f7f17c9c0fc7c34972218ebc4c6c8a67e9f2a6476",
@@ -728,11 +735,36 @@
       ]
     },
     {
-      "file": "081.txt",
+      "file": "082.txt",
       "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E(IList* list, List_003CSageBinaryData_003A_003AFireWeaponUpdateModuleData_003A_003AFireWeaponNugget_003E* target, Tracker* tracker)",
       "line": 55430,
       "bodySha256": "ffddece6b4a2323516858ab2976093daeec508815afb708a1bed60d3e54a94f4",
       "literals": []
+    },
+    {
+      "file": "083.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FireWeaponUpdateModuleData.FireWeaponNugget* @object, Tracker* state)",
+      "line": 22297,
+      "bodySha256": "2c2ed1711726232991999134dc17d851d1d082183622e5999f0b52558283b96d",
+      "literals": [
+        "false",
+        "WeaponName",
+        "Offset",
+        "FireDelay",
+        "OneShot"
+      ]
+    },
+    {
+      "file": "084.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, Vector3* @object, Tracker* state, VectorHack* tag)",
+      "line": 13257,
+      "bodySha256": "d02eeac370aad23c55cceca2e20799d53224c8daa8aa139d7f12bf3b25383684",
+      "literals": [
+        "0.0",
+        "x",
+        "y",
+        "z"
+      ]
     }
   ]
 }
