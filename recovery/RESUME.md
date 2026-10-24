@@ -27,6 +27,6 @@ WeaponFire有11完整属性，DestealthClosestObjectMatchingFilter是bool，Mode
 本轮复用既有父/helper/枚举、各完整组统一验证，没有逐字段反复触发；未取得账号额度计量，不能量化节省。
 
 
-## 当前检查点：移动/传送整组验证中（2026-10-25）
+## 2026-10-25 当前实现检查点（未验收）
 
-四类Native/Bridge支持及完整测试已提交，尚未验收、仍以231/322为已验收计数。新增GenerateAbilityMovementFields.py检查32原方法指纹、字段默认值和Token合同；EjectionBoneOffset复用Vector3解析，保留自身字符串→nullable Vector3→完整SpecialAbility父分配顺序。TestGameObject保留完整旧回归、/Od、/O2和四平台。下一步核对本检查点Actions结果、集中修复并以实际sourceCommit/runId验收；SDK未运行、原路由保留。本轮无30分钟限制，按STAGE_DURATION.md约1小时推进。
+本轮完成移动4类及相邻状态/对象操纵7类的Native/Bridge/完整测试。首轮run40128411260在Check三缓冲区差分之后的独立Eject断言失败：测试误把4字符含终止符字符串分配写成4字节（应8字节），并修正两个`\\1`强引用预期为2；实现无需改变。不能把失败run标为通过。随后补齐GiveOrRestoreUpgrade/ReconstituteState/DominateEnemy/LevelGrant/CloneStoredObjects/ReplaceSelf/AssembleStructure整组，含完整父240、nullable Filter112和typed GameObject列表、原PE核验ReplaceSelfOptions7。原方法证据52份，Inspect run40128710378成功，仅取证。下一步以本提交完整GameObject /Od、/O2和平台0/1/2/99矩阵结果验收，未通过前仍为231/322；成功后预计242/322。SDK未运行、原路由保留。按最新长期约1小时执行，本轮没有30分钟限制。

@@ -2,6 +2,7 @@
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=204 && choice->kind<=210) EndianAbilityState(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=200 && choice->kind<=203) EndianAbilityMovement(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=194 && choice->kind<=197) EndianAbilityWeapon(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=191 && choice->kind<=193) EndianSpecialAbility(reinterpret_cast<unsigned char*>(input));
@@ -68,6 +69,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=204 && choice->kind<=210) MarshalAbilityState(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=200 && choice->kind<=203) MarshalAbilityMovement(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=194 && choice->kind<=197) MarshalAbilityWeapon(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=191 && choice->kind<=193) MarshalSpecialAbility(input,reinterpret_cast<unsigned char*>(target),data);
