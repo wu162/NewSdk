@@ -1591,7 +1591,7 @@ partial class GameObjectOracle {
 
         foreach(string value in new[]{"","ALL","all","UNKNOWN","LAUNCH_AT_TARGET_POS","-LAUNCH_AT_TARGET_POS","ALL -LAUNCH_AT_TARGET_POS","-LAUNCH_AT_TARGET_POS -LAUNCH_AT_TARGET_POS","+","-"})Check(original,p,"",MotionXML(0,"Flags='"+value+"'"));
         foreach(string value in new[]{"","ALL","all","UNKNOWN","DAMAGED","EMOTION_CELEBRATING","ALL -DAMAGED","-DAMAGED -DAMAGED","+","-","NONE","MOUNTED"})Check(original,p,"",MotionXML(2,"ModelConditionsToSet='"+value+"'"));
-        {byte[] b=Check(original,p,"",MotionXML(0,"Flags='ALL -LAUNCH_AT_TARGET_POS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=0xfffffffeu)throw new Exception("Independent Projectile full storage ALL and XOR");}
+        {byte[] b=Check(original,p,"",MotionXML(0,"Flags='ALL -LAUNCH_AT_TARGET_POS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+20,big)!=0xffffffffu)throw new Exception("Independent Projectile ALL repeats without advancing token pointer");}
         {byte[] b=Check(original,p,"",MotionXML(2,"ModelConditionsToSet='ALL'")).InstanceData;int at=LifecycleAt(b,big);for(int i=0;i<15;++i)if(Word(b,at+8+4*i,big)!=0xffffffffu)throw new Exception("Independent Freefall full 60-byte mask");}
         int[] moveSizes={16,28,24,4,4},moveCounts={4,7,5,1,0};
         for(int group=0;group<5;++group) {

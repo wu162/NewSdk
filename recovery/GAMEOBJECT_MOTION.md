@@ -13,7 +13,7 @@ Projectile Movement@24：SinglePolymorphic恰一个element才分派；四typed M
 
 Dynamics Volume@28：可空76字节，全部9属性和Sphere/Capsule/Box/Cylinder/Triangle列表。shape stride为12/16/24/20/48，分配顺序固定按此五类；每个shape先derived标量，再Translation@0（可空12字节）、Rotation@4（可空16字节），变换按Translation再Rotation分配。Quaternion.w默认0，不是1。Token保留shape基类且直接bookmark变换pointee。
 
-Freefall含完整60字节ModelCondition位集；Weight默认0.1。两个更新模块缺失的无fallback枚举保持分配时0，显式空/未知用原helper fallback，不能混同。
+Projectile Flags原helper的ALL分支不前移token指针，因此ALL后续词不再生效，沿用已有通用bitset契约；修正首轮独立断言的错误预期，保留原/恢复逐字节比较。Freefall含完整60字节ModelCondition位集；Weight默认0.1。两个更新模块缺失的无fallback枚举保持分配时0，显式空/未知用原helper fallback，不能混同。
 
 输入桥接验证所有已支持属性和嵌套结构；多态Movement按TypeId限制字段/Path，拒绝错误属性、外部namespace、未知结构及重复singleton。原始XML节点名不参与typed dispatch。未改变SDK原路由，未宣称完整GameObject或替代DLL。
 
