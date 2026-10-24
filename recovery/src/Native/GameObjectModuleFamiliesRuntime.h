@@ -517,3 +517,8 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectStructureWallRuntime.h"
 
 #include "GameObjectCombatResponseRuntime.h"
+
+#include "GameObjectStatusEffectsRuntime.h"
+#include "GameObjectStealthVisionRuntime.h"
+
+#include "GameObjectTiberiumRuntime.h"

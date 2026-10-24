@@ -4,6 +4,14 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=147 && choice->kind<=149) {const auto& fields=tiberiumFieldSets[choice->kind-147];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
+    if(choice->kind>=145 && choice->kind<=146) {
+        const auto& fields=stealthVisionFieldSets[choice->kind-145];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
+        if(choice->kind==145) for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;
+        if(choice->kind==146) for(const auto& name:stealthVisionVoiceNames) if(attribute==name) return true;
+        return false;
+    }
+    if(choice->kind>=143 && choice->kind<=144) {const auto& fields=statusEffectsFieldSets[choice->kind-143];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=140 && choice->kind<=142) {const auto& fields=combatResponseFieldSets[choice->kind-140];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=137 && choice->kind<=139) {const auto& fields=structureWallFieldSets[choice->kind-137];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=133 && choice->kind<=136) {const auto& fields=economyPowerFieldSets[choice->kind-133];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
@@ -65,6 +73,18 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=147 && kind<=149) {
+        if(kind==147 && path=="DieMuxData") return 1;
+        if(kind==148 && path=="RadarColor") return 1;
+        if(kind==149) {if(path=="DamageFilter" || path=="HealFilter") return 1;if(path=="DamageFilter/IncludeThing" || path=="DamageFilter/ExcludeThing" || path=="HealFilter/IncludeThing" || path=="HealFilter/ExcludeThing") return 3;}
+        return 0;
+    }
+    if(kind>=145 && kind<=146) {
+        if(kind==145) {if(path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}
+        if(kind==146) {if(path=="RequiresNearbyObjectFilter") return 1;if(path=="RequiresNearbyObjectFilter/IncludeThing" || path=="RequiresNearbyObjectFilter/ExcludeThing") return 3;}
+        return 0;
+    }
+    if(kind>=143 && kind<=144) return kind==143 && (path=="StartColor" || path=="EndColor")?1:0;
     if(kind>=140 && kind<=142) {
         if(kind==141) {if(path=="AcceptableFriends") return 1;if(path=="AcceptableFriends/IncludeThing" || path=="AcceptableFriends/ExcludeThing") return 3;}
         if(kind==142 && path=="ObjectStatusValidation") return 1;
@@ -164,6 +184,16 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=147 && kind<=149) {
+        if(kind==147 && path=="DieMuxData") for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;
+        if(kind==148 && path=="RadarColor") for(const auto& name:tiberiumColorNames) if(attribute==name) return true;
+        return false;
+    }
+    if(kind>=145 && kind<=146) {
+        if(kind==145 && path=="CustomAnimAndDuration") for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;
+        return false;
+    }
+    if(kind>=143 && kind<=144) return kind==143 && (path=="StartColor" || path=="EndColor") && (attribute=="r" || attribute=="g" || attribute=="b");
     if(kind>=140 && kind<=142) return kind==142 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
     if(kind>=137 && kind<=139) {
         if(kind!=139) return false;

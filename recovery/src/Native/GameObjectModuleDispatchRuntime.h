@@ -1,6 +1,9 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=147 && choice->kind<=149) EndianTiberium(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=145 && choice->kind<=146) EndianStealthVision(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=143 && choice->kind<=144) EndianStatusEffects(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=140 && choice->kind<=142) EndianCombatResponse(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=137 && choice->kind<=139) EndianStructureWall(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=133 && choice->kind<=136) EndianEconomyPower(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -52,6 +55,9 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto choice=FindModule(type);
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=147 && choice->kind<=149) MarshalTiberium(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=145 && choice->kind<=146) MarshalStealthVision(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=143 && choice->kind<=144) MarshalStatusEffects(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=140 && choice->kind<=142) MarshalCombatResponse(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=137 && choice->kind<=139) MarshalStructureWall(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=133 && choice->kind<=136) MarshalEconomyPower(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
