@@ -1,15 +1,51 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 78138; body SHA256 2c77de5f8344ff0e5bc8b8209bf14e1588025686b7228b6b5a3064a978fb5987
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39601; body SHA256 8ddf72fe35c841fcd69a2ed14591667e8d0f8984a9b53d5ad615960658600335
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, BehaviorModuleData* @object, Tracker* state)
+internal unsafe static void Marshaler_002EEndianCorrect(ProjectileMoveBase** pointer, EndianHelper* state)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -681733214;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		uint num = *(uint*)pointer;
+		if (num == 0)
+		{
+			return;
+		}
+		switch (*(int*)(int)num)
+		{
+		case -2022277642:
+			Marshaler_002EEndianCorrect((ProjectileMoveToGroundData*)(int)num, state);
+			break;
+		case -2054373412:
+			Marshaler_002EEndianCorrect((ProjectileMoveInStraightLineData*)(int)num, state);
+			break;
+		case -1282455164:
+			Marshaler_002EEndianCorrect((BezierSplineProjectileData*)(int)num, state);
+			break;
+		default:
+		{
+			ProjectileMoveBase* ptr2 = (ProjectileMoveBase*)(int)num;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+				*(sbyte*)(&num3) = ((sbyte*)ptr2)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((sbyte*)ptr2)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((sbyte*)ptr2)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)ptr2;
+				*(uint*)ptr2 = num3;
+			}
+			break;
+		}
+		case 442194537:
+		{
+			BalloonProjectileMoveToGroundData* ptr = (BalloonProjectileMoveToGroundData*)(int)num;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+			break;
+		}
+		}
 	}
 

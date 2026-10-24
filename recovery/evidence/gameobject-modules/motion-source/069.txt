@@ -1,31 +1,27 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41591; body SHA256 193d53569f92ab4c8393c85015e42ceffef9e4a6d662eba93d86ae1efab4b54e
-// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040": "Radius", "_003F_003F_C_0040_0L_0040EADENAON_0040EdgeRadius_003F_0024AA_0040": "EdgeRadius", "_003F_003F_C_0040_0L_0040MPLIKECK_0040HalfLength_003F_0024AA_0040": "HalfLength"}
-internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsCylinderShapeType* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 59002; body SHA256 321a5ce31c068bfa7b15bc938f0d5379cf97655befa83c53f0ece7cc72d128c7
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADynamicsTriangleShapeType_003E(List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* list, EndianHelper* endian)
 	{
-		if (node != null)
+		int num = ((int*)list)[1];
+		DynamicsTriangleShapeType* ptr = (DynamicsTriangleShapeType*)num;
+		DynamicsTriangleShapeType* ptr2 = (DynamicsTriangleShapeType*)(*(int*)list * 48 + num);
+		if (ptr != ptr2)
 		{
-			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040), null);
-			if (ptr != null)
+			do
 			{
-				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
-				((float*)@object)[2] = (float)atof(ptr2);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (DynamicsTriangleShapeType*)((byte*)ptr + 48);
 			}
-			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040MPLIKECK_0040HalfLength_003F_0024AA_0040), null);
-			if (ptr3 != null)
-			{
-				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
-				((float*)@object)[3] = (float)atof(ptr4);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
-			}
-			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040EADENAON_0040EdgeRadius_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
-			if (ptr5 != null)
-			{
-				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
-				((float*)@object)[4] = (float)atof(ptr6);
-				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
-			}
-			Marshaler_002EMarshal(node, (DynamicsShapeType*)@object, state);
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
 		}
 	}
 

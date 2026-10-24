@@ -1,12 +1,12 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58460; body SHA256 ecfebc34355a2f3a0d1855be9175cb3fc796bc9493ec76662678f24d624307ff
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58681; body SHA256 2d93d99360d5d848154d59ac0ffa4de35a567868b7500f75ff3dec6bc9a22e95
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AProjectileStateMachineType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ProjectileStateMachineType* @object, Tracker* state)
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsContactTag_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, DynamicsContactTag* @object, Tracker* state)
 	{
 		if (value != null)
 		{
-			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ProjectileStateMachineType_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ProjectileStateMachineType_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
-			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
-			*@object = (ProjectileStateMachineType)num;
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DynamicsContactTag_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4DynamicsContactTag_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 8u);
+			int num = ((ptr == null) ? 7 : ((int*)ptr)[1]);
+			*@object = (DynamicsContactTag)num;
 			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
 		}
 	}

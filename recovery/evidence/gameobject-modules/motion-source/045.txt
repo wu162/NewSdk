@@ -1,19 +1,15 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77646; body SHA256 eefac8eb26c11b70a736eb31c51ecf43d9cd3e44f41346141a45cb80991dace5
-// Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsSphereShapeType* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 14411; body SHA256 52226af0f3f01be4f8f1ee44915c5c1bcf1138bc4ccdbc93411c3943de289ef6
+// Literals: {"_003F_003F_C_0040_02EGCJHIOB_0040id_003F_0024AA_0040": "id"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ModuleData* @object, Tracker* state)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = 977547402;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsShapeType*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 1328662213;
-		((int*)ptr)[1] = 1683514611;
-		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02EGCJHIOB_0040id_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModuleData_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AModuleData_003E*)((byte*)@object + 4), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+		}
 	}
 

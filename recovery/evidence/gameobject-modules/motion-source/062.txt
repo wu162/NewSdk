@@ -1,44 +1,23 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58776; body SHA256 9824cebe4417ddfc4ba973bbea265dbbe086725341dd201ea343519175a07338
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77663; body SHA256 ece7c9c720def9625a452d21a8190ca73fc9f393fafe3e7bf4a36f14126ff676
 // Literals: {}
-internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADynamicsBoxShapeType_003E(IList* list, List_003CSageBinaryData_003A_003ADynamicsBoxShapeType_003E* target, Tracker* tracker)
+internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsCapsuleShapeType* @object, Tracker* state)
 	{
-		if (list == null)
-		{
-			return;
-		}
-		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
-		if (num != 0)
-		{
-			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 24u, num);
-			if (0 < num)
-			{
-				int num2 = 0;
-				uint num3 = num;
-				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
-				do
-				{
-					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
-					try
-					{
-						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (DynamicsBoxShapeType*)(num2 + ((int*)target)[1]), tracker);
-					}
-					catch
-					{
-						//try-fault
-						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
-						throw;
-					}
-					if (*(int*)(&nodeHolder) != 0)
-					{
-						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
-					}
-					num2 += 24;
-					num3--;
-				}
-				while (num3 != 0);
-			}
-			((int*)((byte*)tracker + 4))[1] += -4;
-		}
-		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 977547402;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsShapeType*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1328662213;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2026757801;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
 	}
 

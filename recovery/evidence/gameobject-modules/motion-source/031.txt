@@ -1,15 +1,30 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 78227; body SHA256 17656482d8e05722470b39a846f9cd6241f189baa4f521b247bf457ffce016a2
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 94905; body SHA256 1e2eb1eb3877596b3ae4706d00b2f4ecad3afa11a1b3f88e9927292c1aed15f9
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, ContainModuleData* @object, Tracker* state)
+internal unsafe static void Tokenizer_002ETokenize(void** table, ProjectileMoveBase** source, Tracker* state)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -1525845350;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		if (*(int*)source != 0)
+		{
+			ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 1u);
+			*(int*)ptr = 2;
+			((int*)ptr)[1] = *(int*)(int)(*(uint*)source);
+			((int*)ptr)[2] = 0;
+			uint num = *(uint*)source;
+			switch (*(int*)(int)num)
+			{
+			case -2022277642:
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ProjectileMoveToGroundData*)(int)num, state);
+				break;
+			case -2054373412:
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ProjectileMoveInStraightLineData*)(int)num, state);
+				break;
+			case -1282455164:
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BezierSplineProjectileData*)(int)num, state);
+				break;
+			case 442194537:
+				Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABalloonProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E((void**)((byte*)ptr + 8), source, state);
+				break;
+			}
+			((int*)((byte*)state + 4))[1] += -4;
+		}
 	}
 

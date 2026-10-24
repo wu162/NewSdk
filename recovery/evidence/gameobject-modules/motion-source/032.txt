@@ -1,23 +1,16 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51651; body SHA256 06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 101467; body SHA256 9b67c16c1ba2cf1ffb978840a6a1bbf831d0da1b85fe273323a50394495588e9
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABalloonProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(void** table, ProjectileMoveBase** pointer, Tracker* tracker)
 	{
-		BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)target + 2);
-		uint num = 15u;
-		System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
-		do
-		{
-			if (*(bool*)endian)
-			{
-				*(sbyte*)(&num2) = ((sbyte*)ptr)[1];
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr;
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr - 1);
-				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr - 2);
-				*(uint*)((byte*)ptr - 2) = num2;
-			}
-			ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)ptr + 4);
-			num--;
-		}
-		while (num != 0);
+		BalloonProjectileMoveToGroundData* ptr = (BalloonProjectileMoveToGroundData*)(int)(*(uint*)pointer);
+		ProcTableElement* ptr2 = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, 2u);
+		*(int*)ptr2 = 1;
+		((int*)ptr2)[1] = -1412321142;
+		Tokenizer_002ETokenize((void**)((byte*)ptr2 + 8), (ProjectileMoveBase*)ptr, tracker);
+		ptr2 = (ProcTableElement*)((byte*)ptr2 + 12);
+		*(int*)ptr2 = 0;
+		((int*)ptr2)[1] = 0;
+		((int*)ptr2)[2] = 0;
+		((int*)((byte*)tracker + 4))[1] += -4;
 	}
 

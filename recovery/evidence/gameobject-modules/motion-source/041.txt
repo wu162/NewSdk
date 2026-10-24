@@ -1,38 +1,51 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 77532; body SHA256 06ae0cafef39113bf1f63cbc3857a203e22e1c933e9282a601395728fadb3afd
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39865; body SHA256 ea13fb25184523ed174482a37be9d1c5013d7f68d1a2667f4f6d64229f47d5b1
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsShapeType* @object, Tracker* state)
+internal unsafe static void Marshaler_002EEndianCorrect(BezierSplineProjectileData* @object, EndianHelper* state)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
-		*(int*)ptr = -2027180033;
-		((int*)ptr)[1] = 691437687;
-		void** ptr2 = (void**)((byte*)ptr + 8);
-		uint num = *(uint*)@object;
-		if (num != 0)
+		if (*(bool*)state)
 		{
-			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num, ptr2);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num;
 		}
-		else
+		if (*(bool*)state)
 		{
-			*(int*)ptr2 = 0;
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num2;
 		}
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = -1248685159;
-		((int*)ptr)[1] = -2058779193;
-		byte* num2 = (byte*)@object + 4;
-		void** ptr3 = (void**)((byte*)ptr + 8);
-		uint num3 = *(uint*)num2;
-		if (num3 != 0)
+		if (*(bool*)state)
 		{
-			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num3, ptr3);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 12)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 12)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 12)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[12];
+			((int*)@object)[3] = (int)num3;
 		}
-		else
+		if (*(bool*)state)
 		{
-			*(int*)ptr3 = 0;
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 16)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 16)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 16)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((sbyte*)@object)[16];
+			((int*)@object)[4] = (int)num4;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+				*(sbyte*)(&num5) = ((sbyte*)@object)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((sbyte*)@object)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((sbyte*)@object)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = *(sbyte*)@object;
+				*(uint*)@object = num5;
+			}
 		}
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
 	}
 

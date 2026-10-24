@@ -1,15 +1,10 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 12970; body SHA256 5b45cf5946e45be7eac555e742e5d965d70428a65ce75a3618ed536c223e1fe7
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58407; body SHA256 0f7bcf86ef7f5124495d92f2ed0df9edb59bdd9dd146e8993c3fa7aa24e6288b
 // Literals: {}
-internal unsafe static void Marshaler_002EEndianCorrect(uint* @object, EndianHelper* endian)
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveInStraightLineData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(INode* node, ProjectileMoveBase** pointer, Tracker* tracker)
 	{
-		if (*(bool*)endian)
-		{
-			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
-			*(sbyte*)(&num) = ((sbyte*)@object)[3];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
-			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
-			*@object = num;
-		}
+		ProjectileMoveInStraightLineData* ptr = (ProjectileMoveInStraightLineData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2054373412;
 	}
 

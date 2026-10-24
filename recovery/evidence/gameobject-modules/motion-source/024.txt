@@ -1,15 +1,34 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 80729; body SHA256 444e1f38325bfa6a8f33b59960f71b9a72401478f0598bbb2a8bfea9ed100c2d
-// Literals: {}
-internal unsafe static void Tokenizer_002ETokenize(void** table, CollideModuleData* @object, Tracker* state)
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39569; body SHA256 1df36f066ce5d25be80f31df8c9348908675de513937b7eae4c7de2dbf948ba6
+// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_06BCNEEODO_0040TypeId_003F_0024AA_0040": "TypeId"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ProjectileMoveBase** pointer, Tracker* state)
 	{
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
-		*(int*)ptr = 1;
-		((int*)ptr)[1] = -1525845350;
-		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		*(int*)ptr = 0;
-		((int*)ptr)[1] = 0;
-		((int*)ptr)[2] = 0;
-		((int*)((byte*)state + 4))[1] += -4;
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06BCNEEODO_0040TypeId_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			if (ptr != null)
+			{
+				num = strtoul(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			switch (num)
+			{
+			case 2240593884u:
+				Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveInStraightLineData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(node, pointer, state);
+				return;
+			case 442194537u:
+				Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABalloonProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(node, pointer, state);
+				return;
+			case 2272689654u:
+				Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveToGroundData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(node, pointer, state);
+				return;
+			case 3012512132u:
+				Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABezierSplineProjectileData_002Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_003E(node, pointer, state);
+				return;
+			}
+			void* intPtr = Relo_002ETracker_002EPush(state, (void**)pointer, 4u, 1u);
+			((int*)((byte*)state + 4))[1] += -4;
+			*(int*)intPtr = 0;
+		}
 	}
 

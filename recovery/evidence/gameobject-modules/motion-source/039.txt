@@ -1,29 +1,69 @@
-// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98370; body SHA256 ba85d9e2c71bac898d2ac194333dd7baa8dbc8040eae2dbd5f97c3e2691ae5f7
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 39769; body SHA256 0761a12f9da6f26f5f88fc9d60239e0ebc6e30cf3fd42be6b4067bb3df6c4d38
 // Literals: {}
-internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ADynamicsTriangleShapeType_003E(void** table, List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* list, Tracker* tracker)
+internal unsafe static void Marshaler_002EEndianCorrect(ProjectileMoveToGroundData* @object, EndianHelper* state)
 	{
-		uint objectCount = (uint)(*(int*)list + 1);
-		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
-		((int*)ptr)[1] = 1564774360;
-		*(int*)ptr = 1820487795;
-		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
-		ptr = (ProcTableElement*)((byte*)ptr + 12);
-		uint num = 0u;
-		if (0u < (uint)(*(int*)list))
+		if (*(bool*)state)
 		{
-			List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* ptr2 = (List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E*)((byte*)list + 4);
-			int num2 = 0;
-			do
-			{
-				((int*)ptr)[1] = 0;
-				*(int*)ptr = -1320050453;
-				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (DynamicsTriangleShapeType*)(num2 + *(int*)ptr2), tracker);
-				num++;
-				num2 += 48;
-				ptr = (ProcTableElement*)((byte*)ptr + 12);
-			}
-			while (num < (uint)(*(int*)list));
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num;
 		}
-		((int*)((byte*)tracker + 4))[1] += -4;
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 12)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 12)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 12)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[12];
+			((int*)@object)[3] = (int)num3;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 16)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 16)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 16)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((sbyte*)@object)[16];
+			((int*)@object)[4] = (int)num4;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(byte*)(&num5) = ((byte*)@object + 20)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((byte*)@object + 20)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((byte*)@object + 20)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = ((sbyte*)@object)[20];
+			((int*)@object)[5] = (int)num5;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+			*(byte*)(&num6) = ((byte*)@object + 24)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((byte*)@object + 24)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((byte*)@object + 24)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = ((sbyte*)@object)[24];
+			((int*)@object)[6] = (int)num6;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num7);
+				*(sbyte*)(&num7) = ((sbyte*)@object)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 1)) = ((sbyte*)@object)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 2)) = ((sbyte*)@object)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 3)) = *(sbyte*)@object;
+				*(uint*)@object = num7;
+			}
+		}
 	}
 
