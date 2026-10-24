@@ -66,6 +66,21 @@ inline unsigned int XmlfxparticleEnum(const std::string& type,const std::string&
         if(text=="LINE") return 2u;
         return 1u;
     }
+    if(type=="FXParticleSystem_GeometryType") {
+        if(text=="INVALID") return 0u;
+        if(text=="SIMPLE_QUAD") return 1u;
+        if(text=="CENTERED_QUAD") return 2u;
+        if(text=="TWO_CONCENTRIC_QUADS") return 3u;
+        if(text=="TWO_QUADS") return 4u;
+        return 2u;
+    }
+    if(type=="FXParticleSystem_RotationType") {
+        if(text=="INVALID_ROTATION") return 0u;
+        if(text=="ROTATION_OFF") return 1u;
+        if(text=="ROTATE_AROUND_VELOCITY") return 2u;
+        if(text=="ROTATE_IN_WORLD_SPACE") return 3u;
+        return 0u;
+    }
     throw std::invalid_argument("Unknown particle enum table");
 }
 }}

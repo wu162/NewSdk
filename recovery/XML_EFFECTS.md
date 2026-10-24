@@ -1,8 +1,10 @@
 # XmlCompiler FXList recovery
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
-Branch: recovery/xmlcompiler-effects.
-Current code is ready for the unified Windows matrix, **not yet validated**.
+Branch: recovery/xmlcompiler-priority (completion work: recovery/xmlcompiler-fxlist-completion).
+The original fifteen-layout component was accepted at 0e153b8/run40083102908.
+The filter/base-fallback completion below is prepared for the unified Windows
+matrix, **not yet validated**; the earlier result does not validate new code.
 
 ## Active interface and exact boundary
 
@@ -42,12 +44,14 @@ Inherited support includes all four 456-bit model-condition pointer fields,
 Weather, StopIfPlayed, OnlyIfOnLand, PlayIfSourceIsStealthed and the repeated
 SourceMustNotHaveBeenDisabledThisFrameByType enum list.
 
-**Explicit unresolved boundary:** SecondaryObjectFilter and SourceObjectFilter
-children are refused. Unknown nugget TypeId is refused, although the original
-compiler has an unknown-base fallback. Unknown attributes, foreign namespaces,
+SecondaryObjectFilter and SourceObjectFilter are supported, including all root
+attributes, nullable status bitsets, and repeated IncludeThing/ExcludeThing typed
+hash lists. Unknown nugget TypeId uses the original 44-byte base fallback and
+writes TypeId zero; known branches retain their concrete TypeId.
+Unknown attributes, foreign namespaces,
 duplicate singleton containers/children and non-whitespace unexpected text
-are refused. This is not a claim of complete FXList recovery while the two
-ObjectFilter children remain unsupported. Valid known enum fields retain the
+are refused. This completion remains pending final matrix verification.
+Valid known enum fields retain the
 original unknown-text fallbacks; enum misspellings are not schema errors here.
 
 FXParticleSystemTemplate has been reassigned. No particle compiler or stub
@@ -127,3 +131,33 @@ Local native syntax-only checking passed with g++ C++17; x86 ABI assertions
 were disabled solely for that x64 host syntax check. This is not Windows ABI,
 C++/CLI, oracle, SDK or replacement-DLL validation. Unified Actions must supply
 the actual sourceCommit/runId success before any such claim.
+
+## Filter and unknown-base completion evidence (2026-10-24)
+
+Original sourceBlob remains 2d2f471c8008b7c2e1f78e39752d0726da395cea.
+`parts/part-0054.cs.txt` FXNugget Marshal line 27012 allocates SecondaryObjectFilter
+at +24, then SourceObjectFilter at +28, each 112 bytes. Both follow the four
+model-condition bitsets and precede the disabled enum list. The matching endian
+method traverses both pointed filters. `parts/part-0052.cs.txt` ObjectFilter
+Marshal/Endian lines 26334/26371 match the existing verified ObjectFilter helper:
+id/Rule/Relationship/Alignment at 0/4/8/12, KindOf Include/Exclude at 16/52,
+nullable seven-word status bitsets at 88/92, typed hash count/pointers at
+96/100 and 104/108. The component reuses this helper without modifying it.
+PE enum maps in evidence/xml-source/enums pin KindOfType, ObjectStatusType,
+ObjectFilterRule/Alignment/Relationship independently of XSD order.
+
+`parts/part-0129.cs.txt`, unknown wrapper line 64552 allocates 44 bytes, calls
+base Marshal and writes zero to TypeId. Endian dispatch falls back to the base
+method for that zero. The bridge keeps strict validation of unsupported XML
+attributes/children while accepting unknown numeric or absent TypeId as base.
+
+New tests retain all earlier fixtures and add filters on every known branch,
+unknown/default/parsed-TypeId cases, all source PE KindOf/ObjectStatus entries
+with independent bit layout checks on both filters, enum fallbacks, signed
+bitset operations, absent/empty values, repeated typed hash lists at
+0/1/2/27/28/29/64/257 and structural/namespace rejection boundaries.
+The /Od /O2 four-platform full matrix and three-array/direct comparisons remain
+mandatory. No SDK route, original DLL, common native helper or GameObject file
+changes are made by this completion.
+
+

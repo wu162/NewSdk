@@ -94,7 +94,7 @@ public:
     static void Nugget(XmlNode^ node, Native::XmleffectsNuggetInput& input) {
         input.typeId=Native::ParseUnsigned(Attr(node,"TypeId","0"));
         System::Collections::Generic::List<String^>^ attrs=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"TypeId","StopIfPlayed","Weather","OnlyIfOnLand","PlayIfSourceIsStealthed","RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"});
-        System::Collections::Generic::List<String^>^ children=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"SourceMustNotHaveBeenDisabledThisFrameByType"});
+        System::Collections::Generic::List<String^>^ children=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"SourceMustNotHaveBeenDisabledThisFrameByType","SecondaryObjectFilter","SourceObjectFilter"});
         switch(input.typeId) {
         case 503892219u: {
             input.size=48; attrs->Add("Value");
@@ -238,7 +238,7 @@ public:
             }
             NuggetRandom(node,"Radius",104,input); NuggetRandom(node,"Height",116,input); NuggetRandom(node,"InitialDelay",128,input); break;
         }
-        default: throw gcnew NotSupportedException("Unrecovered FXNugget TypeId");
+        default: input.size=44; break; // Original unknown-polymorphic base fallback writes TypeId zero.
         }
         Attributes(node,attrs->ToArray());
         Children(node,children->ToArray(),true);
@@ -259,6 +259,23 @@ public:
         Field(node,"Weather","INVALID",20,Native::EffectEnum,"WeatherType",input);
         Field(node,"OnlyIfOnLand","false",41,Native::EffectBoolean,nullptr,input);
         Field(node,"PlayIfSourceIsStealthed","false",42,Native::EffectBoolean,nullptr,input);
+        array<String^>^ filterNames={"SecondaryObjectFilter","SourceObjectFilter"};
+        for(int i=0;i<2;++i) {
+            XmlNode^ filter=Child(node,filterNames[i]);
+            if(filter==nullptr) continue;
+            input.hasFilters[i]=true;
+            Attributes(filter,gcnew array<String^>{"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"});
+            Children(filter,gcnew array<String^>{"IncludeThing","ExcludeThing"},true);
+            for each(XmlAttribute^ attr in filter->Attributes) if(attr->NamespaceURI->Length==0)
+                input.filters[i].attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
+            for each(XmlNode^ child in filter->ChildNodes) if(child->NodeType==XmlNodeType::Element) {
+                Attributes(child,gcnew array<String^>(0));
+                for each(XmlNode^ nested in child->ChildNodes) if(nested->NodeType==XmlNodeType::Element)
+                    throw gcnew NotSupportedException("Structured effects filter reference");
+                if(child->LocalName=="IncludeThing") input.filters[i].includeThings.push_back(marshal_as<std::string>(child->InnerText));
+                else input.filters[i].excludeThings.push_back(marshal_as<std::string>(child->InnerText));
+            }
+        }
         for each(XmlNode^ child in node->ChildNodes) if(child->NodeType==XmlNodeType::Element && child->LocalName=="SourceMustNotHaveBeenDisabledThisFrameByType") {
             Attributes(child,gcnew array<String^>(0));
             for each(XmlNode^ nested in child->ChildNodes) if(nested->NodeType==XmlNodeType::Element)
@@ -329,3 +346,4 @@ public:
     }
 };
 }
+

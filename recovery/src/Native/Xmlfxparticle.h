@@ -33,11 +33,18 @@ struct XmlfxparticleColorInput {
     std::string relativeAge, frame = "1000", rgb[3];
 };
 struct XmlfxparticleModuleRandom { unsigned int offset; XmlfxparticleRandomInput input; };
+struct XmlfxparticleLightningSetInput { XmlfxparticleRandomInput random[6]; };
+struct XmlfxparticleObjectSetInput {
+    bool hasRenderGroup = false;
+    std::string renderGroup, numObjects = "0", percent = "0.0";
+};
 struct XmlfxparticleModuleInput {
     bool present = false;
     unsigned int typeId = 0, size = 0;
     std::vector<XmlfxparticleFieldInput> fields;
     std::vector<XmlfxparticleModuleRandom> random;
+    std::vector<XmlfxparticleLightningSetInput> lightningSets;
+    std::vector<XmlfxparticleObjectSetInput> objectSets;
 };
 struct XmlfxparticleParticleInput {
     std::string priority = "ULTRA_HIGH_ONLY", shader = "ADDITIVE", type = "PARTICLE";
@@ -45,6 +52,7 @@ struct XmlfxparticleParticleInput {
     std::string offset[3];
     XmlfxparticleRandomInput random[6], colorScale;
     XmlfxparticleModuleInput modules[5]; // Physics, Draw, Volume, Velocity, Update
+    std::vector<XmlfxparticleModuleInput> events;
     bool hasEmitterSound = false;
     bool hasAlphas = false, hasColors = false, hasWind = false;
     std::vector<XmlfxparticleAlphaInput> alphas;
@@ -53,3 +61,4 @@ struct XmlfxparticleParticleInput {
 };
 Relo::Chunk CompileXmlfxparticleParticle(const XmlfxparticleParticleInput& input, bool bigEndian);
 }}
+

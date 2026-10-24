@@ -10,13 +10,21 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 using Recovered;
-class XmlfxparticleOracle {
+partial class XmlfxparticleOracle {
     const string NS="uri:ea.com:eala:asset";
     static int fixtures,comparisons,rejections,layouts;
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","077","0xff"};
     static readonly string[] Refs={"","Name","Name\\0","Name\\27","Name\\-1","Name\\2147483648","Name\\ +17junk","资源\\7"};
     static readonly string[] Bools={"true","false","TRUE","1","0","t","T"," true","yes","","10"};
     static int ModuleSize(uint id) { switch(id) {
+        case 3408220251u: return 20;
+        case 3036920908u: return 36;
+        case 2248017887u: return 60;
+        case 234581578u: return 200;
+        case 2933826200u: return 104;
+        case 3465979181u: return 24;
+        case 1075723135u: return 28;
+        case 2693838876u: return 12;
         case 877888681u: return 4;
         case 3201797789u: return 4;
         case 3809157760u: return 4;
@@ -44,6 +52,14 @@ class XmlfxparticleOracle {
         case 3975650247u: return 68;
         default:return 4; } }
     static uint StoredType(uint id) { switch(id) {
+        case 3408220251u: return id;
+        case 3036920908u: return id;
+        case 2248017887u: return id;
+        case 234581578u: return id;
+        case 2933826200u: return id;
+        case 3465979181u: return id;
+        case 1075723135u: return id;
+        case 2693838876u: return id;
         case 877888681u: return id;
         case 3201797789u: return id;
         case 3809157760u: return id;
@@ -124,21 +140,29 @@ class XmlfxparticleOracle {
         } else Check(Word(b.InstanceData,132,big)==0,label+" absent colors");
         if(Child(root,"Wind")!=null){locations.Add(136);targets.Add(end);end+=48;}
         else Check(Word(b.InstanceData,136,big)==0,label+" absent wind");
-        string[] names={"Physics","Draw","Volume","Velocity","Update"};int[] offsets={140,144,148,152,164};
+        string[] names={"Physics","Draw","Volume","Velocity","Event","Update"};int[] offsets={140,144,148,152,160,164};
         for(int i=0;i<names.Length;++i) {
-            XmlNode wrapper=Child(root,names[i]);XmlNode module=null;
-            if(wrapper!=null)foreach(XmlNode c in wrapper.ChildNodes)if(c.NodeType==XmlNodeType.Element){module=c;break;}
-            if(module==null){Check(Word(b.InstanceData,offsets[i],big)==0,label+" absent module");continue;}
-            uint id=0; string text=module.Attributes["TypeId"]==null?"0":module.Attributes["TypeId"].Value;
-            if(text.StartsWith("0x")) id=UInt32.Parse(text.Substring(2),NumberStyles.HexNumber,CultureInfo.InvariantCulture);else UInt32.TryParse(text,out id);
+            XmlNode wrapper=Child(root,names[i]);
+            if(i==4) {
+                int n=0;
+                if(wrapper!=null)foreach(XmlNode c in wrapper.ChildNodes)if(c.NodeType==XmlNodeType.Element)++n;
+                Check(Word(b.InstanceData,156,big)==n,label+" event count");
+                if(n==0) { Check(Word(b.InstanceData,160,big)==0,label+" empty event pointer"); continue; }
+                locations.Add(160);targets.Add(end);int array=end;end+=4*n;int j=0;
+                foreach(XmlNode module in wrapper.ChildNodes)if(module.NodeType==XmlNodeType.Element) {
+                    locations.Add(array+4*j++);targets.Add(end);
+                    end=ModuleLayout(label,module,end,b,big,locations,targets,imports);
+                }
+                continue;
+            }
+            XmlNode single=null;
+            if(wrapper!=null)foreach(XmlNode c in wrapper.ChildNodes)if(c.NodeType==XmlNodeType.Element){single=c;break;}
+            if(single==null){Check(Word(b.InstanceData,offsets[i],big)==0,label+" absent module");continue;}
             locations.Add(offsets[i]);targets.Add(end);
-            Check(Word(b.InstanceData,end,big)==StoredType(id),label+" module TypeId");
-            if(id==2381754661u && module.Attributes["EnvironmentTexture"]!=null && Imported(module.Attributes["EnvironmentTexture"].Value))imports.Add(end+20);
-            end+=ModuleSize(id);
+            end=ModuleLayout(label,single,end,b,big,locations,targets,imports);
         }
         Check(b.InstanceData.Length==end,label+" independent root/block size");
         Check(Word(b.InstanceData,0,big)==0,label+" reserved");
-        Check(Word(b.InstanceData,156,big)==0&&Word(b.InstanceData,160,big)==0,label+" event list empty");
         for(int i=173;i<176;++i)Check(b.InstanceData[i]==0,label+" padding");
         for(int i=0;i<locations.Count;++i)Check(Word(b.InstanceData,locations[i],big)==targets[i],label+" pointer target");
         locations.Sort();imports.Sort();
@@ -149,6 +173,18 @@ class XmlfxparticleOracle {
         for(int i=0;i<imports.Count;++i)Check(Word(b.ImportsData,4*i,big)==imports[i],label+" import offset");
         if(imports.Count>0)Check(Word(b.ImportsData,b.ImportsData.Length-4,big)==UInt32.MaxValue,label+" import sentinel");
         ++layouts;
+    }
+    static int ModuleLayout(string label,XmlNode module,int start,AssetBuffer b,bool big,List<int> locations,List<int> targets,List<int> imports) {
+        uint id=0; string text=module.Attributes["TypeId"]==null?"0":module.Attributes["TypeId"].Value;
+        if(text.StartsWith("0x"))id=UInt32.Parse(text.Substring(2),NumberStyles.HexNumber,CultureInfo.InvariantCulture);else UInt32.TryParse(text,out id);
+        Check(Word(b.InstanceData,start,big)==StoredType(id),label+" module TypeId");
+        if(id==2381754661u && module.Attributes["EnvironmentTexture"]!=null && Imported(module.Attributes["EnvironmentTexture"].Value))imports.Add(start+20);
+        if(id==2693838876u||id==1075723135u||id==3465979181u) {
+            if(module.Attributes["EventFX"]!=null&&Imported(module.Attributes["EventFX"].Value))imports.Add(start+4);
+            Check(b.InstanceData[start+10]==0&&b.InstanceData[start+11]==0,label+" event base padding");
+            if(id==1075723135u)for(int i=25;i<28;++i)Check(b.InstanceData[start+i]==0,label+" event collision padding");
+        }
+        return ModuleCompletionLayout(label,module,id,start,b,big,locations,targets,imports);
     }
     static void Test(IAssetBuilderPlugin original, TargetPlatform platform, string label, string text) {
         XmlDocument d=Parse(text); XmlNamespaceManager ns=Namespaces(d);
@@ -260,9 +296,11 @@ class XmlfxparticleOracle {
         foreach(string v in Numbers)Test(original,p,"FXParticleEmissionVelocityWavefront-InitialRadius-"+v,Xml("",Wrap("Volume",3975650247u,"",Range("InitialRadius",v))));
         foreach(string v in Numbers)Test(original,p,"FXParticleEmissionVelocityWavefront-LineWidth-"+v,Xml("",Wrap("Volume",3975650247u,"",Range("LineWidth",v))));
         foreach(string v in Numbers)Test(original,p,"FXParticleEmissionVelocityWavefront-LineAngle-"+v,Xml("",Wrap("Volume",3975650247u,"",Range("LineAngle",v))));
+        EventCompletionMatrix(original,p);
+        ModuleCompletionMatrix(original,p);
         Reject(Xml("Unknown='1'",""),p);
-        foreach(string c in new string[]{"<Unknown/>","<Event><Anything/></Event>","<Wind Unknown='1'/>","<Physics><A/><B/></Physics>","<Physics><A TypeId='2933826200'/></Physics>","<Draw><A TypeId='2248017887'/></Draw>","<Colors><ColorScale/><ColorScale/></Colors>","<Wind xmlns=''/>","text"})Reject(Xml("",c),p);
-        foreach(uint id in new uint[]{234581578u,2933826200u,2248017887u,3036920908u,3408220251u,2693838876u,1075723135u,3465979181u})Reject(Xml("",Wrap("Physics",id,"","")),p);
+        foreach(string c in new string[]{"<Unknown/>","<Event><Anything Unknown='1'/></Event>","<Wind Unknown='1'/>","<Physics><A/><B/></Physics>","<Physics><A TypeId='2933826200' Unknown='1'/></Physics>","<Draw><A TypeId='2248017887' Unknown='1'/></Draw>","<Colors><ColorScale/><ColorScale/></Colors>","<Wind xmlns=''/>","text"})Reject(Xml("",c),p);
+        foreach(uint id in new uint[]{234581578u,2933826200u,2248017887u,3036920908u,3408220251u,2693838876u,1075723135u,3465979181u})Reject(Xml("",Wrap("Physics",id,"Unknown='1'","")),p);
         Reject("<Other xmlns='"+NS+"' id='Oracle'/>",p);
         Reject(Xml("xmlns:q='urn:other' q:Priority='HIGH_OR_ABOVE'",""),p);
         try{FXParticleSystemTemplateCompiler.ProcessInstance(null,p);throw new Exception("null declaration accepted");}catch(ArgumentNullException){++rejections;}
@@ -301,3 +339,4 @@ class XmlfxparticleOracle {
         }
     }
 }
+
