@@ -1,5 +1,6 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:attachChoices) if(choice.type==type) return &choice;
     for(const auto& choice:abilityFinishChoices) if(choice.type==type) return &choice;
     if(type==abilityToggleChoice.type) return &abilityToggleChoice;
     for(const auto& choice:abilityResourceChoices) if(choice.type==type) return &choice;
@@ -81,6 +82,8 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),60,1));MarshalModelCondition(value,words);data.Pop();}break;
         case ModuleValue::NullableTime:
             {auto target=static_cast<float*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=InitializeTime(value.c_str());data.Pop();}break;
+        case ModuleValue::NullableWideBits:
+            {auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),8,1));MarshalEnumBitset(value,f.values->names,f.values->count,f.values->unknown,f.values->bits,target);data.Pop();}break;
         case ModuleValue::NullableBits:
             {auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));MarshalEnumBitset(value,f.values->names,f.values->count,f.values->unknown,f.values->bits,target);data.Pop();}break;
         case ModuleValue::NullableFloat:
@@ -153,6 +156,7 @@ void EndianModuleFieldSet(unsigned char* output,const ModuleFieldSet& fields) {
         const auto& f=fields.fields[i];auto at=output+f.offset;
         if(f.kind==ModuleValue::StringList) {auto list=reinterpret_cast<NativeList*>(at);for(U32 j=0;j<list->count;++j) Swap(&static_cast<ReloString*>(list->data)[j].length);Swap(&list->count);}
         else if(f.kind==ModuleValue::Bits) {for(unsigned j=0;j<(f.values->bits+31)/32;++j) Swap(at+4*j);}
+        else if(f.kind==ModuleValue::NullableWideBits) {auto words=*reinterpret_cast<U32**>(at);if(words) {Swap(words);Swap(words+1);}}
         else if(f.kind==ModuleValue::DeathBits) {Swap(at);Swap(at+4);}
         else if(f.kind==ModuleValue::NullableObjectStatus) {auto words=*reinterpret_cast<U32**>(at);if(words) for(unsigned j=0;j<7;++j) Swap(words+j);}
         else if(f.kind==ModuleValue::ObjectStatus) {for(unsigned j=0;j<7;++j) Swap(at+4*j);}

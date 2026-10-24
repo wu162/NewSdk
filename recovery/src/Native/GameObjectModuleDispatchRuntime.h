@@ -3,6 +3,7 @@ void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=220 && choice->kind<=224) EndianAttach(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=216 && choice->kind<=219) EndianAbilityFinish(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==215) EndianAbilityToggle(reinterpret_cast<unsigned char*>(input));
     if(choice && choice->kind>=211 && choice->kind<=212) EndianAbilityRouting(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -74,6 +75,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=220 && choice->kind<=224) MarshalAttach(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=216 && choice->kind<=219) MarshalAbilityFinish(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==215) MarshalAbilityToggle(input,reinterpret_cast<unsigned char*>(target),data);
     if(choice && choice->kind>=211 && choice->kind<=212) MarshalAbilityRouting(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

@@ -31,7 +31,7 @@ struct ModuleLayout;
 struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode,stride;};
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
 struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
-enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList,NullableSigned,NullableObjectStatus,ObjectStatus,Duration,StringList,Angle,DeathBits,Signed,NullableFloat,FloatList,ReplaceOptions,NullableTime,NullableBits,FrameSpeed,Bits,NullableAssetId};
+enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList,NullableSigned,NullableObjectStatus,ObjectStatus,Duration,StringList,Angle,DeathBits,Signed,NullableFloat,FloatList,ReplaceOptions,NullableTime,NullableBits,NullableWideBits,FrameSpeed,Bits,NullableAssetId};
 struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
 struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
@@ -84,6 +84,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectAbilityResource.h"
 #include "GameObjectAbilityToggle.h"
 #include "GameObjectAbilityFinish.h"
+#include "GameObjectAttach.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
