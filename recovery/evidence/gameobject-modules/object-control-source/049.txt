@@ -1,0 +1,25 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 8db179662486cbfda6b5f06e59f57b60f1b88a07cb186a0f35a989f3f8910bc6
+// Literals: {"_003F_003F_C_0040_0N_0040IFPEINBO_0040ObjectFilter_003F_0024AA_0040": "ObjectFilter", "_003F_003F_C_0040_0M_0040JBOKIFA_0040UpgradeSelf_003F_0024AA_0040": "UpgradeSelf"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ObjectEffectTuple* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040IFPEINBO_0040ObjectFilter_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ObjectFilter*)@object, state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040JBOKIFA_0040UpgradeSelf_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E_0020_003E*)((byte*)@object + 112), state);
+		}
+	}

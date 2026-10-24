@@ -4,6 +4,12 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=252 && choice->kind<=264) {
+        const auto& set=controlFieldSets[choice->kind-252];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+        if(choice->kind==255) for(unsigned i=0;i<visionFieldSets[0].count;++i) if(attribute==visionFieldSets[0].fields[i].name) return true;
+        if(choice->kind==258) for(unsigned i=0;i<beamFieldSets[0].count;++i) if(attribute==beamFieldSets[0].fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=244 && choice->kind<=251) {
         const auto& set=supportFieldSets[choice->kind-244];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
         if(choice->kind==244 || choice->kind==248) for(const auto& f:upgradeUpgradeModuleDataFields) if(attribute==f.name) return true;
@@ -146,6 +152,22 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=252 && kind<=264) {
+        if(kind==255 && path=="UpgradeMap") return 2;
+        if(kind==256 && path=="ScatterSettings") return 1;
+        if(kind==259 && path=="ParticleData") return 2;
+        if(kind==260 && (path=="LeftOffset" || path=="RightOffset")) return 1;
+        if(kind==261 && path=="ObjectStatusValidation") return 1;
+        if(kind==262) {if(path=="SelfValidation") return 1;if(path=="ObjectEffectTuple") return 2;if(path=="ObjectEffectTuple/UpgradeSelf") return 3;}
+        if(kind==263 && path=="ConnectionShadowInfo") return 1;
+        const char* filters[2]={nullptr,nullptr};
+        if(kind==253 || kind==261 || kind==264) filters[0]="ObjectFilter";
+        if(kind==254) {filters[0]="InstaKillObjectFilter";filters[1]="CollidesWithOnTeleport";}
+        if(kind==256 || kind==259) filters[0]="Filter";if(kind==259) filters[1]="KillFilter";
+        if(kind==262) filters[0]="ObjectEffectTuple/ObjectFilter";
+        for(const char* f:filters) if(f) {if(path==f) return 1;if(path==std::string(f)+"/IncludeThing" || path==std::string(f)+"/ExcludeThing") return 3;}
+        return kind==258?GameObjectModuleNodeKind(77,path):0;
+    }
     if(kind>=244 && kind<=251) {
         if(kind==244 || kind==248) {if(path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}
         if((kind==245 || kind==248) && path=="ObjectFilter") return 1;
@@ -342,6 +364,15 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=252 && kind<=264) {
+        if(kind==255 && path=="UpgradeMap") {for(const auto& f:controlUpgradeMapFields) if(attribute==f.name) return true;}
+        if(kind==256 && path=="ScatterSettings") {for(const auto& f:controlScatterDamageFields) if(attribute==f.name) return true;}
+        if(kind==259 && path=="ParticleData") {for(const auto& f:controlSqueezeFlingParticleDataTypeFields) if(attribute==f.name) return true;}
+        if(kind==260 && (path=="LeftOffset" || path=="RightOffset")) return attribute=="x" || attribute=="y" || attribute=="z";
+        if((kind==261 && path=="ObjectStatusValidation") || (kind==262 && path=="SelfValidation")) return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";
+        if(kind==263 && path=="ConnectionShadowInfo") {for(const auto& f:controlShadowInfoFields) if(attribute==f.name) return true;}
+        return kind==258?GameObjectModuleNodeAttribute(77,path,attribute):false;
+    }
     if(kind>=244 && kind<=251) {
         if((kind==244 || kind==248) && path=="CustomAnimAndDuration") {for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;}
         if(kind==247 && path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";

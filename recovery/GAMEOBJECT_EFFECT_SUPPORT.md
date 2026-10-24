@@ -1,6 +1,6 @@
-# 效果与移动控制完整组：未验收检查点
+# 效果与移动控制完整组：已验收
 
-2026-10-25实现8类及全部直接依赖，**当前未取得最终Windows累计矩阵成功，不能计入已验收数**。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。`support-source/manifest.json`保存140完整原方法及14张原PE表；ExportSupportMethods.py精确类型闭包、稳定归档编号；GenerateSupportFields.py核对完整literal/default/Token/父层和原PE。
+2026-10-25实现8类及全部直接依赖，**已通过source e35541735322f0ba8987766ec362f8b65baffda1/run40141560682完整累计矩阵，计入283/322**。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。`support-source/manifest.json`保存140完整原方法及14张原PE表；ExportSupportMethods.py精确类型闭包、稳定归档编号；GenerateSupportFields.py核对完整literal/default/Token/父层和原PE。
 
 | 类型 | TypeId/native | 完整合同 |
 |---|---|---|
@@ -18,3 +18,5 @@
 实现：GameObjectSupport.h、GameObjectSupportRuntime.h及模块分派/Bridge支持。测试：GameObjectSupportCases.cs，保留全部既有测试；覆盖所有根属性、原PE literal、父层、默认/padding、Token、结构列表/强引用/float列表、过滤器/掩码/validation与分配顺序、跨0/1/2/27/28/29/65边界、未知/重复/外来命名空间拒绝。新组仍须最终/Od、/O2、平台0/1/2/99和三缓冲区完整差分成功；本地源检查不等于Windows成功。
 
 本轮未运行真实SDK编译，原DLL和正式插件路由未变；不能把此检查点当作正式SDK支持。续接先核对RESUME.md中的准确sourceCommit/runId和运行终态，失败须修正后取得完整矩阵，不强推、不覆盖并发证据。
+
+最终/Od/O2各1013416 fixtures、3040248三缓冲区比较、20856拒绝、2880不变性，平台0/1/2/99。两模式原始日志、全部步骤及不可变validation身份已核对；SDK未运行。

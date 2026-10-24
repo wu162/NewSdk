@@ -1,0 +1,26 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 7b04a1fc75c90698380d247ecac98c88b07ac8e73306e0ad7aa32e8a1beebb4f
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AUpgradeMap_003E(void** table, List_003CSageBinaryData_003A_003AUpgradeMap_003E* list, Tracker* tracker)
+	{
+		uint objectCount = (uint)(*(int*)list + 1);
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, objectCount);
+		((int*)ptr)[1] = 1564774360;
+		*(int*)ptr = 1820487795;
+		Relo_002ETracker_002EBookmarkMemberOffset(tracker, list, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		uint num = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			List_003CSageBinaryData_003A_003AUpgradeMap_003E* ptr2 = (List_003CSageBinaryData_003A_003AUpgradeMap_003E*)((byte*)list + 4);
+			do
+			{
+				((int*)ptr)[1] = 0;
+				*(int*)ptr = -1320050453;
+				Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpgradeMap*)(int)(num * 8 + (uint)(*(int*)ptr2)), tracker);
+				num++;
+				ptr = (ProcTableElement*)((byte*)ptr + 12);
+			}
+			while (num < (uint)(*(int*)list));
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}
