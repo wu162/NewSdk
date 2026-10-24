@@ -104,3 +104,5 @@ alongside this group when integrating. UnitAI includes both mandatory filters,
 PlayerTemplate both required colors, Multiplayer all eleven required scalar children,
 BuildState its required Heuristic and BuildEntry, and MultiplayerColor required children.
 Full XSD and actual SDK/isolated replay remain separate integration gates.
+
+The same component now has a separate four-root formation checkpoint; see XML_FORMATIONS.md. Its inclusion does not imply Windows acceptance of either pending group.
