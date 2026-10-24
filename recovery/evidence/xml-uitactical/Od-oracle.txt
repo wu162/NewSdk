@@ -1,7 +1,5 @@
-System.Exception: defaults/UIMouseTacticalLookAt platform=0 xml=<UIMouseTacticalLookAt xmlns="uri:ea.com:eala:asset" id="Oracle"></UIMouseTacticalLookAt> ---> System.Exception: defaults/UIMouseTacticalLookAt/instance byte=42 original=128 recovered=0
-   at XmluitacticalOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmluitacticalOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   --- End of inner exception stack trace ---
-   at XmluitacticalOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   at XmluitacticalOracle.Matrix(TargetPlatform p)
-   at XmluitacticalOracle.Main(String[] args)
+PASS platform=0 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=1 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=2 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=99 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS Tactical UI fixtures=32476 arrayComparisons=194856 rejections=2208 layoutAssertions=368997

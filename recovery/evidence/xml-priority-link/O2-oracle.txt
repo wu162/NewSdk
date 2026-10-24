@@ -80,6 +80,107 @@ ROUTE root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler
 ROUTE root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler
 ROUTE root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler
 ROUTE root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler
+ROUTE root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler
+ROUTE root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler
+ROUTE root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler
+ROUTE root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler
+ROUTE root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler
+ROUTE root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler
+ROUTE root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler
+ROUTE root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler
+ROUTE root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler
+ROUTE root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler
+ROUTE root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler
+ROUTE root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler
+ROUTE root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler
+ROUTE root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler
+ROUTE root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler
+ROUTE root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler
+ROUTE root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler
+ROUTE root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler
+ROUTE root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler
+ROUTE root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler
+ROUTE root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler
+ROUTE root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler
+ROUTE root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler
+ROUTE root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler
+ROUTE root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler
+ROUTE root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler
+ROUTE root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler
+ROUTE root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler
+ROUTE root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler
+ROUTE root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler
+ROUTE root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler
+ROUTE root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler
+ROUTE root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler
+ROUTE root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler
+ROUTE root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler
+ROUTE root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler
+ROUTE root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler
+ROUTE root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler
+ROUTE root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler
+ROUTE root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler
+ROUTE root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler
+ROUTE root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler
+ROUTE root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler
+ROUTE root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler
+ROUTE root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler
+ROUTE root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler
+ROUTE root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler
+ROUTE root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler
+ROUTE root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler
+ROUTE root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler
+ROUTE root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler
+ROUTE root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler
+ROUTE root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler
+ROUTE root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler
+ROUTE root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler
+ROUTE root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler
+ROUTE root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler
+ROUTE root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler
+ROUTE root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler
+ROUTE root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler
+ROUTE root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler
+ROUTE root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler
+ROUTE root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler
+ROUTE root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler
+ROUTE root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler
+ROUTE root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler
+ROUTE root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler
+ROUTE root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler
+ROUTE root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler
+ROUTE root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler
+ROUTE root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler
+ROUTE root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler
+ROUTE root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler
+ROUTE root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler
+ROUTE root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler
+ROUTE root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler
+ROUTE root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler
+ROUTE root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler
+ROUTE root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler
+ROUTE root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler
+ROUTE root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler
+ROUTE root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler
+ROUTE root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler
+ROUTE root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler
+ROUTE root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler
+ROUTE root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler
+ROUTE root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler
+ROUTE root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler
+ROUTE root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler
+ROUTE root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler
+ROUTE root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler
+ROUTE root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler
+ROUTE root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -162,6 +263,107 @@ PASS root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler 
 PASS root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler platform=0 fixtures=1 comparisons=3 instance=384 relocations=0 imports=0
 PASS root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler platform=0 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler platform=0 fixtures=1 comparisons=3 instance=200 relocations=0 imports=0
+PASS root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler platform=0 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler platform=0 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler platform=0 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler platform=0 fixtures=1 comparisons=3 instance=152 relocations=0 imports=0
+PASS root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler platform=0 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler platform=0 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler platform=0 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler platform=0 fixtures=1 comparisons=3 instance=136 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler platform=0 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler platform=0 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -172,7 +374,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=0 types=82 fixtures=82 comparisons=246
+PASS platform=0 types=183 fixtures=183 comparisons=549
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -255,6 +457,107 @@ PASS root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler 
 PASS root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler platform=1 fixtures=1 comparisons=3 instance=384 relocations=0 imports=0
 PASS root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler platform=1 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler platform=1 fixtures=1 comparisons=3 instance=200 relocations=0 imports=0
+PASS root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler platform=1 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler platform=1 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler platform=1 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler platform=1 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler platform=1 fixtures=1 comparisons=3 instance=152 relocations=0 imports=0
+PASS root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler platform=1 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler platform=1 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler platform=1 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler platform=1 fixtures=1 comparisons=3 instance=136 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler platform=1 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler platform=1 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler platform=1 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -265,7 +568,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=1 types=82 fixtures=82 comparisons=246
+PASS platform=1 types=183 fixtures=183 comparisons=549
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -348,6 +651,107 @@ PASS root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler 
 PASS root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler platform=2 fixtures=1 comparisons=3 instance=384 relocations=0 imports=0
 PASS root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler platform=2 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler platform=2 fixtures=1 comparisons=3 instance=200 relocations=0 imports=0
+PASS root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler platform=2 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler platform=2 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler platform=2 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler platform=2 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler platform=2 fixtures=1 comparisons=3 instance=152 relocations=0 imports=0
+PASS root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler platform=2 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler platform=2 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler platform=2 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler platform=2 fixtures=1 comparisons=3 instance=136 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler platform=2 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler platform=2 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler platform=2 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -358,7 +762,7 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=2 types=82 fixtures=82 comparisons=246
+PASS platform=2 types=183 fixtures=183 comparisons=549
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -441,6 +845,107 @@ PASS root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler 
 PASS root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler platform=99 fixtures=1 comparisons=3 instance=384 relocations=0 imports=0
 PASS root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler platform=99 fixtures=1 comparisons=3 instance=48 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler platform=99 fixtures=1 comparisons=3 instance=200 relocations=0 imports=0
+PASS root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler platform=99 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler platform=99 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler platform=99 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler platform=99 fixtures=1 comparisons=3 instance=128 relocations=0 imports=0
+PASS root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler platform=99 fixtures=1 comparisons=3 instance=152 relocations=0 imports=0
+PASS root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler platform=99 fixtures=1 comparisons=3 instance=132 relocations=0 imports=0
+PASS root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler platform=99 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler platform=99 fixtures=1 comparisons=3 instance=4 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler platform=99 fixtures=1 comparisons=3 instance=136 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler platform=99 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler platform=99 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
+PASS root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler platform=99 fixtures=1 comparisons=3 instance=36 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -451,6 +956,6 @@ PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticl
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
-PASS platform=99 types=82 fixtures=82 comparisons=246
-PASS XmlPriorityLink types=82 fixtures=328 comparisons=984 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only
+PASS platform=99 types=183 fixtures=183 comparisons=549
+PASS XmlPriorityLink types=183 fixtures=732 comparisons=2196 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only
 PROCESS EXIT mode=O2 exitCode=0 exitCodeHex=0x00000000
