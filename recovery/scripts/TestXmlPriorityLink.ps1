@@ -6,7 +6,7 @@ $evidence = Join-Path $repo 'recovery/evidence/xml-priority-link'
 $tempRoot = if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [IO.Path]::GetTempPath() }
 $out = Join-Path $tempRoot 'ra3-recovered-xml-priority-link'
 New-Item -ItemType Directory -Force $evidence, $out | Out-Null
-# This is a combined-TU/CLI metadata/link smoke, not the six groups' full matrices.
+# Combined-TU/CLI metadata/link smoke including the completion paths; group full matrices remain mandatory.
 $expectedRootTypeIds = [ordered]@{
     AttributeModifier = [uint32]3319822471
     FXList = [uint32]2254974584
@@ -29,9 +29,10 @@ $runId = $env:GITHUB_RUN_ID
 if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $validation = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId
-    scope = 'Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate'
+    scope = 'Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate'
     expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 14
     expectedFixturesPerMode = 56; expectedComparisonsPerMode = 168
+    expectedCompletionFixturesPerMode = 40; expectedCompletionComparisonsPerMode = 120
     platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
 $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
@@ -96,7 +97,7 @@ try {
         Get-Content "$evidence/$mode-oracle.txt"
         if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 14 types and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
-        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 14 -or $result.fixtures -ne 56 -or $result.comparisons -ne 168 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
+        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 14 -or $result.fixtures -ne 56 -or $result.comparisons -ne 168 -or $result.completionFixtures -ne 40 -or $result.completionComparisons -ne 120 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
         if (@($result.typeCoverage.PSObject.Properties).Count -ne 14) { throw "$mode incomplete per-type coverage" }
         foreach ($entry in $expectedRootTypeIds.GetEnumerator()) {
             if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
@@ -104,6 +105,7 @@ try {
         $validation.modes += [ordered]@{
             mode = $mode; succeeded = $true; exitCode = [int32]$code; exitCodeHex = $exitCodeHex; types = $result.types
             fixtures = $result.fixtures; comparisons = $result.comparisons
+            completionFixtures = $result.completionFixtures; completionComparisons = $result.completionComparisons
             platforms = $result.platforms; typeCoverage = $result.typeCoverage
             compilerClasses = $result.compilerClasses
             linkedAssembly = "$mode/Recovered.XmlCompilerPriority.dll"
@@ -113,7 +115,7 @@ try {
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     }
     $validation.succeeded = $true
-    $validation.status = 'All 14 exact compiler routes linked and passed default-root three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
+    $validation.status = 'All 14 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
 } catch {
     $validation.status = $_.Exception.Message
     throw
@@ -124,3 +126,4 @@ try {
     $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     if ($afterHash -ne $originalHash) { throw 'Original XmlCompiler DLL changed during smoke' }
 }
+

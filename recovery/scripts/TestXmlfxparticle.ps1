@@ -30,9 +30,12 @@ try {
         'recovery/src/Native/Relocation.cpp',
         'recovery/src/Native/ScalarParsing.cpp',
                 'recovery/src/Native/ResourceMarshaling.cpp',
-        'recovery/src/Native/Xmlfxparticle.cpp',
         'recovery/src/Bridge/XmlfxparticleCompiler.cpp'
     )
+    # Keep the component and combined-link builds on the same formal particle sources.
+    $sources += @(Get-ChildItem 'recovery/src/Native/Xmlfxparticle*.cpp' -File | Sort-Object Name | ForEach-Object { $_.FullName })
+    $oracleSources = @((Resolve-Path 'recovery/tests/XmlfxparticleOracle.cs').Path)
+    $oracleSources += @(Get-ChildItem 'recovery/tests/Xmlfxparticle*Cases.cs' -File | Sort-Object Name | ForEach-Object { $_.FullName })
     foreach ($mode in @('Od','O2')) {
         $modeOut = Join-Path $out $mode
         New-Item -ItemType Directory -Force $modeOut | Out-Null
@@ -41,7 +44,7 @@ try {
         & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.Xmlfxparticle.dll" @sources *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
         $hostLog = Join-Path $evidence "$mode-host-build.txt"
-        & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmlfxparticle.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlfxparticleOracle.exe" (Resolve-Path 'recovery/tests/XmlfxparticleOracle.cs').Path *> $hostLog
+        & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmlfxparticle.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlfxparticleOracle.exe" @oracleSources *> $hostLog
         if ($LASTEXITCODE -ne 0) { Get-Content $hostLog; throw "$mode oracle host build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$modeOut/XmlfxparticleOracle.exe.config"
         $oracleLog = Join-Path $evidence "$mode-oracle.txt"
@@ -69,3 +72,4 @@ try {
 } finally {
     $summary | ConvertTo-Json -Depth 12 | Set-Content -Encoding UTF8 $validation
 }
+
