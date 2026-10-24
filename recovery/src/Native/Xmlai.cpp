@@ -20,6 +20,9 @@ struct Field { const char* name; const char* fallback; unsigned offset; Kind kin
 struct Child { const char* name; const char* type; unsigned offset; ChildKind kind; };
 struct Layout { unsigned size; U32 hash; std::vector<Field> fields; std::vector<Child> children; };
 struct EnumView { const EnumNameValue* entries; std::size_t count; };
+#if __has_include("XmlaiPersonalityEnums.inc")
+#include "XmlaiPersonalityEnums.inc"
+#endif
 #include "XmlaiLayouts.inc"
 const std::map<std::string,Layout>& Layouts() { static const auto result=MakeLayouts(); return result; }
 const Layout& Get(const std::string& name) {
