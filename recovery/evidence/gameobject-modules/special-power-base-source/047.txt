@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 53597; body SHA256 801956f5ed4f80f45804a39c535b7340344e72e0424253ab1bca96ffae41789f
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASoundOrEvaEvent_003E(INode* node, SoundOrEvaEvent** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+			Marshaler_002EMarshal(node, (SoundOrEvaEvent*)(int)(*(uint*)pointer), tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}

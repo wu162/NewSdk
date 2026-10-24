@@ -1,0 +1,26 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "status": "original PE full 7/12/5 tables verified from run40093602291; enum-source.json preserves names/values and fingerprints; modules remain unimplemented and rejected",
+  "required": [
+    {
+      "name": "WeatherType",
+      "entryCount": 7,
+      "unknown": 1,
+      "kind": "single enum"
+    },
+    {
+      "name": "DisabledType",
+      "entryCount": 12,
+      "unknown": 0,
+      "kind": "bitset index"
+    },
+    {
+      "name": "PartitionManagerDistTestType",
+      "entryCount": 5,
+      "unknown": 0,
+      "kind": "single enum"
+    }
+  ],
+  "probe": "recovery/scripts/InspectSpecialPowerEnums.py",
+  "outputPrefix": "SPECIAL_POWER_ENUM_SOURCE"
+}

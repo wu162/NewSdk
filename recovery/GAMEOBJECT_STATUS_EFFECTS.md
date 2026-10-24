@@ -1,6 +1,6 @@
 # GameObject EMP与压制状态效果
 
-状态：源码和测试已准备，尚未完成最终组件矩阵验收。sourceCommit/runId/计数由本轮交接补齐；SDK未运行，原路由保留。
+状态：本轮最终完整组件矩阵已验收通过；精确源码/运行/计数见文末。本页不代表完整GameObject、完整替代DLL或SDK集成完成。
 
 原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；28个精确原方法、wrapper、Color3f与必要helper指纹见 `evidence/gameobject-modules/status-effects-source/manifest.json`。`GenerateStatusEffectsFields.py` 再生metadata；逻辑位于独立 `GameObjectStatusEffectsRuntime.h`，无需新PE表。
 
@@ -19,3 +19,9 @@ Suppression：UpdateDelay Time@8=1s；Suppressability float@12=0（不除100）�
 
 测试 `GameObjectStatusEffectsCases.cs` 验证完整字段、颜色缺省/显式空/大小写、schema顺序、Status位集与拒绝，保留既有矩阵。最终须/Od、/O2、平台0/1/2/99、三缓冲区逐字节差分和独立布局；不得以组件验收替代SDK或完整DLL。
 
+
+## 本轮最终整批验收
+
+有效验收提交`284599bfd958c0f62d40ce1b72d27dd70a568bcc`；GameObject run **40094269582 success**，同提交基础run **40094269592 success**。/Od、/O2每模式**381140 fixtures、1143420三缓冲区逐字节比较、13884拒绝、1060不变性**；平台0/1/2/99，两模式合计**2286840**次缓冲区比较。实际两模式日志、validation.json、sourceCommit/runId及运行终态均已逐项核对。
+
+本轮实际29新，164→193/322；129种其他已知Marshal继续明确拒绝，58 Token-only未知Marshal回退保留。本轮SDK0次，原路由保留。

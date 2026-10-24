@@ -1,0 +1,44 @@
+{
+  "status": "original PE tables verified; modules remain unimplemented and rejected",
+  "runId": 40093602291,
+  "sourceCommit": "781defb6ca9bbb0a7ff33afba01df79cd6ce5e70",
+  "evidencePath": "recovery/evidence/gameobject-root/special-power-enums.txt",
+  "evidenceBlobSha": "da2bfef57693403072d80dd767a95516b7db00a5",
+  "DisabledType": {
+    "DEFAULT": 0,
+    "EMP": 2,
+    "FREEFALL": 7,
+    "HELD": 3,
+    "INFILTRATED": 11,
+    "PARALYZED": 4,
+    "SCRIPT_DISABLED": 9,
+    "SCRIPT_UNDERPOWERED": 10,
+    "TEMPORARILY_BUSY": 8,
+    "UNDERPOWERED": 6,
+    "UNMANNED": 5,
+    "USER_PARALYZED": 1
+  },
+  "PartitionManagerDistTestType": {
+    "CENTER_2D": 0,
+    "CENTER_3D": 2,
+    "CIRCLE": 1,
+    "EXTENTS_3D": 4,
+    "SPHERE": 3
+  },
+  "WeatherType": {
+    "CLOUDY": 1,
+    "CLOUDYRAINY": 3,
+    "INVALID": 6,
+    "NORMAL": 0,
+    "RAINY": 2,
+    "SNOWY": 5,
+    "SUNNY": 4
+  },
+  "peSha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "reconfirmedBy": {
+    "sourceCommit": "284599bfd958c0f62d40ce1b72d27dd70a568bcc",
+    "runId": 40094269582,
+    "status": "success; same three complete PE tables reread"
+  }
+}

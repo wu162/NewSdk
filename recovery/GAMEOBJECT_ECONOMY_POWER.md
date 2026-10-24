@@ -1,6 +1,6 @@
 # GameObject 经济与电力
 
-状态：本轮首批完整组件验收通过。源码`df3d0fcead1eb71c0d812faf74f4f7df751980b7`，GameObject run **40091269128 success**、基础run **40091269124 success**；/Od、/O2每模式349080 fixtures、1047240三缓冲区逐字节比较、13012拒绝、928不变性，平台0/1/2/99。本组已计入174/322基线；后续批次若修改相关输入，仍以实际最终源码验收为准。SDK未运行，原路由保留，不宣称完整GameObject/替代DLL/插件完成。
+状态：本轮最终完整组件矩阵已验收通过；精确源码/运行/计数见文末。本页不代表完整GameObject、完整替代DLL或SDK集成完成。
 
 原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；46个精确原方法、literal、尾LF body SHA256与helper闭包见 `evidence/gameobject-modules/economy-power-source/manifest.json`。字段/Token由 `GenerateEconomyPowerFields.py` 对照原方法再生；实现位于对应metadata头和独立 `GameObjectEconomyPowerRuntime.h`。
 
@@ -24,3 +24,9 @@
 
 测试 `GameObjectEconomyPowerCases.cs` 覆盖完整枚举词、单值/位集边界、unsigned金额、三列表次序及旧回归。最终仍须/Od、/O2、平台0/1/2/99、三缓冲区逐字节、独立布局、拒绝与不变性；组件成功不能冒充SDK或完整GameObject支持。
 
+
+## 本轮最终整批验收
+
+有效验收提交`284599bfd958c0f62d40ce1b72d27dd70a568bcc`；GameObject run **40094269582 success**，同提交基础run **40094269592 success**。/Od、/O2每模式**381140 fixtures、1143420三缓冲区逐字节比较、13884拒绝、1060不变性**；平台0/1/2/99，两模式合计**2286840**次缓冲区比较。实际两模式日志、validation.json、sourceCommit/runId及运行终态均已逐项核对。
+
+本轮实际29新，164→193/322；129种其他已知Marshal继续明确拒绝，58 Token-only未知Marshal回退保留。本轮SDK0次，原路由保留。

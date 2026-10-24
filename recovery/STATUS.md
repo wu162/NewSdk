@@ -749,3 +749,20 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 158种其他已知Marshal仍拒绝，58 Token-only回退保留；完整GameObject/完整替代DLL/正式插件未完成，本轮SDK0次，原路由保留。首组与最终整批统一验证，复用已验收公共helper和PE表；没有账号额度计量，无法量化节省。
 
 下一完整经济/电力组四种仍拒绝：PowerUpdate、PlayerPowerManagerBehavior、AutoDepositUpdate、DistributedMoneyBehavior。固定原blob46方法与必要helper闭包已提取并核对，未实现或计数；三项原PE表待取证。精确布局、方法指纹、schema列表顺序、百分比默认和Token父链见GAMEOBJECT_ECONOMY_POWER_NEXT.md及economy-power-source，当前入口以RESUME.md为准。
+
+
+## 2026-10-24：实际约1小时继续轮次，29新完整能力/最终193
+
+用户要求上一轮后继续，实际约1小时、最多3子代理。北京时间19:34开始，本轮编码/取证/验证与修复持续到20:36后完成交接，没有因首个子集成功提前结束。源/测试/证据3代理并行，主代理按完整组集成并普通推送保存检查点。
+
+实际新增29（11完整组）：EconomyPower4、StructureWall3、CombatResponse3、StatusEffects2、StealthVision2、Tiberium3、WallEnclose2、ResourceAllies2、StateEvent2、ModelCondition3、MotionCleanup3。164→193/322已知Marshal；129种其他已知Marshal仍拒绝，58 Token-only未知Marshal回退保留。全部ID已对旧全表和本轮metadata去重，没有重复恢复既存SpawnCrate。
+
+最终有效验收提交284599bfd958c0f62d40ce1b72d27dd70a568bcc，GameObject40094269582 success、同源码基础40094269592 success。每/Od、/O2：381140 fixtures、1143420三缓冲区逐字节比较、13884拒绝、1060不变性，四平台0/1/2/99；两模式总2286840次缓冲区比较。validation.json、实际Od/O2日志、sourceCommit/runId与两workflow终态均已逐项核对。原生恢复源码自781defb...未变；最终修复只纠正独立golden与新Cases自动CI路径。
+
+首10 source df3d0fcead1eb71c0d812faf74f4f7df751980b7 /40091269128及40091269124均success（每模式349080/1047240/13012/928）；后7 sourcec32069c1ac0c7509b851c76d6f8c00bafebccdf1 /40091859893及40091859870均success（366576/1099728/13448/964）。最终矩阵完整包含这些与所有更早回归，没有降低样本、比较、拒绝或独立布局门槛。
+
+保留失败证据：6429b0cda58367ecd9bd114874950c0f24473bca /40092685797被Enclose独立Imports期待阻断；781defb6ca9bbb0a7ff33afba01df79cd6ce5e70 /40093602291被ALL -DUMP_ORE独立期待阻断。两次Check的原/恢复三缓冲区均已相等，独立golden错误依据原方法纠正，而非放宽：原Plugin.cs blob641761fc1420ce2ab6a9a75aa443dd35c970bda8 line716无条件ImportsData=new byte[0]；原model036 bodySHA56463e826838b3912fb33ff1ae1ea1dd11878a090edfcef4804f6cd039f1eaa6的ALL分支不推进token，因此ALL后的负词不再处理。保留Imports精确0/强FX24/String4/ptr+140/tail148和独立普通XOR/ALL全word断言；修正后取得完整最终成功结果。
+
+源码继续按职责拆分：新增9个组Runtime头，State/Model纯字段组直接通用分派；原位置include展开字节等价，本轮新增后主cpp68469字符（没有重新堆大文件）。32个FieldSet count/边界、200根Token模式/stride及133–161高kind guard已独立静态审查；29ID唯一、原始322集合均命中。工作流仅增加GameObject*.cs测试路径，确保新Cases单文件修正自动触发原完整矩阵，未改权限/自动证据流程或关闭旧回归。
+
+下一完整SpecialPower父452+RadarHack464+RadarJam460仅完成原78方法闭包与完整Weather7/Disabled12/Distance5 PE表（成功最终运行复读确认），仍未实现、仍拒绝，不计193；NEXT及special-power-base-source已保存。当前续接入口以RESUME.md为准。SDK本轮0次、原路由保留，完整GameObject/两替代DLL/正式插件仍未完成。复用已验收公共helper/原表并整组验证；没有账号额度计量，无法量化节省。
