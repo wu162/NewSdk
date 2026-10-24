@@ -22,13 +22,16 @@ void W(void* p,U x){std::memcpy(p,&x,4);}void F(void* p,float x){std::memcpy(p,&
 float Units(const std::string& s,bool angle){auto cut=s.find(angle?"r":"ms");float scale=angle?1.0f:0.001f;if(cut==std::string::npos){cut=s.find(angle?"d":"s");scale=angle&&cut!=std::string::npos?static_cast<float>(3.14159265358979323846)/180.0f:1.0f;}return static_cast<float>(static_cast<double>(ParseFloat(s.substr(0,cut)))*static_cast<double>(scale));}
 struct Table {const EnumNameValue* p;size_t n;int fallback;unsigned bits;};
 #define T(name,f,b) {P##name,sizeof(P##name)/sizeof(P##name[0]),f,b}
-const Table enums[]={T(LogicCommandType,10,0),T(LogicCommandOptions,7,11),T(AISpecialPowerHeuristic,4,0),T(AISpecialPowerManager,3,0),T(MicroManagerState,0,10),T(AITargetLocationType,1,2),T(AIAoeAttackPowerLocationPreference,1,0),T(AIAoeAttackPowerEmanationLocation,0,0),T(ShadowType,3,0),T(KindOfType,149,284)};
+const Table enums[]={T(LogicCommandType,10,0),T(LogicCommandOptions,7,11),T(AISpecialPowerHeuristic,4,0),T(AISpecialPowerManager,3,0),T(MicroManagerState,0,10),T(AITargetLocationType,1,2),T(AIAoeAttackPowerLocationPreference,1,0),T(AIAoeAttackPowerEmanationLocation,0,0),T(ShadowType,3,0),T(KindOfType,149,284),T(FactionType,0,0)};
 #undef T
 enum Kind{Int,UInt,Real,Time,Angle,Bool,Ref,String,Hash,Enum,Bits,PtrReal,PtrInt,PtrBool,PtrRef,Model};
 struct Field{const char* name;unsigned offset;Kind kind;const char* fallback;int table;};
 #define A(n,o,k,d) {n,o,k,d,0}
 #define E(n,o,d,t) {n,o,Enum,d,t}
 #define B(n,o,d,t) {n,o,Bits,d,t}
+const Field button[]={A("Image",0,Ref,nullptr),A("Title",4,String,nullptr),A("Description",12,String,nullptr),A("TypeDescription",20,String,nullptr)};
+const Field store[]={E("Faction",4,nullptr,10)};
+const Field purchase[]={A("PlayerTech",4,Ref,nullptr),A("StateData",8,Ref,nullptr)};
 const Field logic[]={E("Type",4,"NONE",0),B("Options",8,nullptr,1)};
 const Field tech[]={A("TechPointsRequired",4,UInt,"0")};
 const Field rank[]={A("ExperiencePointsToNextRank",4,UInt,"0"),A("TechPointsGranted",8,UInt,"0")};
@@ -65,9 +68,12 @@ struct Builder{
  Relo::Chunk Finish(){if(big){for(void* p:swaps)Swap(p);if(correct)for(auto f:filters)EndianObjectFilter(f);}return t.MakeRelocatable(big,0);}
 };
 }
-unsigned int XmlprogressionTypeId(const std::string& n){if(n=="LogicCommand")return 2101756272u;if(n=="PlayerTech")return 2131237081u;if(n=="PlayerTechRank")return 1802643394u;if(n=="PlayerTechUpgradeBinding")return 2140592493u;if(n=="ExperienceLevelTemplate")return 1874610847u;return 0;}
-Relo::Chunk CompileXmlprogression(const N& input,bool big){const auto& name=input.name;unsigned size=name=="LogicCommand"?28:name=="PlayerTech"?16:name=="PlayerTechRank"?20:name=="PlayerTechUpgradeBinding"?12:name=="ExperienceLevelTemplate"?108:0;Check(size!=0,"Unsupported progression root");Builder b(big,name!="PlayerTech"&&name!="PlayerTechUpgradeBinding");unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),size,1);
- if(name=="LogicCommand"){b.Fields(input,root,logic,sizeof(logic)/sizeof(Field),"SpecialPower|Upgrade|Object|AISpecialPowerInfo",true);const char* ns[]={"SpecialPower","Upgrade","Object"};for(unsigned i=0;i<3;++i){auto c=Child(input,ns[i]);if(c){b.Leaf(*c);auto q=b.Push(root,12+4*i,4);MarshalReference(b.t,q,c->text);b.t.Pop();}}auto aiNode=Child(input,"AISpecialPowerInfo");if(aiNode){auto q=static_cast<unsigned char*>(b.Push(root,24,172));b.AI(*aiNode,q);b.t.Pop();}}
+unsigned int XmlprogressionTypeId(const std::string& n){if(n=="ButtonSingleStateData")return 3048039928u;if(n=="PlayerTechStoreTemplate")return 1213037816u;if(n=="PurchasePlayerTechButtonTemplate")return 1566941920u;if(n=="LogicCommand")return 2101756272u;if(n=="PlayerTech")return 2131237081u;if(n=="PlayerTechRank")return 1802643394u;if(n=="PlayerTechUpgradeBinding")return 2140592493u;if(n=="ExperienceLevelTemplate")return 1874610847u;return 0;}
+Relo::Chunk CompileXmlprogression(const N& input,bool big){const auto& name=input.name;unsigned size=name=="ButtonSingleStateData"?32:name=="PlayerTechStoreTemplate"?16:name=="PurchasePlayerTechButtonTemplate"?12:name=="LogicCommand"?28:name=="PlayerTech"?16:name=="PlayerTechRank"?20:name=="PlayerTechUpgradeBinding"?12:name=="ExperienceLevelTemplate"?108:0;Check(size!=0,"Unsupported progression root");Builder b(big,name!="PlayerTech"&&name!="PlayerTechUpgradeBinding");unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),size,1);
+ if(name=="ButtonSingleStateData"){Validate(input,"id","State");auto state=Child(input,"State");if(state)b.Fields(*state,root+4,button,4,"");}
+ else if(name=="PlayerTechStoreTemplate"){b.Fields(input,root,store,1,"Row",true);b.Scalar(root+8,static_cast<U>(input.children.size()));if(!input.children.empty()){auto rows=static_cast<unsigned char*>(b.Push(root,12,8,static_cast<U>(input.children.size())));for(size_t i=0;i<input.children.size();++i){Validate(input.children[i],"","Button");b.List(input.children[i],"Button",rows+8*i,0,true);}b.t.Pop();}}
+ else if(name=="PurchasePlayerTechButtonTemplate"){b.Fields(input,root,purchase,2,"",true);}
+ else if(name=="LogicCommand"){b.Fields(input,root,logic,sizeof(logic)/sizeof(Field),"SpecialPower|Upgrade|Object|AISpecialPowerInfo",true);const char* ns[]={"SpecialPower","Upgrade","Object"};for(unsigned i=0;i<3;++i){auto c=Child(input,ns[i]);if(c){b.Leaf(*c);auto q=b.Push(root,12+4*i,4);MarshalReference(b.t,q,c->text);b.t.Pop();}}auto aiNode=Child(input,"AISpecialPowerInfo");if(aiNode){auto q=static_cast<unsigned char*>(b.Push(root,24,172));b.AI(*aiNode,q);b.t.Pop();}}
  else if(name=="PlayerTech"){b.Fields(input,root,tech,1,"TechDependency",true);b.List(input,"TechDependency",root,8,true);}
  else if(name=="PlayerTechRank"){b.Fields(input,root,rank,2,"TechGranted",true);b.List(input,"TechGranted",root,12,true);}
  else if(name=="PlayerTechUpgradeBinding"){Validate(input,"id","Binding");std::vector<const N*> items;for(const auto& c:input.children)items.push_back(&c);b.Scalar(root+4,static_cast<U>(items.size()));if(!items.empty()){auto q=static_cast<unsigned char*>(b.Push(root,8,8,static_cast<U>(items.size())));for(size_t i=0;i<items.size();++i){Validate(*items[i],"TechDependency|UpgradeToGrant","");if(items[i]->attributes.count("TechDependency"))MarshalReference(b.t,q+8*i,Get(*items[i],"TechDependency"));if(items[i]->attributes.count("UpgradeToGrant"))MarshalReference(b.t,q+8*i+4,Get(*items[i],"UpgradeToGrant"));}b.t.Pop();}}

@@ -88,5 +88,32 @@ public:
   return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
  }
 };
+public ref class PlayerTechStoreTemplateCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"PlayerTechStoreTemplate");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=1213037816u)throw gcnew NotSupportedException("Expected PlayerTechStoreTemplate TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
+public ref class PurchasePlayerTechButtonTemplateCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"PurchasePlayerTechButtonTemplate");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=1566941920u)throw gcnew NotSupportedException("Expected PurchasePlayerTechButtonTemplate TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
+public ref class ButtonSingleStateDataCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"ButtonSingleStateData");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=3048039928u)throw gcnew NotSupportedException("Expected ButtonSingleStateData TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
 }
 

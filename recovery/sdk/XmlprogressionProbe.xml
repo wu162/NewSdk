@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-  <!-- Five new root types. Binding requires both strong references and at
+  <!-- Eight new root types. Binding requires both strong references and at
        least one Binding, so one already recovered UpgradeTemplate support
        asset is included. All references are local; no raw TypeId/reference
        index or external resource is injected by these source fixtures. -->
@@ -15,4 +15,15 @@
   <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults">
     <LevelUpTintColor />
   </ExperienceLevelTemplate>
+  <ButtonSingleStateData id="RecoveryXmlAdditional_ButtonSingleStateData_Defaults"><State /></ButtonSingleStateData>
+  <PurchasePlayerTechButtonTemplate id="RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults"
+      PlayerTech="RecoveryXmlAdditional_PlayerTech_Defaults"
+      StateData="RecoveryXmlAdditional_ButtonSingleStateData_Defaults" />
+  <PlayerTechStoreTemplate id="RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults" Faction="Japan">
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+  </PlayerTechStoreTemplate>
 </AssetDeclaration>

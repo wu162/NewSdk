@@ -9,7 +9,7 @@ if (-not $tempRoot) { $tempRoot = [IO.Path]::GetTempPath() }
 $out = Join-Path $tempRoot ('recovered-xml-progression-' + $runId)
 $evidence = 'recovery/evidence/xml-progression'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
-$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Five complete progression roots and their nested AI/decal dependencies; component only'; status='started' }
+$result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Eight complete progression roots and their nested AI/decal dependencies; component only'; status='started' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run from the VS2022 x86 developer shell' }
