@@ -70,7 +70,8 @@ class XmlPrioritySdkOracle {
             throw new Exception("Missing or incorrect BAB numeric TypeId: "+label);
     }
     static void CheckPreprocessing(XmlDocument d,string id,string type) {
-        RequireTag(d.DocumentElement,id,TypeId(type));
+        // Root identity comes from BAB InstanceDeclaration; BaseAssetType has no TypeId XML attribute.
+        if(Declaration(d).Handle.TypeId!=TypeId(type))throw new Exception("Incorrect BAB root handle TypeId: "+id);
         XmlNamespaceManager ns=Namespaces(d);
         foreach(XmlElement e in d.SelectNodes("/ea:FXList/ea:NuggetList/* | /ea:FXParticleSystemTemplate/ea:Physics/* | /ea:FXParticleSystemTemplate/ea:Draw/* | /ea:FXParticleSystemTemplate/ea:Volume/* | /ea:FXParticleSystemTemplate/ea:Velocity/* | /ea:FXParticleSystemTemplate/ea:Update/* | /ea:FXParticleSystemTemplate/ea:Event/*",ns)) {
             uint tag;
