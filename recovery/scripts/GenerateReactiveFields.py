@@ -1,4 +1,4 @@
-"""Complete DamageState and reactive weapon contracts; WeaponSet remains refused."""
+"""Complete DamageState and reactive weapon contracts; WeaponSet is implemented separately by GenerateWeaponSetFields.py."""
 import hashlib,json,re,sys
 from pathlib import Path
 from GenerateLifecycleFields import body_of
@@ -107,3 +107,4 @@ if __name__=='__main__':
     if '--check'in sys.argv:assert path.read_text()==output,'Regenerate GameObjectReactive.h'
     else:path.write_text(output)
     print('PASS complete DamageState and three reactive fire modules, full Upgrade DieMux dependencies and Tokens'+(' (exported evidence only)'if source is None else ' (original blob and PE verified)'))
+

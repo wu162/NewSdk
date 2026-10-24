@@ -54,6 +54,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectWeaponSet.h"
 #include "GameObjectHealing.h"
 #include "GameObjectCrate.h"
+#include "GameObjectAIUpdate.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -254,6 +255,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:aiUpdateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:crateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:healingChoices) if(choice.type==type) return &choice;
     if(type==weaponSetChoice.type) return &weaponSetChoice;
@@ -785,8 +787,27 @@ void EndianCrate(unsigned char* output,unsigned kind) {
     if(group>0 && group<7) EndianModuleFieldSet(output,crateFieldSets[0]);
     if(group==7) {Swap(output+36);auto at=*reinterpret_cast<ObjectFilter**>(output+44);if(at) EndianObjectFilter(at);}
 }
+// Concrete fields precede the AI base, matching original reference/allocation order.
+void MarshalAIUpdate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    unsigned group=kind-104;
+    if(group) MarshalModuleFieldSet(input,output,aiUpdateFieldSets[group],data);
+    MarshalModuleFieldSet(input,output,aiUpdateFieldSets[0],data);
+    for(const auto& child:input.children) if(child.name=="UnitAITargetChooserData") {
+        auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+68),40,1));
+        MarshalModuleFieldSet(child,at,aiUpdateFieldSets[8],data);
+        MarshalWeaponSetNode(child,at,8,data);data.Pop();
+    }
+}
+void EndianAIUpdate(unsigned char* output,unsigned kind) {
+    unsigned group=kind-104;
+    if(group) EndianModuleFieldSet(output,aiUpdateFieldSets[group]);
+    EndianModuleFieldSet(output,aiUpdateFieldSets[0]);
+    auto chooser=*reinterpret_cast<unsigned char**>(output+68);
+    if(chooser) EndianWeaponSetNode(chooser,8);
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=104 && choice->kind<=111) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=96 && choice->kind<=103) EndianCrate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=92 && choice->kind<=95) EndianHealing(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==91) EndianWeaponSetNode(reinterpret_cast<unsigned char*>(input),0);
@@ -833,6 +854,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=104 && choice->kind<=111) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=96 && choice->kind<=103) MarshalCrate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=92 && choice->kind<=95) MarshalHealing(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==91) MarshalWeaponSetNode(input,reinterpret_cast<unsigned char*>(target),0,data);
@@ -937,6 +959,10 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=104 && choice->kind<=111) {
+        for(const auto& set:{aiUpdateFieldSets[choice->kind-104],aiUpdateFieldSets[0]}) for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=96 && choice->kind<=103) {
         unsigned group=choice->kind-96;const auto& own=crateFieldSets[group];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
         if(group>0 && group<7) for(unsigned i=0;i<crateFieldSets[0].count;++i) if(attribute==crateFieldSets[0].fields[i].name) return true;return false;
@@ -978,6 +1004,12 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=104 && kind<=111) {
+        if(path=="UnitAITargetChooserData" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter") return 1;
+        if(path=="UnitAITargetChooserData/ObjectVisionRange") return 2;
+        if(path=="UnitAITargetChooserData/ObjectVisionRange/Filter/IncludeThing" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter/ExcludeThing") return 3;
+        return 0;
+    }
     if(kind>=96 && kind<=103) {
         if(kind==103) {if(path=="CrateList" || path=="BlockingUnits/IncludeThing" || path=="BlockingUnits/ExcludeThing") return 3;if(path=="BlockingUnits") return 1;}return 0;
     }
@@ -1033,6 +1065,14 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=104 && kind<=111) {
+        if(path=="UnitAITargetChooserData") {
+            if(attribute=="TargetingCompareList") return true;
+            for(unsigned i=0;i<weaponSetFieldSets[8].count;++i) if(attribute==weaponSetFieldSets[8].fields[i].name) return true;
+        }
+        if(path=="UnitAITargetChooserData/ObjectVisionRange") return attribute=="Range";
+        return false;
+    }
     if(kind>=96 && kind<=103) return false;
     if(kind>=92 && kind<=95) {
         const ModuleFieldSet* set=nullptr;
@@ -1786,6 +1826,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 
 

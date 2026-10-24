@@ -30,6 +30,7 @@ on:
       - 'recovery/scripts/GenerateWeaponSetFields.py'
       - 'recovery/scripts/GenerateHealingFields.py'
       - 'recovery/scripts/GenerateCrateFields.py'
+      - 'recovery/scripts/GenerateAIUpdateFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
@@ -38,6 +39,7 @@ on:
       - 'recovery/tests/GameObjectWeaponSetCases.cs'
       - 'recovery/tests/GameObjectHealingCases.cs'
       - 'recovery/tests/GameObjectCrateCases.cs'
+      - 'recovery/tests/GameObjectAIUpdateCases.cs'
 permissions:
   contents: write
 jobs:
@@ -79,6 +81,7 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
 
 
