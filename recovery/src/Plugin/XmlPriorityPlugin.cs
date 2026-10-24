@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Register only FXList and FXParticleSystemTemplate. Every payload is generated
+    // Register the fourteen priority types. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -30,16 +30,21 @@ namespace Recovered.XmlPriority
             info.UseBuildCache = false;
             switch (typeId)
             {
-                case 2254974584u:
-                    info.TypeName = "FXList";
-                    info.TypeHash = 2601721382u;
-                    break;
-                case 686292351u:
-                    info.TypeName = "FXParticleSystemTemplate";
-                    info.TypeHash = 1465656250u;
-                    break;
-                default:
-                    throw new NotSupportedException("XmlPriority supports only FXList and FXParticleSystemTemplate.");
+                case 3319822471u: info.TypeName = "AttributeModifier"; info.TypeHash = 4177657499u; break;
+                case 2254974584u: info.TypeName = "FXList"; info.TypeHash = 2601721382u; break;
+                case 2178440954u: info.TypeName = "SpecialPowerTemplate"; info.TypeHash = 984303644u; break;
+                case 3899542881u: info.TypeName = "ObjectCreationList"; info.TypeHash = 578005457u; break;
+                case 3972178387u: info.TypeName = "LocomotorTemplate"; info.TypeHash = 3392338269u; break;
+                case 3959844197u: info.TypeName = "LogicCommandSet"; info.TypeHash = 2330506892u; break;
+                case 686292351u: info.TypeName = "FXParticleSystemTemplate"; info.TypeHash = 1465656250u; break;
+                case 3786401627u: info.TypeName = "UpgradeTemplate"; info.TypeHash = 1334651241u; break;
+                case 3604279694u: info.TypeName = "AIPersonalityDefinition"; info.TypeHash = 3409747243u; break;
+                case 607123156u: info.TypeName = "AIStrategicStateDefinition"; info.TypeHash = 3594381428u; break;
+                case 2423780215u: info.TypeName = "AIMicroManagerData"; info.TypeHash = 1392447443u; break;
+                case 2893598307u: info.TypeName = "AIBudgetStateDefinition"; info.TypeHash = 2583631670u; break;
+                case 3239935619u: info.TypeName = "AIStateDefinition"; info.TypeHash = 50334453u; break;
+                case 926814458u: info.TypeName = "AITargetingHeuristic"; info.TypeHash = 2460454737u; break;
+                default: throw new NotSupportedException("XmlPriority supports only the fourteen priority types.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
@@ -74,18 +79,65 @@ namespace Recovered.XmlPriority
             try
             {
                 switch (typeId)
-                {
-                    case 2254974584u:
-                        typeName = "FXList";
-                        result = global::Recovered.FXListCompiler.ProcessInstance(instance, platform);
-                        break;
-                    case 686292351u:
-                        typeName = "FXParticleSystemTemplate";
-                        result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(instance, platform);
-                        break;
-                    default:
-                        throw new NotSupportedException("XmlPriority supports only FXList and FXParticleSystemTemplate.");
-                }
+            {
+                case 3319822471u:
+                    typeName = "AttributeModifier";
+                    result = global::Recovered.AttributeModifierCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2254974584u:
+                    typeName = "FXList";
+                    result = global::Recovered.FXListCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2178440954u:
+                    typeName = "SpecialPowerTemplate";
+                    result = global::Recovered.SpecialPowerTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3899542881u:
+                    typeName = "ObjectCreationList";
+                    result = global::Recovered.ObjectCreationListCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3972178387u:
+                    typeName = "LocomotorTemplate";
+                    result = global::Recovered.LocomotorTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3959844197u:
+                    typeName = "LogicCommandSet";
+                    result = global::Recovered.LogicCommandSetCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 686292351u:
+                    typeName = "FXParticleSystemTemplate";
+                    result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3786401627u:
+                    typeName = "UpgradeTemplate";
+                    result = global::Recovered.UpgradeTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3604279694u:
+                    typeName = "AIPersonalityDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 607123156u:
+                    typeName = "AIStrategicStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2423780215u:
+                    typeName = "AIMicroManagerData";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2893598307u:
+                    typeName = "AIBudgetStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3239935619u:
+                    typeName = "AIStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 926814458u:
+                    typeName = "AITargetingHeuristic";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only the fourteen priority types.");
+            }
             }
             catch (Exception error)
             {
@@ -114,4 +166,5 @@ namespace Recovered.XmlPriority
         }
     }
 }
+
 

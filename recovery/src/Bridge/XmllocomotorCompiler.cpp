@@ -22,6 +22,7 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             if (NamespaceAttribute(a)) continue;
             if (a->NamespaceURI->Length != 0)
                 throw gcnew NotSupportedException("Namespaced locomotor attributes are unsupported: " + a->Name);
+            if (a->Name == "TypeId") continue; // BAB schema-type metadata; never a locomotor field.
             if (root && (a->Name == "id" || a->Name == "inheritFrom")) continue;
             bool found = false;
             const Native::Xmllocomotor::Field* fields = root ? Native::Xmllocomotor::Fields : Native::Xmllocomotor::JetFields;
@@ -56,7 +57,8 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             } else if (child->LocalName == "BounceKickTerrainMap" && !bounce) {
                 bounce = true;
                 for each (XmlAttribute^ a in child->Attributes)
-                    if (!NamespaceAttribute(a)) throw gcnew NotSupportedException("BounceKickTerrainMap attributes are unsupported");
+                    if (!NamespaceAttribute(a) && !(a->NamespaceURI->Length == 0 && a->Name == "TypeId"))
+                        throw gcnew NotSupportedException("BounceKickTerrainMap attributes are unsupported");
                 Children(child, false);
             } else throw gcnew NotSupportedException("Unknown or duplicate locomotor child: " + child->Name);
         }

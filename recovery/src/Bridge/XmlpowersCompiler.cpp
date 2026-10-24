@@ -14,6 +14,8 @@ ref class XmlpowersBridge abstract sealed {
   if(node->Attributes!=nullptr)for each(XmlAttribute^ a in node->Attributes){
    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
    if(a->NamespaceURI->Length!=0)throw gcnew NotSupportedException("Qualified Xmlpowers attribute.");
+   // XmlCompiler OCL uses typed lists rather than this metadata for dispatch.
+   // BAB injects TypeId on all named-schema elements, including filters and references.
    if(a->LocalName=="TypeId")continue;
    input.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
   }

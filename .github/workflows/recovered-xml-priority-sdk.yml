@@ -1,4 +1,4 @@
-name: XmlCompiler FXList and particle SDK integration
+name: XmlCompiler fourteen priority types SDK integration
 on:
   workflow_dispatch:
   push:
@@ -9,7 +9,7 @@ on:
       - 'recovery/scripts/SetXmlPriorityPlugin.ps1'
       - 'recovery/src/Plugin/XmlPriorityPlugin.cs'
       - 'recovery/tests/XmlPrioritySdkOracle.cs'
-      - 'recovery/sdk/XmlPriorityProbe.*'
+      - 'recovery/sdk/XmlPriority*Probe.*'
 permissions:
   contents: write
 jobs:

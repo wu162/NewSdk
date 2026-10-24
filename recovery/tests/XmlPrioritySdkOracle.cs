@@ -13,6 +13,18 @@ using BinaryAssetBuilder.Core;
 class XmlPrioritySdkOracle {
     const string NS="uri:ea.com:eala:asset";
     static readonly Dictionary<string,string> Required=new Dictionary<string,string>(StringComparer.Ordinal) {
+        {"RecoveryXmlPriority_AttributeModifier_Defaults","AttributeModifier"},
+        {"RecoveryXmlPriority_SpecialPower_Defaults","SpecialPowerTemplate"},
+        {"RecoveryXmlPriority_OCL_Defaults","ObjectCreationList"},
+        {"RecoveryXmlPriority_Locomotor_Defaults","LocomotorTemplate"},
+        {"RecoveryXmlPriority_CommandSet_Defaults","LogicCommandSet"},
+        {"RecoveryXmlPriority_Upgrade_Defaults","UpgradeTemplate"},
+        {"RecoveryXmlPriority_Personality_Defaults","AIPersonalityDefinition"},
+        {"RecoveryXmlPriority_Strategic_Defaults","AIStrategicStateDefinition"},
+        {"RecoveryXmlPriority_Micro_Defaults","AIMicroManagerData"},
+        {"RecoveryXmlPriority_Budget_Defaults","AIBudgetStateDefinition"},
+        {"RecoveryXmlPriority_State_Defaults","AIStateDefinition"},
+        {"RecoveryXmlPriority_Target_Defaults","AITargetingHeuristic"},
         {"RecoveryXmlPriority_FX_Defaults","FXList"},
         {"RecoveryXmlPriority_FX_Filters","FXList"},
         {"RecoveryXmlPriority_Particle_Defaults","FXParticleSystemTemplate"},
@@ -21,8 +33,20 @@ class XmlPrioritySdkOracle {
         {"RecoveryXmlPriority_Particle_RenderObject","FXParticleSystemTemplate"}
     };
     static uint TypeId(string name) {
+        if(name=="AttributeModifier")return 3319822471u;
         if(name=="FXList")return 2254974584u;
+        if(name=="SpecialPowerTemplate")return 2178440954u;
+        if(name=="ObjectCreationList")return 3899542881u;
+        if(name=="LocomotorTemplate")return 3972178387u;
+        if(name=="LogicCommandSet")return 3959844197u;
         if(name=="FXParticleSystemTemplate")return 686292351u;
+        if(name=="UpgradeTemplate")return 3786401627u;
+        if(name=="AIPersonalityDefinition")return 3604279694u;
+        if(name=="AIStrategicStateDefinition")return 607123156u;
+        if(name=="AIMicroManagerData")return 2423780215u;
+        if(name=="AIBudgetStateDefinition")return 2893598307u;
+        if(name=="AIStateDefinition")return 3239935619u;
+        if(name=="AITargetingHeuristic")return 926814458u;
         throw new Exception("Unexpected SDK trace type: "+name);
     }
     static InstanceDeclaration Declaration(XmlDocument xml) {
@@ -71,6 +95,7 @@ class XmlPrioritySdkOracle {
     }
     static void CheckPreprocessing(XmlDocument d,string id,string type) {
         // Root identity comes from BAB InstanceDeclaration; BaseAssetType has no TypeId XML attribute.
+        RequireTag(d.DocumentElement,id,TypeId(type));
         if(Declaration(d).Handle.TypeId!=TypeId(type))throw new Exception("Incorrect BAB root handle TypeId: "+id);
         XmlNamespaceManager ns=Namespaces(d);
         foreach(XmlElement e in d.SelectNodes("/ea:FXList/ea:NuggetList/* | /ea:FXParticleSystemTemplate/ea:Physics/* | /ea:FXParticleSystemTemplate/ea:Draw/* | /ea:FXParticleSystemTemplate/ea:Volume/* | /ea:FXParticleSystemTemplate/ea:Velocity/* | /ea:FXParticleSystemTemplate/ea:Update/* | /ea:FXParticleSystemTemplate/ea:Event/*",ns)) {
@@ -114,7 +139,7 @@ class XmlPrioritySdkOracle {
             if(!Required.TryGetValue(id,out type) || e.LocalName!=type || !seen.Add(id))
                 throw new Exception("Unexpected, duplicated, or wrong-type source probe: "+id+"/"+e.LocalName);
         }
-        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly six expected SDK assets");
+        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly eighteen expected SDK assets");
     }
     static void WriteResult(string path,object value) {
         File.WriteAllText(path,new JavaScriptSerializer().Serialize(value));
@@ -143,13 +168,13 @@ class XmlPrioritySdkOracle {
             ++rejected;
         }
         WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
-        Console.WriteLine("PASS SDK full XSD: six assets; 3 negative fixtures rejected.");
+        Console.WriteLine("PASS SDK full XSD: eighteen assets; 3 negative fixtures rejected.");
     }
     static void CompareMetadata(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,int platform,ref int fields) {
         if(original.GetVersionNumber()!=recovered.GetVersionNumber())throw new Exception("SDK version differs on platform "+platform);
         if(original.GetAllTypesHash()!=recovered.GetAllTypesHash())throw new Exception("SDK all-types hash differs on platform "+platform);
         fields+=2;
-        foreach(uint id in new[]{2254974584u,686292351u}) {
+        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u}) {
             object a=original.GetExtendedTypeInformation(id),b=recovered.GetExtendedTypeInformation(id);
             if(a==null || b==null)throw new Exception("Null ExtendedTypeInformation");
             foreach(FieldInfo field in typeof(ExtendedTypeInformation).GetFields(BindingFlags.Public|BindingFlags.Instance)) {
@@ -183,7 +208,7 @@ class XmlPrioritySdkOracle {
             if(!refused)throw new Exception("Recovered SDK plugin accepts unknown ProcessInstance type");++rejections;
         }
         if(fields<16)throw new Exception("No metadata fields were compared");
-        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=2,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
+        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=14,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
     static int Main(string[] args) {
@@ -245,7 +270,7 @@ class XmlPrioritySdkOracle {
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
                 if(isolated)NoOriginalAssemblies();
             }
-            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=2)throw new Exception("Incomplete SDK plugin call coverage");
+            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=14)throw new Exception("Incomplete SDK plugin call coverage");
             foreach(string id in Required.Keys)if(!seen.Contains(id))throw new Exception("No real SDK plugin call for "+id);
             foreach(string extension in new[]{"*.xml","*.bin","*.relo","*.imp"}) {
                 string[] files=Directory.GetFiles(trace,extension,SearchOption.TopDirectoryOnly);
@@ -275,3 +300,4 @@ class XmlPrioritySdkOracle {
         }
     }
 }
+

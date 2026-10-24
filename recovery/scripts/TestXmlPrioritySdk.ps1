@@ -11,7 +11,7 @@ $sourceCommit = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git rev-parse
 $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $summary = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId; status = 'started'
-    scope = 'FXList and FXParticleSystemTemplate only; O2 Win32 real SDK, reduced disposable MOD; not full mymod or other twelve priority types'
+    scope = 'Fourteen XmlCompiler priority types; O2 Win32 real SDK, reduced disposable MOD; not full mymod or all XmlCompiler types'
     componentModes = @('/Od','/O2'); sdkMode = '/O2'; sdkPlatform = 0
     files = @(); originalDllUnchanged = $false
 }
@@ -34,7 +34,7 @@ try {
     & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$build/BinaryAssetBuilder.Core.dll" "/out:$build/XmlPrioritySdkOracle.exe" (Resolve-Path 'recovery/tests/XmlPrioritySdkOracle.cs').Path *> "$report/oracle-build.txt"
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/oracle-build.txt"; throw 'SDK oracle build failed' }
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$build/XmlPrioritySdkOracle.exe.config"
-    $probe = (Resolve-Path 'recovery/sdk/XmlPriorityProbe.xml').Path
+    $probe = (Resolve-Path 'recovery/sdk/XmlPriorityAllProbe.xml').Path
     & "$build/XmlPrioritySdkOracle.exe" schema (Join-Path $root 'SDK') $probe "$report/schema.json" *> "$report/schema.txt"
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/schema.txt"; throw 'Full XSD validation or negative cases failed' }
     & "$build/XmlPrioritySdkOracle.exe" metadata "$build/BinaryAssetBuilder.XmlCompiler.dll" "$build/Recovered.XmlPriority.Plugin.dll" "$report/metadata.json" *> "$report/metadata.txt"
@@ -57,7 +57,7 @@ try {
         $cfg = Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'
         [xml]$xml = Get-Content -Raw $cfg
         $expected = if ($mode -eq 'Recovered') { 'Recovered.XmlPriority.Plugin, Recovered.XmlPriority.Plugin' } else { 'BinaryAssetBuilder.XmlCompiler.Plugin, BinaryAssetBuilder.XmlCompiler' }
-        foreach ($type in @('FXList','FXParticleSystemTemplate')) {
+        foreach ($type in @('AttributeModifier','FXList','SpecialPowerTemplate','ObjectCreationList','LocomotorTemplate','LogicCommandSet','FXParticleSystemTemplate','UpgradeTemplate','AIPersonalityDefinition','AIStrategicStateDefinition','AIMicroManagerData','AIBudgetStateDefinition','AIStateDefinition','AITargetingHeuristic')) {
             $handlers = @($xml.configuration.assetbuilder.plugins.plugin | Where-Object { $_.assetTypes.Split(',') -contains $type })
             if ($handlers.Count -ne 1 -or $handlers[0].targetType -ne $expected -or $handlers[0].useBuildCache -ne 'false') { throw "$mode ambiguous or cached $type route" }
         }
@@ -82,6 +82,7 @@ try {
         }
     }
     $env:RA3_RECOVERED_XML_PRIORITY_TRACE = $null
+    if ((Get-Item "$report/Recovered-mod.imp").Length -le 4) { throw 'SDK probes did not exercise nonempty imports' }
     foreach ($ext in @('bin','manifest','imp','relo')) {
         if ((Get-FileHash "$report/Original-mod.$ext").Hash -ne (Get-FileHash "$report/Recovered-mod.$ext").Hash) { throw "SDK output differs: mod.$ext" }
     }

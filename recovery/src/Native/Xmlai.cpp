@@ -101,6 +101,13 @@ void DistanceSort(std::vector<SortItem>& values) {
     for(std::size_t i=1;i<values.size();++i){auto v=values[i];auto j=i;while(j&&DistanceLess(v,values[j-1])){values[j]=values[j-1];--j;}values[j]=v;}
 }
 
+// BAB adds TypeId to all named schema types. Keep it available for heuristic
+// dispatch, while structural Marshal contracts ignore that metadata.
+bool HasPayloadAttributes(const XmlaiNode& node) {
+    for(const auto& attribute:node.attributes) if(attribute.first!="TypeId") return true;
+    return false;
+}
+
 struct Builder {
     Relo::Tracker data;
     std::vector<void*> words;
@@ -136,9 +143,9 @@ struct Builder {
     }
     void Filter(const XmlaiNode& node,unsigned char* root) {
         if(node.value.find_first_not_of(" \t\r\n")!=std::string::npos)throw std::invalid_argument("Unexpected ObjectFilter text.");
-        ObjectFilterInput input;input.attributes=node.attributes;
+        ObjectFilterInput input;input.attributes=node.attributes;input.attributes.erase("TypeId");
         for(const auto& c:node.children){
-            if(!c.attributes.empty()||!c.children.empty())throw std::invalid_argument("ObjectFilter thing must be text.");
+            if(HasPayloadAttributes(c)||!c.children.empty())throw std::invalid_argument("ObjectFilter thing must be text.");
             if(c.name=="IncludeThing")input.includeThings.push_back(c.value);
             else if(c.name=="ExcludeThing")input.excludeThings.push_back(c.value);
             else throw std::invalid_argument("Unknown ObjectFilter child: "+c.name);
@@ -155,7 +162,7 @@ struct Builder {
         auto p=Allocate(location,layout->size);Apply(name,node,p,depth+1);Word(p,hash);data.Pop();
     }
     void HeuristicList(const XmlaiNode& wrapper,unsigned char* at,unsigned depth) {
-        if(!wrapper.attributes.empty())throw std::invalid_argument("Heuristic wrapper attributes.");
+        if(HasPayloadAttributes(wrapper))throw std::invalid_argument("Heuristic wrapper attributes.");
         if(!wrapper.value.empty())throw std::invalid_argument("Heuristic wrapper text.");
         Word(at,static_cast<U32>(wrapper.children.size()));
         if(!wrapper.children.empty()){
@@ -171,7 +178,7 @@ struct Builder {
         if(!node.value.empty()&&node.value.find_first_not_of(" \t\r\n")!=std::string::npos)
             throw std::invalid_argument("Unexpected Xmlai text.");
         for(const auto& a:node.attributes){
-            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||(layout.hash&&a.first=="TypeId"))continue;
+            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||a.first=="TypeId")continue;
             bool found=false;for(const auto& f:layout.fields)if(a.first==f.name){found=true;break;}
             if(!found)throw std::invalid_argument("Unknown Xmlai attribute: "+a.first);
         }
@@ -193,7 +200,7 @@ struct Builder {
                     auto p=Allocate(at+4,4,static_cast<unsigned>(children.size()));
                     for(unsigned i=0;i<children.size();++i){
                         const auto& c=*children[i];
-                        if(!c.attributes.empty()||!c.children.empty())throw std::invalid_argument("Reference list element must contain only text.");
+                        if(HasPayloadAttributes(c)||!c.children.empty())throw std::invalid_argument("Reference list element must contain only text.");
                         MarshalReference(data,p+4*i,c.value);
                     }
                     data.Pop();
@@ -218,12 +225,12 @@ struct Builder {
                 else if(r.kind==ChildKind::Heuristics)HeuristicList(c,at,depth+1);
                 else if(r.kind==ChildKind::PointerHeuristics){auto p=Allocate(at,8);HeuristicList(c,p,depth+1);data.Pop();}
                 else if(r.kind==ChildKind::Budget){
-                    if(!c.attributes.empty()||!c.value.empty())throw std::invalid_argument("Budget wrapper contents.");
+                    if(HasPayloadAttributes(c)||!c.value.empty())throw std::invalid_argument("Budget wrapper contents.");
                     for(const auto& item:c.children)if(item.name!="AccountShare")throw std::invalid_argument("Unknown Budget child.");
                     Word(at,static_cast<U32>(c.children.size()));
                     if(!c.children.empty()){auto p=Allocate(at+4,8,static_cast<unsigned>(c.children.size()));for(unsigned i=0;i<c.children.size();++i)Apply(r.type,c.children[i],p+8*i,depth+1);data.Pop();}
                 } else if(r.kind==ChildKind::SingleHeuristic){
-                    if(!c.attributes.empty()||!c.value.empty()||c.children.size()!=1)throw std::invalid_argument("Expected one nested heuristic.");
+                    if(HasPayloadAttributes(c)||!c.value.empty()||c.children.size()!=1)throw std::invalid_argument("Expected one nested heuristic.");
                     Heuristic(c.children[0],at,depth+1);
                 }
             }
@@ -252,3 +259,4 @@ Relo::Chunk CompileXmlai(const XmlaiNode& node,bool bigEndian) {
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+

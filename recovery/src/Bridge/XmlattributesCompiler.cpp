@@ -15,6 +15,7 @@ public ref class LogicCommandSetCompiler abstract sealed {
     static void Attributes(XmlNode^ node, bool root) {
         for each (XmlAttribute^ a in node->Attributes) {
             if (a->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            if (a->NamespaceURI == String::Empty && a->Name == "TypeId") continue;
             if (root && a->NamespaceURI == String::Empty &&
                 (a->Name == "id" || a->Name == "inheritFrom")) continue;
             throw gcnew NotSupportedException("Unsupported LogicCommandSet attribute: " + a->Name);
@@ -67,6 +68,8 @@ Native::XmlattributesValues XmlattributesRead(XmlNode^ node, array<String^>^ all
     Native::XmlattributesValues result;
     for each (XmlAttribute^ a in node->Attributes) {
         if (a->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+        // BAB schema-type metadata must not enter native attribute/filter value maps.
+        if (a->NamespaceURI == String::Empty && a->Name == "TypeId") continue;
         if (metadata && a->NamespaceURI == String::Empty && (a->Name == "id" || a->Name == "inheritFrom")) continue;
         bool found=false;
         if (a->NamespaceURI == String::Empty)
