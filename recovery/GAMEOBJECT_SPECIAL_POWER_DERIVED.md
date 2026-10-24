@@ -11,3 +11,7 @@ PlayerUpgrade的Upgrade与Grant的UpgradeTemplate是重复文本子节点强引�
 代码分离GameObjectSpecialPowerDerived.h和Runtime.h。严格Bridge校验保留所有未知字段、命名空间、重复单节点、结构文本和未知子节点拒绝。完整既有/Od、/O2四平台矩阵增加23类所有父字段/模型枚举/三PE枚举/本层字段、过滤器/声音/列表、0/1/2/27/28/29/65分配边界、独立native默认/Token/nullable/强引用/百分比/状态golden和schema顺序不变性。其他103种已知Marshal继续拒绝，58 Token-only fallback保留。
 
 验收sourceCommit/runId待本组最终矩阵补齐。ActivateModule/SpecialPowerDispatch/OCL/Movement等其他派生类型仍拒绝，不因父完成而自动计数。
+
+## 首次矩阵失败与修正
+
+源码87c026ebac1f5d1506630f7d1a1f13bdd7d41b16 / GameObject40096821430在/Od的RadarSpy默认差分失败：原Instance3804、恢复3792。根因是生成器同时匹配native `@object`与表指针`ptr`，误取Token目标槽`ptr+8`，使父层偏移变8、TargetFilter错过StringList嵌套模式。已优先匹配native `@object`、父层强制0；增加所有本层Token偏移与完整Marshal字段/Filter/列表偏移序列的独立一致性检查。98原方法和原始差分断言不变，未删样本。修复后等待完整矩阵，不将此失败算成成功。

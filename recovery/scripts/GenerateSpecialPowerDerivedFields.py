@@ -56,7 +56,7 @@ for index,(typ,size,fields,filterInfo,listInfo) in enumerate(SPECS):
  for chunk in chunks:
   match=re.search(r'\*\(int\*\)(ptr\d*) = (-?\d+);\s*\(\(int\*\)\1\)\[1\] = (-?\d+);',chunk)
   if not match or match[2]=='0':continue
-  key,tokenType=[int(x)&0xffffffff for x in match.groups()[1:]];off=re.search(r'\(byte\*\)(?:@object|ptr) \+ (\d+)',chunk);off=int(off[1]) if off else 0
+  key,tokenType=[int(x)&0xffffffff for x in match.groups()[1:]];off=re.search(r'\(byte\*\)@object \+ (\d+)',chunk) or re.search(r'\(byte\*\)ptr \+ (\d+)',chunk);off=int(off[1]) if off and key!=1 else 0
   # An inline wrapper uses ptr2 as Token table and ptr as native object.
   mode=0;nested='&specialPowerSpecialPowerModuleData' if key==1 else 'nullptr'
   if key!=1 and any(o==off and k=='StringList' for n,o,k,d in fields):mode=6
@@ -65,6 +65,8 @@ for index,(typ,size,fields,filterInfo,listInfo) in enumerate(SPECS):
   records.append((key,tokenType,off,nested,mode,0))
  assert len(records)==1+len(fields)+(filterInfo is not None)+(listInfo is not None),(name,records)
  assert records[0][:2]==(1,3472757011),(name,records[0])
+ expectedOffsets=[f[1] for f in fields]+([filterInfo[1]] if filterInfo else [])+([listInfo[1]] if listInfo else [])
+ assert [r[2] for r in records[1:]]==expectedOffsets,(name,records,expectedOffsets)
  lines+=['const ModuleToken specialDerived'+name+'Tokens[] = {']+['    { %du, %du, %du, %s, %du, %du },'%r for r in records]+['};',f'const ModuleLayout specialDerived{name} = {{ specialDerived{name}Tokens, {len(records)}u }};']
  manifest['modules'].append({'name':name,'typeId':typ,'nativeSize':size,'kind':kind,'tokenCount':len(records),'fields':fields,'filter':filterInfo,'strongList':listInfo})
 lines+=['const ModuleFieldSet specialDerivedFieldSets[] = {']+['    { %s, %du },'%('specialDerived'+m['name']+'Fields' if m['fields'] else 'nullptr',len(m['fields'])) for m in manifest['modules']]+['};','const ModuleChoice specialDerivedChoices[] = {']+[f'    {{ {m["typeId"]}u, &specialDerived{m["name"]}, {m["nativeSize"]}u, {m["kind"]}u }},' for m in manifest['modules']]+['};','struct SpecialDerivedChildren {const char* filter;unsigned filterOffset;const char* strongList;unsigned listOffset;};','const SpecialDerivedChildren specialDerivedChildren[] = {']+['    { %s, %du, %s, %du },'%('nullptr' if not m['filter'] else json.dumps(m['filter'][0]),0 if not m['filter'] else m['filter'][1],'nullptr' if not m['strongList'] else json.dumps(m['strongList'][0]),0 if not m['strongList'] else m['strongList'][1]) for m in manifest['modules']]+['};','']

@@ -48,8 +48,8 @@ const ModuleField specialDerivedRadarSpySpecialPowerModuleDataFields[] = {
     { "SpyDuration", 460u, ModuleValue::Time, "0s", nullptr },
 };
 const ModuleToken specialDerivedRadarSpySpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
-    { 3074043231u, 1835445784u, 8u, nullptr, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 3074043231u, 1835445784u, 452u, nullptr, 6u, 0u },
     { 222306511u, 2575722984u, 460u, nullptr, 0u, 0u },
 };
 const ModuleLayout specialDerivedRadarSpySpecialPowerModuleData = { specialDerivedRadarSpySpecialPowerModuleDataTokens, 3u };
@@ -58,13 +58,13 @@ const ModuleField specialDerivedRadarFreezeSpecialPowerModuleDataFields[] = {
     { "FreezeDuration", 460u, ModuleValue::Time, "0s", nullptr },
 };
 const ModuleToken specialDerivedRadarFreezeSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
-    { 3074043231u, 1835445784u, 8u, nullptr, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 3074043231u, 1835445784u, 452u, nullptr, 6u, 0u },
     { 395329880u, 2575722984u, 460u, nullptr, 0u, 0u },
 };
 const ModuleLayout specialDerivedRadarFreezeSpecialPowerModuleData = { specialDerivedRadarFreezeSpecialPowerModuleDataTokens, 3u };
 const ModuleToken specialDerivedCombineSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 3982564881u, 3832456114u, 452u, nullptr, 7u, 0u },
 };
 const ModuleLayout specialDerivedCombineSpecialPowerModuleData = { specialDerivedCombineSpecialPowerModuleDataTokens, 2u };
@@ -73,7 +73,7 @@ const ModuleField specialDerivedRecallUnitsSpecialPowerModuleDataFields[] = {
     { "MaxAircraftToRecall", 452u, ModuleValue::Signed, "4", nullptr },
 };
 const ModuleToken specialDerivedRecallUnitsSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 2572975240u, 2011428087u, 456u, nullptr, 0u, 0u },
     { 3250234128u, 602296504u, 452u, nullptr, 0u, 0u },
 };
@@ -82,7 +82,7 @@ const ModuleField specialDerivedCaptureAndGiveCommandSetSpecialPowerModuleDataFi
     { "CommandSet", 452u, ModuleValue::AssetId, nullptr, nullptr },
 };
 const ModuleToken specialDerivedCaptureAndGiveCommandSetSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 2584759047u, 2245282653u, 452u, nullptr, 0u, 0u },
 };
 const ModuleLayout specialDerivedCaptureAndGiveCommandSetSpecialPowerModuleData = { specialDerivedCaptureAndGiveCommandSetSpecialPowerModuleDataTokens, 2u };
@@ -92,7 +92,7 @@ const ModuleField specialDerivedTeleportStoredObjectsSpecialPowerModuleDataField
     { "OCL", 456u, ModuleValue::Reference, nullptr, nullptr },
 };
 const ModuleToken specialDerivedTeleportStoredObjectsSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 2500963768u, 2011428087u, 460u, nullptr, 0u, 0u },
     { 4276692988u, 602296504u, 452u, nullptr, 0u, 0u },
     { 2969981770u, 1122298321u, 456u, nullptr, 0u, 0u },
@@ -105,7 +105,7 @@ const ModuleField specialDerivedInvisibilitySpecialPowerModuleDataFields[] = {
     { "Permanent", 468u, ModuleValue::Boolean, "false", nullptr },
 };
 const ModuleToken specialDerivedInvisibilitySpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 1431290504u, 2437719909u, 452u, nullptr, 0u, 0u },
     { 4167514226u, 1683514611u, 456u, nullptr, 0u, 0u },
     { 2384108347u, 2575722984u, 460u, nullptr, 0u, 0u },
@@ -120,7 +120,7 @@ const ModuleField specialDerivedStoreObjectsSpecialPowerModuleDataFields[] = {
     { "TargetMarkerObjectRef", 464u, ModuleValue::AssetId, nullptr, nullptr },
 };
 const ModuleToken specialDerivedStoreObjectsSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 1328662213u, 1683514611u, 452u, nullptr, 0u, 0u },
     { 4267555851u, 602296504u, 456u, nullptr, 0u, 0u },
     { 2969981770u, 1122298321u, 460u, nullptr, 0u, 0u },
@@ -136,7 +136,7 @@ const ModuleField specialDerivedGiveProductionBonusSpecialPowerModuleDataFields[
     { "HarvesterBonusAllies", 472u, ModuleValue::Percent, "0", nullptr },
 };
 const ModuleToken specialDerivedGiveProductionBonusSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 1215747356u, 1683514611u, 452u, nullptr, 0u, 0u },
     { 431535514u, 1683514611u, 456u, nullptr, 0u, 0u },
     { 1871523591u, 1683514611u, 460u, nullptr, 0u, 0u },
@@ -149,23 +149,23 @@ const ModuleField specialDerivedTemporaryOwnerSpecialPowerModuleDataFields[] = {
     { "SlaveStatus", 452u, ModuleValue::ObjectStatus, nullptr, nullptr },
 };
 const ModuleToken specialDerivedTemporaryOwnerSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 2481529488u, 2814214430u, 452u, nullptr, 0u, 0u },
 };
 const ModuleLayout specialDerivedTemporaryOwnerSpecialPowerModuleData = { specialDerivedTemporaryOwnerSpecialPowerModuleDataTokens, 2u };
 const ModuleToken specialDerivedPlayerUpgradeSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
-    { 3619147155u, 1253711657u, 8u, nullptr, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 3619147155u, 1253711657u, 452u, nullptr, 3u, 0u },
 };
 const ModuleLayout specialDerivedPlayerUpgradeSpecialPowerModuleData = { specialDerivedPlayerUpgradeSpecialPowerModuleDataTokens, 2u };
 const ModuleField specialDerivedGrantUpgradeAreaOfEffectSpecialPowerModuleDataFields[] = {
     { "Radius", 452u, ModuleValue::Float, "0", nullptr },
 };
 const ModuleToken specialDerivedGrantUpgradeAreaOfEffectSpecialPowerModuleDataTokens[] = {
-    { 1u, 3472757011u, 8u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 1u, 3472757011u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 1328662213u, 1683514611u, 452u, nullptr, 0u, 0u },
     { 4009706050u, 3832456114u, 456u, nullptr, 7u, 0u },
-    { 3786401627u, 1253711657u, 8u, nullptr, 0u, 0u },
+    { 3786401627u, 1253711657u, 460u, nullptr, 3u, 0u },
 };
 const ModuleLayout specialDerivedGrantUpgradeAreaOfEffectSpecialPowerModuleData = { specialDerivedGrantUpgradeAreaOfEffectSpecialPowerModuleDataTokens, 4u };
 const ModuleFieldSet specialDerivedFieldSets[] = {
