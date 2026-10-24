@@ -8,6 +8,10 @@
 #include <cmath>
 #include <cstring>
 #include <stdexcept>
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -24,7 +28,28 @@ struct EnumView { const EnumNameValue* entries; std::size_t count; };
 #include "XmlaiPersonalityEnums.inc"
 #endif
 #include "XmlaiLayouts.inc"
-const std::map<std::string,Layout>& Layouts() { static const auto result=MakeLayouts(); return result; }
+// The immutable registry owns only decoded schema tables. It is process-lifetime
+// metadata: its allocation is reclaimed by the OS, never during CLR shutdown.
+// Do not register a std::map/vector destructor with the mixed-mode CRT's exit
+// machinery. A callback/native InitOnce barrier publishes the completed table
+// exactly once to concurrent callers; failure remains a reported initialization
+// error and may be retried, rather than publishing a partial registry.
+INIT_ONCE XmlaiRegistryOnce=INIT_ONCE_STATIC_INIT;
+const std::map<std::string,Layout>* XmlaiRegistry=nullptr;
+BOOL CALLBACK InitializeXmlaiRegistry(PINIT_ONCE, PVOID, PVOID*) {
+    try {
+        XmlaiRegistry=new const std::map<std::string,Layout>(MakeLayouts());
+        return TRUE;
+    } catch (...) {
+        SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        return FALSE;
+    }
+}
+const std::map<std::string,Layout>& Layouts() {
+    if(!InitOnceExecuteOnce(&XmlaiRegistryOnce,InitializeXmlaiRegistry,nullptr,nullptr))
+        throw std::runtime_error("Xmlai layout registry initialization failed.");
+    return *XmlaiRegistry;
+}
 const Layout& Get(const std::string& name) {
     auto it=Layouts().find(name);
     if(it==Layouts().end()) throw std::invalid_argument("Unsupported Xmlai type: "+name);
