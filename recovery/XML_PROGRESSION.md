@@ -75,8 +75,8 @@ The initial matrix at run40093373602/source3733fbc passed Win32 but failed the
 first nonzero PlayerTech scalar on platform1. Investigation found inline endian
 operations in Plugin.HandleType which had been missed by filtering for named
 EndianCorrect calls. The recovery and independent scalar/count expectations
-were corrected; full final four-platform validation is required. The failed
-run is preserved and is not an acceptance anchor.
+were corrected; the final twelve-root matrix below passed all four platforms.
+The failed run is preserved and is not an acceptance anchor.
 
 Ninth root: UICommandButton12, TypeId134745024/TypeHash2853539982,
 ProcessingHash=version XOR hash, Tokenized=false. Complete original Marshal for
@@ -121,5 +121,16 @@ sdk/XmlprogressionFontProbe.xml: three defaults, three combined and two inherite
 not). Raw-XSD required Name/Settings.AntiAliased and Substitute Size/Font are
 explicit, as are FontDesc Name/Size and Translation X/Y. Inherited substitution
 provides two raw entries and remains within max10 after inheriting two base
-entries. Actual BAB preprocessing, XSD, four artifacts and isolated replay remain
-pending final Windows acceptance; no font outcome is claimed from local syntax.
+entries. All three fonts are explicit global AssetDeclaration choices in the
+original CnC3Types.xsd; they do not require a FontDirectory wrapper.
+
+Final component acceptance: source71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7,
+Actions40095358086, progression job120876360658 completed successfully. Both
+/Od and /O2 passed platforms0/1/2/99, each with4160 fixtures,12480 original
+three-buffer comparisons,12480 direct comparisons,122 rejections and4184
+independent layouts. Across both optimization modes:33280 fixtures,99840
+original-buffer comparisons,99840 direct comparisons,976 rejections and33472
+independent layouts. This includes all twelve progression roots and the font
+field/list/boundary/rejection matrix. SDK acceptance is tracked separately by
+the unified SDK harness; its matching-source run40095358016 also completed
+successfully, rather than being inferred from this component result.
