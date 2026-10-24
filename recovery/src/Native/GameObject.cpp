@@ -57,6 +57,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectAIUpdate.h"
 #include "GameObjectEconomy.h"
 #include "GameObjectAssist.h"
+#include "GameObjectSpawnUpdate.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -257,6 +258,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:spawnChoices) if(choice.type==type) return &choice;
     for(const auto& choice:assistChoices) if(choice.type==type) return &choice;
     for(const auto& choice:economyChoices) if(choice.type==type) return &choice;
     for(const auto& choice:aiUpdateChoices) if(choice.type==type) return &choice;
@@ -871,8 +873,34 @@ void EndianAssist(unsigned char* output,unsigned kind) {
     }
     if(group==1) EndianAssistFilter(output,16);
 }
+void MarshalSpawnUpdate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,spawnFieldSets[kind-123],data);
+    if(kind!=123) return;
+    // Original schema order allocates Die, then the SpawnTemplate list, then Upgrade dependencies.
+    for(const auto& child:input.children) if(child.name=="Die") {
+        auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+64),44,1));
+        MarshalModuleFieldSet(child,at,dieFieldSets[7],data);data.Pop();
+    }
+    auto list=reinterpret_cast<NativeList*>(output+68);
+    for(const auto& child:input.children) if(child.name=="SpawnTemplate") ++list->count;
+    if(list->count) {
+        auto at=static_cast<U32*>(data.Push(&list->data,4,list->count));unsigned i=0;
+        for(const auto& child:input.children) if(child.name=="SpawnTemplate") at[i++]=HashAssetId(child.text);
+        data.Pop();
+    }
+    MarshalUpgrade(input,output,30,data);
+}
+void EndianSpawnUpdate(unsigned char* output,unsigned kind) {
+    EndianModuleFieldSet(output,spawnFieldSets[kind-123]);
+    if(kind!=123) return;
+    auto die=*reinterpret_cast<unsigned char**>(output+64);if(die) EndianModuleFieldSet(die,dieFieldSets[7]);
+    auto list=reinterpret_cast<NativeList*>(output+68);
+    for(U32 i=0;i<list->count;++i) Swap(static_cast<U32*>(list->data)+i);Swap(&list->count);
+    EndianUpgrade(output,30);
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=123 && choice->kind<=125) EndianSpawnUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=119 && choice->kind<=122) EndianAssist(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=112 && choice->kind<=118) EndianEconomy(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=104 && choice->kind<=111) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -922,6 +950,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=123 && choice->kind<=125) MarshalSpawnUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=119 && choice->kind<=122) MarshalAssist(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=112 && choice->kind<=118) MarshalEconomy(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=104 && choice->kind<=111) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -1029,6 +1058,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=123 && choice->kind<=125) {
+        const auto& own=spawnFieldSets[choice->kind-123];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(choice->kind==123) for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=119 && choice->kind<=122) {const auto& set=assistFieldSets[choice->kind-119];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=112 && choice->kind<=118) {
         unsigned group=choice->kind-112;const auto& own=economyFieldSets[group];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
@@ -1080,6 +1114,10 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=123 && kind<=125) {
+        if(kind==123) {if(path=="Die" || path=="CustomAnimAndDuration") return 1;if(path=="SpawnTemplate" || path=="TriggeredBy" || path=="ConflictsWith") return 3;}
+        return 0;
+    }
     if(kind>=119 && kind<=122) {
         if(kind==119) {
             if(path=="HintObject") return 2;
@@ -1159,6 +1197,11 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=123 && kind<=125) {
+        if(kind!=123) return false;
+        const ModuleFieldSet* set=path=="Die"?&dieFieldSets[7]:path=="CustomAnimAndDuration"?&upgradeFieldSets[11]:nullptr;
+        if(set) for(unsigned i=0;i<set->count;++i) if(attribute==set->fields[i].name) return true;return false;
+    }
     if(kind>=119 && kind<=122) {
         if(kind!=119) return false;unsigned fields=path=="HintObject"?4:path=="PlacementRestriction"?5:path=="SuggestedOffset"?6:99;
         if(fields==99) return false;const auto& set=assistFieldSets[fields];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;
@@ -1929,6 +1972,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 
 
