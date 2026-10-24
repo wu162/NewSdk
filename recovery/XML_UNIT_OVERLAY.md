@@ -17,3 +17,5 @@ FactionVeterancy列表count@96、pointer@100、项12字节；Faction@0为完整�
 `src/Native/Xmlunitoverlay.{h,cpp}` 与 `src/Bridge/XmlunitoverlayCompiler.cpp` 仅复用既有ScalarParsing/DataInitializers/ResourceMarshaling/Relocation，不修改共享helper。显式拒绝未知字段/节点、非asset命名空间、限定属性、结构文本和root/TypeId不匹配。TypeId元数据允许在嵌套节点出现。
 
 `tests/XmlunitoverlayOracle.cs` / `scripts/TestXmlunitoverlay.ps1` 保留原ProcessInstance三数组、直接CompileXml三数组比较，/Od和/O2、平台0/1/2/99，13根引用和Rank引用全部边界、8百分比、signed整数、Time、五枚举/未知/NUL、两层列表0..1024增长、独立152字节嵌套ABI和逆序引用书签、默认值及partial-attribute默认值。联合DLL默认根smoke另由TestXmlPriorityLink纳入，不代替本组完整矩阵。
+
+首轮40139472611发现独立Time ABI预期误写1.5f。原DataInitializers保留binary32的0.001比例后作double乘法并回舍入，1500ms应为0x3fc00001（不是0x3fc00000）。原/恢复三数组已一致；拆分百分比、整数、Time断言并以该固定bit补正，不修改共享helper、不删样本。最终以修复后的完整矩阵为准。

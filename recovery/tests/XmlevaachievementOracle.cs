@@ -45,7 +45,7 @@ class XmlevaachievementOracle {
     }
     static AssetBuffer TestDoc(string label,XmlDocument d,TargetPlatform p){
         try {
-            InstanceDeclaration declaration=Declaration(d);AssetBuffer a=original.ProcessInstance(declaration);
+            original.Initialize(null,p);InstanceDeclaration declaration=Declaration(d);AssetBuffer a=original.ProcessInstance(declaration);
             Type type=typeof(XmlevaachievementCompiler).Assembly.GetType("Recovered."+d.DocumentElement.LocalName+"Compiler");
             AssetBuffer b=Call(type,"ProcessInstance",new object[]{declaration,p});
             AssetBuffer direct=Call(type,"CompileXml",new object[]{d.DocumentElement,Namespaces(d),p!=TargetPlatform.Win32});

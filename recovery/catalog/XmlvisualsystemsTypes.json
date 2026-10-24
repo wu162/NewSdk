@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "BreezeInfo",
+      "typeId": 1626415288,
+      "typeHash": 890675481,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ModelSettings",
+      "typeId": 1968811301,
+      "typeHash": 2503358751,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "typeId": 3278684478,
+      "typeHash": 1247287143,
+      "schemaGlobal": true
+    }
+  ]
+}
