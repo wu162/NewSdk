@@ -1,0 +1,88 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 44923; body SHA256 96e84456b8fc86b5a2cd626fe3114fc63be22d4d14b0d626c919501c1c75c512
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(AnimalAIUpdateModuleData* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 76)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 76)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 76)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[76];
+			((int*)@object)[19] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 80)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 80)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 80)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[80];
+			((int*)@object)[20] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 84)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 84)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 84)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[84];
+			((int*)@object)[21] = (int)num3;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+			*(byte*)(&num4) = ((byte*)@object + 88)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = ((byte*)@object + 88)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = ((byte*)@object + 88)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = ((sbyte*)@object)[88];
+			((int*)@object)[22] = (int)num4;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num5);
+			*(byte*)(&num5) = ((byte*)@object + 92)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 1)) = ((byte*)@object + 92)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 2)) = ((byte*)@object + 92)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num5, 3)) = ((sbyte*)@object)[92];
+			((int*)@object)[23] = (int)num5;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+			*(byte*)(&num6) = ((byte*)@object + 96)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((byte*)@object + 96)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((byte*)@object + 96)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = ((sbyte*)@object)[96];
+			((int*)@object)[24] = (int)num6;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num7);
+			*(byte*)(&num7) = ((byte*)@object + 100)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 1)) = ((byte*)@object + 100)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 2)) = ((byte*)@object + 100)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num7, 3)) = ((sbyte*)@object)[100];
+			((int*)@object)[25] = (int)num7;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num8);
+			*(byte*)(&num8) = ((byte*)@object + 104)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num8, 1)) = ((byte*)@object + 104)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num8, 2)) = ((byte*)@object + 104)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num8, 3)) = ((sbyte*)@object)[104];
+			((int*)@object)[26] = (int)num8;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num9);
+			*(byte*)(&num9) = ((byte*)@object + 108)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num9, 1)) = ((byte*)@object + 108)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num9, 2)) = ((byte*)@object + 108)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num9, 3)) = ((sbyte*)@object)[108];
+			((int*)@object)[27] = (int)num9;
+		}
+		Marshaler_002EEndianCorrect((AIUpdateModuleData*)@object, state);
+	}
+

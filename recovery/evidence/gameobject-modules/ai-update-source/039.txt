@@ -1,0 +1,25 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 44585; body SHA256 400e38e29c802ce31abfc441a5eb4b5885850c50ccedb99c83cdc4f6e40ee2ee
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(DeployStyleAIUpdateModuleData* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 76)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 76)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 76)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[76];
+			((int*)@object)[19] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 80)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 80)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 80)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[80];
+			((int*)@object)[20] = (int)num2;
+		}
+		Marshaler_002EEndianCorrect((AIUpdateModuleData*)@object, state);
+	}
+

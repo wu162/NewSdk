@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 60155; body SHA256 c3275f16e71406b6a1906ae68e7ef6f0a857cf8e09d6098c923ae085ecc0c7cc
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ADeployStyleAIUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		DeployStyleAIUpdateModuleData* ptr = (DeployStyleAIUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 92u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -298786860;
+	}
+

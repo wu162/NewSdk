@@ -1,0 +1,16 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102688; body SHA256 0bece11aeb1847db3c81cd5bd82b7736b10e14f0fe9d55cec743241fe4c2fd1a
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AHordeAIUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		HordeAIUpdateModuleData* ptr = (HordeAIUpdateModuleData*)(int)(*(uint*)pointer);
+		ProcTableElement* ptr2 = (ProcTableElement*)Relo_002ETracker_002EPush(tracker, table, 12u, 2u);
+		*(int*)ptr2 = 1;
+		((int*)ptr2)[1] = 148619278;
+		Tokenizer_002ETokenize((void**)((byte*)ptr2 + 8), (AIUpdateModuleData*)ptr, tracker);
+		ptr2 = (ProcTableElement*)((byte*)ptr2 + 12);
+		*(int*)ptr2 = 0;
+		((int*)ptr2)[1] = 0;
+		((int*)ptr2)[2] = 0;
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}
+

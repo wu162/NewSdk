@@ -1,0 +1,75 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 44676; body SHA256 9a4cfaad7323adf2a9c5cc017bd7d85b2fa8dd991e1bc62608deaebfd6e344d7
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true", "_003F_003F_C_0040_08EIJKNBBO_0040MaxBoxes_003F_0024AA_0040": "MaxBoxes", "_003F_003F_C_0040_0BI_0040HFBHEMOJ_0040SupplyCenterActionDelay_003F_0024AA_0040": "SupplyCenterActionDelay", "_003F_003F_C_0040_0BL_0040INKOIJLK_0040SupplyWarehouseActionDelay_003F_0024AA_0040": "SupplyWarehouseActionDelay", "_003F_003F_C_0040_0BM_0040MEPIKGFM_0040SupplyWarehouseScanDistance_003F_0024AA_0040": "SupplyWarehouseScanDistance", "_003F_003F_C_0040_04OJDKMIMG_00402000_003F_0024AA_0040": "2000", "_003F_003F_C_0040_0BJ_0040BDJJLLGK_0040DepletedAnnounceDistance_003F_0024AA_0040": "DepletedAnnounceDistance", "_003F_003F_C_0040_0N_0040IHBMLOBA_0040HarvestTrees_003F_0024AA_0040": "HarvestTrees", "_003F_003F_C_0040_0BA_0040GPDAEBBF_0040HarvestTiberium_003F_0024AA_0040": "HarvestTiberium", "_003F_003F_C_0040_0BH_0040HOGLDFBN_0040HarvestActivationRange_003F_0024AA_0040": "HarvestActivationRange", "_003F_003F_C_0040_0BH_0040DKCPKJNC_0040HarvestPreparationTime_003F_0024AA_0040": "HarvestPreparationTime", "_003F_003F_C_0040_0BC_0040EGNCLFBC_0040HarvestActionTime_003F_0024AA_0040": "HarvestActionTime", "_003F_003F_C_0040_0BE_0040NOGKJKFB_0040HarvestsFromRearEnd_003F_0024AA_0040": "HarvestsFromRearEnd", "_003F_003F_C_0040_0CA_0040GBGHOKGC_0040CanPathThroughUnitsWhileDocking_003F_0024AA_0040": "CanPathThroughUnitsWhileDocking", "_003F_003F_C_0040_0CD_0040FLBBFKO_0040CanPathThroughUnitsWhileHarvesti_0040": "CanPathThroughUnitsWhileHarvesting"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SupplyTruckAIUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08EIJKNBBO_0040MaxBoxes_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((int*)@object)[19] = (int)strtoul(ptr2, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040HFBHEMOJ_0040SupplyCenterActionDelay_003F_0024AA_0040), null);
+			if (ptr3 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 20, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			IValue* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040INKOIJLK_0040SupplyWarehouseActionDelay_003F_0024AA_0040), null);
+			if (ptr4 != null)
+			{
+				sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr4)))((nint)ptr4);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag2);
+				DataInitializers_002EInitialize((float*)@object + 21, text2, &timeTag2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr4 + 4)))((nint)ptr4);
+			}
+			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BM_0040MEPIKGFM_0040SupplyWarehouseScanDistance_003F_0024AA_0040), null);
+			if (ptr5 != null)
+			{
+				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+				((float*)@object)[22] = (float)atof(ptr6);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
+			}
+			IValue* ptr7 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040BDJJLLGK_0040DepletedAnnounceDistance_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04OJDKMIMG_00402000_003F_0024AA_0040));
+			if (ptr7 != null)
+			{
+				sbyte* ptr8 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr7)))((nint)ptr7);
+				((float*)@object)[23] = (float)atof(ptr8);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr7 + 4)))((nint)ptr7);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040IHBMLOBA_0040HarvestTrees_003F_0024AA_0040), null), (bool*)@object + 108, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040GPDAEBBF_0040HarvestTiberium_003F_0024AA_0040), null), (bool*)@object + 109, state);
+			IValue* ptr9 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040HOGLDFBN_0040HarvestActivationRange_003F_0024AA_0040), null);
+			if (ptr9 != null)
+			{
+				sbyte* ptr10 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr9)))((nint)ptr9);
+				((float*)@object)[24] = (float)atof(ptr10);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr9 + 4)))((nint)ptr9);
+			}
+			IValue* ptr11 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040DKCPKJNC_0040HarvestPreparationTime_003F_0024AA_0040), null);
+			if (ptr11 != null)
+			{
+				sbyte* text3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr11)))((nint)ptr11);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag3);
+				DataInitializers_002EInitialize((float*)@object + 25, text3, &timeTag3);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr11 + 4)))((nint)ptr11);
+			}
+			IValue* ptr12 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040EGNCLFBC_0040HarvestActionTime_003F_0024AA_0040), null);
+			if (ptr12 != null)
+			{
+				sbyte* text4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr12)))((nint)ptr12);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag4);
+				DataInitializers_002EInitialize((float*)@object + 26, text4, &timeTag4);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr12 + 4)))((nint)ptr12);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040NOGKJKFB_0040HarvestsFromRearEnd_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 110, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0CA_0040GBGHOKGC_0040CanPathThroughUnitsWhileDocking_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 111, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0CD_0040FLBBFKO_0040CanPathThroughUnitsWhileHarvesti_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 112, state);
+			Marshaler_002EMarshal(node, (AIUpdateModuleData*)@object, state);
+		}
+	}
+

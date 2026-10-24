@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 59279; body SHA256 e826d7b15a88fadb4bd8bcd69e1ae87ea3941e055ab235905dc47b74621c2c82
+// Literals: {"_003F_003F_C_0040_0BF_0040HGEAAMFK_0040TargetingCompareList_003F_0024AA_0040": "TargetingCompareList", "_003F_003F_C_0040_0BM_0040OIENNAGN_0040DefaultTargetingCompareList_003F_0024AA_0040": "DefaultTargetingCompareList"}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUnitAITargetChooserData_003E(INode* node, UnitAITargetChooserData** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+			UnitAITargetChooserData* ptr = (UnitAITargetChooserData*)(int)(*(uint*)pointer);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATargetingCompareList_002Cstruct_0020SageBinaryData_003A_003ATargetingCompareList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040HGEAAMFK_0040TargetingCompareList_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BM_0040OIENNAGN_0040DefaultTargetingCompareList_003F_0024AA_0040)), (AssetReference_003CSageBinaryData_003A_003ATargetingCompareList_002CSageBinaryData_003A_003ATargetingCompareList_003E*)((byte*)ptr + 36), tracker);
+			Marshaler_002EMarshal(node, (BaseAITargetChooserData*)ptr, tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+

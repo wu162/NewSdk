@@ -1,0 +1,31 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 44556; body SHA256 f634be275b2e8183fbf52a2c5828585c1ad0a7aeb9035baa73cbf7447fffbcf4
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040": "0s", "_003F_003F_C_0040_08HMLALFPA_0040PackTime_003F_0024AA_0040": "PackTime", "_003F_003F_C_0040_0L_0040LFAINHLE_0040UnpackTime_003F_0024AA_0040": "UnpackTime", "_003F_003F_C_0040_0BJ_0040BNLEMIBM_0040ResetTurretBeforePacking_003F_0024AA_0040": "ResetTurretBeforePacking", "_003F_003F_C_0040_0CA_0040NJJAEGCF_0040TurretsFunctionOnlyWhenDeployed_003F_0024AA_0040": "TurretsFunctionOnlyWhenDeployed", "_003F_003F_C_0040_0BP_0040NAFHOKHP_0040TurretsMustCenterBeforePacking_003F_0024AA_0040": "TurretsMustCenterBeforePacking", "_003F_003F_C_0040_0BD_0040EPPADJLB_0040MustDeployToAttack_003F_0024AA_0040": "MustDeployToAttack", "_003F_003F_C_0040_0BO_0040IJDGJABG_0040DeployedAttributeModifierName_003F_0024AA_0040": "DeployedAttributeModifierName"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DeployStyleAIUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040LFAINHLE_0040UnpackTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 19, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08HMLALFPA_0040PackTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr2 != null)
+			{
+				sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag2);
+				DataInitializers_002EInitialize((float*)@object + 20, text2, &timeTag2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040BNLEMIBM_0040ResetTurretBeforePacking_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 88, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0CA_0040NJJAEGCF_0040TurretsFunctionOnlyWhenDeployed_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 89, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BP_0040NAFHOKHP_0040TurretsMustCenterBeforePacking_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 90, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040EPPADJLB_0040MustDeployToAttack_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 91, state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAttributeModifier_002Cclass_0020AttributeModifierContainer_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BO_0040IJDGJABG_0040DeployedAttributeModifierName_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AAttributeModifier_002CAttributeModifierContainer_003E*)((byte*)@object + 84), state);
+			Marshaler_002EMarshal(node, (AIUpdateModuleData*)@object, state);
+		}
+	}
+

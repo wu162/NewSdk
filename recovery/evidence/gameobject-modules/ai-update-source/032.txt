@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 64017; body SHA256 ba1d4302724aa7c43a18bf2d4b6c04d42d00460856291a897319074c4669a918
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AWanderAIUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		WanderAIUpdateModuleData* ptr = (WanderAIUpdateModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E((BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)ptr + 76), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 136)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 136)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 136)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[136];
+			((int*)ptr)[34] = (int)num;
+		}
+		Marshaler_002EEndianCorrect((AIUpdateModuleData*)ptr, endian);
+	}
+
