@@ -1,270 +1,526 @@
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
-[00:00:00.0156735] BinaryAssetBuilder started
-[00:00:00.4544222] Cached session data not available.
-[00:00:00.4544222] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
-[00:00:00.4700341] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods\cache').
-[00:00:00.4856649] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mod.xml'.
-[00:00:00.5169114] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\static.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5169114] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods\static.manifest, file not found
-[00:00:00.5169114] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\static.xml'.
-[00:00:00.5325331] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\global.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5325331] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods\global.manifest, file not found
-[00:00:00.5325331] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\global.xml'.
-[00:00:00.5325331] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\audio.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5325331] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\FullMymod-Original\builtmods\audio.manifest, file not found
-[00:00:00.5325331] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\audio.xml'.
-[00:00:00.5325331] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'.
-[00:00:00.5481575] commanddata.xml: Compiling LogicCommand:Command_Constructmytank [7d464170:3a5bda88]
-[00:00:00.5950460] commanddata.xml: Compiling LogicCommandSet:AlliedWarFactoryCommandSet [ec066d65:ec7b195e]
-[00:00:00.5950460] commanddata.xml: Compiling LogicCommandSet:mytankCommandSet [ec066d65:84fb9652]
-[00:00:00.5950460] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'.
-[00:00:00.6262855] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\sagexml\globaldata\globaldefines.xml'.
-[00:00:00.6419143] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\sagexml\baseobjects\basevehicle.xml'.
-[00:00:00.6575320] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\sagexml\baseobjects\baseobject.xml'.
-[00:00:00.6575320] baseobject.xml: Compiling GameObject:BaseObject [942fff2d:e7fad687]
-[00:00:00.7200656] basevehicle.xml: Compiling GameObject:BaseVehicle [942fff2d:3f48438d]
-[00:00:00.7512869] mytank.xml: Compiling GameObject:mytank [942fff2d:0a661d3b]
-[00:00:00.8137929] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\recoveryarmorprobe.xml'.
-[00:00:00.8137929] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Defaults [3a6c5e8e:6e22267c]
-[00:00:00.8137929] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_NonDefault [3a6c5e8e:87ac06c4]
-[00:00:00.8137929] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Inherited [3a6c5e8e:1ad80020]
-[00:00:00.8137929] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\recoveryweaponnuggetprobe.xml'.
-[00:00:00.8450381] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Damage [94d4d96e:b9d0b6b5]
-[00:00:00.8606617] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_DOT [94d4d96e:98c6285c]
-[00:00:00.8606617] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Grappling [94d4d96e:e2a87f23]
-[00:00:00.8606617] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechPercent [94d4d96e:25a2de71]
-[00:00:00.8606617] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechHealth [94d4d96e:c912b589]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Line [94d4d96e:0b74928c]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spawn [94d4d96e:214fe4dd]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Fire [94d4d96e:dfe23893]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Contained [94d4d96e:7d93012c]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Projectile [94d4d96e:0e7ba06c]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ScatterProjectile [94d4d96e:1e941181]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_OCL [94d4d96e:117d134c]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Seed [94d4d96e:42732717]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SpecialPower [94d4d96e:3b5679b3]
-[00:00:00.8762862] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inform [94d4d96e:3fd3d0f8]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ContainedAttack [94d4d96e:f047cf90]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SlavesAttack [94d4d96e:60996334]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Report [94d4d96e:10d17433]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Circular [94d4d96e:39959394]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Lift [94d4d96e:95e28f1e]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Linear [94d4d96e:82f5fc1e]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Stream [94d4d96e:f32b9e74]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Laser [94d4d96e:4d5477ee]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Crater [94d4d96e:336be042]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Attach [94d4d96e:8f83366d]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spend [94d4d96e:3f55fad0]
-[00:00:00.8919098] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Secondary [94d4d96e:6c31f23f]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Strip [94d4d96e:97a8caa4]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Suppression [94d4d96e:9d0b3f89]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LuaEvent [94d4d96e:032fa332]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_MixedSimple [94d4d96e:aec1d0b1]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Paralyze [94d4d96e:3643f4b9]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Information [94d4d96e:be18984a]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Meta [94d4d96e:6ca236b9]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Tint [94d4d96e:72c72dac]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Modifier [94d4d96e:7adef617]
-[00:00:00.9075364] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_All35 [94d4d96e:966da658]
-[00:00:00.9231596] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inherited [94d4d96e:4f2a052d]
-[00:00:00.9231596] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
-[00:00:00.9388007] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
-[00:00:00.9388007] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
-[00:00:00.9388007] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
-[00:00:00.9544126] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
-[00:00:00.9544126] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
-[00:00:00.9544126] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
-[00:00:00.9544126] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
-[00:00:00.9544126] recoveryxmlpriorityprobe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
-[00:00:00.9700293] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
-[00:00:00.9700293] recoveryxmlpriorityprobe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
-[00:00:00.9700293] recoveryxmlpriorityprobe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
-[00:00:00.9700293] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
-[00:00:00.9856612] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
-[00:00:00.9856612] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
-[00:00:00.9856612] recoveryxmlpriorityprobe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
-[00:00:01.0012884] recoveryxmlpriorityprobe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
-[00:00:01.0012884] recoveryxmlpriorityprobe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
-[00:00:01.0012884] recoveryxmlpriorityprobe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
-[00:00:01.0012884] Resolving references: mods\mymod\data\mod
-[00:00:01.0012884] Warning: Unknown asset 'UnitIntro:Allied_GuardianTank_UnitIntro' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'ArmorTemplate:CryoBeamFrozenArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'DamageFX:VehicleDamageFX' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'ArmorTemplate:ShrinkRayEffectArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'LocomotorTemplate:TestReactiveLocomotorTANK' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'Texture:EXTnkTrack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'BaseRenderAssetType:AUAntiVehicleVehicleTech1_SKN' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_Laser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageSmoke' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1_D' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFire' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0012884] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFireLight' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'W3DAnimation:AUAntiVehicleVehicleTech1_MOVA' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'TerrainParticleMapping:DefaultTankTerrainParticleMapping' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'Texture:FXObeliskLaser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'Texture:FXLaserOverlay' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseRenderAssetType:EX_Headlights' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'WeaponTemplate:CatalystInfantryDeathWeapon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'StanceTemplate:Generic' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_02' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_04' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_06' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_08' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_10' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1Cannon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1TargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'TargetingCompareList:DefaultTurretTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_LaserEnd' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'ObjectCreationList:AUAntiVehicleVehicleTech1_Die_OCL' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'FXList:FX_AlliedChieftanDie' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_ToggleTargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'ObjectFilterAsset:GenericSpecialPowerObjectFilter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOff' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOn' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeModifier_TargetPaintVisionBonus' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger_HighTechnology' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'AttributeModifier:AttributeMod_AlliedHighTechnologyAttribute' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'TargetingCompareList:DefaultTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:SOV_MagneticSatellite_SuckedAway' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:UnitSelectFrozen' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_GuardianTank_VoiceShrunken' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttackPaintTarget' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceCreate' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMoveAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMove' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceRetreat' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectBattleMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_MoveStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:VehicleCrush' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'BaseAudioEventInfo:Tank_Land_MoveLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:UnitLost' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:BuildingConstructionStarted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:UnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:UnitUnderAttackFromShroudedUnit' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:GenericUnitBeingBurned' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:AllyUnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:UnitAmbushed' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:GenericEnemyUnitSighted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:EnemyStealthUnitDiscovered' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:NewConstructionOptions' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:BuildOnHold' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:BuildCancelled' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'EvaEvent:UnitPromoted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\mytank.xml'
-[00:00:01.0169604] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMiner' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0169604] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiInfantryVehicle_Ground' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0169604] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiAirVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiStructureVehicle' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech3' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMCV' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_ToggleTargetPainter' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_AttackMove' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Warning: Unknown asset 'LogicCommand:Command_MoveToPositionAndCollect' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\fullmymod-original\mods\mymod\data\commanddata.xml'
-[00:00:01.0325283] Stable sorting assets
-[00:00:01.0325283] Sorting by schema dependencies
-[00:00:01.0325283] Sorting by asset dependencies
-[00:00:01.0325283] Generating stream: mods\mymod\data\mod
-[00:00:01.0481658] Slow asset clean-up (expected: 65, actual: 65, old: 0, current: 65)
-[00:00:01.0481658] mods\mymod\data\mod Linking binary data
-[00:00:01.0481658] mods\mymod\data\mod Linking import data
-[00:00:01.0481658] mods\mymod\data\mod Linking relocation data
-[00:00:01.0481658] mods\mymod\data\mod Stream complete
-[00:00:01.0637908] BinaryAssetBuilder complete
-[00:00:01.0637908] AIStrategicStateDefinition:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] FXParticleSystemTemplate:
-[00:00:01.0637908]       Instances Processed: 4
-[00:00:01.0637908]       Total Processing Time: 00:00:00.0156119
-[00:00:01.0637908]       Longest Processing Time: 00:00:00.0156119 (RecoveryXmlPriority_Particle_Defaults)
-[00:00:01.0637908]       Average Processing Time: 0.003902975 seconds
-[00:00:01.0637908] AITargetingHeuristic:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] ArmorTemplate:
-[00:00:01.0637908]       Instances Processed: 3
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] LogicCommand:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00.0156034
-[00:00:01.0637908]       Longest Processing Time: 00:00:00.0156034 (Command_Constructmytank)
-[00:00:01.0637908]       Average Processing Time: 0.0156034 seconds
-[00:00:01.0637908] SpecialPowerTemplate:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] FXList:
-[00:00:01.0637908]       Instances Processed: 2
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] AIMicroManagerData:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00.0156272
-[00:00:01.0637908]       Longest Processing Time: 00:00:00.0156272 (RecoveryXmlPriority_Micro_Defaults)
-[00:00:01.0637908]       Average Processing Time: 0.0156272 seconds
-[00:00:01.0637908] GameObject:
-[00:00:01.0637908]       Instances Processed: 3
-[00:00:01.0637908]       Total Processing Time: 00:00:00.1249975
-[00:00:01.0637908]       Longest Processing Time: 00:00:00.0625060 (mytank)
-[00:00:01.0637908]       Average Processing Time: 0.0416658333333333 seconds
-[00:00:01.0637908] WeaponTemplate:
-[00:00:01.0637908]       Instances Processed: 38
-[00:00:01.0637908]       Total Processing Time: 00:00:00.0468713
-[00:00:01.0637908]       Longest Processing Time: 00:00:00.0156245 (RecoveryNugget_LeechHealth)
-[00:00:01.0637908]       Average Processing Time: 0.00123345526315789 seconds
-[00:00:01.0637908] AIBudgetStateDefinition:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] AIStateDefinition:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0637908]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0637908]       Average Processing Time: 0 seconds
-[00:00:01.0637908] AttributeModifier:
-[00:00:01.0637908]       Instances Processed: 1
-[00:00:01.0637908]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] AIPersonalityDefinition:
-[00:00:01.0794071]       Instances Processed: 1
-[00:00:01.0794071]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] UpgradeTemplate:
-[00:00:01.0794071]       Instances Processed: 1
-[00:00:01.0794071]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] ObjectCreationList:
-[00:00:01.0794071]       Instances Processed: 1
-[00:00:01.0794071]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] LogicCommandSet:
-[00:00:01.0794071]       Instances Processed: 3
-[00:00:01.0794071]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] LocomotorTemplate:
-[00:00:01.0794071]       Instances Processed: 1
-[00:00:01.0794071]       Total Processing Time: 00:00:00
-[00:00:01.0794071]       Longest Processing Time: 00:00:00 ()
-[00:00:01.0794071]       Average Processing Time: 0 seconds
-[00:00:01.0794071] Total Processing Time for All Types: 00:00:00.2187113
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2036797] Cached session data not available.
+[00:00:00.2036797] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2036797] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods\cache').
+[00:00:00.4536526] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mod.xml'.
+[00:00:00.4692850] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4692850] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods\static.manifest, file not found
+[00:00:00.4692850] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\static.xml'.
+[00:00:00.4849144] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4849144] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods\global.manifest, file not found
+[00:00:00.4849144] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\global.xml'.
+[00:00:00.4849144] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4849144] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\FullMymod-Original\builtmods\audio.manifest, file not found
+[00:00:00.4849144] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\audio.xml'.
+[00:00:00.4849144] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'.
+[00:00:00.5005352] commanddata.xml: Compiling LogicCommand:Command_Constructmytank [7d464170:3a5bda88]
+[00:00:00.5251966] commanddata.xml: Compiling LogicCommandSet:AlliedWarFactoryCommandSet [ec066d65:ec7b195e]
+[00:00:00.5251966] commanddata.xml: Compiling LogicCommandSet:mytankCommandSet [ec066d65:84fb9652]
+[00:00:00.5251966] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'.
+[00:00:00.5485989] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\sagexml\globaldata\globaldefines.xml'.
+[00:00:00.5641274] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\sagexml\baseobjects\basevehicle.xml'.
+[00:00:00.5641274] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\sagexml\baseobjects\baseobject.xml'.
+[00:00:00.5641274] baseobject.xml: Compiling GameObject:BaseObject [942fff2d:e7fad687]
+[00:00:00.6110583] basevehicle.xml: Compiling GameObject:BaseVehicle [942fff2d:3f48438d]
+[00:00:00.6266836] mytank.xml: Compiling GameObject:mytank [942fff2d:0a661d3b]
+[00:00:00.6579260] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\recoveryarmorprobe.xml'.
+[00:00:00.6579260] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Defaults [3a6c5e8e:6e22267c]
+[00:00:00.6579260] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_NonDefault [3a6c5e8e:87ac06c4]
+[00:00:00.6579260] recoveryarmorprobe.xml: Compiling ArmorTemplate:RecoveryArmorProbe_Inherited [3a6c5e8e:1ad80020]
+[00:00:00.6579260] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\recoveryweaponnuggetprobe.xml'.
+[00:00:00.6891785] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Damage [94d4d96e:b9d0b6b5]
+[00:00:00.6891785] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_DOT [94d4d96e:98c6285c]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Grappling [94d4d96e:e2a87f23]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechPercent [94d4d96e:25a2de71]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LeechHealth [94d4d96e:c912b589]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Line [94d4d96e:0b74928c]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spawn [94d4d96e:214fe4dd]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Fire [94d4d96e:dfe23893]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Contained [94d4d96e:7d93012c]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Projectile [94d4d96e:0e7ba06c]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ScatterProjectile [94d4d96e:1e941181]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_OCL [94d4d96e:117d134c]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Seed [94d4d96e:42732717]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SpecialPower [94d4d96e:3b5679b3]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inform [94d4d96e:3fd3d0f8]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_ContainedAttack [94d4d96e:f047cf90]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_SlavesAttack [94d4d96e:60996334]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Report [94d4d96e:10d17433]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Circular [94d4d96e:39959394]
+[00:00:00.7047974] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Lift [94d4d96e:95e28f1e]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Linear [94d4d96e:82f5fc1e]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Stream [94d4d96e:f32b9e74]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Laser [94d4d96e:4d5477ee]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Crater [94d4d96e:336be042]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Attach [94d4d96e:8f83366d]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Spend [94d4d96e:3f55fad0]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Secondary [94d4d96e:6c31f23f]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Strip [94d4d96e:97a8caa4]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Suppression [94d4d96e:9d0b3f89]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_LuaEvent [94d4d96e:032fa332]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_MixedSimple [94d4d96e:aec1d0b1]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Paralyze [94d4d96e:3643f4b9]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Information [94d4d96e:be18984a]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Meta [94d4d96e:6ca236b9]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Tint [94d4d96e:72c72dac]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Modifier [94d4d96e:7adef617]
+[00:00:00.7204213] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_All35 [94d4d96e:966da658]
+[00:00:00.7360437] recoveryweaponnuggetprobe.xml: Compiling WeaponTemplate:RecoveryNugget_Inherited [94d4d96e:4f2a052d]
+[00:00:00.7360437] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
+[00:00:00.7360437] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
+[00:00:00.7516716] recoveryxmlpriorityprobe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
+[00:00:00.7672995] recoveryxmlpriorityprobe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Defaults [7d464170:7229795b]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Defaults [7f0818d9:07610b61]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Defaults [6b7227c2:bad11596]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlAdditional_UpgradeTemplate_Support [e1afe75b:08e099b9]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults [7f96d96d:68857a65]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults [6fbc4a9f:3e83b0c2]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Defaults [b5ad65f8:55212829]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults [5d65a2e0:26a4f0c3]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults [484d7cf8:1070dc06]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Defaults [08080bc0:8ebcb793]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlAdditional_FXList_Support [86682e78:d8206184]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlAdditional_ObjectCreationList_Support [e86e4d61:bc20e3b3]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlAdditional_AttributeModifier_Support [c5e07887:9f513c74]
+[00:00:00.7829246] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Combined [7d464170:d15f4696]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Inherited [7d464170:d8ac85fe]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Combined [7f0818d9:a6003c15]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Inherited [7f0818d9:d42d15b7]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Combined [6b7227c2:650bfd3e]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Inherited [6b7227c2:688b2781]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined [7f96d96d:bc036e94]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited [7f96d96d:38b3cc8b]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Combined [6fbc4a9f:ffd2fc12]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited [6fbc4a9f:e79c6250]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Combined [b5ad65f8:527b0a06]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined [5d65a2e0:ce55dd4c]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined [484d7cf8:d81b3601]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Combined [08080bc0:4d30d507]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Defaults [51b9cd64:f1e8e110]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Defaults [4e9436e2:90d11720]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Defaults [057786f9:e005d601]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Combined [51b9cd64:c71e9239]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Combined [4e9436e2:a63d2090]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Combined [057786f9:4406f26b]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Inherited [51b9cd64:6aec8c22]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Inherited [057786f9:617db942]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Defaults [90d951ad:e0ada0b8]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Combined [90d951ad:8196615c]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Defaults [582fdc2a:931ef71a]
+[00:00:00.7985479] recoveryxmlpriorityprobe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Combined [582fdc2a:12cba4e7]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Defaults [a2a3374c:4934a7db]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Combined [a2a3374c:02cea3c5]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Defaults [b28cca45:a82144b7]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Combined [b28cca45:b46d4d82]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Defaults [2893e309:2b9abd35]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Defaults [bceda263:c6c994af]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Combined [bceda263:fe89c0ba]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Combined [2893e309:6df98146]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Defaults [5796c4b7:d3ddb67a]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Combined [5796c4b7:5ac98fec]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults [8d32382d:4e16b87f]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Combined [8d32382d:fb67645d]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Defaults [f7ce0bbd:09d58a3f]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Combined [f7ce0bbd:b026d360]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Defaults [b29f0574:de9f071b]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Combined [b29f0574:a62dc98d]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Inherited [90d951ad:28139751]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Inherited [5796c4b7:7b01d98e]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited [8d32382d:b704dbfc]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Inherited [f7ce0bbd:77e80187]
+[00:00:00.8141688] recoveryxmlpriorityprobe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Defaults [4696a138:b198f200]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Defaults [e862ff86:61c53946]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Combined [4696a138:d11490a7]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Combined [e862ff86:0370e7e6]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling AIData:RecoveryXmlAdditional_AIData_Defaults [e4266b40:5e63969b]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling UnitAISettings:RecoveryXmlAdditional_UnitAISettings_Defaults [b0b8a920:abac0286]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling PlayerTemplate:RecoveryXmlAdditional_PlayerTemplate_Defaults [f231d60d:2c9e83c6]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling MultiplayerSettings:RecoveryXmlAdditional_MultiplayerSettings_Defaults [0b63aef0:47f679e7]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling AIBuildStateDefinition:RecoveryXmlAdditional_AIBuildStateDefinition_Defaults [620c480b:5a0ec916]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateName:RecoveryXmlAdditional_AIStrategicStateName_Defaults [77d6be90:3bd466f7]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling MultiplayerColor:RecoveryXmlAdditional_MultiplayerColor_Defaults [8e28081d:1f93e8e5]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityToAchievementEventMapping:RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults [f38e1878:0e104f6e]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling FormationAssistantUnitDefinition:RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults [31f4dce2:6c51e294]
+[00:00:00.8298003] recoveryxmlpriorityprobe.xml: Compiling FormationAssistantTemplate:RecoveryXmlAdditional_FormationAssistantTemplate_Defaults [ad9779b6:44c7d3a7]
+[00:00:00.8454314] recoveryxmlpriorityprobe.xml: Compiling FormationSelectionTemplate:RecoveryXmlAdditional_FormationSelectionTemplate_Defaults [c92313e0:5a6f2330]
+[00:00:00.8454314] recoveryxmlpriorityprobe.xml: Compiling FormationAssistant:RecoveryXmlAdditional_FormationAssistant_Defaults [7504005c:ab5e889d]
+[00:00:00.8454314] recoveryxmlpriorityprobe.xml: Compiling SkirmishSettings:RecoveryXmlAdditional_SkirmishSettings_Defaults [17f749cf:ca501972]
+[00:00:00.8454314] Resolving references: mods\mymod\data\mod
+[00:00:00.8454314] Warning: Unknown asset 'UnitIntro:Allied_GuardianTank_UnitIntro' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'ArmorTemplate:CryoBeamFrozenArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'DamageFX:VehicleDamageFX' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'ArmorTemplate:ShrinkRayEffectArmor' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LocomotorTemplate:TestReactiveLocomotorTANK' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'Texture:EXTnkTrack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseRenderAssetType:AUAntiVehicleVehicleTech1_SKN' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_Laser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageSmoke' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'Texture:AUAntiVehicleVehicleTech1_D' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFire' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXParticleSystemTemplate:AlliedVehicleDamageFireLight' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'W3DAnimation:AUAntiVehicleVehicleTech1_MOVA' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'TerrainParticleMapping:DefaultTankTerrainParticleMapping' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'Texture:FXObeliskLaser' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'Texture:FXLaserOverlay' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseRenderAssetType:EX_Headlights' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'WeaponTemplate:CatalystInfantryDeathWeapon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'StanceTemplate:Generic' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_02' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_04' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_06' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_08' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifer_CryoBeam_10' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1Cannon' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'WeaponTemplate:AlliedAntiVehicleVehicleTech1TargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'TargetingCompareList:DefaultTurretTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXParticleSystemTemplate:Allied_Target_LaserEnd' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'ObjectCreationList:AUAntiVehicleVehicleTech1_Die_OCL' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'FXList:FX_AlliedChieftanDie' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_ToggleTargetPainter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'ObjectFilterAsset:GenericSpecialPowerObjectFilter' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOff' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterOn' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeModifier_TargetPaintVisionBonus' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'SpecialPowerTemplate:SpecialPower_PaintTargetTrigger_HighTechnology' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'AttributeModifier:AttributeMod_AlliedHighTechnologyAttribute' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'TargetingCompareList:DefaultTargetingCompareList' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:SOV_MagneticSatellite_SuckedAway' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:UnitSelectFrozen' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_GuardianTank_VoiceShrunken' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttackPaintTarget' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_PainterWeaponStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceCreate' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMoveAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceMove' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceRetreat' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_VoiceSelectBattleMS' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:ALL_Guardian_MoveStart' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:VehicleCrush' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'BaseAudioEventInfo:Tank_Land_MoveLoop' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:UnitLost' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:BuildingConstructionStarted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:UnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:UnitUnderAttackFromShroudedUnit' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:GenericUnitBeingBurned' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:AllyUnitUnderAttack' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:UnitAmbushed' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:GenericEnemyUnitSighted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:EnemyStealthUnitDiscovered' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:NewConstructionOptions' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:BuildOnHold' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:BuildCancelled' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'EvaEvent:UnitPromoted' referenced from 'GameObject:mytank' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\mytank.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMiner' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiInfantryVehicle_Ground' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiAirVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech1' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiStructureVehicle' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedAntiVehicleVehicleTech3' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ConstructAlliedMCV' referenced from 'LogicCommandSet:AlliedWarFactoryCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_ToggleTargetPainter' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_AttackMove' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Warning: Unknown asset 'LogicCommand:Command_MoveToPositionAndCollect' referenced from 'LogicCommandSet:mytankCommandSet' in 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\fullmymod-original\mods\mymod\data\commanddata.xml'
+[00:00:00.8454314] Stable sorting assets
+[00:00:00.8454314] Sorting by schema dependencies
+[00:00:00.8610511] Sorting by asset dependencies
+[00:00:00.8610511] Generating stream: mods\mymod\data\mod
+[00:00:00.8610511] Slow asset clean-up (expected: 141, actual: 141, old: 0, current: 141)
+[00:00:00.8610511] mods\mymod\data\mod Linking binary data
+[00:00:00.8610511] mods\mymod\data\mod Linking import data
+[00:00:00.8766719] mods\mymod\data\mod Linking relocation data
+[00:00:00.8766719] mods\mymod\data\mod Stream complete
+[00:00:00.8766719] BinaryAssetBuilder complete
+[00:00:00.8766719] FontSubstitution:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] UICommandButton:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] MultiplayerSettings:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] SkirmishSettings:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] AIStrategicStateDefinition:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] Environment:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] FXParticleSystemTemplate:
+[00:00:00.8766719]       Instances Processed: 4
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] FormationAssistantUnitDefinition:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] AITargetingHeuristic:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] ArmorTemplate:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] TerrainVisualSettings:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] PlayerTechStoreTemplate:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] FontTranslation:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] FontDefaultSetting:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] TerrainParticleMapping:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] WaterTransparency:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] PurchasePlayerTechButtonTemplate:
+[00:00:00.8766719]       Instances Processed: 2
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] AIBuildStateDefinition:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] PlayerTechRank:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] ExperienceLevelTemplate:
+[00:00:00.8766719]       Instances Processed: 3
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] FormationAssistant:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] AIStrategicStateName:
+[00:00:00.8766719]       Instances Processed: 1
+[00:00:00.8766719]       Total Processing Time: 00:00:00
+[00:00:00.8766719]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8766719]       Average Processing Time: 0 seconds
+[00:00:00.8766719] LogicCommand:
+[00:00:00.8766719]       Instances Processed: 4
+[00:00:00.8766719]       Total Processing Time: 00:00:00.0312465
+[00:00:00.8766719]       Longest Processing Time: 00:00:00.0156233 (RecoveryXmlAdditional_LogicCommand_Combined)
+[00:00:00.8922951]       Average Processing Time: 0.007811625 seconds
+[00:00:00.8922951] PlayerTech:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] PlayerTechUpgradeBinding:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] SpecialPowerTemplate:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00.0156279
+[00:00:00.8922951]       Longest Processing Time: 00:00:00.0156279 (RecoveryXmlPriority_SpecialPower_Defaults)
+[00:00:00.8922951]       Average Processing Time: 0.0156279 seconds
+[00:00:00.8922951] FXList:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00.0156279
+[00:00:00.8922951]       Longest Processing Time: 00:00:00.0156279 (RecoveryXmlPriority_FX_Defaults)
+[00:00:00.8922951]       Average Processing Time: 0.0052093 seconds
+[00:00:00.8922951] BounceKickTerrainMapping:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] MultiplayerColor:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIMicroManagerData:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00.0156251
+[00:00:00.8922951]       Longest Processing Time: 00:00:00.0156251 (RecoveryXmlPriority_Micro_Defaults)
+[00:00:00.8922951]       Average Processing Time: 0.0156251 seconds
+[00:00:00.8922951] Weather:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] GameObject:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00.0781671
+[00:00:00.8922951]       Longest Processing Time: 00:00:00.0312994 (BaseObject)
+[00:00:00.8922951]       Average Processing Time: 0.0260557 seconds
+[00:00:00.8922951] WeaponTemplate:
+[00:00:00.8922951]       Instances Processed: 38
+[00:00:00.8922951]       Total Processing Time: 00:00:00.0312413
+[00:00:00.8922951]       Longest Processing Time: 00:00:00.0156224 (RecoveryNugget_All35)
+[00:00:00.8922951]       Average Processing Time: 0.000822139473684211 seconds
+[00:00:00.8922951] WaterSetting:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIBudgetStateDefinition:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] FormationAssistantTemplate:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] UnitAISettings:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] WaterTextureList:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] OrdersManagerSettings:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] ButtonSingleStateData:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] LightingSettings:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIStateDefinition:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AttributeModifier:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] FormationSelectionTemplate:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIPersonalityDefinition:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] UpgradeTemplate:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIData:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] CameraSettings:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] ObjectCreationList:
+[00:00:00.8922951]       Instances Processed: 2
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] LogicCommandSet:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] LocomotorTemplate:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] PlayerTemplate:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] AIPersonalityToAchievementEventMapping:
+[00:00:00.8922951]       Instances Processed: 1
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] ShadowMap:
+[00:00:00.8922951]       Instances Processed: 3
+[00:00:00.8922951]       Total Processing Time: 00:00:00
+[00:00:00.8922951]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8922951]       Average Processing Time: 0 seconds
+[00:00:00.8922951] Total Processing Time for All Types: 00:00:00.1875358

@@ -1,117 +1,378 @@
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
 [00:00:00] BinaryAssetBuilder started
-[00:00:00.3750199] Cached session data not available.
-[00:00:00.3750199] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
-[00:00:00.3750199] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods\cache').
-[00:00:00.4062612] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\mods\mymod\data\mod.xml'.
-[00:00:00.4375180] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\static.xml which has not been compiled, attempting to use precompiled
-[00:00:00.4375180] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods\static.manifest, file not found
-[00:00:00.4375180] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\static.xml'.
-[00:00:00.4531924] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\global.xml which has not been compiled, attempting to use precompiled
-[00:00:00.4531924] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods\global.manifest, file not found
-[00:00:00.4531924] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\global.xml'.
-[00:00:00.4531924] Stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\audio.xml which has not been compiled, attempting to use precompiled
-[00:00:00.4687576] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\Reduced-Recovered\builtmods\audio.manifest, file not found
-[00:00:00.4687576] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\audio.xml'.
-[00:00:00.4687576] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-293572d9a15646fc950f58dfc169f335\reduced-recovered\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
-[00:00:00.5000214] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
-[00:00:00.5479681] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
-[00:00:00.6160941] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
-[00:00:00.6259885] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
-[00:00:00.6416622] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
-[00:00:00.6572882] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
-[00:00:00.6572882] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
-[00:00:00.6572882] recoveryxmlpriorityprobe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
-[00:00:00.6729136] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
-[00:00:00.6729136] recoveryxmlpriorityprobe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
-[00:00:00.6729136] recoveryxmlpriorityprobe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
-[00:00:00.6885278] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
-[00:00:00.6885278] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
-[00:00:00.7041628] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
-[00:00:00.7197893] recoveryxmlpriorityprobe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
-[00:00:00.7197893] recoveryxmlpriorityprobe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
-[00:00:00.7197893] recoveryxmlpriorityprobe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
-[00:00:00.7197893] recoveryxmlpriorityprobe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
-[00:00:00.7197893] Resolving references: mods\mymod\data\mod
-[00:00:00.7354129] Stable sorting assets
-[00:00:00.7354129] Sorting by schema dependencies
-[00:00:00.7354129] Sorting by asset dependencies
-[00:00:00.7354129] Generating stream: mods\mymod\data\mod
-[00:00:00.7525801] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
-[00:00:00.7525801] mods\mymod\data\mod Linking binary data
-[00:00:00.7525801] mods\mymod\data\mod Linking import data
-[00:00:00.7671215] mods\mymod\data\mod Linking relocation data
-[00:00:00.7677545] mods\mymod\data\mod Stream complete
-[00:00:00.7677545] BinaryAssetBuilder complete
-[00:00:00.7677545] AIStrategicStateDefinition:
-[00:00:00.7677545]       Instances Processed: 1
-[00:00:00.7677545]       Total Processing Time: 00:00:00
-[00:00:00.7677545]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7677545]       Average Processing Time: 0 seconds
-[00:00:00.7677545] FXParticleSystemTemplate:
-[00:00:00.7677545]       Instances Processed: 4
-[00:00:00.7677545]       Total Processing Time: 00:00:00.0358391
-[00:00:00.7677545]       Longest Processing Time: 00:00:00.0156737 (RecoveryXmlPriority_Particle_Gpu)
-[00:00:00.7677545]       Average Processing Time: 0.008959775 seconds
-[00:00:00.7677545] AITargetingHeuristic:
-[00:00:00.7677545]       Instances Processed: 1
-[00:00:00.7677545]       Total Processing Time: 00:00:00
-[00:00:00.7677545]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7677545]       Average Processing Time: 0 seconds
-[00:00:00.7677545] SpecialPowerTemplate:
-[00:00:00.7677545]       Instances Processed: 1
-[00:00:00.7677545]       Total Processing Time: 00:00:00.0156254
-[00:00:00.7827850]       Longest Processing Time: 00:00:00.0156254 (RecoveryXmlPriority_SpecialPower_Defaults)
-[00:00:00.7827850]       Average Processing Time: 0.0156254 seconds
-[00:00:00.7827850] FXList:
-[00:00:00.7827850]       Instances Processed: 2
-[00:00:00.7827850]       Total Processing Time: 00:00:00.1160727
-[00:00:00.7827850]       Longest Processing Time: 00:00:00.0681260 (RecoveryXmlPriority_FX_Filters)
-[00:00:00.7827850]       Average Processing Time: 0.05803635 seconds
-[00:00:00.7827850] AIMicroManagerData:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] AIBudgetStateDefinition:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] AIStateDefinition:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] AttributeModifier:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] AIPersonalityDefinition:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00.0156350
-[00:00:00.7827850]       Longest Processing Time: 00:00:00.0156350 (RecoveryXmlPriority_Personality_Defaults)
-[00:00:00.7827850]       Average Processing Time: 0.015635 seconds
-[00:00:00.7827850] UpgradeTemplate:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] ObjectCreationList:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] LogicCommandSet:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] LocomotorTemplate:
-[00:00:00.7827850]       Instances Processed: 1
-[00:00:00.7827850]       Total Processing Time: 00:00:00
-[00:00:00.7827850]       Longest Processing Time: 00:00:00 ()
-[00:00:00.7827850]       Average Processing Time: 0 seconds
-[00:00:00.7827850] Total Processing Time for All Types: 00:00:00.1831722
+[00:00:00.2199476] Cached session data not available.
+[00:00:00.2199476] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2199476] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods\cache').
+[00:00:00.2355439] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\mods\mymod\data\mod.xml'.
+[00:00:00.2511748] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2511748] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods\static.manifest, file not found
+[00:00:00.2511748] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\static.xml'.
+[00:00:00.2667988] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2667988] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods\global.manifest, file not found
+[00:00:00.2667988] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\global.xml'.
+[00:00:00.2667988] Stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2667988] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\Reduced-Recovered\builtmods\audio.manifest, file not found
+[00:00:00.2667988] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\audio.xml'.
+[00:00:00.2667988] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-0042cbb60eb346d9886ba2add4e951ac\reduced-recovered\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
+[00:00:00.2980880] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.3136799] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
+[00:00:00.3449400] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
+[00:00:00.3449400] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
+[00:00:00.3605668] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
+[00:00:00.3605668] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
+[00:00:00.3605668] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
+[00:00:00.3605668] recoveryxmlpriorityprobe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
+[00:00:00.3761946] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
+[00:00:00.3761946] recoveryxmlpriorityprobe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
+[00:00:00.3818576] recoveryxmlpriorityprobe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
+[00:00:00.3818576] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
+[00:00:00.3818576] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Defaults [7d464170:7229795b]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Defaults [7f0818d9:07610b61]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Defaults [6b7227c2:bad11596]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlAdditional_UpgradeTemplate_Support [e1afe75b:08e099b9]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults [7f96d96d:68857a65]
+[00:00:00.3918945] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults [6fbc4a9f:3e83b0c2]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Defaults [b5ad65f8:55212829]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults [5d65a2e0:26a4f0c3]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults [484d7cf8:1070dc06]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Defaults [08080bc0:8ebcb793]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlAdditional_FXList_Support [86682e78:d8206184]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlAdditional_ObjectCreationList_Support [e86e4d61:bc20e3b3]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlAdditional_AttributeModifier_Support [c5e07887:9f513c74]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Combined [7d464170:d15f4696]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Inherited [7d464170:d8ac85fe]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Combined [7f0818d9:a6003c15]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Inherited [7f0818d9:d42d15b7]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Combined [6b7227c2:650bfd3e]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Inherited [6b7227c2:688b2781]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined [7f96d96d:bc036e94]
+[00:00:00.4075597] recoveryxmlpriorityprobe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited [7f96d96d:38b3cc8b]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Combined [6fbc4a9f:ffd2fc12]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited [6fbc4a9f:e79c6250]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Combined [b5ad65f8:527b0a06]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined [5d65a2e0:ce55dd4c]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined [484d7cf8:d81b3601]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Combined [08080bc0:4d30d507]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Defaults [51b9cd64:f1e8e110]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Defaults [4e9436e2:90d11720]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Defaults [057786f9:e005d601]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Combined [51b9cd64:c71e9239]
+[00:00:00.4232031] recoveryxmlpriorityprobe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Combined [4e9436e2:a63d2090]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Combined [057786f9:4406f26b]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Inherited [51b9cd64:6aec8c22]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Inherited [057786f9:617db942]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Defaults [90d951ad:e0ada0b8]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Combined [90d951ad:8196615c]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Defaults [582fdc2a:931ef71a]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Combined [582fdc2a:12cba4e7]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Defaults [a2a3374c:4934a7db]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Combined [a2a3374c:02cea3c5]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Defaults [b28cca45:a82144b7]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Combined [b28cca45:b46d4d82]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Defaults [2893e309:2b9abd35]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Defaults [bceda263:c6c994af]
+[00:00:00.4388299] recoveryxmlpriorityprobe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Combined [bceda263:fe89c0ba]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Combined [2893e309:6df98146]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Defaults [5796c4b7:d3ddb67a]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Combined [5796c4b7:5ac98fec]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults [8d32382d:4e16b87f]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Combined [8d32382d:fb67645d]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Defaults [f7ce0bbd:09d58a3f]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Combined [f7ce0bbd:b026d360]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Defaults [b29f0574:de9f071b]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Combined [b29f0574:a62dc98d]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Inherited [90d951ad:28139751]
+[00:00:00.4544426] recoveryxmlpriorityprobe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Inherited [5796c4b7:7b01d98e]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited [8d32382d:b704dbfc]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Inherited [f7ce0bbd:77e80187]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Defaults [4696a138:b198f200]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Defaults [e862ff86:61c53946]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Combined [4696a138:d11490a7]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Combined [e862ff86:0370e7e6]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling AIData:RecoveryXmlAdditional_AIData_Defaults [e4266b40:5e63969b]
+[00:00:00.4629834] recoveryxmlpriorityprobe.xml: Compiling UnitAISettings:RecoveryXmlAdditional_UnitAISettings_Defaults [b0b8a920:abac0286]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling PlayerTemplate:RecoveryXmlAdditional_PlayerTemplate_Defaults [f231d60d:2c9e83c6]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling MultiplayerSettings:RecoveryXmlAdditional_MultiplayerSettings_Defaults [0b63aef0:47f679e7]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling AIBuildStateDefinition:RecoveryXmlAdditional_AIBuildStateDefinition_Defaults [620c480b:5a0ec916]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateName:RecoveryXmlAdditional_AIStrategicStateName_Defaults [77d6be90:3bd466f7]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling MultiplayerColor:RecoveryXmlAdditional_MultiplayerColor_Defaults [8e28081d:1f93e8e5]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityToAchievementEventMapping:RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults [f38e1878:0e104f6e]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling FormationAssistantUnitDefinition:RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults [31f4dce2:6c51e294]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling FormationAssistantTemplate:RecoveryXmlAdditional_FormationAssistantTemplate_Defaults [ad9779b6:44c7d3a7]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling FormationSelectionTemplate:RecoveryXmlAdditional_FormationSelectionTemplate_Defaults [c92313e0:5a6f2330]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling FormationAssistant:RecoveryXmlAdditional_FormationAssistant_Defaults [7504005c:ab5e889d]
+[00:00:00.4711281] recoveryxmlpriorityprobe.xml: Compiling SkirmishSettings:RecoveryXmlAdditional_SkirmishSettings_Defaults [17f749cf:ca501972]
+[00:00:00.4711281] Resolving references: mods\mymod\data\mod
+[00:00:00.4711281] Stable sorting assets
+[00:00:00.4711281] Sorting by schema dependencies
+[00:00:00.4711281] Sorting by asset dependencies
+[00:00:00.4866702] Generating stream: mods\mymod\data\mod
+[00:00:00.4866702] Slow asset clean-up (expected: 94, actual: 94, old: 0, current: 94)
+[00:00:00.4866702] mods\mymod\data\mod Linking binary data
+[00:00:00.4866702] mods\mymod\data\mod Linking import data
+[00:00:00.4866702] mods\mymod\data\mod Linking relocation data
+[00:00:00.4866702] mods\mymod\data\mod Stream complete
+[00:00:00.5023469] BinaryAssetBuilder complete
+[00:00:00.5023469] FontSubstitution:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] UICommandButton:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] MultiplayerSettings:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] SkirmishSettings:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AIStrategicStateDefinition:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] Environment:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] FXParticleSystemTemplate:
+[00:00:00.5023469]       Instances Processed: 4
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0156268
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0156268 (RecoveryXmlPriority_Particle_Gpu)
+[00:00:00.5023469]       Average Processing Time: 0.0039067 seconds
+[00:00:00.5023469] FormationAssistantUnitDefinition:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AITargetingHeuristic:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] TerrainVisualSettings:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] PlayerTechStoreTemplate:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] FontTranslation:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0156268
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0156268 (RecoveryXmlAdditional_FontTranslation_Combined)
+[00:00:00.5023469]       Average Processing Time: 0.0078134 seconds
+[00:00:00.5023469] FontDefaultSetting:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] TerrainParticleMapping:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] WaterTransparency:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] PurchasePlayerTechButtonTemplate:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AIBuildStateDefinition:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] PlayerTechRank:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] ExperienceLevelTemplate:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] FormationAssistant:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AIStrategicStateName:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] LogicCommand:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] PlayerTech:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] PlayerTechUpgradeBinding:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0156434
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0156434 (RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited)
+[00:00:00.5023469]       Average Processing Time: 0.00521446666666667 seconds
+[00:00:00.5023469] SpecialPowerTemplate:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0156278
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0156278 (RecoveryXmlPriority_SpecialPower_Defaults)
+[00:00:00.5023469]       Average Processing Time: 0.0156278 seconds
+[00:00:00.5023469] FXList:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0468520
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0312601 (RecoveryXmlPriority_FX_Filters)
+[00:00:00.5023469]       Average Processing Time: 0.0156173333333333 seconds
+[00:00:00.5023469] BounceKickTerrainMapping:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] MultiplayerColor:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AIMicroManagerData:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] Weather:
+[00:00:00.5023469]       Instances Processed: 3
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] WaterSetting:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] AIBudgetStateDefinition:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] FormationAssistantTemplate:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] UnitAISettings:
+[00:00:00.5023469]       Instances Processed: 1
+[00:00:00.5023469]       Total Processing Time: 00:00:00.0081447
+[00:00:00.5023469]       Longest Processing Time: 00:00:00.0081447 (RecoveryXmlAdditional_UnitAISettings_Defaults)
+[00:00:00.5023469]       Average Processing Time: 0.0081447 seconds
+[00:00:00.5023469] WaterTextureList:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] OrdersManagerSettings:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5023469]       Average Processing Time: 0 seconds
+[00:00:00.5023469] ButtonSingleStateData:
+[00:00:00.5023469]       Instances Processed: 2
+[00:00:00.5023469]       Total Processing Time: 00:00:00
+[00:00:00.5023469]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5179602]       Average Processing Time: 0 seconds
+[00:00:00.6284507] LightingSettings:
+[00:00:00.6284507]       Instances Processed: 2
+[00:00:00.6284507]       Total Processing Time: 00:00:00.0156127
+[00:00:00.6284507]       Longest Processing Time: 00:00:00.0156127 (RecoveryXmlAdditional_LightingSettings_Combined)
+[00:00:00.6284507]       Average Processing Time: 0.00780635 seconds
+[00:00:00.6284507] AIStateDefinition:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] AttributeModifier:
+[00:00:00.6284507]       Instances Processed: 2
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] FormationSelectionTemplate:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] AIPersonalityDefinition:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00.0100369
+[00:00:00.6284507]       Longest Processing Time: 00:00:00.0100369 (RecoveryXmlPriority_Personality_Defaults)
+[00:00:00.6284507]       Average Processing Time: 0.0100369 seconds
+[00:00:00.6284507] UpgradeTemplate:
+[00:00:00.6284507]       Instances Processed: 2
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] AIData:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] CameraSettings:
+[00:00:00.6284507]       Instances Processed: 2
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] ObjectCreationList:
+[00:00:00.6284507]       Instances Processed: 2
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] LogicCommandSet:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] LocomotorTemplate:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00.0056630
+[00:00:00.6284507]       Longest Processing Time: 00:00:00.0056630 (RecoveryXmlPriority_Locomotor_Defaults)
+[00:00:00.6284507]       Average Processing Time: 0.005663 seconds
+[00:00:00.6284507] PlayerTemplate:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] AIPersonalityToAchievementEventMapping:
+[00:00:00.6284507]       Instances Processed: 1
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] ShadowMap:
+[00:00:00.6284507]       Instances Processed: 3
+[00:00:00.6284507]       Total Processing Time: 00:00:00
+[00:00:00.6284507]       Longest Processing Time: 00:00:00 ()
+[00:00:00.6284507]       Average Processing Time: 0 seconds
+[00:00:00.6284507] Total Processing Time for All Types: 00:00:00.1488341
