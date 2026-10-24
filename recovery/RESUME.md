@@ -2,6 +2,10 @@
 
 更新：2026-10-24（北京时间）。wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md、本文件；历史STATUS按需，不全量加载原反编译文件。
 
+## 当前实现检查点（2026-10-24，验证中）
+
+WeaponSetUpdate完整四槽、Sorted WeaponData、TurretAI/Chooser/VisionRange/ObjectFilter已接入组件，完整GameObject矩阵待取得结果；**不得将本检查点计入已验收支持数**。新增GenerateWeaponSetFields.py核对固定67方法及PE枚举、全部Token/sentinel；GameObjectWeaponSetCases.cs补全属性/四槽/排序阈值与重复key/强引用配对/nullable/列表/拒绝/不变性。Tracker原实现逐条对照000/001已符合：AlterBookmark仅移动offset，**不修改value**；此前交接“同时涉及源/目标”措辞需更正，不为该措辞改坏现有Tracker。SDK未运行，原路由保留。先核实本检查点之后的GameObject Actions与validation.json，再根据失败或成功继续。
+
 ## 已验收123/322已知Marshal模块
 
 本阶段112→123，新增11种完整模块及必要依赖：

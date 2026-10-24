@@ -4,6 +4,7 @@
 #include "ResourceMarshaling.h"
 #include "EnumBitset.h"
 #include "ObjectFilter.h"
+#include "WeaponSlotOrder.h"
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>
@@ -50,6 +51,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectMotion.h"
 #include "GameObjectFlight.h"
 #include "GameObjectReactive.h"
+#include "GameObjectWeaponSet.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -250,6 +252,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    if(type==weaponSetChoice.type) return &weaponSetChoice;
     for(const auto& choice:reactiveChoices) if(choice.type==type) return &choice;
     for(const auto& choice:flightChoices) if(choice.type==type) return &choice;
     for(const auto& choice:motionChoices) if(choice.type==type) return &choice;
@@ -681,8 +684,72 @@ void EndianReactive(unsigned char* output,unsigned kind) {
     if(kind==90) {auto at=*reinterpret_cast<unsigned char**>(output+80);if(at) EndianModuleFieldSet(at,remainingFieldSets[15]);EndianModuleFieldSet(output+84,dieFieldSets[7]);EndianReactiveList(output,128,5,12);}
     if(kind==88 || kind==90) EndianUpgrade(output,30);
 }
+// SortedListHelper.Sort builds an EASTL pointer permutation, then exchanges
+// bookmarks before each 72-byte record swap. XML and import creation order stay
+// unchanged. Keep the inverse map as the original ptr3 array does.
+void SortWeaponData(unsigned char* output,U32 count,Relo::Tracker& data) {
+    std::vector<int> keys(count);for(U32 i=0;i<count;++i) std::memcpy(&keys[i],output+72*i,4);
+    auto order=WeaponSlotOrder(keys);std::vector<U32> current(count),position(count);
+    for(U32 i=0;i<count;++i) current[i]=position[i]=i;
+    for(U32 i=0;i<count;++i) {
+        U32 j=position[order[i]];if(i==j) continue;
+        auto a=output+72*j,b=output+72*i;
+        if(!data.ExchangePointers(a,b)) throw std::logic_error("WeaponData outside current Tracker block");
+        unsigned char temporary[72];std::memcpy(temporary,b,72);std::memcpy(b,a,72);std::memcpy(a,temporary,72);
+        std::swap(current[i],current[j]);position[current[i]]=i;position[current[j]]=j;
+    }
+}
+void MarshalWeaponSetNode(const GameObjectChild& input,unsigned char* output,unsigned fields,Relo::Tracker& data);
+void MarshalWeaponSetList(const GameObjectChild& input,const char* name,unsigned char* output,unsigned offset,unsigned fields,unsigned stride,Relo::Tracker& data) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);for(const auto& child:input.children) if(child.name==name) ++list->count;
+    if(!list->count) return;
+    auto at=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));unsigned i=0;
+    for(const auto& child:input.children) if(child.name==name) MarshalWeaponSetNode(child,at+stride*i++,fields,data);
+    if(fields==5) SortWeaponData(at,list->count,data);
+    data.Pop();
+}
+void MarshalWeaponSetNode(const GameObjectChild& input,unsigned char* output,unsigned fields,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,weaponSetFieldSets[fields],data);
+    if(fields==0) {
+        const char* names[]={"WeaponSlotHardpoint","WeaponSlotTurret","WeaponSlotHierarchicalTurret","WeaponSlotContained"};const unsigned strides[]={28,124,128,28};
+        for(unsigned i=0;i<4;++i) MarshalWeaponSetList(input,names[i],output,8+8*i,1+i,strides[i],data);
+    }
+    if(fields==1) MarshalWeaponSetList(input,"Weapon",output,16,5,72,data);
+    if(fields==2) {
+        for(const auto& child:input.children) if(child.name=="TurretSettings") MarshalWeaponSetNode(child,output+28,6,data);
+        MarshalWeaponSetNode(input,output,1,data);
+    }
+    if(fields==3) MarshalWeaponSetNode(input,output,2,data);
+    if(fields==4) MarshalWeaponSetNode(input,output,1,data);
+    if(fields==6) for(const auto& child:input.children) if(child.name=="TurretAITargetChooserData") {
+        auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+88),44,1));MarshalWeaponSetNode(child,at,7,data);data.Pop();
+    }
+    if(fields==7) MarshalWeaponSetNode(input,output,8,data);
+    if(fields==8) MarshalWeaponSetList(input,"ObjectVisionRange",output,20,9,120,data);
+    if(fields==9) for(const auto& child:input.children) if(child.name=="Filter") {
+        ObjectFilterInput filter;filter.attributes=child.attributes;
+        for(const auto& thing:child.children) if(thing.name=="IncludeThing") filter.includeThings.push_back(thing.text);else filter.excludeThings.push_back(thing.text);
+        MarshalObjectFilter(filter,reinterpret_cast<ObjectFilter*>(output+8),data);
+    }
+}
+void EndianWeaponSetNode(unsigned char* output,unsigned fields) {
+    EndianModuleFieldSet(output,weaponSetFieldSets[fields]);
+    auto list=[&](unsigned offset,unsigned child,unsigned stride) {
+        auto values=reinterpret_cast<NativeList*>(output+offset);for(U32 i=0;i<values->count;++i) EndianWeaponSetNode(static_cast<unsigned char*>(values->data)+stride*i,child);Swap(&values->count);
+    };
+    if(fields==0) {const unsigned strides[]={28,124,128,28};for(unsigned i=0;i<4;++i) list(8+8*i,1+i,strides[i]);}
+    if(fields==1) {Swap(output);list(16,5,72);}
+    if(fields==2) {EndianWeaponSetNode(output+28,6);EndianWeaponSetNode(output,1);}
+    if(fields==3) EndianWeaponSetNode(output,2);
+    if(fields==4) EndianWeaponSetNode(output,1);
+    if(fields==6) {auto chooser=*reinterpret_cast<unsigned char**>(output+88);if(chooser) EndianWeaponSetNode(chooser,7);}
+    if(fields==7) EndianWeaponSetNode(output,8);
+    if(fields==8) list(20,9,120);
+    if(fields==9) EndianObjectFilter(reinterpret_cast<ObjectFilter*>(output+8));
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind==91) EndianWeaponSetNode(reinterpret_cast<unsigned char*>(input),0);
     if(choice && choice->kind && choice->kind<=2) {
         auto bytes=reinterpret_cast<unsigned char*>(input);
         if(choice->kind==2) EndianModuleFields(bytes,ShieldBodyModuleDataModuleFields);
@@ -726,6 +793,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind==91) MarshalWeaponSetNode(input,reinterpret_cast<unsigned char*>(target),0,data);
     if(choice && choice->kind>=87 && choice->kind<=90) MarshalReactive(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=84 && choice->kind<=86) MarshalFlight(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=80 && choice->kind<=83) MarshalMotion(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -827,6 +895,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind==91) return false;
     if(choice->kind>=87) {const auto& set=reactiveFieldSets[choice->kind-87];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==88 || choice->kind==90) for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;return false;}
     if(choice->kind>=84) {const auto& set=flightFieldSets[choice->kind-84];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==86) for(unsigned i=0;i<flightFieldSets[1].count;++i) if(attribute==flightFieldSets[1].fields[i].name) return true;return false;}
     if(choice->kind>=80) {const auto& set=motionFieldSets[choice->kind-80];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
@@ -859,6 +928,17 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind==91) {
+        for(const char* slot:{"WeaponSlotHardpoint","WeaponSlotTurret","WeaponSlotHierarchicalTurret","WeaponSlotContained"}) {
+            std::string base=slot;if(path==base || path==base+"/Weapon") return 2;
+            if(base=="WeaponSlotTurret" || base=="WeaponSlotHierarchicalTurret") {
+                std::string settings=base+"/TurretSettings",chooser=settings+"/TurretAITargetChooserData",vision=chooser+"/ObjectVisionRange";
+                if(path==settings || path==chooser || path==vision+"/Filter") return 1;
+                if(path==vision) return 2;
+                if(path==vision+"/Filter/IncludeThing" || path==vision+"/Filter/ExcludeThing") return 3;
+            }
+        }return 0;
+    }
     if(kind>=87) {if(kind==87) return path=="Data"?2:0;if(kind==88 || kind==90) {if(path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}if(kind==90) {if(path=="WeaponOffset" || path=="DieMuxData") return 1;if(path=="WeaponFireProbability") return 2;}return 0;}
     if(kind>=84) return 0;
     if(kind>=80) {
@@ -893,6 +973,17 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind==91) {
+        unsigned fields=99;auto slash=path.find('/');auto slot=path.substr(0,slash);auto rest=slash==std::string::npos?"":path.substr(slash);
+        if(rest.empty()) {
+            if(attribute=="ParentID" && slot=="WeaponSlotHierarchicalTurret") return true;fields=1;
+        }else if(rest=="/Weapon") fields=5;
+        else if(rest=="/TurretSettings") fields=6;
+        else if(rest=="/TurretSettings/TurretAITargetChooserData") {
+            for(const auto& set:{weaponSetFieldSets[7],weaponSetFieldSets[8]}) for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;
+        }else if(rest=="/TurretSettings/TurretAITargetChooserData/ObjectVisionRange") fields=9;
+        if(fields==99) return false;const auto& set=weaponSetFieldSets[fields];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;
+    }
     if(kind>=87) {const ModuleFieldSet* set=nullptr;if(kind==87 && path=="Data") set=&reactiveFieldSets[4];if((kind==88 || kind==90) && path=="CustomAnimAndDuration") set=&upgradeFieldSets[11];if(kind==90) {if(path=="WeaponOffset") set=&remainingFieldSets[15];if(path=="DieMuxData") set=&dieFieldSets[7];if(path=="WeaponFireProbability") set=&reactiveFieldSets[5];}if(set) for(unsigned i=0;i<set->count;++i) if(attribute==set->fields[i].name) return true;return false;}
     if(kind>=84) return false;
     if(kind>=80) {
@@ -1627,6 +1718,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+
 
 
 

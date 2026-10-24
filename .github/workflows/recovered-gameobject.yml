@@ -8,6 +8,7 @@ on:
       - '.github/workflows/recovered-gameobject.yml'
       - 'recovery/src/**/GameObject*'
       - 'recovery/src/**/ObjectFilter*'
+      - 'recovery/src/**/WeaponSlotOrder*'
       - 'recovery/src/**/Relocation*'
       - 'recovery/src/**/ScalarParsing*'
       - 'recovery/src/**/DataInitializers*'
@@ -26,11 +27,13 @@ on:
       - 'recovery/scripts/GenerateMotionFields.py'
       - 'recovery/scripts/GenerateFlightFields.py'
       - 'recovery/scripts/GenerateReactiveFields.py'
+      - 'recovery/scripts/GenerateWeaponSetFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
       - 'recovery/tests/GameObjectKindOf.cs'
+      - 'recovery/tests/GameObjectWeaponSetCases.cs'
 permissions:
   contents: write
 jobs:
@@ -72,5 +75,6 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
 
