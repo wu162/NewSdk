@@ -1,6 +1,6 @@
 # 完整OCL与Movement SpecialPower派生
 
-2026-10-24实现；精确验收锚点见RESUME.md，完整矩阵通过前不计数。SDK未运行、原路由保留。
+2026-10-24实现并验收，完整共同源码`855277ac2ad9103536282b31ae639f678fbc1e7c`、GameObject run`40106342576 success`；精确验收锚点见RESUME.md，完整矩阵通过前不计数。SDK未运行、原路由保留。
 
 | 类型 | TypeId | native | 完整父类 |
 |---|---:|---:|---|

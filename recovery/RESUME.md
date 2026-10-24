@@ -2,13 +2,15 @@
 
 更新：2026-10-24，北京时间。仓库`wu162/NewSdk`，分支`recovery/compiler-source`。先读AGENTS.md和EFFICIENCY.md；GitHub插件访问，禁止强推，保留并发提交及Actions证据。默认时长仍按STAGE_DURATION.md；**本轮用户指定只运行30分钟，不修改长期1小时规则**。
 
-## 已验收229/322；另两种正在完整验证
+## 已验收231/322已知Marshal模块
 
-本轮完整WeaponFire/DelayedWeaponFire/Beam/ObjectStatus四种SpecialAbility派生已验收，见GAMEOBJECT_ABILITY_WEAPON.md。源码`204765b733c01c3eac7b31bf8099342a92bd4d69`，GameObject run`40105748576 success`。/Od、/O2各615928 fixtures、1847784三缓冲区逐字节比较、18016拒绝、1628不变性，平台0/1/2/99。实际日志、validation.json identity、生成器/原方法核对与工作流产物均已核对；不可变证据在`evidence/gameobject-runs/40105748576-1`。
+本轮225→231，完整新增六种：WeaponFire/DelayedWeaponFire/Beam/ObjectStatus四种SpecialAbility派生，及OCL500/Movement488两种SpecialPower派生。完整合同/原方法来源/布局/测试分别见GAMEOBJECT_ABILITY_WEAPON.md与GAMEOBJECT_POWER_CREATION.md。
 
-源码`855277ac2ad9103536282b31ae639f678fbc1e7c`追加完整OCL500/Movement488 SpecialPower派生，见GAMEOBJECT_POWER_CREATION.md；GameObject run`40106342576`验证中，未完成前两种不计数。基础组件run`40106342611 success`；前组基础run`40105748512`与WeaponTemplate run`40105748507`也success。该源码包含全部六种实现与完整旧回归，优先取得此run实际终态再收尾，不重复触发同源码矩阵。当前剩余拒绝清单源码为91种，已验收数在此run成功前仍229。
+**最终共同验收源码`855277ac2ad9103536282b31ae639f678fbc1e7c`，GameObject run`40106342576 success`。** /Od、/O2各632248 fixtures、1896744三缓冲区逐字节比较、18304拒绝、1640不变性；平台0/1/2/99，两模式合计3793488缓冲区比较。实际两模式日志、原方法/生成器/原PE检查、validation.json的sourceCommit/runId/平台/成功标记、工作流全部步骤和两份产物均核对。不可变完整证据在`evidence/gameobject-runs/40106342576-1`，收尾将`evidence/gameobject-root`同步为同一个Git树。
 
-根证据快照可能仍指向前轮，请用精确run/sourceCommit和不可变证据，不盲信`evidence/gameobject-root`。Publish脚本每次写run-attempt唯一目录，最终收尾再同步根快照。SDK本轮0次，原路由保留；组件通过不代表正式GameObject插件、两份完整替代DLL或SDK通过。
+首组独立验收源码`204765b733c01c3eac7b31bf8099342a92bd4d69`，run`40105748576 success`，两模式各615928 fixtures/1847784比较/18016拒绝/1628不变性；不可变证据仍在其run-attempt目录。基础组件最终run`40106342611 success`，此前基础`40105748512`和WeaponTemplate`40105748507`也success。后续文档/下一组只读取证不改Native/Bridge/测试/生成器，无需重复同源码矩阵。
+
+91种其他已知Marshal仍拒绝，58 Token-only未知Marshal回退保留。后续先按精确run/sourceCommit核对不可变证据，不能盲信根快照总是最新；发布脚本只写run-attempt唯一目录，阶段收尾才同步根快照。本轮SDK0次，原路由不变；完整GameObject、正式插件与两份完整替代DLL尚未完成，组件通过不冒充SDK集成。
 
 ## 下一完整组：SpecialAbility移动/传送/弹出乘客（仍拒绝）
 

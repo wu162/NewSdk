@@ -779,3 +779,16 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 - 新原PE只读取证73f2d67/run40099572191 success保存Trigger3/Conditions3/Options31/SPMovement3/OCLCreateLoc15，原PE/source指纹固定，生成器仍重读原PE验证。新增代码继续拆独立metadata/Runtime/输入校验/Cases，不堆回主cpp。完整矩阵增大后超时10→15分钟，生成器变化自动回归。
 - 下一完整组为WeaponFire507880339/272、DelayedWeaponFire915350037/276、Beam2695497697/272、ObjectStatus127626925/296。32精确方法及直接装饰helper闭包已导出并逐签名/含尾LF SHA256核对，仍拒绝未计数。见GAMEOBJECT_ABILITY_WEAPON_NEXT.md与ability-weapon-next-source/manifest.json。Native/Bridge/测试不因只读取证改变。
 - 本轮复用完整父/公共helper/PE表，并按完整能力组合并矩阵；仅真实差异与证据发布故障触发必要复验。没有账号额度计量，不能量化节省。
+
+
+## 2026-10-24：本轮30分钟范围，完整六种能力派生验收（225→231）
+
+用户本轮指定仅运行30分钟，不改变STAGE_DURATION.md长期默认。整组实现、统一完整差分；两个代码阶段均及时通过GitHub插件提交/普通快进推送，无新分支、无强推。实现完整WeaponFireSpecialAbilityUpdate272、DelayedWeaponFire276、Beam272、ObjectStatus296，以及OCLSpecialPower500、MovementSpecialPower488；每种均完整继承既有父类，而非只恢复空布局。新合同见GAMEOBJECT_ABILITY_WEAPON.md、GAMEOBJECT_POWER_CREATION.md。
+
+最终共同源码`855277ac2ad9103536282b31ae639f678fbc1e7c`，完整GameObject run`40106342576 success`。/Od、/O2各632248 fixtures、1896744三缓冲区逐字节比较、18304拒绝、1640不变性；四平台0/1/2/99，两模式合计3793488比较。生成器/固定原方法闭包/原PE表检查通过，实际日志与validation.json身份、运行步骤、证据发布、root和component两份artifact终态已核对。不可变完整证据`evidence/gameobject-runs/40106342576-1`，根快照收尾同步相同Git树。基础组件最终run40106342611 success；首组源码204765b/run40105748576 success（两模式各615928 fixtures/1847784比较/18016拒绝/1628不变性），首组基础40105748512及WeaponTemplate40105748507 success，全部证据保留。
+
+OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpecialAbilityUpdate；Movement为nullable model456/60字节、status223/28字节、bounce默认20.0/50.0/0.5。Delayed保留WeaponFire中间Token层；Beam分配顺序status28→自身String→父String/String/Anim；DestealthClosestObjectMatchingFilter为bool，ModelConditionsOnUnpack为单模型枚举。独立布局和完整差分覆盖所有这些边界。91种其他已知Marshal仍拒绝，58 Token-only未知Marshal回退不变。SDK0次、原路由不变；不宣称正式GameObject插件或两份完整替代DLL已经完成。
+
+下一组仅取证：SwitchLocomotors350237090/260、EjectPassengers887477685/280、Teleport1313225606/264、TeleportToCaster2474849635/272，四类父均SpecialAbility240，仍拒绝/未计数。32个完整原方法、直接装饰helper闭包和Vector3三方法在ability-movement-next-source；本轮逐个与固定原Tokenizer blob原方法及字面量直接核对，全部一致，Python语法和指纹检查通过。见GAMEOBJECT_ABILITY_MOVEMENT_NEXT.md，后续用ExportAbilityMovementMethods.py --check重取原源码核对，并整组实现。
+
+复用既有父类、原PE枚举和helper，完整组各统一验收；未逐字段重复触发矩阵，SDK未频繁运行。无账号额度计量，不能量化节省。

@@ -1,6 +1,6 @@
 # 完整SpecialAbility武器、光束与状态派生
 
-2026-10-24实现；组件验收状态以RESUME.md精确sourceCommit/runId为准，未经完整矩阵成功不计入已验收数量。SDK原路由保留，本组不宣称正式插件或完整DLL替代通过。
+2026-10-24实现并验收，完整共同源码`855277ac2ad9103536282b31ae639f678fbc1e7c`、GameObject run`40106342576 success`；组件验收状态以RESUME.md精确sourceCommit/runId为准，未经完整矩阵成功不计入已验收数量。SDK原路由保留，本组不宣称正式插件或完整DLL替代通过。
 
 固定原Tokenizer源码blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`，32完整方法及直接装饰helper闭包在`evidence/gameobject-modules/ability-weapon-next-source/manifest.json`。`ExportAbilityWeaponMethods.py --check`从固定完整原源码重取逐项核对；`GenerateAbilityWeaponFields.py --check`核对方法指纹、完整属性顺序/默认值、Token字段与native偏移、父层及sentinel，生成`GameObjectAbilityWeapon.h`。复用完整SpecialAbility240、Anim12、WeaponSlotType6、ModelCondition457单枚举和ObjectStatus223合同。
 
