@@ -2,6 +2,10 @@
 
 更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md和本文件；旧STATUS仅按需查，不全量加载历史。
 
+## 本轮用户提示（后续继续遵守）
+
+当前环境命令行无法克隆仓库，使用 GitHub 插件；Actions 一般需要2分30秒以上，等待时推进独立工作，不高频轮询；直接写代码还原更快时省略不必要步骤，效率优先，但严格守住正确性底线。细则及用户原话见 [EFFICIENCY.md](EFFICIENCY.md) 的“用户执行提示（2026-10-24）”。
+
 ## 已验收112/322已知Marshal模块
 
 本轮由93增至112，新增19种，完成四个完整能力组：TechUpgradeReceiver（1）；雷达/可见性/Capture（8）；直接开火/伤害跟踪（7）；LaserState/SweepingLaserState/StreamState（3）。对应GAMEOBJECT_TECH_RECEIVER.md、GAMEOBJECT_VISION.md、GAMEOBJECT_WEAPON_BEHAVIORS.md、GAMEOBJECT_BEAM_STATES.md。原已支持的Beacon、RadarMarker、LaserUpdate不重复计数。
