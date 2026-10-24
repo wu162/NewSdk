@@ -1,7 +1,5 @@
-System.Exception: field/OrdersManagerSettings//FormationPreviewShader/ platform=0 xml=<OrdersManagerSettings xmlns="uri:ea.com:eala:asset" id="Oracle" FormationPreviewShader=""></OrdersManagerSettings> ---> System.Exception: field/OrdersManagerSettings//FormationPreviewShader//instance length original=132 recovered=128
-   at XmlenvironmentOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmlenvironmentOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   --- End of inner exception stack trace ---
-   at XmlenvironmentOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   at XmlenvironmentOracle.Matrix(TargetPlatform p)
-   at XmlenvironmentOracle.Main(String[] args)
+PASS platform=0 fixtures=6132 arrayComparisons=36792 rejections=306 layoutAssertions=30220
+PASS platform=1 fixtures=6132 arrayComparisons=36792 rejections=306 layoutAssertions=30220
+PASS platform=2 fixtures=6132 arrayComparisons=36792 rejections=306 layoutAssertions=30220
+PASS platform=99 fixtures=6132 arrayComparisons=36792 rejections=306 layoutAssertions=30220
+PASS Environment fixtures=24528 arrayComparisons=147168 rejections=1224 layoutAssertions=120881

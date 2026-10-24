@@ -6,5 +6,6 @@ EnumBitset.cpp
 ObjectFilter.cpp
 Xmlprogression.cpp
 XmlprogressionUi.cpp
+XmlprogressionFont.cpp
 XmlprogressionCompiler.cpp
 Generating Code...

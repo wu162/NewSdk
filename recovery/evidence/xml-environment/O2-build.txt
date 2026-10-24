@@ -1,5 +1,6 @@
 Relocation.cpp
 ScalarParsing.cpp
+DataInitializers.cpp
 EnumBitset.cpp
 ResourceMarshaling.cpp
 XmlenvironmentCompiler.cpp

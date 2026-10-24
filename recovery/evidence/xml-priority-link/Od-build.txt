@@ -26,5 +26,6 @@ Xmllocomotor.cpp
 Xmlplayers.cpp
 Xmlpowers.cpp
 Xmlprogression.cpp
+XmlprogressionFont.cpp
 XmlprogressionUi.cpp
 Generating Code...

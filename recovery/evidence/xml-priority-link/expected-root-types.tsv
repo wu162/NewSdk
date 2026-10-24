@@ -21,6 +21,9 @@ PlayerTechStoreTemplate	1213037816
 PurchasePlayerTechButtonTemplate	1566941920
 ButtonSingleStateData	3048039928
 UICommandButton	134745024
+FontDefaultSetting	1371131236
+FontTranslation	1318336226
+FontSubstitution	91719417
 Weather	2430161325
 WaterTransparency	1479531562
 WaterSetting	2728605516
@@ -31,6 +34,8 @@ TerrainParticleMapping	1469498551
 BounceKickTerrainMapping	2368878637
 ShadowMap	4157475773
 OrdersManagerSettings	2996766068
+TerrainVisualSettings	1184276792
+CameraSettings	3898802054
 AIData	3827723072
 UnitAISettings	2964891936
 PlayerTemplate	4063352333
@@ -43,3 +48,5 @@ FormationAssistantUnitDefinition	838130914
 FormationAssistantTemplate	2912385462
 FormationSelectionTemplate	3374519264
 FormationAssistant	1963196508
+GameStatsModeData	3249689110
+SkirmishSettings	402082255

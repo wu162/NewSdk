@@ -1,9 +1,9 @@
 {
   "succeeded": true,
-  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
-  "runId": "40094119491",
+  "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
+  "runId": "40095358086",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
-  "scope": "Twelve XmlCompiler player/formation roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending",
+  "scope": "Fourteen XmlCompiler player/formation/skirmish roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending",
   "modes": [
     {
       "mode": "/Od",
@@ -11,31 +11,31 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 1,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 2,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 99,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         }
       ],
       "log": "Od-oracle.txt"
@@ -46,31 +46,31 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 1,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 2,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         },
         {
           "platform": 99,
-          "fixtures": 5480,
-          "arrayComparisons": 16440,
-          "rejections": 109,
-          "layoutAssertions": 77065
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
         }
       ],
       "log": "O2-oracle.txt"
@@ -112,7 +112,7 @@
     },
     {
       "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
-      "sha256": "cdcb53f173b865241c0169d7b62d240b5fdb5842172894a03404d7c4a14824cb"
+      "sha256": "c4f7680bfcb493b13ecc38e3a9af89fb3973f6a61d97d6b6569e01a09bc3694a"
     },
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersEnums.inc",
@@ -124,7 +124,11 @@
     },
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersLayouts.inc",
-      "sha256": "83daba941c65587a9d43f72236c53d5691aef7036ff50ed3662fabe0c3f27ca6"
+      "sha256": "e3e7acd7edef94751fa127e3cd65528a3bdf84afadfa3884e10d9748fded7b08"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersSkirmish.inc",
+      "sha256": "52a777b1da7decdb274fc5324a350ed41af2b030ff5fadc8ea119c0f33532e44"
     },
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlaiLayouts.inc",
@@ -152,7 +156,7 @@
     },
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersOracle.cs",
-      "sha256": "982085edf8d695439bba2170ae9b5a3c639c7d738be0a2ac3e302ca43ada178e"
+      "sha256": "2858b79bf56760519d53fcb4ce5b2d8ba30ee26a97eb4a1b626019a2d6600681"
     },
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersAdditionalCases.cs",
@@ -169,6 +173,10 @@
     {
       "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersFormationCases.cs",
       "sha256": "48ec328131064c517c37c3a183aa93ccfb4fae84b902c585d354ca816dd0a2b7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersSkirmishCases.cs",
+      "sha256": "f201392a00264a2d4d69016aedd568a5c581a38285df3b50d95b8b04d53344f6"
     }
   ]
 }

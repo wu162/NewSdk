@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
-  "runId": "40094119491",
+  "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
+  "runId": "40095358086",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -27,6 +27,9 @@
     "PurchasePlayerTechButtonTemplate": 1566941920,
     "ButtonSingleStateData": 3048039928,
     "UICommandButton": 134745024,
+    "FontDefaultSetting": 1371131236,
+    "FontTranslation": 1318336226,
+    "FontSubstitution": 91719417,
     "Weather": 2430161325,
     "WaterTransparency": 1479531562,
     "WaterSetting": 2728605516,
@@ -37,6 +40,8 @@
     "BounceKickTerrainMapping": 2368878637,
     "ShadowMap": 4157475773,
     "OrdersManagerSettings": 2996766068,
+    "TerrainVisualSettings": 1184276792,
+    "CameraSettings": 3898802054,
     "AIData": 3827723072,
     "UnitAISettings": 2964891936,
     "PlayerTemplate": 4063352333,
@@ -48,11 +53,13 @@
     "FormationAssistantUnitDefinition": 838130914,
     "FormationAssistantTemplate": 2912385462,
     "FormationSelectionTemplate": 3374519264,
-    "FormationAssistant": 1963196508
+    "FormationAssistant": 1963196508,
+    "GameStatsModeData": 3249689110,
+    "SkirmishSettings": 402082255
   },
-  "expectedTypes": 45,
-  "expectedFixturesPerMode": 180,
-  "expectedComparisonsPerMode": 540,
+  "expectedTypes": 52,
+  "expectedFixturesPerMode": 208,
+  "expectedComparisonsPerMode": 624,
   "expectedCompletionFixturesPerMode": 40,
   "expectedCompletionComparisonsPerMode": 120,
   "platforms": [
@@ -67,9 +74,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 45,
-      "fixtures": 180,
-      "comparisons": 540,
+      "types": 52,
+      "fixtures": 208,
+      "comparisons": 624,
       "completionFixtures": 40,
       "completionComparisons": 120,
       "platforms": [
@@ -102,6 +109,9 @@
         "PurchasePlayerTechButtonTemplate": 4,
         "ButtonSingleStateData": 4,
         "UICommandButton": 4,
+        "FontDefaultSetting": 4,
+        "FontTranslation": 4,
+        "FontSubstitution": 4,
         "Weather": 4,
         "WaterTransparency": 4,
         "WaterSetting": 4,
@@ -112,6 +122,8 @@
         "BounceKickTerrainMapping": 4,
         "ShadowMap": 4,
         "OrdersManagerSettings": 4,
+        "TerrainVisualSettings": 4,
+        "CameraSettings": 4,
         "AIData": 4,
         "UnitAISettings": 4,
         "PlayerTemplate": 4,
@@ -123,7 +135,9 @@
         "FormationAssistantUnitDefinition": 4,
         "FormationAssistantTemplate": 4,
         "FormationSelectionTemplate": 4,
-        "FormationAssistant": 4
+        "FormationAssistant": 4,
+        "GameStatsModeData": 4,
+        "SkirmishSettings": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -149,6 +163,9 @@
         "PurchasePlayerTechButtonTemplate": "Recovered.PurchasePlayerTechButtonTemplateCompiler",
         "ButtonSingleStateData": "Recovered.ButtonSingleStateDataCompiler",
         "UICommandButton": "Recovered.UICommandButtonCompiler",
+        "FontDefaultSetting": "Recovered.FontDefaultSettingCompiler",
+        "FontTranslation": "Recovered.FontTranslationCompiler",
+        "FontSubstitution": "Recovered.FontSubstitutionCompiler",
         "Weather": "Recovered.WeatherCompiler",
         "WaterTransparency": "Recovered.WaterTransparencyCompiler",
         "WaterSetting": "Recovered.WaterSettingCompiler",
@@ -159,6 +176,8 @@
         "BounceKickTerrainMapping": "Recovered.BounceKickTerrainMappingCompiler",
         "ShadowMap": "Recovered.ShadowMapCompiler",
         "OrdersManagerSettings": "Recovered.OrdersManagerSettingsCompiler",
+        "TerrainVisualSettings": "Recovered.TerrainVisualSettingsCompiler",
+        "CameraSettings": "Recovered.CameraSettingsCompiler",
         "AIData": "Recovered.AIDataCompiler",
         "UnitAISettings": "Recovered.UnitAISettingsCompiler",
         "PlayerTemplate": "Recovered.PlayerTemplateCompiler",
@@ -170,10 +189,12 @@
         "FormationAssistantUnitDefinition": "Recovered.FormationAssistantUnitDefinitionCompiler",
         "FormationAssistantTemplate": "Recovered.FormationAssistantTemplateCompiler",
         "FormationSelectionTemplate": "Recovered.FormationSelectionTemplateCompiler",
-        "FormationAssistant": "Recovered.FormationAssistantCompiler"
+        "FormationAssistant": "Recovered.FormationAssistantCompiler",
+        "GameStatsModeData": "Recovered.GameStatsModeDataCompiler",
+        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "c4f8eeba192f2588dae8e72b68221ec9b0e7e5e497f93b6ca5eacc2f0e58a6d8",
+      "linkedAssemblySha256": "ddc8c97ba9d28c33ed622b0949e8061150535767139182cc61408f9a13ecadd7",
       "log": "Od-oracle.txt"
     },
     {
@@ -181,9 +202,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 45,
-      "fixtures": 180,
-      "comparisons": 540,
+      "types": 52,
+      "fixtures": 208,
+      "comparisons": 624,
       "completionFixtures": 40,
       "completionComparisons": 120,
       "platforms": [
@@ -216,6 +237,9 @@
         "PurchasePlayerTechButtonTemplate": 4,
         "ButtonSingleStateData": 4,
         "UICommandButton": 4,
+        "FontDefaultSetting": 4,
+        "FontTranslation": 4,
+        "FontSubstitution": 4,
         "Weather": 4,
         "WaterTransparency": 4,
         "WaterSetting": 4,
@@ -226,6 +250,8 @@
         "BounceKickTerrainMapping": 4,
         "ShadowMap": 4,
         "OrdersManagerSettings": 4,
+        "TerrainVisualSettings": 4,
+        "CameraSettings": 4,
         "AIData": 4,
         "UnitAISettings": 4,
         "PlayerTemplate": 4,
@@ -237,7 +263,9 @@
         "FormationAssistantUnitDefinition": 4,
         "FormationAssistantTemplate": 4,
         "FormationSelectionTemplate": 4,
-        "FormationAssistant": 4
+        "FormationAssistant": 4,
+        "GameStatsModeData": 4,
+        "SkirmishSettings": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -263,6 +291,9 @@
         "PurchasePlayerTechButtonTemplate": "Recovered.PurchasePlayerTechButtonTemplateCompiler",
         "ButtonSingleStateData": "Recovered.ButtonSingleStateDataCompiler",
         "UICommandButton": "Recovered.UICommandButtonCompiler",
+        "FontDefaultSetting": "Recovered.FontDefaultSettingCompiler",
+        "FontTranslation": "Recovered.FontTranslationCompiler",
+        "FontSubstitution": "Recovered.FontSubstitutionCompiler",
         "Weather": "Recovered.WeatherCompiler",
         "WaterTransparency": "Recovered.WaterTransparencyCompiler",
         "WaterSetting": "Recovered.WaterSettingCompiler",
@@ -273,6 +304,8 @@
         "BounceKickTerrainMapping": "Recovered.BounceKickTerrainMappingCompiler",
         "ShadowMap": "Recovered.ShadowMapCompiler",
         "OrdersManagerSettings": "Recovered.OrdersManagerSettingsCompiler",
+        "TerrainVisualSettings": "Recovered.TerrainVisualSettingsCompiler",
+        "CameraSettings": "Recovered.CameraSettingsCompiler",
         "AIData": "Recovered.AIDataCompiler",
         "UnitAISettings": "Recovered.UnitAISettingsCompiler",
         "PlayerTemplate": "Recovered.PlayerTemplateCompiler",
@@ -284,10 +317,12 @@
         "FormationAssistantUnitDefinition": "Recovered.FormationAssistantUnitDefinitionCompiler",
         "FormationAssistantTemplate": "Recovered.FormationAssistantTemplateCompiler",
         "FormationSelectionTemplate": "Recovered.FormationSelectionTemplateCompiler",
-        "FormationAssistant": "Recovered.FormationAssistantCompiler"
+        "FormationAssistant": "Recovered.FormationAssistantCompiler",
+        "GameStatsModeData": "Recovered.GameStatsModeDataCompiler",
+        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "ef868d885e0c08c202cd206d9f2745b5e0edfb7c2d52fdc2015e28b2b1de3ecd",
+      "linkedAssemblySha256": "be8795829b24edbd8c815a14b9be03c5d597c9213cb243e72f028fad2682e23a",
       "log": "O2-oracle.txt"
     }
   ],
@@ -296,20 +331,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
-      "runId": "40094119491",
+      "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
+      "runId": "40095358086",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
-      "runId": "40094119491",
+      "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
+      "runId": "40095358086",
       "processSucceeded": true
     }
   ],
-  "status": "All 45 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 52 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -350,7 +385,7 @@
     },
     {
       "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp",
-      "sha256": "64ff880fe98f2bee842da0630b177b2d8fbd761570b63d6e59308201311dc6e6"
+      "sha256": "c4f1b562e07e5dad846322b28667c40bc6468ee375c096c6c6e713c7f90fb34e"
     },
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
@@ -362,7 +397,7 @@
     },
     {
       "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
-      "sha256": "cdcb53f173b865241c0169d7b62d240b5fdb5842172894a03404d7c4a14824cb"
+      "sha256": "c4f7680bfcb493b13ecc38e3a9af89fb3973f6a61d97d6b6569e01a09bc3694a"
     },
     {
       "path": "recovery/src/Bridge/XmlpowersCompiler.cpp",
@@ -370,7 +405,7 @@
     },
     {
       "path": "recovery/src/Bridge/XmlprogressionCompiler.cpp",
-      "sha256": "d76085644a28fab0584f471eabd79418abba7164fdd6cb384a913db99b2d1ef3"
+      "sha256": "79082202a9949eb86c304f7cfecf11f43e7af8faf5d4296b2dbededc29739c11"
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
@@ -394,7 +429,7 @@
     },
     {
       "path": "recovery/src/Native/Xmlenvironment.cpp",
-      "sha256": "ae83aa7c4d1932cad970f403a0b04769ea4709a59198ce9f2c95b13990a8e0e3"
+      "sha256": "431398390479bab7e6ea0f29e4b827583ce7d715a16d52bdc6b5146d9cfd0bd3"
     },
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
@@ -414,7 +449,11 @@
     },
     {
       "path": "recovery/src/Native/Xmlprogression.cpp",
-      "sha256": "252bc884fcfddc3484c8d60f00a89105ac3c1eefffd27c88e43d15e1974d41e4"
+      "sha256": "2fb995e4e6c0fbffa6faeb79e1b4eafd9ea1127d2c0ae15064f6c42ba7ff486c"
+    },
+    {
+      "path": "recovery/src/Native/XmlprogressionFont.cpp",
+      "sha256": "42218e282db3911dcb6ca9e147c590c807e14d66db21f80e78231496de0e489d"
     },
     {
       "path": "recovery/src/Native/XmlprogressionUi.cpp",

@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
-  "runId": "40094119491",
+  "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
+  "runId": "40095358086",
   "platforms": [
     0,
     1,
@@ -15,35 +15,35 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 1,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 2,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 99,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         }
       ],
       "log": "Od-oracle.txt"
@@ -54,40 +54,40 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 1,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 2,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         },
         {
           "platform": 99,
-          "fixtures": 3860,
-          "threeArrayComparisons": 11580,
-          "directArrayComparisons": 11580,
-          "rejections": 91,
-          "independentLayouts": 3878
+          "fixtures": 4160,
+          "threeArrayComparisons": 12480,
+          "directArrayComparisons": 12480,
+          "rejections": 122,
+          "independentLayouts": 4184
         }
       ],
       "log": "O2-oracle.txt"
     }
   ],
-  "scope": "Nine complete progression roots and their nested AI/decal dependencies; component only",
+  "scope": "Twelve complete progression roots (including full font dependencies) and their nested AI/decal dependencies; component only",
   "status": "Od and O2 four-platform three-buffer differential passed for documented support boundary"
 }
