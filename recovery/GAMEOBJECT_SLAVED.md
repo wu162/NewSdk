@@ -1,5 +1,7 @@
 # 完整SlavedUpdate模块
 
+已验收源码17e4a7093436532ab843022defa278bcf744ce25；GameObject run40047664340、基础run40047664346均success。每/Od、/O2 181796样例、545388三缓冲区逐字节比较、9544拒绝、344不变性，平台0/1/2/99；远端validation.json与双模式日志、terminal状态已核对。
+
 TypeId3370197599，native112字节。原Marshal19690、Endian19814、Token87708；精确签名/原行号/SHA256见evidence/gameobject-modules/slaved-source/manifest.json，共32方法，固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619。GenerateSlavedFields.py读取原PE枚举表并校验全部字段次序/fallback、原Token表和scalar helper绑定。源生成run40047463132 success；运行验收以RESUME.md与gameobject-root/validation.json为准。
 
 | 字段 | 偏移 | 解析 | 缺失默认 |

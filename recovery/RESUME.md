@@ -26,7 +26,7 @@
 
 ## 下一完整模块：TechUpgradeReceiver（尚未实现）
 
-先读 **GAMEOBJECT_TECH_RECEIVER_NEXT.md**。TypeId393460526、native180字节仍拒绝。44个原方法的精确签名/行号/SHA256已保存在evidence/gameobject-modules/tech-receiver-source/manifest.json，首次导出run40047754601 success；独立ReceiverDistanceType的PE名称表另存enum-source.json，后续导出步骤会核对保存。
+先读 **GAMEOBJECT_TECH_RECEIVER_NEXT.md**。TypeId393460526、native180字节仍拒绝。44个原方法的精确签名/行号/SHA256已保存在evidence/gameobject-modules/tech-receiver-source/manifest.json，首次导出run40047754601 success；源及独立PE枚举完整导出run40048070974 success。enum-source.json已核对ReceiverDistanceType为CIRCULAR=0、RECTANGULAR=1，未知0，Token类型仍与发送端不同。
 
 与已实现TechUpgrade发送端相似，但ReceiverDistanceType是不同类型；RadarDrawModule@56是弱ModuleData ID；RadarRotateSpeed/Offset是Angle；inline ObjectFilter移至68（112字节），不能套用发送端56偏移。完整7自身属性、公共Upgrade基类及所有子依赖、Token/Endian应整组实现，再统一完整矩阵，不能仅追加3个雷达字段或据相同枚举项数假定类型相同。
 

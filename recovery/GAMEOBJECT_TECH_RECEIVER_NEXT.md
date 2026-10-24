@@ -1,6 +1,6 @@
 # 下一完整模块：TechUpgradeReceiver（仅源码调查）
 
-TypeId393460526，native180字节；尚未启用，仍在明确拒绝清单。不得把源码证据当运行支持。固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；44方法精确签名/原行号/SHA256见evidence/gameobject-modules/tech-receiver-source/manifest.json，首次导出run40047754601 success。ReceiverDistanceType原PE名称/数值表见同目录enum-source.json；这是独立类型，不能直接使用发送端DistanceCheckType。
+TypeId393460526，native180字节；尚未启用，仍在明确拒绝清单。不得把源码证据当运行支持。固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；44方法精确签名/原行号/SHA256见evidence/gameobject-modules/tech-receiver-source/manifest.json，首次导出run40047754601 success。ReceiverDistanceType原PE名称/数值表见同目录enum-source.json；源及PE表导出run40048070974 success，已核对CIRCULAR=0、RECTANGULAR=1、未知0。这是独立类型，Token类型873624354不同于发送端DistanceCheckType的30012736，不能因名称/数值相同而复制其类型绑定。
 
 ## 已核对原Marshal39092（003.txt）
 
