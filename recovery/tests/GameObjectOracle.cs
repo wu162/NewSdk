@@ -1931,11 +1931,128 @@ partial class GameObjectOracle {
         }
     }
 
+
+    static readonly string[] ReactiveTypes={"4161248261","144160085","2924124080","2429465756"};
+    static string ReactiveXML(int group,string attrs="",string children="") {return "<Behaviors><ObjectSMCHelper TypeId='"+ReactiveTypes[group]+"' id='ReactiveTest' "+attrs+">"+children+"</ObjectSMCHelper></Behaviors>";}
+    static void ReactiveFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] numbers={"","0","-0","1","-1","23","0x10","010","1.25"," 23tail","2147483647","2147483648","-2147483648","-2147483649","4294967295","4294967296","nan","inf","-inf","1e39","-1e39","1e-50","text","25%"};
+        string[] times={"0s","-17s","23ms","2d1s","1000ms","1.25s","5","","text","1e39s","nan","inf","-inf"," 2s","2MS","1ms2s","2s1ms"};
+        string[] refs={"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23tail","K\\0x10","L\\ 23","M\\text"};
+        string[] masks={"","ALL","all","UNKNOWN","DAMAGED","TOPPLED","AIRCRAFT","ALL -DAMAGED","-DAMAGED -DAMAGED","+","-"};
+        int[] sizes={16,80,80,144},counts={2,12,7,12};
+        string upgrade="<CustomAnimAndDuration AnimState='DAMAGED' Frames='23' Trigger='1'/><TriggeredBy>UpA</TriggeredBy><ConflictsWith>UpB</ConflictsWith>";
+        string dead="<WeaponOffset x='1' y='2' z='3'/><DieMuxData VeterancyLevels='a bb' ExemptStatus='DAMAGED' RequiredStatus='ALL' DamageAmountRequired='23' DeathTypes='ALL'/><WeaponFireProbability DeathType='ALL' ChancePercentage='23'/>";
+        for(int group=0;group<4;++group) {
+            byte[] bytes=Check(original,p,"",ReactiveXML(group)).InstanceData;int at=LifecycleAt(bytes,big),table=MotionTable(bytes,big);if(bytes.Length!=at+sizes[group] || Word(bytes,at,big)!=uint.Parse(ReactiveTypes[group]) || Word(bytes,table,big)!=1 || Word(bytes,table+4,big)!=(group==0?39586775u:group==2?1894105347u:2925571736u))throw new Exception("Independent reactive size/type/parent "+group);
+            for(int i=0;i<12;++i)if(bytes[table+12*counts[group]+i]!=0)throw new Exception("Independent reactive sentinel "+group);
+            if(group==2 && (Word(bytes,at+12,big)!=1 || Word(bytes,at+72,big)!=0 || Word(bytes,at+76,big)!=0))throw new Exception("Independent Collide NONE flag/default");if(group==3)for(int off=36;off<144;++off)if(bytes[at+off]!=0)throw new Exception("Independent Dead missing inline DieMux remains zero");
+            string payload=group==0?"<Data MinHealth='25%' MaxHealth='75%' ObjectStatus='DAMAGED' ModelConditions='TOPPLED'/>":group==1?upgrade:group==3?dead+upgrade:"";string attrs=group==1?"ReactionWeaponPristine='W\\23' ContinuousWeaponRubble='R\\1'":group==2?"CollideWeapon='W\\23' FireOnce='true'":group==3?"DeathWeapon='D\\23' InitiallyActive='true'":"";
+            foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+ReactiveTypes[group]+"' "+attrs+">"+payload+"</"+container[1]+"></"+container[0]+">");
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {string modules="";for(int i=0;i<count;++i)modules+="<ObjectSMCHelper TypeId='"+ReactiveTypes[group]+"' id='R"+i+"' "+attrs+">"+payload+"</ObjectSMCHelper>";Check(original,p,"Browser='a bb'","<Behaviors>"+modules+"<ObjectSMCHelper TypeId='2441348999' IgnitionFX='I\\23'/></Behaviors>");}
+            Reject(p,"",ReactiveXML(group,"Unknown='1'"));Reject(p,"",ReactiveXML(group,"MaxHealth='23'"));foreach(string bad in new[]{"<Unknown/>","<Movement/>","<Volume/>","<ObjectFilter/>"})Reject(p,"",ReactiveXML(group,"",bad));
+            if(group!=0)Reject(p,"",ReactiveXML(group,"","<Data/>"));if(group!=3)foreach(string bad in new[]{"<WeaponOffset/>","<DieMuxData/>","<WeaponFireProbability/>"})Reject(p,"",ReactiveXML(group,"",bad));if(group==0 || group==2)foreach(string bad in new[]{"<CustomAnimAndDuration/>","<TriggeredBy/>","<ConflictsWith/>"})Reject(p,"",ReactiveXML(group,"",bad));
+        }
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(1,"InitiallyActive='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(1,"DamageTypes='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(1,"DamageAmount='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ReactionWeaponPristine='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ReactionWeaponDamaged='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ReactionWeaponReallyDamaged='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ReactionWeaponRubble='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ContinuousWeaponPristine='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ContinuousWeaponDamaged='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ContinuousWeaponReallyDamaged='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(1,"ContinuousWeaponRubble='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(2,"CollideWeapon='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(2,"FireOnce='"+Escape(value)+"'"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(2,"Flags='"+Escape(value)+"'"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(2,"RequiredStatus='"+Escape(value)+"'"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(2,"ForbiddenStatus='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(2,"WhereToFire='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(3,"InitiallyActive='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(3,"ActiveDuringConstruction='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(3,"ContinueToBezierDestination='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(3,"FireAtGround='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",ReactiveXML(3,"DelayTime='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",ReactiveXML(3,"DeathWeapon='"+Escape(value)+"'"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(3,"FocusFireKindOfFlag='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",ReactiveXML(3,"UseMyKillerAsWeaponSource='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(0,"","<Data MinHealth='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(0,"","<Data MaxHealth='"+Escape(value)+"'/>"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(0,"","<Data ObjectStatus='"+Escape(value)+"'/>"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(0,"","<Data ModelConditions='"+Escape(value)+"'/>"));
+        foreach(string value in masks)Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='"+Escape(value)+"'/>"));
+        foreach(string value in numbers)Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability ChancePercentage='"+Escape(value)+"'/>"));
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire='OWNER_POSITION'")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=2u)throw new Exception("Independent WhereToFire OWNER_POSITION");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire='TARGET_OBJECT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=0u)throw new Exception("Independent WhereToFire TARGET_OBJECT");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire='TARGET_POSITION'")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=1u)throw new Exception("Independent WhereToFire TARGET_POSITION");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=2u)throw new Exception("Independent WhereToFire ");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=2u)throw new Exception("Independent WhereToFire unknown");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"WhereToFire='target_object'")).InstanceData;if(Word(b,LifecycleAt(b,big)+72,big)!=2u)throw new Exception("Independent WhereToFire target_object");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='DESTROY_SELF_ON_COLLIDE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=4u)throw new Exception("Independent Collide flag DESTROY_SELF_ON_COLLIDE");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='DO_NOT_COLLIDE_WITH_PRODUCER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=8u)throw new Exception("Independent Collide flag DO_NOT_COLLIDE_WITH_PRODUCER");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='NONE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Collide flag NONE");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='TARGET_MUST_BE_MOVING'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=2u)throw new Exception("Independent Collide flag TARGET_MUST_BE_MOVING");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='WHEN_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=16u)throw new Exception("Independent Collide flag WHEN_BEING_CRUSHED");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=4u)throw new Exception("Independent Collide flag unknown");}
+        {byte[] b=Check(original,p,"",ReactiveXML(2,"Flags=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=4u)throw new Exception("Independent Collide flag ");}
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='ALL' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='BITTEN' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='BURNED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='CATALYST' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='CRUSHED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='DETONATED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='ELECTROCUTED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXPLODED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_1' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_2' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_3' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_4' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_5' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_6' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='EXTRA_7' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='FADED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='FLOODED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='INTERNAL_DESTRUCTION' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='IRRADIATED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='KNOCKBACK' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='LASERED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='MAULED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='NONE' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='NORMAL' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='POISONED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='POISONED_BETA' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='PRODUCTION_CANCELLED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='SHATTERED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='SLAUGHTERED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='SPLATTED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='STABBED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='SUICIDED' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='SUPERNATURAL' ChancePercentage='23'/>"));
+        Check(original,p,"",ReactiveXML(3,"","<WeaponFireProbability DeathType='TOPPLED' ChancePercentage='23'/>"));
+
+        foreach(string child in new[]{"Data","WeaponFireProbability"}) {
+            int group=child=="Data"?0:3;foreach(int count in new[]{0,1,2,27,28,29,65}) {string entries="";for(int i=0;i<count;++i)entries+="<"+child+" "+(group==0?"MinHealth='25%' ObjectStatus='ALL' ModelConditions='ALL'":"DeathType='ALL' ChancePercentage='23'")+"/>";byte[] bytes=Check(original,p,"",ReactiveXML(group,"",entries)).InstanceData;int at=LifecycleAt(bytes,big),off=group==0?8:128,data=(int)Word(bytes,at+off+4,big);if(Word(bytes,at+off,big)!=count || (count==0?data!=0:data!=at+(group==0?16:144)))throw new Exception("Independent reactive list allocation "+child);if(count>0 && bytes.Length!=data+count*(group==0?96:12))throw new Exception("Independent reactive list stride "+child);}
+            foreach(string bad in new[]{"Unknown='1'","xmlns='foreign'","xmlns:f='foreign' f:TypeId='1'"})Reject(p,"",ReactiveXML(group,"","<"+child+" "+bad+"/>"));Reject(p,"",ReactiveXML(group,"","<"+child+">text</"+child+">"));Reject(p,"",ReactiveXML(group,"","<"+child+"><Unknown/></"+child+">"));
+        }
+        foreach(string coord in new[]{"x","y","z"})foreach(string value in numbers)Check(original,p,"",ReactiveXML(3,"","<WeaponOffset "+coord+"='"+Escape(value)+"'/>"));
+        foreach(string bad in new[]{"<WeaponOffset/><WeaponOffset/>","<WeaponOffset w='1'/>","<WeaponOffset xmlns='foreign'/>","<WeaponOffset>text</WeaponOffset>","<WeaponOffset><Unknown/></WeaponOffset>","<DieMuxData/><DieMuxData/>","<DieMuxData Unknown='1'/>","<DieMuxData xmlns='foreign'/>","<DieMuxData>text</DieMuxData>"})Reject(p,"",ReactiveXML(3,"",bad));
+        foreach(int group in new[]{1,3}) {
+            foreach(string field in new[]{"RequiresAllConflictingTriggers","Permanent","RequiresAllTriggers","WaypointMode","WaypointModeTerminal"})foreach(string value in new[]{"true","false","1","0",""})Check(original,p,"",ReactiveXML(group,field+"='"+value+"'",upgrade));
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {string deps="";for(int i=0;i<count;++i)deps+="<TriggeredBy>A</TriggeredBy><ConflictsWith>B</ConflictsWith>";Check(original,p,"",ReactiveXML(group,"",deps+(group==3?dead:"")));}
+            foreach(string bad in new[]{"<CustomAnimAndDuration/><CustomAnimAndDuration/>","<CustomAnimAndDuration Unknown='1'/>","<TriggeredBy id='bad'/>","<ConflictsWith><Unknown/></ConflictsWith>"})Reject(p,"",ReactiveXML(group,"",bad));
+        }
+        {byte[] b=Check(original,p,"",ReactiveXML(0,"","<Data MinHealth='25%' MaxHealth='75%' ObjectStatus='ALL' ModelConditions='ALL'/>")).InstanceData;int at=LifecycleAt(b,big),data=(int)Word(b,at+12,big),table=MotionTable(b,big),list=(int)Word(b,Token(b,table,2582625313u,big)+8,big),item=(int)Word(b,list+20,big);if(Word(b,data,big)!=0x3e800000u || Word(b,data+4,big)!=0x3f400000u || Word(b,list+8,big)!=at+8)throw new Exception("Independent DamageState percentages/list Token");for(int i=0;i<7;++i)if(Word(b,data+8+4*i,big)!=0xffffffffu)throw new Exception("Independent DamageState ObjectStatus 28bytes");for(int i=0;i<15;++i)if(Word(b,data+36+4*i,big)!=0xffffffffu)throw new Exception("Independent DamageState ModelCondition 60bytes");for(int i=0;i<12;++i)if(b[item+48+i]!=0)throw new Exception("Independent DamageState sentinel");}
+        {byte[] b=Check(original,p,"",ReactiveXML(3,"DeathWeapon='W\\23' FocusFireKindOfFlag='ALL' UseMyKillerAsWeaponSource='true'",dead+upgrade)).InstanceData;int at=LifecycleAt(b,big),vector=(int)Word(b,at+80,big),prob=(int)Word(b,at+132,big),anim=(int)Word(b,at+8,big);if(vector!=at+144 || Word(b,vector,big)!=0x3f800000u || Word(b,at+40,big)!=24 || Word(b,prob,big)!=0xffffffffu || Word(b,prob+4,big)!=0xffffffffu || Word(b,prob+8,big)!=23 || anim<=prob || b[at+140]!=1)throw new Exception("Independent Dead vector/Death bits/probability-before-Upgrade allocation");for(int i=0;i<9;++i)if(Word(b,at+44+4*i,big)!=0xffffffffu)throw new Exception("Independent Dead full KindOf");}
+        var ordered=Check(original,p,"",ReactiveXML(3,"DeathWeapon='W\\23'",dead+upgrade));var reversed=Check(original,p,"",ReactiveXML(3,"DeathWeapon='W\\23'",upgrade+"<WeaponFireProbability ChancePercentage='23' DeathType='ALL'/><DieMuxData DeathTypes='ALL' DamageAmountRequired='23' RequiredStatus='ALL' ExemptStatus='DAMAGED' VeterancyLevels='a bb'/><WeaponOffset z='3' y='2' x='1'/>"));Equal(ordered.InstanceData,reversed.InstanceData,"Reactive schema allocation order",false);Equal(ordered.RelocationData,reversed.RelocationData,"Reactive schema relocation order",false);Equal(ordered.ImportsData,reversed.ImportsData,"Reactive reference order",false);
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);FlightFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);FlightFamily(original,p);ReactiveFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:

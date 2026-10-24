@@ -49,6 +49,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectBeamState.h"
 #include "GameObjectMotion.h"
 #include "GameObjectFlight.h"
+#include "GameObjectReactive.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -249,6 +250,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:reactiveChoices) if(choice.type==type) return &choice;
     for(const auto& choice:flightChoices) if(choice.type==type) return &choice;
     for(const auto& choice:motionChoices) if(choice.type==type) return &choice;
     for(const auto& choice:beamChoices) if(choice.type==type) return &choice;
@@ -656,6 +658,29 @@ void MarshalFlight(const GameObjectChild& input,unsigned char* output,unsigned k
 void EndianFlight(unsigned char* output,unsigned kind) {
     EndianModuleFieldSet(output,flightFieldSets[kind-84]);if(kind==86) EndianModuleFieldSet(output,flightFieldSets[1]);
 }
+void MarshalReactiveList(const GameObjectChild& input,const char* name,unsigned char* output,unsigned offset,unsigned fields,unsigned stride,Relo::Tracker& data) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);for(const auto& child:input.children) if(child.name==name) ++list->count;
+    if(!list->count) return;auto at=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));unsigned i=0;for(const auto& child:input.children) if(child.name==name) MarshalModuleFieldSet(child,at+stride*i++,reactiveFieldSets[fields],data);data.Pop();
+}
+void EndianReactiveList(unsigned char* output,unsigned offset,unsigned fields,unsigned stride) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);for(U32 i=0;i<list->count;++i) EndianModuleFieldSet(static_cast<unsigned char*>(list->data)+stride*i,reactiveFieldSets[fields]);Swap(&list->count);
+}
+void MarshalReactive(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,reactiveFieldSets[kind-87],data);
+    if(kind==87) MarshalReactiveList(input,"Data",output,8,4,96,data);
+    if(kind==90) {
+        for(const auto& child:input.children) if(child.name=="WeaponOffset") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+80),12,1));MarshalModuleFieldSet(child,at,remainingFieldSets[15],data);data.Pop();}
+        for(const auto& child:input.children) if(child.name=="DieMuxData") MarshalModuleFieldSet(child,output+84,dieFieldSets[7],data);
+        MarshalReactiveList(input,"WeaponFireProbability",output,128,5,12,data);
+    }
+    if(kind==88 || kind==90) MarshalUpgrade(input,output,30,data);
+}
+void EndianReactive(unsigned char* output,unsigned kind) {
+    EndianModuleFieldSet(output,reactiveFieldSets[kind-87]);
+    if(kind==87) EndianReactiveList(output,8,4,96);
+    if(kind==90) {auto at=*reinterpret_cast<unsigned char**>(output+80);if(at) EndianModuleFieldSet(at,remainingFieldSets[15]);EndianModuleFieldSet(output+84,dieFieldSets[7]);EndianReactiveList(output,128,5,12);}
+    if(kind==88 || kind==90) EndianUpgrade(output,30);
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind && choice->kind<=2) {
@@ -678,6 +703,7 @@ void EndianModule(U32* input) {
     if(choice && choice->kind>=13 && choice->kind<=16) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=17 && choice->kind<=22) EndianLifecycle(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=23 && choice->kind<=29) EndianDie(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=87 && choice->kind<=90) EndianReactive(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=84 && choice->kind<=86) EndianFlight(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=80 && choice->kind<=83) EndianMotion(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=77 && choice->kind<=79) EndianBeamState(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -700,6 +726,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=87 && choice->kind<=90) MarshalReactive(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=84 && choice->kind<=86) MarshalFlight(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=80 && choice->kind<=83) MarshalMotion(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=77 && choice->kind<=79) MarshalBeamState(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -800,6 +827,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=87) {const auto& set=reactiveFieldSets[choice->kind-87];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==88 || choice->kind==90) for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;return false;}
     if(choice->kind>=84) {const auto& set=flightFieldSets[choice->kind-84];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==86) for(unsigned i=0;i<flightFieldSets[1].count;++i) if(attribute==flightFieldSets[1].fields[i].name) return true;return false;}
     if(choice->kind>=80) {const auto& set=motionFieldSets[choice->kind-80];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=77) {const auto& set=beamFieldSets[choice->kind-77];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==78) for(unsigned i=0;i<beamFieldSets[0].count;++i) if(attribute==beamFieldSets[0].fields[i].name) return true;return false;}
@@ -831,6 +859,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=87) {if(kind==87) return path=="Data"?2:0;if(kind==88 || kind==90) {if(path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}if(kind==90) {if(path=="WeaponOffset" || path=="DieMuxData") return 1;if(path=="WeaponFireProbability") return 2;}return 0;}
     if(kind>=84) return 0;
     if(kind>=80) {
         if(kind==80) return path=="Movement"?1:0;
@@ -864,6 +893,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=87) {const ModuleFieldSet* set=nullptr;if(kind==87 && path=="Data") set=&reactiveFieldSets[4];if((kind==88 || kind==90) && path=="CustomAnimAndDuration") set=&upgradeFieldSets[11];if(kind==90) {if(path=="WeaponOffset") set=&remainingFieldSets[15];if(path=="DieMuxData") set=&dieFieldSets[7];if(path=="WeaponFireProbability") set=&reactiveFieldSets[5];}if(set) for(unsigned i=0;i<set->count;++i) if(attribute==set->fields[i].name) return true;return false;}
     if(kind>=84) return false;
     if(kind>=80) {
         if(kind!=81) return false;unsigned fields=99;if(path=="Volume") fields=7;
