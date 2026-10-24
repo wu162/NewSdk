@@ -1,0 +1,135 @@
+// Included by GameObject.cpp; definitions remain in its namespace and original order.
+void EndianModule(U32* input) {
+    auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=128 && choice->kind<=129) EndianQueueParking(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=130 && choice->kind<=132) EndianModuleFieldSet(reinterpret_cast<unsigned char*>(input),buildingStructureFieldSets[choice->kind-130]);
+    if(choice && choice->kind>=123 && choice->kind<=125) EndianSpawnUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=119 && choice->kind<=122) EndianAssist(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=112 && choice->kind<=118) EndianEconomy(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=104 && choice->kind<=111) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=96 && choice->kind<=103) EndianCrate(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=92 && choice->kind<=95) EndianHealing(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind==91) EndianWeaponSetNode(reinterpret_cast<unsigned char*>(input),0);
+    if(choice && choice->kind && choice->kind<=2) {
+        auto bytes=reinterpret_cast<unsigned char*>(input);
+        if(choice->kind==2) EndianModuleFields(bytes,ShieldBodyModuleDataModuleFields);
+        EndianModuleFields(bytes,ActiveBodyModuleDataModuleFields);
+        auto list=reinterpret_cast<NativeList*>(bytes+64);
+        for(U32 i=0;i<list->count;++i) {auto at=static_cast<unsigned char*>(list->data)+12*i;Swap(at);Swap(at+4);}
+        Swap(&list->count);
+    }
+    if(choice && choice->kind>=3 && choice->kind<13) {
+        auto bytes=reinterpret_cast<unsigned char*>(input);EndianModuleFieldSet(bytes,moduleFieldSets[choice->kind]);
+        if(choice->kind==9 || choice->kind==10) {
+            auto list=reinterpret_cast<NativeList*>(bytes+(choice->kind==9?12:8));unsigned stride=choice->kind==9?24:124,fields=choice->kind==9?11:12;
+            for(U32 j=0;j<list->count;++j) EndianModuleFieldSet(static_cast<unsigned char*>(list->data)+stride*j,moduleFieldSets[fields]);
+            Swap(&list->count);
+        }
+        if(choice->kind==8) {auto list=reinterpret_cast<NativeList*>(bytes+16);for(U32 i=0;i<list->count;++i) Swap(static_cast<U32*>(list->data)+i);Swap(&list->count);}
+    }
+    if(choice && choice->kind>=13 && choice->kind<=16) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=17 && choice->kind<=22) EndianLifecycle(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=23 && choice->kind<=29) EndianDie(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=87 && choice->kind<=90) EndianReactive(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=84 && choice->kind<=86) EndianFlight(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=80 && choice->kind<=83) EndianMotion(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=77 && choice->kind<=79) EndianBeamState(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=69 && choice->kind<=76) EndianWeaponBehavior(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=61 && choice->kind<=68) EndianVision(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind==59) EndianSlaved(reinterpret_cast<unsigned char*>(input));
+    if(choice && choice->kind>=55 && choice->kind<=58) EndianCreate(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=52 && choice->kind<=54) EndianProduction(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && ((choice->kind>=30 && choice->kind<=51) || choice->kind==60)) EndianUpgrade(reinterpret_cast<unsigned char*>(input),choice->kind);
+    Swap(input);Swap(input+1);
+}
+
+void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data) {
+    auto found=input.attributes.find("TypeId");U32 type=found==input.attributes.end()?0:ParseUnsigned(found->second);
+    if(!FindModule(type)) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
+    auto choice=FindModule(type);
+    // New queue/building groups dispatch after the common allocation below.
+    auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=128 && choice->kind<=129) MarshalQueueParking(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=130 && choice->kind<=132) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),buildingStructureFieldSets[choice->kind-130],data);
+    if(choice && choice->kind && choice->kind<=2) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=3 && choice->kind<13) MarshalClientUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind==127) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),crateWatcherFieldSets[0],data);
+    if(choice && choice->kind>=123 && choice->kind<=125) MarshalSpawnUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=119 && choice->kind<=122) MarshalAssist(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=112 && choice->kind<=118) MarshalEconomy(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=104 && choice->kind<=111) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=96 && choice->kind<=103) MarshalCrate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=92 && choice->kind<=95) MarshalHealing(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind==91) MarshalWeaponSetNode(input,reinterpret_cast<unsigned char*>(target),0,data);
+    if(choice && choice->kind>=87 && choice->kind<=90) MarshalReactive(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=84 && choice->kind<=86) MarshalFlight(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=80 && choice->kind<=83) MarshalMotion(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=77 && choice->kind<=79) MarshalBeamState(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=69 && choice->kind<=76) MarshalWeaponBehavior(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=61 && choice->kind<=68) MarshalVision(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind==59) MarshalSlaved(input,reinterpret_cast<unsigned char*>(target),data);
+    if(choice && choice->kind>=55 && choice->kind<=58) MarshalCreate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=52 && choice->kind<=54) MarshalProduction(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && ((choice->kind>=30 && choice->kind<=51) || choice->kind==60)) MarshalUpgrade(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    target[0]=choice?type:0;
+    auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
+    data.Pop();
+}
+void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo::Tracker& procedures) {
+    auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
+    for(unsigned i=0;i<layout.count;++i) {
+        const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
+        if(t.mode==1 || t.mode==3 || t.mode==6) {
+            auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
+            auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
+            count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);
+            for(U32 j=0;j<list->count;++j) {
+                count[j+1].name=2974916843u;
+                if(t.mode==1) TokenizeModuleTable(reinterpret_cast<U32*>(static_cast<unsigned char*>(list->data)+t.stride*j),*t.nested,&count[j+1].offset,procedures);
+                else procedures.BookmarkMemberOffset(static_cast<unsigned char*>(list->data)+(t.mode==6?8:4)*j,&count[j+1].offset);
+            }
+            procedures.Pop();
+        } else if(t.mode==9) {
+            TokenizeMotionMove(*reinterpret_cast<U32**>(reinterpret_cast<unsigned char*>(input)+t.offset),&table[i].offset,procedures);
+        } else if(t.mode==8) {
+            TokenizeObjectFilter(reinterpret_cast<ObjectFilter*>(reinterpret_cast<unsigned char*>(input)+t.offset),&table[i].offset,procedures);
+        } else if(t.mode==7) {
+            auto filter=*reinterpret_cast<ObjectFilter**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(filter) TokenizeObjectFilter(filter,&table[i].offset,procedures);
+        } else if(t.mode==4) {
+            auto pointee=*reinterpret_cast<U32**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) TokenizeModuleTable(pointee,*t.nested,&table[i].offset,procedures);
+        } else if(t.mode==2) {
+            auto pointee=*reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(input)+t.offset);if(pointee) procedures.BookmarkMemberOffset(pointee,&table[i].offset);
+        } else if(t.nested) TokenizeModuleTable(reinterpret_cast<U32*>(reinterpret_cast<unsigned char*>(input)+t.offset),*t.nested,&table[i].offset,procedures);
+        else procedures.BookmarkMemberOffset(reinterpret_cast<unsigned char*>(input)+t.offset,&table[i].offset);
+    }
+    procedures.Pop();
+}
+void TokenizeMotionMove(U32* input,void** slot,Relo::Tracker& procedures) {
+    if(!input) return;auto wrapper=static_cast<Procedure*>(procedures.Push(slot,12,1));wrapper->name=2;wrapper->type=input[0];int index=MotionMoveIndex(input[0]);
+    if(index>=0) TokenizeModuleTable(input,*motionMoveChoices[index].tokens,&wrapper->offset,procedures);procedures.Pop();
+}
+void TokenizeModule(U32* input,void** slot,Relo::Tracker& procedures) {
+    if(!input) return;
+    // Polymorphic wrapper has exactly one record, without a sentinel.
+    auto wrapper=static_cast<Procedure*>(procedures.Push(slot,12,1));wrapper->name=2;wrapper->type=input[0];
+    if(auto choice=FindModule(input[0])) TokenizeModuleTable(input,*choice->tokens,&wrapper->offset,procedures);
+    procedures.Pop();
+}
+void MarshalModuleList(const GameObjectChild& input,NativeList* list,Relo::Tracker& data) {
+    list->count=static_cast<U32>(input.children.size());
+    if(!list->count) return;
+    auto slots=static_cast<U32**>(data.Push(&list->data,4,list->count));
+    for(U32 i=0;i<list->count;++i) MarshalModule(input.children[i],reinterpret_cast<void**>(slots+i),data);
+    data.Pop();
+}
+void TokenizeModuleList(NativeList* list,void** slot,Relo::Tracker& procedures) {
+    auto table=static_cast<Procedure*>(procedures.Push(slot,12,list->count+1));
+    table[0].name=1820487795u;table[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&table[0].offset);
+    for(U32 i=0;i<list->count;++i) {table[i+1].name=2974916843u;TokenizeModule(static_cast<U32**>(list->data)[i],&table[i+1].offset,procedures);}
+    procedures.Pop();
+}
+
+// Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.

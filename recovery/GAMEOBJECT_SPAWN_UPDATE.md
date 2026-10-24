@@ -1,6 +1,6 @@
 # GameObject Spawn/OCL Update 完整能力组
 
-2026-10-24。源码实现与测试已准备，Windows完整矩阵验收中；本文件最终验证锚点须在取得实际终态后补齐。原路由保留，SDK未运行，不代表完整GameObject或完整替代DLL。
+2026-10-24。完整能力组已通过原DLL差分。源码`3f0f0e017380dac81a210a0a8d4055da6d4de5ad`；GameObject run `40088179574 success`，基础 run `40088179650 success`。/Od、/O2每模式328144 fixtures、984432三缓冲区比较、12328拒绝、856不变性，平台0/1/2/99；两模式合计1968864缓冲区比较。validation.json、实际两模式日志、sourceCommit/runId及运行终态已核对。已验收总数155→158，164种其他已知Marshal继续拒绝。原路由保留，SDK未运行，不代表完整GameObject或完整替代DLL。
 
 | 类型 | TypeId | native |
 |---|---:|---:|

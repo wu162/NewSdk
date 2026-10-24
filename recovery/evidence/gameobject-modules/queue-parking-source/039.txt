@@ -1,0 +1,120 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 66947; body SHA256 8b9ad98830238fb7d04e064fa326c3de26e83bc4f965fa40f1c913c98960e456
+// Literals: {"_003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040": "ALL", "_003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A": "", "_003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ObjectFilterRelationship_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ObjectFilterRelationship_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B": "Pd\t\u0010\u0000\u0000\u0000\u0000Xd\t\u0010\u0001\u0000\u0000\u0000`d\t\u0010\u0002\u0000\u0000\u0000hd\t\u0010\u0003"}
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_002C4_003E(sbyte* text, BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E* target, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = 0;
+		uint num;
+		try
+		{
+			num = Marshaler_002EUtils_002ETokenize(&auto_ptr_003Cchar_003E, text);
+			if (num != 0)
+			{
+				goto IL_0032;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+		return;
+		IL_0032:
+		try
+		{
+			sbyte* ptr = (sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E));
+			if (0 < num)
+			{
+				uint num2 = num;
+				do
+				{
+					sbyte* ptr2 = ptr;
+					sbyte b = *ptr;
+					if (b != 0)
+					{
+						do
+						{
+							ptr2++;
+						}
+						while (*ptr2 != 0);
+					}
+					uint num3 = (uint)(ptr2 - (nuint)ptr + 1);
+					bool flag = true;
+					switch (b)
+					{
+					case 43:
+						flag = true;
+						ptr++;
+						num3--;
+						break;
+					case 45:
+						flag = false;
+						ptr++;
+						num3--;
+						break;
+					}
+					if (_stricmp(ptr, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040)) == 0)
+					{
+						*(int*)target = -1;
+						goto IL_012e;
+					}
+					if ((_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 & 1) == 0)
+					{
+						_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 |= 1u;
+						try
+						{
+							Relo_002ETracker_002E_007Bctor_007D((Tracker*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A));
+							_atexit_m((delegate*<void>)(&_003F_003F__FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_0040YMXXZ));
+						}
+						catch
+						{
+							//try-fault
+							_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 &= 4294967294u;
+							throw;
+						}
+					}
+					EnumNameGetter_003Cint_003E.EnumPair* ptr3 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(ptr, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4ObjectFilterRelationship_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4ObjectFilterRelationship_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
+					int num4;
+					if (ptr3 != null)
+					{
+						num4 = ((int*)ptr3)[1];
+						if (num4 == -1 || (uint)num4 >= 4u)
+						{
+							goto IL_012a;
+						}
+					}
+					else
+					{
+						num4 = 0;
+					}
+					if (flag)
+					{
+						BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E* ptr4 = (BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E*)((num4 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 |= 1 << num4;
+					}
+					else
+					{
+						BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E* ptr4 = (BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E*)((num4 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 ^= 1 << num4;
+					}
+					goto IL_012a;
+					IL_012e:
+					num2--;
+					continue;
+					IL_012a:
+					ptr = (int)num3 + ptr;
+					goto IL_012e;
+				}
+				while (num2 != 0);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}
