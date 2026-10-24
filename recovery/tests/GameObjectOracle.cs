@@ -1310,11 +1310,63 @@ partial class GameObjectOracle {
         var reordered=Check(original,p,"",SlavedXML("UseSlaverAsControlForEvaObjectSightedEvents='true' MarkUnselectable='true' DieOnMastersDeath='true' StayOnSameLayerAsMaster='true' WeldingSysId='Particle\\23' WeldingFXBone='ABC'","<GuardPosOffset z='3' y='2' x='1'/>"));Equal(ordered.InstanceData,reordered.InstanceData,"Slaved attribute/schema order",false);Equal(ordered.RelocationData,reordered.RelocationData,"Slaved relocation order",false);
     }
 
+    static string ReceiverXML(string attrs="",string children="") {return "<Behaviors><TechUpgradeReceiver TypeId='393460526' id='ReceiverTest' "+attrs+">"+children+"</TechUpgradeReceiver></Behaviors>";}
+    static void TechReceiverFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] numbers={"","-1","-0","0","23","1.25","0x10","010"," 23tail","37%","2147483647","2147483648","-2147483648","4294967295","4294967296","nan","inf","-inf","1e39","-1e39","1e-50","text"};
+        string[] angles={"","0","0r","0.1r","-0.1r","1r","1.25r","90d","-90d","180d","360d","1.25d","90D","1R","1.25"," 90d","90d ","90deg","1e3d","1e-3r","nan","inf","-inf","1e39r","-1e39r","text","1d2r"};
+        string[] ids={"","a","AB","ab","abc","abcd","abcde","ABCDEF","MiXeD","with spaces","é","ÿ","中文","A&B","Module\\23"};
+        string[] booleans={"true","false","TRUE","False","1","0","t","yes"," true",""};
+        Check(original,p,"",ReceiverXML());Check(original,p,"",ReceiverXML("","<ObjectFilter/><CustomAnimAndDuration/><TriggeredBy/><ConflictsWith/>"));
+        foreach(string field in new[]{"Radius","RadiusY"})foreach(string value in numbers)Check(original,p,"",ReceiverXML(field+"='"+Escape(value)+"'"));
+        foreach(string field in new[]{"RadarRotateSpeed","RadarRotateOffset"})foreach(string value in angles)Check(original,p,"",ReceiverXML(field+"='"+Escape(value)+"'"));
+        foreach(string field in new[]{"FXLineBoneName","RadarDrawModule"})foreach(string value in ids)Check(original,p,"",ReceiverXML(field+"='"+Escape(value)+"'"));
+        foreach(string value in new[]{"CIRCULAR","RECTANGULAR","circular","rectangular","UNKNOWN","SQUARE","ALL","-1","0","1",""," CIRCULAR","RECTANGULAR ","CIRCULAR RECTANGULAR"})Check(original,p,"",ReceiverXML("DistanceType='"+value+"'"));
+        foreach(string field in new[]{"RequiresAllTriggers","RequiresAllConflictingTriggers","Permanent","WaypointMode","WaypointModeTerminal"})foreach(string value in booleans)Check(original,p,"",ReceiverXML(field+"='"+value+"'"));
+        foreach(string field in new[]{"Frames","Trigger"})foreach(string value in numbers)Check(original,p,"",ReceiverXML("","<CustomAnimAndDuration "+field+"='"+Escape(value)+"'/>"));
+        foreach(string value in BodyModelConditions)Check(original,p,"",ReceiverXML("","<CustomAnimAndDuration AnimState='"+value+"'/>"));
+        foreach(string value in new[]{"","UNKNOWN","unknown","ALL","all","damaged"," DAMAGED","DAMAGED ","DAMAGED RUBBLE","-1","0"})Check(original,p,"",ReceiverXML("","<CustomAnimAndDuration AnimState='"+value+"'/>"));
+        foreach(string name in new[]{"TriggeredBy","ConflictsWith"})foreach(string value in ids)Check(original,p,"",ReceiverXML("","<"+name+">"+Escape(value)+"</"+name+">"));
+        foreach(string field in new[]{"Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"})foreach(string value in new[]{"","ALL","NONE","UNKNOWN","all","ALL -UNKNOWN","VEHICLE","DAMAGED","ANY","ENEMIES","NEUTRAL"})Check(original,p,"",ReceiverXML("","<ObjectFilter "+field+"='"+value+"'/>"));
+        string attrs="Radius='23' RadiusY='-1' DistanceType='RECTANGULAR' FXLineBoneName='ABC' RadarDrawModule='AbCd' RadarRotateSpeed='90d' RadarRotateOffset='-1r' RequiresAllTriggers='true' RequiresAllConflictingTriggers='true' Permanent='true' WaypointMode='true' WaypointModeTerminal='true'";
+        string payload="<ObjectFilter id='FilterA' Rule='ANY' Relationship='ALL' Include='VEHICLE' Exclude='STRUCTURE' StatusBitFlags='ALL' StatusBitFlagsExclude='DAMAGED'><IncludeThing>TankA</IncludeThing><ExcludeThing>TankB</ExcludeThing></ObjectFilter><CustomAnimAndDuration AnimState='DAMAGED' Frames='23' Trigger='010'/><TriggeredBy>UpA</TriggeredBy><ConflictsWith>UpB</ConflictsWith>";
+        Check(original,p,"Browser='a bb' Description='mixed'",ReceiverXML(attrs,payload));
+        foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='393460526' "+attrs+">"+payload+"</"+container[1]+"></"+container[0]+">");
+        foreach(int count in new[]{0,1,2,27,28,29,65}) {
+            string modules="",things="",upgrades="";for(int i=0;i<count;++i) {
+                modules+="<TechUpgradeReceiver TypeId='393460526' id='Receiver"+i+"' "+attrs+">"+payload+"</TechUpgradeReceiver>";
+                things+="<IncludeThing>Tank"+i+"</IncludeThing><ExcludeThing>Other"+i+"</ExcludeThing>";
+                upgrades+="<TriggeredBy>Up"+i+"</TriggeredBy><ConflictsWith>Other"+i+"</ConflictsWith>";
+            }
+            Check(original,p,"Browser='a bb'","<Behaviors>"+modules+"<TechUpgrade TypeId='4286303667' RadiusY='2'><ObjectFilter/></TechUpgrade><SlavedUpdate TypeId='3370197599'><GuardPosOffset/></SlavedUpdate></Behaviors>");
+            Check(original,p,"",ReceiverXML(attrs,"<ObjectFilter id='F' Include='VEHICLE' StatusBitFlags='ALL'>"+things+"</ObjectFilter><CustomAnimAndDuration/>"+upgrades));
+        }
+        foreach(string bad in new[]{"<Unknown/>","<ObjectFilter/><ObjectFilter/>","<CustomAnimAndDuration/><CustomAnimAndDuration/>","<ObjectFilter Unknown='1'/>","<ObjectFilter>text</ObjectFilter>","<ObjectFilter xmlns='foreign'/>","<ObjectFilter xmlns:f='foreign' f:TypeId='7'/>","<ObjectFilter><IncludeThing id='bad'/></ObjectFilter>","<ObjectFilter><ExcludeThing><Unknown/></ExcludeThing></ObjectFilter>","<ObjectFilter><Unknown/></ObjectFilter>","<CustomAnimAndDuration Unknown='1'/>","<CustomAnimAndDuration xmlns='foreign'/>","<CustomAnimAndDuration>text</CustomAnimAndDuration>","<TriggeredBy id='bad'/>","<TriggeredBy xmlns:f='foreign' f:TypeId='7'/>","<ConflictsWith><Unknown/></ConflictsWith>","<Offset/>","<GuardPosOffset/>","<Upgrade/>","<DieMuxData/>"})Reject(p,"",ReceiverXML("",bad));
+        foreach(string bad in new[]{"Unknown='1'","MaxHealth='23'","RotateSpeed='1r'"})Reject(p,"",ReceiverXML(bad));
+        byte[] bytes=Check(original,p,"",ReceiverXML()).InstanceData;int at=LifecycleAt(bytes,big);
+        if(bytes.Length!=at+180 || bytes[at+32]!=1 || Word(bytes,at+60,big)!=0x3dcccccdu)throw new Exception("Independent Receiver size/default speed/base Permanent");
+        for(int i=8;i<180;++i)if(i!=32 && (i<60 || i>=64) && bytes[at+i]!=0)throw new Exception("Independent Receiver zero/null defaults including missing inline filter");
+        int bt=(int)Word(bytes,Token(bytes,0,3015298429u,big)+8,big),wrapper=(int)Word(bytes,bt+20,big),table=(int)Word(bytes,wrapper+8,big);
+        if(Word(bytes,wrapper,big)!=2 || Word(bytes,wrapper+4,big)!=393460526u || Word(bytes,Token(bytes,table,3519330798u,big)+8,big)!=0)throw new Exception("Independent Receiver wrapper/null RadiusY Token");
+        uint[] keys={1,1328662213u,3519330798u,236086057u,2718491374u,2110540067u,2948402585u,4223502151u,3832456114u};uint[] types={2925571736u,1683514611u,1683514611u,873624354u,438907818u,3186653541u,1310124621u,1310124621u,3832456114u};
+        for(int i=0;i<9;++i)if(Word(bytes,table+12*i,big)!=keys[i] || Word(bytes,table+12*i+4,big)!=types[i])throw new Exception("Independent Receiver complete Token types/order "+i);
+        for(int i=0;i<12;++i)if(bytes[table+108+i]!=0)throw new Exception("Independent Receiver Token sentinel");
+        int filterTable=(int)Word(bytes,table+104,big);if(Word(bytes,filterTable+8,big)!=at+68 || Word(bytes,filterTable+20,big)!=at+72)throw new Exception("Independent Receiver filter inline Token at68");
+        bytes=Check(original,p,"",ReceiverXML("","<ObjectFilter/>")).InstanceData;at=LifecycleAt(bytes,big);if(Word(bytes,at+72,big)!=3)throw new Exception("Independent Receiver explicit empty filter default differs from missing");
+        var ordered=Check(original,p,"",ReceiverXML("RadiusY='-1' FXLineBoneName='ABC' RadarDrawModule='AbCd' RadarRotateSpeed='1r' RadarRotateOffset='-1r' DistanceType='RECTANGULAR'","<ObjectFilter><IncludeThing>TankA</IncludeThing><ExcludeThing>TankB</ExcludeThing></ObjectFilter><CustomAnimAndDuration Frames='23'/><TriggeredBy>UpA</TriggeredBy><ConflictsWith>UpB</ConflictsWith>"));
+        bytes=ordered.InstanceData;at=LifecycleAt(bytes,big);int radius=(int)Word(bytes,at+40,big),bone=(int)Word(bytes,at+52,big),anim=(int)Word(bytes,at+8,big),trigger=(int)Word(bytes,at+16,big),conflict=(int)Word(bytes,at+24,big);
+        if(radius!=at+180 || Word(bytes,radius,big)!=0xbf800000u || bone!=at+184 || Word(bytes,at+48,big)!=3 || anim!=at+196 || trigger!=at+208 || conflict!=at+212 || bytes.Length!=at+216 || Word(bytes,at+44,big)!=1 || Word(bytes,at+60,big)!=0x3f800000u || Word(bytes,at+64,big)!=0xbf800000u || Word(bytes,anim+4,big)!=23)throw new Exception("Independent Receiver nullable/string/filter/base dependency allocation order");
+        bt=(int)Word(bytes,Token(bytes,0,3015298429u,big)+8,big);wrapper=(int)Word(bytes,bt+20,big);table=(int)Word(bytes,wrapper+8,big);
+        int[] offsets={36,radius-at,44,48,56,60,64};for(int i=1;i<8;++i)if(Word(bytes,table+12*i+8,big)!=at+offsets[i-1])throw new Exception("Independent Receiver scalar/string/pointee Token bookmarks");
+        var reversed=Check(original,p,"",ReceiverXML("DistanceType='RECTANGULAR' RadarRotateOffset='-1r' RadarRotateSpeed='1r' RadarDrawModule='abcd' FXLineBoneName='ABC' RadiusY='-1'","<ConflictsWith>upb</ConflictsWith><TriggeredBy>upa</TriggeredBy><CustomAnimAndDuration Frames='23'/><ObjectFilter><ExcludeThing>tankb</ExcludeThing><IncludeThing>tanka</IncludeThing></ObjectFilter>"));Equal(ordered.InstanceData,reversed.InstanceData,"Receiver schema order and weak ID case",false);Equal(ordered.RelocationData,reversed.RelocationData,"Receiver relocation order",false);
+        var empty=Check(original,p,"",ReceiverXML("RadiusY=''"));bytes=empty.InstanceData;at=LifecycleAt(bytes,big);if(Word(bytes,at+40,big)!=at+180 || Word(bytes,at+180,big)!=0)throw new Exception("Independent Receiver present empty RadiusY allocates zero");
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -1332,10 +1384,11 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
 
 
 

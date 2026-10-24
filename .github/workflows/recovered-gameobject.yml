@@ -19,6 +19,7 @@ on:
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'
       - 'recovery/scripts/GenerateSlavedFields.py'
+      - 'recovery/scripts/GenerateTechReceiverFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
@@ -65,4 +66,5 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
