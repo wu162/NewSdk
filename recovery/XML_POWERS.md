@@ -61,3 +61,9 @@ every relevant enum word, malformed scalar/reference inputs, all six typed lists
 nested vector/range/filter/dependency nodes, list sizes 1/2/27/28/29/64/257,
 independent root/string/import/list/hash layouts and explicit rejection fixtures.
 The oracle calls original XmlCompiler.ProcessInstance for every differential fixture.
+
+VelocityTag DispositionIntensity uses SECONDS_PER_LOGICFRAME_REAL = float(1.0 / 5.0).
+Original static LOGICFRAMES_PER_SECONDS_REAL bytes are 00 00 A0 40 at Module line
+12208; initializer method 06000019 divides double 1.0 by that float before
+rounding to float, and VelocityTag multiplies two floats promoted to double.
+This was corrected by source/static-data audit before final Windows acceptance.
