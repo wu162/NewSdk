@@ -37,5 +37,5 @@ Native/Bridge独立Xmlpathmusic、Oracle/Cases和TestXmlpathmusic.ps1。原DLL�
 
 完整/Od、/O2、平台0/1/2/99，原ProcessInstance三数组逐字节和CompileXml另三数组；全部根缺省独立逐字节ABI，所有字段的缺失/空/非缺省、数值边界、两枚举所有值和未知回退、所有strong/weak/nullable引用与分配、列表长度0/1/2/3/7/28/29/30/31/32/65/129，256轮完整每根组合，输入拒绝矩阵。DOM构造NUL覆盖enum strcmp、hash及reference C字符串终止，ANSI/非ASCII值和大小写hash不变性；Map no-op有非空文本、CDATA和NUL的直接原版对照。
 
-本地g++ -Wall/-Wextra/-Werror语法检查和C#词法结构检查通过。Windows完整矩阵待主代理统一运行，结果写evidence/xml-path-music/validation.json与两优化日志；最终须核sourceCommit/runId及实际成功终态。此检查点不计入已验收82，不运行SDK，也不把组件结果冒充SDK支持。
+本地g++ -Wall/-Wextra/-Werror语法检查和C#词法结构检查通过。Windows完整矩阵待主代理统一运行，结果写evidence/xml-pathmusic/validation.json与两优化日志；最终须核sourceCommit/runId及实际成功终态。此检查点不计入已验收82，不运行SDK，也不把组件结果冒充SDK支持。
 

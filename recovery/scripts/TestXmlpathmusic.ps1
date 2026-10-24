@@ -6,8 +6,8 @@ $runId = $env:GITHUB_RUN_ID
 if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffffffZ') }
 $tempRoot = $env:RUNNER_TEMP
 if (-not $tempRoot) { $tempRoot = [IO.Path]::GetTempPath() }
-$out = Join-Path $tempRoot ('recovered-xml-path-music-' + $runId)
-$evidence = 'recovery/evidence/xml-path-music'
+$out = Join-Path $tempRoot ('recovered-xml-pathmusic-' + $runId)
+$evidence = 'recovery/evidence/xml-pathmusic'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
 $result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Seven complete path-music XmlCompiler entries including two runtime-only handlers; component-only; no custom MusicCompiler or real SDK compilation'; status='started' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"

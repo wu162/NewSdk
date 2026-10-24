@@ -6,8 +6,8 @@ $runId = $env:GITHUB_RUN_ID
 if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffffffZ') }
 $tempRoot = $env:RUNNER_TEMP
 if (-not $tempRoot) { $tempRoot = [IO.Path]::GetTempPath() }
-$out = Join-Path $tempRoot ('recovered-xml-single-sound-' + $runId)
-$evidence = 'recovery/evidence/xml-single-sound'
+$out = Join-Path $tempRoot ('recovered-xml-singlesound-' + $runId)
+$evidence = 'recovery/evidence/xml-singlesound'
 New-Item -ItemType Directory -Force $out, $evidence | Out-Null
 $result = [ordered]@{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='Ten complete single-sound family roots; component only; no real SDK compilation or routing changes'; status='started' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"

@@ -38,5 +38,5 @@
 
 组件矩阵/Od、/O2，平台0/1/2/99，每个原ProcessInstance对照Instance/Relocation/Imports三数组，另CompileXml直接3数组对照。全部根缺省独立逐字节布局；所有inline/nullable/range字段边界、全部枚举/位集、全部列表/nullable缺失与present-empty、六Filename引用路径、长列表跨28/29/30/31/32/65排序边界、128轮完整继承图及Multisound、独立stride/指针/enumfallback/ALLpadding断言和拒绝矩阵。DOM构造embedded NUL，覆盖C字符串边界；另含ANSI/非ASCII后缀、空白、旧CRT浮点/整数行为。
 
-本地g++语法检查、C#词法结构检查通过；Windows完整矩阵待主代理统一运行。证据将写evidence/xml-single-sound/validation.json与两优化日志，最终应核实际sourceCommit/runId及成功终态。当前不计入已验收82，未验证检查点不冒充完成。
+本地g++语法检查、C#词法结构检查通过；Windows完整矩阵待主代理统一运行。证据将写evidence/xml-singlesound/validation.json与两优化日志，最终应核实际sourceCommit/runId及成功终态。当前不计入已验收82，未验证检查点不冒充完成。
 
