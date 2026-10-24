@@ -25,3 +25,8 @@ WeaponFire有11完整属性，DestealthClosestObjectMatchingFilter是bool，Mode
 完整矩阵保留/Od、/O2、平台0/1/2/99、三缓冲区逐字节、独立布局/拒绝/不变性及全部旧回归。GameObject公开ImportsData为空，不把Tracker中间引用表当公开Imports。正式启用前SDK同输入/XSD/真实调用/四产物/适用无原DLL重放及完整mymod门槛不降低。
 
 本轮复用既有父/helper/枚举、各完整组统一验证，没有逐字段反复触发；未取得账号额度计量，不能量化节省。
+
+
+## 当前检查点：移动/传送整组验证中（2026-10-25）
+
+四类Native/Bridge支持及完整测试已提交，尚未验收、仍以231/322为已验收计数。新增GenerateAbilityMovementFields.py检查32原方法指纹、字段默认值和Token合同；EjectionBoneOffset复用Vector3解析，保留自身字符串→nullable Vector3→完整SpecialAbility父分配顺序。TestGameObject保留完整旧回归、/Od、/O2和四平台。下一步核对本检查点Actions结果、集中修复并以实际sourceCommit/runId验收；SDK未运行、原路由保留。本轮无30分钟限制，按STAGE_DURATION.md约1小时推进。

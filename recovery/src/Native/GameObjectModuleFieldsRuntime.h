@@ -1,5 +1,6 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:abilityMovementChoices) if(choice.type==type) return &choice;
     for(const auto& choice:powerCreationChoices) if(choice.type==type) return &choice;
     for(const auto& choice:abilityWeaponChoices) if(choice.type==type) return &choice;
     for(const auto& choice:abilityChoices) if(choice.type==type) return &choice;
@@ -163,5 +164,6 @@ template<std::size_t N>
 void EndianModuleFields(unsigned char* output,const ModuleField (&fields)[N]) {
     ModuleFieldSet set={fields,static_cast<unsigned>(N)};EndianModuleFieldSet(output,set);
 }
+
 
 
