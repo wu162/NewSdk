@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
-  "runId": "40095358086",
+  "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
+  "runId": "40098375480",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -55,11 +55,41 @@
     "FormationSelectionTemplate": 3374519264,
     "FormationAssistant": 1963196508,
     "GameStatsModeData": 3249689110,
-    "SkirmishSettings": 402082255
+    "SkirmishSettings": 402082255,
+    "DamageFX": 2905958645,
+    "DamageFXSettings": 75989905,
+    "GeneralHotKeySlots": 417176643,
+    "DefaultHotKeys": 3741098742,
+    "DebugHotKeys": 3359870461,
+    "MappableKey": 1350608344,
+    "AudioEventLimitGroup": 3906227957,
+    "AudioLOD": 299416263,
+    "AudioSettings": 1443425905,
+    "Video": 587347702,
+    "VideoEventList": 1447728787,
+    "MicrophoneSettings": 1826140078,
+    "BootupDisplaySequence": 3370391592,
+    "HotKeySlot": 2800139175,
+    "MouseCursor": 3784442503,
+    "BasicMouseCursors": 611271731,
+    "UIMouseDragSelectionFeedback": 611126373,
+    "UIFloatingTextDisplay": 1559937240,
+    "UIMessageDisplay": 1697313181,
+    "UIMilitaryCaptionDisplay": 1043989897,
+    "UISubtitleDisplay": 165611890,
+    "UITimerDisplay": 951036436,
+    "DynamicGameLOD": 2901356964,
+    "GameLODPreset": 354222972,
+    "StaticGameLOD": 531798225,
+    "UICoopTinting": 4243804314,
+    "RadiusCursor": 544776545,
+    "AnimationSoundSettings": 1302035577,
+    "MiscAudio": 2070603733,
+    "LargeGroupAudioMap": 534008255
   },
-  "expectedTypes": 52,
-  "expectedFixturesPerMode": 208,
-  "expectedComparisonsPerMode": 624,
+  "expectedTypes": 82,
+  "expectedFixturesPerMode": 328,
+  "expectedComparisonsPerMode": 984,
   "expectedCompletionFixturesPerMode": 40,
   "expectedCompletionComparisonsPerMode": 120,
   "platforms": [
@@ -74,9 +104,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 52,
-      "fixtures": 208,
-      "comparisons": 624,
+      "types": 82,
+      "fixtures": 328,
+      "comparisons": 984,
       "completionFixtures": 40,
       "completionComparisons": 120,
       "platforms": [
@@ -137,7 +167,37 @@
         "FormationSelectionTemplate": 4,
         "FormationAssistant": 4,
         "GameStatsModeData": 4,
-        "SkirmishSettings": 4
+        "SkirmishSettings": 4,
+        "DamageFX": 4,
+        "DamageFXSettings": 4,
+        "GeneralHotKeySlots": 4,
+        "DefaultHotKeys": 4,
+        "DebugHotKeys": 4,
+        "MappableKey": 4,
+        "AudioEventLimitGroup": 4,
+        "AudioLOD": 4,
+        "AudioSettings": 4,
+        "Video": 4,
+        "VideoEventList": 4,
+        "MicrophoneSettings": 4,
+        "BootupDisplaySequence": 4,
+        "HotKeySlot": 4,
+        "MouseCursor": 4,
+        "BasicMouseCursors": 4,
+        "UIMouseDragSelectionFeedback": 4,
+        "UIFloatingTextDisplay": 4,
+        "UIMessageDisplay": 4,
+        "UIMilitaryCaptionDisplay": 4,
+        "UISubtitleDisplay": 4,
+        "UITimerDisplay": 4,
+        "DynamicGameLOD": 4,
+        "GameLODPreset": 4,
+        "StaticGameLOD": 4,
+        "UICoopTinting": 4,
+        "RadiusCursor": 4,
+        "AnimationSoundSettings": 4,
+        "MiscAudio": 4,
+        "LargeGroupAudioMap": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -191,10 +251,40 @@
         "FormationSelectionTemplate": "Recovered.FormationSelectionTemplateCompiler",
         "FormationAssistant": "Recovered.FormationAssistantCompiler",
         "GameStatsModeData": "Recovered.GameStatsModeDataCompiler",
-        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler"
+        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler",
+        "DamageFX": "Recovered.DamageFXCompiler",
+        "DamageFXSettings": "Recovered.DamageFXSettingsCompiler",
+        "GeneralHotKeySlots": "Recovered.GeneralHotKeySlotsCompiler",
+        "DefaultHotKeys": "Recovered.DefaultHotKeysCompiler",
+        "DebugHotKeys": "Recovered.DebugHotKeysCompiler",
+        "MappableKey": "Recovered.MappableKeyCompiler",
+        "AudioEventLimitGroup": "Recovered.AudioEventLimitGroupCompiler",
+        "AudioLOD": "Recovered.AudioLODCompiler",
+        "AudioSettings": "Recovered.AudioSettingsCompiler",
+        "Video": "Recovered.VideoCompiler",
+        "VideoEventList": "Recovered.VideoEventListCompiler",
+        "MicrophoneSettings": "Recovered.MicrophoneSettingsCompiler",
+        "BootupDisplaySequence": "Recovered.BootupDisplaySequenceCompiler",
+        "HotKeySlot": "Recovered.HotKeySlotCompiler",
+        "MouseCursor": "Recovered.MouseCursorCompiler",
+        "BasicMouseCursors": "Recovered.BasicMouseCursorsCompiler",
+        "UIMouseDragSelectionFeedback": "Recovered.UIMouseDragSelectionFeedbackCompiler",
+        "UIFloatingTextDisplay": "Recovered.UIFloatingTextDisplayCompiler",
+        "UIMessageDisplay": "Recovered.UIMessageDisplayCompiler",
+        "UIMilitaryCaptionDisplay": "Recovered.UIMilitaryCaptionDisplayCompiler",
+        "UISubtitleDisplay": "Recovered.UISubtitleDisplayCompiler",
+        "UITimerDisplay": "Recovered.UITimerDisplayCompiler",
+        "DynamicGameLOD": "Recovered.DynamicGameLODCompiler",
+        "GameLODPreset": "Recovered.GameLODPresetCompiler",
+        "StaticGameLOD": "Recovered.StaticGameLODCompiler",
+        "UICoopTinting": "Recovered.UICoopTintingCompiler",
+        "RadiusCursor": "Recovered.RadiusCursorCompiler",
+        "AnimationSoundSettings": "Recovered.AnimationSoundSettingsCompiler",
+        "MiscAudio": "Recovered.MiscAudioCompiler",
+        "LargeGroupAudioMap": "Recovered.LargeGroupAudioMapCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "ddc8c97ba9d28c33ed622b0949e8061150535767139182cc61408f9a13ecadd7",
+      "linkedAssemblySha256": "502fa9bff282382745a2cba23cf01af6979d240a6524a41beb2cd33150ff02aa",
       "log": "Od-oracle.txt"
     },
     {
@@ -202,9 +292,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 52,
-      "fixtures": 208,
-      "comparisons": 624,
+      "types": 82,
+      "fixtures": 328,
+      "comparisons": 984,
       "completionFixtures": 40,
       "completionComparisons": 120,
       "platforms": [
@@ -265,7 +355,37 @@
         "FormationSelectionTemplate": 4,
         "FormationAssistant": 4,
         "GameStatsModeData": 4,
-        "SkirmishSettings": 4
+        "SkirmishSettings": 4,
+        "DamageFX": 4,
+        "DamageFXSettings": 4,
+        "GeneralHotKeySlots": 4,
+        "DefaultHotKeys": 4,
+        "DebugHotKeys": 4,
+        "MappableKey": 4,
+        "AudioEventLimitGroup": 4,
+        "AudioLOD": 4,
+        "AudioSettings": 4,
+        "Video": 4,
+        "VideoEventList": 4,
+        "MicrophoneSettings": 4,
+        "BootupDisplaySequence": 4,
+        "HotKeySlot": 4,
+        "MouseCursor": 4,
+        "BasicMouseCursors": 4,
+        "UIMouseDragSelectionFeedback": 4,
+        "UIFloatingTextDisplay": 4,
+        "UIMessageDisplay": 4,
+        "UIMilitaryCaptionDisplay": 4,
+        "UISubtitleDisplay": 4,
+        "UITimerDisplay": 4,
+        "DynamicGameLOD": 4,
+        "GameLODPreset": 4,
+        "StaticGameLOD": 4,
+        "UICoopTinting": 4,
+        "RadiusCursor": 4,
+        "AnimationSoundSettings": 4,
+        "MiscAudio": 4,
+        "LargeGroupAudioMap": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -319,10 +439,40 @@
         "FormationSelectionTemplate": "Recovered.FormationSelectionTemplateCompiler",
         "FormationAssistant": "Recovered.FormationAssistantCompiler",
         "GameStatsModeData": "Recovered.GameStatsModeDataCompiler",
-        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler"
+        "SkirmishSettings": "Recovered.SkirmishSettingsCompiler",
+        "DamageFX": "Recovered.DamageFXCompiler",
+        "DamageFXSettings": "Recovered.DamageFXSettingsCompiler",
+        "GeneralHotKeySlots": "Recovered.GeneralHotKeySlotsCompiler",
+        "DefaultHotKeys": "Recovered.DefaultHotKeysCompiler",
+        "DebugHotKeys": "Recovered.DebugHotKeysCompiler",
+        "MappableKey": "Recovered.MappableKeyCompiler",
+        "AudioEventLimitGroup": "Recovered.AudioEventLimitGroupCompiler",
+        "AudioLOD": "Recovered.AudioLODCompiler",
+        "AudioSettings": "Recovered.AudioSettingsCompiler",
+        "Video": "Recovered.VideoCompiler",
+        "VideoEventList": "Recovered.VideoEventListCompiler",
+        "MicrophoneSettings": "Recovered.MicrophoneSettingsCompiler",
+        "BootupDisplaySequence": "Recovered.BootupDisplaySequenceCompiler",
+        "HotKeySlot": "Recovered.HotKeySlotCompiler",
+        "MouseCursor": "Recovered.MouseCursorCompiler",
+        "BasicMouseCursors": "Recovered.BasicMouseCursorsCompiler",
+        "UIMouseDragSelectionFeedback": "Recovered.UIMouseDragSelectionFeedbackCompiler",
+        "UIFloatingTextDisplay": "Recovered.UIFloatingTextDisplayCompiler",
+        "UIMessageDisplay": "Recovered.UIMessageDisplayCompiler",
+        "UIMilitaryCaptionDisplay": "Recovered.UIMilitaryCaptionDisplayCompiler",
+        "UISubtitleDisplay": "Recovered.UISubtitleDisplayCompiler",
+        "UITimerDisplay": "Recovered.UITimerDisplayCompiler",
+        "DynamicGameLOD": "Recovered.DynamicGameLODCompiler",
+        "GameLODPreset": "Recovered.GameLODPresetCompiler",
+        "StaticGameLOD": "Recovered.StaticGameLODCompiler",
+        "UICoopTinting": "Recovered.UICoopTintingCompiler",
+        "RadiusCursor": "Recovered.RadiusCursorCompiler",
+        "AnimationSoundSettings": "Recovered.AnimationSoundSettingsCompiler",
+        "MiscAudio": "Recovered.MiscAudioCompiler",
+        "LargeGroupAudioMap": "Recovered.LargeGroupAudioMapCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "be8795829b24edbd8c815a14b9be03c5d597c9213cb243e72f028fad2682e23a",
+      "linkedAssemblySha256": "44a18962a85d6d56bb4334c9832f640e4727f0e24ba7c5b0744624955f5b2376",
       "log": "O2-oracle.txt"
     }
   ],
@@ -331,20 +481,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
-      "runId": "40095358086",
+      "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
+      "runId": "40098375480",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7",
-      "runId": "40095358086",
+      "sourceCommit": "a308823cc90964d57d3356425d2307905866a19a",
+      "runId": "40098375480",
       "processSucceeded": true
     }
   ],
-  "status": "All 52 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 82 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -380,6 +530,14 @@
       "sha256": "dd94b06bf059fcdc43f5dae3d2bbfd51b18ca3114e2df41bd4e4deba3450fd77"
     },
     {
+      "path": "recovery/src/Bridge/XmlaudioCompiler.cpp",
+      "sha256": "593904009ac7fd0a85e1b351481463129a7d0479d83818b532305e7b412de229"
+    },
+    {
+      "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp",
+      "sha256": "ddede2dbc9e1046e2024a256f2a5ba65b28322e2334ad04f531efbe7c04b9283"
+    },
+    {
       "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
       "sha256": "4bd1e7b7049922cb00f80c5689100f4b2f53dc1d623903aa793ebb3907b75446"
     },
@@ -390,6 +548,10 @@
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
       "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlhotkeymapsCompiler.cpp",
+      "sha256": "543e1de9336a713388db0e76df33eeb38dbc1b432aab1f82e7f0442f037450d2"
     },
     {
       "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
@@ -408,12 +570,28 @@
       "sha256": "79082202a9949eb86c304f7cfecf11f43e7af8faf5d4296b2dbededc29739c11"
     },
     {
+      "path": "recovery/src/Bridge/XmlsoundmapsCompiler.cpp",
+      "sha256": "47109fb73641c84083e388047efc2974984804471e64ea578a40fc08049af2e2"
+    },
+    {
+      "path": "recovery/src/Bridge/XmluisettingsCompiler.cpp",
+      "sha256": "f570598fe9e3392148c0219c86fd09a5ee626a3531426d6309cdea188514f80e"
+    },
+    {
       "path": "recovery/src/Native/Xmlai.cpp",
       "sha256": "fbe7ab6b597a4cf7b5952b6bbd47618417cde450b6bc5a1179d58713eb204254"
     },
     {
       "path": "recovery/src/Native/Xmlattributes.cpp",
       "sha256": "0862341ac4346d06e45a3026dc024474fe3ed7a6f8b31440b377f84c7363f3a4"
+    },
+    {
+      "path": "recovery/src/Native/Xmlaudio.cpp",
+      "sha256": "d435005c43bcc2623dca6d585c58c6048283013755010f9791d19bb508e752ff"
+    },
+    {
+      "path": "recovery/src/Native/Xmldamagefx.cpp",
+      "sha256": "03792378a05f3832df548d2f39cb37dcb8e0a23cfd4532e7818f4dd69e0958c1"
     },
     {
       "path": "recovery/src/Native/Xmleffects.cpp",
@@ -434,6 +612,10 @@
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
       "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
+    },
+    {
+      "path": "recovery/src/Native/Xmlhotkeymaps.cpp",
+      "sha256": "f09d260aca3a4e9aba8db9e3a415f30d57ea4aafa0ce052541e9bd1deaa7f977"
     },
     {
       "path": "recovery/src/Native/Xmllocomotor.cpp",
@@ -458,6 +640,14 @@
     {
       "path": "recovery/src/Native/XmlprogressionUi.cpp",
       "sha256": "3a2b458b495fda1c56c4088e46e57b7a5777baed550782d124067106a914b71b"
+    },
+    {
+      "path": "recovery/src/Native/Xmlsoundmaps.cpp",
+      "sha256": "c60e972a30b20ca7d0cbe706f1a1080bc12a1fd0332af1c3d2ac14605c046ffb"
+    },
+    {
+      "path": "recovery/src/Native/Xmluisettings.cpp",
+      "sha256": "8e4d31e86ea5ff37e79dba5eb373b29f264852bd354d1b26d8f95a610bfe7587"
     }
   ],
   "excludedDraftSources": [],

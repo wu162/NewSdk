@@ -1,0 +1,6 @@
+System.Exception: cursor index @4
+   at XmluisettingsOracle.Check(Boolean test, String label)
+   at XmluisettingsOracle.ExpectWord(AssetBuffer b, Int32 at, UInt32 value, Boolean big, String label)
+   at XmluisettingsOracle.Abi(TargetPlatform p)
+   at XmluisettingsOracle.Matrix(TargetPlatform p)
+   at XmluisettingsOracle.Main(String[] args)
