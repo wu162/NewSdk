@@ -694,3 +694,14 @@ RESUME已重写为当前入口；下一完整组为Body的其余七类型，GAME
 - 下一完整组四个声音/播报选择器仅源码调查：ExtractSoundSelectorEvidence.py、sound-selector-source-plan.json，12嵌套契约、8独立列表stride，生成及--check成功，不启用TypeId、不冒充DLL验证。见GAMEOBJECT_SOUND_SELECTORS.md。
 
 准确当前入口RESUME.md；Body文档已从计划更新为完成并修正literal精度；新增ClientUpdate和声音播放契约说明。最终交接提交只含文档及源证据调查，不改已验证运行源码或测试。
+
+
+## 2026-10-24：四完整能力组，93→112已验收
+
+本轮新增19种：TechUpgradeReceiver（1）、雷达/可见性/Capture（8）、直接开火/伤害跟踪（7）、LaserState/SweepingLaserState/StreamState（3）。Beacon/RadarMarker/LaserUpdate为此前已支持类型，不重复计数。最终源码5d4e332b53eb8492f7731cf7f388de55fdc7672e，GameObject run40051190340及基础run40051190379均success；validation.json/sourceCommit/runId、双模式oracle日志与终态已核对。每/Od、/O2：194088 fixtures、582264三缓冲区逐字节比较、10216拒绝、416不变性，平台0/1/2/99。两模式合计1164528次缓冲区比较。210已知Marshal继续明确拒绝；58 Token-only原fallback不变。SDK本轮0次，原路由与输入未改变；component artifact不等于完整GameObject插件或两份完整替代DLL。
+
+中间验收锚点：fa250611/run40048856796（Receiver）、7cd68875/run40049625447（Vision）、b57e5a5a/run40050646715（开火/跟踪）；最终回归包含全部。既有额外WeaponTemplate组件回归run40050646649 success。原字段/enum/Token/Endian生成器全部保留原blob/PE校验，正式CI没有使用本地exported-evidence检查模式。关键契约分别见四份GAMEOBJECT_*类型文档。
+
+源码调查首次11模块触发150依赖上限（run40049720082），收敛到完整直接开火/跟踪组后恢复，未放宽保护。新增点号类型、SinglePolymorphic/PolymorphicType及typed-pointer/typed-local callee证据导出支持。下一组Projectile/Dynamics/Freefall/EnableDynamicsCollide原97方法已导出，sourceCommit76ea42b0ab846d3f594887a72dfa1146aad28f58、run40051656143 success；含完整Movement分派/typed wrapper/具体Marshal与Dynamics Volume五类shape依赖，见GAMEOBJECT_MOTION_NEXT.md，尚未实现、尚未计支持。期间并发Actions提交均保留；ref lease变化先读新头重建树普通推送，没有强推。
+
+本轮按完整能力组统一矩阵，复用已验证公共实现及相同原方法证据，未重复触发SDK；没有可比账号计量，不量化额度节省。

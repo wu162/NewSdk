@@ -1,27 +1,38 @@
 # 编译器恢复：当前续接入口
 
-更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md及本文件；旧STATUS按需查，不全量加载。
+更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md和本文件；旧STATUS仅按需查，不全量加载历史。
 
-## 已验收109/322已知Marshal模块
+## 已验收112/322已知Marshal模块
 
-本轮依次完成TechUpgradeReceiver、八种雷达/可见性/Capture、七种直接开火/伤害跟踪。最新已验收源码b57e5a5a1d11ebd3004a6f0b6f0af4bb15c86057：GameObject run40050646715 success，基础run40050646652 success。每/Od、/O2：192100 fixtures、576300三缓冲区比较、10064拒绝、400不变性，平台0/1/2/99。终态及远端validation.json已核对。中间锚点Receiver fa250611/run40048856796；Vision 7cd68875/run40049625447。
+本轮由93增至112，新增19种，完成四个完整能力组：TechUpgradeReceiver（1）；雷达/可见性/Capture（8）；直接开火/伤害跟踪（7）；LaserState/SweepingLaserState/StreamState（3）。对应GAMEOBJECT_TECH_RECEIVER.md、GAMEOBJECT_VISION.md、GAMEOBJECT_WEAPON_BEHAVIORS.md、GAMEOBJECT_BEAM_STATES.md。原已支持的Beacon、RadarMarker、LaserUpdate不重复计数。
 
-全部既有回归保留；根范围88属性/38类子节点。213种已知Marshal仍拒绝，58 Token-only沿原未知Marshal回退。SDK本阶段0次；原路由保留，完整GameObject、两份完整替代DLL及正式GameObject插件未完成。
+最终有效源码 **5d4e332b53eb8492f7731cf7f388de55fdc7672e**：
+- GameObject run **40051190340** success；基础 run **40051190379** success。
+- 远端validation.json的sourceCommit/runId、两模式oracle日志和终态已核对。
+- 每/Od、/O2：**194088 fixtures、582264三缓冲区逐字节比较、10216拒绝、416不变性**；平台0/1/2/99。两模式合计1164528次缓冲区比较。
+- **210种已知Marshal仍明确拒绝**；58 Token-only沿原未知Marshal回退。全部既有Body、ClientUpdate、Upgrade、声音、生命周期、Die、AI等回归保留。
+- 根范围88属性/38类子节点；完整GameObject、两份完整替代DLL及正式GameObject插件未完成。component artifact仍是组件，不冒充完整替代DLL。
+- SDK本轮**0次**，原路由保留。没有改变SDK输入/路由；不重跑既有Weapon/Armor SDK。额外既有WeaponTemplate组件回归run40050646649亦success（源码b57e5a5a）。
 
-## 当前检查点：三种完整光束状态（待统一验证）
+中间成功锚点：Receiver fa250611/run40048856796；Vision 7cd68875/run40049625447；开火/跟踪b57e5a5a/run40050646715。最终矩阵包含全部中间组。
 
-LaserState、SweepingLaserState、StreamState及双强引用列表、EndOffset可空Vector3、完整ObjectStatusValidation已整组实现；原38方法、PE/字段/Token生成及所有新增测试已本地核对。GenerateBeamStateFields.py及GameObjectBeamState.h接入TestGameObject.ps1，提交触发原blob/PE校验与完整/Od、/O2四平台差分。未取得本批源码完整成功前不得计为112或声称运行支持。契约见GAMEOBJECT_BEAM_STATES.md。
+## 关键契约
 
-新增的Sweep父类调用顺序、强引用列表Endian及translations不能简化为弱ID；EndOffset Token指向数据pointee。失败集中修复后取最终矩阵，保留失败历史。
+- ReceiverDistanceType独立Token类型873624354；RadarDrawModule弱ID、两Angle；inline ObjectFilter@68；完整Upgrade父链和依赖分配顺序。
+- UnitVision UpdateRate是signed整数，SelectiveVisibility同名字段是可空Time；AllowedPlayers可空Relationship位集。UnifiedShroud Marshal与Token父层路径不同，不能压平Token。
+- FireWeaponNugget与EffectInfo各16字节；Nugget Offset Token直接bookmark可空Vector3数据。EffectInfo Fraction普通float，三个bool@12/13/14；Options最后Token。Color三个普通float不归一化。
+- LinearDamage Speed原5Hz逻辑帧时长0.2f：先atof转float，再double(float(0.2))*double(value)转float；原字段与初始化公式见constants-source.json。
+- LaserState粒子系统列表是强引用，Endian只交换count，不能按弱ID交换元素；Sweeping先自身强引用，再完整父层，保留额外父Token。
+- 各Generate*Fields.py在正式TestGameObject.ps1校验原blob/PE/方法/Token；本地--exported-evidence只是开发检查，CI没有使用它。
 
-源码调查工具ExportLifecycleMethods.py已支持带点号的FireWeaponNugget依赖；已保存5Hz逻辑帧常量、原PE enum表、每个方法SHA256。11模块调查曾触发150依赖上限（run40049720082），收敛为完整直接开火/跟踪组后完成，未放宽保护。
+## 下一完整组（尚未实现）
 
-## 关键路径及持续规则
+读 **GAMEOBJECT_MOTION_NEXT.md**：ProjectileUpdate、DynamicsUpdate、FreefallUpdate、EnableDynamicsCollide及全部Dynamics Volume/五类shape/Quaternion、Projectile Movement多态依赖。均仍在拒绝清单。原方法及PE枚举位于evidence/gameobject-modules/motion-source，按manifest精确签名定位，不沿用旧文件编号。
 
-原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；对应evidence/gameobject-modules/*-source/manifest.json存精确签名、行号与SHA256。各Generate*Fields.py接入TestGameObject.ps1，原DLL逐字节差分、独立布局/Token/sentinel/拒绝矩阵保留。
+调查已发现：Projectile Movement必须跟到ProjectileMoveBase**真正dispatch和四种Movement实现；SinglePolymorphic wrapper恰一子元素才调用dispatch。Exporter已补SinglePolymorphic/PolymorphicType调用、typed-pointer dispatch及通过wrapper局部变量调用的具体方法。下一组原97方法已完整导出：源码76ea42b0ab846d3f594887a72dfa1146aad28f58、run40051656143 success；含三个有字段Movement具体Marshal、四种typed wrapper及typed-pointer分派。此目录是源码证据，未计运行支持；续接核对manifest后整组实现，不把最简单两标量类型拆成小批矩阵。
 
-默认单代理，约45分钟有效实现阶段；完整能力组实现后统一验收，中断检查点每约10–15分钟普通推送。不能用空等、重复读取、反复运行凑时长；不强推、不新建无必要分支。并发Actions会写证据，更新ref前读新头重建树，保留所有并发内容。
+## 持续规则
 
-SDK跨阶段累计降频；组件成功不冒充集成。适用XSD、同输入原/恢复、真实调用、四产物及适用无原DLL重放门槛不降低。本轮未改变SDK路由与输入，不重跑既有Weapon/Armor SDK。
+默认单代理，约45分钟有效实现阶段；每约10–15分钟普通推送有意义检查点，未验证不标完成。整组实现及测试准备好后统一受影响完整矩阵；不空等、重复调查或重复相同输入运行凑时长；不强推，不新建无必要分支。并发Actions会写证据，更新ref前读新头重建树保留其内容。
 
-Git命令行无凭据，使用GitHub插件。大原文件按ExportLifecycleMethods.py+sound-selector-source.yml导出有界方法；fetch_file对巨大原文件行范围本环境返回空，不能把空结果当无实现。原证据相同可按signature/bodySha复用，仅下载新增方法；不重复全量导出下载。
+Git命令行本环境无凭据，使用GitHub插件。巨大原文件fetch_file行范围本环境返回空，使用ExportLifecycleMethods.py+sound-selector-source.yml有界导出；按signature/bodySha复用相同原方法。调查曾触发150依赖保护（run40049720082），随后收敛完整能力组，未放宽保护。SDK跨阶段累计降频；正式启用前XSD、同输入原/恢复、真实调用、四产物及适用无原DLL重放门槛不降低。

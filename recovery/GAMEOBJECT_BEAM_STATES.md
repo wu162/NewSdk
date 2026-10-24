@@ -1,4 +1,6 @@
-# LaserState / SweepingLaserState / StreamState（验证中）
+# LaserState / SweepingLaserState / StreamState（已验收）
+
+已验收源码5d4e332b53eb8492f7731cf7f388de55fdc7672e；GameObject run40051190340与基础run40051190379均success。每/Od、/O2：194088 fixtures、582264三缓冲区比较、10216拒绝、416不变性，平台0/1/2/99；终态、validation.json/sourceCommit及双模式日志已核对。SDK0次。
 
 三种完整模块；固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619。38方法精确签名/行号/SHA256见evidence/gameobject-modules/beam-state-source/manifest.json；GenerateBeamStateFields.py核对原blob、所有方法、字段/fallback、原PE ObjectStatus表和完整Token/强引用列表helper/sentinel，接入TestGameObject.ps1。未取得本批源码成功前不计入支持。
 
