@@ -1,0 +1,1049 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "LocomotorTemplate",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040",
+      "sourceLine": 6950,
+      "type": "_0024ArrayType_0024_0024_0024BY00_0024_0024CBD",
+      "hex": "00",
+      "text": ""
+    },
+    {
+      "symbol": "_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040",
+      "sourceLine": 6724,
+      "type": "_0024ArrayType_0024_0024_0024BY01_0024_0024CBD",
+      "hex": "3000",
+      "text": "0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040",
+      "sourceLine": 7056,
+      "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+      "hex": "307300",
+      "text": "0s"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_02CDEDDNCG_00402s_003F_0024AA_0040",
+      "sourceLine": 7060,
+      "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+      "hex": "327300",
+      "text": "2s"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_02CFEEGNNO_00400d_003F_0024AA_0040",
+      "sourceLine": 7686,
+      "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+      "hex": "306400",
+      "text": "0d"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_02MMCGBDJK_00400_003F_0024CF_003F_0024AA_0040",
+      "sourceLine": 7610,
+      "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+      "hex": "302500",
+      "text": "0%"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_02PJNFELNH_004030_003F_0024AA_0040",
+      "sourceLine": 7316,
+      "type": "_0024ArrayType_0024_0024_0024BY02_0024_0024CBD",
+      "hex": "333000",
+      "text": "30"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03BCMHDOBC_00400_003F49_003F_0024AA_0040",
+      "sourceLine": 7698,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "302e3900",
+      "text": "0.9"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03HJBEBHGH_004075_003F_0024CF_003F_0024AA_0040",
+      "sourceLine": 7748,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "37352500",
+      "text": "75%"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040",
+      "sourceLine": 6986,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "312e3000",
+      "text": "1.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03LFBNDGPP_004015d_003F_0024AA_0040",
+      "sourceLine": 7628,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "31356400",
+      "text": "15d"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03LOHCHBBO_00400_003F45_003F_0024AA_0040",
+      "sourceLine": 7676,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "302e3500",
+      "text": "0.5"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03MDAFIFFL_00400_003F40_003F_0024AA_0040",
+      "sourceLine": 6732,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "302e3000",
+      "text": "0.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_03NKBOLEBK_00400_003F41_003F_0024AA_0040",
+      "sourceLine": 7692,
+      "type": "_0024ArrayType_0024_0024_0024BY03_0024_0024CBD",
+      "hex": "302e3100",
+      "text": "0.1"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04CPOGCGPK_0040360d_003F_0024AA_0040",
+      "sourceLine": 7682,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "3336306400",
+      "text": "360d"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04GMHNCNMN_00400_003F407_003F_0024AA_0040",
+      "sourceLine": 7802,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "302e303700",
+      "text": "0.07"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04JJCPFEAC_0040100_003F_0024CF_003F_0024AA_0040",
+      "sourceLine": 7278,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "3130302500",
+      "text": "100%"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04KFIOCBIK_0040_003F91_003F40_003F_0024AA_0040",
+      "sourceLine": 7640,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "2d312e3000",
+      "text": "-1.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04LFPJACKJ_0040180d_003F_0024AA_0040",
+      "sourceLine": 7632,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "3138306400",
+      "text": "180d"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04LICCDMGM_004010_003F40_003F_0024AA_0040",
+      "sourceLine": 7654,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "31302e3000",
+      "text": "10.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040",
+      "sourceLine": 2504,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "7472756500",
+      "text": "true"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04LPMINNBM_00403_003F40s_003F_0024AA_0040",
+      "sourceLine": 7858,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "332e307300",
+      "text": "3.0s"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04MFAIIOHM_00401_003F40s_003F_0024AA_0040",
+      "sourceLine": 7614,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "312e307300",
+      "text": "1.0s"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04MIFMLGIO_004025_003F40_003F_0024AA_0040",
+      "sourceLine": 7836,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "32352e3000",
+      "text": "25.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04OFPJAOED_0040Lift_003F_0024AA_0040",
+      "sourceLine": 7638,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "4c69667400",
+      "text": "Lift"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_04PNOLCDFK_00400_003F40d_003F_0024AA_0040",
+      "sourceLine": 7760,
+      "type": "_0024ArrayType_0024_0024_0024BY04_0024_0024CBD",
+      "hex": "302e306400",
+      "text": "0.0d"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_05BBNAKBKL_00401e_003F_0024CL37_003F_0024AA_0040",
+      "sourceLine": 7710,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "31652b333700",
+      "text": "1e+37"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_05BEJNLAJF_00400_003F4003_003F_0024AA_0040",
+      "sourceLine": 7806,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "302e30303300",
+      "text": "0.003"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040",
+      "sourceLine": 2502,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "66616c736500",
+      "text": "false"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_05LLBAOFME_0040200_003F40_003F_0024AA_0040",
+      "sourceLine": 7476,
+      "type": "_0024ArrayType_0024_0024_0024BY05_0024_0024CBD",
+      "hex": "3230302e3000",
+      "text": "200.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_07EOFPODGE_0040_003F91000_003F40_003F_0024AA_0040",
+      "sourceLine": 7852,
+      "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+      "hex": "2d313030302e3000",
+      "text": "-1000.0"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_07NLIIHGGK_0040MELEE_1_003F_0024AA_0040",
+      "sourceLine": 4336,
+      "type": "_0024ArrayType_0024_0024_0024BY07_0024_0024CBD",
+      "hex": "4d454c45455f3100",
+      "text": "MELEE_1"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_08BCLLLJOG_0040MinSpeed_003F_0024AA_0040",
+      "sourceLine": 7612,
+      "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+      "hex": "4d696e537065656400",
+      "text": "MinSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_08NEAMABLN_0040Surfaces_003F_0024AA_0040",
+      "sourceLine": 7602,
+      "type": "_0024ArrayType_0024_0024_0024BY08_0024_0024CBD",
+      "hex": "537572666163657300",
+      "text": "Surfaces"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_09IDDMGNPF_0040BehaviorZ_003F_0024AA_0040",
+      "sourceLine": 7662,
+      "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+      "hex": "4265686176696f725a00",
+      "text": "BehaviorZ"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040CNOLKJGA_0040CloseEnoughDist_003F_0024AA_0040",
+      "sourceLine": 7728,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "436c6f7365456e6f7567684469737400",
+      "text": "CloseEnoughDist"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040DJLGGHFI_0040AccelPitchLimit_003F_0024AA_0040",
+      "sourceLine": 7688,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "416363656c50697463684c696d697400",
+      "text": "AccelPitchLimit"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040GFGAGFAK_0040PreferredHeight_003F_0024AA_0040",
+      "sourceLine": 7648,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "50726566657272656448656967687400",
+      "text": "PreferredHeight"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040IDILHLEJ_0040CanMoveBackward_003F_0024AA_0040",
+      "sourceLine": 7744,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "43616e4d6f76654261636b7761726400",
+      "text": "CanMoveBackward"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040IEMPPCGI_0040TurnPivotOffset_003F_0024AA_0040",
+      "sourceLine": 7724,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "5475726e5069766f744f666673657400",
+      "text": "TurnPivotOffset"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040JAHMHDKB_0040TurnThresholdHS_003F_0024AA_0040",
+      "sourceLine": 7634,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "5475726e5468726573686f6c64485300",
+      "text": "TurnThresholdHS"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040KKMAKHLH_0040ResubmergeDelay_003F_0024AA_0040",
+      "sourceLine": 7860,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "52657375626d6572676544656c617900",
+      "text": "ResubmergeDelay"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040MIBGCMNK_0040NO_MOTIVE_FORCE_003F_0024AA_0040",
+      "sourceLine": 4308,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "4e4f5f4d4f544956455f464f52434500",
+      "text": "NO_MOTIVE_FORCE"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040MMNEBLIL_0040ChargeAvailable_003F_0024AA_0040",
+      "sourceLine": 7778,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "436861726765417661696c61626c6500",
+      "text": "ChargeAvailable"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040NGKNCNOK_0040PitchByZVelCoef_003F_0024AA_0040",
+      "sourceLine": 7704,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "506974636842795a56656c436f656600",
+      "text": "PitchByZVelCoef"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040OEPKLEHL_0040TurnTimeSeconds_003F_0024AA_0040",
+      "sourceLine": 7616,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "5475726e54696d655365636f6e647300",
+      "text": "TurnTimeSeconds"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040OIBJGNDB_0040MaxSpeedDamaged_003F_0024AA_0040",
+      "sourceLine": 7608,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "4d6178537065656444616d6167656400",
+      "text": "MaxSpeedDamaged"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BA_0040OMIONNNJ_0040TurnWhileMoving_003F_0024AA_0040",
+      "sourceLine": 7826,
+      "type": "_0024ArrayType_0024_0024_0024BY0BA_0040_0024_0024CBD",
+      "hex": "5475726e5768696c654d6f76696e6700",
+      "text": "TurnWhileMoving"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BB_0040EJGHOMJ_0040ReverseMoveSpeed_003F_0024AA_0040",
+      "sourceLine": 7750,
+      "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+      "hex": "526576657273654d6f7665537065656400",
+      "text": "ReverseMoveSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BB_0040GLEPMPKE_0040EasingPercentage_003F_0024AA_0040",
+      "sourceLine": 7844,
+      "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+      "hex": "456173696e6750657263656e7461676500",
+      "text": "EasingPercentage"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BB_0040MIJIMAGO_0040WaitForFormation_003F_0024AA_0040",
+      "sourceLine": 7784,
+      "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+      "hex": "57616974466f72466f726d6174696f6e00",
+      "text": "WaitForFormation"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BB_0040PNFHNEJM_0040JetLocomotorData_003F_0024AA_0040",
+      "sourceLine": 388,
+      "type": "_0024ArrayType_0024_0024_0024BY0BB_0040_0024_0024CBD",
+      "hex": "4a65744c6f636f6d6f746f724461746100",
+      "text": "JetLocomotorData"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BC_0040IPPJFOKE_0040WanderWidthFactor_003F_0024AA_0040",
+      "sourceLine": 7766,
+      "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+      "hex": "57616e6465725769647468466163746f7200",
+      "text": "WanderWidthFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BC_0040LOHACLMH_0040FormationPriority_003F_0024AA_0040",
+      "sourceLine": 7666,
+      "type": "_0024ArrayType_0024_0024_0024BY0BC_0040_0024_0024CBD",
+      "hex": "466f726d6174696f6e5072696f7269747900",
+      "text": "FormationPriority"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BD_0040BEDDHPHL_0040WanderLengthFactor_003F_0024AA_0040",
+      "sourceLine": 7768,
+      "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+      "hex": "57616e6465724c656e677468466163746f7200",
+      "text": "WanderLengthFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BD_0040GPHCAKOC_0040ActiveObjectStatus_003F_0024AA_0040",
+      "sourceLine": 7670,
+      "type": "_0024ArrayType_0024_0024_0024BY0BD_0040_0024_0024CBD",
+      "hex": "4163746976654f626a65637453746174757300",
+      "text": "ActiveObjectStatus"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040BEGEFKN_0040MaxOverlappedHeight_003F_0024AA_0040",
+      "sourceLine": 7712,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "4d61784f7665726c617070656448656967687400",
+      "text": "MaxOverlappedHeight"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040BGODKDBE_0040UniformAxialDamping_003F_0024AA_0040",
+      "sourceLine": 7722,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "556e69666f726d417869616c44616d70696e6700",
+      "text": "UniformAxialDamping"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040EPJDJLGK_0040SwoopStandoffRadius_003F_0024AA_0040",
+      "sourceLine": 7798,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "53776f6f705374616e646f666652616469757300",
+      "text": "SwoopStandoffRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040FEFMAPJK_0040SwoopStandoffHeight_003F_0024AA_0040",
+      "sourceLine": 7800,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "53776f6f705374616e646f666648656967687400",
+      "text": "SwoopStandoffHeight"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040GKFPEIBI_0040AccelerationSeconds_003F_0024AA_0040",
+      "sourceLine": 7636,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "416363656c65726174696f6e5365636f6e647300",
+      "text": "AccelerationSeconds"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040GNNLCHF_0040IsCloseEnoughDist3D_003F_0024AA_0040",
+      "sourceLine": 7730,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "4973436c6f7365456e6f75676844697374334400",
+      "text": "IsCloseEnoughDist3D"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BE_0040PBMHELDD_0040UseTerrainSmoothing_003F_0024AA_0040",
+      "sourceLine": 7764,
+      "type": "_0024ArrayType_0024_0024_0024BY0BE_0040_0024_0024CBD",
+      "hex": "5573655465727261696e536d6f6f7468696e6700",
+      "text": "UseTerrainSmoothing"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040BOBIBLDE_0040BounceKickTerrainMap_003F_0024AA_0040",
+      "sourceLine": 7868,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "426f756e63654b69636b5465727261696e4d617000",
+      "text": "BounceKickTerrainMap"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040BPONBLPJ_0040RudderCorrectionRate_003F_0024AA_0040",
+      "sourceLine": 7788,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "527564646572436f7272656374696f6e5261746500",
+      "text": "RudderCorrectionRate"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040DKMEEBJK_0040BurniningDeathRadius_003F_0024AA_0040",
+      "sourceLine": 7772,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "4275726e696e696e67446561746852616469757300",
+      "text": "BurniningDeathRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040IKLCGJFH_0040BackingUpDistanceMax_003F_0024AA_0040",
+      "sourceLine": 7818,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "4261636b696e67557044697374616e63654d617800",
+      "text": "BackingUpDistanceMax"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040ILILAMFI_0040MaxTurnWithoutReform_003F_0024AA_0040",
+      "sourceLine": 7684,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "4d61785475726e576974686f75745265666f726d00",
+      "text": "MaxTurnWithoutReform"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BF_0040JIDJINDI_0040BackingUpDistanceMin_003F_0024AA_0040",
+      "sourceLine": 7816,
+      "type": "_0024ArrayType_0024_0024_0024BY0BF_0040_0024_0024CBD",
+      "hex": "4261636b696e67557044697374616e63654d696e00",
+      "text": "BackingUpDistanceMin"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040BKONAJOG_0040SwoopTerminalVelocity_003F_0024AA_0040",
+      "sourceLine": 7804,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "53776f6f705465726d696e616c56656c6f6369747900",
+      "text": "SwoopTerminalVelocity"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040BMLHOBFE_0040ForbiddenObjectStatus_003F_0024AA_0040",
+      "sourceLine": 7866,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "466f7262696464656e4f626a65637453746174757300",
+      "text": "ForbiddenObjectStatus"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040CADINOC_0040AeleronCorrectionRate_003F_0024AA_0040",
+      "sourceLine": 7796,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "41656c65726f6e436f7272656374696f6e5261746500",
+      "text": "AeleronCorrectionRate"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040CDNCOMEK_0040MaximumWheelExtension_003F_0024AA_0040",
+      "sourceLine": 7756,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "4d6178696d756d576865656c457874656e73696f6e00",
+      "text": "MaximumWheelExtension"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040HEIKODND_0040SwoopAccelerationRate_003F_0024AA_0040",
+      "sourceLine": 7808,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "53776f6f70416363656c65726174696f6e5261746500",
+      "text": "SwoopAccelerationRate"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040IEPIKBMI_0040MakeTransformNonDirty_003F_0024AA_0040",
+      "sourceLine": 7606,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "4d616b655472616e73666f726d4e6f6e446972747900",
+      "text": "MakeTransformNonDirty"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040MKHAJDCC_0040PreferredAttackHeight_003F_0024AA_0040",
+      "sourceLine": 7650,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "50726566657272656441747461636b48656967687400",
+      "text": "PreferredAttackHeight"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BG_0040OMKIBBMF_0040ActiveModelConditions_003F_0024AA_0040",
+      "sourceLine": 7668,
+      "type": "_0024ArrayType_0024_0024_0024BY0BG_0040_0024_0024CBD",
+      "hex": "4163746976654d6f64656c436f6e646974696f6e7300",
+      "text": "ActiveModelConditions"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040CNPIFOBI_0040ElevatorCorrectionRate_003F_0024AA_0040",
+      "sourceLine": 7792,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "456c657661746f72436f7272656374696f6e5261746500",
+      "text": "ElevatorCorrectionRate"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040EBHIHBFJ_0040BrakeBeforeReorienting_003F_0024AA_0040",
+      "sourceLine": 7832,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "4272616b654265666f726552656f7269656e74696e6700",
+      "text": "BrakeBeforeReorienting"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040FMGDBBMA_0040SwoopSpeedTuningFactor_003F_0024AA_0040",
+      "sourceLine": 7810,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "53776f6f70537065656454756e696e67466163746f7200",
+      "text": "SwoopSpeedTuningFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040GJLBPLAF_0040TakeOffAndLandingSpeed_003F_0024AA_0040",
+      "sourceLine": 7834,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "54616b654f6666416e644c616e64696e67537065656400",
+      "text": "TakeOffAndLandingSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040GMJMHDEK_0040RudderCorrectionDegree_003F_0024AA_0040",
+      "sourceLine": 7786,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "527564646572436f7272656374696f6e44656772656500",
+      "text": "RudderCorrectionDegree"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040IKPGGFBF_0040PreferredHeightDamping_003F_0024AA_0040",
+      "sourceLine": 7652,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "50726566657272656448656967687444616d70696e6700",
+      "text": "PreferredHeightDamping"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040JPFOLEGM_0040ReorientIfTurnTooSharp_003F_0024AA_0040",
+      "sourceLine": 7830,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "52656f7269656e7449665475726e546f6f536861727000",
+      "text": "ReorientIfTurnTooSharp"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040KDBNCGLN_0040SpeedBasedHeightOffset_003F_0024AA_0040",
+      "sourceLine": 7856,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "537065656442617365644865696768744f666673657400",
+      "text": "SpeedBasedHeightOffset"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040KFFDLKKD_0040WaterToAirTransitionFX_003F_0024AA_0040",
+      "sourceLine": 7862,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "5761746572546f4169725472616e736974696f6e465800",
+      "text": "WaterToAirTransitionFX"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040LKILDCDE_0040TurnTimeDamagedSeconds_003F_0024AA_0040",
+      "sourceLine": 7618,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "5475726e54696d6544616d616765645365636f6e647300",
+      "text": "TurnTimeDamagedSeconds"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040MELENPOE_0040LocomotorWorksWhenDead_003F_0024AA_0040",
+      "sourceLine": 7734,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "4c6f636f6d6f746f72576f726b735768656e4465616400",
+      "text": "LocomotorWorksWhenDead"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040MPPGEEEP_0040ChargeIgnoresCondition_003F_0024AA_0040",
+      "sourceLine": 7780,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "43686172676549676e6f726573436f6e646974696f6e00",
+      "text": "ChargeIgnoresCondition"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BH_0040OBGMMKNF_0040WanderAboutPointRadius_003F_0024AA_0040",
+      "sourceLine": 7770,
+      "type": "_0024ArrayType_0024_0024_0024BY0BH_0040_0024_0024CBD",
+      "hex": "57616e64657241626f7574506f696e7452616469757300",
+      "text": "WanderAboutPointRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040BBDHAFHM_0040AirborneTargetingHeight_003F_0024AA_0040",
+      "sourceLine": 7726,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "416972626f726e65546172676574696e6748656967687400",
+      "text": "AirborneTargetingHeight"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040DGNCJKLO_0040EnteringModelConditions_003F_0024AA_0040",
+      "sourceLine": 7672,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "456e746572696e674d6f64656c436f6e646974696f6e7300",
+      "text": "EnteringModelConditions"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040FMAHPAEH_0040BurniningDeathIsCavalry_003F_0024AA_0040",
+      "sourceLine": 7774,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "4275726e696e696e6744656174684973436176616c727900",
+      "text": "BurniningDeathIsCavalry"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040IKAKNIAB_0040AttackPathTrailDistance_003F_0024AA_0040",
+      "sourceLine": 7846,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "41747461636b50617468547261696c44697374616e636500",
+      "text": "AttackPathTrailDistance"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040NMMGJDEP_0040AeleronCorrectionDegree_003F_0024AA_0040",
+      "sourceLine": 7794,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "41656c65726f6e436f7272656374696f6e44656772656500",
+      "text": "AeleronCorrectionDegree"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040OPDNMOHJ_0040EasingTakeOffAndLanding_003F_0024AA_0040",
+      "sourceLine": 7842,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "456173696e6754616b654f6666416e644c616e64696e6700",
+      "text": "EasingTakeOffAndLanding"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BI_0040PLFDNHNJ_0040MaximumWheelCompression_003F_0024AA_0040",
+      "sourceLine": 7758,
+      "type": "_0024ArrayType_0024_0024_0024BY0BI_0040_0024_0024CBD",
+      "hex": "4d6178696d756d576865656c436f6d7072657373696f6e00",
+      "text": "MaximumWheelCompression"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040CAMDOBKG_0040BackingUpStopWhenTurning_003F_0024AA_0040",
+      "sourceLine": 7814,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "4261636b696e67557053746f705768656e5475726e696e6700",
+      "text": "BackingUpStopWhenTurning"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040CNEPDGON_0040ElevatorCorrectionDegree_003F_0024AA_0040",
+      "sourceLine": 7790,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "456c657661746f72436f7272656374696f6e44656772656500",
+      "text": "ElevatorCorrectionDegree"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040MDKHOFEC_0040MinRandomTurnRadiusScale_003F_0024AA_0040",
+      "sourceLine": 7624,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "4d696e52616e646f6d5475726e5261646975735363616c6500",
+      "text": "MinRandomTurnRadiusScale"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040MPKKPLBB_0040WaterSurfaceHeightOffset_003F_0024AA_0040",
+      "sourceLine": 7864,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "5761746572537572666163654865696768744f666673657400",
+      "text": "WaterSurfaceHeightOffset"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040ONGLLPAJ_0040EnableHighSpeedTurnFlags_003F_0024AA_0040",
+      "sourceLine": 7782,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "456e61626c654869676853706565645475726e466c61677300",
+      "text": "EnableHighSpeedTurnFlags"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BJ_0040PNBCCNMK_0040MaxRandomTurnRadiusScale_003F_0024AA_0040",
+      "sourceLine": 7626,
+      "type": "_0024ArrayType_0024_0024_0024BY0BJ_0040_0024_0024CBD",
+      "hex": "4d617852616e646f6d5475726e5261646975735363616c6500",
+      "text": "MaxRandomTurnRadiusScale"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BK_0040EMKIOIFO_0040LateralVelocityRollFactor_003F_0024AA_0040",
+      "sourceLine": 7716,
+      "type": "_0024ArrayType_0024_0024_0024BY0BK_0040_0024_0024CBD",
+      "hex": "4c61746572616c56656c6f63697479526f6c6c466163746f7200",
+      "text": "LateralVelocityRollFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BL_0040OONMHGLL_0040ForwardVelocityPitchFactor_003F_0024AA_0040",
+      "sourceLine": 7714,
+      "type": "_0024ArrayType_0024_0024_0024BY0BL_0040_0024_0024CBD",
+      "hex": "466f727761726456656c6f636974795069746368466163746f7200",
+      "text": "ForwardVelocityPitchFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BM_0040BONMCJNK_0040UpdateWaterWadingConditions_003F_0024AA_0040",
+      "sourceLine": 7752,
+      "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+      "hex": "5570646174655761746572576164696e67436f6e646974696f6e7300",
+      "text": "UpdateWaterWadingConditions"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BM_0040KCKFCAJI_0040EnteringModelConditionsTime_003F_0024AA_0040",
+      "sourceLine": 7674,
+      "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+      "hex": "456e746572696e674d6f64656c436f6e646974696f6e7354696d6500",
+      "text": "EnteringModelConditionsTime"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BM_0040OGFNFPFP_0040AbsoluteMinHeightWorldSpace_003F_0024AA_0040",
+      "sourceLine": 7854,
+      "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+      "hex": "4162736f6c7574654d696e486569676874576f726c64537061636500",
+      "text": "AbsoluteMinHeightWorldSpace"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BM_0040PDALHJHD_0040Apply2DFrictionWhenAirborne_003F_0024AA_0040",
+      "sourceLine": 7738,
+      "type": "_0024ArrayType_0024_0024_0024BY0BM_0040_0024_0024CBD",
+      "hex": "4170706c7932444672696374696f6e5768656e416972626f726e6500",
+      "text": "Apply2DFrictionWhenAirborne"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BO_0040CHKJHFMJ_0040ClampOrientationToPathTangent_003F_0024AA_0040",
+      "sourceLine": 7828,
+      "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+      "hex": "436c616d704f7269656e746174696f6e546f5061746854616e67656e7400",
+      "text": "ClampOrientationToPathTangent"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BO_0040COOMMAMH_0040LateralAccelerationRollFactor_003F_0024AA_0040",
+      "sourceLine": 7720,
+      "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+      "hex": "4c61746572616c416363656c65726174696f6e526f6c6c466163746f7200",
+      "text": "LateralAccelerationRollFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BO_0040EBEMKALK_0040AllowMotiveForceWhileAirborne_003F_0024AA_0040",
+      "sourceLine": 7736,
+      "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+      "hex": "416c6c6f774d6f74697665466f7263655768696c65416972626f726e6500",
+      "text": "AllowMotiveForceWhileAirborne"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BO_0040MNDBFAFE_0040TakeOffAndLandingSlowDownTime_003F_0024AA_0040",
+      "sourceLine": 7840,
+      "type": "_0024ArrayType_0024_0024_0024BY0BO_0040_0024_0024CBD",
+      "hex": "54616b654f6666416e644c616e64696e67536c6f77446f776e54696d6500",
+      "text": "TakeOffAndLandingSlowDownTime"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BP_0040HDFDLPOD_0040TakeOffAndLandingSlowDownDelta_003F_0024AA_0040",
+      "sourceLine": 7838,
+      "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+      "hex": "54616b654f6666416e644c616e64696e67536c6f77446f776e44656c746100",
+      "text": "TakeOffAndLandingSlowDownDelta"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BP_0040MCPDNDKJ_0040PreferredHeightPitchingEpsilon_003F_0024AA_0040",
+      "sourceLine": 7656,
+      "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+      "hex": "5072656665727265644865696768745069746368696e67457073696c6f6e00",
+      "text": "PreferredHeightPitchingEpsilon"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0BP_0040NGBOBMCN_0040ForwardAccelerationPitchFactor_003F_0024AA_0040",
+      "sourceLine": 7718,
+      "type": "_0024ArrayType_0024_0024_0024BY0BP_0040_0024_0024CBD",
+      "hex": "466f7277617264416363656c65726174696f6e5069746368466163746f7200",
+      "text": "ForwardAccelerationPitchFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0CA_0040GMAFFGNE_0040AttackPathTrailDistanceMaxScale_003F_0024AA_0040",
+      "sourceLine": 7850,
+      "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+      "hex": "41747461636b50617468547261696c44697374616e63654d61785363616c6500",
+      "text": "AttackPathTrailDistanceMaxScale"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0CA_0040LKBNIOL_0040DontNegateDeceleratePitchFactor_003F_0024AA_0040",
+      "sourceLine": 7732,
+      "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+      "hex": "446f6e744e6567617465446563656c65726174655069746368466163746f7200",
+      "text": "DontNegateDeceleratePitchFactor"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0CA_0040LLOOOEJF_0040AttackPathTrailDistanceMinScale_003F_0024AA_0040",
+      "sourceLine": 7848,
+      "type": "_0024ArrayType_0024_0024_0024BY0CA_0040_0024_0024CBD",
+      "hex": "41747461636b50617468547261696c44697374616e63654d696e5363616c6500",
+      "text": "AttackPathTrailDistanceMinScale"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040CBHFLIG_0040BounceKick_003F_0024AA_0040",
+      "sourceLine": 7690,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "426f756e63654b69636b00",
+      "text": "BounceKick"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040FLMELPGD_0040Appearance_003F_0024AA_0040",
+      "sourceLine": 7664,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "417070656172616e636500",
+      "text": "Appearance"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0L_0040NOBJLICO_0040YawDamping_003F_0024AA_0040",
+      "sourceLine": 7708,
+      "type": "_0024ArrayType_0024_0024_0024BY0L_0040_0024_0024CBD",
+      "hex": "59617744616d70696e6700",
+      "text": "YawDamping"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0M_0040EAONFJAC_0040FOUR_WHEELS_003F_0024AA_0040",
+      "sourceLine": 4352,
+      "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+      "hex": "464f55525f574845454c5300",
+      "text": "FOUR_WHEELS"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0M_0040EGPGAOLK_0040ScalesWalls_003F_0024AA_0040",
+      "sourceLine": 7824,
+      "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+      "hex": "5363616c657357616c6c7300",
+      "text": "ScalesWalls"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0M_0040FLPNNHN_0040RollDamping_003F_0024AA_0040",
+      "sourceLine": 7702,
+      "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+      "hex": "526f6c6c44616d70696e6700",
+      "text": "RollDamping"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0M_0040JCDOCMFP_0040LiftDamaged_003F_0024AA_0040",
+      "sourceLine": 7642,
+      "type": "_0024ArrayType_0024_0024_0024BY0M_0040_0024_0024CBD",
+      "hex": "4c69667444616d6167656400",
+      "text": "LiftDamaged"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040DMBPLBOF_0040PitchDamping_003F_0024AA_0040",
+      "sourceLine": 7700,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "506974636844616d70696e6700",
+      "text": "PitchDamping"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040GECGFAEI_0040YawStiffness_003F_0024AA_0040",
+      "sourceLine": 7706,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "59617753746966666e65737300",
+      "text": "YawStiffness"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040GIBFALOH_0040WalkDistance_003F_0024AA_0040",
+      "sourceLine": 7680,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "57616c6b44697374616e636500",
+      "text": "WalkDistance"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040GKBLAMEF_0040DownhillOnly_003F_0024AA_0040",
+      "sourceLine": 7740,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "446f776e68696c6c4f6e6c7900",
+      "text": "DownhillOnly"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040LCPJJIDN_0040MinTurnSpeed_003F_0024AA_0040",
+      "sourceLine": 7646,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "4d696e5475726e537065656400",
+      "text": "MinTurnSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040BKLJGHAM_0040TurnThreshold_003F_0024AA_0040",
+      "sourceLine": 7630,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "5475726e5468726573686f6c6400",
+      "text": "TurnThreshold"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040BLGLECNK_0040CirclingSpeed_003F_0024AA_0040",
+      "sourceLine": 7660,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "436972636c696e67537065656400",
+      "text": "CirclingSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040DMIKEIK_0040LookAheadMult_003F_0024AA_0040",
+      "sourceLine": 7604,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "4c6f6f6b41686561644d756c7400",
+      "text": "LookAheadMult"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040HBCAJEBL_0040AccDecTrigger_003F_0024AA_0040",
+      "sourceLine": 7678,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "4163634465635472696767657200",
+      "text": "AccDecTrigger"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040LPMBJKKA_0040StickToGround_003F_0024AA_0040",
+      "sourceLine": 7742,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "537469636b546f47726f756e6400",
+      "text": "StickToGround"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040MFCFKIN_0040RiverModifier_003F_0024AA_0040",
+      "sourceLine": 7822,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "52697665724d6f64696669657200",
+      "text": "RiverModifier"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040MIGIBAKO_0040RollStiffness_003F_0024AA_0040",
+      "sourceLine": 7696,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "526f6c6c53746966666e65737300",
+      "text": "RollStiffness"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0O_0040ODIOEBJD_0040HasSuspension_003F_0024AA_0040",
+      "sourceLine": 7754,
+      "type": "_0024ArrayType_0024_0024_0024BY0O_0040_0024_0024CBD",
+      "hex": "48617353757370656e73696f6e00",
+      "text": "HasSuspension"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040BAFADJCE_0040BrakingSeconds_003F_0024AA_0040",
+      "sourceLine": 7644,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "4272616b696e675365636f6e647300",
+      "text": "BrakingSeconds"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040DFPEAEGP_0040PitchStiffness_003F_0024AA_0040",
+      "sourceLine": 7694,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "506974636853746966666e65737300",
+      "text": "PitchStiffness"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040DJOIODEC_0040FastTurnRadius_003F_0024AA_0040",
+      "sourceLine": 7622,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "466173745475726e52616469757300",
+      "text": "FastTurnRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040FJFEIDIB_0040WheelTurnAngle_003F_0024AA_0040",
+      "sourceLine": 7762,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "576865656c5475726e416e676c6500",
+      "text": "WheelTurnAngle"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040GGKAPPHI_0040CirclingRadius_003F_0024AA_0040",
+      "sourceLine": 7658,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "436972636c696e6752616469757300",
+      "text": "CirclingRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040IBNBAJFO_0040BackingUpAngle_003F_0024AA_0040",
+      "sourceLine": 7820,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "4261636b696e675570416e676c6500",
+      "text": "BackingUpAngle"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040KANEHPAM_0040SlowTurnRadius_003F_0024AA_0040",
+      "sourceLine": 7620,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "536c6f775475726e52616469757300",
+      "text": "SlowTurnRadius"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040KMNMEBGI_0040BackingUpSpeed_003F_0024AA_0040",
+      "sourceLine": 7812,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "4261636b696e675570537065656400",
+      "text": "BackingUpSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040MFLNMMMK_0040ChargeMaxSpeed_003F_0024AA_0040",
+      "sourceLine": 7776,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "4368617267654d6178537065656400",
+      "text": "ChargeMaxSpeed"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0P_0040OKBBKIGP_0040CanReverseMove_003F_0024AA_0040",
+      "sourceLine": 7746,
+      "type": "_0024ArrayType_0024_0024_0024BY0P_0040_0024_0024CBD",
+      "hex": "43616e526576657273654d6f766500",
+      "text": "CanReverseMove"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "AIBudgetStateDefinition",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_06CFOEHDKN_0040Budget_003F_0024AA_0040",
+      "sourceLine": 11630,
+      "type": "_0024ArrayType_0024_0024_0024BY06_0024_0024CBD",
+      "hex": "42756467657400",
+      "text": "Budget"
+    },
+    {
+      "symbol": "_003F_003F_C_0040_0N_0040KOMJNFCL_0040AccountShare_003F_0024AA_0040",
+      "sourceLine": 11496,
+      "type": "_0024ArrayType_0024_0024_0024BY0N_0040_0024_0024CBD",
+      "hex": "4163636f756e74536861726500",
+      "text": "AccountShare"
+    }
+  ]
+}

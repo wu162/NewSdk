@@ -1,0 +1,13 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "type": "AIStateDefinition",
+  "fields": [
+    {
+      "symbol": "_003F_003F_C_0040_09GEKJHBEN_0040Heuristic_003F_0024AA_0040",
+      "sourceLine": 9790,
+      "type": "_0024ArrayType_0024_0024_0024BY09_0024_0024CBD",
+      "hex": "48657572697374696300",
+      "text": "Heuristic"
+    }
+  ]
+}

@@ -1443,59 +1443,87 @@
   "roots": {
     "AttributeModifier": {
       "path": "roots/AttributeModifier.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/AttributeModifier.static.json",
+      "staticFieldCount": 18
     },
     "FXList": {
       "path": "roots/FXList.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/FXList.static.json",
+      "staticFieldCount": 7
     },
     "SpecialPowerTemplate": {
       "path": "roots/SpecialPowerTemplate.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/SpecialPowerTemplate.static.json",
+      "staticFieldCount": 48
     },
     "ObjectCreationList": {
       "path": "roots/ObjectCreationList.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/ObjectCreationList.static.json",
+      "staticFieldCount": 8
     },
     "LocomotorTemplate": {
       "path": "roots/LocomotorTemplate.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/LocomotorTemplate.static.json",
+      "staticFieldCount": 149
     },
     "LogicCommandSet": {
       "path": "roots/LogicCommandSet.cs.txt",
-      "methodCount": 1
+      "methodCount": 1,
+      "staticFields": "roots/LogicCommandSet.static.json",
+      "staticFieldCount": 0
     },
     "FXParticleSystemTemplate": {
       "path": "roots/FXParticleSystemTemplate.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/FXParticleSystemTemplate.static.json",
+      "staticFieldCount": 36
     },
     "UpgradeTemplate": {
       "path": "roots/UpgradeTemplate.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/UpgradeTemplate.static.json",
+      "staticFieldCount": 30
     },
     "AIPersonalityDefinition": {
       "path": "roots/AIPersonalityDefinition.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/AIPersonalityDefinition.static.json",
+      "staticFieldCount": 117
     },
     "AIStrategicStateDefinition": {
       "path": "roots/AIStrategicStateDefinition.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/AIStrategicStateDefinition.static.json",
+      "staticFieldCount": 12
     },
     "AIMicroManagerData": {
       "path": "roots/AIMicroManagerData.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/AIMicroManagerData.static.json",
+      "staticFieldCount": 76
     },
     "AIBudgetStateDefinition": {
       "path": "roots/AIBudgetStateDefinition.cs.txt",
-      "methodCount": 2
+      "methodCount": 2,
+      "staticFields": "roots/AIBudgetStateDefinition.static.json",
+      "staticFieldCount": 2
     },
     "AIStateDefinition": {
       "path": "roots/AIStateDefinition.cs.txt",
-      "methodCount": 2
+      "methodCount": 2,
+      "staticFields": "roots/AIStateDefinition.static.json",
+      "staticFieldCount": 1
     },
     "AITargetingHeuristic": {
       "path": "roots/AITargetingHeuristic.cs.txt",
-      "methodCount": 3
+      "methodCount": 3,
+      "staticFields": "roots/AITargetingHeuristic.static.json",
+      "staticFieldCount": 30
     }
   },
   "methodIndex": "method-index.txt",
