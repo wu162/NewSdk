@@ -15,6 +15,7 @@ on:
       - 'recovery/src/Native/LocomotorTemplate.*'
       - 'recovery/src/Native/AI*'
       - 'recovery/tests/Xml*Oracle.cs'
+      - 'recovery/tests/Xml*Cases.cs'
       - 'recovery/scripts/TestXml*.ps1'
       - 'recovery/src/Native/Relocation.*'
       - 'recovery/src/Native/ScalarParsing.*'
@@ -143,3 +144,4 @@ jobs:
         run: |
           test "$DIFFERENTIAL_RESULT" = success
           if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; fi
+

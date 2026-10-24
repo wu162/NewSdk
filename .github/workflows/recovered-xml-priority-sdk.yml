@@ -1,0 +1,50 @@
+name: XmlCompiler FXList and particle SDK integration
+on:
+  workflow_dispatch:
+  push:
+    branches: [recovery/xmlcompiler-priority, recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-xml-priority-sdk.yml'
+      - 'recovery/scripts/TestXmlPrioritySdk.ps1'
+      - 'recovery/scripts/SetXmlPriorityPlugin.ps1'
+      - 'recovery/src/Plugin/XmlPriorityPlugin.cs'
+      - 'recovery/tests/XmlPrioritySdkOracle.cs'
+      - 'recovery/sdk/XmlPriorityProbe.*'
+permissions:
+  contents: write
+jobs:
+  integration:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-xml-priority]')
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare fresh original and recovered SDK builds
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestXmlPrioritySdk.ps1
+          $result = Get-Content recovery/evidence/xml-priority-sdk/validation.json -Raw | ConvertFrom-Json
+          if (!$result.succeeded -or !$result.originalDllUnchanged -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) { throw 'Missing or mismatched SDK validation evidence' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xml-priority-sdk-evidence
+          path: recovery/evidence/xml-priority-sdk
+          if-no-files-found: error
+      - name: Preserve SDK evidence without overwriting concurrent commits
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/xml-priority-sdk
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "recovery: record XmlCompiler SDK evidence for $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent branch integration failed' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
