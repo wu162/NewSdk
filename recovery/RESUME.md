@@ -1,3 +1,7 @@
+# 当前验证中：完整SlavedUpdate
+
+2026-10-24中断续接：已完成SlavedUpdate全部27根属性、可空GuardPosOffset、39项Damage/34项Death scalar枚举、完整Update父链与29 Token记录。源生成run40047463132 success。完整/Od、/O2、0/1/2/99三缓冲区/独立布局/拒绝矩阵正在运行；93支持/229拒绝为候选数，验收前有效92。SDK0次。
+
 # 编译器恢复：当前续接入口
 
 更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md和本文件；旧STATUS.md按需查历史，不全量加载大型反编译。

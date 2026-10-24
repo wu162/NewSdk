@@ -18,6 +18,7 @@ on:
       - 'recovery/scripts/GenerateUpgradeRemaining.py'
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'
+      - 'recovery/scripts/GenerateSlavedFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
