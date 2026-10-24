@@ -29,6 +29,7 @@ on:
       - 'recovery/scripts/GenerateReactiveFields.py'
       - 'recovery/scripts/GenerateWeaponSetFields.py'
       - 'recovery/scripts/GenerateHealingFields.py'
+      - 'recovery/scripts/GenerateCrateFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
@@ -36,6 +37,7 @@ on:
       - 'recovery/tests/GameObjectKindOf.cs'
       - 'recovery/tests/GameObjectWeaponSetCases.cs'
       - 'recovery/tests/GameObjectHealingCases.cs'
+      - 'recovery/tests/GameObjectCrateCases.cs'
 permissions:
   contents: write
 jobs:

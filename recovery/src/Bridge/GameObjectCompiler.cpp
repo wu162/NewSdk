@@ -204,7 +204,7 @@ public ref class GameObjectCompiler abstract sealed {
         if(kind==80 && path=="Movement") return ReadMotionMovement(node);
         unsigned shape=Native::GameObjectModuleNodeKind(kind,path);
         if(!shape) throw gcnew NotSupportedException("Unsupported Upgrade nested node.");
-        if(path=="ObjectFilter" || path=="BroadcastObjectFilter" || path=="ProductionModifier/ModifierFilter" || (kind==91 && path.size()>=7 && path.substr(path.size()-7)=="/Filter")) {auto filter=ReadDependencyFilter(node);filter.name=marshal_as<std::string>(node->LocalName);return filter;}
+        if(path=="ObjectFilter" || path=="BroadcastObjectFilter" || path=="ProductionModifier/ModifierFilter" || (kind==103 && path=="BlockingUnits") || (kind==91 && path.size()>=7 && path.substr(path.size()-7)=="/Filter")) {auto filter=ReadDependencyFilter(node);filter.name=marshal_as<std::string>(node->LocalName);return filter;}
         auto attrs=node->Clone();if(attrs->MoveToFirstAttribute()) do {
             if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
             if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectModuleNodeAttribute(kind,path,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported Upgrade nested attribute.");

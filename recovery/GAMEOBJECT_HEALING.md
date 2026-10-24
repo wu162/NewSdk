@@ -1,6 +1,6 @@
-# 治疗/维修完整四模块（当前检查点：验证中）
+# 治疗/维修完整四模块（已通过组件完整差分）
 
-AutoHealBehaviorModuleData(TypeId4227225901,112)、RepairUpdateModuleData(170624835,44)、InitiateRepairDieModuleData(3337877037,32)、HealCrateCollideModuleData(2207967292,116)。全部逻辑和测试已提交，但本检查点尚未取得最终完整矩阵，暂不计入已验收数。最新状态和实际sourceCommit/runId见RESUME.md。
+AutoHealBehaviorModuleData(TypeId4227225901,112)、RepairUpdateModuleData(170624835,44)、InitiateRepairDieModuleData(3337877037,32)、HealCrateCollideModuleData(2207967292,116)。源码3b2cb3d2687d06b92417c3af56f6656b45e7cc63 / run40072240199 success；每/Od、/O2：251332 fixtures、753996三缓冲区逐字节比较、11316拒绝、592不变性，四平台0/1/2/99。validation.json和两模式实际日志已核对。首轮未移除拒绝数组末尾AutoHeal编号导致测试清单失败；已修复并完整重跑，不改Marshal或降低比较。最新锚点见RESUME.md。
 
 原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；healing-source86精确方法及PE enum-source来自源码89368ce680cb7c575a9628a432a0ab65dee076e4/run40071459215 success。GenerateHealingFields.py对全部86签名/bodySHA及CI原blob/PE枚举核对，派生字段/Token/hash/offset/sentinel。共享Upgrade/DieMux/validation/ObjectFilter的既有完整实现复用，未修改共享解析、Tracker或枚举逻辑。
 

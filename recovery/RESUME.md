@@ -2,19 +2,21 @@
 
 更新：2026-10-24（北京时间）。wu162/NewSdk，分支 recovery/compiler-source。先读 AGENTS.md、EFFICIENCY.md、本文件；按本轮范围读取源码/测试/类型文档，历史 STATUS 按需。
 
-## 已验收124/322已知Marshal模块
+## 已验收128/322已知Marshal模块
 
 本轮完整接入 WeaponSetUpdate：四槽、72字节 Sorted WeaponData、完整 TurretAI/Chooser/VisionRange/inline ObjectFilter。源码 **45625616880eb075147618813786d27794ee38c2**，GameObject run **40071300506 success**；基础 run **40071300482 success**、WeaponTemplate run **40071300487 success**。每 /Od、/O2：**238272 fixtures、714816三缓冲区逐字节比较、11196拒绝、472不变性**，平台0/1/2/99；终态及validation.json两模式摘要已核对。细节见 GAMEOBJECT_WEAPON_SET.md。
 
 Tracker.ExchangePointers 既有实现已符合原000/001：仅在当前栈顶block内，按elementSize调整pointer/reference/member三组bookmark的**offset**，不改value。原AlterBookmark并不同时交换来源和目标；此前“源/目标”措辞有歧义，已纠正。排序先保留XML生成引用的顺序，获取原EASTL排列，再通过Tracker交换bookmark并交换72字节记录；没有提前重排XML。
 
-**198种已知Marshal仍拒绝**（含本轮治疗/维修检查点，在验收前不计完成）；58 Token-only按未知Marshal回退。完整GameObject、两份完整替代DLL、正式GameObject插件尚未完成。SDK本轮0次，原路由保留。
+**194种已知Marshal仍拒绝**（含本轮Crate检查点，在验收前不计完成）；58 Token-only按未知Marshal回退。完整GameObject、两份完整替代DLL、正式GameObject插件尚未完成。SDK本轮0次，原路由保留。
 
-## 当前验证中：完整治疗/维修四模块
+## 治疗/维修四模块已验收
 
-AutoHealBehavior/RepairUpdate/InitiateRepairDie/HealCrateCollide及必要完整依赖已实现；本检查点待完整GameObject /Od、/O2四平台三缓冲区及适用回归成功，**不得把未验证代码计入已验收数**。对应 GameObjectHealing.h、GenerateHealingFields.py、GameObjectHealingCases.cs 和 GAMEOBJECT_HEALING.md。原86精确方法及PE枚举已导出，源码89368ce680cb7c575a9628a432a0ab65dee076e4，run40071459215 success；只是取证，不是组件通过。
+源码 **3b2cb3d2687d06b92417c3af56f6656b45e7cc63** / run **40072240199 success**，基础run40072240244 success。每/Od、/O2：**251332 fixtures、753996三缓冲区比较、11316拒绝、592不变性**，四平台含99；validation.json、两模式实际日志及终态已核对。完整AutoHeal/RepairUpdate/InitiateRepairDie/HealCrate及Upgrade/DieMux/Crate/Filter依赖见GAMEOBJECT_HEALING.md。首轮仅遗漏拒绝数组末尾AutoHeal ID，已修复清单并完整通过。该最终矩阵同时包含WeaponSet炮塔Chooser+多个视觉过滤器+乱序Weapon组合。
 
-本次验证同时加入WeaponSet炮塔目标选择器+多个视觉过滤器+乱序武器列表的组合分配/引用配对场景。先核实本检查点触发的Actions实际终态与validation.json的sourceCommit/runId，再定位失败或更新验收。CrateCollide基础逻辑仅作为HealCrate必要依赖，还未声明其独立TypeId支持。
+## 当前检查点：完整Crate八模块验证中
+
+完整CrateCollide/Money/Unit/Veterancy/Attribute/Random/Salvage/Spawn八模块及必要依赖已实现，待本检查点完整矩阵成功后才能计入支持数。见GAMEOBJECT_CRATE.md、GenerateCrateFields.py、GameObjectCrate.h、GameObjectCrateCases.cs。原82方法/PE枚举已导出，源码1fe0f0469d20a583ecd34f14eac995db81650b58/run40072161495 success；只是取证。先核实本检查点Actions终态与validation.json的sourceCommit/runId。CrateList是重复文本强引用子节点，不能当字符串属性列表；RangeOfEffect unsigned、Chance普通float等按原方法而非名字解释。SDK继续0次，原路由保持。
 
 ## 执行规则
 

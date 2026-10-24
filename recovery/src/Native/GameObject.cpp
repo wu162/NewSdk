@@ -53,6 +53,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectReactive.h"
 #include "GameObjectWeaponSet.h"
 #include "GameObjectHealing.h"
+#include "GameObjectCrate.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -253,6 +254,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:crateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:healingChoices) if(choice.type==type) return &choice;
     if(type==weaponSetChoice.type) return &weaponSetChoice;
     for(const auto& choice:reactiveChoices) if(choice.type==type) return &choice;
@@ -769,8 +771,23 @@ void EndianHealing(unsigned char* output,unsigned kind) {
     if(kind==94) {auto at=*reinterpret_cast<unsigned char**>(output+28);if(at) EndianModuleFieldSet(at,dieFieldSets[7]);}
     if(kind==95) {auto at=*reinterpret_cast<ObjectFilter**>(output+112);if(at) EndianObjectFilter(at);EndianModuleFieldSet(output,healingFieldSets[4]);}
 }
+void MarshalCrate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    unsigned group=kind-96;MarshalModuleFieldSet(input,output,crateFieldSets[group],data);
+    if(group>0 && group<7) MarshalModuleFieldSet(input,output,crateFieldSets[0],data);
+    if(group==7) {
+        auto list=reinterpret_cast<NativeList*>(output+36);for(const auto& child:input.children) if(child.name=="CrateList") ++list->count;
+        if(list->count) {auto at=static_cast<U32*>(data.Push(&list->data,4,list->count));unsigned i=0;for(const auto& child:input.children) if(child.name=="CrateList") MarshalReference(data,at+i++,child.text);data.Pop();}
+        for(const auto& child:input.children) if(child.name=="BlockingUnits") {auto at=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(output+44),112,1));MarshalUpgradeFilter(child,at,data);data.Pop();}
+    }
+}
+void EndianCrate(unsigned char* output,unsigned kind) {
+    unsigned group=kind-96;EndianModuleFieldSet(output,crateFieldSets[group]);
+    if(group>0 && group<7) EndianModuleFieldSet(output,crateFieldSets[0]);
+    if(group==7) {Swap(output+36);auto at=*reinterpret_cast<ObjectFilter**>(output+44);if(at) EndianObjectFilter(at);}
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=96 && choice->kind<=103) EndianCrate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=92 && choice->kind<=95) EndianHealing(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==91) EndianWeaponSetNode(reinterpret_cast<unsigned char*>(input),0);
     if(choice && choice->kind && choice->kind<=2) {
@@ -816,6 +833,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=96 && choice->kind<=103) MarshalCrate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=92 && choice->kind<=95) MarshalHealing(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==91) MarshalWeaponSetNode(input,reinterpret_cast<unsigned char*>(target),0,data);
     if(choice && choice->kind>=87 && choice->kind<=90) MarshalReactive(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -919,6 +937,10 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=96 && choice->kind<=103) {
+        unsigned group=choice->kind-96;const auto& own=crateFieldSets[group];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(group>0 && group<7) for(unsigned i=0;i<crateFieldSets[0].count;++i) if(attribute==crateFieldSets[0].fields[i].name) return true;return false;
+    }
     if(choice->kind>=92 && choice->kind<=95) {
         const auto& own=healingFieldSets[choice->kind-92];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
         const auto& base=choice->kind==92?upgradeFieldSets[0]:healingFieldSets[4];if(choice->kind==92 || choice->kind==95) for(unsigned i=0;i<base.count;++i) if(attribute==base.fields[i].name) return true;return false;
@@ -956,6 +978,9 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=96 && kind<=103) {
+        if(kind==103) {if(path=="CrateList" || path=="BlockingUnits/IncludeThing" || path=="BlockingUnits/ExcludeThing") return 3;if(path=="BlockingUnits") return 1;}return 0;
+    }
     if(kind>=92 && kind<=95) {
         if(kind==92) {if(path=="ObjectStatusValidation" || path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith") return 3;}
         if(kind==93 && (path=="PercentOfBuildCostToRebuildInfo" || path=="SelfAudio")) return 1;
@@ -1008,6 +1033,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=96 && kind<=103) return false;
     if(kind>=92 && kind<=95) {
         const ModuleFieldSet* set=nullptr;
         if(kind==92) {if(path=="ObjectStatusValidation") set=&lifecycleFieldSets[6];if(path=="CustomAnimAndDuration") set=&upgradeFieldSets[11];}
