@@ -94,7 +94,7 @@ class XmlPrioritySdkOracle {
             throw new Exception("Missing or incorrect BAB numeric TypeId: "+label);
     }
     static void CheckPreprocessing(XmlDocument d,string id,string type) {
-        // Root identity comes from BAB InstanceDeclaration; BaseAssetType has no TypeId XML attribute.
+        // BAB adds root TypeId during ValidateInstances; the declaration handle must independently agree.
         RequireTag(d.DocumentElement,id,TypeId(type));
         if(Declaration(d).Handle.TypeId!=TypeId(type))throw new Exception("Incorrect BAB root handle TypeId: "+id);
         XmlNamespaceManager ns=Namespaces(d);
@@ -216,11 +216,13 @@ class XmlPrioritySdkOracle {
         try {
             if(args.Length==4 && args[0]=="schema") { Schema(args[1],args[2],args[3]);return 0; }
             if(args.Length==4 && args[0]=="metadata") { Metadata(args[1],args[2],args[3]);return 0; }
-            if(args.Length!=6 && args.Length!=7)throw new Exception("Usage: replay|isolated plugin.dll traceDir mod.bin probe.xml result.json [platform=0]");
+            if(args.Length!=6 && args.Length!=7 && args.Length!=8)throw new Exception("Usage: replay|isolated plugin.dll traceDir mod.bin probe.xml result.json [platform=0] [profile=Reduced|FullMymod]");
             bool isolated=args[0]=="isolated";
             if(!isolated && args[0]!="replay")throw new Exception("Unknown replay mode");
-            int platform=args.Length==7?Int32.Parse(args[6],CultureInfo.InvariantCulture):0;
+            int platform=args.Length>=7?Int32.Parse(args[6],CultureInfo.InvariantCulture):0;
             if(platform!=0 && platform!=1 && platform!=2 && platform!=99)throw new Exception("Unsupported platform selector");
+            string profile=args.Length==8?args[7]:"Reduced";
+            if(profile!="Reduced" && profile!="FullMymod")throw new Exception("Unknown SDK profile");
             string dll=Path.GetFullPath(args[1]),trace=Path.GetFullPath(args[2]);
             string manifest=Path.Combine(trace,"calls.tsv");
             ValidateProbe(args[4]);
@@ -248,7 +250,11 @@ class XmlPrioritySdkOracle {
                 string[] fields=row.Split('\t');
                 if(fields.Length!=4)throw new Exception("Malformed SDK trace manifest row");
                 string type=fields[0],id=fields[1],stem=fields[2],expectedType;
-                if(!Required.TryGetValue(id,out expectedType) || type!=expectedType)throw new Exception("Unexpected SDK call: "+type+"/"+id);
+                TypeId(type); // Reject every type outside the fourteen registered priority types.
+                if(String.IsNullOrEmpty(id))throw new Exception("SDK trace asset id is empty");
+                if(Required.TryGetValue(id,out expectedType)) {
+                    if(type!=expectedType)throw new Exception("Wrong SDK probe type: "+type+"/"+id);
+                } else if(profile!="FullMymod")throw new Exception("Unexpected reduced SDK call: "+type+"/"+id);
                 int recordedPlatform;
                 if(!Int32.TryParse(fields[3],NumberStyles.Integer,CultureInfo.InvariantCulture,out recordedPlatform) || recordedPlatform!=platform)throw new Exception("SDK trace platform mismatch");
                 if(String.IsNullOrEmpty(stem) || stem!=Path.GetFileName(stem) || stem.IndexOfAny(new[]{'/','\\',':'})>=0 || !stems.Add(stem))
@@ -264,7 +270,7 @@ class XmlPrioritySdkOracle {
                 Equal(data.ImportsData,File.ReadAllBytes(Path.Combine(trace,stem+".imp")),id+"/imports");
                 comparisons+=3;
                 if(!Contains(mod,instance))throw new Exception(id+" instance payload not found in final SDK mod.bin");
-                seen.Add(id);++calls;
+                if(Required.ContainsKey(id))seen.Add(id);++calls;
                 if(!typeCalls.ContainsKey(type))typeCalls[type]=0;++typeCalls[type];
                 if(!idCalls.ContainsKey(id))idCalls[id]=0;++idCalls[id];
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
@@ -283,15 +289,15 @@ class XmlPrioritySdkOracle {
                 NoOriginalAssemblies();
             }
             var result=new {
-                succeeded=true,mode=args[0],platform=platform,sourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),
-                runId=Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),expectedAssets=Required.Count,verifiedCalls=calls,
+                succeeded=true,mode=args[0],profile=profile,platform=platform,sourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),
+                runId=Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),expectedAssets=Required.Count,requiredAssetsVerified=seen.Count,additionalAssets=idCalls.Count-Required.Count,verifiedCalls=calls,
                 comparisons=comparisons,typeCalls=typeCalls,idCalls=idCalls,traceManifestSha256=Hash(manifest),
                 probeSha256=Hash(args[4]),modSha256=Hash(args[3]),compilerSha256=Hash(dll),
                 originalDllFilesAbsent=isolated,originalCompilerAssembliesAbsent=isolated,
-                sdkScope="six-asset minimized FXList/FXParticle SDK batch; not complete mymod"
+                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus eighteen required probes across fourteen priority types":"Reduced disposable SDK MOD with eighteen required probes across fourteen priority types"
             };
             File.WriteAllText(report,new JavaScriptSerializer().Serialize(result));
-            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, six expected assets, isolated={3}",args[0],calls,comparisons,isolated);
+            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, eighteen required assets across fourteen types, isolated={3}",args[0],calls,comparisons,isolated);
             return 0;
         } catch(Exception e) {
             Console.Error.WriteLine(e);
