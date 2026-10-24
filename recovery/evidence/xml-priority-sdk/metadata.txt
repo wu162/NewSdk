@@ -1,0 +1,1 @@
+PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.

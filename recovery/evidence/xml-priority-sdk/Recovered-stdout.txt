@@ -1,0 +1,31 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.3590539] Cached session data not available.
+[00:00:00.3590539] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.3590539] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods\cache').
+[00:00:00.3746732] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\mods\mymod\data\mod.xml'.
+[00:00:00.4059277] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4215423] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods\static.manifest, file not found
+[00:00:00.4215423] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\static.xml'.
+[00:00:00.4371867] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4371867] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods\global.manifest, file not found
+[00:00:00.4371867] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\global.xml'.
+[00:00:00.4371867] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.4371867] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Recovered\builtmods\audio.manifest, file not found
+[00:00:00.4371867] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\audio.xml'.
+[00:00:00.4371867] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\recovered\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
+[00:00:00.4684257] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.5309262] Error: System.NotSupportedException: Unsupported effects attribute: TypeId
+   at Recovered.XmleffectsXml.Attributes(XmlNode node, String[] allowed)
+   at Recovered.FXListCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.FXListCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at Recovered.XmlPriority.Plugin.ProcessInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessInstances(OutputManager outputManager, Int32& instancesCompiledCount, Int32& instancesCopiedFromCacheCount)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at BinaryAssetBuilder.BinaryAssetBuilder.DoBuildData()

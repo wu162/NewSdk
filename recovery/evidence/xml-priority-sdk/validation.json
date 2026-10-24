@@ -1,0 +1,41 @@
+{
+  "succeeded": false,
+  "sourceCommit": "44fc877dd1f88edec6dc174de03d521f5c577fd4",
+  "runId": "40090297467",
+  "status": "failed",
+  "scope": "FXList and FXParticleSystemTemplate only; O2 Win32 real SDK, reduced disposable MOD; not full mymod or other twelve priority types",
+  "componentModes": [
+    "/Od",
+    "/O2"
+  ],
+  "sdkMode": "/O2",
+  "sdkPlatform": 0,
+  "files": [
+    {
+      "mode": "Original",
+      "file": "mod.bin",
+      "bytes": 2408,
+      "sha256": "EFF504574D388DBCCCE508B11D3600DEDEA9CCC80D044F60DE7A97172CF1D9B3"
+    },
+    {
+      "mode": "Original",
+      "file": "mod.manifest",
+      "bytes": 765,
+      "sha256": "A6838D948A75E514802CD9C8B909568C36295D69B09716DA0FA41B68731FD9D9"
+    },
+    {
+      "mode": "Original",
+      "file": "mod.imp",
+      "bytes": 4,
+      "sha256": "0E18253C2D5FFD7E36117A26A234EA10402D6EB8FF99ED7172684156F929452B"
+    },
+    {
+      "mode": "Original",
+      "file": "mod.relo",
+      "bytes": 180,
+      "sha256": "D6D0866A3BA1002DFFEB73D3F12E4CB062F5B36DA131524A5FF95B8E631D955D"
+    }
+  ],
+  "originalDllUnchanged": true,
+  "error": "Recovered SDK failed: -1"
+}

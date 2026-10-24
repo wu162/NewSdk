@@ -1,0 +1,45 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+[00:00:00.0156217] BinaryAssetBuilder started
+[00:00:00.4531374] Cached session data not available.
+[00:00:00.4531374] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.4687539] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods\cache').
+[00:00:00.4880573] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\mods\mymod\data\mod.xml'.
+[00:00:00.5313843] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5313843] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods\static.manifest, file not found
+[00:00:00.5313843] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\static.xml'.
+[00:00:00.5470085] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5470085] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods\global.manifest, file not found
+[00:00:00.5626272] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\global.xml'.
+[00:00:00.5626272] Stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5626272] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\Original\builtmods\audio.manifest, file not found
+[00:00:00.5626272] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\audio.xml'.
+[00:00:00.5626272] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-76e539f5c9424f56b4f5d4ffcb40d514\original\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
+[00:00:00.5938898] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.6578622] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
+[00:00:00.6728999] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
+[00:00:00.6728999] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
+[00:00:00.6885694] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
+[00:00:00.6885694] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
+[00:00:00.6885694] Resolving references: mods\mymod\data\mod
+[00:00:00.7049627] Stable sorting assets
+[00:00:00.7049627] Sorting by schema dependencies
+[00:00:00.7049627] Sorting by asset dependencies
+[00:00:00.7049627] Generating stream: mods\mymod\data\mod
+[00:00:00.7240549] Slow asset clean-up (expected: 6, actual: 6, old: 0, current: 6)
+[00:00:00.7240549] mods\mymod\data\mod Linking binary data
+[00:00:00.7240549] mods\mymod\data\mod Linking import data
+[00:00:00.7240549] mods\mymod\data\mod Linking relocation data
+[00:00:00.7240549] mods\mymod\data\mod Stream complete
+[00:00:00.7360924] BinaryAssetBuilder complete
+[00:00:00.7360924] FXParticleSystemTemplate:
+[00:00:00.7360924]       Instances Processed: 4
+[00:00:00.7360924]       Total Processing Time: 00:00:00.0156695
+[00:00:00.7360924]       Longest Processing Time: 00:00:00.0156695 (RecoveryXmlPriority_Particle_Gpu)
+[00:00:00.7360924]       Average Processing Time: 0.003917375 seconds
+[00:00:00.7360924] FXList:
+[00:00:00.7360924]       Instances Processed: 2
+[00:00:00.7360924]       Total Processing Time: 00:00:00.0729485
+[00:00:00.7360924]       Longest Processing Time: 00:00:00.0579108 (RecoveryXmlPriority_FX_Defaults)
+[00:00:00.7360924]       Average Processing Time: 0.03647425 seconds
+[00:00:00.7360924] Total Processing Time for All Types: 00:00:00.0886180
