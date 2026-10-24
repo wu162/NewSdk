@@ -14,7 +14,7 @@ SPECS=[
 ('DeployStyleAIUpdateModuleData',92,[('UnpackTime',76,'Time','0s'),('PackTime',80,'Time','0s'),('ResetTurretBeforePacking',88,'Boolean','false'),('TurretsFunctionOnlyWhenDeployed',89,'Boolean','false'),('TurretsMustCenterBeforePacking',90,'Boolean','false'),('MustDeployToAttack',91,'Boolean','false'),('DeployedAttributeModifierName',84,'Reference',None)],[]),
 ('UnitAITargetChooserData',40,[('TargetingCompareList',36,'Reference','DefaultTargetingCompareList')],[])]
 ENUM_FIELDS={'AutoAcquireEnemiesWhenIdle':'AutoAcquireEnemiesType','StateMachine':'StateMachineType','DefaultLocomotorSet':'LocomotorSetType'}
-ENUMS={'AutoAcquireEnemiesType':(5,5),'StateMachineType':(0,0),'LocomotorSetType':(12,0)}
+ENUMS={'AutoAcquireEnemiesType':(4,5),'StateMachineType':(0,0),'LocomotorSetType':(12,0)}
 def ident(n):return 'aiUpdate'+n
 
 def generate(source=None,pe=None):
@@ -25,6 +25,10 @@ def generate(source=None,pe=None):
         if source is not None:assert body_of(source,meta['signature'])==body,meta['file']
         methods[meta['signature']]=body;literals.update(json.loads(text.splitlines()[1].removeprefix('// Literals: ')))
     assert len(methods)==len(metas)==96
+    # Unknown AutoAcquire tokens use bit 4 (ATTACK_BUILDINGS), not an ignored bit.
+    auto=next(body for sig,body in methods.items() if sig.startswith('internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAutoAcquireEnemiesType'))
+    assert re.search(r'else\s*\{\s*num4 = 4;',auto)
+    assert ENUMS['AutoAcquireEnemiesType']==(4,5)
     # Shared dependency equivalence is proven against the accepted WeaponSet evidence.
     old=json.loads((ROOT/'recovery/evidence/gameobject-modules/weapon-state-source/manifest.json').read_text())
     previous={v['signature']:v for row in old['modules']for v in row['methods']};previous.update({v['signature']:v for v in old['helpers']})

@@ -6,7 +6,7 @@ const EnumNameValue aiUpdateAutoAcquireEnemiesTypeNames[] = {
     { "STEALTHED", 1 },
     { "YES", 0 },
 };
-const AIEnum aiUpdateAutoAcquireEnemiesTypeEnum = { aiUpdateAutoAcquireEnemiesTypeNames, 5u, 5, 5u };
+const AIEnum aiUpdateAutoAcquireEnemiesTypeEnum = { aiUpdateAutoAcquireEnemiesTypeNames, 5u, 4, 5u };
 const EnumNameValue aiUpdateStateMachineTypeNames[] = {
     { "AIStateMachine", 0 },
     { "CombinedHelicopterAIStateMachine", 1 },
