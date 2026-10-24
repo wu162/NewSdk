@@ -136,8 +136,8 @@ class XmldamagefxOracle {
         Reject("wrong group element",Root("DamageFX","","<DamageFXGroup/>"));
         Reject("settings child",Root("DamageFXSettings","","<GroundDamageFX/>"));
         Reject("unknown root",Root("Unknown","",""));
-        XmlDocument wrong=Parse(Root("DamageFX","TypeId='75989905'",""));
-        bool mismatch=false;try{XmldamagefxCompiler.ProcessInstance(Declaration(wrong),p);}catch(NotSupportedException){mismatch=true;}Check(mismatch,"root/TypeId mismatch rejected");++rejections;
+        XmlDocument wrong=Parse(Root("DamageFX","",""));InstanceDeclaration wrongDeclaration=Declaration(wrong);wrongDeclaration.Handle.TypeName="DamageFXSettings";
+        bool mismatch=false;try{XmldamagefxCompiler.ProcessInstance(wrongDeclaration,p);}catch(NotSupportedException){mismatch=true;}Check(mismatch,"root/TypeId mismatch rejected");++rejections;
         bool nullInput=false;try{XmldamagefxCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){nullInput=true;}Check(nullInput,"null declaration rejected");++rejections;
         XmlDocument bare=Parse(Root("DamageFX","",""));bool namespaceBinding=false;try{XmldamagefxCompiler.CompileXml(bare.DocumentElement,new XmlNamespaceManager(bare.NameTable),false);}catch(NotSupportedException){namespaceBinding=true;}Check(namespaceBinding,"namespace binding rejected");++rejections;
         Abi(p);
