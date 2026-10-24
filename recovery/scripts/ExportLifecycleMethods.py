@@ -11,7 +11,7 @@ source=(ROOT/'recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs').rea
 raw=source.encode()
 assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==SOURCE_BLOB
 inventory=json.loads((ROOT/'recovery/evidence/gameobject-modules/source-inventory.json').read_text())
-signatures=re.findall(r'\t(internal unsafe static void [^\n]+)',source)
+signatures=re.findall(r'\t(internal unsafe static [^\n]+)',source)
 literals={}
 for line in source.splitlines():
     match=re.search(r'internal static .*? (\S+)/\* Not supported: data\(([^)]+)\)',line)
@@ -45,7 +45,9 @@ if '--flight-family' in sys.argv:
     names=['PhysicsBehaviorModuleData','BezierProjectileBehaviorModuleData','MissileUpdateModuleData']
 if '--weapon-state-family' in sys.argv:
     names=['WeaponSetUpdateModuleData','DamageStateListModuleData','FireWeaponWhenDamagedBehaviorModuleData','FireWeaponCollideModuleData','FireWeaponWhenDeadBehaviorModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/weapon-state-source' if '--weapon-state-family' in sys.argv else 'recovery/evidence/gameobject-modules/flight-source' if '--flight-family' in sys.argv else 'recovery/evidence/gameobject-modules/motion-source' if '--motion-family' in sys.argv else 'recovery/evidence/gameobject-modules/beam-state-source' if '--beam-states' in sys.argv else 'recovery/evidence/gameobject-modules/weapon-behavior-source' if '--weapon-behaviors' in sys.argv else 'recovery/evidence/gameobject-modules/vision-source' if '--vision-family' in sys.argv else 'recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--weapon-slot-sort' in sys.argv:
+    names=[]
+out=ROOT/('recovery/evidence/gameobject-modules/weapon-slot-sort-source' if '--weapon-slot-sort' in sys.argv else 'recovery/evidence/gameobject-modules/weapon-state-source' if '--weapon-state-family' in sys.argv else 'recovery/evidence/gameobject-modules/flight-source' if '--flight-family' in sys.argv else 'recovery/evidence/gameobject-modules/motion-source' if '--motion-family' in sys.argv else 'recovery/evidence/gameobject-modules/beam-state-source' if '--beam-states' in sys.argv else 'recovery/evidence/gameobject-modules/weapon-behavior-source' if '--weapon-behaviors' in sys.argv else 'recovery/evidence/gameobject-modules/vision-source' if '--vision-family' in sys.argv else 'recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
@@ -66,6 +68,9 @@ if '--motion-family' in sys.argv:
     for signature in signatures:
         if 'ProjectileMoveBase**' in signature or any(re.search(r'\b'+re.escape(typ)+r'\* @object[,)]',signature) for typ in ['ProjectileMoveBase','ProjectileMoveToGroundData','ProjectileMoveInStraightLineData','BezierSplineProjectileData','BalloonProjectileMoveToGroundData']):
             add(signature)
+if '--weapon-slot-sort' in sys.argv:
+    for signature in signatures:
+        if 'WeaponListComparer' in signature and '('in signature:add(signature)
 # Include called concrete bases and named template helpers, preserving exact overloads.
 queue=list(selected)
 while queue:
