@@ -28,12 +28,14 @@ on:
       - 'recovery/scripts/GenerateFlightFields.py'
       - 'recovery/scripts/GenerateReactiveFields.py'
       - 'recovery/scripts/GenerateWeaponSetFields.py'
+      - 'recovery/scripts/GenerateHealingFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
       - 'recovery/tests/GameObjectKindOf.cs'
       - 'recovery/tests/GameObjectWeaponSetCases.cs'
+      - 'recovery/tests/GameObjectHealingCases.cs'
 permissions:
   contents: write
 jobs:

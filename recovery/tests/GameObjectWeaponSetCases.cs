@@ -88,5 +88,14 @@ partial class GameObjectOracle {
         string mixedSlots="";foreach(string slot in WeaponSetSlots)mixedSlots+="<"+slot+" ID='23'><Weapon Ordering='NO_WEAPON' Template='A\\23'/><Weapon Ordering='PRIMARY_WEAPON' Upgrade='B\\7'/></"+slot+">";
         string reverse="";for(int i=WeaponSetSlots.Length-1;i>=0;--i)reverse+="<"+WeaponSetSlots[i]+" ID='23'><Weapon Template='A\\23' Ordering='NO_WEAPON'/><Weapon Upgrade='B\\7' Ordering='PRIMARY_WEAPON'/></"+WeaponSetSlots[i]+">";
         var x=Check(original,p,"","<Behaviors><WeaponSetUpdate TypeId='1125589673'>"+mixedSlots+"</WeaponSetUpdate></Behaviors>");var y=Check(original,p,"","<Behaviors><WeaponSetUpdate TypeId='1125589673'>"+reverse+"</WeaponSetUpdate></Behaviors>");Equal(x.InstanceData,y.InstanceData,"WeaponSet schema allocation order",false);Equal(x.RelocationData,y.RelocationData,"WeaponSet schema relocation order",false);Equal(x.ImportsData,y.ImportsData,"WeaponSet schema imports order",false);
+        // Combined allocation order is observable: chooser/filter blocks are
+        // allocated before each Turret's sorted WeaponData, in schema order.
+        for(int slot=1;slot<=2;++slot) {
+            string weapons="<Weapon Ordering='NO_WEAPON' Template='A\\23' Upgrade='B\\7'/><Weapon Ordering='PRIMARY_WEAPON' Template='C\\7' Upgrade='D\\23'/><Weapon Ordering='NO_WEAPON' Template='E\\9'/>";
+            string settings="<TurretSettings ControlledWeaponSlots='ALL' InvalidIdleScanObjectStatus='ALL'><TurretAITargetChooserData TargetingCompareList='Targets\\17' CanPickDynamicTargetType='ALL'><ObjectVisionRange Range='25%'><Filter Include='ALL' StatusBitFlags='ALL'><IncludeThing>ObjectA</IncludeThing><ExcludeThing>ObjectB</ExcludeThing></Filter></ObjectVisionRange><ObjectVisionRange/></TurretAITargetChooserData></TurretSettings>";
+            var a=Check(original,p,"",WeaponSetXML(slot,"","ID='23'",weapons+settings));var c=Check(original,p,"",WeaponSetXML(slot,"","ID='23'",settings+weapons));Equal(a.InstanceData,c.InstanceData,"Turret dependencies precede sorted weapons",false);Equal(a.RelocationData,c.RelocationData,"Turret dependency relocation order",false);Equal(a.ImportsData,c.ImportsData,"Turret dependency imports order",false);
+            byte[] b=a.InstanceData;int at=WeaponSetSlotAt(b,big,slot),ch=(int)Word(b,at+116,big),items=(int)Word(b,ch+24,big),data=(int)Word(b,at+20,big);
+            if(ch!=at+(slot==1?124:128) || items!=ch+44 || data<=items+240 || Word(b,data+4,big)!=8 || Word(b,data+8,big)!=24)throw new Exception("Independent combined allocation/sorted references");
+        }
     }
 }
