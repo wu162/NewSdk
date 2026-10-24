@@ -1,6 +1,7 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=191 && choice->kind<=193) EndianSpecialAbility(reinterpret_cast<unsigned char*>(input));
     if(choice && choice->kind>=188 && choice->kind<=190) EndianPowerRouting(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=165 && choice->kind<=187) EndianSpecialPowerDerived(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=162 && choice->kind<=164) EndianSpecialPowerBase(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -63,6 +64,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto choice=FindModule(type);
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=191 && choice->kind<=193) MarshalSpecialAbility(input,reinterpret_cast<unsigned char*>(target),data);
     if(choice && choice->kind>=188 && choice->kind<=190) MarshalPowerRouting(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=165 && choice->kind<=187) MarshalSpecialPowerDerived(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=162 && choice->kind<=164) MarshalSpecialPowerBase(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

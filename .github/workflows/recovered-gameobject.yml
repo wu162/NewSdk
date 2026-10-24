@@ -19,6 +19,7 @@ on:
       - 'recovery/scripts/GenerateSpecialPowerBaseFields.py'
       - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
       - 'recovery/scripts/GeneratePowerRoutingFields.py'
+      - 'recovery/scripts/GenerateSpecialAbilityFields.py'
       - 'recovery/scripts/GenerateUpgradeRemaining.py'
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'

@@ -535,3 +535,5 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectSpecialPowerDerivedRuntime.h"
 
 #include "GameObjectPowerRoutingRuntime.h"
+
+#include "GameObjectSpecialAbilityRuntime.h"

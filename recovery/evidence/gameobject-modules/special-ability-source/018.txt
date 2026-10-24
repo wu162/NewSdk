@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 66bb5911988354740830f9c7ff15bd4aabce64b939c417446170c569911567ae
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAnimAndDuration_003E(void** table, AnimAndDuration** pointer, Tracker* tracker)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Tokenizer_002ETokenize(table, (AnimAndDuration*)(int)num, tracker);
+		}
+		else
+		{
+			*(int*)table = 0;
+		}
+	}
