@@ -44,24 +44,53 @@ namespace Recovered.XmlPriority
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
         }
+        private void WriteFailedInput(InstanceDeclaration instance, uint typeId, Exception error)
+        {
+            string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE");
+            if (String.IsNullOrEmpty(trace)) return;
+            // Diagnostics must preserve the original compiler exception. Failed inputs
+            // are separate from successful calls.tsv and never enter replay counts.
+            try
+            {
+                lock (TraceGate)
+                {
+                    Directory.CreateDirectory(trace);
+                    string stem = "failed-" + Guid.NewGuid().ToString("N");
+                    string path = Path.Combine(trace, stem);
+                    File.WriteAllText(path + ".xml", instance.Node.OuterXml);
+                    File.WriteAllText(path + ".error.txt", "TypeId=" +
+                        typeId.ToString(CultureInfo.InvariantCulture) + " platform=" +
+                        ((int)platform).ToString(CultureInfo.InvariantCulture) + Environment.NewLine + error);
+                }
+            }
+            catch { /* Preserve the original failure if diagnostics cannot be written. */ }
+        }
         public AssetBuffer ProcessInstance(InstanceDeclaration instance)
         {
             if (instance == null) throw new ArgumentNullException("instance");
             uint typeId = instance.Handle.TypeId;
             string typeName;
             AssetBuffer result;
-            switch (typeId)
+            try
             {
-                case 2254974584u:
-                    typeName = "FXList";
-                    result = global::Recovered.FXListCompiler.ProcessInstance(instance, platform);
-                    break;
-                case 686292351u:
-                    typeName = "FXParticleSystemTemplate";
-                    result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(instance, platform);
-                    break;
-                default:
-                    throw new NotSupportedException("XmlPriority supports only FXList and FXParticleSystemTemplate.");
+                switch (typeId)
+                {
+                    case 2254974584u:
+                        typeName = "FXList";
+                        result = global::Recovered.FXListCompiler.ProcessInstance(instance, platform);
+                        break;
+                    case 686292351u:
+                        typeName = "FXParticleSystemTemplate";
+                        result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(instance, platform);
+                        break;
+                    default:
+                        throw new NotSupportedException("XmlPriority supports only FXList and FXParticleSystemTemplate.");
+                }
+            }
+            catch (Exception error)
+            {
+                WriteFailedInput(instance, typeId, error);
+                throw;
             }
             string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE");
             if (!String.IsNullOrEmpty(trace))
@@ -85,3 +114,4 @@ namespace Recovered.XmlPriority
         }
     }
 }
+

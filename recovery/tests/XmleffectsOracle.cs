@@ -181,6 +181,14 @@ class XmleffectsOracle {
                 int startFixtures=fixtures, startComparisons=comparisons, startRejections=rejections, startLayouts=layouts;
                 bool big = platformId != 0;
                 Layout(Test(original, "default", FX("", ""), platform), big, 0, 0, 0, 0, 0);
+                foreach(string typeId in new string[]{"2254974584","0x86682e78"}) {
+                    Layout(Test(original,"BAB-root-typeid-default:"+typeId,FX("TypeId='"+typeId+"'","<NuggetList TypeId='123'/>"),platform),big,0,0,0,0,0);
+                    Test(original,"BAB-root-typeid-nugget:"+typeId,FX("TypeId='"+typeId+"'","<NuggetList TypeId='123'>"+Nugget(503892219u,"","<SecondaryObjectFilter TypeId='456'><IncludeThing TypeId='789'>Tank</IncludeThing><ExcludeThing TypeId='789'>Tree</ExcludeThing></SecondaryObjectFilter><SourceObjectFilter TypeId='456'/><SourceMustNotHaveBeenDisabledThisFrameByType TypeId='111'>EMP</SourceMustNotHaveBeenDisabledThisFrameByType>")+"</NuggetList>"),platform);
+                }
+                Test(original,"BAB-derived-child-typeid",FX("TypeId='2254974584'","<NuggetList TypeId='123'>"+Nugget(751572338u,"","<Offset TypeId='222' x='1.25' y='2.5' z='3.75'/><TargetOffset TypeId='222' x='4.5' y='5.25' z='6.75'/><Radius TypeId='333' Low='1.25' High='2.5'/>")+"</NuggetList>"),platform);
+                foreach(string typeId in new string[]{"0","1","686292351","0x86682e79","","not-a-number"})
+                    Reject(FX("TypeId='"+typeId+"'","<NuggetList/>"),false);
+                Reject(FX("xmlns:x='other' x:TypeId='2254974584'","<NuggetList/>"),false);
                 Layout(Test(original, "distinct", FX("CullTracking='1500ms' CullTrackingMin='-17' CullTrackingMax='0x23' PlayEvenIfShrouded='true' Tailorable='1'", "<NuggetList/>"), platform), big,
                     (float)((double)1500.0f * (double)0.001f), -17, 35, 1, 1);
                 Layout(Test(original, "seconds", FX("CullTracking='2.25s' CullTrackingMin='010' CullTrackingMax='-2147483648'", ""), platform), big, 2.25f, 8, Int32.MinValue, 0, 0);

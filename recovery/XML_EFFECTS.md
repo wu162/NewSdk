@@ -13,6 +13,19 @@ CompileXml(XmlNode,XmlNamespaceManager,bool) and
 ProcessInstance(InstanceDeclaration,TargetPlatform).
 All successful results preserve AssetBuffer.InstanceData, RelocationData and
 ImportsData. The bridge validates FXList TypeId 2254974584 and the asset namespace.
+The actual BAB SDK trace also annotates the root with a numeric TypeId.
+An optional matching root TypeId (decimal or base-zero hexadecimal) is accepted
+as metadata and does not add a serialized word; mismatches and foreign namespace
+attributes remain explicitly refused. This correction arose from real SDK run
+40090297467, whose original build succeeded and recovered build rejected the
+root metadata. New default/nugget fixtures cover decimal/hex metadata on all
+four component platforms and retain the full previous matrix.
+BAB also annotates every descendant whose schema type is named. The bridge
+allows inert bare TypeId metadata on containers, vectors, random variables,
+filters and their reference/enum leaves, matching the original marshaler's
+ignored metadata. Filter input maps omit this annotation before invoking the
+shared helper. Nugget TypeId still controls its original polymorphic dispatch;
+the root TypeId guard remains strict. Nested-metadata fixtures cover these paths.
 
 All five root attributes are implemented: PlayEvenIfShrouded, Tailorable,
 CullTracking, CullTrackingMin, CullTrackingMax.

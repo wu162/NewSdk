@@ -11,6 +11,9 @@ public:
     static void Attributes(XmlNode^ node, array<String^>^ allowed) {
         for each (XmlAttribute^ attr in node->Attributes) {
             if (attr->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            // BAB attaches TypeId to every named schema type, including structural
+            // children. Their original Marshal methods ignore this metadata.
+            if (attr->NamespaceURI->Length == 0 && attr->LocalName == "TypeId") continue;
             bool found = false;
             if (attr->NamespaceURI->Length == 0)
                 for each (String^ name in allowed) if (attr->LocalName == name) { found = true; break; }
@@ -317,8 +320,13 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         XmlfxparticleXml::Root(node, "FXParticleSystemTemplate");
         if(namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
-        XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});
+        XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","TypeId","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});
         XmlfxparticleXml::Children(node, gcnew array<String^>{"SlavePosOffset","Lifetime","Size","StartSizeRate","BurstDelay","BurstCount","InitialDelay","Alphas","Colors","Wind","Physics","Draw","Volume","Velocity","Event","Update"}, false);
+        // BAB inserts the root TypeId during preprocessing. The original root ignores
+        // this metadata; this component accepts only its own matching numeric value.
+        if(node->Attributes["TypeId"] != nullptr &&
+            Native::ParseUnsigned(XmlfxparticleXml::Attr(node,"TypeId","0")) != 686292351u)
+            throw gcnew NotSupportedException("Mismatched FXParticleSystemTemplate root TypeId");
         Native::XmlfxparticleParticleInput input;
         input.priority = XmlfxparticleXml::Attr(node,"Priority","ULTRA_HIGH_ONLY");
         input.shader = XmlfxparticleXml::Attr(node,"Shader","ADDITIVE");
@@ -417,5 +425,6 @@ public:
     }
 };
 }
+
 
 

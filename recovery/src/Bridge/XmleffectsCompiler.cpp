@@ -11,7 +11,9 @@ public:
     static void Attributes(XmlNode^ node, array<String^>^ allowed) {
         for each (XmlAttribute^ attr in node->Attributes) {
             if (attr->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            bool found = false;
+            // BAB annotates every element with a named schema type. TypeId
+            // is payload only at the root guard and polymorphic dispatch.
+            bool found = attr->NamespaceURI->Length == 0 && attr->LocalName == "TypeId";
             if (attr->NamespaceURI->Length == 0)
                 for each (String^ name in allowed) if (attr->LocalName == name) { found = true; break; }
             if (!found) throw gcnew NotSupportedException("Unsupported effects attribute: " + attr->Name);
@@ -266,7 +268,7 @@ public:
             input.hasFilters[i]=true;
             Attributes(filter,gcnew array<String^>{"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"});
             Children(filter,gcnew array<String^>{"IncludeThing","ExcludeThing"},true);
-            for each(XmlAttribute^ attr in filter->Attributes) if(attr->NamespaceURI->Length==0)
+            for each(XmlAttribute^ attr in filter->Attributes) if(attr->NamespaceURI->Length==0 && attr->LocalName!="TypeId")
                 input.filters[i].attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
             for each(XmlNode^ child in filter->ChildNodes) if(child->NodeType==XmlNodeType::Element) {
                 Attributes(child,gcnew array<String^>(0));
@@ -300,8 +302,13 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         XmleffectsXml::Root(node, "FXList");
         if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
-        array<String^>^ allowed = {"id", "PlayEvenIfShrouded", "Tailorable", "CullTracking", "CullTrackingMin", "CullTrackingMax"};
+        array<String^>^ allowed = {"id", "TypeId", "PlayEvenIfShrouded", "Tailorable", "CullTracking", "CullTrackingMin", "CullTrackingMax"};
         XmleffectsXml::Attributes(node, allowed);
+        // BAB annotates the root as well as polymorphic children. It is
+        // metadata, not a serialized FXList field; reject mismatched routing.
+        XmlAttribute^ rootTypeId=node->Attributes["TypeId"];
+        if(rootTypeId!=nullptr && Native::ParseUnsigned(marshal_as<std::string>(rootTypeId->Value))!=2254974584u)
+            throw gcnew NotSupportedException("Mismatched FXList root TypeId");
         bool listSeen = false;
         for each (XmlNode^ child in node->ChildNodes) {
             if (child->NodeType == XmlNodeType::Element) {
