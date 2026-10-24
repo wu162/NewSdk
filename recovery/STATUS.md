@@ -732,3 +732,8 @@ SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固�
 用户要求一小时/最多3子代理/本轮禁止SDK真实编译。七组新增101：tacticalhotkeys5、uichat3、uidecals4、singlesound10、pathmusic7、musicscript21、uitactical51。最终源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success，21完整组/Od/O2/四平台与183入口联合DLL全过。645344 fixtures、3423096数组比较（含direct）、22704拒绝；联合每模式732/2196与40/120 completion，实际退出0。
 
 首轮40132183077真实LookAt三个100%默认值漏失已按原静态symbol修正，加defaults/partial独立ABI；历史失败保留。SDK真实编译0次，SDK工作流最近仍40098695436。主Plugin/SDK配置/scripts/oracle/probe/SDK工作流及原82SDK清单未改，保护SHA见evidence/xml-component-acceptance-20261025.json。新增101全部sdkValidated=false，原82历史SDK证据不冒充当前183联合DLL验收；原SDK未替换。下一轮按XMLCOMPILER_PRIORITY.md选择新的完整组，或仅在明确获准SDK时批量集成新增能力。
+
+
+## 2026-10-25 XmlCompiler priority第二轮交接
+
+源码0f0ab2fce098fef2d78d6a165f3f5ce86c591077，组件运行40142560815 completed/success。本轮104个新入口/40完整组，合计287/301登记入口、61完整组件矩阵及联合DLL全部验收。SDK真实编译0次，当前联合DLL未SDK验证；原82历史清单保留、205组件专用入口SDK pending。剩UIConfigList/GameMap及原排除12根，不称301完成。详细结果及限制见XMLCOMPILER_PRIORITY.md与evidence/xml-component-acceptance-20261025-287.json。
