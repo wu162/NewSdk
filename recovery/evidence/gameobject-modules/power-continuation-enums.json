@@ -1,8 +1,8 @@
 {
   "peSha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603",
-  "runId": "40099572191",
+  "runId": "40128710378",
   "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
-  "sourceCommit": "73f2d671506fb2cba7d5642bc0ef332debc9bfea",
+  "sourceCommit": "7794216392bfb7221308dc54533c34148b3b3c4d",
   "status": "read-only original PE evidence; no implementation/support claim",
   "tables": {
     "ConditionsType": {
@@ -26,6 +26,15 @@
       "USE_MULTIPLE_SECONDARY_OBJECT_LOCATIONS": 9,
       "USE_OWNER_OBJECT": 4,
       "USE_SECONDARY_OBJECT_LOCATION": 8
+    },
+    "ReplaceSelfOptions": {
+      "CHECK_BUILD_ASSISTANT": 4,
+      "CLEAR_LOCATION": 6,
+      "COPY_TARGET_OBJECT": 0,
+      "COPY_UPGRADES": 2,
+      "DISABLE_DURING_REPLACE": 3,
+      "DISABLE_NEW_OBJECT_DURING_UNPACK": 5,
+      "IGNORE_TERRAIN_RESTRICTIONS": 1
     },
     "SPMovementType": {
       "NONE": 0,
