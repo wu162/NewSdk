@@ -1,0 +1,59 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 94279; body SHA256 3fdf9bb6aa2ae371c06297e15048ea8d1cdd9acf4643e627e51a23e258dd13ca
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, SecondaryDamageTrackerModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 8u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1108031397;
+		((int*)ptr)[1] = -1719244312;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1440863220;
+		((int*)ptr)[1] = 1982953380;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 921055669;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 16, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1640065189;
+		((int*)ptr)[1] = -1360567643;
+		byte* num = (byte*)@object + 20;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (RGBColor*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1571623619;
+		((int*)ptr)[1] = 636827551;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AEffectInfoType_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AEffectInfoType_003E*)((byte*)@object + 24), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -361501601;
+		((int*)ptr)[1] = 1049596812;
+		byte* num3 = (byte*)@object + 32;
+		void** ptr3 = (void**)((byte*)ptr + 8);
+		uint num4 = *(uint*)num3;
+		if (num4 != 0)
+		{
+			Tokenizer_002ETokenize(ptr3, (ObjectStatusValidationDataType*)(int)num4, state);
+		}
+		else
+		{
+			*(int*)ptr3 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

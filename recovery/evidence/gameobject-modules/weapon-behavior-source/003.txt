@@ -1,0 +1,57 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 43405; body SHA256 a4bbfb6b631efe0cb5a0464fd4a1af94c6d0342bbc3eb17bdd2fa2df2e4c37d9
+// Literals: {"_003F_003F_C_0040_02MMCGBDJK_00400_003F_0024CF_003F_0024AA_0040": "0%", "_003F_003F_C_0040_0BH_0040EFEJCJJL_0040ObjectStatusValidation_003F_0024AA_0040": "ObjectStatusValidation", "_003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040": "0.0s", "_003F_003F_C_0040_04MFAIIOHM_00401_003F40s_003F_0024AA_0040": "1.0s", "_003F_003F_C_0040_0L_0040HJJPIMOC_0040ChargeTime_003F_0024AA_0040": "ChargeTime", "_003F_003F_C_0040_0P_0040JCLIAINM_0040OverChargeTime_003F_0024AA_0040": "OverChargeTime", "_003F_003F_C_0040_0BC_0040LCDIABPJ_0040OverChargePercent_003F_0024AA_0040": "OverChargePercent"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ChargeWeaponUpdateModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040HJJPIMOC_0040ChargeTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04MFAIIOHM_00401_003F40s_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+			DataInitializers_002EInitialize((float*)@object + 2, text, &timeTag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040JCLIAINM_0040OverChargeTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040));
+		if (ptr2 != null)
+		{
+			sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag2);
+			DataInitializers_002EInitialize((float*)@object + 3, text2, &timeTag2);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+		}
+		IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040LCDIABPJ_0040OverChargePercent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02MMCGBDJK_00400_003F_0024CF_003F_0024AA_0040));
+		if (ptr3 != null)
+		{
+			float num = (float)atof(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3));
+			((float*)@object)[4] = num * 0.01f;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BH_0040EFEJCJJL_0040ObjectStatusValidation_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr4 = (INode*)(int)(*(uint*)num2);
+			ObjectStatusValidationDataType** ptr5 = (ObjectStatusValidationDataType**)((byte*)@object + 20);
+			if (ptr4 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr5, 56u, 1u);
+				Marshaler_002EMarshal(ptr4, (ObjectStatusValidationDataType*)(int)(*(uint*)ptr5), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+	}
+

@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 60454; body SHA256 bd142e0f0b7adc8d62126b4cef147736c1fd1da0e6f0ecd6d29adc334f63f6e5
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ALinearDamageUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		LinearDamageUpdateModuleData* ptr = (LinearDamageUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 509375610;
+	}
+

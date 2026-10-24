@@ -1,0 +1,26 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 20014; body SHA256 7f1db5c6ba1778caae0f87ff2d3a3373dd4c205d22ae64953d96701d3b793e69
+// Literals: {"_003F_003F_C_0040_0BC_0040IDKPMEAJ_0040AttributeModifier_003F_0024AA_0040": "AttributeModifier", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040": "", "_003F_003F_C_0040_07KHIHFBFN_0040Options_003F_0024AA_0040": "Options", "_003F_003F_C_0040_08LCDAJCG_0040Fraction_003F_0024AA_0040": "Fraction", "_003F_003F_C_0040_0P_0040GFMNHAHE_0040OnEnterDisable_003F_0024AA_0040": "OnEnterDisable", "_003F_003F_C_0040_0BO_0040CPGGMNPD_0040OnEnterCancelSpecialAbilities_003F_0024AA_0040": "OnEnterCancelSpecialAbilities", "_003F_003F_C_0040_0BB_0040LPNFKMO_0040SetUpgradedArmor_003F_0024AA_0040": "SetUpgradedArmor"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, EffectInfoType* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08LCDAJCG_0040Fraction_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				*(float*)@object = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAttributeModifier_002Cclass_0020AttributeModifierContainer_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040IDKPMEAJ_0040AttributeModifier_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AAttributeModifier_002CAttributeModifierContainer_003E*)((byte*)@object + 4), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040GFMNHAHE_0040OnEnterDisable_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 12, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BO_0040CPGGMNPD_0040OnEnterCancelSpecialAbilities_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 13, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040LPNFKMO_0040SetUpgradedArmor_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 14, state);
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07KHIHFBFN_0040Options_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_00CNPNBAHC_0040_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AEffectInfoFlagType_002C1_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3), (BitFlags_003C1_002Cenum_0020SageBinaryData_003A_003AEffectInfoFlagType_003E*)((byte*)@object + 8), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+		}
+	}
+
