@@ -20,5 +20,6 @@
       "methodSha256": "cd9f820b69f862362831f138625b955e9e375f3c35bd5c3ae9b4f371799bb46d",
       "core": "global::_003CModule_003E.Relo_002ETracker_002E_007Bctor_007D_003Cstruct_0020SageBinaryData_003A_003AAudioFileRuntime_003E(&tracker, &ptr4);\n\t\t\t\t\ttry\n\t\t\t\t\t{\n\t\t\t\t\t\tif (ptr3 != null)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tNode* intPtr3 = ptr3;\n\t\t\t\t\t\t\tIValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)intPtr3 + 16)))((nint)intPtr3);\n\t\t\t\t\t\t\tif (ptr5 != null)\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);\n\t\t\t\t\t\t\t\t((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t\tSystem.Runtime.CompilerServices.Unsafe.SkipInit(out EndianHelper endianHelper);\n\t\t\t\t\t\t*(bool*)(&endianHelper) = flag;\n\t\t\t\t\t\tglobal::_003CModule_003E.Marshaler_002EEndianCorrect(ptr4, &endianHelper);\n\t\t\t\t\t\tIntPtr intPtr4 = new IntPtr((void*)(int)(*(uint*)buffer));\n\t\t\t\t\t\t"
     }
-  ]
+  ],
+  "methodDigestEncoding": "SHA256 of extracted method text encoded UTF-8 after read_text universal-newline normalization to LF"
 }

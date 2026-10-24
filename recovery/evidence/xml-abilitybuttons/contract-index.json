@@ -1,0 +1,141 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "variants": [
+    {
+      "name": "BuildWallUnitAbilityButtonTemplateData",
+      "typeId": 826563063,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63426
+    },
+    {
+      "name": "ObjectUpgradeUnitAbilityButtonTemplateData",
+      "typeId": 694619649,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63485
+    },
+    {
+      "name": "SpecialPowerUnitAbilityButtonTemplateData",
+      "typeId": 230292782,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63525
+    },
+    {
+      "name": "AssembleStructureUnitAbilityButtonTemplateData",
+      "typeId": 935244829,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63407
+    },
+    {
+      "name": "EvacuateUnitAbilityButtonTemplateData",
+      "typeId": 1397188496,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63445
+    },
+    {
+      "name": "ProduceStructureUnitAbilityButtonBaseTemplateData",
+      "typeId": 1257363675,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63536
+    },
+    {
+      "name": "BuildUnitUnitAbilityButtonTemplateData",
+      "typeId": 988387268,
+      "size": 4,
+      "kind": "Empty",
+      "player": false,
+      "helperLine": 63518
+    },
+    {
+      "name": "ToggleSpecialPowerUnitAbilityButtonTemplateData",
+      "typeId": 1606819420,
+      "size": 12,
+      "kind": "Toggle",
+      "player": false,
+      "helperLine": 63507
+    },
+    {
+      "name": "UnpackUnitAbilityButtonTemplateData",
+      "typeId": 2708328405,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63496
+    },
+    {
+      "name": "PlayerUpgradeUnitAbilityButtonTemplateData",
+      "typeId": 2581602373,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63456
+    },
+    {
+      "name": "TargetedSpecialPowerUnitAbilityButtonTemplateData",
+      "typeId": 2297297736,
+      "size": 28,
+      "kind": "Targeted",
+      "player": false,
+      "helperLine": 63437
+    },
+    {
+      "name": "SingleStateUnitAbilityButtonTemplateData",
+      "typeId": 3134958229,
+      "size": 8,
+      "kind": "Single",
+      "player": false,
+      "helperLine": 63467
+    },
+    {
+      "name": "MultiplePowersTargetedSpecialPowerUnitAbilityButtonTemplateData",
+      "typeId": 3329794654,
+      "size": 52,
+      "kind": "MultiPowers",
+      "player": false,
+      "helperLine": 63418
+    },
+    {
+      "name": "BaseSpecialPowerUnitAbilityButtonTemplateData",
+      "typeId": 3302649080,
+      "size": 4,
+      "kind": "Empty",
+      "player": false,
+      "helperLine": 63478
+    },
+    {
+      "name": "TargetedPlayerPowerButtonTemplateData",
+      "typeId": 2890263052,
+      "size": 28,
+      "kind": "Targeted",
+      "player": true,
+      "helperLine": 66619
+    },
+    {
+      "name": "MultipleTargetsTargetedPlayerPowerButtonTemplateData",
+      "typeId": 2761490207,
+      "size": 52,
+      "kind": "MultiTargets",
+      "player": true,
+      "helperLine": 66627
+    },
+    {
+      "name": "MultiplePowersTargetedPlayerPowerButtonTemplateData",
+      "typeId": 2622883154,
+      "size": 52,
+      "kind": "MultiPowers",
+      "player": true,
+      "helperLine": 32185
+    }
+  ]
+}

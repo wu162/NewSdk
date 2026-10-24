@@ -4,7 +4,7 @@
 
 固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。
 
-`evidence/xml-runtimeopaque/original-contract.json`逐根保存完整原Handler方法的源路径/起止行/精确方法SHA256和完整核心Marshal→Finalize代码；原完整方法保留在decompiled原Plugin，非摘要替代取证。
+`evidence/xml-runtimeopaque/original-contract.json`逐根保存完整原Handler方法的源路径/起止行/UTF-8/LF规范化方法SHA256和完整核心Marshal→Finalize代码；原完整方法保留在decompiled原Plugin，非摘要替代取证。
 
 - BaseRenderAssetType：原Plugin完整HandleType只构建Node、4字节root Tracker、设置EndianHelper后直接FinalizeTracker，无Marshal调用、无字段getter、无子分配。StructLayout4，schema AssetTypeW3D.xsd abstract BaseAsset扩展、无字段。精确TypeId2989459401、TypeHash3866869572。
 - AudioFileRuntime：原Plugin完整HandleType构建32字节root，只调用节点Value getter取得C-string后丢弃，没有读取或写入六个schema属性，也未调用任何音频解析方法；随后调用完整AudioFileRuntime EndianCorrect。`parts/part-0038.cs.txt`原行19290仅swap@4/12/16/24中的零，不分配、不写数据。原StructLayout32，Tracker构造见`part-0177.cs.txt`88516，BaseRender Tracker见`part-0180.cs.txt`90063。schema AssetTypeAudio.xsd六属性SubtitleStringName/NumberOfChannels/NumberOfSamples/SampleRate/HeaderData/HeaderDataSize在这个Xml入口都被忽略。精确TypeId584092973、TypeHash2941751938。

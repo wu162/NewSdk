@@ -37,3 +37,7 @@ Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`; Plugin blob `00bb9e5df72
 Full x86 /Od and /O2; platforms0/1/2/99; original ProcessInstance versus recovered ProcessInstance/direct CompileXml; all three exact arrays. Oracle covers every root/nested field, complete Veterancy PE words and signedINVALID, CRT signed fields/unsigned dispatch parsing, case/sign/NUL/unknown enum boundaries, all asset-ref suffix boundaries, source-allocation ordering, mixed concrete/base card dispatch including missing/unknown/numeric/hex TypeIds and arbitrary tag names, strings to65535, nested definition/polymorphic/upgrade growth1024, metadata and explicit refusals, plus independent fixed ABI assertions for all12/16/24/32/36 roots and4/8/24 helpers, card type tags, values and exact relocation/import owner order.
 
 Local g++ syntax preflight passes with only the pointer-size assertion removed from a temporary copy; production retains x86 enforcement. Parent Windows integration provides final differential evidence. No unrun component acceptance or real SDK success is claimed here.
+
+## Host compile correction
+
+The first run40141089972 failed before executing the Conquer oracle because C#4 rejects the later deck local `d` when a defaults-loop child scope already declared `d`. The defaults fixture local is now named `rootDefault`. No native code, fixture, byte comparison or ABI assertion changed; the final integration run must execute the complete matrix after this host-only correction.

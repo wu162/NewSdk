@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "TestTexture",
+      "typeId": 2826773070,
+      "typeHash": 275489259,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TestTextureCollection",
+      "typeId": 49556361,
+      "typeHash": 2883151314,
+      "schemaGlobal": true
+    }
+  ]
+}

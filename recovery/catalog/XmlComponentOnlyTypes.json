@@ -278,6 +278,30 @@
     ],
     "mouse": [
       "Mouse"
+    ],
+    "abilitybuttons": [
+      "UnitAbilityButtonTemplate",
+      "PlayerPowerButtonTemplate"
+    ],
+    "testtextures": [
+      "TestTexture",
+      "TestTextureCollection"
+    ],
+    "terrain": [
+      "TerrainAssetCollection",
+      "TerrainTextureAtlasRuntime"
+    ],
+    "w3d": [
+      "W3DHierarchy",
+      "W3DContainer",
+      "W3DAnimationRuntime",
+      "W3DCollisionBox"
+    ],
+    "mapmetadata": [
+      "MapMetaData"
+    ],
+    "gamescripts": [
+      "GameScriptList"
     ]
   },
   "roots": [
@@ -1631,6 +1655,90 @@
       "name": "Mouse",
       "typeId": 2525492603,
       "typeHash": 1246977355,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "UnitAbilityButtonTemplate",
+      "typeId": 3517887782,
+      "typeHash": 2961656853,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PlayerPowerButtonTemplate",
+      "typeId": 4044322798,
+      "typeHash": 2789252562,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TestTexture",
+      "typeId": 2826773070,
+      "typeHash": 275489259,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TestTextureCollection",
+      "typeId": 49556361,
+      "typeHash": 2883151314,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TerrainAssetCollection",
+      "typeId": 582251659,
+      "typeHash": 339527263,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TerrainTextureAtlasRuntime",
+      "typeId": 3878948534,
+      "typeHash": 1182599100,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "W3DHierarchy",
+      "typeId": 1641540160,
+      "typeHash": 3985956449,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "W3DContainer",
+      "typeId": 4042295058,
+      "typeHash": 1637720895,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "typeId": 3534264507,
+      "typeHash": 3595590881,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "W3DCollisionBox",
+      "typeId": 3810008068,
+      "typeHash": 1848047257,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MapMetaData",
+      "typeId": 1603703110,
+      "typeHash": 1209903334,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "GameScriptList",
+      "typeId": 3737094024,
+      "typeHash": 2724763994,
       "schemaGlobal": true,
       "sdkValidated": false
     }

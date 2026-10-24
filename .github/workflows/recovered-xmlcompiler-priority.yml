@@ -42,7 +42,7 @@ jobs:
         shell: python
         run: |
           import json, os, pathlib
-          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle", "progression", "environment", "players", "damagefx", "hotkeymaps", "audio", "uisettings", "soundmaps", "tacticalhotkeys", "uichat", "uidecals", "singlesound", "pathmusic", "musicscript", "uitactical", "conditions", "targeting", "evaachievement", "healthbars", "unitoverlay", "objectsets", "visibility", "emotions", "projectilepath", "forcefeedback", "content", "visualsystems", "crowd", "radar", "renderdevice", "localization", "commandset", "materialrules", "uiimages", "chatcolors", "moviearchive", "systemsettings", "campaign", "buildeconomy", "dynamics", "connections", "redalert", "conquercards", "armyopening", "assetindexes", "renderassets", "aptdata", "runtimeopaque", "mouse"]
+          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle", "progression", "environment", "players", "damagefx", "hotkeymaps", "audio", "uisettings", "soundmaps", "tacticalhotkeys", "uichat", "uidecals", "singlesound", "pathmusic", "musicscript", "uitactical", "conditions", "targeting", "evaachievement", "healthbars", "unitoverlay", "objectsets", "visibility", "emotions", "projectilepath", "forcefeedback", "content", "visualsystems", "crowd", "radar", "renderdevice", "localization", "commandset", "materialrules", "uiimages", "chatcolors", "moviearchive", "systemsettings", "campaign", "buildeconomy", "dynamics", "connections", "redalert", "conquercards", "armyopening", "assetindexes", "renderassets", "aptdata", "runtimeopaque", "mouse", "abilitybuttons", "testtextures", "terrain", "w3d", "mapmetadata", "gamescripts"]
           groups = [g for g in expected if pathlib.Path("recovery/scripts/TestXml" + g + ".ps1").is_file()]
           if not groups:
               raise RuntimeError("No recovered component test scripts available")
@@ -125,7 +125,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for group in attributes effects powers locomotor ai fxparticle progression environment players damagefx hotkeymaps audio uisettings soundmaps tacticalhotkeys uichat uidecals singlesound pathmusic musicscript uitactical conditions targeting evaachievement healthbars unitoverlay objectsets visibility emotions projectilepath forcefeedback content visualsystems crowd radar renderdevice localization commandset materialrules uiimages chatcolors moviearchive systemsettings campaign buildeconomy dynamics connections redalert conquercards armyopening assetindexes renderassets aptdata runtimeopaque mouse priority-link; do
+          for group in attributes effects powers locomotor ai fxparticle progression environment players damagefx hotkeymaps audio uisettings soundmaps tacticalhotkeys uichat uidecals singlesound pathmusic musicscript uitactical conditions targeting evaachievement healthbars unitoverlay objectsets visibility emotions projectilepath forcefeedback content visualsystems crowd radar renderdevice localization commandset materialrules uiimages chatcolors moviearchive systemsettings campaign buildeconomy dynamics connections redalert conquercards armyopening assetindexes renderassets aptdata runtimeopaque mouse abilitybuttons testtextures terrain w3d mapmetadata gamescripts priority-link; do
             src="/tmp/xml-priority-results/xml-priority-$group"
             if [ -d "$src" ]; then
               mkdir -p "recovery/evidence/xml-$group"
