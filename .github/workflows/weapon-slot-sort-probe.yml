@@ -1,0 +1,40 @@
+name: Original WeaponSlot sort investigation
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - 'recovery/tests/WeaponSlotSortProbe.cs'
+      - 'recovery/scripts/ProbeWeaponSlotSort.ps1'
+      - '.github/workflows/weapon-slot-sort-probe.yml'
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe original sorted WeaponData and reference pairing
+        shell: pwsh
+        run: ./recovery/scripts/ProbeWeaponSlotSort.ps1
+      - name: Persist bounded probe evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/gameobject-modules/weapon-slot-sort-probe
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect evidence' }
+          git commit -m "recovery: original WeaponSlot sort probe from $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to commit probe evidence' }
+          git pull --rebase origin recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to preserve concurrent changes' }
+          git push origin HEAD:recovery/compiler-source
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to push probe evidence' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: original-weapon-slot-sort-evidence
+          path: recovery/evidence/gameobject-modules/weapon-slot-sort-probe

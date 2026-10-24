@@ -75,7 +75,7 @@ if '--motion-family' in sys.argv:
             add(signature)
 if '--weapon-slot-sort' in sys.argv:
     for signature in signatures:
-        if '('in signature and ('WeaponListComparer'in signature or ('WeaponSlot_WeaponData'in signature and 'eastl_002E'in signature) or 'Relo_002ETracker_002EExchangePointers('in signature):add(signature)
+        if '('in signature and ('WeaponListComparer'in signature or ('WeaponSlot_WeaponData'in signature and 'eastl_002E'in signature) or 'Relo_002ETracker_002EExchangePointers('in signature or 'Relo_002ETracker_002EAlterBookmark_003C'in signature):add(signature)
 # Include called concrete bases and named template helpers, preserving exact overloads.
 queue=list(selected)
 while queue:
