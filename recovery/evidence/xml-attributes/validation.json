@@ -5,36 +5,36 @@
     2,
     99
   ],
-  "runId": "40080474059",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
   "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "sourceCommit": "977313a17647051df333e223f7a6c45f732bdc63",
+  "runId": "40081071143",
+  "succeeded": true,
   "modes": [
     {
-      "exitCode": 0,
-      "succeeded": true,
-      "log": "Od-oracle.txt",
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
-      "mode": "Od"
+      "exitCode": 0,
+      "log": "Od-oracle.txt",
+      "mode": "Od",
+      "succeeded": true
     },
     {
-      "exitCode": 0,
-      "succeeded": true,
-      "log": "O2-oracle.txt",
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
-      "mode": "O2"
+      "exitCode": 0,
+      "log": "O2-oracle.txt",
+      "mode": "O2",
+      "succeeded": true
     }
   ],
-  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
-  "succeeded": true,
-  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated"
+  "sourceCommit": "f13ddae7d8823cbaac024b6b52aa2eaf29aeb9e1"
 }

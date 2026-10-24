@@ -1,0 +1,5 @@
+System.Exception: AIPersonalityDefinition/defaults/instance byte 46 expected 128 actual 200
+   at XmlaiOracle.Equal(String label, Byte[] a, Byte[] b)
+   at XmlaiOracle.Test(String label, String text, TargetPlatform platform)
+   at XmlaiOracle.Run(TargetPlatform platform)
+   at XmlaiOracle.Main(String[] args)

@@ -1,0 +1,16 @@
+{
+  "succeeded": false,
+  "sourceCommit": "f13ddae7d8823cbaac024b6b52aa2eaf29aeb9e1",
+  "runId": "40081071143",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "scope": "XmlCompiler AI component; six root attributes, MicroManager, State heuristics, Budget; explicit remaining child boundaries",
+  "modes": [
+    {
+      "mode": "/Od",
+      "exitCode": -1073610751,
+      "platforms": [],
+      "log": "Od-oracle.txt"
+    }
+  ],
+  "status": "Od Xmlai differential failed"
+}
