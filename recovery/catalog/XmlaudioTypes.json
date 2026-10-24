@@ -1,0 +1,40 @@
+{
+  "roots": [
+    {
+      "name": "AudioEventLimitGroup",
+      "typeId": 3906227957,
+      "typeHash": 2503036394,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AudioLOD",
+      "typeId": 299416263,
+      "typeHash": 21805907,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AudioSettings",
+      "typeId": 1443425905,
+      "typeHash": 3631141684,
+      "schemaGlobal": true
+    },
+    {
+      "name": "Video",
+      "typeId": 587347702,
+      "typeHash": 2217996198,
+      "schemaGlobal": true
+    },
+    {
+      "name": "VideoEventList",
+      "typeId": 1447728787,
+      "typeHash": 2530876419,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MicrophoneSettings",
+      "typeId": 1826140078,
+      "typeHash": 1624658388,
+      "schemaGlobal": false
+    }
+  ]
+}
