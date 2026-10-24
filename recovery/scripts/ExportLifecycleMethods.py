@@ -33,7 +33,9 @@ if '--slaved-family' in sys.argv:
     names=['SlavedUpdateModuleData']
 if '--tech-receiver' in sys.argv:
     names=['TechUpgradeReceiverModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--vision-family' in sys.argv:
+    names=['RadarUpdateModuleData','UnitVisionBehaviorModuleData','RadarMarkerClientUpdateModuleData','BeaconClientUpdateModuleData','SelectiveVisibilityBehaviorModuleData','InvisibilityBehaviorModuleData','InvisibilityBroadcastUpdateModuleData','UnifiedShroudRevealBehaviorModuleData']
+out=ROOT/('recovery/evidence/gameobject-modules/vision-source' if '--vision-family' in sys.argv else 'recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
@@ -86,3 +88,4 @@ if '--tech-receiver' in sys.argv:
     from GenerateUpgradeFields import enum_values
     pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes()
     (out/'enum-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,'ReceiverDistanceType':enum_values(source,pe,'ReceiverDistanceType')},indent=2)+'\n',encoding='utf-8')
+
