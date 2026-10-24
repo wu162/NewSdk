@@ -21,7 +21,7 @@ Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`，Plugin blob `00bb9e5df7
 - AudioLOD count/pointer@32/@36，ProcessorRequirement元素8（enum@0、signed MinMHz@4），三个bool@40/@41/@42。Enum unknown回退AudioLOD=1、ProcessorType=3。源枚举表在 evidence/xml-source/enums；AudioPriority=5、AudioVolumeSlider=3、TextJustification=2、VideoSoundOverride=0，匹配区分大小写。
 - Video Filename/Comment为8字节String@4/@12，Comment缺省No Comment，Volume@20百分比、SoundOverride@24。缺省仅Comment仍产生字符串分配/重定位，缺省实例40字节。
 - VideoEventList count/pointer@4/@8，列表元素4字节指针；分派仅数字TypeId，不靠标签名。MovieEvent=3074724042（16字节）、TitleCardEvent=866596483（24字节）、未知/缺失TypeId分配12字节基类并写0。Base两个nullable FadeData指针@4/@8，元素28（signed FrameCount@0、两个inline Color3f@4/@16）。Movie引用@12先于base；Title display-time@12和TextInstance列表@16先于base。每个TextInstance44字节，TextId为原Utils.Tokenize按空白分割的String列表，保留重复项，Font是String；TextColor为小写r/g/b的Color3f。
-- Video派生/enum及列表方法在72419..72598/86754；TextInstance Marshal44942、Endian45016；FadeData44769；Color3f18951、RGBA18780；时间原方法18375；String列表85247及Tokenize18262。保存的字段和枚举清单与这些证据对应，不调用原DLL实现。
+- Video派生/enum及列表方法在72419..72598/86754；TextInstance Marshal44942、Endian45016；FadeData44766；Color3f18951、RGBA18780；时间原方法18375；String列表85247及Tokenize18262。保存的字段和枚举清单与这些证据对应，不调用原DLL实现。
 
 ## 接线和验证
 

@@ -17,7 +17,7 @@ try {
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     foreach ($mode in @('Od','O2')) {
         $buildLog = "$evidence/$mode-build.txt"
-        & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$out" "/Fo$out/" "/Fe$out/Recovered.Xmlaudio.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/DataInitializers.cpp recovery/src/Native/EnumBitset.cpp recovery/src/Native/ObjectFilter.cpp recovery/src/Native/Xmlaudio.cpp recovery/src/Bridge/XmlaudioCompiler.cpp *> $buildLog
+        & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$out" "/Fo$out/" "/Fe$out/Recovered.Xmlaudio.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/Xmlaudio.cpp recovery/src/Bridge/XmlaudioCompiler.cpp *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
         & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$out/Recovered.Xmlaudio.dll" "/r:$out/BinaryAssetBuilder.Core.dll" "/out:$out/XmlaudioOracle.exe" (Resolve-Path recovery/tests/XmlaudioOracle.cs) (Resolve-Path recovery/tests/XmlaudioCases.cs) *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode C# oracle build failed" }
