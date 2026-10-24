@@ -1,6 +1,6 @@
 # XmlCompiler player/settings group (eight roots)
 
-Implementation checkpoint; Windows /Od and /O2 differential acceptance pending.
+Windows component acceptance passed at source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, run `40095358086` (players job `120876360758`). The complete 14-root players/formation/skirmish group passed `/Od` and `/O2` on platforms 0/1/2/99: 44,760 fixtures, 134,280 three-buffer comparisons, and 984 rejection checks across both modes. SDK acceptance and its exact global-root scope are recorded centrally in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md); standalone GameStatsModeData is component-tested, while SDK coverage uses MultiplayerSettings nesting because the original global schema choice omits it.
 Public interfaces are `Recovered::<Type>Compiler::{CompileXml,ProcessInstance}`.
 No recovered implementation calls an original compiler.
 
@@ -94,7 +94,7 @@ its numeric TypeId. Unknown attributes/namespaces, structured text leaves, unexp
 children, duplicate singletons and unknown actual polymorphic heuristics are refused.
 Inherited heuristic limits remain those of the existing AI component (96).
 No schema validation, inheritance, resource resolution or malformed-XML permissiveness
-is claimed inside the component. No SDK acceptance is claimed by this checkpoint.
+is claimed inside the component. SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md).
 
 `recovery/sdk/XmlplayersProbe.xml` supplies eight legal-source target samples. The
 StrategicStateName and achievement mapping reference the already present priority
@@ -103,6 +103,6 @@ probe assets `RecoveryXmlPriority_Strategic_Defaults` and
 alongside this group when integrating. UnitAI includes both mandatory filters,
 PlayerTemplate both required colors, Multiplayer all eleven required scalar children,
 BuildState its required Heuristic and BuildEntry, and MultiplayerColor required children.
-Full XSD and actual SDK/isolated replay remain separate integration gates.
+Full XSD and actual SDK/isolated replay acceptance are recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md).
 
-The same component now has a separate four-root formation checkpoint; see XML_FORMATIONS.md. Its inclusion does not imply Windows acceptance of either pending group.
+The same component now has a separate four-root formation checkpoint; see XML_FORMATIONS.md. All fourteen component roots passed the acceptance run above; see XML_SKIRMISH.md for the final two roots.
