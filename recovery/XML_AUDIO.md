@@ -34,8 +34,10 @@ Windows完整验收命令 `recovery/scripts/TestXmlaudio.ps1`，包含/Od和/O2�
 
 ## BootupDisplaySequence 追加完整组
 
-原Plugin HandleType 内联Marshal（原文件行13212，具体方法名为HandleType<SageBinaryData::BootupDisplaySequence>），根Tracker构造99527分配16字节。LoadingTextTexture为strong AssetReference@4；DisplayItem count/pointer@8/@12。每个item28字节：Type enum@0（STATIC_SCREEN=0、LOAD_SCREEN=1、MOVIE=2、unknown回退1）；signed Duration@4（直接strtol，**不按Time解析**）、signed Priority@8；RandomTexture列表@12/@16，元素4字节strong引用；nullable String* Movie@20；ShowOnReboot byte@24。Movie缺失不分配；present-empty先分配8字节String再分配4字节对齐空字符串，所以单item含空Movie输出56字节，三处重定位12/36/48。分配次序为root、item数组、各item随机texture数组、该item Movie String对象和字符块。
+原Plugin HandleType 内联Marshal（原文件行12992，具体方法名为HandleType<SageBinaryData::BootupDisplaySequence>），根Tracker构造99527分配16字节。LoadingTextTexture为strong AssetReference@4；DisplayItem count/pointer@8/@12。每个item28字节：Type enum@0（STATIC_SCREEN=0、LOAD_SCREEN=1、MOVIE=2、unknown回退1）；signed Duration@4（直接strtol，**不按Time解析**）、signed Priority@8；RandomTexture列表@12/@16，元素4字节strong引用；nullable String* Movie@20；ShowOnReboot byte@24。Movie缺失不分配；present-empty先分配8字节String再分配4字节对齐空字符串，所以单item含空Movie输出56字节，三处重定位12/36/48。分配次序为root、item数组、各item随机texture数组、该item Movie String对象和字符块。
 
 原item Marshal44292、Endian44332；enum71763；randomtexture列表71777；nullable String71819；item列表71835、Endian71877。原enum/static和相应源分块都已经固定在xml-source证据中。Bootup根元数据TypeId3370391592、TypeHash3238903012，原CnC3Types全局允许。其runtimeWrapper及item enum属于Joypad命名空间，但没有恢复任何Joypad命名根；本轮按主代理追加Bootup请求恢复此完整独立入口。
 
 新增XmlaudioBootupCases.cs并由原Cases调用，完整两优化四平台矩阵保持，覆盖所有属性边界/enum未知回退、nullable Movie缺失和present-empty、参考解析、65×65长双层列表和256个复合输入、独立字节布局/重定位断言和显式拒绝。SDK fragment新增两个合法Bootup资产，复用原SDK BootupSequence.xml已用的loadingText纹理资源；其在测试profile中的实际引用可用性仍以Windows SDK最终验收为准。未将Texture计作已恢复入口。
+
+C字符串边界使用DOM构造embedded NUL（不能通过XML LoadXml输入）：所有enum合法值+NUL尾、leading NUL和未知前缀；TimeTag查单位、TextId分词在NUL前终止；String和引用及各标量均覆盖。EnumLookup使用strcmp语义，保留NUL后的.NET字符不改变原C字符串结果。原DLL和恢复版接收同一DOM，比较三缓冲区。
