@@ -9,9 +9,9 @@ using BinaryAssetBuilder.Core;
 partial class XmlprogressionOracle {
  const string Ns="uri:ea.com:eala:asset";
  static int fixtures,comparisons,direct,rejections,layouts;
- static readonly string[] Roots={"LogicCommand","PlayerTech","PlayerTechRank","PlayerTechUpgradeBinding","ExperienceLevelTemplate","PlayerTechStoreTemplate","PurchasePlayerTechButtonTemplate","ButtonSingleStateData"};
- static readonly uint[] TypeIds={2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u};
- static readonly int[] Sizes={28,16,20,12,108,16,12,32};
+ static readonly string[] Roots={"LogicCommand","PlayerTech","PlayerTechRank","PlayerTechUpgradeBinding","ExperienceLevelTemplate","PlayerTechStoreTemplate","PurchasePlayerTechButtonTemplate","ButtonSingleStateData","UICommandButton"};
+ static readonly uint[] TypeIds={2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u};
+ static readonly int[] Sizes={28,16,20,12,108,16,12,32,12};
  static Assembly recovered;
  static string Escape(string s){return SecurityElement.Escape(s);}
  static string Xml(string root,string attrs,string children){return "<"+root+" xmlns='"+Ns+"' id='Oracle' "+attrs+">"+children+"</"+root+">";}

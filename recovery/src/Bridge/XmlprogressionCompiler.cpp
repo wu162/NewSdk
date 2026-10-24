@@ -115,5 +115,14 @@ public:
   return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
  }
 };
+public ref class UICommandButtonCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"UICommandButton");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=134745024u)throw gcnew NotSupportedException("Expected UICommandButton TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
 }
 

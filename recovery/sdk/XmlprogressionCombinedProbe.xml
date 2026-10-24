@@ -96,4 +96,9 @@
     <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button></Row>
     <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
   </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Combined">
+    <FactionSettings Faction="Allies"><ImageTintColor R="17" G="34" B="51" /></FactionSettings>
+    <FactionSettings Faction="Soviet"><ImageTintColor R="68" G="85" B="102" /></FactionSettings>
+    <FactionSettings Faction="Japan"><ImageTintColor R="119" G="136" B="153" /></FactionSettings>
+  </UICommandButton>
 </AssetDeclaration>
