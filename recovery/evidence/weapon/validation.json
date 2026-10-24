@@ -1,14 +1,14 @@
 {
-  "componentSucceeded": true,
+  "sdkProbeStatus": "not run for this source; batched separately",
+  "succeeded": true,
+  "sourceCommit": "45625616880eb075147618813786d27794ee38c2",
   "scope": "91 root attributes including two ObjectStatus masks, four RangeDuration blocks, two SoundOrEvaEvent blocks and WeaponAiHintInfo plus IncompatibleAttributeModifier reference list and three complete ObjectFilter blocks; complete ScatterRadiusVsType list with inline ObjectFilter and ModelCondition masks; Nuggets supports DamageNugget, DOTNugget, GrapplingHookNugget, LeechPercentMaxHealthDamageNugget, LeechHealthDamageNugget LineDamageNugget, DamageAndSpawnNugget FireOnObjectsNugget and DamageContainedNugget with common base and ScalarInfo; ProjectileNugget, ScatterProjectileNugget WeaponOCLNugget and SeedTiberiumNugget including VeteranProjectile list; SpecialPowerNugget, InformTargetNugget, ContainedObjectAttackNugget, SlavesAttackNugget and ReportWeaponFiredStatNugget; ActivateCircularDamage, ActivateLiftObject, ActivateLinearDamage, ActivateStream, ActivateLaser and TerrainCrater; Attach, SpendStolenTiberium, SecondaryDamage, StripMaxHealthPercent, Suppression and LuaEvent; Paralyze, InformationWarfare, MetaImpact, TintObjects and AttributeModifier; all 35 explicit nugget branches; unknown/missing/zero TypeId emits the 40-byte common base with zero output tag and null polymorphic token offset; unsupported fields remain rejected; full matrix also exercises BAB-style annotations and formal Weapon plugin entry/metadata",
   "sdkProbeSucceeded": null,
   "modes": [
     "Od",
     "O2"
   ],
-  "succeeded": true,
-  "sdkProbeStatus": "not run for this source; batched separately",
-  "sourceCommit": "b2d59f1d1b250d42958be40f9e796fa5da85704a",
-  "runId": 40070108591,
-  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40070108591"
+  "componentSucceeded": true,
+  "runId": 40071300487,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40071300487"
 }
