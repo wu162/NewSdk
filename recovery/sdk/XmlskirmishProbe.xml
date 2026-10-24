@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-  <GameStatsModeData id="RecoveryXmlAdditional_GameStatsModeData_Defaults" GameStatsMode="LAN_GAME">
-    <AvailableMapName>RecoveryMap</AvailableMapName>
-  </GameStatsModeData>
   <SkirmishSettings id="RecoveryXmlAdditional_SkirmishSettings_Defaults">
     <HandicapBuildSpeed Speed="0.5" />
   </SkirmishSettings>
