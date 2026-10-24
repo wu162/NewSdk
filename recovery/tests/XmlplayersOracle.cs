@@ -61,7 +61,7 @@ partial class XmlplayersOracle {
         foreach(byte[] table in new[]{b.RelocationData,b.ImportsData}){
             Assert(table.Length%4==0,"bookmark size");if(table.Length==0)continue;
             Assert(Word(table,table.Length-4,big)==UInt32.MaxValue,"bookmark sentinel");
-            uint last=0;for(int i=0;i+4<table.Length;i+=4){uint at=Word(table,i,big);Assert(at%4==0&&at+4<=b.InstanceData.Length,"bookmark location");Assert(i==0||at>=last,"bookmark order");last=at;if(Object.ReferenceEquals(table,b.RelocationData))Assert(Word(b.InstanceData,(int)at,big)<b.InstanceData.Length,"pointer target");}
+            var locations=new HashSet<uint>();for(int i=0;i+4<table.Length;i+=4){uint at=Word(table,i,big);Assert(at%4==0&&at+4<=b.InstanceData.Length,"bookmark location");Assert(locations.Add(at),"unique bookmark location");if(Object.ReferenceEquals(table,b.RelocationData))Assert(Word(b.InstanceData,(int)at,big)<b.InstanceData.Length,"pointer target");}
         }
     }
     static AssetBuffer TestDoc(IAssetBuilderPlugin original,TargetPlatform p,string label,XmlDocument d){
