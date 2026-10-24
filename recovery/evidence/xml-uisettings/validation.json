@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "status": "implementation checkpoint; full Windows differential pending",
+  "roots": [
+    "HotKeySlot",
+    "MouseCursor",
+    "BasicMouseCursors",
+    "UIMouseDragSelectionFeedback",
+    "UIFloatingTextDisplay",
+    "UIMessageDisplay",
+    "UIMilitaryCaptionDisplay",
+    "UISubtitleDisplay",
+    "UITimerDisplay"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "roots": [
+    {
+      "name": "HotKeySlot",
+      "typeId": 2800139175,
+      "typeHash": 2481075826,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MouseCursor",
+      "typeId": 3784442503,
+      "typeHash": 334318473,
+      "schemaGlobal": true
+    },
+    {
+      "name": "BasicMouseCursors",
+      "typeId": 611271731,
+      "typeHash": 1517904520,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseDragSelectionFeedback",
+      "typeId": 611126373,
+      "typeHash": 549522065,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIFloatingTextDisplay",
+      "typeId": 1559937240,
+      "typeHash": 2264980354,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMessageDisplay",
+      "typeId": 1697313181,
+      "typeHash": 3604410282,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMilitaryCaptionDisplay",
+      "typeId": 1043989897,
+      "typeHash": 779899080,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UISubtitleDisplay",
+      "typeId": 165611890,
+      "typeHash": 1129081393,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UITimerDisplay",
+      "typeId": 951036436,
+      "typeHash": 2082140658,
+      "schemaGlobal": true
+    }
+  ]
+}
