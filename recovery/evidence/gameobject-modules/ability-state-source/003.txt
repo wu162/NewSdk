@@ -1,0 +1,16 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 a5ce271ae33da72735ae352c8738f9d1d76262baba1f9eae4c07439476f4d96a
+// Literals: {"_003F_003F_C_0040_0O_0040DBAGDFEL_0040CommandButton_003F_0024AA_0040": "CommandButton", "_003F_003F_C_0040_0O_0040KAAOOHDL_0040UpgradeToGive_003F_0024AA_0040": "UpgradeToGive"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, GiveOrRestoreUpgradeSpecialPowerModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040DBAGDFEL_0040CommandButton_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (String_003Cchar_003E*)((byte*)@object + 240), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040KAAOOHDL_0040UpgradeToGive_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E*)((byte*)@object + 248), state);
+			Marshaler_002EMarshal(node, (SpecialAbilityUpdateModuleData*)@object, state);
+		}
+	}

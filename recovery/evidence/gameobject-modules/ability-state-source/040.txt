@@ -1,0 +1,28 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1cdf6c816ffd12be6a65b90aa2c3859ac420a7a4958bbff11cc77d586b551586
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cchar_003E(sbyte* text, String_003Cchar_003E* @string, Tracker* tracker)
+	{
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		uint num = (uint)(*(int*)@string = (int)(ptr - (nuint)text));
+		String_003Cchar_003E* ptr2 = (String_003Cchar_003E*)((byte*)@string + 4);
+		Relo_002ETracker_002EPush(tracker, (void**)ptr2, 1u, num + 1);
+		sbyte* ptr3 = (sbyte*)(int)(*(uint*)ptr2);
+		sbyte b;
+		do
+		{
+			*ptr3 = *text;
+			text++;
+			b = *ptr3;
+			ptr3++;
+		}
+		while (b != 0);
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}

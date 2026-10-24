@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 41dea9f86aebc0d9af03a73c437a9dc4e6340dbe429da50b6d189e2e7bc195aa
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ALevelGrantSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		LevelGrantSpecialPowerModuleData* ptr = (LevelGrantSpecialPowerModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 256u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1863297767;
+	}

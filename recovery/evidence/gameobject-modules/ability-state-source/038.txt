@@ -1,0 +1,20 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 f4fa392f323172d621eb40ed065f335a80f7a0ea1fc86512c6f329e13b391642
+// Literals: {"_003F_003F_C_0040_0BG_0040DHFPFMJK_0040NewObjectAssemblyTime_003F_0024AA_0040": "NewObjectAssemblyTime", "_003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040": "0s", "_003F_003F_C_0040_0BD_0040FFFJFGGG_0040BusyDuringAssembly_003F_0024AA_0040": "BusyDuringAssembly", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0BK_0040FLJECNHB_0040ModelConditionsOnAssembly_003F_0024AA_0040": "ModelConditionsOnAssembly", "_003F_003F_C_0040_07DNODLGKM_0040INVALID_003F_0024AA_0040": "INVALID", "_003F_003F_C_0040_0BC_0040PJKJHPEO_0040StructureTemplate_003F_0024AA_0040": "StructureTemplate"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, AssembleStructureSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040DHFPFMJK_0040NewObjectAssemblyTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 60, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040FFFJFGGG_0040BusyDuringAssembly_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 256, state);
+			Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040FLJECNHB_0040ModelConditionsOnAssembly_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07DNODLGKM_0040INVALID_003F_0024AA_0040)), (ModelConditionFlagType*)@object + 61, state);
+			Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040PJKJHPEO_0040StructureTemplate_003F_0024AA_0040)), (List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E*)((byte*)@object + 248), state);
+			Marshaler_002EMarshal(node, (SpecialAbilityUpdateModuleData*)@object, state);
+		}
+	}
