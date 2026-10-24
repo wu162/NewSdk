@@ -1,0 +1,16 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 43751; body SHA256 f75ce6d9853156fff95e741195e874f9c49df6d2de1ce792a5226a008f23411d
+// Literals: {"_003F_003F_C_0040_0BC_0040HCNLFPFK_0040ComradePercentage_003F_0024AA_0040": "ComradePercentage", "_003F_003F_C_0040_05DNIEJHGK_0040100_003F40_003F_0024AA_0040": "100.0"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DistributeEnergyToAlliesBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040HCNLFPFK_0040ComradePercentage_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05DNIEJHGK_0040100_003F40_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[5] = (float)atof(ptr2) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal(node, (CaptureBehaviorModuleData*)@object, state);
+		}
+	}

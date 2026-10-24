@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 84902; body SHA256 e42369d88e75e90cd089334f2f3599eb8f191343498b66b34309a226db0bf3af
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, LUAEventListBehaviorModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1525845350;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 97057483;
+		((int*)ptr)[1] = 438907818;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

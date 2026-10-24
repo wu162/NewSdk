@@ -4,6 +4,13 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=154 && choice->kind<=155) {const auto& fields=stateEventFieldSets[choice->kind-154];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
+    if(choice->kind>=152 && choice->kind<=153) {
+        const auto& fields=resourceAlliesFieldSets[choice->kind-152];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
+        if(choice->kind==152) for(unsigned i=0;i<visionFieldSets[0].count;++i) if(attribute==visionFieldSets[0].fields[i].name) return true;
+        return false;
+    }
+    if(choice->kind>=150 && choice->kind<=151) {const auto& fields=wallEncloseFieldSets[choice->kind-150];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=147 && choice->kind<=149) {const auto& fields=tiberiumFieldSets[choice->kind-147];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=145 && choice->kind<=146) {
         const auto& fields=stealthVisionFieldSets[choice->kind-145];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
@@ -73,6 +80,16 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=154 && kind<=155) return 0;
+    if(kind>=152 && kind<=153) {
+        if(kind==153) {if(path=="ObjectFilter") return 1;if(path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;}
+        return 0;
+    }
+    if(kind>=150 && kind<=151) {
+        if(kind==150 && path=="SegmentPattern") return 3;
+        if(kind==151) {if(path=="Filter") return 1;if(path=="Filter/IncludeThing" || path=="Filter/ExcludeThing") return 3;}
+        return 0;
+    }
     if(kind>=147 && kind<=149) {
         if(kind==147 && path=="DieMuxData") return 1;
         if(kind==148 && path=="RadarColor") return 1;
@@ -184,6 +201,9 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=154 && kind<=155) return false;
+    if(kind>=152 && kind<=153) return false;
+    if(kind>=150 && kind<=151) return false;
     if(kind>=147 && kind<=149) {
         if(kind==147 && path=="DieMuxData") for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;
         if(kind==148 && path=="RadarColor") for(const auto& name:tiberiumColorNames) if(attribute==name) return true;

@@ -67,6 +67,9 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectStatusEffects.h"
 #include "GameObjectStealthVision.h"
 #include "GameObjectTiberium.h"
+#include "GameObjectWallEnclose.h"
+#include "GameObjectResourceAllies.h"
+#include "GameObjectStateEvent.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};

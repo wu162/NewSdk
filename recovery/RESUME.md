@@ -4,9 +4,11 @@
 
 ## 当前轮次进行中（2026-10-24 北京时间19:34起，目标约20:34）
 
-用户要求本轮按实际约1小时持续推进，最多3子代理。首批经济/电力4种、墙桥/放置3种、战斗响应3种共10新已验收：164→174/322，148种其他已知Marshal仍拒绝。有效源码df3d0fcead1eb71c0d812faf74f4f7df751980b7；GameObject40091269128与基础40091269124均success。/Od、/O2每模式349080 fixtures、1047240三缓冲区比较、13012拒绝、928不变性，四平台0/1/2/99；实际日志与validation sourceCommit/runId已核对。
+用户要求本轮按实际约1小时持续推进，最多3子代理。当前已验收181/322（本轮164→181，共17新），141种其他已知Marshal仍拒绝。
 
-第二批EMP/Suppression2、StealthDetector/Invisibility2、Tiberium3共7新已准备并提交验证；未取得本批成功前不计入174。新增组运行实现均独立Runtime.h并保留原位include顺序。后续连续推进，不因一组完成提前结束本轮。下节为上一轮164基线历史，当前数量与锚点以上面本轮段为准。
+第二批EMP/Suppression2、StealthDetector/Invisibility2、Tiberium3已完整验收：有效源码c32069c1ac0c7509b851c76d6f8c00bafebccdf1；GameObject40091859893与基础40091859870均success。/Od、/O2每模式366576 fixtures、1099728三缓冲区比较、13448拒绝、964不变性，四平台0/1/2/99；实际日志与validation sourceCommit/runId已核对。首批经济/电力4、墙桥/放置3、战斗响应3的source df3d0fcead1eb71c0d812faf74f4f7df751980b7/run40091269128/base40091269124亦success，后批完整包含其回归。
+
+第三批WallHub/Enclose2、ResourceAllies2、StateEvent2共6新已准备并提交验证；未取得本批成功前不计入181。附带下一ModelConditionActionType只读PE取证，不代表该下一组已支持。新增组运行实现均独立Runtime.h并保留原位include顺序；简单标量组直接复用通用fieldsets分派。后续连续推进，不因一组完成提前结束本轮。下节为上一轮164基线历史，当前数量与锚点以上面本轮段为准。
 
 ## 上一轮基线164/322已知Marshal模块
 

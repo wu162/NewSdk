@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 93518; body SHA256 39bee02e2ec47d6ceeae7825cc307f7d4f7e92c37bad6733c88a3ef86a2c61c3
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, DistributeEnergyToAlliesBehaviorModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -121329045;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (CaptureBehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1199227417;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 20, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
