@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102516; body SHA256 8276f95c6453d72a1d3a46c98caca5c41bc8656c19a63fffee120f4053888fda
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABezierProjectileBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (BezierProjectileBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+

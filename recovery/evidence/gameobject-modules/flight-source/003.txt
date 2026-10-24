@@ -1,0 +1,121 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 26743; body SHA256 87985c0fdb0c8f53c07316ca4e1d052cb7a373157bbe263cd532d916b39bea50
+// Literals: {"_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_01FDFGLJHB_00402_003F_0024AA_0040": "2", "_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040": "1.0", "_003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040": "1s", "_003F_003F_C_0040_0M_0040HDPMOPPJ_0040FirstHeight_003F_0024AA_0040": "FirstHeight", "_003F_003F_C_0040_0N_0040MNHJPLHC_0040SecondHeight_003F_0024AA_0040": "SecondHeight", "_003F_003F_C_0040_0BD_0040BEDFHCII_0040FirstPercentIndent_003F_0024AA_0040": "FirstPercentIndent", "_003F_003F_C_0040_0BE_0040ICMIIKEG_0040SecondPercentIndent_003F_0024AA_0040": "SecondPercentIndent", "_003F_003F_C_0040_0M_0040FPCADANJ_0040BounceCount_003F_0024AA_0040": "BounceCount", "_003F_003F_C_0040_0P_0040CEABBKAL_0040BounceDistance_003F_0024AA_0040": "BounceDistance", "_003F_003F_C_0040_0BC_0040IMBOGJMF_0040BounceFirstHeight_003F_0024AA_0040": "BounceFirstHeight", "_003F_003F_C_0040_0BD_0040OCOJGFHD_0040BounceSecondHeight_003F_0024AA_0040": "BounceSecondHeight", "_003F_003F_C_0040_0BJ_0040DPAONICF_0040BounceFirstPercentIndent_003F_0024AA_0040": "BounceFirstPercentIndent", "_003F_003F_C_0040_0BK_0040CKIEGOLJ_0040BounceSecondPercentIndent_003F_0024AA_0040": "BounceSecondPercentIndent", "_003F_003F_C_0040_0M_0040NDNOADBN_0040GroundHitFX_003F_0024AA_0040": "GroundHitFX", "_003F_003F_C_0040_0P_0040JMANDLJO_0040GroundBounceFX_003F_0024AA_0040": "GroundBounceFX", "_003F_003F_C_0040_0BD_0040IOJBPJHH_0040FirstPercentHeight_003F_0024AA_0040": "FirstPercentHeight", "_003F_003F_C_0040_0BE_0040BIGMABLJ_0040SecondPercentHeight_003F_0024AA_0040": "SecondPercentHeight", "_003F_003F_C_0040_0BE_0040FPHOFDHA_0040CurveFlattenMinDist_003F_0024AA_0040": "CurveFlattenMinDist", "_003F_003F_C_0040_03PENLHFGJ_00405_003F40_003F_0024AA_0040": "5.0", "_003F_003F_C_0040_0P_0040MHKEKPIF_0040TumbleRandomly_003F_0024AA_0040": "TumbleRandomly", "_003F_003F_C_0040_05PPAMMDMB_0040360_003F40_003F_0024AA_0040": "360.0", "_003F_003F_C_0040_0BF_0040DEDAPHIF_0040MaxXRotationVelocity_003F_0024AA_0040": "MaxXRotationVelocity", "_003F_003F_C_0040_0BF_0040NLGCEBGE_0040MaxYRotationVelocity_003F_0024AA_0040": "MaxYRotationVelocity", "_003F_003F_C_0040_0BF_0040DBOEJMAG_0040MaxZRotationVelocity_003F_0024AA_0040": "MaxZRotationVelocity", "_003F_003F_C_0040_0O_0040BJBCIIOC_0040AllowBouncing_003F_0024AA_0040": "AllowBouncing", "_003F_003F_C_0040_0BI_0040KJJEKIOE_0040KillWhenRestingOnGround_003F_0024AA_0040": "KillWhenRestingOnGround", "_003F_003F_C_0040_0BC_0040OCGBBIDH_0040GravityMultiplier_003F_0024AA_0040": "GravityMultiplier", "_003F_003F_C_0040_0BD_0040MLJLGFHN_0040OrientToFlightPath_003F_0024AA_0040": "OrientToFlightPath", "_003F_003F_C_0040_0BE_0040FMHAJHJG_0040ShockStunnedTimeLow_003F_0024AA_0040": "ShockStunnedTimeLow", "_003F_003F_C_0040_0BF_0040HINJPNCF_0040ShockStunnedTimeHigh_003F_0024AA_0040": "ShockStunnedTimeHigh", "_003F_003F_C_0040_04MDMDEMJH_00401_003F45s_003F_0024AA_0040": "1.5s", "_003F_003F_C_0040_0BC_0040EKKHEBKF_0040ShockStandingTime_003F_0024AA_0040": "ShockStandingTime", "_003F_003F_C_0040_03FAJELBPN_00401_003F43_003F_0024AA_0040": "1.3", "_003F_003F_C_0040_02NCPIBIBE_004033_003F_0024AA_0040": "33", "_003F_003F_C_0040_02KJEECOLK_004066_003F_0024AA_0040": "66", "_003F_003F_C_0040_0BE_0040CGHLIBEG_0040IgnoreTerrainHeight_003F_0024AA_0040": "IgnoreTerrainHeight"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, PhysicsBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040MHKEKPIF_0040TumbleRandomly_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 96, state);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040DEDAPHIF_0040MaxXRotationVelocity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PPAMMDMB_0040360_003F40_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[2] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040NLGCEBGE_0040MaxYRotationVelocity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PPAMMDMB_0040360_003F40_003F_0024AA_0040));
+			if (ptr3 != null)
+			{
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((float*)@object)[3] = (float)atof(ptr4);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040DBOEJMAG_0040MaxZRotationVelocity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PPAMMDMB_0040360_003F40_003F_0024AA_0040));
+			if (ptr5 != null)
+			{
+				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+				((float*)@object)[4] = (float)atof(ptr6);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040BJBCIIOC_0040AllowBouncing_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 97, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040KJJEKIOE_0040KillWhenRestingOnGround_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 98, state);
+			IValue* ptr7 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040OCGBBIDH_0040GravityMultiplier_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03HLLJOCDO_00401_003F40_003F_0024AA_0040));
+			if (ptr7 != null)
+			{
+				sbyte* ptr8 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr7)))((nint)ptr7);
+				((float*)@object)[5] = (float)atof(ptr8);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr7 + 4)))((nint)ptr7);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040MLJLGFHN_0040OrientToFlightPath_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 99, state);
+			IValue* ptr9 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040FMHAJHJG_0040ShockStunnedTimeLow_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040));
+			if (ptr9 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr9)))((nint)ptr9);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 6, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr9 + 4)))((nint)ptr9);
+			}
+			IValue* ptr10 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040HINJPNCF_0040ShockStunnedTimeHigh_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040));
+			if (ptr10 != null)
+			{
+				sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr10)))((nint)ptr10);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag2);
+				DataInitializers_002EInitialize((float*)@object + 7, text2, &timeTag2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr10 + 4)))((nint)ptr10);
+			}
+			IValue* ptr11 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040EKKHEBKF_0040ShockStandingTime_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04MDMDEMJH_00401_003F45s_003F_0024AA_0040));
+			if (ptr11 != null)
+			{
+				sbyte* text3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr11)))((nint)ptr11);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag3);
+				DataInitializers_002EInitialize((float*)@object + 8, text3, &timeTag3);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr11 + 4)))((nint)ptr11);
+			}
+			IValue* ptr12 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040HDPMOPPJ_0040FirstHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03FAJELBPN_00401_003F43_003F_0024AA_0040));
+			if (ptr12 != null)
+			{
+				sbyte* ptr13 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr12)))((nint)ptr12);
+				((float*)@object)[9] = (float)atof(ptr13);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr12 + 4)))((nint)ptr12);
+			}
+			IValue* ptr14 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040MNHJPLHC_0040SecondHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03FAJELBPN_00401_003F43_003F_0024AA_0040));
+			if (ptr14 != null)
+			{
+				sbyte* ptr15 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr14)))((nint)ptr14);
+				((float*)@object)[10] = (float)atof(ptr15);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr14 + 4)))((nint)ptr14);
+			}
+			IValue* ptr16 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040BEDFHCII_0040FirstPercentIndent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02NCPIBIBE_004033_003F_0024AA_0040));
+			if (ptr16 != null)
+			{
+				sbyte* ptr17 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr16)))((nint)ptr16);
+				((float*)@object)[11] = (float)atof(ptr17) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr16 + 4)))((nint)ptr16);
+			}
+			IValue* ptr18 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040ICMIIKEG_0040SecondPercentIndent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KJEECOLK_004066_003F_0024AA_0040));
+			if (ptr18 != null)
+			{
+				sbyte* ptr19 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr18)))((nint)ptr18);
+				((float*)@object)[12] = (float)atof(ptr19) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr18 + 4)))((nint)ptr18);
+			}
+			IValue* ptr20 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040FPCADANJ_0040BounceCount_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01FDFGLJHB_00402_003F_0024AA_0040));
+			if (ptr20 != null)
+			{
+				sbyte* ptr21 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr20)))((nint)ptr20);
+				((int*)@object)[13] = strtol(ptr21, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr20 + 4)))((nint)ptr20);
+			}
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040CEABBKAL_0040BounceDistance_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03PENLHFGJ_00405_003F40_003F_0024AA_0040)), (float*)@object + 14, state);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040IMBOGJMF_0040BounceFirstHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03FAJELBPN_00401_003F43_003F_0024AA_0040)), (float*)@object + 15, state);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040OCOJGFHD_0040BounceSecondHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03FAJELBPN_00401_003F43_003F_0024AA_0040)), (float*)@object + 16, state);
+			IValue* ptr22 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040DPAONICF_0040BounceFirstPercentIndent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02NCPIBIBE_004033_003F_0024AA_0040));
+			if (ptr22 != null)
+			{
+				sbyte* ptr23 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr22)))((nint)ptr22);
+				((float*)@object)[17] = (float)atof(ptr23) * 0.01f;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr22 + 4)))((nint)ptr22);
+			}
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out PercentageTag percentageTag);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040CKIEGOLJ_0040BounceSecondPercentIndent_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KJEECOLK_004066_003F_0024AA_0040)), (float*)@object + 18, state, &percentageTag);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040NDNOADBN_0040GroundHitFX_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 76), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040JMANDLJO_0040GroundBounceFX_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 80), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040CGHLIBEG_0040IgnoreTerrainHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 100, state);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out PercentageTag percentageTag2);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040IOJBPJHH_0040FirstPercentHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02NCPIBIBE_004033_003F_0024AA_0040)), (float*)@object + 21, state, &percentageTag2);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out PercentageTag percentageTag3);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040BIGMABLJ_0040SecondPercentHeight_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KJEECOLK_004066_003F_0024AA_0040)), (float*)@object + 22, state, &percentageTag3);
+			Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040FPHOFDHA_0040CurveFlattenMinDist_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040)), (float*)@object + 23, state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+

@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98595; body SHA256 fe02f46db4ba2b0deb2a0694c29f0c52a47a1416d172f231509218b3b9dcc99b
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(void** table, AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E* @object, Tracker* state)
+	{
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, table);
+	}
+

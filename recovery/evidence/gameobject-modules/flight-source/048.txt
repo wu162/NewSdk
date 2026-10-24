@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 97848; body SHA256 3adf03f5b31dc35d5d331a50544af7ca00044fe74b6227803b9c4957f39fa318
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(void** table, bool* @object, Tracker* state)
+	{
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, table);
+	}
+

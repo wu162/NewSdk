@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61131; body SHA256 85a663004d78624be22498130938be24538a1eea2ca78b24fa4aa229e12bcace
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABezierProjectileBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		BezierProjectileBehaviorModuleData* ptr = (BezierProjectileBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 244u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 197077561;
+	}
+

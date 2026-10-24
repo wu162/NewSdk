@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 51404; body SHA256 056fd8b542fcc4946b3ff2c5e3c237e4cab1d1abaa3ce67c7b912f2fb2a6f9bd
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(IValue* value, float* @object, Tracker* state, PercentageTag* tag)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = (float)atof(ptr) * 0.01f;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
