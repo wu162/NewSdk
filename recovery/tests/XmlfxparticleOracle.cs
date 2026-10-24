@@ -211,6 +211,17 @@ partial class XmlfxparticleOracle {
     static string Range(string name,string value) { return "<"+name+" Low='"+Escape(value)+"' High='"+Escape(value)+"'/>"; }
     static void Matrix(IAssetBuilderPlugin original,TargetPlatform p) {
         original.Initialize(null,p);
+        Test(original,p,"root-TypeId-decimal",Xml("TypeId='686292351'",""));
+        Test(original,p,"root-TypeId-hex",Xml("TypeId='0x28e7fd7f'",""));
+        Test(original,p,"structural-TypeId-metadata",Xml("TypeId='686292351'",
+            "<SlavePosOffset TypeId='1' x='2.5' y='-3' z='4'/><Lifetime TypeId='2' Low='1' High='3'/>"+
+            "<Alphas TypeId='3'><Alpha TypeId='4' Low='0.5' High='0.75'/></Alphas>"+
+            "<Colors TypeId='5'><Color TypeId='6'><Color TypeId='7' r='1' g='0.5' b='0.25'/></Color><ColorScale TypeId='8' Low='1' High='2'/></Colors>"+
+            "<Wind TypeId='9' Strength='3'/><Event TypeId='10'><Anything TypeId='3465979181'><EventTime TypeId='11' Low='1' High='2'/></Anything></Event>"));
+        Reject(Xml("xmlns:q='urn:foreign' q:TypeId='686292351'",""),p);
+        Reject(Xml("","<Lifetime xmlns:q='urn:foreign' q:TypeId='2'/>"),p);
+        foreach(string typeId in new string[]{"0","99","2693838876","","garbage"})
+            Reject(Xml(Attr("TypeId",typeId),""),p);
         Test(original,p,"defaults",Xml("",""));
         foreach(string name in new string[]{"ParticleTexture","Drawable","EmitterSound","SlaveSystem","PerParticleAttachedSystem"})
             foreach(string v in Refs)Test(original,p,name+"-"+v,Xml(Attr(name,v),""));
@@ -339,4 +350,5 @@ partial class XmlfxparticleOracle {
         }
     }
 }
+
 
