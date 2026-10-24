@@ -81,3 +81,8 @@ assert all(item['methods'] for item in report['modules']), 'Missing exact module
 assert sum(len(item['methods']) for item in report['modules'])+len(report['helpers'])==len(selected), 'Duplicate method owner index'
 (out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print('PASS original module source evidence:',len(names),'module source contracts;',len(selected),'exact methods; no runtime support claimed')
+
+if '--tech-receiver' in sys.argv:
+    from GenerateUpgradeFields import enum_values
+    pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes()
+    (out/'enum-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,'ReceiverDistanceType':enum_values(source,pe,'ReceiverDistanceType')},indent=2)+'\n',encoding='utf-8')
