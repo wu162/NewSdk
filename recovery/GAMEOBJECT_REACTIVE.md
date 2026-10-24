@@ -1,6 +1,6 @@
-# DamageState / 反应开火完整组（实现检查点，待完整矩阵）
+# DamageState / 反应开火完整组（组件完整矩阵通过）
 
-已实现DamageStateList（4161248261/16）、FireWeaponWhenDamagedBehavior（144160085/80）、FireWeaponCollide（2924124080/80）、FireWeaponWhenDeadBehavior（2429465756/144），等待完整矩阵，不计入当前已验收119。固定原blob 6e40a9ed6c9f961d294d49768d911e6a6f354619；weapon-state-source导出143方法：63c451f78ef02913e2abe9f454c6dfcecffbabd7/run40068448236 success。
+已实现DamageStateList（4161248261/16）、FireWeaponWhenDamagedBehavior（144160085/80）、FireWeaponCollide（2924124080/80）、FireWeaponWhenDeadBehavior（2429465756/144），完整矩阵已通过，119→123/322；199种已知Marshal仍明确拒绝。源码3968ee7499a924ef068f8ef0132d62927c2bd168，GameObject run40069379207 success，基础run40069379228 success。每/Od、/O2：220032 fixtures、660096三缓冲区比较、10820拒绝、460不变性，平台0/1/2/99；validation.json与两模式原始日志、实际终态已核对。固定原blob 6e40a9ed6c9f961d294d49768d911e6a6f354619；weapon-state-source导出143方法：63c451f78ef02913e2abe9f454c6dfcecffbabd7/run40068448236 success。
 
 DamageState Data为96字节list元素，percent@0/4、完整ObjectStatus28字节@8、完整ModelCondition60字节@36。WhenDamaged继承完整Upgrade（36字节），DamageTypes普通unsigned解析@36，DamageAmount普通float@40，八个强引用@44–72，InitiallyActive bool@76。
 
@@ -12,4 +12,6 @@ GenerateReactiveFields.py正式检查全部143方法原blob/body SHA、PE枚举�
 
 ## WeaponSetUpdate不在本组验收
 
-同一源码调查覆盖WeaponSetUpdate完整四种槽位、TurretAI/目标选择器；仍明确拒绝，不能只支持空槽。发现SortedListHelper.Sort会按Ordering比较72字节WeaponData并调用Tracker.ExchangePointers同步指针，再交换结构体；不能以提前排序XML或仅memcpy替代。独立weapon-slot-sort-source已导出Sort与Comparer（9734f903715abe9192a7dda3bf8448088e33cc2b/run40068810956 success）；继续必须跟进eastl quick_sort与Tracker.ExchangePointers（含重复Ordering、强引用记录与重定位），再实现整个WeaponSetUpdate依赖组。
+同一源码调查覆盖WeaponSetUpdate完整四种槽位、TurretAI/目标选择器；仍明确拒绝，不能只支持空槽。发现SortedListHelper.Sort会按Ordering比较72字节WeaponData并调用Tracker.ExchangePointers同步指针，再交换结构体；不能以提前排序XML或仅memcpy替代。详见GAMEOBJECT_WEAPON_SET_NEXT.md。weapon-slot-sort-source已扩展到23个排序/ExchangePointers/AlterBookmark方法；原版720组排序与引用配对探针已成功。C++排序排列助手已还原，未接入WeaponSetUpdate；完整Tracker交换和四槽位/炮塔接入仍待恢复。
+
+首轮空Flags独立断言误将无token当未知token，原/恢复字节一致；已按原Tokenizer空串行为修正为0，未知词仍独立断言bit2。最终完整矩阵锚点如上，不以失败运行充数。

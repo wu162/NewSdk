@@ -1,44 +1,35 @@
 # 编译器恢复：当前续接入口
 
-更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md和本文件；旧STATUS仅按需查，不全量加载历史。
+更新：2026-10-24（北京时间）。wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md、本文件；历史STATUS按需，不全量加载原反编译文件。
 
-## 本轮用户提示（后续继续遵守）
+## 已验收123/322已知Marshal模块
 
-当前环境命令行无法克隆仓库，使用 GitHub 插件；Actions 一般需要2分30秒以上，等待时推进独立工作，不高频轮询；直接写代码还原更快时省略不必要步骤，效率优先，但严格守住正确性底线。细则及用户原话见 [EFFICIENCY.md](EFFICIENCY.md) 的“用户执行提示（2026-10-24）”。
+本阶段112→123，新增11种完整模块及必要依赖：
 
-## 已验收112/322已知Marshal模块
+| 完整组 | 新增 | 文档 |
+|---|---:|---|
+| Projectile/Dynamics/Freefall/EnableDynamicsCollide | 4 | GAMEOBJECT_MOTION.md |
+| Physics/BezierProjectileBehavior/Missile | 3 | GAMEOBJECT_FLIGHT.md |
+| DamageStateList及受伤/碰撞/死亡触发开火 | 4 | GAMEOBJECT_REACTIVE.md |
 
-本轮由93增至112，新增19种，完成四个完整能力组：TechUpgradeReceiver（1）；雷达/可见性/Capture（8）；直接开火/伤害跟踪（7）；LaserState/SweepingLaserState/StreamState（3）。对应GAMEOBJECT_TECH_RECEIVER.md、GAMEOBJECT_VISION.md、GAMEOBJECT_WEAPON_BEHAVIORS.md、GAMEOBJECT_BEAM_STATES.md。原已支持的Beacon、RadarMarker、LaserUpdate不重复计数。
+最终GameObject有效源码 **3968ee7499a924ef068f8ef0132d62927c2bd168**：run **40069379207 success**；基础run **40069379228 success**。每/Od、/O2：**220032 fixtures、660096三缓冲区逐字节比较、10820拒绝、460不变性**；平台0/1/2/99，两模式合计1320192次缓冲区比较。validation.json与两模式日志、sourceCommit/runId及实际终态已核对。中间Motion源码c77679fc/run40053555512、Flight源码3af11bee/run40068382383均成功，最终矩阵包含全部。
 
-最终有效源码 **5d4e332b53eb8492f7731cf7f388de55fdc7672e**：
-- GameObject run **40051190340** success；基础 run **40051190379** success。
-- 远端validation.json的sourceCommit/runId、两模式oracle日志和终态已核对。
-- 每/Od、/O2：**194088 fixtures、582264三缓冲区逐字节比较、10216拒绝、416不变性**；平台0/1/2/99。两模式合计1164528次缓冲区比较。
-- **210种已知Marshal仍明确拒绝**；58 Token-only沿原未知Marshal回退。全部既有Body、ClientUpdate、Upgrade、声音、生命周期、Die、AI等回归保留。
-- 根范围88属性/38类子节点；完整GameObject、两份完整替代DLL及正式GameObject插件未完成。component artifact仍是组件，不冒充完整替代DLL。
-- SDK本轮**0次**，原路由保留。没有改变SDK输入/路由；不重跑既有Weapon/Armor SDK。额外既有WeaponTemplate组件回归run40050646649亦success（源码b57e5a5a）。
+**199种已知Marshal仍明确拒绝**，包含WeaponSetUpdate；58 Token-only仍按未知Marshal回退。完整GameObject、两份完整替代DLL及正式GameObject插件未完成。SDK本阶段**0次**，原路由保留；组件结果不冒充SDK/完整DLL验收。此前Receiver/雷达可见性/直接开火/Beam等组继续保留，语义详见对应GAMEOBJECT_*.md。
 
-中间成功锚点：Receiver fa250611/run40048856796；Vision 7cd68875/run40049625447；开火/跟踪b57e5a5a/run40050646715。最终矩阵包含全部中间组。
+Motion与Reactive各有一次新增独立断言预期错误（ALL不前移词指针；空Flags没有token应为0），原/恢复字节一致，已据原方法修正，最终完整矩阵重新取得成功。没有放宽字节比较或减少平台。
 
-## 关键契约
+## 下一完整组：WeaponSetUpdate（未支持）
 
-- ReceiverDistanceType独立Token类型873624354；RadarDrawModule弱ID、两Angle；inline ObjectFilter@68；完整Upgrade父链和依赖分配顺序。
-- UnitVision UpdateRate是signed整数，SelectiveVisibility同名字段是可空Time；AllowedPlayers可空Relationship位集。UnifiedShroud Marshal与Token父层路径不同，不能压平Token。
-- FireWeaponNugget与EffectInfo各16字节；Nugget Offset Token直接bookmark可空Vector3数据。EffectInfo Fraction普通float，三个bool@12/13/14；Options最后Token。Color三个普通float不归一化。
-- LinearDamage Speed原5Hz逻辑帧时长0.2f：先atof转float，再double(float(0.2))*double(value)转float；原字段与初始化公式见constants-source.json。
-- LaserState粒子系统列表是强引用，Endian只交换count，不能按弱ID交换元素；Sweeping先自身强引用，再完整父层，保留额外父Token。
-- 各Generate*Fields.py在正式TestGameObject.ps1校验原blob/PE/方法/Token；本地--exported-evidence只是开发检查，CI没有使用它。
+读 **GAMEOBJECT_WEAPON_SET_NEXT.md**。完整四种槽位、WeaponData、TurretAI、可空目标选择器、ObjectVisionRange/ObjectFilter均须恢复，不能只启用空槽。原weapon-state-source143方法、PE枚举已导出；weapon-slot-sort-source23精确方法包括完整EASTL排序及Tracker.ExchangePointers/AlterBookmark，按signature/bodySha定位，不沿用旧文件编号。导出器已修正按平衡大括号截断void/非void方法，避免后续MarshalAs属性污染方法SHA；23方法本地指纹检查通过。
 
-## 本阶段新增与当前检查点
+原版排序/引用配对探针：源码72b573545f0d8b88f6057d0e245bdb6a5d419f72，run40069703938 success；720组，四槽/四平台/长度0/1/2/27/28/29/65/129/257/五模式。permutations.tsv含重复key的实际原索引次序与三缓冲区指纹；不用重新运行相同探针。
 
-Projectile/Dynamics/Freefall/Collide完整组已通过，112→116；Physics/Bezier/Missile完整组已通过，116→119/322。当前203种已知Marshal仍拒绝。见GAMEOBJECT_MOTION.md、GAMEOBJECT_FLIGHT.md。最新已验收源码3af11bee2540673c97a671dcf39876c7e687c7d8；GameObject run40068382383 success、基础run40068382487 success。每/Od、/O2：217200 fixtures、651600三缓冲区比较、10640拒绝、448不变性，平台0/1/2/99；validation.json及两模式日志已核对。下文旧112锚点为此前阶段。
+Native/WeaponSlotOrder.h/.cpp已恢复排序目标排列，本地-O0 ASan/UBSan与-O2均匹配720原版排列，另1024有符号键检查。TestWeaponSlotOrder.ps1复用TSV运行Windows x86 /Od、/O2，结果在weapon-slot-order/validation.json；首次两模式通过但保存证据遇并发推送拒绝；已加入有限pull/rebase/push重试，最终源码e5ba9e6858c0bbb20016ec65f8beeba72aafb5f2、run40070276350 success；实际validation.json和两模式日志已核对。此helper未接入GameObject，不计WeaponSetUpdate支持。额外WeaponTemplate组件run40070108591及基础run40070108589均success（源码b2d59f1d）；没有SDK步骤。已核对3968ee74至最终文档前分支头的差异，GameObject运行时代码/生成器/测试未变，不重跑同输入矩阵。
 
-DamageStateList与三类受伤/碰撞/死亡触发开火（GAMEOBJECT_REACTIVE.md）完整实现/测试已推送7f1d6b7b570e0e84a4be2b84f2fe579dc7c1ea7d，矩阵待终态，未计入119；包含完整Upgrade、DieMuxData、概率列表和所有掩码，不能只按空模块验收。SDK本阶段0次，原路由保留。
+下一步先恢复Tracker交换：a/b必须在当前栈顶block，按elementSize映射三组bookmark，再交换72字节记录；不得提前排序XML或只memcpy。然后完整接入四槽与炮塔依赖，补排序/重复key/强引用/重定位/Token与所有属性、nullable/列表、拒绝/不变性，统一完整GameObject及适用共享回归。SDK保持原路由，正式启用前门槛不降。
 
-WeaponSetUpdate仍拒绝，详细调查同文档下一节及weapon-state-source（143方法）；不能只实现空槽。其SortedList调用Tracker.ExchangePointers后才交换72字节WeaponData；必须完整核对eastl排序（尤其重复Ordering）及指针/引用交换，不能排序XML或只memcpy。weapon-slot-sort-source已导出Sort/Comparer，正在补quick_sort与ExchangePointers完整证据。完整四种槽、WeaponData、TurretAI、目标选择器/ObjectVisionRange/ObjectFilter都是下一完整组必要依赖。Motion首轮仅独立ALL断言错误已据原helper修正，最终矩阵已通过；不要重复同源码矩阵。
+## 执行规则与用户提示
 
-## 持续规则
+默认单代理，约45分钟有效实现阶段；每约10–15分钟普通推送检查点，未验证不标完成。整组实现与测试准备好后统一受影响完整矩阵；不空等、重复调查或重复同输入验证凑时长。禁止强推，不新建无必要分支；并发更新先读新头、重建树保留Actions证据。SDK跨阶段攒够能力再集中验证；正式启用前XSD、同输入原/恢复、真实调用、四产物和适用无原DLL重放门槛不降低。
 
-默认单代理，约45分钟有效实现阶段；每约10–15分钟普通推送有意义检查点，未验证不标完成。整组实现及测试准备好后统一受影响完整矩阵；不空等、重复调查或重复相同输入运行凑时长；不强推，不新建无必要分支。并发Actions会写证据，更新ref前读新头重建树保留其内容。
-
-Git命令行本环境无凭据，使用GitHub插件。巨大原文件fetch_file行范围本环境返回空，使用ExportLifecycleMethods.py+sound-selector-source.yml有界导出；按signature/bodySha复用相同原方法。调查曾触发150依赖保护（run40049720082），随后收敛完整能力组，未放宽保护。SDK跨阶段累计降频；正式启用前XSD、同输入原/恢复、真实调用、四产物及适用无原DLL重放门槛不降低。
+用户明确提示已纳入EFFICIENCY.md：**命令行无法克隆，使用GitHub插件；Actions一般需要2分30秒以上**（一般参考，不是固定下限，最终看实际终态）；**直接写代码还原更快就省略不必要步骤，效率优先，但严格守住正确性底线**。本阶段复用既有解析/Upgrade/DieMux及固定证据；没有重复克隆或整库下载。无账号额度计量，不能量化节省。

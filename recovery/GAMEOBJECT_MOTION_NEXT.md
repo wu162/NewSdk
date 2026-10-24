@@ -1,4 +1,6 @@
-# 下一完整组：Projectile / Dynamics / Freefall（源码调查，尚未实现）
+> 本调查计划已完成：四模块及完整Movement/Volume依赖已验收，见GAMEOBJECT_MOTION.md（c77679fc/run40053555512 success）。下文保留原始调查，不作为当前未支持清单；当前续接入口为RESUME.md与GAMEOBJECT_WEAPON_SET_NEXT.md。
+
+# Projectile / Dynamics / Freefall 原始调查记录
 
 源码调查导出97方法：sourceCommit76ea42b0ab846d3f594887a72dfa1146aad28f58、run40051656143 success；具体Movement Marshal、typed dispatch、四typed wrapper均已核对纳入manifest。
 
