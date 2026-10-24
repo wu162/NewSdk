@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=398 arrayComparisons=2388 rejections=17 layoutAssertions=21642
+PASS platform=1 fixtures=398 arrayComparisons=2388 rejections=17 layoutAssertions=21642
+PASS platform=2 fixtures=398 arrayComparisons=2388 rejections=17 layoutAssertions=21642
+PASS platform=99 fixtures=398 arrayComparisons=2388 rejections=17 layoutAssertions=21642
+PASS Movie archive fixtures=1592 arrayComparisons=9552 rejections=68 layoutAssertions=86569

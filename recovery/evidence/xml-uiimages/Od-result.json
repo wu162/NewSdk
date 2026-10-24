@@ -1,0 +1,1 @@
+{"succeeded":false,"originalDllSha256":"D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6","error":"System.Exception: font exact UTF8 C-string length andpadding\r\n   at XmluiimagesOracle.Check(Boolean test, String label)\r\n   at XmluiimagesOracle.Matrix(TargetPlatform p)\r\n   at XmluiimagesOracle.Main(String[] args)"}

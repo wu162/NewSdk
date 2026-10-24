@@ -1,0 +1,5 @@
+System.Exception: independent model bit/word0
+   at XmlvisibilityOracle.Check(Boolean test, String label)
+   at XmlvisibilityOracle.Flags(Byte[] bytes, Int32 off, Boolean big, UInt32[] expected, String label)
+   at XmlvisibilityOracle.Matrix(TargetPlatform p)
+   at XmlvisibilityOracle.Main(String[] args)

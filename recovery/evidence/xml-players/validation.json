@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
-  "runId": "40139472611",
+  "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
+  "runId": "40140206386",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "scope": "Fourteen XmlCompiler player/formation/skirmish roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending",
   "modes": [

@@ -200,6 +200,47 @@ ROUTE root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.Ga
 ROUTE root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler
 ROUTE root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler
 ROUTE root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler
+ROUTE root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler
+ROUTE root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler
+ROUTE root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler
+ROUTE root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler
+ROUTE root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler
+ROUTE root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler
+ROUTE root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler
+ROUTE root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler
+ROUTE root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler
+ROUTE root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler
+ROUTE root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler
+ROUTE root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler
+ROUTE root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler
+ROUTE root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler
+ROUTE root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler
+ROUTE root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler
+ROUTE root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler
+ROUTE root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler
+ROUTE root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler
+ROUTE root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler
+ROUTE root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler
+ROUTE root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler
+ROUTE root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler
+ROUTE root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler
+ROUTE root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler
+ROUTE root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler
+ROUTE root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler
+ROUTE root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler
+ROUTE root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler
+ROUTE root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler
+ROUTE root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler
+ROUTE root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler
+ROUTE root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler
+ROUTE root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler
+ROUTE root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler
+ROUTE root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler
+ROUTE root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler
+ROUTE root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler
+ROUTE root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler
+ROUTE root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler
+ROUTE root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -402,6 +443,47 @@ PASS root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.Gam
 PASS root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=104 relocations=0 imports=0
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=0 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler platform=0 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler platform=0 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=240 relocations=0 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=324 relocations=0 imports=0
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler platform=0 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=168 relocations=0 imports=0
+PASS root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler platform=0 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=8 imports=0
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=0 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler platform=0 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -417,7 +499,24 @@ PASS root=TargetingCompareList TypeId=3188107749 compiler=Recovered.TargetingCom
 PASS root=EvaEvent TypeId=357806494 compiler=Recovered.EvaEventCompiler platform=0 fixtures=1 comparisons=3 instance=56 relocations=12 imports=8
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=136 relocations=12 imports=8
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=124 relocations=12 imports=8
-PASS platform=0 types=202 fixtures=202 comparisons=606
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=0 fixtures=1 comparisons=3 instance=120 relocations=8 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=24 relocations=12 imports=8
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=0 fixtures=1 comparisons=3 instance=48 relocations=12 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=0 fixtures=1 comparisons=3 instance=16 relocations=8 imports=8
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=128 relocations=8 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=16 imports=12
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=0 fixtures=1 comparisons=3 instance=148 relocations=8 imports=8
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=0 fixtures=1 comparisons=3 instance=184 relocations=12 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=0 fixtures=1 comparisons=3 instance=84 relocations=20 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=16 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=0 fixtures=1 comparisons=3 instance=48 relocations=16 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=8 imports=12
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=0 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=0 fixtures=1 comparisons=3 instance=76 relocations=20 imports=8
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=0 fixtures=1 comparisons=3 instance=44 relocations=16 imports=0
+PASS platform=0 types=243 fixtures=243 comparisons=729
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -620,6 +719,47 @@ PASS root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.Gam
 PASS root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=104 relocations=0 imports=0
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=1 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler platform=1 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler platform=1 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=240 relocations=0 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=324 relocations=0 imports=0
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler platform=1 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=168 relocations=0 imports=0
+PASS root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler platform=1 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=1 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=8 imports=0
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=1 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler platform=1 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -635,7 +775,24 @@ PASS root=TargetingCompareList TypeId=3188107749 compiler=Recovered.TargetingCom
 PASS root=EvaEvent TypeId=357806494 compiler=Recovered.EvaEventCompiler platform=1 fixtures=1 comparisons=3 instance=56 relocations=12 imports=8
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=136 relocations=12 imports=8
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=124 relocations=12 imports=8
-PASS platform=1 types=202 fixtures=202 comparisons=606
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=1 fixtures=1 comparisons=3 instance=120 relocations=8 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=24 relocations=12 imports=8
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=1 fixtures=1 comparisons=3 instance=48 relocations=12 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=1 fixtures=1 comparisons=3 instance=16 relocations=8 imports=8
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=128 relocations=8 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=16 imports=12
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=1 fixtures=1 comparisons=3 instance=148 relocations=8 imports=8
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=1 fixtures=1 comparisons=3 instance=184 relocations=12 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=1 fixtures=1 comparisons=3 instance=84 relocations=20 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=16 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=1 fixtures=1 comparisons=3 instance=48 relocations=16 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=8 imports=12
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=1 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=1 fixtures=1 comparisons=3 instance=76 relocations=20 imports=8
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=1 fixtures=1 comparisons=3 instance=44 relocations=16 imports=0
+PASS platform=1 types=243 fixtures=243 comparisons=729
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -838,6 +995,47 @@ PASS root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.Gam
 PASS root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=104 relocations=0 imports=0
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=2 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler platform=2 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler platform=2 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=240 relocations=0 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=324 relocations=0 imports=0
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler platform=2 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=168 relocations=0 imports=0
+PASS root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler platform=2 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=2 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=8 imports=0
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=2 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler platform=2 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -853,7 +1051,24 @@ PASS root=TargetingCompareList TypeId=3188107749 compiler=Recovered.TargetingCom
 PASS root=EvaEvent TypeId=357806494 compiler=Recovered.EvaEventCompiler platform=2 fixtures=1 comparisons=3 instance=56 relocations=12 imports=8
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=136 relocations=12 imports=8
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=124 relocations=12 imports=8
-PASS platform=2 types=202 fixtures=202 comparisons=606
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=2 fixtures=1 comparisons=3 instance=120 relocations=8 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=24 relocations=12 imports=8
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=2 fixtures=1 comparisons=3 instance=48 relocations=12 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=2 fixtures=1 comparisons=3 instance=16 relocations=8 imports=8
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=128 relocations=8 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=16 imports=12
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=2 fixtures=1 comparisons=3 instance=148 relocations=8 imports=8
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=2 fixtures=1 comparisons=3 instance=184 relocations=12 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=2 fixtures=1 comparisons=3 instance=84 relocations=20 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=16 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=2 fixtures=1 comparisons=3 instance=48 relocations=16 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=8 imports=12
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=2 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=2 fixtures=1 comparisons=3 instance=76 relocations=20 imports=8
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=2 fixtures=1 comparisons=3 instance=44 relocations=16 imports=0
+PASS platform=2 types=243 fixtures=243 comparisons=729
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -1056,6 +1271,47 @@ PASS root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.Gam
 PASS root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=104 relocations=0 imports=0
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=99 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler platform=99 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler platform=99 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=240 relocations=0 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=324 relocations=0 imports=0
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=124 relocations=0 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler platform=99 fixtures=1 comparisons=3 instance=40 relocations=0 imports=0
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=168 relocations=0 imports=0
+PASS root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler platform=99 fixtures=1 comparisons=3 instance=44 relocations=0 imports=0
+PASS root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=99 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=0 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=0 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=8 imports=0
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=99 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler platform=99 fixtures=1 comparisons=3 instance=32 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -1071,6 +1327,23 @@ PASS root=TargetingCompareList TypeId=3188107749 compiler=Recovered.TargetingCom
 PASS root=EvaEvent TypeId=357806494 compiler=Recovered.EvaEventCompiler platform=99 fixtures=1 comparisons=3 instance=56 relocations=12 imports=8
 PASS root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=136 relocations=12 imports=8
 PASS root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=124 relocations=12 imports=8
-PASS platform=99 types=202 fixtures=202 comparisons=606
-PASS XmlPriorityLink types=202 fixtures=808 comparisons=2424 completionFixtures=60 completionComparisons=180 platforms=0/1/2/99; link smoke only
+PASS root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler platform=99 fixtures=1 comparisons=3 instance=120 relocations=8 imports=0
+PASS root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=116 relocations=0 imports=0
+PASS root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=24 relocations=12 imports=8
+PASS root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler platform=99 fixtures=1 comparisons=3 instance=48 relocations=12 imports=0
+PASS root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler platform=99 fixtures=1 comparisons=3 instance=16 relocations=8 imports=8
+PASS root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=128 relocations=8 imports=0
+PASS root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=16 imports=12
+PASS root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler platform=99 fixtures=1 comparisons=3 instance=148 relocations=8 imports=8
+PASS root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler platform=99 fixtures=1 comparisons=3 instance=184 relocations=12 imports=0
+PASS root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler platform=99 fixtures=1 comparisons=3 instance=84 relocations=20 imports=0
+PASS root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=16 imports=0
+PASS root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler platform=99 fixtures=1 comparisons=3 instance=48 relocations=16 imports=0
+PASS root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=8 imports=12
+PASS root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler platform=99 fixtures=1 comparisons=3 instance=120 relocations=0 imports=0
+PASS root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler platform=99 fixtures=1 comparisons=3 instance=76 relocations=20 imports=8
+PASS root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler platform=99 fixtures=1 comparisons=3 instance=44 relocations=16 imports=0
+PASS platform=99 types=243 fixtures=243 comparisons=729
+PASS XmlPriorityLink types=243 fixtures=972 comparisons=2916 completionFixtures=128 completionComparisons=384 platforms=0/1/2/99; link smoke only
 PROCESS EXIT mode=Od exitCode=0 exitCodeHex=0x00000000

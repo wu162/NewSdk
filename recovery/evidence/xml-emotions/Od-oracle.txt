@@ -1,0 +1,4 @@
+System.Exception: independent model bit/ALL padding
+   at XmlemotionsOracle.Check(Boolean test, String label)
+   at XmlemotionsOracle.Matrix(TargetPlatform p)
+   at XmlemotionsOracle.Main(String[] args)

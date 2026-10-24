@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
-  "runId": "40139472611",
+  "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
+  "runId": "40140206386",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -205,13 +205,54 @@
     "GameplayAchievementTriggerData": 348670903,
     "HealthBarTemplate": 1507490649,
     "HealthBarSettings": 3919360587,
-    "UnitOverlayIconSettings": 2421413379
+    "UnitOverlayIconSettings": 2421413379,
+    "ObjectFilterAsset": 1151702845,
+    "RegisteredObjectSet": 814796096,
+    "ObjectVisionRangeItem": 772930644,
+    "InvisibilityTemplate": 1431290504,
+    "InvisibilityManagerSettings": 254471188,
+    "StanceTemplate": 2525284163,
+    "EmotionTemplate": 2836737428,
+    "ProjectilePath": 1710207315,
+    "ForceFeedbackEvent": 474482543,
+    "EngagingContent": 3058114834,
+    "EngagingContentGroup": 11280974,
+    "EngagingContentSequence": 3799634821,
+    "IntelDB": 530081230,
+    "UnitIntro": 1870180772,
+    "BreezeInfo": 1626415288,
+    "ModelSettings": 1968811301,
+    "AutoParticleSystemSettings": 3278684478,
+    "CrowdResponse": 400896388,
+    "RadarTerrainImage": 1099769729,
+    "UIRadarObjectsLayer": 4039592522,
+    "W3DDeviceSettings": 1469055344,
+    "ScorchMarkSettings": 2383722691,
+    "Language": 2915726794,
+    "HeaderTemplate": 1218703046,
+    "FontDirectory": 3569007303,
+    "TheVersion": 4236434438,
+    "Credits": 3978455785,
+    "CommandSet": 2584759047,
+    "Road": 3516764358,
+    "ShaderOverride": 3166846828,
+    "ShaderOverrideRule": 3648907125,
+    "ImageSequence": 565855655,
+    "UnitTypeIcon": 3614134471,
+    "DrawGroupInfo": 2913856066,
+    "OnlineChatColors": 1345252658,
+    "ArchivableMovie": 3741496377,
+    "ArchiveMovieList": 2099472558,
+    "NetworkSettings": 4272453293,
+    "PathfindSettings": 970663416,
+    "ResourceSettings": 3279338544,
+    "GraphicsHardware": 2846460739
   },
-  "expectedTypes": 202,
-  "expectedFixturesPerMode": 808,
-  "expectedComparisonsPerMode": 2424,
-  "expectedCompletionFixturesPerMode": 60,
-  "expectedCompletionComparisonsPerMode": 180,
+  "expectedTypes": 243,
+  "expectedFixturesPerMode": 972,
+  "expectedComparisonsPerMode": 2916,
+  "expectedCompletionFixturesPerMode": 128,
+  "expectedCompletionComparisonsPerMode": 384,
   "platforms": [
     0,
     1,
@@ -224,11 +265,11 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 202,
-      "fixtures": 808,
-      "comparisons": 2424,
-      "completionFixtures": 60,
-      "completionComparisons": 180,
+      "types": 243,
+      "fixtures": 972,
+      "comparisons": 2916,
+      "completionFixtures": 128,
+      "completionComparisons": 384,
       "platforms": [
         0,
         1,
@@ -437,7 +478,48 @@
         "GameplayAchievementTriggerData": 4,
         "HealthBarTemplate": 4,
         "HealthBarSettings": 4,
-        "UnitOverlayIconSettings": 4
+        "UnitOverlayIconSettings": 4,
+        "ObjectFilterAsset": 4,
+        "RegisteredObjectSet": 4,
+        "ObjectVisionRangeItem": 4,
+        "InvisibilityTemplate": 4,
+        "InvisibilityManagerSettings": 4,
+        "StanceTemplate": 4,
+        "EmotionTemplate": 4,
+        "ProjectilePath": 4,
+        "ForceFeedbackEvent": 4,
+        "EngagingContent": 4,
+        "EngagingContentGroup": 4,
+        "EngagingContentSequence": 4,
+        "IntelDB": 4,
+        "UnitIntro": 4,
+        "BreezeInfo": 4,
+        "ModelSettings": 4,
+        "AutoParticleSystemSettings": 4,
+        "CrowdResponse": 4,
+        "RadarTerrainImage": 4,
+        "UIRadarObjectsLayer": 4,
+        "W3DDeviceSettings": 4,
+        "ScorchMarkSettings": 4,
+        "Language": 4,
+        "HeaderTemplate": 4,
+        "FontDirectory": 4,
+        "TheVersion": 4,
+        "Credits": 4,
+        "CommandSet": 4,
+        "Road": 4,
+        "ShaderOverride": 4,
+        "ShaderOverrideRule": 4,
+        "ImageSequence": 4,
+        "UnitTypeIcon": 4,
+        "DrawGroupInfo": 4,
+        "OnlineChatColors": 4,
+        "ArchivableMovie": 4,
+        "ArchiveMovieList": 4,
+        "NetworkSettings": 4,
+        "PathfindSettings": 4,
+        "ResourceSettings": 4,
+        "GraphicsHardware": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -641,10 +723,51 @@
         "GameplayAchievementTriggerData": "Recovered.GameplayAchievementTriggerDataCompiler",
         "HealthBarTemplate": "Recovered.HealthBarTemplateCompiler",
         "HealthBarSettings": "Recovered.HealthBarSettingsCompiler",
-        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler"
+        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler",
+        "ObjectFilterAsset": "Recovered.ObjectFilterAssetCompiler",
+        "RegisteredObjectSet": "Recovered.RegisteredObjectSetCompiler",
+        "ObjectVisionRangeItem": "Recovered.ObjectVisionRangeItemCompiler",
+        "InvisibilityTemplate": "Recovered.InvisibilityTemplateCompiler",
+        "InvisibilityManagerSettings": "Recovered.InvisibilityManagerSettingsCompiler",
+        "StanceTemplate": "Recovered.StanceTemplateCompiler",
+        "EmotionTemplate": "Recovered.EmotionTemplateCompiler",
+        "ProjectilePath": "Recovered.ProjectilePathCompiler",
+        "ForceFeedbackEvent": "Recovered.ForceFeedbackEventCompiler",
+        "EngagingContent": "Recovered.EngagingContentCompiler",
+        "EngagingContentGroup": "Recovered.EngagingContentGroupCompiler",
+        "EngagingContentSequence": "Recovered.EngagingContentSequenceCompiler",
+        "IntelDB": "Recovered.IntelDBCompiler",
+        "UnitIntro": "Recovered.UnitIntroCompiler",
+        "BreezeInfo": "Recovered.BreezeInfoCompiler",
+        "ModelSettings": "Recovered.ModelSettingsCompiler",
+        "AutoParticleSystemSettings": "Recovered.AutoParticleSystemSettingsCompiler",
+        "CrowdResponse": "Recovered.CrowdResponseCompiler",
+        "RadarTerrainImage": "Recovered.RadarTerrainImageCompiler",
+        "UIRadarObjectsLayer": "Recovered.UIRadarObjectsLayerCompiler",
+        "W3DDeviceSettings": "Recovered.W3DDeviceSettingsCompiler",
+        "ScorchMarkSettings": "Recovered.ScorchMarkSettingsCompiler",
+        "Language": "Recovered.LanguageCompiler",
+        "HeaderTemplate": "Recovered.HeaderTemplateCompiler",
+        "FontDirectory": "Recovered.FontDirectoryCompiler",
+        "TheVersion": "Recovered.TheVersionCompiler",
+        "Credits": "Recovered.CreditsCompiler",
+        "CommandSet": "Recovered.CommandSetCompiler",
+        "Road": "Recovered.RoadCompiler",
+        "ShaderOverride": "Recovered.ShaderOverrideCompiler",
+        "ShaderOverrideRule": "Recovered.ShaderOverrideRuleCompiler",
+        "ImageSequence": "Recovered.ImageSequenceCompiler",
+        "UnitTypeIcon": "Recovered.UnitTypeIconCompiler",
+        "DrawGroupInfo": "Recovered.DrawGroupInfoCompiler",
+        "OnlineChatColors": "Recovered.OnlineChatColorsCompiler",
+        "ArchivableMovie": "Recovered.ArchivableMovieCompiler",
+        "ArchiveMovieList": "Recovered.ArchiveMovieListCompiler",
+        "NetworkSettings": "Recovered.NetworkSettingsCompiler",
+        "PathfindSettings": "Recovered.PathfindSettingsCompiler",
+        "ResourceSettings": "Recovered.ResourceSettingsCompiler",
+        "GraphicsHardware": "Recovered.GraphicsHardwareCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "6a29db5e9d93bd381cf074e04d9bcaf5c1b83be63c65d9ff11d1bb0557c2827e",
+      "linkedAssemblySha256": "4108e32d65da8fffd9ffb3eaf04705b9055b2166967f328ad5ca6f06d0bb61b7",
       "log": "Od-oracle.txt"
     },
     {
@@ -652,11 +775,11 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 202,
-      "fixtures": 808,
-      "comparisons": 2424,
-      "completionFixtures": 60,
-      "completionComparisons": 180,
+      "types": 243,
+      "fixtures": 972,
+      "comparisons": 2916,
+      "completionFixtures": 128,
+      "completionComparisons": 384,
       "platforms": [
         0,
         1,
@@ -865,7 +988,48 @@
         "GameplayAchievementTriggerData": 4,
         "HealthBarTemplate": 4,
         "HealthBarSettings": 4,
-        "UnitOverlayIconSettings": 4
+        "UnitOverlayIconSettings": 4,
+        "ObjectFilterAsset": 4,
+        "RegisteredObjectSet": 4,
+        "ObjectVisionRangeItem": 4,
+        "InvisibilityTemplate": 4,
+        "InvisibilityManagerSettings": 4,
+        "StanceTemplate": 4,
+        "EmotionTemplate": 4,
+        "ProjectilePath": 4,
+        "ForceFeedbackEvent": 4,
+        "EngagingContent": 4,
+        "EngagingContentGroup": 4,
+        "EngagingContentSequence": 4,
+        "IntelDB": 4,
+        "UnitIntro": 4,
+        "BreezeInfo": 4,
+        "ModelSettings": 4,
+        "AutoParticleSystemSettings": 4,
+        "CrowdResponse": 4,
+        "RadarTerrainImage": 4,
+        "UIRadarObjectsLayer": 4,
+        "W3DDeviceSettings": 4,
+        "ScorchMarkSettings": 4,
+        "Language": 4,
+        "HeaderTemplate": 4,
+        "FontDirectory": 4,
+        "TheVersion": 4,
+        "Credits": 4,
+        "CommandSet": 4,
+        "Road": 4,
+        "ShaderOverride": 4,
+        "ShaderOverrideRule": 4,
+        "ImageSequence": 4,
+        "UnitTypeIcon": 4,
+        "DrawGroupInfo": 4,
+        "OnlineChatColors": 4,
+        "ArchivableMovie": 4,
+        "ArchiveMovieList": 4,
+        "NetworkSettings": 4,
+        "PathfindSettings": 4,
+        "ResourceSettings": 4,
+        "GraphicsHardware": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -1069,10 +1233,51 @@
         "GameplayAchievementTriggerData": "Recovered.GameplayAchievementTriggerDataCompiler",
         "HealthBarTemplate": "Recovered.HealthBarTemplateCompiler",
         "HealthBarSettings": "Recovered.HealthBarSettingsCompiler",
-        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler"
+        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler",
+        "ObjectFilterAsset": "Recovered.ObjectFilterAssetCompiler",
+        "RegisteredObjectSet": "Recovered.RegisteredObjectSetCompiler",
+        "ObjectVisionRangeItem": "Recovered.ObjectVisionRangeItemCompiler",
+        "InvisibilityTemplate": "Recovered.InvisibilityTemplateCompiler",
+        "InvisibilityManagerSettings": "Recovered.InvisibilityManagerSettingsCompiler",
+        "StanceTemplate": "Recovered.StanceTemplateCompiler",
+        "EmotionTemplate": "Recovered.EmotionTemplateCompiler",
+        "ProjectilePath": "Recovered.ProjectilePathCompiler",
+        "ForceFeedbackEvent": "Recovered.ForceFeedbackEventCompiler",
+        "EngagingContent": "Recovered.EngagingContentCompiler",
+        "EngagingContentGroup": "Recovered.EngagingContentGroupCompiler",
+        "EngagingContentSequence": "Recovered.EngagingContentSequenceCompiler",
+        "IntelDB": "Recovered.IntelDBCompiler",
+        "UnitIntro": "Recovered.UnitIntroCompiler",
+        "BreezeInfo": "Recovered.BreezeInfoCompiler",
+        "ModelSettings": "Recovered.ModelSettingsCompiler",
+        "AutoParticleSystemSettings": "Recovered.AutoParticleSystemSettingsCompiler",
+        "CrowdResponse": "Recovered.CrowdResponseCompiler",
+        "RadarTerrainImage": "Recovered.RadarTerrainImageCompiler",
+        "UIRadarObjectsLayer": "Recovered.UIRadarObjectsLayerCompiler",
+        "W3DDeviceSettings": "Recovered.W3DDeviceSettingsCompiler",
+        "ScorchMarkSettings": "Recovered.ScorchMarkSettingsCompiler",
+        "Language": "Recovered.LanguageCompiler",
+        "HeaderTemplate": "Recovered.HeaderTemplateCompiler",
+        "FontDirectory": "Recovered.FontDirectoryCompiler",
+        "TheVersion": "Recovered.TheVersionCompiler",
+        "Credits": "Recovered.CreditsCompiler",
+        "CommandSet": "Recovered.CommandSetCompiler",
+        "Road": "Recovered.RoadCompiler",
+        "ShaderOverride": "Recovered.ShaderOverrideCompiler",
+        "ShaderOverrideRule": "Recovered.ShaderOverrideRuleCompiler",
+        "ImageSequence": "Recovered.ImageSequenceCompiler",
+        "UnitTypeIcon": "Recovered.UnitTypeIconCompiler",
+        "DrawGroupInfo": "Recovered.DrawGroupInfoCompiler",
+        "OnlineChatColors": "Recovered.OnlineChatColorsCompiler",
+        "ArchivableMovie": "Recovered.ArchivableMovieCompiler",
+        "ArchiveMovieList": "Recovered.ArchiveMovieListCompiler",
+        "NetworkSettings": "Recovered.NetworkSettingsCompiler",
+        "PathfindSettings": "Recovered.PathfindSettingsCompiler",
+        "ResourceSettings": "Recovered.ResourceSettingsCompiler",
+        "GraphicsHardware": "Recovered.GraphicsHardwareCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "0314b21b6eaa3960ced745703aa5c3ebed2b39306c2ae7dae73576b7b874612b",
+      "linkedAssemblySha256": "8be294de1ea45c8b569e0f1d8f70849eca46ad49a0da5f9a40e525cfe8b2999d",
       "log": "O2-oracle.txt"
     }
   ],
@@ -1081,20 +1286,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
-      "runId": "40139472611",
+      "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
+      "runId": "40140206386",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
-      "runId": "40139472611",
+      "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
+      "runId": "40140206386",
       "processSucceeded": true
     }
   ],
-  "status": "All 202 exact compiler routes linked; default-root and 60 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 243 exact compiler routes linked; default-root and 128 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -1134,8 +1339,24 @@
       "sha256": "593904009ac7fd0a85e1b351481463129a7d0479d83818b532305e7b412de229"
     },
     {
+      "path": "recovery/src/Bridge/XmlchatcolorsCompiler.cpp",
+      "sha256": "fc821799a414a3f303e35d7718258e5ce27790940b48bc8a3e71dff873a9a149"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlcommandsetCompiler.cpp",
+      "sha256": "05b5bfa90a0746819f7391f76e146fb300d8eed2194ed5ada1df6fc13390ebf1"
+    },
+    {
       "path": "recovery/src/Bridge/XmlconditionsCompiler.cpp",
       "sha256": "374a9fee080cdfa0d3cc46e1de0f10ed3574f96139b93dc88072eed95c4b810a"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlcontentCompiler.cpp",
+      "sha256": "741b4814330929c09ed4b6e73ad995a829715b70afab5b3f646a64e1e303c19b"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlcrowdCompiler.cpp",
+      "sha256": "d0b17a9ddb5016082f8572919d9d5fa00cd568c0341dffebe14d5aa78a4772b9"
     },
     {
       "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp",
@@ -1146,12 +1367,20 @@
       "sha256": "4bd1e7b7049922cb00f80c5689100f4b2f53dc1d623903aa793ebb3907b75446"
     },
     {
+      "path": "recovery/src/Bridge/XmlemotionsCompiler.cpp",
+      "sha256": "8043eb2975790d30c897641ab9d9a0ae624231de50bfe3d3661c3e6ca5104b91"
+    },
+    {
       "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp",
       "sha256": "c4f1b562e07e5dad846322b28667c40bc6468ee375c096c6c6e713c7f90fb34e"
     },
     {
       "path": "recovery/src/Bridge/XmlevaachievementCompiler.cpp",
       "sha256": "0a24a4930640516195c3d0927bd329844b7d0f0f38b34f79e6abdc91fe96074f"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlforcefeedbackCompiler.cpp",
+      "sha256": "015aab8a3137e2ec190b9b978ff55f0bb6dacd590180bb9416f40a6aa9c54f65"
     },
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
@@ -1166,12 +1395,28 @@
       "sha256": "543e1de9336a713388db0e76df33eeb38dbc1b432aab1f82e7f0442f037450d2"
     },
     {
+      "path": "recovery/src/Bridge/XmllocalizationCompiler.cpp",
+      "sha256": "1d8a7522af3819108c3d521607e5f3f71403e3862e7e0634f99b89406e383738"
+    },
+    {
       "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
       "sha256": "e70540a622524fc7423273f41fcfc5668f8d93bfaca539fb3e42574900f824fb"
     },
     {
+      "path": "recovery/src/Bridge/XmlmaterialrulesCompiler.cpp",
+      "sha256": "ea08e46c2f566c01f4944dd1961f37301c01ea14784d9069ab6d38d8dd71fa3d"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlmoviearchiveCompiler.cpp",
+      "sha256": "b4772c8e4c64b176a36cfcbd4650c2fad1b44417ae3ce7b52a14d6b6e51343e3"
+    },
+    {
       "path": "recovery/src/Bridge/XmlmusicscriptCompiler.cpp",
       "sha256": "d18f2d5dcadcf0d4f16c2c39e56d5e024f8837bcbdcec2fb2f106414d3447db6"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlobjectsetsCompiler.cpp",
+      "sha256": "ac4df65e4343ff1d441ba25e6830e037b3c5c02557a9f9e65e2c317d7138de68"
     },
     {
       "path": "recovery/src/Bridge/XmlpathmusicCompiler.cpp",
@@ -1190,12 +1435,28 @@
       "sha256": "79082202a9949eb86c304f7cfecf11f43e7af8faf5d4296b2dbededc29739c11"
     },
     {
+      "path": "recovery/src/Bridge/XmlprojectilepathCompiler.cpp",
+      "sha256": "0715f6514774faae78e2be9b5afef263412ff53f3abf36799bf54ee78ff121ce"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlradarCompiler.cpp",
+      "sha256": "10a0062c38b1af560d0efa3cadf9d1c0e913c006cd893b2833136a1e9f98e23a"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlrenderdeviceCompiler.cpp",
+      "sha256": "b1ef8e44d3539e187aae210a92756b5351fd26529ddef8e4caff5ce2127081ed"
+    },
+    {
       "path": "recovery/src/Bridge/XmlsinglesoundCompiler.cpp",
       "sha256": "75c7df438dea38bcd3c00c11e6856066e19510edcbd9edc8de392ab9b1bb6cbd"
     },
     {
       "path": "recovery/src/Bridge/XmlsoundmapsCompiler.cpp",
       "sha256": "47109fb73641c84083e388047efc2974984804471e64ea578a40fc08049af2e2"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlsystemsettingsCompiler.cpp",
+      "sha256": "39973df0eff2cbba4e7d910058f3bca388b669eeba2f52f0187d701943a7e30c"
     },
     {
       "path": "recovery/src/Bridge/XmltacticalhotkeysCompiler.cpp",
@@ -1214,6 +1475,10 @@
       "sha256": "0507e2c295a02081fc7a09dd085ee89b6907cbf0a5916369db9f35f366b82de7"
     },
     {
+      "path": "recovery/src/Bridge/XmluiimagesCompiler.cpp",
+      "sha256": "13db7049c0adb49b23f3fef74ce69e2aa5187f2987e059aaa6082d10f22eb669"
+    },
+    {
       "path": "recovery/src/Bridge/XmluisettingsCompiler.cpp",
       "sha256": "f570598fe9e3392148c0219c86fd09a5ee626a3531426d6309cdea188514f80e"
     },
@@ -1224,6 +1489,14 @@
     {
       "path": "recovery/src/Bridge/XmlunitoverlayCompiler.cpp",
       "sha256": "ec526d6c75fd0cc320f6ee57b5e204fa9724cffc58dc77e79fcaf48306f4a402"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlvisibilityCompiler.cpp",
+      "sha256": "5628b344f7380e658f9f243b92226c56bea4fe2f7872cc36313cdca7aebf60b6"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp",
+      "sha256": "4bd373133d2812a7bcf411b130bd9058b5863c4ae522491c85c538d53959c0f4"
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
@@ -1238,8 +1511,24 @@
       "sha256": "d435005c43bcc2623dca6d585c58c6048283013755010f9791d19bb508e752ff"
     },
     {
+      "path": "recovery/src/Native/Xmlchatcolors.cpp",
+      "sha256": "3803047fc48984a9ccba6432eb853421284b88df067b841039bc8715a3111816"
+    },
+    {
+      "path": "recovery/src/Native/Xmlcommandset.cpp",
+      "sha256": "c291162c4db7b05199fd279641b3c670f12c9963113db85d851480e74d053101"
+    },
+    {
       "path": "recovery/src/Native/Xmlconditions.cpp",
       "sha256": "9c212dc5fb67a41822371e970ef7092d65c28ef2793116ba5a1bfb9cd7ee0398"
+    },
+    {
+      "path": "recovery/src/Native/Xmlcontent.cpp",
+      "sha256": "8122efbc6f451bd53e77f27d305ed59ec87ffdbabff15318d4ae60d62c393f8d"
+    },
+    {
+      "path": "recovery/src/Native/Xmlcrowd.cpp",
+      "sha256": "0db3996d1702d38167802212adcc64cbcd690ec62fd319d108c4ab9fdb57b241"
     },
     {
       "path": "recovery/src/Native/Xmldamagefx.cpp",
@@ -1258,12 +1547,20 @@
       "sha256": "476fdbbfe3bd3169f5e567607e1e08d190f402905f46ae7cda9e2956350deecb"
     },
     {
+      "path": "recovery/src/Native/Xmlemotions.cpp",
+      "sha256": "7e791046c6434f45d3e01a96321c736796bc10b8b3e2a44f82f7cf5d3eb4e463"
+    },
+    {
       "path": "recovery/src/Native/Xmlenvironment.cpp",
       "sha256": "431398390479bab7e6ea0f29e4b827583ce7d715a16d52bdc6b5146d9cfd0bd3"
     },
     {
       "path": "recovery/src/Native/Xmlevaachievement.cpp",
       "sha256": "26f041faccbcf7312bffc8246b0b965bfa99ad332034f7d8bc5b86ee681e2fc0"
+    },
+    {
+      "path": "recovery/src/Native/Xmlforcefeedback.cpp",
+      "sha256": "60896f8f950fb5437770119cbd7886f3e9088573c879c15e559396bea9a0b63d"
     },
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
@@ -1278,12 +1575,28 @@
       "sha256": "f09d260aca3a4e9aba8db9e3a415f30d57ea4aafa0ce052541e9bd1deaa7f977"
     },
     {
+      "path": "recovery/src/Native/Xmllocalization.cpp",
+      "sha256": "10116d52bf93208270944235718d61f62e94919d07ecf9bb2d00257bdef6b4c8"
+    },
+    {
       "path": "recovery/src/Native/Xmllocomotor.cpp",
       "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713"
     },
     {
+      "path": "recovery/src/Native/Xmlmaterialrules.cpp",
+      "sha256": "d8cbadab8ed6ec572c56d723b8e5642f8b7acce5d639507f3d2715023ae522b1"
+    },
+    {
+      "path": "recovery/src/Native/Xmlmoviearchive.cpp",
+      "sha256": "3739176290eeb356a531e667ec128636bf55220573de1eda3700ac893033ff17"
+    },
+    {
       "path": "recovery/src/Native/Xmlmusicscript.cpp",
       "sha256": "8883ce421ba1f6125ee868bf1978903aafc5bec311be69a700e1a2ccd4080941"
+    },
+    {
+      "path": "recovery/src/Native/Xmlobjectsets.cpp",
+      "sha256": "6590dfd7ab2ba33e56fdaf6d438f5a7c745c22e46b77144ed7a4515d4396d736"
     },
     {
       "path": "recovery/src/Native/Xmlpathmusic.cpp",
@@ -1310,12 +1623,28 @@
       "sha256": "3a2b458b495fda1c56c4088e46e57b7a5777baed550782d124067106a914b71b"
     },
     {
+      "path": "recovery/src/Native/Xmlprojectilepath.cpp",
+      "sha256": "18e84e9a60e32436df0312e0d4719339703a164959e56212890d033fa1a4ebc0"
+    },
+    {
+      "path": "recovery/src/Native/Xmlradar.cpp",
+      "sha256": "a8fedad24443c95773c6a7f921dd9ee5903806069d9a0ba0825bd1c82748c371"
+    },
+    {
+      "path": "recovery/src/Native/Xmlrenderdevice.cpp",
+      "sha256": "ec728b085f7091ab22891bdcb6ccc4c7cd5bb18a328d189276888a7824209dd9"
+    },
+    {
       "path": "recovery/src/Native/Xmlsinglesound.cpp",
       "sha256": "61e8363637a9ec90f9350b11177f79a688c7d0e9d4ec26275fab6b6d3de0a901"
     },
     {
       "path": "recovery/src/Native/Xmlsoundmaps.cpp",
       "sha256": "c60e972a30b20ca7d0cbe706f1a1080bc12a1fd0332af1c3d2ac14605c046ffb"
+    },
+    {
+      "path": "recovery/src/Native/Xmlsystemsettings.cpp",
+      "sha256": "87b62695f1863a9a25b739733f4d014579766121a803479474e24b6edfd0db70"
     },
     {
       "path": "recovery/src/Native/Xmltacticalhotkeys.cpp",
@@ -1334,6 +1663,10 @@
       "sha256": "9618a984654b18a93bb3987a7f6ff943361a213929a1e801b11126e1cfa54a74"
     },
     {
+      "path": "recovery/src/Native/Xmluiimages.cpp",
+      "sha256": "4786c72b4ae1dc138abf3560ba35bb882ce88ca3246a567d90542d5cd033e44a"
+    },
+    {
       "path": "recovery/src/Native/Xmluisettings.cpp",
       "sha256": "8e4d31e86ea5ff37e79dba5eb373b29f264852bd354d1b26d8f95a610bfe7587"
     },
@@ -1344,6 +1677,14 @@
     {
       "path": "recovery/src/Native/Xmlunitoverlay.cpp",
       "sha256": "278f502da9e7c429a487d2a1548891080101e8ed2eb5fed9ec6c102906fa1f69"
+    },
+    {
+      "path": "recovery/src/Native/Xmlvisibility.cpp",
+      "sha256": "67494a7627db35d0c724bc3e93476d0411f91fc3b85f2ff975d1816cb1104a48"
+    },
+    {
+      "path": "recovery/src/Native/Xmlvisualsystems.cpp",
+      "sha256": "47b97911828effd9f0b1049740faa3ee6d1d50c836978c90989c3a7cb138153d"
     }
   ],
   "excludedDraftSources": [],

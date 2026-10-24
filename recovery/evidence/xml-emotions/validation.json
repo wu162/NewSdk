@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "9ba2f708574b08412d517f3c3f64e7049a2154ed",
+  "runId": "40140206386",
+  "scope": "XmlCompiler emotions two-root component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "failed",
+  "error": "Od original ProcessInstance differential failed (exit 1)"
+}

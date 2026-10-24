@@ -1,5 +1,5 @@
-System.Exception: percentage/int/time ABI
-   at XmlunitoverlayOracle.Check(Boolean test, String label)
-   at XmlunitoverlayOracle.Abi(TargetPlatform p)
-   at XmlunitoverlayOracle.Matrix(TargetPlatform p)
-   at XmlunitoverlayOracle.Main(String[] args)
+PASS platform=0 fixtures=646 arrayComparisons=3876 rejections=16 layoutAssertions=6859
+PASS platform=1 fixtures=646 arrayComparisons=3876 rejections=16 layoutAssertions=6859
+PASS platform=2 fixtures=646 arrayComparisons=3876 rejections=16 layoutAssertions=6859
+PASS platform=99 fixtures=646 arrayComparisons=3876 rejections=16 layoutAssertions=6859
+PASS Unit overlay fixtures=2584 arrayComparisons=15504 rejections=64 layoutAssertions=27437

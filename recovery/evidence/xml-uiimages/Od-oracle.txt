@@ -1,0 +1,4 @@
+System.Exception: font exact UTF8 C-string length andpadding
+   at XmluiimagesOracle.Check(Boolean test, String label)
+   at XmluiimagesOracle.Matrix(TargetPlatform p)
+   at XmluiimagesOracle.Main(String[] args)

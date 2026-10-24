@@ -1,0 +1,6 @@
+PASS platform=0 fixtures=255 arrayComparisons=1530 rejections=18 layoutAssertions=11468
+System.Exception: other root bytes zero
+   at XmlcommandsetOracle.Check(Boolean test, String label)
+   at XmlcommandsetOracle.Abi(TargetPlatform p)
+   at XmlcommandsetOracle.Matrix(TargetPlatform p)
+   at XmlcommandsetOracle.Main(String[] args)
