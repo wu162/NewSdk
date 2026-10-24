@@ -1,68 +1,129 @@
-# XmlCompiler effects recovery
+# XmlCompiler FXList recovery
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
-Branch: recovery/xmlcompiler-effects. Checkpoint: not Windows validated.
+Branch: recovery/xmlcompiler-effects.
+Current code is ready for the unified Windows matrix, **not yet validated**.
 
-Public classes: Recovered.FXListCompiler and Recovered.FXParticleSystemTemplateCompiler.
-Both expose CompileXml(XmlNode, XmlNamespaceManager, bool) and
-ProcessInstance(InstanceDeclaration, TargetPlatform). All successful outputs are
-AssetBuffer with InstanceData, RelocationData, ImportsData.
+## Active interface and exact boundary
 
-## Current support boundary
+Recovered.FXListCompiler exposes
+CompileXml(XmlNode,XmlNamespaceManager,bool) and
+ProcessInstance(InstanceDeclaration,TargetPlatform).
+All successful results preserve AssetBuffer.InstanceData, RelocationData and
+ImportsData. The bridge validates FXList TypeId 2254974584 and the asset namespace.
 
-FXList: complete five root attributes PlayEvenIfShrouded, Tailorable,
-CullTracking, CullTrackingMin, CullTrackingMax; absent or empty NuggetList.
-Unknown attributes, foreign namespaces, duplicate containers, nonempty
-NuggetList and non-whitespace content are explicitly refused. This is a complete
-root capability, not a complete FXList nugget recovery.
-FXParticleSystemTemplate is explicitly refused pending enum-map and module
-source evidence. Its public interface is reserved for integration.
+All five root attributes are implemented: PlayEvenIfShrouded, Tailorable,
+CullTracking, CullTrackingMin, CullTrackingMax.
+NuggetList supports all fifteen original known concrete TypeIds:
 
-## Evidence
+| Type | TypeId | Bytes |
+| --- | ---: | ---: |
+| SoundFXNugget | 503892219 | 48 |
+| TerrainScorchFXNugget | 138194854 | 56 |
+| ForceFeedbackFXNugget | 638391350 | 48 |
+| DynamicDecalFXNugget | 866573550 | 108 |
+| ParticleSystemFXNugget | 751572338 | 148 |
+| LaserFXNugget | 904475169 | 64 |
+| AttachedModelFXNugget | 2263385183 | 56 |
+| TintDrawableFXNugget | 2106748504 | 76 |
+| RayEffectFXNugget | 2386148390 | 72 |
+| EvaEventFXNugget | 2424288100 | 56 |
+| FXParticleSysBoneNugget | 3121289073 | 84 |
+| ViewShakeFXNugget | 4011332978 | 48 |
+| CameraShakerVolumeFXNugget | 3768725989 | 56 |
+| FXListAtBonePosFXNugget | 4234415617 | 56 |
+| LightPulseFXNugget | 4293352609 | 72 |
 
-Original XmlCompiler Plugin.cs blob 00bb9e5df72d07a21204f85f9a9a2f1d9557f00b:
-both HandleType methods Marshal, EndianCorrect, FinalizeTracker. FinalizeTracker
-MakeRelocatable uses offset 0 and copies all three arrays; there is no Tokenizer
-procedure table. ProcessInstance TypeIds: FXList 2254974584,
-FXParticleSystemTemplate 686292351; all platforms except Win32 use big endian.
+Each branch includes its complete derived attributes and children, including
+nullable TerrainScorch.RandomRange, ParticleSystem.TargetOffset, its three
+random variables, packed ARGB color, vectors, angles, time units, typed hashes,
+resource references and absent-versus-empty strings.
+Inherited support includes all four 456-bit model-condition pointer fields,
+Weather, StopIfPlayed, OnlyIfOnLand, PlayIfSourceIsStealthed and the repeated
+SourceMustNotHaveBeenDisabledThisFrameByType enum list.
 
-Original FXList struct is 28 bytes, FXParticleSystemTemplate 176 bytes.
-The 8.4MB Module blob 2d2f471c8008b7c2e1f78e39752d0726da395cea
-cannot currently be delivered by fetch_blob in this session (Transport closed);
-fetch_file returns empty content even with line bounds. No claim of complete
-decompiled-source inspection is made.
+**Explicit unresolved boundary:** SecondaryObjectFilter and SourceObjectFilter
+children are refused. Unknown nugget TypeId is refused, although the original
+compiler has an unknown-base fallback. Unknown attributes, foreign namespaces,
+duplicate singleton containers/children and non-whitespace unexpected text
+are refused. This is not a claim of complete FXList recovery while the two
+ObjectFilter children remain unsupported. Valid known enum fields retain the
+original unknown-text fallbacks; enum misspellings are not schema errors here.
 
-Independent original IL evidence is available in
-recovery/evidence/BinaryAssetBuilder.XmlCompiler/methods.json blob
-803d558b4575b2cbc83ccd303bc85ba09940b6b8 and types.json blob
-93239ce090c631684e3f619d59473c7de4d0d8e6:
-- Marshal(FXList*), token 0x060000E6: bools at 24,25 default false;
-  optional time at 4; signed strtol(base=0) at 8,12; NuggetList at 16.
-- EndianCorrect(FXList*), token 0x060000E7: swaps 4,8,12 then list@16.
-- Tracker ctor<FXList>, token 0x060007F0: root allocation 28 bytes.
-- DataInitializers.Initialize time, token 0x0600001A: searches ms before s,
-  truncates at the selected unit, atof -> float, double multiplication by
-  float scale 0.001f or 1.0f, converts back to float.
-- Marshal<bool>, token 0x0600037F: only initial 1/t/T produces true.
-- FXList no nonempty list has no serialized pointers or references.
+FXParticleSystemTemplate has been reassigned. No particle compiler or stub
+exists in the active Xmleffects bridge/test/script. Substantial unvalidated
+particle root/keyframe/Wind/Velocity/Volume work was preserved for its new owner
+in disabled XmlfxparticleDraft.h/.cpp and XmlfxparticleDraftCompiler.cpp snapshots
+at checkpoint baca81ec04503d2eabeca1be28f41e49e62b9277. They are excluded from the
+active build and should be extracted into the new independent component.
+
+## Original evidence and important contracts
+
+Original Module blob: 2d2f471c8008b7c2e1f78e39752d0726da395cea.
+Verified source chunks/roots, static literal bytes and native PE enum maps:
+recovery/xmlcompiler-priority:recovery/evidence/xml-source.
+The manifest pins baseline/sourceBlob and byte-identical source reconstruction.
+Original DLL SHA256:
+d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6.
+
+Plugin.cs blob 00bb9e5df72d07a21204f85f9a9a2f1d9557f00b:
+HandleType<FXList> performs Marshal -> EndianCorrect -> FinalizeTracker.
+MakeRelocatable uses absolute offset zero, no Tokenizer procedure header, and
+copies all three buffers. Win32 alone is little endian; 1/2/99 use big endian.
+
+Key source lines: FXList Marshal/Endian 28046/28098 (28-byte root);
+FXNugget base Marshal/Endian/dispatch 27012/27075/27130;
+concrete nugget methods 27254-28300 and corresponding typed allocation wrappers;
+Time/Angle initializers and whitespace Tokenize 18262-18499;
+Vector2/Vector3/RGBColor 18535/18556/18721;
+RandomVariable 19162; ModelCondition parser 83646 and pointer wrapper 61622;
+DisabledType list 64324. Enum tables are embedded from original PE entries,
+never inferred from XSD order.
+
+Root: reserved@0, time@4, signed min/max@8/12, list count/pointer@16/20,
+booleans@24/25. Nugget base: TypeId@0, four optional 60-byte bitsets@4/8/12/16,
+Weather@20, unsupported filter pointers@24/28, disabled count/pointer@32/36,
+booleans@40/41/42. Exact derived offsets are in the adapter descriptors.
+
+Time searches ms before s, angle searches r before d; atof first rounds to
+float, then multiplies in double by the float scale, then rounds to float.
+Signed/unsigned integer fields retain their original CRT/base-zero contracts.
+RandomVariable absent remains zero; present missing Type defaults UNIFORM.
+Color channels wrap to bytes; DynamicDecal Color packs A:R:G:B into a word.
+String absence differs from present empty (which allocates a NUL).
+References use the decimal suffix after first backslash; typed IDs hash the
+lowercased complete input. Shared ResourceMarshaling/Relocation implement these
+proven contracts; this component never clears imports.
+
+Model-condition tokens are whitespace-delimited and case-sensitive except ALL.
+Unknown words map to 233 (ABOUT_TO_HIT); INVALID=-1 is ignored.
+A negative token XORs its bit, rather than clearing it. ALL (even -ALL) fills
+all fifteen words, and its original branch does not advance the input pointer,
+so later tokens have no effect. The implementation preserves that behavior.
 
 ## Validation
 
-Run recovery/scripts/TestXmleffects.ps1 from Windows VS2022 x86 devshell.
-It builds /Od and /O2 separately, starts fresh CLR4 legacy activation processes,
-and compares the original XmlCompiler ProcessInstance three arrays on
-platforms 0/1/2/99. Direct CompileXml is checked against recovered ProcessInstance.
-Every fixture asserts independent root length, reserved bytes, list words,
-padding, empty imports and relocations; selected fixtures independently check
-scalar offsets/endian. Unknown input boundaries are separately rejected.
+Run recovery/scripts/TestXmleffects.ps1 in a Windows VS2022 x86 devshell.
+It builds /Od and /O2 separately and starts fresh .NET Framework CLR4 processes
+with legacy activation. For platforms 0/1/2/99, every accepted fixture invokes
+original XmlCompiler ProcessInstance and compares all three arrays byte-for-byte.
+Direct CompileXml is compared to recovered ProcessInstance too.
 
-Evidence output: recovery/evidence/xml-effects/validation.json, with
-succeeded/sourceCommit/runId and per-mode per-platform fixture/comparison/refusal
-counts, plus Od-oracle.txt and O2-oracle.txt. Until an actual successful
-Windows run exists, this checkpoint is unvalidated. SDK integration is untested.FXParticleSystemTemplate has been reassigned. Its substantial unvalidated
-root/inline/keyframe/Wind/Volume/Velocity draft is preserved in disabled
-XmlfxparticleDraft.h/.cpp and XmlfxparticleDraftCompiler.cpp snapshots for the
-new owner to extract. These snapshots are not active code and are not included
-by TestXmleffects.ps1. The active bridge contains no particle compiler class.
+Coverage includes all fifteen branch defaults/distinct fields, all original
+ModelCondition entries in each of the four bitsets, all relevant enum maps and
+unknown fallbacks, numeric/time/angle/string boundaries, list sizes
+2/27/28/29/64/257, nullable allocations, signed/unsigned differences, pointer and
+import tables, explicit refusals and independent scalar/bit/packed-color layouts.
+Prefix navigation compares canonical original declarations with prefixed direct
+CompileXml, with wrong TypeId separately refused.
 
+Outputs: recovery/evidence/xml-effects/validation.json containing
+succeeded/sourceCommit/runId and per-/Od-/O2 per-platform fixture,
+threeArrayComparisons, directArrayComparisons, rejections and independentLayouts
+counts. Build/host logs and Od-oracle.txt/O2-oracle.txt are retained.
+The script writes succeeded=false before building and on any failure.
 
+Local native syntax-only checking passed with g++ C++17; x86 ABI assertions
+were disabled solely for that x64 host syntax check. This is not Windows ABI,
+C++/CLI, oracle, SDK or replacement-DLL validation. Unified Actions must supply
+the actual sourceCommit/runId success before any such claim.

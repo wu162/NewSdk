@@ -5,7 +5,7 @@
 #include <vector>
 #include "ResourceMarshaling.h"
 namespace Recovered { namespace Native {
-enum XmleffectsFieldKind { EffectFloat, EffectUnsigned, EffectHash, EffectReference, EffectString, EffectTime, EffectAngle, EffectBoolean, EffectEnum, EffectPercentage };
+enum XmleffectsFieldKind { EffectFloat, EffectUnsigned, EffectHash, EffectReference, EffectString, EffectTime, EffectAngle, EffectBoolean, EffectEnum, EffectPercentage, EffectSigned };
 struct XmleffectsFieldInput {
     unsigned int offset;
     XmleffectsFieldKind kind;
@@ -15,6 +15,10 @@ struct XmleffectsNuggetInput {
     unsigned int typeId = 0, size = 0;
     std::vector<XmleffectsFieldInput> fields;
     std::vector<std::string> disabled;
+    bool hasModelConditions[4] = {false,false,false,false};
+    std::string modelConditions[4];
+    bool hasTargetOffset = false, hasPackedColor = false;
+    std::string targetOffset[3], rgba[4];
     bool hasRange = false;
     std::string rangeLow = "SCORCH_1", rangeHigh = "SCORCH_4";
 };

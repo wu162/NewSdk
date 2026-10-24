@@ -80,9 +80,18 @@ public:
         Attributes(child,axes); Empty(child);
         for(int i=0;i<3;++i) Field(child,axes[i],rgb ? nullptr : "0.0",offset+4*i,Native::EffectFloat,nullptr,input);
     }
+
+    static void NuggetRandom(XmlNode^ owner, String^ name, unsigned int offset, Native::XmleffectsNuggetInput& input) {
+        XmlNode^ node=Child(owner,name);
+        if(node==nullptr) return;
+        Attributes(node,gcnew array<String^>{"Type","Low","High"}); Empty(node);
+        Field(node,"Type","UNIFORM",offset,Native::EffectEnum,"DistributionType",input);
+        Field(node,"Low",nullptr,offset+4,Native::EffectFloat,nullptr,input);
+        Field(node,"High",nullptr,offset+8,Native::EffectFloat,nullptr,input);
+    }
     static void Nugget(XmlNode^ node, Native::XmleffectsNuggetInput& input) {
         input.typeId=Native::ParseUnsigned(Attr(node,"TypeId","0"));
-        System::Collections::Generic::List<String^>^ attrs=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"TypeId","StopIfPlayed","Weather","OnlyIfOnLand","PlayIfSourceIsStealthed"});
+        System::Collections::Generic::List<String^>^ attrs=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"TypeId","StopIfPlayed","Weather","OnlyIfOnLand","PlayIfSourceIsStealthed","RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"});
         System::Collections::Generic::List<String^>^ children=gcnew System::Collections::Generic::List<String^>(gcnew array<String^>{"SourceMustNotHaveBeenDisabledThisFrameByType"});
         switch(input.typeId) {
         case 503892219u:
@@ -145,6 +154,69 @@ public:
                 XmlNode^ range=Child(node,"RandomRange"); Attributes(range,gcnew array<String^>{"Low","High"}); Empty(range);
                 input.hasRange=true; input.rangeLow=Attr(range,"Low","SCORCH_1"); input.rangeHigh=Attr(range,"High","SCORCH_4");
             } break;
+
+        case 3121289073u:
+            input.size=84; attrs->AddRange(gcnew array<String^>{"Bone","RequireFrequentUpdate","TriggerType","HoldBetweenStateID","ActionType","Particle"}); children->Add("Offset");
+            Field(node,"Bone",nullptr,44,Native::EffectString,nullptr,input);
+            Field(node,"RequireFrequentUpdate",nullptr,80,Native::EffectBoolean,nullptr,input);
+            Field(node,"TriggerType",nullptr,52,Native::EffectEnum,"FXTriggerType",input);
+            Field(node,"HoldBetweenStateID",nullptr,56,Native::EffectSigned,nullptr,input);
+            Field(node,"ActionType",nullptr,60,Native::EffectEnum,"FXActionType",input);
+            Field(node,"Particle",nullptr,64,Native::EffectReference,nullptr,input);
+            Vector(node,"Offset",68,false,input); break;
+        case 866573550u:
+            input.size=108; attrs->AddRange(gcnew array<String^>{"Decal","Shader","Size","OrientToObject","OpacityStart","OpacityPeak","OpacityEnd","OpacityFadeTimeOne","OpacityFadeTimeTwo","OpacityPeakTime","StartingDelay","Lifetime","AllowOnObjects"});
+            children->AddRange(gcnew array<String^>{"Color","Offset"});
+            Field(node,"Decal",nullptr,44,Native::EffectString,nullptr,input);
+            Field(node,"Shader","ALPHA",52,Native::EffectEnum,"DynamicDecalShaderType",input);
+            Field(node,"Size",nullptr,56,Native::EffectFloat,nullptr,input);
+            Field(node,"OrientToObject","true",104,Native::EffectBoolean,nullptr,input);
+            Field(node,"OpacityStart",nullptr,60,Native::EffectFloat,nullptr,input);
+            Field(node,"OpacityPeak","1.0",64,Native::EffectFloat,nullptr,input);
+            Field(node,"OpacityEnd",nullptr,68,Native::EffectFloat,nullptr,input);
+            Field(node,"OpacityFadeTimeOne",nullptr,72,Native::EffectTime,nullptr,input);
+            Field(node,"OpacityFadeTimeTwo",nullptr,76,Native::EffectTime,nullptr,input);
+            Field(node,"OpacityPeakTime",nullptr,80,Native::EffectTime,nullptr,input);
+            Field(node,"StartingDelay",nullptr,84,Native::EffectTime,nullptr,input);
+            Field(node,"Lifetime",nullptr,88,Native::EffectTime,nullptr,input);
+            Field(node,"AllowOnObjects","true",105,Native::EffectBoolean,nullptr,input);
+            if(Child(node,"Color")!=nullptr) {
+                XmlNode^ color=Child(node,"Color"); Attributes(color,gcnew array<String^>{"R","G","B","A"}); Empty(color);
+                input.hasPackedColor=true;
+                array<String^>^ channels={"R","G","B","A"};
+                for(int i=0;i<4;++i) input.rgba[i]=Attr(color,channels[i],i==3 ? "255" : "0");
+            }
+            if(Child(node,"Offset")!=nullptr) {
+                XmlNode^ offset=Child(node,"Offset"); Attributes(offset,gcnew array<String^>{"x","y"}); Empty(offset);
+                Field(offset,"x","0.0",96,Native::EffectFloat,nullptr,input); Field(offset,"y","0.0",100,Native::EffectFloat,nullptr,input);
+            } break;
+        case 751572338u:
+            input.size=148; attrs->AddRange(gcnew array<String^>{"Particle","Count","OrientToObject","Ricochet","CreateAtGroundHeight","CreateOverrideBone","UseTarget","TargetOverrideBone","TargetCoeff","SystemLife","SetTargetMatrix","OnlyIfOnWater"});
+            children->AddRange(gcnew array<String^>{"Rotate","Offset","TargetOffset","Radius","Height","InitialDelay"});
+            Field(node,"Particle",nullptr,44,Native::EffectReference,nullptr,input);
+            Field(node,"Count","1",48,Native::EffectSigned,nullptr,input);
+            Field(node,"OrientToObject",nullptr,140,Native::EffectBoolean,nullptr,input);
+            Field(node,"Ricochet",nullptr,141,Native::EffectBoolean,nullptr,input);
+            Field(node,"CreateAtGroundHeight",nullptr,142,Native::EffectBoolean,nullptr,input);
+            Field(node,"CreateOverrideBone",nullptr,52,Native::EffectString,nullptr,input);
+            Field(node,"UseTarget",nullptr,143,Native::EffectBoolean,nullptr,input);
+            Field(node,"TargetOverrideBone",nullptr,60,Native::EffectString,nullptr,input);
+            Field(node,"TargetCoeff","1.0",68,Native::EffectFloat,nullptr,input);
+            Field(node,"SystemLife","-1s",72,Native::EffectTime,nullptr,input);
+            Field(node,"SetTargetMatrix",nullptr,144,Native::EffectBoolean,nullptr,input);
+            Field(node,"OnlyIfOnWater",nullptr,145,Native::EffectBoolean,nullptr,input);
+            if(Child(node,"Rotate")!=nullptr) {
+                XmlNode^ rotate=Child(node,"Rotate"); Attributes(rotate,gcnew array<String^>{"X","Y","Z"}); Empty(rotate);
+                Field(rotate,"X",nullptr,76,Native::EffectAngle,nullptr,input); Field(rotate,"Y",nullptr,80,Native::EffectAngle,nullptr,input); Field(rotate,"Z",nullptr,84,Native::EffectAngle,nullptr,input);
+            }
+            Vector(node,"Offset",88,false,input);
+            if(Child(node,"TargetOffset")!=nullptr) {
+                XmlNode^ offset=Child(node,"TargetOffset"); Attributes(offset,gcnew array<String^>{"x","y","z"}); Empty(offset);
+                input.hasTargetOffset=true;
+                array<String^>^ axes={"x","y","z"};
+                for(int i=0;i<3;++i) input.targetOffset[i]=Attr(offset,axes[i],"0.0");
+            }
+            NuggetRandom(node,"Radius",104,input); NuggetRandom(node,"Height",116,input); NuggetRandom(node,"InitialDelay",128,input); break;
         default: throw gcnew NotSupportedException("Unrecovered FXNugget TypeId");
         }
         Attributes(node,attrs->ToArray());
@@ -154,6 +226,13 @@ public:
             int count=0;
             for each(XmlNode^ c in node->ChildNodes) if(c->NodeType==XmlNodeType::Element && c->LocalName==name) ++count;
             if(count>1) throw gcnew NotSupportedException("Duplicate FXNugget child");
+        }
+        array<String^>^ conditions={"RequiredSecondaryModelConditions","ExcludedSecondaryModelConditions","RequiredSourceModelConditions","ExcludedSourceModelConditions"};
+        XmlNodeAdapter^ baseAdapter=gcnew XmlNodeAdapter(node->CreateNavigator(),nullptr);
+        for(int i=0;i<4;++i) {
+            String^ value=baseAdapter->Attribute(conditions[i],nullptr);
+            input.hasModelConditions[i]=value!=nullptr;
+            if(value!=nullptr) input.modelConditions[i]=marshal_as<std::string>(value);
         }
         Field(node,"StopIfPlayed",nullptr,40,Native::EffectBoolean,nullptr,input);
         Field(node,"Weather","INVALID",20,Native::EffectEnum,"WeatherType",input);
