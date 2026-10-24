@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 53340; body SHA256 bcfcf311887e04fd919ed7e8cda81ca54e16368c55a16f0888058eae82eee3a1
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector3_003E(Vector3** pointer, EndianHelper* endian)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num, endian);
+		}
+	}
+
