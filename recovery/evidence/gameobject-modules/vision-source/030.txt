@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61672; body SHA256 616fbe985a5dc185740625eadfd9c6d5ee5b2220b0e588dd041a8fae499d2715
+// Literals: {"_003F_003F_C_0040_0BF_0040IAPKNPCA_0040InvisibilityTemplate_003F_0024AA_0040": "InvisibilityTemplate"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AInvisibilityBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		InvisibilityBehaviorModuleData* ptr = (InvisibilityBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AInvisibilityTemplate_002Cstruct_0020SageBinaryData_003A_003AInvisibilityTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040IAPKNPCA_0040InvisibilityTemplate_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AInvisibilityTemplate_002CSageBinaryData_003A_003AInvisibilityTemplate_003E*)((byte*)ptr + 8), tracker);
+			Marshaler_002EMarshal(node, (ModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 88803780;
+	}
+

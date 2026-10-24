@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 44100; body SHA256 b3b07ed112c7ed411e68ea1ad1c9630323ecdf763e1f123eb1cc52f63da272dc
+// Literals: {"_003F_003F_C_0040_0L_0040LMDDPDBC_0040UpdateRate_003F_0024AA_0040": "UpdateRate", "_003F_003F_C_0040_0P_0040KDBGJAJF_0040AllowedPlayers_003F_0024AA_0040": "AllowedPlayers"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SelectiveVisibilityBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			float** ptr = (float**)((byte*)@object + 8);
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040LMDDPDBC_0040UpdateRate_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				Relo_002ETracker_002EPush(state, (void**)ptr, 4u, 1u);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)(int)(*(uint*)ptr), text, &timeTag);
+				((int*)((byte*)state + 4))[1] += -4;
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040KDBGJAJF_0040AllowedPlayers_003F_0024AA_0040), null), (BitFlags_003C3_002Cenum_0020SageBinaryData_003A_003ARelationshipType_003E**)((byte*)@object + 12), state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+

@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 65461; body SHA256 acece25b66489f3f32dd9a3bda6227774efa9062eb8519a98916a377271c995b
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABeaconClientUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((BeaconClientUpdateModuleData*)(int)(*(uint*)pointer), endian);
+	}
+

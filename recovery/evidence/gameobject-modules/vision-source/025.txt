@@ -1,0 +1,7 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 103363; body SHA256 e3f72b29b53a6d6b37143d1a14e615679645e45b7844ca96dbf5115a5eef0ad6
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASelectiveVisibilityBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (SelectiveVisibilityBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}
+
