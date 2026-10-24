@@ -7,7 +7,6 @@ using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
 namespace Recovered {
 ref class XmlpowersBridge abstract sealed {
-public:
  static Native::XmlpowersNode Read(XmlNode^ node) {
   Native::XmlpowersNode input;
   if(node->NamespaceURI!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Foreign Xmlpowers namespace.");
@@ -30,6 +29,7 @@ public:
   if(result->Length)System::Runtime::InteropServices::Marshal::Copy(IntPtr(const_cast<unsigned char*>(source.data())),result,0,result->Length);
   return result;
  }
+public:
  static AssetBuffer^ Compile(XmlNode^ node,XmlNamespaceManager^ namespaces,bool big,String^ type){
   if(node==nullptr)throw gcnew ArgumentNullException("node");
   if(node->LocalName!=type)throw gcnew NotSupportedException("Incorrect Xmlpowers root type.");

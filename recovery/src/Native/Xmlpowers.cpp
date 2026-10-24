@@ -144,7 +144,7 @@ struct Builder {
  case NullableStatusEnum:{void* e=data.Push(reinterpret_cast<void**>(at),4,1);Word(e,Enum(s,objectStatus,198));data.Pop();break;}
  case TargetEnum:Word(at,Enum(s,SpecialPowerTemplateTargetTypeNames,0));break;
  case RestrictionEnum:Word(at,Enum(s,SpecialPowerRestrictionTypeNames,1));break;
- case WeaponSlot:{static const EnumNameValue names[]={{"PRIMARY_WEAPON",0},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"WEAPONSET_TOGGLE_1",5}};Word(at,Enum(s,names,5));break;}
+ case WeaponSlot:{static const EnumNameValue names[]={{"PRIMARY_WEAPON",0},{"SECONDARY_WEAPON",1},{"TERTIARY_WEAPON",2},{"QUATERNARY_WEAPON",3},{"QUINARY_WEAPON",4},{"NO_WEAPON",5}};Word(at,Enum(s,names,5));break;}
  default:Bits(at,s,f.kind);break;
  }}}
  template<size_t N>void Fields(const XmlpowersNode& n,unsigned char* p,const Field(&f)[N]){Fields(n,p,f,N);}
