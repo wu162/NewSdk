@@ -10,6 +10,7 @@ using Recovered;
 class XmlaiOracle {
     const string Ns="uri:ea.com:eala:asset";
     static int fixtures,comparisons,rejections,layouts;
+    static string currentLabel,currentXml;
     static IAssetBuilderPlugin original;
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -40,6 +41,7 @@ class XmlaiOracle {
     static string Escape(string s){return s.Replace("&","&amp;").Replace("'","&apos;").Replace("<","&lt;");}
     static string Root(string type,string attrs,string children){return "<"+type+" xmlns='"+Ns+"' id='Oracle' "+attrs+">"+children+"</"+type+">";}
     static AssetBuffer Test(string label,string text,TargetPlatform platform) {
+        currentLabel=label;currentXml=text;
         XmlDocument x=Xml(text);XmlNamespaceManager n=Manager(x);InstanceDeclaration d=Declaration(x,n);
         AssetBuffer a=original.ProcessInstance(d);
         AssetBuffer b=XmlaiCompiler.ProcessInstance(d,platform);
@@ -49,6 +51,7 @@ class XmlaiOracle {
         ++fixtures;return b;
     }
     static void Reject(string label,string text) {
+        currentLabel=label;currentXml=text;
         XmlDocument x=Xml(text);bool rejected=false;
         try{XmlaiCompiler.CompileXml(x.DocumentElement,Manager(x),false);}catch(NotSupportedException){rejected=true;}
         if(!rejected)throw new Exception("Expected rejection: "+label);++rejections;
@@ -355,6 +358,9 @@ class XmlaiOracle {
         AssetBuffer teamLayout=Test("tactic/team-default",Root("AIStrategicStateDefinition","","<Tactic><TeamTemplate/></Tactic>"),platform);
         Assert(teamLayout.InstanceData.Length==268&&Word(teamLayout.InstanceData,120,big)==1&&Word(teamLayout.InstanceData,124,big)==132&&Word(teamLayout.InstanceData,132,big)==1,"TeamTemplate 136-byte list independent ABI");
         Test("tactic/teams",Root("AIStrategicStateDefinition","","<Tactic id='MixedCase' Tactic='SimpleAttack' GatherWaypoint='WayPoint'><TargetBaseCriteria RequiredBaseTypes='MAIN_BASE'/><HomeBaseCriteria ExcludedBaseTypes='EXPANSION'/><TeamTemplate MaxUnits='7' MicroManager='Micro\\11'><CreateUnits UnitName='Tank' MinUnits='2' MaxUnits='4'/><CreateUnits UnitName='Air' ExperienceLevel='3'/><ObjectFilter Include='INFANTRY'><IncludeThing>Unit</IncludeThing></ObjectFilter></TeamTemplate><TeamTemplate Priority='garbage'/></Tactic>"),platform);
+        AssetBuffer structureFilter=Test("personality/full-filter-name",Root("AIPersonalityDefinition","","<CountAsStructureForBuildPurposesFilter/>"),platform);
+        Assert(Word(structureFilter.InstanceData,388,big)==3,"original full filter child Rule NONE");
+        Reject("obsolete truncated filter name",Root("AIPersonalityDefinition","","<CountAsStructureForBuildPurposes/>"));
         AssetBuffer sideEmpty=Test("personality/side-empty",Root("AIPersonalityDefinition","","<Side/>"),platform);
         Assert(Word(sideEmpty.InstanceData,236,big)==1&&Word(sideEmpty.InstanceData,240,big)==512&&sideEmpty.InstanceData.Length==516,"Side independent list layout");
         AssetBuffer sideReferences=Test("personality/side-references",Root("AIPersonalityDefinition","","<Side>First\\\\7</Side><Side>Second\\\\11</Side><Side>Unresolved</Side>"),platform);
@@ -522,8 +528,9 @@ class XmlaiOracle {
         Test("personality/opening-known",Root("AIPersonalityDefinition","","<OpeningMove Name='Move\\\\13'><Heuristic><H TypeId='1375432082' Weight='2'/><H TypeId='278936256' StartTime='250ms'/></Heuristic></OpeningMove>"),platform);
         Reject("opening unknown heuristic",Root("AIPersonalityDefinition","","<OpeningMove><Heuristic><H TypeId='999'/></Heuristic></OpeningMove>"));
         Reject("opening duplicate heuristic wrapper",Root("AIPersonalityDefinition","","<OpeningMove><Heuristic/><Heuristic/></OpeningMove>"));
+        int extensionIndex=0;
         foreach(string extensionXml in XmlaiPersonalityCases.Cases())
-            Test("personality/extension",extensionXml,platform);
+            Test("personality/extension/"+(extensionIndex++),extensionXml,platform);
 #else
         Reject("unsupported personality child",Root("AIPersonalityDefinition","","<UnitCap/>"));
 #endif
@@ -548,6 +555,6 @@ class XmlaiOracle {
                 Console.WriteLine("PASS platform={0} fixtures={1} arrayComparisons={2} rejections={3} layoutAssertions={4}",(int)p,fixtures-f,comparisons-c,rejections-r,layouts-l);
             }
             Console.WriteLine("PASS total fixtures={0} arrayComparisons={1} rejections={2} layoutAssertions={3}",fixtures,comparisons,rejections,layouts);return 0;
-        } catch(Exception e){Console.Error.WriteLine(e);return 1;}
+        } catch(Exception e){Console.Error.WriteLine("FAIL fixture="+currentLabel+" xml="+currentXml);Console.Error.WriteLine(e);return 1;}
     }
 }
