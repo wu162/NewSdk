@@ -109,5 +109,5 @@ if '--weapon-behaviors' in sys.argv:
 
 if '--weapon-behaviors' in sys.argv:
     symbol='DataInitializers_002ESECONDS_PER_LOGICFRAME_REAL'
-    rows=[{'line':i+1,'text':line.strip()}for i,line in enumerate(source.splitlines())if 'SECONDS_PER_LOGICFRAME_REAL' in line]
+    rows=[{'line':i+1,'text':line.strip()}for i,line in enumerate(source.splitlines())if any(key in line for key in ['SECONDS_PER_LOGICFRAME_REAL','LOGICFRAMES_PER_SECONDS_REAL'])]
     (out/'constants-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,'logicFrameReferences':rows},indent=2)+'\n',encoding='utf-8')
