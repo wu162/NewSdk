@@ -528,3 +528,6 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectResourceAlliesRuntime.h"
 
 #include "GameObjectMotionCleanupRuntime.h"
+
+
+#include "GameObjectSpecialPowerBaseRuntime.h"

@@ -1,3 +1,7 @@
+# 当前检查点（2026-10-24，未验收）
+
+已完成SpecialPowerModuleData452与RadarHack464/RadarJam460整组源码、生成器及差分测试，正在启动完整Windows矩阵。此前193种已验收，本组3种暂不计数；SDK未运行、原路由保留。先核对当前Actions实际终态及sourceCommit，再看GAMEOBJECT_SPECIAL_POWER_BASE.md。原续接记录和全部验证证据保留如下。
+
 # 编译器恢复：当前续接入口
 
 更新：2026-10-24（北京时间）。wu162/NewSdk，最终源码分支`recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md和本文件。用户要求按实际约1小时推进、允许3子代理；本轮19:34开始，编码/修复/验收到20:36后整理交接，没有提前按子集完成结束。仓库通过GitHub插件访问，禁止强推；保留并发提交与Actions证据。

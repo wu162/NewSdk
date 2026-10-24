@@ -4,6 +4,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=162 && choice->kind<=164) {
+        for(const auto& fields:{specialPowerFieldSets[0],specialPowerFieldSets[choice->kind-162]})
+            for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;
+        return false;
+    }
     if(choice->kind>=159 && choice->kind<=161) {const auto& fields=motionCleanupFieldSets[choice->kind-159];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=156 && choice->kind<=158) {const auto& fields=modelConditionFieldSets[choice->kind-156];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=154 && choice->kind<=155) {const auto& fields=stateEventFieldSets[choice->kind-154];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
@@ -82,6 +87,12 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=162 && kind<=164) {
+        if(path=="InitiateSound" || path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic") return 1;
+        for(const char* filter:{"AttributeModifierAffects","RequirementsFilterMP","RequirementsFilterStrategic"})
+            if(path==std::string(filter)+"/IncludeThing" || path==std::string(filter)+"/ExcludeThing") return 3;
+        return 0;
+    }
     if(kind>=159 && kind<=161) {
         if(kind==160) {if(path=="ObjectFilter") return 1;if(path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;}
         if(kind==161) {if(path=="ObjectStatusValidation" || path=="KeepAliveObjectFilter") return 1;if(path=="KeepAliveObjectFilter/IncludeThing" || path=="KeepAliveObjectFilter/ExcludeThing") return 3;}
@@ -209,6 +220,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=162 && kind<=164) return path=="InitiateSound" && (attribute=="Sound" || attribute=="EvaEvent");
     if(kind>=159 && kind<=161) return kind==161 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
     if(kind>=156 && kind<=158) return false;
     if(kind>=154 && kind<=155) return false;
@@ -302,3 +314,4 @@ bool GameObjectModuleChildSupported(const std::string& parent,const std::string&
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
     return false;
 }
+
