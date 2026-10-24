@@ -222,6 +222,62 @@
       "PathfindSettings",
       "ResourceSettings",
       "GraphicsHardware"
+    ],
+    "campaign": [
+      "CampaignTemplate",
+      "CampaignEnumerator",
+      "MissionTemplate",
+      "MissionHotSpotSettings",
+      "TutorialMapData"
+    ],
+    "buildeconomy": [
+      "LocalBuildListMonitor",
+      "BuildSystemSettings",
+      "GiftManagerSettings",
+      "MpGameRules"
+    ],
+    "dynamics": [
+      "DynamicsContactTagMapping"
+    ],
+    "connections": [
+      "ConnectionLineManager"
+    ],
+    "redalert": [
+      "RedAlertTemplate"
+    ],
+    "conquercards": [
+      "ConquerCardDefinitionBase",
+      "ConquerCardDefinitionUnit",
+      "ConquerCardDefinitionStructure",
+      "ConquerCardDefinitionPower",
+      "ConquerCardPrebuiltDeck"
+    ],
+    "armyopening": [
+      "ArmyDefinition",
+      "SkirmishOpeningMove"
+    ],
+    "assetindexes": [
+      "DLContent",
+      "AssetReportTable",
+      "StringHashTable"
+    ],
+    "renderassets": [
+      "MeshInstanceTemplate",
+      "PackedTextureImage",
+      "OnDemandTextureImage"
+    ],
+    "aptdata": [
+      "AptAptData",
+      "AptConstData",
+      "AptDatData",
+      "AptGeometryData"
+    ],
+    "runtimeopaque": [
+      "BaseRenderAssetType",
+      "AudioFileRuntime"
+    ],
+    "mouse": [
+      "Mouse"
     ]
   },
   "roots": [
@@ -1258,7 +1314,7 @@
       "name": "CommandSet",
       "typeId": 2584759047,
       "typeHash": 4174095999,
-      "schemaGlobal": true,
+      "schemaGlobal": false,
       "sdkValidated": false
     },
     {
@@ -1349,6 +1405,232 @@
       "name": "GraphicsHardware",
       "typeId": 2846460739,
       "typeHash": 1118458536,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "CampaignTemplate",
+      "typeId": 1482556238,
+      "typeHash": 3502529123,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "CampaignEnumerator",
+      "typeId": 731899443,
+      "typeHash": 118801026,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MissionTemplate",
+      "typeId": 3477794083,
+      "typeHash": 3533302842,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MissionHotSpotSettings",
+      "typeId": 3175516876,
+      "typeHash": 4275530952,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "TutorialMapData",
+      "typeId": 3408790761,
+      "typeHash": 2508525962,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "LocalBuildListMonitor",
+      "typeId": 315614191,
+      "typeHash": 3578044627,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "BuildSystemSettings",
+      "typeId": 3974617950,
+      "typeHash": 4161179766,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "GiftManagerSettings",
+      "typeId": 1047799468,
+      "typeHash": 3376391493,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MpGameRules",
+      "typeId": 741706624,
+      "typeHash": 886642248,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "DynamicsContactTagMapping",
+      "typeId": 1044178106,
+      "typeHash": 898281629,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConnectionLineManager",
+      "typeId": 105587076,
+      "typeHash": 1802638191,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "RedAlertTemplate",
+      "typeId": 4141306833,
+      "typeHash": 133543122,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConquerCardDefinitionBase",
+      "typeId": 3258480561,
+      "typeHash": 343077480,
+      "schemaGlobal": false,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConquerCardDefinitionUnit",
+      "typeId": 3562795973,
+      "typeHash": 3660672133,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConquerCardDefinitionStructure",
+      "typeId": 4289687760,
+      "typeHash": 3391723256,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConquerCardDefinitionPower",
+      "typeId": 4164089898,
+      "typeHash": 587170934,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ConquerCardPrebuiltDeck",
+      "typeId": 2806522526,
+      "typeHash": 808620711,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "ArmyDefinition",
+      "typeId": 3587539190,
+      "typeHash": 213154423,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "SkirmishOpeningMove",
+      "typeId": 3971904488,
+      "typeHash": 1878382208,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "DLContent",
+      "typeId": 212695140,
+      "typeHash": 1654379548,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AssetReportTable",
+      "typeId": 255713734,
+      "typeHash": 1788767883,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "StringHashTable",
+      "typeId": 300273508,
+      "typeHash": 3959342059,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "typeId": 815686049,
+      "typeHash": 1966615229,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "PackedTextureImage",
+      "typeId": 1449288224,
+      "typeHash": 4177308976,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "typeId": 4262364347,
+      "typeHash": 333131708,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AptAptData",
+      "typeId": 1816258268,
+      "typeHash": 3795385027,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AptConstData",
+      "typeId": 983359664,
+      "typeHash": 3876251416,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AptDatData",
+      "typeId": 1110676961,
+      "typeHash": 230038576,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AptGeometryData",
+      "typeId": 1034587168,
+      "typeHash": 1390234602,
+      "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "BaseRenderAssetType",
+      "typeId": 2989459401,
+      "typeHash": 3866869572,
+      "schemaGlobal": false,
+      "xmlCompilerNoOp": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "AudioFileRuntime",
+      "typeId": 584092973,
+      "typeHash": 2941751938,
+      "schemaGlobal": false,
+      "xmlCompilerNoOp": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "Mouse",
+      "typeId": 2525492603,
+      "typeHash": 1246977355,
       "schemaGlobal": true,
       "sdkValidated": false
     }

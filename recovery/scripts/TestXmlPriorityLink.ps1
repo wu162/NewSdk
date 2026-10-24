@@ -251,6 +251,38 @@ $expectedRootTypeIds = [ordered]@{
     PathfindSettings = [uint32]970663416
     ResourceSettings = [uint32]3279338544
     GraphicsHardware = [uint32]2846460739
+    CampaignTemplate = [uint32]1482556238
+    CampaignEnumerator = [uint32]731899443
+    MissionTemplate = [uint32]3477794083
+    MissionHotSpotSettings = [uint32]3175516876
+    TutorialMapData = [uint32]3408790761
+    LocalBuildListMonitor = [uint32]315614191
+    BuildSystemSettings = [uint32]3974617950
+    GiftManagerSettings = [uint32]1047799468
+    MpGameRules = [uint32]741706624
+    DynamicsContactTagMapping = [uint32]1044178106
+    ConnectionLineManager = [uint32]105587076
+    RedAlertTemplate = [uint32]4141306833
+    ConquerCardDefinitionBase = [uint32]3258480561
+    ConquerCardDefinitionUnit = [uint32]3562795973
+    ConquerCardDefinitionStructure = [uint32]4289687760
+    ConquerCardDefinitionPower = [uint32]4164089898
+    ConquerCardPrebuiltDeck = [uint32]2806522526
+    ArmyDefinition = [uint32]3587539190
+    SkirmishOpeningMove = [uint32]3971904488
+    DLContent = [uint32]212695140
+    AssetReportTable = [uint32]255713734
+    StringHashTable = [uint32]300273508
+    MeshInstanceTemplate = [uint32]815686049
+    PackedTextureImage = [uint32]1449288224
+    OnDemandTextureImage = [uint32]4262364347
+    AptAptData = [uint32]1816258268
+    AptConstData = [uint32]983359664
+    AptDatData = [uint32]1110676961
+    AptGeometryData = [uint32]1034587168
+    BaseRenderAssetType = [uint32]2989459401
+    AudioFileRuntime = [uint32]584092973
+    Mouse = [uint32]2525492603
 }
 $sourceCommit = $env:GITHUB_SHA
 if (-not $sourceCommit) { $sourceCommit = (& git rev-parse HEAD).Trim(); if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve sourceCommit' } }
@@ -259,9 +291,9 @@ if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHm
 $validation = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId
     scope = 'Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate'
-    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 243
-    expectedFixturesPerMode = 972; expectedComparisonsPerMode = 2916
-    expectedCompletionFixturesPerMode = 128; expectedCompletionComparisonsPerMode = 384
+    expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 275
+    expectedFixturesPerMode = 1100; expectedComparisonsPerMode = 3300
+    expectedCompletionFixturesPerMode = 176; expectedCompletionComparisonsPerMode = 528
     platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
 $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
@@ -270,7 +302,7 @@ $originalHash = (Get-FileHash $originalPath -Algorithm SHA256).Hash.ToLowerInvar
 $validation['originalDllSha256'] = $originalHash
 try {
     if ($env:VSCMD_ARG_TGT_ARCH -and $env:VSCMD_ARG_TGT_ARCH -ne 'x86') { throw 'Run in an x86 VS2022 devshell' }
-    if ($expectedRootTypeIds.Count -ne 243) { throw 'Expected root map must contain all 243 recovered entries' }
+    if ($expectedRootTypeIds.Count -ne 275) { throw 'Expected root map must contain all 275 recovered entries' }
     if ($originalHash -ne 'd4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6') { throw 'Unexpected original XmlCompiler DLL fingerprint' }
     $native = Join-Path $repo 'recovery/src/Native'
     $bridge = Join-Path $repo 'recovery/src/Bridge'
@@ -282,7 +314,7 @@ try {
     $excluded = @($candidates | Where-Object { $_.Name -match 'Draft' })
     $formal = @($candidates | Where-Object { $_.Name -notmatch 'Draft' } | Sort-Object FullName)
     if ($formal.Count -eq 0) { throw 'No formal Xml sources found' }
-    # A #if 0 snapshot does not satisfy the 243-class reflection preflight below.
+    # A #if 0 snapshot does not satisfy the 275-class reflection preflight below.
     $sources = @($common) + @($formal | ForEach-Object { $_.FullName })
     $sources = @($sources | Select-Object -Unique)
     $validation['sources'] = @($sources | ForEach-Object {
@@ -324,10 +356,10 @@ try {
         "PROCESS EXIT mode=$mode exitCode=$code exitCodeHex=$exitCodeHex" | Add-Content "$evidence/$mode-oracle.txt"
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
         Get-Content "$evidence/$mode-oracle.txt"
-        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 243 types and a clean process exit are required" }
+        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 275 types and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
-        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 243 -or $result.fixtures -ne 972 -or $result.comparisons -ne 2916 -or $result.completionFixtures -ne 128 -or $result.completionComparisons -ne 384 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
-        if (@($result.typeCoverage.PSObject.Properties).Count -ne 243) { throw "$mode incomplete per-type coverage" }
+        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 275 -or $result.fixtures -ne 1100 -or $result.comparisons -ne 3300 -or $result.completionFixtures -ne 176 -or $result.completionComparisons -ne 528 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
+        if (@($result.typeCoverage.PSObject.Properties).Count -ne 275) { throw "$mode incomplete per-type coverage" }
         foreach ($entry in $expectedRootTypeIds.GetEnumerator()) {
             if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
         }
@@ -344,7 +376,7 @@ try {
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     }
     $validation.succeeded = $true
-    $validation.status = 'All 243 exact compiler routes linked; default-root and 128 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
+    $validation.status = 'All 275 exact compiler routes linked; default-root and 176 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
 } catch {
     $validation.status = $_.Exception.Message
     throw

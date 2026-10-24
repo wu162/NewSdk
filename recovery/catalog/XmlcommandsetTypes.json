@@ -7,7 +7,7 @@
       "name": "CommandSet",
       "typeId": 2584759047,
       "typeHash": 4174095999,
-      "schemaGlobal": true
+      "schemaGlobal": false
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ArmyDefinition",
+      "typeId": 3587539190,
+      "typeHash": 213154423,
+      "schemaGlobal": true
+    },
+    {
+      "name": "SkirmishOpeningMove",
+      "typeId": 3971904488,
+      "typeHash": 1878382208,
+      "schemaGlobal": true
+    }
+  ]
+}

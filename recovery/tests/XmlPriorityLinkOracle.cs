@@ -267,6 +267,38 @@ class XmlPriorityLinkOracle
         new Root("PathfindSettings", 970663416u, false),
         new Root("ResourceSettings", 3279338544u, false),
         new Root("GraphicsHardware", 2846460739u, false),
+        new Root("CampaignTemplate", 1482556238u, false),
+        new Root("CampaignEnumerator", 731899443u, false),
+        new Root("MissionTemplate", 3477794083u, false),
+        new Root("MissionHotSpotSettings", 3175516876u, false),
+        new Root("TutorialMapData", 3408790761u, false),
+        new Root("LocalBuildListMonitor", 315614191u, false),
+        new Root("BuildSystemSettings", 3974617950u, false),
+        new Root("GiftManagerSettings", 1047799468u, false),
+        new Root("MpGameRules", 741706624u, false),
+        new Root("DynamicsContactTagMapping", 1044178106u, false),
+        new Root("ConnectionLineManager", 105587076u, false),
+        new Root("RedAlertTemplate", 4141306833u, false),
+        new Root("ConquerCardDefinitionBase", 3258480561u, false),
+        new Root("ConquerCardDefinitionUnit", 3562795973u, false),
+        new Root("ConquerCardDefinitionStructure", 4289687760u, false),
+        new Root("ConquerCardDefinitionPower", 4164089898u, false),
+        new Root("ConquerCardPrebuiltDeck", 2806522526u, false),
+        new Root("ArmyDefinition", 3587539190u, false),
+        new Root("SkirmishOpeningMove", 3971904488u, false),
+        new Root("DLContent", 212695140u, false),
+        new Root("AssetReportTable", 255713734u, false),
+        new Root("StringHashTable", 300273508u, false),
+        new Root("MeshInstanceTemplate", 815686049u, false),
+        new Root("PackedTextureImage", 1449288224u, false),
+        new Root("OnDemandTextureImage", 4262364347u, false),
+        new Root("AptAptData", 1816258268u, false),
+        new Root("AptConstData", 983359664u, false),
+        new Root("AptDatData", 1110676961u, false),
+        new Root("AptGeometryData", 1034587168u, false),
+        new Root("BaseRenderAssetType", 2989459401u, false),
+        new Root("AudioFileRuntime", 584092973u, false),
+        new Root("Mouse", 2525492603u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -315,7 +347,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 243 || supplied.Count != 243) throw new Exception("Exactly 243 recovered entries are required");
+        if (Roots.Length != 275 || supplied.Count != 275) throw new Exception("Exactly 275 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -342,7 +374,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 243) throw new Exception("Metadata preflight did not resolve all 243 entries");
+        if (Methods.Count != 275) throw new Exception("Metadata preflight did not resolve all 275 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -429,6 +461,18 @@ class XmlPriorityLinkOracle
         Test(original, Array.Find(Roots, r => r.Name == "OnlineChatColors"), platform, "<Default R='1' G='2' B='3'/>", "");
         Test(original, Array.Find(Roots, r => r.Name == "ArchiveMovieList"), platform, "<Movie ProgressLock='2' MovieImage='I\\1' FileName='intro.bik' OnScreenName='Intro' Description='Description'/>", "");
         Test(original, Array.Find(Roots, r => r.Name == "GraphicsHardware"), platform, "<Device VendorId='17' DeviceId='2' Name='GPU' Level='HIGH' MacLevel='LOW'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "TutorialMapData"), platform, "<Lesson Map='Map' Summary='Summary' ImageName='Image'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "LocalBuildListMonitor"), platform, "<ProducerFilter Include='VEHICLE'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "DynamicsContactTagMapping"), platform, "<Mapping ContactA='NORMAL' ContactB='TERRAIN' FX='FX\\1'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ConnectionLineManager"), platform, "<FXShader ShaderName='Shader' TechniqueName='Technique' TechniqueIndex='1'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "RedAlertTemplate"), platform, "<YellowAreaEffect>FX\\2</YellowAreaEffect>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ConquerCardPrebuiltDeck"), platform, "<Cards><Entry TypeId='849812912' Card='C\\1' Count='2'><Upgrade Upgrade='U\\2'/></Entry></Cards>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "ArmyDefinition"), platform, "<TechStructure>Unit</TechStructure>", "Side='Allies' MCVTemplate='Tank'");
+        Test(original, Array.Find(Roots, r => r.Name == "DLContent"), platform, "<License LicenseMask='3'><Asset>Unit</Asset></License><Patch Name='Patch' PatchNumber='2'/>", "PackageNumber='1'");
+        Test(original, Array.Find(Roots, r => r.Name == "MeshInstanceTemplate"), platform, "<Rule MeshID='Mesh' Instances='3'/>", "");
+        Test(original, Array.Find(Roots, r => r.Name == "AptGeometryData"), platform, "", "AptID='17' File='nonexistent-priority-link-fixture.bin'");
+        Test(original, Array.Find(Roots, r => r.Name == "AudioFileRuntime"), platform, "ignored-runtime-value", "NumberOfSamples='17'");
+        Test(original, Array.Find(Roots, r => r.Name == "Mouse"), platform, "", "DragTolerance='17' DragThreshold='250ms'");
     }
     static int Main(string[] args)
     {
@@ -448,12 +492,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=243 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=275 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 972 || comparisons != 2916 || completionFixtures != 128 || completionComparisons != 384 || Methods.Count != 243) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 1100 || comparisons != 3300 || completionFixtures != 176 || completionComparisons != 528 || Methods.Count != 275) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=243 fixtures=972 comparisons=2916 completionFixtures=128 completionComparisons=384 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=275 fixtures=1100 comparisons=3300 completionFixtures=176 completionComparisons=528 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();

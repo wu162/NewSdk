@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "MeshInstanceTemplate",
+      "typeId": 815686049,
+      "typeHash": 1966615229,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PackedTextureImage",
+      "typeId": 1449288224,
+      "typeHash": 4177308976,
+      "schemaGlobal": true
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "typeId": 4262364347,
+      "typeHash": 333131708,
+      "schemaGlobal": true
+    }
+  ]
+}
