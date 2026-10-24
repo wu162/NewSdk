@@ -1,0 +1,98 @@
+{
+  "status": "source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "modules": [],
+  "helpers": [
+    {
+      "file": "000.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E(IList* list, SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* target, Tracker* tracker)",
+      "line": 57236,
+      "bodySha256": "aa3d3c68d85cb8e3b2622ac855a2a8183ca96aeee9bb369928024f04514aeec5",
+      "literals": []
+    },
+    {
+      "file": "001.txt",
+      "signature": "internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002ESort(SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* list, Tracker* tracker)",
+      "line": 66623,
+      "bodySha256": "e9bc064959cc66cdb357314b03d927d1c33f04bd25807a56bcd4d731120e48fa",
+      "literals": []
+    },
+    {
+      "file": "002.txt",
+      "signature": "internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002EListElementCompare(WeaponSlot_WeaponData* left, WeaponSlot_WeaponData* right)",
+      "line": 66708,
+      "bodySha256": "4e276f02ae1f52af0fbcb456f231d1f1c366ffdd214dd234744d90d61c1499dc",
+      "literals": []
+    },
+    {
+      "file": "003.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, uint* @object, Tracker* tracker, ColorTag* __unnamed003)",
+      "line": 13200,
+      "bodySha256": "ee534fc1de542adb3a0b8919256861492c915dd811d9e276c28de42559fb4e8d",
+      "literals": [
+        "0",
+        "R",
+        "G",
+        "B",
+        "255",
+        "A"
+      ]
+    },
+    {
+      "file": "004.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, WeaponSlot_WeaponData* @object, Tracker* state)",
+      "line": 31366,
+      "bodySha256": "8be33298326517b8236148e04b5fde299ea9b98271103d0a24dc41b4a67d6c71",
+      "literals": [
+        "false",
+        "",
+        "ObjectStatus",
+        "ForbiddenObjectStatus",
+        "Upgrade",
+        "Template",
+        "Ordering",
+        "IsPlayerUpgradePermanent",
+        "ConquerMetricsAlwaysCount"
+      ]
+    },
+    {
+      "file": "005.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020WeaponSlotType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, WeaponSlotType* @object, Tracker* state)",
+      "line": 52024,
+      "bodySha256": "c171bf73c80d21bdc0b490a3e407ade65e2fbb69ebeeeb6d9326bf4f4adeb386",
+      "literals": []
+    },
+    {
+      "file": "006.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AWeaponTemplate_002Cclass_0020WeaponTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AWeaponTemplate_002CWeaponTemplate_003E* @object, Tracker* state)",
+      "line": 52640,
+      "bodySha256": "0272073f12535276d0b922f5038aeed69d76484f09ea674161b02fcf7a706972",
+      "literals": []
+    },
+    {
+      "file": "007.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AUpgradeTemplate_002Cclass_0020UpgradeTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AUpgradeTemplate_002CUpgradeTemplate_003E* @object, Tracker* state)",
+      "line": 55609,
+      "bodySha256": "1beafb094f971e3cc9acaaaa1c21aa63dc8cd5c346f5c08df567ca0b01c4486e",
+      "literals": []
+    },
+    {
+      "file": "008.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(sbyte* text, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, Tracker* tracker)",
+      "line": 67448,
+      "bodySha256": "568a444c711880f434a3602bd121236b0833b2efe865130b8c6933765cb504bd",
+      "literals": [
+        "ALL",
+        "",
+        ""
+      ]
+    },
+    {
+      "file": "009.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)",
+      "line": 51522,
+      "bodySha256": "5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932",
+      "literals": []
+    }
+  ]
+}

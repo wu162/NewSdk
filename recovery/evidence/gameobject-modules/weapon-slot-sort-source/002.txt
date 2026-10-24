@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 66708; body SHA256 4e276f02ae1f52af0fbcb456f231d1f1c366ffdd214dd234744d90d61c1499dc
+// Literals: {}
+internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002EListElementCompare(WeaponSlot_WeaponData* left, WeaponSlot_WeaponData* right)
+	{
+		int num = *(int*)left;
+		int num2 = *(int*)right;
+		return num < num2;
+	}
+

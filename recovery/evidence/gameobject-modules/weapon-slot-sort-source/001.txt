@@ -1,0 +1,87 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 66623; body SHA256 e9bc064959cc66cdb357314b03d927d1c33f04bd25807a56bcd4d731120e48fa
+// Literals: {}
+internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E_002ESort(SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* list, Tracker* tracker)
+	{
+		bool result = true;
+		uint num = *(uint*)list;
+		WeaponSlot_WeaponData** ptr = (WeaponSlot_WeaponData**)new_005B_005D((num > 1073741823) ? uint.MaxValue : (num << 2));
+		uint num2 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* ptr2 = (SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E*)((byte*)list + 4);
+			int num3 = 0;
+			do
+			{
+				*(int*)((int)(num2 * 4) + (byte*)ptr) = *(int*)ptr2 + num3;
+				num2++;
+				num3 += 72;
+			}
+			while (num2 < (uint)(*(int*)list));
+		}
+		eastl_002Equick_sort_003Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003AWeaponSlot_WeaponData_0020const_0020_002A_0029_003E(ptr, (WeaponSlot_WeaponData**)(*(int*)list * 4 + (byte*)ptr), (delegate* unmanaged[Cdecl, Cdecl]<WeaponSlot_WeaponData*, WeaponSlot_WeaponData*, byte>)__unep_0040_003FListElementCompare_0040_003F_0024SortedListHelper_0040UWeaponSlot_WeaponData_0040SageBinaryData_0040_0040UWeaponListComparer_0040WeaponSlot_Hardpoint_00402_0040_0040Marshaler_0040_0040_0024_0024FCA_NPBUWeaponSlot_WeaponData_0040SageBinaryData_0040_00400_0040Z);
+		uint num4 = *(uint*)list;
+		WeaponSlot_WeaponData*** ptr3 = (WeaponSlot_WeaponData***)new_005B_005D((num4 > 1073741823) ? uint.MaxValue : (num4 << 2));
+		uint num5 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E* ptr4 = (SortedList_003CSageBinaryData_003A_003AWeaponSlot_WeaponData_002CSageBinaryData_003A_003AWeaponSlot_Hardpoint_003A_003AWeaponListComparer_003E*)((byte*)list + 4);
+			WeaponSlot_WeaponData** ptr5 = ptr;
+			do
+			{
+				*(int*)((*(int*)ptr5 - *(int*)ptr4) / 72 * 4 + (byte*)ptr3) = (int)ptr5;
+				num5++;
+				ptr5 = (WeaponSlot_WeaponData**)((byte*)ptr5 + 4);
+			}
+			while (num5 < (uint)(*(int*)list));
+		}
+		uint num6 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			int num7 = 0;
+			WeaponSlot_WeaponData** ptr6 = ptr;
+			int num8 = (int)((byte*)ptr3 - (nuint)ptr);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out WeaponSlot_WeaponData weaponSlot_WeaponData);
+			do
+			{
+				uint num9 = (uint)(num7 + ((int*)list)[1]);
+				uint num10 = *(uint*)ptr6;
+				if (num10 != num9)
+				{
+					WeaponSlot_WeaponData* b = (WeaponSlot_WeaponData*)(int)num9;
+					WeaponSlot_WeaponData* a = (WeaponSlot_WeaponData*)(int)num10;
+					if (Relo_002ETracker_002EExchangePointers(tracker, a, b))
+					{
+						num10 = *(uint*)ptr6;
+						int num11 = ((int*)list)[1];
+						uint num12 = (uint)(((int)num10 - num11) / 72);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(ref weaponSlot_WeaponData, num7 + num11, 72);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(((int*)list)[1] + num7, (int)num10, 72);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(*(int*)ptr6, ref weaponSlot_WeaponData, 72);
+						WeaponSlot_WeaponData* ptr7 = (WeaponSlot_WeaponData*)(int)(*(uint*)ptr6);
+						WeaponSlot_WeaponData** num13 = ptr6;
+						*(int*)num13 = *(int*)(int)(*(uint*)((byte*)num13 + num8));
+						*(int*)(int)(*(uint*)((byte*)ptr6 + num8)) = (int)ptr7;
+						WeaponSlot_WeaponData** ptr8 = (WeaponSlot_WeaponData**)(int)(*(uint*)((byte*)ptr6 + num8));
+						*(int*)((byte*)ptr6 + num8) = *(int*)((int)(num12 * 4) + (byte*)ptr3);
+						*(int*)((int)(num12 * 4) + (byte*)ptr3) = (int)ptr8;
+					}
+					else
+					{
+						result = false;
+					}
+				}
+				num6++;
+				num7 += 72;
+				ptr6 = (WeaponSlot_WeaponData**)((byte*)ptr6 + 4);
+			}
+			while (num6 < (uint)(*(int*)list));
+		}
+		delete_005B_005D(ptr3);
+		delete_005B_005D(ptr);
+		return result;
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
