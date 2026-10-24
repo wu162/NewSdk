@@ -1,0 +1,37 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 26455; body SHA256 6603c749b9926d93efe87e44e4b121df9cfbab7e90f3d541478d420d5a942452
+// Literals: {"_003F_003F_C_0040_01HIHLOKLC_00401_003F_0024AA_0040": "1", "_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_0N_0040FJCOIFIG_0040Acceleration_003F_0024AA_0040": "Acceleration", "_003F_003F_C_0040_0BF_0040FDDHAHNL_0040ModelConditionsToSet_003F_0024AA_0040": "ModelConditionsToSet", "_003F_003F_C_0040_0BA_0040OBPODGOG_0040InitialVelocity_003F_0024AA_0040": "InitialVelocity", "_003F_003F_C_0040_02IHCGGLPM_004015_003F_0024AA_0040": "15", "_003F_003F_C_0040_0BB_0040NCCAGJGG_0040TerminalVelocity_003F_0024AA_0040": "TerminalVelocity"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, FreefallUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040FDDHAHNL_0040ModelConditionsToSet_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)@object + 8), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040OBPODGOG_0040InitialVelocity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr2 != null)
+			{
+				sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				((float*)@object)[17] = (float)atof(ptr3);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			IValue* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040FJCOIFIG_0040Acceleration_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01HIHLOKLC_00401_003F_0024AA_0040));
+			if (ptr4 != null)
+			{
+				sbyte* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr4)))((nint)ptr4);
+				((float*)@object)[18] = (float)atof(ptr5);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr4 + 4)))((nint)ptr4);
+			}
+			IValue* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040NCCAGJGG_0040TerminalVelocity_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IHCGGLPM_004015_003F_0024AA_0040));
+			if (ptr6 != null)
+			{
+				sbyte* ptr7 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr6)))((nint)ptr6);
+				((float*)@object)[19] = (float)atof(ptr7);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr6 + 4)))((nint)ptr6);
+			}
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}
+

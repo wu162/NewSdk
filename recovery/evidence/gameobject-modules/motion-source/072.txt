@@ -1,0 +1,17 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41661; body SHA256 41697476894465c554ef7a2be89e3c22d0b99b4e154da7c78394040231335d4d
+// Literals: {"_003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040": "Radius"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsSphereShapeType* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06GJMFONGK_0040Radius_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[2] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal(node, (DynamicsShapeType*)@object, state);
+		}
+	}
+

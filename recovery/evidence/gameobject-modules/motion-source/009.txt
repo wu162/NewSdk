@@ -1,0 +1,39 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41985; body SHA256 a40a8e2465eb36ca622564a66d29f97b570511eeb9a9ee7262aadb61ff42a61e
+// Literals: {"_003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040": "NONE", "_003F_003F_C_0040_0BK_0040JECKMEPM_0040COLLIDES_WITH_GROUND_ONLY_003F_0024AA_0040": "COLLIDES_WITH_GROUND_ONLY", "_003F_003F_C_0040_09EPJNJAFJ_0040REMOVABLE_003F_0024AA_0040": "REMOVABLE", "_003F_003F_C_0040_0L_0040MPLABDHE_0040ContactTag_003F_0024AA_0040": "ContactTag", "_003F_003F_C_0040_06EMGELNAF_0040Motion_003F_0024AA_0040": "Motion", "_003F_003F_C_0040_09EOCCEAAK_0040Collision_003F_0024AA_0040": "Collision", "_003F_003F_C_0040_0BD_0040MJDGNIG_0040IntuitiveCollision_003F_0024AA_0040": "IntuitiveCollision", "_003F_003F_C_0040_0N_0040NDJDOAAF_0040DrawPriority_003F_0024AA_0040": "DrawPriority", "_003F_003F_C_0040_06IDJCEMPA_0040Volume_003F_0024AA_0040": "Volume"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsUpdateModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsMotionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06EMGELNAF_0040Motion_003F_0024AA_0040), null), (DynamicsMotionType*)@object + 2, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsCollisionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09EOCCEAAK_0040Collision_003F_0024AA_0040), null), (DynamicsCollisionType*)@object + 3, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AIntuitiveCollisionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040MJDGNIG_0040IntuitiveCollision_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040JECKMEPM_0040COLLIDES_WITH_GROUND_ONLY_003F_0024AA_0040)), (IntuitiveCollisionType*)@object + 4, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsContactTag_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040MPLABDHE_0040ContactTag_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040)), (DynamicsContactTag*)@object + 5, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsDrawPriority_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NDJDOAAF_0040DrawPriority_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09EPJNJAFJ_0040REMOVABLE_003F_0024AA_0040)), (DynamicsDrawPriority*)@object + 6, state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06IDJCEMPA_0040Volume_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			DynamicsVolumeType** ptr2 = (DynamicsVolumeType**)((byte*)@object + 28);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 76u, 1u);
+				Marshaler_002EMarshal(ptr, (DynamicsVolumeType*)(int)(*(uint*)ptr2), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+	}
+

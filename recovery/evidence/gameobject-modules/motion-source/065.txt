@@ -1,0 +1,80 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 41409; body SHA256 77d58784b2817b16aa082a200d184b93520a9ab0eed86769743a0f7fa2a7508d
+// Literals: {"_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_02KEEMFOFH_0040X1_003F_0024AA_0040": "X1", "_003F_003F_C_0040_02KFIODEGA_0040Y1_003F_0024AA_0040": "Y1", "_003F_003F_C_0040_02KHMIIKDJ_0040Z1_003F_0024AA_0040": "Z1", "_003F_003F_C_0040_02IPGBANJE_0040X2_003F_0024AA_0040": "X2", "_003F_003F_C_0040_02IOKDGHKD_0040Y2_003F_0024AA_0040": "Y2", "_003F_003F_C_0040_02IMOFNJPK_0040Z2_003F_0024AA_0040": "Z2", "_003F_003F_C_0040_02JGHKDMNF_0040X3_003F_0024AA_0040": "X3", "_003F_003F_C_0040_02JHLIFGOC_0040Y3_003F_0024AA_0040": "Y3", "_003F_003F_C_0040_02JFPOOILL_0040Z3_003F_0024AA_0040": "Z3", "_003F_003F_C_0040_0L_0040EADENAON_0040EdgeRadius_003F_0024AA_0040": "EdgeRadius"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, DynamicsTriangleShapeType* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KEEMFOFH_0040X1_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[2] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KFIODEGA_0040Y1_003F_0024AA_0040), null);
+			if (ptr3 != null)
+			{
+				sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+				((float*)@object)[3] = (float)atof(ptr4);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+			IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02KHMIIKDJ_0040Z1_003F_0024AA_0040), null);
+			if (ptr5 != null)
+			{
+				sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+				((float*)@object)[4] = (float)atof(ptr6);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
+			}
+			IValue* ptr7 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IPGBANJE_0040X2_003F_0024AA_0040), null);
+			if (ptr7 != null)
+			{
+				sbyte* ptr8 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr7)))((nint)ptr7);
+				((float*)@object)[5] = (float)atof(ptr8);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr7 + 4)))((nint)ptr7);
+			}
+			IValue* ptr9 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IOKDGHKD_0040Y2_003F_0024AA_0040), null);
+			if (ptr9 != null)
+			{
+				sbyte* ptr10 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr9)))((nint)ptr9);
+				((float*)@object)[6] = (float)atof(ptr10);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr9 + 4)))((nint)ptr9);
+			}
+			IValue* ptr11 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IMOFNJPK_0040Z2_003F_0024AA_0040), null);
+			if (ptr11 != null)
+			{
+				sbyte* ptr12 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr11)))((nint)ptr11);
+				((float*)@object)[7] = (float)atof(ptr12);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr11 + 4)))((nint)ptr11);
+			}
+			IValue* ptr13 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02JGHKDMNF_0040X3_003F_0024AA_0040), null);
+			if (ptr13 != null)
+			{
+				sbyte* ptr14 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr13)))((nint)ptr13);
+				((float*)@object)[8] = (float)atof(ptr14);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr13 + 4)))((nint)ptr13);
+			}
+			IValue* ptr15 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02JHLIFGOC_0040Y3_003F_0024AA_0040), null);
+			if (ptr15 != null)
+			{
+				sbyte* ptr16 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr15)))((nint)ptr15);
+				((float*)@object)[9] = (float)atof(ptr16);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr15 + 4)))((nint)ptr15);
+			}
+			IValue* ptr17 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02JFPOOILL_0040Z3_003F_0024AA_0040), null);
+			if (ptr17 != null)
+			{
+				sbyte* ptr18 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr17)))((nint)ptr17);
+				((float*)@object)[10] = (float)atof(ptr18);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr17 + 4)))((nint)ptr17);
+			}
+			IValue* ptr19 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040EADENAON_0040EdgeRadius_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+			if (ptr19 != null)
+			{
+				sbyte* ptr20 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr19)))((nint)ptr19);
+				((float*)@object)[11] = (float)atof(ptr20);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr19 + 4)))((nint)ptr19);
+			}
+			Marshaler_002EMarshal(node, (DynamicsShapeType*)@object, state);
+		}
+	}
+

@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 82392; body SHA256 bf3607ac97d4ede0f8cec07b84b540975ca8a72af72ef8e3bfb99b6e6d2a4139
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, EnableDynamicsCollideModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 1894105347;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (CollideModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1774065351;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+

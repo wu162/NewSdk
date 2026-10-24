@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61722; body SHA256 e4bcaf7cc390f62f2fd5d78910df8ee99bf3ffb556becc627a42888b35f82ef4
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFreefallUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		FreefallUpdateModuleData* ptr = (FreefallUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 80u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -64868604;
+	}
+

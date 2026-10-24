@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 59002; body SHA256 321a5ce31c068bfa7b15bc938f0d5379cf97655befa83c53f0ece7cc72d128c7
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADynamicsTriangleShapeType_003E(List_003CSageBinaryData_003A_003ADynamicsTriangleShapeType_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		DynamicsTriangleShapeType* ptr = (DynamicsTriangleShapeType*)num;
+		DynamicsTriangleShapeType* ptr2 = (DynamicsTriangleShapeType*)(*(int*)list * 48 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (DynamicsTriangleShapeType*)((byte*)ptr + 48);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+

@@ -1,0 +1,49 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 95154; body SHA256 0a82c1d7b4dfe9bc9c75602d776bc9aaaff1296eab2a18a22b20e2be9b451d6a
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, DynamicsUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 8u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -251648763;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -314917035;
+		((int*)ptr)[1] = -1550124256;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 8, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -55611227;
+		((int*)ptr)[1] = 1231950365;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1758176756;
+		((int*)ptr)[1] = -835940887;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 16, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1042572641;
+		((int*)ptr)[1] = -1830599964;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 20, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 234120523;
+		((int*)ptr)[1] = 1098088443;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 24, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -587716063;
+		((int*)ptr)[1] = -1769721947;
+		byte* num = (byte*)@object + 28;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (DynamicsVolumeType*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}
+
