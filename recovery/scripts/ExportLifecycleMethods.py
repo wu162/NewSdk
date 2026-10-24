@@ -41,7 +41,9 @@ if '--beam-states' in sys.argv:
     names=['LaserStateModuleData','SweepingLaserStateModuleData','StreamStateModuleData']
 if '--motion-family' in sys.argv:
     names=['ProjectileUpdateModuleData','DynamicsUpdateModuleData','FreefallUpdateModuleData','EnableDynamicsCollideModuleData']
-out=ROOT/('recovery/evidence/gameobject-modules/motion-source' if '--motion-family' in sys.argv else 'recovery/evidence/gameobject-modules/beam-state-source' if '--beam-states' in sys.argv else 'recovery/evidence/gameobject-modules/weapon-behavior-source' if '--weapon-behaviors' in sys.argv else 'recovery/evidence/gameobject-modules/vision-source' if '--vision-family' in sys.argv else 'recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
+if '--flight-family' in sys.argv:
+    names=['PhysicsBehaviorModuleData','BezierProjectileBehaviorModuleData','MissileUpdateModuleData']
+out=ROOT/('recovery/evidence/gameobject-modules/flight-source' if '--flight-family' in sys.argv else 'recovery/evidence/gameobject-modules/motion-source' if '--motion-family' in sys.argv else 'recovery/evidence/gameobject-modules/beam-state-source' if '--beam-states' in sys.argv else 'recovery/evidence/gameobject-modules/weapon-behavior-source' if '--weapon-behaviors' in sys.argv else 'recovery/evidence/gameobject-modules/vision-source' if '--vision-family' in sys.argv else 'recovery/evidence/gameobject-modules/tech-receiver-source' if '--tech-receiver' in sys.argv else 'recovery/evidence/gameobject-modules/slaved-source' if '--slaved-family' in sys.argv else 'recovery/evidence/gameobject-modules/create-source' if '--create-family' in sys.argv else 'recovery/evidence/gameobject-modules/production-source' if '--production-family' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-remaining-source' if '--upgrade-remaining' in sys.argv else 'recovery/evidence/gameobject-modules/upgrade-source' if '--upgrade-family' in sys.argv else 'recovery/evidence/gameobject-modules/die-source' if '--die-family' in sys.argv else 'recovery/evidence/gameobject-modules/lifecycle-source')
 out.mkdir(exist_ok=True)
 report={'status':'source evidence only; runtime support and DLL validation are tracked separately in GameObject validation.json','sourceBlob':SOURCE_BLOB,'modules':[],'helpers':[]}
 selected={}
@@ -107,7 +109,7 @@ if '--vision-family' in sys.argv:
     pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes()
     (out/'enum-source.json').write_text(json.dumps({'sourceBlob':SOURCE_BLOB,**{g:enum_values(source,pe,g)for g in ['UnifiedControlType','RelationshipType']}},indent=2)+'\n',encoding='utf-8')
 
-if any(flag in sys.argv for flag in ['--weapon-behaviors','--beam-states','--motion-family']):
+if any(flag in sys.argv for flag in ['--weapon-behaviors','--beam-states','--motion-family','--flight-family']):
     from GenerateUpgradeFields import enum_values
     pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes()
     groups=sorted(set(re.findall(r'W4([A-Za-z0-9]+)_0040', '\n'.join(body for body,line in selected.values()))))
