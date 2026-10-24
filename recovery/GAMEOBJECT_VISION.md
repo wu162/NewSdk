@@ -1,4 +1,6 @@
-# 雷达、可见性与Capture完整组（验证中）
+# 雷达、可见性与Capture完整组（已验收）
+
+已验收源码7cd68875d9fda24b8650676b4794c246dd4f873e；GameObject run40049625447、基础run40049625277均success。每/Od、/O2：187612 fixtures、562836三缓冲区比较、9792拒绝、384不变性，平台0/1/2/99。SDK未运行。
 
 固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619；evidence/gameobject-modules/vision-source/manifest.json导出87方法，含八新模块、两个原已完成ClientUpdate与全部共享依赖。enum-source.json从原PE取UnifiedControlType（ALLIED_PLAYERS=1/SAME_PLAYER=0）及RelationshipType（ENEMIES=0/NEUTRAL=1/ALLIES=2）。GenerateVisionFields.py逐方法SHA256并核对原blob/PE、字段/fallback和完整递归Token/sentinel；运行结果以validation.json对应sourceCommit为准，未成功前不计入支持范围。
 

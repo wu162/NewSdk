@@ -30,7 +30,7 @@ struct ModuleLayout;
 struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mode,stride;};
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
 struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
-enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList,NullableSigned,NullableObjectStatus,ObjectStatus,Duration,StringList,Angle,DeathBits,Signed,NullableFloat,FloatList,ReplaceOptions,NullableTime,NullableBits};
+enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList,NullableSigned,NullableObjectStatus,ObjectStatus,Duration,StringList,Angle,DeathBits,Signed,NullableFloat,FloatList,ReplaceOptions,NullableTime,NullableBits,FrameSpeed};
 struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
 struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
@@ -45,6 +45,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectSlaved.h"
 #include "GameObjectTechReceiver.h"
 #include "GameObjectVision.h"
+#include "GameObjectWeaponBehavior.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -245,6 +246,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:weaponChoices) if(choice.type==type) return &choice;
     for(const auto& choice:visionChoices) if(choice.type==type) return &choice;
     if(type==receiverChoice.type) return &receiverChoice;
     if(type==slavedChoice.type) return &slavedChoice;
@@ -266,6 +268,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         switch(f.kind) {
         case ModuleValue::Float:case ModuleValue::Percent:
             number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
+        case ModuleValue::FrameSpeed:number=static_cast<float>(static_cast<double>(weaponSecondsPerLogicFrame)*static_cast<double>(ParseFloat(value)));std::memcpy(at,&number,4);break;
         case ModuleValue::Angle:number=InitializeAngle(value.c_str());std::memcpy(at,&number,4);break;
         case ModuleValue::DeathBits:MarshalEnumBitset(value,lifecycleDeathNames,34,33,34,reinterpret_cast<U32*>(at));break;
         case ModuleValue::Duration: {
@@ -548,6 +551,38 @@ void EndianVision(unsigned char* output,unsigned kind) {
     EndianModuleFieldSet(output,visionFieldSets[kind-61]);
     if(kind==67) {auto filter=*reinterpret_cast<ObjectFilter**>(output+32);if(filter) EndianObjectFilter(filter);auto validation=*reinterpret_cast<unsigned char**>(output+36);if(validation) EndianModuleFieldSet(validation,lifecycleFieldSets[6]);}
 }
+void MarshalWeaponBehaviorList(const GameObjectChild& input,const char* name,unsigned char* output,unsigned offset,unsigned fields,Relo::Tracker& data) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);for(const auto& child:input.children) if(child.name==name) ++list->count;
+    if(!list->count) return;
+    auto at=static_cast<unsigned char*>(data.Push(&list->data,16,list->count));unsigned i=0;
+    for(const auto& child:input.children) if(child.name==name) {
+        auto entry=at+16*i++;MarshalModuleFieldSet(child,entry,weaponFieldSets[fields],data);
+        if(fields==10) for(const auto& offsetNode:child.children) {auto vector=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(entry+8),12,1));MarshalModuleFieldSet(offsetNode,vector,weaponFieldSets[11],data);data.Pop();}
+    }
+    data.Pop();
+}
+void EndianWeaponBehaviorList(unsigned char* output,unsigned offset,unsigned fields) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);
+    for(U32 i=0;i<list->count;++i) {auto entry=static_cast<unsigned char*>(list->data)+16*i;EndianModuleFieldSet(entry,weaponFieldSets[fields]);if(fields==10) {auto vector=*reinterpret_cast<unsigned char**>(entry+8);if(vector) EndianModuleFieldSet(vector,weaponFieldSets[11]);}}
+    Swap(&list->count);
+}
+unsigned WeaponValidationOffset(unsigned kind) {return kind==69?20:kind==70?24:(kind==74 || kind==75)?32:0;}
+void MarshalWeaponBehavior(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,weaponFieldSets[kind-69],data);
+    if(kind==70) MarshalWeaponBehaviorList(input,"FireWeaponNugget",output,16,10,data);
+    if(kind==75) {
+        for(const auto& child:input.children) if(child.name=="Color") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+20),12,1));MarshalModuleFieldSet(child,at,weaponFieldSets[8],data);data.Pop();}
+        MarshalWeaponBehaviorList(input,"EffectInfo",output,24,9,data);
+    }
+    auto offset=WeaponValidationOffset(kind);
+    if(offset) for(const auto& child:input.children) if(child.name=="ObjectStatusValidation") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+offset),56,1));MarshalModuleFieldSet(child,at,lifecycleFieldSets[6],data);data.Pop();}
+}
+void EndianWeaponBehavior(unsigned char* output,unsigned kind) {
+    EndianModuleFieldSet(output,weaponFieldSets[kind-69]);
+    if(kind==70) EndianWeaponBehaviorList(output,16,10);
+    if(kind==75) {auto color=*reinterpret_cast<unsigned char**>(output+20);if(color) EndianModuleFieldSet(color,weaponFieldSets[8]);EndianWeaponBehaviorList(output,24,9);}
+    auto offset=WeaponValidationOffset(kind);if(offset) {auto at=*reinterpret_cast<unsigned char**>(output+offset);if(at) EndianModuleFieldSet(at,lifecycleFieldSets[6]);}
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind && choice->kind<=2) {
@@ -570,6 +605,7 @@ void EndianModule(U32* input) {
     if(choice && choice->kind>=13 && choice->kind<=16) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=17 && choice->kind<=22) EndianLifecycle(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=23 && choice->kind<=29) EndianDie(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=69 && choice->kind<=76) EndianWeaponBehavior(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=61 && choice->kind<=68) EndianVision(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==59) EndianSlaved(reinterpret_cast<unsigned char*>(input));
     if(choice && choice->kind>=55 && choice->kind<=58) EndianCreate(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -588,6 +624,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=69 && choice->kind<=76) MarshalWeaponBehavior(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=61 && choice->kind<=68) MarshalVision(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==59) MarshalSlaved(input,reinterpret_cast<unsigned char*>(target),data);
     if(choice && choice->kind>=55 && choice->kind<=58) MarshalCreate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -678,6 +715,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=69) {const auto& set=weaponFieldSets[choice->kind-69];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=61) {const auto& set=visionFieldSets[choice->kind-61];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind==60) {for(unsigned i=0;i<receiverFieldSet.count;++i) if(attribute==receiverFieldSet.fields[i].name) return true;for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;return false;}
     if(choice->kind==59) {for(unsigned i=0;i<slavedFieldSet.count;++i) if(attribute==slavedFieldSet.fields[i].name) return true;return false;}
@@ -705,6 +743,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=69) {if(WeaponValidationOffset(kind) && path=="ObjectStatusValidation") return 1;if(kind==70) {if(path=="FireWeaponNugget") return 2;if(path=="FireWeaponNugget/Offset") return 1;}if(kind==75) {if(path=="Color") return 1;if(path=="EffectInfo") return 2;}return 0;}
     if(kind>=61) {if(kind==67) {if(path=="BroadcastObjectFilter" || path=="ObjectStatusValidation") return 1;if(path=="BroadcastObjectFilter/IncludeThing" || path=="BroadcastObjectFilter/ExcludeThing") return 3;}return 0;}
     if(kind==60) {if(path=="ObjectFilter" || path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith" || path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;return 0;}
     if(kind==59) return path=="GuardPosOffset"?1:0;
@@ -726,6 +765,7 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
     return 0;
 }
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=69) {if(path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";unsigned fields=path=="Color"?8:path=="EffectInfo"?9:path=="FireWeaponNugget"?10:path=="FireWeaponNugget/Offset"?11:99;if(fields==99) return false;const auto& set=weaponFieldSets[fields];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(kind>=61) return kind==67 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
     if(kind==60) {if(path=="CustomAnimAndDuration") for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;return false;}
     if(kind==59) return path=="GuardPosOffset" && (attribute=="x" || attribute=="y" || attribute=="z");
