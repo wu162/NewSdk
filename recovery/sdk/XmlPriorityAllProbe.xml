@@ -181,4 +181,382 @@
     </Heuristic>
   </AIStateDefinition>
   <AITargetingHeuristic id="RecoveryXmlPriority_Target_Defaults" HeuristicType="EnemyUnit" />
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Defaults" />
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Defaults" />
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Defaults" />
+  <UpgradeTemplate id="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Defaults" UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults">
+    <LevelUpTintColor />
+  </ExperienceLevelTemplate>
+  <ButtonSingleStateData id="RecoveryXmlAdditional_ButtonSingleStateData_Defaults">
+    <State />
+  </ButtonSingleStateData>
+  <PurchasePlayerTechButtonTemplate id="RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults" PlayerTech="RecoveryXmlAdditional_PlayerTech_Defaults" StateData="RecoveryXmlAdditional_ButtonSingleStateData_Defaults" />
+  <PlayerTechStoreTemplate id="RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults" Faction="Japan">
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+    <Row>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+      <Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button>
+    </Row>
+  </PlayerTechStoreTemplate>
+  <Weather id="RecoveryXmlAdditional_Weather_Defaults" />
+  <Weather id="RecoveryXmlAdditional_Weather_Combined">
+    <Rain IsRaining="true" NumRaindropsPerBox="7" RainBoxWidth="150" WindStrength="0.5" />
+    <Lightning LightningDuration="15" LightningChance="0.25">
+      <LightningFactor Type="UNIFORM" Low="0.5" High="1.5" />
+    </Lightning>
+    <Cloud>
+      <CloudTextureSize x="128" y="64" />
+      <CloudOffsetPerSecond x="0.5" y="-0.25" />
+    </Cloud>
+    <WeatherData id="RAINY" HasLightning="true" />
+  </Weather>
+  <WaterTransparency id="RecoveryXmlAdditional_WaterTransparency_Defaults" />
+  <WaterTransparency id="RecoveryXmlAdditional_WaterTransparency_Combined" TransparentWaterDepth="9" TransparentWaterMinOpacity="0.75" />
+  <WaterSetting id="RecoveryXmlAdditional_WaterSetting_Defaults" TimeOfDay="MORNING">
+    <DiffuseColor R="0" G="0" B="0" A="255" />
+  </WaterSetting>
+  <WaterSetting id="RecoveryXmlAdditional_WaterSetting_Combined" TimeOfDay="MORNING">
+    <DiffuseColor R="32" G="64" B="96" A="255" />
+  </WaterSetting>
+  <WaterTextureList id="RecoveryXmlAdditional_WaterTextureList_Defaults" Type="RIVER">
+    <Texture>RecoveryWater</Texture>
+  </WaterTextureList>
+  <WaterTextureList id="RecoveryXmlAdditional_WaterTextureList_Combined" Type="RIVER">
+    <Texture>RecoveryWaterA</Texture>
+    <Texture>RecoveryWaterB</Texture>
+  </WaterTextureList>
+  <Environment id="RecoveryXmlAdditional_Environment_Defaults">
+    <CloudEffect />
+  </Environment>
+  <LightingSettings id="RecoveryXmlAdditional_LightingSettings_Defaults" TimeOfDay="MORNING">
+    <LightingMultiplierIfNoClouds R="1" G="1" B="1" />
+    <CurrentLightingSettings TimeOfDay="MORNING">
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+    </CurrentLightingSettings>
+    <TerrainLighting>
+      <LightingTimeGroup TimeOfDay="INVALID">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="MORNING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="AFTERNOON">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="EVENING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="NIGHT">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="INTERPOLATE">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+    </TerrainLighting>
+  </LightingSettings>
+  <LightingSettings id="RecoveryXmlAdditional_LightingSettings_Combined" TimeOfDay="MORNING" OccludedLuminanceScale="0.75">
+    <LightingMultiplierIfNoClouds R="1" G="1" B="1" />
+    <CurrentLightingSettings TimeOfDay="MORNING">
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+      <Lighting>
+        <Ambient R="0.1" G="0.2" B="0.3" />
+        <Diffuse R="1" G="0.5" B="0.25" />
+        <LightPos x="1" y="2" z="3" />
+      </Lighting>
+    </CurrentLightingSettings>
+    <TerrainLighting>
+      <LightingTimeGroup TimeOfDay="INVALID">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="MORNING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="AFTERNOON">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="EVENING">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="NIGHT">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+      <LightingTimeGroup TimeOfDay="INTERPOLATE">
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+        <Lighting>
+          <Ambient R="0.1" G="0.2" B="0.3" />
+          <Diffuse R="1" G="0.5" B="0.25" />
+          <LightPos x="1" y="2" z="3" />
+        </Lighting>
+      </LightingTimeGroup>
+    </TerrainLighting>
+  </LightingSettings>
+  <Environment id="RecoveryXmlAdditional_Environment_Combined">
+    <CloudEffect PropagateSpeed="1.25" Angle="30" DarkeningRate="2" LighteningRate="3" CloudScrollSpeed="0.5" DissipateStartLevel="0.2" DissipateSpeed="0.3" DissipateRateScale="0.4" LightningShadows="true" JitterLightningLightIntensity="true" JitterLightningLightPosition="false" LightningChance="0.1" LightningFrequency="2" LightningShadowIntensity="0.75">
+      <DarkeningFactor R="0.1" G="0.2" B="0.3" />
+      <DarkeningFactorRain R="0.1" G="0.2" B="0.3" />
+      <LightningShadowColor R="0.1" G="0.2" B="0.3" />
+      <LightningLightPosition1 x="1" y="2" />
+      <LightningLightPosition2 x="1" y="2" />
+      <LightningLightPosition3 x="1" y="2" />
+      <LightningIntensity Type="UNIFORM" Low="1" High="3" />
+      <LightningDuration Type="UNIFORM" Low="1" High="3" />
+    </CloudEffect>
+  </Environment>
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Defaults" />
+  <TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Combined" AccelerationMultiplier="75%">
+    <Mapping TerrainClass="Grass" RequiredModelConditions="MOVING" ForbiddenModelConditions="SNOW" />
+  </TerrainParticleMapping>
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults" />
+  <BounceKickTerrainMapping id="RecoveryXmlAdditional_BounceKickTerrainMapping_Combined">
+    <Mapping TerrainClass="Sand" BounceMultiplier="25%" />
+  </BounceKickTerrainMapping>
+  <AIData id="RecoveryXmlAdditional_AIData_Defaults" />
+  <UnitAISettings id="RecoveryXmlAdditional_UnitAISettings_Defaults">
+    <VictoryConditionUnitObjectFilter />
+    <VictoryConditionStructureObjectFilter />
+  </UnitAISettings>
+  <PlayerTemplate id="RecoveryXmlAdditional_PlayerTemplate_Defaults">
+    <PreferredColor R="0" G="0" B="0" />
+    <PreferredCampaignRadarColor R="0" G="0" B="0" />
+  </PlayerTemplate>
+  <MultiplayerSettings id="RecoveryXmlAdditional_MultiplayerSettings_Defaults">
+    <InitialCreditsVeryLow>0</InitialCreditsVeryLow>
+    <InitialCreditsLow>0</InitialCreditsLow>
+    <InitialCreditsMedium>0</InitialCreditsMedium>
+    <InitialCreditsHigh>0</InitialCreditsHigh>
+    <InitialCreditsVeryHigh>0</InitialCreditsVeryHigh>
+    <StartCountdownTimer>0</StartCountdownTimer>
+    <MaxBeaconsPerPlayer>0</MaxBeaconsPerPlayer>
+    <UseShroud>false</UseShroud>
+    <ShowRandomPlayerTemplate>false</ShowRandomPlayerTemplate>
+    <ShowRandomStartPos>false</ShowRandomStartPos>
+    <ShowRandomColor>false</ShowRandomColor>
+    <GameStatsModeData id="RecoveryXmlAdditional_InlineStats" GameStatsMode="LAN_GAME">
+      <AvailableMapName>RecoveryMap</AvailableMapName>
+    </GameStatsModeData>
+  </MultiplayerSettings>
+  <AIBuildStateDefinition id="RecoveryXmlAdditional_AIBuildStateDefinition_Defaults">
+    <Heuristic>
+      <ConstantHeuristic Weight="1" />
+    </Heuristic>
+    <BuildEntry Heuristic="CONSTANT" Score="1" />
+  </AIBuildStateDefinition>
+  <AIStrategicStateName id="RecoveryXmlAdditional_AIStrategicStateName_Defaults" State="RecoveryXmlPriority_Strategic_Defaults" Name="RecoveryState" />
+  <MultiplayerColor id="RecoveryXmlAdditional_MultiplayerColor_Defaults">
+    <RGBColor R="1" G="2" B="3" A="255" />
+    <RGBNightColor R="4" G="5" B="6" A="255" />
+    <TooltipName>Recovery Color</TooltipName>
+    <AvailableInMetaGame>false</AvailableInMetaGame>
+  </MultiplayerColor>
+  <AIPersonalityToAchievementEventMapping id="RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults" AIPersonalityDef="RecoveryXmlPriority_Personality_Defaults" AchievementEventId="17" />
 </AssetDeclaration>

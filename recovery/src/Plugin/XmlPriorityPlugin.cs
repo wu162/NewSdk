@@ -5,7 +5,7 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Register the fourteen priority types. Every payload is generated
+    // Register the thirty-eight recovered types. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
@@ -44,7 +44,31 @@ namespace Recovered.XmlPriority
                 case 2893598307u: info.TypeName = "AIBudgetStateDefinition"; info.TypeHash = 2583631670u; break;
                 case 3239935619u: info.TypeName = "AIStateDefinition"; info.TypeHash = 50334453u; break;
                 case 926814458u: info.TypeName = "AITargetingHeuristic"; info.TypeHash = 2460454737u; break;
-                default: throw new NotSupportedException("XmlPriority supports only the fourteen priority types.");
+                case 2101756272u: info.TypeName = "LogicCommand"; info.TypeHash = 1451688104u; break;
+                case 2131237081u: info.TypeName = "PlayerTech"; info.TypeHash = 903715207u; break;
+                case 1802643394u: info.TypeName = "PlayerTechRank"; info.TypeHash = 304552910u; break;
+                case 2140592493u: info.TypeName = "PlayerTechUpgradeBinding"; info.TypeHash = 3288487200u; break;
+                case 1874610847u: info.TypeName = "ExperienceLevelTemplate"; info.TypeHash = 550595366u; break;
+                case 1213037816u: info.TypeName = "PlayerTechStoreTemplate"; info.TypeHash = 981786901u; break;
+                case 1566941920u: info.TypeName = "PurchasePlayerTechButtonTemplate"; info.TypeHash = 2999033148u; break;
+                case 3048039928u: info.TypeName = "ButtonSingleStateData"; info.TypeHash = 3780991768u; break;
+                case 2430161325u: info.TypeName = "Weather"; info.TypeHash = 3795761625u; break;
+                case 1479531562u: info.TypeName = "WaterTransparency"; info.TypeHash = 525928939u; break;
+                case 2728605516u: info.TypeName = "WaterSetting"; info.TypeHash = 469423908u; break;
+                case 680780553u: info.TypeName = "Environment"; info.TypeHash = 1276225790u; break;
+                case 3169690211u: info.TypeName = "LightingSettings"; info.TypeHash = 616355229u; break;
+                case 2995571269u: info.TypeName = "WaterTextureList"; info.TypeHash = 1905565848u; break;
+                case 1469498551u: info.TypeName = "TerrainParticleMapping"; info.TypeHash = 2736882942u; break;
+                case 2368878637u: info.TypeName = "BounceKickTerrainMapping"; info.TypeHash = 2109862985u; break;
+                case 3827723072u: info.TypeName = "AIData"; info.TypeHash = 1092854186u; break;
+                case 2964891936u: info.TypeName = "UnitAISettings"; info.TypeHash = 4050675268u; break;
+                case 4063352333u: info.TypeName = "PlayerTemplate"; info.TypeHash = 891373896u; break;
+                case 191082224u: info.TypeName = "MultiplayerSettings"; info.TypeHash = 2620092030u; break;
+                case 1644972043u: info.TypeName = "AIBuildStateDefinition"; info.TypeHash = 3400281710u; break;
+                case 2010562192u: info.TypeName = "AIStrategicStateName"; info.TypeHash = 76343204u; break;
+                case 2384988189u: info.TypeName = "MultiplayerColor"; info.TypeHash = 320610464u; break;
+                case 4086175864u: info.TypeName = "AIPersonalityToAchievementEventMapping"; info.TypeHash = 2395097450u; break;
+                default: throw new NotSupportedException("XmlPriority supports only the thirty-eight recovered types.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
@@ -136,7 +160,103 @@ namespace Recovered.XmlPriority
                     typeName = "AITargetingHeuristic";
                     result = global::Recovered.XmlaiCompiler.ProcessInstance(instance, platform);
                     break;
-                default: throw new NotSupportedException("XmlPriority supports only the fourteen priority types.");
+                case 2101756272u:
+                    typeName = "LogicCommand";
+                    result = global::Recovered.LogicCommandCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2131237081u:
+                    typeName = "PlayerTech";
+                    result = global::Recovered.PlayerTechCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1802643394u:
+                    typeName = "PlayerTechRank";
+                    result = global::Recovered.PlayerTechRankCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2140592493u:
+                    typeName = "PlayerTechUpgradeBinding";
+                    result = global::Recovered.PlayerTechUpgradeBindingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1874610847u:
+                    typeName = "ExperienceLevelTemplate";
+                    result = global::Recovered.ExperienceLevelTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1213037816u:
+                    typeName = "PlayerTechStoreTemplate";
+                    result = global::Recovered.PlayerTechStoreTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1566941920u:
+                    typeName = "PurchasePlayerTechButtonTemplate";
+                    result = global::Recovered.PurchasePlayerTechButtonTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3048039928u:
+                    typeName = "ButtonSingleStateData";
+                    result = global::Recovered.ButtonSingleStateDataCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2430161325u:
+                    typeName = "Weather";
+                    result = global::Recovered.WeatherCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1479531562u:
+                    typeName = "WaterTransparency";
+                    result = global::Recovered.WaterTransparencyCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2728605516u:
+                    typeName = "WaterSetting";
+                    result = global::Recovered.WaterSettingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 680780553u:
+                    typeName = "Environment";
+                    result = global::Recovered.EnvironmentCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3169690211u:
+                    typeName = "LightingSettings";
+                    result = global::Recovered.LightingSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2995571269u:
+                    typeName = "WaterTextureList";
+                    result = global::Recovered.WaterTextureListCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1469498551u:
+                    typeName = "TerrainParticleMapping";
+                    result = global::Recovered.TerrainParticleMappingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2368878637u:
+                    typeName = "BounceKickTerrainMapping";
+                    result = global::Recovered.BounceKickTerrainMappingCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 3827723072u:
+                    typeName = "AIData";
+                    result = global::Recovered.AIDataCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2964891936u:
+                    typeName = "UnitAISettings";
+                    result = global::Recovered.UnitAISettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 4063352333u:
+                    typeName = "PlayerTemplate";
+                    result = global::Recovered.PlayerTemplateCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 191082224u:
+                    typeName = "MultiplayerSettings";
+                    result = global::Recovered.MultiplayerSettingsCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 1644972043u:
+                    typeName = "AIBuildStateDefinition";
+                    result = global::Recovered.AIBuildStateDefinitionCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2010562192u:
+                    typeName = "AIStrategicStateName";
+                    result = global::Recovered.AIStrategicStateNameCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 2384988189u:
+                    typeName = "MultiplayerColor";
+                    result = global::Recovered.MultiplayerColorCompiler.ProcessInstance(instance, platform);
+                    break;
+                case 4086175864u:
+                    typeName = "AIPersonalityToAchievementEventMapping";
+                    result = global::Recovered.AIPersonalityToAchievementEventMappingCompiler.ProcessInstance(instance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only the thirty-eight recovered types.");
             }
             }
             catch (Exception error)
@@ -166,5 +286,6 @@ namespace Recovered.XmlPriority
         }
     }
 }
+
 
 

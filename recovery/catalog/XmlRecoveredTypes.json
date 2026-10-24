@@ -1,0 +1,227 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "groups": {
+    "progression": [
+      "LogicCommand",
+      "PlayerTech",
+      "PlayerTechRank",
+      "PlayerTechUpgradeBinding",
+      "ExperienceLevelTemplate",
+      "PlayerTechStoreTemplate",
+      "PurchasePlayerTechButtonTemplate",
+      "ButtonSingleStateData"
+    ],
+    "environment": [
+      "Weather",
+      "WaterTransparency",
+      "WaterSetting",
+      "Environment",
+      "LightingSettings",
+      "WaterTextureList",
+      "TerrainParticleMapping",
+      "BounceKickTerrainMapping"
+    ],
+    "players": [
+      "AIData",
+      "UnitAISettings",
+      "PlayerTemplate",
+      "MultiplayerSettings",
+      "AIBuildStateDefinition",
+      "AIStrategicStateName",
+      "MultiplayerColor",
+      "AIPersonalityToAchievementEventMapping"
+    ]
+  },
+  "roots": [
+    {
+      "name": "AttributeModifier",
+      "typeId": 3319822471,
+      "typeHash": 4177657499
+    },
+    {
+      "name": "FXList",
+      "typeId": 2254974584,
+      "typeHash": 2601721382
+    },
+    {
+      "name": "SpecialPowerTemplate",
+      "typeId": 2178440954,
+      "typeHash": 984303644
+    },
+    {
+      "name": "ObjectCreationList",
+      "typeId": 3899542881,
+      "typeHash": 578005457
+    },
+    {
+      "name": "LocomotorTemplate",
+      "typeId": 3972178387,
+      "typeHash": 3392338269
+    },
+    {
+      "name": "LogicCommandSet",
+      "typeId": 3959844197,
+      "typeHash": 2330506892
+    },
+    {
+      "name": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "typeHash": 1465656250
+    },
+    {
+      "name": "UpgradeTemplate",
+      "typeId": 3786401627,
+      "typeHash": 1334651241
+    },
+    {
+      "name": "AIPersonalityDefinition",
+      "typeId": 3604279694,
+      "typeHash": 3409747243
+    },
+    {
+      "name": "AIStrategicStateDefinition",
+      "typeId": 607123156,
+      "typeHash": 3594381428
+    },
+    {
+      "name": "AIMicroManagerData",
+      "typeId": 2423780215,
+      "typeHash": 1392447443
+    },
+    {
+      "name": "AIBudgetStateDefinition",
+      "typeId": 2893598307,
+      "typeHash": 2583631670
+    },
+    {
+      "name": "AIStateDefinition",
+      "typeId": 3239935619,
+      "typeHash": 50334453
+    },
+    {
+      "name": "AITargetingHeuristic",
+      "typeId": 926814458,
+      "typeHash": 2460454737
+    },
+    {
+      "name": "LogicCommand",
+      "typeId": 2101756272,
+      "typeHash": 1451688104
+    },
+    {
+      "name": "PlayerTech",
+      "typeId": 2131237081,
+      "typeHash": 903715207
+    },
+    {
+      "name": "PlayerTechRank",
+      "typeId": 1802643394,
+      "typeHash": 304552910
+    },
+    {
+      "name": "PlayerTechUpgradeBinding",
+      "typeId": 2140592493,
+      "typeHash": 3288487200
+    },
+    {
+      "name": "ExperienceLevelTemplate",
+      "typeId": 1874610847,
+      "typeHash": 550595366
+    },
+    {
+      "name": "PlayerTechStoreTemplate",
+      "typeId": 1213037816,
+      "typeHash": 981786901
+    },
+    {
+      "name": "PurchasePlayerTechButtonTemplate",
+      "typeId": 1566941920,
+      "typeHash": 2999033148
+    },
+    {
+      "name": "ButtonSingleStateData",
+      "typeId": 3048039928,
+      "typeHash": 3780991768
+    },
+    {
+      "name": "Weather",
+      "typeId": 2430161325,
+      "typeHash": 3795761625
+    },
+    {
+      "name": "WaterTransparency",
+      "typeId": 1479531562,
+      "typeHash": 525928939
+    },
+    {
+      "name": "WaterSetting",
+      "typeId": 2728605516,
+      "typeHash": 469423908
+    },
+    {
+      "name": "Environment",
+      "typeId": 680780553,
+      "typeHash": 1276225790
+    },
+    {
+      "name": "LightingSettings",
+      "typeId": 3169690211,
+      "typeHash": 616355229
+    },
+    {
+      "name": "WaterTextureList",
+      "typeId": 2995571269,
+      "typeHash": 1905565848
+    },
+    {
+      "name": "TerrainParticleMapping",
+      "typeId": 1469498551,
+      "typeHash": 2736882942
+    },
+    {
+      "name": "BounceKickTerrainMapping",
+      "typeId": 2368878637,
+      "typeHash": 2109862985
+    },
+    {
+      "name": "AIData",
+      "typeId": 3827723072,
+      "typeHash": 1092854186
+    },
+    {
+      "name": "UnitAISettings",
+      "typeId": 2964891936,
+      "typeHash": 4050675268
+    },
+    {
+      "name": "PlayerTemplate",
+      "typeId": 4063352333,
+      "typeHash": 891373896
+    },
+    {
+      "name": "MultiplayerSettings",
+      "typeId": 191082224,
+      "typeHash": 2620092030
+    },
+    {
+      "name": "AIBuildStateDefinition",
+      "typeId": 1644972043,
+      "typeHash": 3400281710
+    },
+    {
+      "name": "AIStrategicStateName",
+      "typeId": 2010562192,
+      "typeHash": 76343204
+    },
+    {
+      "name": "MultiplayerColor",
+      "typeId": 2384988189,
+      "typeHash": 320610464
+    },
+    {
+      "name": "AIPersonalityToAchievementEventMapping",
+      "typeId": 4086175864,
+      "typeHash": 2395097450
+    }
+  ]
+}
