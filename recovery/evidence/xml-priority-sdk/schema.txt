@@ -1,1 +1,1 @@
-PASS SDK full XSD: six assets; 3 negative fixtures rejected.
+PASS SDK full XSD: eighteen assets; 3 negative fixtures rejected.

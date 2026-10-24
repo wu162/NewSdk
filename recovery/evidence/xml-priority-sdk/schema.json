@@ -1,1 +1,1 @@
-{"succeeded":true,"mode":"schema","validatedDocuments":1,"negativeFixtures":3,"expectedAssets":6,"probeSha256":"ef71ebd246a0156f82fff4057cdea697d63ebbf86ba58af6e9e9cbf025d32d6e","schemaEntry":"Schemas/xsd/CnC3Types.xsd"}
+{"succeeded":true,"mode":"schema","validatedDocuments":1,"negativeFixtures":3,"expectedAssets":18,"probeSha256":"1a44d9f517ecad3b26ef5dd612f1547c933181bfc5fb44e2a3a399e38fdaafeb","schemaEntry":"Schemas/xsd/CnC3Types.xsd"}

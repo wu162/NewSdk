@@ -4,4 +4,16 @@ PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_
 PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_Gpu, bytes=524
 PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_Lightning, bytes=524
 PASS isolated recovered SDK replay FXParticleSystemTemplate/RecoveryXmlPriority_Particle_RenderObject, bytes=588
-PASS isolated: 6 SDK calls, 18 exact buffer comparisons, six expected assets, isolated=True
+PASS isolated recovered SDK replay AttributeModifier/RecoveryXmlPriority_AttributeModifier_Defaults, bytes=60
+PASS isolated recovered SDK replay SpecialPowerTemplate/RecoveryXmlPriority_SpecialPower_Defaults, bytes=552
+PASS isolated recovered SDK replay ObjectCreationList/RecoveryXmlPriority_OCL_Defaults, bytes=56
+PASS isolated recovered SDK replay LocomotorTemplate/RecoveryXmlPriority_Locomotor_Defaults, bytes=396
+PASS isolated recovered SDK replay LogicCommandSet/RecoveryXmlPriority_CommandSet_Defaults, bytes=12
+PASS isolated recovered SDK replay UpgradeTemplate/RecoveryXmlPriority_Upgrade_Defaults, bytes=140
+PASS isolated recovered SDK replay AIPersonalityDefinition/RecoveryXmlPriority_Personality_Defaults, bytes=532
+PASS isolated recovered SDK replay AIStrategicStateDefinition/RecoveryXmlPriority_Strategic_Defaults, bytes=76
+PASS isolated recovered SDK replay AIMicroManagerData/RecoveryXmlPriority_Micro_Defaults, bytes=176
+PASS isolated recovered SDK replay AIBudgetStateDefinition/RecoveryXmlPriority_Budget_Defaults, bytes=32
+PASS isolated recovered SDK replay AIStateDefinition/RecoveryXmlPriority_State_Defaults, bytes=24
+PASS isolated recovered SDK replay AITargetingHeuristic/RecoveryXmlPriority_Target_Defaults, bytes=196
+PASS isolated: 18 SDK calls, 54 exact buffer comparisons, six expected assets, isolated=True

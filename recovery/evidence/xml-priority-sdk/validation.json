@@ -1,9 +1,9 @@
 {
   "succeeded": true,
-  "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
-  "runId": "40090655209",
+  "sourceCommit": "c20c63d99b665342d9b928b3b1550b94ec454a1d",
+  "runId": "40090901840",
   "status": "Full XSD and negatives; exact original metadata on four platforms; fresh original/recovered Win32 SDK; four identical outputs; actual calls and original-free three-buffer replay",
-  "scope": "FXList and FXParticleSystemTemplate only; O2 Win32 real SDK, reduced disposable MOD; not full mymod or other twelve priority types",
+  "scope": "Fourteen XmlCompiler priority types; O2 Win32 real SDK, reduced disposable MOD; not full mymod or all XmlCompiler types",
   "componentModes": [
     "/Od",
     "/O2"
@@ -14,54 +14,54 @@
     {
       "mode": "Original",
       "file": "mod.bin",
-      "bytes": 2408,
-      "sha256": "EFF504574D388DBCCCE508B11D3600DEDEA9CCC80D044F60DE7A97172CF1D9B3"
+      "bytes": 4660,
+      "sha256": "775DF9FF7840EBBD9B677BE64E605A2170EDA9D6FBF0BFEA390FC0AC3035EDC1"
     },
     {
       "mode": "Original",
       "file": "mod.manifest",
-      "bytes": 765,
-      "sha256": "A6838D948A75E514802CD9C8B909568C36295D69B09716DA0FA41B68731FD9D9"
+      "bytes": 2058,
+      "sha256": "8759933ABC0C216469870B28F9EE617C9CEB0EEA4423B35E24856421A3DE8770"
     },
     {
       "mode": "Original",
       "file": "mod.imp",
-      "bytes": 4,
-      "sha256": "0E18253C2D5FFD7E36117A26A234EA10402D6EB8FF99ED7172684156F929452B"
+      "bytes": 16,
+      "sha256": "DF92FA42B470E8AD49AF7D845947039E4779B38BE2D51F22DECE1FB9805E0852"
     },
     {
       "mode": "Original",
       "file": "mod.relo",
-      "bytes": 180,
-      "sha256": "D6D0866A3BA1002DFFEB73D3F12E4CB062F5B36DA131524A5FF95B8E631D955D"
+      "bytes": 224,
+      "sha256": "2BEE277D7D17F9AB5F2839992D8218CEC2CBA0A64B2C57BD3CA1D83D0013F5B3"
     },
     {
       "mode": "Recovered",
       "file": "mod.bin",
-      "bytes": 2408,
-      "sha256": "EFF504574D388DBCCCE508B11D3600DEDEA9CCC80D044F60DE7A97172CF1D9B3"
+      "bytes": 4660,
+      "sha256": "775DF9FF7840EBBD9B677BE64E605A2170EDA9D6FBF0BFEA390FC0AC3035EDC1"
     },
     {
       "mode": "Recovered",
       "file": "mod.manifest",
-      "bytes": 765,
-      "sha256": "A6838D948A75E514802CD9C8B909568C36295D69B09716DA0FA41B68731FD9D9"
+      "bytes": 2058,
+      "sha256": "8759933ABC0C216469870B28F9EE617C9CEB0EEA4423B35E24856421A3DE8770"
     },
     {
       "mode": "Recovered",
       "file": "mod.imp",
-      "bytes": 4,
-      "sha256": "0E18253C2D5FFD7E36117A26A234EA10402D6EB8FF99ED7172684156F929452B"
+      "bytes": 16,
+      "sha256": "DF92FA42B470E8AD49AF7D845947039E4779B38BE2D51F22DECE1FB9805E0852"
     },
     {
       "mode": "Recovered",
       "file": "mod.relo",
-      "bytes": 180,
-      "sha256": "D6D0866A3BA1002DFFEB73D3F12E4CB062F5B36DA131524A5FF95B8E631D955D"
+      "bytes": 224,
+      "sha256": "2BEE277D7D17F9AB5F2839992D8218CEC2CBA0A64B2C57BD3CA1D83D0013F5B3"
     }
   ],
   "originalDllUnchanged": true,
-  "probeSha256": "EF71EBD246A0156F82FFF4057CDEA697D63EBBF86BA58AF6E9E9CBF025D32D6E",
-  "compilerSha256": "5B5EB854BD5AF697A1FA79D7430C9DEB7F2CA2EDD6521092A84C6A7322B54E99",
-  "pluginSha256": "2FF19733B5641A848EE541DC246AFFBC26920A63007D0624ECCC33652277B580"
+  "probeSha256": "1A44D9F517ECAD3B26EF5DD612F1547C933181BFC5FB44E2A3A399E38FDAAFEB",
+  "compilerSha256": "258334CAACB513FFA4FA4F1297C8E0FBA34F1B820899E7F1F68F87DD75D33503",
+  "pluginSha256": "168FA982F4878AFE1387A5D01025677BBA3D4182C414BC2D71F7AED120343B45"
 }

@@ -1,45 +1,117 @@
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\Mods\mymod\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\mymod\Art;.\Mods;.\Art /audio:.;.\Mods\mymod\Audio;.\Mods;.\Audio /data:.;.\Mods\mymod\Data;.\Mods;.\SageXml 
 [00:00:00] BinaryAssetBuilder started
-[00:00:00.4074101] Cached session data not available.
-[00:00:00.4386606] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
-[00:00:00.4386606] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods\cache').
-[00:00:00.4542919] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\mods\mymod\data\mod.xml'.
-[00:00:00.4855499] Stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\static.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5011607] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods\static.manifest, file not found
-[00:00:00.5011607] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\static.xml'.
-[00:00:00.5167956] Stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\global.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5167956] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods\global.manifest, file not found
-[00:00:00.5167956] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\global.xml'.
-[00:00:00.5167956] Stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\audio.xml which has not been compiled, attempting to use precompiled
-[00:00:00.5167956] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\Recovered\builtmods\audio.manifest, file not found
-[00:00:00.5167956] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\audio.xml'.
-[00:00:00.5167956] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-1d3330c26581475aa81798580b7d26d2\recovered\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
-[00:00:01.0168160] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
-[00:00:01.0636734] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
-[00:00:01.1105699] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
-[00:00:01.1261754] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
-[00:00:01.1574492] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
-[00:00:01.1574492] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
-[00:00:01.1574492] Resolving references: mods\mymod\data\mod
-[00:00:01.1730566] Stable sorting assets
-[00:00:01.1730566] Sorting by schema dependencies
-[00:00:01.1730566] Sorting by asset dependencies
-[00:00:01.1730566] Generating stream: mods\mymod\data\mod
-[00:00:01.1886904] Slow asset clean-up (expected: 6, actual: 6, old: 0, current: 6)
-[00:00:01.1886904] mods\mymod\data\mod Linking binary data
-[00:00:01.1886904] mods\mymod\data\mod Linking import data
-[00:00:01.1886904] mods\mymod\data\mod Linking relocation data
-[00:00:01.1886904] mods\mymod\data\mod Stream complete
-[00:00:01.2043047] BinaryAssetBuilder complete
-[00:00:01.2043047] FXParticleSystemTemplate:
-[00:00:01.2043047]       Instances Processed: 4
-[00:00:01.2043047]       Total Processing Time: 00:00:00.0312230
-[00:00:01.2043047]       Longest Processing Time: 00:00:00.0156175 (RecoveryXmlPriority_Particle_Gpu)
-[00:00:01.2043047]       Average Processing Time: 0.00780575 seconds
-[00:00:01.2043047] FXList:
-[00:00:01.2043047]       Instances Processed: 2
-[00:00:01.2043047]       Total Processing Time: 00:00:00.0781335
-[00:00:01.2043047]       Longest Processing Time: 00:00:00.0468965 (RecoveryXmlPriority_FX_Filters)
-[00:00:01.2043047]       Average Processing Time: 0.03906675 seconds
-[00:00:01.2043047] Total Processing Time for All Types: 00:00:00.1093565
+[00:00:00.4375152] Cached session data not available.
+[00:00:00.4375152] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.4375152] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods\cache').
+[00:00:00.4531301] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\mods\mymod\data\mod.xml'.
+[00:00:00.5000076] Stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5000076] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods\static.manifest, file not found
+[00:00:00.5000076] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\static.xml'.
+[00:00:00.5156486] Stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5156486] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods\global.manifest, file not found
+[00:00:00.5156486] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\global.xml'.
+[00:00:00.5156486] Stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\mods\mymod\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.5156486] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\Recovered\builtmods\audio.manifest, file not found
+[00:00:00.5156486] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\audio.xml'.
+[00:00:00.5156486] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-9bd04edf622b40dd828196888f743394\recovered\mods\mymod\data\recoveryxmlpriorityprobe.xml'.
+[00:00:00.5468849] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.5781307] recoveryxmlpriorityprobe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
+[00:00:00.6410565] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
+[00:00:00.6566797] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
+[00:00:00.6723047] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
+[00:00:00.6723047] recoveryxmlpriorityprobe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
+[00:00:00.6723047] recoveryxmlpriorityprobe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
+[00:00:00.6879281] recoveryxmlpriorityprobe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
+[00:00:00.6879281] recoveryxmlpriorityprobe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
+[00:00:00.6879281] recoveryxmlpriorityprobe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
+[00:00:00.7035493] recoveryxmlpriorityprobe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
+[00:00:00.7035493] recoveryxmlpriorityprobe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
+[00:00:00.7191785] recoveryxmlpriorityprobe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
+[00:00:00.7348034] recoveryxmlpriorityprobe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
+[00:00:00.7348034] recoveryxmlpriorityprobe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
+[00:00:00.7348034] recoveryxmlpriorityprobe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
+[00:00:00.7348034] recoveryxmlpriorityprobe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
+[00:00:00.7348034] recoveryxmlpriorityprobe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
+[00:00:00.7504293] Resolving references: mods\mymod\data\mod
+[00:00:00.7504293] Stable sorting assets
+[00:00:00.7504293] Sorting by schema dependencies
+[00:00:00.7504293] Sorting by asset dependencies
+[00:00:00.7504293] Generating stream: mods\mymod\data\mod
+[00:00:00.7660547] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
+[00:00:00.7816794] mods\mymod\data\mod Linking binary data
+[00:00:00.7816794] mods\mymod\data\mod Linking import data
+[00:00:00.7816794] mods\mymod\data\mod Linking relocation data
+[00:00:00.7816794] mods\mymod\data\mod Stream complete
+[00:00:00.7816794] BinaryAssetBuilder complete
+[00:00:00.7973035] AIStrategicStateDefinition:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] FXParticleSystemTemplate:
+[00:00:00.7973035]       Instances Processed: 4
+[00:00:00.7973035]       Total Processing Time: 00:00:00.0312482
+[00:00:00.7973035]       Longest Processing Time: 00:00:00.0156250 (RecoveryXmlPriority_Particle_Gpu)
+[00:00:00.7973035]       Average Processing Time: 0.00781205 seconds
+[00:00:00.7973035] AITargetingHeuristic:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] SpecialPowerTemplate:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] FXList:
+[00:00:00.7973035]       Instances Processed: 2
+[00:00:00.7973035]       Total Processing Time: 00:00:00.0941716
+[00:00:00.7973035]       Longest Processing Time: 00:00:00.0629258 (RecoveryXmlPriority_FX_Filters)
+[00:00:00.7973035]       Average Processing Time: 0.0470858 seconds
+[00:00:00.7973035] AIMicroManagerData:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] AIBudgetStateDefinition:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] AIStateDefinition:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.7973035] AttributeModifier:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00.0156234
+[00:00:00.7973035]       Longest Processing Time: 00:00:00.0156234 (RecoveryXmlPriority_AttributeModifier_Defaults)
+[00:00:00.7973035]       Average Processing Time: 0.0156234 seconds
+[00:00:00.7973035] AIPersonalityDefinition:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00.0156249
+[00:00:00.7973035]       Longest Processing Time: 00:00:00.0156249 (RecoveryXmlPriority_Personality_Defaults)
+[00:00:00.7973035]       Average Processing Time: 0.0156249 seconds
+[00:00:00.7973035] UpgradeTemplate:
+[00:00:00.7973035]       Instances Processed: 1
+[00:00:00.7973035]       Total Processing Time: 00:00:00
+[00:00:00.7973035]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7973035]       Average Processing Time: 0 seconds
+[00:00:00.8129269] ObjectCreationList:
+[00:00:00.8129269]       Instances Processed: 1
+[00:00:00.8129269]       Total Processing Time: 00:00:00
+[00:00:00.8129269]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8129269]       Average Processing Time: 0 seconds
+[00:00:00.8129269] LogicCommandSet:
+[00:00:00.8129269]       Instances Processed: 1
+[00:00:00.8129269]       Total Processing Time: 00:00:00
+[00:00:00.8129269]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8129269]       Average Processing Time: 0 seconds
+[00:00:00.8129269] LocomotorTemplate:
+[00:00:00.8129269]       Instances Processed: 1
+[00:00:00.8129269]       Total Processing Time: 00:00:00.0156212
+[00:00:00.8129269]       Longest Processing Time: 00:00:00.0156212 (RecoveryXmlPriority_Locomotor_Defaults)
+[00:00:00.8129269]       Average Processing Time: 0.0156212 seconds
+[00:00:00.8129269] Total Processing Time for All Types: 00:00:00.1722893
