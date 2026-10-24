@@ -355,6 +355,12 @@ class XmlaiOracle {
         AssetBuffer teamLayout=Test("tactic/team-default",Root("AIStrategicStateDefinition","","<Tactic><TeamTemplate/></Tactic>"),platform);
         Assert(teamLayout.InstanceData.Length==268&&Word(teamLayout.InstanceData,120,big)==1&&Word(teamLayout.InstanceData,124,big)==132&&Word(teamLayout.InstanceData,132,big)==1,"TeamTemplate 136-byte list independent ABI");
         Test("tactic/teams",Root("AIStrategicStateDefinition","","<Tactic id='MixedCase' Tactic='SimpleAttack' GatherWaypoint='WayPoint'><TargetBaseCriteria RequiredBaseTypes='MAIN_BASE'/><HomeBaseCriteria ExcludedBaseTypes='EXPANSION'/><TeamTemplate MaxUnits='7' MicroManager='Micro\\11'><CreateUnits UnitName='Tank' MinUnits='2' MaxUnits='4'/><CreateUnits UnitName='Air' ExperienceLevel='3'/><ObjectFilter Include='INFANTRY'><IncludeThing>Unit</IncludeThing></ObjectFilter></TeamTemplate><TeamTemplate Priority='garbage'/></Tactic>"),platform);
+        AssetBuffer sideEmpty=Test("personality/side-empty",Root("AIPersonalityDefinition","","<Side/>"),platform);
+        Assert(Word(sideEmpty.InstanceData,236,big)==1&&Word(sideEmpty.InstanceData,240,big)==512&&sideEmpty.InstanceData.Length==516,"Side independent list layout");
+        AssetBuffer sideReferences=Test("personality/side-references",Root("AIPersonalityDefinition","","<Side>First\\\\7</Side><Side>Second\\\\11</Side><Side>Unresolved</Side>"),platform);
+        Assert(Word(sideReferences.InstanceData,236,big)==3&&Word(sideReferences.InstanceData,240,big)==512&&sideReferences.ImportsData.Length!=0,"Side reference imports preserved");
+        Reject("side attributes",Root("AIPersonalityDefinition","","<Side Unknown='1'/>"));
+        Reject("side nested children",Root("AIPersonalityDefinition","","<Side><Unknown/></Side>"));
         Test("micro/children",Root("AIMicroManagerData","","<TargetBias UnitName='MixedCase' HealthMultiplier='2'/><TargetBias UnitName='Other' DamageOverride='3'/><SpecificSpecialPowerDelay PowerType='garbage' MinimumDelay='250ms'/><RetreatBaseCriteria RequiredBaseTypes='ALL -EXPANSION'/><IgnoreTargets Include='INFANTRY' StatusBitFlags='DESTROYED'><IncludeThing>Tank</IncludeThing><ExcludeThing>Air</ExcludeThing></IgnoreTargets>"),platform);
         Test("target/sorted",Root("AITargetingHeuristic","Name='N' Beacon='garbage' Relationship='ALL'","<BaseSelection/><BuildingPlacementDistance Distance='3'/><BuildingPlacementDistance Distance='1'/><BuildingPlacementDistance Distance='2'/>"),platform);
         foreach(int count in new int[]{0,1,2,27,28,29,56,57,64,129,257}) {
@@ -510,6 +516,12 @@ class XmlaiOracle {
         Reject("filter text",Root("AIMicroManagerData","","<IgnoreTargets>unknown</IgnoreTargets>"));
         Reject("unknown tactic child",Root("AIStrategicStateDefinition","","<Tactic><Unknown/></Tactic>"));
 #if XMLAI_PERSONALITY_EXTENSION
+        Test("personality/opening-no-heuristic",Root("AIPersonalityDefinition","","<OpeningMove/>"),platform);
+        AssetBuffer openingEmpty=Test("personality/opening-empty-heuristic",Root("AIPersonalityDefinition","","<OpeningMove><Heuristic/></OpeningMove>"),platform);
+        Assert(Word(openingEmpty.InstanceData,332,big)==1&&Word(openingEmpty.InstanceData,336,big)==512&&Word(openingEmpty.InstanceData,524,big)==528&&Word(openingEmpty.InstanceData,528,big)==0,"Opening nullable list header independent ABI");
+        Test("personality/opening-known",Root("AIPersonalityDefinition","","<OpeningMove Name='Move\\\\13'><Heuristic><H TypeId='1375432082' Weight='2'/><H TypeId='278936256' StartTime='250ms'/></Heuristic></OpeningMove>"),platform);
+        Reject("opening unknown heuristic",Root("AIPersonalityDefinition","","<OpeningMove><Heuristic><H TypeId='999'/></Heuristic></OpeningMove>"));
+        Reject("opening duplicate heuristic wrapper",Root("AIPersonalityDefinition","","<OpeningMove><Heuristic/><Heuristic/></OpeningMove>"));
         foreach(string extensionXml in XmlaiPersonalityCases.Cases())
             Test("personality/extension",extensionXml,platform);
 #else

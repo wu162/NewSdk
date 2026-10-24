@@ -116,5 +116,7 @@ m["AITeamTemplate"] = Layout{136,0u,{{"MinUnits","1",0,Kind::Signed,false,"",0,0
 m["CreateUnitInfo"] = Layout{16,0u,{{"MinUnits","1",0,Kind::Signed,false,"",0,0},{"MaxUnits","1",4,Kind::Signed,false,"",0,0},{"UnitName",nullptr,8,Kind::Hash,false,"",0,0},{"ExperienceLevel","1",12,Kind::Signed,false,"",0,0}},{}};
 #if __has_include("XmlaiPersonality.inc")
 #include "XmlaiPersonality.inc"
+if(m.count("AIWeightedOpeningMove"))m["AIWeightedOpeningMove"].children={{"Heuristic","",12,ChildKind::PointerHeuristics}};
 #endif
+m["AIPersonalityDefinition"].children.insert(m["AIPersonalityDefinition"].children.begin(),{"Side","",236,ChildKind::ReferenceList});
 return m; }
