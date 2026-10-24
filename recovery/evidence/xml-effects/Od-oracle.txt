@@ -1,2 +1,5 @@
-System.Exception: Model-condition independent bit layout
-   at XmleffectsOracle.Main(String[] args)
+PASS platform=0 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
+PASS platform=1 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
+PASS platform=2 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
+PASS platform=99 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
+RESULT fixtures=3356 arrayComparisons=20136 rejections=76 independentLayouts=3432

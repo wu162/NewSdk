@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
-  "runId": "40082810006",
+  "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
+  "runId": "40083102908",
   "scope": "Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -76,7 +76,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "1728550acb1795527732c8b12088b0deb6cebc2763bdec58533f6465f15dfc02",
+      "linkedAssemblySha256": "748608e4ac5b746b0913a7be1e9504694b25deedeb3191666a41c09cc8ddd4b4",
       "log": "Od-oracle.txt"
     },
     {
@@ -126,7 +126,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "e710ab4fcfe09e97653ef7bd7ccfa2384f3f9ba44b24d2fc835c9b165162cb04",
+      "linkedAssemblySha256": "5c8daad1ce49492ea87cb7c4a53ed95e3a388701775e9eb3220bde0b7e94d253",
       "log": "O2-oracle.txt"
     }
   ],
@@ -135,16 +135,16 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
-      "runId": "40082810006",
+      "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
+      "runId": "40083102908",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
-      "runId": "40082810006",
+      "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
+      "runId": "40083102908",
       "processSucceeded": true
     }
   ],

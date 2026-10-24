@@ -1,40 +1,40 @@
 {
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "succeeded": true,
-  "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
-  "runId": "40082810006",
+  "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
   "modes": [
     {
-      "mode": "Od",
-      "log": "Od-oracle.txt",
-      "succeeded": true,
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
+      "succeeded": true,
+      "log": "Od-oracle.txt",
+      "mode": "Od",
       "exitCode": 0
     },
     {
-      "mode": "O2",
-      "log": "O2-oracle.txt",
-      "succeeded": true,
       "summaries": [
         "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
         "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
       ],
+      "succeeded": true,
+      "log": "O2-oracle.txt",
+      "mode": "O2",
       "exitCode": 0
     }
   ],
+  "runId": "40083102908",
+  "succeeded": true,
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
-  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+  "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated"
 }
