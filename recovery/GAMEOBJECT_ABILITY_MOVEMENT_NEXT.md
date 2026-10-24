@@ -1,6 +1,6 @@
-# 下一完整组：SpecialAbility移动、传送、弹出乘客
+# 完整SpecialAbility移动、传送、弹出乘客
 
-仅取证，四种仍拒绝、未实现、未计数。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；`evidence/gameobject-modules/ability-movement-next-source/manifest.json`归档32个完整方法（四类全部Marshal/Endian/Token及多态包装、直接装饰helper闭包和Vector3三方法）。`ExportAbilityMovementMethods.py --check`从固定原源码重取逐项核对。父合同复用完整SpecialAbility240，四类都不是SpecialPower452子类；不能据TeleportToCaster的类型名字选择父类。
+2026-10-25已完整实现并通过组件矩阵；共同最终验收见RESUME.md。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；`evidence/gameobject-modules/ability-movement-next-source/manifest.json`归档32个完整方法（四类全部Marshal/Endian/Token及多态包装、直接装饰helper闭包和Vector3三方法）。`ExportAbilityMovementMethods.py --check`从固定原源码重取逐项核对。父合同复用完整SpecialAbility240，四类都不是SpecialPower452子类；不能据TeleportToCaster的类型名字选择父类。
 
 | 类型 | TypeId | native | 自身Token有效数 |
 |---|---:|---:|---:|
@@ -19,4 +19,6 @@ Teleport完整6属性：BusyDuration Time240默认0s；DestinationWeapon强Weapo
 
 TeleportToCaster完整9属性：Radius/MinDestinationRadius/MaxDestinationRadius/MaxRangeFromCasterSP/MaxRangeFromCasterMP为float240/244/248/252/256，均默认0；TriggerFX强FX260；TargetFX强FX264；RequireStoredObjects bool268 false；KillObjectsIfPlacedInBadSpot bool269 false；padding270–271。父仍是SpecialAbility240。
 
-后续整组实现，保留/Od、/O2、平台0/1/2/99、三缓冲区逐字节、完整旧回归、独立默认/父层/nullable向量/字符串/引用顺序/padding、拒绝与不变性。原始档案仅作取证，不启用四类，也不降低SDK正式集成门槛。已有helper与枚举无需重复probe。
+已整组实现，完整验证保留/Od、/O2、平台0/1/2/99、三缓冲区逐字节、完整旧回归、独立默认/父层/nullable向量/字符串/引用顺序/padding、拒绝与不变性。原始档案用于核验来源；Native字段/Token/运行时和Bridge已启用四类，SDK正式集成门槛保持。已有helper与枚举无需重复probe。
+
+实现：GenerateAbilityMovementFields.py → GameObjectAbilityMovement.h/Runtime.h；GameObjectAbilityMovementCases.cs覆盖全部自身/父字段、Anim12、所有容器与模块边界、独立默认/padding/Token和字符串/向量分配。LocomotorToSet重用原PE核验LocomotorSet19/未知12，缺省仍为0。四字符String8需含终止符分配8字节，`\\1`强引用输出为2，独立断言已修正；失败run保留，不能充当成功证据。

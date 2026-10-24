@@ -792,3 +792,8 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 下一组仅取证：SwitchLocomotors350237090/260、EjectPassengers887477685/280、Teleport1313225606/264、TeleportToCaster2474849635/272，四类父均SpecialAbility240，仍拒绝/未计数。32个完整原方法、直接装饰helper闭包和Vector3三方法在ability-movement-next-source；本轮逐个与固定原Tokenizer blob原方法及字面量直接核对，全部一致，Python语法和指纹检查通过。见GAMEOBJECT_ABILITY_MOVEMENT_NEXT.md，后续用ExportAbilityMovementMethods.py --check重取原源码核对，并整组实现。
 
 复用既有父类、原PE枚举和helper，完整组各统一验收；未逐字段重复触发矩阵，SDK未频繁运行。无账号额度计量，不能量化节省。
+
+
+## 2026-10-25 能力完整组推进（最终15类待统一验收）
+
+已完成移动4/状态7，source603a7fd0bd11e31b3c2774e3e97839fe5fa7622e/run40128943921 success；/Od/O2每种752680 fixtures、2258040三缓冲区比较、18948拒绝、1776不变性，平台0/1/2/99，全部步骤及产物核对。新计数242/322。随后ActivateAbility/RadarScanMap两类结构列表与TiberiumThief/CreateAndEnter两类已实现，最终源码22aaf75aa50857f1675d545f7b1ed0684137ae11/run40129692157验证中；通过前不提前计数。精确当前结果以RESUME.md为准，原失败运行保留。SDK0次、路由不变。ToggleStatus及完整AI依赖59原方法与六新PE枚举已取证，仍拒绝；合同见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。
