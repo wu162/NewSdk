@@ -4,7 +4,7 @@
 
 ## 分支与验收锚点
 
-- 集成分支：`recovery/xmlcompiler-priority`；草稿 PR：https://github.com/wu162/NewSdk/pull/1，目标 `recovery/compiler-source`。最终合入目标分支的动作留给主会话。
+- 工作分支：`recovery/xmlcompiler-priority`；PR：https://github.com/wu162/NewSdk/pull/1 已于2026-10-24合并到 `recovery/compiler-source`，PR现为closed/merged。合并提交：`dddb9ac2804da1380a5b9b94a9035253c6e48f63`，保留两侧历史，无强推。
 - 固定起点：`ba7a3d6845be5e124d08320cb2c56fda552d9fbe`。全部使用正常快进 ref 更新及保留父提交的合并，无强推。
 - **实际已验收源码：`0e153b8ed50096157cc8a76d894858f946b63b43`。**
 - **最终运行：`40083102908`，completed/success**，https://github.com/wu162/NewSdk/actions/runs/40083102908 。六组、联合链接及证据保存作业全部 success。
@@ -60,7 +60,7 @@
 
 ## 合并边界与后续入口
 
-最终源树审计：基线 `recovery/src` 的52个既有源码文件SHA全部未变，新增28个Xml源码文件；无Draft文件。GameObject及Joypad类型未在本次还原，SDK原DLL保持原指纹。公共运行时、已有GameObject源码/测试/工作流不由本次修改。继续使用原主会话的GameObject交接；合并本PR时保留两边提交，不强推。
+最终源树审计：基线 `recovery/src` 的52个既有源码文件SHA全部未变，新增28个Xml源码文件；无Draft文件。GameObject及Joypad类型未在本次还原，SDK原DLL保持原指纹。公共运行时、已有GameObject源码/测试/工作流不由本次修改。继续使用原主会话的GameObject交接；本PR已通过普通merge保留两边提交，后续继续禁止强推。
 
 公共桥接通常为 `Recovered::<Type>Compiler::{CompileXml,ProcessInstance}`；六个AI根统一使用 `Recovered::XmlaiCompiler`。构建入口：
 `TestXmlattributes.ps1`、`TestXmleffects.ps1`、`TestXmlpowers.ps1`、`TestXmllocomotor.ps1`、`TestXmlai.ps1`、`TestXmlfxparticle.ps1`，及 `TestXmlPriorityLink.ps1`。Windows x86 VS2022 + CLR4 legacy activation；统一工作流已包含集成分支和目标恢复分支。
