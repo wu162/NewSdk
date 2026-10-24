@@ -1,0 +1,1 @@
+PASS original-only WeaponSlot sorted permutation/reference pairing: fixtures=720; four slot types, counts0/1/2/27/28/29/65/129/257, five patterns, platforms0/1/2/99; recovered WeaponSetUpdate remains refused

@@ -1,0 +1,9 @@
+{
+  "status": "original-only investigation; recovered WeaponSetUpdate remains refused",
+  "sourceCommit": "72b573545f0d8b88f6057d0e245bdb6a5d419f72",
+  "runId": "40069703938",
+  "summary": "PASS original-only WeaponSlot sorted permutation/reference pairing: fixtures=720; four slot types, counts0/1/2/27/28/29/65/129/257, five patterns, platforms0/1/2/99; recovered WeaponSetUpdate remains refused",
+  "succeeded": true,
+  "originalBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "sdkStatus": "not run; original route retained"
+}
