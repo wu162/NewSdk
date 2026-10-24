@@ -135,7 +135,7 @@ struct Builder {
  case Boolean:*static_cast<unsigned char*>(at)=ParseBoolean(s);break;
  case Time:Real(at,InitializeTime(s.c_str()));break;case Angle:Real(at,InitializeAngle(s.c_str()));break;
  case Percent:Real(at,ParsePercentage(s));break;
- case Velocity:Real(at,static_cast<float>(static_cast<double>(1.0f/30.0f)*ParseFloat(s)));break;
+ case Velocity:Real(at,static_cast<float>(static_cast<double>(1.0f/5.0f)*ParseFloat(s)));break;
  case Reference:MarshalReference(data,at,s);break;case AssetId:Word(at,HashAssetId(s));break;
  case String:MarshalString(data,at,s);words.push_back(at);break;
  case NullableString:{void* st=data.Push(reinterpret_cast<void**>(at),8,1);MarshalString(data,st,s);words.push_back(st);data.Pop();break;}

@@ -38,6 +38,9 @@ Enum maps in the original Module contain sorted-name/value pairs:
 Appearance line 12298 (10), Surface 12308 (11), LocoZ 17364 (13), LocoF 17394 (13),
 Jet option 12258 (1). Their stored values agree with the explicit tables used here;
 the differential matrix exercises every name.
+All 48 pairs have also been checked directly against the exported PE enums/*.json.
+The shared ModelCondition (457, including INVALID=-1) and ObjectStatus (223) tables
+have been compared in full against XmlCompiler PE maps; all pairs match.
 Unknown enum fallbacks from complete IL: LocoZ=4, Appearance=1, LocoF=10,
 Surface bit=3 and Jet option bit=0. Enum lookup is case sensitive.
 Shared ModelCondition/ObjectStatus helpers preserve the original ALL/sign/padding behavior.
@@ -84,12 +87,19 @@ Numeric garbage and unknown enum tokens retain original conversions/fallbacks an
 covered by differential tests rather than incorrectly rejected.
 BAB preprocessing, XSD validation and inheritance resolution remain outside this component.
 
+Core InstanceDeclaration.XmlNode setter (baseline InstanceDeclaration.cs, line 220) uses
+node.Name, so a prefixed root gets a different TypeId. Original XmlCompiler ProcessInstance
+has an explicit default returning null. The host asserts that behavior and recovered wrong-TypeId
+rejection. Prefix navigation is separately checked with canonical original ProcessInstance
+versus prefixed recovered CompileXml, retaining all three array and independent layout assertions.
+
 ## Validation
 
 Run in a **VS2022 x86 developer shell**:
 `powershell -File recovery/scripts/TestXmllocomotor.ps1`.
 The independent script builds /Od and /O2 with /fp:precise, a Framework v4 x86 C# host
-and CLR4 legacy activation config, and invokes the original XmlCompiler ProcessInstance
+and CLR4 legacy activation config, verifies original DLL SHA256
+\`d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6\`, and invokes the original XmlCompiler ProcessInstance
 for every accepted fixture on platforms **0/1/2/99**.
 
 Coverage: every root attribute, every enum/ModelCondition/ObjectStatus name, scalar
@@ -104,5 +114,9 @@ per-mode result JSON, /Od and /O2 build/host/oracle logs. Each oracle log retain
 platform rows with fixture, three-array comparison, rejection and independent layout counts.
 The JSON starts failed and succeeds only after both complete matrices pass.
 
-Pending: actual Windows x86 build and original-DLL execution, final sourceCommit/runId
+First matrix run 40079870444 (integrated source a89a743b) built successfully and reached
+the prefix-routing fixture. The test now distinguishes declaration routing from navigator
+namespace behavior; it does not weaken or remove buffer comparisons.
+
+Pending: final Windows x86 matrix, final sourceCommit/runId
 verification, and future SDK integration. No passing Windows/SDK claim is made by this checkpoint.
