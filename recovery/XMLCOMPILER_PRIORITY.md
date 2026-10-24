@@ -27,3 +27,11 @@ Original XmlCompiler `Plugin.cs` blob: `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b
 ## Current checkpoint
 
 All five worker branches have been created from the fixed base. Implementation is in progress; no priority type is declared validated at this checkpoint. The integration workflow has been drafted and its YAML parsed locally; it will be committed with the first complete validation batch. See each worker type note for exact implemented and rejected input boundaries.
+
+## Progress checkpoint (2026-10-24)
+
+- Original evidence retrieval is reproducible through `ExportXmlCompilerSource.py`: pinned blob, lossless 239 source parts, 2,449 actual method bodies, 154 PE-backed enum maps, full static fields and per-priority-root literal maps. Source export is not recovered support.
+- LogicCommandSet initial component passed run `40079501172`, source `3b075e8288339dc00befbe7c3993cc2fcbb29f56`: both optimization modes and platforms 0/1/2/99; 104 fixtures, 312 original/recovered array comparisons, 80 explicit rejection checks. This does not validate the expanded attributes implementation.
+- Expanded AttributeModifier/UpgradeTemplate/LogicCommandSet, complete LocomotorTemplate, and SpecialPowerTemplate/ObjectCreationList are merged in source `977313a17647051df333e223f7a6c45f732bdc63`; Windows differential validation is in progress.
+- Earlier failed runs are preserved. Locomotor's prefixed root fixture generated a different Core TypeId; tests now separately assert original unknown routing and compare canonical original ProcessInstance with prefixed direct CompileXml. Powers' Framework csc source path was normalized to an absolute Windows path. No matrix assertions were removed.
+- AI and effects groups are still being completed on their worker branches. No complete 14-type or SDK acceptance is claimed.
