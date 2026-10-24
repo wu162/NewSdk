@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Additional twelve priority-root source probes, pending full XSD/BAB acceptance.
+       Keep independent from XmlPriorityProbe.xml and do not add raw TypeId.
+       Schema-required children/attributes are explicit; optional strong references
+       are omitted. These roots have no external asset dependencies.
+       Inheritable roots: AttributeModifier, SpecialPowerTemplate, LocomotorTemplate,
+       LogicCommandSet, UpgradeTemplate, AIPersonalityDefinition, AIStateDefinition,
+       AIStrategicStateDefinition, AIBudgetStateDefinition.
+       ObjectCreationList, AIMicroManagerData and AITargetingHeuristic extend
+       BaseAssetType and cannot legally carry inheritFrom. -->
+  <AttributeModifier id="RecoveryXmlPriority_AttributeModifier_Defaults" />
+  <SpecialPowerTemplate id="RecoveryXmlPriority_SpecialPower_Defaults" TargetType="NONE" />
+  <ObjectCreationList id="RecoveryXmlPriority_OCL_Defaults" />
+  <LocomotorTemplate id="RecoveryXmlPriority_Locomotor_Defaults" />
+  <LogicCommandSet id="RecoveryXmlPriority_CommandSet_Defaults" />
+  <UpgradeTemplate id="RecoveryXmlPriority_Upgrade_Defaults" />
+  <AIPersonalityDefinition id="RecoveryXmlPriority_Personality_Defaults"
+      PersonalityType="RecoveryXmlPriority">
+    <CountAsStructureForBuildPurposesFilter />
+  </AIPersonalityDefinition>
+  <AIStrategicStateDefinition id="RecoveryXmlPriority_Strategic_Defaults">
+    <Heuristic><ConstantHeuristic /></Heuristic>
+  </AIStrategicStateDefinition>
+  <AIMicroManagerData id="RecoveryXmlPriority_Micro_Defaults" />
+  <AIBudgetStateDefinition id="RecoveryXmlPriority_Budget_Defaults">
+    <Heuristic><ConstantHeuristic /></Heuristic>
+    <Budget />
+  </AIBudgetStateDefinition>
+  <AIStateDefinition id="RecoveryXmlPriority_State_Defaults">
+    <Heuristic><ConstantHeuristic /></Heuristic>
+  </AIStateDefinition>
+  <AITargetingHeuristic id="RecoveryXmlPriority_Target_Defaults" HeuristicType="EnemyUnit" />
+</AssetDeclaration>
