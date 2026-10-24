@@ -1,7 +1,7 @@
 # XmlCompiler powers recovery
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
-Branch: recovery/xmlcompiler-powers. Status: first implementation, **Windows validation pending**.
+Branch: recovery/xmlcompiler-powers. Status: **component differential accepted; SDK integration pending**.
 
 Public classes: Recovered.SpecialPowerTemplateCompiler and Recovered.ObjectCreationListCompiler.
 Both expose CompileXml(XmlNode, XmlNamespaceManager, bool) and
@@ -38,8 +38,8 @@ OCL root is 56: flags @4, six count/pointer pairs @8..@48. Nugget sizes
 within each group. Default values come from the original Marshal IL.
 
 The implementation contains all root attributes, six OCL nugget groups,
-ObjectFilter and GameDependency. Until original-DLL differential tests pass,
-none of these is claimed accepted or SDK-integrated. Unknown attributes,
+ObjectFilter and GameDependency. The original-DLL component matrix passed for this implemented scope; SDK integration
+has not been performed. Unknown attributes,
 children, foreign namespaces, mixed structured text, duplicate singleton nodes
 and structured reference values are explicitly rejected. Enumeration unknown
 values retain the original fallback rather than being treated as unknown fields.
@@ -48,7 +48,7 @@ be resolved by BAB. No original DLL is called from the recovered compiler.
 
 Validation entry: recovery/scripts/TestXmlpowers.ps1, x86 VS2022 devshell.
 Evidence: recovery/evidence/xml-powers/validation.json, sourceCommit/runId,
-separate Od/O2 logs. SDK integration and runtime execution remain pending.
+separate Od/O2 logs. SDK integration remains pending; Windows component execution passed.
 
 OCL has six independent typed lists selected by EA-qualified element name.
 The original root/list/nugget methods do not read TypeId or dispatch polymorphically.
@@ -67,3 +67,36 @@ Original static LOGICFRAMES_PER_SECONDS_REAL bytes are 00 00 A0 40 at Module lin
 12208; initializer method 06000019 divides double 1.0 by that float before
 rounding to float, and VelocityTag multiplies two floats promoted to double.
 This was corrected by source/static-data audit before final Windows acceptance.
+
+## Accepted component evidence
+
+Run [40080474059](https://github.com/wu162/NewSdk/actions/runs/40080474059),
+sourceCommit 977313a17647051df333e223f7a6c45f732bdc63, succeeded=true.
+Read back validation.json, both result JSON files and both actual oracle logs from
+the integration branch. Each mode /Od and /O2 covered platforms 0/1/2/99:
+
+| Per optimization mode | Count |
+| --- | ---: |
+| Fixtures | 17,296 |
+| Three-array comparisons | 51,888 |
+| Explicit rejection checks | 520 |
+| Independent layout assertions | 82,176 |
+
+Each platform in each mode logged 4,324 fixtures, 12,972 comparisons, 130 rejection
+checks and 20,544 independent assertions. Both modes combined: 34,592 fixtures,
+103,776 array comparisons, 1,040 rejection checks and 164,352 layout assertions.
+No repeated same-source validation was started by this group.
+
+SpecialPowerTemplate has all 38 root attributes, two inline filters,
+nullable GameDependency with its masks/lists/filter, and ForbiddenPlayerTech list.
+ObjectCreationList has its Flags root attribute and all six typed nugget groups;
+the original Marshal audit verified 39 CreateObject, 3 Attack, 6 FlingObject,
+5 StrafeArea and 10 ParabolicCurve attributes; FireWeapon has its Weapon reference.
+Resource references/imports, scalar/endian fields, dynamic strings/hashes,
+nested vectors/ranges, list allocation order and relocations are reconstructed.
+
+Remaining boundaries: formal SDK/plugin integration and full replacement DLLs
+are not validated. Prefix-root declarations have not been treated as valid
+ProcessInstance handles; direct CompileXml prefix-navigation and arbitrary
+namespace-manager bindings were not separately tested by this oracle.
+Strict rejection boundaries above remain intentional.
