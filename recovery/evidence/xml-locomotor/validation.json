@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "a89a743b05ea46dd8e7aac5c92e02fe5b8c60e19",
+  "runId": "40079870444",
+  "scope": "XmlCompiler LocomotorTemplate component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "failed",
+  "error": "Od original ProcessInstance differential failed (exit 1)"
+}

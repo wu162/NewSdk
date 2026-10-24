@@ -1,0 +1,8 @@
+originalDllSha256=D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6
+System.Exception: prefixes recovered platform=0 ---> System.NotSupportedException: Only LocomotorTemplate is reconstructed by this component
+   at Recovered.LocomotorTemplateCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at XmllocomotorOracle.Test(IAssetBuilderPlugin original, TargetPlatform platform, String label, String text)
+   --- End of inner exception stack trace ---
+   at XmllocomotorOracle.Test(IAssetBuilderPlugin original, TargetPlatform platform, String label, String text)
+   at XmllocomotorOracle.Matrix(IAssetBuilderPlugin original, TargetPlatform p)
+   at XmllocomotorOracle.Main(String[] args)

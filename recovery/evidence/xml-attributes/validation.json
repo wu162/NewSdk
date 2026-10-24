@@ -1,38 +1,38 @@
 {
-  "scope": "LogicCommandSet component; AttributeModifier/UpgradeTemplate blocked on original Marshal evidence; SDK not integrated",
-  "succeeded": true,
+  "runId": "40079870444",
   "platforms": [
     0,
     1,
     2,
     99
   ],
-  "sourceCommit": "3b075e8288339dc00befbe7c3993cc2fcbb29f56",
+  "sourceCommit": "a89a743b05ea46dd8e7aac5c92e02fe5b8c60e19",
   "modes": [
     {
+      "log": "Od-oracle.txt",
       "mode": "Od",
-      "exitCode": 0,
       "summaries": [
         "SUMMARY platform=0 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=1 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=2 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=99 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13"
       ],
-      "succeeded": true,
-      "log": "Od-oracle.txt"
+      "exitCode": 0,
+      "succeeded": true
     },
     {
+      "log": "O2-oracle.txt",
       "mode": "O2",
-      "exitCode": 0,
       "summaries": [
         "SUMMARY platform=0 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=1 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=2 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13",
         "SUMMARY platform=99 fixtures=13 threeArrayComparisons=39 rejected=10 independentLayouts=13"
       ],
-      "succeeded": true,
-      "log": "O2-oracle.txt"
+      "exitCode": 0,
+      "succeeded": true
     }
   ],
-  "runId": "40079501172"
+  "scope": "LogicCommandSet component; AttributeModifier/UpgradeTemplate blocked on original Marshal evidence; SDK not integrated",
+  "succeeded": true
 }
