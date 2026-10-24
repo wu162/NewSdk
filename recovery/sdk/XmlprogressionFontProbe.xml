@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- String-only font descriptors do not open external font files. The original
+       BAB performs inheritance/default insertion; no raw TypeId is fabricated. -->
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Defaults" Name="Arial"><Settings AntiAliased="false" /></FontDefaultSetting>
+  <FontTranslation id="RecoveryXmlAdditional_FontTranslation_Defaults" Name="Arial" TranslateX="0" TranslateY="0" />
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Defaults" Name="Arial">
+    <Substitute Size="12"><Font Name="Arial" Size="12" /></Substitute>
+    <Substitute Size="18"><Font Name="Arial" Size="18" /></Substitute>
+  </FontSubstitution>
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Combined" Name="Tahoma"><Size>19</Size><Settings AntiAliased="true" /></FontDefaultSetting>
+  <FontTranslation id="RecoveryXmlAdditional_FontTranslation_Combined" Name="Tahoma" TranslateX="1.25" TranslateY="-2.5" />
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Combined" Name="Tahoma">
+    <Substitute Size="12"><Font Name="Arial" Size="13" Bold="true" /></Substitute>
+    <Substitute Size="18"><Font Name="Tahoma" Size="21" Bold="false" /></Substitute>
+    <Substitute Size="24"><Font Name="Arial" Size="27" Bold="true" /></Substitute>
+  </FontSubstitution>
+  <FontDefaultSetting id="RecoveryXmlAdditional_FontDefaultSetting_Inherited" inheritFrom="RecoveryXmlAdditional_FontDefaultSetting_Combined" Name="Arial"><Settings AntiAliased="false" /></FontDefaultSetting>
+  <FontSubstitution id="RecoveryXmlAdditional_FontSubstitution_Inherited" inheritFrom="RecoveryXmlAdditional_FontSubstitution_Defaults" Name="Tahoma">
+    <Substitute Size="22"><Font Name="Arial" Size="23" Bold="true" /></Substitute>
+    <Substitute Size="28"><Font Name="Tahoma" Size="29" Bold="false" /></Substitute>
+  </FontSubstitution>
+</AssetDeclaration>

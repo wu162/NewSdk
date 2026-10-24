@@ -94,3 +94,32 @@ SDK default adds no required child; combined has Allies/Soviet/Japan entries,
 each with schema-required ImageTintColor RGB and no image resource dependency.
 UICommandButton directly extends BaseAssetType, so no inheritance fixture exists.
 Both probes now contain nine target root types, with unchanged prior IDs.
+
+Font capability group adds three complete20-byte roots in the separate
+XmlprogressionFont.cpp and XmlprogressionFontCases.cs partial oracle:
+FontSubstitution91719417/hash2789100025, FontTranslation1318336226/hash1815171461,
+FontDefaultSetting1371131236/hash197748432. Original Marshal/Endian in part0094:
+47019/47076 (DefaultSetting),47103/47130 (Translation),47161/47191 (Subtitution),
+47222 (Substitution). FontDesc Marshal35409/Endian35430 (part0070) is complete:
+Name String<char>@0/4, unsigned Size@8, Bold@12. Tracker constructors101711/
+101802/115361 (parts0203/0230) pin root20. FontSubstitution's root endian is
+inline in Plugin; its root Name@4/8 precedes Substitute count/pointer@12/16.
+Each20-byte item has Size@0 and inline FontDesc@4. List Marshal86983 spans
+parts0173/0174 and marshals all input elements without a runtime cap; the
+SizedList10 restriction belongs to XSD (2..10), and the component matrix tests
+11/27/28/29/64/257 against the original rather than imposing an invented cap.
+DefaultSetting Name@4/8 is followed by nullable unsigned Size@12 (child text),
+then inline Settings.AntiAliased@16. Translation has Name@4/8 then two floats
+TranslateX/Y@12/16. Original ANSI string allocation order and absent/empty/NUL
+contracts are preserved; no font file is opened and no original DLL is called.
+
+Font matrix adds all fields/numeric/string/boolean boundaries, nullable Size,
+partial and absent FontDesc, lists and independent full layouts, Unicode/NUL,
+structural rejection and BAB TypeId metadata. SDK font source is in
+sdk/XmlprogressionFontProbe.xml: three defaults, three combined and two inherited
+(DefaultSetting and Substitution extend BaseInheritableAsset; Translation does
+not). Raw-XSD required Name/Settings.AntiAliased and Substitute Size/Font are
+explicit, as are FontDesc Name/Size and Translation X/Y. Inherited substitution
+provides two raw entries and remains within max10 after inheriting two base
+entries. Actual BAB preprocessing, XSD, four artifacts and isolated replay remain
+pending final Windows acceptance; no font outcome is claimed from local syntax.

@@ -124,5 +124,32 @@ public:
   return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
  }
 };
+public ref class FontSubstitutionCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"FontSubstitution");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=91719417u)throw gcnew NotSupportedException("Expected FontSubstitution TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
+public ref class FontTranslationCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"FontTranslation");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=1318336226u)throw gcnew NotSupportedException("Expected FontTranslation TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
+public ref class FontDefaultSettingCompiler abstract sealed {
+public:
+ static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian){return XmlprogressionBridge::Compile(node,namespaces,bigEndian,"FontDefaultSetting");}
+ static AssetBuffer^ ProcessInstance(InstanceDeclaration^ declaration,TargetPlatform platform){
+  if(declaration==nullptr)throw gcnew ArgumentNullException("declaration");
+  if(declaration->Handle->TypeId!=1371131236u)throw gcnew NotSupportedException("Expected FontDefaultSetting TypeId.");
+  return CompileXml(declaration->Node,declaration->Document->NamespaceManager,platform!=TargetPlatform::Win32);
+ }
+};
 }
 
