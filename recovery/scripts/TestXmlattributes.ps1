@@ -8,6 +8,10 @@ $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [Guid]
 $result = @{ succeeded=$false; sourceCommit=$sourceCommit; runId=$runId; platforms=@(0,1,2,99); modes=@(); scope='AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated' }
 $result | ConvertTo-Json -Depth 8 | Set-Content "$evidence/validation.json"
 try {
+    $dll = (Resolve-Path 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll').Path
+    $result.sourceBlob = '2d2f471c8008b7c2e1f78e39752d0726da395cea'
+    $result.originalDllSha256 = (Get-FileHash -Algorithm SHA256 $dll).Hash.ToLowerInvariant()
+    if ($result.originalDllSha256 -ne 'd4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6') { throw 'Original XmlCompiler DLL fingerprint differs from recovered evidence' }
     Copy-Item SDK/tools/*.dll $out
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     foreach ($mode in @('Od','O2')) {

@@ -144,6 +144,19 @@ class XmlattributesOracle
         for(int i=0;i<9;i++) Require(Word(u.InstanceData,filter+16+4*i,big)==uint.MaxValue,"KindOf ALL padding");
         Require(Word(u.InstanceData,filter+52+4*(149/32),big)==(1u<<(149%32)),"KindOf unknown fallback");
         Require(Word(u.InstanceData,filter+88,big)==292 && Word(u.InstanceData,filter+92,big)==320,"filter nullable statuses");layouts++;
+
+        foreach(string expression in new[]{"ALL -NONE","-ALL NONE","all nonsense","+ALL -UNKNOWN"}) {
+            BitCase(plugin,p,"AttributeModifier","ModelConditionsSet='"+expression+"'","",60,15,-1,"ALL");
+            BitCase(plugin,p,"AttributeModifier","ObjectStatusToSet='"+expression+"'","",60,7,-1,"ALL");
+            BitCase(plugin,p,"UpgradeTemplate","","<GameDependency><ObjectFilter Include='"+expression+"'/></GameDependency>",196,9,-1,"ALL");
+        }
+        foreach(string expression in new[]{"nonsense","-nonsense","-nonsense +nonsense","nonsense nonsense"}) {
+            // The '-' operator XORs a bit, including on an initially clear mask.
+            BitCase(plugin,p,"AttributeModifier","RemoveWhenDisabledByTypes='"+expression+"'","",12,1,0,expression);
+            BitCase(plugin,p,"AttributeModifier","ModelConditionsSet='"+expression+"'","",60,15,233,expression);
+            BitCase(plugin,p,"AttributeModifier","ObjectStatusToSet='"+expression+"'","",60,7,198,expression);
+        }
+
         EnumCases(plugin,p);
         foreach(string type in new[]{"AttributeModifier","UpgradeTemplate"}) {
             RejectGeneric(type,"Unknown='1'","",p);
