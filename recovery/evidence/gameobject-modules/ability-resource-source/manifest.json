@@ -1,0 +1,104 @@
+{
+  "status": "original source evidence for resource theft and OCL create-enter",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "sharedParentManifest": "../special-ability-source/manifest.json",
+  "modules": [
+    {
+      "name": "TiberiumThiefSpecialAbilityUpdateModuleData",
+      "typeId": 4099311701,
+      "nativeSize": 344
+    },
+    {
+      "name": "CreateAndEnterObjectSpecialPowerModuleData",
+      "typeId": 952407768,
+      "nativeSize": 504
+    }
+  ],
+  "methods": [
+    {
+      "file": "000.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumThiefSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "3a480a186035e6d774128c76940be738d4384f143e51d23a194a2b18c108bd26"
+    },
+    {
+      "file": "001.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumThiefSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "56b37e7999a2c126a2881903192dedb7238857236f439a0ceb6fa4eccb2c813f"
+    },
+    {
+      "file": "002.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumThiefSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "12730710ec03b9702b3ad2e66dc934f900d58ab2771a52e2e764f9360a56f86a"
+    },
+    {
+      "file": "003.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(TiberiumThiefSpecialAbilityUpdateModuleData* @object, EndianHelper* state)",
+      "bodySha256": "46755d7ba3506336bda6a532e28a54c20f91279236dac93fd0495c75f501b6ba"
+    },
+    {
+      "file": "004.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, TiberiumThiefSpecialAbilityUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "5d6bc6d239b3387593088c0c6746800efbe740be5f37549c0e6a35147a1e3b10"
+    },
+    {
+      "file": "005.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, TiberiumThiefSpecialAbilityUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "ca8c50f5b3e9530643a793c048e00a304c50adfb496f1a27553083880f6d4998"
+    },
+    {
+      "file": "006.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACreateAndEnterObjectSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "9f5c46b4a6b1af8191e408b166e80746bccde76d4c30109739e8701aa7092bf8"
+    },
+    {
+      "file": "007.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACreateAndEnterObjectSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "143eb631517b415bc70254efe87a41e4ee11abb41512df2e46a6c0b7035adfdb"
+    },
+    {
+      "file": "008.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, CreateAndEnterObjectSpecialPowerModuleData* @object, Tracker* state)",
+      "bodySha256": "b66191c75b3ac59b504b3c0c832473c15889e0e3e4925e0a5d3506821a5831c7"
+    },
+    {
+      "file": "009.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, CreateAndEnterObjectSpecialPowerModuleData* @object, Tracker* state)",
+      "bodySha256": "51bb6a5a4dbe7ceaf88fd670a509835deb61d78587137daaf15ddb1e7bb924d7"
+    },
+    {
+      "file": "010.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(Vector3* @object, EndianHelper* state)",
+      "bodySha256": "e84224f48c2fae9db10303e19a883c43a89882869b9b4c9b0deac061662b63da"
+    },
+    {
+      "file": "011.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, Vector3* @object, Tracker* state, VectorHack* tag)",
+      "bodySha256": "d02eeac370aad23c55cceca2e20799d53224c8daa8aa139d7f12bf3b25383684"
+    },
+    {
+      "file": "012.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E(BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, EndianHelper* endian)",
+      "bodySha256": "bab6804e3056705ff45f4a5b314f7b71d6e9f77277660ca8972145c298c6d5ad"
+    },
+    {
+      "file": "013.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)",
+      "bodySha256": "06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33"
+    },
+    {
+      "file": "014.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(sbyte* text, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, Tracker* tracker)",
+      "bodySha256": "568a444c711880f434a3602bd121236b0833b2efe865130b8c6933765cb504bd"
+    },
+    {
+      "file": "015.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(sbyte* text, BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, Tracker* tracker)",
+      "bodySha256": "4def9847639b347ea259cd4ed8bc8374041ef5ac59fdf6ade0fadaa3cea15225"
+    },
+    {
+      "file": "016.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)",
+      "bodySha256": "5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932"
+    }
+  ]
+}

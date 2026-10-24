@@ -21,6 +21,8 @@ on:
       - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
       - 'recovery/scripts/GeneratePowerRoutingFields.py'
       - 'recovery/scripts/GenerateSpecialAbilityFields.py'
+      - 'recovery/scripts/GenerateAbilityResourceFields.py'
+      - 'recovery/scripts/ExportAbilityResourceMethods.py'
       - 'recovery/scripts/GenerateAbilityRoutingFields.py'
       - 'recovery/scripts/ExportAbilityRoutingMethods.py'
       - 'recovery/scripts/GenerateAbilityStateFields.py'

@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 143eb631517b415bc70254efe87a41e4ee11abb41512df2e46a6c0b7035adfdb
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACreateAndEnterObjectSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		CreateAndEnterObjectSpecialPowerModuleData* ptr = (CreateAndEnterObjectSpecialPowerModuleData*)(int)(*(uint*)pointer);
+		uint num = ((uint*)ptr)[125];
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num, endian);
+		}
+		Marshaler_002EEndianCorrect((OCLSpecialPowerModuleData*)ptr, endian);
+	}

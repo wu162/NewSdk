@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 56b37e7999a2c126a2881903192dedb7238857236f439a0ceb6fa4eccb2c813f
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumThiefSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((TiberiumThiefSpecialAbilityUpdateModuleData*)(int)(*(uint*)pointer), endian);
+	}

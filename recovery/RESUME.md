@@ -27,8 +27,10 @@ WeaponFire有11完整属性，DestealthClosestObjectMatchingFilter是bool，Mode
 本轮复用既有父/helper/枚举、各完整组统一验证，没有逐字段反复触发；未取得账号额度计量，不能量化节省。
 
 
-## 2026-10-25 本轮当前检查点（全部待验收）
+## 2026-10-25 当前续接覆盖：242已验收，最终15类批次验证中
 
-已完成移动4类、状态/对象操纵7类及ActivateAbility/RadarScanMap两类，新增13类；完整父SpecialAbility240。第三组是SpecialPowerModules结构列表（每项SpecialPowerModuleInfo12）与IntersectionFlagsFilter结构列表（每项128，inline223/456/284 masks和默认true布尔），不是多态模块列表。26原方法取证与生成器/测试完整接入。本轮SDK0次，路由不变。
+移动4类+状态7类的完整验收源码603a7fd0bd11e31b3c2774e3e97839fe5fa7622e，run40128943921 success：/Od、/O2各752680 fixtures、2258040三缓冲区比较、18948拒绝、1776不变性；完整原始日志已核对。不可变证据在gameobject-runs/40128943921-1；原失败run40128411260保留，其独立Eject字符串/引用编号测试预期已修复，不能当通过。已验收计数242/322。
 
-首轮run40128411260失败在独立Eject断言：4字符字符串连终止符应分配8字节，且`\\1`引用值应2，已集中修正测试；原/恢复三缓冲区比较在这些断言前通过，不把失败run当成功。移动+状态源码603a7fd0bd11e31b3c2774e3e97839fe5fa7622e正在run40128943921完整回归；不能取消/覆盖该证据。第三组继续以本提交最终完整矩阵验收。通过前计数仍231/322，全部通过后预计244/322（78已知拒绝、58 Token-only回退）。Inspect原PE的ReplaceSelfOptions7已在run40128710378取证成功，不计组件验收。下一步核对完整/Od/O2四平台实际终态和sourceCommit/runId，集中修复，更新简短交接；最新长期时长约1小时，本轮无30分钟限制。
+额外ActivateAbility/RadarScanMap两类结构列表源码50b60b0b184fbfc2fad06bb8c2aadf6f7b0dc62c，run40129220289验证中。继续完成TiberiumThief344（自身6字段、inline223/456）和CreateAndEnter504（nullable FXOffset Vector3先于完整OCL500/SpecialPower452父分配），新增17原方法证据、生成器、全父字段/子节点/分配顺序/边界/拒绝/列表回归。以本提交最终完整/Od/O2四平台矩阵验收，最终15类全部通过后计数246/322（76已知拒绝、58 Token-only回退）。未通过前不能宣称新增4类已完成。SDK0次、原路由保留。
+
+下一步等实际终态，核对validation.json/sourceCommit/runId、两模式原日志、全部步骤/产物，集中修复后更新简短交接与类型文档、同步根快照到最终不可变证据树；禁止强推，保留Actions并发提交。按最新长期约1小时执行，本轮无30分钟限制。
