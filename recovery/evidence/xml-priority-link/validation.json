@@ -1,8 +1,8 @@
 {
   "succeeded": true,
-  "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
-  "runId": "40083102908",
-  "scope": "Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate",
+  "sourceCommit": "77231712d8a56bd385044a9eb9c08ae871dea227",
+  "runId": "40089824762",
+  "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
     "FXList": 2254974584,
@@ -22,6 +22,8 @@
   "expectedTypes": 14,
   "expectedFixturesPerMode": 56,
   "expectedComparisonsPerMode": 168,
+  "expectedCompletionFixturesPerMode": 40,
+  "expectedCompletionComparisonsPerMode": 120,
   "platforms": [
     0,
     1,
@@ -37,6 +39,8 @@
       "types": 14,
       "fixtures": 56,
       "comparisons": 168,
+      "completionFixtures": 40,
+      "completionComparisons": 120,
       "platforms": [
         0,
         1,
@@ -76,7 +80,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "748608e4ac5b746b0913a7be1e9504694b25deedeb3191666a41c09cc8ddd4b4",
+      "linkedAssemblySha256": "63ac4ade8a74138f55f5388c12753a10d29d217220f159efee4c98bfabca48e7",
       "log": "Od-oracle.txt"
     },
     {
@@ -87,6 +91,8 @@
       "types": 14,
       "fixtures": 56,
       "comparisons": 168,
+      "completionFixtures": 40,
+      "completionComparisons": 120,
       "platforms": [
         0,
         1,
@@ -126,7 +132,7 @@
         "AITargetingHeuristic": "Recovered.XmlaiCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "5c8daad1ce49492ea87cb7c4a53ed95e3a388701775e9eb3220bde0b7e94d253",
+      "linkedAssemblySha256": "8de5b2b8e9a6691eacf5ef61a7809427775a9b940677cf26bb61248a55526721",
       "log": "O2-oracle.txt"
     }
   ],
@@ -135,20 +141,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
-      "runId": "40083102908",
+      "sourceCommit": "77231712d8a56bd385044a9eb9c08ae871dea227",
+      "runId": "40089824762",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "0e153b8ed50096157cc8a76d894858f946b63b43",
-      "runId": "40083102908",
+      "sourceCommit": "77231712d8a56bd385044a9eb9c08ae871dea227",
+      "runId": "40089824762",
       "processSucceeded": true
     }
   ],
-  "status": "All 14 exact compiler routes linked and passed default-root three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 14 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -185,11 +191,11 @@
     },
     {
       "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
-      "sha256": "408e8c02536dad93f6fffeefcd18814ed7d5764a787d7d91dcebae1968ec769e"
+      "sha256": "e57f9ab141be6c37f121822aa3f1627480e2e7a493fb309267f7d96fdce75ad5"
     },
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
-      "sha256": "a695a7c3aad95bd218420876ddd23ff56501812b1053766af6f48aa8a3750674"
+      "sha256": "85656339ed13150963af2b41a7b5b3b3a2dfb72753a5694fe7377c0290cd2a1c"
     },
     {
       "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
@@ -217,11 +223,11 @@
     },
     {
       "path": "recovery/src/Native/XmleffectsNuggets.cpp",
-      "sha256": "a26e6c10f197c2448e4842a435e0e4cbdec12b4e57cc8c222be5c69df35b2d28"
+      "sha256": "476fdbbfe3bd3169f5e567607e1e08d190f402905f46ae7cda9e2956350deecb"
     },
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
-      "sha256": "909ea19890a4be6190e519f4081318f62fc0362a1f84645a8d41acd94943f074"
+      "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
     },
     {
       "path": "recovery/src/Native/Xmllocomotor.cpp",

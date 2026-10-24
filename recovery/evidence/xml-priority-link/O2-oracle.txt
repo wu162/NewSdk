@@ -26,6 +26,16 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=252 relocations=12 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=212 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=196 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=204 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
 PASS platform=0 types=14 fixtures=14 comparisons=42
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
@@ -41,6 +51,16 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=252 relocations=12 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=212 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=196 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=204 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
 PASS platform=1 types=14 fixtures=14 comparisons=42
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
@@ -56,6 +76,16 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=252 relocations=12 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=212 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=196 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=204 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
 PASS platform=2 types=14 fixtures=14 comparisons=42
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
@@ -71,6 +101,16 @@ PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler 
 PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
 PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=252 relocations=12 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=212 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=204 relocations=8 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=200 relocations=8 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=464 relocations=28 imports=8
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=524 relocations=32 imports=12
 PASS platform=99 types=14 fixtures=14 comparisons=42
-PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 platforms=0/1/2/99; link/default-root smoke only
+PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 completionFixtures=40 completionComparisons=120 platforms=0/1/2/99; link smoke only
 PROCESS EXIT mode=O2 exitCode=0 exitCodeHex=0x00000000
