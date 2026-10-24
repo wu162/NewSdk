@@ -1,0 +1,500 @@
+					throw;
+				}
+				*(int*)P_1 = (int)ptr3;
+				num = 1u;
+				return P_1;
+			}
+			catch
+			{
+				//try-fault
+				if ((num & 1) != 0)
+				{
+					num &= 0xFFFFFFFEu;
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), P_1);
+				}
+				throw;
+			}
+		}
+		*(int*)P_1 = 0;
+		try
+		{
+			num = 1u;
+			return P_1;
+		}
+		catch
+		{
+			//try-fault
+			if ((num & 1) != 0)
+			{
+				num &= 0xFFFFFFFEu;
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), P_1);
+			}
+			throw;
+		}
+	}
+
+	internal unsafe static void List_002EReset(List* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[2]);
+		XPathNodeIterator target = ((XPathNodeIterator)((GCHandle)intPtr).Target).Clone();
+		IntPtr intPtr2 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		GCHandle gCHandle = (GCHandle)intPtr2;
+		gCHandle.Target = target;
+	}
+
+	internal unsafe static void List_002ERelease(List* P_0)
+	{
+		if (P_0 != null)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, uint, void*>)(int)(*(uint*)(*(int*)P_0 + 16)))((nint)P_0, 1u);
+		}
+	}
+
+	internal unsafe static Value* Value_002E_007Bctor_007D(Value* P_0, global::gcroot_003CSystem_003A_003AString_0020_005E_003E* text)
+	{
+		try
+		{
+			System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7IValue_0040Marshaler_0040_00406B_0040));
+			try
+			{
+				System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7Value_0040_00406B_0040));
+				IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)text));
+				((int*)P_0)[1] = (int)Marshal.StringToHGlobalAnsi((string)((GCHandle)intPtr).Target).ToPointer();
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<IValue*, void>)(&Marshaler_002EIValue_002E_007Bdtor_007D), P_0);
+				throw;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<global::gcroot_003CSystem_003A_003AString_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bdtor_007D), text);
+			throw;
+		}
+		IntPtr intPtr2 = new IntPtr((void*)(int)(*(uint*)text));
+		((GCHandle)intPtr2).Free();
+		*(int*)text = 0;
+		return P_0;
+	}
+
+	internal unsafe static void* Value_002E__vecDelDtor(Value* P_0, uint P_1)
+	{
+		if ((P_1 & 2) != 0)
+		{
+			Value* ptr = (Value*)((byte*)P_0 - 4);
+			__ehvec_dtor(P_0, 8u, *(int*)ptr, (delegate*<void*, void>)(delegate*<Value*, void>)(&Value_002E_007Bdtor_007D));
+			if ((P_1 & 1) != 0)
+			{
+				delete_005B_005D(ptr);
+			}
+			return ptr;
+		}
+		System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7Value_0040_00406B_0040));
+		try
+		{
+			Marshal.FreeHGlobal((IntPtr)(void*)(int)((uint*)P_0)[1]);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<IValue*, void>)(&Marshaler_002EIValue_002E_007Bdtor_007D), P_0);
+			throw;
+		}
+		System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7IValue_0040Marshaler_0040_00406B_0040));
+		if ((P_1 & 1) != 0)
+		{
+			delete(P_0);
+		}
+		return P_0;
+	}
+
+	internal unsafe static sbyte* Value_002EGetText(Value* P_0)
+	{
+		return (sbyte*)(int)((uint*)P_0)[1];
+	}
+
+	internal unsafe static void Value_002ERelease(Value* P_0)
+	{
+		if (P_0 != null)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, uint, void*>)(int)(*(uint*)(*(int*)P_0 + 8)))((nint)P_0, 1u);
+		}
+	}
+
+	internal unsafe static void Value_002E_007Bdtor_007D(Value* P_0)
+	{
+		System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7Value_0040_00406B_0040));
+		try
+		{
+			Marshal.FreeHGlobal((IntPtr)(void*)(int)((uint*)P_0)[1]);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<IValue*, void>)(&Marshaler_002EIValue_002E_007Bdtor_007D), P_0);
+			throw;
+		}
+		System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7IValue_0040Marshaler_0040_00406B_0040));
+	}
+
+	[SpecialName]
+	internal unsafe static global::gcroot_003CSystem_003A_003AString_0020_005E_003E* gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bctor_007D(global::gcroot_003CSystem_003A_003AString_0020_005E_003E* P_0, global::gcroot_003CSystem_003A_003AString_0020_005E_003E* r)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)r));
+		*(int*)P_0 = (int)((IntPtr)GCHandle.Alloc(((GCHandle)intPtr).Target)).ToPointer();
+		return P_0;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bdtor_007D(global::gcroot_003CSystem_003A_003AString_0020_005E_003E* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		((GCHandle)intPtr).Free();
+		*(int*)P_0 = 0;
+	}
+
+	internal unsafe static string gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_002EP_0024AAVString_0040System_0040_0040(global::gcroot_003CSystem_003A_003AString_0020_005E_003E* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		return (string)((GCHandle)intPtr).Target;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D(gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		((GCHandle)intPtr).Free();
+		*(int*)P_0 = 0;
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E_002Eclear(rbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E* P_0)
+	{
+		rbtree_node_003CNode_0020_002A_003E* ptr = (rbtree_node_003CNode_0020_002A_003E*)(int)((uint*)P_0)[3];
+		if (ptr != null)
+		{
+			rbtree_node_003CNode_0020_002A_003E* ptr2;
+			do
+			{
+				eastl_002Erbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CNode_0020_002A_003E*)(int)(*(uint*)ptr));
+				ptr2 = (rbtree_node_003CNode_0020_002A_003E*)(int)((uint*)ptr)[1];
+				delete_005B_005D(ptr);
+				ptr = ptr2;
+			}
+			while (ptr2 != null);
+		}
+		rbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E* ptr3 = (rbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E*)((byte*)P_0 + 4);
+		*(int*)ptr3 = (int)ptr3;
+		((int*)P_0)[2] = (int)ptr3;
+		((int*)P_0)[3] = 0;
+		((sbyte*)P_0)[16] = 0;
+		((int*)P_0)[5] = 0;
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E_002Eclear(rbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E* P_0)
+	{
+		rbtree_node_003CList_0020_002A_003E* ptr = (rbtree_node_003CList_0020_002A_003E*)(int)((uint*)P_0)[3];
+		if (ptr != null)
+		{
+			rbtree_node_003CList_0020_002A_003E* ptr2;
+			do
+			{
+				eastl_002Erbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CList_0020_002A_003E*)(int)(*(uint*)ptr));
+				ptr2 = (rbtree_node_003CList_0020_002A_003E*)(int)((uint*)ptr)[1];
+				delete_005B_005D(ptr);
+				ptr = ptr2;
+			}
+			while (ptr2 != null);
+		}
+		rbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E* ptr3 = (rbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E*)((byte*)P_0 + 4);
+		*(int*)ptr3 = (int)ptr3;
+		((int*)P_0)[2] = (int)ptr3;
+		((int*)P_0)[3] = 0;
+		((sbyte*)P_0)[16] = 0;
+		((int*)P_0)[5] = 0;
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E_002Eclear(rbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E* P_0)
+	{
+		rbtree_node_003CValue_0020_002A_003E* ptr = (rbtree_node_003CValue_0020_002A_003E*)(int)((uint*)P_0)[3];
+		if (ptr != null)
+		{
+			rbtree_node_003CValue_0020_002A_003E* ptr2;
+			do
+			{
+				eastl_002Erbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CValue_0020_002A_003E*)(int)(*(uint*)ptr));
+				ptr2 = (rbtree_node_003CValue_0020_002A_003E*)(int)((uint*)ptr)[1];
+				delete_005B_005D(ptr);
+				ptr = ptr2;
+			}
+			while (ptr2 != null);
+		}
+		rbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E* ptr3 = (rbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E*)((byte*)P_0 + 4);
+		*(int*)ptr3 = (int)ptr3;
+		((int*)P_0)[2] = (int)ptr3;
+		((int*)P_0)[3] = 0;
+		((sbyte*)P_0)[16] = 0;
+		((int*)P_0)[5] = 0;
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(rbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E* P_0, rbtree_node_003CNode_0020_002A_003E* pNode)
+	{
+		if (pNode != null)
+		{
+			rbtree_node_003CNode_0020_002A_003E* ptr;
+			do
+			{
+				eastl_002Erbtree_003CNode_0020_002A_002CNode_0020_002A_002Ceastl_003A_003Aless_003CNode_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CNode_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CNode_0020_002A_003E*)(int)(*(uint*)pNode));
+				ptr = (rbtree_node_003CNode_0020_002A_003E*)(int)((uint*)pNode)[1];
+				delete_005B_005D(pNode);
+				pNode = ptr;
+			}
+			while (ptr != null);
+		}
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(rbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E* P_0, rbtree_node_003CList_0020_002A_003E* pNode)
+	{
+		if (pNode != null)
+		{
+			rbtree_node_003CList_0020_002A_003E* ptr;
+			do
+			{
+				eastl_002Erbtree_003CList_0020_002A_002CList_0020_002A_002Ceastl_003A_003Aless_003CList_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CList_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CList_0020_002A_003E*)(int)(*(uint*)pNode));
+				ptr = (rbtree_node_003CList_0020_002A_003E*)(int)((uint*)pNode)[1];
+				delete_005B_005D(pNode);
+				pNode = ptr;
+			}
+			while (ptr != null);
+		}
+	}
+
+	internal unsafe static void eastl_002Erbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(rbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E* P_0, rbtree_node_003CValue_0020_002A_003E* pNode)
+	{
+		if (pNode != null)
+		{
+			rbtree_node_003CValue_0020_002A_003E* ptr;
+			do
+			{
+				eastl_002Erbtree_003CValue_0020_002A_002CValue_0020_002A_002Ceastl_003A_003Aless_003CValue_0020_002A_003E_002Ceastl_003A_003Aallocator_002Ceastl_003A_003Ause_self_003CValue_0020_002A_003E_002C0_002C1_003E_002EDoNukeSubtree(P_0, (rbtree_node_003CValue_0020_002A_003E*)(int)(*(uint*)pNode));
+				ptr = (rbtree_node_003CValue_0020_002A_003E*)(int)((uint*)pNode)[1];
+				delete_005B_005D(pNode);
+				pNode = ptr;
+			}
+			while (ptr != null);
+		}
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal static bool _003CCrtImplementationDetails_003E_002ENativeDll_002EIsSafeForManagedCode()
+	{
+		if (!(__native_dllmain_reason != uint.MaxValue))
+		{
+			return true;
+		}
+		if (__native_vcclrit_reason != uint.MaxValue)
+		{
+			return true;
+		}
+		int num = ((__native_dllmain_reason != 1 && __native_dllmain_reason != 0) ? 1 : 0);
+		return (byte)num != 0;
+	}
+
+	internal unsafe static int _003CCrtImplementationDetails_003E_002EDefaultDomain_002EDoNothing(void* cookie)
+	{
+		GC.KeepAlive(int.MaxValue);
+		return 0;
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool _003CCrtImplementationDetails_003E_002EDefaultDomain_002EHasPerProcess()
+	{
+		if (_003FhasPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A == (_003CCrtImplementationDetails_003E.TriBool.State)2)
+		{
+			void** ptr = (void**)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_mp_a);
+			if (System.Runtime.CompilerServices.Unsafe.IsAddressLessThan(ref _003FA0x176e81b8_002E__xc_mp_a, ref _003FA0x176e81b8_002E__xc_mp_z))
+			{
+				do
+				{
+					if (*(int*)ptr == 0)
+					{
+						ptr = (void**)((byte*)ptr + 4);
+						continue;
+					}
+					_003FhasPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A = (_003CCrtImplementationDetails_003E.TriBool.State)(-1);
+					return true;
+				}
+				while (ptr < System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_mp_z));
+			}
+			_003FhasPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A = (_003CCrtImplementationDetails_003E.TriBool.State)0;
+			return false;
+		}
+		return _003FhasPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A == (_003CCrtImplementationDetails_003E.TriBool.State)(-1);
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool _003CCrtImplementationDetails_003E_002EDefaultDomain_002EHasNative()
+	{
+		if (_003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A == (_003CCrtImplementationDetails_003E.TriBool.State)2)
+		{
+			void** ptr = (void**)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xi_a);
+			if (System.Runtime.CompilerServices.Unsafe.IsAddressLessThan(ref __xi_a, ref __xi_z))
+			{
+				do
+				{
+					if (*(int*)ptr == 0)
+					{
+						ptr = (void**)((byte*)ptr + 4);
+						continue;
+					}
+					_003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A = (_003CCrtImplementationDetails_003E.TriBool.State)(-1);
+					return true;
+				}
+				while (ptr < System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xi_z));
+			}
+			void** ptr2 = (void**)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xc_a);
+			if (System.Runtime.CompilerServices.Unsafe.IsAddressLessThan(ref __xc_a, ref __xc_z))
+			{
+				do
+				{
+					if (*(int*)ptr2 == 0)
+					{
+						ptr2 = (void**)((byte*)ptr2 + 4);
+						continue;
+					}
+					_003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A = (_003CCrtImplementationDetails_003E.TriBool.State)(-1);
+					return true;
+				}
+				while (ptr2 < System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xc_z));
+			}
+			_003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A = (_003CCrtImplementationDetails_003E.TriBool.State)0;
+			return false;
+		}
+		return _003FhasNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00400W4State_0040TriBool_00402_0040A == (_003CCrtImplementationDetails_003E.TriBool.State)(-1);
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal static bool _003CCrtImplementationDetails_003E_002EDefaultDomain_002ENeedsInitialization()
+	{
+		int num = (((_003CCrtImplementationDetails_003E_002EDefaultDomain_002EHasPerProcess() && !_003FInitializedPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA) || (_003CCrtImplementationDetails_003E_002EDefaultDomain_002EHasNative() && !_003FInitializedNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA && __native_startup_state == (global::__enative_startup_state)0)) ? 1 : 0);
+		return (byte)num != 0;
+	}
+
+	internal unsafe static void _003CCrtImplementationDetails_003E_002EDefaultDomain_002EInitialize()
+	{
+		_003CCrtImplementationDetails_003E_002EDoCallBackInDefaultDomain((delegate* unmanaged[Stdcall, Stdcall]<void*, int>)__unep_0040_003FDoNothing_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024FCGJPAX_0040Z, null);
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA_0040_0040YMXXZ()
+	{
+		_003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA = 0;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FUninitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA_0040_0040YMXXZ()
+	{
+		_003FUninitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA = 0;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA_0040_0040YMXXZ()
+	{
+		_003FIsDefaultDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2_NA = false;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FInitializedVtables_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A_0040_0040YMXXZ()
+	{
+		_003FInitializedVtables_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)0;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FInitializedNative_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A_0040_0040YMXXZ()
+	{
+		_003FInitializedNative_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)0;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FInitializedPerProcess_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A_0040_0040YMXXZ()
+	{
+		_003FInitializedPerProcess_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)0;
+	}
+
+	internal static void _003FA0x176e81b8_002E_003F_003F__E_003FInitializedPerAppDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A_0040_0040YMXXZ()
+	{
+		_003FInitializedPerAppDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)0;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeVtables(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load during vtable initialization.\n");
+		_003FInitializedVtables_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)1;
+		_initterm_m((delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xi_vt_a), (delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xi_vt_z));
+		_003FInitializedVtables_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)2;
+	}
+
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeDefaultAppDomain(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load while attempting to initialize the default appdomain.\n");
+		_003CCrtImplementationDetails_003E_002EDefaultDomain_002EInitialize();
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeNative(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load during native initialization.\n");
+		__security_init_cookie();
+		_003FInitializedNative_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = true;
+		if (!_003CCrtImplementationDetails_003E_002ENativeDll_002EIsSafeForManagedCode())
+		{
+			_amsg_exit(33);
+		}
+		if (__native_startup_state == (global::__enative_startup_state)1)
+		{
+			_amsg_exit(33);
+		}
+		else if (__native_startup_state == (global::__enative_startup_state)0)
+		{
+			_003FInitializedNative_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)1;
+			__native_startup_state = (global::__enative_startup_state)1;
+			if (_initterm_e((delegate* unmanaged[Cdecl, Cdecl]<int>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xi_a), (delegate* unmanaged[Cdecl, Cdecl]<int>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xi_z)) != 0)
+			{
+				_003CCrtImplementationDetails_003E_002EThrowModuleLoadException(gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_002EP_0024AAVString_0040System_0040_0040((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0));
+			}
+			_initterm((delegate* unmanaged[Cdecl, Cdecl]<void>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xc_a), (delegate* unmanaged[Cdecl, Cdecl]<void>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref __xc_z));
+			__native_startup_state = (global::__enative_startup_state)2;
+			_003FInitializedNativeFromCCTOR_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = true;
+			_003FInitializedNative_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)2;
+		}
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializePerProcess(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load during process initialization.\n");
+		_003FInitializedPerProcess_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)1;
+		_initatexit_m();
+		_initterm_m((delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_mp_a), (delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_mp_z));
+		_003FInitializedPerProcess_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)2;
+		_003FInitializedPerProcess_0040DefaultDomain_0040_003CCrtImplementationDetails_003E_0040_00402_NA = true;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializePerAppDomain(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load during appdomain initialization.\n");
+		_003FInitializedPerAppDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)1;
+		_initatexit_app_domain();
+		_initterm_m((delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_ma_a), (delegate*<void*>*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x176e81b8_002E__xc_ma_z));
+		_003FInitializedPerAppDomain_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2W4State_0040Progress_00402_0040A = (_003CCrtImplementationDetails_003E.Progress.State)2;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void _003CCrtImplementationDetails_003E_002ELanguageSupport_002EInitializeUninitializer(_003CCrtImplementationDetails_003E.LanguageSupport* P_0)
+	{
+		gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_003D((global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)P_0, "The C++ module failed to load during registration for the unload events.\n");
+		_003CCrtImplementationDetails_003E_002ERegisterModuleUninitializer([ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)] [PrePrepareMethod] (object source, EventArgs arguments) =>
+		{
+			if (_003FInitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA != 0 && Interlocked.Exchange(ref _003FUninitialized_0040CurrentDomain_0040_003CCrtImplementationDetails_003E_0040_0040_0024_0024Q2HA, 1) == 0)
+			{
+				bool num = Interlocked.Decrement(ref _003FCount_0040AllDomains_0040_003CCrtImplementationDetails_003E_0040_00402HA) == 0;
+				_app_exit_callback();
+				if (num)

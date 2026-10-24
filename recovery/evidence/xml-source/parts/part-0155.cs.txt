@@ -1,0 +1,500 @@
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateMoneyHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateMoneyHeuristic* ptr = (AIStateMoneyHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 75667102;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateTimerHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateTimerHeuristic* ptr = (AIStateTimerHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 278936256;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpenNodeHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateOpenNodeHeuristic* ptr = (AIStateOpenNodeHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2069039736;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateEnergyHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateEnergyHeuristic* ptr = (AIStateEnergyHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 263056479;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateCanBuildBuildingsOnSurfaceHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateCanBuildBuildingsOnSurfaceHeuristic* ptr = (AIStateCanBuildBuildingsOnSurfaceHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1629142138;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateBridgeExistsHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateBridgeExistsHeuristic* ptr = (AIStateBridgeExistsHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1142615901;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateTechBuildingShareHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateTechBuildingShareHeuristic* ptr = (AIStateTechBuildingShareHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -878597829;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateAllNearbyNodesFullHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = 951319894;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateProductionAdvantageHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = 1268468166;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateLinearCombinationHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateLinearCombinationHeuristic* ptr = (AIStateLinearCombinationHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040LKEDPLOH_0040WeightedHeuristic_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E*)((byte*)ptr + 4), tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 121779834;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateTimeSinceLastExpansionHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateTimeSinceLastExpansionHeuristic* ptr = (AIStateTimeSinceLastExpansionHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -468796380;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateEnemyNearbyHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateEnemyNearbyHeuristic* ptr = (AIStateEnemyNearbyHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1740211623;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateScriptedFlagHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateScriptedFlagHeuristic* ptr = (AIStateScriptedFlagHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08DHNGONEE_0040FlagName_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (String_003Cchar_003E*)((byte*)ptr + 4), tracker);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2138017353;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpponentFundsHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = -257274617;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStatePowerAdvantageHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStatePowerAdvantageHeuristic* ptr = (AIStatePowerAdvantageHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 84u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1379878007;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpeningMoveHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateOpeningMoveHeuristic* ptr = (AIStateOpeningMoveHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08NCJIEHD_0040Complete_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)ptr + 4, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2128923060;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateGarrisonHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateGarrisonHeuristic* ptr = (AIStateGarrisonHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1278812460;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateIsBuildingHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateIsBuildingHeuristic* ptr = (AIStateIsBuildingHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 44u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1170787490;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIRedAlertHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIRedAlertHeuristic* ptr = (AIRedAlertHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IAAGKKDJ_0040On_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)ptr + 4, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -923285641;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateHarvesterCapHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateHarvesterCapHeuristic* ptr = (AIStateHarvesterCapHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1908112332;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateIncomeAdvantageHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateIncomeAdvantageHeuristic* ptr = (AIStateIncomeAdvantageHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1390340504;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateConstantHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateConstantHeuristic* ptr = (AIStateConstantHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1375432082;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateIntervalHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateIntervalHeuristic* ptr = (AIStateIntervalHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -2120619655;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateObjectOfTypeExistsHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateObjectOfTypeExistsHeuristic* ptr = (AIStateObjectOfTypeExistsHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 124u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1099504044;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStatePathToTargetHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStatePathToTargetHeuristic* ptr = (AIStatePathToTargetHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -240065869;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStrategicDirectiveHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStrategicDirectiveHeuristic* ptr = (AIStrategicDirectiveHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02IAAGKKDJ_0040On_003F_0024AA_0040), null), (bool*)ptr + 8, tracker);
+			Marshaler_002EMarshal_003Cenum_0020AIStrategicDirective_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09MAPFPKHB_0040Directive_003F_0024AA_0040), null), (AIStrategicDirective*)ptr + 1, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -204299905;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIAlliedBeaconExistsHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIAlliedBeaconExistsHeuristic* ptr = (AIAlliedBeaconExistsHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06CJJDAFAE_0040Exists_003F_0024AA_0040), null), (bool*)ptr + 8, tracker);
+			Marshaler_002EMarshal_003Cenum_0020AIBeaconType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04KOACHJEN_0040Type_003F_0024AA_0040), null), (AIBeaconType*)ptr + 1, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 2115602688;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateStructureOrHarvesterUnderAttackHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		AIStateStructureOrHarvesterUnderAttackHeuristic* ptr = (AIStateStructureOrHarvesterUnderAttackHeuristic*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 12u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1801850452;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(INode* node, AIStateHeuristic** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = 0;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalSinglePolymorphic_003Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(INode* node, AIStateHeuristic** target, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IList* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, null);
+		if (ptr == null)
+		{
+			return;
+		}
+		if (((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)ptr + 8)))((nint)ptr) == 1)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr, &nodeHolder);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), target, state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 12)))((nint)ptr);
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E(IList* list, List_003CSageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 8u, num);
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (AIStateLinearCombinationHeuristic.WeightedHeuristic*)(int)(num2 * 8 + (uint)((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2++;
+				}
+				while (num2 < num);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateResourceNodeShareHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateResourceNodeShareHeuristic* ptr = (AIStateResourceNodeShareHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpenNodeHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateOpenNodeHeuristic* ptr = (AIStateOpenNodeHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateTechBuildingShareHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateTechBuildingShareHeuristic* ptr = (AIStateTechBuildingShareHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateAllNearbyNodesFullHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateAllNearbyNodesFullHeuristic* ptr = (AIStateAllNearbyNodesFullHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateProductionAdvantageHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateProductionAdvantageHeuristic* ptr = (AIStateProductionAdvantageHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateLinearCombinationHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateLinearCombinationHeuristic* ptr = (AIStateLinearCombinationHeuristic*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E((List_003CSageBinaryData_003A_003AAIStateLinearCombinationHeuristic_003A_003AWeightedHeuristic_003E*)((byte*)ptr + 4), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateTimeSinceLastExpansionHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateTimeSinceLastExpansionHeuristic* ptr = (AIStateTimeSinceLastExpansionHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateScriptedFlagHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateScriptedFlagHeuristic* ptr = (AIStateScriptedFlagHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpponentFundsHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{
+		AIStateOpponentFundsHeuristic* ptr = (AIStateOpponentFundsHeuristic*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AAIStateOpeningMoveHeuristic_002Cstruct_0020SageBinaryData_003A_003AAIStateHeuristic_003E(AIStateHeuristic** pointer, EndianHelper* endian)
+	{

@@ -1,0 +1,500 @@
+	[DebuggerStepThrough]
+	internal unsafe static void gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E_002E_007Bdtor_007D(gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		((GCHandle)intPtr).Free();
+		*(int*)P_0 = 0;
+	}
+
+	[SpecialName]
+	internal unsafe static gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bctor_007D(gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* P_0, gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* r)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)r));
+		*(int*)P_0 = (int)((IntPtr)GCHandle.Alloc(((GCHandle)intPtr).Target)).ToPointer();
+		return P_0;
+	}
+
+	[DebuggerStepThrough]
+	internal unsafe static void gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bdtor_007D(gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)P_0));
+		((GCHandle)intPtr).Free();
+		*(int*)P_0 = 0;
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E_002ESort(SortedList_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E* list, Tracker* tracker)
+	{
+		bool result = true;
+		uint num = *(uint*)list;
+		BuildingPlacementDistance** ptr = (BuildingPlacementDistance**)new_005B_005D((num > 1073741823) ? uint.MaxValue : (num << 2));
+		uint num2 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			SortedList_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E* ptr2 = (SortedList_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E*)((byte*)list + 4);
+			do
+			{
+				*(int*)((int)(num2 * 4) + (byte*)ptr) = *(int*)ptr2 + (int)(num2 * 4);
+				num2++;
+			}
+			while (num2 < (uint)(*(int*)list));
+		}
+		eastl_002Equick_sort_003Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020_002A_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_002Cstruct_0020SageBinaryData_003A_003ABuildingPlacementDistance_0020const_0020_002A_0029_003E(ptr, (BuildingPlacementDistance**)(*(int*)list * 4 + (byte*)ptr), (delegate* unmanaged[Cdecl, Cdecl]<BuildingPlacementDistance*, BuildingPlacementDistance*, byte>)__unep_0040_003FListElementCompare_0040_003F_0024SortedListHelper_0040UBuildingPlacementDistance_0040SageBinaryData_0040_0040UBuildingPlacementDistanceListComparer_0040AITargetingHeuristic_00402_0040_0040Marshaler_0040_0040_0024_0024FCA_NPBUBuildingPlacementDistance_0040SageBinaryData_0040_00400_0040Z);
+		uint num3 = *(uint*)list;
+		BuildingPlacementDistance*** ptr3 = (BuildingPlacementDistance***)new_005B_005D((num3 > 1073741823) ? uint.MaxValue : (num3 << 2));
+		uint num4 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			SortedList_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E* ptr4 = (SortedList_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E*)((byte*)list + 4);
+			BuildingPlacementDistance** ptr5 = ptr;
+			do
+			{
+				*(int*)((*(int*)ptr5 - *(int*)ptr4 >> 2) * 4 + (byte*)ptr3) = (int)ptr5;
+				num4++;
+				ptr5 = (BuildingPlacementDistance**)((byte*)ptr5 + 4);
+			}
+			while (num4 < (uint)(*(int*)list));
+		}
+		uint num5 = 0u;
+		if (0u < (uint)(*(int*)list))
+		{
+			BuildingPlacementDistance** ptr6 = ptr;
+			int num6 = (int)((byte*)ptr3 - (nuint)ptr);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out BuildingPlacementDistance buildingPlacementDistance);
+			do
+			{
+				uint num7 = num5 * 4 + (uint)((int*)list)[1];
+				uint num8 = *(uint*)ptr6;
+				if (num8 != num7)
+				{
+					BuildingPlacementDistance* b = (BuildingPlacementDistance*)(int)num7;
+					BuildingPlacementDistance* a = (BuildingPlacementDistance*)(int)num8;
+					if (Relo_002ETracker_002EExchangePointers(tracker, a, b))
+					{
+						num8 = *(uint*)ptr6;
+						int num9 = ((int*)list)[1];
+						uint num10 = (uint)((int)num8 - num9 >> 2);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(ref buildingPlacementDistance, num9 + (int)(num5 * 4), 4);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(((int*)list)[1] + (int)(num5 * 4), (int)num8, 4);
+						// IL cpblk instruction
+						System.Runtime.CompilerServices.Unsafe.CopyBlock(*(int*)ptr6, ref buildingPlacementDistance, 4);
+						BuildingPlacementDistance* ptr7 = (BuildingPlacementDistance*)(int)(*(uint*)ptr6);
+						BuildingPlacementDistance** num11 = ptr6;
+						*(int*)num11 = *(int*)(int)(*(uint*)((byte*)num11 + num6));
+						*(int*)(int)(*(uint*)((byte*)ptr6 + num6)) = (int)ptr7;
+						BuildingPlacementDistance** ptr8 = (BuildingPlacementDistance**)(int)(*(uint*)((byte*)ptr6 + num6));
+						*(int*)((byte*)ptr6 + num6) = *(int*)((int)(num10 * 4) + (byte*)ptr3);
+						*(int*)((int)(num10 * 4) + (byte*)ptr3) = (int)ptr8;
+					}
+					else
+					{
+						result = false;
+					}
+				}
+				num5++;
+				ptr6 = (BuildingPlacementDistance**)((byte*)ptr6 + 4);
+			}
+			while (num5 < (uint)(*(int*)list));
+		}
+		delete_005B_005D(ptr3);
+		delete_005B_005D(ptr);
+		return result;
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool Marshaler_002ESortedListHelper_003CSageBinaryData_003A_003ABuildingPlacementDistance_002CSageBinaryData_003A_003AAITargetingHeuristic_003A_003ABuildingPlacementDistanceListComparer_003E_002EListElementCompare(BuildingPlacementDistance* left, BuildingPlacementDistance* right)
+	{
+		return (byte)(((double)(*(float*)left) < (double)(*(float*)right)) ? 1u : 0u) != 0;
+	}
+
+	internal unsafe static void eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* P_0, Tracker.Block* position, Tracker.Block* value)
+	{
+		uint num = ((uint*)P_0)[1];
+		if (num != (uint)((int*)P_0)[2])
+		{
+			Tracker.Block* ptr = value;
+			if (value >= position && (nuint)value < (nuint)(int)num)
+			{
+				ptr = (Tracker.Block*)((byte*)value + 12);
+			}
+			Tracker.Block* ptr2 = (Tracker.Block*)(int)num;
+			if (ptr2 != null)
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr2, (int)(num - 12), 12);
+			}
+			num = ((uint*)P_0)[1];
+			Tracker.Block* ptr3 = (Tracker.Block*)(int)num;
+			Tracker.Block* ptr4 = (Tracker.Block*)(int)(num - 12);
+			if (ptr4 != position)
+			{
+				do
+				{
+					ptr4 = (Tracker.Block*)((byte*)ptr4 - 12);
+					ptr3 = (Tracker.Block*)((byte*)ptr3 - 12);
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr3, ptr4, 12);
+				}
+				while (ptr4 != position);
+			}
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(position, ptr, 12);
+			((int*)P_0)[1] += 12;
+			return;
+		}
+		uint num2 = (uint)(((int)num - *(int*)P_0) / 12);
+		uint num3;
+		Tracker.Block* ptr5;
+		if (num2 != 0)
+		{
+			num3 = num2 << 1;
+			if (num3 == 0)
+			{
+				ptr5 = null;
+				goto IL_00ac;
+			}
+		}
+		else
+		{
+			num3 = 1u;
+		}
+		ptr5 = (Tracker.Block*)new_005B_005D(num3 * 12, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05JKPKJCFD_0040EASTL_003F_0024AA_0040), 0, 0u, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0FB_0040ODGLLPF_0040C_003F3_003F2projects_003F2Ra3_003F2Production_003F2code_003F2_0040), 209);
+		goto IL_00ac;
+		IL_00ac:
+		Tracker.Block* ptr6 = eastl_002Euninitialized_copy_ptr_003Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_003E((Tracker.Block*)(int)(*(uint*)P_0), position, ptr5);
+		if (ptr6 != null)
+		{
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr6, value, 12);
+		}
+		ptr6 = eastl_002Euninitialized_copy_ptr_003Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003ABlock_0020_002A_003E(position, (Tracker.Block*)(int)((uint*)P_0)[1], (Tracker.Block*)((byte*)ptr6 + 12));
+		Tracker.Block* ptr7 = (Tracker.Block*)(int)(*(uint*)P_0);
+		if (ptr7 != null)
+		{
+			delete_005B_005D(ptr7);
+		}
+		*(int*)P_0 = (int)ptr5;
+		((int*)P_0)[1] = (int)ptr6;
+		((int*)P_0)[2] = (int)((int)(num3 * 12) + (byte*)ptr5);
+	}
+
+	internal unsafe static void eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* P_0, Tracker.GenericBookmark_003Cunsigned_0020int_003E* position, Tracker.GenericBookmark_003Cunsigned_0020int_003E* value)
+	{
+		uint num = ((uint*)P_0)[1];
+		if (num != (uint)((int*)P_0)[2])
+		{
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr = value;
+			if (value >= position && (nuint)value < (nuint)(int)num)
+			{
+				ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)value + 12);
+			}
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr2 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)num;
+			if (ptr2 != null)
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr2, (int)(num - 12), 12);
+			}
+			num = ((uint*)P_0)[1];
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)num;
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)(num - 12);
+			if (ptr4 != position)
+			{
+				do
+				{
+					ptr4 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr4 - 12);
+					ptr3 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr3 - 12);
+					// IL cpblk instruction
+					System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr3, ptr4, 12);
+				}
+				while (ptr4 != position);
+			}
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(position, ptr, 12);
+			((int*)P_0)[1] += 12;
+			return;
+		}
+		uint num2 = (uint)(((int)num - *(int*)P_0) / 12);
+		uint num3;
+		Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr5;
+		if (num2 != 0)
+		{
+			num3 = num2 << 1;
+			if (num3 == 0)
+			{
+				ptr5 = null;
+				goto IL_00ac;
+			}
+		}
+		else
+		{
+			num3 = 1u;
+		}
+		ptr5 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)new_005B_005D(num3 * 12, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05JKPKJCFD_0040EASTL_003F_0024AA_0040), 0, 0u, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0FB_0040ODGLLPF_0040C_003F3_003F2projects_003F2Ra3_003F2Production_003F2code_003F2_0040), 209);
+		goto IL_00ac;
+		IL_00ac:
+		Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr6 = eastl_002Euninitialized_copy_ptr_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_003E((Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)(*(uint*)P_0), position, ptr5);
+		if (ptr6 != null)
+		{
+			// IL cpblk instruction
+			System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr6, value, 12);
+		}
+		ptr6 = eastl_002Euninitialized_copy_ptr_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_003E(position, (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[1], (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr6 + 12));
+		Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr7 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)(*(uint*)P_0);
+		if (ptr7 != null)
+		{
+			delete_005B_005D(ptr7);
+		}
+		*(int*)P_0 = (int)ptr5;
+		((int*)P_0)[1] = (int)ptr6;
+		((int*)P_0)[2] = (int)((int)(num3 * 12) + (byte*)ptr5);
+	}
+
+	internal unsafe static void eastl_002Equick_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(Tracker.GenericBookmark_003Cunsigned_0020int_003E* first, Tracker.GenericBookmark_003Cunsigned_0020int_003E* last, delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte> compare)
+	{
+		if (first == last)
+		{
+			return;
+		}
+		int num = (int)((nint)((byte*)last - (nuint)first) / (nint)12);
+		int num2 = num;
+		int num3 = 0;
+		if (num2 != 0)
+		{
+			do
+			{
+				num2 >>= 1;
+				num3++;
+			}
+			while (num2 != 0);
+		}
+		eastl_002Equick_sort_impl_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cint_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, last, num3 * 2 - 2, compare);
+		if (num > 28)
+		{
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)first + 336);
+			eastl_002Einsertion_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, ptr, compare);
+			eastl_002Einsertion_sort_simple_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(ptr, last, compare);
+		}
+		else
+		{
+			eastl_002Einsertion_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E(first, last, compare);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_0020_003E(sbyte* text, AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E** pointer, Tracker* tracker)
+	{
+		Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E* location = (AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E*)(int)(*(uint*)pointer);
+		sbyte* ptr = strchr(text, 92);
+		if (ptr != null)
+		{
+			uint value = (uint)atoi(ptr + 1);
+			Relo_002ETracker_002EAddReference(tracker, location, value);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_002C2_003E(sbyte* text, BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_003E* target, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = 0;
+		uint num;
+		try
+		{
+			num = Marshaler_002EUtils_002ETokenize(&auto_ptr_003Cchar_003E, text);
+			if (num != 0)
+			{
+				goto IL_0032;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+		return;
+		IL_0032:
+		try
+		{
+			sbyte* ptr = (sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E));
+			if (0 < num)
+			{
+				uint num2 = num;
+				do
+				{
+					sbyte* ptr2 = ptr;
+					sbyte b = *ptr;
+					if (b != 0)
+					{
+						do
+						{
+							ptr2++;
+						}
+						while (*ptr2 != 0);
+					}
+					uint num3 = (uint)(ptr2 - (nuint)ptr + 1);
+					bool flag = true;
+					switch (b)
+					{
+					case 43:
+						flag = true;
+						ptr++;
+						num3--;
+						break;
+					case 45:
+						flag = false;
+						ptr++;
+						num3--;
+						break;
+					}
+					if (_stricmp(ptr, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040)) == 0)
+					{
+						*(int*)target = -1;
+						goto IL_012e;
+					}
+					if ((_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 & 1) == 0)
+					{
+						_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 |= 1u;
+						try
+						{
+							Relo_002ETracker_002E_007Bctor_007D((Tracker*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A));
+							_atexit_m((delegate*<void>)(&_003F_003F__FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_0040YMXXZ));
+						}
+						catch
+						{
+							//try-fault
+							_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 &= 4294967294u;
+							throw;
+						}
+					}
+					EnumNameGetter_003Cint_003E.EnumPair* ptr3 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(ptr, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4MultisoundControlFlag_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4MultisoundControlFlag_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 2u);
+					int num4;
+					if (ptr3 != null)
+					{
+						num4 = ((int*)ptr3)[1];
+						if (num4 == -1 || (uint)num4 >= 2u)
+						{
+							goto IL_012a;
+						}
+					}
+					else
+					{
+						num4 = 0;
+					}
+					if (flag)
+					{
+						BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_003E* ptr4 = (BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_003E*)((num4 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 |= 1 << num4;
+					}
+					else
+					{
+						BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_003E* ptr4 = (BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AMultisoundControlFlag_003E*)((num4 >>> 5) * 4 + (byte*)target);
+						*(int*)ptr4 ^= 1 << num4;
+					}
+					goto IL_012a;
+					IL_012e:
+					num2--;
+					continue;
+					IL_012a:
+					ptr = (int)num3 + ptr;
+					goto IL_012e;
+				}
+				while (num2 != 0);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAudioTypeFlag_002C8_003E(sbyte* text, BitFlags_003C8_002Cenum_0020SageBinaryData_003A_003AAudioTypeFlag_003E* target, Tracker* tracker)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = 0;
+		uint num;
+		try
+		{
+			num = Marshaler_002EUtils_002ETokenize(&auto_ptr_003Cchar_003E, text);
+			if (num != 0)
+			{
+				goto IL_0032;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+		return;
+		IL_0032:
+		try
+		{
+			sbyte* ptr = (sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E));
+			if (0 < num)
+			{
+				uint num2 = num;
+				do
+				{
+					sbyte* ptr2 = ptr;
+					sbyte b = *ptr;
+					if (b != 0)
+					{
+						do
+						{
+							ptr2++;
+						}
+						while (*ptr2 != 0);
+					}
+					uint num3 = (uint)(ptr2 - (nuint)ptr + 1);
+					bool flag = true;
+					switch (b)
+					{
+					case 43:
+						flag = true;
+						ptr++;
+						num3--;
+						break;
+					case 45:
+						flag = false;
+						ptr++;
+						num3--;
+						break;
+					}
+					if (_stricmp(ptr, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03NIFPGLBG_0040ALL_003F_0024AA_0040)) == 0)
+					{
+						*(int*)target = -1;
+						goto IL_012e;
+					}
+					if ((_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 & 1) == 0)
+					{
+						_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 |= 1u;
+						try
+						{
+							Relo_002ETracker_002E_007Bctor_007D((Tracker*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A));
+							_atexit_m((delegate*<void>)(&_003F_003F__FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_0040YMXXZ));
+						}
+						catch
+						{
+							//try-fault
+							_003F_003F_B_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_004051 &= 4294967294u;
+							throw;
+						}
+					}
+					EnumNameGetter_003Cint_003E.EnumPair* ptr3 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(ptr, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AudioTypeFlag_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AudioTypeFlag_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 8u);
+					int num4;
+					if (ptr3 != null)
+					{
+						num4 = ((int*)ptr3)[1];
+						if (num4 == -1 || (uint)num4 >= 8u)
+						{
+							goto IL_012a;
+						}

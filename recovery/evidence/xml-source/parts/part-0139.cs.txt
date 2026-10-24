@@ -1,0 +1,500 @@
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectives_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentObjectives*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsAudio_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOptionsSettingsAudio*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentChat*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCareerStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentCareerStats*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptions_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOptions*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLobby_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentLobby*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAutoMatch_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentAutoMatch* ptr = (UIComponentAutoMatch*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSUDs_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentSUDs* ptr = (UIComponentSUDs*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCredits_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentCredits* ptr = (UIComponentCredits*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOptionsSettingsNetwork_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOptionsSettingsNetwork*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentVoiceChat_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentVoiceChat* ptr = (UIComponentVoiceChat*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLobbyList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOnlineLobbyList*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameInfo_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentGameInfo*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineLogin_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentOnlineLogin* ptr = (UIComponentOnlineLogin*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMovie_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentMovie*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPostGame_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentPostGame*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentAptMediator_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentAptMediator*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlayerTechStore_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentPlayerTechStore*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlinePlayerList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOnlinePlayerList*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInputBridge_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentInputBridge* ptr = (UIComponentInputBridge*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentLoadScreen_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentLoadScreen* ptr = (UIComponentLoadScreen*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentStats_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentStats*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentPlasmaInterface_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentPlasmaInterface* ptr = (UIComponentPlasmaInterface*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMouseTactical_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentMouseTactical* ptr = (UIComponentMouseTactical*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentInGameText_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentInGameText*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentBootup_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentBootup*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentSaveLoad_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentSaveLoad*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentShell_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentShell*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentComlinkNotification_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentComlinkNotification*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCommandList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentCommandList*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentObjectSelector_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentObjectSelector*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMovieArchive_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentMovieArchive*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentTicker_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentTicker*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMode_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentMode* ptr = (UIComponentMode*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentCoopCommander_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentCoopCommander*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentOnlineGameList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentOnlineGameList*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentGameSetup_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIComponentGameSetup* ptr = (UIComponentGameSetup*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIComponentMapList_002Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((UIComponentMapList*)(int)(*(uint*)pointer), endian);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_003E(UIBaseComponent** pointer, EndianHelper* endian)
+	{
+		UIBaseComponent* ptr = (UIBaseComponent*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020Sage_003A_003AUI_003A_003ASettings_003A_003AUIConfigType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, UIConfigType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4UIConfigType_0040Settings_0040UI_0040Sage_0040_0040_0040_0040SA_003FBW4UIConfigType_0040Settings_0040UI_0040Sage_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
+			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
+			*@object = (UIConfigType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUIBaseComponent_0020_002A_003E(List_003CSageBinaryData_003A_003AUIBaseComponent_0020_002A_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		UIBaseComponent** ptr = (UIBaseComponent**)num;
+		UIBaseComponent** ptr2 = (UIBaseComponent**)(*(int*)list * 4 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (UIBaseComponent**)((byte*)ptr + 4);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIDynamicConfig_003E(IList* list, List_003CSageBinaryData_003A_003AUIDynamicConfig_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 16u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (UIDynamicConfig*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 16;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}

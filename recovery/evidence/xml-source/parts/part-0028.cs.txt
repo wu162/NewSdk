@@ -1,0 +1,500 @@
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalToggleRepairModeButton_0040SageBinaryData_0040_00402IB/* Not supported: data(F7 45 52 87) */;
+
+	internal static uint _003FTypeHash_0040LeechPercentMaxHealthDamageNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(47 15 1D CC) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIUnitBuilderUnitChoiceStrategyAdaptive_0040SageBinaryData_0040_00402PBDB/* Not supported: data(04 58 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIBankBudget_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C0 5D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataAssembleStructure_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E4 6A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataAIStrategicDirective_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E4 6B 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FormationAssistantUnitDefinition_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C8 78 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ShieldBodyModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(41 AA DE 3F) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataEvacuate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(50 6A 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataAIStrategicDirective_0040SageBinaryData_0040_00402IB/* Not supported: data(97 67 CF 5A) */;
+
+	internal static uint _003FTypeHash_0040UIComponentInputBridge_0040SageBinaryData_0040_00402IB/* Not supported: data(C2 24 48 85) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040W3DHierarchy_0040SageBinaryData_0040_00402PBDB/* Not supported: data(98 9E 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AssembleStructureSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C6 A2 82 DD) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InvisibilityUpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(8C 40 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DestroyModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E4 51 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Query_0040SageBinaryData_0040_00402IB/* Not supported: data(8C 10 CD EF) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXListBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(54 42 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DefaultProductionExitUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(80 47 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040EvaAnnounceSpecialPowerReadyClientUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(20 2E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UpgradeSoundSelectorClientBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(68 34 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateIntervalHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E8 5C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040OrdersManagerSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(40 5E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandPlaceAIBeacon_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 74 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040PlayerTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(7C 79 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentObjectAction_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A0 86 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentSound_0040SageBinaryData_0040_00402PBDB/* Not supported: data(DC 87 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionNugget_ScoredKillCount_0040SageBinaryData_0040_00402PBDB/* Not supported: data(CC 8C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BaseSpecialPowerUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(94 93 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AnimationChannelQuaternion_0040SageBinaryData_0040_00402PBDB/* Not supported: data(4C 9E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040TeleportToCasterSpecialPowerModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F0 40 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DefaultProductionExitUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(4F CA D5 90) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ConquerCardDefinitionPower_0040SageBinaryData_0040_00402PBDB/* Not supported: data(98 54 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataSetStance_0040SageBinaryData_0040_00402IB/* Not supported: data(54 62 43 55) */;
+
+	internal static uint _003FTypeHash_0040UIComponentOptionsSettingsNetwork_0040SageBinaryData_0040_00402IB/* Not supported: data(FE 02 17 76) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040PlayerPowerButtonTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(80 88 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AttributeModifierListType_0040SageBinaryData_0040_00402IB/* Not supported: data(26 07 CD 1F) */;
+
+	internal static uint _003FTypeHash_0040SupplyCenterDockUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(8D 80 96 4F) */;
+
+	internal static uint _003FTypeHash_0040ConquerCardDefinitionBase_0040SageBinaryData_0040_00402IB/* Not supported: data(68 F2 72 14) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MicrophoneSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(04 5F 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalForceAttackMoveButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(6C 23 0A 10) */;
+
+	internal static uint _003FTypeHash_0040StartPositionObject_0040SageBinaryData_0040_00402IB/* Not supported: data(9E B2 D5 27) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CloudEffectType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(38 7D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIBaseSelectionCriteria_0040SageBinaryData_0040_00402IB/* Not supported: data(83 6B B2 EF) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentAptMediator_0040SageBinaryData_0040_00402PBDB/* Not supported: data(BC 80 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIComponentOptionsSettingsGeneral_0040SageBinaryData_0040_00402IB/* Not supported: data(DE 08 9C B0) */;
+
+	internal static uint _003FTypeHash_0040UIComponentCoopCommander_0040SageBinaryData_0040_00402IB/* Not supported: data(B2 AE E5 E6) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040W3DTankDrawModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(FC 53 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SubStructureStorageBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(0F 8B 45 76) */;
+
+	internal static uint _003FTypeHash_0040ReplaceObjectUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(4B 07 C6 34) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GiveUpgradeUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(CC 4A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040EnableDynamicsCollideModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(68 50 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ManagedImmortalBodyModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(0C 52 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIStateIntervalHeuristic_0040SageBinaryData_0040_00402IB/* Not supported: data(59 16 EA DB) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCoOpAIButtonsNormalButton_0040SageBinaryData_0040_00402IB/* Not supported: data(19 63 F9 11) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentOptionsSettingsHotkeys_0040SageBinaryData_0040_00402PBDB/* Not supported: data(48 81 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionNugget_LocalPlayerIsObserver_0040SageBinaryData_0040_00402PBDB/* Not supported: data(74 8E 0A 10) */;
+
+	internal static uint _003FTypeHash_0040CommandSet_0040SageBinaryData_0040_00402IB/* Not supported: data(7F A6 CB F8) */;
+
+	internal static uint _003FTypeHash_0040AttributeModifierAuraUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(87 B5 31 AC) */;
+
+	internal static uint _003FTypeHash_0040GiveOrRestoreUpgradeSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(0F 2E 21 BF) */;
+
+	internal static uint _003FTypeHash_0040LaserUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CF E5 F1 D6) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIDecalCloud_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 63 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalQuickChatDisplayCloseItem_0040SageBinaryData_0040_00402IB/* Not supported: data(E3 A1 FA 73) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandAttack_0040SageBinaryData_0040_00402PBDB/* Not supported: data(18 76 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Flammability_0040SageBinaryData_0040_00402IB/* Not supported: data(E2 86 F2 53) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ScalarInfo_0040SageBinaryData_0040_00402PBDB/* Not supported: data(88 98 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UpgradeModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(82 E5 DA 45) */;
+
+	internal static uint _003FTypeHash_0040BeaconClientUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(FE 3C 12 3C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StateTargetHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 59 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DecalSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(14 63 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplate_0040SageBinaryData_0040_00402IB/* Not supported: data(3C CC 13 29) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentCampaign_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 80 0A 10) */;
+
+	internal static uint _003FTypeHash_0040BoxMinMax_0040SageBinaryData_0040_00402IB/* Not supported: data(B0 C2 33 BE) */;
+
+	internal static uint _003FTypeHash_0040BeamTargetModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(55 6C BA C4) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ObjectSMCHelperModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(00 30 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ModelConditionSoundSelectorOverrideBlock_0040SageBinaryData_0040_00402IB/* Not supported: data(9E CE 42 9C) */;
+
+	internal static uint _003FTypeHash_0040DynamicsContactTagMapping_0040SageBinaryData_0040_00402IB/* Not supported: data(9D B0 8A 35) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataPlayerTargetedPower_0040SageBinaryData_0040_00402IB/* Not supported: data(9E CF 34 E2) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCoOpAIButtonsHoldObjectButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(5C 72 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MetaDataObject_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C4 84 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentTutorial_0040SageBinaryData_0040_00402PBDB/* Not supported: data(44 80 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ParabolicCurveNugget_0040SageBinaryData_0040_00402IB/* Not supported: data(32 38 82 56) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InvisibilityNuggetType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(54 55 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ActivateLaserNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(DE 01 27 D3) */;
+
+	internal static uint _003FTypeHash_0040SubStructureBuildUpgradeModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(93 3C 0E 32) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040LaserStateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(08 32 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ActivateModuleSpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(DC 23 80 B2) */;
+
+	internal static uint _003FTypeHash_0040UIDecalDestinationMarker_0040SageBinaryData_0040_00402IB/* Not supported: data(A2 FF C9 F4) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalLookAtViewBookmark_0040SageBinaryData_0040_00402PBDB/* Not supported: data(00 71 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIComponentObjectAction_0040SageBinaryData_0040_00402IB/* Not supported: data(2E A9 0A 76) */;
+
+	internal static uint _003FTypeHash_0040NotifyWhenAttackingBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(42 13 1C 84) */;
+
+	internal static uint _003FTypeHash_0040StringHashTable_0040SageBinaryData_0040_00402IB/* Not supported: data(EB C3 FE EB) */;
+
+	internal static uint _003FTypeHash_0040UIDecalDestinationMarkerDestinationTypeSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(4B FB BC 98) */;
+
+	internal static uint _003FTypeHash_0040ButtonSingleStateData_0040SageBinaryData_0040_00402IB/* Not supported: data(18 5B 5D E1) */;
+
+	internal static uint _003FTypeHash_0040FXParticleEmissionVelocityOrtho_0040SageBinaryData_0040_00402IB/* Not supported: data(76 87 8E 66) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ParticleSystemList_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A0 53 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040WanderAIUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(34 34 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DynamicsUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C4 27 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CaptureBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(58 2C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ModelConditionUpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(5C 3D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SpecialDisguiseTerrainData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 46 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ConquerCardPrebuiltDeck_0040SageBinaryData_0040_00402PBDB/* Not supported: data(64 54 0A 10) */;
+
+	internal static uint _003FTypeHash_0040PathfindSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(F1 F9 BC 9C) */;
+
+	internal static uint _003FTypeHash_0040UIComponentCommandBar_0040SageBinaryData_0040_00402IB/* Not supported: data(8F 7C A9 13) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionNugget_PathMusicStateLastActive_0040SageBinaryData_0040_00402PBDB/* Not supported: data(38 8C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ObjectStatusValidationDataType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(34 55 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CrusherInfo_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C4 24 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InheritableModule_0040SageBinaryData_0040_00402PBDB/* Not supported: data(3C 25 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040W3DDynamicsDrawModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(04 53 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TransportAIUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(BD 8B 13 BC) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ConstructionYardAIUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(84 42 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InheritUpgradeCreateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(14 42 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040EmotionTrackerUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A4 39 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStrategicDirectiveHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 59 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataOpenStancesStanceSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(5F 97 AC EF) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalFastForwardButton_0040SageBinaryData_0040_00402IB/* Not supported: data(F2 A6 95 BA) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040EmotionTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(6C 79 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GameplayTypeSetting_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B0 84 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentShell_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E8 84 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TestModules_0040SageBinaryData_0040_00402IB/* Not supported: data(A2 8E 2E DA) */;
+
+	internal static uint _003FTypeHash_0040LargeGroupAudioClientUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(84 CE 58 C0) */;
+
+	internal static uint _003FTypeHash_0040ConquerCardUnit_0040SageBinaryData_0040_00402IB/* Not supported: data(ED 19 37 D6) */;
+
+	internal static uint _003FTypeHash_0040AIPersonalityDefinition_0040SageBinaryData_0040_00402IB/* Not supported: data(2B 9D 3C CB) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateTimeSinceLastExpansionHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 5C 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TerrainParticleMap_0040SageBinaryData_0040_00402IB/* Not supported: data(4A 70 05 46) */;
+
+	internal static uint _003FTypeHash_0040DynamicsBoxShapeType_0040SageBinaryData_0040_00402IB/* Not supported: data(03 D9 66 80) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040JoypadCommandBarButtonTemplateDataOpenControlGroups_0040SageBinaryData_0040_00402PBDB/* Not supported: data(08 69 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentOptionsSettingsGraphics_0040SageBinaryData_0040_00402PBDB/* Not supported: data(6C 81 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIComponentOnlinePlayerList_0040SageBinaryData_0040_00402IB/* Not supported: data(C6 9B 1D 4E) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MusicScriptConditionNugget_HitBySuperWeapon_0040SageBinaryData_0040_00402PBDB/* Not supported: data(74 8B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040LaserFXNugget_0040SageBinaryData_0040_00402IB/* Not supported: data(FB 3B 53 7E) */;
+
+	internal static uint _003FTypeHash_0040SoundFXNugget_0040SageBinaryData_0040_00402IB/* Not supported: data(3F 4E 3C A7) */;
+
+	internal static uint _003FTypeHash_0040ModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C5 92 F6 22) */;
+
+	internal static uint _003FTypeHash_0040ArticulationBone_0040SageBinaryData_0040_00402IB/* Not supported: data(2D BA 03 EC) */;
+
+	internal static uint _003FTypeHash_0040ConstructionYardAIUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(CB 4A E3 F2) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DestructibleEnvironmentUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(58 27 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BuildingDestructionItem_0040SageBinaryData_0040_00402PBDB/* Not supported: data(C0 3F 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MaxHealthUpgradeModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(88 AB CB E2) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentCoopCommander_0040SageBinaryData_0040_00402PBDB/* Not supported: data(14 85 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ScriptedModelDrawAttachModel_0040SageBinaryData_0040_00402PBDB/* Not supported: data(9C 55 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleEmissionVolumeLightning_0040SageBinaryData_0040_00402PBDB/* Not supported: data(54 9B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ActivateStreamNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(5D 45 96 8E) */;
+
+	internal static uint _003FTypeHash_0040UpgradeMap_0040SageBinaryData_0040_00402IB/* Not supported: data(86 9F 93 46) */;
+
+	internal static uint _003FTypeHash_0040LeechTargetingAttachUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(E0 94 C3 B5) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InfiltratorContainModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F4 4D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ActiveBodyDamageRangeModifier_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 52 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIBuildState_0040SageBinaryData_0040_00402IB/* Not supported: data(D8 5F E6 18) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalGroupSelectionGroup_0040SageBinaryData_0040_00402PBDB/* Not supported: data(44 71 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MappableKey_0040SageBinaryData_0040_00402IB/* Not supported: data(C1 AE B6 84) */;
+
+	internal static uint _003FTypeHash_0040UIComponentVoiceChat_0040SageBinaryData_0040_00402IB/* Not supported: data(B6 CF FE 70) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleEmissionVolumeCylinder_0040SageBinaryData_0040_00402PBDB/* Not supported: data(1C 9C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AnimationChannelDelta_0040SageBinaryData_0040_00402PBDB/* Not supported: data(FC 9D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Triangle_0040SageBinaryData_0040_00402IB/* Not supported: data(9E 12 B0 70) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UpgradeMap_0040SageBinaryData_0040_00402PBDB/* Not supported: data(AC 2B 0A 10) */;
+
+	internal static uint _003FTypeHash_0040EnergyDisablingBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(BD E4 58 AE) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AutoAbilityBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(50 36 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040MapObjectUSP_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 24 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataUpgrade_0040SageBinaryData_0040_00402IB/* Not supported: data(65 07 9F 1D) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCoOpAIButtonsHelpButton_0040SageBinaryData_0040_00402IB/* Not supported: data(70 9F 5A BC) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleWind_0040SageBinaryData_0040_00402PBDB/* Not supported: data(24 99 0A 10) */;
+
+	internal static uint _003FTypeHash_0040W3DAnimationRuntime_0040SageBinaryData_0040_00402IB/* Not supported: data(E1 5C 50 D6) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ContainedObjectAttackNuggetType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(10 95 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InvisibilityBroadcastUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 2A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StoreCurrentStateUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(60 2B 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SkirmishStartCash_0040SageBinaryData_0040_00402PBDB/* Not supported: data(FC 2A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIWorldBuilderDecalGrid_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E8 5D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AutoParticleSystemSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(67 17 58 4A) */;
+
+	internal static uint _003FTypeHash_0040UICoopTinting_0040SageBinaryData_0040_00402IB/* Not supported: data(CE 5A 4F 05) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040GameFlagsSetting_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F8 83 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MapListType_0040SageBinaryData_0040_00402IB/* Not supported: data(27 04 40 8E) */;
+
+	internal static uint _003FTypeHash_0040MultiplayerSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(7E 6E 2B 9C) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040PathMusicEventRuntime_0040SageBinaryData_0040_00402PBDB/* Not supported: data(EC 8A 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FlingObjectNugget_0040SageBinaryData_0040_00402PBDB/* Not supported: data(44 8F 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleDrawGpu_0040SageBinaryData_0040_00402PBDB/* Not supported: data(0C 9D 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DamageContainedNuggetType_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A4 95 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UncombineSpecialPowerModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(DF AE F9 5E) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BeaconClientUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(14 4A 0A 10) */;
+
+	internal static uint _003FTypeHash_0040CampaignAICommander_0040SageBinaryData_0040_00402IB/* Not supported: data(FC 08 4E 32) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DrawModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A0 56 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(CC 56 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040CaptureAndGiveUpgradeBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(84 2B 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FireWeaponWhenDamagedBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(28 36 0A 10) */;
+
+	internal static uint _003FTypeHash_0040JoypadCommandBarButtonTemplateDataAutoControlGroup_0040SageBinaryData_0040_00402IB/* Not supported: data(C6 99 EB E2) */;
+
+	internal static uint _003FTypeHash_0040UIComponentDisconnect_0040SageBinaryData_0040_00402IB/* Not supported: data(8D 96 11 EA) */;
+
+	internal static uint _003FTypeHash_0040ShaderOverrideRule_0040SageBinaryData_0040_00402IB/* Not supported: data(7A 41 A1 10) */;
+
+	internal static uint _003FTypeHash_0040W3DAnimation_0040SageBinaryData_0040_00402IB/* Not supported: data(E8 5F 45 55) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BoxMinMax_0040SageBinaryData_0040_00402PBDB/* Not supported: data(74 9F 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040LUAEventListBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(68 48 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FindCoverBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(9C 38 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TeleportStoredObjectsUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(8A 94 10 92) */;
+
+	internal static uint _003FTypeHash_0040DamageState_0040SageBinaryData_0040_00402IB/* Not supported: data(FD 60 37 FF) */;
+
+	internal static uint _003FTypeHash_0040ExperienceScalarUpgradeModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(5C 50 DF 58) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SpiderHoleUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(3C 38 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040DieModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(AC 51 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040RadarMarkerClientUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D4 2C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UnitAISettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(04 26 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FontTranslation_0040SageBinaryData_0040_00402IB/* Not supported: data(85 51 31 6C) */;
+
+	internal static uint _003FTypeHash_0040GameScriptParameterObjectType_0040SageBinaryData_0040_00402IB/* Not supported: data(53 32 0D 73) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StanceTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(08 7E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIBaseComponent_0040SageBinaryData_0040_00402PBDB/* Not supported: data(08 88 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FXParticleBaseModule_0040SageBinaryData_0040_00402IB/* Not supported: data(71 DD 19 35) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040WeaponSlot_WeaponData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(38 31 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040LocomotorSetModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(98 3D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040MapObject_0040SageBinaryData_0040_00402IB/* Not supported: data(29 1C 2A 33) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateGarrisonHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(94 5B 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIStateOpeningMoveHeuristic_0040SageBinaryData_0040_00402PBDB/* Not supported: data(CC 5C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040RankedOptionSetting_0040SageBinaryData_0040_00402PBDB/* Not supported: data(9C 84 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TestModuleA_0040SageBinaryData_0040_00402IB/* Not supported: data(1F 1E C6 E1) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040TargetedSpecialPowerUnitAbilityButtonTemplateData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(20 92 0A 10) */;
+
+	internal static uint _003FTypeHash_0040Weather_0040SageBinaryData_0040_00402IB/* Not supported: data(D9 B9 3E E2) */;
+
+	internal static uint _003FTypeHash_0040LocomotorSetModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(E6 1C EA BB) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIDecalDestinationMarker_0040SageBinaryData_0040_00402PBDB/* Not supported: data(34 63 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandToggleSelfRepair_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E0 72 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalCommandHarvest_0040SageBinaryData_0040_00402IB/* Not supported: data(D0 25 0A 60) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InitiateRepairDieModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(D8 3C 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AIBuildDelay_0040SageBinaryData_0040_00402PBDB/* Not supported: data(7C 58 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalPlayerPowerHotKeys_0040SageBinaryData_0040_00402PBDB/* Not supported: data(E4 6F 0A 10) */;
+
+	internal static uint _003FTypeHash_0040TerrainTextureAtlasRuntime_0040SageBinaryData_0040_00402IB/* Not supported: data(BC 07 7D 46) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040LinearDamageUpdateModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(1C 29 0A 10) */;
+
+	internal static uint _003FTypeHash_0040RefundDieModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(E5 C7 62 DC) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UpgradeModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(20 55 0A 10) */;
+
+	internal static uint _003FTypeHash_0040AIBankBudgetListType_0040SageBinaryData_0040_00402IB/* Not supported: data(16 68 BA C4) */;
+
+	internal static uint _003FTypeHash_0040AptDatData_0040SageBinaryData_0040_00402IB/* Not supported: data(30 1C B6 0D) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040AISpecialPowerInfo_0040SageBinaryData_0040_00402PBDB/* Not supported: data(70 7D 0A 10) */;
+
+	internal static uint _003FTypeHash_0040FXList_0040SageBinaryData_0040_00402IB/* Not supported: data(26 1E 13 9B) */;
+
+	internal static uint _003FTypeHash_0040FXParticleEmissionVelocityWavefront_0040SageBinaryData_0040_00402IB/* Not supported: data(2B 8D B9 E0) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040StrafeAreaTargetChooserModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 3E 0A 10) */;
+
+	internal static uint _003FTypeHash_0040ProjectileUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(82 EC 68 83) */;
+
+	internal static uint _003FTypeHash_0040DeletionUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C2 4B 39 C1) */;
+
+	internal static uint _003FTypeHash_0040AIRedAlertHeuristic_0040SageBinaryData_0040_00402IB/* Not supported: data(CC 9B D5 7D) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040ModelSettings_0040SageBinaryData_0040_00402PBDB/* Not supported: data(48 5F 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCommandMineOre_0040SageBinaryData_0040_00402PBDB/* Not supported: data(B0 74 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIMouseTacticalBuildQueueTabQueueTypeSettings_0040SageBinaryData_0040_00402IB/* Not supported: data(B9 A6 5D A2) */;
+
+	internal static uint _003FTypeHash_0040TheVersion_0040SageBinaryData_0040_00402IB/* Not supported: data(6F 84 DF A5) */;
+
+	internal static uint _003FTypeHash_0040FXParticleEmissionVolumeBase_0040SageBinaryData_0040_00402IB/* Not supported: data(A2 DC EB D7) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FXParticleDrawLightSource_0040SageBinaryData_0040_00402PBDB/* Not supported: data(F0 9C 0A 10) */;
+
+	internal static uint _003FTypeHash_0040DamageNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(0A DC 37 F4) */;
+
+	internal static uint _003FTypeHash_0040TintObjectsNuggetType_0040SageBinaryData_0040_00402IB/* Not supported: data(83 C2 34 EC) */;
+
+	internal static uint _003FTypeHash_0040CaptureBehaviorModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(C7 5F 53 A3) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalQuickChatDisplayMenuItem_0040SageBinaryData_0040_00402PBDB/* Not supported: data(FC 6E 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIMouseTacticalCoOpAIButtonsHoldPositionButton_0040SageBinaryData_0040_00402PBDB/* Not supported: data(2C 72 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040FormationAssistant_0040SageBinaryData_0040_00402PBDB/* Not supported: data(3C 78 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIConfigList_0040SageBinaryData_0040_00402IB/* Not supported: data(9D 78 99 E5) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040UIComponentSpecialPowers_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A4 85 0A 10) */;
+
+	internal static uint _003FTypeHash_0040UIComponentFormation_0040SageBinaryData_0040_00402IB/* Not supported: data(4C C0 0A 55) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040InvisibilityTemplate_0040SageBinaryData_0040_00402PBDB/* Not supported: data(68 88 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BounceKickTerrainMapping_0040SageBinaryData_0040_00402PBDB/* Not supported: data(78 94 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040BezierSplineProjectileData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(68 28 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SubStructureBehaviorModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(44 3B 0A 10) */;
+
+	internal unsafe static sbyte* _003FTypeName_0040SquishCollideModuleData_0040SageBinaryData_0040_00402PBDB/* Not supported: data(A8 41 0A 10) */;
+
+	internal static uint _003FTypeHash_0040SpecialAbilityUpdateModuleData_0040SageBinaryData_0040_00402IB/* Not supported: data(33 1D F1 65) */;

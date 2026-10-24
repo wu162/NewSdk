@@ -1,0 +1,177 @@
+// Original source lines 28046-28096
+	internal unsafe static void Marshaler_002EMarshal(INode* node, FXList* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040DODMNLNC_0040PlayEvenIfShrouded_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 24, state);
+		Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040ECJAFBOF_0040Tailorable_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 25, state);
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040HPGDALFA_0040CullTracking_003F_0024AA_0040), null);
+		if (ptr != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+			DataInitializers_002EInitialize((float*)@object + 1, text, &timeTag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040IOPFPBIA_0040CullTrackingMin_003F_0024AA_0040), null);
+		if (ptr2 != null)
+		{
+			sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+			((int*)@object)[2] = strtol(ptr3, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+		}
+		IValue* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040JMHOBFOP_0040CullTrackingMax_003F_0024AA_0040), null);
+		if (ptr4 != null)
+		{
+			sbyte* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr4)))((nint)ptr4);
+			((int*)@object)[3] = strtol(ptr5, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr4 + 4)))((nint)ptr4);
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040GNPODMEG_0040NuggetList_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr6 = (INode*)(int)(*(uint*)num);
+			if (ptr6 != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AFXNugget_0020_002A_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)ptr6 + 4)))((nint)ptr6, null), (List_003CSageBinaryData_003A_003AFXNugget_0020_002A_003E*)((byte*)@object + 16), state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+	}
+
+// Original source lines 28098-28128
+	internal unsafe static void Marshaler_002EEndianCorrect(FXList* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 12)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 12)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 12)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[12];
+			((int*)@object)[3] = (int)num3;
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AFXNugget_0020_002A_003E((List_003CSageBinaryData_003A_003AFXNugget_0020_002A_003E*)((byte*)@object + 16), state);
+	}
+
+// Original source lines 91792-91881
+	internal unsafe static Tracker* Relo_002ETracker_002E_007Bctor_007D_003Cstruct_0020SageBinaryData_003A_003AFXList_003E(Tracker* P_0, FXList** rootPointer)
+	{
+		*(int*)P_0 = 0;
+		Tracker* ptr = (Tracker*)((byte*)P_0 + 4);
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr2 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)ptr;
+		*(int*)ptr2 = 0;
+		((int*)ptr2)[1] = 0;
+		((int*)ptr2)[2] = 0;
+		try
+		{
+			Tracker* ptr3 = (Tracker*)((byte*)P_0 + 20);
+			vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr3;
+			*(int*)ptr4 = 0;
+			((int*)ptr4)[1] = 0;
+			((int*)ptr4)[2] = 0;
+			try
+			{
+				vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr5 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+				*(int*)ptr5 = 0;
+				((int*)ptr5)[1] = 0;
+				((int*)ptr5)[2] = 0;
+				try
+				{
+					vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr6 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+					*(int*)ptr6 = 0;
+					((int*)ptr6)[1] = 0;
+					((int*)ptr6)[2] = 0;
+					try
+					{
+						vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr7 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 68);
+						*(int*)ptr7 = 0;
+						((int*)ptr7)[1] = 0;
+						((int*)ptr7)[2] = 0;
+						try
+						{
+							((int*)P_0)[21] = 0;
+							uint num = Relo_002ETracker_002EAllocate(P_0, 1u, 28u);
+							stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr8 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)ptr;
+							uint num2 = ((uint*)ptr8)[1];
+							if (num2 < (uint)((int*)ptr8)[2])
+							{
+								int num3 = (int)num2;
+								((int*)ptr8)[1] = (int)(num2 + 4);
+								if (num3 != 0)
+								{
+									*(uint*)num3 = num;
+								}
+							}
+							else
+							{
+								eastl_002Evector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue((vector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E*)ptr8, (uint*)(int)num2, &num);
+							}
+							*(int*)rootPointer = *(int*)(int)(num * 12 + (uint)(*(int*)ptr3));
+							return P_0;
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 68);
+							throw;
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 52);
+						throw;
+					}
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 36);
+					throw;
+				}
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 20);
+				throw;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*, void>)(&eastl_002Estack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+			throw;
+		}
+	}

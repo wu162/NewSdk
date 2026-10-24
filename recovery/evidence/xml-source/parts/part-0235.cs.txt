@@ -1,0 +1,500 @@
+			{
+				if (ptr4 != null)
+				{
+					System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E obj3);
+					gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* pThis2 = &obj3;
+					gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* namespaceManager2 = gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bctor_007D(&obj3, (gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*)((byte*)P_0 + 12));
+					System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E obj4);
+					try
+					{
+						gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* ptr5 = &obj4;
+						IntPtr intPtr4 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+						*(int*)(&obj4) = (int)((IntPtr)GCHandle.Alloc(((XPathNavigator)((GCHandle)intPtr4).Target).SelectChildren(XPathNodeType.Element))).ToPointer();
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bdtor_007D), pThis2);
+						throw;
+					}
+					return (IList*)List_002E_007Bctor_007D(ptr4, &obj4, namespaceManager2);
+				}
+				return null;
+			}
+			catch
+			{
+				//try-fault
+				delete(ptr4);
+				throw;
+			}
+		}
+		return null;
+	}
+
+	internal unsafe static NodeHolder* Node_002EGetChildNode(Node* P_0, NodeHolder* P_1, sbyte* name, sbyte* defaultValue)
+	{
+		uint num = 0u;
+		Node* ptr = null;
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		if (((GCHandle)intPtr).Target != null)
+		{
+			IntPtr intPtr2 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+			XPathNavigator target = (XPathNavigator)((GCHandle)intPtr2).Target;
+			IntPtr intPtr3 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+			if (((XPathNavigator)((GCHandle)intPtr3).Target).MoveToChild(new string(name), target.NamespaceURI))
+			{
+				Node* ptr2 = (Node*)@new(16u);
+				try
+				{
+					Node* ptr4;
+					try
+					{
+						if (ptr2 != null)
+						{
+							System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E obj);
+							gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* pThis = &obj;
+							gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* namespaceManager = gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bctor_007D(&obj, (gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*)((byte*)P_0 + 12));
+							System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E obj2);
+							try
+							{
+								gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E* ptr3 = &obj2;
+								IntPtr intPtr4 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+								*(int*)(&obj2) = (int)((IntPtr)GCHandle.Alloc(((XPathNavigator)((GCHandle)intPtr4).Target).CreateNavigator())).ToPointer();
+							}
+							catch
+							{
+								//try-fault
+								___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bdtor_007D), pThis);
+								throw;
+							}
+							ptr4 = Node_002E_007Bctor_007D(ptr2, &obj2, namespaceManager);
+						}
+						else
+						{
+							ptr4 = null;
+						}
+					}
+					catch
+					{
+						//try-fault
+						delete(ptr2);
+						throw;
+					}
+					ptr = ptr4;
+					IntPtr intPtr5 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+					((XPathNavigator)((GCHandle)intPtr5).Target).MoveToParent();
+					if (ptr4 != null)
+					{
+						goto IL_019e;
+					}
+				}
+				catch
+				{
+					//try-fault
+					if ((num & 1) != 0)
+					{
+						num &= 0xFFFFFFFEu;
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), P_1);
+					}
+					throw;
+				}
+			}
+		}
+		try
+		{
+			if (defaultValue != null)
+			{
+				Node* ptr5 = (Node*)@new(16u);
+				Node* ptr7;
+				try
+				{
+					if (ptr5 != null)
+					{
+						System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj3);
+						global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr6 = &obj3;
+						*(int*)(&obj3) = (int)((IntPtr)GCHandle.Alloc(new string(defaultValue))).ToPointer();
+						ptr7 = Node_002E_007Bctor_007D(ptr5, &obj3);
+					}
+					else
+					{
+						ptr7 = null;
+					}
+				}
+				catch
+				{
+					//try-fault
+					delete(ptr5);
+					throw;
+				}
+				ptr = ptr7;
+			}
+		}
+		catch
+		{
+			//try-fault
+			if ((num & 1) != 0)
+			{
+				num &= 0xFFFFFFFEu;
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), P_1);
+			}
+			throw;
+		}
+		goto IL_019e;
+		IL_019e:
+		try
+		{
+			*(int*)P_1 = (int)ptr;
+			num = 1u;
+			return P_1;
+		}
+		catch
+		{
+			//try-fault
+			if ((num & 1) != 0)
+			{
+				num &= 0xFFFFFFFEu;
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), P_1);
+			}
+			throw;
+		}
+	}
+
+	internal unsafe static IValue* Node_002EGetAttributeValue(Node* P_0, sbyte* name, sbyte* defaultValue)
+	{
+		Value* ptr = null;
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		if (((GCHandle)intPtr).Target != null)
+		{
+			IntPtr intPtr2 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+			if (((XPathNavigator)((GCHandle)intPtr2).Target).MoveToAttribute(new string(name), string.Empty))
+			{
+				Value* ptr2 = (Value*)@new(8u);
+				Value* ptr4;
+				try
+				{
+					if (ptr2 != null)
+					{
+						System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj);
+						global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr3 = &obj;
+						IntPtr intPtr3 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+						*(int*)(&obj) = (int)((IntPtr)GCHandle.Alloc(((XPathItem)((GCHandle)intPtr3).Target).Value)).ToPointer();
+						ptr4 = Value_002E_007Bctor_007D(ptr2, &obj);
+					}
+					else
+					{
+						ptr4 = null;
+					}
+				}
+				catch
+				{
+					//try-fault
+					delete(ptr2);
+					throw;
+				}
+				ptr = ptr4;
+				Value* intPtr4 = ptr4;
+				sbyte* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)intPtr4)))((nint)intPtr4);
+				if (*ptr5 == 92)
+				{
+					Value* ptr6 = (Value*)@new(8u);
+					Value* ptr8;
+					try
+					{
+						if (ptr6 != null)
+						{
+							System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj2);
+							global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr7 = &obj2;
+							*(int*)(&obj2) = (int)((IntPtr)GCHandle.Alloc(new string(ptr5 + 1))).ToPointer();
+							ptr8 = Value_002E_007Bctor_007D(ptr6, &obj2);
+						}
+						else
+						{
+							ptr8 = null;
+						}
+					}
+					catch
+					{
+						//try-fault
+						delete(ptr6);
+						throw;
+					}
+					ptr = ptr8;
+				}
+				IntPtr intPtr5 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+				((XPathNavigator)((GCHandle)intPtr5).Target).MoveToParent();
+				if (ptr != null)
+				{
+					goto IL_0178;
+				}
+			}
+		}
+		if (defaultValue != null)
+		{
+			Value* ptr9 = (Value*)@new(8u);
+			Value* ptr11;
+			try
+			{
+				if (ptr9 != null)
+				{
+					System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj3);
+					global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr10 = &obj3;
+					*(int*)(&obj3) = (int)((IntPtr)GCHandle.Alloc(new string(defaultValue))).ToPointer();
+					ptr11 = Value_002E_007Bctor_007D(ptr9, &obj3);
+				}
+				else
+				{
+					ptr11 = null;
+				}
+			}
+			catch
+			{
+				//try-fault
+				delete(ptr9);
+				throw;
+			}
+			ptr = ptr11;
+		}
+		goto IL_0178;
+		IL_0178:
+		return (IValue*)ptr;
+	}
+
+	internal unsafe static IValue* Node_002EGetValue(Node* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		if (((GCHandle)intPtr).Target != null)
+		{
+			Value* ptr = (Value*)@new(8u);
+			try
+			{
+				if (ptr != null)
+				{
+					System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj);
+					global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr2 = &obj;
+					IntPtr intPtr2 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+					*(int*)(&obj) = (int)((IntPtr)GCHandle.Alloc(((XPathItem)((GCHandle)intPtr2).Target).Value)).ToPointer();
+					return (IValue*)Value_002E_007Bctor_007D(ptr, &obj);
+				}
+				return null;
+			}
+			catch
+			{
+				//try-fault
+				delete(ptr);
+				throw;
+			}
+		}
+		Node* ptr3 = (Node*)((byte*)P_0 + 8);
+		IntPtr intPtr3 = new IntPtr((void*)(int)(*(uint*)ptr3));
+		if (((GCHandle)intPtr3).Target != null)
+		{
+			Value* ptr4 = (Value*)@new(8u);
+			try
+			{
+				if (ptr4 != null)
+				{
+					System.Runtime.CompilerServices.Unsafe.SkipInit(out global::gcroot_003CSystem_003A_003AString_0020_005E_003E obj2);
+					global::gcroot_003CSystem_003A_003AString_0020_005E_003E* ptr5 = &obj2;
+					global::gcroot_003CSystem_003A_003AString_0020_005E_003E* text = gcroot_003CSystem_003A_003AString_0020_005E_003E_002E_007Bctor_007D(&obj2, (global::gcroot_003CSystem_003A_003AString_0020_005E_003E*)ptr3);
+					return (IValue*)Value_002E_007Bctor_007D(ptr4, text);
+				}
+				return null;
+			}
+			catch
+			{
+				//try-fault
+				delete(ptr4);
+				throw;
+			}
+		}
+		return null;
+	}
+
+	internal unsafe static void Node_002ERelease(Node* P_0)
+	{
+		if (P_0 != null)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, uint, void*>)(int)(*(uint*)(*(int*)P_0 + 20)))((nint)P_0, 1u);
+		}
+	}
+
+	internal unsafe static List* List_002E_007Bctor_007D(List* P_0, gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* iterator, gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* namespaceManager)
+	{
+		try
+		{
+			try
+			{
+				System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7IList_0040Marshaler_0040_00406B_0040));
+				try
+				{
+					System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7List_0040_00406B_0040));
+					byte* num = (byte*)P_0 + 4;
+					IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)iterator));
+					*(int*)num = (int)((IntPtr)GCHandle.Alloc(((GCHandle)intPtr).Target)).ToPointer();
+					try
+					{
+						IntPtr intPtr2 = new IntPtr((void*)(int)(*(uint*)iterator));
+						XPathNodeIterator value = ((XPathNodeIterator)((GCHandle)intPtr2).Target).Clone();
+						gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* ptr = (gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*)((byte*)P_0 + 8);
+						*(int*)ptr = (int)((IntPtr)GCHandle.Alloc(value)).ToPointer();
+						try
+						{
+							byte* num2 = (byte*)P_0 + 12;
+							IntPtr intPtr3 = new IntPtr((void*)(int)(*(uint*)namespaceManager));
+							*(int*)num2 = (int)((IntPtr)GCHandle.Alloc(((GCHandle)intPtr3).Target)).ToPointer();
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D), (byte*)P_0 + 8);
+							throw;
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+						throw;
+					}
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<IList*, void>)(&Marshaler_002EIList_002E_007Bdtor_007D), P_0);
+					throw;
+				}
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D), iterator);
+				throw;
+			}
+			IntPtr intPtr4 = new IntPtr((void*)(int)(*(uint*)iterator));
+			((GCHandle)intPtr4).Free();
+			*(int*)iterator = 0;
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bdtor_007D), namespaceManager);
+			throw;
+		}
+		IntPtr intPtr5 = new IntPtr((void*)(int)(*(uint*)namespaceManager));
+		((GCHandle)intPtr5).Free();
+		*(int*)namespaceManager = 0;
+		return P_0;
+	}
+
+	internal unsafe static void* List_002E__vecDelDtor(List* P_0, uint P_1)
+	{
+		if ((P_1 & 2) != 0)
+		{
+			List* ptr = (List*)((byte*)P_0 - 4);
+			__ehvec_dtor(P_0, 16u, *(int*)ptr, (delegate*<void*, void>)(delegate*<List*, void>)(&List_002E_007Bdtor_007D));
+			if ((P_1 & 1) != 0)
+			{
+				delete_005B_005D(ptr);
+			}
+			return ptr;
+		}
+		List_002E_007Bdtor_007D(P_0);
+		if ((P_1 & 1) != 0)
+		{
+			delete(P_0);
+		}
+		return P_0;
+	}
+
+	internal unsafe static void List_002E_007Bdtor_007D(List* P_0)
+	{
+		try
+		{
+			try
+			{
+				try
+				{
+					gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* ptr = (gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*)((byte*)P_0 + 12);
+					IntPtr intPtr = new IntPtr((void*)(int)(*(uint*)ptr));
+					((GCHandle)intPtr).Free();
+					*(int*)ptr = 0;
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D), (byte*)P_0 + 8);
+					throw;
+				}
+				gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* ptr2 = (gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*)((byte*)P_0 + 8);
+				IntPtr intPtr2 = new IntPtr((void*)(int)(*(uint*)ptr2));
+				((GCHandle)intPtr2).Free();
+				*(int*)ptr2 = 0;
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+				throw;
+			}
+			gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E* ptr3 = (gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNodeIterator_0020_005E_003E*)((byte*)P_0 + 4);
+			IntPtr intPtr3 = new IntPtr((void*)(int)(*(uint*)ptr3));
+			((GCHandle)intPtr3).Free();
+			*(int*)ptr3 = 0;
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<IList*, void>)(&Marshaler_002EIList_002E_007Bdtor_007D), P_0);
+			throw;
+		}
+		System.Runtime.CompilerServices.Unsafe.WriteUnaligned(P_0, (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_7IList_0040Marshaler_0040_00406B_0040));
+	}
+
+	internal unsafe static int List_002EGetCount(List* P_0)
+	{
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		return ((XPathNodeIterator)((GCHandle)intPtr).Target).Count;
+	}
+
+	internal unsafe static NodeHolder* List_002EGetNextNode(List* P_0, NodeHolder* P_1)
+	{
+		uint num = 0u;
+		IntPtr intPtr = new IntPtr((void*)(int)((uint*)P_0)[1]);
+		if (((XPathNodeIterator)((GCHandle)intPtr).Target).MoveNext())
+		{
+			Node* ptr = (Node*)@new(16u);
+			try
+			{
+				Node* ptr3;
+				try
+				{
+					if (ptr != null)
+					{
+						System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E obj);
+						gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E* pThis = &obj;
+						IntPtr intPtr2 = new IntPtr((void*)(int)((uint*)P_0)[3]);
+						*(int*)(&obj) = (int)((IntPtr)GCHandle.Alloc(((GCHandle)intPtr2).Target)).ToPointer();
+						System.Runtime.CompilerServices.Unsafe.SkipInit(out gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E obj2);
+						try
+						{
+							gcroot_003CSystem_003A_003AXml_003A_003AXPath_003A_003AXPathNavigator_0020_005E_003E* ptr2 = &obj2;
+							IntPtr intPtr3 = new IntPtr((void*)(int)((uint*)P_0)[1]);
+							*(int*)(&obj2) = (int)((IntPtr)GCHandle.Alloc(((XPathNodeIterator)((GCHandle)intPtr3).Target).Current.CreateNavigator())).ToPointer();
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E*, void>)(&gcroot_003CSystem_003A_003AXml_003A_003AXmlNamespaceManager_0020_005E_003E_002E_007Bdtor_007D), pThis);
+							throw;
+						}
+						ptr3 = Node_002E_007Bctor_007D(ptr, &obj2, &obj);
+					}
+					else
+					{
+						ptr3 = null;
+					}
+				}
+				catch
+				{
+					//try-fault
+					delete(ptr);

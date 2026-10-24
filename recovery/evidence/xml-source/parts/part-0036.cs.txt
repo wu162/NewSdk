@@ -1,0 +1,500 @@
+						{
+							delete_005B_005D((void*)num2);
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 52);
+						throw;
+					}
+					vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr5 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+					int num3 = *(int*)ptr5;
+					if (num3 != 0)
+					{
+						delete_005B_005D((void*)num3);
+					}
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 36);
+					throw;
+				}
+				vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr6 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+				int num4 = *(int*)ptr6;
+				if (num4 != 0)
+				{
+					delete_005B_005D((void*)num4);
+				}
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 20);
+				throw;
+			}
+			vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr7 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr;
+			int num5 = *(int*)ptr7;
+			if (num5 != 0)
+			{
+				delete_005B_005D((void*)num5);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*, void>)(&eastl_002Estack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+			throw;
+		}
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr8 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)((byte*)P_0 + 4);
+		int num6 = *(int*)ptr8;
+		if (num6 != 0)
+		{
+			delete_005B_005D((void*)num6);
+		}
+	}
+
+	[return: MarshalAs(UnmanagedType.U1)]
+	internal unsafe static bool Relo_002ETracker_002EMakeRelocatable(Tracker* P_0, Relo.Chunk* chunk, EndianHelper* endian, uint absoluteInstanceOffset)
+	{
+		vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+		uint num;
+		if ((((int*)ptr)[1] - *(int*)ptr) / 12 != 0)
+		{
+			vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr2 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+			num = (uint)((((int*)ptr2)[1] - *(int*)ptr2) / 12 * 4 + 4);
+		}
+		else
+		{
+			num = 0u;
+		}
+		vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr3 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+		uint num2;
+		if ((((int*)ptr3)[1] - *(int*)ptr3) / 12 != 0)
+		{
+			vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+			num2 = (uint)((((int*)ptr4)[1] - *(int*)ptr4) / 12 * 4 + 4);
+		}
+		else
+		{
+			num2 = 0u;
+		}
+		if (!Relo_002EChunk_002EAllocate(chunk, *(uint*)P_0, num2, num))
+		{
+			return false;
+		}
+		sbyte* ptr5 = (sbyte*)(int)(*(uint*)chunk);
+		sbyte* ptr6 = ptr5;
+		uint num3 = ((uint*)P_0)[21];
+		if (num3 != 0)
+		{
+			delete_005B_005D((void*)(int)num3);
+		}
+		vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr7 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 20);
+		uint num4 = (uint)((((int*)ptr7)[1] - *(int*)ptr7) / 12);
+		uint num5 = ((num4 > 1073741823) ? uint.MaxValue : (num4 << 2));
+		((int*)P_0)[21] = (int)new_005B_005D(num5);
+		Tracker.Block* ptr8 = (Tracker.Block*)(int)((uint*)P_0)[5];
+		if (ptr8 != (Tracker.Block*)((int*)P_0)[6])
+		{
+			int num6 = 0;
+			do
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(ptr6, *(int*)ptr8, ((int*)ptr8)[1]);
+				*(int*)(num6 + ((int*)P_0)[21]) = (int)(ptr6 - (nuint)ptr5);
+				num6 += 4;
+				ptr6 = ((int*)ptr8)[1] + ptr6;
+				ptr8 = (Tracker.Block*)((byte*)ptr8 + 12);
+			}
+			while (ptr8 != (Tracker.Block*)((int*)P_0)[6]);
+		}
+		if (num2 != 0)
+		{
+			uint* ptr9 = (uint*)(int)((uint*)chunk)[2];
+			eastl_002Equick_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E((Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[9], (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[10], (delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte>)__unep_0040_003F_003F_0024BookmarkCompare_0040U_003F_0024GenericBookmark_0040I_0040Tracker_0040Relo_0040_0040_0040Tracker_0040Relo_0040_0040_0024_0024FCA_NABU_003F_0024GenericBookmark_0040I_004001_00400_0040Z);
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr10 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[9];
+			if (ptr10 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10])
+			{
+				do
+				{
+					uint num7 = (uint)(*(int*)(*(int*)ptr10 * 4 + ((int*)P_0)[21]) + ((int*)ptr10)[1]);
+					*ptr9 = Endian_002EEndianHelper_002EEndianToPlatform(endian, num7 + absoluteInstanceOffset);
+					uint num8 = *(uint*)(((int*)ptr10)[2] * 4 + ((int*)P_0)[21]);
+					*(uint*)((int)num7 + ptr5) = Endian_002EEndianHelper_002EEndianToPlatform(endian, num8 + absoluteInstanceOffset);
+					ptr9++;
+					ptr10 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr10 + 12);
+				}
+				while (ptr10 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[10]);
+			}
+			*ptr9 = uint.MaxValue;
+		}
+		if (num != 0)
+		{
+			uint* ptr11 = (uint*)(int)((uint*)chunk)[4];
+			eastl_002Equick_sort_003Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020_002A_002Cbool_0020_0028__cdecl_002A_0029_0028struct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_002Cstruct_0020Relo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_0020const_0020_0026_0029_003E((Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[13], (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[14], (delegate* unmanaged[Cdecl, Cdecl]<Tracker.GenericBookmark_003Cunsigned_0020int_003E*, Tracker.GenericBookmark_003Cunsigned_0020int_003E*, byte>)__unep_0040_003F_003F_0024BookmarkCompare_0040U_003F_0024GenericBookmark_0040I_0040Tracker_0040Relo_0040_0040_0040Tracker_0040Relo_0040_0040_0024_0024FCA_NABU_003F_0024GenericBookmark_0040I_004001_00400_0040Z);
+			Tracker.GenericBookmark_003Cunsigned_0020int_003E* ptr12 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)((uint*)P_0)[13];
+			if (ptr12 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14])
+			{
+				do
+				{
+					uint num9 = (uint)(*(int*)(*(int*)ptr12 * 4 + ((int*)P_0)[21]) + ((int*)ptr12)[1]);
+					*ptr11 = Endian_002EEndianHelper_002EEndianToPlatform(endian, num9 + absoluteInstanceOffset);
+					int num10 = ((int*)ptr12)[2];
+					*(int*)((int)num9 + ptr5) = Endian_002EEndianHelper_002EEndianToPlatform(endian, num10 + 1);
+					ptr11++;
+					ptr12 = (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((byte*)ptr12 + 12);
+				}
+				while (ptr12 != (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)((int*)P_0)[14]);
+			}
+			*ptr11 = uint.MaxValue;
+		}
+		return true;
+	}
+
+	internal unsafe static uint Relo_002ETracker_002EAllocate(Tracker* P_0, uint count, uint elementSize)
+	{
+		uint num = (count * elementSize + 3) & 0xFFFFFFFCu;
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.Block block);
+		*(int*)(&block) = (int)calloc(1u, num);
+		System.Runtime.CompilerServices.Unsafe.As<Tracker.Block, uint>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref block, 4)) = num;
+		System.Runtime.CompilerServices.Unsafe.As<Tracker.Block, uint>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref block, 8)) = elementSize;
+		Tracker* ptr = (Tracker*)((byte*)P_0 + 20);
+		vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr2 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr;
+		uint num2 = ((uint*)ptr2)[1];
+		if (num2 < (uint)((int*)ptr2)[2])
+		{
+			int num3 = (int)num2;
+			((int*)ptr2)[1] = (int)(num2 + 12);
+			if (num3 != 0)
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(num3, ref block, 12);
+			}
+		}
+		else
+		{
+			eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(ptr2, (Tracker.Block*)(int)num2, &block);
+		}
+		*(int*)P_0 += System.Runtime.CompilerServices.Unsafe.As<Tracker.Block, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref block, 4));
+		vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr3 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr;
+		return (uint)((((int*)ptr3)[1] - *(int*)ptr3) / 12 - 1);
+	}
+
+	internal unsafe static void Relo_002ETracker_002EAddReference(Tracker* P_0, void* location, uint value)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out Tracker.GenericBookmark_003Cunsigned_0020int_003E obj);
+		System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cunsigned_0020int_003E, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 4)) = (int)((byte*)location - *(int*)((*(int*)(&obj) = *(int*)(((int*)P_0)[2] - 4)) * 12 + ((int*)P_0)[5]));
+		System.Runtime.CompilerServices.Unsafe.As<Tracker.GenericBookmark_003Cunsigned_0020int_003E, uint>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref obj, 8)) = value;
+		*(uint*)location = value;
+		vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+		uint num = ((uint*)ptr)[1];
+		if (num < (uint)((int*)ptr)[2])
+		{
+			int num2 = (int)num;
+			((int*)ptr)[1] = (int)(num + 12);
+			if (num2 != 0)
+			{
+				// IL cpblk instruction
+				System.Runtime.CompilerServices.Unsafe.CopyBlock(num2, ref obj, 12);
+			}
+		}
+		else
+		{
+			eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue(ptr, (Tracker.GenericBookmark_003Cunsigned_0020int_003E*)(int)num, &obj);
+		}
+	}
+
+	internal unsafe static void _003F_003F__FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV12_0040XZ_0040YMXXZ()
+	{
+		Relo_002ETracker_002E_007Bdtor_007D((Tracker*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FnullTracker_0040_003F1_003F_003FNullTracker_0040Tracker_0040Relo_0040_0040SAAAV23_0040XZ_00404V23_0040A));
+	}
+
+	internal unsafe static void eastl_002Estack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E_002E_007Bdtor_007D(stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* P_0)
+	{
+		int num = *(int*)P_0;
+		if (num != 0)
+		{
+			delete_005B_005D((void*)num);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(int* @object, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*@object = (int)num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(uint* @object, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*@object = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(float* @object, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*(uint*)@object = num;
+		}
+	}
+
+	internal unsafe static uint Marshaler_002EUtils_002ETokenize(auto_ptr_003Cchar_003E* buffer, sbyte* text)
+	{
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		sbyte* ptr2 = (sbyte*)new_005B_005D((uint)(ptr - (nuint)text + 1));
+		uint num = *(uint*)buffer;
+		if (ptr2 != (sbyte*)(int)num)
+		{
+			delete((void*)(int)num);
+		}
+		*(int*)buffer = (int)ptr2;
+		sbyte* ptr3 = ptr2;
+		uint num2 = 0u;
+		sbyte b = *text;
+		if (b != 0)
+		{
+			do
+			{
+				if (isspace((byte)b) != 0)
+				{
+					while (*text != 0)
+					{
+						text++;
+						if (isspace((byte)(*text)) != 0)
+						{
+							continue;
+						}
+						goto IL_0056;
+					}
+					break;
+				}
+				goto IL_0056;
+				IL_0056:
+				b = *text;
+				if (b == 0)
+				{
+					break;
+				}
+				if (isspace((byte)b) == 0)
+				{
+					do
+					{
+						b = *text;
+						if (b == 0)
+						{
+							break;
+						}
+						*ptr3 = b;
+						ptr3++;
+						text++;
+					}
+					while (isspace((byte)(*text)) == 0);
+				}
+				*ptr3 = 0;
+				ptr3++;
+				num2++;
+				b = *text;
+			}
+			while (b != 0);
+		}
+		return num2;
+	}
+
+	internal static sbyte Marshaler_002EUtils_002ECharToLower(sbyte src)
+	{
+		return (sbyte)tolower(src);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(AssetId* @string, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@string)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@string)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@string)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@string;
+			*(uint*)@string = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(sbyte* text, DataBlob* @object, Tracker* tracker)
+	{
+		*(int*)@object = 0;
+		((int*)@object)[1] = 0;
+		_iobuf* ptr = fopen(text, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02JDPG_0040rb_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			fseek(ptr, 0, 2);
+			uint num = (uint)(((int*)@object)[1] = ftell(ptr));
+			Relo_002ETracker_002EPush(tracker, (void**)@object, 1u, num);
+			fseek(ptr, 0, 0);
+			if (fread((void*)(int)(*(uint*)@object), 1u, num, ptr) != num)
+			{
+				((int*)@object)[1] = 0;
+			}
+			fclose(ptr);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+
+	internal static void _003FA0x0a42ecd9_002E_003F_003F__E_003FA0x0a42ecd9_0040SECONDS_PER_LOGICFRAME_REAL_0040DataInitializers_0040_0040YMXXZ()
+	{
+		DataInitializers_002E_003FA0x0a42ecd9_002ESECONDS_PER_LOGICFRAME_REAL = (float)(1.0 / (double)DataInitializers_002E_003FA0x0a42ecd9_002ELOGICFRAMES_PER_SECONDS_REAL);
+	}
+
+	internal unsafe static void DataInitializers_002EInitialize(float* @object, sbyte* text, TimeTag* __unnamed002)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01PBD _0024ArrayType_0024_0024_0024BY01PBD);
+		*(int*)(&_0024ArrayType_0024_0024_0024BY01PBD) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02EEKDFEKL_0040ms_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01PBD, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01PBD, 4)) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01LKDEMHDF_0040s_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01_0024_0024CBM _0024ArrayType_0024_0024_0024BY01_0024_0024CBM);
+		*(float*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM) = 0.001f;
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01_0024_0024CBM, float>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01_0024_0024CBM, 4)) = 1f;
+		float num = 1f;
+		int num2 = 0;
+		sbyte* ptr;
+		do
+		{
+			ptr = strstr(text, (sbyte*)(int)(*(uint*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01PBD)))));
+			if (ptr == null)
+			{
+				num2++;
+				continue;
+			}
+			num = *(float*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM)));
+			break;
+		}
+		while (num2 < 2);
+		sbyte* ptr2 = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr2++;
+			}
+			while (*ptr2 != 0);
+		}
+		uint num3 = (uint)(ptr2 - (nuint)text);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = (int)new_005B_005D(num3 + 1);
+		try
+		{
+			sbyte* ptr3 = text;
+			sbyte* ptr4 = (sbyte*)((nuint)(*(int*)(&auto_ptr_003Cchar_003E)) - (nuint)text);
+			sbyte b;
+			do
+			{
+				b = (ptr4[(nuint)ptr3] = *ptr3);
+				ptr3++;
+			}
+			while (b != 0);
+			if (ptr != null)
+			{
+				ptr4[(nuint)ptr] = 0;
+			}
+			float num4 = (float)atof((sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+			*@object = (float)((double)num4 * (double)num);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}
+
+	internal unsafe static void DataInitializers_002EInitialize(float* @object, sbyte* text, AngleTag* __unnamed002)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01PBD _0024ArrayType_0024_0024_0024BY01PBD);
+		*(int*)(&_0024ArrayType_0024_0024_0024BY01PBD) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01KDCPPGHE_0040r_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01PBD, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01PBD, 4)) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01LPLHEDKD_0040d_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01_0024_0024CBM _0024ArrayType_0024_0024_0024BY01_0024_0024CBM);
+		*(float*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM) = 1f;
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01_0024_0024CBM, float>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01_0024_0024CBM, 4)) = (float)Math.PI / 180f;
+		float num = 1f;
+		int num2 = 0;
+		sbyte* ptr;
+		do
+		{
+			ptr = strstr(text, (sbyte*)(int)(*(uint*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01PBD)))));
+			if (ptr == null)
+			{
+				num2++;
+				continue;
+			}
+			num = *(float*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM)));
+			break;
+		}
+		while (num2 < 2);
+		sbyte* ptr2 = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr2++;
+			}
+			while (*ptr2 != 0);
+		}
+		uint num3 = (uint)(ptr2 - (nuint)text);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = (int)new_005B_005D(num3 + 1);
+		try
+		{
+			sbyte* ptr3 = text;
+			sbyte* ptr4 = (sbyte*)((nuint)(*(int*)(&auto_ptr_003Cchar_003E)) - (nuint)text);
+			sbyte b;
+			do
+			{
+				b = (ptr4[(nuint)ptr3] = *ptr3);
+				ptr3++;
+			}
+			while (b != 0);
+			if (ptr != null)
+			{
+				ptr4[(nuint)ptr] = 0;
+			}
+			float num4 = (float)atof((sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+			*@object = (float)((double)num4 * (double)num);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, uint* @object, Tracker* tracker, ColorTag* __unnamed003)
+	{

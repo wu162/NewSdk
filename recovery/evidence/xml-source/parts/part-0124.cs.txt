@@ -1,0 +1,500 @@
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityOrtho_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVelocityOrtho* ptr = (FXParticleEmissionVelocityOrtho*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -414023422;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawStreak_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = -485809536;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeTerrainFire_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		FXParticleEmissionVolumeTerrainFire* ptr = (FXParticleEmissionVolumeTerrainFire*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 48u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -522174923;
+	}
+
+	internal unsafe static void Marshaler_002EMarshalUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(INode* node, FXParticleBaseModule** pointer, Tracker* tracker)
+	{
+		void* intPtr = Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)intPtr = 0;
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeSphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeSphere* ptr = (FXParticleEmissionVolumeSphere*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[8];
+			((int*)ptr)[2] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityOutward_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocityOutward* ptr = (FXParticleEmissionVelocityOutward*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 4), endian);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 16), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticlePhysicsBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticlePhysicsBase* ptr = (FXParticlePhysicsBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumePoint_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumePoint* ptr = (FXParticleEmissionVolumePoint*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeBase* ptr = (FXParticleEmissionVolumeBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeSpline_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeSpline* ptr = (FXParticleEmissionVolumeSpline*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 8), endian);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 20), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleSwarmPhysics_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleSwarmPhysics* ptr = (FXParticleSwarmPhysics*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEventBase* ptr = (FXParticleEventBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeBox_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeBox* ptr = (FXParticleEmissionVolumeBox*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 8), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawLightSource_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleDrawLightSource* ptr = (FXParticleDrawLightSource*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)ptr + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)ptr + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)ptr + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)ptr)[4];
+			((int*)ptr)[1] = (int)num;
+			if (*(bool*)endian)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)ptr)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)ptr;
+				*(uint*)ptr = num2;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawLightning_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleDrawLightning* ptr = (FXParticleDrawLightning*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 4), endian);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 16), endian);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawLightning_003A_003ARandomSet_003E((List_003CSageBinaryData_003A_003AFXParticleDrawLightning_003A_003ARandomSet_003E*)((byte*)ptr + 28), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityCylinder_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocityCylinder* ptr = (FXParticleEmissionVelocityCylinder*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 4), endian);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 16), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocitySphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocitySphere* ptr = (FXParticleEmissionVelocitySphere*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 4), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeLightning_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeLightning* ptr = (FXParticleEmissionVolumeLightning*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleDrawBase* ptr = (FXParticleDrawBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocityBase* ptr = (FXParticleEmissionVelocityBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventCollision_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEventCollision* ptr = (FXParticleEventCollision*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 12), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVolumeLine_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVolumeLine* ptr = (FXParticleEmissionVolumeLine*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 8), endian);
+		Marshaler_002EEndianCorrect((Vector3*)((byte*)ptr + 20), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEventLife_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEventLife* ptr = (FXParticleEventLife*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 12), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityHemisphere_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocityHemisphere* ptr = (FXParticleEmissionVelocityHemisphere*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr + 4), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleEmissionVelocityOrtho_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleEmissionVelocityOrtho* ptr = (FXParticleEmissionVelocityOrtho*)(int)(*(uint*)pointer);
+		RandCoord3D* ptr2 = (RandCoord3D*)((byte*)ptr + 4);
+		Marshaler_002EEndianCorrect((RandomVariable*)ptr2, endian);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr2 + 12), endian);
+		Marshaler_002EEndianCorrect((RandomVariable*)((byte*)ptr2 + 24), endian);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleUpdateBase_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleUpdateBase* ptr = (FXParticleUpdateBase*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleDrawStreak_002Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleDrawStreak* ptr = (FXParticleDrawStreak*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrectUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXParticleBaseModule_003E(FXParticleBaseModule** pointer, EndianHelper* endian)
+	{
+		FXParticleBaseModule* ptr = (FXParticleBaseModule*)(int)(*(uint*)pointer);
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)ptr)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)ptr)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)ptr)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)ptr;
+			*(uint*)ptr = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_GeometryType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_GeometryType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_GeometryType_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_GeometryType_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 5u);
+			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_GeometryType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_WavefrontShape_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_WavefrontShape* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_WavefrontShape_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_WavefrontShape_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 3u);
+			int num = ((ptr == null) ? 1 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_WavefrontShape)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_RotationType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_RotationType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_RotationType_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_RotationType_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
+			int num = ((ptr != null) ? ((int*)ptr)[1] : 0);
+			*@object = (FXParticleSystem_RotationType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_WindMotion_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_WindMotion* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_WindMotion_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_WindMotion_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 4u);
+			int num = ((ptr == null) ? 3 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_WindMotion)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_Priority_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_Priority* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_Priority_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_Priority_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 12u);
+			int num = ((ptr == null) ? 6 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_Priority)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_ShaderType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_ShaderType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_ShaderType_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_ShaderType_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 9u);
+			int num = ((ptr == null) ? 1 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_ShaderType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020FXParticleSystem_003A_003AFXParticleSystem_Type_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, FXParticleSystem_Type* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4FXParticleSystem_Type_0040FXParticleSystem_0040_0040_0040_0040SA_003FBW4FXParticleSystem_Type_0040FXParticleSystem_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 10u);
+			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
+			*@object = (FXParticleSystem_Type)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseRenderAssetType_002Cclass_0020Sage_003A_003ARender_003A_003ABaseRenderObjectFactory_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003ABaseRenderAssetType_002CSage_003A_003ARender_003A_003ABaseRenderObjectFactory_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);

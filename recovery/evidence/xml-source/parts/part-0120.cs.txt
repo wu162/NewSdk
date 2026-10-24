@@ -1,0 +1,500 @@
+				int num5 = num4;
+				int num6 = 0;
+				sbyte b2 = b;
+				sbyte b3 = *(sbyte*)num5;
+				if (b2 < b3)
+				{
+					goto IL_004c;
+				}
+				sbyte* ptr = at - num4;
+				while (true)
+				{
+					if (b2 <= b3)
+					{
+						if (b2 == 0)
+						{
+							break;
+						}
+						num5++;
+						b2 = ptr[num5];
+						b3 = *(sbyte*)num5;
+						if (b2 >= b3)
+						{
+							continue;
+						}
+						goto IL_004c;
+					}
+					num6 = 1;
+					break;
+				}
+				goto IL_0054;
+				IL_004c:
+				num6 = -1;
+				goto IL_0054;
+				IL_0054:
+				int num7 = num6;
+				if (num7 != 0)
+				{
+					if (num7 > 0)
+					{
+						num = num3 + 1;
+					}
+					else
+					{
+						num2 = num3;
+					}
+					continue;
+				}
+				return (EnumNameGetter_003Cint_003E.EnumPair*)((int)(num3 * 8) + (byte*)app);
+			}
+			while (num < num2);
+		}
+		return null;
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cchar_003E(sbyte* text, String_003Cchar_003E* @string, Tracker* tracker)
+	{
+		sbyte* ptr = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr++;
+			}
+			while (*ptr != 0);
+		}
+		uint num = (uint)(*(int*)@string = (int)(ptr - (nuint)text));
+		String_003Cchar_003E* ptr2 = (String_003Cchar_003E*)((byte*)@string + 4);
+		Relo_002ETracker_002EPush(tracker, (void**)ptr2, 1u, num + 1);
+		sbyte* ptr3 = (sbyte*)(int)(*(uint*)ptr2);
+		sbyte b;
+		do
+		{
+			*ptr3 = *text;
+			text++;
+			b = *ptr3;
+			ptr3++;
+		}
+		while (b != 0);
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cunsigned_0020char_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, byte* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = (byte)strtoul(ptr, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, float* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = (float)atof(ptr);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, uint* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = strtoul(ptr, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cint_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, int* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = strtol(ptr, null, 0);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020TimeTag_003E(IValue* value, float* @object, Tracker* state, TimeTag* tag)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			DataInitializers_002EInitialize(@object, text, tag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATexture_002Cclass_0020RNA_003A_003ATextureC_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003ATexture_002CRNA_003A_003ATextureC_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020DistributionType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, DistributionType* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DistributionType_0040_0040_0040_0040SA_003FBW4DistributionType_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 6u);
+			int num = ((ptr != null) ? ((int*)ptr)[1] : 0);
+			*@object = (DistributionType)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AEvaEvent_002Cstruct_0020SageBinaryData_003A_003AEvaEvent_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AEvaEvent_002CSageBinaryData_003A_003AEvaEvent_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAudioVolumeSlider_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AudioVolumeSlider* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AudioVolumeSlider_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AudioVolumeSlider_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 6u);
+			int num = ((ptr == null) ? 3 : ((int*)ptr)[1]);
+			*@object = (AudioVolumeSlider)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAudioFile_002Cclass_0020AudioFileInfo_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AAudioFile_002CAudioFileInfo_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = strchr(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), 92);
+			if (ptr != null)
+			{
+				uint value2 = (uint)atoi(ptr + 1);
+				Relo_002ETracker_002EAddReference(state, @object, value2);
+			}
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cfloat_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(IValue* value, float* @object, Tracker* state, PercentageTag* tag)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			*@object = (float)atof(ptr) * 0.01f;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cchar_003E(String_003Cchar_003E* @string, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@string)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@string)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@string)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@string;
+			*(uint*)@string = num;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cfloat_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, float** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			*(float*)(int)(*(uint*)@object) = (float)atof(ptr);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cfloat_0020_002A_002Cclass_0020Relo_003A_003ATracker_002Cstruct_0020PercentageTag_003E(IValue* value, float** @object, Tracker* state, PercentageTag* tag)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			*(float*)(int)(*(uint*)@object) = (float)atof(ptr) * 0.01f;
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, String_003Cchar_003E* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), @object, state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte b = *((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			int num = ((b == 49 || b == 116 || b == 84) ? 1 : 0);
+			*@object = (byte)num != 0;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, String_003Cchar_003E** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 8u, 1u);
+			Marshaler_002EMarshal_003Cchar_003E(text, (String_003Cchar_003E*)(int)(*(uint*)@object), state);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cint_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, int** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			*(int*)(int)(*(uint*)@object) = strtol(ptr, null, 0);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cbool_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* intPtr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 1u, 1u);
+			bool* ptr = (bool*)(int)(*(uint*)@object);
+			sbyte b = *intPtr;
+			int num = ((b == 49 || b == 116 || b == 84) ? 1 : 0);
+			*ptr = (byte)num != 0;
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AMultisoundSubsoundRef_003E(IList* list, List_003CSageBinaryData_003A_003AMultisoundSubsoundRef_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 28u, num);
+			if (0 < num)
+			{
+				int num2 = 0;
+				uint num3 = num;
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num4 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num4), (MultisoundSubsoundRef*)(num2 + ((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2 += 28;
+					num3--;
+				}
+				while (num3 != 0);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AMultisoundSubsoundRef_003E(List_003CSageBinaryData_003A_003AMultisoundSubsoundRef_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		MultisoundSubsoundRef* ptr = (MultisoundSubsoundRef*)num;
+		MultisoundSubsoundRef* ptr2 = (MultisoundSubsoundRef*)(*(int*)list * 28 + num);
+		if (ptr != ptr2)
+		{
+			do
+			{
+				Marshaler_002EEndianCorrect(ptr, endian);
+				ptr = (MultisoundSubsoundRef*)((byte*)ptr + 28);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(sbyte*)(&num2) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *(sbyte*)list;
+			*(uint*)list = num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAudioPriority_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AudioPriority* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AudioPriority_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AudioPriority_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 6u);
+			int num = ((ptr == null) ? 5 : ((int*)ptr)[1]);
+			*@object = (AudioPriority)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAudioVolumeSlider_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AudioVolumeSlider** @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			sbyte* at = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value);
+			Relo_002ETracker_002EPush(state, (void**)@object, 4u, 1u);
+			AudioVolumeSlider* ptr = (AudioVolumeSlider*)(int)(*(uint*)@object);
+			EnumNameGetter_003Cint_003E.EnumPair* ptr2 = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(at, (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0x0a42ecd9_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4AudioVolumeSlider_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4AudioVolumeSlider_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 6u);
+			int num = ((ptr2 == null) ? 3 : ((int*)ptr2)[1]);
+			*ptr = (AudioVolumeSlider)num;
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ARealRange_003E(INode* node, RealRange** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+			Marshaler_002EMarshal(node, (RealRange*)(int)(*(uint*)pointer), tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AIntRange_003E(INode* node, IntRange** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+			Marshaler_002EMarshal(node, (IntRange*)(int)(*(uint*)pointer), tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAudioVolumeSliderMultiplier_003E(IList* list, List_003CSageBinaryData_003A_003AAudioVolumeSliderMultiplier_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 8u, num);
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (AudioVolumeSliderMultiplier*)(int)(num2 * 8 + (uint)((int*)target)[1]), tracker);
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}
+					if (*(int*)(&nodeHolder) != 0)
+					{
+						((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+					}
+					num2++;
+				}
+				while (num2 < num);
+			}
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)list + 12)))((nint)list);
+	}
+
+	internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAudioEventLimitGroup_002Cstruct_0020SageBinaryData_003A_003AAudioEventLimitGroup_003E_0020_003E(IList* list, List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AAudioEventLimitGroup_002CSageBinaryData_003A_003AAudioEventLimitGroup_003E_0020_003E* target, Tracker* tracker)
+	{
+		if (list == null)
+		{
+			return;
+		}
+		uint num = (uint)(*(int*)target = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)list + 8)))((nint)list));
+		if (num != 0)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)((byte*)target + 4), 4u, num);
+			uint num2 = 0u;
+			if (0 < num)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+				do
+				{
+					int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)list + 4)))((nint)list, &nodeHolder);
+					try
+					{
+						INode* ptr = (INode*)(int)(*(uint*)num3);
+						AssetReference_003CSageBinaryData_003A_003AAudioEventLimitGroup_002CSageBinaryData_003A_003AAudioEventLimitGroup_003E* ptr2 = (AssetReference_003CSageBinaryData_003A_003AAudioEventLimitGroup_002CSageBinaryData_003A_003AAudioEventLimitGroup_003E*)(int)(num2 * 4 + (uint)((int*)target)[1]);
+						if (ptr != null)
+						{
+							Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAudioEventLimitGroup_002Cstruct_0020SageBinaryData_003A_003AAudioEventLimitGroup_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr + 16)))((nint)ptr), ptr2, tracker);
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+						throw;
+					}

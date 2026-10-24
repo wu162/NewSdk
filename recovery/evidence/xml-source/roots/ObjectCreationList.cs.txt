@@ -1,0 +1,131 @@
+// Original source lines 29519-29536
+	internal unsafe static void Marshaler_002EMarshal(INode* node, ObjectCreationList* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AOCLType_002C2_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AOCLType_003E*)((byte*)@object + 4), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ACreateObjectNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040DLJIDING_0040CreateObject_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ACreateObjectNugget_003E*)((byte*)@object + 8), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AAttackNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06FDAMAAOH_0040Attack_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AAttackNugget_003E*)((byte*)@object + 16), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AFireWeaponNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040IPKIKAM_0040FireWeapon_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AFireWeaponNugget_003E*)((byte*)@object + 24), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AFlingObjectNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040ELAAPJMG_0040FlingObject_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AFlingObjectNugget_003E*)((byte*)@object + 32), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AStrafeAreaNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040FHHCCN_0040StrafeAreaSquad_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AStrafeAreaNugget_003E*)((byte*)@object + 40), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AParabolicCurveNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040IPPIEOL_0040ParabolicCurve_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AParabolicCurveNugget_003E*)((byte*)@object + 48), state);
+		}
+	}
+
+// Original source lines 29538-29555
+	internal unsafe static void Marshaler_002EEndianCorrect(ObjectCreationList* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num;
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ACreateObjectNugget_003E((List_003CSageBinaryData_003A_003ACreateObjectNugget_003E*)((byte*)@object + 8), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAttackNugget_003E((List_003CSageBinaryData_003A_003AAttackNugget_003E*)((byte*)@object + 16), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AFireWeaponNugget_003E((List_003CSageBinaryData_003A_003AFireWeaponNugget_003E*)((byte*)@object + 24), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AFlingObjectNugget_003E((List_003CSageBinaryData_003A_003AFlingObjectNugget_003E*)((byte*)@object + 32), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AStrafeAreaNugget_003E((List_003CSageBinaryData_003A_003AStrafeAreaNugget_003E*)((byte*)@object + 40), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AParabolicCurveNugget_003E((List_003CSageBinaryData_003A_003AParabolicCurveNugget_003E*)((byte*)@object + 48), state);
+	}
+
+// Original source lines 91974-92063
+	internal unsafe static Tracker* Relo_002ETracker_002E_007Bctor_007D_003Cstruct_0020SageBinaryData_003A_003AObjectCreationList_003E(Tracker* P_0, ObjectCreationList** rootPointer)
+	{
+		*(int*)P_0 = 0;
+		Tracker* ptr = (Tracker*)((byte*)P_0 + 4);
+		stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr2 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)ptr;
+		*(int*)ptr2 = 0;
+		((int*)ptr2)[1] = 0;
+		((int*)ptr2)[2] = 0;
+		try
+		{
+			Tracker* ptr3 = (Tracker*)((byte*)P_0 + 20);
+			vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E* ptr4 = (vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*)ptr3;
+			*(int*)ptr4 = 0;
+			((int*)ptr4)[1] = 0;
+			((int*)ptr4)[2] = 0;
+			try
+			{
+				vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr5 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 36);
+				*(int*)ptr5 = 0;
+				((int*)ptr5)[1] = 0;
+				((int*)ptr5)[2] = 0;
+				try
+				{
+					vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E* ptr6 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 52);
+					*(int*)ptr6 = 0;
+					((int*)ptr6)[1] = 0;
+					((int*)ptr6)[2] = 0;
+					try
+					{
+						vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E* ptr7 = (vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*)((byte*)P_0 + 68);
+						*(int*)ptr7 = 0;
+						((int*)ptr7)[1] = 0;
+						((int*)ptr7)[2] = 0;
+						try
+						{
+							((int*)P_0)[21] = 0;
+							uint num = Relo_002ETracker_002EAllocate(P_0, 1u, 56u);
+							stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E* ptr8 = (stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*)ptr;
+							uint num2 = ((uint*)ptr8)[1];
+							if (num2 < (uint)((int*)ptr8)[2])
+							{
+								int num3 = (int)num2;
+								((int*)ptr8)[1] = (int)(num2 + 4);
+								if (num3 != 0)
+								{
+									*(uint*)num3 = num;
+								}
+							}
+							else
+							{
+								eastl_002Evector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_002EDoInsertValue((vector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E*)ptr8, (uint*)(int)num2, &num);
+							}
+							*(int*)rootPointer = *(int*)(int)(num * 12 + (uint)(*(int*)ptr3));
+							return P_0;
+						}
+						catch
+						{
+							//try-fault
+							___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cvoid_0020_002A_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 68);
+							throw;
+						}
+					}
+					catch
+					{
+						//try-fault
+						___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 52);
+						throw;
+					}
+				}
+				catch
+				{
+					//try-fault
+					___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003AGenericBookmark_003Cunsigned_0020int_003E_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 36);
+					throw;
+				}
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<vector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E*, void>)(&eastl_002Evector_003CRelo_003A_003ATracker_003A_003ABlock_002Ceastl_003A_003Aallocator_003E_002E_007Bdtor_007D), (byte*)P_0 + 20);
+				throw;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<stack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E*, void>)(&eastl_002Estack_003Cunsigned_0020int_002Ceastl_003A_003Avector_003Cunsigned_0020int_002Ceastl_003A_003Aallocator_003E_0020_003E_002E_007Bdtor_007D), (byte*)P_0 + 4);
+			throw;
+		}
+	}

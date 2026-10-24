@@ -1,0 +1,500 @@
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040JLELIPBO_0040ChatWithEveryone_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 24), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040KIOJOGNK_0040CommunicateWithAlliesMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 28), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040ECLHJFOG_0040CreateFormation_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 32), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040FBOJMGJG_0040CycleHarvesters_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 36), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NLJDJIAI_0040DeleteBeacon_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 40), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040KGJOCPAD_0040ForceAttack_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 44), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040HKADPPNH_0040ForceAttackMove_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 48), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09ILMJAAMK_0040ForceMove_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 52), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040HDBNBJJE_0040GoToNextBuildQueue_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 56), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040KFAPLABK_0040GoToPriorBuildQueue_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 60), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040FCFDFFHB_0040GoToNextSubGroup_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 64), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040DJHPENII_0040GoToPriorSubGroup_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 68), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040LGCHLMGM_0040OpenAdvancedCommands_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 72), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040IDFCHLNG_0040OpenLoadGameScreen_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 76), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040DIPOIBGD_0040OpenMessenger_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 80), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040DFGLBCJ_0040OpenPauseScreen_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 84), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040OPCJGAPK_0040OpenPlayerTechStore_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 88), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040KPCJOGJ_0040OpenSaveGameScreen_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 92), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040IHIHCCNO_0040OpenStatusScreen_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 96), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040MMAAAADD_0040PlaceRallyPoint_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 100), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040ILCCLMPB_0040PlanningMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 104), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040KDOEGFEO_0040PreferSelection_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 108), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040IDKIEGHJ_0040QuickChatMenu_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 112), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040HIFGMEFC_0040ReverseMove_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 116), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07IDJIDNEP_0040Scatter_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 120), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09CPHHKKND_0040SelectAll_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 124), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040CGDCMGGN_0040SelectMatchingUnits_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 128), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08GNHAFGDO_0040SellMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 132), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040KFLPNBFO_0040ShowAllHealthBars_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 136), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04MOIHHPNJ_0040Stop_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 140), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040DFOILGFK_0040TelestratorErase_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 144), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040NGIAMJAH_0040TelestratorNextColor_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 148), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040LKAFMACG_0040TelestratorNextLineWidth_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 152), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040BPLCIOLL_0040TelestratorPriorColor_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 156), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040LCAKEHGG_0040TelestratorToggle_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 160), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040KELNLPKJ_0040ToggleFastForwardMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 164), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09DFEJAFJD_0040ToggleHUD_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 168), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040BIJMEMKE_0040TogglePowerMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 172), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040JLHLMCHK_0040ToggleRepairMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 176), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040OIEENBLD_0040ViewHomeBase_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 180), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040DCKOHHAH_0040ViewLastEvaEvent_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 184), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NHJFELOE_0040WaypointMode_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 188), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalMiscHotKeysStanceSettings_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040PFOEMHNC_0040StanceSettings_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUIMouseTacticalMiscHotKeysStanceSettings_003E*)((byte*)@object + 192), state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalPlayerTechStoreButton* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040MGKKGDKC_0040TechPointAwardedSound_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E**)((byte*)@object + 36), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal(node, (UIMouseSimpleFixedButton*)@object, state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalQuickChatDisplayCloseItem* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PABKJLOM_0040Title_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (String_003Cchar_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalQuickChatDisplayMenuItemChatMessage* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040CAMGDOOB_0040MessageRef_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIQuickChatMessage_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AUIQuickChatMessage_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalQuickChatDisplayMenuItem* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PABKJLOM_0040Title_003F_0024AA_0040), null);
+		if (ptr != null)
+		{
+			Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (String_003Cchar_003E*)@object, state);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayChatDestination_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040HFABHJFJ_0040ChatDestination_003F_0024AA_0040), null), (UIMouseTacticalQuickChatDisplayChatDestination**)((byte*)@object + 8), state);
+		Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040INMBICGP_0040ChatMessageGroup_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_003E*)((byte*)@object + 12), state);
+		Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08BLHBLMG_0040MenuItem_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E*)((byte*)@object + 20), state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040JFFMMPJP_0040CloseMenuItem_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr2 = (INode*)(int)(*(uint*)num);
+			UIMouseTacticalQuickChatDisplayCloseItem** ptr3 = (UIMouseTacticalQuickChatDisplayCloseItem**)((byte*)@object + 28);
+			if (ptr2 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr3, 8u, 1u);
+				Marshaler_002EMarshal(ptr2, (UIMouseTacticalQuickChatDisplayCloseItem*)(int)(*(uint*)ptr3), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(UIMouseTacticalQuickChatDisplayMenuItem* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)@object)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)@object)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)@object)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)@object;
+			*(uint*)@object = num;
+		}
+		uint num2 = ((uint*)@object)[2];
+		if (num2 != 0)
+		{
+			UIMouseTacticalQuickChatDisplayChatDestination* ptr = (UIMouseTacticalQuickChatDisplayChatDestination*)(int)num2;
+			int num3 = (int)(*ptr);
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num4);
+				*(sbyte*)(&num4) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3));
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 1)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2));
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 2)) = System.Runtime.CompilerServices.Unsafe.As<int, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1));
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num4, 3)) = *(sbyte*)(&num3);
+				num3 = (int)num4;
+			}
+			*ptr = (UIMouseTacticalQuickChatDisplayChatDestination)num3;
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_003E((List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup_003E*)((byte*)@object + 12), state);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E((List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E*)((byte*)@object + 20), state);
+		uint num5 = ((uint*)@object)[7];
+		if (num5 != 0)
+		{
+			UIMouseTacticalQuickChatDisplayCloseItem* ptr2 = (UIMouseTacticalQuickChatDisplayCloseItem*)(int)num5;
+			if (*(bool*)state)
+			{
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num6);
+				*(sbyte*)(&num6) = ((sbyte*)ptr2)[3];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 1)) = ((sbyte*)ptr2)[2];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 2)) = ((sbyte*)ptr2)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num6, 3)) = *(sbyte*)ptr2;
+				*(uint*)ptr2 = num6;
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalQuickChatDisplay* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08CEMDMOHB_0040CloseKey_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 4), state);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040POMLLFAM_0040DelayDuration_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CAMHOJEI_00400s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 2, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08BLHBLMG_0040MenuItem_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E*)((byte*)@object + 12), state);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040JFFMMPJP_0040CloseMenuItem_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (UIMouseTacticalQuickChatDisplayCloseItem*)((byte*)@object + 20), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(UIMouseTacticalQuickChatDisplay* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num;
+		}
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E((List_003CSageBinaryData_003A_003AUIMouseTacticalQuickChatDisplayMenuItem_003E*)((byte*)@object + 12), state);
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 20)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 20)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 20)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[20];
+			((int*)@object)[5] = (int)num2;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalRadarTelestrator* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040MFDKBFMJ_0040StrokeSustainDuration_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_03LGFFHAIC_004010s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 1, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040NNPIDCCK_0040StrokeFadeDuration_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CDEDDNCG_00402s_003F_0024AA_0040));
+			if (ptr2 != null)
+			{
+				sbyte* text2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag2);
+				DataInitializers_002EInitialize((float*)@object + 2, text2, &timeTag2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseTacticalSetStanceButtonStanceSettings* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AStance_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06MNKNKICK_0040Stance_003F_0024AA_0040), null), (Stance*)@object, state);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040ODJKMHJJ_0040MouseOverHelp_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (InGameUISimpleHelpTemplate*)((byte*)@object + 4), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, UIMouseVoiceChat* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040DGMONNCM_0040ToggleModeHotKeySlot_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 4), state);
+		Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AHotKeySlot_002Cclass_0020Sage_003A_003AHotKey_003A_003ASlot_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040JGHFKBIE_0040TalkHotKeySlot_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AHotKeySlot_002CSage_003A_003AHotKey_003A_003ASlot_003E*)((byte*)@object + 8), state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040OELDILAK_0040ModeButtonHelp_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			InGameUISimpleHelpTemplate** ptr2 = (InGameUISimpleHelpTemplate**)((byte*)@object + 12);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 32u, 1u);
+				Marshaler_002EMarshal(ptr, (InGameUISimpleHelpTemplate*)(int)(*(uint*)ptr2), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0P_0040KOAKFGNJ_0040TalkButtonHelp_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr3 = (INode*)(int)(*(uint*)num2);
+			InGameUISimpleHelpTemplate** ptr4 = (InGameUISimpleHelpTemplate**)((byte*)@object + 16);
+			if (ptr3 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr4, 32u, 1u);
+				Marshaler_002EMarshal(ptr3, (InGameUISimpleHelpTemplate*)(int)(*(uint*)ptr4), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+			throw;
+		}
+		if (*(int*)(&nodeHolder2) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, ButtonState* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003APackedTextureImage_002Cclass_0020Image_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05NBEAGECF_0040Image_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003APackedTextureImage_002CImage_003E*)@object, state);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05PABKJLOM_0040Title_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (String_003Cchar_003E*)((byte*)@object + 4), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040OHKMKKDH_0040Description_003F_0024AA_0040), null);
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (String_003Cchar_003E*)((byte*)@object + 12), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040OFDHLECF_0040TypeDescription_003F_0024AA_0040), null);
+			if (ptr3 != null)
+			{
+				Marshaler_002EMarshal_003Cchar_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3), (String_003Cchar_003E*)((byte*)@object + 20), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EEndianCorrect(ButtonState* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[4];
+			((int*)@object)[1] = (int)num;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			*(byte*)(&num2) = ((byte*)@object + 12)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = ((byte*)@object + 12)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = ((byte*)@object + 12)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = ((sbyte*)@object)[12];
+			((int*)@object)[3] = (int)num2;
+		}
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(byte*)(&num3) = ((byte*)@object + 20)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((byte*)@object + 20)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((byte*)@object + 20)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = ((sbyte*)@object)[20];
+			((int*)@object)[5] = (int)num3;
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, ButtonSingleStateData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05JNKNAC_0040State_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ButtonState*)((byte*)@object + 4), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, JoypadCommandBarTemplateButtonSlot* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07ENHEGMCJ_0040Ordinal_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				*(uint*)@object = strtoul(ptr2, null, 0);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002Cclass_0020Sage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_06LKBCGDFD_0040Button_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002CSage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E*)((byte*)@object + 4), state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, JoypadCommandBarTemplate* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002Cclass_0020Sage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040DFLJGCLK_0040HomeButton_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002CSage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E*)((byte*)@object + 4), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AJoypadCommandBarTemplateButtonSlot_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04DPEGMFKN_0040Slot_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AJoypadCommandBarTemplateButtonSlot_003E*)((byte*)@object + 8), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002Cclass_0020Sage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040BPGNABEM_0040GeneralButton_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AJoypadCommandBarButtonTemplate_002CSage_003A_003AUI_003A_003AJoypad_003A_003ACommandBar_003A_003AButtonTemplate_003E_0020_003E*)((byte*)@object + 16), state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, JoypadCommandBarButtonTemplateDataSpecialPower* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AButtonSingleStateData_002Cclass_0020Sage_003A_003AUI_003A_003AButtonStateData_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09LOLBAGGK_0040StateData_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AButtonSingleStateData_002CSage_003A_003AUI_003A_003AButtonStateData_003E*)((byte*)@object + 8), state);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ALogicCommand_002Cclass_0020LogicCommand_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040HDOPPNKB_0040LogicCommand_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ALogicCommand_002CLogicCommand_003E*)((byte*)@object + 4), state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, JoypadCommandBarButtonTemplateDataAutoControlGroup* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040IFPEINBO_0040ObjectFilter_003F_0024AA_0040), null);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), (ObjectFilter*)((byte*)@object + 8), state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AButtonSingleStateData_002Cclass_0020Sage_003A_003AUI_003A_003AButtonStateData_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09LOLBAGGK_0040StateData_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AButtonSingleStateData_002CSage_003A_003AUI_003A_003AButtonStateData_003E*)((byte*)@object + 4), state);
+		}
+	}
+
+	internal unsafe static void Marshaler_002EMarshal(INode* node, JoypadCommandBarButtonTemplateDataTargetedSpecialPower* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ARadiusCursor_002Cclass_0020Sage_003A_003AUI_003A_003ADecal_003A_003ARadiusCursor_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040PFKIBJOL_0040RadiusCursor_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ARadiusCursor_002CSage_003A_003AUI_003A_003ADecal_003A_003ARadiusCursor_003E*)((byte*)@object + 12), state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AOutlineDrawType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040HMNBLFOB_0040ValidTargetOutline_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040JHMBEHAL_0040HOVER_ATTACK_003F_0024AA_0040)), (OutlineDrawType*)@object + 4, state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040GIEDBKEM_0040ValidTargetTintColor_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			RGBColor** ptr2 = (RGBColor**)((byte*)@object + 20);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 12u, 1u);
+				Marshaler_002EMarshal(ptr, (RGBColor*)(int)(*(uint*)ptr2), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (JoypadCommandBarButtonTemplateDataSpecialPower*)@object, state);
