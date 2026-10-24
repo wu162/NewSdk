@@ -1,1 +1,16 @@
-PASS SDK full XSD: eighteen assets; 3 negative fixtures rejected.
+System.Exception: Legal SDK probe: The required attribute 'LowLodTree' is missing.
+   at XmlPrioritySdkOracle.<Schema>b__0(Object sender, ValidationEventArgs e)
+   at System.Xml.DocumentSchemaValidator.InternalValidationCallBack(Object sender, ValidationEventArgs arg)
+   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(XmlSchemaValidationException e, XmlSeverityType severity)
+   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(String code, String arg)
+   at System.Xml.Schema.XmlSchemaValidator.CheckRequiredAttributes(SchemaElementDecl currentElementDecl)
+   at System.Xml.Schema.XmlSchemaValidator.ValidateEndOfAttributes(XmlSchemaInfo schemaInfo)
+   at System.Xml.DocumentSchemaValidator.ValidateElement()
+   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)
+   at System.Xml.DocumentSchemaValidator.ValidateElement()
+   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)
+   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)
+   at System.Xml.DocumentSchemaValidator.Validate(XmlNode nodeToValidate)
+   at System.Xml.XmlDocument.Validate(ValidationEventHandler validationEventHandler, XmlNode nodeToValidate)
+   at XmlPrioritySdkOracle.Schema(String sdk, String probe, String report)
+   at XmlPrioritySdkOracle.Main(String[] args)

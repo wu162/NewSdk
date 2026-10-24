@@ -1,9 +1,9 @@
 {
   "succeeded": false,
-  "sourceCommit": "3733fbc380c38b2fece9b955e567289eb9074b58",
-  "runId": "40093373572",
+  "sourceCommit": "d46584465b44ff427c4146dc11a79621642520fe",
+  "runId": "40094119488",
   "status": "failed",
-  "scope": "38 recovered XmlCompiler types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types",
+  "scope": "45 recovered XmlCompiler types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types",
   "componentModes": [
     "/Od",
     "/O2"
@@ -15,5 +15,5 @@
   "profileCount": 2,
   "fullMymodGate": false,
   "originalDllUnchanged": true,
-  "error": "Combined SDK compiler build failed"
+  "error": "Full XSD validation or negative cases failed"
 }
