@@ -1,0 +1,35 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 58471; body SHA256 0efb738d88d53a29f6ca937186055612d7aee8b33bffdb054fc0fe6be455b102
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalSinglePolymorphic_003Cstruct_0020SageBinaryData_003A_003AProjectileMoveBase_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(INode* node, ProjectileMoveBase** target, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		IList* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, null);
+		if (ptr == null)
+		{
+			return;
+		}
+		if (((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, int>)(int)(*(uint*)(*(int*)ptr + 8)))((nint)ptr) == 1)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+			int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, NodeHolder*>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr, &nodeHolder);
+			try
+			{
+				Marshaler_002EMarshal((INode*)(int)(*(uint*)num), target, state);
+			}
+			catch
+			{
+				//try-fault
+				___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+				throw;
+			}
+			if (*(int*)(&nodeHolder) != 0)
+			{
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+			}
+		}
+		((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 12)))((nint)ptr);
+	}
+
