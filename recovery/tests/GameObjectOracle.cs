@@ -1674,11 +1674,268 @@ partial class GameObjectOracle {
         var ordered=Check(original,p,"",MotionXML(1,"",forward));var reordered=Check(original,p,"",MotionXML(1,"",reverse));Equal(ordered.InstanceData,reordered.InstanceData,"Motion schema allocation order",false);Equal(ordered.RelocationData,reordered.RelocationData,"Motion schema relocation order",false);
     }
 
+
+    static readonly string[] FlightTypes={"2042621387","197077561","2441348999"};
+    static string FlightXML(int group,string attrs="") {return "<Behaviors><ObjectSMCHelper TypeId='"+FlightTypes[group]+"' id='FlightTest' "+attrs+"/></Behaviors>";}
+    static void FlightFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        bool big=p!=TargetPlatform.Win32;
+        string[] numbers={"","0","-0","1","-1","23","0x10","010","1.25"," 23tail","2147483647","2147483648","-2147483648","-2147483649","4294967295","4294967296","nan","inf","-inf","1e39","-1e39","1e-50","text","25%"};
+        string[] times={"0s","-17s","23ms","2d1s","1000ms","1.25s","5","","text","1e39s","nan","inf","-inf"," 2s","2MS","1ms2s","2s1ms"};
+        string[] refs={"","Unresolved","A\\0","B\\1","C\\23","D\\-1","E\\2147483647","F\\2147483648","G\\-2147483648","H\\-2147483649","I\\+17","J\\23tail","K\\0x10","L\\ 23","M\\text"};
+        int[] sizes={104,244,268},counts={28,44,7};
+        for(int group=0;group<3;++group) {
+            byte[] bytes=Check(original,p,"",FlightXML(group)).InstanceData;int at=LifecycleAt(bytes,big),table=MotionTable(bytes,big);
+            if(bytes.Length!=at+sizes[group] || Word(bytes,at,big)!=uint.Parse(FlightTypes[group]) || Word(bytes,table,big)!=1 || Word(bytes,table+4,big)!=(group==2?197077561u:4043318533u))throw new Exception("Independent Flight size/type/base "+group);
+            for(int i=0;i<12;++i)if(bytes[table+12*counts[group]+i]!=0)throw new Exception("Independent Flight sentinel "+group);
+            if(group==0) {
+                for(int i=8;i<=16;i+=4)if(Word(bytes,at+i,big)!=0x43b40000u)throw new Exception("Independent Physics rotation ordinary float360");
+                if(Word(bytes,at+20,big)!=0x3f800000u || Word(bytes,at+24,big)!=0x3f800000u || Word(bytes,at+28,big)!=0x3f800000u || Word(bytes,at+32,big)!=0x3fc00000u || Word(bytes,at+52,big)!=2 || Word(bytes,at+56,big)!=0x40a00000u || Word(bytes,at+76,big)!=0 || Word(bytes,at+80,big)!=0 || Word(bytes,at+92,big)!=0)throw new Exception("Independent Physics defaults");
+                foreach(int off in new[]{36,40,60,64})if(Word(bytes,at+off,big)!=0x3fa66666u)throw new Exception("Independent Physics height1.3");for(int off=96;off<104;++off)if(bytes[at+off]!=0)throw new Exception("Independent Physics five packed booleans/padding");
+            } else {
+                if(Word(bytes,at+8,big)!=128 || Word(bytes,at+12,big)!=0 || Word(bytes,at+232,big)!=0x49742400u || Word(bytes,at+240,big)!=0)throw new Exception("Independent Bezier inherited defaults");
+                for(int i=16;i<232;++i)if(bytes[at+i]!=0)throw new Exception("Independent Bezier missing fields/masks zero");if(group==2)for(int i=244;i<268;++i)if(bytes[at+i]!=0)throw new Exception("Independent Missile defaults/padding");
+            }
+            string attrs=group==0?"GroundHitFX='F\\23' GroundBounceFX='B\\1' TumbleRandomly='true'":"GroundHitFX='F\\23' GroundHitWeapon='W\\1' GarrisonHitKillRequiredKindOf='AIRCRAFT' FlightPathAdjustDistPerSecond='23' PreLandingEmotion='FEAR'";if(group==2)attrs+=" IgnitionFX='I\\23' DetonateOnNoFuel='true' FuelLifetime='23ms'";
+            foreach(var container in ModuleContainers)Check(original,p,"","<"+container[0]+"><"+container[1]+" TypeId='"+FlightTypes[group]+"' "+attrs+"/></"+container[0]+">");
+            foreach(int count in new[]{0,1,2,27,28,29,65}) {string modules="";for(int i=0;i<count;++i)modules+="<ObjectSMCHelper TypeId='"+FlightTypes[group]+"' id='F"+i+"' "+attrs+"/>";Check(original,p,"Browser='a bb'","<Behaviors>"+modules+"<ObjectSMCHelper TypeId='290244143'><Movement><Move TypeId='3012512132'><Path>P\\23</Path></Move></Movement></ObjectSMCHelper></Behaviors>");}
+            foreach(string bad in new[]{"<Unknown/>","<Movement/>","<Volume/>","<TargetVectorOffset/>","<ObjectFilter/>"})Reject(p,"","<Behaviors><ObjectSMCHelper TypeId='"+FlightTypes[group]+"'>"+bad+"</ObjectSMCHelper></Behaviors>");Reject(p,"",FlightXML(group,"Unknown='1'"));Reject(p,"",FlightXML(group,"MaxHealth='23'"));Reject(p,"",FlightXML(group,"xmlns:f='foreign' f:TypeId='7'"));
+        }
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(0,"TumbleRandomly='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"MaxXRotationVelocity='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"MaxYRotationVelocity='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"MaxZRotationVelocity='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(0,"AllowBouncing='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(0,"KillWhenRestingOnGround='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"GravityMultiplier='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(0,"OrientToFlightPath='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(0,"ShockStunnedTimeLow='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(0,"ShockStunnedTimeHigh='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(0,"ShockStandingTime='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"FirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"SecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"FirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"SecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceCount='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceFirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceSecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceFirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"BounceSecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(0,"GroundHitFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(0,"GroundBounceFX='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(0,"IgnoreTerrainHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"FirstPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"SecondPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(0,"CurveFlattenMinDist='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FireStraightDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FirstHeightMin='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FirstHeightMax='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SecondHeightMin='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SecondHeightMax='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(1,"FinalStuckTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(1,"PreLandingStateTime='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceCount='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceFirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceSecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceFirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"BounceSecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"GarrisonHitKillCount='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"GarrisonHitKillFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"GroundHitFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"MaxDistanceReachedFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"GroundBounceFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"GroundHitWeapon='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(1,"GroundBounceWeapon='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FlightPathAdjustDistPerSecond='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"FirstPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SecondPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"CurveFlattenMinDist='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"PreLandingEmotionRadius='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(1,"InvisibleTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(1,"FadeInTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(1,"PostLandingStateTime='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"PostLandingEmotionRadius='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"SidewaysDrift='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"MaxDistanceToTravel='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"TargetVectorOffset='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(1,"Acceleration='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"FuelLifetime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"IgnitionDelay='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"DistanceToTravelBeforeTurning='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"DistanceToTargetBeforeDiving='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"IgnitionFX='"+Escape(value)+"'"));
+        foreach(string value in new[]{"","true","false","TRUE","False","1","0","text"," true"})Check(original,p,"",FlightXML(2,"DetonateOnNoFuel='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FireStraightDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FirstHeightMin='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FirstHeightMax='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SecondHeightMin='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SecondHeightMax='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"FinalStuckTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"PreLandingStateTime='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceCount='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceDistance='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceFirstHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceSecondHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceFirstPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"BounceSecondPercentIndent='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"GarrisonHitKillCount='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"GarrisonHitKillFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"GroundHitFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"MaxDistanceReachedFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"GroundBounceFX='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"GroundHitWeapon='"+Escape(value)+"'"));
+        foreach(string value in refs)Check(original,p,"",FlightXML(2,"GroundBounceWeapon='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FlightPathAdjustDistPerSecond='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"FirstPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SecondPercentHeight='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"CurveFlattenMinDist='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"PreLandingEmotionRadius='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"InvisibleTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"FadeInTime='"+Escape(value)+"'"));
+        foreach(string value in times)Check(original,p,"",FlightXML(2,"PostLandingStateTime='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"PostLandingEmotionRadius='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"SidewaysDrift='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"MaxDistanceToTravel='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"TargetVectorOffset='"+Escape(value)+"'"));
+        foreach(string value in numbers)Check(original,p,"",FlightXML(2,"Acceleration='"+Escape(value)+"'"));
+        string[] kindNames={"ACTIVATE_AFTER_UNPACK","AIRCRAFT","AIRCRAFT_PATH_AROUND","AIRCRAFT_TRANSPORT_ONLY_GARRISONABLE_WHILE_PARKED","AIRFIELD","AI_CAN_UNPACK_NEAR_CONYARD","AI_NEEDS_PLAYER_POWER_UPDATE","ALLY_TARGETABLE","ALWAYS_COLLIDE_WITH_OWN_SHIELD_SPHERES","ALWAYS_SELECTABLE","ALWAYS_SHOW_HOUSE_COLOR","ALWAYS_VISIBLE","ALWAYS_VISIBLE_IN_RADAR","AMPHIBIOUS","ANTI_GARRISON","ARMY_SUMMARY","ASSAULT_AIRCRAFT","ATTACH_ATTACK","ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED","AUTO_ACQUIRABLE_BY_AI","AUTO_RALLYPOINT","BALLISTIC_MISSILE","BANNER","BASE_FOUNDATION","BASE_SITE","BEACON","BEAM_TARGET","BEAM_TARGET_REFLECTOR","BLOCKING_GATE","BOMBER_AIRCRAFT","BRIDGE","BRIDGE_ENDCAP","BRIDGE_GATEHOUSE","BRIDGE_SEGMENT","BROADCASTS_INVISIBILITY","BUFF","BUILD_FOR_FREE","CANNOT_BE_DETECTED","CANNOT_BUILD_NEAR_SUPPLIES","CANNOT_HIJACK","CANNOT_RETALIATE","CANNOT_STOP_ON_WATER","CANT_TOGGLE_POWER","CAN_ATTACK","CAN_ATTACK_STEALTHED","CAN_ATTACK_WALLS","CAN_BE_CAPTURED","CAN_BE_FAVORITE_UNIT","CAN_BE_REPULSED","CAN_BUILD_ON_DEEP_WATER","CAN_BUILD_ON_WATER","CAN_CAPTURE","CAN_CAST_REFLECTIONS","CAN_CLIMB_WALLS","CAN_HEAL_ALLIES","CAN_NOT_BUILD_ON_LAND","CAN_PLACE_CHARGE","CAN_PLACE_MANIPULATOR","CAN_RAPPEL","CAN_SEE_THROUGH_STRUCTURE","CAN_SHOOT_OVER_WALLS","CAN_SKIP_SHADOW","CAN_TOPPLE","CAPTURABLE","CAPTUREFLAG","CARPET_BOMBER","CASTLE_CENTER","CASTLE_KEEP","CAVALRY","CHUNK_VENDOR","CIVILIAN_BUILDING","CIVILIAN_UNIT","CLASSIFY_ENTIRE_FOOTPRINT","CLEARED_BY_BUILD","CLICK_THROUGH","COMBO_HORDE","COMMANDCENTER","COMMANDO","CONSTRUCTION_YARD","COVER","CRANE","CRATE","CREEP","CRUSHABLE_BUILDING","CRUSHABLE_OBSTACLE","CRUSH_CRUSHABLE_BUILDINGS","CYCLE_SELECTION","DEBRIS","DEFENSIVE_WALL","DEFLECT_BY_SPECIAL_POWER","DEPLOYED_MINE","DEPRECATED","DISGUISER","DONT_AUTO_CRUSH_INFANTRY","DONT_DESTROY_IF_ON_BRIDGE","DONT_HIDE_IF_FOGGED","DONT_SUBMERGE_BY_WAVES","DONT_UNATTACH_WHEN_HEALING","DONT_USE_CANCEL_BUILD_BUTTON","DOZER","DOZER_FACTORY","DO_NOT_CLASSIFY","DO_NOT_PICK_ME_WHEN_BUILDING","DRAWABLE_ONLY","DRONE","ECONOMY_STRUCTURE","EGG","ENCLOSURE","ENGINEER","ENVIRONMENT","EXPANSION_PAD","EXPANSION_UNIT","FIGHTER_AIRCRAFT","FORCEATTACKABLE","FS_AIR_FIELD","FS_BARRACKS","FS_BASE_DEFENSE","FS_CASH_PRODUCER","FS_FACTORY","FS_MONEY_STORAGE","FS_POWER","FS_RADAR","FS_TECHNOLOGY","FS_TECH_CENTER","FS_WAR_FACTORY","GARRISON","GARRISONABLE_UNTIL_DESTROYED","GRABBABLE","GRAB_AND_DROP","GRAB_AND_KILL","GRANTS_VETERANCY","HARVESTABLE","HARVESTER","HAS_HEALTH_BAR","HEAL_PAD","HEAVY_MELEE_HITTER","HIDE_IF_FOGGED","HORDE","HUGE_VEHICLE","HULK","HUSK","IGNORED_IN_FINDPOSITIONAROUND","IGNORED_IN_GUI","IGNORES_SELECT_ALL","IGNORE_CAN_NOT_BUILD","IGNORE_FORCE_MOVE","IGNORE_FOR_EVA_SPEECH_POSITION","IGNORE_FOR_VICTORY","IGNORE_IN_AI_HUNT_TACTIC","IMMOBILE","IMMUNE_TO_CAPTURE","IMMUNE_TO_CYCLONIC_SHOCKWAVE","INERT","INERT_SHROUD_REVEALER","INFANTRY","INFILTRATOR","KEEP_CLASSIFIED_WHEN_DEAD","LARGE_RECTANGLE_PATHFIND","LEAVE_PARKING_ON_BUILD_COMPLETE","LIMITED_PRODUCTION_AIRCRAFT","LINE_OF_SIGHT_IGNORES_BUILDINGS","LINKED_TO_FLAG","LOW_OVERLAPPABLE","MACHINE","MCV","MELEE_HORDE","MINE","MINE_TRIGGER","MONSTER","MOVE_FOR_NOONE","MOVE_ONLY","MP_COUNT_FOR_VICTORY","NEED_BASE_FOUNDATION","NEUTRAL_TECH","NEVER_CULL_FOR_MP","NONOCCLUDING","NOTIFY_OF_PREATTACK","NOT_AUTOACQUIRABLE","NOT_SELLABLE","NO_BASE_CAPTURE","NO_COLLIDE","NO_FORMATION_MOVEMENT","NO_FREEWILL_ENTER","NO_GARRISON","NO_HEAL_ICON","NO_SHADOW","OBSTACLE","OCL_BIT","OPTIMIZED_PROP","OPTIMIZED_SOUND","ORE_NODE","ORIENTS_TO_CAMERA","OUTPOST","PARACHUTABLE","PARACHUTE","PASS_EXPERIENCE_TO_CONTAINED","PASS_EXPERIENCE_TO_CONTAINER","PASS_EXPERIENCE_TO_PRODUCER","PASS_EXPERIENCE_TO_SLAVER","PATH_THROUGH_EACH_OTHER","PATH_THROUGH_INFANTRY","PORT","POWERED","POWERED_POWERS_ONLY","PRELOAD","PRODUCED_AT_HELIPAD","PROJECTILE","PROJECT_BUILDABILITY_FOR_ALLIES","RADAR_SCRAMBLER","REACT_WHEN_SELECTED","REBUILD_HOLE","REFINERY","REPAIR_PAD","RESIST_EMP","REVEAL_TO_ALL","ROCK","ROCK_VENDOR","SALVAGER","SCALEABLE_WALL","SCARY","SCORE","SCORE_CREATE","SCORE_DESTROY","SELECTABLE","SHADOW_ULTRA_HIGH_ONLY","SHIP","SHOW_BEHIND_OCCLUDERS","SHRUBBERY","SIEGE_TOWER","SIEGE_WEAPON","SIMPLE_OBJECT_PROP","SKIP_DEFECT_IF_UNCOMBINED","SKIP_IDLE_WHEN_CAPTURED","SKIRMISH_AI_ATTEMPT_TO_DODGE","SKIRMISH_AI_CAN_BUILD_DURING_EMERGENCY_NO_INCOME","SKIRMISH_AI_DONT_CONSIDER_THREAT","SKIRMISH_AI_DONT_GARRISON","SKIRMISH_AI_DONT_MULTI_TARGET","SKIRMISH_AI_DONT_REPAIR","SKYBOX","SLAVE_OWNER","SMALL_MISSILE","SNIPER","SPELL_BOOK","STEALTH_GARRISON","STICK_TO_TERRAIN_SLOPE","STRUCTURE","SUBMARINE","SUMMONED","SUPER_WEAPON","SUPPLY_GATHERING_CENTER","SUPPLY_SOURCE","SUPPLY_SOURCE_ON_PREVIEW","SURPRISE_ATTACKER","T1_UNIT","T2_UNIT","T3_UNIT","TACTICAL_MARKER","TARGETABLE","TERRAIN_LIKE_GROUND_OBJECT","THREAT_FINDER","THROWN_OBJECT","TIBERIUM","TIBERIUM_BASED","TIBERIUM_FIELD","TIME_BOMB","TRANSFORMER","TRANSPORT","UNATTACKABLE","UNIQUE_UNIT","UNPACKS_INTO_BUILDING","VALID_TARGET_FOR_C4","VEHICLE","VITAL_FOR_BASE_SURVIVAL","WALK_ON_TOP_OF_WALL","WALL_GATE","WALL_HUB","WALL_PIECE","WALL_SEGMENT","WALL_UPGRADE","WB_DISPLAY_SCRIPT_NAME","WEAPON_SALVAGER","WORKING_PASSENGER","WORLDBUILDER_SNAP_TO_GRID"};int[] kindValues={149,14,66,251,36,143,137,3,187,59,171,54,274,211,242,126,239,275,253,230,69,75,157,101,118,247,111,112,135,240,23,256,257,219,144,139,154,229,85,270,164,195,24,5,227,145,104,258,46,265,264,70,7,174,261,263,57,83,44,74,208,190,188,50,194,282,19,29,11,130,201,127,58,52,76,107,18,47,207,217,136,49,165,271,231,272,189,280,61,99,163,122,88,91,281,203,84,276,200,16,184,147,168,37,73,186,245,268,243,98,210,244,241,68,223,221,64,133,63,213,62,222,65,224,220,116,79,206,140,96,273,205,17,161,33,202,170,106,15,82,248,105,48,90,234,249,155,146,162,4,81,228,89,119,10,218,129,176,267,266,250,51,67,13,260,117,56,138,12,172,132,38,102,232,199,108,115,128,151,125,31,124,109,28,43,175,0,120,97,182,159,198,246,45,78,183,196,209,160,114,123,178,71,166,27,72,26,262,269,103,39,131,32,197,87,94,134,20,191,142,40,41,42,1,30,181,212,8,92,25,180,254,255,238,80,235,236,150,237,192,259,53,252,121,34,6,9,177,169,233,35,86,77,216,277,278,279,113,2,283,185,95,226,225,110,93,141,22,55,215,158,214,204,167,60,193,153,152,179,148,173,21,100,156};
+
+        for(int group=1;group<3;++group)foreach(string field in new[]{"GarrisonHitKillRequiredKindOf","GarrisonHitKillForbiddenKindOf"}) {
+            for(int i=0;i<kindNames.Length;++i) {byte[] bytes=Check(original,p,"",FlightXML(group,field+"='"+kindNames[i]+"'")).InstanceData;int at=LifecycleAt(bytes,big)+(field=="GarrisonHitKillRequiredKindOf"?84:120);for(int word=0;word<9;++word)if(Word(bytes,at+4*word,big)!=(kindValues[i]/32==word?1u<<(kindValues[i]%32):0))throw new Exception("Independent Flight complete KindOf placement "+field+" "+kindNames[i]);}
+            foreach(string value in new[]{"","ALL","all","UNKNOWN","AIRCRAFT","INFANTRY VEHICLE","ALL -AIRCRAFT","-AIRCRAFT -AIRCRAFT","+","-"})Check(original,p,"",FlightXML(group,field+"='"+value+"'"));
+            byte[] all=Check(original,p,"",FlightXML(group,field+"='ALL'")).InstanceData;int mask=LifecycleAt(all,big)+(field=="GarrisonHitKillRequiredKindOf"?84:120);for(int word=0;word<9;++word)if(Word(all,mask+4*word,big)!=0xffffffffu)throw new Exception("Independent Flight full 36-byte KindOf ALL storage");
+        }
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type='MISSILE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type MISSILE");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type='TORPEDO'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Flight Type TORPEDO");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type ");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type 0");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Type='missile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type missile");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='ALERT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion ALERT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='BRACE_FOR_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=9u)throw new Exception("Independent Flight PreLandingEmotion BRACE_FOR_BEING_CRUSHED");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=1u)throw new Exception("Independent Flight PreLandingEmotion CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='CHEER_FOR_ABOUT_TO_CRUSH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=10u)throw new Exception("Independent Flight PreLandingEmotion CHEER_FOR_ABOUT_TO_CRUSH");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='DOOM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=7u)throw new Exception("Independent Flight PreLandingEmotion DOOM");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=4u)throw new Exception("Independent Flight PreLandingEmotion FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='HERO_CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=2u)throw new Exception("Independent Flight PreLandingEmotion HERO_CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='POINT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=3u)throw new Exception("Independent Flight PreLandingEmotion POINT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='TAUNT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=0u)throw new Exception("Independent Flight PreLandingEmotion TAUNT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='TERROR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=6u)throw new Exception("Independent Flight PreLandingEmotion TERROR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='UNCONTROLLABLE_FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=5u)throw new Exception("Independent Flight PreLandingEmotion UNCONTROLLABLE_FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion ");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion 0");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PreLandingEmotion='alert'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion alert");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='ALERT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion ALERT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='BRACE_FOR_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=9u)throw new Exception("Independent Flight PostLandingEmotion BRACE_FOR_BEING_CRUSHED");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=1u)throw new Exception("Independent Flight PostLandingEmotion CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='CHEER_FOR_ABOUT_TO_CRUSH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=10u)throw new Exception("Independent Flight PostLandingEmotion CHEER_FOR_ABOUT_TO_CRUSH");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='DOOM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=7u)throw new Exception("Independent Flight PostLandingEmotion DOOM");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=4u)throw new Exception("Independent Flight PostLandingEmotion FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='HERO_CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=2u)throw new Exception("Independent Flight PostLandingEmotion HERO_CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='POINT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=3u)throw new Exception("Independent Flight PostLandingEmotion POINT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='TAUNT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=0u)throw new Exception("Independent Flight PostLandingEmotion TAUNT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='TERROR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=6u)throw new Exception("Independent Flight PostLandingEmotion TERROR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='UNCONTROLLABLE_FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=5u)throw new Exception("Independent Flight PostLandingEmotion UNCONTROLLABLE_FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion ");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion 0");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"PostLandingEmotion='alert'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion alert");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='ADJUST_STRAIGHT_ONLY'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=256u)throw new Exception("Independent Bezier flag ADJUST_STRAIGHT_ONLY");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='CRUSH_STYLE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=8u)throw new Exception("Independent Bezier flag CRUSH_STYLE");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DETONATE_CALLS_KILL'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent Bezier flag DETONATE_CALLS_KILL");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DETONATE_ON_APEX'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=4096u)throw new Exception("Independent Bezier flag DETONATE_ON_APEX");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DIE_ON_IMPACT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=32u)throw new Exception("Independent Bezier flag DIE_ON_IMPACT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DONT_DETONATE_WITHOUT_COLLISION'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=131072u)throw new Exception("Independent Bezier flag DONT_DETONATE_WITHOUT_COLLISION");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DONT_DIE_ON_DETONATE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=512u)throw new Exception("Independent Bezier flag DONT_DIE_ON_DETONATE");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DONT_SET_NO_ATTACK_STATUS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1024u)throw new Exception("Independent Bezier flag DONT_SET_NO_ATTACK_STATUS");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='DONT_TRACK_TARGET'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2048u)throw new Exception("Independent Bezier flag DONT_TRACK_TARGET");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='FIRE_STRAIGHT_THEN_CURVE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=65536u)throw new Exception("Independent Bezier flag FIRE_STRAIGHT_THEN_CURVE");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='IGNORE_CONTACT_POINTS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=16384u)throw new Exception("Independent Bezier flag IGNORE_CONTACT_POINTS");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='IGNORE_TERRAIN_HEIGHT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=64u)throw new Exception("Independent Bezier flag IGNORE_TERRAIN_HEIGHT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='NO_DETONATE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=16u)throw new Exception("Independent Bezier flag NO_DETONATE");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='ORIENT_TO_FLIGHT_PATH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=4u)throw new Exception("Independent Bezier flag ORIENT_TO_FLIGHT_PATH");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='PING_PONG_SIDEWAYS_DRIFT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=128u)throw new Exception("Independent Bezier flag PING_PONG_SIDEWAYS_DRIFT");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='TARGET_OFFSET_ALONG_TARGET_VECTOR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=32768u)throw new Exception("Independent Bezier flag TARGET_OFFSET_ALONG_TARGET_VECTOR");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='TUMBLE_RANDOMLY'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Bezier flag TUMBLE_RANDOMLY");}
+        {byte[] b=Check(original,p,"",FlightXML(1,"Flags='USE_ATTACHPOS_ON_VICTIM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=8192u)throw new Exception("Independent Bezier flag USE_ATTACHPOS_ON_VICTIM");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type='MISSILE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type MISSILE");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type='TORPEDO'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=1u)throw new Exception("Independent Flight Type TORPEDO");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type ");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type 0");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Type='missile'")).InstanceData;if(Word(b,LifecycleAt(b,big)+12,big)!=0u)throw new Exception("Independent Flight Type missile");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='ALERT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion ALERT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='BRACE_FOR_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=9u)throw new Exception("Independent Flight PreLandingEmotion BRACE_FOR_BEING_CRUSHED");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=1u)throw new Exception("Independent Flight PreLandingEmotion CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='CHEER_FOR_ABOUT_TO_CRUSH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=10u)throw new Exception("Independent Flight PreLandingEmotion CHEER_FOR_ABOUT_TO_CRUSH");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='DOOM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=7u)throw new Exception("Independent Flight PreLandingEmotion DOOM");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=4u)throw new Exception("Independent Flight PreLandingEmotion FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='HERO_CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=2u)throw new Exception("Independent Flight PreLandingEmotion HERO_CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='POINT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=3u)throw new Exception("Independent Flight PreLandingEmotion POINT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='TAUNT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=0u)throw new Exception("Independent Flight PreLandingEmotion TAUNT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='TERROR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=6u)throw new Exception("Independent Flight PreLandingEmotion TERROR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='UNCONTROLLABLE_FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=5u)throw new Exception("Independent Flight PreLandingEmotion UNCONTROLLABLE_FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion ");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion 0");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PreLandingEmotion='alert'")).InstanceData;if(Word(b,LifecycleAt(b,big)+200,big)!=8u)throw new Exception("Independent Flight PreLandingEmotion alert");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='ALERT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion ALERT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='BRACE_FOR_BEING_CRUSHED'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=9u)throw new Exception("Independent Flight PostLandingEmotion BRACE_FOR_BEING_CRUSHED");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=1u)throw new Exception("Independent Flight PostLandingEmotion CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='CHEER_FOR_ABOUT_TO_CRUSH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=10u)throw new Exception("Independent Flight PostLandingEmotion CHEER_FOR_ABOUT_TO_CRUSH");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='DOOM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=7u)throw new Exception("Independent Flight PostLandingEmotion DOOM");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=4u)throw new Exception("Independent Flight PostLandingEmotion FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='HERO_CHEER'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=2u)throw new Exception("Independent Flight PostLandingEmotion HERO_CHEER");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='POINT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=3u)throw new Exception("Independent Flight PostLandingEmotion POINT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='TAUNT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=0u)throw new Exception("Independent Flight PostLandingEmotion TAUNT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='TERROR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=6u)throw new Exception("Independent Flight PostLandingEmotion TERROR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='UNCONTROLLABLE_FEAR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=5u)throw new Exception("Independent Flight PostLandingEmotion UNCONTROLLABLE_FEAR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion=''")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion ");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='unknown'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion unknown");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='0'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion 0");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"PostLandingEmotion='alert'")).InstanceData;if(Word(b,LifecycleAt(b,big)+220,big)!=8u)throw new Exception("Independent Flight PostLandingEmotion alert");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='ADJUST_STRAIGHT_ONLY'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=256u)throw new Exception("Independent Bezier flag ADJUST_STRAIGHT_ONLY");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='CRUSH_STYLE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=8u)throw new Exception("Independent Bezier flag CRUSH_STYLE");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DETONATE_CALLS_KILL'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2u)throw new Exception("Independent Bezier flag DETONATE_CALLS_KILL");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DETONATE_ON_APEX'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=4096u)throw new Exception("Independent Bezier flag DETONATE_ON_APEX");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DIE_ON_IMPACT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=32u)throw new Exception("Independent Bezier flag DIE_ON_IMPACT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DONT_DETONATE_WITHOUT_COLLISION'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=131072u)throw new Exception("Independent Bezier flag DONT_DETONATE_WITHOUT_COLLISION");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DONT_DIE_ON_DETONATE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=512u)throw new Exception("Independent Bezier flag DONT_DIE_ON_DETONATE");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DONT_SET_NO_ATTACK_STATUS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1024u)throw new Exception("Independent Bezier flag DONT_SET_NO_ATTACK_STATUS");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='DONT_TRACK_TARGET'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=2048u)throw new Exception("Independent Bezier flag DONT_TRACK_TARGET");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='FIRE_STRAIGHT_THEN_CURVE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=65536u)throw new Exception("Independent Bezier flag FIRE_STRAIGHT_THEN_CURVE");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='IGNORE_CONTACT_POINTS'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=16384u)throw new Exception("Independent Bezier flag IGNORE_CONTACT_POINTS");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='IGNORE_TERRAIN_HEIGHT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=64u)throw new Exception("Independent Bezier flag IGNORE_TERRAIN_HEIGHT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='NO_DETONATE'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=16u)throw new Exception("Independent Bezier flag NO_DETONATE");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='ORIENT_TO_FLIGHT_PATH'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=4u)throw new Exception("Independent Bezier flag ORIENT_TO_FLIGHT_PATH");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='PING_PONG_SIDEWAYS_DRIFT'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=128u)throw new Exception("Independent Bezier flag PING_PONG_SIDEWAYS_DRIFT");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='TARGET_OFFSET_ALONG_TARGET_VECTOR'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=32768u)throw new Exception("Independent Bezier flag TARGET_OFFSET_ALONG_TARGET_VECTOR");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='TUMBLE_RANDOMLY'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=1u)throw new Exception("Independent Bezier flag TUMBLE_RANDOMLY");}
+        {byte[] b=Check(original,p,"",FlightXML(2,"Flags='USE_ATTACHPOS_ON_VICTIM'")).InstanceData;if(Word(b,LifecycleAt(b,big)+8,big)!=8192u)throw new Exception("Independent Bezier flag USE_ATTACHPOS_ON_VICTIM");}
+
+        for(int group=1;group<3;++group) {
+            foreach(string value in new[]{"","ALL","all","UNKNOWN","DIE_ON_IMPACT -DIE_ON_IMPACT","ALL -DIE_ON_IMPACT","-DIE_ON_IMPACT -DIE_ON_IMPACT","+","-"})Check(original,p,"",FlightXML(group,"Flags='"+value+"'"));
+            byte[] bytes=Check(original,p,"",FlightXML(group,"GroundHitFX='FX\\23' GroundBounceWeapon='W\\1' FlightPathAdjustDistPerSecond='23' GarrisonHitKillCount='0x10' PreLandingEmotion='FEAR' PostLandingEmotion='UNKNOWN'"+(group==2?" IgnitionFX='Ignite\\1' DetonateOnNoFuel='true'":""))).InstanceData;int at=LifecycleAt(bytes,big),table=MotionTable(bytes,big);if(group==2)table=(int)Word(bytes,table+8,big);
+            if(Word(bytes,at+164,big)!=24 || Word(bytes,at+180,big)!=2 || Word(bytes,at+184,big)!=0x40933333u || Word(bytes,at+156,big)!=16 || Word(bytes,at+200,big)!=4 || Word(bytes,at+220,big)!=8)throw new Exception("Independent Flight references/5Hz speed/unsigned/emotion");if(group==2 && (Word(bytes,at+260,big)!=2 || bytes[at+264]!=1 || bytes[at+265]!=0))throw new Exception("Independent Missile own reference/packed bool");
+            string a="PreLandingEmotion='FEAR' GroundHitWeapon='W\\1' GroundHitFX='FX\\23' FirstHeight='23' GarrisonHitKillRequiredKindOf='AIRCRAFT'";string b="GarrisonHitKillRequiredKindOf='AIRCRAFT' FirstHeight='23' GroundHitFX='FX\\23' GroundHitWeapon='W\\1' PreLandingEmotion='FEAR'";var ordered=Check(original,p,"",FlightXML(group,a));var reordered=Check(original,p,"",FlightXML(group,b));Equal(ordered.InstanceData,reordered.InstanceData,"Flight attribute order",false);Equal(ordered.RelocationData,reordered.RelocationData,"Flight relocation order",false);Equal(ordered.ImportsData,reordered.ImportsData,"Flight reference order",false);
+        }
+    }
+
     static int Main(string[] args) {
         try {
             var original=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(args[0]).GetType("BinaryAssetBuilder.Tokenizer.Plugin"));
             foreach(TargetPlatform p in new[]{TargetPlatform.Win32,TargetPlatform.Xbox360,TargetPlatform.PlayStation3,(TargetPlatform)99}) {
-                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);
+                original.Initialize(null,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);FlightFamily(original,p);
                 string mixed="";
                 foreach(var f in Fields) {
                     string[] values=f.Kind=="StringList"?new[]{""," ","a","ab cd"," a  b ","a,b;c","a\tb\rc\nd","é ÿ 中文","one two three four five six seven eight nine ten","a a a a","a  bb ccc dddd eeeee"}:
@@ -1696,7 +1953,7 @@ partial class GameObjectOracle {
                 foreach(string a in new[]{"Unknown='1'","foreign:FenceWidth='1' xmlns:foreign='foreign'"})Reject(p,a,"");
                 foreach(string child in new[]{"<Foreign xmlns='other'/>","<Unknown/>"})Reject(p,"",child);
             }
-            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver and complete radar/visibility/Capture group and seven new firing/tracking modules and full three-type beam states, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
+            Console.WriteLine("PASS recovered GameObject root: fixtures="+fixtures+" threeBufferComparisons="+comparisons+" refusals="+refusals+" invarianceComparisons="+invarianceComparisons+"; 88 root attributes and thirty-eight child nodes including module containers with 31 base-only types plus complete nine-type Body family, six-type ClientUpdate family, four complete sound/EVA selectors, six lifecycle Updates, complete seven-type shared Die family, complete twenty-two-type named Upgrade group and three-type Production Update/exit family and four remaining Create modules and complete SlavedUpdate and TechUpgradeReceiver and complete radar/visibility/Capture group and seven new firing/tracking modules and full three-type beam states, complete four-type Projectile Dynamics Freefall group and Physics Bezier Missile group, animation/model-condition sound playback/default and complete SkirmishAIInformation (pointer StringLists on XSD-valid text surface), four targets including 99, independent defaults/list/sentinel checks; SDK not run");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }

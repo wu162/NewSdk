@@ -24,6 +24,7 @@ on:
       - 'recovery/scripts/GenerateWeaponBehaviorFields.py'
       - 'recovery/scripts/GenerateBeamStateFields.py'
       - 'recovery/scripts/GenerateMotionFields.py'
+      - 'recovery/scripts/GenerateFlightFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
       - 'recovery/tests/GameObjectOracle.cs'
