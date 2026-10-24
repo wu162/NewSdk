@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1b1216d898767fe3927cb92ebd1e10cb90579f4a251fe75476e7be371fd5b4cf
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AAISpecialPowerWeaponData_003E(void** table, AISpecialPowerWeaponData** pointer, Tracker* tracker)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Tokenizer_002ETokenize(table, (AISpecialPowerWeaponData*)(int)num, tracker);
+		}
+		else
+		{
+			*(int*)table = 0;
+		}
+	}

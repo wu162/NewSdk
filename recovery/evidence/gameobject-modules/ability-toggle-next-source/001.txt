@@ -1,0 +1,8 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 517207376a930d4a3303d1b0cc4a9b075ae8927c13201c3df0befdc2e50f5d47
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AToggleStatusSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		ToggleStatusSpecialAbilityUpdateModuleData* ptr = (ToggleStatusSpecialAbilityUpdateModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AToggleStatusNugget_003E((List_003CSageBinaryData_003A_003AToggleStatusNugget_003E*)((byte*)ptr + 240), endian);
+		Marshaler_002EEndianCorrect((SpecialAbilityUpdateModuleData*)ptr, endian);
+	}

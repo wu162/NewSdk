@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 c281078e85b393798ed1f7c86ce324de3b658cb8e4e26b8bbbeedcfd251849f0
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AAISpecialPowerWeaponData_003E(AISpecialPowerWeaponData** pointer, EndianHelper* endian)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((AISpecialPowerWeaponData*)(int)num, endian);
+		}
+	}
