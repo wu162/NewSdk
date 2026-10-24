@@ -512,3 +512,8 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
     EndianAssistFilter(output,44);auto vector=*reinterpret_cast<unsigned char**>(output+48);
     if(vector) EndianModuleFieldSet(vector,assistFieldSets[6]);
 }
+
+#include "GameObjectEconomyPowerRuntime.h"
+#include "GameObjectStructureWallRuntime.h"
+
+#include "GameObjectCombatResponseRuntime.h"

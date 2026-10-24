@@ -1,6 +1,9 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=140 && choice->kind<=142) EndianCombatResponse(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=137 && choice->kind<=139) EndianStructureWall(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=133 && choice->kind<=136) EndianEconomyPower(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=128 && choice->kind<=129) EndianQueueParking(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=130 && choice->kind<=132) EndianModuleFieldSet(reinterpret_cast<unsigned char*>(input),buildingStructureFieldSets[choice->kind-130]);
     if(choice && choice->kind>=123 && choice->kind<=125) EndianSpawnUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -49,6 +52,9 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto choice=FindModule(type);
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=140 && choice->kind<=142) MarshalCombatResponse(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=137 && choice->kind<=139) MarshalStructureWall(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=133 && choice->kind<=136) MarshalEconomyPower(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=128 && choice->kind<=129) MarshalQueueParking(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=130 && choice->kind<=132) MarshalModuleFieldSet(input,reinterpret_cast<unsigned char*>(target),buildingStructureFieldSets[choice->kind-130],data);
     if(choice && choice->kind && choice->kind<=2) MarshalBody(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

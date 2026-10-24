@@ -4,6 +4,9 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=140 && choice->kind<=142) {const auto& fields=combatResponseFieldSets[choice->kind-140];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
+    if(choice->kind>=137 && choice->kind<=139) {const auto& fields=structureWallFieldSets[choice->kind-137];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
+    if(choice->kind>=133 && choice->kind<=136) {const auto& fields=economyPowerFieldSets[choice->kind-133];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=128 && choice->kind<=132) {const auto& fields=choice->kind<=129?queueParkingFieldSets[choice->kind-128]:buildingStructureFieldSets[choice->kind-130];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind==127) {const auto& fields=crateWatcherFieldSets[0];for(unsigned i=0;i<fields.count;++i) if(attribute==fields.fields[i].name) return true;return false;}
     if(choice->kind>=123 && choice->kind<=125) {
@@ -62,6 +65,17 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=140 && kind<=142) {
+        if(kind==141) {if(path=="AcceptableFriends") return 1;if(path=="AcceptableFriends/IncludeThing" || path=="AcceptableFriends/ExcludeThing") return 3;}
+        if(kind==142 && path=="ObjectStatusValidation") return 1;
+        return 0;
+    }
+    if(kind>=137 && kind<=139) {
+        if(kind==137) {if(path=="ConnectingObjectFilter") return 1;if(path=="ConnectingObjectFilter/IncludeThing" || path=="ConnectingObjectFilter/ExcludeThing") return 3;}
+        if(kind==139 && (path=="RestrictedAreaShape" || path=="RestrictedAreaShape/Offset")) return 1;
+        return 0;
+    }
+    if(kind>=133 && kind<=136) return kind==135 && (path=="InitialCaptureBonus" || path=="Deposit" || path=="ResourceCap")?2:0;
     if(kind>=128 && kind<=132) {
         if(kind==129) {if(path=="CanParkHereFilter" || path=="DefaultRallyPointOffset") return 1;if(path=="CanParkHereFilter/IncludeThing" || path=="CanParkHereFilter/ExcludeThing") return 3;}
         return 0;
@@ -150,6 +164,14 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=140 && kind<=142) return kind==142 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
+    if(kind>=137 && kind<=139) {
+        if(kind!=139) return false;
+        if(path=="RestrictedAreaShape/Offset") return attribute=="x" || attribute=="y" || attribute=="z";
+        if(path=="RestrictedAreaShape") for(unsigned i=0;i<structureWallFieldSets[3].count;++i) if(attribute==structureWallFieldSets[3].fields[i].name) return true;
+        return false;
+    }
+    if(kind>=133 && kind<=136) return kind==135 && (path=="InitialCaptureBonus" || path=="Deposit" || path=="ResourceCap") && (attribute=="Account" || attribute=="Amount");
     if(kind>=128 && kind<=132) return kind==129 && path=="DefaultRallyPointOffset" && (attribute=="x" || attribute=="y" || attribute=="z");
     if(kind==127) return false;
     if(kind>=123 && kind<=125) {
