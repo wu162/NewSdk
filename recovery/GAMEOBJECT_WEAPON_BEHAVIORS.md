@@ -1,4 +1,6 @@
-# 直接开火与伤害跟踪组（验证中）
+# 直接开火与伤害跟踪组（已验收）
+
+已验收源码b57e5a5a1d11ebd3004a6f0b6f0af4bb15c86057，GameObject run40050646715 success，基础run40050646652 success。每/Od、/O2：192100 fixtures、576300三缓冲区比较、10064拒绝、400不变性，平台0/1/2/99。SDK0次。
 
 本批新增七种：ChargeWeaponUpdate、FireWeaponUpdate、AimWeaponBehavior、LaserScatterUpdate、LinearDamageUpdate、SecondaryDamageTracker、TrackDamage。LaserUpdate此前属于已完成ClientUpdate，本批只核对原证据/回归，不重复计数。固定原blob6e40a9ed6c9f961d294d49768d911e6a6f354619。85方法精确签名/行号/SHA256见evidence/gameobject-modules/weapon-behavior-source/manifest.json；GenerateWeaponBehaviorFields.py核对原blob、逐方法、PE枚举、全部Marshal次序/default和递归Token/sentinel，接入TestGameObject.ps1。运行支持须取得本批源码的完整成功结果。
 

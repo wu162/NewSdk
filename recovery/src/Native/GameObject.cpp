@@ -46,6 +46,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectTechReceiver.h"
 #include "GameObjectVision.h"
 #include "GameObjectWeaponBehavior.h"
+#include "GameObjectBeamState.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -246,6 +247,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 }
 
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:beamChoices) if(choice.type==type) return &choice;
     for(const auto& choice:weaponChoices) if(choice.type==type) return &choice;
     for(const auto& choice:visionChoices) if(choice.type==type) return &choice;
     if(type==receiverChoice.type) return &receiverChoice;
@@ -583,6 +585,25 @@ void EndianWeaponBehavior(unsigned char* output,unsigned kind) {
     if(kind==75) {auto color=*reinterpret_cast<unsigned char**>(output+20);if(color) EndianModuleFieldSet(color,weaponFieldSets[8]);EndianWeaponBehaviorList(output,24,9);}
     auto offset=WeaponValidationOffset(kind);if(offset) {auto at=*reinterpret_cast<unsigned char**>(output+offset);if(at) EndianModuleFieldSet(at,lifecycleFieldSets[6]);}
 }
+void MarshalBeamState(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    MarshalModuleFieldSet(input,output,beamFieldSets[kind-77],data);
+    if(kind==79) return;
+    if(kind==78) MarshalModuleFieldSet(input,output,beamFieldSets[0],data);
+    for(unsigned group=0;group<2;++group) {
+        auto list=reinterpret_cast<NativeList*>(output+20+8*group);const char* name=group==0?"LaserEndParticleSystem":"LaserStartParticleSystem";
+        for(const auto& child:input.children) if(child.name==name) ++list->count;
+        if(list->count) {auto refs=static_cast<U32*>(data.Push(&list->data,4,list->count));unsigned i=0;for(const auto& child:input.children) if(child.name==name) MarshalReference(data,refs+i++,child.text);data.Pop();}
+    }
+    for(const auto& child:input.children) if(child.name=="EndOffset") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+36),12,1));MarshalModuleFieldSet(child,at,remainingFieldSets[15],data);data.Pop();}
+    for(const auto& child:input.children) if(child.name=="ObjectStatusValidation") {auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+40),56,1));MarshalModuleFieldSet(child,at,lifecycleFieldSets[6],data);data.Pop();}
+}
+void EndianBeamState(unsigned char* output,unsigned kind) {
+    EndianModuleFieldSet(output,beamFieldSets[kind-77]);if(kind==79) return;
+    if(kind==78) EndianModuleFieldSet(output,beamFieldSets[0]);
+    Swap(output+20);Swap(output+28);
+    auto vector=*reinterpret_cast<unsigned char**>(output+36);if(vector) EndianModuleFieldSet(vector,remainingFieldSets[15]);
+    auto validation=*reinterpret_cast<unsigned char**>(output+40);if(validation) EndianModuleFieldSet(validation,lifecycleFieldSets[6]);
+}
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind && choice->kind<=2) {
@@ -605,6 +626,7 @@ void EndianModule(U32* input) {
     if(choice && choice->kind>=13 && choice->kind<=16) EndianSoundSelector(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=17 && choice->kind<=22) EndianLifecycle(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=23 && choice->kind<=29) EndianDie(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=77 && choice->kind<=79) EndianBeamState(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=69 && choice->kind<=76) EndianWeaponBehavior(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=61 && choice->kind<=68) EndianVision(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==59) EndianSlaved(reinterpret_cast<unsigned char*>(input));
@@ -624,6 +646,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=13 && choice->kind<=16) MarshalSoundSelector(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=17 && choice->kind<=22) MarshalLifecycle(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=23 && choice->kind<=29) MarshalDie(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=77 && choice->kind<=79) MarshalBeamState(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=69 && choice->kind<=76) MarshalWeaponBehavior(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=61 && choice->kind<=68) MarshalVision(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==59) MarshalSlaved(input,reinterpret_cast<unsigned char*>(target),data);
@@ -715,6 +738,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=77) {const auto& set=beamFieldSets[choice->kind-77];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;if(choice->kind==78) for(unsigned i=0;i<beamFieldSets[0].count;++i) if(attribute==beamFieldSets[0].fields[i].name) return true;return false;}
     if(choice->kind>=69) {const auto& set=weaponFieldSets[choice->kind-69];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind>=61) {const auto& set=visionFieldSets[choice->kind-61];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(choice->kind==60) {for(unsigned i=0;i<receiverFieldSet.count;++i) if(attribute==receiverFieldSet.fields[i].name) return true;for(unsigned i=0;i<upgradeFieldSets[0].count;++i) if(attribute==upgradeFieldSets[0].fields[i].name) return true;return false;}
@@ -743,6 +767,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=77) {if(kind==79) return 0;if(path=="EndOffset" || path=="ObjectStatusValidation") return 1;if(path=="LaserEndParticleSystem" || path=="LaserStartParticleSystem") return 3;return 0;}
     if(kind>=69) {if(WeaponValidationOffset(kind) && path=="ObjectStatusValidation") return 1;if(kind==70) {if(path=="FireWeaponNugget") return 2;if(path=="FireWeaponNugget/Offset") return 1;}if(kind==75) {if(path=="Color") return 1;if(path=="EffectInfo") return 2;}return 0;}
     if(kind>=61) {if(kind==67) {if(path=="BroadcastObjectFilter" || path=="ObjectStatusValidation") return 1;if(path=="BroadcastObjectFilter/IncludeThing" || path=="BroadcastObjectFilter/ExcludeThing") return 3;}return 0;}
     if(kind==60) {if(path=="ObjectFilter" || path=="CustomAnimAndDuration") return 1;if(path=="TriggeredBy" || path=="ConflictsWith" || path=="ObjectFilter/IncludeThing" || path=="ObjectFilter/ExcludeThing") return 3;return 0;}
@@ -765,6 +790,7 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
     return 0;
 }
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=77) {if(path=="EndOffset") return attribute=="x" || attribute=="y" || attribute=="z";return path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");}
     if(kind>=69) {if(path=="ObjectStatusValidation") return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";unsigned fields=path=="Color"?8:path=="EffectInfo"?9:path=="FireWeaponNugget"?10:path=="FireWeaponNugget/Offset"?11:99;if(fields==99) return false;const auto& set=weaponFieldSets[fields];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;return false;}
     if(kind>=61) return kind==67 && path=="ObjectStatusValidation" && (attribute=="RequiredStatus" || attribute=="ForbiddenStatus");
     if(kind==60) {if(path=="CustomAnimAndDuration") for(unsigned i=0;i<upgradeFieldSets[11].count;++i) if(attribute==upgradeFieldSets[11].fields[i].name) return true;return false;}

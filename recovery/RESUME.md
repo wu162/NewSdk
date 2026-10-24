@@ -2,17 +2,19 @@
 
 更新：2026-10-24（北京时间）。仓库wu162/NewSdk，分支recovery/compiler-source。先读AGENTS.md、EFFICIENCY.md及本文件；旧STATUS按需查，不全量加载。
 
-## 已验收102/322已知Marshal模块
+## 已验收109/322已知Marshal模块
 
-先新增完整TechUpgradeReceiver（GAMEOBJECT_TECH_RECEIVER.md），再完成八种雷达/可见性/Capture模块（GAMEOBJECT_VISION.md）。最新已验收源码7cd68875d9fda24b8650676b4794c246dd4f873e：GameObject run40049625447 success，基础run40049625277 success。每/Od、/O2：187612 fixtures、562836三缓冲区比较、9792拒绝、384不变性，平台0/1/2/99。终态及远端validation.json已核对。此前Receiver锚点fa250611/run40048856796仍有效。
+本轮依次完成TechUpgradeReceiver、八种雷达/可见性/Capture、七种直接开火/伤害跟踪。最新已验收源码b57e5a5a1d11ebd3004a6f0b6f0af4bb15c86057：GameObject run40050646715 success，基础run40050646652 success。每/Od、/O2：192100 fixtures、576300三缓冲区比较、10064拒绝、400不变性，平台0/1/2/99。终态及远端validation.json已核对。中间锚点Receiver fa250611/run40048856796；Vision 7cd68875/run40049625447。
 
-全部既有回归保留；根范围88属性/38类子节点。220种已知Marshal仍拒绝，58 Token-only沿原未知Marshal回退。SDK本阶段0次；原路由保留，完整GameObject、两份完整替代DLL及正式GameObject插件未完成。
+全部既有回归保留；根范围88属性/38类子节点。213种已知Marshal仍拒绝，58 Token-only沿原未知Marshal回退。SDK本阶段0次；原路由保留，完整GameObject、两份完整替代DLL及正式GameObject插件未完成。
 
-## 当前检查点：七种开火/伤害跟踪模块（待统一验证）
+## 当前检查点：三种完整光束状态（待统一验证）
 
-完整实现ChargeWeaponUpdate、FireWeaponUpdate、AimWeaponBehavior、LaserScatterUpdate、LinearDamageUpdate、SecondaryDamageTracker、TrackDamage及所有Nugget/Vector3/EffectInfo/RGBColor/validation依赖。GenerateWeaponBehaviorFields.py及GameObjectWeaponBehavior.h、测试已接入；GAMEOBJECT_WEAPON_BEHAVIORS.md记录契约。LaserUpdate原已支持，只核对不计新增。
+LaserState、SweepingLaserState、StreamState及双强引用列表、EndOffset可空Vector3、完整ObjectStatusValidation已整组实现；原38方法、PE/字段/Token生成及所有新增测试已本地核对。GenerateBeamStateFields.py及GameObjectBeamState.h接入TestGameObject.ps1，提交触发原blob/PE校验与完整/Od、/O2四平台差分。未取得本批源码完整成功前不得计为112或声称运行支持。契约见GAMEOBJECT_BEAM_STATES.md。
 
-原85方法、PE DisabledType/EffectInfoFlagType、5Hz逻辑帧常量与Token/字段生成已本地核对；提交触发完整Windows原blob/PE校验与/Od、/O2四平台差分。未取得本批源码的完整成功前不得计为109或声称运行支持；失败集中修复并取得最终矩阵。源码调查11模块首次触发150依赖上限，后缩至本连贯组；没有放宽保护限制。ExportLifecycleMethods.py已补齐带点号嵌套类型依赖匹配。
+新增的Sweep父类调用顺序、强引用列表Endian及translations不能简化为弱ID；EndOffset Token指向数据pointee。失败集中修复后取最终矩阵，保留失败历史。
+
+源码调查工具ExportLifecycleMethods.py已支持带点号的FireWeaponNugget依赖；已保存5Hz逻辑帧常量、原PE enum表、每个方法SHA256。11模块调查曾触发150依赖上限（run40049720082），收敛为完整直接开火/跟踪组后完成，未放宽保护。
 
 ## 关键路径及持续规则
 
