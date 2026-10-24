@@ -1,14 +1,51 @@
 {
   "peSha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603",
-  "runId": "40128710378",
+  "runId": "40129634414",
   "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
-  "sourceCommit": "7794216392bfb7221308dc54533c34148b3b3c4d",
+  "sourceCommit": "1412fda52b973ee7f71f4ac2acd2be6fa870f101",
   "status": "read-only original PE evidence; no implementation/support claim",
   "tables": {
+    "AIAoeAttackPowerEmanationLocation": {
+      "EMANATE_FROM_SELF": 0,
+      "EMANATE_FROM_TARGET": 1
+    },
+    "AIAoeAttackPowerLocationPreference": {
+      "PREFER_CENTER_OF_ENEMIES": 1,
+      "PREFER_MAXIMUM_DAMAGE": 2,
+      "PREFER_NEAREST": 0
+    },
+    "AITargetLocationType": {
+      "Land": 1,
+      "Water": 0
+    },
     "ConditionsType": {
       "MOUNTED": 0,
       "MOVING": 2,
       "WEAPON_TOGGLE": 1
+    },
+    "MicroManagerState": {
+      "ALPHA_STRIKE": 0,
+      "CLEANUP": 3,
+      "COMBAT": 2,
+      "DEMOLISH_WALL_OBSTACLE": 9,
+      "GATHER": 5,
+      "HARVESTING": 7,
+      "IDLE": 8,
+      "OPEN_TARGET": 6,
+      "RETREAT": 1,
+      "SIEGE": 4
+    },
+    "MicroManagerUnitTask": {
+      "ACTIVATING_SPECIAL_POWER": 7,
+      "AVAILABLE": 0,
+      "CLEARING_GARRISON": 3,
+      "CONTROLLED_BY_SPECIAL_POWER": 6,
+      "CRUSHING": 1,
+      "DEPLOYING": 8,
+      "DODGING": 9,
+      "GARRISONING": 2,
+      "REPAIRING": 4,
+      "REVERSING": 5
     },
     "OCLCreateLocType": {
       "CREATE_ABOVE_LOCATION": 5,
@@ -73,6 +110,24 @@
       "UNIQUE_SPECIAL_OBJECT_TARGETS": 3,
       "UPDATE_REQUIRES_LINE_OF_SIGHT": 24,
       "USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK": 20
+    },
+    "ToggleStatusAiHint": {
+      "TOGGLE_ALWAYS": 1,
+      "TOGGLE_AOE_ATTACK": 11,
+      "TOGGLE_DEFAULT": 0,
+      "TOGGLE_DEFENSE_PROTECT_OTHERS": 3,
+      "TOGGLE_DEFENSE_SELF_ONLY": 4,
+      "TOGGLE_HARPOON": 15,
+      "TOGGLE_IMMOBILIZE": 8,
+      "TOGGLE_LEECH_HEALTH_AND_WEAPON": 12,
+      "TOGGLE_LOCKDOWN": 9,
+      "TOGGLE_NO_HINT": 10,
+      "TOGGLE_ONE_PER_TARGET": 2,
+      "TOGGLE_SHIELD": 14,
+      "TOGGLE_SHORT_RANGE_WEAPON": 7,
+      "TOGGLE_STEALTH_OTHERS": 13,
+      "TOGGLE_TRANSFORM": 6,
+      "TOGGLE_WEAPON": 5
     },
     "TriggerType": {
       "SELF_POSITION": 0,
