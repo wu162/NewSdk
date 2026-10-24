@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-  <AIData id="RecoveryXmlAdditional_AIData_Defaults" />
+  <AIData id="RecoveryXmlAdditional_AIData_Defaults" LowLodTree="RecoveryTree" LowLodTreeNoGrab="RecoveryTreeNoGrab" LowLodTreeNoHarvest="RecoveryTreeNoHarvest" />
   <UnitAISettings id="RecoveryXmlAdditional_UnitAISettings_Defaults">
     <VictoryConditionUnitObjectFilter />
     <VictoryConditionStructureObjectFilter />
