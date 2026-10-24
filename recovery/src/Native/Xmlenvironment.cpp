@@ -11,7 +11,7 @@
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
-namespace Recovered { namespace Native { namespace {
+namespace Recovered { namespace Native { namespace EnvironmentDetail {
 using Relo::U32;
 enum class Kind { Float,Signed,Unsigned,Bool,Reference,Hash,Enum,Percentage,ModelFlags };
 struct Field { const char* name; unsigned offset; Kind kind; const char* fallback; const char* enumeration; };
@@ -107,6 +107,7 @@ struct Builder {
     }
 };
 }
+using namespace EnvironmentDetail;
 unsigned int XmlenvironmentTypeId(const std::string& name) {
     if(name=="TerrainParticleMapping")return 1469498551u;
     if(name=="BounceKickTerrainMapping")return 2368878637u;
