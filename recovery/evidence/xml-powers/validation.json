@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "acb799f602217fcff139a66934abcd48b4a0288c",
+  "runId": "40080079994",
+  "scope": "XmlCompiler powers components; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "Od Xmlpowers oracle build failed",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+}
