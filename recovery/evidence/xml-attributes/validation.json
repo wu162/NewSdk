@@ -1,40 +1,40 @@
 {
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "modes": [
     {
-      "log": "Od-oracle.txt",
-      "exitCode": 0,
-      "succeeded": true,
+      "mode": "Od",
       "summaries": [
-        "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
+        "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
       ],
-      "mode": "Od"
+      "succeeded": true,
+      "log": "Od-oracle.txt",
+      "exitCode": 0
     },
     {
-      "log": "O2-oracle.txt",
-      "exitCode": 0,
-      "succeeded": true,
+      "mode": "O2",
       "summaries": [
-        "SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140",
-        "SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140"
+        "SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140",
+        "SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140"
       ],
-      "mode": "O2"
+      "succeeded": true,
+      "log": "O2-oracle.txt",
+      "exitCode": 0
     }
   ],
-  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "sourceCommit": "86d089730c41f14ee20ec17983bc632971af45ec",
   "scope": "AttributeModifier, UpgradeTemplate and LogicCommandSet components including dependency ObjectFilter; SDK not integrated",
-  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "sourceCommit": "c20c63d99b665342d9b928b3b1550b94ec454a1d",
   "succeeded": true,
-  "runId": "40090655218",
+  "runId": "40090901890",
   "platforms": [
     0,
     1,
     2,
     99
-  ]
+  ],
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea"
 }
