@@ -45,7 +45,17 @@ struct Builder{
 };
 }
 unsigned int XmlsinglesoundTypeId(const std::string& name){
- if(name=="BaseAudioEventInfo")return 1079232276u;if(name=="BaseSingleSound")return 3228425025u;if(name=="AudioEvent")return 2219670431u;if(name=="MusicTrack")return 1883691512u;if(name=="MP3MusicTrack")return 1013434420u;if(name=="DialogEvent")return 3558134211u;if(name=="MP3DialogEvent")return 1479988269u;if(name=="AmbientStream")return 3928762264u;if(name=="MP3AmbientStream")return 1813598662u;if(name=="Multisound")return 2745675575u;return 0;
+ if(name=="BaseAudioEventInfo")return 1079232276u;
+ if(name=="BaseSingleSound")return 3228425025u;
+ if(name=="AudioEvent")return 2219670431u;
+ if(name=="MusicTrack")return 1883691512u;
+ if(name=="MP3MusicTrack")return 1013434420u;
+ if(name=="DialogEvent")return 3558134211u;
+ if(name=="MP3DialogEvent")return 1479988269u;
+ if(name=="AmbientStream")return 3928762264u;
+ if(name=="MP3AmbientStream")return 1813598662u;
+ if(name=="Multisound")return 2745675575u;
+ return 0;
 }
 Relo::Chunk CompileXmlsinglesound(const XmlsinglesoundNode& n,bool big){using namespace XmlsinglesoundDetail;Check(XmlsinglesoundTypeId(n.name)!=0,"Unsupported single-sound root");Builder b(big);unsigned size=n.name=="BaseAudioEventInfo"?4:n.name=="BaseSingleSound"?128:n.name=="AudioEvent"?152:n.name=="Multisound"?16:132;unsigned char* p=nullptr;b.data.Push(reinterpret_cast<void**>(&p),size,1);
  if(n.name=="BaseAudioEventInfo")Validate(n,"id","");
