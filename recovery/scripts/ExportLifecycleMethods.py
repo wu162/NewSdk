@@ -56,6 +56,12 @@ for name in names:
         if re.search(r'[(,] '+re.escape(name)+r'\* @object[,)]',signature) or '('+name+'* @object,' in signature:
             add(signature)
     report['modules'].append(item)
+# Single-polymorphic wrapper passes its typed pointer variable without a cast.
+# Seed this dispatch explicitly rather than pretending the wrapper is the implementation.
+if '--motion-family' in sys.argv:
+    for signature in signatures:
+        if 'ProjectileMoveBase**' in signature:
+            add(signature)
 # Include called concrete bases and named template helpers, preserving exact overloads.
 queue=list(selected)
 while queue:
