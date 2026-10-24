@@ -1,11 +1,1 @@
-System.Exception: Legal SDK probe schema errors (8): 
-RecoveryDamageFxLeaf: The element 'FXList' in namespace 'uri:ea.com:eala:asset' has incomplete content. List of possible elements expected: 'NuggetList' in namespace 'uri:ea.com:eala:asset'.
-RecoveryXmlAudio_Settings_Defaults: The required attribute 'id' is missing.
-RecoveryXmlAudio_Settings_Defaults: The required attribute 'id' is missing.
-RecoveryXmlAudio_Settings_Defaults: The required attribute 'id' is missing.
-RecoveryXmlAudio_Settings_Nondefault: The required attribute 'id' is missing.
-RecoveryXmlAudio_Settings_Nondefault: The required attribute 'id' is missing.
-RecoveryXmlAudio_Settings_Nondefault: The required attribute 'id' is missing.
-RecoveryUiHotKeyInherited: The required attribute 'Name' is missing.
-   at XmlPrioritySdkOracle.Schema(String sdk, String probe, String report)
-   at XmlPrioritySdkOracle.Main(String[] args)
+PASS SDK full XSD: 159 assets; 3 negative fixtures rejected.
