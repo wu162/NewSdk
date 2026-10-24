@@ -39,3 +39,9 @@ Native/Bridge独立Xmlpathmusic、Oracle/Cases和TestXmlpathmusic.ps1。原DLL�
 
 本地g++ -Wall/-Wextra/-Werror语法检查和C#词法结构检查通过。Windows完整矩阵待主代理统一运行，结果写evidence/xml-pathmusic/validation.json与两优化日志；最终须核sourceCommit/runId及实际成功终态。此检查点不计入已验收82，不运行SDK，也不把组件结果冒充SDK支持。
 
+
+## 已取得的组件验收
+
+源码`ab40abb7777ee0e4bda6ff472f382f0c5897836d`，运行`40132183077`的本组件作业completed/success；已读取对应validation.json，核succeeded=true、精确sourceCommit/runId以及/Od、/O2四平台0/1/2/99全部结果。两模式合计fixtures 15968，原ProcessInstance三数组比较47904，直接CompileXml另47904数组比较，拒绝384，独立布局断言16792。
+
+这是本组件的完整成功证据；同次运行整体因其他UI组件/联合smoke失败，不能把整次运行标成功。最终联合验收以分支总交接为准。原恢复源码与测试未再改动；SDK编译0次，正式SDK路由仍不新增本组入口。

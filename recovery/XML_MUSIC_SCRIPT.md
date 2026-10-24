@@ -27,3 +27,9 @@ TestXmlmusicscript.ps1编本组+Relo/Scalar/Resource/EnumBitset/ObjectFilter，�
 
 本地g++ -Wall/-Wextra/-Werror语法及三C#词法结构检查通过。Windows完整矩阵仍待主代理统一执行，证据目录evidence/xml-musicscript/validation.json与两优化日志；最终须核sourceCommit/runId和实际终态。此未验证检查点不计入已验收数量，无任何真实SDK编译、SDK输入或正式路由变更。
 
+
+## 已取得的组件验收
+
+源码`ab40abb7777ee0e4bda6ff472f382f0c5897836d`，运行`40132183077`的本组件作业completed/success；已读取对应validation.json，核succeeded=true、精确sourceCommit/runId以及/Od、/O2四平台0/1/2/99全部结果。两模式合计fixtures 92744，原ProcessInstance三数组比较278232，直接CompileXml另278232数组比较，拒绝1016，独立布局断言93464。
+
+这是本组件的完整成功证据；同次运行整体因其他UI组件/联合smoke失败，不能把整次运行标成功。最终联合验收以分支总交接为准。原恢复源码与测试未再改动；SDK编译0次，正式SDK路由仍不新增本组入口。
