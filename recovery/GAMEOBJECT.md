@@ -1,5 +1,7 @@
 # GameObject recovery entry
 
+当前共同验收（2026-10-25）：246/322已知Marshal模块，源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`，run`40129692157 success`。本轮新增完整15类，精确状态和下一组见[RESUME.md](RESUME.md)；76已知模块仍拒绝、58 Token-only回退保留，SDK未集成。不要把下文历史阶段范围当作最新计数。
+
 Status: recovered **root component**, not a complete GameObject compiler or SDK plugin. It supports all 88 attributes declared directly by the GameObject XSD and 38 child kinds: the prior 29 non-polymorphic groups, complete SkirmishAIInformation, two empty module markers, and six module containers restricted to the 46 complete known types (31 base-only, seven additional Body, six ClientUpdate, two sound playback) plus unknown fallback (276 other known module types remain rejected). Unsupported children, fields and foreign namespaces remain explicitly rejected. SDK GameObject routing remains original.
 
 Implementation: `src/Native/GameObject.{h,cpp}`, source-derived `GameObjectFields.h`, `src/Bridge/GameObjectCompiler.cpp`. Validation: `scripts/TestGameObject.ps1`, `tests/GameObject{Oracle,Cases,KindOf}.cs`, `.github/workflows/recovered-gameobject.yml`. The workflow builds a separate `Recovered.GameObject.dll` on x86 under /Od and /O2; it does not replace either original DLL. Successful builds publish the DLL as `recovered-gameobject-component-x86`.

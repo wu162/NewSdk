@@ -22,3 +22,5 @@ TeleportToCaster完整9属性：Radius/MinDestinationRadius/MaxDestinationRadius
 已整组实现，完整验证保留/Od、/O2、平台0/1/2/99、三缓冲区逐字节、完整旧回归、独立默认/父层/nullable向量/字符串/引用顺序/padding、拒绝与不变性。原始档案用于核验来源；Native字段/Token/运行时和Bridge已启用四类，SDK正式集成门槛保持。已有helper与枚举无需重复probe。
 
 实现：GenerateAbilityMovementFields.py → GameObjectAbilityMovement.h/Runtime.h；GameObjectAbilityMovementCases.cs覆盖全部自身/父字段、Anim12、所有容器与模块边界、独立默认/padding/Token和字符串/向量分配。LocomotorToSet重用原PE核验LocomotorSet19/未知12，缺省仍为0。四字符String8需含终止符分配8字节，`\\1`强引用输出为2，独立断言已修正；失败run保留，不能充当成功证据。
+
+原始manifest的“仍拒绝”为前轮证据导出时状态，保留以固定来源校验；当前验收源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`、run`40129692157 success`，计数以RESUME.md为准。

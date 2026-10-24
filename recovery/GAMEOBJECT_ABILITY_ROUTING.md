@@ -1,6 +1,6 @@
 # 完整SpecialAbility模块路由与雷达过滤列表
 
-2026-10-25。最终共同组件验收见RESUME.md，SDK尚未运行。两个native均248字节，完整父SpecialAbility240；自身只有List8@240，无自身根属性。
+2026-10-25。已完整验收：源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`、run`40129692157 success`。最终共同组件验收见RESUME.md，SDK尚未运行。两个native均248字节，完整父SpecialAbility240；自身只有List8@240，无自身根属性。
 
 | 类型 | TypeId | 子节点 | 每项大小 |
 |---|---:|---|---:|

@@ -797,3 +797,12 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 ## 2026-10-25 能力完整组推进（最终15类待统一验收）
 
 已完成移动4/状态7，source603a7fd0bd11e31b3c2774e3e97839fe5fa7622e/run40128943921 success；/Od/O2每种752680 fixtures、2258040三缓冲区比较、18948拒绝、1776不变性，平台0/1/2/99，全部步骤及产物核对。新计数242/322。随后ActivateAbility/RadarScanMap两类结构列表与TiberiumThief/CreateAndEnter两类已实现，最终源码22aaf75aa50857f1675d545f7b1ed0684137ae11/run40129692157验证中；通过前不提前计数。精确当前结果以RESUME.md为准，原失败运行保留。SDK0次、路由不变。ToggleStatus及完整AI依赖59原方法与六新PE枚举已取证，仍拒绝；合同见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。
+
+
+## 2026-10-25 本轮最终：246/322，15个完整派生与全部旧回归通过
+
+最终共同源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`，GameObject run`40129692157 success`：/Od/O2各805500 fixtures、2416500三缓冲区逐字节比较、19192拒绝、1816不变性，平台0/1/2/99，两模式4833000缓冲区比较。原始两模式日志、全部原方法/生成器/PE检查、validation/sourceCommit/runId、全部步骤及两份产物已核对。不可变目录gameobject-runs/40129692157-1；根快照同步为Git树71eebfbd8b08cc196fa2d2f23da2432c3bdab9aa。同源码基础组件40129692147 success。验收后到收尾仅文档/证据变化，Native/Bridge/测试/生成器未改变。
+
+新增移动4、状态/对象操纵7、路由/雷达列表2、资源/创建2，共15类。全部自身字段、完整父240或OCL500/SpecialPower452、nullable Vector3/Filter、typed与结构列表、分配顺序、默认与拒绝边界已覆盖；分组合同见四份GAMEOBJECT_ABILITY文档。76其他已知Marshal仍拒绝、58 Token-only回退保留；SDK0次，原路由及原DLL不变，完整GameObject/正式插件/完整两DLL仍未完成。
+
+中间40128943921/40129220289成功证据保留；失败40128411260（独立断言的String8分配/引用编号预期）和40129487266（C#局部名冲突）保留，最终源码完整复验通过。没有取消回归或降低样例/平台。下一ToggleStatus完整依赖59方法与六PE枚举仅取证，仍拒绝，见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。实际约36分钟，因当前上下文长度在完整验收后提前交接，长期约1小时规则不变。复用父/helper与原证据、SDK未触发；无账号额度数据，不能量化节省。

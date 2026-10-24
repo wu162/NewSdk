@@ -1,25 +1,31 @@
 # 编译器恢复：当前续接入口
 
-更新：2026-10-25，北京时间。仓库 `wu162/NewSdk`，分支 `recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md和STAGE_DURATION.md，最新长期阶段约1小时；本轮无30分钟限制。GitHub插件访问，禁止强推，保留并发代码/Actions证据。
+更新：2026-10-25，北京时间。仓库 `wu162/NewSdk`，分支 `recovery/compiler-source`。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md；长期阶段约1小时。GitHub插件访问，禁止强推，保留并发代码/Actions证据。本轮约36分钟完成15类与完整矩阵后因上下文长度提前交接；没有修改长期时长规则。
 
-## 已验收242/322；最终15类能力批次等待完整结果
+## 已验收246/322已知Marshal模块
 
-原231基础上，移动4类和状态/对象操纵7类已完整验收。源码 `603a7fd0bd11e31b3c2774e3e97839fe5fa7622e`，run `40128943921 success`：/Od、/O2各752680 fixtures、2258040三缓冲区逐字节比较、18948拒绝、1776不变性；平台0/1/2/99。validation/sourceCommit/runId、两模式原日志、全部步骤和两份产物已核对，唯一证据目录 `evidence/gameobject-runs/40128943921-1`。基础组件run40128943883 success。具体合同见GAMEOBJECT_ABILITY_MOVEMENT_NEXT.md、GAMEOBJECT_ABILITY_STATE.md。
+本轮231→246：移动/传送4类、状态与对象操纵7类、结构路由/雷达列表2类、资源偷取/创建进入2类，均为完整能力组，包含全部父层与适用子结构。
 
-额外ActivateAbility/RadarScanMap两类结构列表源码 `50b60b0b184fbfc2fad06bb8c2aadf6f7b0dc62c`，run `40129220289` 仍需核对实际终态。随后完整TiberiumThief344/CreateAndEnter504已实现；其首次run40129487266在C#宿主局部变量重名编译阶段失败，修复源码 `22aaf75aa50857f1675d545f7b1ed0684137ae11`，最终run `40129692157` 验证中。**下一步优先取得最终完整矩阵结果并集中修复，不要把待验收4类提前计数。** 全部通过后预计246/322，剩76已知Marshal拒绝和58 Token-only未知回退。两类合同分别见GAMEOBJECT_ABILITY_ROUTING.md、GAMEOBJECT_ABILITY_RESOURCE.md。
+**最终共同验收源码 `22aaf75aa50857f1675d545f7b1ed0684137ae11`，GameObject run `40129692157 success`。** /Od、/O2各 **805500 fixtures、2416500三缓冲区逐字节比较、19192拒绝、1816不变性**；平台0/1/2/99，两模式合计4833000缓冲区比较。实际两模式原始日志、原方法/生成器/原PE检查、validation.json的sourceCommit/runId/平台/成功标记、全部工作流步骤和两份产物均核对。完整不可变证据 `evidence/gameobject-runs/40129692157-1`；根快照 `evidence/gameobject-root` 已同步为同一Git树 `71eebfbd8b08cc196fa2d2f23da2432c3bdab9aa`。基础组件同源码run40129692147 success。后续只改文档/下一组取证，不改本轮Native/Bridge/测试/生成器，不需重复同源码矩阵。
 
-首轮run40128411260在已通过原/恢复Check之后的独立Eject断言失败：4字符字符串含终止符分配应8字节，`\\1`强引用值应2；测试已集中修正并在603a7fd完整验收。失败/中间结果保留，不标为成功。原231基础最终验收仍是855277ac2ad9103536282b31ae639f678fbc1e7c/run40106342576。
+本轮合同与完整字段/默认/分配/Token/测试入口：
+- `GAMEOBJECT_ABILITY_MOVEMENT_NEXT.md`：SwitchLocomotors260、EjectPassengers280、Teleport264、TeleportToCaster272；32原方法证据。
+- `GAMEOBJECT_ABILITY_STATE.md`：GiveOrRestoreUpgrade252、ReconstituteState260、DominateEnemy260、LevelGrant256、CloneStoredObjects264、ReplaceSelf260、AssembleStructure260；52原方法证据及原PE ReplaceSelfOptions7。
+- `GAMEOBJECT_ABILITY_ROUTING.md`：ActivateModuleSpecialAbility248、RadarScanMap248，分别包含ModuleInfo12与intersection128结构列表；26原方法证据。
+- `GAMEOBJECT_ABILITY_RESOURCE.md`：TiberiumThief344、CreateAndEnter504；17原方法证据。
 
-本轮SDK0次、原路由不变。完整GameObject、正式插件及两份完整替代DLL仍未完成；组件通过不冒充SDK集成。SDK按更大里程碑累计，正式启用前的XSD/真实调用/相同输入/四产物/适用无原DLL重放与完整mymod验收保持。
+76种其他已知Marshal仍拒绝，58 Token-only未知回退保留。SDK本轮0次，原路由不变；完整GameObject、正式插件及两份完整替代DLL仍未完成，组件通过不冒充SDK集成。原来的XmlCompiler14优先类型工作见XMLCOMPILER_PRIORITY.md，不与GameObject模块计数混算。
 
 ## 下一完整组：ToggleStatus与完整AI依赖（仍拒绝）
 
-先读 `GAMEOBJECT_ABILITY_TOGGLE_NEXT.md`。ToggleStatus TypeId3977962844/native252，父SpecialAbility240；自身ToggleState列表每项280，内含**inline AI148**，其StateWeapon是**nullable28**，另有ModuleInfo12列表。不能只支持简单切换状态。59完整原方法见 `ability-toggle-next-source/manifest.json`，`ExportAbilityToggleMethods.py --check` 固定原blob并重取；本轮只取证，不启用、不计数。
+先读 `GAMEOBJECT_ABILITY_TOGGLE_NEXT.md`。ToggleStatus TypeId3977962844/native252，父SpecialAbility240；自身ToggleState列表每项280，内含**inline AI148**，其StateWeapon是**nullable28**，另有ModuleInfo12列表。不能只支持简单状态字段。59完整原方法归档 `ability-toggle-next-source/manifest.json`，`ExportAbilityToggleMethods.py --check` 固定原blob并重取；本轮只取证，不启用、不计数。
 
-六个新PE枚举取证run40129634414 success，源码1412fda52b973ee7f71f4ac2acd2be6fa870f101；表见power-continuation-enums.json。特别核对SkirmishAiInfo节点缺省与空节点：inline存储但节点缺省时不运行默认初始化。完整literal/偏移/默认和边界导航见类型文档。
+六个新PE枚举取证run40129634414 success，源码1412fda52b973ee7f71f4ac2acd2be6fa870f101；表见power-continuation-enums.json。节点缺省与空节点必须区分：SkirmishAiInfo是inline，但节点缺省时不运行默认初始化。完整literal、偏移、默认、单枚举/位集未知回退已写入类型文档。
 
-## 本轮关键合同与工作方式
+## 关键合同、失败历史与验证安排
 
-15类分别是移动4、状态7、结构列表2、资源/创建2；已有公共父/helper/枚举复用，不逐字段重复跑矩阵。SpecialPower字样不决定父类：状态七类与TeleportToCaster都继承SpecialAbility240；CreateAndEnter才继承OCL500→SpecialPower452。String8、nullable向量/过滤器和列表严格按原方法顺序分配。
+SpecialPower字样不决定父类：状态七类与TeleportToCaster都继承SpecialAbility240；CreateAndEnter继承OCL500→SpecialPower452。自身String8、nullable向量/过滤器和列表严格先于完整父层分配。Eject向量Token直接指向值，不创建Vector3子表；Radar列表为inline223/456/284共128字节，不是ObjectFilter112。GameObject公开ImportsData为空，不把Tracker中间引用表当公开Imports。
 
-GameObject公开ImportsData为空，不把Tracker中间引用表当公开Imports。所有新类型保留两模式/四平台/三公开缓冲区/完整旧回归/独立布局/拒绝和不变性。发布脚本只写run-attempt唯一目录；最终收尾将根快照同步为最终成功证据同一个Git树，不能把当前根快照视作最新验证。没有账号额度计量，不能量化节省。
+中间完整验收603a7fd/run40128943921（242类）与50b60b0/run40129220289（244类）保留各自不可变证据。失败run40128411260保留：独立测试误把4字符含终止符字符串分配写4字节（应8），并将两处`\\1`引用值误写1（应2），已修正并最终完整验收；run40129487266为C#宿主局部变量重名编译失败，22aaf75已修复。失败不当成功，未关闭或取消回归。
+
+复用既有父/helper/枚举、各完整组统一验证；每个可复现阶段及时普通提交。原DLL未覆盖。SDK继续按更大里程碑累计；正式启用前XSD/真实调用/相同输入/四产物/适用无原DLL重放及完整mymod门槛保持。没有账号额度计量，不能量化节省。

@@ -1,6 +1,6 @@
 # 完整SpecialAbility状态与对象操纵派生
 
-2026-10-25。七类共用完整SpecialAbility240父层；组件最终验收源码/run见RESUME.md，不能把组件通过称为SDK集成。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；`ability-state-source/manifest.json`归档52完整原方法及直接装饰helper闭包，ExportAbilityStateMethods.py重取核验。GenerateAbilityStateFields.py核验字段顺序/缺省、父层/Token/sentinel、方法指纹，并从SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`原PE读取ReplaceSelfOptions7。
+2026-10-25。已完整验收：源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`、run`40129692157 success`。七类共用完整SpecialAbility240父层；组件最终验收源码/run见RESUME.md，不能把组件通过称为SDK集成。原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`；`ability-state-source/manifest.json`归档52完整原方法及直接装饰helper闭包，ExportAbilityStateMethods.py重取核验。GenerateAbilityStateFields.py核验字段顺序/缺省、父层/Token/sentinel、方法指纹，并从SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`原PE读取ReplaceSelfOptions7。
 
 | 类型 | TypeId | native | 完整自身合同 |
 |---|---:|---:|---|
