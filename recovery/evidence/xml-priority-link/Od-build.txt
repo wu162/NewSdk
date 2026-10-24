@@ -7,41 +7,49 @@ ObjectFilter.cpp
 XmlaiCompiler.cpp
 XmlattributesCompiler.cpp
 XmlaudioCompiler.cpp
+XmlconditionsCompiler.cpp
 XmldamagefxCompiler.cpp
 XmleffectsCompiler.cpp
 XmlenvironmentCompiler.cpp
+XmlevaachievementCompiler.cpp
 XmlfxparticleCompiler.cpp
+XmlhealthbarsCompiler.cpp
 XmlhotkeymapsCompiler.cpp
 XmllocomotorCompiler.cpp
 XmlmusicscriptCompiler.cpp
 XmlpathmusicCompiler.cpp
+Generating Code...
+Compiling...
 XmlplayersCompiler.cpp
 XmlpowersCompiler.cpp
 XmlprogressionCompiler.cpp
-Generating Code...
-Compiling...
 XmlsinglesoundCompiler.cpp
 XmlsoundmapsCompiler.cpp
 XmltacticalhotkeysCompiler.cpp
+XmltargetingCompiler.cpp
 XmluichatCompiler.cpp
 XmluidecalsCompiler.cpp
 XmluisettingsCompiler.cpp
 XmluitacticalCompiler.cpp
+XmlunitoverlayCompiler.cpp
 Xmlai.cpp
 Xmlattributes.cpp
 Xmlaudio.cpp
+Xmlconditions.cpp
 Xmldamagefx.cpp
 Xmleffects.cpp
 XmleffectsEnums.cpp
 XmleffectsNuggets.cpp
+Generating Code...
+Compiling...
 Xmlenvironment.cpp
+Xmlevaachievement.cpp
 Xmlfxparticle.cpp
+Xmlhealthbars.cpp
 Xmlhotkeymaps.cpp
 Xmllocomotor.cpp
 Xmlmusicscript.cpp
 Xmlpathmusic.cpp
-Generating Code...
-Compiling...
 Xmlplayers.cpp
 Xmlpowers.cpp
 Xmlprogression.cpp
@@ -50,8 +58,12 @@ XmlprogressionUi.cpp
 Xmlsinglesound.cpp
 Xmlsoundmaps.cpp
 Xmltacticalhotkeys.cpp
+Xmltargeting.cpp
 Xmluichat.cpp
 Xmluidecals.cpp
 Xmluisettings.cpp
+Generating Code...
+Compiling...
 Xmluitactical.cpp
+Xmlunitoverlay.cpp
 Generating Code...

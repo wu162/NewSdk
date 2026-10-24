@@ -1,0 +1,5 @@
+System.Exception: bitset negative toggles twice; unknown maps CAPTURE; ALL retains high bits
+   at XmlconditionsOracle.Check(Boolean test, String label)
+   at XmlconditionsOracle.Abi(TargetPlatform p)
+   at XmlconditionsOracle.Matrix(TargetPlatform p)
+   at XmlconditionsOracle.Main(String[] args)

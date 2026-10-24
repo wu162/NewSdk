@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "d9908f57107f11b7ab875ac5787fce2bf23e00a9",
-  "runId": "40132543491",
+  "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
+  "runId": "40139472611",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -186,13 +186,32 @@
     "UIMouseTacticalLookAt": 1795213437,
     "UIMouseTacticalRadarTelestrator": 3366599054,
     "UIMouseTacticalTelestrator": 1921726501,
-    "UIMouseTacticalThreatMeter": 4143989686
+    "UIMouseTacticalThreatMeter": 4143989686,
+    "BaseConditionData": 3899256902,
+    "ObjectConditionData": 519519951,
+    "UpgradeConditionData": 76901015,
+    "GameplayConditionData": 2309012900,
+    "TargetingBaseCompare": 3600209407,
+    "TargetingDistanceCompare": 2359666647,
+    "TargetingCombatChainCompare": 89767986,
+    "TargetingInTurretArcCompare": 2007776008,
+    "TargetingCompareList": 3188107749,
+    "SiegeEvaEvent": 1268003905,
+    "EvaSettings": 2361666546,
+    "EvaEvent": 357806494,
+    "MiscEvaEvents": 1807540972,
+    "AchievementEvent": 4230032093,
+    "MapNameToAchievementEventMapping": 3594283852,
+    "GameplayAchievementTriggerData": 348670903,
+    "HealthBarTemplate": 1507490649,
+    "HealthBarSettings": 3919360587,
+    "UnitOverlayIconSettings": 2421413379
   },
-  "expectedTypes": 183,
-  "expectedFixturesPerMode": 732,
-  "expectedComparisonsPerMode": 2196,
-  "expectedCompletionFixturesPerMode": 40,
-  "expectedCompletionComparisonsPerMode": 120,
+  "expectedTypes": 202,
+  "expectedFixturesPerMode": 808,
+  "expectedComparisonsPerMode": 2424,
+  "expectedCompletionFixturesPerMode": 60,
+  "expectedCompletionComparisonsPerMode": 180,
   "platforms": [
     0,
     1,
@@ -205,11 +224,11 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 183,
-      "fixtures": 732,
-      "comparisons": 2196,
-      "completionFixtures": 40,
-      "completionComparisons": 120,
+      "types": 202,
+      "fixtures": 808,
+      "comparisons": 2424,
+      "completionFixtures": 60,
+      "completionComparisons": 180,
       "platforms": [
         0,
         1,
@@ -399,7 +418,26 @@
         "UIMouseTacticalLookAt": 4,
         "UIMouseTacticalRadarTelestrator": 4,
         "UIMouseTacticalTelestrator": 4,
-        "UIMouseTacticalThreatMeter": 4
+        "UIMouseTacticalThreatMeter": 4,
+        "BaseConditionData": 4,
+        "ObjectConditionData": 4,
+        "UpgradeConditionData": 4,
+        "GameplayConditionData": 4,
+        "TargetingBaseCompare": 4,
+        "TargetingDistanceCompare": 4,
+        "TargetingCombatChainCompare": 4,
+        "TargetingInTurretArcCompare": 4,
+        "TargetingCompareList": 4,
+        "SiegeEvaEvent": 4,
+        "EvaSettings": 4,
+        "EvaEvent": 4,
+        "MiscEvaEvents": 4,
+        "AchievementEvent": 4,
+        "MapNameToAchievementEventMapping": 4,
+        "GameplayAchievementTriggerData": 4,
+        "HealthBarTemplate": 4,
+        "HealthBarSettings": 4,
+        "UnitOverlayIconSettings": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -584,10 +622,29 @@
         "UIMouseTacticalLookAt": "Recovered.UIMouseTacticalLookAtCompiler",
         "UIMouseTacticalRadarTelestrator": "Recovered.UIMouseTacticalRadarTelestratorCompiler",
         "UIMouseTacticalTelestrator": "Recovered.UIMouseTacticalTelestratorCompiler",
-        "UIMouseTacticalThreatMeter": "Recovered.UIMouseTacticalThreatMeterCompiler"
+        "UIMouseTacticalThreatMeter": "Recovered.UIMouseTacticalThreatMeterCompiler",
+        "BaseConditionData": "Recovered.BaseConditionDataCompiler",
+        "ObjectConditionData": "Recovered.ObjectConditionDataCompiler",
+        "UpgradeConditionData": "Recovered.UpgradeConditionDataCompiler",
+        "GameplayConditionData": "Recovered.GameplayConditionDataCompiler",
+        "TargetingBaseCompare": "Recovered.TargetingBaseCompareCompiler",
+        "TargetingDistanceCompare": "Recovered.TargetingDistanceCompareCompiler",
+        "TargetingCombatChainCompare": "Recovered.TargetingCombatChainCompareCompiler",
+        "TargetingInTurretArcCompare": "Recovered.TargetingInTurretArcCompareCompiler",
+        "TargetingCompareList": "Recovered.TargetingCompareListCompiler",
+        "SiegeEvaEvent": "Recovered.SiegeEvaEventCompiler",
+        "EvaSettings": "Recovered.EvaSettingsCompiler",
+        "EvaEvent": "Recovered.EvaEventCompiler",
+        "MiscEvaEvents": "Recovered.MiscEvaEventsCompiler",
+        "AchievementEvent": "Recovered.AchievementEventCompiler",
+        "MapNameToAchievementEventMapping": "Recovered.MapNameToAchievementEventMappingCompiler",
+        "GameplayAchievementTriggerData": "Recovered.GameplayAchievementTriggerDataCompiler",
+        "HealthBarTemplate": "Recovered.HealthBarTemplateCompiler",
+        "HealthBarSettings": "Recovered.HealthBarSettingsCompiler",
+        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "74844cf3138743ee45d4f883a9493948b132b23783122259d06df3046d03fcbf",
+      "linkedAssemblySha256": "6a29db5e9d93bd381cf074e04d9bcaf5c1b83be63c65d9ff11d1bb0557c2827e",
       "log": "Od-oracle.txt"
     },
     {
@@ -595,11 +652,11 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 183,
-      "fixtures": 732,
-      "comparisons": 2196,
-      "completionFixtures": 40,
-      "completionComparisons": 120,
+      "types": 202,
+      "fixtures": 808,
+      "comparisons": 2424,
+      "completionFixtures": 60,
+      "completionComparisons": 180,
       "platforms": [
         0,
         1,
@@ -789,7 +846,26 @@
         "UIMouseTacticalLookAt": 4,
         "UIMouseTacticalRadarTelestrator": 4,
         "UIMouseTacticalTelestrator": 4,
-        "UIMouseTacticalThreatMeter": 4
+        "UIMouseTacticalThreatMeter": 4,
+        "BaseConditionData": 4,
+        "ObjectConditionData": 4,
+        "UpgradeConditionData": 4,
+        "GameplayConditionData": 4,
+        "TargetingBaseCompare": 4,
+        "TargetingDistanceCompare": 4,
+        "TargetingCombatChainCompare": 4,
+        "TargetingInTurretArcCompare": 4,
+        "TargetingCompareList": 4,
+        "SiegeEvaEvent": 4,
+        "EvaSettings": 4,
+        "EvaEvent": 4,
+        "MiscEvaEvents": 4,
+        "AchievementEvent": 4,
+        "MapNameToAchievementEventMapping": 4,
+        "GameplayAchievementTriggerData": 4,
+        "HealthBarTemplate": 4,
+        "HealthBarSettings": 4,
+        "UnitOverlayIconSettings": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -974,10 +1050,29 @@
         "UIMouseTacticalLookAt": "Recovered.UIMouseTacticalLookAtCompiler",
         "UIMouseTacticalRadarTelestrator": "Recovered.UIMouseTacticalRadarTelestratorCompiler",
         "UIMouseTacticalTelestrator": "Recovered.UIMouseTacticalTelestratorCompiler",
-        "UIMouseTacticalThreatMeter": "Recovered.UIMouseTacticalThreatMeterCompiler"
+        "UIMouseTacticalThreatMeter": "Recovered.UIMouseTacticalThreatMeterCompiler",
+        "BaseConditionData": "Recovered.BaseConditionDataCompiler",
+        "ObjectConditionData": "Recovered.ObjectConditionDataCompiler",
+        "UpgradeConditionData": "Recovered.UpgradeConditionDataCompiler",
+        "GameplayConditionData": "Recovered.GameplayConditionDataCompiler",
+        "TargetingBaseCompare": "Recovered.TargetingBaseCompareCompiler",
+        "TargetingDistanceCompare": "Recovered.TargetingDistanceCompareCompiler",
+        "TargetingCombatChainCompare": "Recovered.TargetingCombatChainCompareCompiler",
+        "TargetingInTurretArcCompare": "Recovered.TargetingInTurretArcCompareCompiler",
+        "TargetingCompareList": "Recovered.TargetingCompareListCompiler",
+        "SiegeEvaEvent": "Recovered.SiegeEvaEventCompiler",
+        "EvaSettings": "Recovered.EvaSettingsCompiler",
+        "EvaEvent": "Recovered.EvaEventCompiler",
+        "MiscEvaEvents": "Recovered.MiscEvaEventsCompiler",
+        "AchievementEvent": "Recovered.AchievementEventCompiler",
+        "MapNameToAchievementEventMapping": "Recovered.MapNameToAchievementEventMappingCompiler",
+        "GameplayAchievementTriggerData": "Recovered.GameplayAchievementTriggerDataCompiler",
+        "HealthBarTemplate": "Recovered.HealthBarTemplateCompiler",
+        "HealthBarSettings": "Recovered.HealthBarSettingsCompiler",
+        "UnitOverlayIconSettings": "Recovered.UnitOverlayIconSettingsCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "f3b35f10796199d49c5e8f57bc9b5418b4d33acf359ee8075dbc91170fa69d67",
+      "linkedAssemblySha256": "0314b21b6eaa3960ced745703aa5c3ebed2b39306c2ae7dae73576b7b874612b",
       "log": "O2-oracle.txt"
     }
   ],
@@ -986,20 +1081,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "d9908f57107f11b7ab875ac5787fce2bf23e00a9",
-      "runId": "40132543491",
+      "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
+      "runId": "40139472611",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "d9908f57107f11b7ab875ac5787fce2bf23e00a9",
-      "runId": "40132543491",
+      "sourceCommit": "9ab322e5fd65e62f58fab314c879e2afb065987c",
+      "runId": "40139472611",
       "processSucceeded": true
     }
   ],
-  "status": "All 183 exact compiler routes linked; default-root and 40 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 202 exact compiler routes linked; default-root and 60 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -1039,6 +1134,10 @@
       "sha256": "593904009ac7fd0a85e1b351481463129a7d0479d83818b532305e7b412de229"
     },
     {
+      "path": "recovery/src/Bridge/XmlconditionsCompiler.cpp",
+      "sha256": "374a9fee080cdfa0d3cc46e1de0f10ed3574f96139b93dc88072eed95c4b810a"
+    },
+    {
       "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp",
       "sha256": "ddede2dbc9e1046e2024a256f2a5ba65b28322e2334ad04f531efbe7c04b9283"
     },
@@ -1051,8 +1150,16 @@
       "sha256": "c4f1b562e07e5dad846322b28667c40bc6468ee375c096c6c6e713c7f90fb34e"
     },
     {
+      "path": "recovery/src/Bridge/XmlevaachievementCompiler.cpp",
+      "sha256": "0a24a4930640516195c3d0927bd329844b7d0f0f38b34f79e6abdc91fe96074f"
+    },
+    {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
       "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlhealthbarsCompiler.cpp",
+      "sha256": "5e58f91cc39d31915aae25c93b9d935a9ec57aabcf39e8e7a9c82e9517a49e0f"
     },
     {
       "path": "recovery/src/Bridge/XmlhotkeymapsCompiler.cpp",
@@ -1095,6 +1202,10 @@
       "sha256": "6efe72466e4ab0ee60cd50d9fcf8ed169d940b6639a90703a6c1e3316f3708d9"
     },
     {
+      "path": "recovery/src/Bridge/XmltargetingCompiler.cpp",
+      "sha256": "46c4af30b0aacaaf5a38a7027e4220bc4d92351c2de6f466532e9884632f008c"
+    },
+    {
       "path": "recovery/src/Bridge/XmluichatCompiler.cpp",
       "sha256": "d640ca548b5016f4c8909fceb12c4c3cfe06460c1f5ec5179452a376a2c234bc"
     },
@@ -1111,6 +1222,10 @@
       "sha256": "4915e4035990147a8c1a6701c38bcfa4b8c77fc2ab1c214d9579941b6876ca1c"
     },
     {
+      "path": "recovery/src/Bridge/XmlunitoverlayCompiler.cpp",
+      "sha256": "ec526d6c75fd0cc320f6ee57b5e204fa9724cffc58dc77e79fcaf48306f4a402"
+    },
+    {
       "path": "recovery/src/Native/Xmlai.cpp",
       "sha256": "fbe7ab6b597a4cf7b5952b6bbd47618417cde450b6bc5a1179d58713eb204254"
     },
@@ -1121,6 +1236,10 @@
     {
       "path": "recovery/src/Native/Xmlaudio.cpp",
       "sha256": "d435005c43bcc2623dca6d585c58c6048283013755010f9791d19bb508e752ff"
+    },
+    {
+      "path": "recovery/src/Native/Xmlconditions.cpp",
+      "sha256": "9c212dc5fb67a41822371e970ef7092d65c28ef2793116ba5a1bfb9cd7ee0398"
     },
     {
       "path": "recovery/src/Native/Xmldamagefx.cpp",
@@ -1143,8 +1262,16 @@
       "sha256": "431398390479bab7e6ea0f29e4b827583ce7d715a16d52bdc6b5146d9cfd0bd3"
     },
     {
+      "path": "recovery/src/Native/Xmlevaachievement.cpp",
+      "sha256": "26f041faccbcf7312bffc8246b0b965bfa99ad332034f7d8bc5b86ee681e2fc0"
+    },
+    {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
       "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
+    },
+    {
+      "path": "recovery/src/Native/Xmlhealthbars.cpp",
+      "sha256": "13e3ddad69aed0bbd9279022a03f86ef82cb0854bd9b0d2234816fe827778f5c"
     },
     {
       "path": "recovery/src/Native/Xmlhotkeymaps.cpp",
@@ -1195,6 +1322,10 @@
       "sha256": "9f5892216c531567165f2165cc327e1f17fb82e534f7e8c51ac6e5e30aa4c9a8"
     },
     {
+      "path": "recovery/src/Native/Xmltargeting.cpp",
+      "sha256": "e750df2595561ed83ab112d1ae6c6704bc0389b222d3cef5c190031692a87786"
+    },
+    {
       "path": "recovery/src/Native/Xmluichat.cpp",
       "sha256": "c94e492ed7953a68773c097272e6680c07b12c43dfa7e6839aa8ec07749a4fa3"
     },
@@ -1209,6 +1340,10 @@
     {
       "path": "recovery/src/Native/Xmluitactical.cpp",
       "sha256": "604dada0ef0379f4a868bc37fa1233a10cd11a06321f6339ca1d31ba7231f531"
+    },
+    {
+      "path": "recovery/src/Native/Xmlunitoverlay.cpp",
+      "sha256": "278f502da9e7c429a487d2a1548891080101e8ed2eb5fed9ec6c102906fa1f69"
     }
   ],
   "excludedDraftSources": [],

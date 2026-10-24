@@ -1,0 +1,8 @@
+PASS platform=0 fixtures=1747 arrayComparisons=10482 rejections=53 layoutAssertions=12341
+System.Exception: scalar/SiegeEvaEvent/Seconds/1 platform=1 xml=<SiegeEvaEvent xmlns="uri:ea.com:eala:asset" id="Oracle" Seconds="0"></SiegeEvaEvent> ---> System.Exception: scalar/SiegeEvaEvent/Seconds/1/instance byte=12 original=2 recovered=0
+   at XmlevaachievementOracle.Equal(String label, Byte[] a, Byte[] b)
+   at XmlevaachievementOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
+   --- End of inner exception stack trace ---
+   at XmlevaachievementOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
+   at XmlevaachievementOracle.Matrix(TargetPlatform p)
+   at XmlevaachievementOracle.Main(String[] args)
