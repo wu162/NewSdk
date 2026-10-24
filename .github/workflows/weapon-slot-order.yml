@@ -34,10 +34,15 @@ jobs:
           if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect evidence' }
           git commit -m "recovery: WeaponSlot ordering helper validation from $env:GITHUB_SHA"
           if ($LASTEXITCODE -ne 0) { throw 'Unable to commit ordering evidence' }
-          git pull --rebase origin recovery/compiler-source
-          if ($LASTEXITCODE -ne 0) { throw 'Unable to preserve concurrent changes' }
-          git push origin HEAD:recovery/compiler-source
-          if ($LASTEXITCODE -ne 0) { throw 'Unable to push ordering evidence' }
+          $saved = $false
+          for ($attempt = 0; $attempt -lt 4; $attempt++) {
+            git pull --rebase origin recovery/compiler-source
+            if ($LASTEXITCODE -ne 0) { throw 'Unable to preserve concurrent changes' }
+            git push origin HEAD:recovery/compiler-source
+            if ($LASTEXITCODE -eq 0) { $saved = $true; break }
+            if ($attempt -lt 3) { Start-Sleep -Seconds 2 }
+          }
+          if (-not $saved) { throw 'Unable to push ordering evidence after preserving concurrent changes' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
