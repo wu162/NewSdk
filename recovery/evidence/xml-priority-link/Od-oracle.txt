@@ -73,3 +73,4 @@ PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler p
 PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
 PASS platform=99 types=14 fixtures=14 comparisons=42
 PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 platforms=0/1/2/99; link/default-root smoke only
+PROCESS EXIT mode=Od exitCode=0 exitCodeHex=0x00000000

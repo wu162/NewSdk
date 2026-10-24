@@ -1,4 +1,2 @@
-System.Exception: nugget-default-14/instance byte=166 original=128 recovered=0
-   at XmleffectsOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmleffectsOracle.Test(IAssetBuilderPlugin original, String label, String text, TargetPlatform platform)
+System.Exception: Model-condition independent bit layout
    at XmleffectsOracle.Main(String[] args)

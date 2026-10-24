@@ -1,7 +1,7 @@
 {
-  "succeeded": false,
-  "sourceCommit": "e5f5eeb5b82d83debdc3a4a9ff5f6f93dd86d58a",
-  "runId": "40082208804",
+  "succeeded": true,
+  "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
+  "runId": "40082810006",
   "scope": "Combined XmlCompiler priority link/default-root smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "AttributeModifier": 3319822471,
@@ -28,8 +28,127 @@
     2,
     99
   ],
-  "modes": [],
-  "status": "Od combined priority default-root smoke failed; all 14 types are required",
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "exitCode": 0,
+      "exitCodeHex": "0x00000000",
+      "types": 14,
+      "fixtures": 56,
+      "comparisons": 168,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "typeCoverage": {
+        "AttributeModifier": 4,
+        "FXList": 4,
+        "SpecialPowerTemplate": 4,
+        "ObjectCreationList": 4,
+        "LocomotorTemplate": 4,
+        "LogicCommandSet": 4,
+        "FXParticleSystemTemplate": 4,
+        "UpgradeTemplate": 4,
+        "AIPersonalityDefinition": 4,
+        "AIStrategicStateDefinition": 4,
+        "AIMicroManagerData": 4,
+        "AIBudgetStateDefinition": 4,
+        "AIStateDefinition": 4,
+        "AITargetingHeuristic": 4
+      },
+      "compilerClasses": {
+        "AttributeModifier": "Recovered.AttributeModifierCompiler",
+        "FXList": "Recovered.FXListCompiler",
+        "SpecialPowerTemplate": "Recovered.SpecialPowerTemplateCompiler",
+        "ObjectCreationList": "Recovered.ObjectCreationListCompiler",
+        "LocomotorTemplate": "Recovered.LocomotorTemplateCompiler",
+        "LogicCommandSet": "Recovered.LogicCommandSetCompiler",
+        "FXParticleSystemTemplate": "Recovered.FXParticleSystemTemplateCompiler",
+        "UpgradeTemplate": "Recovered.UpgradeTemplateCompiler",
+        "AIPersonalityDefinition": "Recovered.XmlaiCompiler",
+        "AIStrategicStateDefinition": "Recovered.XmlaiCompiler",
+        "AIMicroManagerData": "Recovered.XmlaiCompiler",
+        "AIBudgetStateDefinition": "Recovered.XmlaiCompiler",
+        "AIStateDefinition": "Recovered.XmlaiCompiler",
+        "AITargetingHeuristic": "Recovered.XmlaiCompiler"
+      },
+      "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
+      "linkedAssemblySha256": "1728550acb1795527732c8b12088b0deb6cebc2763bdec58533f6465f15dfc02",
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "exitCode": 0,
+      "exitCodeHex": "0x00000000",
+      "types": 14,
+      "fixtures": 56,
+      "comparisons": 168,
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "typeCoverage": {
+        "AttributeModifier": 4,
+        "FXList": 4,
+        "SpecialPowerTemplate": 4,
+        "ObjectCreationList": 4,
+        "LocomotorTemplate": 4,
+        "LogicCommandSet": 4,
+        "FXParticleSystemTemplate": 4,
+        "UpgradeTemplate": 4,
+        "AIPersonalityDefinition": 4,
+        "AIStrategicStateDefinition": 4,
+        "AIMicroManagerData": 4,
+        "AIBudgetStateDefinition": 4,
+        "AIStateDefinition": 4,
+        "AITargetingHeuristic": 4
+      },
+      "compilerClasses": {
+        "AttributeModifier": "Recovered.AttributeModifierCompiler",
+        "FXList": "Recovered.FXListCompiler",
+        "SpecialPowerTemplate": "Recovered.SpecialPowerTemplateCompiler",
+        "ObjectCreationList": "Recovered.ObjectCreationListCompiler",
+        "LocomotorTemplate": "Recovered.LocomotorTemplateCompiler",
+        "LogicCommandSet": "Recovered.LogicCommandSetCompiler",
+        "FXParticleSystemTemplate": "Recovered.FXParticleSystemTemplateCompiler",
+        "UpgradeTemplate": "Recovered.UpgradeTemplateCompiler",
+        "AIPersonalityDefinition": "Recovered.XmlaiCompiler",
+        "AIStrategicStateDefinition": "Recovered.XmlaiCompiler",
+        "AIMicroManagerData": "Recovered.XmlaiCompiler",
+        "AIBudgetStateDefinition": "Recovered.XmlaiCompiler",
+        "AIStateDefinition": "Recovered.XmlaiCompiler",
+        "AITargetingHeuristic": "Recovered.XmlaiCompiler"
+      },
+      "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
+      "linkedAssemblySha256": "e710ab4fcfe09e97653ef7bd7ccfa2384f3f9ba44b24d2fc835c9b165162cb04",
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "processExits": [
+    {
+      "mode": "Od",
+      "exitCode": 0,
+      "exitCodeHex": "0x00000000",
+      "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
+      "runId": "40082810006",
+      "processSucceeded": true
+    },
+    {
+      "mode": "O2",
+      "exitCode": 0,
+      "exitCodeHex": "0x00000000",
+      "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
+      "runId": "40082810006",
+      "processSucceeded": true
+    }
+  ],
+  "status": "All 14 exact compiler routes linked and passed default-root three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -82,7 +201,7 @@
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
-      "sha256": "5d7275ccfeb6d6701b44d32b7968159da9ec4c40ec8c7419d98d26c682b81bb9"
+      "sha256": "8982cc5087b13e72fcb299e42bce60b7cc8d00b702cc9bb5ed49cc96e54466c3"
     },
     {
       "path": "recovery/src/Native/Xmlattributes.cpp",
@@ -98,7 +217,7 @@
     },
     {
       "path": "recovery/src/Native/XmleffectsNuggets.cpp",
-      "sha256": "31fa39ffc15c3390158151c394e6517dc5709f2993d82f308bf8ce183927f472"
+      "sha256": "a26e6c10f197c2448e4842a435e0e4cbdec12b4e57cc8c222be5c69df35b2d28"
     },
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",

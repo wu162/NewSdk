@@ -1,13 +1,13 @@
 {
-  "succeeded": false,
-  "sourceCommit": "e5f5eeb5b82d83debdc3a4a9ff5f6f93dd86d58a",
-  "runId": "40082208804",
+  "succeeded": true,
+  "sourceCommit": "3e2863f4f5a04bc662335d1d773024184aa9ac3a",
+  "runId": "40082810006",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "scope": "XmlCompiler AI component; six root attributes, MicroManager, State heuristics, Budget; explicit remaining child boundaries",
   "modes": [
     {
       "mode": "/Od",
-      "exitCode": -1073610751,
+      "exitCode": 0,
       "platforms": [
         {
           "platform": 0,
@@ -39,7 +39,42 @@
         }
       ],
       "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "/O2",
+      "exitCode": 0,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 1964,
+          "arrayComparisons": 11781,
+          "rejections": 41,
+          "layoutAssertions": 321
+        },
+        {
+          "platform": 1,
+          "fixtures": 1964,
+          "arrayComparisons": 11781,
+          "rejections": 41,
+          "layoutAssertions": 321
+        },
+        {
+          "platform": 2,
+          "fixtures": 1964,
+          "arrayComparisons": 11781,
+          "rejections": 41,
+          "layoutAssertions": 321
+        },
+        {
+          "platform": 99,
+          "fixtures": 1964,
+          "arrayComparisons": 11781,
+          "rejections": 41,
+          "layoutAssertions": 321
+        }
+      ],
+      "log": "O2-oracle.txt"
     }
   ],
-  "status": "Od Xmlai differential failed"
+  "status": "Od/O2 four-platform component differential completed; SDK integration not claimed"
 }
