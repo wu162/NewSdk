@@ -93,7 +93,7 @@ struct Builder {
         Layout layout=GetLayout(name);
         if(HasText(node))throw std::invalid_argument("Unexpected player text");
         for(const auto& a:node.attributes){
-            if(Metadata(a.first)||(layout.typeId&&(a.first=="id"||a.first=="inheritFrom")))continue;
+            if(Metadata(a.first)||(layout.typeId&&(a.first=="id"||a.first=="inheritFrom"))||(name=="GameStatsModeData"&&a.first=="id"))continue;
             bool found=false;for(unsigned i=0;i<layout.fieldCount;++i)if(a.first==layout.fields[i].name){found=true;break;}
             if(!found)throw std::invalid_argument("Unknown player attribute: "+a.first);
         }

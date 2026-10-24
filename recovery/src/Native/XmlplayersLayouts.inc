@@ -195,6 +195,10 @@ const Field fieldsAIStrategicStateName[]={
 {"State",nullptr,4,Kind::Reference,""},
 {"Name",nullptr,8,Kind::String,""},
 };
+const Field fieldsAIPersonalityToAchievementEventMapping[]={
+{"AIPersonalityDef",nullptr,4,Kind::Reference,""},
+{"AchievementEventId",nullptr,8,Kind::Unsigned,""},
+};
 const Field fieldsVector3[]={
 {"x","0.0",0,Kind::Float,""},
 {"y","0.0",4,Kind::Float,""},
@@ -228,6 +232,13 @@ const Child childrenAIBuildStateDefinition[]={
 {"BuildEntry","AIBuildEntry",12,ChildKind::List},
 {"Heuristic","Heuristics",4,ChildKind::Inline},
 };
+const Child childrenMultiplayerColor[]={
+{"RGBColor","Color",4,ChildKind::Inline},
+{"RGBColorT","Color",8,ChildKind::Inline},
+{"RGBNightColor","Color",12,ChildKind::Inline},
+{"TooltipName","StringText",16,ChildKind::Inline},
+{"AvailableInMetaGame","BoolText",24,ChildKind::Inline},
+};
 Layout GetLayout(const std::string& name) {
 if(name=="AIData") return {220,3827723072u,fieldsAIData,60,nullptr,0};
 if(name=="UnitAISettings") return {448,2964891936u,fieldsUnitAISettings,42,childrenUnitAISettings,2};
@@ -238,6 +249,7 @@ if(name=="MoneyTransaction") return {8,0u,fieldsMoneyTransaction,2,nullptr,0};
 if(name=="GameStatsModeData") return {16,0u,fieldsGameStatsModeData,1,childrenGameStatsModeData,1};
 if(name=="AIBuildEntry") return {56,0u,fieldsAIBuildEntry,13,childrenAIBuildEntry,1};
 if(name=="AIStrategicStateName") return {16,2010562192u,fieldsAIStrategicStateName,2,nullptr,0};
+if(name=="AIPersonalityToAchievementEventMapping") return {12,4086175864u,fieldsAIPersonalityToAchievementEventMapping,2,nullptr,0};
 if(name=="Vector3") return {12,0u,fieldsVector3,3,nullptr,0};
 if(name=="Color") return {4,0u,fieldsColor,4,nullptr,0};
 if(name=="ReferenceText") return {4,0u,nullptr,0,nullptr,0};
@@ -248,5 +260,6 @@ if(name=="MultiplayerSettings") return {44,191082224u,nullptr,0,childrenMultipla
 if(name=="AIBuildStateDefinition") return {20,1644972043u,nullptr,0,childrenAIBuildStateDefinition,2};
 if(name=="SignedText") return {4,0u,nullptr,0,nullptr,0};
 if(name=="BoolText") return {1,0u,nullptr,0,nullptr,0};
+if(name=="MultiplayerColor") return {28,2384988189u,nullptr,0,childrenMultiplayerColor,5};
 throw std::invalid_argument("Unsupported player type: "+name);
 }
