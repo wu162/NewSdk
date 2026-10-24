@@ -25,13 +25,16 @@ for typ in TYPES:
    if (sig.startswith('internal unsafe static void Marshaler_002EMarshal(INode* node, '+name+'*') or sig.startswith('internal unsafe static void Marshaler_002EEndianCorrect('+name+'*') or sig.startswith('internal unsafe static void Tokenizer_002ETokenize(void** table, '+name+'*')):queue.append(sig)
 for sigs in signatures.values():
  for sig in sigs:
-  if any(name+'* @object' in sig for name in ['GiveUpgradeUpdateModuleData','ReplaceObjectUpdateModuleData','ShieldSphereUpdateModuleData','SpecialDisguiseUpdateModuleData']) and any(sig.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(sig)
+  if any(name+'* @object' in sig for name in ['GiveUpgradeUpdateModuleData','ReplaceObjectUpdateModuleData','ShieldSphereUpdateModuleData','SpecialDisguiseUpdateModuleData','ReplaceObjectNugget','SpecialDisguiseTerrainData']) and any(sig.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(sig)
 while queue:
  sig=queue.pop(0)
  if sig in bodies:continue
  body=body_of(s,sig);bodies[sig]=body
  # Helper names are exact decorated names, not native size/name substring guesses.
  for helper in re.findall(r'\b((?:Marshaler_002EMarshal_|Marshaler_002EEndianCorrect_|Tokenizer_002ETokenize_)\w+)\(',body):queue.extend(signatures.get(helper,[]))
+from GenerateUpgradeFields import enum_values
+pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
+manifest['peEnums']={name:enum_values(s,pe,name) for name in ['ShieldSphereUpdateOption']}
 exports={}
 for index,(sig,body) in enumerate(bodies.items()):
  file=f'{index:03}.txt';sha=hashlib.sha256((body+'\n').encode()).hexdigest();used={x:literals[x] for x in re.findall(r'Unsafe.AsPointer\(ref ([^)]+)\)',body) if x in literals};exports[file]='// Original blob '+BLOB+'; body SHA256 '+sha+'\n// Literals: '+json.dumps(used,ensure_ascii=False)+'\n'+body+'\n';manifest['methods'].append({'file':file,'signature':sig,'bodySha256':sha})
