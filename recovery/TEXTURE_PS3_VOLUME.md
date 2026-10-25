@@ -26,7 +26,7 @@ PS3Mips 使用 main 固定提交的3张真实 TGA，关闭自动 resize；两个
 
 `TexturePs3MipEncoder` 复用已验收的 Win32 base-relative triangle 数值算法，原 options[100]=30、options[104]=3。输出固定三份层数据；即使1×1已到末级，也重复写出末级像素。DDS 头 mipCount 却为 `min(自然XY级数, 3)`，故1×1头为1而 payload 有3份，2×2头为2而仍有3份。原始探针 [40201763838](https://github.com/wu162/NewSdk/actions/runs/40201763838) 是原版证据，不是恢复验收；前两次失败保留在 Actions，不伪装成功。
 
-DDS 头与像素仍为 little endian；PS3 的外层资产长度/重定位由原已恢复 EmbedDds 路径处理。大于256且允许自动 resize 的 StandardTexture、NPOT 原 D3DX resize 仍明确拒绝。
+DDS 头与像素仍为 little endian；PS3 的外层资产长度/重定位由原已恢复 EmbedDds 路径处理。PS3 POT TGA 大于256且允许自动 resize 的 StandardTexture 已在第四轮正式恢复；组件、实际入口与两个真实SDK profile通过，见 [cubic验收](TEXTURE_CUBIC_RESIZE.md)。NPOT 原D3DX resize和右移导致零轴的极端条带仍明确拒绝。
 
 ## 体积条带与 raw 头
 
@@ -51,4 +51,8 @@ Win32/非PS3生成 `bitLength(max(width,height,depth))` 份 payload；PS3固定3
 
 证据推送新增 `SaveTextureEvidence.ps1`，并发普通 push 被拒绝时先 rebase 再有限重试；禁止强推。40202111197的比较步骤已成功，但最后证据 push 冲突导致整个workflow failure；最终0f012b99完整重跑与持久化成功，不将旧失败改写为绿色。当前不变成功组不另开相同 SDK 复验。
 
-目标仅为PC/PS3，Xbox 360/Xenon专属转换已按用户要求剔除。仍缺 DXT1/DXT1A/DXT3/DXT5、PC/PS3所需公共图像处理/完整 native 生命周期与完整 TerrainTextureAtlas，PNG/JPEG、剩余 TGA metadata、NPOT/PS3 cubic resize仍未验收；未支持输入不隐藏回退原目标 DLL。
+目标仅为PC/PS3，Xbox 360/Xenon专属转换已按用户要求剔除。仍缺 DXT1/DXT1A/DXT3/DXT5、PC/PS3所需公共图像处理/完整 native 生命周期与完整 TerrainTextureAtlas，PNG/JPEG、剩余 TGA metadata、NPOT resize仍未验收；未支持输入不隐藏回退原目标 DLL。
+
+## 第四轮补充（2026-10-25）
+
+本页31f45e04/75f302ef验收为历史锚点。普通二维/体积mip归一化残差修正后的源码是fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76；PC/PS3核心与实际入口全部通过，真实SDK40209761463的PcMips/Ps3Mips/VolumeMipPc/VolumeMipPs3四profile全部成功。每profile18资产的Original/Recovered/NoOriginal四产物与真实调用buffer/cdata完全相同。精确新收据和复用指纹见[第四轮交接](TEXTURE_ROUND4_HANDOFF.md)。未变volume raw保留本页原验收，不冒充本轮新跑。

@@ -1,0 +1,390 @@
+{
+  "scope": "PC/Win32 and PlayStation3 only; Xbox360-specific recovery excluded",
+  "notCompleteDll": true,
+  "productionSdkReplaced": false,
+  "originalDllSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceAnchors": {
+    "cubic": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+    "mipResidual": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76"
+  },
+  "receipts": [
+    {
+      "path": "recovery/evidence/texture/stage2/CubicResize/40209208060-1/validation.json",
+      "sourceCommit": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+      "runId": "40209208060",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "summary": [
+            "PASS TextureCubicResizeDifferential fixtures=1854 checks=19066353 recoveredCompared=true cubicResize=true PS3Mips=falseAndTrue"
+          ]
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "summary": [
+            "PASS TextureCubicResizeDifferential fixtures=1854 checks=19066353 recoveredCompared=true cubicResize=true PS3Mips=falseAndTrue"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/ps3-resize-images/40209208093-1/validation.json",
+      "sourceCommit": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+      "runId": "40209208093",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=324 errors=0 unsupportedResampling=0 comparedBytes=24597016; PS3 auto cubic resize=true (mips=false/true); real main TGA; three buffers and full cdata; no SDK acceptance"
+          ],
+          "passed": true
+        },
+        {
+          "configuration": "Release",
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=324 errors=0 unsupportedResampling=0 comparedBytes=24597016; PS3 auto cubic resize=true (mips=false/true); real main TGA; three buffers and full cdata; no SDK acceptance"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-ps3-resize/Ps3ResizeNoMip/40209208221-1/validation.json",
+      "sourceCommit": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+      "runId": "40209208221",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-ps3-resize/Ps3ResizeMips/40209208221-1/validation.json",
+      "sourceCommit": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+      "runId": "40209208221",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/stage2/Mips/40209761398-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761398",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "summary": [
+            "PASS TextureMipDdsDifferential fixtures=282 checks=5039424 recoveredCompared=true mipmapsAccepted=Win32DefaultChain"
+          ],
+          "passed": true,
+          "configuration": "Debug"
+        },
+        {
+          "summary": [
+            "PASS TextureMipDdsDifferential fixtures=282 checks=5039424 recoveredCompared=true mipmapsAccepted=Win32DefaultChain"
+          ],
+          "passed": true,
+          "configuration": "Release"
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/stage2/Ps3Mips/40209761399-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761399",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "passed": true,
+          "configuration": "Debug",
+          "summary": [
+            "PASS TexturePs3MipDifferential fixtures=282 checks=4950085 probeOnly=False mipProfile=PS3ThreePayloads"
+          ]
+        },
+        {
+          "passed": true,
+          "configuration": "Release",
+          "summary": [
+            "PASS TexturePs3MipDifferential fixtures=282 checks=4950085 probeOnly=False mipProfile=PS3ThreePayloads"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/stage2/VolumeMips/40209761393-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761393",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "passed": true,
+          "summary": [
+            "PASS TextureVolumeMipDifferential fixtures=2832 checks=3211661 volumeMips=PCFullAndPS3ThreePayloads"
+          ],
+          "configuration": "Debug"
+        },
+        {
+          "passed": true,
+          "summary": [
+            "PASS TextureVolumeMipDifferential fixtures=2832 checks=3211661 volumeMips=PCFullAndPS3ThreePayloads"
+          ],
+          "configuration": "Release"
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/mip-images/40209761414-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761414",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=174 errors=2 unsupportedResampling=6 comparedBytes=24788032; Win32 mip=true; real main TGA; three buffers and full cdata; no SDK acceptance"
+          ],
+          "passed": true,
+          "configuration": "Debug"
+        },
+        {
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=174 errors=2 unsupportedResampling=6 comparedBytes=24788032; Win32 mip=true; real main TGA; three buffers and full cdata; no SDK acceptance"
+          ],
+          "passed": true,
+          "configuration": "Release"
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/ps3-mip-images/40209761391-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761391",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=246 errors=2 unsupportedResampling=6 comparedBytes=24864504; PS3 mip=true (resize=false); real main TGA; three buffers and full cdata; no SDK acceptance"
+          ]
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=246 errors=2 unsupportedResampling=6 comparedBytes=24864504; PS3 mip=true (resize=false); real main TGA; three buffers and full cdata; no SDK acceptance"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/volume-mip-images/40209761409-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761409",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": false,
+      "configurations": [
+        {
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=2610 errors=6 unsupportedResampling=0 comparedBytes=13339056; PC/PS3/unknown volume complete/PS3-limited mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+          ],
+          "configuration": "Debug",
+          "passed": true
+        },
+        {
+          "summary": [
+            "PASS Texture mip ProcessInstance differential fixtures=2610 errors=6 unsupportedResampling=0 comparedBytes=13339056; PC/PS3/unknown volume complete/PS3-limited mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+          ],
+          "configuration": "Release",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-mips/40209761463-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761463",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-new-paths/Ps3Mips/40209761463-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761463",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-volume-mips/VolumeMipPc/40209761463-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761463",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    },
+    {
+      "path": "recovery/evidence/texture/sdk-volume-mips/VolumeMipPs3/40209761463-1/validation.json",
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761463",
+      "runAttempt": "1",
+      "status": "passed",
+      "sdkValidated": true,
+      "modes": [
+        {
+          "mode": "Original",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "Recovered",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": false
+        },
+        {
+          "mode": "NoOriginal",
+          "passed": true,
+          "uniqueAssets": 18,
+          "actualCalls": 18,
+          "withoutOriginalTextureCompiler": true
+        }
+      ]
+    }
+  ]
+}
