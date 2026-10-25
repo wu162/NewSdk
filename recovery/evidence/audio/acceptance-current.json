@@ -1,5 +1,5 @@
 {
-  "status": "pc-only-pending-validation",
+  "status": "passed-with-explicit-scope",
   "branch": "recovery/audio-compiler-source",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
@@ -157,8 +157,10 @@
   "scopeChange": {
     "removed": "All non-PC encoding policies, metadata/asset platform branches, platform-specific byte order and differential fixtures",
     "historicalEvidence": "Prior receipts remain immutable historical records, not current platform support",
-    "currentSourceValidated": false,
-    "sdkStarted": false
+    "currentSourceValidated": true,
+    "sdkStarted": false,
+    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+    "runId": "40241451234"
   },
   "historicalWholeSourceBuild": {
     "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71",
@@ -253,5 +255,93 @@
     ],
     "status": "passed",
     "receipt": "standalone-build-validation/40240685038-1/validation.json"
+  },
+  "currentValidation": {
+    "status": "passed",
+    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+    "runId": "40241451234",
+    "attempt": 1,
+    "sourceTree": "44d8089ff03c9af29c6e6cb12245eff8ba0c25c2",
+    "sdkStarted": false,
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "rejectedPlatformValues": [
+      1,
+      2,
+      99,
+      -1,
+      -2147483648,
+      2147483647
+    ],
+    "rejectionChecksPerConfiguration": 48,
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "metadataRecordsPerConfiguration": 12311,
+    "pluginRecordsPerConfiguration": 2175,
+    "resampleSafetyRefusalsPerConfiguration": 8,
+    "pluginGroups": [
+      "business",
+      "pcm",
+      "xas",
+      "defaults",
+      "rates",
+      "main",
+      "pcm8",
+      "formats",
+      "loops",
+      "aiffloops",
+      "resample-full"
+    ],
+    "aifcRecordsPerConfiguration": 720,
+    "adp4RecordsPerConfiguration": 2136,
+    "ssndRecordsPerConfiguration": 1680,
+    "receipts": [
+      "metadata-validation/40241451234-1/validation.json",
+      "plugin-validation/40241451234-1/validation.json",
+      "pcm-validation/40241451234-1/validation.json",
+      "xas-validation/40241451234-1/validation.json",
+      "aifc-validation/40241451234-1/validation.json",
+      "adp4-plugin-validation/40241451234-1/validation.json",
+      "ssnd-block-validation/40241451234-1/validation.json",
+      "standalone-build-validation/40241451234-1/validation.json"
+    ],
+    "exclusionLogs": [
+      "plugin-validation/40241451234-1/Debug-excluded-platform.log",
+      "plugin-validation/40241451234-1/Release-excluded-platform.log"
+    ]
+  },
+  "wholeSourceBuild": {
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "status": "passed",
+    "modes": [
+      {
+        "libraryBytes": 137216,
+        "librarySha256": "41222db3367773c3309e84e0517cb7d81ef018d80bee92f195dd4723f92c0c45",
+        "passed": true,
+        "log": "Debug-build.log",
+        "configuration": "Debug"
+      },
+      {
+        "libraryBytes": 123904,
+        "librarySha256": "30289064984c7cbbf322d35741015ccac2ed7db0b9523d7c10b7ffb56ac88473",
+        "passed": true,
+        "log": "Release-build.log",
+        "configuration": "Release"
+      }
+    ],
+    "sdkStarted": false,
+    "runAttempt": "1",
+    "sourceTree": "44d8089ff03c9af29c6e6cb12245eff8ba0c25c2",
+    "supportedPlatforms": [
+      "Win32"
+    ],
+    "runId": "40241451234",
+    "modCompiled": false,
+    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "receipt": "standalone-build-validation/40241451234-1/validation.json"
   }
 }

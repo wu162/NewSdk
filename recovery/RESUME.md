@@ -16,7 +16,7 @@ ADP4/SSND 已过真实插件 ProcessInstance 三缓冲区/CustomData 差分，**
 2. 将 ADP4、SSND 等已积累输入能力合成一次最小合法 PC 音频 MOD，做 SDK 原/恢复版对照。不要重复运行未变且已有有效证据的组件。
 3. PC 范围满足后处理 `compiler-source` 合并、最终 exe 集成及完整 Upheaval 里程碑验收；目前生产 SDK DLL/config 未替换，最终 exe 未接入。
 
-本轮 Win32-only 清理已实现，组件/插件和整工程 Debug/Release 合批验证待运行；不会启动 SDK。上轮混合平台验证仅保留为历史证据，不能用来证明本轮源码。
+源码 `376243310ad44a164c7ac29b100e5489c5d93928` / [40241451234](https://github.com/wu162/NewSdk/actions/runs/40241451234) 已通过 Win32-only 合批验证，源码树 `44d8089ff03c9af29c6e6cb12245eff8ba0c25c2`。每种 Debug/Release：元数据12,311项、PC插件路由2,175项及8项单帧安全拒绝、AIFC720项、ADP4 2,136项、SSND1,680项、非PC拒绝48项；PCM/XAS组件和整工程构建通过。仅对照Win32输出，其他平台只验证拒绝。SDK运行0次。
 
 精确收据见[验收索引](evidence/audio/acceptance-current.json)；PC剩余边界及后续集成见[AUDIO_COMPILER](AUDIO_COMPILER.md)。历史SDK成功仍只对应原提交，不代表本次清理后的SDK验收。
 

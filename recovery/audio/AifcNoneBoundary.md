@@ -53,7 +53,7 @@ The old input consumer regression is `TestAudioPlugin.ps1 -Groups
 formats,aiffloops`: all1200 PC WAVE/AIFF/extensible and200 AIFF-loop records.
 The numerical encoders/resampler, MP3 and PathMusic logic are unchanged.
 
-## Accepted batch
+## Historical accepted batch
 
 Source `3863a632faac79ef586569e134b7eb46014fab94`, run
 [40233228823](https://github.com/wu162/NewSdk/actions/runs/40233228823),

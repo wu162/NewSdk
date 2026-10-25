@@ -52,7 +52,7 @@ loops and ADP4. Numerical encoders, resampler and nibble decoder are unchanged.
 Original runtime DWORD fields, full CustomData and all three buffers must
 match; merely accepting the file cannot pass.
 
-## Accepted component/plugin batch
+## Historical accepted component/plugin batch
 
 Source `d3f96009e64b44c4d9482421cc5922b3309320bc`, run
 [40236037500](https://github.com/wu162/NewSdk/actions/runs/40236037500),
