@@ -1,0 +1,2 @@
+Asset Resolver by Bibber
+Error: "Data\WBData_12.big" not found
