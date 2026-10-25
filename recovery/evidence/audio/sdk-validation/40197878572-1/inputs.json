@@ -1,0 +1,72 @@
+[
+  {
+    "sha256": "92cb99680a4c53eed3421a1ef22bf5f5d4b49aa8410f231447e2ca72765b44d3",
+    "bytes": 12314,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\extensible.wav"
+  },
+  {
+    "sha256": "21999a2a44d448e13093e023d38f188536ffe0198d5bde0b57e18f7aaffc2437",
+    "bytes": 8218,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated.aiff"
+  },
+  {
+    "sha256": "545f598ed2418cad8ece1d61589b200e4ee9dac51cb76f4d46989d7d594e3fa8",
+    "bytes": 12290,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated24.wav"
+  },
+  {
+    "sha256": "3e721343523bda2ba74c7580554a6e328d631a7ed39ef71df834e75577daa140",
+    "bytes": 84,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\headers.h"
+  },
+  {
+    "sha256": "e8abe02b9c47d03c2ccbe7d39c57d6695036fb9c5658f4367aa161f046ad6432",
+    "bytes": 8304,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\loop.wav"
+  },
+  {
+    "sha256": "52f36400ab95737b023b64e728edf75d010c2cfb1a959392105a91b6d86742ab",
+    "bytes": 7,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\map.mpf"
+  },
+  {
+    "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+    "bytes": 1462,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.mp3"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.wav"
+  },
+  {
+    "sha256": "3c3d422ab85c68cb8234bff926e89b13a31e885622e4a76f749b1e45bb3b7b80",
+    "bytes": 8922,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-0.wav"
+  },
+  {
+    "sha256": "951882eebd5b20395a3e8fdfa6ea3d50c5f7e049db9746ff07f3171e92d5fe77",
+    "bytes": 169602,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-1.wav"
+  },
+  {
+    "sha256": "ab249059a20423f52cb497742689208b98752c8f632a8f3fd9897e94d00c75da",
+    "bytes": 7,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\track.mus"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\music\\default.wav"
+  },
+  {
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "bytes": 16428,
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sounds\\default.wav"
+  },
+  {
+    "sha256": "e4cbc6bee1532b8bc3ea122e12cd63e16c585467f13de653d980d7d7044b0ac8",
+    "bytes": 3035,
+    "path": "Mods\\AudioRecoveryProbe\\Data\\Mod.xml"
+  }
+]
