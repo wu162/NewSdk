@@ -25,3 +25,5 @@
 下一轮从浮点记录直接核对这个4×8样本末级的归一化权重、累加精度与中间值生命周期，再跑最终整组矩阵。新增实验候选应把Experiments源文件也纳入显式输入指纹。组件闭合后才接Plugin，并运行准备好的实际入口/PS3真实SDK新profile；本轮没有接入，没有启动缩放SDK验收。两个轴右移可能得到0的极端条带不在当前安全原版探针域，后续须先明确拒绝/原错误边界，不能通过clamp悄悄更改原语义。
 
 已验收二维PS3 mip、体积raw/mip及五个真实SDK profile不变，详见 [TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。本页实验失败必须与这些成功分组分别报告。
+
+隔离后的最终实验运行 [40204996178](https://github.com/wu162/NewSdk/actions/runs/40204996178)（sourceCommit 1e19ecb45b6100503c1eb0c69c43698c01c84626）已结束：正式DLL Debug构建、独立实验DLL csc构建及宿主构建成功，仍在上述4×8 pattern4/mip=true的DDS offset169报原版51/候选50。失败属于实验数值差异，未关闭或放宽断言；Release未因Debug失败而取得成功声明。完整失败产物保留在该运行Actions artifact，正式Managed编译输入仍与75f302ef一致。
