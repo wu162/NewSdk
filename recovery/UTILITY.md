@@ -26,6 +26,10 @@ dotnet build recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj -c R
 
 ## 验证状态
 
-源码与差分已提交，Windows Debug/Release 验证进行中；最终验收 sourceCommit/runId 以本节后续更新和 `evidence/utility/validation` 收据为准。未执行 EALAModStudio/BAB 完整 MOD 编译，不能把其他恢复模块的 SDK 验收算作本 DLL 的 SDK 验收。
+验收源码 `9c7b59036c0bc518727023331603e59bf16c48a4`，运行 [40186857933 attempt 1](https://github.com/wu162/NewSdk/actions/runs/40186857933) 成功。Debug/Release 各 **269,516 条记录**与原版完整转录 SHA256 相同：`1747257c9490ad818ba5c8a7690dd9e58bab51edc0a329b903d93b0327e2d72d`。完整记录以单份等价基准 `transcript.zip` 保存，两个配置的比较结果、重建 DLL 指纹、22 份源码/工具文件与七份真实输入指纹见 [验收收据](evidence/utility/validation/40186857933-1/validation.json)。测试使用 x86 CLR4 兼容宿主；重建 DLL 仍以 net20 为目标。
+
+首轮 40186499964 发现两处 ILSpy 的 C++/CLI Dispose 语法，第二轮 40186662830 发现 GetErrorString 的 IsLong 二进制绑定差异；均已修复，历史失败保留，最终完整差分来自上述成功运行。未执行 EALAModStudio/BAB 完整 MOD 编译，不能把其他恢复模块的 SDK 验收算作本 DLL 的 SDK 验收。
 
 差分在原版和恢复版独立进程、独立依赖目录执行；恢复目录从未复制原 Utility DLL。覆盖公开类型/成员清单、三种文化、名称碰撞和 ANSI/NUL、UInt32 批量写入、全部头字段/大小端/短读/异常、Manifest v3 拒绝与 v4–6、引用、补丁、hash XML、内部句柄比较，以及仓库自带七份真实 manifest 的全部资产读取。真实 manifest 读取是组件输入验证，不代表运行真实 SDK 编译。
+
+本轮仅运行 Utility 提取和专用差分，没有重复触发未变化的 GameObject/XmlCompiler/W3X 或真实 SDK 工作流；不能量化账号额度节省。
