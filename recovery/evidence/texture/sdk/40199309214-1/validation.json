@@ -1,0 +1,200 @@
+{
+  "scope": "EALAModStudio case5 BAB build of dedicated 18-asset real TGA raw/no-mip fixture MOD",
+  "runId": "40199309214",
+  "inputs": {
+    "sourceBranch": "main",
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "selection": "smallest representative of every DDS FourCC/mipmap-count/caps2 and TGA type/depth/descriptor/footer signature group",
+    "files": [
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Common/PackedImages_097_EP1.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/PackedImages_097_EP1.dds",
+        "blobSha": "cead32e02203775b90e059d786ac0364186017ff",
+        "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+        "bytes": 131200
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Specific/LURomania_vol.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/LURomania_vol.dds",
+        "blobSha": "81ec09cb85768ec3337b9a814667203152c2199d",
+        "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+        "bytes": 640
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Harbinger Gunship/FXAlliedFutureLaser.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/FXAlliedFutureLaser.dds",
+        "blobSha": "5bb353d9c7ff3588615289d2c61afe9eaa3e2a32",
+        "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+        "bytes": 22024
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Allied Engineer/FXYurikoShieldFadeLUT.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/FXYurikoShieldFadeLUT.dds",
+        "blobSha": "1fb395ca7f8e86dd0d5e82f94a42ca51bd0bb154",
+        "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+        "bytes": 392
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/EXJapanArrow.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/EXJapanArrow.dds",
+        "blobSha": "fafc2886c0ec078cb182a536f16b55f8d9e3414a",
+        "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+        "bytes": 11080
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUArcherInfantry.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/JUArcherInfantry.dds",
+        "blobSha": "579ccc36cdb4c9c649cdfb619b767a1044ed3746",
+        "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+        "bytes": 22000
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/Target_Japan_ArcherBarrage.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/Target_Japan_ArcherBarrage.dds",
+        "blobSha": "feac8bb66a69ec1771fbd24bec77ea8bd9e1c217",
+        "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+        "bytes": 65664
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULegionnaireInfantry.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/AULegionnaireInfantry.dds",
+        "blobSha": "21be86940f62c2fcbbf089e5cca68997fea8c5f7",
+        "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+        "bytes": 11064
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMortarCycle.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/SUMortarCycle.dds",
+        "blobSha": "b371807744ebbe89ba6cc1cfde479a89ea52dcbf",
+        "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+        "bytes": 349680
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Data/AptUI/TacticalHUDBuildQueuePage/art/Textures/apt_tacticalhudbuildqueuepage_1.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/apt_tacticalhudbuildqueuepage_1.tga",
+        "blobSha": "0159b803f8d7acff252c5246c5dde6c7011fd7b3",
+        "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+        "bytes": 2098213
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Data/AptUI/TacticalHUDMainCommandBar/art/Textures/apt_tacticalhudmaincommandbar_1.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/apt_tacticalhudmaincommandbar_1.tga",
+        "blobSha": "6f917bc7452ccfbf7d7bcad2116f521fdee84ff2",
+        "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+        "bytes": 524838
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Misc/Data/Maps/Official/map_mp_2_feasel10_ep1/map_mp_2_feasel10_ep1_art.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/map_mp_2_feasel10_ep1_art.tga",
+        "blobSha": "23a2eb75492a86b70006e6bf3e0aec2fdccf5d4c",
+        "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+        "bytes": 786476
+      }
+    ]
+  },
+  "sdkValidated": true,
+  "status": "passed",
+  "modes": [
+    {
+      "mode": "Original",
+      "uniqueAssets": 18,
+      "actualCalls": 18,
+      "passed": true,
+      "withoutOriginalTextureCompiler": false,
+      "files": [
+        {
+          "bytes": 9176376,
+          "file": "mod.bin",
+          "sha256": "d85e524f79d60463fbc30861732fe74699328980b0170e231ef1c52f7d249133"
+        },
+        {
+          "bytes": 1517,
+          "file": "mod.manifest",
+          "sha256": "d5404e8898f9d6add0f54e213c801c740f4fac9c8b18206a388d38a6bf5fb596"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "ec591c4559449108ed77b7c65760dc83e057707496c5bab4b12408430bb39890"
+        },
+        {
+          "bytes": 76,
+          "file": "mod.relo",
+          "sha256": "f059e32a6e78f09e416e75c15c9c553d3c70a32d3897558f1929da6e9cd08cc9"
+        }
+      ]
+    },
+    {
+      "mode": "Recovered",
+      "uniqueAssets": 18,
+      "actualCalls": 18,
+      "passed": true,
+      "withoutOriginalTextureCompiler": false,
+      "files": [
+        {
+          "bytes": 9176376,
+          "file": "mod.bin",
+          "sha256": "d85e524f79d60463fbc30861732fe74699328980b0170e231ef1c52f7d249133"
+        },
+        {
+          "bytes": 1517,
+          "file": "mod.manifest",
+          "sha256": "d5404e8898f9d6add0f54e213c801c740f4fac9c8b18206a388d38a6bf5fb596"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "ec591c4559449108ed77b7c65760dc83e057707496c5bab4b12408430bb39890"
+        },
+        {
+          "bytes": 76,
+          "file": "mod.relo",
+          "sha256": "f059e32a6e78f09e416e75c15c9c553d3c70a32d3897558f1929da6e9cd08cc9"
+        }
+      ]
+    },
+    {
+      "mode": "NoOriginal",
+      "uniqueAssets": 18,
+      "actualCalls": 18,
+      "passed": true,
+      "withoutOriginalTextureCompiler": true,
+      "files": [
+        {
+          "bytes": 9176376,
+          "file": "mod.bin",
+          "sha256": "d85e524f79d60463fbc30861732fe74699328980b0170e231ef1c52f7d249133"
+        },
+        {
+          "bytes": 1517,
+          "file": "mod.manifest",
+          "sha256": "d5404e8898f9d6add0f54e213c801c740f4fac9c8b18206a388d38a6bf5fb596"
+        },
+        {
+          "bytes": 4,
+          "file": "mod.imp",
+          "sha256": "ec591c4559449108ed77b7c65760dc83e057707496c5bab4b12408430bb39890"
+        },
+        {
+          "bytes": 76,
+          "file": "mod.relo",
+          "sha256": "f059e32a6e78f09e416e75c15c9c553d3c70a32d3897558f1929da6e9cd08cc9"
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "c733a1b517aa1e01ae7cdccb3b967a6e44c334d8",
+  "runAttempt": "1"
+}
