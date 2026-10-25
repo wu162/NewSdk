@@ -18,7 +18,7 @@ internal static class AudioSdkSupport
             for(int i=0;i<frames*channels;i++)b.Write(values[i%values.Length]);
         }
     }
-    private static void Create(string sdk,string expected,string[] realFiles,bool aiffLoopsOnly,bool resamplingOnly,bool resamplingRegression,bool inputMetadataOnly,bool aifcOnly)
+    private static void Create(string sdk,string expected,string[] realFiles,bool aiffLoopsOnly,bool resamplingOnly,bool resamplingRegression,bool inputMetadataOnly,bool aifcOnly,bool pcInputsOnly)
     {
         string mod=Path.Combine(sdk,"Mods/AudioRecoveryProbe"),data=Path.Combine(mod,"Data"),audio=Path.Combine(mod,"Audio");
         Directory.CreateDirectory(data);Directory.CreateDirectory(audio);Directory.CreateDirectory(Path.Combine(audio,"sounds"));Directory.CreateDirectory(Path.Combine(audio,"music"));
@@ -65,14 +65,15 @@ internal static class AudioSdkSupport
                     xml.Append("<AudioFile id='InputMetadata"+bits+"C"+channels+variant.Replace("-","")+codec+streamed+"' File='../Audio/"+name+"' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
             }
         }
+        if(pcInputsOnly) foreach(string element in AudioPcInputSdkCases.WriteSdkCases(audio)) xml.Append(element);
         if(aifcOnly) foreach(string element in AudioAifcInputCases.WriteSdkCases(audio)) xml.Append(element);
         if(resamplingOnly || resamplingRegression) foreach(string element in AudioResampleCases.WriteSdkCases(audio)) xml.Append(element);
         xml.Append("<AudioFile id='AudioDefaultSounds' File='../Audio/sounds/default.wav'/><AudioFile id='AudioDefaultMusic' File='../Audio/music/default.wav'/></AssetDeclaration>");
-        if(aiffLoopsOnly || resamplingOnly || inputMetadataOnly || aifcOnly) {
+        if(aiffLoopsOnly || resamplingOnly || inputMetadataOnly || aifcOnly || pcInputsOnly) {
             var selected=new XmlDocument(); selected.LoadXml(xml.ToString());
             var remove=new List<XmlNode>();
             foreach(XmlElement child in selected.DocumentElement.ChildNodes)
-                if(child.HasAttribute("id") && !child.GetAttribute("id").StartsWith(aifcOnly?"AifcNone":inputMetadataOnly?"InputMetadata":resamplingOnly?"AudioResampleSdk":"AiffLoop",StringComparison.Ordinal))remove.Add(child);
+                if(child.HasAttribute("id") && !child.GetAttribute("id").StartsWith(pcInputsOnly?"PcInput":aifcOnly?"AifcNone":inputMetadataOnly?"InputMetadata":resamplingOnly?"AudioResampleSdk":"AiffLoop",StringComparison.Ordinal))remove.Add(child);
             foreach(XmlNode child in remove)selected.DocumentElement.RemoveChild(child);
             xml.Length=0;xml.Append(selected.OuterXml);
         }
@@ -84,6 +85,7 @@ internal static class AudioSdkSupport
         var document=new XmlDocument();document.Load(path);var ids=new List<string>();
         foreach(XmlElement child in document.DocumentElement.ChildNodes)if(child.HasAttribute("id"))ids.Add(child.LocalName+"\t"+child.GetAttribute("id"));
         ids.Sort(StringComparer.Ordinal);File.WriteAllLines(expected,ids.ToArray());
+        if(pcInputsOnly && ids.Count!=AudioPcInputSdkCases.AssetCount)throw new Exception("Expected complete PC input SDK assets");
         if(aifcOnly && ids.Count!=120)throw new Exception("Expected all 120 AIFC/NONE SDK assets");
         if(inputMetadataOnly && ids.Count!=120)throw new Exception("Expected all 120 WAVE metadata SDK assets");
         if(ids.Count<(resamplingOnly?6:aiffLoopsOnly?4:10))throw new Exception("Missing expected audio SDK assets");
@@ -100,7 +102,7 @@ internal static class AudioSdkSupport
     }
     private static int Main(string[] args)
     {
-        try{if(args.Length>=3 && (args[0]=="create" || args[0]=="create-aiff-loops" || args[0]=="create-resample" || args[0]=="create-resample-regression" || args[0]=="create-input-metadata" || args[0]=="create-aifc")){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real,args[0]=="create-aiff-loops",args[0]=="create-resample",args[0]=="create-resample-regression",args[0]=="create-input-metadata",args[0]=="create-aifc");return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
+        try{if(args.Length>=3 && (args[0]=="create" || args[0]=="create-aiff-loops" || args[0]=="create-resample" || args[0]=="create-resample-regression" || args[0]=="create-input-metadata" || args[0]=="create-aifc" || args[0]=="create-pc-inputs")){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real,args[0]=="create-aiff-loops",args[0]=="create-resample",args[0]=="create-resample-regression",args[0]=="create-input-metadata",args[0]=="create-aifc",args[0]=="create-pc-inputs");return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
         catch(Exception ex){Console.Error.WriteLine(ex);return 1;}
     }
 }
