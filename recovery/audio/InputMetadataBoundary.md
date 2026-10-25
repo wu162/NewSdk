@@ -46,15 +46,20 @@ by a dedicated real SDK batch.
   MOD products and120 CustomData files equal; recovered SDK has no original
   AudioCompiler DLL.
 
-Acceptance must be taken from this batch's actual `sourceCommit/runId` and
-`plugin-validation`/`sdk-validation` receipts. The source and scripts alone do
-not establish acceptance; do not rewrite old canonical-only results as this
-new batch. The SDK profile is a dedicated metadata MOD, not full Upheaval.
+Accepted source `5d56d52ff11510c7e93f83b47d08b1def5c99d27`, run
+[40232917060](https://github.com/wu162/NewSdk/actions/runs/40232917060),
+attempt1: Debug/Release each2400 exact plugin records and120 sample-bit
+invariants passed; dedicated SDK120 actual calls/four products/120 CustomData
+matched with the original target DLL absent in the recovered SDK. Exact
+receipts are `evidence/audio/plugin-validation/40232917060-1/validation.json`
+and `sdk-validation/40232917060-1/validation.json`.
+Do not rewrite old canonical-only results as this new batch. The SDK profile
+is a dedicated metadata MOD, not full Upheaval.
 
 ## Remaining format work
 
-AIFC, additional AIFF marker/loop structures and nonzero AIFF SSND offset/block
-size remain outside this batch. Static evidence shows that FORM/AIFC's
-identifier recognizes NONE and ADP4; its importer changes to representation13
-only for ADP4. This is a useful next probe entry, not proof of recovered AIFC
-runtime support. See `380c3..381a9` and `3845e..3848c` before choosing a batch.
+AIFC/NONE subsequently passed its own exact batch; see
+[AifcNoneBoundary](AifcNoneBoundary.md). ADP4, additional AIFF marker/loop
+structures and nonzero AIFF SSND offset/block size remain outside the current
+input acceptance. [Adp4Boundary](Adp4Boundary.md) distinguishes original-only
+probe and standalone decoder progress from future file-import support.

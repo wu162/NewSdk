@@ -52,6 +52,19 @@ The old input consumer regression is `TestAudioPlugin.ps1 -Groups
 formats,aiffloops`: all2400 WAVE/AIFF/extensible and200 AIFF-loop records.
 The numerical encoders/resampler, MP3 and PathMusic logic are unchanged.
 
-Acceptance remains pending until the actual sourceCommit/runId and receipts
-are recorded. Original-only evidence must never be presented as recovered
-support or SDK integration acceptance.
+## Accepted batch
+
+Source `3863a632faac79ef586569e134b7eb46014fab94`, run
+[40233228823](https://github.com/wu162/NewSdk/actions/runs/40233228823),
+attempt1 succeeded: Debug/Release each1440 exact AIFC plugin records,
+60 sample-bit invariants and10 separate safety refusals; old input regression
+formats2400 and aiffloops200 passed. Dedicated SDK120 actual calls per side,
+four MOD products and120 CustomData files matched; recovered SDK had no
+original AudioCompiler DLL. Receipts are `evidence/audio/aifc-validation/40233228823-1`,
+`plugin-validation/40233228823-1` and `sdk-validation/40233228823-1`.
+The SDK profile is dedicated AIFC/NONE input, not full Upheaval.
+
+The earlier original-only1440 probe at source
+`5d56d52ff11510c7e93f83b47d08b1def5c99d27`, run40232917060, remains an
+original-only receipt; do not relabel it candidate or SDK acceptance.
+ADP4 and extra loop metadata remain outside the accepted AIFC/NONE domain.
