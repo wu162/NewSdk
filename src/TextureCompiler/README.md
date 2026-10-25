@@ -21,6 +21,9 @@ The production SDK DLL/configuration is not replaced by this project.
   options and does not implement the proprietary compressor.
 - In-memory terrain atlas layout, wrapping borders, normal alpha handling and
   original EASTL metadata ordering; file decoding is an explicit loader boundary.
+- Opt-in TGA24/32 raw/row-contained RLE decoder with alpha/orientation rules
+  and validated bounded standard/legacy-DevIL metadata dialects; all three real
+  main-branch TGA fixtures match original complete pixels.
 - Native SimpleBuffer, byte reversal and two constant-return D3D facade functions.
 - Texture and OnDemandTexture DDS passthrough for PC/PS3/unknown platforms,
   four-byte block padding, endian relocations and separate `.cdata` serialization.
@@ -30,7 +33,7 @@ The differential tests deliberately load it as an independent oracle.
 
 ## Remaining work
 
-Original `LoadImageA` decoding/conversion, nvDDS compression/mipmap/resizing,
+Full `LoadImageA` decoding/conversion beyond the declared TGA subset, nvDDS compression/mipmap/resizing,
 XenonBundler/XGraphics texture conversion and complete plugin native lifecycle
 are not implemented. TerrainTextureAtlas is not yet wired to a complete codec
 pipeline. Unsupported entry paths throw; there is no original-DLL fallback.

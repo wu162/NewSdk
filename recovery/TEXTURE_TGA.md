@@ -49,3 +49,8 @@ Historical immutable receipts retain their actual scopes:
 - Current metadata extension revision: Windows differential pending until its own receipt is collected.
 
 Build x86 CLR4 `/unsafe /r:Recovered.BinaryAssetBuilder.TextureCompiler.dll`, use legacy-v2 activation, and keep recovered/support DLLs beside the host. Run `TextureTgaOracle.exe original.dll transcript.txt fixtures [--probe|--strict] [real-directory]`. Probe mode collects differences without acceptance. Strict mode asserts both equivalent behavior and declared unsupported boundaries, with separate counters; it does not call all inputs successful image decodes.
+
+
+## Final immutable acceptance
+
+Source commit `0cd42405f5b757c72383040d2f1ff820c31d29bf`, run [40195290786](https://github.com/wu162/NewSdk/actions/runs/40195290786) attempt1 passed. The exact receipt is [evidence/texture/tga/40195290786-1/validation.json](evidence/texture/tga/40195290786-1/validation.json), with source/input hashes and full transcript archive. Debug and Release each checked all 1,675 fixtures: 1,421 complete-pixel/alpha decoding matches, 252 exact original rejection matches, 2 explicit unsupported original-success anomalies, zero mismatches. All three pinned real main-branch TGA files are included in the decoding matches. The two unsupported inputs are not counted as equivalent decoding passes. No compression or full SDK acceptance is implied.
