@@ -499,9 +499,54 @@ class XmlPrioritySdkOracle {
         WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=Supported.Count,nonGlobalRegisteredRoots=NonGlobalRoots,excludedTypes=ExcludedTypeIds.Length,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
+    // Proof for previously accepted traces whose path cannot enter the new SDK-only
+    // metadata normalization branch. This never invokes ProcessInstance or a compiler.
+    static void ReuseGuard(string recoveredPath,string traceDirectory,string report) {
+        string dll=Path.GetFullPath(recoveredPath),trace=Path.GetFullPath(traceDirectory);
+        Environment.SetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE",null);
+        NoOriginalFiles(Path.GetDirectoryName(dll));
+        NoOriginalFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        NoOriginalAssemblies();
+        Assembly library=Assembly.LoadFrom(dll);
+        Type pluginType=library.GetType("Recovered.XmlPriority.Plugin",true);
+        MethodInfo normalize=pluginType.GetMethod("CompilerInput",BindingFlags.NonPublic|BindingFlags.Static);
+        if(normalize==null || normalize.ReturnType!=typeof(InstanceDeclaration))throw new Exception("Missing exact SDK normalization guard");
+        ParameterInfo[] parameters=normalize.GetParameters();
+        if(parameters.Length!=1 || parameters[0].ParameterType!=typeof(InstanceDeclaration))throw new Exception("Incorrect SDK normalization guard signature");
+        string manifest=Path.Combine(trace,"calls.tsv");
+        var stems=new HashSet<string>(StringComparer.Ordinal);
+        var xmlHashes=new Dictionary<string,string>(StringComparer.Ordinal);
+        var typeChecks=new Dictionary<string,int>(StringComparer.Ordinal);
+        int checks=0;
+        foreach(string row in File.ReadAllLines(manifest)) {
+            string[] fields=row.Split('\t');
+            if(fields.Length!=4)throw new Exception("Malformed previously accepted SDK call row");
+            string type=fields[0],id=fields[1],stem=fields[2];
+            TypeId(type);
+            if(String.IsNullOrEmpty(stem) || stem!=Path.GetFileName(stem) || stem.IndexOfAny(new[]{'/','\\',':'})>=0 || !stems.Add(stem))throw new Exception("Invalid or duplicate previous trace stem");
+            string path=Path.Combine(trace,stem+".xml");
+            var xml=new XmlDocument();xml.Load(path);
+            if(xml.DocumentElement.LocalName!=type || xml.DocumentElement.GetAttribute("id")!=id)throw new Exception("Previous trace identity mismatch");
+            if(xml.DocumentElement.HasAttribute("buildRule") || xml.DocumentElement.HasAttribute("typeHashCode"))throw new Exception("Previous trace can enter changed metadata normalization branch: "+id);
+            InstanceDeclaration original=Declaration(xml);
+            XmlNode originalNode=original.Node;
+            string originalXml=originalNode.OuterXml;
+            object normalized=normalize.Invoke(null,new object[]{original});
+            if(!Object.ReferenceEquals(normalized,original) || !Object.ReferenceEquals(((InstanceDeclaration)normalized).Node,originalNode) || originalNode.OuterXml!=originalXml)throw new Exception("Metadata-absent guard changed prior SDK input: "+id);
+            NoOriginalAssemblies();
+            xmlHashes.Add(stem,Hash(path));
+            if(!typeChecks.ContainsKey(type))typeChecks[type]=0;++typeChecks[type];
+            ++checks;
+        }
+        if(checks==0)throw new Exception("No prior SDK calls available for guard proof");
+        NoOriginalFiles(Path.GetDirectoryName(dll));NoOriginalAssemblies();
+        WriteResult(report,new{succeeded=true,mode="reuse",guardChecks=checks,nativeCompilerCalls=0,processInstanceCalls=0,rootMetadataAbsent=true,originalDeclarationIdentityPreserved=true,originalNodeIdentityPreserved=true,originalXmlPreserved=true,originalDllFilesAbsent=true,originalCompilerAssembliesAbsent=true,typeChecks=typeChecks,traceManifestSha256=Hash(manifest),xmlSha256=xmlHashes,pluginSha256=Hash(dll),scope="Metadata-absent identity-guard proof only; reuses previous SDK acceptance and does not rerun compilers"});
+        Console.WriteLine("PASS SDK reuse guard: {0} original declarations/nodes preserved; ProcessInstance/native compiler calls=0.",checks);
+    }
     static int Main(string[] args) {
         string report=args.Length>5?args[5]:(args.Length==4?args[3]:null);
         try {
+            if(args.Length==4 && args[0]=="reuse") { ReuseGuard(args[1],args[2],args[3]);return 0; }
             if(args.Length==4 && args[0]=="schema") { Schema(args[1],args[2],args[3]);return 0; }
             if(args.Length==4 && args[0]=="metadata") { Metadata(args[1],args[2],args[3]);return 0; }
             if(args.Length!=6 && args.Length!=7 && args.Length!=8)throw new Exception("Usage: replay|isolated plugin.dll traceDir mod.bin probe.xml result.json [platform=0] [profile=MOD-name|FullMymod]");

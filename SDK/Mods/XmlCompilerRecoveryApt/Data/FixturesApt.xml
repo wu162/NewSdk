@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <AptAptData id="XmlRecoveryApt_AptAptData_defaults" File="fixture-empty.bin"/>
+  <AptAptData id="XmlRecoveryApt_AptAptData_rich" File="fixture.bin"/>
+  <AptAptData id="XmlRecoveryApt_AptAptData_repeat" File="fixture-odd.bin"/>
+  <AptConstData id="XmlRecoveryApt_AptConstData_defaults" File="fixture-empty.bin"/>
+  <AptConstData id="XmlRecoveryApt_AptConstData_rich" File="fixture.bin"/>
+  <AptConstData id="XmlRecoveryApt_AptConstData_repeat" File="fixture-odd.bin"/>
+  <AptDatData id="XmlRecoveryApt_AptDatData_defaults" File="fixture-empty.bin"/>
+  <AptDatData id="XmlRecoveryApt_AptDatData_rich" File="fixture.bin"/>
+  <AptDatData id="XmlRecoveryApt_AptDatData_repeat" File="fixture-odd.bin"/>
+  <AptGeometryData id="XmlRecoveryApt_AptGeometryData_defaults" File="fixture-empty.bin" AptID="0"/>
+  <AptGeometryData id="XmlRecoveryApt_AptGeometryData_rich" File="fixture.bin" AptID="17"/>
+  <AptGeometryData id="XmlRecoveryApt_AptGeometryData_repeat" File="fixture-odd.bin" AptID="27"/>
+</AssetDeclaration>

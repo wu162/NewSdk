@@ -206,6 +206,8 @@ def main():
   for variant,rich in variants:
    BOUNDARY=variant=='Boundaries'
    node=E.Element('{'+NS+'}'+name);fill(node,GLOBALS[name],rich);node.set('id','RecoveryXmlB_'+name+'_'+variant)
+   # Valid BAB metadata remains on the SDK node; the original XML marshaler never reads it.
+   if name=='MusicScriptConditionNugget_LocalPlayerIsObserver' and variant=='Fields':node.set('typeHashCode','00000000')
    good,errors=validate_asset(node)
    if not good:blocked.append({'name':name,'variant':variant,'errors':errors});continue
    assets.append(node);cases.append({'name':name,'id':node.get('id'),'variant':variant,'schemaValidated':True,'attributes':len(node.attrib),'descendants':len(list(node.iter()))-1})

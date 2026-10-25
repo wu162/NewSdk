@@ -14,12 +14,36 @@ $work = Join-Path $tempRoot ('ra3-xml-priority-sdk-' + [Guid]::NewGuid().ToStrin
 $build = Join-Path $work 'build'
 $report = Join-Path $root 'recovery/evidence/xml-priority-sdk'
 New-Item -ItemType Directory -Force $build,$report | Out-Null
+$priorSummary = if(Test-Path (Join-Path $report 'validation.json')) { Get-Content (Join-Path $report 'validation.json') -Raw|ConvertFrom-Json } else { $null }
+# A failed retry may replace the top-level summary before any requested profile runs.
+# Successful independent profile receipts remain authoritative and retain their own anchors.
+$acceptedProfileReceipts = @()
+if ($null -ne $priorSummary) { $acceptedProfileReceipts = @($priorSummary.profiles | Where-Object { $_.succeeded }) }
+foreach ($receiptDirectory in @(Get-ChildItem $report -Directory)) {
+    $receiptPath = Join-Path $receiptDirectory.FullName 'validation.json'
+    if (!(Test-Path $receiptPath)) { continue }
+    $receipt = Get-Content $receiptPath -Raw | ConvertFrom-Json
+    if (!$receipt.succeeded -or !$receipt.schemaValidated -or !$receipt.fourOutputsIdentical -or !$receipt.originalAndIsolatedReplay -or !($receipt.nonemptyImports -or ($receipt.name -eq 'XmlCompilerRecoveryApt' -and $receipt.rawBlobOnlyImports -and $receipt.filePayloadsVerified))) { continue }
+    if (!$receipt.sourceCommit -or !$receipt.runId) {
+        $receiptReplayPath = Join-Path $receiptDirectory.FullName 'replay.json'
+        if (!(Test-Path $receiptReplayPath)) { continue }
+        $receiptReplay = Get-Content $receiptReplayPath -Raw | ConvertFrom-Json
+        if (!$receiptReplay.succeeded -or !$receiptReplay.sourceCommit -or !$receiptReplay.runId) { continue }
+        $receipt | Add-Member -NotePropertyName sourceCommit -NotePropertyValue $receiptReplay.sourceCommit -Force
+        $receipt | Add-Member -NotePropertyName runId -NotePropertyValue $receiptReplay.runId -Force
+    }
+    $acceptedProfileReceipts = @($acceptedProfileReceipts | Where-Object { $_.name -ne $receipt.name }) + @($receipt)
+}
+if ($acceptedProfileReceipts.Count) {
+    if ($null -eq $priorSummary) { $priorSummary = [pscustomobject]@{profiles=@();sourceCommit=$null;runId=$null} }
+    $priorSummary.profiles = @($acceptedProfileReceipts)
+}
 $sourceCommit = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git rev-parse HEAD).Trim() }
 $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $summary = [ordered]@{
  succeeded=$false;sourceCommit=$sourceCommit;runId=$runId;status='started'
  scope='289 recovered XmlCompiler entries; schema-valid real MODs under SDK/Mods; EALAModStudio defaultscript base-data BAB flow only'
- sdkMode='/O2';sdkPlatform=0;requestedProfiles=@($Profiles);profiles=@();files=@();originalDllUnchanged=$false
+ sdkMode='/O2';sdkPlatform=0;requestedProfiles=@($Profiles);profiles=@();reusedProfiles=@();files=@();originalDllUnchanged=$false
  fullMymodGate=$false;profileCount=$Profiles.Count;studioStages=@(1,2,5);realSdkBuilds=0
 }
 $originalHashes = @{}
@@ -51,6 +75,57 @@ function Export-ModProbe([string]$ModXml,[string]$ProbePath) {
     $probe.Save($ProbePath)
     return @($visited | Sort-Object)
 }
+function Get-CSharpMethod([string]$Text,[string]$Name) {
+    $match=[regex]::Match($Text,'(?:public|private)\s+(?:static\s+)?[A-Za-z0-9_.<>]+\s+'+[regex]::Escape($Name)+'\s*\(')
+    if(!$match.Success){throw "Missing method for reuse proof: $Name"}
+    $start=$Text.IndexOf('{',$match.Index);$depth=0
+    for($at=$start;$at -lt $Text.Length;++$at){
+        if($Text[$at] -eq '{'){$depth++}elseif($Text[$at] -eq '}'){$depth--;if(!$depth){return $Text.Substring($match.Index,$at-$match.Index+1)}}
+    }
+    throw 'Unbalanced source method in reuse proof'
+}
+function Assert-ReusableSdkProfile([string]$Name,[object]$Entry,[string]$Anchor) {
+    if(!$Entry.succeeded -or !$Entry.schemaValidated -or !$Entry.fourOutputsIdentical -or !$Entry.originalAndIsolatedReplay -or !($Entry.nonemptyImports -or ($Name -eq 'XmlCompilerRecoveryApt' -and $Entry.rawBlobOnlyImports -and $Entry.filePayloadsVerified))){throw "No complete previous SDK evidence for $Name"}
+    if($Entry.compilerSha256 -ne $summary.compilerSha256){throw "$Name native DLL changed; real SDK revalidation required"}
+    & git merge-base --is-ancestor $Anchor HEAD
+    if($LASTEXITCODE -ne 0){throw 'Previous SDK acceptance is not an ancestor'}
+    $changed=@(& git diff --name-only $Anchor HEAD -- SDK recovery/src/Native recovery/src/Bridge recovery/scripts/SetXmlPriorityPlugin.ps1 recovery/scripts/InvokeEalaModStudioBuild.ps1)
+    if($LASTEXITCODE -ne 0){throw 'Cannot compare SDK reuse inputs'}
+    foreach($path in $changed){
+        if($path.StartsWith('SDK/Mods/') -and !$path.StartsWith("SDK/Mods/$Name/")){continue}
+        throw "$Name SDK input changed: $path"
+    }
+    $oldPlugin=(& git show ($Anchor+':recovery/src/Plugin/XmlPriorityPlugin.cs')) -join "`n"
+    if($LASTEXITCODE -ne 0){throw 'Cannot read previous SDK plugin source'}
+    $newPlugin=Get-Content 'recovery/src/Plugin/XmlPriorityPlugin.cs' -Raw
+    foreach($method in @('Initialize','ReInitialize','GetAllTypesHash','GetVersionNumber','GetExtendedTypeInformation')){
+        $before=(Get-CSharpMethod $oldPlugin $method).Replace("`r`n","`n")
+        $after=(Get-CSharpMethod $newPlugin $method).Replace("`r`n","`n")
+        if($before -cne $after){throw "$Name plugin metadata changed: $method"}
+    }
+    $before=Get-CSharpMethod $oldPlugin 'ProcessInstance';$after=Get-CSharpMethod $newPlugin 'ProcessInstance'
+    # Permit only the new guarded input-normalizer and its argument alias; every delegate/trace path stays identical.
+    $after=[regex]::Replace($after,'(?m)^[ \t]*InstanceDeclaration\s+compilationInstance\s*=\s*CompilerInput\(instance\)\s*;\r?\n','')
+    $after=[regex]::Replace($after,'\bcompilationInstance\b','instance')
+    if($before.Replace("`r`n","`n") -cne $after.Replace("`r`n","`n")){throw "$Name plugin delegation changed beyond guarded metadata normalization"}
+    $oldReport=Join-Path $report $Name
+    $guardReport=Join-Path $oldReport 'reuse-guard.json'
+    Push-Location $compat
+    try {
+        & "$compat/XmlPrioritySdkOracle.exe" reuse "$compat/Recovered.XmlPriority.Plugin.dll" "$oldReport/trace" $guardReport *> "$oldReport/reuse-guard.txt"
+        $guardExit=$LASTEXITCODE
+    } finally { Pop-Location }
+    if($guardExit -ne 0){Get-Content "$oldReport/reuse-guard.txt";throw "$Name old inputs would enter a changed normalization path"}
+    $guard=Get-Content $guardReport -Raw|ConvertFrom-Json
+    $priorReplay=Get-Content (Join-Path $oldReport 'replay.json') -Raw|ConvertFrom-Json
+    $priorIsolated=Get-Content (Join-Path $oldReport 'isolated.json') -Raw|ConvertFrom-Json
+    if(!$guard.succeeded -or $guard.nativeCompilerCalls -ne 0 -or $guard.processInstanceCalls -ne 0 -or !$guard.rootMetadataAbsent -or !$guard.originalDeclarationIdentityPreserved -or !$guard.originalNodeIdentityPreserved -or !$guard.originalXmlPreserved -or !$guard.originalDllFilesAbsent -or !$guard.originalCompilerAssembliesAbsent){throw 'Reuse guard invoked a compiler, changed an old input, or failed isolation'}
+    if(!$priorReplay.succeeded -or !$priorIsolated.succeeded -or $guard.guardChecks -le 0 -or $guard.guardChecks -ne $priorReplay.verifiedCalls -or $guard.guardChecks -ne $priorIsolated.verifiedCalls -or $guard.traceManifestSha256 -ne $priorReplay.traceManifestSha256 -or $guard.traceManifestSha256 -ne $priorIsolated.traceManifestSha256 -or $guard.pluginSha256 -ne $summary.pluginSha256){throw 'Reuse guard does not match all previously accepted trace calls or the new SDK plugin'}
+    $acceptedRunId=if($Entry.runId){[string]$Entry.runId}else{[string]$priorReplay.runId}
+    if(!$acceptedRunId -or $priorReplay.sourceCommit -ne $Anchor -or [string]$priorReplay.runId -ne $acceptedRunId -or $priorIsolated.sourceCommit -ne $Anchor -or [string]$priorIsolated.runId -ne $acceptedRunId){throw 'Previous profile acceptance source/run anchor mismatch'}
+    return [ordered]@{name=$Name;succeeded=$true;sourceCommit=$Anchor;runId=$acceptedRunId;compilerSha256=$Entry.compilerSha256;pluginSha256=$Entry.pluginSha256;inputAndNativeUnchanged=$true;metadataAndDelegationUnchanged=$true;newGuardLeavesAllPriorInputsIdentical=$true;guardChecks=$guard.guardChecks;nativeCompilerCalls=0;realSdkBuildsThisRun=0;priorFourOutputsAndReplaysRetained=$true}
+}
+
 try {
     Copy-Item SDK/tools/*.dll $build
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
@@ -89,11 +164,20 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/metadata.txt";throw 'Original/recovered 289-entry metadata differs' }
     $summary['compilerSha256']=(Get-FileHash "$build/Recovered.XmlCompilerPriority.dll" -Algorithm SHA256).Hash
     $summary['pluginSha256']=(Get-FileHash "$build/Recovered.XmlPriority.Plugin.dll" -Algorithm SHA256).Hash
+    $compat=Join-Path $work 'reuse-isolated-tools';New-Item -ItemType Directory -Force $compat|Out-Null
+    Get-ChildItem $build -File|Where-Object{$_.Extension -in @('.dll','.exe','.config') -and $_.Name -notin @('BinaryAssetBuilder.Tokenizer.dll','BinaryAssetBuilder.XmlCompiler.dll')}|Copy-Item -Destination $compat
+    $allProfiles=@('XmlCompilerRecoveryBaseline','XmlCompilerRecoveryA','XmlCompilerRecoveryB','FullMymod','XmlCompilerRecoveryApt')
+    foreach($reuseName in @($allProfiles|Where-Object{$_ -notin $Profiles})){
+        if($null -eq $priorSummary){throw 'Cannot skip an SDK profile without previous evidence'}
+        $entry=@($priorSummary.profiles|Where-Object{$_.name -eq $reuseName -and $_.succeeded})
+        if($entry.Count -eq 1){$anchor=if($entry[0].sourceCommit){$entry[0].sourceCommit}else{$priorSummary.sourceCommit};$summary.reusedProfiles+=,(Assert-ReusableSdkProfile $reuseName $entry[0] $anchor)}
+        else{throw "No complete prior SDK profile selected for reuse: $reuseName"}
+    }
     foreach ($profile in $Profiles) {
         $profileReport=Join-Path $report $profile
         if (Test-Path $profileReport) { Remove-Item $profileReport -Recurse -Force }
         New-Item -ItemType Directory -Force $profileReport|Out-Null
-        $profileSummary=[ordered]@{name=$profile;succeeded=$false;schemaValidated=$false;fourOutputsIdentical=$false;originalAndIsolatedReplay=$false;compilerSha256=$summary.compilerSha256;pluginSha256=$summary.pluginSha256}
+        $profileSummary=[ordered]@{name=$profile;sourceCommit=$sourceCommit;runId=$runId;succeeded=$false;schemaValidated=$false;fourOutputsIdentical=$false;originalAndIsolatedReplay=$false;compilerSha256=$summary.compilerSha256;pluginSha256=$summary.pluginSha256}
         $summary.profiles+=,$profileSummary
         $fullMymod=$profile -eq 'FullMymod'
         $modName=if($fullMymod){'mymod'}else{$profile}
@@ -146,8 +230,14 @@ try {
         $env:RA3_RECOVERED_XML_PRIORITY_TRACE=$null
         if((Get-FileHash "$profileReport/Original-Mod.xml").Hash -ne (Get-FileHash "$profileReport/Recovered-Mod.xml").Hash){throw "$profile MOD inputs differ"}
         foreach($ext in @('bin','manifest','imp','relo')){if((Get-FileHash "$profileReport/Original-mod.$ext").Hash -ne (Get-FileHash "$profileReport/Recovered-mod.$ext").Hash){throw "$profile SDK output differs: mod.$ext"}}
-        if((Get-Item "$profileReport/Recovered-mod.imp").Length -le 4){throw "$profile did not exercise nonempty SDK imports"}
-        $profileSummary['nonemptyImports']=$true
+        if($profile -eq 'XmlCompilerRecoveryApt') {
+            if((Get-Item "$profileReport/Recovered-mod.imp").Length -gt 4){throw 'Raw APT blobs unexpectedly produced SDK imports'}
+            $profileSummary['nonemptyImports']=$false
+            $profileSummary['rawBlobOnlyImports']=$true
+        } else {
+            if((Get-Item "$profileReport/Recovered-mod.imp").Length -le 4){throw "$profile did not exercise nonempty SDK imports"}
+            $profileSummary['nonemptyImports']=$true
+        }
         $profileSummary.fourOutputsIdentical=$true
         Push-Location $recoveredSdk
         try {
@@ -166,11 +256,17 @@ try {
         } finally { Pop-Location }
         if($isolatedExit -ne 0){Get-Content "$profileReport/isolated.txt";throw "$profile original-free replay failed"}
         foreach($name in @('schema','replay','isolated')){if(!(Get-Content "$profileReport/$name.json" -Raw|ConvertFrom-Json).succeeded){throw "$profile missing successful $name evidence"}}
+        if($profile -eq 'XmlCompilerRecoveryApt') {
+            & python "$PSScriptRoot/CheckXmlSdkAptPayloads.py" --profile $profileReport --mod-source (Join-Path $root "SDK/Mods/$profile") --output "$profileReport/apt-payloads.json"
+            if($LASTEXITCODE -ne 0){throw 'APT real file payload verification failed'}
+            $profileSummary['filePayloadsVerified']=$true
+        }
         $profileSummary.originalAndIsolatedReplay=$true;$profileSummary.succeeded=$true
         $profileSummary|ConvertTo-Json -Depth 15|Set-Content "$profileReport/validation.json"
     }
     if($summary.profiles.Count -ne $Profiles.Count -or @($summary.profiles|Where-Object{!$_.succeeded}).Count){throw 'Incomplete requested SDK profile matrix'}
-    $summary.fullMymodGate=@($summary.profiles|Where-Object{$_.name -eq 'FullMymod' -and $_.succeeded}).Count -eq 1
+    $summary.fullMymodGate=@(@($summary.profiles)+@($summary.reusedProfiles)|Where-Object{$_.name -eq 'FullMymod' -and $_.succeeded}).Count -eq 1
+    if($summary.profiles.Count+$summary.reusedProfiles.Count -ne $allProfiles.Count){throw 'Incomplete overall SDK profiles including valid reuse'}
     $summary.succeeded=$true;$summary.status='Requested original/recovered MOD base-data builds match four outputs; exact metadata, XSD, original replay and original-free recovered replay passed'
 } catch {$summary.status='failed';$summary['error']=$_.ToString();throw}
 finally {

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
   <MusicScriptConditionNugget_LocalPlayerIsObserver CountDeadPlayersAsObservers="false" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"/>
-  <MusicScriptConditionNugget_LocalPlayerIsObserver buildRule="RecoveryXmlB_Value" CountDeadPlayersAsObservers="true" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields"/>
+  <MusicScriptConditionNugget_LocalPlayerIsObserver buildRule="RecoveryXmlB_Value" CountDeadPlayersAsObservers="true" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields" typeHashCode="00000000"/>
   <MusicScriptConditionNugget_UnitsFarFromBase MinUnitsToPass="1" MinDistanceFromBase="1.0" Relationship="ALLIES" id="RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults"/>
   <MusicScriptConditionNugget_UnitsFarFromBase buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" MinUnitsToPass="3" MinDistanceFromBase="0.5" Relationship="SAME_PLAYER SAME_PLAYER" id="RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields"/>
   <MusicScriptConditionNugget_TimeFromStartOfLevel Timeout="250ms" id="RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Defaults"/>

@@ -34,7 +34,7 @@ s=s[:a]+'''                switch (typeId)
                 {
 '''+''.join(f'''                    case {r['typeId']}u:
                         typeName = "{r['name']}";
-                        result = global::Recovered.{r['compiler']}.ProcessInstance(instance, platform);
+                        result = global::Recovered.{r['compiler']}.ProcessInstance(compilationInstance, platform);
                         break;
 ''' for r in rows)+'''                    default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
                 }
