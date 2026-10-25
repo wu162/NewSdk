@@ -1,0 +1,6 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <LogicCommand Type="SPECIAL_POWER" id="PublicHello_Command_PackSovietMCV">
+    <SpecialPower>SpecialPower_PackReplaceSelf</SpecialPower>
+    <AISpecialPowerInfo Heuristic="PACK" Manager="TACTIC" />
+  </LogicCommand>
+</AssetDeclaration>

@@ -1,0 +1,5 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <LogicCommandSet id="PublicHello_SovietPowerPlantAdvancedCommandSet">
+    <Cmd>PublicHello_Command_PackSovietMCV</Cmd>
+  </LogicCommandSet>
+</AssetDeclaration>

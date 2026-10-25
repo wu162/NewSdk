@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- 苏联AI大电高科建造模块 -->
+	<AIBuildStateDefinition
+		id="PublicReCore_SovietAIRapidTechnology">
+		<Heuristic>
+			<OpeningMoveHeuristic Complete="true"/>
+		<ObjectOfTypeExistsHeuristic
+			PassIfExists="true">
+			<ObjectFilter
+			Relationship="SAME_PLAYER"
+			Rule="NONE">
+			<IncludeThing>SovietConstructionYard</IncludeThing>
+			</ObjectFilter>
+		</ObjectOfTypeExistsHeuristic>
+		</Heuristic>
+		<BuildEntry Build="SovietPowerPlantAdvanced" Heuristic="POWER"/>
+		<BuildEntry Build="SovietTechStructure" Heuristic="TECH" MinTime="300s"/>
+	</AIBuildStateDefinition>
+</AssetDeclaration>

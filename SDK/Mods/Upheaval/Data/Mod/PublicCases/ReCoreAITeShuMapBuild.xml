@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- 基于起重机模块改好的例子 -->
+	<!-- 特殊地图建造重工 苏联 盟军 -->
+	<AIBuildStateDefinition
+		id="PublicReCore_SovietTeShuMapBuildState">
+		<Heuristic>
+		<OpeningMoveHeuristic Complete="true"/>
+		<TimerHeuristic StartTime="160s" EndTime="-1s"/>
+		<ObjectOfTypeExistsHeuristic
+			PassIfExists="false">
+			<ObjectFilter
+				Relationship="SAME_PLAYER">
+				<IncludeThing>SovietSurveyor</IncludeThing>
+				<IncludeThing>SovietNavalYard</IncludeThing>
+				<IncludeThing>SovietWarFactory</IncludeThing>
+			</ObjectFilter>
+		</ObjectOfTypeExistsHeuristic>
+		</Heuristic>
+		<BuildEntry Build="SovietNavalYard" Heuristic="FACTORY"/>
+		<BuildEntry Build="SovietWarFactory" Heuristic="FACTORY"/>
+	</AIBuildStateDefinition>
+	
+	<AIBuildStateDefinition
+		id="PublicReCore_AlliedTeShuMapBuildState">
+		<Heuristic>
+		<OpeningMoveHeuristic Complete="true"/>
+		<TimerHeuristic StartTime="160s" EndTime="-1s"/>
+		<ObjectOfTypeExistsHeuristic
+			PassIfExists="false">
+			<ObjectFilter
+				Relationship="SAME_PLAYER">
+				<IncludeThing>AlliedAntiInfantryVehicle</IncludeThing>
+				<IncludeThing>AlliedNavalYard</IncludeThing>
+				<IncludeThing>AlliedWarFactory</IncludeThing>
+			</ObjectFilter>
+		</ObjectOfTypeExistsHeuristic>
+		</Heuristic>
+		<BuildEntry Build="AlliedNavalYard" Heuristic="FACTORY"/>
+		<BuildEntry Build="AlliedWarFactory" Heuristic="FACTORY"/>
+	</AIBuildStateDefinition>
+	
+<!-- 强制建造船厂 苏联 盟军 -->
+	<AIBuildStateDefinition
+		id="PublicReCore_SovietTeShuMapNavalYard">
+		<Heuristic>
+		<OpeningMoveHeuristic Complete="true"/>
+		<TimerHeuristic StartTime="260s" EndTime="-1s"/>
+		<IntervalHeuristic IntervalTime="73s" ActiveTime="10s"/>
+		<ObjectOfTypeExistsHeuristic
+			PassIfExists="false">
+			<ObjectFilter
+				Relationship="SAME_PLAYER">
+				<IncludeThing>SovietNavalYard</IncludeThing>
+			</ObjectFilter>
+		</ObjectOfTypeExistsHeuristic>
+		</Heuristic>
+		<BuildEntry Build="SovietNavalYard" Heuristic="BUILD_TEST"/>
+	</AIBuildStateDefinition>
+	
+	<AIBuildStateDefinition
+		id="PublicReCore_AlliedTeShuMapNavalYard">
+		<Heuristic>
+		<OpeningMoveHeuristic Complete="true"/>
+		<TimerHeuristic StartTime="260s" EndTime="-1s"/>
+		<IntervalHeuristic IntervalTime="73s" ActiveTime="10s"/>
+		<ObjectOfTypeExistsHeuristic
+			PassIfExists="false">
+			<ObjectFilter
+				Relationship="SAME_PLAYER">
+				<IncludeThing>AlliedNavalYard</IncludeThing>
+			</ObjectFilter>
+		</ObjectOfTypeExistsHeuristic>
+		</Heuristic>
+		<BuildEntry Build="AlliedNavalYard" Heuristic="BUILD_TEST"/>
+	</AIBuildStateDefinition>
+</AssetDeclaration>

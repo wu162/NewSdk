@@ -50,7 +50,109 @@
         "AlliedChronosphereSpecialPowerObjectFilter",
         "JapanPointDefenseDroneSpecialPowerObjectFilter"
       ],
-      "license": "GPL-3.0; full upstream license in Afterdash-LICENSE.txt"
+      "license": "GPL-3.0; full upstream license in Afterdash-LICENSE.txt",
+      "active": false,
+      "note": "Removed from active Includes after first accepted batch: canonical XML equals existing Upheaval definitions; no additional semantic coverage."
+    },
+    {
+      "repository": "https://github.com/qingchen239/RedAlert3HelloworldMod",
+      "commit": "3dc9076f6061fa259f5b597a0b41eb2f3c2bdca0",
+      "files": [
+        {
+          "path": "HelloSovietPowerPlantAdvanced.xml",
+          "source": "helloworld/data/SovietPowerPlantAdvanced.xml",
+          "sha256": "724e9b36315532bd33c4870463accf4b23dbade433c74048ea30def8ab80bd84"
+        },
+        {
+          "path": "HelloLogicCommand.xml",
+          "source": "helloworld/data/LogicCommand.xml",
+          "sha256": "4c8cdf7b8b29e41853076c83d416adf51f6601e861140e719ca5a7800fa28a1d"
+        },
+        {
+          "path": "HelloLogicCommandSet.xml",
+          "source": "helloworld/data/LogicCommandSet.xml",
+          "sha256": "b9bb09e6ee30a9dae2f89565c819f85f4c0d099d10d3c5a9dc8993e66e7f05e8"
+        }
+      ],
+      "selectedIds": [
+        "SovietPowerPlantAdvanced",
+        "Command_PackSovietMCV",
+        "SovietPowerPlantAdvancedCommandSet"
+      ],
+      "license": "No license file supplied by upstream; source attribution retained; compile fixtures only."
+    },
+    {
+      "repository": "https://github.com/CruCru09/RedAlert3_ReCoreMod",
+      "commit": "67ff2345a928e65b8247765b25606e1e8f7f2ce5",
+      "license": "MIT; Copyright (c) 2026 CruCru09; ReCore-LICENSE.txt",
+      "files": [
+        {
+          "path": "ReCoreAITeShuMapBuild.xml",
+          "source": "Data/Common/AITeShuMapBuild.xml",
+          "sha256": "e98bee5b9686f23dd8dd6945e7da2e380a9b08d48671d3de838633288093f030"
+        },
+        {
+          "path": "ReCoreSovietAIRapidTechnology.xml",
+          "source": "Data/Common/SovietAIRapidTechnology.xml",
+          "sha256": "6edcdef033d68ab1e08319d3a7588a8f6503167e4f1ce36e7eee68d6d5446834"
+        }
+      ],
+      "stockDependencies": [
+        {
+          "type": "GameObject",
+          "id": "SovietSurveyor",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "SovietNavalYard",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "SovietWarFactory",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "AlliedAntiInfantryVehicle",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "AlliedNavalYard",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "AlliedWarFactory",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "SovietConstructionYard",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "SovietPowerPlantAdvanced",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        },
+        {
+          "type": "GameObject",
+          "id": "SovietTechStructure",
+          "manifest": "SDK/builtmods/Static.manifest",
+          "present": true
+        }
+      ]
     }
   ],
   "registeredAssets": [
@@ -91,18 +193,43 @@
       "id": "PublicYuri_ChaosDrone"
     },
     {
-      "type": "ObjectFilterAsset",
-      "id": "PublicAfterdash_AlliedChronosphereSpecialPowerObjectFilter"
+      "type": "GameObject",
+      "id": "PublicHello_SovietPowerPlantAdvanced"
     },
     {
-      "type": "ObjectFilterAsset",
-      "id": "PublicAfterdash_JapanPointDefenseDroneSpecialPowerObjectFilter"
+      "type": "LogicCommand",
+      "id": "PublicHello_Command_PackSovietMCV"
+    },
+    {
+      "type": "LogicCommandSet",
+      "id": "PublicHello_SovietPowerPlantAdvancedCommandSet"
+    },
+    {
+      "type": "AIBuildStateDefinition",
+      "id": "PublicReCore_SovietTeShuMapBuildState"
+    },
+    {
+      "type": "AIBuildStateDefinition",
+      "id": "PublicReCore_AlliedTeShuMapBuildState"
+    },
+    {
+      "type": "AIBuildStateDefinition",
+      "id": "PublicReCore_SovietTeShuMapNavalYard"
+    },
+    {
+      "type": "AIBuildStateDefinition",
+      "id": "PublicReCore_AlliedTeShuMapNavalYard"
+    },
+    {
+      "type": "AIBuildStateDefinition",
+      "id": "PublicReCore_SovietAIRapidTechnology"
     }
   ],
   "adaptations": [
     "Prefix local asset IDs and their references to avoid Upheaval collisions.",
     "Use SDK BaseVehicle via original DATA:BaseObjects/BaseVehicle.xml include; upstream custom BaseVehicle is not imported.",
-    "Lua event names are preserved strings; Lua execution and gameplay are outside stages 3/4/5."
+    "Lua event names are preserved strings; Lua execution and gameplay are outside stages 3/4/5.",
+    "HelloWorld: select complete Soviet advanced power plant, its command set and Soviet pack command; prefix those three IDs. Do not import JapanMechaKing, which is only in Worldbuilder manifest, or unrelated power plants."
   ],
   "dependencies": {
     "local": [

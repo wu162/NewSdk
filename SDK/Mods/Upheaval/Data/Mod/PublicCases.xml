@@ -8,6 +8,10 @@
     <Include type="all" source="PublicCases/LogicCommand.xml" />
     <Include type="all" source="PublicCases/LogicCommandSet.xml" />
     <Include type="all" source="PublicCases/GameObject.xml" />
-    <Include type="all" source="PublicCases/AfterdashFilters.xml" />
+    <Include type="all" source="PublicCases/HelloSovietPowerPlantAdvanced.xml" />
+    <Include type="all" source="PublicCases/HelloLogicCommand.xml" />
+    <Include type="all" source="PublicCases/HelloLogicCommandSet.xml" />
+    <Include type="all" source="PublicCases/ReCoreAITeShuMapBuild.xml" />
+    <Include type="all" source="PublicCases/ReCoreSovietAIRapidTechnology.xml" />
   </Includes>
 </AssetDeclaration>
