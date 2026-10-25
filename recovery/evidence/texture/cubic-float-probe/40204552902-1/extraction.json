@@ -1,0 +1,11 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "records": 270,
+  "runAttempt": "1",
+  "transcriptSha256": "1dbddf68336c2d648c11d6670b147d0351043041d1938d052b6aaf52d39b6f68",
+  "sdkValidated": false,
+  "scope": "test-only numeric trace; runtime hook must preserve 270 same-run unmodified original cubic resize DDS/callback records; no recovered acceptance",
+  "runId": "40204552902",
+  "sourceCommit": "424f0f830415b1749eabd1db2e6023d602d282a9",
+  "status": "original-evidence-only"
+}
