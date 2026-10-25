@@ -13,9 +13,9 @@ try{
  $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
  $wrapper=(Resolve-Path recovery/tests/TextureSdkTracePlugin.cs).Path
  foreach($mode in @('Original','Recovered','NoOriginal')){
-  $sdk="$work/$mode";Copy-Item SDK $sdk -Recurse
+  $sdk=Join-Path $work $mode;Copy-Item SDK $sdk -Recurse
   Remove-Item "$sdk/builtmods" -Recurse -Force -ErrorAction SilentlyContinue
-  $moddir="$sdk/Mods/RecoveryTexture";New-Item -ItemType Directory -Force "$moddir/Data","$moddir/Art"|Out-Null
+  $moddir=Join-Path $sdk 'Mods\RecoveryTexture';New-Item -ItemType Directory -Force "$moddir/Data","$moddir/Art"|Out-Null
   $nodes=@();$index=0
   foreach($f in @($r.inputs.files|Where-Object {$_.fixture.EndsWith('.tga')})){
    if((Get-FileHash $f.fixture -Algorithm SHA256).Hash.ToLowerInvariant() -ne $f.sha256){throw 'Real TGA input hash differs'}
@@ -41,15 +41,15 @@ try{
   $runtime=$xml.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');[void]$startup.AppendChild($runtime);[void]$xml.configuration.AppendChild($startup);$xml.Save($cfg)
   Copy-Item $cfg "$out/$mode.config"
   $env:RA3_TEXTURE_SDK_TRACE=$trace
-  $output="$sdk/builtmods";New-Item -ItemType Directory -Force $output|Out-Null
-  $mod="$moddir/Data/Mod.xml"
+  $output=Join-Path $sdk 'builtmods';New-Item -ItemType Directory -Force $output|Out-Null
+  $mod=Join-Path $moddir 'Data\Mod.xml'
   $arguments=@("`"$mod`"","/od:`"$output`"","/iod:`"$output`"",'/csc:false','/ls:true','/osh:false','/pc:true','/res:true','/slowclean:true','/ss:true','/art:".;.\Mods\RecoveryTexture\Art;.\Mods;.\Art"','/audio:".;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio"','/data:".;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml"')
   $p=Start-Process "$sdk/tools/BinaryAssetBuilder.exe" -ArgumentList ($arguments -join ' ') -WorkingDirectory $sdk -PassThru -RedirectStandardOutput "$out/$mode-stdout.log" -RedirectStandardError "$out/$mode-stderr.log"
   if(!$p.WaitForExit($TimeoutSeconds*1000)){Stop-Process -Id $p.Id -Force;throw "$mode SDK timeout"};$p.Refresh()
   if($p.ExitCode -ne 0){Get-Content "$out/$mode-stdout.log" -Tail 70;Get-Content "$out/$mode-stderr.log" -Tail 30;throw "$mode SDK exit=$($p.ExitCode)"}
   $files=@()
   foreach($ext in @('bin','manifest','imp','relo')){
-   $f="$output/mods/recoverytexture/data/mod.$ext";if(!(Test-Path $f)){throw "$mode missing $f"}
+   $f="$output/mods/recoverytexture/data/mod.$ext";if(!(Test-Path $f)){Get-ChildItem $output -File -Recurse | Select-Object -First 25 FullName | Out-String | Write-Output;throw "$mode missing $f"}
    Copy-Item $f "$out/$mode-mod.$ext";$files+=@{file="mod.$ext";bytes=(Get-Item $f).Length;sha256=(Get-FileHash $f -Algorithm SHA256).Hash.ToLowerInvariant()}
   }
   $calls=Import-Csv "$trace/texture.calls.tsv" -Delimiter "`t"
