@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+  "runId": "40158416072",
+  "scope": "XmlCompiler uiconfig single-root component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "failed",
+  "error": "Od oracle host build failed"
+}

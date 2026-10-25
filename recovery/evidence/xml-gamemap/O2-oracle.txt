@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=3842 arrayComparisons=23052 rejections=74 layoutAssertions=33612
+PASS platform=1 fixtures=3842 arrayComparisons=23052 rejections=74 layoutAssertions=33612
+PASS platform=2 fixtures=3842 arrayComparisons=23052 rejections=74 layoutAssertions=33612
+PASS platform=99 fixtures=3842 arrayComparisons=23052 rejections=74 layoutAssertions=33612
+PASS game map fixtures=15368 arrayComparisons=92208 rejections=296 layoutAssertions=134449

@@ -64,6 +64,7 @@ XmltesttexturesCompiler.cpp
 XmluichatCompiler.cpp
 Generating Code...
 Compiling...
+XmluiconfigCompiler.cpp
 XmluidecalsCompiler.cpp
 XmluiimagesCompiler.cpp
 XmluisettingsCompiler.cpp
@@ -83,9 +84,9 @@ Xmlbuildeconomy.cpp
 Xmlcampaign.cpp
 Xmlchatcolors.cpp
 Xmlcommandset.cpp
-Xmlconditions.cpp
 Generating Code...
 Compiling...
+Xmlconditions.cpp
 Xmlconnections.cpp
 Xmlconquercards.cpp
 Xmlcontent.cpp
@@ -105,9 +106,9 @@ Xmlgamescripts.cpp
 Xmlhealthbars.cpp
 Xmlhotkeymaps.cpp
 Xmllocalization.cpp
-Xmllocomotor.cpp
 Generating Code...
 Compiling...
+Xmllocomotor.cpp
 Xmlmapmetadata.cpp
 Xmlmaterialrules.cpp
 Xmlmouse.cpp
@@ -127,15 +128,16 @@ Xmlrenderassets.cpp
 Xmlrenderdevice.cpp
 Xmlruntimeopaque.cpp
 Xmlsinglesound.cpp
-Xmlsoundmaps.cpp
 Generating Code...
 Compiling...
+Xmlsoundmaps.cpp
 Xmlsystemsettings.cpp
 Xmltacticalhotkeys.cpp
 Xmltargeting.cpp
 Xmlterrain.cpp
 Xmltesttextures.cpp
 Xmluichat.cpp
+Xmluiconfig.cpp
 Xmluidecals.cpp
 Xmluiimages.cpp
 Xmluisettings.cpp

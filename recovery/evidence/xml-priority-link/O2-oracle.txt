@@ -286,6 +286,7 @@ ROUTE root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxC
 ROUTE root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler
 ROUTE root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler
 ROUTE root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler
+ROUTE root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -574,6 +575,7 @@ PASS root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCo
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=0 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=0 fixtures=1 comparisons=3 instance=80 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -624,7 +626,9 @@ PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.Terrai
 PASS root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler platform=0 fixtures=1 comparisons=3 instance=112 relocations=8 imports=0
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=0 fixtures=1 comparisons=3 instance=72 relocations=8 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=8 imports=0
-PASS platform=0 types=288 fixtures=288 comparisons=864
+PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=0 fixtures=1 comparisons=3 instance=304 relocations=52 imports=12
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=0 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=0 types=289 fixtures=289 comparisons=867
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -913,6 +917,7 @@ PASS root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCo
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=1 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=1 fixtures=1 comparisons=3 instance=80 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -963,7 +968,9 @@ PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.Terrai
 PASS root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler platform=1 fixtures=1 comparisons=3 instance=112 relocations=8 imports=0
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=1 fixtures=1 comparisons=3 instance=72 relocations=8 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=8 imports=0
-PASS platform=1 types=288 fixtures=288 comparisons=864
+PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=1 fixtures=1 comparisons=3 instance=304 relocations=52 imports=12
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=1 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=1 types=289 fixtures=289 comparisons=867
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -1252,6 +1259,7 @@ PASS root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCo
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=2 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=2 fixtures=1 comparisons=3 instance=80 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -1302,7 +1310,9 @@ PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.Terrai
 PASS root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler platform=2 fixtures=1 comparisons=3 instance=112 relocations=8 imports=0
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=2 fixtures=1 comparisons=3 instance=72 relocations=8 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=8 imports=0
-PASS platform=2 types=288 fixtures=288 comparisons=864
+PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=2 fixtures=1 comparisons=3 instance=304 relocations=52 imports=12
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=2 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=2 types=289 fixtures=289 comparisons=867
 PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
 PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
 PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
@@ -1591,6 +1601,7 @@ PASS root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCo
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=99 fixtures=1 comparisons=3 instance=8 relocations=0 imports=0
 PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=99 fixtures=1 comparisons=3 instance=80 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=188 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=280 relocations=8 imports=0
 PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=376 relocations=8 imports=0
@@ -1641,6 +1652,8 @@ PASS root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.Terrai
 PASS root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler platform=99 fixtures=1 comparisons=3 instance=112 relocations=8 imports=0
 PASS root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler platform=99 fixtures=1 comparisons=3 instance=72 relocations=8 imports=0
 PASS root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=8 imports=0
-PASS platform=99 types=288 fixtures=288 comparisons=864
-PASS XmlPriorityLink types=288 fixtures=1152 comparisons=3456 completionFixtures=200 completionComparisons=600 platforms=0/1/2/99; link smoke only
+PASS root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler platform=99 fixtures=1 comparisons=3 instance=304 relocations=52 imports=12
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=99 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=99 types=289 fixtures=289 comparisons=867
+PASS XmlPriorityLink types=289 fixtures=1156 comparisons=3468 completionFixtures=208 completionComparisons=624 platforms=0/1/2/99; link smoke only
 PROCESS EXIT mode=O2 exitCode=0 exitCodeHex=0x00000000
