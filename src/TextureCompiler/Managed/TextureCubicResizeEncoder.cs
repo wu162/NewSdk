@@ -38,10 +38,12 @@ namespace Recovered.Compiler.Texture
             Buffer.BlockCopy(header, 0, output, 0, 128);
             if (mipmaps) { Put(output, 8, 0x000a1007u); Put(output, 28, Math.Min(TextureVolume.MipCount(targetWidth, targetHeight, 1), 3u)); Put(output, 108, 0x00401008u); }
             int offset = WriteLevel(output, 128, resized, format); w = tw; h = th;
+            float[] current = resized;
             for (int level = 1; level < levels; level++)
             {
-                w = Math.Max(1, w / 2); h = Math.Max(1, h / 2);
-                offset = WriteLevel(output, offset, Resize(resized, tw, th, w, h, false), format);
+                int nw = Math.Max(1, w / 2), nh = Math.Max(1, h / 2);
+                current = Resize(current, w, h, nw, nh, false);
+                offset = WriteLevel(output, offset, current, format); w = nw; h = nh;
             }
             if (offset != output.Length) throw new InvalidOperationException("Cubic DDS output size mismatch.");
             return output;
