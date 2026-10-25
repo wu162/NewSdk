@@ -1,17 +1,13 @@
-# 当前任务：XmlCompiler SDK真实验收
+# XmlCompiler：范围内还原及真实SDK验收已完成
 
-2026-10-25用户授权开始真实SDK编译，只复现EALAModStudio“建立基础数据”case5 BAB调用，不走GUI/LoD/修复/打包。SDK/Mods下独立Baseline/A/B测试MOD加完整mymod profile正在验收；未成功前不能宣称289入口SDK完成。先读XML_SDK_RECOVERY.md、XML_PRIORITY_SDK.md及当前SDK工作流/脚本，核实recovery/evidence/xml-priority-sdk的sourceCommit/runId。以下为已完成组件阶段记录。
+2026-10-25（北京时间），目标分支 `recovery/xmlcompiler-priority`。先读AGENTS.md、EFFICIENCY.md、XMLCOMPILER_PRIORITY.md及XML_SDK_RECOVERY.md。
 
-# XmlCompiler分支续接
+原Plugin301项，排除TestGameObject和11个Joypad独立根后，289入口组件还原完成。当前289路由元数据在平台0/1/2/99验证；其中267个schema全局根已完成真实SDK/O2、Win32验收。22个非全局/抽象/runtime登记项不伪造全局资产，不声明独立SDK根入口调用；必要嵌套布局以实际owner证据为准。不是301入口或完整Tokenizer/非XML自定义编译器的替代。
 
-2026-10-25（北京时间）。目标分支recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md、XMLCOMPILER_PRIORITY.md。
+SDK最终源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success。精确收据 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)；五profiles共783次实际SDK调用，原版与无原DLL隔离恢复版重放合计4698次三缓冲区比较，实际类型并集精确267；每profile的bin/manifest/imp/relo原/恢复四产物相同。只复现EALAModStudio“建立基础数据”case5 BAB，清理阶段1/2；没有GUI、LoD或打包。
 
-排除12个独立根后，范围内289个XmlCompiler入口的组件还原完成：本轮补齐GameMap和UIConfigList70个内部分派，原Plugin总数301。11个Joypad根及TestGameObject仍排除，不能称301全部完成。
+Baseline159次/A173次沿用887444e8b46ef185fdd120df5403dc8ff584840f/40162875013的当前联合DLL成功证据，共332次旧调用未重跑；当前Native/输入/metadata及委托路径不变证明和每个旧XML的identity guard齐备。最终运行仅新建B277、FullMymod162、APT12次调用的三个profile，6次原/恢复真实BAB构建。APT专项四根12次调用覆盖8个非空文件和4个空文件，236个payload字节逐字节对照；旧A的空payload不冒充文件读取能力证明。
 
-GameMap完整矩阵锚点092bb95c06647f95891c7f62b4b6fbc875c4c07a/40158416072；UIConfigList完整矩阵锚点4401069feaf5df91043afadaad2410293c33b67e/40159834447，两模式四平台全部通过。最终联合检查状态：completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0。验收索引evidence/xml-component-acceptance-20261025-289.json；静态301项审计evidence/xml-coverage-20261025-289.json。
+组件锚点：GameMap完整矩阵092bb95c06647f95891c7f62b4b6fbc875c4c07a/40158416072；UIConfigList完整70内部分派4401069feaf5df91043afadaad2410293c33b67e/40159834447，均/Od、/O2、四平台。63组和289入口索引在evidence/xml-component-acceptance-20261025-289.json。SDK阶段未修改Native/Bridge，沿用已验证/O2联合DLL，不重复触发未变成功组。
 
-用户新增要求：不重复触发已验证类型测试。选择器按成功验收提交与真实依赖复用，26项临时Git仓库测试通过；最终运行只选择uiconfig，复用其余62组。联合DLL预检全部289路由，仅对受影响UIConfigList执行差分。未变组保留原sourceCommit/runId，缺失/失败/输入变化仍跑完整矩阵；组件通过后才进行必要联合构建。
-
-本轮SDK真实编译0次。历史82类SDK清单保持原状，组件专用207类及当前289入口联合DLL整体SDK待验收；旧SDK40098695436/92180f9不可套用。无生产Plugin/SDK路由/原SDK变更，无SDK触发标记或SDK dispatch。组件接受BAB预处理输入，不等于完整Tokenizer或自定义非XML编译器替代。
-
-本范围内无剩余根待还原。未来只有明确扩展范围才做排除项，只有授权SDK集成才集中做生产路由、合法输入、真实覆盖、四产物/隔离重放。详见两根类型文档及主交接。保留所有失败/修复/Actions证据，禁止强推。
+历史82入口SDK清单仍保持92180f9bbd830b9dbd49a696c259e54ffe2d7721/40098695436原锚点，不能当作当前289路由DLL的验收。当前SDK状态以catalog/XmlSdkTypes.json和新收据为准。 证据XML/TSV按目录.gitattributes以CRLF checkout或直接读取Actions artifact，四产物保留二进制原字节。12个排除根只有明确扩展范围才恢复；22个非全局根若需独立SDK入口证明，应先说明真实可达生产路径。保留所有失败/修复/Actions父历史，禁止强推。

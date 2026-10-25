@@ -64,8 +64,9 @@ def audit():
     assert not (baseline_names & component_names), 'SDK baseline/component-only catalogs overlap'
     assert baseline_names | component_names == set(manifest), 'formal routes differ from accepted baseline plus component-only catalog'
     assert all(r['sdkValidated'] is False for r in component['roots']), 'component-only root incorrectly marked SDK accepted'
-    assert component['currentCombinedDllSdkValidated'] is False, 'current combined DLL has no SDK acceptance'
-    assert component['realSdkCompilationThisRound'] is False, 'this task forbids real SDK compilation'
+    assert component['snapshotPhase'] == 'component-acceptance-before-current-sdk', 'historical partition phase changed'
+    assert component['combinedDllSdkValidatedAtSnapshot'] is False, 'historical component snapshot changed'
+    assert component['realSdkCompilationInSnapshotRound'] is False, 'historical component snapshot changed'
     rows = []
     for name, values in original.items():
         rows.append(dict(name=name, **values, formalComponentRoute=name in manifest,
@@ -75,7 +76,8 @@ def audit():
                 originalPluginBlob='00bb9e5df72d07a21204f85f9a9a2f1d9557f00b',
                 registeredEntries=len(original), formalComponentRoutes=len(manifest),
                 componentOnlyEntries=len(component_names), historicalSdkBaselineEntries=len(baseline_names),
-                currentCombinedDllSdkValidated=False, realSdkCompilationThisRound=False,
+                sdkAcceptanceEvaluated=False, currentSdkAcceptanceEvidence=component['currentSdkAcceptanceEvidence'],
+                historicalComponentSnapshotSdkValidated=False,
                 unresolved=[r['name'] for r in rows if not r['formalComponentRoute'] and not r['excludedRoot']],
                 entries=rows)
 

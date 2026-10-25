@@ -1,10 +1,12 @@
-# XmlCompiler SDK：新289入口真实验收进行中
+# XmlCompiler SDK：当前267全局根验收完成
 
-2026-10-25新阶段：用户已明确授权真实SDK建立基础数据，使用SDK/Mods中的独立测试MOD，按EALAModStudio默认脚本case5启动BAB。当前阶段尚未验收成功，见[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)。下文为旧82入口历史记录，旧轮禁止SDK的限制不适用于本次已授权阶段。
+2026-10-25。当前289入口联合DLL的真实SDK验收已成功：源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)。五profile的实际根调用并集267、783次调用、原版及无原DLL隔离重放合计4698次三缓冲区比较；四产物逐字节相同。只执行EALAModStudio建立基础数据case5 BAB；当前完整范围、复用332次旧调用、APT非空文件证明、22个非全局登记项边界和12项排除见[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)及 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)。
+
+以下为旧82入口及旧DLL历史，保留原sourceCommit/runId，不能与当前289路由DLL证据混用。
 
 ## 历史82入口验收
 
-2026-10-25状态说明：本页仅记录旧82入口及旧DLL的历史SDK基线。本轮用户禁止SDK真实编译，实际0次；新增101入口仅组件验收，当前183入口联合DLL尚未SDK验收。主Plugin/SDK路由与本页旧证据不变，不能把下列历史结果用于宣称新联合DLL已集成。当前状态见XMLCOMPILER_PRIORITY.md。
+历史阶段说明：下列82入口、SDK0次限制及183入口待验状态均属于此前轮次。它们不代表本次已授权并完成的SDK阶段；当前状态以页首新收据为准。历史82类清单及其原验收锚点保持不变。
 
 [SDK运行40098695436](https://github.com/wu162/NewSdk/actions/runs/40098695436)，源码 `92180f9bbd830b9dbd49a696c259e54ffe2d7721`，completed/success。最终十四组组件及联合DLL：[40099095351](https://github.com/wu162/NewSdk/actions/runs/40099095351)，源码 `e7580311f36811265e6ed5af5a184ef623f31284`，completed/success。
 
@@ -32,7 +34,7 @@
 - plugin SHA256 `205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652`
 - probe SHA256 `370D612E4C578ADAD8D250C8E97041A7F7C30F92C19FBF5025F8C0F47ADB2797`
 
-隔离目录物理排除两原compiler DLL，并持续检查进程没有加载原XmlCompiler/Tokenizer程序集。两原DLL指纹未变。Reduced四产物字节数分别17576/18413/992/1380；FullMymod分别227120/23310/1052/6032，原/恢复各对应相同。完整SHA、计数及sourceCommit/runId在 evidence/xml-priority-sdk 中，汇总收据在 evidence/xml-priority-acceptance.json。
+隔离目录物理排除两原compiler DLL，并持续检查进程没有加载原XmlCompiler/Tokenizer程序集。两原DLL指纹未变。Reduced四产物字节数分别17576/18413/992/1380；FullMymod分别227120/23310/1052/6032，原/恢复各对应相同。历史完整SHA、计数及sourceCommit/runId见固定提交92180f9bbd830b9dbd49a696c259e54ffe2d7721下的recovery/evidence/xml-priority-sdk，历史汇总收据在evidence/xml-priority-acceptance.json。当前默认xml-priority-sdk目录已用于页首新阶段，不交叉套用。
 
 ## 使用边界
 

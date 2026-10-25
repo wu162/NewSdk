@@ -4,7 +4,7 @@
 
 ## 当前范围
 
-原Plugin登记301个入口，**排除12个独立根后，范围内289个入口已完成组件还原**。本轮补齐最后两根：GameMap、UIConfigList。不是301全部恢复，也不是生产SDK全部集成。最终联合检查：completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0。
+原Plugin登记301个入口，**排除12个独立根后，范围内289个入口已完成组件还原**。本轮补齐最后两根：GameMap、UIConfigList。不是301全部恢复。SDK另已完成267全局根验收，22个非全局登记边界见末节。最终组件联合检查：completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0。
 
 - GameMap：完整80字节根、8种列表、Environment12、WorldDict56的7类属性对、MapAnalysis28；见[XML_GAME_MAP.md](XML_GAME_MAP.md)。验收源码 `092bb95c06647f95891c7f62b4b6fbc875c4c07a`，运行[40158416072](https://github.com/wu162/NewSdk/actions/runs/40158416072)。该运行组件62组和289入口联合smoke成功，UI当时测试宿主未通过，不能把整次运行称为整体成功。
 - UIConfigList：完整70个内部分派（47个专用布局、288个字段，23个保留真实尺寸的基类分支）及完整嵌套依赖；见[XML_UI_CONFIG.md](XML_UI_CONFIG.md)。验收源码 `4401069feaf5df91043afadaad2410293c33b67e`，运行[40159834447](https://github.com/wu162/NewSdk/actions/runs/40159834447)。独立ABI覆盖所有70分派、直接/嵌套字段、37条嵌套列表增长路径、全部适用枚举/位集、NUL/ANSI及拒绝边界。
@@ -38,10 +38,14 @@
 - packed ColorTag仅在子节点存在时应用A255，缺失子节点保留0；RGBColor为独立float3。所有70分派保留原默认、布局、分配顺序和RuntimeTypeId，不按XML标签猜测类型、不用半根或空根计完成。
 - 原先287入口的ALL不推进token、Time舍入、强引用index+1、ANSI和文件blob合同保持不变；本轮未改共享解析/重定位/helper。历史失败、修复、并发父提交和Actions产物保留；一次旧证据回写rebase冲突不作为运行成功证明。
 
-## SDK边界与下一步
+## 当前SDK验收与边界
 
-**本轮SDK真实编译0次。** 历史82类SDK清单保持原状，当前组件专用清单207类全部sdkValidated=false。最后历史SDK基线仍是40098695436、源码92180f9bbd830b9dbd49a696c259e54ffe2d7721，不能套用到新289入口联合DLL。
+用户随后授权真实SDK，并限定EALAModStudio建立基础数据case5 BAB。最终源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；收据 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)，详细说明[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)。当前289路由metadata四平台全部对照；267个schema全局根的真实SDK调用并集通过，22个非全局/抽象/runtime登记项不宣称独立SDK根调用。原12个排除根不变。
 
-生产Plugin、SetXmlPriorityPlugin、SDK probe/工作流及原SDK/DLL未修改，没有SDK触发标记或SDK dispatch。组件接受BAB预处理后的defaults/继承/引用和数字TypeId；未恢复完整Tokenizer及自定义APT/Audio/Map/Texture编译器，不宣称替代整个生产SDK。
+五profiles合计783次实际调用、原版和无原DLL隔离重放4698次三缓冲区比较，各profile四产物原/恢复相同。Baseline159/A173共332次旧调用保留原锚点与完整reuse guard，不重跑；最终只新跑B277、FullMymod162、APT12三个profile。APT四根专项8个非空文件/4个空文件，236个payload字节与源文件一致。原FullMymod7个Includes完整保留。
 
-范围内组件还原已收尾。未来若明确授权SDK集成，再集中做207类生产路由、合法样例、真实覆盖及四产物/隔离重放验收；不得自动启动。继续按受影响输入选择测试，不重跑未变成功组。固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。禁止强推。
+SDK阶段仅修正插件对合法根metadata的输入边界与测试环境绝对路径一致性，没有修改Native/Bridge，没有为SDK重跑未变成功组件组。原/恢复在同一SDK绝对路径顺序编译，保留未经归一化的四产物逐字节比较；文件blob有真实非空读取证明。SDK结果仅/O2、Win32，组件/Od/O2和四平台另列，不扩大平台声明。
+
+原82入口SDK清单仍保持92180f9bbd830b9dbd49a696c259e54ffe2d7721/40098695436历史锚点，207项新增组件账本不冒充当前SDK状态；当前状态以catalog/XmlSdkTypes.json及新收据为准。本范围组件还原及可直接声明的267全局根SDK验收已收尾；22个非全局入口若需独立生产路径证明，须先明确实际schema/自定义编译链可达性。尚非完整Tokenizer或非XML自定义APT/Audio/Map/Texture编译器替代。
+
+固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。所有失败/修复/Actions证据及并发父提交保留，后续按受影响输入选择验证，禁止强推。

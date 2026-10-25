@@ -737,3 +737,16 @@ SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固�
 ## 2026-10-25 XmlCompiler priority第二轮交接
 
 源码0f0ab2fce098fef2d78d6a165f3f5ce86c591077，组件运行40142560815 completed/success。本轮104个新入口/40完整组，合计287/301登记入口、61完整组件矩阵及联合DLL全部验收。SDK真实编译0次，当前联合DLL未SDK验证；原82历史清单保留、205组件专用入口SDK pending。剩UIConfigList/GameMap及原排除12根，不称301完成。详细结果及限制见XMLCOMPILER_PRIORITY.md与evidence/xml-component-acceptance-20261025-287.json。
+
+
+## 2026-10-25：当前289路由DLL，267全局根真实SDK验收完成
+
+源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；最终收据 [xml-priority-sdk/acceptance.json](evidence/xml-priority-sdk/acceptance.json)。组件289入口已完成；SDK四平台metadata共16200项比较/56次未知与排除入口拒绝。真实SDK只复现EALAModStudio建立基础数据case5 BAB（清理阶段1/2），/O2、Win32，没有GUI/LoD/修复/打包。
+
+五profile为Baseline159次/80类型、A173/59、B277/130、FullMymod162/80、APT12/4；合计783次实际调用，类型并集精确267，原版及无原DLL隔离重放合计4698次三缓冲区比较，每profile四产物原/恢复逐字节一致。Baseline/A共332次调用复用887444e8b46ef185fdd120df5403dc8ff584840f/40162875013成功收据，Native/输入未变、metadata/委托路径与每个旧XML的identity guard完整，未重新调用编译器。最终运行只对B/Full/APT做6次原/恢复真实BAB构建，完整mymod7个Includes保留。
+
+APT专项四根12次调用覆盖8个非空文件和4个空文件，46/13/0字节源文件的236个payload字节逐字节核对，根大小、指针/count、padding、重定位、每asset空imports与最终mod.bin实际字节均检查。旧A错误相对路径导致空payload的事实保留，未将其计为非空文件能力证明。前四profile imports非空，APT纯blob profile最终imp4字节。
+
+失败及修复保留：合法根metadata buildRule/typeHashCode仍进入恢复组件，SDK插件边界按原Marshal不读这些metadata的合同克隆归一；B保留130个buildRule及1个typeHashCode样例。TestTexture.CustomData序列化工作目录，原/恢复两个目录名导致两个资产80字节差异；改为同一绝对SDK路径顺序运行，未归一化输出比较、未修改Native。SDK阶段沿用已验收的Native/Bridge与/O2 DLL，不重复未变成功组件矩阵。
+
+289组件/登记、267真实SDK全局根、22非全局metadata项、12排除项分别计数。22项仅按真实owner说明适用嵌套能力，不伪造独立SDK入口。历史82类及92180f9/40098695436旧DLL结果继续单列，不能套用当前联合DLL；当前索引见XML_SDK_RECOVERY.md、XMLCOMPILER_PRIORITY.md和新SDK收据。原DLL保持原样，不代表完整Tokenizer或非XML自定义编译器替代，禁止强推。

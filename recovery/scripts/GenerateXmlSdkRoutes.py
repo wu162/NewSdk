@@ -19,7 +19,7 @@ for name,tid,ai in re.findall(r'new Root\("([^"]+)", (\d+)u, (true|false)\)',lin
 assert len(rows)==289 and len({r['name'] for r in rows})==289
 excluded=[dict(name=r['name'],typeId=r['typeId']) for r in report['entries'] if r['excludedRoot']]
 assert len(excluded)==12
-manifest=dict(sourceBlob='00bb9e5df72d07a21204f85f9a9a2f1d9557f00b',scope='Current recovered SDK registration scope; runtime SDK acceptance is separate',sdkValidated=False,registeredEntries=len(rows),schemaGlobalEntries=sum(r['schemaGlobal'] for r in rows),nonGlobalEntries=sum(not r['schemaGlobal'] for r in rows),excluded=excluded,roots=rows)
+manifest=dict(sourceBlob='00bb9e5df72d07a21204f85f9a9a2f1d9557f00b',scope='Static current SDK registration scope; runtime acceptance is recorded separately',sdkAcceptanceEvaluated=False,runtimeAcceptanceEvidence='recovery/evidence/xml-priority-sdk/acceptance.json',registeredEntries=len(rows),schemaGlobalEntries=sum(r['schemaGlobal'] for r in rows),nonGlobalEntries=sum(not r['schemaGlobal'] for r in rows),excluded=excluded,roots=rows)
 (ROOT/'recovery/catalog/XmlSdkTypes.json').write_text(json.dumps(manifest,indent=2)+'\n')
 p=ROOT/'recovery/src/Plugin/XmlPriorityPlugin.cs';s=p.read_text()
 s=re.sub(r'// Register the \d+ recovered entries\.', '// Generated 289 recovered entries; see catalog/XmlSdkTypes.json and GenerateXmlSdkRoutes.py.',s)
@@ -48,4 +48,4 @@ s=s[:a]+'''    // BEGIN GENERATED SDK ROUTES
     static readonly string[] NonGlobalRoots=new[]{'''+','.join(json.dumps(r['name']) for r in rows if not r['schemaGlobal'])+'''};
     static readonly uint[] ExcludedTypeIds=new uint[]{'''+','.join(str(r['typeId'])+'u' for r in excluded)+'''};
     // END GENERATED SDK ROUTES'''+s[b:];p.write_text(s)
-print(json.dumps({k:manifest[k] for k in ['registeredEntries','schemaGlobalEntries','nonGlobalEntries','sdkValidated']}))
+print(json.dumps({k:manifest[k] for k in ['registeredEntries','schemaGlobalEntries','nonGlobalEntries','sdkAcceptanceEvaluated']}))

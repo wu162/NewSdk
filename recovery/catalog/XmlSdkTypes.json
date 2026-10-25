@@ -1,7 +1,8 @@
 {
   "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
-  "scope": "Current recovered SDK registration scope; runtime SDK acceptance is separate",
-  "sdkValidated": false,
+  "scope": "Static current SDK registration scope; runtime acceptance is recorded separately",
+  "sdkAcceptanceEvaluated": false,
+  "runtimeAcceptanceEvidence": "recovery/evidence/xml-priority-sdk/acceptance.json",
   "registeredEntries": 289,
   "schemaGlobalEntries": 267,
   "nonGlobalEntries": 22,

@@ -1,0 +1,8 @@
+# BAB runtime evidence is captured on Windows. Preserve its recorded XML/TSV
+# SHA256 on both Linux and Windows checkouts; binary buffers remain byte-exact.
+*.xml text eol=crlf
+*.tsv text eol=crlf
+*.bin -text
+*.manifest -text
+*.imp -text
+*.relo -text

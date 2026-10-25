@@ -2,7 +2,7 @@
   "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
   "sdkAcceptedCatalog": "XmlRecoveredTypes.json",
   "sdkAcceptedEntries": 82,
-  "scope": "Component implementations only; not enabled in SDK plugin routes and not SDK validated. See exact run/source evidence before claiming component acceptance.",
+  "scope": "Historical component-stage partition: 207 additions to the historical 82-entry SDK baseline. Per-root sdkValidated flags describe this pre-SDK snapshot only; current SDK acceptance is recorded separately.",
   "groups": {
     "tacticalhotkeys": [
       "UIMouseTacticalSelectionDetailsButtonHotKeys",
@@ -1767,6 +1767,8 @@
   ],
   "sdkBaselineSourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
   "sdkBaselineRunId": "40098695436",
-  "currentCombinedDllSdkValidated": false,
-  "realSdkCompilationThisRound": false
+  "snapshotPhase": "component-acceptance-before-current-sdk",
+  "combinedDllSdkValidatedAtSnapshot": false,
+  "realSdkCompilationInSnapshotRound": false,
+  "currentSdkAcceptanceEvidence": "recovery/evidence/xml-priority-sdk/acceptance.json"
 }
