@@ -40,11 +40,11 @@ on:
   workflow_dispatch:
     inputs:
       scope:
-        description: Select one group; all runs raw/rewrite/noise/pcm/formats; raw and dispatch collect original-only evidence
+        description: components/all run isolated helpers only; SDK requires explicit formats or aifc; raw and probes collect original-only evidence
         required: true
-        default: all
+        default: components
         type: choice
-        options: [raw, corpus, rewrite, noise, pcm, formats, window, dispatch, numerical-dispatch, aifc-original, aifc, adp4-probe, adp4-decoder, codec-metadata, all]
+        options: [components, raw, corpus, rewrite, noise, pcm, formats, window, dispatch, numerical-dispatch, aifc-original, aifc, adp4-probe, adp4-decoder, codec-metadata, all]
 permissions:
   contents: write
 concurrency:
@@ -56,19 +56,19 @@ jobs:
     timeout-minutes: 40
     env:
       RUN_CORPUS: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'corpus') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-corpus]')) }}
-      RUN_RAW: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'raw' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-raw]')) }}
-      RUN_REWRITE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'rewrite' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-rewrite]')) }}
-      RUN_NOISE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'noise' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-noise]')) }}
-      RUN_WINDOW: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'window') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-window]')) }}
-      RUN_PCM: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'pcm' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-pcm]')) }}
+      RUN_RAW: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'raw') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-raw]')) }}
+      RUN_REWRITE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'rewrite' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-rewrite]')) }}
+      RUN_NOISE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'noise' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-noise]')) }}
+      RUN_WINDOW: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'window' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-window]')) }}
+      RUN_PCM: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'pcm' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-pcm]')) }}
       RUN_NUMERICAL_DISPATCH: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'numerical-dispatch') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-numerical-dispatch]')) }}
       RUN_DISPATCH: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'dispatch') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-dispatch]')) }}
-      RUN_ADP4_DECODER: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'adp4-decoder') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-adp4-decoder]')) }}
+      RUN_ADP4_DECODER: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'adp4-decoder' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-adp4-decoder]')) }}
       RUN_ADP4_PROBE: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'adp4-probe') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-adp4-probe]')) }}
-      RUN_CODEC_METADATA: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'codec-metadata') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-codec-metadata]')) }}
+      RUN_CODEC_METADATA: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'codec-metadata' || inputs.scope == 'components' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-codec-metadata]')) }}
       RUN_AIFC: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc]')) }}
       RUN_AIFC_ORIGINAL: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc-original') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc-original]')) }}
-      RUN_FORMATS: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'formats' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-input-metadata]')) }}
+      RUN_FORMATS: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'formats') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-input-metadata]')) }}
     steps:
       - uses: actions/checkout@v4
       - name: Record requested groups and verify original input
