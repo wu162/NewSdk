@@ -1,0 +1,14 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics.csproj (in 1.44 sec).
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics\SqlMetricsWriter.cs(41,7): warning CS0219: The variable 'num' is assigned but its value is never used [D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics\MetricManager.cs(102,10): warning CS0219: The variable 'obj2' is assigned but its value is never used [D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics.csproj]
+  EALA.Metrics -> D:\a\_temp\metrics-tests-d17128a3574644009dd7213e5f5d4660\build-Debug-Metrics\EALA.Metrics.dll
+
+Build succeeded.
+
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics\SqlMetricsWriter.cs(41,7): warning CS0219: The variable 'num' is assigned but its value is never used [D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics\MetricManager.cs(102,10): warning CS0219: The variable 'obj2' is assigned but its value is never used [D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\EALA.Metrics.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:09.13

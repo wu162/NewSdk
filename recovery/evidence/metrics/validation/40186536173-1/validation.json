@@ -1,0 +1,108 @@
+{
+  "sourceCommit": "2fc44710df27ea9baf4e73d183dcd7697a9a435d",
+  "sdkValidated": false,
+  "configurations": [
+    {
+      "succeeded": true,
+      "transcriptSha256": "20ae1300c28739641b99f4d5293dd543aab267a68944e7a21f604dffca440de4",
+      "withoutOriginalTargetDlls": true,
+      "configuration": "Debug",
+      "libraries": [
+        {
+          "sha256": "e39e86fc5972457517b131c90de6616eb86f7f5ea537c8f6516332897e536f3c",
+          "assembly": "Metrics"
+        }
+      ]
+    },
+    {
+      "succeeded": true,
+      "transcriptSha256": "20ae1300c28739641b99f4d5293dd543aab267a68944e7a21f604dffca440de4",
+      "withoutOriginalTargetDlls": true,
+      "configuration": "Release",
+      "libraries": [
+        {
+          "sha256": "dc9ac88f9f7ceff3a7cb1a97cc4892d98d0932116154de9e56afc49b5878d55e",
+          "assembly": "Metrics"
+        }
+      ]
+    }
+  ],
+  "scope": "EALA.Metrics source; complete type/member inventory and offline component behavior differential in isolated processes",
+  "cultures": [
+    "en-US",
+    "de-DE",
+    "tr-TR"
+  ],
+  "runId": "40186536173",
+  "sqlServerValidated": false,
+  "inputs": [
+    {
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c",
+      "path": "SDK/tools/EALA.Metrics.dll"
+    }
+  ],
+  "runAttempt": "1",
+  "casesPerConfiguration": 1197,
+  "sourceFiles": [
+    {
+      "sha256": "79914b5e84e1a58b12d9e874ea343e2d131dcdaaf0a3bacf01210219fc679d13",
+      "path": "recovery/src/Managed/Metrics/.gitignore"
+    },
+    {
+      "sha256": "c062c918f5ffdc4bb9b808351d02e94152e2b6d3c8317db8879b22fb3e941eb3",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics.csproj"
+    },
+    {
+      "sha256": "747e6b460373fb5b2d311e96e569679facf1afc1c2a7bf1c55c89e9314bb7719",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ConsoleMetricsListener.cs"
+    },
+    {
+      "sha256": "1c3ab5a973b8e495fb6e42c8e828562a404b087177ffc17569e9082ae040cd04",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/IMetricsListener.cs"
+    },
+    {
+      "sha256": "ba961579480977b1f11cc16fa031a3ca4b502ba47685dd63d179ac7550abd4ec",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ListMetric.cs"
+    },
+    {
+      "sha256": "7f42ae0b477360e243147b76c957fa433964b3c83482569360805e95c46e6817",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/Metric.cs"
+    },
+    {
+      "sha256": "d4c07a6586717f1a14f00a1fa24bafb3279fb6acdf25bdaa949a9470930d55e1",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricApplicationData.cs"
+    },
+    {
+      "sha256": "3a699d3b647cd91712fc5505d2a5d8cbb06d82b183eac7725b61690956eae7cc",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricDescriptor.cs"
+    },
+    {
+      "sha256": "4e7b7f240ed5be75925b45215bdcf00d315b34ccce5e0342440685250c981f44",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricManager.cs"
+    },
+    {
+      "sha256": "fef835e4574f1d354578cb512fb37f995ef9c6d14c0fa19599ee726829cc6e38",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricTimer.cs"
+    },
+    {
+      "sha256": "711d2cb5765b70d8d450476c618aab1677e70f14df935edd2f1868849449634c",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/MetricType.cs"
+    },
+    {
+      "sha256": "809b996049bfa9f68beb2e7b051b4798ee40799ca5f6a945f281dcb0df7aabec",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/ReportMetrics.cs"
+    },
+    {
+      "sha256": "a01cd564fb52186b7f4f72178340f4f81f741b58154ae00286c20e5fbdabc107",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsListener.cs"
+    },
+    {
+      "sha256": "0c67df76f8e22817fce0604048d06d2efc26fd2d1678d2840f614a2f256e9356",
+      "path": "recovery/src/Managed/Metrics/EALA.Metrics/SqlMetricsWriter.cs"
+    },
+    {
+      "sha256": "9e7bc7f19e1a882d4170684fe44cda2d3a9a917776829c51aaef5f77e07b51b7",
+      "path": "recovery/src/Managed/Metrics/Properties/AssemblyInfo.cs"
+    }
+  ]
+}
