@@ -4,8 +4,9 @@ using System.IO;
 using System.Text;
 
 // Full AudioFile rate-conversion fixtures. The pcm- prefix makes the caller
-// require successful buffers and CustomData; equal original/candidate errors
-// cannot pass this group. Every fixture traverses the real plugin entry point.
+// require successful buffers and CustomData for defined inputs. The eight
+// original uninitialized single-frame imports retain full original evidence
+// and require an exact candidate safety rejection; see SingleFrameImportBoundary. Every fixture traverses the real plugin entry point.
 internal static class AudioResampleCases
 {
     internal static void Run(string root, Action<string, int, string, bool> run)

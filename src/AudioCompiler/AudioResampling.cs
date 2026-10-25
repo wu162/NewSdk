@@ -19,6 +19,11 @@ namespace BinaryAssetBuilder.AudioCompiler
             if ((input.Channels != 1 && input.Channels != 2) || input.Samples.Length % input.Channels != 0)
                 throw new ArgumentException("Mono/stereo interleaved PCM is required", "input");
             int sourceFrames = input.Samples.Length / input.Channels;
+            // Original 0x404e0 succeeds without reading/writing any samples
+            // for start0,count1. The caller's malloc payload is uninitialized.
+            // Do not emulate its non-deterministic heap contents.
+            if (sourceFrames == 1)
+                throw new NotSupportedException("Single-frame SIMEX source import leaves samples uninitialized; rate conversion requires at least two source frames");
             if (sourceFrames == 0 || sourceFrames > 0x1fffffff)
                 throw new ArgumentOutOfRangeException("input", "Unsupported PCM frame count");
             if (input.SampleRate <= 0 || input.SampleRate > 0x3ffff)

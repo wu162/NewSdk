@@ -79,6 +79,28 @@ try {
                 $receipt.configurations += @{configuration=$mode;group=$group;passed=$false;error='oracle failed'}
                 continue
             }
+            $safetyRejections = 0
+            if ($group -eq 'resample-full') {
+                # Exact registered undefined-import cases stay in the full transcripts.
+                # Their candidate errors are asserted by AudioPluginOracle; original
+                # malloc contents cannot be an equivalence target (see native audit).
+                $undefinedPattern = '^pcm-resample-400-96000-1-[12]-signal0-(NONE|XAS)-(False|True):0:dispatch:'
+                $originalRows = @(Get-Content $expectedFile)
+                $candidateRows = @(Get-Content $actualFile)
+                if ($originalRows.Count -ne 456 -or $candidateRows.Count -ne 456) { throw 'Expected all 456 registered resampling records' }
+                $originalUndefined = @($originalRows | Where-Object { $_ -match $undefinedPattern })
+                $candidateUndefined = @($candidateRows | Where-Object { $_ -match $undefinedPattern })
+                if ($originalUndefined.Count -ne 8 -or $candidateUndefined.Count -ne 8) { throw 'Expected exactly eight undefined single-frame importer records' }
+                if (@($originalUndefined | Where-Object { $_ -notmatch ':BUFFER:' }).Count -ne 0) { throw 'Original single-frame evidence is missing buffers' }
+                if (@($candidateUndefined | Where-Object { $_ -notmatch ':ERROR:System.NotSupportedException:' -or $_ -notmatch ':CUSTOM:<absent>$' }).Count -ne 0) { throw 'Candidate single-frame safety records invalid' }
+                $originalUndefined | Set-Content "$out/original-single-frame-evidence.txt"
+                $candidateUndefined | Set-Content "$out/$mode-single-frame-safety.txt"
+                $expectedFile = "$out/original-resample-defined.txt"
+                $actualFile = "$out/$mode-resample-defined.txt"
+                @($originalRows | Where-Object { $_ -notmatch $undefinedPattern }) | Set-Content $expectedFile
+                @($candidateRows | Where-Object { $_ -notmatch $undefinedPattern }) | Set-Content $actualFile
+                $safetyRejections = 8
+            }
             $actual = (Get-FileHash $actualFile).Hash
             $expectedHash = (Get-FileHash $expectedFile).Hash
             if ($actual -ne $expectedHash) {
@@ -88,7 +110,7 @@ try {
                 continue
             }
             $count = @(Get-Content $actualFile).Count
-            $receipt.configurations += @{configuration=$mode;group=$group;passed=$true;records=$count;transcriptSha256=$actual.ToLowerInvariant();recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true}
+            $receipt.configurations += @{configuration=$mode;group=$group;passed=$true;records=$count;candidateSafetyRejections=$safetyRejections;originalUndefinedEvidenceRecords=$safetyRejections;transcriptSha256=$actual.ToLowerInvariant();recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true}
             Write-Host "PASS Audio plugin $mode $group`: $count identical three-buffer/custom-data records"
         }
     }

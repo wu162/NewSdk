@@ -1,0 +1,153 @@
+Original DLL SHA256 a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139
+Instruction addresses below use the preferred image VA; subtract 0x10000000 for RVA.
+Targeted original-machine-code execution: start0/count1/channels1/format0, channelTable[0] points to a 64-byte initialized guard; return=1, guard unchanged=True.
+
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1004050a <.text+0x3f50a>:
+1004050a:	8b 44 24 14          	mov    0x14(%esp),%eax
+1004050e:	53                   	push   %ebx
+1004050f:	8b 5c 24 14          	mov    0x14(%esp),%ebx
+10040513:	55                   	push   %ebp
+10040514:	8d 6c 03 ff          	lea    -0x1(%ebx,%eax,1),%ebp
+10040518:	85 ed                	test   %ebp,%ebp
+1004051a:	7f 08                	jg     0x10040524
+1004051c:	5d                   	pop    %ebp
+1004051d:	b8 01 00 00 00       	mov    $0x1,%eax
+10040522:	5b                   	pop    %ebx
+10040523:	c3                   	ret
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10026c10 <.text+0x25c10>:
+10026c10:	53                   	push   %ebx
+10026c11:	56                   	push   %esi
+10026c12:	57                   	push   %edi
+10026c13:	8b 7c 24 10          	mov    0x10(%esp),%edi
+10026c17:	33 f6                	xor    %esi,%esi
+10026c19:	80 bf f6 01 00 00 00 	cmpb   $0x0,0x1f6(%edi)
+10026c20:	7e 2b                	jle    0x10026c4d
+10026c22:	8d 5f 68             	lea    0x68(%edi),%ebx
+10026c25:	8b 87 18 02 00 00    	mov    0x218(%edi),%eax
+10026c2b:	03 c0                	add    %eax,%eax
+10026c2d:	50                   	push   %eax
+10026c2e:	e8 fd 29 01 00       	call   0x10039630
+10026c33:	83 c4 04             	add    $0x4,%esp
+10026c36:	85 c0                	test   %eax,%eax
+10026c38:	89 03                	mov    %eax,(%ebx)
+10026c3a:	74 17                	je     0x10026c53
+10026c3c:	0f be 8f f6 01 00 00 	movsbl 0x1f6(%edi),%ecx
+10026c43:	83 c6 01             	add    $0x1,%esi
+10026c46:	83 c3 04             	add    $0x4,%ebx
+10026c49:	3b f1                	cmp    %ecx,%esi
+10026c4b:	7c d8                	jl     0x10026c25
+10026c4d:	5f                   	pop    %edi
+10026c4e:	5e                   	pop    %esi
+10026c4f:	33 c0                	xor    %eax,%eax
+10026c51:	5b                   	pop    %ebx
+10026c52:	c3                   	ret
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10039630 <.text+0x38630>:
+10039630:	56                   	push   %esi
+10039631:	8b 74 24 08          	mov    0x8(%esp),%esi
+10039635:	85 f6                	test   %esi,%esi
+10039637:	7f 13                	jg     0x1003964c
+10039639:	56                   	push   %esi
+1003963a:	68 7c 8b 0b 10       	push   $0x100b8b7c
+1003963f:	ff 15 94 df 0f 10    	call   *0x100fdf94
+10039645:	83 c4 08             	add    $0x8,%esp
+10039648:	33 c0                	xor    %eax,%eax
+1003964a:	5e                   	pop    %esi
+1003964b:	c3                   	ret
+1003964c:	8d 46 0c             	lea    0xc(%esi),%eax
+1003964f:	50                   	push   %eax
+10039650:	ff 15 80 b1 0a 10    	call   *0x100ab180
+10039656:	83 c4 04             	add    $0x4,%esp
+10039659:	85 c0                	test   %eax,%eax
+1003965b:	74 1b                	je     0x10039678
+1003965d:	83 f8 ff             	cmp    $0xffffffff,%eax
+10039660:	74 16                	je     0x10039678
+10039662:	89 70 04             	mov    %esi,0x4(%eax)
+10039665:	c7 00 47 4d 45 4d    	movl   $0x4d454d47,(%eax)
+1003966b:	c7 44 30 08 47 45 4e 	movl   $0x444e4547,0x8(%eax,%esi,1)
+10039672:	44 
+10039673:	83 c0 08             	add    $0x8,%eax
+10039676:	5e                   	pop    %esi
+10039677:	c3                   	ret
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+100377a9 <.text+0x367a9>:
+100377a9:	0f be 8b f5 01 00 00 	movsbl 0x1f5(%ebx),%ecx
+100377b0:	53                   	push   %ebx
+100377b1:	8d 53 68             	lea    0x68(%ebx),%edx
+100377b4:	52                   	push   %edx
+100377b5:	0f be 93 f6 01 00 00 	movsbl 0x1f6(%ebx),%edx
+100377bc:	8d 44 24 68          	lea    0x68(%esp),%eax
+100377c0:	50                   	push   %eax
+100377c1:	8b 83 18 02 00 00    	mov    0x218(%ebx),%eax
+100377c7:	6a 00                	push   $0x0
+100377c9:	51                   	push   %ecx
+100377ca:	52                   	push   %edx
+100377cb:	8b 55 08             	mov    0x8(%ebp),%edx
+100377ce:	50                   	push   %eax
+100377cf:	8b 42 10             	mov    0x10(%edx),%eax
+100377d2:	6a 00                	push   $0x0
+100377d4:	6a 00                	push   $0x0
+100377d6:	8d 8c 24 84 01 00 00 	lea    0x184(%esp),%ecx
+100377dd:	51                   	push   %ecx
+100377de:	50                   	push   %eax
+100377df:	e8 fc 8c 00 00       	call   0x100404e0
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1003763c <.text+0x3663c>:
+1003763c:	85 c0                	test   %eax,%eax
+1003763e:	0f 8c b9 01 00 00    	jl     0x100377fd
+10037644:	53                   	push   %ebx
+10037645:	e8 c6 f5 fe ff       	call   0x10026c10
+1003764a:	83 c4 04             	add    $0x4,%esp
+1003764d:	85 c0                	test   %eax,%eax
+1003764f:	0f 8c a8 01 00 00    	jl     0x100377fd
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10040608 <.text+0x3f608>:
+10040608:	85 c0                	test   %eax,%eax
+1004060a:	75 1b                	jne    0x10040627
+1004060c:	8b 44 24 38          	mov    0x38(%esp),%eax
+10040610:	8b 4c 24 34          	mov    0x34(%esp),%ecx
+10040614:	50                   	push   %eax
+10040615:	51                   	push   %ecx
+10040616:	55                   	push   %ebp
+10040617:	53                   	push   %ebx
+10040618:	57                   	push   %edi
+10040619:	56                   	push   %esi
+1004061a:	e8 81 a9 ff ff       	call   0x1003afa0
+1004061f:	83 c4 18             	add    $0x18,%esp
+10040622:	5e                   	pop    %esi
+10040623:	5f                   	pop    %edi
+10040624:	5d                   	pop    %ebp
+10040625:	5b                   	pop    %ebx
+10040626:	c3                   	ret

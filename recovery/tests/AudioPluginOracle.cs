@@ -14,6 +14,7 @@ internal static class AudioPluginOracle
     private static IAssetBuilderPlugin plugin;
     private static StreamWriter writer;
     private static int count;
+    private static bool originalImplementation;
     private static string Esc(string value) { return System.Security.SecurityElement.Escape(value); }
     private static string Data(byte[] bytes) { return bytes == null ? "<null>" : Convert.ToBase64String(bytes); }
     private static InstanceDeclaration Declaration(string xmlText, string custom)
@@ -57,7 +58,14 @@ internal static class AudioPluginOracle
         }
         if ((label.StartsWith("map") || label.StartsWith("track") || label.StartsWith("event")) && !result.StartsWith("BUFFER:"))
             throw new Exception("Required PathMusic fixture failed: " + label + " platform=" + platform + " result=" + result);
-        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-") || label.StartsWith("loop-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
+        bool undefinedSingleFrameImport = label.StartsWith("pcm-resample-400-96000-1-", StringComparison.Ordinal);
+        if (undefinedSingleFrameImport && !originalImplementation)
+        {
+            string expectedError = "ERROR:System.NotSupportedException:" + Convert.ToBase64String(Encoding.UTF8.GetBytes("Single-frame SIMEX source import leaves samples uninitialized; rate conversion requires at least two source frames"));
+            if (result != expectedError || File.Exists(custom))
+                throw new Exception("Single-frame import safety rejection differs: " + label + " result=" + result);
+        }
+        if ((!undefinedSingleFrameImport || originalImplementation) && (label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-") || label.StartsWith("loop-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
             throw new Exception("Required AudioFile fixture failed: " + label + " platform=" + platform + " result=" + result);
         bool validMp3 = label.StartsWith("mp3-mono.") || label.StartsWith("mp3-stereo.") || label.StartsWith("mp3-subtitle-");
         if (validMp3)
@@ -169,6 +177,7 @@ internal static class AudioPluginOracle
             if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults|rates|main|pcm8|formats");
             if (IntPtr.Size != 4) throw new Exception("x86 CLR required");
             bool original = args[1] == "original";
+            originalImplementation = original;
             string originalName = "BinaryAssetBuilder.AudioCompiler";
             if (!original && File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, originalName + ".dll"))) throw new Exception("Recovered host contains original target DLL");
             var assembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
