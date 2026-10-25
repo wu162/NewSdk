@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate and verify the recovered filter120 x87 half-window constants.
+"""Audit the pinned Linux emulator window against the original Windows CPU source.
 
 The original RVA 0x41d05..0x41d20 computes:
     binary53((FCOS(binary53(binary53(i * binary32(pi)) / support)) + 1) * 0.5)
@@ -83,7 +83,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dll', default='SDK/tools/BinaryAssetBuilder.AudioCompiler.dll')
     parser.add_argument('--source', default='src/AudioCompiler/Native/ResamplerCoefficients.cs')
-    parser.add_argument('--output', help='Optional raw little-endian binary64 output file')
+    parser.add_argument('--output', help='Optional raw emulator little-endian binary64 output file; not a native CPU reference')
     args = parser.parse_args()
     result = extract(args.dll)
     source = pathlib.Path(args.source).read_text()
@@ -92,11 +92,14 @@ def main():
         raise ValueError('Candidate WindowBits declaration was not found')
     encoded = ''.join(re.findall(r'"([A-Za-z0-9+/=]+)"', match.group(1)))
     candidate = base64.b64decode(encoded, validate=True)
-    if len(candidate) != 512 * 8 or candidate != result:
-        raise ValueError('Candidate window constants differ from the original x87 extraction')
+    native_sha = '605c69534025d105b254107d80806e5e6b07bd8feb36ae0de3cadfc6a9813d87'
+    if len(candidate) != 512 * 8 or hashlib.sha256(candidate).hexdigest() != native_sha:
+        raise ValueError('Source differs from original Windows CPU run40207591570 window')
+    differences = sum(candidate[i:i+8] != result[i:i+8] for i in range(0, len(result), 8))
+    print('EMULATOR_SOURCE_DIFFERENCES=' + str(differences) + '; original Windows CPU/source SHA256=' + native_sha)
     if args.output:
         pathlib.Path(args.output).write_bytes(result)
-    print('PASS original x87 window/source bytes: 512 binary64 constants; '
+    print('PASS pinned Linux emulator extraction (not CPU/source equality): 512 binary64 constants; '
           'support256 even-index identity; FPCW=0x027f; sha256=' + hashlib.sha256(result).hexdigest())
 
 

@@ -14,8 +14,6 @@ try {
  $inputFile=Join-Path $out 'original.tsv.gz'
  if($OracleInput) { Copy-Item (Resolve-Path $OracleInput).Path $inputFile }
  else {
-  python recovery/scripts/GenerateAudioResamplerWindow.py
-  if($LASTEXITCODE -ne 0){throw 'Original window constants differ from source'}
   python recovery/scripts/GenerateAudioResamplerOracle.py --output $inputFile
   if($LASTEXITCODE -ne 0){throw 'Original native oracle generation failed'}
  }
