@@ -102,21 +102,20 @@ internal static unsafe class TextureCubicIntermediateProbe
         if (!captureIntermediate) return;
         try
         {
-            int count=Marshal.ReadInt32(stack,4);
-            IntPtr table=Marshal.ReadIntPtr(stack,12),source=Marshal.ReadIntPtr(stack,16);
-            if(count<1 || count>32) { traceError="unexpected count="+count;return; }
-            var row=new StringBuilder();row.Append("count=").Append(count);
+            IntPtr factory=Marshal.ReadIntPtr(stack,4),desc=Marshal.ReadIntPtr(stack,16);
+            IntPtr vtable=Marshal.ReadIntPtr(factory);
+            int kind=Marshal.ReadInt32(desc),count=Marshal.ReadInt32(desc,4);
+            IntPtr source=Marshal.ReadIntPtr(desc,12);
+            var row=new StringBuilder();row.Append("kind=").Append(kind).Append(" count=").Append(count);
             row.Append(" cw=").Append(((ushort)Marshal.ReadInt16(fxsave,0)).ToString("X4"));
             row.Append(" mxcsr=").Append(Marshal.ReadInt32(fxsave,24).ToString("X8"));
-            for(int i=0;i<count;i++)
+            row.Append(" arg2=").Append(Marshal.ReadInt32(stack,8).ToString("X8")).Append(" arg3=").Append(Marshal.ReadInt32(stack,12).ToString("X8"));
+            if(kind==0 || kind==4 || kind==6)
+                row.Append(" worker=").Append((Marshal.ReadIntPtr(vtable,kind==0?0x48:kind==4?0x50:0x4c).ToInt32()-hookAddress.ToInt32()+0x5d870).ToString("X8"));
+            if(kind==6 && count>=0 && count<=128 && source!=IntPtr.Zero)
             {
-                int first=Marshal.ReadInt32(table,i*12),last=Marshal.ReadInt32(table,i*12+4);
-                IntPtr weights=Marshal.ReadIntPtr(table,i*12+8);
-                if(first<0 || last<first || last>128){traceError="unsafe contribution bounds";return;}
-                row.Append(" row=").Append(first).Append(',').Append(last).Append(" weights=");
-                for(int k=0;k<last-first;k++)row.Append(Marshal.ReadInt64(weights,k*8).ToString("X16")).Append(',');
                 row.Append(" sourceRGBA=");
-                for(int k=first*4;k<last*4;k++)row.Append(Marshal.ReadInt32(source,k*4).ToString("X8")).Append(',');
+                for(int k=0;k<count*4;k++)row.Append(Marshal.ReadInt32(source,k*4).ToString("X8")).Append(',');
             }
             floatBits.Add(row.ToString());tracedCalls++;
         }catch(Exception e){traceError=e.GetType().Name+":"+e.Message;}
@@ -124,10 +123,10 @@ internal static unsafe class TextureCubicIntermediateProbe
     private static void Add32(List<byte> code, int value) { code.AddRange(BitConverter.GetBytes(value)); }
     private static void BeginProbe(IntPtr module)
     {
-        hookAddress=new IntPtr(module.ToInt32()+0x5e6c0);
+        hookAddress=new IntPtr(module.ToInt32()+0x5d870);
         savedBytes=new byte[7];Marshal.Copy(hookAddress,savedBytes,0,7);
-        byte[] expected={0x8b,0x44,0x24,0x04,0x83,0xec,0x08};
-        for(int i=0;i<expected.Length;i++)Check(savedBytes[i]==expected[i],"float4 horizontal entry opcode guard");
+        byte[] expected={0x8b,0x44,0x24,0x10,0x8b,0x10,0x56};
+        for(int i=0;i<expected.Length;i++)Check(savedBytes[i]==expected[i],"native filter dispatch opcode guard");
         traceRoot=new FloatTrace(Trace);
         IntPtr callback=Marshal.GetFunctionPointerForDelegate(traceRoot);
         trampoline=VirtualAlloc(IntPtr.Zero,new UIntPtr(1024),0x3000,0x40);
