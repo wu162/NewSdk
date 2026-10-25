@@ -1,0 +1,13 @@
+PASS SDK actual W3DAnimation	W3xRecoveryDefault bytes=420 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryExplicitDefaults bytes=448 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryTimecodedOnly bytes=652 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryDeltaOnly bytes=668 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryBothDisabled bytes=520 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryReduction bytes=468 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoverySingleFrame bytes=276 isolated=True
+PASS SDK actual W3DAnimation	W3xRecoveryDeltaFallbackError bytes=956 isolated=True
+PASS SDK actual W3DMesh	W3xRecoveryNormal bytes=300 isolated=True
+PASS SDK actual W3DMesh	W3xRecoverySkin bytes=1036 isolated=True
+PASS SDK actual W3DMesh	W3xRecoveryCameraAligned bytes=300 isolated=True
+PASS SDK actual W3DMesh	W3xRecoveryCameraOriented bytes=300 isolated=True
+PASS W3X actual SDK calls=12 expectedAssets=12 threeBufferComparisons=36; all emitted instances present in mod.bin; isolated=True

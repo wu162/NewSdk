@@ -1,0 +1,20 @@
+{
+  "closureSha256": "1ae31607febf9cd6cdfd612577761595b2aaa6a1dece4063e6d193fbc0a6d1c9",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "succeeded": true,
+  "sdkStarted": false,
+  "validatedRunId": "40168123437",
+  "validatedSourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+  "validatedRunAttempt": 1,
+  "sourceCommit": "34dfd46bf509cdf3e3e35767d310d61d5cabcf90",
+  "gateSha256": "4b8f28377190bad4f93b229143e3f00eac40dcb5a403578ea219a12e73f45252",
+  "trees": {
+    "srcTreeHash": "eb892aefa713857c76df3a130063defd02804fc3",
+    "testsTreeHash": "fc853337802069bd0f69405d7e610e8d24aa2b28",
+    "modsTreeHash": "438626a8ddd0724e06115a5443efccaeba7b91dd",
+    "sdkToolsTreeHash": "10a9b868c74db96976c9c306dc587ec5de62965f",
+    "scriptsTreeHash": "805500a71e617a906115a5bde2b3e790420ec5ec",
+    "schemasTreeHash": "62e1c5684ee0ea4407430f0a343a37431be6c03c",
+    "workflowsTreeHash": "4a14d68920b41092139690806324a85126d126b6"
+  }
+}

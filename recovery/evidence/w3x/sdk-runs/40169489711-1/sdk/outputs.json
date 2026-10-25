@@ -1,0 +1,74 @@
+[
+  {
+    "file": "mod.bin",
+    "bytes": 10796,
+    "sha256": "f62716f91820e3307d3928473df973a02809f349d1428be28d518773bdee5193",
+    "mode": "Original"
+  },
+  {
+    "file": "mod.manifest",
+    "bytes": 1439,
+    "sha256": "f548b09c30af61740781e28df509e49ac20d05ccb7f2f8a002d50bb28886bc2d",
+    "mode": "Original"
+  },
+  {
+    "file": "mod.imp",
+    "bytes": 76,
+    "sha256": "6284f1cf8f0c2795e875dfcb79f0f4090185f9ced270a16bdde7fb29f20b75f3",
+    "mode": "Original"
+  },
+  {
+    "file": "mod.relo",
+    "bytes": 788,
+    "sha256": "b657ddac1120c1a45fcedc26aa202e32721380a386968b5e9b7ffafd795c3831",
+    "mode": "Original"
+  },
+  {
+    "file": "mod.bin",
+    "bytes": 10796,
+    "sha256": "f62716f91820e3307d3928473df973a02809f349d1428be28d518773bdee5193",
+    "mode": "Recovered"
+  },
+  {
+    "file": "mod.manifest",
+    "bytes": 1439,
+    "sha256": "f548b09c30af61740781e28df509e49ac20d05ccb7f2f8a002d50bb28886bc2d",
+    "mode": "Recovered"
+  },
+  {
+    "file": "mod.imp",
+    "bytes": 76,
+    "sha256": "6284f1cf8f0c2795e875dfcb79f0f4090185f9ced270a16bdde7fb29f20b75f3",
+    "mode": "Recovered"
+  },
+  {
+    "file": "mod.relo",
+    "bytes": 788,
+    "sha256": "b657ddac1120c1a45fcedc26aa202e32721380a386968b5e9b7ffafd795c3831",
+    "mode": "Recovered"
+  },
+  {
+    "file": "mod.bin",
+    "bytes": 10796,
+    "sha256": "f62716f91820e3307d3928473df973a02809f349d1428be28d518773bdee5193",
+    "mode": "RecoveredWithoutOriginal"
+  },
+  {
+    "file": "mod.manifest",
+    "bytes": 1439,
+    "sha256": "f548b09c30af61740781e28df509e49ac20d05ccb7f2f8a002d50bb28886bc2d",
+    "mode": "RecoveredWithoutOriginal"
+  },
+  {
+    "file": "mod.imp",
+    "bytes": 76,
+    "sha256": "6284f1cf8f0c2795e875dfcb79f0f4090185f9ced270a16bdde7fb29f20b75f3",
+    "mode": "RecoveredWithoutOriginal"
+  },
+  {
+    "file": "mod.relo",
+    "bytes": 788,
+    "sha256": "b657ddac1120c1a45fcedc26aa202e32721380a386968b5e9b7ffafd795c3831",
+    "mode": "RecoveredWithoutOriginal"
+  }
+]

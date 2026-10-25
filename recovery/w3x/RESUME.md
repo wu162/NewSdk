@@ -1,50 +1,32 @@
-# 续接：修复真实SDK原版基线的纹理依赖（2026-10-25）
+# W3X：完整类型与真实SDK对照已通过
 
-最新远程SDK run `40168310561` / source `34dfd46bf509cdf3e3e35767d310d61d5cabcf90`：闭合门槛、完整原生双模式、正式插件双模式及无原DLL组件重放均成功。真实BAB已启动，但Original在Texture:W3xRecoveryTexture报文件不存在，恢复版尚未启动，不能宣称SDK成功。
+更新：2026-10-25（北京时间）。目标分支 `recovery/w3xcompiler-source`。本轮单代理，禁止强推。
 
-原因经原Core.FileNameResolver.ResolvePath及AssetDeclarationDocument.HandleFileReferenceType确认：Dependencies.xml中的无别名前缀File按Data目录解析，纹理实际在Art目录。现改为../Art/W3xRecoveryTexture.tga，并给完整XSD前置宿主加入文档相对纹理存在性检查；保留全部对照门槛。当前改动待Windows验证，通过后更新SDK_READY的来源与七树指纹再集中运行三份SDK。
+## 当前结论与精确锚点
 
----
+W3DAnimation/W3DMesh 已完成所列定义行为的源码恢复，并通过完整组件、正式可加载插件与真实BAB编译对照。最终验收源码 `ceeef68df4c032309154214f6746322e0a65e2ec`，SDK run `40169489711` attempt1，job `121097257454`，运行及全部步骤 success。已从下载artifact独立核对 sourceCommit/runId、组件/插件/SDK三个成功状态及三组四份输出逐字节相等，而非仅看工作流绿灯。
 
-# 本轮已闭合各类型，已授权启动SDK对照（2026-10-25）
+真实SDK按 EALAModStudio 使用的 `SDK/defaultscript.cs` case5 启动BAB基本数据编译。专用 `SDK/Mods/W3xRecovery` 包含8个动画、4个网格、两骨骼Hierarchy及纹理依赖；全量原SDK CnC3Types.xsd四文档验证通过。三个全新SDK副本分别使用原插件、恢复插件、恢复插件且物理移除原W3X DLL，均编译成功。
 
-用户最新指令：完成各类型还原后才启动SDK真实验证，本轮最多一小时。新增合法数值域补全、34个命名XSD类型归类和默认可加载NativePlugin。源码 `bb2de50446b1012b5107613a88a4ce3b36e42e16` / run `40167490640` attempt1 原生双模式、正式插件原版及无原DLL对照、完整原SDK XSD四文档前置检查全部success；上一轮门槛不再代表尚未还原。SDK_READY.json已绑定此真实成功源码、七个依赖树和closure指纹。下一工作流先重核同一业务代码/依赖并重跑当前源门槛，再运行三份真实SDK；尚未宣称SDK通过。
+| 三组完全相同的产物 | 字节数 | SHA-256 |
+| --- | ---: | --- |
+| mod.bin | 10796 | f62716f91820e3307d3928473df973a02809f349d1428be28d518773bdee5193 |
+| mod.manifest | 1439 | f548b09c30af61740781e28df509e49ac20d05ccb7f2f8a002d50bb28886bc2d |
+| mod.imp | 76 | 6284f1cf8f0c2795e875dfcb79f0f4090185f9ced270a16bdde7fb29f20b75f3 |
+| mod.relo | 788 | b657ddac1120c1a45fcedc26aa202e32721380a386968b5e9b7ffafd795c3831 |
 
-下方保留上一轮业务能力与验证锚点作为历史；最终SDK结果在本轮结束时更新。
+恢复版与无原DLL版各捕获12次实际ProcessInstance调用，覆盖全部8动画/4网格；各36次三缓冲区比较，实例数据均出现在最终mod.bin中。恢复版轨迹由原插件重放逐字节对照；无原DLL轨迹由独立恢复版重放，检查原程序集未加载。SDK当前只验证Win32，组件平台矩阵保留0/1/2及动画99。
 
----
+同一SDK运行先重跑并通过/Od、/O2完整组件矩阵和正式插件差分/无原DLL重放：每模式675动画、666网格原捕获；正式插件1341 fixtures，8052三缓冲区差分比较，独立无原DLL1341 fixtures/4029比较。完整数值域和34个命名XSD类型归类见 `W3xTypeClosure.json`，未定义行为安全拒绝边界仍保留。
 
-# W3X：完整动画与网格组件通过双模式原版差分
+## 本轮修复与证据
 
-更新：2026-10-25（北京时间）。目标分支 `recovery/w3xcompiler-source`。本轮最多六个子代理；用户要求正确性优先、效率优先、最多一小时，**不做SDK真实验证**。
+前一SDK run `40168310561` / source `34dfd46bf509cdf3e3e35767d310d61d5cabcf90` 的Original阶段报纹理文件不存在，未进入恢复版。经原Core.FileNameResolver.ResolvePath与HandleFileReferenceType确认，无别名File按声明XML所在目录解析。修复为 `../Art/W3xRecoveryTexture.tga`，并在完整XSD前置宿主检查文档相对纹理存在性；source `6930e9fb09bfa47ed77835f3670c8ae67135be4c` / prerequisite run `40169265269` 全部成功后才更新SDK_READY七树指纹并启动最终SDK。没有修改恢复算法或放宽断言。
 
-## 当前实现
+最终不可变证据：`recovery/evidence/w3x/sdk-runs/40169489711-1`。`acceptance-evidence.zip`保存实际SDK的四种产物、预处理XML/三缓冲区轨迹、命令/配置/输入与工具指纹、日志和组件/插件验证JSON；execution.json记录归档指纹及原artifact来源。原artifact SHA-256 `3505be53de52f6bffb620505563a0602cad2e7a5b4c288257fa29ed66d63337e`。前次失败与修复后前置报告分别保存在 `sdk-runs/40168310561-1`、`prerequisite-runs/40169265269-1`。
 
-已恢复独立C#托管元信息/生命周期/分派（沿用先前通过记录，不重复调查）；新增 Timecoded、AdaptiveDelta、动画帧展开/压缩选择/三缓冲区输出、8种网格转换、布局/骨骼/顶点组件，以及完整W3DMesh root96、Triangles、bounds、AABTree、Shader与四类常量。两条XML组件桥接收BAB已完成预处理的输入。新代码在 `src/Native/W3x`、`src/Bridge/W3x`；公共Tracker/标量/资源源文件只链接复用，没有修改。
+## 剩余范围
 
-原DLL固定取证：`runs/40162934653-1`，SHA-256 `bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1`。能力合同见 TIMECODED.md、ADAPTIVE_DELTA.md、ANIMATION_PIPELINE.md、MESH_CONVERTERS.md、MESH_BUILDER.md、MESH_ASSET.md、MESH_XML.md、SHADER.md。
+本轮目标（所列W3X类型恢复及专用MOD真实SDK验证）已完成，无待修复失败。SDK配置和原DLL没有正式替换；可加载恢复身份为 `Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin`，构建入口 `BuildW3xPlugin.ps1`。完整程序集同名身份/任意VC8原生指针对象ABI替换、完整mymod及游戏运行时验收不在本次证明范围，不能由专用MOD成功推断。原DLL取证SHA-256为 `bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1`，原始证据 `runs/40162934653-1`；历史组件记录见 `STANDALONE_REPLAY.md`、`NATIVE_VALIDATION.md`。
 
-## 已取得的精确验证范围
-
-最终验收源码 `d98844353d680f1e2cf28e26dc3df3c4d8a04eed`（业务实现与 `41075642ed79ebb06509e00047c22e81cf1248f8` 相同，仅追加捕获/无原DLL重放测试），run `40166287709` attempt1，workflow/job/全部步骤 **success**。已经核对实际双模式PASS、artifact SHA-256、validation.sourceCommit及所有逐组布尔状态。
-
-| 每优化模式（/Od、/O2均通过） | 原版差分范围 |
-| --- | --- |
-| 完整动画XML→ProcessInstance三缓冲区 | 675 fixtures / 2025 buffer comparisons，平台0/1/2/99（99仅显式设置） |
-| 完整网格XML→ProcessInstance三缓冲区 | 651合法形状+15单列raw边界 / 1998 buffer comparisons，平台0/1/2 |
-| 网格转换 | 9947 fixtures / 1591520 bytes，728原版独立overflow/NaN probes不计支持范围 |
-| AdaptiveDelta | 73728帧+324通道、884 WriteOut/Finalize serialized chunks |
-| Timecoded | 3847通道、6414 WriteOut/Finalize serialized chunks |
-| 孤立顶点组件 | 1296 fixtures，原BuildVertexData及Tracker三缓冲区 |
-
-全部9组独立x86原生检查也通过，包括Shader与完整Mesh根/分配/重定位布局。每模式另在移除原W3X DLL的独立目录重放1341 fixtures，4023三缓冲区比较、540216字节，并核实原程序集未加载。两模式共2682 fixtures、8046 replay buffer comparisons；这是组件重放，不是SDK整链。不可变证据 `evidence/w3x/native-runs/40166287709-1`，原始artifact.zip SHA-256 `1deef30ca9c11bce9fb76ce700e1ee3db003cf560487a6c5f31eec90bbdac7eb`，包含四份原版binary fixture captures及其指纹。此前完整组件成功source41075642/run40165968285也保留。SDK0次。
-
-首轮 `40165200024` / source `b6dd6bd3bddfb07f01bdb6530d98f87aa5302bfa` 发现BE交换后sNaN quiet差异；第二轮 `40165527804` / source `4085f0a0073a1be1f8e2ac622e6ffed5489980d9` 全部纯原生组通过，但XML桥因marshal_as临时句柄C2664编译失败。均已修复，最终完整矩阵通过；两次失败原始archive及逐组结果完整保留。整数换位的Mesh envelope/Shader float list保留原bits，未错误套用float-return quiet规则。
-
-此前托管层已验收源码 `922559600a1f78fa67cc8fe6252994466c7549ce` / run `40163598580`，后续文档提交复核run `40163729737`；细节见MANAGED.md。本轮未改这些托管源，因此未重复触发旧元信息和其他编译器全量回归。
-
-## 未完成门槛与下一步
-
-完整组件矩阵与移除原DLL后的组件重放均已成功，不为文档变更重复运行。当前正式Plugin默认backend仍显式拒绝未集成业务；SDK配置/原DLL不替换。公开FinalizeTracker的VC8指针对象ABI、完整程序集身份替代、正式插件接入、SDK预处理/正式插件/无原DLL整链验收仍是独立门槛。共享Tracker不是原EASTL对象ABI；序列化仅支持x86。数值溢出/非有限值、非法长度等显式拒绝范围详见能力合同，不能以源码存在宣称任意输入已兼容。
-
-本轮六个子代理按算法/编排/桥/原版oracle分工，交叉核对后整批运行；没有重复原始取证、已通过的托管元信息或其他编译器矩阵。无账户额度计量，不能量化节省。最终只保留只读组件工作流，未修改已有回归触发器、SDK路由或原DLL。
+若继续合并或正式部署，先核对目标分支共享源码差异并执行受影响门槛；当前未合入其他分支。不要为本次纯证据/交接提交重复触发相同完整矩阵。未启动或管理Work/Codex任务。无账户额度计量，不能量化节省。

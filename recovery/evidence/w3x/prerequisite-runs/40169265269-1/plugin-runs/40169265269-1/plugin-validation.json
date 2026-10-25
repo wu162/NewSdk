@@ -1,0 +1,40 @@
+{
+  "succeeded": true,
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "scope": "loadable recovered plugin configuration identity/default constructor, both ProcessInstance backends and public handles, original three-buffer differential, standalone captured fixture replay without original W3X compiler; SDK not run",
+  "withoutOriginalReplay": true,
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "runId": "40169265269",
+  "runAttempt": "1",
+  "modes": [
+    {
+      "animationFixtures": 675,
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\40169265269-1\\Od",
+      "withoutOriginalReplay": true,
+      "processInstanceOriginalDifferential": true,
+      "pluginSha256": "f07cb46d16e23247f46d3d2d43d904195177cd4561df76390031f4888def8a86",
+      "mode": "Od",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "meshFixtures": 666,
+      "succeeded": true
+    },
+    {
+      "animationFixtures": 675,
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\40169265269-1\\O2",
+      "withoutOriginalReplay": true,
+      "processInstanceOriginalDifferential": true,
+      "pluginSha256": "6a9d4eb3c0365a6644d3d331eb3ed91c556c01845aa304f30cb41059eb53aff2",
+      "mode": "O2",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "meshFixtures": 666,
+      "succeeded": true
+    }
+  ],
+  "failures": [],
+  "processInstanceOriginalDifferential": true,
+  "componentValidation": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\native-runs\\40169265269-1\\validation.json",
+  "sdkValidated": false,
+  "sourceCommit": "6930e9fb09bfa47ed77835f3670c8ae67135be4c"
+}

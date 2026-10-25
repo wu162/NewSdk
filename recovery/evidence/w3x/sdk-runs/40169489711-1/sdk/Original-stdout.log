@@ -1,0 +1,60 @@
+Command Line: D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\Mods\W3xRecovery\Data\Mod.xml /od:D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods /iod:D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\W3xRecovery\Art;.\Mods;.\Art /audio:.;.\Mods\W3xRecovery\Audio;.\Mods;.\Audio /data:.;.\Mods\W3xRecovery\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\Mods\W3xRecovery\Data\Mod.xml /od:D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods /iod:D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\W3xRecovery\Art;.\Mods;.\Art /audio:.;.\Mods\W3xRecovery\Audio;.\Mods;.\Audio /data:.;.\Mods\W3xRecovery\Data;.\Mods;.\SageXml 
+[00:00:00.0156256] BinaryAssetBuilder started
+[00:00:00.3291179] Cached session data not available.
+[00:00:00.3291179] Session caching enabled ('D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.3291179] Network caching enabled ('D:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\Original\builtmods\cache').
+[00:00:00.3608960] Loading 'file://d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\mod.xml'.
+[00:00:00.3925672] Stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.6738601] Stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.9712351] Stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:01.2681326] Loading 'file://d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\dependencies.xml'.
+[00:00:01.2989201] dependencies.xml: Compiling Texture:W3xRecoveryTexture [21e727da:023d7d9a]
+[00:00:01.3145452] dependencies.xml: Submitting to cache Texture:W3xRecoveryTexture [21e727da:023d7d9a]
+[00:00:01.3145452] dependencies.xml: Compiling W3DHierarchy:W3xRecoveryHierarchy [61d7ea40:5c2a45c0]
+[00:00:01.3458040] Loading 'file://d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\animations.xml'.
+[00:00:01.3614193] animations.xml: Compiling W3DAnimation:W3xRecoveryDefault [2448ae30:d873c2ba]
+[00:00:01.3926690] animations.xml: Compiling W3DAnimation:W3xRecoveryExplicitDefaults [2448ae30:184dd9c7]
+[00:00:01.3926690] animations.xml: Compiling W3DAnimation:W3xRecoveryTimecodedOnly [2448ae30:b2ec5bf6]
+[00:00:01.3926690] animations.xml: Compiling W3DAnimation:W3xRecoveryDeltaOnly [2448ae30:bc74952f]
+[00:00:01.4082951] animations.xml: Compiling W3DAnimation:W3xRecoveryBothDisabled [2448ae30:ed861743]
+[00:00:01.4082951] animations.xml: Compiling W3DAnimation:W3xRecoveryReduction [2448ae30:8985ec5d]
+[00:00:01.4239177] animations.xml: Compiling W3DAnimation:W3xRecoverySingleFrame [2448ae30:d6f0e505]
+[00:00:01.4239177] animations.xml: Compiling W3DAnimation:W3xRecoveryDeltaFallbackError [2448ae30:55fc0dfc]
+[00:00:01.4395441] Loading 'file://d:\a\_temp\w3x-sdk-601465bccac246b58347cdeb43aa0f21\original\mods\w3xrecovery\data\meshes.xml'.
+[00:00:01.4551718] meshes.xml: Compiling W3DMesh:W3xRecoveryNormal [c2b1a262:6c96ef20]
+[00:00:01.4707948] meshes.xml: Compiling W3DMesh:W3xRecoverySkin [c2b1a262:4fe85bb4]
+[00:00:01.4707948] meshes.xml: Compiling W3DMesh:W3xRecoveryCameraAligned [c2b1a262:01742bd6]
+[00:00:01.4707948] meshes.xml: Compiling W3DMesh:W3xRecoveryCameraOriented [c2b1a262:491c77a0]
+[00:00:01.4707948] Resolving references: mods\w3xrecovery\data\mod
+[00:00:01.4864202] Stable sorting assets
+[00:00:01.4864202] Sorting by schema dependencies
+[00:00:01.4864202] Sorting by asset dependencies
+[00:00:01.4864202] Generating stream: mods\w3xrecovery\data\mod
+[00:00:01.5020439] Slow asset clean-up (expected: 14, actual: 14, old: 0, current: 14)
+[00:00:01.5020439] mods\w3xrecovery\data\mod Linking binary data
+[00:00:01.5020439] mods\w3xrecovery\data\mod Linking import data
+[00:00:01.5020439] mods\w3xrecovery\data\mod Linking relocation data
+[00:00:01.5176672] mods\w3xrecovery\data\mod Stream complete
+[00:00:01.5176672] BinaryAssetBuilder complete
+[00:00:01.5176672] Texture:
+[00:00:01.5176672]       Instances Processed: 1
+[00:00:01.5176672]       Total Processing Time: 00:00:00.0156251
+[00:00:01.5176672]       Longest Processing Time: 00:00:00.0156251 (W3xRecoveryTexture)
+[00:00:01.5176672]       Average Processing Time: 0.0156251 seconds
+[00:00:01.5176672] W3DAnimation:
+[00:00:01.5176672]       Instances Processed: 8
+[00:00:01.5176672]       Total Processing Time: 00:00:00.0781248
+[00:00:01.5176672]       Longest Processing Time: 00:00:00.0312497 (W3xRecoveryDefault)
+[00:00:01.5176672]       Average Processing Time: 0.0097656 seconds
+[00:00:01.5176672] W3DHierarchy:
+[00:00:01.5176672]       Instances Processed: 1
+[00:00:01.5176672]       Total Processing Time: 00:00:00.0312588
+[00:00:01.5176672]       Longest Processing Time: 00:00:00.0312588 (W3xRecoveryHierarchy)
+[00:00:01.5176672]       Average Processing Time: 0.0312588 seconds
+[00:00:01.5176672] W3DMesh:
+[00:00:01.5176672]       Instances Processed: 4
+[00:00:01.5176672]       Total Processing Time: 00:00:00.0156230
+[00:00:01.5176672]       Longest Processing Time: 00:00:00.0156230 (W3xRecoveryNormal)
+[00:00:01.5176672]       Average Processing Time: 0.00390575 seconds
+[00:00:01.5176672] Total Processing Time for All Types: 00:00:00.1406317

@@ -1,0 +1,40 @@
+{
+  "scope": "loadable recovered plugin configuration identity/default constructor, both ProcessInstance backends and public handles, original three-buffer differential, standalone captured fixture replay without original W3X compiler; SDK not run",
+  "componentValidation": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40168310561-1\\native-components\\validation.json",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "processInstanceOriginalDifferential": true,
+  "modes": [
+    {
+      "pluginSha256": "190bc2740ac471f2c3ebf7f99015bd90733c729042a5cef9cec15d3ee3a600e8",
+      "succeeded": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "animationFixtures": 675,
+      "meshFixtures": 666,
+      "processInstanceOriginalDifferential": true,
+      "mode": "Od",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40168310561-1\\plugin-validation\\Od",
+      "withoutOriginalReplay": true
+    },
+    {
+      "pluginSha256": "c092ad57e21b49b4333fdd61b067c59c18f33d30655c118ae1dab6a3daa17086",
+      "succeeded": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "animationFixtures": 675,
+      "meshFixtures": 666,
+      "processInstanceOriginalDifferential": true,
+      "mode": "O2",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40168310561-1\\plugin-validation\\O2",
+      "withoutOriginalReplay": true
+    }
+  ],
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "runId": "40168310561",
+  "failures": [],
+  "withoutOriginalReplay": true,
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "succeeded": true,
+  "sourceCommit": "34dfd46bf509cdf3e3e35767d310d61d5cabcf90"
+}

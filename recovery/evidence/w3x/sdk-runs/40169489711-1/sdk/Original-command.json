@@ -1,0 +1,23 @@
+{
+  "arguments": [
+    "\"D:\\a\\_temp\\w3x-sdk-601465bccac246b58347cdeb43aa0f21\\Original\\Mods\\W3xRecovery\\Data\\Mod.xml\"",
+    "/od:\"D:\\a\\_temp\\w3x-sdk-601465bccac246b58347cdeb43aa0f21\\Original\\builtmods\"",
+    "/iod:\"D:\\a\\_temp\\w3x-sdk-601465bccac246b58347cdeb43aa0f21\\Original\\builtmods\"",
+    "/csc:false",
+    "/ls:true",
+    "/osh:false",
+    "/pc:true",
+    "/res:true",
+    "/slowclean:true",
+    "/ss:true",
+    "/art:\".;.\\Mods\\W3xRecovery\\Art;.\\Mods;.\\Art\"",
+    "/audio:\".;.\\Mods\\W3xRecovery\\Audio;.\\Mods;.\\Audio\"",
+    "/data:\".;.\\Mods\\W3xRecovery\\Data;.\\Mods;.\\SageXml\""
+  ],
+  "originalW3xPresent": true,
+  "executable": "D:\\a\\_temp\\w3x-sdk-601465bccac246b58347cdeb43aa0f21\\Original\\tools\\BinaryAssetBuilder.exe",
+  "mode": "Original",
+  "workingDirectory": "D:\\a\\_temp\\w3x-sdk-601465bccac246b58347cdeb43aa0f21\\Original",
+  "source": "SDK/defaultscript.cs executeModBuildStep case 5",
+  "configSha256": "7c5084138f7be181cfc147843dff1eacf972491b434ab2750ff2be402c92b2ad"
+}

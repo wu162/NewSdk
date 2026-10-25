@@ -1,0 +1,188 @@
+[
+  {
+    "name": "antlr.astframe.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\antlr.astframe.dll",
+    "bytes": 6656,
+    "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4"
+  },
+  {
+    "name": "antlr.runtime.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\antlr.runtime.dll",
+    "bytes": 99328,
+    "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+  },
+  {
+    "name": "AssetMerge.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\AssetMerge.exe",
+    "bytes": 116736,
+    "sha256": "639da001afc97177c624fe3fa358430b09550250f3a384678628a81f4e5edd82"
+  },
+  {
+    "name": "AssetResolver.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\AssetResolver.exe",
+    "bytes": 13824,
+    "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+  },
+  {
+    "name": "BinaryAssetBuilder.AudioCompiler.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.AudioCompiler.dll",
+    "bytes": 1232896,
+    "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+  },
+  {
+    "name": "BinaryAssetBuilder.Core.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.Core.dll",
+    "bytes": 212992,
+    "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+  },
+  {
+    "name": "BinaryAssetBuilder.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.exe",
+    "bytes": 36864,
+    "sha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+  },
+  {
+    "name": "BinaryAssetBuilder.exe.config",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.exe.config",
+    "bytes": 2945,
+    "sha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb"
+  },
+  {
+    "name": "BinaryAssetBuilder.ExpressionEval.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.ExpressionEval.dll",
+    "bytes": 32768,
+    "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+  },
+  {
+    "name": "BinaryAssetBuilder.GameDataVerifier.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.GameDataVerifier.dll",
+    "bytes": 9728,
+    "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+  },
+  {
+    "name": "BinaryAssetBuilder.Remote.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.Remote.dll",
+    "bytes": 3584,
+    "sha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135"
+  },
+  {
+    "name": "BinaryAssetBuilder.TextureCompiler.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.TextureCompiler.dll",
+    "bytes": 815104,
+    "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+  },
+  {
+    "name": "BinaryAssetBuilder.Tokenizer.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.Tokenizer.dll",
+    "bytes": 1654784,
+    "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+  },
+  {
+    "name": "BinaryAssetBuilder.Utility.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.Utility.dll",
+    "bytes": 63488,
+    "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+  },
+  {
+    "name": "BinaryAssetBuilder.W3XCompiler.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.W3XCompiler.dll",
+    "bytes": 159744,
+    "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1"
+  },
+  {
+    "name": "BinaryAssetBuilder.XmlCompiler.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\BinaryAssetBuilder.XmlCompiler.dll",
+    "bytes": 1933312,
+    "sha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+  },
+  {
+    "name": "CC3Tools.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\CC3Tools.dll",
+    "bytes": 161792,
+    "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35"
+  },
+  {
+    "name": "EALA.Hash.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\EALA.Hash.dll",
+    "bytes": 26624,
+    "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+  },
+  {
+    "name": "EALA.Metrics.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\EALA.Metrics.dll",
+    "bytes": 16384,
+    "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c"
+  },
+  {
+    "name": "HashFix.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\HashFix.exe",
+    "bytes": 322560,
+    "sha256": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a"
+  },
+  {
+    "name": "LoDStreamBuilder.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\LoDStreamBuilder.exe",
+    "bytes": 124928,
+    "sha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b"
+  },
+  {
+    "name": "MakeBig.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\MakeBig.exe",
+    "bytes": 13312,
+    "sha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9"
+  },
+  {
+    "name": "MapAssetResolver.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\MapAssetResolver.exe",
+    "bytes": 13824,
+    "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+  },
+  {
+    "name": "ModAssetResolver.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\ModAssetResolver.exe",
+    "bytes": 457728,
+    "sha256": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0"
+  },
+  {
+    "name": "Mvp.Xml.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\Mvp.Xml.dll",
+    "bytes": 176256,
+    "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9"
+  },
+  {
+    "name": "ReferenceFix.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\ReferenceFix.exe",
+    "bytes": 119296,
+    "sha256": "e7ff783032a119b3377462850670dd324506d2fa30be4fc44932b7b6c8052051"
+  },
+  {
+    "name": "W3XViewer.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\W3XViewer.exe",
+    "bytes": 1634304,
+    "sha256": "3941fa25aca34cc10baf4b4eadd84b390868f5e84f96850ad717f01dd585510d"
+  },
+  {
+    "name": "WBAssetResolver.exe",
+    "path": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools\\WBAssetResolver.exe",
+    "bytes": 433152,
+    "sha256": "2340879685d5948447a100eabeb6abd6b8fd6b2be795d7be259e7c817418482e"
+  },
+  {
+    "name": "Recovered.W3x.Mesh.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\plugin-validation\\O2\\Recovered.W3x.Mesh.dll",
+    "bytes": 131072,
+    "sha256": "7b39c815591298dec74285aee2642811297b6e2700c21428c8ef33a7a0ebf4f6"
+  },
+  {
+    "name": "Recovered.W3x.Native.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\plugin-validation\\O2\\Recovered.W3x.Native.dll",
+    "bytes": 95232,
+    "sha256": "c72e42bd8c9f586f153b837907c54f365a4dd566ff8538271d83df414a870c4d"
+  },
+  {
+    "name": "Recovered.W3x.Plugin.dll",
+    "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\plugin-validation\\O2\\Recovered.W3x.Plugin.dll",
+    "bytes": 7680,
+    "sha256": "2f3e91a2cc4307f219f0a839378ff7d95bbcf3205a443b79254de241802f4a4e"
+  }
+]

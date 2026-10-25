@@ -1,0 +1,61 @@
+{
+  "succeeded": true,
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "runId": "40169265269",
+  "failures": [],
+  "scope": "independent native tests; original mesh converter, AdaptiveDelta and Timecoded IL differential; mesh vertex-data and complete mesh/animation ProcessInstance three-buffer differential; SDK not accepted",
+  "modes": [
+    {
+      "animationThreeBufferOriginalDifferential": true,
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "componentWithoutOriginalReplay": true,
+      "converterOriginalDifferential": true,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "independentComponentTests": {
+        "W3xMeshAssetTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xShaderTests": true,
+        "W3xTimecodedTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshSerializationTests": true
+      },
+      "mode": "Od",
+      "sourceBuildSucceeded": true
+    },
+    {
+      "animationThreeBufferOriginalDifferential": true,
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "componentWithoutOriginalReplay": true,
+      "converterOriginalDifferential": true,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "independentComponentTests": {
+        "W3xMeshAssetTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xShaderTests": true,
+        "W3xTimecodedTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshSerializationTests": true
+      },
+      "mode": "O2",
+      "sourceBuildSucceeded": true
+    }
+  ],
+  "completeMeshBuffersValidated": true,
+  "componentWithoutOriginalReplay": true,
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "sourceCommit": "6930e9fb09bfa47ed77835f3670c8ae67135be4c",
+  "completeAnimationBuffersValidated": true
+}

@@ -1,0 +1,13 @@
+Command Line: D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\Mods\W3xRecovery\Data\Mod.xml /od:D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods /iod:D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\W3xRecovery\Art;.\Mods;.\Art /audio:.;.\Mods\W3xRecovery\Audio;.\Mods;.\Audio /data:.;.\Mods\W3xRecovery\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\Mods\W3xRecovery\Data\Mod.xml /od:D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods /iod:D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\W3xRecovery\Art;.\Mods;.\Art /audio:.;.\Mods\W3xRecovery\Audio;.\Mods;.\Audio /data:.;.\Mods\W3xRecovery\Data;.\Mods;.\SageXml 
+[00:00:00.0156267] BinaryAssetBuilder started
+[00:00:00.3754861] Cached session data not available.
+[00:00:00.3754861] Session caching enabled ('D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.3754861] Network caching enabled ('D:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\Original\builtmods\cache').
+[00:00:00.3911054] Loading 'file://d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\mods\w3xrecovery\data\mod.xml'.
+[00:00:00.4223792] Stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.7978312] Stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:01.0482829] Stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\mods\w3xrecovery\data\mod.xml references stream d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:01.3307073] Loading 'file://d:\a\_temp\w3x-sdk-1e25e75c65884b88a98d403678bd85fe\original\mods\w3xrecovery\data\dependencies.xml'.
+[00:00:01.3619608] dependencies.xml: Compiling Texture:W3xRecoveryTexture [21e727da:023d7d9a]
+[00:00:01.3619608] Critical: The texture file referenced from the XML does not exist on disk!

@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "34dfd46bf509cdf3e3e35767d310d61d5cabcf90",
+  "runId": "40168310561",
+  "runAttempt": 1,
+  "jobId": "121093786861",
+  "conclusion": "failure",
+  "nativeAndPluginPrerequisites": "success",
+  "sdkStarted": true,
+  "failedMode": "Original",
+  "error": "The texture file referenced from the XML does not exist on disk!",
+  "asset": "Texture:W3xRecoveryTexture",
+  "artifactId": "12589636117",
+  "artifactSha256": "923f255bfc7d558326eeb1a23e47332cc1048ab4b41917c41b364b4b84de49c6",
+  "logs": "https://github.com/wu162/NewSdk/actions/runs/40168310561",
+  "cause": "Unaliased FileReference W3xRecoveryTexture.tga is relative to declaring Data/Dependencies.xml; shipped fixture file is in sibling Art directory.",
+  "originalEvidence": [
+    "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core/FileNameResolver.cs ResolvePath unaliased branch",
+    "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs HandleFileReferenceType"
+  ],
+  "fixCommit": "6930e9fb09bfa47ed77835f3670c8ae67135be4c"
+}
