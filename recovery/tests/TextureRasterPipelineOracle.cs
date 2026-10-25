@@ -54,13 +54,13 @@ internal static class TextureRasterPipelineOracle
             try{
                 foreach(int platform in new[]{0,2}){
                     original.ReInitialize(null,(TargetPlatform)platform);recovered.Initialize(null,(TargetPlatform)platform);
-                    foreach(string raster in new[]{"png","bmp"})
+                    foreach(string raster in new[]{"png","bmp","bmp565","bmp555","bmp32fields"})
                     foreach(int color in raster=="png"?new[]{0,2,3,4,6}:new[]{0})
-                    foreach(int depth in raster=="png"?new[]{1,2,4,8,16}:new[]{1,4,8,16,24,32}) {
+                    foreach(int depth in raster=="png"?new[]{1,2,4,8,16}:raster=="bmp"?new[]{1,4,8,16,24,32}:raster=="bmp32fields"?new[]{32}:new[]{16}) {
                         if(raster=="png"&&(color==3?depth==16:color!=0&&depth<8))continue;
                         foreach(int interlace in new[]{0,1}) foreach(int metadata in new[]{0,1}) {
-                            string file=Path.Combine(work,"generated."+raster);
-                            byte[] image=raster=="png"?TexturePngOracle.Fixture(8,4,depth,color,interlace,5,metadata,0):TextureBmpOracle.Fixture(8,4,depth,interlace!=0,metadata==0?0:1,metadata==0?0:255,metadata==0?0:7);
+                            string file=Path.Combine(work,"generated."+(raster=="png"?"png":"bmp"));
+                            byte[] image=raster=="png"?TexturePngOracle.Fixture(8,4,depth,color,interlace,5,metadata,0):raster=="bmp"?TextureBmpOracle.Fixture(8,4,depth,interlace!=0,metadata==0?0:1,metadata==0?0:255,metadata==0?0:7):TextureBmpOracle.BitfieldsFixture(8,4,raster=="bmp565"?0:raster=="bmp555"?1:2,interlace!=0,metadata==0?0:1,metadata==0?0:7);
                             File.WriteAllBytes(file,image);
                             foreach(string root in new[]{"Texture","OnDemandTexture"})
                             foreach(string format in new[]{"A8R8G8B8","X8R8G8B8","R5G6B5"})

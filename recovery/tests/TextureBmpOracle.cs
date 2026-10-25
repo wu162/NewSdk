@@ -109,6 +109,15 @@ internal static unsafe class TextureBmpOracle
             return s.ToArray();
         }
     }
+    public static byte[] BitfieldsFixture(int width,int height,int profile,bool top,int pattern,int gap)
+    {
+        int depth=profile==2?32:16;byte[] raw=Fixture(width,height,depth,top,pattern,0,gap),result=new byte[raw.Length+12];
+        Buffer.BlockCopy(raw,0,result,0,54);Buffer.BlockCopy(raw,54,result,66,raw.Length-54);
+        uint[] masks=profile==0?new uint[]{0xf800,0x7e0,0x1f}:profile==1?new uint[]{0x7c00,0x3e0,0x1f}:new uint[]{0xff0000,0xff00,0xff};
+        Buffer.BlockCopy(BitConverter.GetBytes((uint)result.Length),0,result,2,4);Buffer.BlockCopy(BitConverter.GetBytes((uint)(66+gap)),0,result,10,4);result[30]=3;
+        for(int c=0;c<3;c++)Buffer.BlockCopy(BitConverter.GetBytes(masks[c]),0,result,54+4*c,4);
+        return result;
+    }
     private static string Failure(Exception e)
     {
         if(e==null)return null;while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;
@@ -119,6 +128,18 @@ internal static unsafe class TextureBmpOracle
         byte[] b=new byte[pixels.Length*4];Buffer.BlockCopy(pixels,0,b,0,b.Length);
         using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(b)).Replace("-","");
     }
+    private static void CompareBmp(StreamWriter log,string path,string label,byte[] bytes,bool probe)
+    {
+        File.WriteAllBytes(path,bytes);fixtures++;
+                TexturePacker.Image a=null,b=null;Exception ea=null,eb=null;
+                try{a=Original(path);}catch(Exception e){ea=e;}
+                try{b=TextureBmpDecoder.Decode(bytes);}catch(Exception e){eb=e;}
+                if(ea!=null&&eb!=null&&Failure(ea)==Failure(eb)){originalFailures++;rejectionMatches++;log.WriteLine(label+"|rejectionMatched=True|failure="+Failure(ea));return;}
+                bool equal=ea==null&&eb==null&&a.Width==b.Width&&a.Height==b.Height&&a.HasAlpha==b.HasAlpha&&Hash(a.Pixels)==Hash(b.Pixels);
+                int first=-1;if(a!=null&&b!=null)for(int i=0;i<Math.Min(a.Pixels.Length,b.Pixels.Length);i++)if(a.Pixels[i]!=b.Pixels[i]){first=i;break;}
+                log.WriteLine(label+"|equal="+equal+"|original="+(a==null?ea.ToString():a.Width+"x"+a.Height+" alpha="+a.HasAlpha+" hash="+Hash(a.Pixels))+"|candidate="+(b==null?eb.ToString():b.Width+"x"+b.Height+" alpha="+b.HasAlpha+" hash="+Hash(b.Pixels))+"|first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));
+                if(equal)decodedMatches++;else{mismatches++;if(ea!=null)originalFailures++;if(mismatches<=12)Console.WriteLine("DIFFERENCE "+label+" alpha="+(a==null?"error":a.HasAlpha.ToString())+"/"+(b==null?"error":b.HasAlpha.ToString())+" first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));if(!probe)throw new Exception("BMP difference "+label);}
+    }
     private static int Main(string[] args)
     {
         try
@@ -127,17 +148,17 @@ internal static unsafe class TextureBmpOracle
             AppDomain.CurrentDomain.AssemblyResolve+=delegate(object sender,ResolveEventArgs e){string path=Path.Combine(dir,new AssemblyName(e.Name).Name+".dll");return File.Exists(path)?Assembly.LoadFrom(path):null;};
             Check(IntPtr.Size==4,"x86 required");Bind(Assembly.LoadFrom(input),input);Directory.CreateDirectory(args[2]);
             using(var log=new StreamWriter(args[1]))
-            foreach(int depth in new[]{1,4,8,16,24,32})foreach(int width in new[]{1,2,4,8,16,32})foreach(int height in new[]{1,2,4,8,16})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2})foreach(int reserved in depth<=8?new[]{0,255}:new[]{0})foreach(int gap in new[]{0,7})
             {
-                string label="d"+depth+"-"+width+"x"+height+"-top"+top+"-p"+pattern+"-reserved"+reserved+"-gap"+gap,path=Path.Combine(args[2],"test.bmp");byte[] bytes=Fixture(width,height,depth,top,pattern,reserved,gap);File.WriteAllBytes(path,bytes);fixtures++;
-                TexturePacker.Image a=null,b=null;Exception ea=null,eb=null;
-                try{a=Original(path);}catch(Exception e){ea=e;}
-                try{b=TextureBmpDecoder.Decode(bytes);}catch(Exception e){eb=e;}
-                if(ea!=null&&eb!=null&&Failure(ea)==Failure(eb)){originalFailures++;rejectionMatches++;log.WriteLine(label+"|rejectionMatched=True|failure="+Failure(ea));continue;}
-                bool equal=ea==null&&eb==null&&a.Width==b.Width&&a.Height==b.Height&&a.HasAlpha==b.HasAlpha&&Hash(a.Pixels)==Hash(b.Pixels);
-                int first=-1;if(a!=null&&b!=null)for(int i=0;i<Math.Min(a.Pixels.Length,b.Pixels.Length);i++)if(a.Pixels[i]!=b.Pixels[i]){first=i;break;}
-                log.WriteLine(label+"|equal="+equal+"|original="+(a==null?ea.ToString():a.Width+"x"+a.Height+" alpha="+a.HasAlpha+" hash="+Hash(a.Pixels))+"|candidate="+(b==null?eb.ToString():b.Width+"x"+b.Height+" alpha="+b.HasAlpha+" hash="+Hash(b.Pixels))+"|first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));
-                if(equal)decodedMatches++;else{mismatches++;if(ea!=null)originalFailures++;if(mismatches<=12)Console.WriteLine("DIFFERENCE "+label+" alpha="+(a==null?"error":a.HasAlpha.ToString())+"/"+(b==null?"error":b.HasAlpha.ToString())+" first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));if(!probe)throw new Exception("BMP difference "+label);}
+                foreach(int depth in new[]{1,4,8,16,24,32})foreach(int width in new[]{1,2,4,8,16,32})foreach(int height in new[]{1,2,4,8,16})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2})foreach(int reserved in depth<=8?new[]{0,255}:new[]{0})foreach(int gap in new[]{0,7})
+                {
+                    string label="d"+depth+"-"+width+"x"+height+"-top"+top+"-p"+pattern+"-reserved"+reserved+"-gap"+gap;
+                    CompareBmp(log,Path.Combine(args[2],"test.bmp"),label,Fixture(width,height,depth,top,pattern,reserved,gap),probe);
+                }
+                foreach(int profile in new[]{0,1,2})foreach(int width in new[]{1,2,4,8,16,32})foreach(int height in new[]{1,2,4,8,16})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1,2})foreach(int gap in new[]{0,7})
+                {
+                    string label="bitfields"+profile+"-"+width+"x"+height+"-top"+top+"-p"+pattern+"-gap"+gap;
+                    CompareBmp(log,Path.Combine(args[2],"test.bmp"),label,BitfieldsFixture(width,height,profile,top,pattern,gap),probe);
+                }
             }
             Console.WriteLine((probe?"PROBE":"PASS")+" Texture BMP fixtures="+fixtures+" decodedMatches="+decodedMatches+" originalFailures="+originalFailures+" mismatches="+mismatches+" assertions="+assertions+" rejectionMatches="+rejectionMatches);return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}

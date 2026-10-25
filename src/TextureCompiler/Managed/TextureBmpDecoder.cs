@@ -16,8 +16,18 @@ namespace Recovered.Compiler.Texture
             if(U32(data,14)!=40)throw new NotSupportedException("Only BMP BITMAPINFOHEADER has been recovered.");
             int width=unchecked((int)U32(data,18)),signedHeight=unchecked((int)U32(data,22));
             int depth=U16(data,28);uint compression=U32(data,30),offset=U32(data,10),colors=U32(data,46);
-            if(compression!=0)throw new NotSupportedException("Compressed/bitfield BMP has not been recovered.");
+            if(compression!=0&&compression!=3)throw new NotSupportedException("Compressed BMP has not been recovered.");
             if(U16(data,26)!=1||width<=0||signedHeight==0||signedHeight==int.MinValue||width>16384||Math.Abs(signedHeight)>16384)throw Invalid();
+            int headerBytes=compression==3?66:54;bool rgb565=false;
+            if(compression==3)
+            {
+                if(data.Length<66||(depth!=16&&depth!=32))throw Invalid();
+                uint red=U32(data,54),green=U32(data,58),blue=U32(data,62);
+                rgb565=depth==16&&red==0xf800&&green==0x7e0&&blue==0x1f;
+                bool rgb555=depth==16&&red==0x7c00&&green==0x3e0&&blue==0x1f;
+                bool rgb888=depth==32&&red==0xff0000&&green==0xff00&&blue==0xff;
+                if(!rgb565&&!rgb555&&!rgb888)throw new NotSupportedException("This BMP bitfield mask profile has not been recovered.");
+            }
             int height=Math.Abs(signedHeight);
             if((long)width*height>16777216)throw Invalid();
             if(depth!=1&&depth!=4&&depth!=8&&depth!=16&&depth!=24&&depth!=32)throw Invalid();
@@ -25,10 +35,10 @@ namespace Recovered.Compiler.Texture
             if(depth<=8)throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
             int stride=checked(((width*depth+31)/32)*4);
             int paletteEntries=depth<=8?(colors==0?1<<depth:checked((int)colors)):0;
-            if(paletteEntries>(1<<Math.Min(depth,8))||offset<54+paletteEntries*4||offset>data.Length||(long)stride*height>data.Length-offset)throw Invalid();
+            if(paletteEntries>(1<<Math.Min(depth,8))||offset<headerBytes+paletteEntries*4||offset>data.Length||(long)stride*height>data.Length-offset)throw Invalid();
             // Legacy D3DX BI_RGB consumes pixels directly after the DIB, ignoring
             // the BMP file header's bfOffBits (including an extra file gap).
-            offset=54;
+            offset=(uint)headerBytes;
             bool hasAlpha=depth==24;
             if(depth==32)for(int y=0;y<height;y++)for(int x=0;x<width;x++)if(data[(int)offset+y*stride+x*4+3]!=0)hasAlpha=true;
             uint[] pixels=new uint[width*height];
@@ -43,8 +53,8 @@ namespace Recovered.Compiler.Texture
                 }
                 else if(depth==16)
                 {
-                    int v=U16(data,row+x*2),rv=(v>>10)&31,gv=(v>>5)&31,bv=v&31;
-                    r=(uint)((rv*255+15)/31);g=(uint)((gv*255+15)/31);b=(uint)((bv*255+15)/31);
+                    int v=U16(data,row+x*2),rv=(v>>(rgb565?11:10))&31,gv=(v>>5)&(rgb565?63:31),bv=v&31;
+                    r=(uint)((rv*255+15)/31);g=(uint)(rgb565?(gv*255+31)/63:(gv*255+15)/31);b=(uint)((bv*255+15)/31);
                 }
                 else
                 {
