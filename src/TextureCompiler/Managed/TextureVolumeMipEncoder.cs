@@ -93,7 +93,19 @@ namespace Recovered.Compiler.Texture
                 double[] normalized = weights.ToArray();
                 // Multiply by one stored reciprocal. Per-item division differs
                 // at an observed float32 half-value boundary in the old library.
-                for (int i = 0; i < normalized.Length; i++) normalized[i] = normalized[i] * inverse;
+                // Native resampler (RVA 0x53930) corrects the nearest tap after
+                // sequential normalization; omitting this changes threshold bytes.
+                double normalizedSum = 0;
+                for (int i = 0; i < normalized.Length; i++)
+                {
+                    normalized[i] *= inverse;
+                    normalizedSum += normalized[i];
+                }
+                if (normalizedSum != 1.0)
+                {
+                    int nearest = Math.Min(last, Math.Max(first, (int)Math.Floor(center + 0.5)));
+                    normalized[nearest - first] += 1.0 - normalizedSum;
+                }
                 result[output] = new Contribution { First = first, Weights = normalized };
             }
             return result;
@@ -172,3 +184,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

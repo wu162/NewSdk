@@ -4,6 +4,7 @@ on:
     branches: [recovery/texturecompiler-source]
     paths:
       - 'src/TextureCompiler/Managed/TexturePs3MipEncoder.cs'
+      - 'src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs'
       - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
       - 'src/TextureCompiler/Managed/Plugin.Images.cs'
       - 'recovery/tests/TexturePs3MipPipelineOracle.cs'

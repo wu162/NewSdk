@@ -164,6 +164,9 @@ internal static unsafe class TexturePs3MipDifferential
                     for(int d=0;d<dimensions.GetLength(0);d++)
                         for(int pattern=0;pattern<5;pattern++)
                             Case(compress,plugin,optionsMethod,encode,transcript,dimensions[d,0],dimensions[d,1],format,pattern.ToString(),Pixels(dimensions[d,0],dimensions[d,1],pattern));
+                foreach(string format in formats)
+                    Case(compress,plugin,optionsMethod,encode,transcript,4,8,format,"normalization-residual-4x8",
+                        Convert.FromBase64String("qJa3SbMou3LVfgWo3Hswbl7tLAwIb6b6eRS4f3xhIWlEA6/cEh+874jjLP316lSR7HkRFavHvY+wCnmuXzuWzLSrNH1Dr5996guKJJNLzAEJKWkBAwxhjBDHVO4A1F6bma2ZP3PX5D0a07qM3d9KL0VrGnOG9Alt8u9IV3EMWKA="));
                 uint[,] extra={{1,128},{128,1},{1,256},{256,1},{2,256},{256,2},{4,128},{128,4},{64,256},{256,64},{128,128},{256,256},{128,256},{256,128}};
                 foreach(string format in formats)
                     for(int d=0;d<extra.GetLength(0);d++)
@@ -193,4 +196,5 @@ internal static unsafe class TexturePs3MipDifferential
         catch(Exception e) { Console.Error.WriteLine(e);return 1; }
     }
 }
+
 
