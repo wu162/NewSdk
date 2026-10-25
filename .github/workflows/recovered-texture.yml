@@ -1,0 +1,57 @@
+name: Recovered Texture components
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/Managed/Plugin.*.cs'
+      - 'src/TextureCompiler/Managed/TextureCatalog.cs'
+      - 'src/TextureCompiler/Managed/TextureImageRules.cs'
+      - 'src/TextureCompiler/Managed/*.csproj'
+      - 'src/TextureCompiler/Native/**'
+      - 'recovery/tests/TextureDdsOracle.cs'
+      - 'recovery/tests/TextureImageRulesOracle.cs'
+      - 'recovery/tests/TextureMetadataOracle.cs'
+      - 'recovery/tests/TexturePluginContractOracle.cs'
+      - 'recovery/tests/TextureSupportOracle.cpp'
+      - 'recovery/scripts/TestTexture.ps1'
+      - '.github/workflows/recovered-texture.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: texture-components-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  differential:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare recovered component behavior with original DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestTexture.ps1
+      - name: Preserve validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-components-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save successful immutable validation evidence
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/texture/validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "texture: record component differential run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

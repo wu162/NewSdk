@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>Recovered.BinaryAssetBuilder.TextureCompiler</AssemblyName>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BinaryAssetBuilder.Core"><HintPath>../../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath></Reference>
+    <Reference Include="BinaryAssetBuilder.Utility"><HintPath>../../../SDK/tools/BinaryAssetBuilder.Utility.dll</HintPath></Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+</Project>
