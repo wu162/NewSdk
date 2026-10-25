@@ -11,7 +11,6 @@ namespace Recovered.Compiler.Texture
         {
             byte[] chain = TextureTriangleMipEncoder.Encode(width, height, rgba, format);
             uint count = Read(chain, 28);
-            if (count <= 3) return chain;
             int stride = format == "D3DFMT_R5G6B5" ? 2 : 4;
             long length = 128;
             uint w = width, h = height;
@@ -21,8 +20,12 @@ namespace Recovered.Compiler.Texture
                 w = Math.Max(1u, w / 2); h = Math.Max(1u, h / 2);
             }
             byte[] output = new byte[checked((int)length)];
-            Buffer.BlockCopy(chain, 0, output, 0, output.Length);
-            output[28] = 3; output[29] = 0; output[30] = 0; output[31] = 0;
+            Buffer.BlockCopy(chain, 0, output, 0, Math.Min(chain.Length, output.Length));
+            // The old writer emits three payloads even after reaching 1x1,
+            // while its header reports min(natural chain length, 3).
+            for (int offset = chain.Length; offset < output.Length; offset += stride)
+                Buffer.BlockCopy(chain, chain.Length - stride, output, offset, stride);
+            if (count > 3) { output[28] = 3; output[29] = 0; output[30] = 0; output[31] = 0; }
             return output;
         }
         private static uint Read(byte[] bytes, int offset)

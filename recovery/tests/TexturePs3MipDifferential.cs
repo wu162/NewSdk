@@ -187,7 +187,7 @@ internal static unsafe class TexturePs3MipDifferential
                             Case(compress,plugin,optionsMethod,encode,transcript,width,height,format,"impulse-"+d+"-"+variant,pixels);
                         }
             }
-            Console.WriteLine((probeOnly?"PROBE ":"PASS ")+"TexturePs3MipDifferential fixtures={0} checks={1} recoveredCompared=true mipmapsAccepted=PS3ThreeLevels",fixtures,checks);
+            Console.WriteLine((probeOnly?"PROBE ":"PASS ")+"TexturePs3MipDifferential fixtures={0} checks={1} probeOnly={2} mipProfile=PS3ThreePayloads",fixtures,checks,probeOnly);
             return 0;
         }
         catch(Exception e) { Console.Error.WriteLine(e);return 1; }

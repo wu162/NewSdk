@@ -26,7 +26,7 @@ jobs:
       - name: Run newly recovered component only
         shell: pwsh
         run: |
-          ./recovery/scripts/TestTexturePs3Mips.ps1 -Group Ps3Mips -ProbeOnly
+          ./recovery/scripts/TestTexturePs3Mips.ps1 -Group Ps3Mips
       - name: Preserve group results
         if: always()
         uses: actions/upload-artifact@v4
