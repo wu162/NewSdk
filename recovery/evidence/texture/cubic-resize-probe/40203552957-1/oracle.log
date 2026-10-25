@@ -1,0 +1,1 @@
+PASS TextureCubicResizeProbe fixtures=279 checks=1120 originalOnly=true filter=Cubic4 rescale=PreScale5 target=HalfAxesAtLeast1

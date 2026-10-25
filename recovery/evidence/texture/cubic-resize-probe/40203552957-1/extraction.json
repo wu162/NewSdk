@@ -1,0 +1,11 @@
+{
+  "transcriptSha256": "0d26683f681a622c52d58ba991d25380cf50c5f1aee09eaa2a86c0e3df2bc90c",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "records": 279,
+  "status": "original-evidence-only",
+  "runId": "40203552957",
+  "runAttempt": "1",
+  "scope": "original nvDDS cubic pre-resize raw outputs only; no recovered encoder acceptance",
+  "sourceCommit": "147c85a806c566288b4ff94a46933525ed2f83e8",
+  "sdkValidated": false
+}
