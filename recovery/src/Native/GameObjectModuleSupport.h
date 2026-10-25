@@ -422,7 +422,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
     if(kind>=283 && kind<=285){
-        if(path=="FXShader"){for(const auto& f:beamFXShaderMaterialFields)if(attribute==f.name)return true;}
+        if(path=="FXShader"){for(const auto& f:drawBeamFXShaderMaterialFields)if(attribute==f.name)return true;}
         if(path=="ObjectStatusValidation")return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";
         if(path=="HeadColor" || path=="TailColor")return attribute=="r" || attribute=="g" || attribute=="b" || attribute=="a";
         return false;
