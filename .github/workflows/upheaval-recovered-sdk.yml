@@ -1,0 +1,51 @@
+name: Upheaval recovered SDK stages 3 4 5
+on:
+  push:
+    branches: [validation/upheaval-recovered-apt-global]
+    paths:
+      - '.github/workflows/upheaval-recovered-sdk.yml'
+      - 'recovery/scripts/TestUpheavalSdk.ps1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sdk:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Check script syntax
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path recovery/scripts/TestUpheavalSdk.ps1),[ref]$tokens,[ref]$errors)|Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+      - name: Build recovered components and compare real Upheaval stages 3 4 5
+        shell: pwsh
+        run: ./recovery/scripts/TestUpheavalSdk.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/upheaval
+          if-no-files-found: warn
+      - name: Preserve evidence on validation branch
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/upheaval
+          if(git diff --cached --quiet){exit 0}
+          git commit -m "Record Upheaval SDK evidence for $env:GITHUB_SHA"
+          if($LASTEXITCODE -ne 0){throw 'Evidence commit failed'}
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if($LASTEXITCODE -ne 0){throw 'Concurrent update; artifact retained'}
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if($LASTEXITCODE -ne 0){throw 'Evidence push failed; artifact retained'}
