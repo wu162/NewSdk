@@ -1,0 +1,28 @@
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Microsoft.VisualC;
+
+namespace Relo;
+
+[StructLayout(LayoutKind.Sequential, Size = 88)]
+[MiscellaneousBits(64)]
+[NativeCppClass]
+[DebugInfoInPDB]
+internal struct Tracker
+{
+	[StructLayout(LayoutKind.Sequential, Size = 12)]
+	[NativeCppClass]
+	[MiscellaneousBits(65)]
+	[DebugInfoInPDB]
+	internal struct Block
+	{
+	}
+
+	[StructLayout(LayoutKind.Sequential, Size = 12)]
+	[NativeCppClass]
+	[DebugInfoInPDB]
+	[MiscellaneousBits(65)]
+	internal struct GenericBookmark_003Cunsigned_0020int_003E
+	{
+	}
+}

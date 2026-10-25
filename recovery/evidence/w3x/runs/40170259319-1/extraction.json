@@ -1,0 +1,67 @@
+{
+  "ilExit": 0,
+  "summary": {
+    "file": "BinaryAssetBuilder.W3XCompiler.dll",
+    "sha256": "BFF82309B8E5E9F689112202E3613AD335148934C92DC70FE143F6E60D9AD3F1",
+    "assembly": "BinaryAssetBuilder.W3XCompiler",
+    "version": "1.0.3492.22491",
+    "runtime": "v2.0.50727",
+    "machine": "I386",
+    "imageBase": "0x10000000",
+    "corFlags": "NativeEntryPoint",
+    "types": 202,
+    "methods": 342,
+    "il": 308,
+    "native": 34,
+    "other": 0,
+    "references": [
+      {
+        "name": "mscorlib",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System.Data",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System.Xml",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "BinaryAssetBuilder.Core",
+        "version": "1.0.0.0"
+      },
+      {
+        "name": "EALA.Hash",
+        "version": "1.0.3344.32674"
+      },
+      {
+        "name": "EALA.ProcessUtility",
+        "version": "1.0.3152.32169"
+      },
+      {
+        "name": "EALA.Metrics",
+        "version": "1.0.0.0"
+      },
+      {
+        "name": "Microsoft.VisualC",
+        "version": "8.0.0.0"
+      }
+    ]
+  },
+  "ilspyVersion": "9.1.0.7988",
+  "baseCommit": "c66339e49e32cfe3f44aa2f9f1757f9993bbac7a",
+  "recoveredBehaviorValidated": false,
+  "runId": "40170259319",
+  "project": "W3XCompiler",
+  "sdkValidated": false,
+  "decompilerExit": 0,
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "sourceCommit": "23dce102769d458f46705b7ee2ed4a0f5446c4d3",
+  "runAttempt": "1",
+  "scope": "original evidence and contract inventory only"
+}
