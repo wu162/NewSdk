@@ -2,11 +2,7 @@
 
 2026-10-25。分支 `recovery/texturecompiler-source`；源码全部在根目录 [src/TextureCompiler](../src/TextureCompiler)。原DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。原始IL、metadata/native清单仍在 `evidence/texture/runs/40191971356-1`，不把反编译导出冒充完整可构建还原。
 
-**DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
-
-## 目标范围
-
-2026-10-25用户明确剔除Xbox 360。后续目标与完成验收仅为Win32/PC和PS3；XenonBundler、Xbox 360专属surface/header/tiling转换不再属于待办或完成阻塞。历史证据与平台枚举信息保留；PC/PS3仍依赖的公共XGraphics图像处理继续按需恢复。
+**DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收；PS3 POT TGA >256自动cubic缩放也已取得组件/入口/真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
 ## 已验收范围
 
@@ -36,7 +32,7 @@
 
 `TextureImageLoader`分派两个已验证TGA解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，二维mip由独立`TextureTriangleMipEncoder`/`TexturePs3MipEncoder`提供，体积编码由`TextureVolumeRawDdsEncoder`/`TextureVolumeMipEncoder`提供，插件按平台、Type和GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
 
-NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3无mip仅支持已验证且不触发自动resize的输入；PS3 mip固定三份payload已实现并验收；>256自动resize仍拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
+NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3 mip固定三份payload已实现并验收；POT TGA >256的自动cubic resize已接入并验收，极端条带右移导致零轴时明确拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
 
 ## 第三轮新增：PS3 mip、体积 DDS 与体积 mip
 
@@ -51,10 +47,10 @@ NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直
 ## 下一轮
 
 1. DXT1/DXT1A/DXT3/DXT5压缩核心仍缺，不把raw DDS或options恢复称为DXT恢复。
-2. PC/PS3仍需的图像设备/资源及原native生命周期尚有缺口；Xbox 360专属XenonBundler/surface/header/tiling转换已排除，不再恢复。Volume raw/mip已取得PC/PS3 SDK验收。
+2. Xbox360/XenonBundler专用恢复按用户要求剔除；共享PC/PS3 XGraphics调用及原native生命周期仍需审计；Volume raw/mip已接入并取得PC/PS3 SDK验收。
 3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
-4. PNG/JPEG、剩余TGA metadata和NPOT/PS3 resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
-5. PS3 mip已单独验收；>256的PS3 cubic resize实验及浮点阻塞见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)，候选隔离在src/TextureCompiler/Experiments，不编入默认DLL。NPOT D3DX resize仍未支持。
+4. PNG/JPEG、剩余TGA metadata和NPOT resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
+5. PS3自动cubic resize已正式验收，数值根因及精确锚点见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)；普通二维/体积mip残差修正状态见[第四轮交接](TEXTURE_ROUND4_HANDOFF.md)。NPOT D3DX resize仍未支持。
 
 详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
 

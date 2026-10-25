@@ -1,9 +1,10 @@
 # Texture compiler experiments
 
-These files are not included by Managed/Recovered.TextureCompiler.csproj.
+This directory is outside the default Managed project.
 
-TextureCubicResizeEncoder is an unaccepted candidate. Only the dedicated
-TestTextureCubicResize.ps1 compiles it into Experimental.Texture.Cubic.dll.
-Do not route production Plugin.Images.cs to it until the complete differential
-and actual plugin / SDK integration pass. Current numeric mismatch and exact
-probe anchors: recovery/TEXTURE_CUBIC_RESIZE.md (repository root).
+The cubic resize encoder was promoted to
+`src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs` after production
+Debug/Release component, actual plugin, and PS3 SDK differential acceptance.
+See `recovery/TEXTURE_CUBIC_RESIZE.md` for immutable source/run anchors and
+unsupported boundaries. Do not recreate the old Experimental.Texture.Cubic.dll
+acceptance route or report historical failures as the current state.

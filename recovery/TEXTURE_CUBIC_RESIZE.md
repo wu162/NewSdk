@@ -1,29 +1,41 @@
-# Cubic 自动缩放：实验续接，尚未验收
+# PS3 cubic 自动缩放：正式源码与 SDK 已验收
 
-2026-10-25。正式插件仍拒绝 PS3 StandardTexture >256 且 AllowAutomaticResize=true 的路径；NPOT D3DX resize 也仍拒绝。以下候选不属于已支持能力，不能用前面的PS3/volume成功SDK收据代替本组验收。
+2026-10-25，第四轮约40分钟，单代理；Xbox360不在恢复目标内。正式恢复源码为根 `src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs`，已经接入 `Plugin.Images.cs`。默认项目直接编译该类；不再存在独立实验 DLL 的验收替代正式构建。
 
-## 代码与隔离
+## 能力与边界
 
-候选在根 `src/TextureCompiler/Experiments/TextureCubicResizeEncoder.cs`，位于 Managed 项目目录之外。默认 csproj 不包含此文件，Plugin.Images.cs 没有调用它。`TestTextureCubicResize.ps1` 先构建正式恢复 DLL，再用 csc 单独编译 Experimental.Texture.Cubic.dll，差分只反射加载这个实验 DLL。候选保留最接近原版的二维 base-relative 后续 mip 模型；递归模型已经证伪，不能再误当正确实现。
+PS3 StandardTexture 的 POT TGA 输入、AllowAutomaticResize=true、任一轴>256：两个轴同时右移，直到二者均≤256，按 B-spline cubic 生成 base image，随后从该 base 生成后续 mip，支持 A8R8G8B8 / X8R8G8B8 / R5G6B5、Texture / OnDemandTexture、有/无 mip。PS3 有 mip 保持原来的三份 payload。
 
-默认 Managed 目录的15个C#文件及1个csproj与最终SDK验收源码 `75f302ef802499fb319c77a5da7e0f454a30ca68` 全部逐Git blob SHA一致。隔离提交 `1e19ecb45b6100503c1eb0c69c43698c01c84626` 的核对收据见 `evidence/texture/handoffs/20261025-stage3/default-managed-inputs.json`。无需因实验目录/文档变化重复调用已验收类型的原DLL。
+NPOT D3DX resize、PNG/JPEG、DXT 和完整 atlas 入口仍未实现。右移会使任一轴为0的极端条带明确拒绝，不以clamp改写语义。生产 SDK 原 DLL/config 未替换。
 
-## 原版证据
+## 精确验收锚点
 
-- 原 `Plugin.ProcessTexture` 的PS3 StandardTexture分支：宽或高大于256时两个轴同时右移，直到二者都≤256；写 rescale type@60=5、filter@64=4、float width/height@68/72。枚举来自固定公开旧头，4为B-spline cubic，5为PreScale；不把rescale 5误当mip filter 5。
-- 原版输出探针：源码 `147c85a806c566288b4ff94a46933525ed2f83e8`，运行 [40203552957](https://github.com/wu162/NewSdk/actions/runs/40203552957) 成功，279组原版三格式、HalfAxesAtLeast1、无mip完整DDS。收据和transcript.zip在 `evidence/texture/cubic-resize-probe/40203552957-1`。这只是原版证据，不是恢复成功。
-- 原版浮点探针：源码 `424f0f830415b1749eabd1db2e6023d602d282a9`，运行 [40204552902](https://github.com/wu162/NewSdk/actions/runs/40204552902) 成功，270组。先在未打补丁的原native函数生成同进程基线，再安装测试进程FloatToUnsigned RVA0x5bc90的探针；全部DDS字节和callback元数据必须与基线一致才记录float bits。保留原SHA256、指令/重定位常量guard、完整x87/SSE及寄存器状态保存、finally恢复并逐字节检查恢复。只用于取证，未链接到恢复业务DLL。原浮点记录在 `evidence/texture/cubic-float-probe/40204552902-1/transcript.zip`。
+源码 `d9e496d5907fce28d38e9bf0268e7d3488d2e626`：
 
-## 当前阻塞与已证伪假设
+| 层次 | 运行 | 结果 |
+| --- | --- | --- |
+| 正式 DLL 组件 Debug / Release | [40209208060](https://github.com/wu162/NewSdk/actions/runs/40209208060) | 各1854组、19066353 checks，完整DDS逐字节一致 |
+| 实际 ProcessInstance Debug / Release | [40209208093](https://github.com/wu162/NewSdk/actions/runs/40209208093) | 各324组、24597016 bytes、零错误；三缓冲区及完整cdata一致 |
+| 真实SDK Ps3ResizeNoMip / Ps3ResizeMips | [40209208221](https://github.com/wu162/NewSdk/actions/runs/40209208221) | 两profile各18资产，Original / Recovered / NoOriginal各18次Core实际调用；四产物和每次buffer/cdata完全一致 |
 
-直接B-spline cubic的输出base像素与探针匹配，但完整后续mip数值仍未闭合。最近完整组件矩阵包含2x/4x/8x缩放、mip=false/true、随机/脉冲、最高1024轴及11个拒绝样本；整个组**没有取得Debug/Release通过**。
+收据分别在 `evidence/texture/stage2/CubicResize/40209208060-1`、`ps3-resize-images/40209208093-1`、`sdk-ps3-resize/{Ps3ResizeNoMip,Ps3ResizeMips}/40209208221-1`。本轮曾口头误报入口612组，最终以收据324组为准。
 
-1. 原 base-relative 候选在运行40203886032/40204116704失败：PS3 mip=true、shift=1、RGBA 4×8、pattern4，DDS offset169原版51、候选50。
-2. 改递归在源码3883ac9e、运行40204249089失败：8×4、pattern2、offset168原版132、候选131。该模型数学权重也不同，已退回更接近的base-relative候选；不要仅为修复第一个样本而保留递归法。
-3. float探针对45组A8R8G8B8 mip=true的本地模型核对：base floats逐bit匹配；base-relative的后续float最接近，只有4×8 pattern4末级两个float bit不同。该局部数学核对不能冒充全部Windows矩阵验收。逐项除法代替统一倒数、固定水平/垂直顺序、末级固定单轴优先均没有解决全部float记录；不做按样本硬编码修正。
+该路由提交引起的旧回归也成功：基础40209208209、无mip入口40209208158、PC mip入口40209208069、PS3 mip入口40209208185、体积raw入口40209208124、体积mip入口40209208075。不要将后续文档提交写成新的SDK运行。
 
-下一轮从浮点记录直接核对这个4×8样本末级的归一化权重、累加精度与中间值生命周期，再跑最终整组矩阵。新增实验候选应把Experiments源文件也纳入显式输入指纹。组件闭合后才接Plugin，并运行准备好的实际入口/PS3真实SDK新profile；本轮没有接入，没有启动缩放SDK验收。两个轴右移可能得到0的极端条带不在当前安全原版探针域，后续须先明确拒绝/原错误边界，不能通过clamp悄悄更改原语义。
+## 根因与复现
 
-已验收二维PS3 mip、体积raw/mip及五个真实SDK profile不变，详见 [TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。本页实验失败必须与这些成功分组分别报告。
+原native通用重采样器 RVA 0x53930 先乘统一double倒数，再顺序累加归一化权重，把 `1 - sum` 加回最近中心tap。旧候选漏掉最后一步，导致4×8 pattern4末级两个float bit不同，最终DDS offset169出现原版51、候选50。不是递归mip、x87扩展精度或者固定横纵顺序问题。
 
-隔离后的最终实验运行 [40204996178](https://github.com/wu162/NewSdk/actions/runs/40204996178)（sourceCommit 1e19ecb45b6100503c1eb0c69c43698c01c84626）已结束：正式DLL Debug构建、独立实验DLL csc构建及宿主构建成功，仍在上述4×8 pattern4/mip=true的DDS offset169报原版51/候选50。失败属于实验数值差异，未关闭或放宽断言；Release未因Debug失败而取得成功声明。完整失败产物保留在该运行Actions artifact，正式Managed编译输入仍与75f302ef一致。
+4→1 triangle的归一化double权重前三/四项通常是 `3FCAAAAAAAAAAAAA, 3FD2AAAAAAAAAAAA, 3FD2AAAAAAAAAAAE, 3FCAAAAAAAAAAAAA`。中心项必须包含残差。验证模型若使用Python 3.12内置sum，会因补偿求和误判；必须与原native一样显式顺序累加原权重和归一化权重。C#代码已保留显式循环，没有按样本硬编码。
+
+测试进程探针保存GPR/flags及FXSAVE状态、恢复完整原指令；每次要求270组instrumented DDS/callback与同进程未修改原DLL基线一致。源码/运行：5c8d2631 / 40208104097，f5e4b5c1 / 40208331901，25c9b4e3 / 40208535806。最后一组记录RVA0x5f030 weighted accumulation的34次调用，确定输入来自同一个cubic base和double权重差异。探针不链接业务恢复DLL。原DLL SHA256为 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
+
+历史原输出探针40203552957、float探针40204552902保留；历史失败40203886032/40204116704与递归模型失败40204249089均已被本页正式验收取代。实验成功40208949578不是最终正式Debug/Release验收，以上d9e496d5运行才是。
+
+## 同族归一化修正
+
+后续源码 `fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76` 把相同残差步骤补入 TextureTriangleMipEncoder / TextureVolumeMipEncoder，并给PC/PS3原native差分新增同一个确定的4×8输入，避免旧随机样本漏过半值边界。其验证状态及runId见[本轮交接](TEXTURE_ROUND4_HANDOFF.md)。该变更会影响普通mip，必须单独验收；不能拿本页cubic结果代替。
+
+## 公开实现参考
+
+本轮查阅 [NVIDIA Texture Tools FloatImage](https://github.com/castano/nvidia-texture-tools/blob/master/src/nvimage/FloatImage.cpp)、[ScummVM 2PassScale](https://github.com/scummvm/scummvm/blob/master/engines/qdengine/qdcore/util/2PassScale.h)、FreeImage Toolkit Resize 和 [TwelveMonkeys ResampleOp](https://github.com/haraldk/TwelveMonkeys/blob/master/common/common-image/src/main/java/com/twelvemonkeys/image/ResampleOp.java) 的公开实现，比较两遍滤波、B-spline及边界处理。各版本的坐标、顺序和量化不同，不能直接当旧nvDDS的等价替代。实际修正取自原DLL指令与保持输出不变的探针；没有粘贴这些项目的源码。下一轮可继续积极参考公开实现，以原版逐字节对照为验收标准。
