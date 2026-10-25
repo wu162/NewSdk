@@ -1,0 +1,47 @@
+name: Recover managed support DLLs
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recover-managed-support.yml'
+      - 'recovery/scripts/RecoverManagedSupport.ps1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: managed-support-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Recover complete C# projects using pinned ILSpy
+        shell: pwsh
+        run: ./recovery/scripts/RecoverManagedSupport.ps1
+      - name: Preserve source and recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: managed-support-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/src/Managed/ExpressionEval
+            recovery/src/Managed/GameDataVerifier
+            recovery/evidence/managed-support
+      - name: Commit complete recovered source
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- recovery/src/Managed/ExpressionEval recovery/src/Managed/GameDataVerifier recovery/evidence/managed-support
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "Recover ExpressionEval and GameDataVerifier C# sources using ILSpy"
+          if ($LASTEXITCODE -ne 0) { throw 'Source commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Source push failed; artifact retained' }
