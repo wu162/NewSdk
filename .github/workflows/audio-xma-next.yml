@@ -9,6 +9,7 @@ on:
       - 'src/AudioCompiler/Native/XmaPcmConverter.cs'
       - 'recovery/scripts/TestAudioXmaRaw.ps1'
       - 'recovery/scripts/TestAudioXmaDispatch.ps1'
+      - 'recovery/scripts/TestAudioXmaNumericalDispatch.ps1'
       - 'recovery/scripts/TestAudioAifc.ps1'
       - 'recovery/scripts/TestAudioXmaRewrite.ps1'
       - 'recovery/scripts/TestAudioXmaNoise.ps1'
@@ -16,8 +17,10 @@ on:
       - 'recovery/scripts/TestAudioInputMetadata.ps1'
       - 'recovery/tests/AudioXmaRawOracle.cs'
       - 'recovery/tests/AudioXmaDispatchOracle.cs'
+      - 'recovery/tests/AudioXmaNumericalDispatchOracle.cs'
       - 'recovery/tests/AudioAifcPluginOracle.cs'
       - 'recovery/tests/AudioAifcInputCases.cs'
+      - 'recovery/tests/AudioAifcReaderOracle.cs'
       - 'recovery/tests/AudioXmaRewriteOracle.cs'
       - 'recovery/tests/AudioXmaNoiseOracle.cs'
       - 'recovery/tests/AudioXmaPcmOracle.cs'
@@ -28,7 +31,7 @@ on:
         required: true
         default: all
         type: choice
-        options: [raw, rewrite, noise, pcm, formats, dispatch, aifc-original, all]
+        options: [raw, rewrite, noise, pcm, formats, dispatch, numerical-dispatch, aifc-original, aifc, all]
 permissions:
   contents: write
 concurrency:
@@ -43,7 +46,9 @@ jobs:
       RUN_REWRITE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'rewrite' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-rewrite]')) }}
       RUN_NOISE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'noise' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-noise]')) }}
       RUN_PCM: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'pcm' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-pcm]')) }}
+      RUN_NUMERICAL_DISPATCH: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'numerical-dispatch') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-numerical-dispatch]')) }}
       RUN_DISPATCH: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'dispatch') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-dispatch]')) }}
+      RUN_AIFC: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc]')) }}
       RUN_AIFC_ORIGINAL: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc-original') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc-original]')) }}
       RUN_FORMATS: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'formats' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-input-metadata]')) }}
     steps:
@@ -59,7 +64,9 @@ jobs:
           if ($env:RUN_REWRITE -eq 'true') { $groups += 'rewrite' }
           if ($env:RUN_NOISE -eq 'true') { $groups += 'noise' }
           if ($env:RUN_PCM -eq 'true') { $groups += 'pcm' }
+          if ($env:RUN_NUMERICAL_DISPATCH -eq 'true') { $groups += 'numerical-dispatch' }
           if ($env:RUN_DISPATCH -eq 'true') { $groups += 'dispatch' }
+          if ($env:RUN_AIFC -eq 'true') { $groups += 'aifc' }
           if ($env:RUN_AIFC_ORIGINAL -eq 'true') { $groups += 'aifc-original' }
           if ($env:RUN_FORMATS -eq 'true') { $groups += 'formats' }
           $state = @{
@@ -72,10 +79,11 @@ jobs:
             originalSha256 = (Get-FileHash 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll').Hash.ToLowerInvariant()
           }
           $state | ConvertTo-Json -Depth 6 | Set-Content "$out/request.json"
-          if ($groups.Count -eq 0) { throw 'Select explicit [xma-raw], [xma-rewrite], [xma-noise], [xma-pcm], [xma-dispatch], [audio-input-metadata], or [audio-aifc-original] push markers, or dispatch a scope' }
+          if ($env:RUN_AIFC -eq 'true' -and ($env:RUN_FORMATS -eq 'true' -or $env:RUN_AIFC_ORIGINAL -eq 'true')) { throw 'AIFC full acceptance must run separately from formats and AIFC original-only to preserve distinct evidence directories' }
+          if ($groups.Count -eq 0) { throw 'Select explicit [xma-raw], [xma-rewrite], [xma-noise], [xma-pcm], [xma-dispatch], [xma-numerical-dispatch], [audio-input-metadata], [audio-aifc], or [audio-aifc-original] push markers, or dispatch a scope' }
           if ($state.originalSha256 -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler DLL fingerprint changed' }
       - uses: actions/setup-dotnet@v4
-        if: env.RUN_FORMATS == 'true'
+        if: env.RUN_FORMATS == 'true' || env.RUN_AIFC == 'true'
         with:
           dotnet-version: '8.0.x'
       - name: Collect original raw XMA output before packet rewriting
@@ -113,10 +121,20 @@ jobs:
         if: always() && steps.preflight.outcome == 'success' && env.RUN_DISPATCH == 'true'
         shell: pwsh
         run: ./recovery/scripts/TestAudioXmaDispatch.ps1
+      - name: Trace original numerical XMA callback target
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_NUMERICAL_DISPATCH == 'true'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioXmaNumericalDispatch.ps1
       - name: Collect original AIFC acceptance evidence
         if: always() && steps.preflight.outcome == 'success' && env.RUN_AIFC_ORIGINAL == 'true'
         shell: pwsh
         run: ./recovery/scripts/TestAudioAifc.ps1 -OriginalOnly
+      - name: Compare complete AIFC group and affected AIFF/WAVE regressions
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_AIFC == 'true'
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioPlugin.ps1 -Groups formats,aiffloops
+          ./recovery/scripts/TestAudioAifc.ps1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -129,6 +147,7 @@ jobs:
             recovery/evidence/audio/xma-noise-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xma-pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xma-dispatch-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-numerical-dispatch-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/aifc-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
@@ -138,7 +157,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $paths = @('xma-next-validation','xma-raw-validation','xma-rewrite-validation','xma-noise-validation','xma-pcm-validation','xma-dispatch-validation','aifc-validation','plugin-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
+          $paths = @('xma-next-validation','xma-raw-validation','xma-rewrite-validation','xma-noise-validation','xma-pcm-validation','xma-dispatch-validation','xma-numerical-dispatch-validation','aifc-validation','plugin-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
           if ($paths.Count -eq 0) { throw 'No selected run evidence was produced' }
           git add -- $paths
           if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }

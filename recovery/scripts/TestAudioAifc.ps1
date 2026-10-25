@@ -49,6 +49,11 @@ try {
         & "$PSScriptRoot/TestAudioSdk.ps1" -AifcOnly
         $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw | ConvertFrom-Json
         if ($sdk.status -ne 'passed' -or !$sdk.succeeded -or $sdk.profile -ne 'create-aifc') { throw 'Missing AIFC SDK acceptance' }
+        $sdkDirectory = "recovery/evidence/audio/sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+        if (@(Get-Content "$sdkDirectory/expected-assets.tsv").Count -ne 120) { throw 'Missing120 expected AIFC SDK assets' }
+        foreach ($side in @('Original','Recovered')) {
+            if (@(Get-Content "$sdkDirectory/$side-calls.tsv").Count -ne 120) { throw "Expected120 actual $side AIFC SDK calls" }
+        }
         $receipt.sdkValidated=$true
     }
 } catch { $receipt.status='failed';$receipt.error=$_.Exception.Message;throw }

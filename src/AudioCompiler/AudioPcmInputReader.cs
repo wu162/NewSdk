@@ -12,7 +12,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             if (bytes == null) throw new ArgumentNullException("bytes");
             if (bytes.Length < 12) throw new InvalidDataException("Truncated audio file");
-            bool aiff = Tag(bytes, 0) == "FORM" && Tag(bytes, 8) == "AIFF";
+            bool aifc = Tag(bytes, 0) == "FORM" && Tag(bytes, 8) == "AIFC";
+            bool aiff = Tag(bytes, 0) == "FORM" && (Tag(bytes, 8) == "AIFF" || aifc);
             bool wave = Tag(bytes, 0) == "RIFF" && Tag(bytes, 8) == "WAVE";
             if (!aiff && !wave) throw new NotSupportedException("Uncompressed AIFF or PCM WAVE input is required");
             int channels = 0, rate = 0, bits = 0, format = 0, align = 0;
@@ -50,6 +51,15 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (aiff && tag == "COMM")
                 {
                     if (size < 18) throw new InvalidDataException("Truncated AIFF common chunk");
+                    if (aifc)
+                    {
+                        // Identifier 0x380c3..381a9 recognizes AIFC NONE;
+                        // 0x3845e..3848c retains the AIFF integral decoder for
+                        // NONE. Compression names and FVER are not interpreted.
+                        if (size < 22) throw new InvalidDataException("Truncated AIFC compression type");
+                        if (Tag(bytes, body + 18) != "NONE")
+                            throw new NotSupportedException("Only uncompressed AIFC NONE input has been recovered");
+                    }
                     channels = U16(bytes, body, true);
                     bits = U16(bytes, body + 6, true);
                     // The original importer uses the high 32 significand bits,
