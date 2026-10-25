@@ -99,6 +99,10 @@ namespace BinaryAssetBuilder.AudioCompiler
             {
                 m_Tracer.TraceWarning("ProcessPathMusicMapInstance could not find the Map Data file: {0}", file);
             }
+            catch (IOException)
+            {
+                m_Tracer.TraceWarning("ProcessPathMusicMapInstance could not find the Map Data file: {0}", file);
+            }
             return builder.Finish();
         }
 
@@ -162,7 +166,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public unsafe bool ParsePathMusicHeaderLine(sbyte* defineType, sbyte* line, sbyte* name, int* foundID)
         {
-            int value = *foundID;
+            int value = 0;
             bool found = PathMusicHeader.Parse(Marshal.PtrToStringAnsi((IntPtr)defineType),
                 Marshal.PtrToStringAnsi((IntPtr)line), Marshal.PtrToStringAnsi((IntPtr)name), ref value);
             if (found) *foundID = value;

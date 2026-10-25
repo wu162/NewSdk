@@ -16,7 +16,7 @@ New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
-& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path *> "$out/oracle-build.log"
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$hostExe.config"
 $sourceCommit = (git rev-parse HEAD).Trim()
@@ -29,6 +29,8 @@ try {
     # Full raw PCM native evidence is retained separately and is not counted as recovered acceptance.
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/pcm-original.txt" pcm *> "$out/pcm-original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/pcm-original.log"; throw 'Original PCM probe failed' }
+    & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/xas-original.txt" xas *> "$out/xas-original.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/xas-original.log"; throw 'Original XAS probe failed' }
     Get-ChildItem $fixtures -Filter '*.wav' | Copy-Item -Destination $out
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     $baseline = (Get-FileHash "$out/original.txt").Hash
@@ -36,7 +38,7 @@ try {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
         Get-ChildItem SDK/tools -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll' | Copy-Item -Destination $candidate
         $library = Join-Path $candidate 'Recovered.AudioCompiler.dll'
-        $sources = @(Get-ChildItem src/AudioCompiler -Filter '*.cs' -Recurse | ForEach-Object FullName)
+        $sources = @(Get-ChildItem src/AudioCompiler -Filter '*.cs' -Recurse | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | ForEach-Object FullName)
         if ($sources.Count -lt 2) { throw 'Recovered AudioCompiler implementation is missing' }
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
         & $csc /nologo /unsafe /target:library /platform:x86 $optimize /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$library" $sources *> "$out/$mode-build.log"
