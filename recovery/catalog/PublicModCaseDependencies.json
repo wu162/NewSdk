@@ -1,0 +1,517 @@
+{
+  "sourceCommit": "8d3fe79706c0ef1a2aa995a2fb669e74ebece444",
+  "method": "Traverse named schema complex types/extensions/groups for Ref/WeakRef and xas:refType fields; compare names to local registered IDs and SDK builtmods manifest name buffers. Includes and shader constants checked separately. This is a static aid; SDK compile is authoritative. ModuleData id declarations are identities, not outgoing references.",
+  "references": [
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_AttackMove",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_attackmove"
+      ]
+    },
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_Stop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_stop"
+      ]
+    },
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_MoveToPositionAndCollect",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_movetopositionandcollect"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@SelectPortrait",
+      "refType": "ImageWeakRef",
+      "value": "Portrait_AlliedAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:portrait_alliedantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@ButtonImage",
+      "refType": "ImageWeakRef",
+      "value": "Button_AlliedAntiVehicleVehicleTech1_on",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:button_alliedantivehiclevehicletech1_on"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@Side",
+      "refType": "PlayerTemplateWeakRef",
+      "value": "Allies",
+      "resolution": "stock",
+      "stockCandidates": [
+        "playertemplate:allies",
+        "campaigntemplate:allies"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@CommandSet",
+      "refType": "LogicCommandSetWeakRef",
+      "value": "PublicYuri_ChaosDroneCommandSet",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "GameObject.xml/GameObject/@UnitIntro",
+      "refType": "UnitIntroRef",
+      "value": "Allied_GuardianTank_UnitIntro",
+      "resolution": "stock",
+      "stockCandidates": [
+        "unitintro:allied_guardiantank_unitintro"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ArmorSet/@Armor",
+      "refType": "ArmorTemplateRef",
+      "value": "AlliedAntiVehicleVehicleTech1Armor",
+      "resolution": "stock",
+      "stockCandidates": [
+        "armortemplate:alliedantivehiclevehicletech1armor"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ArmorSet/@DamageFX",
+      "refType": "DamageFXRef",
+      "value": "VehicleDamageFX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "damagefx:vehicledamagefx"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/LocomotorSet/@Locomotor",
+      "refType": "LocomotorTemplateRef",
+      "value": "TestReactiveLocomotorTANK",
+      "resolution": "stock",
+      "stockCandidates": [
+        "locomotortemplate:testreactivelocomotortank"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/@TrackMarks",
+      "refType": "TextureRef",
+      "value": "EXTnkTrack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:extnktrack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/TreadTerrainParticles",
+      "refType": "TerrainParticleMappingRef",
+      "value": "DefaultTankTerrainParticleMapping",
+      "resolution": "stock",
+      "stockCandidates": [
+        "terrainparticlemapping:defaulttankterrainparticlemapping"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1_D",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1_d"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefire"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFireLight",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefirelight"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1_D",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1_d"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefire"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFireLight",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefirelight"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "AUAntiVehicleVehicleTech1_MOVA",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:auantivehiclevehicletech1_mova"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/WeaponSetUpdate/WeaponSlotTurret/Weapon/@Template",
+      "refType": "WeaponRef",
+      "value": "PublicYuri_ChaosDroneGasAura",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/CreateObjectDie/@CreationList",
+      "refType": "ObjectCreationListRef",
+      "value": "AUAntiVehicleVehicleTech1_Die_OCL",
+      "resolution": "stock",
+      "stockCandidates": [
+        "objectcreationlist:auantivehiclevehicletech1_die_ocl"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/FXListBehavior/Event/@FX",
+      "refType": "FXListRef",
+      "value": "FX_AlliedChieftanDie",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_alliedchieftandie"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_GuardianTank_VoiceShrunken",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardiantank_voiceshrunken"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionSoundSelectorClientBehavior/Override/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceAttackPaintTarget",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceattackpainttarget"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_PainterWeaponLoop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_painterweaponloop"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_PainterWeaponStart",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_painterweaponstart"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceAttack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceattack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceCreate",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicecreate"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceMoveAttack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicemoveattack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceMove",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicemove"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceRetreat",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceretreat"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectms"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectBattleMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectbattlems"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectBattleMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectbattlems"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_MoveStart",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_movestart"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "VehicleCrush",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:vehiclecrush"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "Tank_Land_MoveLoop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:tank_land_moveloop"
+      ]
+    },
+    {
+      "path": "FXParticleSystemTemplate.xml/FXParticleSystemTemplate/@ParticleTexture",
+      "refType": "TextureRef",
+      "value": "FXDustCloud",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:fxdustcloud"
+      ]
+    },
+    {
+      "path": "FXList.xml/FXList/NuggetList/ParticleSystem/@Particle",
+      "refType": "FXParticleSystemRef",
+      "value": "PublicYuri_ChaosDroneGasRing",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "LogicCommand.xml/LogicCommand/Object",
+      "refType": "GameObjectRef",
+      "value": "PublicYuri_ChaosDrone",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "WeaponTemplate.xml/WeaponTemplate/@FireFX",
+      "refType": "FXListRef",
+      "value": "PublicYuri_FX_ChaosDroneGasRing",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "WeaponTemplate.xml/WeaponTemplate/Nuggets/AttributeModifierNugget/@AttributeModifierName",
+      "refType": "AttributeModifierRef",
+      "value": "PublicYuri_AttributeModifier_Hallucinate",
+      "resolution": "local",
+      "stockCandidates": []
+    }
+  ]
+}
