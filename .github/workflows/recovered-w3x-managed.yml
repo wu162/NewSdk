@@ -1,0 +1,47 @@
+name: Recovered W3X managed
+on:
+  push:
+    branches: [recovery/w3xcompiler-source, recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-w3x-managed.yml'
+      - 'recovery/src/Managed/W3x/**'
+      - 'recovery/src/Plugin/W3x/**'
+      - 'recovery/tests/W3xManaged*.cs'
+      - 'recovery/scripts/TestW3xManaged.ps1'
+      - 'SDK/tools/BinaryAssetBuilder.W3XCompiler.dll'
+      - 'SDK/tools/BinaryAssetBuilder.Core.dll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: w3x-managed-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  managed:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build both managed modes and compare with original
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xManaged.ps1
+      - name: Publish results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w3x-managed-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 30
+      - name: Save immutable successful validation
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/w3x/managed-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "w3x: preserve managed validation $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }
