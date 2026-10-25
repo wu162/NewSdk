@@ -1,0 +1,11 @@
+{
+  "records": 120,
+  "runAttempt": "1",
+  "scope": "original nvDDS RGBA uncompressed-format outputs only; no recovered encoder acceptance",
+  "transcriptSha256": "d4fe92e4048ecb27f8a6c2ae4c20a017154c9fc036834b10a2a27653b0834867",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40202575400",
+  "status": "original-evidence-only",
+  "sourceCommit": "31f45e04b20ce7a307906009cbc7dd16c16e1e1a",
+  "sdkValidated": false
+}
