@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+  "runId": 40209761398,
+  "runAttempt": 1,
+  "artifactId": 12604243997,
+  "artifactDigest": "sha256:14c37952980434d48b185bffa8370bdfeb7def51b52ef0160832be667d76082e",
+  "fixture": "normalization-residual-4x8",
+  "rgbaBase64": "qJa3SbMou3LVfgWo3Hswbl7tLAwIb6b6eRS4f3xhIWlEA6/cEh+874jjLP316lSR7HkRFavHvY+wCnmuXzuWzLSrNH1Dr5996guKJJNLzAEJKWkBAwxhjBDHVO4A1F6bma2ZP3PX5D0a07qM3d9KL0VrGnOG9Alt8u9IV3EMWKA=",
+  "format": "D3DFMT_A8R8G8B8",
+  "ddsOffset": 290,
+  "level": 2,
+  "channel": "R",
+  "oldMissingResidualModel": 130,
+  "debugOriginalAndRecovered": 131,
+  "releaseOriginalAndRecovered": 131,
+  "method": "Downloaded immutable artifact, opened transcripts.zip, decoded named DDS record in both configurations. Full native-original equality is enforced by TextureMipDdsDifferential; the old-model value is a local numerical replay, not an old-DLL Windows run."
+}
