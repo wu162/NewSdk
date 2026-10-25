@@ -7,7 +7,9 @@
     "srcUnchanged": true,
     "sdkUnchanged": true,
     "srcSha": "1347625bc33cfa93286af3a119ab070372b4b55f",
-    "sdkSha": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9"
+    "sdkSha": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "historicalProofOnly": true,
+    "doesNotCertifyCurrentWholeTree": true
   },
   "components": [
     {
@@ -68,11 +70,209 @@
       "rawCodecPackets": 0,
       "originalCpuValidated": true,
       "receipt": "xma-packet-validation/40209977895-1/validation.json"
+    },
+    {
+      "scope": "WAVE extensible ignored extension metadata",
+      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+      "runId": "40232917060",
+      "attempt": 1,
+      "receipts": [
+        "plugin-validation/40232917060-1/validation.json",
+        "sdk-validation/40232917060-1/validation.json"
+      ],
+      "recordsPerConfiguration": 2400,
+      "sdkActualCalls": 120,
+      "sdkProducts": 4,
+      "sdkCustomFiles": 120
+    },
+    {
+      "scope": "XMA PCM preconversion only",
+      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+      "runId": "40232917060",
+      "attempt": 1,
+      "receipts": [
+        "xma-pcm-validation/40232917060-1/validation.json"
+      ],
+      "recordsPerConfiguration": 124,
+      "signed16SamplesPerConfiguration": 142193,
+      "safetyRefusals": 9
+    },
+    {
+      "scope": "XMA raw packet to EA output rewriting only",
+      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+      "runId": "40232917060",
+      "attempt": 1,
+      "receipts": [
+        "xma-rewrite-validation/40232917060-1/validation.json"
+      ],
+      "recordsPerConfiguration": 801,
+      "realRawBlocks": 8,
+      "historicalPluginClosedLoopBlocks": 8,
+      "safetyRefusals": 12
+    },
+    {
+      "scope": "XMA PRNG and numeric noise helpers only",
+      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+      "runId": "40232917060",
+      "attempt": 1,
+      "receipts": [
+        "xma-noise-validation/40232917060-1/validation.json"
+      ],
+      "recordsPerConfiguration": 6360,
+      "safetyRefusals": 8
+    },
+    {
+      "scope": "AIFC NONE integral input",
+      "sourceCommit": "3863a632faac79ef586569e134b7eb46014fab94",
+      "runId": "40233228823",
+      "attempt": 1,
+      "receipts": [
+        "aifc-validation/40233228823-1/validation.json",
+        "plugin-validation/40233228823-1/validation.json",
+        "sdk-validation/40233228823-1/validation.json"
+      ],
+      "recordsPerConfiguration": 1440,
+      "sampleBitChecks": 60,
+      "safetyRefusals": 10,
+      "affectedOldPluginRecords": 2600,
+      "sdkActualCalls": 120,
+      "sdkProducts": 4,
+      "sdkCustomFiles": 120
+    },
+    {
+      "scope": "XMA six integral window and copy leaves only",
+      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+      "runId": "40233712043",
+      "attempt": 1,
+      "receipts": [
+        "xma-window-validation/40233712043-1/validation.json"
+      ],
+      "recordsPerConfiguration": 6888,
+      "safetyRefusals": 12
+    },
+    {
+      "scope": "ADP4 raw nibble decoder component only",
+      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+      "runId": "40233712043",
+      "attempt": 1,
+      "receipts": [
+        "adp4-decoder-validation/40233712043-1/validation.json"
+      ],
+      "recordsPerConfiguration": 18243,
+      "scalarCases": 18067,
+      "initializedSequences": 176,
+      "safetyRefusals": 11,
+      "sdkValidated": false
+    },
+    {
+      "scope": "XMA metadata serialization with synthetic state only",
+      "sourceCommit": "1ebd94a9c61dc4c44ea66784075f43062840ad41",
+      "runId": "40233897932",
+      "attempt": 1,
+      "receipts": [
+        "xma-codec-metadata-validation/40233897932-1/validation.json"
+      ],
+      "recordsPerConfiguration": 384,
+      "actualWrapperStates": 0,
+      "safetyRefusals": 15
+    },
+    {
+      "scope": "XMA metadata serialization with captured actual state",
+      "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+      "runId": "40234514000",
+      "attempt": 1,
+      "receipts": [
+        "xma-metadata-state-validation/40234514000-1/validation.json"
+      ],
+      "actualWrapperStates": 8,
+      "originalCodecAllocationsUnchanged": true,
+      "eaSeekEqualActualCodecAllocations": true,
+      "waveFormatComparedToCapturedStateNativeReplay": true,
+      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed"
+    },
+    {
+      "scope": "AIFC ADP4 file input component and plugin only",
+      "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+      "runId": "40234514000",
+      "attempt": 1,
+      "receipts": [
+        "adp4-plugin-validation/40234514000-1/validation.json",
+        "plugin-validation/40234514000-1/validation.json",
+        "aifc-validation/40234514000-1/validation.json"
+      ],
+      "recordsPerConfiguration": 4224,
+      "sampleBitChecks": 144,
+      "safetyRefusals": 12,
+      "affectedOldPluginRecords": 4040,
+      "sdkValidated": false,
+      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed"
+    },
+    {
+      "scope": "XMA integral window scheduler and actual input replay",
+      "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
+      "runId": "40234805270",
+      "attempt": 1,
+      "receipts": [
+        "xma-schedule-validation/40234805270-1/validation.json",
+        "xma-window-snapshot-validation/40234805270-1/validation.json"
+      ],
+      "syntheticRecordsPerConfiguration": 3240,
+      "realSnapshotsPerConfiguration": 111,
+      "nativeArguments32Verified": true,
+      "safetyRefusals": 15
+    },
+    {
+      "scope": "XMA table backed complex FFT only",
+      "sourceCommit": "03d98ce656c5df660befd4af5166cbe7f4ac453d",
+      "runId": "40235031462",
+      "attempt": 1,
+      "receipts": [
+        "xma-fft-validation/40235031462-1/validation.json"
+      ],
+      "recordsPerConfiguration": 192,
+      "orders": [
+        0,
+        15
+      ],
+      "directions": 2,
+      "patterns": 6,
+      "safetyRefusals": 6,
+      "dctRecovered": false
     }
   ],
   "completeDllRecovered": false,
   "xmaEncodingRecovered": false,
   "productionSdkReplaced": false,
   "fullUpheavalValidated": false,
-  "next": "../../audio/XmaNextBatch.md"
+  "next": "../../audio/XmaNextBatch.md",
+  "originalOnlyEvidence": [
+    {
+      "scope": "raw codec before EE00",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "runId": "40232525056",
+      "cases": 8,
+      "nativeEncodes": 16,
+      "receipt": "xma-raw-validation/40232525056-1/validation.json"
+    },
+    {
+      "scope": "long real main audio and seeded stereo",
+      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+      "runId": "40233712043",
+      "cases": 8,
+      "nativeEncodes": 16,
+      "packets": 121,
+      "multiBlockCases": 4,
+      "receipt": "xma-corpus-validation/40233712043-1/validation.json"
+    },
+    {
+      "scope": "actual numerical dispatch target only",
+      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+      "runId": "40233712043",
+      "actualCalls": 111,
+      "callSiteRva": "0x97d97",
+      "targetRva": "0x98267",
+      "receipt": "xma-numerical-dispatch-validation/40233712043-1/validation.json"
+    }
+  ],
+  "sdkPolicy": "Component and plugin differentials first; no implicit SDK in default components/all; batch real SDK at explicit larger milestones. Two current SDK receipts are dedicated minimal audio MODs, not full Upheaval."
 }
