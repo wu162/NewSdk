@@ -21,14 +21,16 @@ try {
     New-Item -ItemType Directory -Force $original | Out-Null
     Copy-Item SDK/tools/*.dll $original
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-    Run-Checked 'dds-oracle-build' { & $csc /nologo /platform:x86 /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /r:"$original/BinaryAssetBuilder.Utility.dll" /out:"$original/TextureDdsOracle.exe" "$root/recovery/tests/TextureDdsOracle.cs" }
+    Run-Checked 'dds-oracle-build' { & $csc /nologo /platform:x86 /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /r:"$original/BinaryAssetBuilder.Utility.dll" /out:"$original/TextureDdsOracle.exe" (Resolve-Path "recovery/tests/TextureDdsOracle.cs").Path }
     Host-Config "$original/TextureDdsOracle.exe"
     Run-Checked 'original-dds' { & "$original/TextureDdsOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" 'BinaryAssetBuilder.TextureCompiler.Plugin' "$out/original-dds.txt" "$work/fixtures" }
-    Run-Checked 'contract-build' { & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$original/TexturePluginContractOracle.exe" "$root/recovery/tests/TexturePluginContractOracle.cs" }
+    Run-Checked 'contract-build' { & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$original/TexturePluginContractOracle.exe" (Resolve-Path "recovery/tests/TexturePluginContractOracle.cs").Path }
     Host-Config "$original/TexturePluginContractOracle.exe"
     Run-Checked 'contract' { & "$original/TexturePluginContractOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" "$out/plugin-contract.json" }
-    Run-Checked 'metadata-build' { & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$original/TextureMetadataOracle.exe" "$root/recovery/tests/TextureMetadataOracle.cs" }
+    Run-Checked 'metadata-build' { & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$original/TextureMetadataOracle.exe" (Resolve-Path "recovery/tests/TextureMetadataOracle.cs").Path }
     Host-Config "$original/TextureMetadataOracle.exe"
+    $nativeOracle = (Resolve-Path recovery/tests/TextureSupportOracle.cpp).Path
+    $nativeSupport = (Resolve-Path src/TextureCompiler/Native/TextureSupport.cpp).Path
     foreach ($mode in @('Debug','Release')) {
         $rebuilt = "$work/$mode"
         New-Item -ItemType Directory -Force $rebuilt | Out-Null
@@ -39,10 +41,14 @@ try {
         Copy-Item "$original/TextureDdsOracle.exe*" $rebuilt
         Run-Checked "$mode-metadata" { & "$original/TextureMetadataOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" $dll }
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
-        Run-Checked "$mode-image-build" { & $csc /nologo /unsafe /platform:x86 $optimize /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/TextureImageRulesOracle-$mode.exe" "$root/recovery/tests/TextureImageRulesOracle.cs" "$root/src/TextureCompiler/Managed/TextureImageRules.cs" }
+        Run-Checked "$mode-image-build" { & $csc /nologo /unsafe /platform:x86 $optimize /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/TextureImageRulesOracle-$mode.exe" (Resolve-Path "recovery/tests/TextureImageRulesOracle.cs").Path (Resolve-Path "src/TextureCompiler/Managed/TextureImageRules.cs").Path }
         Host-Config "$original/TextureImageRulesOracle-$mode.exe"
         Run-Checked "$mode-image" { & "$original/TextureImageRulesOracle-$mode.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-image.txt" }
         if (Test-Path "$rebuilt/BinaryAssetBuilder.TextureCompiler.dll") { throw 'Original target DLL present in recovered host' }
+        Run-Checked "$mode-packer-build" { & $csc /nologo /unsafe /platform:x86 $optimize /r:$dll /out:"$original/TexturePackerOracle-$mode.exe" (Resolve-Path recovery/tests/TexturePackerOracle.cs).Path }
+        Copy-Item $dll $original -Force
+        Host-Config "$original/TexturePackerOracle-$mode.exe"
+        Run-Checked "$mode-packer" { & "$original/TexturePackerOracle-$mode.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
         Run-Checked "$mode-dds" { & "$rebuilt/TextureDdsOracle.exe" $dll 'Recovered.Compiler.Texture.Plugin' "$out/$mode-dds.txt" "$work/fixtures" }
         if ((Get-FileHash "$out/original-dds.txt").Hash -ne (Get-FileHash "$out/$mode-dds.txt").Hash) {
             Compare-Object (Get-Content "$out/original-dds.txt") (Get-Content "$out/$mode-dds.txt") | Select-Object -First 12 | Out-String -Width 500 | Set-Content "$out/$mode-dds-difference.txt"
@@ -51,11 +57,11 @@ try {
         Push-Location $rebuilt
         try {
             $nativeOpt = if ($mode -eq 'Release') { '/O2' } else { '/Od' }
-            Run-Checked "$mode-native-build" { cl /nologo /clr /EHsc /std:c++17 $nativeOpt "$root/recovery/tests/TextureSupportOracle.cpp" "$root/src/TextureCompiler/Native/TextureSupport.cpp" /Fe:TextureSupportOracle.exe }
+            Run-Checked "$mode-native-build" { cl /nologo /clr /EHsc /std:c++17 $nativeOpt $nativeOracle $nativeSupport /Fe:TextureSupportOracle.exe }
             Host-Config "$rebuilt/TextureSupportOracle.exe"
             Run-Checked "$mode-native" { & "$rebuilt/TextureSupportOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
         } finally { Pop-Location }
-        $receipt.configurations += @{configuration=$mode; passed=$true; ddsRecords=@(Get-Content "$out/$mode-dds.txt").Count; ddsSha256=(Get-FileHash "$out/$mode-dds.txt").Hash.ToLowerInvariant(); withoutOriginalTextureCompiler=$true; nativeDifferential=$true; imageRulesDifferential=$true; metadataDifferential=$true}
+        $receipt.configurations += @{configuration=$mode; passed=$true; ddsRecords=@(Get-Content "$out/$mode-dds.txt").Count; ddsSha256=(Get-FileHash "$out/$mode-dds.txt").Hash.ToLowerInvariant(); withoutOriginalTextureCompiler=$true; packerDifferential=$true; nativeDifferential=$true; imageRulesDifferential=$true; metadataDifferential=$true}
     }
     Compress-Archive -Path "$out/original-dds.txt","$out/Debug-image.txt","$out/Release-image.txt" -DestinationPath "$out/transcripts.zip"
     Remove-Item "$out/original-dds.txt","$out/Debug-dds.txt","$out/Release-dds.txt","$out/Debug-image.txt","$out/Release-image.txt"
