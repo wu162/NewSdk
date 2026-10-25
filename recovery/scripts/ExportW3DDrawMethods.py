@@ -33,7 +33,7 @@ while queue:
   for sigs in signatures.values():
    for direct in sigs:
     if name=='ModuleData' and 'ModuleData**' in direct:continue # Existing module dispatcher is a separately inventoried boundary.
-    if re.search(r'(?:\(|, )'+re.escape(name)+r'\*+ (?:@object|pointer)\b',direct) and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
+    if (re.search(r'(?:\(|, )'+re.escape(name)+r'\*+ (?:@object|pointer)\b',direct) or (name=='FXShaderConstant' and 'FXShaderConstant**' in direct)) and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
 from GenerateUpgradeFields import enum_values
 pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
 enumNames=sorted(set(re.findall(r'EnumNameGetter_0040W4([A-Za-z][A-Za-z0-9]*)_0040', '\n'.join(bodies.values()))))
