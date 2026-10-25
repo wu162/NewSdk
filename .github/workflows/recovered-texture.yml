@@ -1,23 +1,5 @@
 name: Recovered Texture components
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/Plugin.*.cs'
-      - 'src/TextureCompiler/Managed/TextureCatalog.cs'
-      - 'src/TextureCompiler/Managed/TextureImageRules.cs'
-      - 'src/TextureCompiler/Managed/TexturePacker.cs'
-      - 'src/TextureCompiler/Managed/*.csproj'
-      - 'src/TextureCompiler/Native/**'
-      - 'recovery/tests/TextureDdsOracle.cs'
-      - 'recovery/tests/fixtures/texture-main/**'
-      - 'recovery/tests/TextureImageRulesOracle.cs'
-      - 'recovery/tests/TextureMetadataOracle.cs'
-      - 'recovery/tests/TexturePackerOracle.cs'
-      - 'recovery/tests/TexturePluginContractOracle.cs'
-      - 'recovery/tests/TextureSupportOracle.cpp'
-      - 'recovery/scripts/TestTexture.ps1'
-      - '.github/workflows/recovered-texture.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -51,3 +33,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record component differential run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

@@ -1,14 +1,5 @@
 name: Recovered Texture PS3 automatic resize plugin pipeline
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs'
-      - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
-      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
-      - 'recovery/tests/TexturePs3ResizePipelineOracle.cs'
-      - 'recovery/scripts/TestTexturePs3ResizeImages.ps1'
-      - '.github/workflows/recovered-texture-ps3-resize-images.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -39,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/ps3-resize-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

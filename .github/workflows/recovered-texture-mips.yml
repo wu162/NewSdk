@@ -1,12 +1,5 @@
 name: Recovered Texture exact raw mip encoding
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs'
-      - 'recovery/tests/TextureMipDdsDifferential.cs'
-      - 'recovery/scripts/TestTextureMips.ps1'
-      - '.github/workflows/recovered-texture-mips.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -46,3 +39,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+

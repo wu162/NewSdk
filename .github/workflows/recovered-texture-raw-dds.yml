@@ -1,12 +1,5 @@
 name: Recovered Texture raw DDS encoding
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureRawDdsEncoder.cs'
-      - 'recovery/tests/TextureRawDdsDifferential.cs'
-      - 'recovery/scripts/TestTextureRawDds.ps1'
-      - '.github/workflows/recovered-texture-raw-dds.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -46,3 +39,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+

@@ -1,11 +1,5 @@
 name: Texture original volume mip evidence
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'recovery/tests/TextureVolumeMipProbe.cs'
-      - 'recovery/scripts/InspectTextureVolumeMips.ps1'
-      - '.github/workflows/texture-volume-mip-evidence.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -36,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/volume-mip-probe/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record original volume mip probe run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

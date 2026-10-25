@@ -1,0 +1,516 @@
+{
+  "version": 1,
+  "groups": {
+    "base": {
+      "script": "recovery/scripts/TestTexture.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexture.ps1",
+        "recovery/tests/TextureDdsOracle.cs",
+        "recovery/tests/TextureImageRulesOracle.cs",
+        "recovery/tests/TextureMetadataOracle.cs",
+        "recovery/tests/TexturePackerOracle.cs",
+        "recovery/tests/TexturePluginContractOracle.cs",
+        "recovery/tests/TextureSupportOracle.cpp",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Native/**"
+      ],
+      "evidence": "recovery/evidence/texture/validation/*/validation.json",
+      "sdk": false
+    },
+    "tga": {
+      "script": "recovery/scripts/TestTextureTga.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureTga.ps1",
+        "recovery/tests/TextureTgaOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/tga/*/validation.json",
+      "sdk": false
+    },
+    "formats": {
+      "script": "recovery/scripts/TestTextureStage2.ps1",
+      "arguments": {
+        "Group": "Formats"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureStage2.ps1",
+        "recovery/tests/TextureTgaFormatsOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/Formats/*/validation.json",
+      "sdk": false
+    },
+    "volume-helper": {
+      "script": "recovery/scripts/TestTextureStage2.ps1",
+      "arguments": {
+        "Group": "Volume"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureStage2.ps1",
+        "recovery/tests/TextureVolumeOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/Volume/*/validation.json",
+      "sdk": false
+    },
+    "raw": {
+      "script": "recovery/scripts/TestTextureRawDds.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRawDds.ps1",
+        "recovery/tests/TextureRawDdsDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/Raw/*/validation.json",
+      "sdk": false
+    },
+    "mips": {
+      "script": "recovery/scripts/TestTextureMips.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureMips.ps1",
+        "recovery/tests/TextureMipDdsDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/Mips/*/validation.json",
+      "sdk": false
+    },
+    "ps3-mips": {
+      "script": "recovery/scripts/TestTexturePs3Mips.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexturePs3Mips.ps1",
+        "recovery/tests/TexturePs3MipDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/Ps3Mips/*/validation.json",
+      "sdk": false
+    },
+    "volume-dds": {
+      "script": "recovery/scripts/TestTextureVolumeDds.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureVolumeDds.ps1",
+        "recovery/tests/TextureVolumeDdsDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/VolumeDds/*/validation.json",
+      "sdk": false
+    },
+    "volume-mips": {
+      "script": "recovery/scripts/TestTextureVolumeMips.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureVolumeMips.ps1",
+        "recovery/tests/TextureVolumeMipDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/VolumeMips/*/validation.json",
+      "sdk": false
+    },
+    "cubic": {
+      "script": "recovery/scripts/TestTextureCubicResize.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureCubicResize.ps1",
+        "recovery/tests/TextureCubicResizeDifferential.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/stage2/CubicResize/*/validation.json",
+      "sdk": false
+    },
+    "images": {
+      "script": "recovery/scripts/TestTextureImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureImages.ps1",
+        "recovery/tests/TextureImagePipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/images/*/validation.json",
+      "sdk": false
+    },
+    "mip-images": {
+      "script": "recovery/scripts/TestTextureMipImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureMipImages.ps1",
+        "recovery/tests/TextureMipPipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/mip-images/*/validation.json",
+      "sdk": false
+    },
+    "ps3-mip-images": {
+      "script": "recovery/scripts/TestTexturePs3MipImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexturePs3MipImages.ps1",
+        "recovery/tests/TexturePs3MipPipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ps3-mip-images/*/validation.json",
+      "sdk": false
+    },
+    "volume-images": {
+      "script": "recovery/scripts/TestTextureVolumeImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureVolumeImages.ps1",
+        "recovery/tests/TextureVolumePipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/volume-images/*/validation.json",
+      "sdk": false
+    },
+    "volume-mip-images": {
+      "script": "recovery/scripts/TestTextureVolumeMipImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureVolumeMipImages.ps1",
+        "recovery/tests/TextureVolumeMipPipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/volume-mip-images/*/validation.json",
+      "sdk": false
+    },
+    "ps3-resize-images": {
+      "script": "recovery/scripts/TestTexturePs3ResizeImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexturePs3ResizeImages.ps1",
+        "recovery/tests/TexturePs3ResizePipelineOracle.cs",
+        "recovery/tests/fixtures/texture-main/**",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/ps3-resize-images/*/validation.json",
+      "sdk": false
+    },
+    "png": {
+      "script": "recovery/scripts/TestTexturePng.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexturePng.ps1",
+        "recovery/tests/TexturePngOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/png/*/validation.json",
+      "sdk": false
+    },
+    "bmp": {
+      "script": "recovery/scripts/TestTextureBmp.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureBmp.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs"
+      ],
+      "evidence": "recovery/evidence/texture/bmp/*/validation.json",
+      "sdk": false
+    },
+    "raster-images": {
+      "script": "recovery/scripts/TestTextureRasterImages.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRasterImages.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureRasterPipelineOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/Plugin.*.cs",
+        "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
+        "src/TextureCompiler/Managed/TextureCatalog.cs",
+        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
+        "src/TextureCompiler/Managed/TextureImageLoader.cs",
+        "src/TextureCompiler/Managed/TextureImageRules.cs",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
+        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
+        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
+        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolume.cs",
+        "src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs",
+        "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+      ],
+      "evidence": "recovery/evidence/texture/raster-images/*/validation.json",
+      "sdk": false
+    },
+    "sdk-PcNoMip": {
+      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
+      "arguments": {
+        "Profile": "PcNoMip"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRasterSdk.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureRasterFixtureWriter.cs",
+        "recovery/tests/TextureSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/**",
+        "SDK/Schemas/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-rasters/PcNoMip/*/validation.json",
+      "sdk": true
+    },
+    "sdk-PcMips": {
+      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
+      "arguments": {
+        "Profile": "PcMips"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRasterSdk.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureRasterFixtureWriter.cs",
+        "recovery/tests/TextureSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/**",
+        "SDK/Schemas/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-rasters/PcMips/*/validation.json",
+      "sdk": true
+    },
+    "sdk-Ps3NoMip": {
+      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
+      "arguments": {
+        "Profile": "Ps3NoMip"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRasterSdk.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureRasterFixtureWriter.cs",
+        "recovery/tests/TextureSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/**",
+        "SDK/Schemas/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-rasters/Ps3NoMip/*/validation.json",
+      "sdk": true
+    },
+    "sdk-Ps3Mips": {
+      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
+      "arguments": {
+        "Profile": "Ps3Mips"
+      },
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTextureRasterSdk.ps1",
+        "recovery/tests/TextureBmpOracle.cs",
+        "recovery/tests/TexturePngOracle.cs",
+        "recovery/tests/TextureRasterFixtureWriter.cs",
+        "recovery/tests/TextureSdkTracePlugin.cs",
+        "src/TextureCompiler/Managed/*.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "SDK/tools/**",
+        "SDK/Schemas/**"
+      ],
+      "evidence": "recovery/evidence/texture/sdk-rasters/Ps3Mips/*/validation.json",
+      "sdk": true
+    }
+  }
+}

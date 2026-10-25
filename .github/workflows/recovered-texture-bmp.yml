@@ -1,12 +1,5 @@
 name: Recovered Texture BMP decoder
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureBmpDecoder.cs'
-      - 'recovery/tests/TextureBmpOracle.cs'
-      - 'recovery/scripts/TestTextureBmp.ps1'
-      - '.github/workflows/recovered-texture-bmp.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -32,3 +25,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/bmp/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record bmp component probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

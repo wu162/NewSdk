@@ -1,14 +1,5 @@
 name: Recovered Texture image plugin pipeline
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
-      - 'src/TextureCompiler/Managed/Plugin.Dds.cs'
-      - 'src/TextureCompiler/Managed/TextureRawDdsEncoder.cs'
-      - 'recovery/tests/TextureImagePipelineOracle.cs'
-      - 'recovery/scripts/TestTextureImages.ps1'
-      - '.github/workflows/recovered-texture-images.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -39,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

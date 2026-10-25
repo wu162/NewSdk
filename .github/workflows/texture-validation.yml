@@ -1,0 +1,92 @@
+name: Texture batched validation
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/**'
+      - 'recovery/tests/Texture*'
+      - 'recovery/tests/TestTextureSelection.py'
+      - 'recovery/tests/fixtures/texture-main/**'
+      - 'recovery/scripts/TestTexture*'
+      - 'recovery/scripts/SelectTextureGroups.py'
+      - 'recovery/scripts/RunTextureBatch.ps1'
+      - 'recovery/catalog/TextureTestGroups.json'
+      - '.github/workflows/texture-validation.yml'
+  workflow_dispatch:
+    inputs:
+      force_groups:
+        description: 'auto, or comma-separated group names to force; unchanged other groups are reused'
+        default: auto
+      run_sdk:
+        description: 'Include affected SDK profiles'
+        type: boolean
+        default: false
+      plan_only:
+        description: 'Inspect selection without running Windows tests'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+jobs:
+  plan:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[texture-test]') || contains(github.event.head_commit.message, '[texture-sdk]') || contains(github.event.head_commit.message, '[texture-plan]')
+    runs-on: ubuntu-latest
+    outputs:
+      has_work: ${{ steps.select.outputs.has_work }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify dependency selection boundaries
+        run: python recovery/tests/TestTextureSelection.py
+      - name: Select affected groups and preserve original acceptance anchors
+        id: select
+        env:
+          FORCE_GROUPS: ${{ inputs.force_groups || 'auto' }}
+          REQUEST_SDK: ${{ inputs.run_sdk || contains(github.event.head_commit.message, '[texture-sdk]') }}
+          ONLY_PLAN: ${{ inputs.plan_only || contains(github.event.head_commit.message, '[texture-plan]') }}
+        run: |
+          args=(--out plan.json --groups "$FORCE_GROUPS")
+          if [[ "$REQUEST_SDK" == true ]]; then args+=(--sdk); fi
+          python recovery/scripts/SelectTextureGroups.py "${args[@]}"
+          python - <<'PY'
+          import json, os
+          row=json.load(open('plan.json'))
+          enabled=bool(row['selected']) and os.environ['ONLY_PLAN']!='true'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('has_work='+str(enabled).lower()+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: texture-plan-${{ github.run_id }}
+          path: plan.json
+  validate:
+    needs: plan
+    if: needs.plan.outputs.has_work == 'true'
+    runs-on: windows-2022
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: texture-plan-${{ github.run_id }}
+          path: recovery/texture-plan
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run selected complete groups serially
+        id: tests
+        shell: pwsh
+        run: ./recovery/scripts/RunTextureBatch.ps1
+      - name: Preserve actual group outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-batch-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/**/${{ github.run_id }}-${{ github.run_attempt }}/**
+      - name: Persist evidence using an ordinary push
+        if: always() && steps.tests.outcome != 'skipped'
+        shell: pwsh
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"

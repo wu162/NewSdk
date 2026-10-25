@@ -1,10 +1,5 @@
 name: Recovered Texture PS3 resize real SDK integration
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'recovery/scripts/TestTexturePs3ResizeSdk.ps1'
-      - '.github/workflows/recovered-texture-ps3-resize-sdk.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -35,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/sdk-ps3-resize/${{ matrix.profile }}/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.profile }} actual SDK run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

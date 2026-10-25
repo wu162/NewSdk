@@ -1,12 +1,5 @@
 name: Recovered Texture raw volume DDS encoding
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs'
-      - 'recovery/tests/TextureVolumeDdsDifferential.cs'
-      - 'recovery/scripts/TestTextureVolumeDds.ps1'
-      - '.github/workflows/recovered-texture-volume-dds.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -37,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/stage2/${{ matrix.group }}/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

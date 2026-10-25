@@ -1,17 +1,5 @@
 name: Recovered Texture raster plugin pipeline
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TexturePngDecoder.cs'
-      - 'src/TextureCompiler/Managed/TextureBmpDecoder.cs'
-      - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
-      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
-      - 'recovery/tests/TextureRasterPipelineOracle.cs'
-      - 'recovery/tests/TexturePngOracle.cs'
-      - 'recovery/tests/TextureBmpOracle.cs'
-      - 'recovery/scripts/TestTextureRasterImages.ps1'
-      - '.github/workflows/recovered-texture-raster-images.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -37,3 +25,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/raster-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record png component probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

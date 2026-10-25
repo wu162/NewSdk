@@ -1,11 +1,5 @@
 name: Texture raw DDS original evidence
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'recovery/tests/TextureRawDdsOracle.cs'
-      - 'recovery/scripts/InspectTextureRawDds.ps1'
-      - '.github/workflows/texture-raw-dds-evidence.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -37,3 +31,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+

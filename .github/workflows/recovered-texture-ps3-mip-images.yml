@@ -1,15 +1,5 @@
 name: Recovered Texture PS3 mip plugin pipeline
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TexturePs3MipEncoder.cs'
-      - 'src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs'
-      - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
-      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
-      - 'recovery/tests/TexturePs3MipPipelineOracle.cs'
-      - 'recovery/scripts/TestTexturePs3MipImages.ps1'
-      - '.github/workflows/recovered-texture-ps3-mip-images.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -40,3 +30,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/ps3-mip-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+

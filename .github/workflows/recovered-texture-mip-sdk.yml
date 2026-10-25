@@ -1,11 +1,5 @@
 name: Recovered Texture real SDK mip integration
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'recovery/tests/TextureSdkTracePlugin.cs'
-      - 'recovery/scripts/TestTextureMipSdk.ps1'
-      - '.github/workflows/recovered-texture-mip-sdk.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -45,3 +39,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+

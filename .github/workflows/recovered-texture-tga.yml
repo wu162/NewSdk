@@ -1,13 +1,5 @@
 name: Recovered Texture TGA subset
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureTgaDecoder.cs'
-      - 'recovery/tests/TextureTgaOracle.cs'
-      - 'recovery/tests/fixtures/texture-main/**'
-      - 'recovery/scripts/TestTextureTga.ps1'
-      - '.github/workflows/recovered-texture-tga.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -42,3 +34,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+

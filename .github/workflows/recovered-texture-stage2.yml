@@ -1,14 +1,5 @@
 name: Texture volume and additional format components
 on:
-  push:
-    branches: [recovery/texturecompiler-source]
-    paths:
-      - 'src/TextureCompiler/Managed/TextureVolume.cs'
-      - 'src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs'
-      - 'recovery/tests/TextureVolumeOracle.cs'
-      - 'recovery/tests/TextureTgaFormatsOracle.cs'
-      - 'recovery/scripts/TestTextureStage2.ps1'
-      - '.github/workflows/recovered-texture-stage2.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -66,3 +57,4 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
           git push origin "HEAD:$env:GITHUB_REF_NAME"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+
