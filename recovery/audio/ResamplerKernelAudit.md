@@ -170,7 +170,12 @@ arithmetic operation to prevent legacy x86 extended-register temporaries;
 future simplification or FMA/vectorization must rerun the exact-bit oracle.
 `AudioResamplerFftOracle.cs` compares every real/imaginary output bit and checks
 all order/direction/pattern coverage, plus nine separate candidate safety
-rejections. Its Windows Debug/Release results must be collected before C#
-acceptance is claimed; the Python replay is not a substitute. This component
+rejections. Its Windows Debug/Release component acceptance passed at source `69915484a322542ddf5a8041609b396e40c29a86`, run `40199685628` attempt1: 78 exact-bit comparisons and nine safety checks per configuration. This result supplements, rather than substitutes for, original-plugin resampling integration. This component
 still requires integration with coefficient generation and scheduling, then
 an original-plugin rate-conversion and actual SDK differential.
+
+The FFT is now a verified separate dependency. The six other ordinary-path ranges above contain 1005 original instructions; coefficient generation, window/filter scheduling and final resampling integration remain the next complete capability batch.
+
+## Real original Windows CPU cross-check
+
+Source `eb68933006f54681f33b38baa196e9ff6273f938`, run `40199843730` attempt1: `AudioNativeFftOracle` loaded the pinned original mixed-mode DLL on Windows x86, verified its mapped identity/path, selected 53-bit nearest rounding through the original CRT IAT, and invoked native RVA0x4eca0 via ThisCall. All 78 original real/imaginary array bit patterns matched the Unicorn baseline exactly. This validates the emulator-derived constants and oracle on the real CPU as well. The separate original CPU receipt has no candidate modes and does not replace the C# Debug/Release anchor `69915484a322542ddf5a8041609b396e40c29a86` / `40199685628`. Full resampling and SDK integration remain explicitly unimplemented.

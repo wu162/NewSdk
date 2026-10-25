@@ -38,6 +38,12 @@
 
 AIFF支持恰一个标准INST和一个MARK、两个唯一匹配marker、sustain playMode1、release playMode0的子集；end marker.position减1成为闭区间结束，允许MARK/INST和marker顺序颠倒。其余结构显式拒绝，不称完整AIFF元数据恢复。最新运行收据位于 `evidence/audio/plugin-validation/40198458731-1` 与 `sdk-validation/40198458731-1`。
 
+## 独立 FFT 组件验收（不是重采样支持）
+
+`src/AudioCompiler/Native/ResamplerFft.cs` 恢复原 `0x4eca0` 的order1..13、正/反方向子集；26对原x87 stage常量静态编入，不加载原目标DLL。源码 `69915484a322542ddf5a8041609b396e40c29a86`，运行[40199685628](https://github.com/wu162/NewSdk/actions/runs/40199685628) attempt1成功：C# Debug/Release各78条原机器码oracle的完整real/imag float bits相同，9项安全检查通过。收据 `evidence/audio/fft-validation/40199685628-1/validation.json` 明确 `runtimeResamplingValidated=false`、`sdkValidated=false`。未重新触发已验收音频/SDK矩阵。
+
+该组件未接到AudioFile重采样路径。后续须完成系数生成、窗口/滤波调度、导数和插值及完整原插件差分，才可启用重采样；不得把FFT通过写成音频重采样已通过。实际Windows x86 CPU复核也已通过：源码 `eb68933006f54681f33b38baa196e9ff6273f938`，运行[40199843730](https://github.com/wu162/NewSdk/actions/runs/40199843730) attempt1，原DLL实际CPU与同一基准78组逐位一致，记录原CRT控制字53位最近舍入。该运行只复核原CPU，未重跑未变C#组件；C#验收继续绑定前述6991548/40199685628。
+
 ## 尚未恢复能力的原版样本
 
 源码 `1c0457599f2a78082a283aade83a19e3f60a430e`，运行 [40199000936](https://github.com/wu162/NewSdk/actions/runs/40199000936) attempt1收取原版证据成功：112条重采样和8条Xenon XMA记录，XMA八条均实际产出buffer/CustomData，并非缺外部编码DLL导致必然失败。保存完整源WAV、原版三缓冲区/CustomData、专用脚本及精确native函数证据。收据状态是 `original-evidence-only`，不含candidate配置、不是恢复版验收，重采样/XMA仍明确拒绝。
@@ -50,10 +56,10 @@ AIFF支持恰一个标准INST和一个MARK、两个唯一匹配marker、sustain 
 - 元数据：源码 `3ecb7ad3fed175d71675c9a527954364e04c7141`，运行 `40192722185`。Debug/Release 各 86,171 条完全一致；恢复宿主不含原 AudioCompiler DLL。记录保留原精确锚点，不将新实现冒充该次验证。
 - PathMusic：源码 `ee7c278e7ede19675f5c9fabaa93166f53ae6959`，运行 `40193025288`，Debug/Release 各 95 条业务/解析记录一致。该同次运行 PCM/XAS 旧候选因 RAM 块结束标志失败，不把整体运行称成功；已保留原失败证据，修复后的编码器须重新验证。
 - 编码组件：源码 `046734825aa84b8dbeda7343ecea3a66ba054342`，运行 `40193438615`：Debug/Release 各16条PCM和12条XAS HeaderData/CustomData完全一致；standalone工程Debug/Release构建成功。同次完整插件测试因legacy csc不支持NLayer部分现代语法而未执行；已改用通过构建的dotnet/Roslyn路径，修复尚待后续运行确认，不把整体运行称成功。
-- 当前检查点新增PCM8、完整插件7组业务矩阵、262组原native指令XAS样本（涵盖全部4预测器和shift0..12）及SDK对照脚本，**新增内容尚未取得最终Windows成功收据**。独立Python/Unicorn核对不冒充C#或SDK验收。
-- `main` 固定提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 的1289个WAV逐个解析均为PCM8/mono/22050Hz且无smpl；取脚步和环境音两个原文件到 `fixtures/audio/main`，具体源路径/blob/SHA256见provenance.json。未复制整套MOD。真实音频组件及SDK矩阵待运行。
-- MP3公开NLayer替代后端、PCM8输入、AudioFile完整路由、400/431Hz块大小边界均仍待最终差分。不能把先前仅PCM16静态编码器的成功结果扩大到这些新增能力。
-- 真实 SDK 集成尚未验收，不能以组件成功替代。
+- 上轮检查点新增PCM8、完整插件矩阵、262组原native XAS样本及SDK脚本，当时尚未验收；本轮Windows/SDK成功结果见上文，独立Python/Unicorn核对不冒充C#或SDK验收。
+- `main` 固定提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 的1289个WAV逐个解析均为PCM8/mono/22050Hz且无smpl；取脚步和环境音两个原文件到 `fixtures/audio/main`，具体源路径/blob/SHA256见provenance.json。未复制整套MOD。当时真实音频组件及SDK矩阵待运行，现已纳入第1阶段成功锚点。
+- MP3公开NLayer后端、PCM8、AudioFile路由和400/431Hz边界在上轮尚未验收，本轮均按上文第1阶段矩阵取得完整差分。仍不扩大到特殊/损坏MPEG流的普遍等价。
+- 此前真实SDK未验收；本轮两批SDK成功锚点独立列在上文，不能以组件成功替代。
 
 ## 公开实现审查
 
@@ -63,4 +69,6 @@ AIFF支持恰一个标准INST和一个MARK、两个唯一匹配marker、sustain 
 
 ## 当前下一步
 
-已验收范围无需重复跑未变矩阵。AIFF保守forward sustain loop已按第2阶段验收。下一完整能力组是SIMEX filter120重采样的完整FIR/FFT/插值依赖链（7函数约1497指令）；XMA仍未恢复。MP3后端对损坏/特殊MPEG流的普遍接受行为仍非全量等价。生产SDK二进制/config未改，本分支尚未合入compiler-source。
+已验收范围无需重复跑未变矩阵。AIFF保守forward sustain loop已按第2阶段验收。下一完整能力组是SIMEX filter120重采样的FIR/系数生成/窗口调度/插值依赖链（FFT独立组件已恢复，其余6函数约1005指令，仍需整合与完整差分）；XMA仍未恢复。MP3后端对损坏/特殊MPEG流的普遍接受行为仍非全量等价。生产SDK二进制/config未改，本分支尚未合入compiler-source。
+
+本轮交接：未变GameObject/XmlCompiler矩阵没有触发；AIFF增量、FFT组件、原CPU和未恢复能力原版取证分别选择必要步骤。未读取账号额度计量，不能量化节省。当前源码和验收均已推送，生产SDK原件保持基线，本轮不合并到compiler-source。
