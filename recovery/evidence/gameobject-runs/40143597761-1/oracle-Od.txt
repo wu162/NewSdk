@@ -1,0 +1,5 @@
+System.Exception: <Behaviors><ObjectSMCHelper TypeId='478930205' id='Control' ></ObjectSMCHelper></Behaviors> instance byte 1736: 0 != 28
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label, Boolean bufferComparison)
+   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
+   at GameObjectOracle.ObjectControlFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)

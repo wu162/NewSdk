@@ -1,0 +1,6 @@
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at GameObjectOracle.RestTokenTree(Byte[] b, String name, Int32 t, Int32 at, Boolean big)
+   at GameObjectOracle.RestTokens(Byte[] b, Int32 g, Boolean big)
+   at GameObjectOracle.ContainRemainingFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)

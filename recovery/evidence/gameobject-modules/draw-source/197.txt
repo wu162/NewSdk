@@ -1,0 +1,114 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1e05efddbd2d7832ea7aea3e035387df9e551986efc609e726eae672bf382c36
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ModelConditionState* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 22u);
+		*(int*)ptr = 321108080;
+		((int*)ptr)[1] = 321108080;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1501410244;
+		((int*)ptr)[1] = 438907818;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 4, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -553078856;
+		((int*)ptr)[1] = 1742454729;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 12, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1066826308;
+		((int*)ptr)[1] = -2141379084;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 72, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 763037527;
+		((int*)ptr)[1] = 17349918;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 80, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -123251526;
+		((int*)ptr)[1] = 17349918;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 84, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1897870136;
+		((int*)ptr)[1] = 438907818;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 88, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -311394596;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 192, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1931700072;
+		((int*)ptr)[1] = -2141379084;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 96, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -708428438;
+		((int*)ptr)[1] = -846281717;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AScriptedModelDrawModel_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AScriptedModelDrawModel_003E*)((byte*)@object + 104), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 603709696;
+		((int*)ptr)[1] = -940950284;
+		byte* num = (byte*)@object + 112;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (FXShaderMaterial*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 568797146;
+		((int*)ptr)[1] = 1851605243;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AReplaceTexture_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AReplaceTexture_003E*)((byte*)@object + 116), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 97697089;
+		((int*)ptr)[1] = -1120284255;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ABoneAttachPoint_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ABoneAttachPoint_003E*)((byte*)@object + 124), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -170633297;
+		((int*)ptr)[1] = -1120284255;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ABoneAttachPoint_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ABoneAttachPoint_003E*)((byte*)@object + 132), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1893074230;
+		((int*)ptr)[1] = -1120284255;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ABoneAttachPoint_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ABoneAttachPoint_003E*)((byte*)@object + 140), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1461274834;
+		((int*)ptr)[1] = -1120284255;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ABoneAttachPoint_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ABoneAttachPoint_003E*)((byte*)@object + 148), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1731903514;
+		((int*)ptr)[1] = -1731903514;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AParticleSysBone_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AParticleSysBone_003E*)((byte*)@object + 156), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1972968147;
+		((int*)ptr)[1] = 1972968147;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AFXEvent_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AFXEvent_003E*)((byte*)@object + 164), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2097250680;
+		((int*)ptr)[1] = -2097250680;
+		byte* num3 = (byte*)@object + 172;
+		void** ptr3 = (void**)((byte*)ptr + 8);
+		uint num4 = *(uint*)num3;
+		if (num4 != 0)
+		{
+			Tokenizer_002ETokenize(ptr3, (ShadowInfo*)(int)num4, state);
+		}
+		else
+		{
+			*(int*)ptr3 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1067456930;
+		((int*)ptr)[1] = -217491197;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AModelConditionStateTurret_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AModelConditionStateTurret_003E*)((byte*)@object + 176), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -92830035;
+		((int*)ptr)[1] = 60984384;
+		Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003ASubObject_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CTypedAssetId_003CSageBinaryData_003A_003ASubObject_003E_0020_003E*)((byte*)@object + 184), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

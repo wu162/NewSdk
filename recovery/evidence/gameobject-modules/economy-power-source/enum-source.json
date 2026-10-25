@@ -1,0 +1,44 @@
+{
+  "AutoDepositFlagsType": {
+    "ACTIVE_WHEN_REPAIRING": 1,
+    "NONE": 0
+  },
+  "MoneyTransactionCategory": {
+    "AI_MONEY_LENDER": 22,
+    "AUTO_DEPOSIT": 4,
+    "BOUNTY": 6,
+    "BUILD_WALLSPAN": 16,
+    "CANCEL_BUILD": 9,
+    "CAPTURE_BONUS": 3,
+    "CASH_CHEAT": 7,
+    "CASH_HACK": 26,
+    "DEATH_REFUND": 11,
+    "DEVASTATE": 8,
+    "DOZER_CONSTRUCT": 17,
+    "HARVESTER": 2,
+    "INFILTRATOR": 27,
+    "MONEY_CRATE": 10,
+    "PILLAGE": 28,
+    "PLAYERKILLED": 19,
+    "PLAYER_CLONE": 24,
+    "PLAYER_GIVE_MONEY": 23,
+    "PRODUCTION": 15,
+    "SCRIPTED_MONEY_ACTION": 20,
+    "SELF_REPAIR": 18,
+    "SELL_OBJECT": 5,
+    "SHARED_DEPOSIT": 14,
+    "SLAUGHTER": 12,
+    "SPECIAL_POWER": 21,
+    "STARTING_CASH": 1,
+    "STEAL_MONEY": 29,
+    "TERRAIN_RESOURCE": 13,
+    "TRANSFER_ASSETS": 25,
+    "UNKNOWN": 0
+  },
+  "PowerUpdateType": {
+    "BACKUP_GENERATOR": 0,
+    "INVALID": 1
+  },
+  "peSha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619"
+}

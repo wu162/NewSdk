@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 210a99325a5b185f7f77fea56cfd7af7fcb8683a29ff3aec23a42af29e6ca023
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AHordeContainModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		HordeContainModuleData* ptr = (HordeContainModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 500u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1197014736;
+	}

@@ -15,7 +15,27 @@ on:
       - 'recovery/src/**/ResourceMarshaling*'
       - 'recovery/src/**/EnumBitset*'
       - 'recovery/scripts/TestGameObject.ps1'
+      - 'recovery/scripts/PublishGameObjectEvidence.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
+      - 'recovery/scripts/GenerateDraw*Fields.py'
+      - 'recovery/scripts/GenerateSpecialPowerBaseFields.py'
+      - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
+      - 'recovery/scripts/GeneratePowerRoutingFields.py'
+      - 'recovery/scripts/GenerateSpecialAbilityFields.py'
+      - 'recovery/scripts/GenerateAbilityToggleFields.py'
+      - 'recovery/scripts/ExportAbilityToggleMethods.py'
+      - 'recovery/scripts/GenerateAbilityResourceFields.py'
+      - 'recovery/scripts/ExportAbilityResourceMethods.py'
+      - 'recovery/scripts/GenerateAbilityRoutingFields.py'
+      - 'recovery/scripts/ExportAbilityRoutingMethods.py'
+      - 'recovery/scripts/GenerateAbilityStateFields.py'
+      - 'recovery/scripts/ExportAbilityStateMethods.py'
+      - 'recovery/scripts/GenerateAbilityMovementFields.py'
+      - 'recovery/scripts/ExportAbilityMovementMethods.py'
+      - 'recovery/scripts/GenerateAbilityWeaponFields.py'
+      - 'recovery/scripts/ExportAbilityWeaponMethods.py'
+      - 'recovery/scripts/GeneratePowerCreationFields.py'
+      - 'recovery/scripts/ExportPowerCreationMethods.py'
       - 'recovery/scripts/GenerateUpgradeRemaining.py'
       - 'recovery/scripts/GenerateProductionFields.py'
       - 'recovery/scripts/GenerateCreateFields.py'
@@ -33,6 +53,7 @@ on:
       - 'recovery/scripts/GenerateAIUpdateFields.py'
       - 'recovery/scripts/ExtractGameObjectEvidence.py'
       - 'recovery/scripts/ExtractGameObjectModuleEvidence.py'
+      - 'recovery/tests/GameObject*.cs'
       - 'recovery/tests/GameObjectOracle.cs'
       - 'recovery/tests/GameObjectCases.cs'
       - 'recovery/tests/GameObjectKindOf.cs'
@@ -45,7 +66,7 @@ permissions:
 jobs:
   differential:
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
@@ -57,20 +78,7 @@ jobs:
       - name: Persist root component evidence
         if: always()
         shell: pwsh
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/gameobject-root
-          if ($LASTEXITCODE -ne 0) { throw 'Unable to stage evidence' }
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 0) { exit 0 }
-          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect evidence' }
-          git commit -m "recovery: record GameObject root validation for $env:GITHUB_SHA"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin recovery/compiler-source
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence rebase failed' }
-          git push origin HEAD:recovery/compiler-source
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
+        run: ./recovery/scripts/PublishGameObjectEvidence.ps1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -81,6 +89,11 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
+
+
+
+
 
 
 

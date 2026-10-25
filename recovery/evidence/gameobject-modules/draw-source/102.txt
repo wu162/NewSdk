@@ -1,0 +1,35 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 2106628ae3326ccb2341a014a6562af40f83f464cb6677710e6941598473e022
+// Literals: {"_003F_003F_C_0040_0BG_0040IFGNNMFP_0040TreadTerrainParticles_003F_0024AA_0040": "TreadTerrainParticles", "_003F_003F_C_0040_0BB_0040EHPIDMDH_0040ArticulationBone_003F_0024AA_0040": "ArticulationBone"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, W3DTankDrawModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040IFGNNMFP_0040TreadTerrainParticles_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E** ptr2 = (AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E**)((byte*)@object + 216);
+			if (ptr != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr2, 4u, 1u);
+				AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E* ptr3 = (AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E*)(int)(*(uint*)ptr2);
+				Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_002Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr + 16)))((nint)ptr), ptr3, state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AArticulationBone_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BB_0040EHPIDMDH_0040ArticulationBone_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AArticulationBone_003E*)((byte*)@object + 220), state);
+		Marshaler_002EMarshal(node, (W3DScriptedModelDrawModuleData*)@object, state);
+	}

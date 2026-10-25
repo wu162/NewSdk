@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 3399f89daa4b5b20ad049ccbbd99fd292ae9f53ae13a70b9fdca15d7ec3eff44
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASuckUpObjectsUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((SuckUpObjectsUpdateModuleData*)(int)(*(uint*)pointer), endian);
+	}

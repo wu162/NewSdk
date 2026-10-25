@@ -1,0 +1,11 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 27ab6816d6a069a5d35a7a7b019db57a7ace296a278168679a4bb2ee693deaf5
+// Literals: {"_003F_003F_C_0040_0BJ_0040ECAILGJJ_0040ReloadAllWeaponsOnToggle_003F_0024AA_0040": "ReloadAllWeaponsOnToggle", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true", "_003F_003F_C_0040_0M_0040GDCIOMJB_0040ToggleState_003F_0024AA_0040": "ToggleState"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ToggleStatusSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BJ_0040ECAILGJJ_0040ReloadAllWeaponsOnToggle_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 248, state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AToggleStatusNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040GDCIOMJB_0040ToggleState_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AToggleStatusNugget_003E*)((byte*)@object + 240), state);
+			Marshaler_002EMarshal(node, (SpecialAbilityUpdateModuleData*)@object, state);
+		}
+	}

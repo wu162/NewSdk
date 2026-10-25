@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1e316c970feb373a0851b7d626e98e042a2a5316f320d733c33c995dbcc32cc0
+// Literals: {"_003F_003F_C_0040_0BA_0040KCELCACM_0040RestrictionType_003F_0024AA_0040": "RestrictionType", "_003F_003F_C_0040_0BA_0040OCNNHFOE_0040DependentObject_003F_0024AA_0040": "DependentObject", "_003F_003F_C_0040_0BL_0040OCBMCPCG_0040ConsiderSpecialPowerRadius_003F_0024AA_0040": "ConsiderSpecialPowerRadius", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true", "_003F_003F_C_0040_0BG_0040MJOJJOEK_0040DependentObjectRadius_003F_0024AA_0040": "DependentObjectRadius"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, RestrictSpecialPowerBehaviorModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cenum_0020SpecialPowerRestrictionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040KCELCACM_0040RestrictionType_003F_0024AA_0040), null), (SpecialPowerRestrictionType*)@object + 2, state);
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040OCNNHFOE_0040DependentObject_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E*)((byte*)@object + 12), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040OCBMCPCG_0040ConsiderSpecialPowerRadius_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 24, state);
+			Marshaler_002EMarshal_003Cfloat_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BG_0040MJOJJOEK_0040DependentObjectRadius_003F_0024AA_0040)), (List_003Cfloat_003E*)((byte*)@object + 16), state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}

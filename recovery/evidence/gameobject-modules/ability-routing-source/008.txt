@@ -1,0 +1,16 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 4ce3e6e1a70e706c00bea1b00f1089265517fc113e4d270978409d9510b591a3
+// Literals: {"_003F_003F_C_0040_08DFBGMMAD_0040ModuleId_003F_0024AA_0040": "ModuleId", "_003F_003F_C_0040_0BI_0040NBGCHDHD_0040TriggerAtTargetPosition_003F_0024AA_0040": "TriggerAtTargetPosition", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true", "_003F_003F_C_0040_0M_0040NKHMGHID_0040TriggerType_003F_0024AA_0040": "TriggerType", "_003F_003F_C_0040_0BA_0040NEDJFEOP_0040TARGET_POSITION_003F_0024AA_0040": "TARGET_POSITION"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, SpecialPowerModuleInfo* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08DFBGMMAD_0040ModuleId_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModuleData_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr), (TypedAssetId_003CSageBinaryData_003A_003AModuleData_003E*)@object, state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BI_0040NBGCHDHD_0040TriggerAtTargetPosition_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 8, state);
+			Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ATriggerType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040NKHMGHID_0040TriggerType_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040NEDJFEOP_0040TARGET_POSITION_003F_0024AA_0040)), (TriggerType*)@object + 1, state);
+		}
+	}

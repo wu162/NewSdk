@@ -1,0 +1,29 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 22933; body SHA256 893341711d526ddf94c7395f80ec7536c1d8be9ddf59e9733084c2c1cec4b442
+// Literals: {"_003F_003F_C_0040_0BA_0040GGOEDDJN_0040DepositInterval_003F_0024AA_0040": "DepositInterval", "_003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040": "0.0s", "_003F_003F_C_0040_08OHLCGGNG_0040GiveNoXP_003F_0024AA_0040": "GiveNoXP", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false", "_003F_003F_C_0040_0BD_0040KEDNBHFK_0040OnlyWhenGarrisoned_003F_0024AA_0040": "OnlyWhenGarrisoned", "_003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040": "Flags", "_003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040": "NONE", "_003F_003F_C_0040_0BE_0040DJCHBAON_0040TransactionCategory_003F_0024AA_0040": "TransactionCategory", "_003F_003F_C_0040_0N_0040CLJIHPJG_0040AUTO_DEPOSIT_003F_0024AA_0040": "AUTO_DEPOSIT", "_003F_003F_C_0040_0BE_0040JIOAANAO_0040InitialCaptureBonus_003F_0024AA_0040": "InitialCaptureBonus", "_003F_003F_C_0040_07ILBLCBLB_0040Deposit_003F_0024AA_0040": "Deposit", "_003F_003F_C_0040_0M_0040EEDDEDJK_0040ResourceCap_003F_0024AA_0040": "ResourceCap"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, AutoDepositUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040GGOEDDJN_0040DepositInterval_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04PIGIKHMM_00400_003F40s_003F_0024AA_0040));
+			if (ptr != null)
+			{
+				sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+				DataInitializers_002EInitialize((float*)@object + 2, text, &timeTag);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08OHLCGGNG_0040GiveNoXP_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 44, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040KEDNBHFK_0040OnlyWhenGarrisoned_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 45, state);
+			IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05BOOEKJH_0040Flags_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04OKGDLNCL_0040NONE_003F_0024AA_0040));
+			if (ptr2 != null)
+			{
+				Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AAutoDepositFlagsType_002C2_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2), (BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AAutoDepositFlagsType_003E*)((byte*)@object + 12), state);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+			}
+			Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AMoneyTransactionCategory_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040DJCHBAON_0040TransactionCategory_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040CLJIHPJG_0040AUTO_DEPOSIT_003F_0024AA_0040)), (MoneyTransactionCategory*)@object + 4, state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AMoneyTransaction_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040JIOAANAO_0040InitialCaptureBonus_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AMoneyTransaction_003E*)((byte*)@object + 20), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AMoneyTransaction_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07ILBLCBLB_0040Deposit_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AMoneyTransaction_003E*)((byte*)@object + 28), state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AMoneyTransaction_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040EEDDEDJK_0040ResourceCap_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AMoneyTransaction_003E*)((byte*)@object + 36), state);
+			Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+		}
+	}

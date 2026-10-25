@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 472d4ca1f33fbc150e4007b077f5184fe5f2da576ba1e9692e3fe6b26d4914bf
+// Literals: {"_003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040": "Name", "_003F_003F_C_0040_09OINABEFI_0040ExtraMesh_003F_0024AA_0040": "ExtraMesh", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ScriptedModelDrawModel* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseRenderAssetType_002Cclass_0020Sage_003A_003ARender_003A_003ABaseRenderObjectFactory_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04FABLJDN_0040Name_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003ABaseRenderAssetType_002CSage_003A_003ARender_003A_003ABaseRenderObjectFactory_003E*)@object, state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09OINABEFI_0040ExtraMesh_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)@object + 4, state);
+		}
+	}

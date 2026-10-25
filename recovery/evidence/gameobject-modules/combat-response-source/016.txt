@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 102707; body SHA256 293839cc72e2a861b2b1783dce95b6725ab696eb65922f0fca18ae8cad1ec43f
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFindCoverBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (FindCoverBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}

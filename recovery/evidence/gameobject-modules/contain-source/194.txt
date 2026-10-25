@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 6cad5685cc72af4cceb1e9046985156868354896a30bc18213d77b7f87dff1b1
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector2_003E(void** table, Vector2** pointer, Tracker* tracker)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Relo_002ETracker_002EBookmarkMemberOffset(tracker, (void*)(int)num, table);
+		}
+		else
+		{
+			*(int*)table = 0;
+		}
+	}

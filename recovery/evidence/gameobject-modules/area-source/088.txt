@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 3046951e2b4d22428b843d41e865e018f4c5482977191e8e93b818e3b7461624
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AStrafeAreaTargetChooserModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (StrafeAreaTargetChooserModuleData*)(int)(*(uint*)pointer), tracker);
+	}

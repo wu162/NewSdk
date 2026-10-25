@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 31ccfff22e9d60cf3024a77b0fde63467e1c4cc1da28c8c5936c4b4a81aa1237
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AW3DScriptedModelDrawModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		W3DScriptedModelDrawModuleData* ptr = (W3DScriptedModelDrawModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 216u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1322199627;
+	}

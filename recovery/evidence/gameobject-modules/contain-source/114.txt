@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 83f9d6a30bc0e73408d05787c500e545ddab05734df21f12f01eb1cfe86b6a73
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AObjectFilterAsset_002Cclass_0020ObjectFilterAssetWrapper_003E_0020_003E(sbyte* text, AssetReference_003CSageBinaryData_003A_003AObjectFilterAsset_002CObjectFilterAssetWrapper_003E** pointer, Tracker* tracker)
+	{
+		Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+		AssetReference_003CSageBinaryData_003A_003AObjectFilterAsset_002CObjectFilterAssetWrapper_003E* location = (AssetReference_003CSageBinaryData_003A_003AObjectFilterAsset_002CObjectFilterAssetWrapper_003E*)(int)(*(uint*)pointer);
+		sbyte* ptr = strchr(text, 92);
+		if (ptr != null)
+		{
+			uint value = (uint)atoi(ptr + 1);
+			Relo_002ETracker_002EAddReference(tracker, location, value);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+	}

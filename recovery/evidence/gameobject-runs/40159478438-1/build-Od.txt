@@ -1,0 +1,16 @@
+Relocation.cpp
+ScalarParsing.cpp
+DataInitializers.cpp
+ResourceMarshaling.cpp
+EnumBitset.cpp
+ObjectFilter.cpp
+WeaponSlotOrder.cpp
+GameObject.cpp
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C2065: 'beamFXShaderMaterialFields': undeclared identifier
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C2530: 'f': references must be initialized
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C3531: 'f': a symbol whose type contains 'auto' must have an initializer
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C2143: syntax error: missing ';' before ':'
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C2143: syntax error: missing ';' before ')'
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectModuleSupport.h(425): error C2039: 'name': is not a member of 'System::Int32'
+GameObjectCompiler.cpp
+Generating Code...

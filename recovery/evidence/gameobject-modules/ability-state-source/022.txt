@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 ef7ae005d13369dad3b12f85b766004e43e3428ba986966a66a30a4f9b857337
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACloneStoredObjectsSpecialPowerUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		CloneStoredObjectsSpecialPowerUpdateModuleData* ptr = (CloneStoredObjectsSpecialPowerUpdateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 264u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -839964803;
+	}

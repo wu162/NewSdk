@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 0f4a219373da9b01216b18dbd23b862036c46cc219ddbcdd14db6de031792c2e
+// Literals: {"_003F_003F_C_0040_05LPIJGKJ_0040Value_003F_0024AA_0040": "Value"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantFloat_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)
+	{
+		FXShaderConstantFloat* ptr = (FXShaderConstantFloat*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 20u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cfloat_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LPIJGKJ_0040Value_003F_0024AA_0040)), (List_003Cfloat_003E*)((byte*)ptr + 12), tracker);
+			Marshaler_002EMarshal(node, (FXShaderConstant*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -553066715;
+	}

@@ -1,0 +1,37 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 6257a50aa57a4166afc70ade3753b5709d26dfffa9f7fe507900330d30e079c5
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADynamicsBoneVolumeType_003E(List_003CSageBinaryData_003A_003ADynamicsBoneVolumeType_003E* list, EndianHelper* endian)
+	{
+		int num = ((int*)list)[1];
+		DynamicsBoneVolumeType* ptr = (DynamicsBoneVolumeType*)num;
+		DynamicsBoneVolumeType* ptr2 = (DynamicsBoneVolumeType*)(*(int*)list * 84 + num);
+		if (ptr != ptr2)
+		{
+			DynamicsBoneVolumeType* ptr3 = (DynamicsBoneVolumeType*)((byte*)ptr + 78);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+			do
+			{
+				if (*(bool*)endian)
+				{
+					*(sbyte*)(&num2) = ((sbyte*)ptr3)[1];
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr3;
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr3 - 1);
+					System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr3 - 2);
+					*(uint*)((byte*)ptr3 - 2) = num2;
+				}
+				Marshaler_002EEndianCorrect((DynamicsVolumeType*)ptr, endian);
+				ptr = (DynamicsBoneVolumeType*)((byte*)ptr + 84);
+				ptr3 = (DynamicsBoneVolumeType*)((byte*)ptr3 + 84);
+			}
+			while (ptr != ptr2);
+		}
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num3);
+			*(sbyte*)(&num3) = ((sbyte*)list)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 1)) = ((sbyte*)list)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 2)) = ((sbyte*)list)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num3, 3)) = *(sbyte*)list;
+			*(uint*)list = num3;
+		}
+	}

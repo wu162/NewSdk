@@ -1,0 +1,138 @@
+{
+  "peSha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603",
+  "runId": "40129634414",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "sourceCommit": "1412fda52b973ee7f71f4ac2acd2be6fa870f101",
+  "status": "read-only original PE evidence; no implementation/support claim",
+  "tables": {
+    "AIAoeAttackPowerEmanationLocation": {
+      "EMANATE_FROM_SELF": 0,
+      "EMANATE_FROM_TARGET": 1
+    },
+    "AIAoeAttackPowerLocationPreference": {
+      "PREFER_CENTER_OF_ENEMIES": 1,
+      "PREFER_MAXIMUM_DAMAGE": 2,
+      "PREFER_NEAREST": 0
+    },
+    "AITargetLocationType": {
+      "Land": 1,
+      "Water": 0
+    },
+    "ConditionsType": {
+      "MOUNTED": 0,
+      "MOVING": 2,
+      "WEAPON_TOGGLE": 1
+    },
+    "MicroManagerState": {
+      "ALPHA_STRIKE": 0,
+      "CLEANUP": 3,
+      "COMBAT": 2,
+      "DEMOLISH_WALL_OBSTACLE": 9,
+      "GATHER": 5,
+      "HARVESTING": 7,
+      "IDLE": 8,
+      "OPEN_TARGET": 6,
+      "RETREAT": 1,
+      "SIEGE": 4
+    },
+    "MicroManagerUnitTask": {
+      "ACTIVATING_SPECIAL_POWER": 7,
+      "AVAILABLE": 0,
+      "CLEARING_GARRISON": 3,
+      "CONTROLLED_BY_SPECIAL_POWER": 6,
+      "CRUSHING": 1,
+      "DEPLOYING": 8,
+      "DODGING": 9,
+      "GARRISONING": 2,
+      "REPAIRING": 4,
+      "REVERSING": 5
+    },
+    "OCLCreateLocType": {
+      "CREATE_ABOVE_LOCATION": 5,
+      "CREATE_AT_EDGE_ALONG_PATH_LINE": 10,
+      "CREATE_AT_EDGE_FARTHEST_FROM_TARGET": 6,
+      "CREATE_AT_EDGE_NEAR_SECONDARY_TARGET": 11,
+      "CREATE_AT_EDGE_NEAR_SOURCE": 0,
+      "CREATE_AT_EDGE_NEAR_TARGET": 1,
+      "CREATE_AT_EDGE_NEAR_TARGET_AND_MOVE_TO_LOCATION": 2,
+      "CREATE_AT_LOCATION": 3,
+      "CREATE_AT_OFFSET_FROM_TARGET": 12,
+      "CREATE_AT_OFFSET_FROM_TARGET_ALONG_SECONDARY_OBJECT_VECTOR_AND_MOVE_TO_TARGET": 14,
+      "CREATE_AT_OFFSET_FROM_TARGET_AND_MOVE_TO_TARGET": 13,
+      "CREATE_CLOSEST_TO_SPAWN_POINT": 7,
+      "USE_MULTIPLE_SECONDARY_OBJECT_LOCATIONS": 9,
+      "USE_OWNER_OBJECT": 4,
+      "USE_SECONDARY_OBJECT_LOCATION": 8
+    },
+    "ReplaceSelfOptions": {
+      "CHECK_BUILD_ASSISTANT": 4,
+      "CLEAR_LOCATION": 6,
+      "COPY_TARGET_OBJECT": 0,
+      "COPY_UPGRADES": 2,
+      "DISABLE_DURING_REPLACE": 3,
+      "DISABLE_NEW_OBJECT_DURING_UNPACK": 5,
+      "IGNORE_TERRAIN_RESTRICTIONS": 1
+    },
+    "SPMovementType": {
+      "NONE": 0,
+      "STRAIGHT_AHEAD": 1,
+      "TARGETED": 2
+    },
+    "SpecialAbilityUpdateOptionsType": {
+      "ALWAYS_VALIDATE_SPECIAL_OBJECTS": 5,
+      "APPROACH_REQUIRES_LINE_OF_SIGHT": 10,
+      "APPROACH_UNTIL_MEMBERS_IN_RANGE": 18,
+      "BUSY_DURING_PACK": 29,
+      "BUSY_DURING_UNPACK": 28,
+      "CHARGE_ATTACK_SPEED_BOOST": 11,
+      "CHECK_CHAINED_COMMAND": 21,
+      "CHECK_PREVENT_CONDITIONS": 25,
+      "CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE": 0,
+      "DESTROY_OCL_REGISTERED_OBJECTS_ON_EXIT": 23,
+      "DO_CAPTURE_FX": 8,
+      "DO_NOT_DO_AI_SPECIAL_POWER": 27,
+      "FAIL_WITH_INVALID_APPROACH": 30,
+      "FLIP_OWNER_AFTER_PACKING": 6,
+      "FLIP_OWNER_AFTER_UNPACKING": 7,
+      "IGNORE_FACING_CHECK": 19,
+      "INSTANT": 15,
+      "KILL_ATTRIBUTE_MODIFIER_ON_EXIT": 13,
+      "KILL_ATTRIBUTE_MODIFIER_ON_REJECTED": 14,
+      "LOSE_STEALTH_ON_TRIGGER": 9,
+      "MUST_FINISH_ABILITY": 12,
+      "NEED_COLLISION_BEFORE_TRIGGER": 16,
+      "RECONSTITUTE_STORED_COMMAND": 26,
+      "SHOW_PREPARATION_PROGRESS": 22,
+      "SKIP_PACKING_WITH_NO_TARGET": 1,
+      "SPECIAL_OBJECTS_PERSISTENT": 2,
+      "SPECIAL_OBJECTS_PERSIST_WHEN_OWNER_DIES": 4,
+      "SUPPRESS_FOR_HORDES": 17,
+      "UNIQUE_SPECIAL_OBJECT_TARGETS": 3,
+      "UPDATE_REQUIRES_LINE_OF_SIGHT": 24,
+      "USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK": 20
+    },
+    "ToggleStatusAiHint": {
+      "TOGGLE_ALWAYS": 1,
+      "TOGGLE_AOE_ATTACK": 11,
+      "TOGGLE_DEFAULT": 0,
+      "TOGGLE_DEFENSE_PROTECT_OTHERS": 3,
+      "TOGGLE_DEFENSE_SELF_ONLY": 4,
+      "TOGGLE_HARPOON": 15,
+      "TOGGLE_IMMOBILIZE": 8,
+      "TOGGLE_LEECH_HEALTH_AND_WEAPON": 12,
+      "TOGGLE_LOCKDOWN": 9,
+      "TOGGLE_NO_HINT": 10,
+      "TOGGLE_ONE_PER_TARGET": 2,
+      "TOGGLE_SHIELD": 14,
+      "TOGGLE_SHORT_RANGE_WEAPON": 7,
+      "TOGGLE_STEALTH_OTHERS": 13,
+      "TOGGLE_TRANSFORM": 6,
+      "TOGGLE_WEAPON": 5
+    },
+    "TriggerType": {
+      "SELF_POSITION": 0,
+      "TARGET_OBJECT": 2,
+      "TARGET_POSITION": 1
+    }
+  }
+}

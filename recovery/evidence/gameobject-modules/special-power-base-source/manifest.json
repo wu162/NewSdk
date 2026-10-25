@@ -1,0 +1,668 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "status": "next-stage source evidence only; no runtime implementation; IDs deduplicated against baseline and pending groups; original PE maps verified in enum-source.json; 78 method fingerprints unchanged",
+  "modules": [
+    {
+      "name": "SpecialPowerModuleData",
+      "typeId": 3472757011,
+      "nativeSize": 452
+    },
+    {
+      "name": "RadarHackSpecialPowerModuleData",
+      "typeId": 3201673786,
+      "nativeSize": 464
+    },
+    {
+      "name": "RadarJamSpecialPowerModuleData",
+      "typeId": 3870511801,
+      "nativeSize": 460
+    }
+  ],
+  "methods": [
+    {
+      "file": "000.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, SpecialPowerModuleData* @object, Tracker* state)",
+      "line": 19389,
+      "bodySha256": "34703c8ec2c8ff23c0065a61b4ff18222e1042bcba9c0450fa642a044d82eaf8",
+      "literals": [
+        "SpecialPowerTemplate",
+        "UpdateModuleStartsAttack",
+        "false",
+        "StartsPaused",
+        "AntiFX",
+        "AttributeModifier",
+        "AttributeModifierRange",
+        "0.0",
+        "AttributeModifierAffectsSelf",
+        "AttributeModifierFX",
+        "AttributeModifierWeatherBased",
+        "WeatherDuration",
+        "0",
+        "RequirementsFilterMPSkirmish",
+        "InitiateFX",
+        "TriggerFX",
+        "SetModelCondition",
+        "SetModelConditionTime",
+        "0s",
+        "GiveLevels",
+        "DisableDuringAnimDuration",
+        "IdleWhenStartingPower",
+        "AffectGood",
+        "AffectEvil",
+        "AffectAllies",
+        "true",
+        "AvailableAtStart",
+        "ChangeWeather",
+        "AdjustVictim",
+        "OnTriggerRechargeSpecialPower",
+        "BurnDecayModifier",
+        "UseDistanceFromCommandCenter",
+        "MaxDistanceFromCommandCenter",
+        "ChildModuleHandlesFX",
+        "LeechRechargePercentPlayerTechTrigger",
+        "LeechRechargePercentFromSpecialPower",
+        "DisabledTypesToIgnore",
+        "HELD",
+        "CanAffectObjectFilter",
+        "GenericSpecialPowerObjectFilter",
+        "ObjectFilterDistType",
+        "CENTER_2D",
+        "AttributeModifierAffects",
+        "RequirementsFilterMP",
+        "RequirementsFilterStrategic",
+        "InitiateSound"
+      ]
+    },
+    {
+      "file": "001.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(SpecialPowerModuleData* @object, EndianHelper* state)",
+      "line": 19548,
+      "bodySha256": "6649f4ce87babfe1403d80f9e0133013552bbcd58914d2e19e609ac94cd61dbd",
+      "literals": []
+    },
+    {
+      "file": "002.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, RadarHackSpecialPowerModuleData* @object, Tracker* state)",
+      "line": 27696,
+      "bodySha256": "a1740a0f2ab3d1266d1a58acec51c6b17b52bd3af53cc815a55ef47bb155c4eb",
+      "literals": [
+        "NumFalseReturns",
+        "0",
+        "Radius",
+        "0.0",
+        "HackDuration",
+        "0s"
+      ]
+    },
+    {
+      "file": "003.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(RadarHackSpecialPowerModuleData* @object, EndianHelper* state)",
+      "line": 27726,
+      "bodySha256": "66e3adbdc43151cf81b40989c76956b1d5ac50494e1ca4c21dad775e945995a2",
+      "literals": []
+    },
+    {
+      "file": "004.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, RadarJamSpecialPowerModuleData* @object, Tracker* state)",
+      "line": 27758,
+      "bodySha256": "3b500281ca05dbbc702e17632e6d5b2304ad7c04148b0564800a02b53b77ae0f",
+      "literals": [
+        "JamRadius",
+        "0.0",
+        "JamDuration",
+        "0s"
+      ]
+    },
+    {
+      "file": "005.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(RadarJamSpecialPowerModuleData* @object, EndianHelper* state)",
+      "line": 27781,
+      "bodySha256": "e87dbee1cd464d34c3fb77e077716e1e4ed6cd0d071d4b7e54a2a86b263d9b74",
+      "literals": []
+    },
+    {
+      "file": "006.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "line": 60117,
+      "bodySha256": "2fdd05087c462b189d13d1806a4f69c201843ab973638e3f18367c8303e643f3",
+      "literals": []
+    },
+    {
+      "file": "007.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarHackSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "line": 61848,
+      "bodySha256": "bb81d1c6204b8f19ab7c19d0f53878095a35a562378faab2d7d48fe8261aa3b7",
+      "literals": []
+    },
+    {
+      "file": "008.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarJamSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "line": 62042,
+      "bodySha256": "28310cb1b8f1f1e117b86c45cb73c3157ef71383e858b152bcb50152f0273ce3",
+      "literals": []
+    },
+    {
+      "file": "009.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarHackSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "line": 64601,
+      "bodySha256": "10017fcbc66d10b6f8a4ddec801a3fc6d53d691e65b6069beb95d30518cb5c8e",
+      "literals": []
+    },
+    {
+      "file": "010.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarJamSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "line": 64767,
+      "bodySha256": "2be38c8d2a4e86851c1af793231c87a5f252fa33a3b55e3220ae05477939ee53",
+      "literals": []
+    },
+    {
+      "file": "011.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, SpecialPowerModuleData* @object, Tracker* state)",
+      "line": 83892,
+      "bodySha256": "cbc1e711cdea16f1bbbc7b4db32872b94adb36e53a21faf567b05e6f90388794",
+      "literals": []
+    },
+    {
+      "file": "012.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, RadarHackSpecialPowerModuleData* @object, Tracker* state)",
+      "line": 86368,
+      "bodySha256": "5c4b1a988105e2d0cd45222268d0a192bf6ca0a534262670715d892fbdb70489",
+      "literals": []
+    },
+    {
+      "file": "013.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, RadarJamSpecialPowerModuleData* @object, Tracker* state)",
+      "line": 86393,
+      "bodySha256": "25cc9da4d3bf1f8dc0330aef95c6c99e0789cf8c6b4391e036703820040d05ca",
+      "literals": []
+    },
+    {
+      "file": "014.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "line": 101556,
+      "bodySha256": "1289387092c1522b2cd1d05b3d7c2c4e1c7254a26cf0f662faf370a554aeb7fc",
+      "literals": []
+    },
+    {
+      "file": "015.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarHackSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "line": 103118,
+      "bodySha256": "f79d267f6f4f7d98be39fd793e7a680ae4955b44ecd79961c2493ca1183b04ed",
+      "literals": []
+    },
+    {
+      "file": "016.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ARadarJamSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "line": 103284,
+      "bodySha256": "ac2f36033710bd02abde1aa7d36c33b369cdd995be4582e232a6f8e02bc10172",
+      "literals": []
+    },
+    {
+      "file": "017.txt",
+      "signature": "internal unsafe static void DataInitializers_002EInitialize(float* @object, sbyte* text, TimeTag* __unnamed002)",
+      "line": 13076,
+      "bodySha256": "f257b51bc1a5dba77ced024417e9ba355c06b7270b81dae47d20bb61803470af",
+      "literals": [
+        "ms",
+        "s"
+      ]
+    },
+    {
+      "file": "018.txt",
+      "signature": "internal unsafe static void DataInitializers_002EInitialize(float* @object, sbyte* text, AngleTag* __unnamed002)",
+      "line": 13138,
+      "bodySha256": "b8bbaaaedb147dc29053e6966a3464df6bfb40c74992995f84a746ef285e97ca",
+      "literals": [
+        "r",
+        "d"
+      ]
+    },
+    {
+      "file": "019.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, SoundOrEvaEvent* @object, Tracker* state)",
+      "line": 13587,
+      "bodySha256": "3ac353f190eefe62da81033f75fb1b7b854fde42056c7f73d045c1de46eeae5e",
+      "literals": [
+        "Sound",
+        "EvaEvent",
+        ""
+      ]
+    },
+    {
+      "file": "020.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ObjectFilter* @object, Tracker* state)",
+      "line": 13601,
+      "bodySha256": "5aba64a72053a04d1a1e365b1dcc8abb46bd901c5c1133c5bdc0783157f24525",
+      "literals": [
+        "id",
+        "Rule",
+        "NONE",
+        "Relationship",
+        "",
+        "Alignment",
+        "Include",
+        "Exclude",
+        "StatusBitFlags",
+        "StatusBitFlagsExclude",
+        "IncludeThing",
+        "ExcludeThing"
+      ]
+    },
+    {
+      "file": "021.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(ObjectFilter* @object, EndianHelper* state)",
+      "line": 13638,
+      "bodySha256": "6f4969d3ebf1512eac7a8fa25b41f3d5b878127446d082e34ee52ff06da4b8b2",
+      "literals": []
+    },
+    {
+      "file": "022.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ModuleData* @object, Tracker* state)",
+      "line": 14411,
+      "bodySha256": "52226af0f3f01be4f8f1ee44915c5c1bcf1138bc4ccdbc93411c3943de289ef6",
+      "literals": [
+        "id"
+      ]
+    },
+    {
+      "file": "023.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, UpdateModuleData* @object, Tracker* state)",
+      "line": 14770,
+      "bodySha256": "405acf6c2060db791f72d073d07a3fc94f541090db506caba92af4347ae037a2",
+      "literals": []
+    },
+    {
+      "file": "024.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(UpdateModuleData* @object, EndianHelper* state)",
+      "line": 14778,
+      "bodySha256": "8e11c29e82f982ed77452657da79b72ee01312835eff4fb94a16c0fb56a95cd4",
+      "literals": []
+    },
+    {
+      "file": "025.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, SoundOrEvaEvent* @object, Tracker* state)",
+      "line": 76849,
+      "bodySha256": "a176d1e0e681bc72ff572a15df401d0dea95f5382b309d7b78761d929ec0a770",
+      "literals": []
+    },
+    {
+      "file": "026.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ObjectFilter* @object, Tracker* state)",
+      "line": 77370,
+      "bodySha256": "c0d6ba3e34bab630870516eff559408333e24e6127ea27e694ed0b9160195cef",
+      "literals": []
+    },
+    {
+      "file": "027.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ModuleData* @object, Tracker* state)",
+      "line": 78028,
+      "bodySha256": "19621f31a8c90fbb4b477b7d9dcef2f538a30e6d52e2c09716306ff182445ba4",
+      "literals": []
+    },
+    {
+      "file": "028.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, BehaviorModuleData* @object, Tracker* state)",
+      "line": 78138,
+      "bodySha256": "2c77de5f8344ff0e5bc8b8209bf14e1588025686b7228b6b5a3064a978fb5987",
+      "literals": []
+    },
+    {
+      "file": "029.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ContainModuleData* @object, Tracker* state)",
+      "line": 78227,
+      "bodySha256": "17656482d8e05722470b39a846f9cd6241f189baa4f521b247bf457ffce016a2",
+      "literals": []
+    },
+    {
+      "file": "030.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, UpdateModuleData* @object, Tracker* state)",
+      "line": 78270,
+      "bodySha256": "ec466ee238ba10bcec17670cc728f679ef68a9e1b5b44a9a1af5d7aff94d44a6",
+      "literals": []
+    },
+    {
+      "file": "031.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AEvaEvent_002Cstruct_0020SageBinaryData_003A_003AEvaEvent_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AEvaEvent_002CSageBinaryData_003A_003AEvaEvent_003E* @object, Tracker* state)",
+      "line": 51167,
+      "bodySha256": "ee0c4ee67865f2ddf5f020de0ae318c81c78d23110029835bfbc73b4b37430c3",
+      "literals": []
+    },
+    {
+      "file": "032.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterRule_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ObjectFilterRule* @object, Tracker* state)",
+      "line": 51181,
+      "bodySha256": "62c8c0d4b6239fdbd6fe2e54126c1ca2c7502b884eb4e9735e6c8533c834d4b4",
+      "literals": []
+    },
+    {
+      "file": "033.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterAlignment_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ObjectFilterAlignment* @object, Tracker* state)",
+      "line": 51192,
+      "bodySha256": "680d09d688d080d7544ef27ba66e041915e6693d75a55c763ec58d0021b962df",
+      "literals": [
+        "\u0018d\t\u0010\u0001\u0000\u0000\u0000 d\t\u0010\u0002\u0000\u0000\u0000(d\t\u0010"
+      ]
+    },
+    {
+      "file": "034.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020BitFlags_003C223_002Cenum_0020ObjectStatusType_003E_0020_002A_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E** @object, Tracker* state)",
+      "line": 51212,
+      "bodySha256": "d12c6b8bc617a14db26e6a795c63c8bb64cf57a4a3c457072ff9fbbdf2b73739",
+      "literals": []
+    },
+    {
+      "file": "035.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(IList* list, List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* target, Tracker* tracker)",
+      "line": 51224,
+      "bodySha256": "eaaaf8916a2df6a0473c192214c946af0e2213bad3687a1eea9a2aa3c63b58ff",
+      "literals": []
+    },
+    {
+      "file": "036.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020KindOfType_002C284_003E(BitFlags_003C284_002Cenum_0020KindOfType_003E* target, EndianHelper* endian)",
+      "line": 51274,
+      "bodySha256": "bb610b276a2b9624a82565fbb870fa342f6ccdb908b10a674bdc1c9705a43dc1",
+      "literals": []
+    },
+    {
+      "file": "037.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* list, EndianHelper* endian)",
+      "line": 51360,
+      "bodySha256": "aebf313a025eed1d6e30d853cbcbc2ff76dca708c2d9a9a8f073cec50bbecaf0",
+      "literals": []
+    },
+    {
+      "file": "038.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)",
+      "line": 51522,
+      "bodySha256": "5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932",
+      "literals": []
+    },
+    {
+      "file": "039.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E* @object, Tracker* state)",
+      "line": 51542,
+      "bodySha256": "9d132bdef32f1d94c9513a60edbf12496beda29e5a5813e4bc1c3926164f7397",
+      "literals": []
+    },
+    {
+      "file": "040.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E(BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, EndianHelper* endian)",
+      "line": 51672,
+      "bodySha256": "bab6804e3056705ff45f4a5b314f7b71d6e9f77277660ca8972145c298c6d5ad",
+      "literals": []
+    },
+    {
+      "file": "041.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, ModelConditionFlagType* @object, Tracker* state)",
+      "line": 52035,
+      "bodySha256": "f5f51d64c7ee5f045c5b10eaed1e2ea2ff96b1577e279ad89b00352c5c3a1daa",
+      "literals": []
+    },
+    {
+      "file": "042.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020WeatherType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, WeatherType* @object, Tracker* state)",
+      "line": 52067,
+      "bodySha256": "4489d05fe99bf4edcf2b502f910567200ab5ab3820201d9afa415e8a3c6369b1",
+      "literals": []
+    },
+    {
+      "file": "043.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003APartitionManagerDistTestType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, PartitionManagerDistTestType* @object, Tracker* state)",
+      "line": 52654,
+      "bodySha256": "7151b27cb31ad7849146362d957d1647e794bb22ab983b509a6cd238495a25ac",
+      "literals": []
+    },
+    {
+      "file": "044.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(INode* node, ObjectFilter** pointer, Tracker* tracker)",
+      "line": 52665,
+      "bodySha256": "c22dea2e9f92a25792a5b4f86a4ff41da148008dbb1879b842cd575ccb620cc4",
+      "literals": []
+    },
+    {
+      "file": "045.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_002Cclass_0020SpecialPowerTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003ASpecialPowerTemplate_002CSpecialPowerTemplate_003E* @object, Tracker* state)",
+      "line": 53215,
+      "bodySha256": "ec7496f63e6a21695fa97e9f85601b80b02f93451174ab57abd4c053fc66ec04",
+      "literals": []
+    },
+    {
+      "file": "046.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AAttributeModifier_002Cclass_0020AttributeModifierContainer_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AAttributeModifier_002CAttributeModifierContainer_003E* @object, Tracker* state)",
+      "line": 53276,
+      "bodySha256": "f61fcdbb3a5fef8791ff2862fb74e7d7df81820d04614262e7190d13dc1d4b86",
+      "literals": []
+    },
+    {
+      "file": "047.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASoundOrEvaEvent_003E(INode* node, SoundOrEvaEvent** pointer, Tracker* tracker)",
+      "line": 53597,
+      "bodySha256": "801956f5ed4f80f45804a39c535b7340344e72e0424253ab1bca96ffae41789f",
+      "literals": []
+    },
+    {
+      "file": "048.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003APlayerTech_002Cclass_0020PlayerTech_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003APlayerTech_002CPlayerTech_003E* @object, Tracker* state)",
+      "line": 55032,
+      "bodySha256": "bdf707c4032c45841b660b09f225a73ff2398debfdc8f675ca05615c2e160064",
+      "literals": []
+    },
+    {
+      "file": "049.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AObjectFilterAsset_002Cclass_0020ObjectFilterAssetWrapper_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AObjectFilterAsset_002CObjectFilterAssetWrapper_003E* @object, Tracker* state)",
+      "line": 55046,
+      "bodySha256": "9d5f94afb5bf1b8ff1e3e95c3138e1197b979944ead8bf8b827ca55c53c650ef",
+      "literals": []
+    },
+    {
+      "file": "050.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* list, EndianHelper* endian)",
+      "line": 55060,
+      "bodySha256": "0598509e0b940a6d74a33b85ffe28b8b2e1180878c23b502918b035d7508615e",
+      "literals": []
+    },
+    {
+      "file": "051.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(String_003Cchar_003E** pointer, EndianHelper* endian)",
+      "line": 55412,
+      "bodySha256": "66ea0960b0a09818a1c4dbab2dbaf8552b4415f2e3295172e98d1476f1078f1b",
+      "literals": []
+    },
+    {
+      "file": "052.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(INode* node, String_003Cchar_003E** pointer, Tracker* tracker)",
+      "line": 59358,
+      "bodySha256": "58395d7344497e62048be36f9ad61261046c2a79a4e7b95fc5513057ad9560b3",
+      "literals": []
+    },
+    {
+      "file": "053.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ABaseAudioEventInfo_002Cclass_0020AudioEventInfo_003E_0020_003E(sbyte* text, AssetReference_003CSageBinaryData_003A_003ABaseAudioEventInfo_002CAudioEventInfo_003E** pointer, Tracker* tracker)",
+      "line": 66888,
+      "bodySha256": "eef048361492c963d45a19b526d6b841986787bba6d35f51053223bdff5063da",
+      "literals": []
+    },
+    {
+      "file": "054.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AObjectFilter_003E* reference, Tracker* tracker)",
+      "line": 66901,
+      "bodySha256": "e6dda586236c3121b6f99bfb4faf5e143f61be3a42371a3f5f624bbed1104824",
+      "literals": []
+    },
+    {
+      "file": "055.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_002C4_003E(sbyte* text, BitFlags_003C4_002Cenum_0020SageBinaryData_003A_003AObjectFilterRelationship_003E* target, Tracker* tracker)",
+      "line": 66947,
+      "bodySha256": "8b9ad98830238fb7d04e064fa326c3de26e83bc4f965fa40f1c913c98960e456",
+      "literals": [
+        "ALL",
+        "",
+        "Pd\t\u0010\u0000\u0000\u0000\u0000Xd\t\u0010\u0001\u0000\u0000\u0000`d\t\u0010\u0002\u0000\u0000\u0000hd\t\u0010\u0003"
+      ]
+    },
+    {
+      "file": "056.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020KindOfType_002C284_003E(sbyte* text, BitFlags_003C284_002Cenum_0020KindOfType_003E* target, Tracker* tracker)",
+      "line": 67066,
+      "bodySha256": "ade49217be076a8f4bbfe630d2d1ace9c4fb6d451ba4e6db744f37d6608bf04e",
+      "literals": [
+        "ALL",
+        ""
+      ]
+    },
+    {
+      "file": "057.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020DisabledType_002C12_003E(sbyte* text, BitFlags_003C12_002Cenum_0020DisabledType_003E* target, Tracker* tracker)",
+      "line": 67191,
+      "bodySha256": "d3d9ce5607249b615fb7846f7f17c9c0fc7c34972218ebc4c6c8a67e9f2a6476",
+      "literals": [
+        "ALL",
+        ""
+      ]
+    },
+    {
+      "file": "058.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AModuleData_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AModuleData_003E* reference, Tracker* tracker)",
+      "line": 67672,
+      "bodySha256": "8bb0bba0eef1a0adfe5c0ce0bc2a1b87d653291757605c65f651753db61bd49b",
+      "literals": []
+    },
+    {
+      "file": "059.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(sbyte* text, List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* target, Tracker* tracker)",
+      "line": 68660,
+      "bodySha256": "6a43c9e3c03355aaee0b20836745960da6bd92fdb3dd41a5fcad56a0c84fa649",
+      "literals": []
+    },
+    {
+      "file": "060.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003ASpecialPowerTemplate_003E* reference, Tracker* tracker)",
+      "line": 68719,
+      "bodySha256": "ae9341b31818a2ab2d4dc1e4df74977cc445b9f7b5b59824380ae50b5110977f",
+      "literals": []
+    },
+    {
+      "file": "061.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(IList* list, List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* target, Tracker* tracker)",
+      "line": 74258,
+      "bodySha256": "eb5f16b1d6c7af40743fc1663dce50a0ed7f342e5f00867b95b042407fa9a8ce",
+      "literals": []
+    },
+    {
+      "file": "062.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cfloat_002Cclass_0020Relo_003A_003ATracker_003E(void** table, float* @object, Tracker* state)",
+      "line": 97815,
+      "bodySha256": "5dd3c021d8488d4431682b09aac27e979e881da3b2d42827fe479f09046f7819",
+      "literals": []
+    },
+    {
+      "file": "063.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cunsigned_0020int_002Cclass_0020Relo_003A_003ATracker_003E(void** table, uint* @object, Tracker* state)",
+      "line": 97820,
+      "bodySha256": "ef1b20bb72a34d4e8014d398712656783e2c891c2d99d592ccf94ca479f12e29",
+      "literals": []
+    },
+    {
+      "file": "064.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(void** table, bool* @object, Tracker* state)",
+      "line": 97848,
+      "bodySha256": "3adf03f5b31dc35d5d331a50544af7ca00044fe74b6227803b9c4957f39fa318",
+      "literals": []
+    },
+    {
+      "file": "065.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(void** table, List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* list, Tracker* tracker)",
+      "line": 98092,
+      "bodySha256": "42e660325227355b1bee59df0967b2a76d2a69958716060003aa00318459fe27",
+      "literals": []
+    },
+    {
+      "file": "066.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(void** table, String_003Cchar_003E** pointer, Tracker* tracker)",
+      "line": 98223,
+      "bodySha256": "aaed264bf2a3f0954148d778435b4242ce26eaba1fc166a2045c24bf0ba0669a",
+      "literals": []
+    },
+    {
+      "file": "067.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AString_003Cchar_003E_0020_003E(void** table, List_003CRelo_003A_003AString_003Cchar_003E_0020_003E* list, Tracker* tracker)",
+      "line": 98397,
+      "bodySha256": "c492f2836dcc73a5ef98b3b231ebfac870d4bffae3e841e41ec1831bc13f003f",
+      "literals": []
+    },
+    {
+      "file": "068.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020BitFlags_003C12_002Cenum_0020DisabledType_003E_002Cclass_0020Relo_003A_003ATracker_003E(void** table, BitFlags_003C12_002Cenum_0020DisabledType_003E* @object, Tracker* state)",
+      "line": 98590,
+      "bodySha256": "6daed1a974a2e6752f57c00d5d201138f0227153fcc0243707f439833f3ab02c",
+      "literals": []
+    },
+    {
+      "file": "069.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cenum_0020SageBinaryData_003A_003APartitionManagerDistTestType_002Cclass_0020Relo_003A_003ATracker_003E(void** table, PartitionManagerDistTestType* @object, Tracker* state)",
+      "line": 98842,
+      "bodySha256": "85e001a56b19429b629fdea588c768a33b4a06674f6b0f7dd53b2758812d5178",
+      "literals": []
+    },
+    {
+      "file": "070.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_002Cclass_0020SpecialPowerTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(void** table, AssetReference_003CSageBinaryData_003A_003ASpecialPowerTemplate_002CSpecialPowerTemplate_003E* @object, Tracker* state)",
+      "line": 99023,
+      "bodySha256": "c8d8629b5d92579e335e37a9c051093807bd96d94b67499bac1d05b9811a5f60",
+      "literals": []
+    },
+    {
+      "file": "071.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASoundOrEvaEvent_003E(void** table, SoundOrEvaEvent** pointer, Tracker* tracker)",
+      "line": 99143,
+      "bodySha256": "284d2c1667a42e6d8ae04a36956177034dbb6ce7cceb4e439ecd347d5fd2a958",
+      "literals": []
+    },
+    {
+      "file": "072.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003APlayerTech_002Cclass_0020PlayerTech_003E_002Cclass_0020Relo_003A_003ATracker_003E(void** table, AssetReference_003CSageBinaryData_003A_003APlayerTech_002CPlayerTech_003E* @object, Tracker* state)",
+      "line": 99390,
+      "bodySha256": "055f60bc821bff98a85b244a6f466dec06a283b9bcf31f99e3a692fb27a1ec3f",
+      "literals": []
+    },
+    {
+      "file": "073.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AObjectFilterAsset_002Cclass_0020ObjectFilterAssetWrapper_003E_002Cclass_0020Relo_003A_003ATracker_003E(void** table, AssetReference_003CSageBinaryData_003A_003AObjectFilterAsset_002CObjectFilterAssetWrapper_003E* @object, Tracker* state)",
+      "line": 99674,
+      "bodySha256": "153dc63b17f758c8db746c516cfb85295734342c61f13f06bc2700ed5ba43fa0",
+      "literals": []
+    },
+    {
+      "file": "074.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerTemplate_003E(void** table, TypedAssetId_003CSageBinaryData_003A_003ASpecialPowerTemplate_003E* reference, Tracker* tracker)",
+      "line": 100359,
+      "bodySha256": "1e3031a1a91b597c64935c94089c734a0b59ddd91b7f494e43b804776cacad39",
+      "literals": []
+    },
+    {
+      "file": "075.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cchar_003E(sbyte* text, String_003Cchar_003E* @string, Tracker* tracker)",
+      "line": 51067,
+      "bodySha256": "1cdf6c816ffd12be6a65b90aa2c3859ac420a7a4958bbff11cc77d586b551586",
+      "literals": []
+    },
+    {
+      "file": "076.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(sbyte* text, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, Tracker* tracker)",
+      "line": 67448,
+      "bodySha256": "568a444c711880f434a3602bd121236b0833b2efe865130b8c6933765cb504bd",
+      "literals": [
+        "ALL",
+        ""
+      ]
+    },
+    {
+      "file": "077.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E* reference, Tracker* tracker)",
+      "line": 68432,
+      "bodySha256": "984dfc0d9510c0014e4ce8f522c5cc17f7c7567a0b9019b1b9c57667cb7ebd4f",
+      "literals": []
+    }
+  ]
+}

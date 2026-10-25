@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 62b6f1641d87974d5970a030231ec6a4d5b7335cf4c928dd1b7227d873914580
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003APassiveAreaEffectBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (PassiveAreaEffectBehaviorModuleData*)(int)(*(uint*)pointer), tracker);
+	}

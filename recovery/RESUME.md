@@ -1,13 +1,12 @@
-# XmlCompiler：范围内还原及真实SDK验收已完成
+# GameObject 与 XmlCompiler 当前续接入口
 
-2026-10-25（北京时间），目标分支 `recovery/xmlcompiler-priority`。先读AGENTS.md、EFFICIENCY.md、XMLCOMPILER_PRIORITY.md及XML_SDK_RECOVERY.md。
+2026-10-25（北京时间）。目标分支 `recovery/compiler-source`。本文件整合PR [#2](https://github.com/wu162/NewSdk/pull/2) 两边状态；禁止强推。先读AGENTS.md与EFFICIENCY.md，再按子系统读取详细交接。
 
-原Plugin301项，排除TestGameObject和11个Joypad独立根后，289入口组件还原完成。当前289路由元数据在平台0/1/2/99验证；其中267个schema全局根已完成真实SDK/O2、Win32验收。22个非全局/抽象/runtime登记项不伪造全局资产，不声明独立SDK根入口调用；必要嵌套布局以实际owner证据为准。不是301入口或完整Tokenizer/非XML自定义编译器的替代。
+- **GameObject**：322/322已知Marshal模块已完成，58个Token-only保持原未知Marshal回退。验收源码 `f8726d624b0a74ea0927705bca352027cbf76e30`；组件运行40162947222、基础40162947146、真实SDK40162947209均成功。详细当前状态及不可变证据见[RESUME_GAMEOBJECT.md](RESUME_GAMEOBJECT.md)和GAMEOBJECT_DRAW_MODEL.md。
+- **XmlCompiler**：原301登记项排除TestGameObject和11个Joypad独立根后，289入口组件还原及元数据核对完成；其中267个XSD全局类型取得真实SDK根调用证明，22个非全局项不冒充独立SDK根。SDK源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`、运行40164710673成功；5个MOD profile四产物相同，783次实际调用、4698次原版/隔离重放缓冲区比较。详细状态见[RESUME_XMLCOMPILER.md](RESUME_XMLCOMPILER.md)、[XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)及[SDK验收收据](evidence/xml-priority-sdk/acceptance.json)。
 
-SDK最终源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success。精确收据 [acceptance.json](evidence/xml-priority-sdk/acceptance.json)；五profiles共783次实际SDK调用，原版与无原DLL隔离恢复版重放合计4698次三缓冲区比较，实际类型并集精确267；每profile的bin/manifest/imp/relo原/恢复四产物相同。只复现EALAModStudio“建立基础数据”case5 BAB，清理阶段1/2；没有GUI、LoD或打包。
+两边SDK均执行EALAModStudio defaultscript.cs case5基础数据BAB流程，只在临时SDK副本启用相应恢复插件；各自验收锚点与范围分别保留，不将它们改写成一次双插件同时启用的联合SDK运行。本次合并不修改已验收Native/Bridge/共享helper及原SDK DLL/config，不重复触发未变成功类型的编译测试。
 
-Baseline159次/A173次沿用887444e8b46ef185fdd120df5403dc8ff584840f/40162875013的当前联合DLL成功证据，共332次旧调用未重跑；当前Native/输入/metadata及委托路径不变证明和每个旧XML的identity guard齐备。最终运行仅新建B277、FullMymod162、APT12次调用的三个profile，6次原/恢复真实BAB构建。APT专项四根12次调用覆盖8个非空文件和4个空文件，236个payload字节逐字节对照；旧A的空payload不冒充文件读取能力证明。
+当前已授权还原范围内没有新增待实现或待收取验收。后续变更按实际影响选择测试；缺失、失败、输入变化的组仍须取得完整必要验收。原XmlCompiler排除12根、22非全局项的边界不因合并扩大，其他自定义编译器及完整Tokenizer不在本次完成声明内。
 
-组件锚点：GameMap完整矩阵092bb95c06647f95891c7f62b4b6fbc875c4c07a/40158416072；UIConfigList完整70内部分派4401069feaf5df91043afadaad2410293c33b67e/40159834447，均/Od、/O2、四平台。63组和289入口索引在evidence/xml-component-acceptance-20261025-289.json。SDK阶段未修改Native/Bridge，沿用已验证/O2联合DLL，不重复触发未变成功组。
-
-历史82入口SDK清单仍保持92180f9bbd830b9dbd49a696c259e54ffe2d7721/40098695436原锚点，不能当作当前289路由DLL的验收。当前SDK状态以catalog/XmlSdkTypes.json和新收据为准。 证据XML/TSV按目录.gitattributes以CRLF checkout或直接读取Actions artifact，四产物保留二进制原字节。12个排除根只有明确扩展范围才恢复；22个非全局根若需独立SDK入口证明，应先说明真实可达生产路径。保留所有失败/修复/Actions父历史，禁止强推。
+证据冲突处理：XmlCompiler当前共享证据保留priority分支已验收版本；compiler-source同名旧证据原样归档在 `evidence/xml-merge-baselines/compiler-source-833c9177`，GameObject不可变运行档案不变。XML/TSV按证据目录.gitattributes检出以核对运行SHA256；源码与运行锚点不得交叉套用。

@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 61829; body SHA256 89361b9deaac086bc0f5b088c6ca3749b4a715e273cb11bf74d8052a2e289827
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumCrystalBehaviorModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		TiberiumCrystalBehaviorModuleData* ptr = (TiberiumCrystalBehaviorModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 32u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 254628242;
+	}

@@ -1,0 +1,5 @@
+System.Exception: <Behaviors><ObjectSMCHelper TypeId='1409388128' id='DrawBeam' ></ObjectSMCHelper></Behaviors> instance length 2816 != 2792
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label, Boolean bufferComparison)
+   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
+   at GameObjectOracle.DrawBeamFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)

@@ -1,0 +1,33 @@
+# 最后五类模型Draw实现与验收
+
+五类：ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396。五类模块已通过首轮完整Windows差分：source d5daae746428937d17ce6beb0b2ae3ef0650cab4，run40162286167 success；每模式1382356 fixtures、4147068三缓冲区比较、24932拒绝、4132不变性。SDK修复后的最终累计回归另行记录。
+
+完整原始证据为draw-source的283方法/17枚举表，blob6e40a9ed6c9f961d294d49768d911e6a6f354619。四个GenerateDraw*Fields.py检查原方法指纹、字段/默认值顺序、Token偏移/数量和列表stride。模型条件、动画、物理体积分开文件，完整父层统一由DrawModelRuntime调用。
+
+实现包括ModelConditionState196、AnimationState140、Animation60、ParticleSysBone36、FXEvent28、LuaEvent16、AttachModel80、EmbedPortal12、Shader28及四常量、Shadow60、五种Dynamics形状、Translation/Rotation和Lifetime。String8与typed id按原方法区分；Script可空String8采用标量指针Token；TerrainParticles可空强引用4字节；结构列表Token模式1、String列表模式6、SubObject word列表模式3。Scripted Marshal直接ModuleData，Token保留Draw父层。
+
+GameObjectDrawModelCases.cs覆盖五类根/嵌套字段、全部枚举、列表边界、独立默认布局/Token/分配/步长、拒绝和顺序不变性。保留累计四平台与/Od/O2原DLL三缓冲区比较。
+
+真实SDK入口TestGameObjectSdk.ps1，自建SDK/Mods/recoverydraw七资产覆盖五类/默认/继承与多层依赖，完整XSD先校验。GUI启动链取自SDK/defaultscript.cs case5，正式GameObjectPlugin显式路由，原/恢复版隔离缓存和全新输出，比较bin/manifest/imp/relo全部字节、实际ProcessInstance三缓冲区、移除两原DLL后的重放；同批完整mymod。SDK结果独立记录，不能用组件成功替代。
+
+## SDK发现的既有适配问题
+
+首轮SDK运行40162286198在原生构建成功后，C#源文件路径被csc误解析；改用Resolve-Path。第二轮40162402496的recoverydraw七资产全产物/三缓冲区/无原DLL重放成功，完整mymod在BaseVehicle的CrusherInfo.id被适配器误拒绝。AssetTypeGameObject.xsd声明该id为pipelineOnly，原Marshal没有对应成员；现在仅允许CrusherInfo的无命名空间id并忽略，不扩大其他结构属性许可。新增空/非空/大小写id的原DLL差分和三缓冲区不变性、外命名空间id与无id定义的ProjectedBuildabilityInfo.id拒绝测试；测试mod也新增实际CrusherInfo.id输入。8939717b0a8af4435e41eb2da430977b8c945084进一步进入mytank，发现xi:include引入的XML上下文属性被严格适配器误拒绝。SDK原Mvp.Xml.XInclude读取器生成xml:base/xml:lang；适配器现在仅忽略标准XML命名空间的base/lang，保留其他外命名空间拒绝，增加原DLL三缓冲区不变性与嵌套上下文测试。
+
+SDK最终成功source f8726d624b0a74ea0927705bca352027cbf76e30，run40162947209 success。recoverydraw七次实际调用和完整mymod三次（BaseObject/BaseVehicle/mytank），原/恢复版四份最终产物逐字节相同，全部实际三缓冲区与无原DLL重放通过。不可变证据gameobject-sdk-runs/40162947209-1；validation.json固定source/run。完整组件同源码run40162947222等待最终终态，不将SDK结果冒充累计差分结果。
+
+## 中间交接（当时用户允许停止等待Actions，已由下方最终验收替代）
+
+最新完整模块矩阵source8939717b/run40162645578 success，/Od/O2每模式1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性；平台0/1/2/99。原日志两条PASS和不可变validation均核对。共享gameobject-root同步为不可变40162645578-1树50e6338950a1c96f2df2e554c96e4a6a9776e344。
+
+SDK归档重新解码后比较所有八对产物原始字节，仍全部相等。SDK trace确认mytank里两个头灯ScriptedModelDraw及AttributeModifierUpgrade实际带标准XML命名空间base属性；CrusherInfo.id也实际保留。完整mymod三调用为BaseObject/BaseVehicle/mytank。SDK output.zip SHA25615a1112127592f74c4b5a186cde3cee70fd82a71db2d3fef34bf26d0779666ef。
+
+最后仅f8726d62/run40162947222完整累计仍in_progress，含XML上下文适配及新增回归；SDK/基础该源码已成功，不需无故重跑。下次按RESUME收取终态并同步最终证据。
+
+## 最终验收全部完成
+
+共同源码f8726d624b0a74ea0927705bca352027cbf76e30，最终累计run40162947222 success；/Od/O2每模式1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，平台0/1/2/99，两模式合计8294592次三缓冲区比较。两条实际PASS、全部作业步骤、终态和不可变validation身份已核对。
+
+共享gameobject-root同步为不可变40162947222-1树ee09d1721d1c5cfc50df886df8813f6997ce999d。SDK40162947209与基础40162947146也为同源码success；此前SDK归档原字节重比结果继续有效。XML上下文适配已完成组件与真实SDK两层验收，无待收取运行。上文待验证/等待段落属于历史过程。
+
+本轮目标全部完成。此后没有相关输入/源码/工具链变化时不重复触发已通过测试；58 Token-only回退与主SDK原DLL配置边界不变。

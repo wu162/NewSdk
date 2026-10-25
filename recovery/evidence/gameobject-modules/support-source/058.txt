@@ -1,0 +1,13 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 41f6b034929401ea5eec4e3221d065575b5901cb78978182c7a4c16d90526b7d
+// Literals: {"_003F_003F_C_0040_0BF_0040FFBODIJP_0040KillLocomotorUpgrade_003F_0024AA_0040": "KillLocomotorUpgrade", "_003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040": "false"}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ALocomotorSetModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		LocomotorSetModuleData* ptr = (LocomotorSetModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 40u, 1u);
+		if (node != null)
+		{
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040FFBODIJP_0040KillLocomotorUpgrade_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LAPONLG_0040false_003F_0024AA_0040)), (bool*)ptr + 36, tracker);
+			Marshaler_002EMarshal(node, (UpgradeModuleData*)ptr, tracker);
+		}
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 664395762;
+	}

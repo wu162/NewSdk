@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 d44f73391de08dde401780ce1c1277af980eed810cb344dc40b4ad46a5d591ba
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ABoobyTrapUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		BoobyTrapUpdateModuleData* ptr = (BoobyTrapUpdateModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)ptr + 336), endian);
+		Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E((BitFlags_003C223_002Cenum_0020ObjectStatusType_003E*)((byte*)ptr + 364), endian);
+		uint num = ((uint*)ptr)[99];
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((ObjectFilter*)(int)num, endian);
+		}
+		Marshaler_002EEndianCorrect((AttachUpdateModuleData*)ptr, endian);
+	}

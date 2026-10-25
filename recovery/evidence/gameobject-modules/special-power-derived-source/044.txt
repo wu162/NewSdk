@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 1433b8bbe34b69e5873b475f046c745ee04af57a8353d2135fab0a7feec6e4a7
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ACombineSpecialPowerModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		CombineSpecialPowerModuleData* ptr = (CombineSpecialPowerModuleData*)(int)(*(uint*)pointer);
+		uint num = ((uint*)ptr)[113];
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((ObjectFilter*)(int)num, endian);
+		}
+		Marshaler_002EEndianCorrect((SpecialPowerModuleData*)ptr, endian);
+	}

@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 8907e8a613aa9e3083e51b8d9c26ac577585f9d642ce73271a260f59a71dc9e5
+// Literals: {"_003F_003F_C_0040_0M_0040KLGMOOEK_0040ParticleSys_003F_0024AA_0040": "ParticleSys"}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AParticleSystemList_003E(INode* node, ParticleSystemList** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 8u, 1u);
+			ParticleSystemList* target = (ParticleSystemList*)(int)(*(uint*)pointer);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXParticleSystemTemplate_002Cclass_0020FXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040KLGMOOEK_0040ParticleSys_003F_0024AA_0040)), (List_003CRelo_003A_003AAssetReference_003CSageBinaryData_003A_003AFXParticleSystemTemplate_002CFXParticleSystem_003A_003AParticleSystemTemplate_003E_0020_003E*)target, tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}

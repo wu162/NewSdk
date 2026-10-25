@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 12730710ec03b9702b3ad2e66dc934f900d58ab2771a52e2e764f9360a56f86a
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ATiberiumThiefSpecialAbilityUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)
+	{
+		Tokenizer_002ETokenize(table, (TiberiumThiefSpecialAbilityUpdateModuleData*)(int)(*(uint*)pointer), tracker);
+	}

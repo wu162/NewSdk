@@ -1,0 +1,3 @@
+System.Exception: Independent remaining Contain defaults/padding g=1 byte=48
+   at GameObjectOracle.ContainRemainingFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)

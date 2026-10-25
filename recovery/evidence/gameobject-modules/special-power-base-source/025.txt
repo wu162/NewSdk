@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 76849; body SHA256 a176d1e0e681bc72ff572a15df401d0dea95f5382b309d7b78761d929ec0a770
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, SoundOrEvaEvent* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 805758285;
+		((int*)ptr)[1] = 1675080808;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num = *(uint*)@object;
+		if (num != 0)
+		{
+			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num, ptr2);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 357806494;
+		((int*)ptr)[1] = -991149135;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 4, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 6d239049863b1056aad2c7796525c8ca7e981e177dd3a2396383ed5169fcf08b
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020DamageType_002C39_003E(BitFlags_003C39_002Cenum_0020DamageType_003E* target, EndianHelper* endian)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+		if (*(bool*)endian)
+		{
+			*(sbyte*)(&num) = ((sbyte*)target)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)target)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)target)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)target;
+			*(uint*)target = num;
+		}
+		if (*(bool*)endian)
+		{
+			*(byte*)(&num) = ((byte*)target + 4)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)target + 4)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)target + 4)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)target)[4];
+			((int*)target)[1] = (int)num;
+		}
+	}

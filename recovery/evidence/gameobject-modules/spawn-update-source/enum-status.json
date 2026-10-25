@@ -1,0 +1,10 @@
+{
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "status": "pending PE map export; no runtime support claimed",
+  "required": [
+    "DamageType",
+    "DeathType",
+    "OCLMonitorOption"
+  ],
+  "note": "Do not treat enum names or source inventory as numeric PE evidence."
+}

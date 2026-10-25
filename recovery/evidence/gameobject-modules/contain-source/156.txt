@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 62a2d556caca9a1701d767b7fad302f70c5c5006c2d0e01b585a17a300c463a5
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ProductionQueueHordeContainModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1525845350;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (BehaviorModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1101214857;
+		((int*)ptr)[1] = 1324506666;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AProductionQueueHordeContainModuleDataTemplateContainer_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AProductionQueueHordeContainModuleDataTemplateContainer_003E*)((byte*)@object + 8), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

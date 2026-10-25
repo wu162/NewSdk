@@ -1,0 +1,343 @@
+{
+  "status": "original method evidence for remaining SpecialAbility object/control group",
+  "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
+  "sharedParentManifest": "../special-ability-source/manifest.json",
+  "modules": [
+    {
+      "name": "GiveUpgradeUpdateModuleData",
+      "typeId": 769868147,
+      "nativeSize": 256
+    },
+    {
+      "name": "ReplaceObjectUpdateModuleData",
+      "typeId": 1442440941,
+      "nativeSize": 260
+    },
+    {
+      "name": "ShieldSphereUpdateModuleData",
+      "typeId": 1813100279,
+      "nativeSize": 264
+    },
+    {
+      "name": "SpecialDisguiseUpdateModuleData",
+      "typeId": 2784675807,
+      "nativeSize": 264
+    }
+  ],
+  "methods": [
+    {
+      "file": "000.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AGiveUpgradeUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "c0164eb47b221c7150b26afd6cb70064e4d965c0d158ce6d9e8da100821d250e"
+    },
+    {
+      "file": "001.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AGiveUpgradeUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "2675ddf3ea0ed0f60ae67fb6821eb637d720acae56dbdb027476354740918a3f"
+    },
+    {
+      "file": "002.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AGiveUpgradeUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "e140b4bbe438939ece1188683105ed61a46ab310d504adb832b431a9676108c1"
+    },
+    {
+      "file": "003.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, GiveUpgradeUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "f55f4017bc2ec301794bded202b7fa0cfcbca4cfb279bd0dca2ef6aece5fbf7e"
+    },
+    {
+      "file": "004.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, GiveUpgradeUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "5e7f1b5f5325baca07e8bddb26ea6bf473ced6191136d67d2e195f6ed83dcae3"
+    },
+    {
+      "file": "005.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "129b46e7cbf3c73210ac80d5fed6b56bfa0ef06ca6fc2cb2baaf3c528b61732d"
+    },
+    {
+      "file": "006.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "44b6d480d316dec184345f80a3d5e8e2dd8331f7fc55b5fb57e725fe7a120bc1"
+    },
+    {
+      "file": "007.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "eee72a299cc9f8b77ce791f2e2ff67dfcd6c588db12fde802a1811f854aa486a"
+    },
+    {
+      "file": "008.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ReplaceObjectUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "3cd0abecab8efa2b2471cc60fd2953820f785ed520e4a11a50b3835c8b05f519"
+    },
+    {
+      "file": "009.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ReplaceObjectUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "e0c1aff5515d7d8ee5e298fd25c68c1dbf19a1bca91f6ec8889c29f39ec7d04e"
+    },
+    {
+      "file": "010.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AShieldSphereUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "228464046c66ae1925346c97de17cea45fabf1e0ddaac88437553fce25e950c5"
+    },
+    {
+      "file": "011.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AShieldSphereUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "2dd9131a248be2443f280a2fdfc6df4f6124c60dd208a0f3f376dba828d2b12f"
+    },
+    {
+      "file": "012.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003AShieldSphereUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "91acd87e3d22a7ccc364cc12ce13c9ea3c23fa3451989ee52c841c637354bc29"
+    },
+    {
+      "file": "013.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(ShieldSphereUpdateModuleData* @object, EndianHelper* state)",
+      "bodySha256": "307c73b19230cb5e2497c012d25438b653d8de7c14fbd750c6f49d698f0bb6d0"
+    },
+    {
+      "file": "014.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ShieldSphereUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "745a2f149554cc0d7ac3fba889e5fd7e721972481d0b6635eaec8ca045991d72"
+    },
+    {
+      "file": "015.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ShieldSphereUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "0362371cca50c5c424dd0627b26b28d617f2ed746d25a478c7190d36e5c15bea"
+    },
+    {
+      "file": "016.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "98a15a1e794d60605f98354125745d4d8eddb4703bd50a1f250d18b010b02529"
+    },
+    {
+      "file": "017.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)",
+      "bodySha256": "a565f9f6b1fee1152cba757ef791b951857d998238dc1b833fb0371a23825782"
+    },
+    {
+      "file": "018.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenizePolymorphicType_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseUpdateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(void** table, ModuleData** pointer, Tracker* tracker)",
+      "bodySha256": "c7190c65ef4a8bb71a555e2ac9bbb6d920558316115f8973eb8ee5e123bfe7e3"
+    },
+    {
+      "file": "019.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(SpecialDisguiseUpdateModuleData* @object, EndianHelper* state)",
+      "bodySha256": "b5adf91345e08fdc4d97e121dffb87b2c86d64613d029cbf732104c8769fab76"
+    },
+    {
+      "file": "020.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, SpecialDisguiseUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "adde5e0d7578ecca75b8db8ac10984bf84a5882e30cbf2d4b10c2732db539ba5"
+    },
+    {
+      "file": "021.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, SpecialDisguiseUpdateModuleData* @object, Tracker* state)",
+      "bodySha256": "1344f13189f0635dadea9b2172961f568a892b772f460037af168f3337a3137e"
+    },
+    {
+      "file": "022.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, SpecialDisguiseTerrainData* @object, Tracker* state)",
+      "bodySha256": "b569621fb5bb7e0e62e0d919fb277c4a88ea8a36ad879412d0e0154e9fbc99e3"
+    },
+    {
+      "file": "023.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, ReplaceObjectNugget* @object, Tracker* state)",
+      "bodySha256": "0cd8c3ac07ceeacc7fd0c01ef7a828cee57f81450bcf454a7767a80e33f46ca1"
+    },
+    {
+      "file": "024.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, SpecialDisguiseTerrainData* @object, Tracker* state)",
+      "bodySha256": "c3862d1f98eaf38a41e9bc31b42cca6757f23282ba7bebabb3b0aa7d0180a894"
+    },
+    {
+      "file": "025.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, ReplaceObjectNugget* @object, Tracker* state)",
+      "bodySha256": "7a06593447eba24e06923cdef6a7f6244ee71e60f880d84a996286d2b678b0a0"
+    },
+    {
+      "file": "026.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E* @object, Tracker* state)",
+      "bodySha256": "9d132bdef32f1d94c9513a60edbf12496beda29e5a5813e4bc1c3926164f7397"
+    },
+    {
+      "file": "027.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, bool* @object, Tracker* state)",
+      "bodySha256": "5bc6ebb3e8d10942b4c3b77789f50376274ecf0de84f9a6c0265a0a1a5fba932"
+    },
+    {
+      "file": "028.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectNugget_003E(List_003CSageBinaryData_003A_003AReplaceObjectNugget_003E* list, EndianHelper* endian)",
+      "bodySha256": "fa9f1420a2aa27244df7508443a6c5326de6ab3fe12f9b9dde82066e911f78f7"
+    },
+    {
+      "file": "029.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectNugget_003E(IList* list, List_003CSageBinaryData_003A_003AReplaceObjectNugget_003E* target, Tracker* tracker)",
+      "bodySha256": "17c21833f3410bd98a46d191ce94e2911f4694bbc17cca019cea3c5e157bb98a"
+    },
+    {
+      "file": "030.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectNugget_003E(void** table, List_003CSageBinaryData_003A_003AReplaceObjectNugget_003E* list, Tracker* tracker)",
+      "bodySha256": "d3860c6606a0c1dc35ec3353721903bdfd02539e9aa5b9bc47699840096fc029"
+    },
+    {
+      "file": "031.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ObjectStatusType_002C223_003E(BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, EndianHelper* endian)",
+      "bodySha256": "bab6804e3056705ff45f4a5b314f7b71d6e9f77277660ca8972145c298c6d5ad"
+    },
+    {
+      "file": "032.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)",
+      "bodySha256": "06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33"
+    },
+    {
+      "file": "033.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020DamageType_002C39_003E(sbyte* text, BitFlags_003C39_002Cenum_0020DamageType_003E* target, Tracker* tracker)",
+      "bodySha256": "f3d476b50e75359bb66371022d9477a8ebaf385801ffef5784e0d9d253ecd0bf"
+    },
+    {
+      "file": "034.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ObjectStatusType_002C223_003E(sbyte* text, BitFlags_003C223_002Cenum_0020ObjectStatusType_003E* target, Tracker* tracker)",
+      "bodySha256": "568a444c711880f434a3602bd121236b0833b2efe865130b8c6933765cb504bd"
+    },
+    {
+      "file": "035.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020ModelConditionFlagType_002C456_003E(sbyte* text, BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, Tracker* tracker)",
+      "bodySha256": "4def9847639b347ea259cd4ed8bc8374041ef5ac59fdf6ade0fadaa3cea15225"
+    },
+    {
+      "file": "036.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cchar_003E(sbyte* text, String_003Cchar_003E* @string, Tracker* tracker)",
+      "bodySha256": "1cdf6c816ffd12be6a65b90aa2c3859ac420a7a4958bbff11cc77d586b551586"
+    },
+    {
+      "file": "037.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AShieldSphereUpdateOption_002C1_003E(sbyte* text, BitFlags_003C1_002Cenum_0020SageBinaryData_003A_003AShieldSphereUpdateOption_003E* target, Tracker* tracker)",
+      "bodySha256": "5fbe80e0a6fc14cd6159c3606b2f2b5330f39337bcadca468a36e9aa85f21066"
+    },
+    {
+      "file": "038.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector3_002Cstruct_0020VectorHack_003E(INode* node, Vector3** pointer, Tracker* tracker, VectorHack* tag)",
+      "bodySha256": "24d1f4922597f693f92fb3134206cc35cbabf56668a6475e453f04ce8a0ef0dd"
+    },
+    {
+      "file": "039.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(INode* node, ObjectFilter** pointer, Tracker* tracker)",
+      "bodySha256": "c22dea2e9f92a25792a5b4f86a4ff41da148008dbb1879b842cd575ccb620cc4"
+    },
+    {
+      "file": "040.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AObjectFilter_003E* reference, Tracker* tracker)",
+      "bodySha256": "e6dda586236c3121b6f99bfb4faf5e143f61be3a42371a3f5f624bbed1104824"
+    },
+    {
+      "file": "041.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageMathOnly_003A_003AMath_003A_003AVector3_003E(void** table, Vector3** pointer, Tracker* tracker)",
+      "bodySha256": "bbe8c5e6e43d15a8e8775e0a64b9faa53777edaae1f8a304f8fa9fd2bbced05e"
+    },
+    {
+      "file": "042.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AObjectFilter_003E(void** table, ObjectFilter** pointer, Tracker* tracker)",
+      "bodySha256": "7a30787a471a432564173fb23061321952c74bbc5506e871242863c401291311"
+    },
+    {
+      "file": "043.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseTerrainData_003E(List_003CSageBinaryData_003A_003ASpecialDisguiseTerrainData_003E* list, EndianHelper* endian)",
+      "bodySha256": "53f77ad862f989be1a8387721e8a1d7ce3c5ef11e230370ffb73e54d3a7f9b6c"
+    },
+    {
+      "file": "044.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseTerrainData_003E(IList* list, List_003CSageBinaryData_003A_003ASpecialDisguiseTerrainData_003E* target, Tracker* tracker)",
+      "bodySha256": "b61aebda172d35bcfc1d1e30864565a9bc38e991cfd3da1f9226f2cc227da243"
+    },
+    {
+      "file": "045.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASpecialDisguiseTerrainData_003E(void** table, List_003CSageBinaryData_003A_003ASpecialDisguiseTerrainData_003E* list, Tracker* tracker)",
+      "bodySha256": "f63bd399c20bbde63c4bc2f8da69228732f66274dd23d51dbc24c294954531ed"
+    },
+    {
+      "file": "046.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ATerrainClassType_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, TerrainClassType* @object, Tracker* state)",
+      "bodySha256": "204868e42015b626505687363ba7007f86e3a11ce1e35d4aa45dc7e9bcc9c6e7"
+    },
+    {
+      "file": "047.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E(sbyte* text, TypedAssetId_003CSageBinaryData_003A_003AGameObject_003E* reference, Tracker* tracker)",
+      "bodySha256": "984dfc0d9510c0014e4ce8f522c5cc17f7c7567a0b9019b1b9c57667cb7ebd4f"
+    },
+    {
+      "file": "048.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(IList* list, List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* target, Tracker* tracker)",
+      "bodySha256": "eaaaf8916a2df6a0473c192214c946af0e2213bad3687a1eea9a2aa3c63b58ff"
+    },
+    {
+      "file": "049.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(void** table, List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* list, Tracker* tracker)",
+      "bodySha256": "42e660325227355b1bee59df0967b2a76d2a69958716060003aa00318459fe27"
+    },
+    {
+      "file": "050.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E(List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E* list, EndianHelper* endian)",
+      "bodySha256": "aebf313a025eed1d6e30d853cbcbc2ff76dca708c2d9a9a8f073cec50bbecaf0"
+    }
+  ],
+  "peEnums": {
+    "ShieldSphereUpdateOption": {
+      "ALLOW_ALLIES_PROJECTTILE_GOTHROUGH": 0
+    },
+    "TerrainClassType": {
+      "Cliff": 3,
+      "Dirt": 2,
+      "Grass": 4,
+      "Misc": 1,
+      "Mud": 7,
+      "Road": 6,
+      "Rock": 5,
+      "Sand": 8,
+      "Shrub": 9,
+      "Snow": 10,
+      "UNSPECIFIED": 0
+    },
+    "DamageType": {
+      "ALL": 38,
+      "AUTO_CANNON": 29,
+      "BLAST": 10,
+      "CANNON": 22,
+      "CONCUSSIVE": 32,
+      "CRUSH": 1,
+      "EXPLOSIVE": 31,
+      "FALLING": 9,
+      "FIRE": 19,
+      "FLAK": 33,
+      "FLAME": 4,
+      "FORCE": 0,
+      "GRENADE": 23,
+      "GUN": 21,
+      "HEALING": 5,
+      "IMPACT": 30,
+      "KI": 36,
+      "LASER": 17,
+      "LOGICAL_FIRE": 15,
+      "MAGIC": 13,
+      "MELEE": 28,
+      "MINE": 25,
+      "PASSENGER": 12,
+      "PENALTY": 8,
+      "PIERCE": 3,
+      "PLASMA": 18,
+      "POISON": 16,
+      "PRISM": 34,
+      "RADIATION": 37,
+      "REFLECTED": 11,
+      "ROCKET": 20,
+      "SLASH": 2,
+      "SNIPER": 24,
+      "STORM_SHIELD": 27,
+      "TESLA": 35,
+      "TIBERIUM": 26,
+      "UNDEFINED": 14,
+      "UNRESISTABLE": 6,
+      "WATER": 7
+    }
+  }
+}

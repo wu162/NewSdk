@@ -1,0 +1,63 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 13138; body SHA256 b8bbaaaedb147dc29053e6966a3464df6bfb40c74992995f84a746ef285e97ca
+// Literals: {"_003F_003F_C_0040_01KDCPPGHE_0040r_003F_0024AA_0040": "r", "_003F_003F_C_0040_01LPLHEDKD_0040d_003F_0024AA_0040": "d"}
+internal unsafe static void DataInitializers_002EInitialize(float* @object, sbyte* text, AngleTag* __unnamed002)
+	{
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01PBD _0024ArrayType_0024_0024_0024BY01PBD);
+		*(int*)(&_0024ArrayType_0024_0024_0024BY01PBD) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01KDCPPGHE_0040r_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01PBD, int>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01PBD, 4)) = (int)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01LPLHEDKD_0040d_003F_0024AA_0040);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out _0024ArrayType_0024_0024_0024BY01_0024_0024CBM _0024ArrayType_0024_0024_0024BY01_0024_0024CBM);
+		*(float*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM) = 1f;
+		System.Runtime.CompilerServices.Unsafe.As<_0024ArrayType_0024_0024_0024BY01_0024_0024CBM, float>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref _0024ArrayType_0024_0024_0024BY01_0024_0024CBM, 4)) = (float)Math.PI / 180f;
+		float num = 1f;
+		int num2 = 0;
+		sbyte* ptr;
+		do
+		{
+			ptr = strstr(text, (sbyte*)(int)(*(uint*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01PBD)))));
+			if (ptr == null)
+			{
+				num2++;
+				continue;
+			}
+			num = *(float*)((ref *(_003F*)(num2 * 4)) + (ref *(_003F*)(&_0024ArrayType_0024_0024_0024BY01_0024_0024CBM)));
+			break;
+		}
+		while (num2 < 2);
+		sbyte* ptr2 = text;
+		if (*text != 0)
+		{
+			do
+			{
+				ptr2++;
+			}
+			while (*ptr2 != 0);
+		}
+		uint num3 = (uint)(ptr2 - (nuint)text);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out auto_ptr_003Cchar_003E auto_ptr_003Cchar_003E);
+		*(int*)(&auto_ptr_003Cchar_003E) = (int)new_005B_005D(num3 + 1);
+		try
+		{
+			sbyte* ptr3 = text;
+			sbyte* ptr4 = (sbyte*)((nuint)(*(int*)(&auto_ptr_003Cchar_003E)) - (nuint)text);
+			sbyte b;
+			do
+			{
+				b = (ptr4[(nuint)ptr3] = *ptr3);
+				ptr3++;
+			}
+			while (b != 0);
+			if (ptr != null)
+			{
+				ptr4[(nuint)ptr] = 0;
+			}
+			float num4 = (float)atof((sbyte*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+			*@object = (float)((double)num4 * (double)num);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<auto_ptr_003Cchar_003E*, void>)(&std_002Eauto_ptr_003Cchar_003E_002E_007Bdtor_007D), &auto_ptr_003Cchar_003E);
+			throw;
+		}
+		delete((void*)(int)(*(uint*)(&auto_ptr_003Cchar_003E)));
+	}

@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 7a06593447eba24e06923cdef6a7f6244ee71e60f880d84a996286d2b678b0a0
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ReplaceObjectNugget* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 376819750;
+		((int*)ptr)[1] = -462511182;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num = *(uint*)@object;
+		if (num != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (ObjectFilter*)(int)num, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1241241155;
+		((int*)ptr)[1] = 344905565;
+		Tokenizer_002ETokenize_003Cstruct_0020TypedAssetId_003Cstruct_0020SageBinaryData_003A_003AGameObject_003E_0020_003E((void**)((byte*)ptr + 8), (List_003CTypedAssetId_003CSageBinaryData_003A_003AGameObject_003E_0020_003E*)((byte*)@object + 4), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

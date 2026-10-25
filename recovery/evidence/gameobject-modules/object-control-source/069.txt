@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 fbbe77e2f66c080ee3a5200fd3122c7f4f4e82de5d1a4ca4513ee27ecc7e89aa
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AConvergingLaserStateModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ConvergingLaserStateModuleData* ptr = (ConvergingLaserStateModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 136u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = 1601476857;
+	}

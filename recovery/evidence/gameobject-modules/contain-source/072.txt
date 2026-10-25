@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 82b9e549e256b5103ce02ea57f28adaa3a10b697c8e35a82ce61752b8911cd98
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AContestableGarrisonContainModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(INode* node, ModuleData** pointer, Tracker* tracker)
+	{
+		ContestableGarrisonContainModuleData* ptr = (ContestableGarrisonContainModuleData*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 220u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1940852521;
+	}

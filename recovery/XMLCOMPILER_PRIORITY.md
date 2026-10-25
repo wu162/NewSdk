@@ -1,6 +1,6 @@
 # XmlCompiler：范围内剩余还原完成
 
-2026-10-25（北京时间），目标分支 `recovery/xmlcompiler-priority`。
+2026-10-25（北京时间），原工作分支 `recovery/xmlcompiler-priority`；通过PR [#2](https://github.com/wu162/NewSdk/pull/2) 合入 `recovery/compiler-source`。
 
 ## 当前范围
 
@@ -49,3 +49,7 @@ SDK阶段仅修正插件对合法根metadata的输入边界与测试环境绝对
 原82入口SDK清单仍保持92180f9bbd830b9dbd49a696c259e54ffe2d7721/40098695436历史锚点，207项新增组件账本不冒充当前SDK状态；当前状态以catalog/XmlSdkTypes.json及新收据为准。本范围组件还原及可直接声明的267全局根SDK验收已收尾；22个非全局入口若需独立生产路径证明，须先明确实际schema/自定义编译链可达性。尚非完整Tokenizer或非XML自定义APT/Audio/Map/Texture编译器替代。
 
 固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。所有失败/修复/Actions证据及并发父提交保留，后续按受影响输入选择验证，禁止强推。
+
+## 合并历史
+
+首批优先类型此前通过PR [#1](https://github.com/wu162/NewSdk/pull/1) 合入，合并提交dddb9ac2804da1380a5b9b94a9035253c6e48f63。本次PR #2保留两边历史并带入后续完整还原及真实SDK验收；当前GameObject与XmlCompiler各自状态见RESUME.md。

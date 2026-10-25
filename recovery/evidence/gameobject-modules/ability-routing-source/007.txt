@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 06a1b70cd3fc3e852b85c5fef233cd9fb3118044c93f80846b43edfd70be5450
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, RadarScanMapSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1403416702;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SpecialAbilityUpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -45384102;
+		((int*)ptr)[1] = 1766435192;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AKindOfAndStatusAndModelConditionType_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AKindOfAndStatusAndModelConditionType_003E*)((byte*)@object + 240), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

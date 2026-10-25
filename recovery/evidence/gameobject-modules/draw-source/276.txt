@@ -1,0 +1,30 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 73154f79d0a1d161363dcda9168bf0341ca61fdb3513b56f21a617d2d1e6007d
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstant** source, Tracker* state)
+	{
+		if (*(int*)source != 0)
+		{
+			ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 1u);
+			*(int*)ptr = 2;
+			((int*)ptr)[1] = *(int*)(int)(*(uint*)source);
+			ProcTableElement* ptr2 = (ProcTableElement*)((byte*)ptr + 8);
+			*(int*)ptr2 = 0;
+			uint num = *(uint*)source;
+			switch (*(int*)(int)num)
+			{
+			case -1544008643:
+				Tokenizer_002ETokenize((void**)ptr2, (FXShaderConstantBool*)(int)num, state);
+				break;
+			case -1994909310:
+				Tokenizer_002ETokenize((void**)ptr2, (FXShaderConstantInt*)(int)num, state);
+				break;
+			case -1517250906:
+				Tokenizer_002ETokenize((void**)ptr2, (FXShaderConstantTexture*)(int)num, state);
+				break;
+			case -553066715:
+				Tokenizer_002ETokenize((void**)ptr2, (FXShaderConstantFloat*)(int)num, state);
+				break;
+			}
+			((int*)((byte*)state + 4))[1] += -4;
+		}
+	}

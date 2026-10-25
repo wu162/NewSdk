@@ -1,0 +1,18 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 76fc1b6a6e188c61d01ace3c31f55baf91407f9b44607a4b5eb4eb45facf3492
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, ActivateModuleSpecialAbilityUpdateModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 3u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -1403416702;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (SpecialAbilityUpdateModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -2088679794;
+		((int*)ptr)[1] = -1381675735;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003ASpecialPowerModuleInfo_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003ASpecialPowerModuleInfo_003E*)((byte*)@object + 240), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

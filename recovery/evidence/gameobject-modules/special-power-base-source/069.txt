@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 98842; body SHA256 85e001a56b19429b629fdea588c768a33b4a06674f6b0f7dd53b2758812d5178
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize_003Cenum_0020SageBinaryData_003A_003APartitionManagerDistTestType_002Cclass_0020Relo_003A_003ATracker_003E(void** table, PartitionManagerDistTestType* @object, Tracker* state)
+	{
+		Relo_002ETracker_002EBookmarkMemberOffset(state, @object, table);
+	}

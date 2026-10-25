@@ -1,0 +1,10 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 94a69597e73894efd84adc51b05c244fad558391d6addda6977cc579114148d2
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003ADieMuxDataType_003E(DieMuxDataType** pointer, EndianHelper* endian)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			Marshaler_002EEndianCorrect((DieMuxDataType*)(int)num, endian);
+		}
+	}

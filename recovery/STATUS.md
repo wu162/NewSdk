@@ -1,5 +1,12 @@
 # Compiler source recovery — historical session records
 
+## 2026-10-25：本轮新增26类，309/322累计验收完成
+
+完成对象交互13类、SlowDeath/Destruction5类、Contain核心8类，完整父层和依赖结构、原方法/PE证据、默认/Token/分配顺序独立检查及拒绝/不变性全保留。最终source9c138e8f182c4dac7c2732c42133e0a789925c01，GameObject run40145009538、基础run40145009445均success；/Od、/O2各1212528 fixtures、3637584三缓冲区比较、23056拒绝、3976不变性，平台0/1/2/99。实际两模式原日志与不可变validation已核对，共享根快照同步evidence/gameobject-runs/40145009538-1树。
+
+失败40142578135（Topple独立float期望）、40143597761（四nullable引用）、40144757033（CaptureAndGiveUpgrade Token父层UnifiedControl，Marshal父层Capture）均保留并修正后完整通过。剩余Contain5+复杂Draw8，下一轮入口RESUME.md/GAMEOBJECT_CONTAIN_NEXT.md。真实SDK0次、原DLL/正式路由保留；309模块组件成功不代表两个完整DLL或正式SDK/mymod集成完成。无强推，保留并发自动证据。
+
+
 ## 2026-10-24：三完整组新增17类型，最终矩阵通过
 
 本轮从46推进至63/322已知Marshal类型，剩余259明确拒绝，58 Token-only保持原未知Marshal路径；根仍88属性/38子节点。完成四声音/EVA选择器、六生命周期Update、七共享Die/DieMux模块。最终source379bed90fede179cb9270a1566ce989fe48fb5df，GameObject run40019863862、基础run40019863876均success；每/Od、/O2模式130,596 fixtures、391,788三缓冲区逐字节比较、8,688拒绝、300不变性比较，平台0/1/2/99。两模式783,576次缓冲区比较。SDK0次，原路由保留，组件不冒充正式插件。
@@ -750,3 +757,130 @@ APT专项四根12次调用覆盖8个非空文件和4个空文件，46/13/0字节
 失败及修复保留：合法根metadata buildRule/typeHashCode仍进入恢复组件，SDK插件边界按原Marshal不读这些metadata的合同克隆归一；B保留130个buildRule及1个typeHashCode样例。TestTexture.CustomData序列化工作目录，原/恢复两个目录名导致两个资产80字节差异；改为同一绝对SDK路径顺序运行，未归一化输出比较、未修改Native。SDK阶段沿用已验收的Native/Bridge与/O2 DLL，不重复未变成功组件矩阵。
 
 289组件/登记、267真实SDK全局根、22非全局metadata项、12排除项分别计数。22项仅按真实owner说明适用嵌套能力，不伪造独立SDK入口。历史82类及92180f9/40098695436旧DLL结果继续单列，不能套用当前联合DLL；当前索引见XML_SDK_RECOVERY.md、XMLCOMPILER_PRIORITY.md和新SDK收据。原DLL保持原样，不代表完整Tokenizer或非XML自定义编译器替代，禁止强推。
+## 2026-10-24：136→155，AI Update / 经济采集 / 辅助协同三个完整组
+
+用户允许任务时长提高至约1小时，已记录STAGE_DURATION.md/EFFICIENCY.md，旧45分钟引用以新约定为准。AGENTS保持远程原文。
+
+新增19种完整模块：AI Update八型、Dock/Ore/采集七型、辅助放置/协同响应四型；详见GAMEOBJECT_AI_UPDATE.md、GAMEOBJECT_ECONOMY.md、GAMEOBJECT_ASSIST.md。原证据固定Tokenizer blob6e40a9ed6c9f961d294d49768d911e6a6f354619，三个组分别96/75/63个方法，最终Windows均逐项检查原源码和PE。NullableAssetId用于HintObjectMapping的4字节可空PlayerTemplate typed-ID；公共Tracker/原排序/位集/解析及资源实现保持，复用已验证依赖。
+
+最终有效源码16a37d05276242c29eddaee4726c6ed92603dac0：GameObject run40078985685 success、基础run40078985621 success。每/Od、/O2均318592 fixtures、955776三缓冲区比较、12160拒绝、844不变性，平台0/1/2/99；两模式合计1911552次缓冲区逐字节比较。validation.json及两模式实际日志/sourceCommit/runId和终态已核对。
+
+原失败保留：AI错误容器测试和AutoAcquire未知bit4差异已修正；经济组RequiredStatus应在结构@28、OreNode Animation的ALL单枚举值454两个独立断言已修正。没有减样本、放宽比较、改变拒绝或以失败运行取代最终成功。原PE AssistanceHintType/WeaponSlotType探针取自a936ac2b575259c27e58c4fb2ff08597eb0116bf / run40078557180日志，最终实际源码又与原PE逐项复核。
+
+167种其他已知Marshal仍拒绝，58 Token-only维持未知Marshal回退。SDK本轮0次，原路由保留；完整GameObject、完整两份替代DLL及正式GameObject插件未完成。
+
+下一组SpawnBehavior/OCLUpdate/OCLMonitorUpdate的61方法已对照原blob提取，PE表DamageType/DeathType/OCLMonitorOption待补齐，三型仍拒绝，见GAMEOBJECT_SPAWN_UPDATE_NEXT.md及enum-status.json。取证不是支持。
+
+自动审批拒绝了扩展带自动推送的源码导出工作流及包含AGENTS修改的交接提交；均未生效。采用本地只读原源码提取和现有测试脚本内只读PE探针；保留AGENTS，仅在时长/交接文档记录用户明确1小时约定。无强推，最终提交前重读分支头，保留并发Actions证据。
+
+本轮避免反复整库下载、重复旧排序探针和SDK运行，后两组已定位修正与辅助整组共用最终完整验收；没有账号额度计量，不能量化节省。
+
+
+## 2026-10-24：Spawn/OCL、SlaveWatcher、Queue/Parking、Building整批与源码拆分
+
+本轮实际新增9种，已验收155→164/322：SpawnBehavior/OCLUpdate/OCLMonitorUpdate，SlaveWatcherBehavior，QueueDock/ParkingPlaceBehavior，BuildingBehavior/StructureUnpackUpdate/StructureSellUpdate。SpawnCrate早已由kind103支持，本轮仅强化回归，未重复实现/分派/计数。候选已按TypeId对全部元数据choice去重。
+
+最终有效源码922f44602683fc8a048d99fa2eb8ce8887ee0d72；GameObject run40089743442 success，基础run40089743457 success。每/Od、/O2：335812 fixtures、1007436三缓冲区逐字节比较、12596拒绝、892不变性；平台0/1/2/99，两模式合计2014872缓冲区比较。validation.json、两模式实际日志、sourceCommit/runId及终态均已核对；源码之后仅自动证据提交，未改待验收代码。首组source3f0f0e017380dac81a210a0a8d4055da6d4de5ad/run40088179574及基础40088179650亦success，最终矩阵包含全部首组回归。
+
+按用户要求将GameObject.cpp约15万字符拆为68070字符/1007行，四份Runtime/Support头分别承载通用字段、各组Marshal/endian、多态分派/Token、公开输入校验。原位展开字节相同且独立review通过，最终完整矩阵覆盖拆分。Parking Bridge Filter路径完整接入严格原过滤器读取；其余正式路由保留。
+
+各组61/44/47/31原方法指纹、Marshal/Token/endian/实际helper已核对。独立测试覆盖原枚举表、缺省/显式空、nullable分配、typed/强引用差异、列表边界与schema顺序；保留全部旧比较及拒绝。构建前纠正了测试独立断言的原逻辑帧常量0.005f及TrackerFinalize后的平台引用字节；未改公共恢复逻辑或放宽断言。SpawnCrate重复候选在提交前移除，避免覆写既存支持。
+
+158种其他已知Marshal仍拒绝，58 Token-only回退保留；完整GameObject/完整替代DLL/正式插件未完成，本轮SDK0次，原路由保留。首组与最终整批统一验证，复用已验收公共helper和PE表；没有账号额度计量，无法量化节省。
+
+下一完整经济/电力组四种仍拒绝：PowerUpdate、PlayerPowerManagerBehavior、AutoDepositUpdate、DistributedMoneyBehavior。固定原blob46方法与必要helper闭包已提取并核对，未实现或计数；三项原PE表待取证。精确布局、方法指纹、schema列表顺序、百分比默认和Token父链见GAMEOBJECT_ECONOMY_POWER_NEXT.md及economy-power-source，当前入口以RESUME.md为准。
+
+
+## 2026-10-24：实际约1小时继续轮次，29新完整能力/最终193
+
+用户要求上一轮后继续，实际约1小时、最多3子代理。北京时间19:34开始，本轮编码/取证/验证与修复持续到20:36后完成交接，没有因首个子集成功提前结束。源/测试/证据3代理并行，主代理按完整组集成并普通推送保存检查点。
+
+实际新增29（11完整组）：EconomyPower4、StructureWall3、CombatResponse3、StatusEffects2、StealthVision2、Tiberium3、WallEnclose2、ResourceAllies2、StateEvent2、ModelCondition3、MotionCleanup3。164→193/322已知Marshal；129种其他已知Marshal仍拒绝，58 Token-only未知Marshal回退保留。全部ID已对旧全表和本轮metadata去重，没有重复恢复既存SpawnCrate。
+
+最终有效验收提交284599bfd958c0f62d40ce1b72d27dd70a568bcc，GameObject40094269582 success、同源码基础40094269592 success。每/Od、/O2：381140 fixtures、1143420三缓冲区逐字节比较、13884拒绝、1060不变性，四平台0/1/2/99；两模式总2286840次缓冲区比较。validation.json、实际Od/O2日志、sourceCommit/runId与两workflow终态均已逐项核对。原生恢复源码自781defb...未变；最终修复只纠正独立golden与新Cases自动CI路径。
+
+首10 source df3d0fcead1eb71c0d812faf74f4f7df751980b7 /40091269128及40091269124均success（每模式349080/1047240/13012/928）；后7 sourcec32069c1ac0c7509b851c76d6f8c00bafebccdf1 /40091859893及40091859870均success（366576/1099728/13448/964）。最终矩阵完整包含这些与所有更早回归，没有降低样本、比较、拒绝或独立布局门槛。
+
+保留失败证据：6429b0cda58367ecd9bd114874950c0f24473bca /40092685797被Enclose独立Imports期待阻断；781defb6ca9bbb0a7ff33afba01df79cd6ce5e70 /40093602291被ALL -DUMP_ORE独立期待阻断。两次Check的原/恢复三缓冲区均已相等，独立golden错误依据原方法纠正，而非放宽：原Plugin.cs blob641761fc1420ce2ab6a9a75aa443dd35c970bda8 line716无条件ImportsData=new byte[0]；原model036 bodySHA56463e826838b3912fb33ff1ae1ea1dd11878a090edfcef4804f6cd039f1eaa6的ALL分支不推进token，因此ALL后的负词不再处理。保留Imports精确0/强FX24/String4/ptr+140/tail148和独立普通XOR/ALL全word断言；修正后取得完整最终成功结果。
+
+源码继续按职责拆分：新增9个组Runtime头，State/Model纯字段组直接通用分派；原位置include展开字节等价，本轮新增后主cpp68469字符（没有重新堆大文件）。32个FieldSet count/边界、200根Token模式/stride及133–161高kind guard已独立静态审查；29ID唯一、原始322集合均命中。工作流仅增加GameObject*.cs测试路径，确保新Cases单文件修正自动触发原完整矩阵，未改权限/自动证据流程或关闭旧回归。
+
+下一完整SpecialPower父452+RadarHack464+RadarJam460仅完成原78方法闭包与完整Weather7/Disabled12/Distance5 PE表（成功最终运行复读确认），仍未实现、仍拒绝，不计193；NEXT及special-power-base-source已保存。当前续接入口以RESUME.md为准。SDK本轮0次、原路由保留，完整GameObject/两替代DLL/正式插件仍未完成。复用已验收公共helper/原表并整组验证；没有账号额度计量，无法量化节省。
+
+
+## 2026-10-24：SpecialPower / Routing / SpecialAbility完整恢复，193→225
+
+- 本轮新增32个完整已知Marshal类型：SpecialPower父/RadarHack/RadarJam 3，SpecialPower派生23，PowerUpdate/ActivateModule/Dispatch 3，SpecialAbility240/Capture/OCLMonitor 3。97已知Marshal继续拒绝，58 Token-only fallback保留；SDK0次，原路由保留，完整DLL/正式GameObject插件尚未完成。
+- 最终有效sourceCommit b6a1516c1b3dc73a069bf229534dacbb02eef8f3 / GameObject run40101248219 success。/Od与/O2各566456 fixtures、1699368三缓冲区逐字节比较、17812拒绝、1580不变性，平台0/1/2/99，合计3398736缓冲区比较。两模式真实日志、validation.json identity、原source/PE检查、归档发布与产物终态均逐项核对。基础run40100525692 success（a125原生/Bridge/测试/生成器与b6a相同）。
+- 不可变原始证据 evidence/gameobject-runs/40101248219-1，tree d1cb2dce51dc062e468409689175f817ad66ad47；根gameobject-root快照同步同树。以后以RESUME的精确run/source及不可变档案核验，自动发布只写run-attempt目录，不将共享根快照当最新运行保证。
+- 首批8bf01e1/run40096181697及基础40096181708 success，193→196。23派生87c026/run40096821430在RadarSpy默认Instance3804/3792差分失败，因元数据生成器误将Token槽ptr+8当native偏移；优先native指针、父层0，并新增全部字段偏移序列检查后60c7cf/run40099429813和基础40099429815 success，196→219。未删比较或golden。
+- Routing a0d1f09/run40100044990及基础40100044953 success，219→222。SpecialAbility a125/run40100525642两模式组件步骤全通过，但旧共享oracle/validation.json在rebase证据提交时冲突，终态failure；保留该事实，不冒充完整工作流成功。发布改成独立detached工作树、唯一run-attempt目录、最多三次普通pull/rebase/push；原测试checkout不变。本地两个发布者竞争普通推送模拟与最终Windows真实发布均通过。新b6a工作流完整重跑，不使用skip-ci、不减少任何样本/平台/断言。
+- SpecialPower452的三个inline Filter112、StringList8与nullable Sound8/强Sound4完整；11个父合同派生保留独立父Token层。RadarSpy/Freeze TargetFilter是StringList；Upgrade是强引用文本子节点list。PowerUpdate只有24且父Update；ActivateModule条目16含弱ModuleId/TriggerType/booleans；Dispatch条目4但每项有独立一字段+sentinel表。SpecialAbility45完整根属性、两inline223掩码、两String8及最后nullable Anim12；Options31未知bit5、Conditions3未知bit0、Disabled12未知bit0，ALL覆盖完整word且不推进token，负词XOR，单模型枚举未知233，padding保持零。
+- 新原PE只读取证73f2d67/run40099572191 success保存Trigger3/Conditions3/Options31/SPMovement3/OCLCreateLoc15，原PE/source指纹固定，生成器仍重读原PE验证。新增代码继续拆独立metadata/Runtime/输入校验/Cases，不堆回主cpp。完整矩阵增大后超时10→15分钟，生成器变化自动回归。
+- 下一完整组为WeaponFire507880339/272、DelayedWeaponFire915350037/276、Beam2695497697/272、ObjectStatus127626925/296。32精确方法及直接装饰helper闭包已导出并逐签名/含尾LF SHA256核对，仍拒绝未计数。见GAMEOBJECT_ABILITY_WEAPON_NEXT.md与ability-weapon-next-source/manifest.json。Native/Bridge/测试不因只读取证改变。
+- 本轮复用完整父/公共helper/PE表，并按完整能力组合并矩阵；仅真实差异与证据发布故障触发必要复验。没有账号额度计量，不能量化节省。
+
+
+## 2026-10-24：本轮30分钟范围，完整六种能力派生验收（225→231）
+
+用户本轮指定仅运行30分钟，不改变STAGE_DURATION.md长期默认。整组实现、统一完整差分；两个代码阶段均及时通过GitHub插件提交/普通快进推送，无新分支、无强推。实现完整WeaponFireSpecialAbilityUpdate272、DelayedWeaponFire276、Beam272、ObjectStatus296，以及OCLSpecialPower500、MovementSpecialPower488；每种均完整继承既有父类，而非只恢复空布局。新合同见GAMEOBJECT_ABILITY_WEAPON.md、GAMEOBJECT_POWER_CREATION.md。
+
+最终共同源码`855277ac2ad9103536282b31ae639f678fbc1e7c`，完整GameObject run`40106342576 success`。/Od、/O2各632248 fixtures、1896744三缓冲区逐字节比较、18304拒绝、1640不变性；四平台0/1/2/99，两模式合计3793488比较。生成器/固定原方法闭包/原PE表检查通过，实际日志与validation.json身份、运行步骤、证据发布、root和component两份artifact终态已核对。不可变完整证据`evidence/gameobject-runs/40106342576-1`，根快照收尾同步相同Git树。基础组件最终run40106342611 success；首组源码204765b/run40105748576 success（两模式各615928 fixtures/1847784比较/18016拒绝/1628不变性），首组基础40105748512及WeaponTemplate40105748507 success，全部证据保留。
+
+OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpecialAbilityUpdate；Movement为nullable model456/60字节、status223/28字节、bounce默认20.0/50.0/0.5。Delayed保留WeaponFire中间Token层；Beam分配顺序status28→自身String→父String/String/Anim；DestealthClosestObjectMatchingFilter为bool，ModelConditionsOnUnpack为单模型枚举。独立布局和完整差分覆盖所有这些边界。91种其他已知Marshal仍拒绝，58 Token-only未知Marshal回退不变。SDK0次、原路由不变；不宣称正式GameObject插件或两份完整替代DLL已经完成。
+
+下一组仅取证：SwitchLocomotors350237090/260、EjectPassengers887477685/280、Teleport1313225606/264、TeleportToCaster2474849635/272，四类父均SpecialAbility240，仍拒绝/未计数。32个完整原方法、直接装饰helper闭包和Vector3三方法在ability-movement-next-source；本轮逐个与固定原Tokenizer blob原方法及字面量直接核对，全部一致，Python语法和指纹检查通过。见GAMEOBJECT_ABILITY_MOVEMENT_NEXT.md，后续用ExportAbilityMovementMethods.py --check重取原源码核对，并整组实现。
+
+复用既有父类、原PE枚举和helper，完整组各统一验收；未逐字段重复触发矩阵，SDK未频繁运行。无账号额度计量，不能量化节省。
+
+
+## 2026-10-25 能力完整组推进（最终15类待统一验收）
+
+已完成移动4/状态7，source603a7fd0bd11e31b3c2774e3e97839fe5fa7622e/run40128943921 success；/Od/O2每种752680 fixtures、2258040三缓冲区比较、18948拒绝、1776不变性，平台0/1/2/99，全部步骤及产物核对。新计数242/322。随后ActivateAbility/RadarScanMap两类结构列表与TiberiumThief/CreateAndEnter两类已实现，最终源码22aaf75aa50857f1675d545f7b1ed0684137ae11/run40129692157验证中；通过前不提前计数。精确当前结果以RESUME.md为准，原失败运行保留。SDK0次、路由不变。ToggleStatus及完整AI依赖59原方法与六新PE枚举已取证，仍拒绝；合同见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。
+
+
+## 2026-10-25 本轮最终：246/322，15个完整派生与全部旧回归通过
+
+最终共同源码`22aaf75aa50857f1675d545f7b1ed0684137ae11`，GameObject run`40129692157 success`：/Od/O2各805500 fixtures、2416500三缓冲区逐字节比较、19192拒绝、1816不变性，平台0/1/2/99，两模式4833000缓冲区比较。原始两模式日志、全部原方法/生成器/PE检查、validation/sourceCommit/runId、全部步骤及两份产物已核对。不可变目录gameobject-runs/40129692157-1；根快照同步为Git树71eebfbd8b08cc196fa2d2f23da2432c3bdab9aa。同源码基础组件40129692147 success。验收后到收尾仅文档/证据变化，Native/Bridge/测试/生成器未改变。
+
+新增移动4、状态/对象操纵7、路由/雷达列表2、资源/创建2，共15类。全部自身字段、完整父240或OCL500/SpecialPower452、nullable Vector3/Filter、typed与结构列表、分配顺序、默认与拒绝边界已覆盖；分组合同见四份GAMEOBJECT_ABILITY文档。76其他已知Marshal仍拒绝、58 Token-only回退保留；SDK0次，原路由及原DLL不变，完整GameObject/正式插件/完整两DLL仍未完成。
+
+中间40128943921/40129220289成功证据保留；失败40128411260（独立断言的String8分配/引用编号预期）和40129487266（C#局部名冲突）保留，最终源码完整复验通过。没有取消回归或降低样例/平台。下一ToggleStatus完整依赖59方法与六PE枚举仅取证，仍拒绝，见GAMEOBJECT_ABILITY_TOGGLE_NEXT.md。实际约36分钟，因当前上下文长度在完整验收后提前交接，长期约1小时规则不变。复用父/helper与原证据、SDK未触发；无账号额度数据，不能量化节省。
+
+
+## 2026-10-25 收尾交接：275类已验收，最后8类待验收
+
+用户要求准备交接后停止扩展。原251→275：完整Attach5、Utility13、Area6；最终source3c5c40a4bd95ff62657d4e0776afb4c94ac30a6d，GameObject40140521059 success，基础40140521060 success。/Od/O2各977064 fixtures、2931192三缓冲区比较、20432拒绝、2752不变性，平台0/1/2/99；两模式原始日志和步骤已核对。260中间验收source1e044cd8/run40139405380每模式952632 fixtures、2857896比较、19932拒绝、2352不变性。失败40139056890为原Steal/Leech wrapper的Attach父Token表缺失，已依原方法更正并保留失败证据。
+
+最后8类effects/locomotor支持组已写完整实现、测试、140原方法及14原PE表，本地源一致性检查通过，Windows最终矩阵待检查点提交后核对，不能计入275。细节GAMEOBJECT_EFFECT_SUPPORT.md；源码接受283但仍有8未验收+39未实现，完整余项GAMEOBJECT_REMAINING.md。SDK本轮0次、原DLL与正式路由不变，完整编译器与正式集成未完成。收尾入口RESUME.md按真实验证状态更新，保留并发Actions证据，未强推。
+
+
+## 2026-10-25 本轮最终：317/322，Contain5类与Draw Beam3类累计验收通过
+
+309→317/322，新增完整Engineer/Infiltrator/Transport/HordeTransport/Horde Contain与Laser/Tracer/Stream Draw；完整Shader28/四种多态常量、Color4f16、nullable ParticleSystemList8依赖均包含。source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f，run 40160094730 success；基础40160094713 success。/Od、/O2各1281576 fixtures、3844728三缓冲区比较、23848拒绝、4072不变性，平台0/1/2/99，两模式合计7689456三缓冲区比较。实际两模式PASS原日志、终态与不可变validation锚点均已核对；共享gameobject-root与不可变40160094730-1相同Git树。SDK0，正式DLL/插件路由保留；58 Token-only回退保留。
+
+所有失败、取消与修正记录保留在RESUME及Git历史；15分钟累计上限不足，改30分钟且不减测试。原KindOf未知149、Tracer/Stream Marshal与Token父层差异、TextureIndex signed CRT、Shader未知type0均有原方法证据。validation.scope旧尾句13拒绝暂存，实际剩余5拒绝已核对，后续实现批次顺带改标签。
+
+只剩ScriptedModel/Spotlight/Tank/Dynamics/Truck五类模型Draw继续拒绝。GAMEOBJECT_DRAW_MODEL_NEXT.md保存完整父层与结构方法/stride；不能把原证据283方法/17PE表当实现完成。完整编译器与正式SDK/mymod集成独立验收。下一轮先读RESUME。
+
+
+## 2026-10-25：最后五类Draw完成，322/322模块与真实SDK验收
+
+五个子代理分担模型条件、动画、Dynamics、测试和SDK接入，主代理完成Scripted/Spotlight/Tank/Truck与整合；代码已普通快进到recovery/compiler-source，未强推。完整新增五类及依赖见GAMEOBJECT_DRAW_MODEL.md。
+
+首轮模块source d5daae74/run40162286167 success；含CrusherInfo pipelineOnly id修复的最新完整source8939717b0a8af4435e41eb2da430977b8c945084/run40162645578 success，/Od/O2各1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性，平台0/1/2/99。两模式实际日志、不可变validation身份核对成功，共享根同步不可变40162645578-1树。322/322已知Marshal模块已验收，58 Token-only回退保留。
+
+正式GameObject插件与SDK/Mods/recoverydraw七资产已新增，按EALAModStudio defaultscript.cs case5提取的BAB基础数据命令执行。最终SDK sourcef8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，基础40162947146 success；自建mod七调用+完整mymod三调用，四产物逐字节一致、全部实际三缓冲区和无原DLL重放通过；原始zip再次解码独立比较所有八对文件及XSD日志通过，bin分别54936/209548字节。SDK归档SHA25615a1112127592f74c4b5a186cde3cee70fd82a71db2d3fef34bf26d0779666ef。
+
+SDK依次暴露csc相对路径误解析、CrusherInfo.id pipelineOnly误拒绝、XInclude注入xml:base误拒绝，均精确修复并新增回归，失败40162286198/40162402496/40162645592保留。实际捕获XML证明头灯/升级XIncludes携带xml:base，非猜测放宽。正式SDK主目录仍保留原DLL和配置；不宣称XmlCompiler另分支或两个完整替代DLL完成。
+
+用户明确允许长时间等待Actions时交接停止，最终XML上下文适配完整累计f8726d62/run40162947222仍in_progress，不提前标通过；下次只收取终态及证据，不重复已通过SDK和矩阵。RESUME保存精确续接步骤。本轮复用原方法/公共依赖与集中验收；无账号额度数据，不能量化额度节省。
+
+
+## 2026-10-25：最终XML上下文累计回归验收完成，无待收取项
+
+最终共同源码f8726d624b0a74ea0927705bca352027cbf76e30。GameObject完整累计run40162947222 success；/Od/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，四平台0/1/2/99；两模式合计8294592次三缓冲区比较。两条实际PASS日志、各作业步骤/归档/上传终态和不可变validation.sourceCommit/runId/platforms/modes已核对。共享gameobject-root同步为不可变40162947222-1树ee09d1721d1c5cfc50df886df8813f6997ce999d。
+
+同源码真实SDK40162947209、基础40162947146均success；此前核对的自建七资产mod与完整mymod四产物逐字节一致、七+三实际调用的三缓冲区及无原DLL重放、完整XSD和负向断言继续有效。322/322已知Marshal模块验收完成，剩余0；58 Token-only回退保留。
+
+本次只收取既有Actions结果、核对身份/原日志并更新文档与共享证据，没有重复触发已通过矩阵/SDK，没有修改实现、测试或主SDK原路由。RESUME已标记本轮目标全部完成，不再保留待运行/待收取状态；XmlCompiler另分支与两个完整替代DLL未纳入本轮完成声明。

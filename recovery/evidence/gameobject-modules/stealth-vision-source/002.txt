@@ -1,0 +1,84 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; line 35390; body SHA256 dc48f1fb8b79a5b4f970c2ad5573da927f36010d748adc28c8bf8a7b2d6f75f1
+// Literals: {"_003F_003F_C_0040_0BF_0040IAPKNPCA_0040InvisibilityTemplate_003F_0024AA_0040": "InvisibilityTemplate", "_003F_003F_C_0040_0N_0040NHMCFENP_0040UpdatePeriod_003F_0024AA_0040": "UpdatePeriod", "_003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040": "1s", "_003F_003F_C_0040_0BK_0040JJADGCGL_0040RequiredNearbyObjectRange_003F_0024AA_0040": "RequiredNearbyObjectRange", "_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_0CN_0040BKPDAPKD_0040NamedVoiceNameToUseAsVoiceMoveTo_0040": "NamedVoiceNameToUseAsVoiceMoveToStealthyArea", "_003F_003F_C_0040_0DH_0040JPHHMOJL_0040NamedVoiceNameToUseAsVoiceEnterS_0040": "NamedVoiceNameToUseAsVoiceEnterStateMoveToStealthyArea", "_003F_003F_C_0040_0BL_0040IBNMDMNB_0040RequiresNearbyObjectFilter_003F_0024AA_0040": "RequiresNearbyObjectFilter"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, InvisibilityUpdateModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AInvisibilityTemplate_002Cstruct_0020SageBinaryData_003A_003AInvisibilityTemplate_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BF_0040IAPKNPCA_0040InvisibilityTemplate_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AInvisibilityTemplate_002CSageBinaryData_003A_003AInvisibilityTemplate_003E*)((byte*)@object + 8), state);
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NHMCFENP_0040UpdatePeriod_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_02CBAFIDHP_00401s_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			sbyte* text = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out TimeTag timeTag);
+			DataInitializers_002EInitialize((float*)@object + 3, text, &timeTag);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040JJADGCGL_0040RequiredNearbyObjectRange_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+		if (ptr2 != null)
+		{
+			sbyte* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr2)))((nint)ptr2);
+			((float*)@object)[4] = (float)atof(ptr3);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr2 + 4)))((nint)ptr2);
+		}
+		uint** ptr4 = (uint**)((byte*)@object + 20);
+		IValue* ptr5 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0CN_0040BKPDAPKD_0040NamedVoiceNameToUseAsVoiceMoveTo_0040), null);
+		if (ptr5 != null)
+		{
+			sbyte* ptr6 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr5)))((nint)ptr5);
+			Relo_002ETracker_002EPush(state, (void**)ptr4, 4u, 1u);
+			uint* ptr7 = (uint*)(int)(*(uint*)ptr4);
+			sbyte* ptr8 = ptr6;
+			if (*ptr6 != 0)
+			{
+				do
+				{
+					ptr8++;
+				}
+				while (*ptr8 != 0);
+			}
+			uint num = (uint)(ptr8 - (nuint)ptr6);
+			*ptr7 = FastHashInternal_002EFastHashFn(num, ptr6, num);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5);
+		}
+		uint** ptr9 = (uint**)((byte*)@object + 24);
+		IValue* ptr10 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0DH_0040JPHHMOJL_0040NamedVoiceNameToUseAsVoiceEnterS_0040), null);
+		if (ptr10 != null)
+		{
+			sbyte* ptr11 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr10)))((nint)ptr10);
+			Relo_002ETracker_002EPush(state, (void**)ptr9, 4u, 1u);
+			uint* ptr12 = (uint*)(int)(*(uint*)ptr9);
+			sbyte* ptr13 = ptr11;
+			if (*ptr11 != 0)
+			{
+				do
+				{
+					ptr13++;
+				}
+				while (*ptr13 != 0);
+			}
+			uint num2 = (uint)(ptr13 - (nuint)ptr11);
+			*ptr12 = FastHashInternal_002EFastHashFn(num2, ptr11, num2);
+			((int*)((byte*)state + 4))[1] += -4;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr10 + 4)))((nint)ptr10);
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num3 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BL_0040IBNMDMNB_0040RequiresNearbyObjectFilter_003F_0024AA_0040), null);
+		try
+		{
+			Marshaler_002EMarshal((INode*)(int)(*(uint*)num3), (ObjectFilter*)((byte*)@object + 28), state);
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (ModuleData*)@object, state);
+	}

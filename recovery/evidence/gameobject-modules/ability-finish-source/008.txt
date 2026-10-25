@@ -1,0 +1,19 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 3cd0abecab8efa2b2471cc60fd2953820f785ed520e4a11a50b3835c8b05f519
+// Literals: {"_003F_003F_C_0040_0O_0040ENOPNEFF_0040ReplaceRadius_003F_0024AA_0040": "ReplaceRadius", "_003F_003F_C_0040_09EAJBECGL_0040ReplaceFX_003F_0024AA_0040": "ReplaceFX", "_003F_003F_C_0040_07IDJIDNEP_0040Scatter_003F_0024AA_0040": "Scatter", "_003F_003F_C_0040_0BE_0040IPPKBJG_0040ReplaceObjectNugget_003F_0024AA_0040": "ReplaceObjectNugget"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, ReplaceObjectUpdateModuleData* @object, Tracker* state)
+	{
+		if (node != null)
+		{
+			IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040ENOPNEFF_0040ReplaceRadius_003F_0024AA_0040), null);
+			if (ptr != null)
+			{
+				sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+				((float*)@object)[60] = (float)atof(ptr2);
+				((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+			}
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003AFXList_002Cclass_0020FXList_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09EAJBECGL_0040ReplaceFX_003F_0024AA_0040), null), (AssetReference_003CSageBinaryData_003A_003AFXList_002CFXList_003E*)((byte*)@object + 244), state);
+			Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_07IDJIDNEP_0040Scatter_003F_0024AA_0040), null), (bool*)@object + 256, state);
+			Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AReplaceObjectNugget_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)node + 4)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BE_0040IPPKBJG_0040ReplaceObjectNugget_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003AReplaceObjectNugget_003E*)((byte*)@object + 248), state);
+			Marshaler_002EMarshal(node, (SpecialAbilityUpdateModuleData*)@object, state);
+		}
+	}

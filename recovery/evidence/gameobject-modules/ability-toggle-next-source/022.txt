@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 60fac735aaccf625b18ddf3422ce5b117e7908bdd689151e3642ab8e9b193c0a
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020SageBinaryData_003A_003AAITargetLocationType_002C2_003E(BitFlags_003C2_002Cenum_0020SageBinaryData_003A_003AAITargetLocationType_003E* target, EndianHelper* endian)
+	{
+		if (*(bool*)endian)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(sbyte*)(&num) = ((sbyte*)target)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((sbyte*)target)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((sbyte*)target)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = *(sbyte*)target;
+			*(uint*)target = num;
+		}
+	}

@@ -1,0 +1,24 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 d74d4b7a29c4037e58f0f2f7861e3105f4d16c05a9fb32118813b628c379a58b
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(DynamicsSphereShapeType* @object, EndianHelper* state)
+	{
+		if (*(bool*)state)
+		{
+			System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num);
+			*(byte*)(&num) = ((byte*)@object + 8)[3];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 1)) = ((byte*)@object + 8)[2];
+			System.Runtime.CompilerServices.Unsafe.As<uint, byte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 2)) = ((byte*)@object + 8)[1];
+			System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num, 3)) = ((sbyte*)@object)[8];
+			((int*)@object)[2] = (int)num;
+		}
+		uint num2 = *(uint*)@object;
+		if (num2 != 0)
+		{
+			Marshaler_002EEndianCorrect((Vector3*)(int)num2, state);
+		}
+		uint num3 = ((uint*)@object)[1];
+		if (num3 != 0)
+		{
+			Marshaler_002EEndianCorrect((Quaternion*)(int)num3, state);
+		}
+	}

@@ -1,0 +1,18 @@
+Relocation.cpp
+ScalarParsing.cpp
+DataInitializers.cpp
+ResourceMarshaling.cpp
+EnumBitset.cpp
+ObjectFilter.cpp
+WeaponSlotOrder.cpp
+GameObject.cpp
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectDrawBeam.h(185): error C2374: 'Recovered::Native::`anonymous-namespace'::beamFieldSets': redefinition; multiple initialization
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectBeamState.h(16): note: see declaration of 'Recovered::Native::`anonymous-namespace'::beamFieldSets'
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectDrawBeam.h(185): error C2086: 'const Recovered::Native::`anonymous-namespace'::ModuleFieldSet Recovered::Native::`anonymous-namespace'::beamFieldSets[3]': redefinition
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectBeamState.h(16): note: see declaration of 'Recovered::Native::`anonymous-namespace'::beamFieldSets'
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectDrawBeam.h(190): error C2374: 'Recovered::Native::`anonymous-namespace'::beamChoices': redefinition; multiple initialization
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectBeamState.h(67): note: see declaration of 'Recovered::Native::`anonymous-namespace'::beamChoices'
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectDrawBeam.h(190): error C2086: 'const Recovered::Native::`anonymous-namespace'::ModuleChoice Recovered::Native::`anonymous-namespace'::beamChoices[3]': redefinition
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObjectBeamState.h(67): note: see declaration of 'Recovered::Native::`anonymous-namespace'::beamChoices'
+GameObjectCompiler.cpp
+Generating Code...
