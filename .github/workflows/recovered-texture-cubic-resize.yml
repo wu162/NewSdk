@@ -1,9 +1,9 @@
-name: Recovered Texture cubic pre-resize raw encoding
+name: Experimental Texture cubic resize differential (not accepted)
 on:
   push:
     branches: [recovery/texturecompiler-source]
     paths:
-      - 'src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs'
+      - 'src/TextureCompiler/Experiments/TextureCubicResizeEncoder.cs'
       - 'recovery/tests/TextureCubicResizeDifferential.cs'
       - 'recovery/scripts/TestTextureCubicResize.ps1'
       - '.github/workflows/recovered-texture-cubic-resize.yml'

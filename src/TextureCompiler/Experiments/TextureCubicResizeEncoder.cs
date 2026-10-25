@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace Recovered.Compiler.Texture
 {
-    // nvDDS pre-scale option 5, cubic filter 4. Only downscaling is accepted.
+    // EXPERIMENTAL: not included in the production project or plugin route.
+    // Cubic base pixels match probes; the post-resize mip boundary is unresolved.
     public static class TextureCubicResizeEncoder
     {
         private sealed class Contribution { public int First; public double[] Weights; }
@@ -38,12 +39,10 @@ namespace Recovered.Compiler.Texture
             Buffer.BlockCopy(header, 0, output, 0, 128);
             if (mipmaps) { Put(output, 8, 0x000a1007u); Put(output, 28, Math.Min(TextureVolume.MipCount(targetWidth, targetHeight, 1), 3u)); Put(output, 108, 0x00401008u); }
             int offset = WriteLevel(output, 128, resized, format); w = tw; h = th;
-            float[] current = resized;
             for (int level = 1; level < levels; level++)
             {
-                int nw = Math.Max(1, w / 2), nh = Math.Max(1, h / 2);
-                current = Resize(current, w, h, nw, nh, false);
-                offset = WriteLevel(output, offset, current, format); w = nw; h = nh;
+                w = Math.Max(1, w / 2); h = Math.Max(1, h / 2);
+                offset = WriteLevel(output, offset, Resize(resized, tw, th, w, h, false), format);
             }
             if (offset != output.Length) throw new InvalidOperationException("Cubic DDS output size mismatch.");
             return output;
