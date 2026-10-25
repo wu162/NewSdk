@@ -1,7 +1,7 @@
 name: Audio complete Upheaval milestone
 on:
   push:
-    branches: [recovery/audio-compiler-source]
+    branches: [recovery/audio-compiler-source, validation/audio-upheaval-win32]
     paths:
       - '.github/workflows/audio-upheaval-validation.yml'
       - 'recovery/scripts/TestAudioUpheavalSdk.ps1'
