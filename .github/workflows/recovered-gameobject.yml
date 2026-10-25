@@ -17,6 +17,7 @@ on:
       - 'recovery/scripts/TestGameObject.ps1'
       - 'recovery/scripts/PublishGameObjectEvidence.ps1'
       - 'recovery/scripts/GenerateGameObjectFields.py'
+      - 'recovery/scripts/GenerateDraw*Fields.py'
       - 'recovery/scripts/GenerateSpecialPowerBaseFields.py'
       - 'recovery/scripts/GenerateSpecialPowerDerivedFields.py'
       - 'recovery/scripts/GeneratePowerRoutingFields.py'

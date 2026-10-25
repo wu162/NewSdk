@@ -218,7 +218,7 @@ public ref class GameObjectCompiler abstract sealed {
         return result;
     }
     static Native::GameObjectChild ReadModuleNode(XPathNavigator^ node,unsigned kind,std::string path) {
-        if((kind==283 || kind==285) && path=="FXShader/Constants")return ReadDrawShaderConstants(node);
+        if(((kind==283 || kind==285) && path=="FXShader/Constants") || (kind>=286 && kind<=290 && path=="ModelConditionState/Material/Constants"))return ReadDrawShaderConstants(node);
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         if(kind==80 && path=="Movement") return ReadMotionMovement(node);
         unsigned shape=Native::GameObjectModuleNodeKind(kind,path);

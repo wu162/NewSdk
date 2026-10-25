@@ -4,6 +4,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=286 && choice->kind<=290)return DrawModelRootAttribute(choice->kind,attribute);
     if(choice->kind>=283 && choice->kind<=285){const auto& fs=drawBeamFieldSets[choice->kind-283];for(unsigned i=0;i<fs.count;++i)if(attribute==fs.fields[i].name)return true;return false;}
     if(choice->kind>=278 && choice->kind<=282) {
         const auto& own=containRestFieldSets[choice->kind-278];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
@@ -167,6 +168,7 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=286 && kind<=290)return DrawModelNodeKind(kind,path);
     if(kind>=283 && kind<=285){
         if(kind!=284 && (path=="FXShader" || path=="FXShader/Constants"))return 1;
         if(kind!=285 && path=="ObjectStatusValidation")return 1;
@@ -421,6 +423,7 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=286 && kind<=290)return DrawModelNodeAttribute(kind,path,attribute);
     if(kind>=283 && kind<=285){
         if(path=="FXShader"){for(const auto& f:drawBeamFXShaderMaterialFields)if(attribute==f.name)return true;}
         if(path=="ObjectStatusValidation")return attribute=="RequiredStatus" || attribute=="ForbiddenStatus";

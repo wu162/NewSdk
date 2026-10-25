@@ -1,6 +1,7 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=286 && choice->kind<=290) EndianDrawModel(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=283 && choice->kind<=285) EndianDrawBeam(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -83,6 +84,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=286 && choice->kind<=290) MarshalDrawModel(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=283 && choice->kind<=285) MarshalDrawBeam(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=278 && choice->kind<=282) MarshalContainRemaining(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=270 && choice->kind<=277) MarshalContainCore(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

@@ -1,3 +1,7 @@
+# 当前进行中：最后五类Draw及GameObject真实SDK验收
+
+2026-10-25：五类模型Draw及其完整依赖已实现，Windows原DLL完整差分与真实SDK尚待执行，不提前计入317已验收。新增GameObjectDrawModel* / DrawAnimation* / DrawDynamics*及生成器，测试入口DrawModelFamily。自建SDK/Mods/recoverydraw含七个资产，正式GameObject插件、可逆配置和TestGameObjectSdk.ps1已准备，按EALAModStudio defaultscript case5参数执行原版/恢复版冷构建。临时分支recovery/draw-model-sdk保存未验收检查点，最终回到recovery/compiler-source。下方是上次已验收锚点，仍有效；本轮最终结果随后更新。
+
 # 编译器恢复：317/322已完成累计验收与交接
 
 更新：2026-10-25，北京时间。分支recovery/compiler-source，单代理，禁止强推，本轮SDK0次。

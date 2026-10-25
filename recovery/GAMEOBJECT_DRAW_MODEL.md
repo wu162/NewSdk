@@ -1,0 +1,11 @@
+# 最后五类模型Draw实现与验收
+
+五类：ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396。当前实现完整，Windows差分/SDK待验证，尚不能将317改称322已验收。
+
+完整原始证据为draw-source的283方法/17枚举表，blob6e40a9ed6c9f961d294d49768d911e6a6f354619。四个GenerateDraw*Fields.py检查原方法指纹、字段/默认值顺序、Token偏移/数量和列表stride。模型条件、动画、物理体积分开文件，完整父层统一由DrawModelRuntime调用。
+
+实现包括ModelConditionState196、AnimationState140、Animation60、ParticleSysBone36、FXEvent28、LuaEvent16、AttachModel80、EmbedPortal12、Shader28及四常量、Shadow60、五种Dynamics形状、Translation/Rotation和Lifetime。String8与typed id按原方法区分；Script可空String8采用标量指针Token；TerrainParticles可空强引用4字节；结构列表Token模式1、String列表模式6、SubObject word列表模式3。Scripted Marshal直接ModuleData，Token保留Draw父层。
+
+GameObjectDrawModelCases.cs覆盖五类根/嵌套字段、全部枚举、列表边界、独立默认布局/Token/分配/步长、拒绝和顺序不变性。保留累计四平台与/Od/O2原DLL三缓冲区比较。
+
+真实SDK入口TestGameObjectSdk.ps1，自建SDK/Mods/recoverydraw七资产覆盖五类/默认/继承与多层依赖，完整XSD先校验。GUI启动链取自SDK/defaultscript.cs case5，正式GameObjectPlugin显式路由，原/恢复版隔离缓存和全新输出，比较bin/manifest/imp/relo全部字节、实际ProcessInstance三缓冲区、移除两原DLL后的重放；同批完整mymod。SDK结果独立记录，不能用组件成功替代。

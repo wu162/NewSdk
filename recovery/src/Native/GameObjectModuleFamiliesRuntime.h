@@ -566,3 +566,8 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectContainRemainingRuntime.h"
 #include "GameObjectDrawBeamRuntime.h"
 
+
+#include "GameObjectDrawModelConditionsRuntime.h"
+#include "GameObjectDrawAnimationRuntime.h"
+#include "GameObjectDrawDynamicsRuntime.h"
+#include "GameObjectDrawModelRuntime.h"
