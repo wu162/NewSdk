@@ -1,0 +1,11 @@
+{
+  "scope": "test-only float4 horizontal inputs/weights and FPU-state trace; runtime hook must preserve 270 same-run unmodified original cubic resize DDS/callback records; no recovered acceptance",
+  "status": "original-evidence-only",
+  "runAttempt": "1",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sdkValidated": false,
+  "runId": "40208535806",
+  "records": 270,
+  "sourceCommit": "25c9b4e39ffa8c79c58c26d6bbb58b9bbaef91e7",
+  "transcriptSha256": "9163263daf79089980a48b919f4740db0a8c4ca5398fda3ecc24d5f3aac41a54"
+}
