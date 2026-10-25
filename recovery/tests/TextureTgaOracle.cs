@@ -129,6 +129,33 @@ internal static unsafe class TextureTgaOracle
             writer.Flush(); return stream.ToArray();
         }
     }
+    private static byte[] WithMetadata(byte[] pixels, int dialect)
+    {
+        using (MemoryStream stream = new MemoryStream())
+        using (BinaryWriter writer = new BinaryWriter(stream))
+        {
+            writer.Write(pixels);
+            int blocks = dialect == 1 ? 2 : 1;
+            for (int block = 0; block < blocks; block++)
+            {
+                int start = checked((int)stream.Position);
+                bool devil = dialect >= 2;
+                byte[] extension = new byte[devil ? 507 : 495];
+                extension[0] = 239; extension[1] = 1;
+                if (devil)
+                {
+                    byte[] software = Encoding.ASCII.GetBytes("Developer's Image Library (DevIL)");
+                    Buffer.BlockCopy(software, 0, extension, 438, software.Length);
+                    extension[479] = 167; extension[481] = 32; extension[506] = 3;
+                }
+                writer.Write(extension);
+                writer.Write(block == 0 && dialect == 1 ? 0u : (uint)start);
+                writer.Write(0u); writer.Write(Encoding.ASCII.GetBytes("TRUEVISION-XFILE."));
+                if (dialect != 3) writer.Write((byte)0);
+            }
+            writer.Flush(); return stream.ToArray();
+        }
+    }
     private static string Pixels(TexturePacker.Image image)
     {
         StringBuilder b = new StringBuilder();
@@ -149,11 +176,9 @@ internal static unsafe class TextureTgaOracle
     private static bool DeclaredUnsupported(string label)
     {
         // Exact boundary profile retained from immutable probe 40194142937-1.
-        // These four original-success fixtures are NOT pixel-equivalence passes.
+        // These two original-success fixtures are NOT pixel-equivalence passes.
         return label == "empty-footer-24-rleTrue-direction16" ||
-            label == "empty-footer-24-rleTrue-direction32" ||
-            label == "real:apt_tacticalhudbuildqueuepage_1.tga" ||
-            label == "real:apt_tacticalhudmaincommandbar_1.tga";
+            label == "empty-footer-24-rleTrue-direction32";
     }
     private static void Compare(StreamWriter transcript, string path, string label, byte[] bytes, bool probe)
     {
@@ -260,6 +285,13 @@ internal static unsafe class TextureTgaOracle
                         Buffer.BlockCopy(signature, 0, footer, content.Length + 8, signature.Length);
                         Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "empty-footer-" + depth + "-rle" + rle + "-direction" + direction, footer, probe);
                     }
+                    // Validated bounded standard/chained/legacy-DevIL metadata dialects.
+                    foreach (int depth in new int[] { 24, 32 })
+                    foreach (bool rle in new bool[] { false, true })
+                    foreach (int direction in new int[] { 0, 16, 32, 48 })
+                    for (int dialect = 0; dialect < 4; dialect++)
+                        Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "metadata-" + dialect + "-" + depth + "-rle" + rle + "-direction" + direction,
+                            WithMetadata(Fixture(4, 1, depth, rle, direction | (depth == 32 ? 8 : 0), 7, 3), dialect), probe);
                     // 32-bit descriptor alpha-count zero is separately visible.
                     foreach (int direction in new int[] { 0, 16, 32, 48 })
                     foreach (bool rle in new bool[] { false, true })
@@ -282,9 +314,9 @@ internal static unsafe class TextureTgaOracle
                 Console.WriteLine("PROBE Texture TGA original loading: fixtures=" + fixtures + "; mismatches=" + mismatches + "; unsupportedCount=" + unsupportedCount + "; originalFailures=" + originalFailures + "; decodedMatches=" + decodedMatches + "; rejectionMatches=" + rejectionMatches + "; no acceptance claim");
                 return 0;
             }
-            Check(fixtures == (args.Length == 5 ? 1611 : 1608), "Full declared generated/real fixture count must remain intact");
+            Check(fixtures == (args.Length == 5 ? 1675 : 1672), "Full declared generated/real fixture count must remain intact");
             Check(rejectionMatches == 252, "All 252 original-rejected cross-scanline RLE fixtures must match rejection");
-            Check(unsupportedCount == (args.Length == 5 ? 4 : 2), "All explicit unsupported boundaries must remain visible");
+            Check(unsupportedCount == 2, "All explicit unsupported boundaries must remain visible");
             Check(decodedMatches == fixtures - rejectionMatches - unsupportedCount && mismatches == 0, "Exact partial-scope accounting");
             Console.WriteLine("PASS Texture TGA partial scope: fixtures=" + fixtures + "; decodedMatches=" + decodedMatches + "; rejectionMatches=" + rejectionMatches + "; unsupportedCount=" + unsupportedCount + "; mismatches=" + mismatches + "; assertions=" + assertions + "; unsupported originals are NOT equivalent decoding passes; no SDK claim");
             return 0;

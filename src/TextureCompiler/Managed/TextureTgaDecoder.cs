@@ -59,8 +59,7 @@ namespace Recovered.Compiler.Texture
                     position++;
                 }
             }
-            if (offset != source.Length && !IsEmptyFooter(source, offset))
-                throw new NotSupportedException("Only an exact TGA footer with zero extension/developer offsets is supported after the pixel data.");
+            ValidateMetadataTail(source, offset);
             bool hasAlpha = depth == 32;
             if (hasAlpha)
             {
@@ -75,14 +74,52 @@ namespace Recovered.Compiler.Texture
             }
             return new TexturePacker.Image(width, height, pixels, hasAlpha);
         }
-        private static bool IsEmptyFooter(byte[] source, int offset)
+        private static bool BytesZero(byte[] source, int start, int count)
         {
-            if (source.Length - offset != 26) return false;
-            for (int i = 0; i < 8; i++) if (source[offset + i] != 0) return false;
-            const string signature = "TRUEVISION-XFILE.\0";
-            for (int i = 0; i < signature.Length; i++)
-                if (source[offset + 8 + i] != (byte)signature[i]) return false;
+            if (start < 0 || count < 0 || start > source.Length - count) return false;
+            for (int i = 0; i < count; i++) if (source[start + i] != 0) return false;
             return true;
+        }
+        private static bool AsciiField(byte[] source, int start, string text, int length)
+        {
+            if (start < 0 || start > source.Length - length) return false;
+            for (int i = 0; i < length; i++)
+                if (source[start + i] != (i < text.Length ? (byte)text[i] : (byte)0)) return false;
+            return true;
+        }
+        private static uint ReadUInt32(byte[] source, int offset)
+        {
+            return (uint)source[offset] | (uint)source[offset + 1] << 8 |
+                (uint)source[offset + 2] << 16 | (uint)source[offset + 3] << 24;
+        }
+        private static void ValidateMetadataTail(byte[] source, int offset)
+        {
+            while (offset < source.Length)
+            {
+                int extensionStart = offset;
+                bool extension = source.Length - offset >= 2 && source[offset] == 239 && source[offset + 1] == 1;
+                bool devil = false;
+                if (extension)
+                {
+                    devil = AsciiField(source, offset + 438, "Developer's Image Library (DevIL)", 41);
+                    int size = devil ? 507 : 495;
+                    if (source.Length - offset < size + 25 ||
+                        (devil ? !BytesZero(source, offset + 379, 12) || !BytesZero(source, offset + 482, 24) || source[offset + 506] != 3
+                               : !BytesZero(source, offset + 470, 25)))
+                        throw new NotSupportedException("TGA rendering/offset metadata is outside the recovered extension subset.");
+                    offset += size;
+                }
+                if (source.Length - offset < 25 || ReadUInt32(source, offset + 4) != 0 ||
+                    !AsciiField(source, offset + 8, "TRUEVISION-XFILE.", 17))
+                    throw new NotSupportedException("TGA metadata must end in a recognized extension/footer chain.");
+                uint extensionPointer = ReadUInt32(source, offset);
+                if (extensionPointer != 0 && (!extension || extensionPointer != (uint)extensionStart))
+                    throw new NotSupportedException("TGA extension footer pointer does not reference its validated extension.");
+                offset += 25;
+                if (offset < source.Length && source[offset] == 0) offset++;
+                else if (!(devil && offset == source.Length))
+                    throw new NotSupportedException("Only the bounded DevIL extension dialect permits an omitted footer NUL.");
+            }
         }
         private static int ReadByte(byte[] source, ref int offset)
         {
