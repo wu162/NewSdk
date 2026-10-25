@@ -168,9 +168,10 @@ namespace Recovered.Compiler.Texture
                                         int sourceX=sx[pass]+x*dx[pass],sourceY=sy[pass]+y*dy[pass],outputX=sourceX*2;
                                         if(outputX<width)
                                         {
+                                            int alphaLow=transparency!=null&&!(r==(transparency[0]<<8|transparency[1])&&g==(transparency[2]<<8|transparency[3])&&b==(transparency[4]<<8|transparency[5]))?255:0;
                                             r=Gamma16(r,gamma);g=Gamma16(g,gamma);b=Gamma16(b,gamma);
                                             pixels[sourceY*width+outputX]=0xff000000u|(uint)(g&255)|(uint)(b>>8)<<8|(uint)(b&255)<<16;
-                                            if(outputX+1<width)pixels[sourceY*width+outputX+1]=0xff000000u|(uint)(r>>8)<<8|(uint)(r&255)<<16;
+                                            if(outputX+1<width)pixels[sourceY*width+outputX+1]=0xff000000u|(uint)alphaLow|(uint)(r>>8)<<8|(uint)(r&255)<<16;
                                         }
                                         continue;
                                     }
@@ -195,16 +196,26 @@ namespace Recovered.Compiler.Texture
                 return new TexturePacker.Image(width, height, pixels, color == 6);
             }
         }
+        private static double GammaProduct(uint gamma)
+        {
+            // D3DX passes single-precision file/screen gamma values to the
+            // double-precision gamma table builder. Keep both float roundings,
+            // then promote before multiplication/pow; all-double is observably
+            // different at rare 16-bit quantization boundaries.
+            float fileGamma=(float)(gamma/100000.0);
+            return (double)fileGamma*(double)2.2f;
+        }
         private static int Gamma16(int sample,uint gamma)
         {
-            if(gamma==0||Math.Abs(2.2*(gamma/100000.0)-1.0)<=0.05)return sample;
-            return (int)(65535.0*Math.Pow(sample/65535.0,1.0/(2.2*(gamma/100000.0)))+0.5);
+            double product=gamma==0?1.0:GammaProduct(gamma);
+            if(Math.Abs(product-1.0)<=0.05)return sample;
+            return (int)(65535.0*Math.Pow(sample/65535.0,1.0/product)+0.5);
         }
         private static int ConvertSample(int sample,int max,uint gamma)
         {
-            double exponent=gamma==0?1.0:1.0/(2.2*(gamma/100000.0));
-            if(gamma==0||Math.Abs(2.2*(gamma/100000.0)-1.0)<=0.05)return (sample*255+max/2)/max;
-            return (int)(255.0*Math.Pow(sample/(double)max,exponent)+0.5);
+            double product=gamma==0?1.0:GammaProduct(gamma);
+            if(Math.Abs(product-1.0)<=0.05)return (sample*255+max/2)/max;
+            return (int)(255.0*Math.Pow(sample/(double)max,1.0/product)+0.5);
         }
         private static int Read(Stream input, ref uint a, ref uint b)
         {
