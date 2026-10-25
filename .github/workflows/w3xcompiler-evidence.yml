@@ -1,0 +1,51 @@
+name: W3X compiler evidence
+on:
+  push:
+    branches: [recovery/w3xcompiler-source, recovery/compiler-source]
+    paths:
+      - '.github/workflows/w3xcompiler-evidence.yml'
+      - 'recovery/scripts/ExtractW3x.ps1'
+      - 'recovery/tests/W3xPluginContractOracle.cs'
+      - 'recovery/MetadataInventory/**'
+      - 'SDK/tools/BinaryAssetBuilder.W3XCompiler.dll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: w3x-evidence-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Inventory original compiler and plugin contract
+        shell: pwsh
+        run: ./recovery/scripts/ExtractW3x.ps1
+      - name: Preserve evidence artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w3x-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/w3x/runs/${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 30
+      - name: Save immutable successful extraction
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/w3x/runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "w3x: preserve original evidence run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent evidence update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }
