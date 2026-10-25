@@ -70,6 +70,28 @@ class BuildInfrastructureContract
             }
         }
     }
+    static void CollectionCases() {
+        for(int seed=0;seed<20;seed++) {
+            int sample=seed;
+            Case("core:list:"+seed,delegate {
+                var r=new Random(sample); var list=new List2<int>();
+                for(int i=0;i<80;i++) list.Add(r.Next(-20,21));
+                list.InsertRange(5,new[]{100,200,300}); list.RemoveRange(7,3);
+                list.Reverse(2,15); list.Sort();
+                var parts=new List<string>();
+                foreach(int n in list) parts.Add(n.ToString(CultureInfo.InvariantCulture));
+                parts.Add("search="+list.BinarySearch(3));parts.Add("find="+list.FindIndex(delegate(int x){return x>0;}));
+                parts.Add("remove="+list.RemoveAll(delegate(int x){return x<0;}));parts.Add("count="+list.Count);
+                var e=list.GetEnumerator();e.MoveNext();list.Add(88);
+                try{e.MoveNext();parts.Add("enumerator:accepted");}catch(Exception ex){parts.Add("enumerator:"+ex.GetType().FullName);}
+                return String.Join(",",parts.ToArray());
+            });
+        }
+        foreach(int index in new[]{-1,0,1,10,int.MaxValue}) {
+            int i=index;
+            Case("core:list:index:"+i,delegate {return new List2<int>()[i].ToString();});
+        }
+    }
     static void BuildCases() {
         Assembly a=Assembly.Load("EALABuild");
         Type paths=a.GetType("EALABuild.StaticPaths",true);
@@ -105,7 +127,7 @@ class BuildInfrastructureContract
     }
     static int Main(string[] args) {
         foreach (string name in new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Remote", "EALABuild" }) Contract(Assembly.Load(name));
-        CoreCases(); BuildCases(); Rows.Sort(StringComparer.Ordinal); File.WriteAllLines(args[0],Rows.ToArray());
+        CoreCases(); CollectionCases(); BuildCases(); Rows.Sort(StringComparer.Ordinal); File.WriteAllLines(args[0],Rows.ToArray());
         Console.WriteLine("PASS records="+Rows.Count); return 0;
     }
 }

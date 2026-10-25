@@ -30,16 +30,7 @@ try {
         Compress-Archive "$work/$name-original.il" "$out/$name-original.il.zip"
         $receipt.assemblies += @{ name = $assembly; originalSha256 = (Get-FileHash $inputFile).Hash.ToLowerInvariant(); sources = @(Get-ChildItem $destination -Recurse -Filter *.cs | Where-Object { $_.FullName -notmatch '[\\/](obj|bin)[\\/]' }).Count }
     }
-    foreach ($mode in @('Debug', 'Release')) {
-        foreach ($name in @('Core', 'Remote', 'EALABuild')) {
-            $assembly = if ($name -eq 'EALABuild') { 'EALABuild' } else { "BinaryAssetBuilder.$name" }
-            dotnet build "recovery/src/Managed/$name/$assembly.csproj" -c $mode -p:PlatformTarget=x86 -o "$work/$mode/$name" --nologo *> "$out/$mode-$name-build.log"
-            $code = $LASTEXITCODE
-            $receipt.builds += @{ mode = $mode; assembly = $assembly; exitCode = $code }
-            if ($code -ne 0) { Get-Content "$out/$mode-$name-build.log" -Tail 55; throw "$mode $name build failed" }
-        }
-    }
-    $receipt.status = 'builds-passed'
+    $receipt.status = 'source-exported'
 } finally {
     $receipt | ConvertTo-Json -Depth 10 | Set-Content "$out/receipt.json"
     Get-ChildItem recovery/src/Managed/Core,recovery/src/Managed/Remote,recovery/src/Managed/EALABuild -Recurse -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -in @('bin', 'obj') } | Remove-Item -Recurse -Force

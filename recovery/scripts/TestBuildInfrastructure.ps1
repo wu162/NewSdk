@@ -11,7 +11,7 @@ try {
     New-Item -ItemType Directory -Force $original | Out-Null
     Copy-Item SDK/tools/*.dll $original
     Copy-Item SDK/EALABuild.dll $original
-    & $csc /nologo /platform:x86 /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/BuildInfrastructureContract.exe" recovery/tests/BuildInfrastructureContract.cs *> "$out/oracle-build.log"
+    & $csc /nologo /platform:x86 /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/BuildInfrastructureContract.exe" (Resolve-Path "recovery/tests/BuildInfrastructureContract.cs").Path *> "$out/oracle-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Oracle build failed' }
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/BuildInfrastructureContract.exe.config"
     & "$original/BuildInfrastructureContract.exe" "$out/original.txt" *> "$out/original.log"
