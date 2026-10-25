@@ -1,0 +1,27 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 d8f1331a76b4da3982fa5394f10071297a8f1ca9fad9519a2e30dcb1ad6297dd
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect(FXShaderConstant** pointer, EndianHelper* state)
+	{
+		uint num = *(uint*)pointer;
+		if (num != 0)
+		{
+			switch (*(int*)(int)num)
+			{
+			case -1544008643:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantBool_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(pointer, state);
+				break;
+			case -1994909310:
+				Marshaler_002EEndianCorrect((FXShaderConstantInt*)(int)num, state);
+				break;
+			case -1517250906:
+				Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantTexture_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(pointer, state);
+				break;
+			default:
+				Marshaler_002EEndianCorrectUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(pointer, state);
+				break;
+			case -553066715:
+				Marshaler_002EEndianCorrect((FXShaderConstantFloat*)(int)num, state);
+				break;
+			}
+		}
+	}

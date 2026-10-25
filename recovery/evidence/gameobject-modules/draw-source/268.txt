@@ -1,0 +1,9 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 2768833e458c3bff9bf0e42a2f9c2f12ec94eff59ee51a5043e03196746e39a6
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantBool_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)
+	{
+		FXShaderConstantBool* ptr = (FXShaderConstantBool*)Relo_002ETracker_002EPush(tracker, (void**)pointer, 16u, 1u);
+		Marshaler_002EMarshal(node, ptr, tracker);
+		((int*)((byte*)tracker + 4))[1] += -4;
+		*(int*)ptr = -1544008643;
+	}

@@ -3,6 +3,7 @@ void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=283 && choice->kind<=285) EndianDrawBeam(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=278 && choice->kind<=282) EndianContainRemaining(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=270 && choice->kind<=277) EndianContainCore(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=265 && choice->kind<=269) EndianSlowDeath(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -82,6 +83,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=283 && choice->kind<=285) MarshalDrawBeam(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=278 && choice->kind<=282) MarshalContainRemaining(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=270 && choice->kind<=277) MarshalContainCore(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=265 && choice->kind<=269) MarshalSlowDeath(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -140,11 +142,17 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto id=input.attributes.find("id");if(id!=input.attributes.end()) target[1]=HashAssetId(id->second);
     data.Pop();
 }
+void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo::Tracker& procedures);
+void TokenizeBeamShader(U32* input,void** slot,Relo::Tracker& procedures) {
+    if(!input)return;auto wrapper=static_cast<Procedure*>(procedures.Push(slot,12,1));wrapper->name=2;wrapper->type=input[0];auto layout=BeamShaderLayout(BeamShaderKind(input[0]));if(layout)TokenizeModuleTable(input,*layout,&wrapper->offset,procedures);procedures.Pop();
+}
 void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo::Tracker& procedures) {
     auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
     for(unsigned i=0;i<layout.count;++i) {
         const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
-        if(t.mode==1 || t.mode==3 || t.mode==6) {
+        if(t.mode==10) {
+            auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);auto table2=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));table2[0].name=1820487795u;table2[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&table2[0].offset);for(U32 j=0;j<list->count;++j){table2[j+1].name=2974916843u;TokenizeBeamShader(static_cast<U32**>(list->data)[j],&table2[j+1].offset,procedures);}procedures.Pop();
+        } else if(t.mode==1 || t.mode==3 || t.mode==6) {
             auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
             auto count=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
             count[0].name=1820487795u;count[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&count[0].offset);

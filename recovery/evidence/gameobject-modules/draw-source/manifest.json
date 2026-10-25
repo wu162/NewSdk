@@ -1,7 +1,7 @@
 {
   "status": "original method evidence only; W3D Draw family remains rejected",
   "sourceBlob": "6e40a9ed6c9f961d294d49768d911e6a6f354619",
-  "dependencyClosure": "complete direct method and decorated helper closure",
+  "dependencyClosure": "direct methods and decorated helpers; existing ModuleData** dispatch is the source-inventory boundary",
   "modules": [
     {
       "name": "W3DLaserDrawModuleData",
@@ -1324,6 +1324,141 @@
       "file": "255.txt",
       "signature": "internal unsafe static uint FastHashInternal_002EFastHashFn(uint hash, sbyte* data, uint len)",
       "bodySha256": "257006245360bd04c74f33dc07a6d516001ad597f03fc5f63d851990f926a7a4"
+    },
+    {
+      "file": "256.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(FXShaderConstant** pointer, EndianHelper* state)",
+      "bodySha256": "d8f1331a76b4da3982fa5394f10071297a8f1ca9fad9519a2e30dcb1ad6297dd"
+    },
+    {
+      "file": "257.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(FXShaderConstantFloat* @object, EndianHelper* state)",
+      "bodySha256": "b5bf34644c0fe83f2e9367bde3d9ea2052cdc407332a778792f4311d31ff6517"
+    },
+    {
+      "file": "258.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect(FXShaderConstantInt* @object, EndianHelper* state)",
+      "bodySha256": "421e3569f842be8898b978b9eff3c9d6b8564512ffc8f630149aeab8fe9af857"
+    },
+    {
+      "file": "259.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantBool_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(FXShaderConstant** pointer, EndianHelper* endian)",
+      "bodySha256": "cd9ac0f17362a62116f3790330394337aba5f979e2826974ed68638d4f7821f2"
+    },
+    {
+      "file": "260.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantTexture_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(FXShaderConstant** pointer, EndianHelper* endian)",
+      "bodySha256": "0c25781a68eabd0ccfb33f8bad6010e88911dfd7532f2a3be784cbda8efe4645"
+    },
+    {
+      "file": "261.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrectUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(FXShaderConstant** pointer, EndianHelper* endian)",
+      "bodySha256": "6f3d66799d8ee1e9a43083bf1bc2510f867fc4c1d7057f41bc2f50346b6fde9a"
+    },
+    {
+      "file": "262.txt",
+      "signature": "internal unsafe static void Marshaler_002EEndianCorrect_003Cfloat_003E(List_003Cfloat_003E* list, EndianHelper* endian)",
+      "bodySha256": "ab9c233ba7e4da4524cc48f0c859e07a517c0fed05c853f0af42bb86341ce3fa"
+    },
+    {
+      "file": "263.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstant* @object, Tracker* state)",
+      "bodySha256": "d3771f3409a8c3762af4dd774f2dc3f708fb42c015c847fd6365feb0ad6b50e8"
+    },
+    {
+      "file": "264.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstant** pointer, Tracker* state)",
+      "bodySha256": "5508b57daa77bf78315cc703dfad4f08b2c654758010d400b124d4f2609a275a"
+    },
+    {
+      "file": "265.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstantBool* @object, Tracker* state)",
+      "bodySha256": "56b91915f62e76c67f7fea6fa5a24b70e5a972d45b53efb3c0b7b30a47c4788d"
+    },
+    {
+      "file": "266.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstantInt* @object, Tracker* state)",
+      "bodySha256": "3bfdf929cf10cd5d6b2e2718ebaff03f06c9e95ad38324420154faa6144dbc7f"
+    },
+    {
+      "file": "267.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstantTexture* @object, Tracker* state)",
+      "bodySha256": "5952da6248d394305c092ff6f32f5e9109ccc98ee2120ebd103e09e056e1dd14"
+    },
+    {
+      "file": "268.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantBool_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)",
+      "bodySha256": "2768833e458c3bff9bf0e42a2f9c2f12ec94eff59ee51a5043e03196746e39a6"
+    },
+    {
+      "file": "269.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantFloat_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)",
+      "bodySha256": "0f4a219373da9b01216b18dbd23b862036c46cc219ddbcdd14db6de031792c2e"
+    },
+    {
+      "file": "270.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantInt_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)",
+      "bodySha256": "25a88b57d142ec6bb76171b3138dec7fb5634986bbcd2969fa311ff1def45d70"
+    },
+    {
+      "file": "271.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstantTexture_002Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)",
+      "bodySha256": "569c8aebca7981cb974cc149c0400cdfffe2abe7874c3524a192f62e0566ffa7"
+    },
+    {
+      "file": "272.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshalUnknownPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AFXShaderConstant_003E(INode* node, FXShaderConstant** pointer, Tracker* tracker)",
+      "bodySha256": "c0ca0503d7824a9db93c2f59382d37a344292a5bc3ba5f9d17ec152f5b8eacb6"
+    },
+    {
+      "file": "273.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cfloat_003E(IList* list, List_003Cfloat_003E* target, Tracker* tracker)",
+      "bodySha256": "27c398c78f31aa95f128299589d8a0f1575a9fb31773c19053ee365df5de28bf"
+    },
+    {
+      "file": "274.txt",
+      "signature": "internal unsafe static void Marshaler_002EMarshal_003Cfloat_003E(sbyte* text, List_003Cfloat_003E* target, Tracker* tracker)",
+      "bodySha256": "60b200b38d037bda6c30dc2d2141a6db7ec16365715b02ad9af429d0417d9702"
+    },
+    {
+      "file": "275.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstant* @object, Tracker* state)",
+      "bodySha256": "e15bed532d3604c45509bb48cced475557b31bc0088653daa957115095d3fce3"
+    },
+    {
+      "file": "276.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstant** source, Tracker* state)",
+      "bodySha256": "73154f79d0a1d161363dcda9168bf0341ca61fdb3513b56f21a617d2d1e6007d"
+    },
+    {
+      "file": "277.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstantBool* @object, Tracker* state)",
+      "bodySha256": "93163d576f2eaa1e588cd6b2ce59c655ceaea8c60e9a79d09c947197712a2bc4"
+    },
+    {
+      "file": "278.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstantFloat* @object, Tracker* state)",
+      "bodySha256": "ab4bce522aff37b481e145e5f56c05eeb2c20d7bd435a94be6d467fd17a25766"
+    },
+    {
+      "file": "279.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstantInt* @object, Tracker* state)",
+      "bodySha256": "7a83cad9348a9edb3cc26af770e5a4708883f7fda95733a5bbc1bfaf5d3186ed"
+    },
+    {
+      "file": "280.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize(void** table, FXShaderConstantTexture* @object, Tracker* state)",
+      "bodySha256": "eb191eec3a1bd313ae719841965035d061786c95715b30b5954cf7b8eeaa8239"
+    },
+    {
+      "file": "281.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cfloat_003E(void** table, List_003Cfloat_003E* list, Tracker* tracker)",
+      "bodySha256": "44215c91c74fa01f756cb0a1e38edfdc9ba6bd48005198b0db4b6819517011d8"
+    },
+    {
+      "file": "282.txt",
+      "signature": "internal unsafe static void Tokenizer_002ETokenize_003Cfloat_003E(void** table, float** pointer, Tracker* tracker)",
+      "bodySha256": "b6eace8a64763c1886ec2a3760f14f221fae26e0d2348a3c97852232e463af47"
     }
   ],
   "peEnums": {

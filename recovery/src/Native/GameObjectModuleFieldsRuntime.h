@@ -1,5 +1,6 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:beamChoices) if(choice.type==type) return &choice;
     for(const auto& choice:containRestChoices) if(choice.type==type) return &choice;
     for(const auto& choice:containChoices) if(choice.type==type) return &choice;
     for(const auto& choice:slowChoices) if(choice.type==type) return &choice;
@@ -117,6 +118,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         case ModuleValue::Unsigned:word=ParseUnsigned(value);std::memcpy(at,&word,4);break;
         case ModuleValue::Short:{auto narrow=static_cast<std::uint16_t>(ParseUnsigned(value));std::memcpy(at,&narrow,2);}break;
         case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
+        case ModuleValue::Byte:*at=static_cast<unsigned char>(ParseUnsigned(value));break;
         case ModuleValue::Boolean:*at=ParseBoolean(value)?1:0;break;
         case ModuleValue::String:MarshalString(data,at,value);break;
         case ModuleValue::Reference:MarshalReference(data,at,value);break;
@@ -175,7 +177,7 @@ void EndianModuleFieldSet(unsigned char* output,const ModuleFieldSet& fields) {
         else if((f.kind==ModuleValue::NullablePositiveFloat || f.kind==ModuleValue::NullableFloat || f.kind==ModuleValue::NullableTime || f.kind==ModuleValue::NullableBits)) {auto value=*reinterpret_cast<float**>(at);if(value) Swap(value);}
         else if((f.kind==ModuleValue::SignedList || f.kind==ModuleValue::FloatList)) {auto list=reinterpret_cast<NativeList*>(at);for(U32 j=0;j<list->count;++j) Swap(static_cast<U32*>(list->data)+j);Swap(&list->count);}
         else if(f.kind==ModuleValue::Short) std::swap(at[0],at[1]);
-        else if(f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(at);
+        else if(f.kind!=ModuleValue::Byte && f.kind!=ModuleValue::Boolean && f.kind!=ModuleValue::Reference && f.kind!=ModuleValue::NullableReference) Swap(at);
     }
 }
 template<std::size_t N>

@@ -1,0 +1,15 @@
+# W3D beam Draw complete group (validation pending)
+
+Complete Laser112, Tracer112 and Stream76, including Color4f16, nullable ObjectStatusValidation56, FXShaderMaterial28, polymorphic shader constants and nullable ParticleSystemList8. This checkpoint is not accepted until the final cumulative Windows /Od and /O2 differential succeeds. SDK not run; original route retained.
+
+Original source blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`, PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`. draw-source contains 283 original methods and seventeen PE maps. The extractor now captures nested polymorphic helpers and FXShaderConstant** Token dispatch regardless of parameter spelling. Existing ModuleData** global dispatch is an explicit separate source-inventory boundary; this is not a claim to recover the five other W3D model classes.
+
+Laser Marshal/Token parent DrawModuleData; Tracer uses ModuleData; Stream Marshal uses ModuleData while Token includes DrawModuleData. Root fields retain original schema order, unscaled raw float SpreadAngle/FrameLifeTime/texture scrolling and signed slot/state indices. WeaponSlotType scalar unknown5.
+
+FXShaderMaterial28: ShaderName String8@0, TechniqueName String8@8 (empty default only when the FXShader node is present), TechniqueIndex uint8@24, Constants List8@16 containing four-byte pointers. Constants rows allocate before their Name strings; subtype Value precedes parent Name. Bool16 ID2750958653, Int16 ID2300057986, Texture16 ID2777716390, Float20 ID3741900581 (Value is a repeated float List8@12). Unknown constants allocate12, preserve Name and force stored TypeId0; their Token is a one-record wrapper type0 with null nested table. Known wrappers include full subtype and base tables. Textures and particle systems use strong imports; unknown TypeIds are not silently treated as float constants.
+
+Laser/Stream inline shader allocation precedes nullable validation/particle data. Tracer HeadColor@72/TailColor@88 are inline four-float colors, followed by nullable validation@104. Stream ParticleSystems@68 allocates a List8 whose ParticleSys elements are strong references. All input namespace, duplicate singleton, attribute and structured-text boundaries remain explicit.
+
+Tests cover complete native defaults/padding, every field and enum, fourteen Token layouts and all shader variants including unknown, uint8 truncation, list boundaries0/1/2/27/28/29/65, Float Value allocation before Name, strong imports, reversed XML order, all module containers, nullable structures and rejection surfaces. Complete existing cumulative differential, four platforms including99, refusals and invariance remain enabled. New Byte field kind and Token mode10 are additive and used only by this group.
+
+Original main Marshal methods098/103/101, Token210/215/213; shader material082/195, shader pointer dispatch264/276 and subtype helper bodies in manifest. Use signatures and hashes as authority because added dependencies preserve the original first256 archive entries and extend the archive.

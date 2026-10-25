@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "XmlNodeAdapter.h"
 #include "../Native/GameObject.h"
+#include "../Native/ScalarParsing.h"
 #using <BinaryAssetBuilder.Core.dll>
 #using <System.Core.dll>
 using namespace BinaryAssetBuilder::Core;
@@ -199,7 +200,25 @@ public ref class GameObjectCompiler abstract sealed {
         }
         NoStructuredText(node);return result;
     }
+    static Native::GameObjectChild ReadDrawShaderConstants(XPathNavigator^ node) {
+        Native::GameObjectChild result;result.name="Constants";
+        auto a=node->Clone();if(a->MoveToFirstAttribute())do{if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Constants attribute.");}while(a->MoveToNextAttribute());
+        NoStructuredText(node);auto rows=node->SelectChildren(XPathNodeType::Element);
+        while(rows->MoveNext()){
+            auto row=rows->Current;if(row->NamespaceURI!=node->NamespaceURI)throw gcnew NotSupportedException("Foreign shader constant.");Native::GameObjectChild entry;entry.name=marshal_as<std::string>(row->LocalName);
+            auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="Name" && attrs->LocalName!="TypeId"))throw gcnew NotSupportedException("Unsupported shader constant attribute.");entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
+            auto type=entry.attributes.find("TypeId");auto id=type==entry.attributes.end()?0:Native::ParseUnsigned(type->second);bool known=id==2750958653u || id==2300057986u || id==2777716390u || id==3741900581u;unsigned count=0;
+            NoStructuredText(row);auto values=row->SelectChildren(XPathNodeType::Element);while(values->MoveNext()){
+                auto value=values->Current;if(!known || value->NamespaceURI!=row->NamespaceURI || value->LocalName!="Value" || (++count>1 && id!=3741900581u) || value->SelectChildren(XPathNodeType::Element)->MoveNext())throw gcnew NotSupportedException("Unsupported or duplicate shader constant Value.");
+                auto va=value->Clone();if(va->MoveToFirstAttribute())do{if(va->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (va->NamespaceURI->Length==0 && va->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Value attribute.");}while(va->MoveToNextAttribute());
+                Native::GameObjectChild v;v.name="Value";v.text=marshal_as<std::string>(value->Value);entry.children.push_back(v);
+            }
+            result.children.push_back(entry);
+        }
+        return result;
+    }
     static Native::GameObjectChild ReadModuleNode(XPathNavigator^ node,unsigned kind,std::string path) {
+        if((kind==283 || kind==285) && path=="FXShader/Constants")return ReadDrawShaderConstants(node);
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         if(kind==80 && path=="Movement") return ReadMotionMovement(node);
         unsigned shape=Native::GameObjectModuleNodeKind(kind,path);

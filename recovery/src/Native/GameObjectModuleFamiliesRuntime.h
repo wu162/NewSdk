@@ -564,4 +564,5 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 
 #include "GameObjectContainCoreRuntime.h"
 #include "GameObjectContainRemainingRuntime.h"
+#include "GameObjectDrawBeamRuntime.h"
 

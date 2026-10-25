@@ -1,0 +1,30 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 56b91915f62e76c67f7fea6fa5a24b70e5a972d45b53efb3c0b7b30a47c4788d
+// Literals: {"_003F_003F_C_0040_05LPIJGKJ_0040Value_003F_0024AA_0040": "Value"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, FXShaderConstantBool* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_05LPIJGKJ_0040Value_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr = (INode*)(int)(*(uint*)num);
+			if (ptr != null)
+			{
+				Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)ptr + 16)))((nint)ptr), (bool*)@object + 12, state);
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		Marshaler_002EMarshal(node, (FXShaderConstant*)@object, state);
+	}

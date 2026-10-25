@@ -1,3 +1,9 @@
+# 当前检查点：Contain5类验证中，完整W3D Beam3类已实现待验证
+
+2026-10-25：Contain最终修正source6aad437，run40158330433运行中。新增完整Laser/Tracer/Stream与Shader/Color/ParticleSystemList依赖，见GAMEOBJECT_DRAW_BEAM.md；下一步统一取得本次全部源码累计/Od/O2和四平台三缓冲区成功。当前已验收覆盖仍309/322，不把未验证的新增8类计为完成。SDK0次，正式路由保留。
+
+---
+
 # 当前检查点：Contain剩余5类已实现，完整验证待完成
 
 2026-10-25：本轮从a1567339继续，新增完整Engineer/Infiltrator/Transport/HordeTransport/HordeContain源码、原证据生成器和独立累计测试。**尚未验收，已验证覆盖仍为309/322**。见GAMEOBJECT_CONTAIN_REMAINING.md；下一步收取完整Windows/Od/O2、四平台及三缓冲区差分，修复后以最终sourceCommit/runId验收。SDK本轮0次，正式路由不变。禁止把检查点计为314类成功。
