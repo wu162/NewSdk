@@ -1,0 +1,24 @@
+{
+  "sdkValidated": false,
+  "scope": "actual ProcessInstance image entry; supported TGA to raw volume mip DDS (PC/PS3/unknown); three buffers/full cdata",
+  "runAttempt": "1",
+  "status": "passed",
+  "sourceCommit": "75f302ef802499fb319c77a5da7e0f454a30ca68",
+  "configurations": [
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=2610 errors=6 unsupportedResampling=0 comparedBytes=13339056; PC/PS3/unknown volume complete/PS3-limited mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=2610 errors=6 unsupportedResampling=0 comparedBytes=13339056; PC/PS3/unknown volume complete/PS3-limited mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "runId": "40203176310"
+}
