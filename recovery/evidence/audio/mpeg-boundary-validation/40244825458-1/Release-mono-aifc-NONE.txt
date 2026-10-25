@@ -1,0 +1,4 @@
+mono-aifc-NONE:False:False:NULL:CUSTOM:<absent>
+mono-aifc-NONE:False:True:NULL:CUSTOM:<absent>
+mono-aifc-NONE:True:False:NULL:CUSTOM:<absent>
+mono-aifc-NONE:True:True:NULL:CUSTOM:<absent>

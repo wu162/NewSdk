@@ -1,0 +1,4 @@
+stereo-wave-partial-1-32-15:False:False:NULL:CUSTOM:<absent>
+stereo-wave-partial-1-32-15:False:True:NULL:CUSTOM:<absent>
+stereo-wave-partial-1-32-15:True:False:NULL:CUSTOM:<absent>
+stereo-wave-partial-1-32-15:True:True:NULL:CUSTOM:<absent>

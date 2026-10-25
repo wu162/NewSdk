@@ -1,0 +1,1867 @@
+[
+  {
+    "bytes": 16494,
+    "sha256": "040ddca1bc32ea90a719c13590d244789548f71f3fd7c55254d96b3f3543ce88",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\aiff-loop.aiff"
+  },
+  {
+    "bytes": 12314,
+    "sha256": "92cb99680a4c53eed3421a1ef22bf5f5d4b49aa8410f231447e2ca72765b44d3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\extensible.wav"
+  },
+  {
+    "bytes": 8218,
+    "sha256": "21999a2a44d448e13093e023d38f188536ffe0198d5bde0b57e18f7aaffc2437",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated.aiff"
+  },
+  {
+    "bytes": 12290,
+    "sha256": "545f598ed2418cad8ece1d61589b200e4ee9dac51cb76f4d46989d7d594e3fa8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\generated24.wav"
+  },
+  {
+    "bytes": 84,
+    "sha256": "3e721343523bda2ba74c7580554a6e328d631a7ed39ef71df834e75577daa140",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\headers.h"
+  },
+  {
+    "bytes": 8304,
+    "sha256": "e8abe02b9c47d03c2ccbe7d39c57d6695036fb9c5658f4367aa161f046ad6432",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\loop.wav"
+  },
+  {
+    "bytes": 7,
+    "sha256": "52f36400ab95737b023b64e728edf75d010c2cfb1a959392105a91b6d86742ab",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\map.mpf"
+  },
+  {
+    "bytes": 628,
+    "sha256": "5bb805b5f45b348405827d7eb3a6c8f17ec5fab781e6f053d90573a510efb023",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1actualboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "62855955b5d26cf818f97e479f27731d8dd5b537fbe8d3203039f8820ac67c84",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared0.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "fda05b6939ba6faea921ab8c5ff13f048e266edee2f56a6fca66b95210f8b29e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared1.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "f7eab9da57ea00c28c58c26ee5b23b5c9ac5ccdadcfa9e3b1ad394f4d2879c3a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared16.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "e4266ab325fbe617941ffc52d1b444f17db18c0f1b975780852fecf7f13a328f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared223.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "13ea144273a3dfa8cdc1e8aea86e0ed58f6514ced5889e744459f17c37f53fdb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared256.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "c8d8b5e4b80392f9239374dadc067dc4c002c12756c6cf14392b2ff986f3503b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared257.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "ff1365d5865ba678582975a1c81d4ea6febf689457361ef173829e13e64e3c53",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declared300.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "a644f15bfe433951a10863533c78992f00159ba935e2439904929d4c907a1632",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "eaa2a2b39190f6b2fdb5b976888be5ed13843f50c0c0751b87d471d5b6b1a95d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declaredmax.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "5e9ee40cf4adad700a712107ae2ad8c47c319c6937e74b8850164e7cebd0974d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1declaredones.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "9a63194157a0ba3db5984ebaaeba2d8bde50ab89bee28db0f218ed060191cdef",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "20df0aa5a2f2905b3e395d9cc41f0ffb24b5483330e49449b8fca445671ed45e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "2bb247289b910a776eb4a4e3ee2d0c93e80691398ec65f1672f917299d37b114",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "4133fd05d01a745ad33f46fe7df59bd38b278006408e7a384b17e1187173ab3a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "d6f1039d49ccdf1b87d03da4c1d4e91e72b619620cabc255e3dba170d6ab0fe2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "9feb3d6fda78d9715a1a130ab0fac5435bc97ed431bea3e77fda6759879fdb51",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "46ca50dd04cda53f3d9f1b6649a46530dd13ae7462f19ab73a512728235a11fa",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "23ca6b5f26cf90edde063290751db081c934b79ca90a8021941ad3224b52e5dd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2actualboundary.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "3ed9d5f23c3e2d4a1703d544b8aa39938b138bbb82e9024dd4b9ef662f01b39d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared0.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "fa4a126cd4c0d5fc3a1da8db74b1fcf421f27db5db7e0211b6c652a0fa6e1182",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared1.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "d7d0ba30beecc3c8d1a5ccd3cb1385b01599dbf536d12d88fea4aa370b15f1cf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared16.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "81955dc0fe11e0940895f4132b3de517e90172be8486c68efed2c65246adeb46",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared223.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "2b702a4f0d7d164d5f304cd7b8f31208ca1936b634a234a15c32fe34fd78ffc8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared256.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "c33a8d41338460db5aef8ed8f8d40e036bd0d94f669fc737775f021c05e0c808",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared257.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "fefbb6309fd855a12094212bc2acf8437701b24ca861de9456dd93bf309f35f8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declared300.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "bd3886398743aafd024743c7ae74b0ee229ddf487f6120e667af264a6374300c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "dae05ee6e7e9a3ef1f6fe3f96905f11e3c2b36292d2981232668bb3ca690ecf6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declaredmax.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "8b6a4ad879950b6f40f9e4bcb831aef53289d5f76c95be0904e555bd08e937d1",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2declaredones.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "39cc0bfde6229a9239fd23346c258adcb3df0229e6d26a10736cd03f74ace839",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "8fcd1efc3aab904d7b85088153f5657cf5468fe5440cf2b4e9fffecef499549d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "96810be6dbc54a2c185d95a9485513b3918b3a2ba459e4c581c26379090a3484",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "0fa935f49e1a9b0db50c83d4c5e6bf28ece4a4b408e3689241c3e357c8bccb89",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "bb7824cb85360ed3931d98fc49368a4e787527ab88cac832fdb7c431ec69f942",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "b7dba597b0117d47852ee0f84c76b72dc6373d4b5101d92251ed9e4dae9a682d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "56accc13719ddfa9a0408499c92e409604bc105b8a8ea77ebcd5f1f638f50ba4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B16C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "58d33f2d04a8acb704668c3d3369e20160de0b5ae73ffa7079276849a1b72a3c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1actualboundary.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "8a63e864d7a9a5bcfc8bd61bbbee9700af655665c6f4f251b6b3be0c6e3f34c5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared0.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "7c4b9df1af2cb017b259e2d1db984405b97cd75d9c75b4de8525f681230cc2ff",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared1.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "a306a47e08fc1f78ec4a9275563a1360ef437ca10f14b1b975e7fdd467bdfe0b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared16.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "92da88480cb60bbc8731e2fb05a9f12006d9c18828bb5d69e73bdec18cb5539d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared223.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "35b120680e3336e571ea26f2cba7b6d19300c4c0f82a6277813eff68c0d208a3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared256.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "592785e3a9a9fdf1ac1237c058c020fe2f87f0abb25c6dbbf5b3be9f65ca18bb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared257.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "e2989873c1a67d040ef087f966f86d77663c839ca01d5f73cc72dd5781dd3d7e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declared300.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "02ae2191309330dd286605a427b1c71b9fbf6c77d3d1d05d92ae72161d058629",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "f44f49427eee3b3aac8022951bfd3ed2dc1e264d8989a0eebfa5f527e61729ba",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declaredmax.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "fda9fcfe85aa3428b3db9271a6b762374002cf9cd6320d0097c1c18fb350f6be",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1declaredones.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "66272de1bc4fea5d3a55a9e057875ac0a7394c7ae639898a24a70a44210f6006",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "d6a78cfb0ff07f0afbc0fa45d6fec20e87ed403f27a5c0cab5a4a61718c625c5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "9698474817c9c3a5a8a95746698d4c39e660052d3b0f9ba45452731cfff34640",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "b13421c0431e819e69bfe140b517282cb9df1c89dfd462fedecde8794ec44701",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "3baa7dbb7a1447c22818fbfbbd9ff57b1c2da8f1b648182c09a067435970fbe4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "b9680f227e0aac93077ff6ac888deb64f49147d46b5ebf22ce5e39f94bec0e80",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "c3d276e64e9d134fdbf124f7334b2a66c28e5bb6d433b7ec4f07bf855a5c9a02",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "f7f5358b03a3d45a3c9bd7932b3fadeec864732c98758e381453a6111a0cd980",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2actualboundary.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "901be019284e4bb745f7ff8fb4c01b68fedb1f058d7b855c7ce9397236cbf6f7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared0.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "87bc300cbe6ebe2f670c65a2f2685174c2228a68cb2ae3a32f06f217aa488c0c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared1.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "a252be19c5e94adebc06d4668092d8eaddb17a10d9808a5d4682e0c06a6ecd8b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared16.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "7fafe90faf4045aff56c6ca3b310093583cdf9574ac046c0d3df45f225a4f946",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared223.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "ea1b20342495f82e7023a7b8454c6343b2fd3f493d9a714b964905541efea333",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared256.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "6ac9ccd4a172936196bc5362dc97ac7b86094895148021626e730c622a5d22c6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared257.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "96e4f68fcb204a82b9c9bb7f804f33f5a86b44e4d24458d30dcf43795ce06a75",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declared300.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "f7df690d690f2a8cb8fc9d9ef9d17720b8921843deec3a3a37343087f50e9472",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "9a899157952d813c459aa0388ef9c13e30e1c275f283227f9edb70aae0f9d177",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declaredmax.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "5819a83a5e8f7cef6c63d2bfa1a50c43294bed28574df0f8286c0e9422b9f542",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2declaredones.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "317679cadc2555a675d3fff3cbf15f99776afb153f76df07187f229e9674cabd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "609927cd411b2c774e4823821dec7f1ba56862666f7888b7e02b8588f351f2b2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "968d0efcb9de7da2ccab32bc116d9d7b65f2e2fe09d58ab667fb061301395c38",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "5754510a954a38702aa5fe22e3a57ed0d5818e07c0438be6ab125c2a47a592dc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "334023b9513fe7a844e4b94de34e6eb1513f428dd51f370c0f2559a721a250e2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "6ae625906922f3f02bf616f415fb1d5d6f5f24fa94697c5b758b05e97f6f2b34",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "0e3788fe3c503363876694444e97b7624265d6515aefb2fb7ff4acc7af4a5c62",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B24C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "981125d3714d7e1cfcaf623dcb18071988356d3bffc3ee82615a013cca66593c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1actualboundary.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "92e2c700a75b55fa289c1ddce0512cbea69c51e201e3163eff9a2ed10554f22e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared0.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "e2a41a26a1c30bf5747c8e9fe515eec198cf3b5d6986fc2d622774eef8358800",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared1.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "2d3f4afdf8ea6cce47b1eb1dbc676d66fcf3598e6231f4681d3fb3b121986412",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared16.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "ee0cad98644216b33df7d072683b69465cc6446efeaa004a95042b1b5a1f95e7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared223.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "a4889427afcbcda7a016730a03523895bf97b35072e434070481f84b30a62604",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared256.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "3fa0657efa5b75011b7e32ee4f5e55a24b1ecd3bc8f2acaa91a5b7c325ed5db1",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared257.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "7b6cf4767c1ca494e59a8a83248ff83dda51d8df20f203cf9bb818f6ad94c227",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declared300.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "01b6d200a4e45d85bb9a372c8644009cfe8583e6793e88317c6fbadf0f05e708",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "3b537050317827095938dc759dfa8be2ab97f33b42fa1496834ba2f0afc152d5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declaredmax.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "c3f97b0d9b134e4c39602f065473f8c3b67aceeff3f81c5fc4ad1392579bffcb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1declaredones.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "ec90676afa4f1aa6e87836fb12f4e1c62f9e59437bd482bdbc8be716c56e798c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "2c1f8cf1fe1c6565a2062af06be4aa2816b784fdab1b3929c9f3356a93e3db21",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "c687364ab307e2fd7cd05899b4280e1278a2fdc5eb13be850a9f3edc98969c7b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "979415bdfef70982ee920c87c21c8dadcaedcfc9fa7cc7a86896fcaf48aa7fe9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "b882cd7cc851e60fdf865db6d07b051947eab80ea8bd2a0f992a386c46509abf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "fc9be1851bf8124da08f58e8a074cca977fe1a96e762ecd365d1cf4ea34bbcd3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "b9938f787fff861def95bc53a2c1a2a0f21fd5fe98c5db327ec4fb4969e7a622",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "0392649a67247b2952c2645711504e5b8c98c97d95318a5874883bc9fa7aae2e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2actualboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "d6c6a98a21b0bcd15e552941f7e79d774b295b623b561191663c7fa43fc0e19c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared0.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "8c825be4d09b6898b48d8d12fbb441ba4115b5cb409073fe4ac570663c4261e8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared1.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "a20f91e589b12f9a63e08e83d9997030bdacc10ddffedc71e7ba7432f50a4391",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared16.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "57187bc04e8fb4265e9d172aef1a12f08a4015ca25530527cdcb5d3303eae9c0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared223.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "d5ca583e6037df8be4d35de5f7d2899758a3ec980cbae11ca5dbf7d17e105b4c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared256.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "d3cc5ce10b2577f4c7da60f5a869a7f10c6011f95c1c73067bec2f8fc17f60a0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared257.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "ac06ff39f4c6ee7ddb0f08ec69aa5b9c282357052b2ed54e581fcb38360d0cb5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declared300.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "2bb7a6413abeaef9116091ff5b7a59749bb28e7e55e16d42614cc0407bde6fda",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "b50ab739fe5008bd2cc5a2ef99483eb67b414b3bd8e9adca0e7703760e201d42",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declaredmax.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "2872ea3ba1c5074c263e356afb29b3161a0df66dff5810d405adb31ba7357327",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2declaredones.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "67423e83af42b6998338ea2a7cc67dc56d4dd8ccf617c283402444f952532738",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "0c40d38b4a2685a376621623cfb178b599ba6821d0c64296ba567d841cd64f99",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "7299056ba717f41fe5fa5678c56cd410905bdd95bd986f4268486637a2444bb5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "7dc47f8bb22f43577ea48fb8b731d1c7f1676b46b75f39e615cb945eacbd4b77",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "291209c695511a2a6ac0ccf921d25561d00f77694ecc1ab681805eb1d33de5ff",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "32a7e5fbb6e7cd5725b2ffe536eec106fece9f5d827e03d475f939754d5c6efc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "8966073b92b31d8a6a826c95d4ecc96ca6cf4d5619ea9580edd9ef917345b191",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeadp4B8C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "276eb8297bdbd45db55f35245d94cf00404267661acbd99437c5312532097daf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1actualboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "6e31644b1df9b1a305d3aaa689f6d8afcfbe17dbc2ea4d5b63458bc7d4a3796e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared0.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "e322916c8af0de501f9a40580d41817d86dd0ac112d9c89677d3985343f47f33",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared1.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "fef0ce3f0aed1eed3f1f66b6aaa0137a70634e16bb88525e78769b174a82091a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared16.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "4c2fbbd75ca594c6e64413176688db9150675bf44b0b1520cf079b61115d9966",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared223.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "c7a85894260abaf1860bb3026e3116e9dd62ea9193e8bace42ca3d6618aa5fa5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared256.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "142f18a21dfb7f2091cc8de157968d71f962fb9fcaf606996182b14d0f0e974e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared257.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "70ec95b458e74a4027150020bb382ea9b97da9e23b04bf6f52ed390a01ef0ee9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declared300.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "f82e3ac93196c2962df2b80c6275fe19435b86e6c503c1a8113bd810bd47f61b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "f5c57c8231a19254107a1a0c96177e5ad1dcb64d5343adfe339af36beab76344",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declaredmax.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "81ae4f06889315f055dd13b5faff39e0a26f8be6d660014e832c17e06c135480",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1declaredones.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "37792ee2a480ea2bb7a03a301cd0689546b0ab81a1d9eca55f474c9091bb1875",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "657936e6bf85d9fde8b8179f377e4481825682718e0a29ba0baa54c5d5a9d55c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "e79fa006a60f507963f8a21290c3f20735bb60f056800403e6438f1a7211eb9a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "676f71a447f4c61172bfdb539eb8c08a77ed60174ce9034a56bf25c104b35dd5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "deee83ab9a205c33c5fe14c6994432e9e274b8006697f1bd6292a0fb8c9e978c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "f3063161df88adcb87439d5a254d5dd659254a7e82ea2977cba0834a07f52f76",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "0dc54f1e38099f890dc0fa27373b52183505e9409ec7e9a2a60281684f65a669",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "8c9e6030fc7c7e88ac3fe2b2ed808f9364ffa985fc23667632f6dbbcf7ddb361",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2actualboundary.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "a16841a183ca2946610d5b31fbf47a0f8071283a7cb4c7806d787c7391a7e55f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared0.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "c611c9321e99d5ae77a38a98e912a4bf9ba503c85e49396325e558fbfc9c2f12",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared1.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "c9c1524a926e12b8d47e1f3a53a5b2ee82fe3d4b977e5288801ae793d6c675b0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared16.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "32fa249ce4fa4e8baad9b1664d0de86537f4bff9488b0dfa9a73abe652ac272e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared223.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "f889624c0bae718dc9a75bab36cb6e52ae4424e29316d276aa06229e8db9fe1a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared256.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "ecd84aa92a27534b86ebad752a88d3bdc53817671f150b3241a3adfbd4ec152f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared257.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "9268d0b8d4ac240e50baad30a9963bba71c017c731fe0e3fac4824d3ece47f31",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declared300.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "266c8ec22fe66c097d0f200e48e059417447ad20b1aa2f31057972bf642aa1b0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "a77b8a3ccd6a1a5c878659aae412dd34dbd3b1bf93e870d9df862537c802fe1d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declaredmax.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "99bb0b816bc0446c6a7474d49030343172354ed69558b2cf1ad2eeedae6574bd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2declaredones.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "60d206c2b78ecbc34fcd6eae0254acc221eb28f2fab8445d81e1df51be71220a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "d70ab8a27a0e3d785453c66dd7b9772fdf00477355d3ba322d09cbe11c4013f6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "fd877e6a2f5ee5d0d70d8af52a61e20c8a1e1403dfbb6e35fe7fbc94e5b4eda9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "61ba689c89a03ad58746cf479da75826156da6cae1120dc67065b814c4bb0e57",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "929bdf2df2aee62a196002b1c03bb06f56a7a29a742d294860df2802d13b9414",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 1174,
+    "sha256": "6497513006faa9af983baa8145acbe3622144c15dc1652cb7850627645b999bd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "5ec9e41edf4ef6329df3231c358610d825f2ffdef4893fac026c6d41935faa72",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB16C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "5540830df43c3345c829dc7c4cc429f2ab2f251b5f1414ae0da7d3862fe1565f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1actualboundary.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "74c56c1a2e6a33edce047dee79727e3d5a2c55e3dd705dec181549cbaafd8a50",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared0.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "5f316c6b1a6bdf3251ddb656f7d18334db6174bff655baccadc286ae5464e2df",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared1.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "324b25b7bfb8686a874719aa973d823c506bd760411fd966b41f7419c4bd4214",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared16.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "bf09a6c8cf2a52bc62283e4e6fb6aa578429781ca4ae7bdacb031cbfd729d4e6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared223.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "4f53a6607bffa76766f800d4143689f4416460cd04f863bd2b1502d5ca9ece3f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared256.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "78b8004dc1b2c566047f7d514ce24c679bbcbe73ab7d2b65ae6ebc00245b8e79",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared257.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "340ef5fdd5697a24aa574889ab6f570d5267a6e13bc694e61bff9b69adc41259",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declared300.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "15f88ac6ba8423fd6d9e19473a7d62ceec1e13a267f18cfcad7a046267df87a5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "a7128bf5b32033634feb511882df2abc2de51cdcb51c87b38a879080e7e06b45",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declaredmax.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "21017e90839f0e4dc3e0510a3ca0c1d57449b687d457bad58403458d4a2a5ecf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1declaredones.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "0308fe3c7733272da1a8a39e3f7dbc04d08fbc3893d129dc43e46fed9fbcce52",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "da9768764865d6a3a2fdd78480288bef726d45d0457518d694eb5700a3dcfc27",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "dad626b8868ac48e1ece16b5f6e4af20c283da28b1722ce9703152b392aaf545",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "34e3c15ffac2e1bdf13d503e612dcab467b5620d62b49c1c0de39f5831f2cc1c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "14844086d1afb5438978d41b28527da115a1a0a1c73d895bbe8cdea501ba47d2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 918,
+    "sha256": "68ebc3b9f82f3d981ef93ff5ab6bd6f1181b19e536de0f110f88019f255e791e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "46fadf17d6cbeecb53f80a4084058db902c46b4387da2a8c6730eb3c5dbe0a0c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "80b06b7b801c8af36d5c6952cc988251ab61a23a0cfc5c87f24563d5647f1c40",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2actualboundary.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "5daf15fe1dbf7eee12b34ca7e7391508b5e549048cc8be5255f509a098a6806a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared0.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "10c53cf25d5cca8b86359341fb9625dfc7d21f78013f702e13d0a64978d0a32d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared1.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "30143cdca61c771cac327b7002b0387fa61a7c4e99d144fb1e7aaa5161e0f6b7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared16.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "2312a8e73d5aa500e05463e2d1faf6f3417f2f4365fbeb954b8d2a4f7105ff83",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared223.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "86762b00ad17cd58c0e54783bc8c4b2b55dd4f6b84e8a6e5a3982ea15b56e9f6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared256.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "68960b75186aecfc4fd19e8ff36539c85f718c17083fdacb05129adf6d135290",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared257.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "524aadc59dfeadc7dba341fbda7aa2056e1068dd47541efd7ec273fff2618686",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declared300.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "e38913b129b3e0f7e548cc791fbba550c5b0d222eb71af8a297bb6e962a4ed27",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "d9fe617339708ad6af812fd315a461284b7920131eda2d2b6e3ff0b1942fe118",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declaredmax.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "06231bcae8a723ee820662905e95f8d27be75ff16aa4fc4f280473dfe1d9369b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2declaredones.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "0d2132b973a3f44de89132162484c292f8c326dfaffd89690262a34094d5260e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "629ddba4fbd1d5fa9f23a5b72ebe8cb037793ea8cc10ca79586cc62ef7a22e8b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "893f900dd6019b32ad351e05fa72038768d662ba4f4ed42317e0f1116130b117",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "91d3a9e1cbb66cf07d5a2c460ac1015e74a993be2b721308ae6e3f386d5ca7dc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "73d69594066396a3e4f5c278344ed6e46b2d7d9a0a512ce439bd23aae5f6b61b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 1688,
+    "sha256": "0b144c6f36547a58fc89cd79366030895745c6f799df6db7b9d3e18312c29c35",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "61d14b02a6d4af78755101ba9afbe16a877f5d0fa1f0bfccff444c96d0a42511",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB24C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "ecb8880ec2a8de90be9bf5f1ddf0215b99b71a73fbd579ca39971dd5fa8c5c1c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1actualboundary.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "8dc78987002e39ff22726ef95fc4667bf5f1630d39e829113ee78b9f8d544e97",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared0.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "c851ad6411ce6364a91f2bbc1c226d63320f44f1bbdca963adda7fcc28d3fd3b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared1.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "cf577f4583aa951665853d2dc514ca232b5081ccc8a33f785dba1c9b022e87dd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared16.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "ab09a266442e93e3de7fa1e86446322f4546eead49816ac189f2069df1b01135",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared223.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "ea3969ab93912a5202c48e9c66efc5656feac77c53e753b2936729092233f7af",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared256.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "abebab64c4b1f2e29225ec45904188ee7d04a20cb3155918630a9c9cfba2e17b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared257.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "628d0c463ce293ef107bdae148d77fa1392518844c181feba9f52eb2e08e517c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declared300.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "7d133e3f65ae2beaf3748b49b48fb018dd7761a34f27095af13549d45909c992",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declaredhighbit.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "5a3c5db24f7d4245d39552893dc38a440a884c1c8178353d8aa0df7321ec667c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declaredmax.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "a2ad2b43673abcd06b934ff10c363457776dbf19154d6270954644318ed24e64",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1declaredones.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "afe9a1f1d10d455d864abc3c8ce94025e9aa508f587dda8f47b0b3f7d637be22",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1duplicatenegative.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "ce0e1a0fcabe2d7d49a5aa594db24f6e206108eab488354a57c9c2b74d9bbad0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "8f0856a0daeae549d82f91b3ab5340a4eef91d4efecbef468fda98f1dbd3aca6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "f2b74622ef9ef64d6a3e91388aedbb54f48c91d49dccf693bc54078bb551d89a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1lastcommnegative.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "cae96de748342376b6e77c9de25ef16ca474021a99f86f3ef22bcbb0547627bf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1lastcommvalid.aifc"
+  },
+  {
+    "bytes": 404,
+    "sha256": "754e6fd72bc6ec684a056a5e9c7ec4713441085f9268f0432e9e5f9351c84920",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1lastcommzero.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "deaeaf59249da655d5f5a6205c86116a72fbd3dca349686f16167f4292aaa2bf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C1zeroboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "dc26b21335330877bf7b7b84b360d323c5aabdb0b676b85c25b26d618cbab6f6",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2actualboundary.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "b7249f915637705a37df4c82a66c51b5976f9c54bd0010349d653af1341887cb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared0.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "b13098d2d6bd6d9316762f0d39dd3bd93719ea1d82ad9586ff4ad73b4a3b06fd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared1.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "b70345822ad8159ac90738fc7bb108e23b5f6951441a16017cdc2805f002b98a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared16.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "b81ebb982dbc7bbe90db15586e4ec3d8cd5516fa543525259ecc32be0af96cea",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared223.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "749271fb85e012f295edaad8c5d349d7fdca0b7e68295c06676fe888477b2ff7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared256.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "3c3f822a13d93d82bd24ec27a1fd2066dee2000c04b365004227d98c33d5cfd2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared257.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "3e1bc7dc9c9f4a8cdc2706045a193538b62061285902cde7867c4bd9728813a7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declared300.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "29076f8b1108e94b753b53cf0e38eaea51e0eecf3bec1ac5124b3fdfce5af0e2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declaredhighbit.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "d4dd04e417f38656e0950832641f3aa2731ec5c0eeb22f78fb8f617a326778aa",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declaredmax.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "aeb4d2fb5d7e5ba2977c53a450fc199c63aec82165cc4c89d8301cae21a53ff0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2declaredones.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "c465f86ffd2aba1467c931193a4e70d94d44bbb4c2bf196f3bc015d921073a85",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2duplicatenegative.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "00f9bde47ecd3e431629659ba4989b5cdbda823ae5e920a1fd643b4f69cd709e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "ed44ad4bd9d8c0a7667835fc5c15b870dbcf9245fcbaed54d6f33f04566cb801",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2invalidbeforevalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "8842c4714584567f8ceec928b40c326f2e6a99d4473f0b41c741a669823cc808",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2lastcommnegative.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "63708b104450a986804da98db750528fa15bd2543c5fc6e57c1371298535ef6d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2lastcommvalid.aifc"
+  },
+  {
+    "bytes": 660,
+    "sha256": "36e636b65856906cd5e89987114f9f436acdadfb1b9bb333b781fe43367337e4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2lastcommzero.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "5b85d69962b032fda924309d03d29efade5fae908d1fdf3a990e5c1abe8006f5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaifcB8C2zeroboundary.aifc"
+  },
+  {
+    "bytes": 622,
+    "sha256": "1df67a487dde7c348ceee04f2286f172ab71e886c71024c858a2f9e4ebc4ff95",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1actualboundary.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "cfc3def06c6477d9f3527d580a30fb7bdcdc66200060adb06d3acf8268bbc78e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared0.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "09fe92508d243317df653b2a03dca4fc730d480ca700655082107c9967300dd5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared1.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "ec98c7a1e4395bb9543c627234ce8271f0b42d06478dd7877214431d35972d81",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared16.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "2b58e7c1fb76e40c26a405f5c46925443aed0402a495d093c46023b30d688641",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared223.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "96eaf2b5547b277350320ebc3c5b9db2eaf6b9ea4b46871a03f02f96e72b80cb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared256.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "d97ec659ed80be2bb7c149b3037747976e8b74a6bb2cec920befe2936a86f46c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared257.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "41f104b8843d832d63a0cfc70ae773cfb4401c0442235f97ecff06113393d561",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declared300.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "7b56e464e8a593db539b489c5bae1d3b98f90f42609d993988d5fca7318c386b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declaredhighbit.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "832091be84cc06784d7671916412f76f0afb93a3985f5426c90e17a08f5c2df4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declaredmax.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "47fa398b4fa05f856b1cc5b4047db8d2d7b281f3edd0741501ba17c83e19d581",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1declaredones.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "381142d56e6b8ad7bc024a3cb9286f66ed9d23cf0dc61ee3836a28282754a5ff",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1duplicatenegative.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "75fafc718d3c05930853601e0344b47f5ffa681cb20930ae4639f2afb2aa9ee0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1duplicatepositive.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "f91f0f0fdc48181ac4e00867cb264ec036cfec6a1633db3b69d6655e0e3c6093",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "c72292a75c123415c556b5d48fa7f8a76404ba72a7331652f36d09ebfeec836b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1lastcommnegative.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "f9e993caa11fa6c333e9cdffa8d02e817bc1891402c7db56a912589f8b5e4628",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1lastcommvalid.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "3fc5969a41cf3cd26430b0cf8bcb14f36cb0d923b2f2f01359db43e81c429884",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1lastcommzero.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "3bd182fb00b7acedda4d87097048a6d86c7b744e9f302afd758aa89fa107febc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C1zeroboundary.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "21c7a89d5b7fe616d38e23de9694f2ffd905dd338b107d489e180f1f54f10ce8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2actualboundary.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "8263e0c920b07a26dffdcaef2ac3fea2d279328544c86c933106f79cf3dc8ffd",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared0.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "b47b22d037935cb63090836bd81b73a3ea799e251afc02e4f6f8a865f830f35a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared1.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "ac07de27ec534ca33fe01614f752ef32b167a212129464a55c4498857f3f006f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared16.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "71566e5af53ff3ad668e7f1b1b1743ada2069dde5f695fb1427ef93ad3b22da4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared223.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "a1768224e941557d5961e8ba7387b18a62277efbbd403e35ab77a5f47aee22d5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared256.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "d115396443cd42d670357945f65cc4cb14b5269640e41e6f22bbf85f5bcabd4a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared257.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "0be26119d9a5ace09ffb718b7a848466ec0b12dd2a654f7264fd1863f1e3aa3c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declared300.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "86cfc518cf5186daca35e0e21ca9d91e5ea171ebb504e0675117d46907107e87",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declaredhighbit.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "773c1db3ba1cb5a08fc7483a134dd09bfa24f37af6cad4be26f5818fb15ae36f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declaredmax.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "665c3dd43191986513cabd8ff403c803f2f5dbc357fb89f4d8bd31d6226b4d10",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2declaredones.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "e627788db068c8ce03d5dd9821a3ee598a30be4faf539fc90c3994dd10c2c4a8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2duplicatenegative.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "63fc8e0c976133342dbcfed134543c5de77cd76ced4ab892a81aa8b4c3b61182",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2duplicatepositive.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "b98523eb35b5a2a700e1612fcb32bf5eb60d84f53197ce8e8976534120719034",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "e9e48351f6782b3646eef499265d7316a08d00f2846c6adb6239b78546b037ad",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2lastcommnegative.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "fd3bbbf22fc3bbbb719fd0f3bfadd6df99948e437f2ac42232b477307ce93336",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2lastcommvalid.aiff"
+  },
+  {
+    "bytes": 1162,
+    "sha256": "b5609ab848cec08d03d9bb5d2ba673bf8a218c0adae843ae7ca28096eade78ed",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2lastcommzero.aiff"
+  },
+  {
+    "bytes": 1136,
+    "sha256": "813c2cd9e8279a1a38475cf3677ba3e35f2789ffecdd4c3f7e7d1929e00a289f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB16C2zeroboundary.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "8a6b2273473e510df13c1ff5600c38aa3c44ca1317711e1a55f5a2d1e5565e44",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1actualboundary.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "de81dc7917fdf95c30af9f12c78536fe678d8e30cec9eb8565621f2732f55f9b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared0.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "c3131fcf27626f97f0cc7a32a48cd46699560dbb24f92d9b0fdd54b2f0171718",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared1.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "121f42cf4b5a5595cec29477230d9c6d56b2c913f65debc8229ad926186a469f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared16.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "91d328b933131a69a4fbeda297801b95340b46c782c59e4fa7f7be9e32569bd7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared223.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "fc428fc1f9890a717110c2dcd851cd232285d0263c2b8f20d1c73055babb1ae7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared256.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "5867193a34fc340d162b1889247eb23800db3e2362bbc8794d3bcc3a97ef8c4f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared257.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "f79822920407a1a5e00143adf2db6a4b28a050048f834e7b1377189481542852",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declared300.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "80ca1027c65e7da965f625fcb97fcf91a9781a8cefda59632b055768c1bc7ce9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declaredhighbit.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "aa9b00b8de100ff5fc44eb7a3051117979e5555ce8a6efabe97ea7dcbca52748",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declaredmax.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "c4f14ea14020d58faf60ad330c59b2bd628dfbb67009c8a18629f5efe69083c7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1declaredones.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "29eace43976715d2934da59c2cabb34f691e558b19b097f0e540d06ba784607f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1duplicatenegative.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "d9cdd07ec15708dcb4d867deb05571be1eadaec6a6efe440276d4119ce696db0",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1duplicatepositive.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "6b368af88507b75020bb4911e14a752588d7e9c476b85f18db3cab081033878f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "07d210e1ff79a44d0562b0cd53550f9bfd4d48e908209ee871c85837bc0326e2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1lastcommnegative.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "bbe06c62fa16abfdf16b3051c8f1fce32a582fab43843ca7733c97fe44185d3b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1lastcommvalid.aiff"
+  },
+  {
+    "bytes": 906,
+    "sha256": "be1a7d6255cc190fd6cf0bbdf1b1ed61c6757da6eaea2e4674498ee7f46f2149",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1lastcommzero.aiff"
+  },
+  {
+    "bytes": 880,
+    "sha256": "a9979938aa70abbaf756d1d72d46f8e934e4820f384ec8b6961c5c93d24e4e19",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C1zeroboundary.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "0396b6fd0d03c70d4c50af35cc9a5906f1b88c2f8f540c476df5997b8565e7c1",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2actualboundary.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "e052b75626aea2501f11680ea6c039200747b4ebc61a545224aeb8697c75b145",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared0.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "519412c513c6f6d35d8c6023d41670f4b5e1be61f65da68cbab89bb2f05a12ad",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared1.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "3fcddc4d4411e5c25de68a75e3c11bf1611728dbb13e4957e4b1822a597e908c",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared16.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "77c62037f119d9414c386f0f5b70f8da1d73b59795a77a9c998ad333f3ae884a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared223.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "5bc78468640a951f47bf6ee344c738b5f759a638671fb17496338bb9170b9ef8",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared256.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "f59b084fc4a0c445cc5ff5ac982f964762c5e047cd09f3f0553312f006554e7f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared257.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "2d9972b4984c7b1c8f95741a9f276e594e8905f907c8859c04e844173ae73dd5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declared300.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "32ea7f7c499b3b659b68ef77810f1d2171b9b27a9637aa4451d8a3882243961a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declaredhighbit.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "bdd51a53500948455eeabc48857cf5ef9d5ee41ab4a0d221d5df42ff3261bd56",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declaredmax.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "9e8635c9c9a5837627f4f52cefea257de8e36aca8bc9f779e4db52f6e39ec6c3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2declaredones.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "5d4e76b1e1851a6ba567573bc97679f7ad4a4426197fd13a2424f55c86197b1f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2duplicatenegative.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "e4447c11d0c9d0717214a1633b9b86c9f68bbe3ecb700f2d04ec0a722d6f7c02",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2duplicatepositive.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "4147d8b35265fe67d536887cf38b05cef1a36604fbdd2bc05e3cf184f77e1dc7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "04f18a3056f26b2fcada2272af3eeee4f98be89365ee039c8b63acfc7c76f47a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2lastcommnegative.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "bb55199a1b71c5a41c610f3ce320bdfe03814f9b91a7ef53ed93c5959ed8087b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2lastcommvalid.aiff"
+  },
+  {
+    "bytes": 1676,
+    "sha256": "5052be2015a1b0aacd9d1a2fe86c10e206387155d7571aaa93776f4267e44bd3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2lastcommzero.aiff"
+  },
+  {
+    "bytes": 1650,
+    "sha256": "828e43de018d1ee21465c162edc1cd58d6757698384db9941b08e836cbe68192",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB24C2zeroboundary.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "7ddbf434aeb26c8629d6aaabb82c919ed910873693a08ec08883ba75364a4b19",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1actualboundary.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "c1215594cd1fc215b2efe8ddb4f0bf0753933e03c270abbe81b99381bb450e99",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared0.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "967491cd215b81e67ee408d84c788ea695d82060f4068dd3f6644f4eb26e5790",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared1.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "563c610e7cc831c576d305a4b07c407b8cc750028cb305151ac70550fddee5e7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared16.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "872403a6852db29ab57182d77d5ac8f3f323139f4f4c72ffa8414620b7f4dffe",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared223.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "0ccb90d7714cf5d476e0ce4a55c4cb3a69e63de9bcb161aa0e07a1bea3fbc7be",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared256.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "95c54832d2dc37675d26afaa905d8f826faa0b8c459ee531dd2db069b51560af",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared257.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "4cc745ece16e5dbd54ff498694b207396f3abb613e4498565d3d9cd79e387e95",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declared300.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "ac1839fa0235ae00b21d135d9fd068235f025cf031697bbdb797ce061340b724",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declaredhighbit.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "3219ac0fd4c1f4d8f2be451f8316ef678e80ed866ef16926b535e7b976b68375",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declaredmax.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "bf8f91080fd903c7b39649072ed264d8a97d7932a4760e6cbd7d091a267f9505",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1declaredones.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "d248b1cd168946c710463c57984779d9fbbcf3a6fceaa32a9260a13f17dbfb20",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1duplicatenegative.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "1f2ad8265686441a69b019a17d2f0519ebe4ef5bbfd64725e8fb97a241d39f51",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1duplicatepositive.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "8971bf7ac6f47982834c627d4d65c21030dba7657c8b17d2cc144f2ba43ed6a7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "ed76e9e190db3323f9037d9e3d719a2893cb572c990ecfbc85b0b5b691f5c1cf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1lastcommnegative.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "a1b6605cf34204ea73ad558bc1619054b1c64e3c36a4b1ad447e20d1f968c286",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1lastcommvalid.aiff"
+  },
+  {
+    "bytes": 392,
+    "sha256": "e2b4a300e69d86808ae5247c912066bf529c199bc503470a85594673cf06718d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1lastcommzero.aiff"
+  },
+  {
+    "bytes": 366,
+    "sha256": "1df81a7dd421eb49ea476f166ee7c72737d33149f7ed4eadd386dcb3e4228513",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C1zeroboundary.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "941ce90afc82d851aa6a2b3a78f4720acd44540c73d3da66719bc529fb8c19ea",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2actualboundary.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "89a30e1ebd2ab1a34da73ae7141847e61829a318b82ccf7296772e4b75347384",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared0.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "9ae80369edf3d80626b3555f4f01ddce842adc7eca1ff49b44f7d2775126ccdb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared1.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "874a6df3a1483e54fba58843d73051776314c977535d17d8f9af365b16b2f43a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared16.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "edfb44b14e69b79b830ba7e6fa846df29346b66ef973482c683873083b92a09f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared223.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "79d6ffe2a8e5680b5ac8875412821036e78eea1c88ce04aca863375aaba96f92",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared256.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "f6f1d87dc5d8d10cad9a9cceda6c180e9f6e4fe25aecee31781891409c876c44",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared257.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "9026d0d4d8983d2d738035275221802cd7281377542c9a4aadff6260e94efcf5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declared300.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "51bf4107e6dbadd345ad2cf746a7815c7e16b42658b23c1ce0c21bcc638bfddc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declaredhighbit.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "a7668e5ea238e64ae0d62a0c99bd41401eaa59f1d2e7a471a6e05857453b09bb",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declaredmax.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "4729da0d2ad9e86974eca1203e79d1e62f3e99b626fea6f4fe3b38bd4fd6acf5",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2declaredones.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "f7319353b6e06cfab0df46b49c9a74a790093812954956c093bb96589caf46d2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2duplicatenegative.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "3affc62b1cf553303bff2091418a5544e015753f7ca02a7c5151e638221a200d",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2duplicatepositive.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "343de6a8906bb16444d36d3a1d3a54cb5e75f0dad0cbed205b9fc2c693793c1a",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2invalidbeforevalid.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "6d005ab9e1cccc2e31b3667039558e631d5c4e966d2aeca775c2c8940616c2d9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2lastcommnegative.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "c2d6ff160f0032d3a7e5167cce5315b4743147e74fd80a73e3032e9c0c66cd97",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2lastcommvalid.aiff"
+  },
+  {
+    "bytes": 648,
+    "sha256": "9cd411342e71d058f4e4e62fb740f2e94535beaa087ea419d5e72fe02cdbc77f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2lastcommzero.aiff"
+  },
+  {
+    "bytes": 622,
+    "sha256": "67be1a7d9034322194d607a90f9cfe32bbaec572f18119952c3c75841f575ced",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeaiffB8C2zeroboundary.aiff"
+  },
+  {
+    "bytes": 1466,
+    "sha256": "cd01870c9db2f8d878db545abfd08014b78879076edb93ef0658bfeae080e6bc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonofLaC.mp3"
+  },
+  {
+    "bytes": 1466,
+    "sha256": "fb18e98b3384dba39857f6609d29ddf6cb69275880e5adfa523dcfbf625fc5d3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoFORM.mp3"
+  },
+  {
+    "bytes": 1472,
+    "sha256": "2fb24c7caf896ddb034b67429d55a3f379fab0b3520221a8431b201755204657",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoID3v2.mp3"
+  },
+  {
+    "bytes": 1466,
+    "sha256": "b7be820539e3b5ad9f44ca0081a10571e2f1660556def619041785df90904c22",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoOggS.mp3"
+  },
+  {
+    "bytes": 1462,
+    "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoPlain.mp3"
+  },
+  {
+    "bytes": 1466,
+    "sha256": "42e1fd6b3f5764e4f808b03ab536c55c4bb5e8a34ccf464015ab1acbb5e11154",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoRIFF.mp3"
+  },
+  {
+    "bytes": 1466,
+    "sha256": "35ab3f06103528ef1378d9cf372760fa51c8961800c583e4cfd06012b11db781",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealMonoSCHl.mp3"
+  },
+  {
+    "bytes": 1675,
+    "sha256": "a622eb98053499a6297dc40367f41bc382fa66fbb5e2c782b3233f8c308be12f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereofLaC.mp3"
+  },
+  {
+    "bytes": 1675,
+    "sha256": "59085afee3e9e6e4e6e83d818276643c82147c62789d14f57221b6ba57c1a480",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoFORM.mp3"
+  },
+  {
+    "bytes": 1681,
+    "sha256": "df8804c8b5a2027c260158cd484cefd9787e59a4bff0d5c807d73365b9c456cf",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoID3v2.mp3"
+  },
+  {
+    "bytes": 1675,
+    "sha256": "a84d98ead76654a349d57219ad00270229b0460639c0c12af38fd0fa232055cc",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoOggS.mp3"
+  },
+  {
+    "bytes": 1671,
+    "sha256": "c89878dbab2e4e9e3d0b9a3c9fcae441d28207b38ead567d526153cba635fd18",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoPlain.mp3"
+  },
+  {
+    "bytes": 1675,
+    "sha256": "f40ff1ccac1e5fee5e0f521319f104daa85294be0a52eba9b399280fff914ac3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoRIFF.mp3"
+  },
+  {
+    "bytes": 1675,
+    "sha256": "d4e74823b16aa7c3d6997b4414500636d09a467592944eb2df7728b26694df74",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegRealStereoSCHl.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "860def57bab4eb5b4ba05287c171ea3ecb84f1e3f628b3d4b24f10575f6e5b57",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticMonoAA.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "64f894f041502e42db2f056ac2d1ca57990f6aca5fedcfab52c1afd7323ea124",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticMonoFF.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "4f4733c860a8ad76e3098a8d7b49febcbd82faef6d5be982ca849e71a5daa7d3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticMonoSeed.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "63e32b4e7000a7a283f39205a416b8109b882e4f80f80a77c3c33ce5692af8b3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticMonoZero.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "fbcfedae09da59a35adbd3acf4cab030ac013a16073e657beb8d61f7daca09fe",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticStereoAA.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "208a82d4e5597d4b064a4d43dac7498d000303e63263d6951e1bab29c3dd1355",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticStereoFF.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "d2f3ae93964c7f7e323ff73c2844a2796765ba3dd976a8850b9cb73a1361f7f4",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticStereoSeed.mp3"
+  },
+  {
+    "bytes": 728,
+    "sha256": "ceb7bb7627b44de65cb8a7c6ad9385f0330c1de00e5ae87e919d965c74e8efa2",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeMpegSyntheticStereoZero.mp3"
+  },
+  {
+    "bytes": 628,
+    "sha256": "1aa8799a6e508a777f21a6eada47347db8529ef25c376f886e5f7b2018792f36",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B16C1declared223.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "83c724e207c6e1f419ef2628d0480e338d2f8ba13c274d4c12e90ace5ce4a49f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B16C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1142,
+    "sha256": "e795f794336851b908b9d736b9b3af62b817a3d1c53312d6e32601edf56db99e",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B16C2declared223.aifc"
+  },
+  {
+    "bytes": 1168,
+    "sha256": "53fd966d095a02e28356ffc128ac379d178f69d5be5f5e4b016ee4f094f28aac",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B16C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 886,
+    "sha256": "ec389a0830d4d0277f89fc3833a7ee084ae9ec35ad4d8dd72559048c0119cfd3",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B24C1declared223.aifc"
+  },
+  {
+    "bytes": 912,
+    "sha256": "06e6a117e5905ac2cc3750d0b7a4ec23a4a861ae0617bca4fae7065179a3217f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B24C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1656,
+    "sha256": "389925f57a53b49d726c38d7c770f3410e8471dbd2de4e74118e5b679a697cff",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B24C2declared223.aifc"
+  },
+  {
+    "bytes": 1682,
+    "sha256": "72c7342d54337a5f19c250142f646f1e9897a119ee5b806198542a1505430451",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B24C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 372,
+    "sha256": "38fa41f648a181bd04c33f8bbf9b69987dc4a556684d68f4693e505d8d6d914b",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B8C1declared223.aifc"
+  },
+  {
+    "bytes": 398,
+    "sha256": "ae4a418f6fc031a37cba7cf7ec15505e09fa16c114ace2ff03b65dd83673ca01",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B8C1duplicatepositive.aifc"
+  },
+  {
+    "bytes": 628,
+    "sha256": "6f85a2d2c50de3e54dd93ee04557b7994165a385814f015fed73dbd299b21a2f",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B8C2declared223.aifc"
+  },
+  {
+    "bytes": 654,
+    "sha256": "08547c4033023f5a49fba9da703524000f2cf02edceadcda61caf8a228cedba9",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\PcMarkerRangeOffsetAdp4B8C2duplicatepositive.aifc"
+  },
+  {
+    "bytes": 1462,
+    "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.mp3"
+  },
+  {
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\probe.wav"
+  },
+  {
+    "bytes": 8922,
+    "sha256": "3c3d422ab85c68cb8234bff926e89b13a31e885622e4a76f749b1e45bb3b7b80",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-0.wav"
+  },
+  {
+    "bytes": 169602,
+    "sha256": "951882eebd5b20395a3e8fdfa6ea3d50c5f7e049db9746ff07f3171e92d5fe77",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\real-1.wav"
+  },
+  {
+    "bytes": 7,
+    "sha256": "ab249059a20423f52cb497742689208b98752c8f632a8f3fd9897e94d00c75da",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\track.mus"
+  },
+  {
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\music\\default.wav"
+  },
+  {
+    "bytes": 16428,
+    "sha256": "dfd0001cc6559c53469f867d2a6320a64ce4d72d1466c185bb4278f7295aa9d7",
+    "path": "Mods\\AudioRecoveryProbe\\Audio\\sounds\\default.wav"
+  },
+  {
+    "bytes": 419926,
+    "sha256": "7615f5406778fe415739543e63b2eea3e52abe50125688df685bb7aa488aeefd",
+    "path": "Mods\\AudioRecoveryProbe\\Data\\Mod.xml"
+  }
+]

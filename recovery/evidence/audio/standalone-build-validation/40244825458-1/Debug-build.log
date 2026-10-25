@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\src\AudioCompiler\BinaryAssetBuilder.AudioCompiler.csproj (in 73 ms).
+  BinaryAssetBuilder.AudioCompiler -> D:\a\_temp\audio-standalone-build-4d670fe0341d4dde839e91a930aeb8a0\Debug\BinaryAssetBuilder.AudioCompiler.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.97

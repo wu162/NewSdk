@@ -1,0 +1,4 @@
+mono-aifc-partial-ADP4-22-23:False:False:NULL:CUSTOM:<absent>
+mono-aifc-partial-ADP4-22-23:False:True:NULL:CUSTOM:<absent>
+mono-aifc-partial-ADP4-22-23:True:False:NULL:CUSTOM:<absent>
+mono-aifc-partial-ADP4-22-23:True:True:NULL:CUSTOM:<absent>

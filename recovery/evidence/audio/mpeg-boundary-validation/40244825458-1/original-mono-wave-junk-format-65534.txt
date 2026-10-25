@@ -1,0 +1,4 @@
+mono-wave-junk-format-65534:False:False:NULL:CUSTOM:<absent>
+mono-wave-junk-format-65534:False:True:NULL:CUSTOM:<absent>
+mono-wave-junk-format-65534:True:False:NULL:CUSTOM:<absent>
+mono-wave-junk-format-65534:True:True:NULL:CUSTOM:<absent>

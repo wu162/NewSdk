@@ -1,0 +1,32 @@
+{
+  "runAttempt": "1",
+  "scope": "Signed COMM-declared frame filtering before SSND correction; last COMM wins; selected out-of-range/negative marker skip preserves earlier valid duplicates; AIFF/AIFC NONE/raw ADP4 PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed and both rate directions; complete canonical comparisons",
+  "runId": "40244825458",
+  "sdkValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "originalRecords": 7776,
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "readerAssertions": 720,
+      "passed": true,
+      "recoveredSha256": "7563942fe2a4243be4ade81dbf9b0ebb67717db3e715b25b095cbbb9d32f3c19",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 7776,
+      "canonicalPairInvariants": 3888,
+      "transcriptSha256": "17764b791f30ccf69041c0653e5f09137b46ea5497a3d71e5e2e120579691ae5"
+    },
+    {
+      "configuration": "Release",
+      "readerAssertions": 720,
+      "passed": true,
+      "recoveredSha256": "fcdbefb74b561427c190009709c39bef4633e7b87b506f687e9b5a6f7de0a860",
+      "originalAbsentFromRecoveredHost": true,
+      "records": 7776,
+      "canonicalPairInvariants": 3888,
+      "transcriptSha256": "17764b791f30ccf69041c0653e5f09137b46ea5497a3d71e5e2e120579691ae5"
+    }
+  ],
+  "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37"
+}
