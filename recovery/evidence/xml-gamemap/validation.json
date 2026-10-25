@@ -1,0 +1,15 @@
+{
+  "succeeded": false,
+  "sourceCommit": "d7744d150c8715075a0262b8cc1d883ed14aefa9",
+  "runId": "40157685962",
+  "scope": "XmlCompiler gamemap single-root component; original ProcessInstance three buffers; SDK integration pending",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [],
+  "status": "failed",
+  "error": "Od original ProcessInstance differential failed (exit 1)"
+}

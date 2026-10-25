@@ -1,0 +1,6 @@
+System.Exception: import sorted owner then index ownerblock/value order 1
+   at XmlgamemapOracle.Check(Boolean test, String label)
+   at XmlgamemapOracle.Offsets(Byte[] bytes, UInt32[] expected, Boolean big, String label)
+   at XmlgamemapOracle.Abi(TargetPlatform p)
+   at XmlgamemapOracle.Matrix(TargetPlatform p)
+   at XmlgamemapOracle.Main(String[] args)

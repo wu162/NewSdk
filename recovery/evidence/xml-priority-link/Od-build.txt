@@ -30,6 +30,7 @@ XmlenvironmentCompiler.cpp
 XmlevaachievementCompiler.cpp
 XmlforcefeedbackCompiler.cpp
 XmlfxparticleCompiler.cpp
+XmlgamemapCompiler.cpp
 XmlgamescriptsCompiler.cpp
 XmlhealthbarsCompiler.cpp
 XmlhotkeymapsCompiler.cpp
@@ -39,9 +40,9 @@ XmlmapmetadataCompiler.cpp
 XmlmaterialrulesCompiler.cpp
 XmlmouseCompiler.cpp
 XmlmoviearchiveCompiler.cpp
-XmlmusicscriptCompiler.cpp
 Generating Code...
 Compiling...
+XmlmusicscriptCompiler.cpp
 XmlobjectsetsCompiler.cpp
 XmlpathmusicCompiler.cpp
 XmlplayersCompiler.cpp
@@ -61,9 +62,9 @@ XmltargetingCompiler.cpp
 XmlterrainCompiler.cpp
 XmltesttexturesCompiler.cpp
 XmluichatCompiler.cpp
-XmluidecalsCompiler.cpp
 Generating Code...
 Compiling...
+XmluidecalsCompiler.cpp
 XmluiimagesCompiler.cpp
 XmluisettingsCompiler.cpp
 XmluitacticalCompiler.cpp
@@ -83,9 +84,9 @@ Xmlcampaign.cpp
 Xmlchatcolors.cpp
 Xmlcommandset.cpp
 Xmlconditions.cpp
-Xmlconnections.cpp
 Generating Code...
 Compiling...
+Xmlconnections.cpp
 Xmlconquercards.cpp
 Xmlcontent.cpp
 Xmlcrowd.cpp
@@ -99,15 +100,16 @@ Xmlenvironment.cpp
 Xmlevaachievement.cpp
 Xmlforcefeedback.cpp
 Xmlfxparticle.cpp
+Xmlgamemap.cpp
 Xmlgamescripts.cpp
 Xmlhealthbars.cpp
 Xmlhotkeymaps.cpp
 Xmllocalization.cpp
 Xmllocomotor.cpp
-Xmlmapmetadata.cpp
-Xmlmaterialrules.cpp
 Generating Code...
 Compiling...
+Xmlmapmetadata.cpp
+Xmlmaterialrules.cpp
 Xmlmouse.cpp
 Xmlmoviearchive.cpp
 Xmlmusicscript.cpp
@@ -126,10 +128,10 @@ Xmlrenderdevice.cpp
 Xmlruntimeopaque.cpp
 Xmlsinglesound.cpp
 Xmlsoundmaps.cpp
-Xmlsystemsettings.cpp
-Xmltacticalhotkeys.cpp
 Generating Code...
 Compiling...
+Xmlsystemsettings.cpp
+Xmltacticalhotkeys.cpp
 Xmltargeting.cpp
 Xmlterrain.cpp
 Xmltesttextures.cpp

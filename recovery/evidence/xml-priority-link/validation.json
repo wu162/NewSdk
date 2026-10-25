@@ -1,9 +1,10 @@
 {
   "succeeded": true,
-  "sourceCommit": "0f0ab2fce098fef2d78d6a165f3f5ce86c591077",
-  "runId": "40142560815",
+  "sourceCommit": "d7744d150c8715075a0262b8cc1d883ed14aefa9",
+  "runId": "40157685962",
   "scope": "Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
+    "GameMap": 3575309793,
     "AttributeModifier": 3319822471,
     "FXList": 2254974584,
     "SpecialPowerTemplate": 2178440954,
@@ -292,7 +293,7 @@
     "MapMetaData": 1603703110,
     "GameScriptList": 3737094024
   },
-  "expectedTypes": 287,
+  "expectedTypes": 288,
   "expectedFixturesPerMode": 1148,
   "expectedComparisonsPerMode": 3444,
   "expectedCompletionFixturesPerMode": 200,
@@ -309,9 +310,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 287,
-      "fixtures": 1148,
-      "comparisons": 3444,
+      "types": 288,
+      "fixtures": 1152,
+      "comparisons": 3456,
       "completionFixtures": 200,
       "completionComparisons": 600,
       "platforms": [
@@ -607,7 +608,8 @@
         "W3DAnimationRuntime": 4,
         "W3DCollisionBox": 4,
         "MapMetaData": 4,
-        "GameScriptList": 4
+        "GameScriptList": 4,
+        "GameMap": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -896,10 +898,11 @@
         "W3DAnimationRuntime": "Recovered.W3DAnimationRuntimeCompiler",
         "W3DCollisionBox": "Recovered.W3DCollisionBoxCompiler",
         "MapMetaData": "Recovered.MapMetaDataCompiler",
-        "GameScriptList": "Recovered.GameScriptListCompiler"
+        "GameScriptList": "Recovered.GameScriptListCompiler",
+        "GameMap": "Recovered.GameMapCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "17fc0f1586142c5cb45619545ef6f3a0e2812309f613b4d11c9d1f15f69626d9",
+      "linkedAssemblySha256": "30d3c568de1088d94542d72896e8a65bafd9b6d48a28011043838f5150c09ef0",
       "log": "Od-oracle.txt"
     },
     {
@@ -907,9 +910,9 @@
       "succeeded": true,
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "types": 287,
-      "fixtures": 1148,
-      "comparisons": 3444,
+      "types": 288,
+      "fixtures": 1152,
+      "comparisons": 3456,
       "completionFixtures": 200,
       "completionComparisons": 600,
       "platforms": [
@@ -1205,7 +1208,8 @@
         "W3DAnimationRuntime": 4,
         "W3DCollisionBox": 4,
         "MapMetaData": 4,
-        "GameScriptList": 4
+        "GameScriptList": 4,
+        "GameMap": 4
       },
       "compilerClasses": {
         "AttributeModifier": "Recovered.AttributeModifierCompiler",
@@ -1494,10 +1498,11 @@
         "W3DAnimationRuntime": "Recovered.W3DAnimationRuntimeCompiler",
         "W3DCollisionBox": "Recovered.W3DCollisionBoxCompiler",
         "MapMetaData": "Recovered.MapMetaDataCompiler",
-        "GameScriptList": "Recovered.GameScriptListCompiler"
+        "GameScriptList": "Recovered.GameScriptListCompiler",
+        "GameMap": "Recovered.GameMapCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "f8a1e36d721464409cee7af7b25ca51cc235be99332027eda50e815980540258",
+      "linkedAssemblySha256": "935bb7357472c858fe813e7bc53e1c97d5985643c62ca178d1291822cbe2fb0d",
       "log": "O2-oracle.txt"
     }
   ],
@@ -1506,20 +1511,20 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "0f0ab2fce098fef2d78d6a165f3f5ce86c591077",
-      "runId": "40142560815",
+      "sourceCommit": "d7744d150c8715075a0262b8cc1d883ed14aefa9",
+      "runId": "40157685962",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "0f0ab2fce098fef2d78d6a165f3f5ce86c591077",
-      "runId": "40142560815",
+      "sourceCommit": "d7744d150c8715075a0262b8cc1d883ed14aefa9",
+      "runId": "40157685962",
       "processSucceeded": true
     }
   ],
-  "status": "All 287 exact compiler routes linked; default-root and 200 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
+  "status": "All 288 exact compiler routes linked; default-root and 200 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "sources": [
     {
@@ -1641,6 +1646,10 @@
     {
       "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
       "sha256": "90a626dbfd6abe82ced25ecfce9513ebef19051955fd53bb6ed0c3535217e91c"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlgamemapCompiler.cpp",
+      "sha256": "2096ad157261755f46da55fe2265bff5a386b0e263e03025a5090e87fbb3dddb"
     },
     {
       "path": "recovery/src/Bridge/XmlgamescriptsCompiler.cpp",
@@ -1893,6 +1902,10 @@
     {
       "path": "recovery/src/Native/Xmlfxparticle.cpp",
       "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96"
+    },
+    {
+      "path": "recovery/src/Native/Xmlgamemap.cpp",
+      "sha256": "8374d247efac6081c0371492ace9831aabc5b9be85b7ee09b539b0c04b2824b5"
     },
     {
       "path": "recovery/src/Native/Xmlgamescripts.cpp",
