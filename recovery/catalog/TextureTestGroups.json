@@ -542,6 +542,19 @@
       "manual_only": true,
       "evidence_only": true,
       "sdk": false
+    },
+    "dxt-blocks": {
+      "script": "recovery/scripts/InspectTextureDxtBlocks.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtBlocks.ps1",
+        "recovery/tests/TextureDxtBlockProbe.cs",
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-blocks/*/validation.json",
+      "manual_only": true,
+      "evidence_only": true,
+      "sdk": false
     }
   }
 }
