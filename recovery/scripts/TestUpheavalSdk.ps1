@@ -46,9 +46,41 @@ try {
   Get-ChildItem SDK -Force|Where-Object Name -notin @('Mods','builtmods')|Copy-Item -Destination $sdk -Recurse
   New-Item -ItemType Directory -Force "$sdk/Mods"|Out-Null
   Copy-Item SDK/Mods/Upheaval "$sdk/Mods/Upheaval" -Recurse
-  foreach($setter in @('SetXmlPriorityPlugin','SetGameObjectPlugin','SetWeaponPlugin','SetArmorPlugin')){
-   & "$PSScriptRoot/$setter.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode $mode
+  & "$PSScriptRoot/SetXmlPriorityPlugin.ps1" -SdkRoot $sdk -PluginDirectory $build -Mode $mode
+  # Replace all three Tokenizer routes atomically. Standalone setters require a
+  # remaining original Tokenizer entry and cannot remove its last type jointly.
+  $jointCfg="$sdk/tools/BinaryAssetBuilder.exe.config"
+  [xml]$joint=Get-Content $jointCfg -Raw
+  $plugins=$joint.configuration.assetbuilder.plugins
+  $tokenizer=@($plugins.plugin|Where-Object{$_.targetType -eq 'BinaryAssetBuilder.Tokenizer.Plugin, BinaryAssetBuilder.Tokenizer'})
+  if($tokenizer.Count -ne 1 -or (@($tokenizer[0].assetTypes.Split(',')|Sort-Object) -join ',') -ne 'ArmorTemplate,GameObject,WeaponTemplate'){throw 'Unexpected original Tokenizer routes'}
+  $plugins.RemoveChild($tokenizer[0])|Out-Null
+  $routes=@(
+   @{type='GameObject';target='Recovered.GameObject.Plugin, Recovered.GameObjectPlugin';dlls=@('Recovered.GameObjectPlugin.dll','Recovered.GameObject.dll')},
+   @{type='WeaponTemplate';target='Recovered.Weapon.Plugin, Recovered.WeaponPlugin';dlls=@('Recovered.WeaponPlugin.dll','Recovered.Weapon.dll')},
+   @{type='ArmorTemplate';target='Recovered.Compiler.Plugin, Recovered.Compiler';dlls=@('Recovered.Compiler.dll','Recovered.Armor.dll')}
+  )
+  foreach($route in $routes){
+   $entry=$joint.CreateElement('plugin')
+   $entry.SetAttribute('assetTypes',$route.type)
+   $entry.SetAttribute('targetType',$(if($mode -eq 'Recovered'){$route.target}else{'BinaryAssetBuilder.Tokenizer.Plugin, BinaryAssetBuilder.Tokenizer'}))
+   $entry.SetAttribute('enabled','true');$entry.SetAttribute('useBuildCache','false')
+   $plugins.AppendChild($entry)|Out-Null
+   if($mode -eq 'Recovered'){foreach($dll in $route.dlls){Copy-Item "$build/$dll" "$sdk/tools/$dll" -Force}}
   }
+  $seen=@{}
+  foreach($entry in @($plugins.plugin)){
+   foreach($type in $entry.assetTypes.Split(',')){
+    $type=$type.Trim()
+    if($seen.ContainsKey($type)){throw "Duplicate plugin route: $type"}
+    $seen[$type]=$entry.targetType
+   }
+  }
+  foreach($route in $routes){
+   $expected=if($mode -eq 'Recovered'){$route.target}else{'BinaryAssetBuilder.Tokenizer.Plugin, BinaryAssetBuilder.Tokenizer'}
+   if($seen[$route.type] -ne $expected){throw "Incorrect joint route: $($route.type)"}
+  }
+  $joint.Save($jointCfg)
   $cfg="$sdk/tools/BinaryAssetBuilder.exe.config"
   [xml]$config=Get-Content $cfg -Raw
   $route=@($config.configuration.assetbuilder.plugins.plugin|Where-Object{$_.assetTypes.Split(',') -contains 'W3DAnimation'})
