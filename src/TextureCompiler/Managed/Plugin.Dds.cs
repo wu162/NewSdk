@@ -72,7 +72,7 @@ namespace Recovered.Compiler.Texture
             bool big = _Platform != TargetPlatform.Win32;
             // OnDemandTexture root has only a zero runtime pointer and an enum.
             // The original writes the enum directly without an endian conversion.
-            uint type = textureType == "CubeTexture" ? 0u : textureType == "VolumeTexture" ? 1u : 2u;
+            uint type = textureType == "StandardTexture" ? 0u : textureType == "VolumeTexture" ? 1u : 2u;
             byte[] outer = new byte[8];
             Write32(outer, 4, type, false);
             byte[] header = new byte[32];

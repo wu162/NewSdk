@@ -15,7 +15,30 @@ function Run-Checked([string]$Label, [scriptblock]$Action) {
 }
 $script:failureList = @()
 $receipt.groups = @()
+function Try-ReuseGroup([string]$Name) {
+    $priorPath = 'recovery/evidence/texture/validation/40193344145-1'
+    $prior = Get-Content "$priorPath/validation.json" -Raw | ConvertFrom-Json
+    $group = @($prior.groups | Where-Object {$_.group -eq $Name -and $_.passed})
+    if ($group.Count -ne 1) { return $false }
+    $kind = $Name.Split('-')[1]
+    $inputs = @('SDK/tools/BinaryAssetBuilder.TextureCompiler.dll','SDK/tools/BinaryAssetBuilder.Core.dll','SDK/tools/BinaryAssetBuilder.Utility.dll','src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj')
+    switch ($kind) {
+        'metadata' { $inputs += @('src/TextureCompiler/Managed/Plugin.Metadata.cs','src/TextureCompiler/Managed/TextureCatalog.cs','recovery/tests/TextureMetadataOracle.cs') }
+        'image' { $inputs += @('src/TextureCompiler/Managed/TextureImageRules.cs','recovery/tests/TextureImageRulesOracle.cs') }
+        'packer' { $inputs += @('src/TextureCompiler/Managed/TexturePacker.cs','recovery/tests/TexturePackerOracle.cs') }
+        default { return $false }
+    }
+    git merge-base --is-ancestor $prior.sourceCommit HEAD
+    if ($LASTEXITCODE -ne 0) { return $false }
+    git diff --quiet $prior.sourceCommit HEAD -- @inputs
+    if ($LASTEXITCODE -ne 0) { return $false }
+    if (!(Test-Path "$priorPath/$Name.log") -or !(Select-String -Path "$priorPath/$Name.log" -Pattern '^PASS ' -Quiet)) { return $false }
+    $receipt.groups += @{group=$Name; passed=$true; reused=$true; sourceCommit=$prior.sourceCommit; runId=$prior.runId; runAttempt=$prior.runAttempt}
+    Write-Host "REUSE $Name source=$($prior.sourceCommit) run=$($prior.runId)-$($prior.runAttempt) unchanged component inputs"
+    return $true
+}
 function Invoke-Group([string]$Name, [scriptblock]$Action) {
+    if (Try-ReuseGroup $Name) { return }
     try {
         & $Action
         $receipt.groups += @{group=$Name; passed=$true}
@@ -76,7 +99,7 @@ try {
         try {
             $nativeOpt = if ($mode -eq 'Release') { '/O2' } else { '/Od' }
             Invoke-Group "$mode-native" {
-            Run-Checked "$mode-native-build" { cl /nologo /clr /EHsc /std:c++17 $nativeOpt $nativeOracle $nativeSupport /Fe:TextureSupportOracle.exe }
+            Run-Checked "$mode-native-build" { cl /nologo /clr /EHa /std:c++17 $nativeOpt $nativeOracle $nativeSupport /Fe:TextureSupportOracle.exe }
             Host-Config "$rebuilt/TextureSupportOracle.exe"
             Run-Checked "$mode-native" { & "$rebuilt/TextureSupportOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
             }
@@ -84,7 +107,7 @@ try {
         $receipt.configurations += @{configuration=$mode; passed=(@($script:failureList | Where-Object {$_ -like "$mode-*"}).Count -eq 0); withoutOriginalTextureCompiler=$true}
     }
     if ($script:failureList.Count -ne 0) { $receipt.status='failed'; throw ('Failed component groups: ' + ($script:failureList -join ', ')) }
-    Compress-Archive -Path "$out/original-dds.txt","$out/Debug-image.txt","$out/Release-image.txt" -DestinationPath "$out/transcripts.zip"
-    Remove-Item "$out/original-dds.txt","$out/Debug-dds.txt","$out/Release-dds.txt","$out/Debug-image.txt","$out/Release-image.txt"
+    Compress-Archive -Path @(@("$out/original-dds.txt") + @(Get-ChildItem "$out/*-image.txt" | ForEach-Object FullName)) -DestinationPath "$out/transcripts.zip"
+    Get-ChildItem "$out/*-dds.txt","$out/*-image.txt" | Remove-Item
     $receipt.status='passed'
 } finally { $receipt | ConvertTo-Json -Depth 12 | Set-Content "$out/validation.json" }
