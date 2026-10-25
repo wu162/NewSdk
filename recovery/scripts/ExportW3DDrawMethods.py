@@ -28,7 +28,7 @@ while queue:
  if sig in bodies:continue
  body=body_of(s,sig);bodies[sig]=body
  # Helper names are exact decorated names, not native size/name substring guesses.
- for helper in re.findall(r'\b((?:Marshaler_002EMarshal_|Marshaler_002EEndianCorrect_|Tokenizer_002ETokenize_)\w+)\(',body):queue.extend(signatures.get(helper,[]))
+ for helper in re.findall(r'\b((?:Marshaler_002E(?:Marshal|EndianCorrect)|Tokenizer_002ETokenize)\w+)\(',body):queue.extend(signatures.get(helper,[]))
  for name in set(re.findall(r'\(([A-Za-z][A-Za-z0-9_]*)\*+\)',body)):
   for sigs in signatures.values():
    for direct in sigs:
