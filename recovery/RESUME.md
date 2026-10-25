@@ -1,25 +1,11 @@
 # AudioCompiler 当前交接
 
-更新：2026-10-26（北京时间）。目标分支 `recovery/audio-compiler-source`；产品源码 `src/AudioCompiler`。先读 AGENTS.md、EFFICIENCY.md；禁止强推。
+2026-10-26（北京时间）；目标 `recovery/audio-compiler-source`；仅 PC / Win32。先读 AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推，非PC不再恢复。
 
-## 当前目标：PC / Win32
+已验收 `bb4a225` / [40243817293](https://github.com/wu162/NewSdk/actions/runs/40243817293)：循环元数据、有界SSND offset、原MPEG header/info完整组及旧受影响回归D/R通过；4488资产专用SDK的三缓冲区、四产物、CustomData一致，恢复侧无原AudioCompiler DLL。源码已移除透传流程不需要的NLayer解码限制/源码。
 
-仅支持 PC / Win32。所有非 Win32 目标均明确拒绝；非 PC 编码策略、属性路由、平台专用字节序分支和恢复规划已移除。保留的字节序处理均属于 PC 也需要的输入/编码格式。历史记录不代表当前支持其他平台。
+最终候选 `2d64684742f9b19808d8fd721fbe31a549907c37` / [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) **验证中**：COMM signed声明范围过滤7776记录、MPEG1084记录及72容器oracle，旧受影响组完整复验；全成功才跑新增1820资产SDK。不把旧4488收据改为本次新运行。
 
-当前 PC 能力：PathMusic、MP3 passthrough、AudioFile；PCM8/16/24 WAVE/AIFF、WAVE EXTENSIBLE 整数容器、AIFC/NONE、EA raw ADP4、NONE/PCM16 与 XAS v1 输出、filter120 重采样、已界定的 forward loop。SSND blockSize 任意 uint32 被忽略，非零 offset 仍拒绝。
+接下来：收取该终态并更新[索引](evidence/audio/acceptance-current.json)；通过后启动一次完整Upheaval音频替换门槛（`audio-upheaval-validation.yml` / `TestAudioUpheavalSdk.ps1`），然后合入compiler-source。最后exe工程尚未建立，不冒充exe集成完成。SDK/tools原DLL/config仍为基线。
 
-ADP4/SSND 已过真实插件 ProcessInstance 三缓冲区/CustomData 差分，**SDK 留待里程碑合批**。已有 EXTENSIBLE 与 AIFC/NONE 两个各120资产专用 SDK 批次通过；它们不是完整 Upheaval 验收，不能覆盖后续新增输入路径。
-
-## 下一轮
-
-1. 先读 [AUDIO_COMPILER](AUDIO_COMPILER.md) 的 PC 剩余边界及 [输入元数据](audio/InputMetadataBoundary.md)，按完整能力组决定是否扩展循环/元数据接受范围；原版不支持及未初始化内存行为不列为必补功能。
-2. 将 ADP4、SSND 等已积累输入能力合成一次最小合法 PC 音频 MOD，做 SDK 原/恢复版对照。不要重复运行未变且已有有效证据的组件。
-3. PC 范围满足后处理 `compiler-source` 合并、最终 exe 集成及完整 Upheaval 里程碑验收；目前生产 SDK DLL/config 未替换，最终 exe 未接入。
-
-源码 `376243310ad44a164c7ac29b100e5489c5d93928` / [40241451234](https://github.com/wu162/NewSdk/actions/runs/40241451234) 已通过 Win32-only 合批验证，源码树 `44d8089ff03c9af29c6e6cb12245eff8ba0c25c2`。每种 Debug/Release：元数据12,311项、PC插件路由2,175项及8项单帧安全拒绝、AIFC720项、ADP4 2,136项、SSND1,680项、非PC拒绝48项；PCM/XAS组件和整工程构建通过。仅对照Win32输出，其他平台只验证拒绝。SDK运行0次。
-
-精确收据见[验收索引](evidence/audio/acceptance-current.json)；PC剩余边界及后续集成见[AUDIO_COMPILER](AUDIO_COMPILER.md)。历史SDK成功仍只对应原提交，不代表本次清理后的SDK验收。
-
-**用户要求：不要频繁触发完整 SDK 真实验证。** 组件/插件差分优先，实际依赖变化组完整验证，SDK 按更大里程碑显式合批。
-
-其他子系统历史按[整理前导航](https://github.com/wu162/NewSdk/blob/36880397ce00f18690edf21e78bc68b39736eac4/recovery/RESUME.md)按需读取，不将旧整树 SDK 证明套到当前源码。
+详细支持范围、安全拒绝、固定输入及精确证据只维护在AUDIO_COMPILER和其分组链接。完整Upheaval全WAV，不能替代COMM/AIFF SDK。SDK继续里程碑合批，不重复未变成功范围。

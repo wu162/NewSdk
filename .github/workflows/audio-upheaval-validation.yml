@@ -14,7 +14,7 @@ jobs:
   validate:
     if: contains(github.event.head_commit.message, '[audio-input-upheaval]')
     runs-on: windows-2022
-    timeout-minutes: 45
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -25,9 +25,22 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+      - name: Verify accepted AudioCompiler source tree
+        shell: pwsh
+        run: |
+          $acceptance = Get-Content recovery/evidence/audio/acceptance-current.json -Raw | ConvertFrom-Json
+          $current = $acceptance.currentValidation
+          if ($current.status -ne 'passed') { throw 'Current complete component milestone has not passed' }
+          $tree = (git rev-parse HEAD:src/AudioCompiler).Trim()
+          if ($LASTEXITCODE -ne 0 -or $tree -ne $current.sourceTree) { throw 'Audio source changed after component acceptance' }
+          $sdk = Get-Content "recovery/evidence/audio/sdk-validation/$($current.runId)-$($current.attempt)/validation.json" -Raw | ConvertFrom-Json
+          if (!$sdk.succeeded -or $sdk.sourceCommit -ne $current.sourceCommit -or $sdk.profile -ne 'create-marker-range' -or $sdk.expectedAssets -ne 1820) { throw 'New COMM/MPEG SDK milestone is missing or incomplete' }
+          $originalHash = (Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant()
+          if ($originalHash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
+          Write-Host "Reusing accepted source $($current.sourceCommit), tree $tree, component/SDK run $($current.runId); no repeated component execution"
       - name: Complete pinned Upheaval original and audio replacement
         shell: pwsh
-        run: ./recovery/scripts/TestAudioUpheavalSdk.ps1 -ModSourcePath upheaval-input/SDK/Mods/Upheaval
+        run: ./recovery/scripts/TestAudioUpheavalSdk.ps1 -ModSourcePath upheaval-input/SDK/Mods/Upheaval -TimeoutSeconds 600
       - uses: actions/upload-artifact@v4
         if: always()
         with:
