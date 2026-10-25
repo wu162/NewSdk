@@ -1,0 +1,33 @@
+name: Texture PNG RGB16 native layout evidence
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'recovery/tests/TexturePngRgb16Probe.cs'
+      - 'recovery/scripts/InspectTexturePngRgb16.ps1'
+      - '.github/workflows/texture-png-rgb16-rgb16-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  png:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Validate declared PNG decoding and rejection boundaries
+        shell: pwsh
+        run: ./recovery/scripts/InspectTexturePngRgb16.ps1
+      - name: Preserve pixel evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-png-rgb16-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/png-rgb16/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Commit PNG subset validation evidence
+        shell: pwsh
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/png-rgb16/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record png component probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
