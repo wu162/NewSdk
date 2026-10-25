@@ -9,6 +9,13 @@ using namespace BinaryAssetBuilder::Core;
 using namespace msclr::interop;
 namespace Recovered {
 public ref class GameObjectCompiler abstract sealed {
+    // XIncludingReader supplies xml:base/xml:lang context after schema processing.
+    // These XML context annotations have no native binary members.
+    static bool IsXmlContextAttribute(XPathNavigator^ attribute) {
+        return attribute->NamespaceURI=="http://www.w3.org/2000/xmlns/" ||
+            (attribute->NamespaceURI=="http://www.w3.org/XML/1998/namespace" &&
+             (attribute->LocalName=="base" || attribute->LocalName=="lang"));
+    }
     static void NoStructuredText(XPathNavigator^ node) {
         auto contents=node->SelectChildren(XPathNodeType::All);
         while(contents->MoveNext()) if((contents->Current->NodeType==XPathNodeType::Text || contents->Current->NodeType==XPathNodeType::SignificantWhitespace) && contents->Current->Value->Trim()->Length!=0)
@@ -19,7 +26,7 @@ public ref class GameObjectCompiler abstract sealed {
         array<String^>^ allowed={"id","Rule","Relationship","Alignment","Include","Exclude","StatusBitFlags","StatusBitFlagsExclude"};
         auto a=node->Clone();
         if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported dependency filter attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
@@ -28,7 +35,7 @@ public ref class GameObjectCompiler abstract sealed {
             auto child=nodes->Current;
             if(child->NamespaceURI!=node->NamespaceURI || (child->LocalName!="IncludeThing" && child->LocalName!="ExcludeThing") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported dependency filter child.");
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported filter thing attribute.");
+                if(!IsXmlContextAttribute(attrs) && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported filter thing attribute.");
             } while(attrs->MoveToNextAttribute());
             Native::GameObjectChild thing;thing.name=marshal_as<std::string>(child->LocalName);thing.text=marshal_as<std::string>(child->Value);result.children.push_back(thing);
         }
@@ -39,7 +46,7 @@ public ref class GameObjectCompiler abstract sealed {
         array<String^>^ allowed={"RequiredModelConditionsAny","ForbiddenModelConditions","RequiredObjectStatusAny"};
         auto a=node->Clone();
         if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported GameDependency attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
@@ -52,7 +59,7 @@ public ref class GameObjectCompiler abstract sealed {
             }
             if((child->LocalName!="RequiredObject" && child->LocalName!="ForbiddenUpgrade" && child->LocalName!="NeededUpgrade") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported GameDependency child.");
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported dependency list attribute.");
+                if(!IsXmlContextAttribute(attrs) && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported dependency list attribute.");
             } while(attrs->MoveToNextAttribute());
             Native::GameObjectChild value;value.name=marshal_as<std::string>(child->LocalName);value.text=marshal_as<std::string>(child->Value);result.children.push_back(value);
         }
@@ -70,7 +77,7 @@ public ref class GameObjectCompiler abstract sealed {
         array<String^>^ projectionAttributes={"Radius","RadiusY","BuildPlacementTypes","StatusToReject","ModelConditionsToReject","AllowedBuildabilityHeightVariation","PrimaryBuidability"};
         auto allowed=crusher?crushAttributes:projectionAttributes;
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             // CrusherInfo.id is XSD pipeline-only and has no native member.
             if(crusher && a->NamespaceURI->Length==0 && a->LocalName=="id") continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported crush/placement attribute.");
@@ -87,7 +94,7 @@ public ref class GameObjectCompiler abstract sealed {
             if(child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Nested ExtraCrushLevels content.");
             Native::GameObjectChild level;level.name="ExtraCrushLevels";
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
                 if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="CrusherLevel" && attrs->LocalName!="CrushableLevel" && attrs->LocalName!="ModelConditionMatch")) throw gcnew NotSupportedException("Unsupported ExtraCrushLevels attribute.");
                 level.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
@@ -105,7 +112,7 @@ public ref class GameObjectCompiler abstract sealed {
         else if(name=="RotationAnchorOffset") allowed=gcnew array<String^>{"x","y"};
         else allowed=gcnew array<String^>{"x","y","z"};
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported Geometry attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
@@ -123,7 +130,7 @@ public ref class GameObjectCompiler abstract sealed {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         bool sound=node->LocalName=="AudioArraySound",voice=node->LocalName=="AudioArrayVoice";
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported audio array attribute.");
+            if(!IsXmlContextAttribute(a) && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported audio array attribute.");
         } while(a->MoveToNextAttribute());
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
@@ -131,7 +138,7 @@ public ref class GameObjectCompiler abstract sealed {
             if(child->NamespaceURI!=node->NamespaceURI || (voice?(child->LocalName!="AudioEntry" && child->LocalName!="ObjectSpecificEntry" && child->LocalName!="NamedEntry"):(sound?child->LocalName!="AudioEntry":child->LocalName!="EvaEntry")) || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported audio array entry.");
             Native::GameObjectChild entry;entry.name=marshal_as<std::string>(child->LocalName);
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
                 bool allowed=voice?(attrs->LocalName=="Sound" || attrs->LocalName=="EvaEvent" || (child->LocalName!="NamedEntry" && attrs->LocalName=="AudioType") || (child->LocalName=="NamedEntry" && attrs->LocalName=="Name") || (child->LocalName=="ObjectSpecificEntry" && attrs->LocalName=="TargetObject")):(sound?(attrs->LocalName=="Sound" || attrs->LocalName=="AudioType"):(attrs->LocalName=="EvaEvent" || attrs->LocalName=="EvaType"));
                 if(attrs->NamespaceURI->Length!=0 || !allowed) throw gcnew NotSupportedException("Unsupported audio entry attribute.");
                 entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
@@ -143,7 +150,7 @@ public ref class GameObjectCompiler abstract sealed {
     static Native::GameObjectChild ReadSkirmishAI(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             if(a->NamespaceURI->Length!=0 || !Native::GameObjectAIAttributeSupported(result.name,marshal_as<std::string>(a->LocalName))) throw gcnew NotSupportedException("Unsupported SkirmishAI attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
@@ -161,7 +168,7 @@ public ref class GameObjectCompiler abstract sealed {
     static Native::GameObjectChild ReadSoundSelectorOverride(XPathNavigator^ node,unsigned kind) {
         Native::GameObjectChild result;result.name="Override";
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
             bool allowed=kind==15?(a->LocalName=="RequiredModelConditions" || a->LocalName=="ConflictingModelConditions"):(a->LocalName=="RequiredFlags" || a->LocalName=="ExcludedFlags");
             allowed=allowed || (kind!=16 && a->LocalName=="VoicePriorityOverride");
             if(a->NamespaceURI->Length!=0 || !allowed) throw gcnew NotSupportedException("Unsupported sound selector override attribute.");
@@ -175,7 +182,7 @@ public ref class GameObjectCompiler abstract sealed {
             if(audio) {if(!seen->Add(name)) throw gcnew NotSupportedException("Duplicate sound selector audio array.");result.children.push_back(ReadAudioArray(child));continue;}
             if(kind!=15 || (name!="RequiredUpgrade" && name!="ConflictingUpgrade") || child->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported sound selector override child.");
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported selector upgrade attribute.");
+                if(!IsXmlContextAttribute(attrs) && !(attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported selector upgrade attribute.");
             } while(attrs->MoveToNextAttribute());
             Native::GameObjectChild entry;entry.name=marshal_as<std::string>(name);entry.text=marshal_as<std::string>(child->Value);result.children.push_back(entry);
         }
@@ -183,19 +190,19 @@ public ref class GameObjectCompiler abstract sealed {
     }
     static Native::GameObjectChild ReadMotionMovement(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name="Movement";
-        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {if(a->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement attribute.");}while(a->MoveToNextAttribute());
+        auto a=node->Clone();if(a->MoveToFirstAttribute()) do {if(!IsXmlContextAttribute(a) && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement attribute.");}while(a->MoveToNextAttribute());
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
             auto child=nodes->Current;if(child->NamespaceURI!=node->NamespaceURI) throw gcnew NotSupportedException("Unsupported Movement namespace.");
             Native::GameObjectChild move;move.name=marshal_as<std::string>(child->LocalName);std::string typeId=marshal_as<std::string>(child->GetAttribute("TypeId",""));move.attributes["TypeId"]=typeId;
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+                if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
                 if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectMotionMoveAttribute(typeId,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported typed Movement attribute.");
                 move.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             }while(attrs->MoveToNextAttribute());
             auto paths=child->SelectChildren(XPathNodeType::Element);while(paths->MoveNext()) {
                 auto path=paths->Current;if(!Native::GameObjectMotionMovePaths(typeId) || path->LocalName!="Path" || path->NamespaceURI!=node->NamespaceURI || path->SelectChildren(XPathNodeType::Element)->MoveNext()) throw gcnew NotSupportedException("Unsupported typed Movement child.");
-                auto pa=path->Clone();if(pa->MoveToFirstAttribute()) do {if(pa->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(pa->NamespaceURI->Length==0 && pa->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement Path attribute.");}while(pa->MoveToNextAttribute());
+                auto pa=path->Clone();if(pa->MoveToFirstAttribute()) do {if(!IsXmlContextAttribute(pa) && !(pa->NamespaceURI->Length==0 && pa->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported Movement Path attribute.");}while(pa->MoveToNextAttribute());
                 Native::GameObjectChild item;item.name="Path";item.text=marshal_as<std::string>(path->Value);move.children.push_back(item);
             }
             NoStructuredText(child);result.children.push_back(move);
@@ -204,15 +211,15 @@ public ref class GameObjectCompiler abstract sealed {
     }
     static Native::GameObjectChild ReadDrawShaderConstants(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name="Constants";
-        auto a=node->Clone();if(a->MoveToFirstAttribute())do{if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Constants attribute.");}while(a->MoveToNextAttribute());
+        auto a=node->Clone();if(a->MoveToFirstAttribute())do{if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Constants attribute.");}while(a->MoveToNextAttribute());
         NoStructuredText(node);auto rows=node->SelectChildren(XPathNodeType::Element);
         while(rows->MoveNext()){
             auto row=rows->Current;if(row->NamespaceURI!=node->NamespaceURI)throw gcnew NotSupportedException("Foreign shader constant.");Native::GameObjectChild entry;entry.name=marshal_as<std::string>(row->LocalName);
-            auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="Name" && attrs->LocalName!="TypeId"))throw gcnew NotSupportedException("Unsupported shader constant attribute.");entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
+            auto attrs=row->Clone();if(attrs->MoveToFirstAttribute())do{if(IsXmlContextAttribute(attrs))continue;if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="Name" && attrs->LocalName!="TypeId"))throw gcnew NotSupportedException("Unsupported shader constant attribute.");entry.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);}while(attrs->MoveToNextAttribute());
             auto type=entry.attributes.find("TypeId");auto id=type==entry.attributes.end()?0:Native::ParseUnsigned(type->second);bool known=id==2750958653u || id==2300057986u || id==2777716390u || id==3741900581u;unsigned count=0;
             NoStructuredText(row);auto values=row->SelectChildren(XPathNodeType::Element);while(values->MoveNext()){
                 auto value=values->Current;if(!known || value->NamespaceURI!=row->NamespaceURI || value->LocalName!="Value" || (++count>1 && id!=3741900581u) || value->SelectChildren(XPathNodeType::Element)->MoveNext())throw gcnew NotSupportedException("Unsupported or duplicate shader constant Value.");
-                auto va=value->Clone();if(va->MoveToFirstAttribute())do{if(va->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (va->NamespaceURI->Length==0 && va->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Value attribute.");}while(va->MoveToNextAttribute());
+                auto va=value->Clone();if(va->MoveToFirstAttribute())do{if(IsXmlContextAttribute(va) || (va->NamespaceURI->Length==0 && va->LocalName=="TypeId"))continue;throw gcnew NotSupportedException("Unsupported shader Value attribute.");}while(va->MoveToNextAttribute());
                 Native::GameObjectChild v;v.name="Value";v.text=marshal_as<std::string>(value->Value);entry.children.push_back(v);
             }
             result.children.push_back(entry);
@@ -227,7 +234,7 @@ public ref class GameObjectCompiler abstract sealed {
         if(!shape) throw gcnew NotSupportedException("Unsupported Upgrade nested node.");
         if((kind==278 && path=="CanEnterFilter") || (kind>=280 && kind<=282 && (path=="FadeFilter" || path=="PassengerFilter" || path=="PassengerData/Filter")) || (kind>=270 && kind<=277 && (path=="PassengerFilter" || path=="PassengerData/Filter" || (kind==277 && path=="CanAlwaysEnterObjectFilter"))) || (kind==254 && (path=="InstaKillObjectFilter" || path=="CollidesWithOnTeleport")) || (kind==256 && path=="Filter") || (kind==259 && (path=="Filter" || path=="KillFilter")) || (kind==262 && path=="ObjectEffectTuple/ObjectFilter") || (kind==247 && (path=="AllowFilter" || path=="ContainerFilter")) || (kind==249 && path=="Queries/ObjectFilter") || (kind==250 && (path=="TauntAndPointExcluded" || path=="AfraidOf" || path=="AlwaysAfraidOf" || path=="PointAt")) || (kind==224 && path=="PreventEnteringFilter") || (kind==217 && path=="ReplaceObjectNugget/TargetObjectFilter") || (kind==218 && (path=="ObjectFilter" || path=="IgnoreInsideToInsideCheck")) || (kind==214 && (path=="NearestSecondaryObjectFilter" || path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || (kind==206 && path=="AttributeModifierAffects") || (kind==207 && path=="AcceptanceFilter") || (kind==198 && path=="NearestSecondaryObjectFilter") || (((kind>=198 && kind<=199) || (kind>=162 && kind<=190)) && (path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || ((kind>=165 && kind<=187) && (path=="CombineWithObjectFilter" || path=="AcceptObjectFilter")) || ((kind>=162 && kind<=190) && (path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || (kind==119 && (path=="HintObject/ObjectFilter" || path=="PlacementRestriction/RestrictedObjectFilter")) || (kind==120 && path=="RequirementObjectFilter") || ((kind==112 || kind==115 || kind==116) && path=="ForVoiceRetreatThisIsASafeHarborToObjectFilter") || (kind==118 && path=="Filter") || path=="ObjectFilter" || path=="BroadcastObjectFilter" || path=="ProductionModifier/ModifierFilter" || (kind==103 && path=="BlockingUnits") || (kind==129 && path=="CanParkHereFilter") || (kind==137 && path=="ConnectingObjectFilter") || (kind==141 && path=="AcceptableFriends") || (kind==146 && path=="RequiresNearbyObjectFilter") || (kind==149 && (path=="DamageFilter" || path=="HealFilter")) || (kind==151 && path=="Filter") || (kind==161 && path=="KeepAliveObjectFilter") || ((kind==91 || (kind>=104 && kind<=111)) && path.size()>=7 && path.substr(path.size()-7)=="/Filter")) {auto filter=ReadDependencyFilter(node);filter.name=marshal_as<std::string>(node->LocalName);return filter;}
         auto attrs=node->Clone();if(attrs->MoveToFirstAttribute()) do {
-            if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
+            if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
             if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectModuleNodeAttribute(kind,path,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported Upgrade nested attribute.");
             result.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
         }while(attrs->MoveToNextAttribute());
@@ -242,7 +249,7 @@ public ref class GameObjectCompiler abstract sealed {
     static Native::GameObjectChild ReadModules(XPathNavigator^ node) {
         Native::GameObjectChild result;result.name=marshal_as<std::string>(node->LocalName);
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
-            if(a->NamespaceURI!="http://www.w3.org/2000/xmlns/" && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported module container attribute.");
+            if(!IsXmlContextAttribute(a) && !(a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) throw gcnew NotSupportedException("Unsupported module container attribute.");
         } while(a->MoveToNextAttribute());
         auto nodes=node->SelectChildren(XPathNodeType::Element);
         while(nodes->MoveNext()) {
@@ -250,8 +257,8 @@ public ref class GameObjectCompiler abstract sealed {
             if(child->NamespaceURI!=node->NamespaceURI || !Native::GameObjectModuleChildSupported(result.name,item.name)) throw gcnew NotSupportedException("Unsupported module child structure.");
             auto typeId=marshal_as<std::string>(child->GetAttribute("TypeId",""));
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
-                if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
-                if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="id" && attrs->LocalName!="TypeId" && !Native::GameObjectModuleAttributeSupported(typeId,marshal_as<std::string>(attrs->LocalName)))) throw gcnew NotSupportedException("Unsupported module attribute.");
+                if(IsXmlContextAttribute(attrs)) continue;
+                if(attrs->NamespaceURI->Length!=0 || (attrs->LocalName!="id" && attrs->LocalName!="TypeId" && !Native::GameObjectModuleAttributeSupported(typeId,marshal_as<std::string>(attrs->LocalName)))) throw gcnew NotSupportedException("Unsupported module attribute: "+child->LocalName+"."+attrs->LocalName+" {"+attrs->NamespaceURI+"} TypeId="+child->GetAttribute("TypeId",""));
                 item.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
             } while(attrs->MoveToNextAttribute());
             if(unsigned kind=Native::GameObjectSoundSelectorKind(typeId)) {
@@ -289,7 +296,7 @@ public ref class GameObjectCompiler abstract sealed {
                 if(entry.name=="DieMuxData") {if(dieMuxSeen) throw gcnew NotSupportedException("Duplicate DieMuxData.");dieMuxSeen=true;}
                 if(entry.name=="ObjectStatusValidation") {if(validationSeen) throw gcnew NotSupportedException("Duplicate ObjectStatusValidation.");validationSeen=true;}
                 auto a=value->Clone();if(a->MoveToFirstAttribute()) do {
-                    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+                    if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
                     if(a->NamespaceURI->Length!=0 || (entry.name=="Key" || entry.name=="UpgradeRequired" || entry.name=="UpgradeForbidden" || entry.name=="TriggeredBy" || entry.name=="ConflictsWith") || !(entry.name=="DamageRangeModifier"?(a->LocalName=="Min" || a->LocalName=="Max" || a->LocalName=="AttributeModifier"):Native::GameObjectModuleNestedAttributeSupported(typeId,entry.name,marshal_as<std::string>(a->LocalName)))) throw gcnew NotSupportedException("Unsupported nested module attribute.");
                     entry.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
                 } while(a->MoveToNextAttribute());
@@ -306,7 +313,7 @@ public:
         if(node->LocalName!="GameObject" || node->NamespaceURI!="uri:ea.com:eala:asset") throw gcnew NotSupportedException("Expected GameObject asset element.");
         auto nav=node->CreateNavigator();auto attrs=nav->Clone();std::map<std::string,std::string> input;
         if(attrs->MoveToFirstAttribute()) do {
-            if(attrs->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
+            if(IsXmlContextAttribute(attrs)) continue;
             if(attrs->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject attribute.");
             if(attrs->LocalName=="id" || attrs->LocalName=="TypeId") continue;
             input[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
@@ -341,7 +348,7 @@ public:
                     Native::GameObjectChild upgrade;upgrade.name=marshal_as<std::string>(value->LocalName);upgrade.text=marshal_as<std::string>(value->Value);
                     auto va=value->Clone();
                     if(va->MoveToFirstAttribute()) do {
-                        if(va->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
+                        if(IsXmlContextAttribute(va)) continue;
                         if(va->NamespaceURI->Length!=0 || (va->LocalName!="TypeId" && !(resourceInfo && (va->LocalName=="Account" || va->LocalName=="Amount")))) throw gcnew NotSupportedException("Unsupported nested list attribute.");
                         if(va->LocalName!="TypeId") upgrade.attributes[marshal_as<std::string>(va->LocalName)]=marshal_as<std::string>(va->Value);
                     } while(va->MoveToNextAttribute());
@@ -354,7 +361,7 @@ public:
             }
             auto a=child->Clone();
             if(a->MoveToFirstAttribute()) do {
-                if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/") continue;
+                if(IsXmlContextAttribute(a)) continue;
                 if(a->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject child attribute.");
                 if(a->LocalName=="TypeId") continue;
                 bool allowed=(name=="AutoResolveArmor" && a->LocalName=="Armor") || (name=="AutoResolveWeapon" && a->LocalName=="Weapon") || (name=="DisplayColor" && (a->LocalName=="R" || a->LocalName=="G" || a->LocalName=="B" || a->LocalName=="A")) ||

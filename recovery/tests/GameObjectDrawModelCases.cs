@@ -37,6 +37,13 @@ partial class GameObjectOracle {
         Reject(p,"","<ProjectedBuildabilityInfo id='x'/>");
         bool big=p!=TargetPlatform.Win32;
         for(int g=0;g<5;++g){
+            var plainContext=Check(original,p,"",DrawModelXML(g));
+            var includedContext=Check(original,p,"xml:base='file:///mod.xml' xml:lang='en'",DrawModelXML(g,"xml:base='file:///included.xml' xml:lang='en'"));
+            Equal(plainContext.InstanceData,includedContext.InstanceData,"XInclude XML context instance",false);
+            Equal(plainContext.RelocationData,includedContext.RelocationData,"XInclude XML context relocation",false);
+            Equal(plainContext.ImportsData,includedContext.ImportsData,"XInclude XML context imports",false);
+            Check(original,p,"",DrawModelXML(g,"","<ModelConditionState xml:base='file:///state.xml' xml:lang='en'><Model xml:base='file:///model.xml'/></ModelConditionState>"));
+            Reject(p,"",DrawModelXML(g,"xmlns:f='foreign' f:base='invalid'"));
             DrawModelDefaults(Check(original,p,"",DrawModelXML(g)).InstanceData,g,big);DrawModelTokens(Check(original,p,"",DrawModelXML(g)).InstanceData,g,big);DrawModelNested(original,p,g);
             foreach(Field f in DrawModelRootFields)foreach(string value in DrawModelSamples(f))DrawModelTokens(Check(original,p,"",DrawModelXML(g,f.Name+"='"+Escape(value)+"'")).InstanceData,g,big);
             foreach(Field f in DrawModelOwnFields[g])foreach(string value in DrawModelSamples(f))DrawModelTokens(Check(original,p,"",DrawModelXML(g,f.Name+"='"+Escape(value)+"'")).InstanceData,g,big);

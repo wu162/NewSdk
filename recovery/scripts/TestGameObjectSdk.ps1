@@ -36,6 +36,7 @@ foreach ($file in @(Get-ChildItem SDK/Mods/recoverydraw -Recurse -File) + @(Get-
 $inputs | ConvertTo-Json -Depth 5 | Set-Content "$report/input-sha256.json"
 Copy-Item SDK/Mods/recoverydraw "$report/recoverydraw-source" -Recurse -Force
 $results = @()
+# Full mymod also covers the xml:base/xml:lang annotations injected by its XIncludes.
 foreach ($modName in @('recoverydraw', 'mymod')) {
     $modReport = Join-Path $report $modName
     New-Item -ItemType Directory -Force $modReport | Out-Null
