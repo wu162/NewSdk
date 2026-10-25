@@ -1,0 +1,39 @@
+name: Texture raw DDS original evidence
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'recovery/tests/TextureRawDdsOracle.cs'
+      - 'recovery/scripts/InspectTextureRawDds.ps1'
+      - '.github/workflows/texture-raw-dds-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect original DDS encoder output
+        shell: pwsh
+        run: ./recovery/scripts/InspectTextureRawDds.ps1
+      - name: Preserve evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-raw-dds-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/raw-dds-probe/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save immutable original evidence
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/texture/raw-dds-probe/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "texture: record original raw DDS outputs $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
