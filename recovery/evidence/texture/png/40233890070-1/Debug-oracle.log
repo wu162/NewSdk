@@ -1,0 +1,4 @@
+DIFFERENCE c2-d16-i0-meta1-p0 alpha=False/False first=3 pixels=FF0805FF/FF080500
+System.IO.InvalidDataException: PNG pixels/alpha differ: c2-d16-i0-meta1-p0
+   at TexturePngOracle.Compare(StreamWriter transcript, String path, String label, Byte[] bytes, Boolean probe)
+   at TexturePngOracle.Main(String[] args)

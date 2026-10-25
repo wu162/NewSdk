@@ -1,0 +1,4 @@
+System.Exception: 0/png/c2d16i0t1/Texture/A8R8G8B8/False/StandardTexture/False instance byte=154 original=255 recovered=0
+   at TextureRasterPipelineOracle.Equal(Byte[] a, Byte[] b, String label)
+   at TextureRasterPipelineOracle.Case(IAssetBuilderPlugin original, IAssetBuilderPlugin recovered, String work, String label, String root, String file, String kind, String format, Boolean stale, Boolean mips)
+   at TextureRasterPipelineOracle.Main(String[] args)

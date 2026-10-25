@@ -1,0 +1,9 @@
+{
+  "scope": "PNG/BMP actual ProcessInstance; PC/PS3 standard/volume; raw/mips; three buffers/full cdata",
+  "runAttempt": "1",
+  "sourceCommit": "274b29061d340295e274a74e416159f085f335d2",
+  "runId": "40233890070",
+  "status": "started",
+  "sdkValidated": false,
+  "configurations": []
+}

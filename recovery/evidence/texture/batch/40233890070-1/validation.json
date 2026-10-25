@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "274b29061d340295e274a74e416159f085f335d2",
+  "selected": [
+    "cubic",
+    "png",
+    "raster-images",
+    "png-ranges"
+  ],
+  "runId": "40233890070",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "bmp"
+  ],
+  "status": "failed",
+  "groups": [
+    {
+      "group": "cubic",
+      "passed": true
+    },
+    {
+      "error": "Debug-oracle failed",
+      "group": "png",
+      "passed": false
+    },
+    {
+      "error": "Debug-oracle failed",
+      "group": "raster-images",
+      "passed": false
+    },
+    {
+      "error": "Debug-range failed",
+      "group": "png-ranges",
+      "passed": false
+    }
+  ],
+  "runAttempt": "1"
+}
