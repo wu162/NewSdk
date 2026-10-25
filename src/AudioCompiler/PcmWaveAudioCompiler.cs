@@ -9,28 +9,21 @@ namespace BinaryAssetBuilder.AudioCompiler
     // subset, including supported forward loops and filter 120 rate conversion. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
-        private static readonly bool[] compressionWarnings = new bool[3];
+        private static bool compressionWarning;
         public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new NotSupportedException("Xbox 360 audio compilation is outside the supported platform scope.");
+            AudioCatalog.RequireWin32(platform);
             XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
             string file = attrs["File"].Value;
-            string prefix;
-            switch (platform)
-            {
-                case TargetPlatform.Win32: prefix = "PC"; break;
-                case TargetPlatform.PlayStation3: prefix = "PS3"; break;
-                default: throw new BinaryAssetBuilderException((ErrorCode)1, "Internal error: unknown platform {0}", platform);
-            }
-            int? compression = Compression(attrs[prefix + "Compression"], platform);
+            const string prefix = "PC";
+            int? compression = Compression(attrs[prefix + "Compression"]);
             string streamedKey = "IsStreamedOn" + prefix;
             bool? streamed = attrs[streamedKey] == null ? (bool?)null : Bool(attrs[streamedKey].Value);
             AudioEncodingPolicy policy = AudioEncodingPolicy.Select((int)platform, file, compression, streamed);
-            if (policy.CompressionWarning && !compressionWarnings[(int)platform])
+            if (policy.CompressionWarning && !compressionWarning)
             {
                 Console.WriteLine("WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed");
-                compressionWarnings[(int)platform] = true;
+                compressionWarning = true;
             }
             byte[] wave;
             try { wave = File.ReadAllBytes(file); }
@@ -59,7 +52,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 policy.SampleRepresentation == 1 ?
                 Pcm16Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed) :
                 Xas1Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed);
-            PathMusicBuilder builder = new PathMusicBuilder(32, platform != TargetPlatform.Win32);
+            PathMusicBuilder builder = new PathMusicBuilder(32);
             string subtitle = attrs["SubtitleStringName"] == null ?
                 "DIALOGEVENT:" + Path.GetFileNameWithoutExtension(file) + "SubTitle" : attrs["SubtitleStringName"].Value;
             builder.String(4, subtitle);
@@ -76,22 +69,16 @@ namespace BinaryAssetBuilder.AudioCompiler
             return builder.Finish();
         }
 
-        private static int? Compression(XmlAttribute attr, TargetPlatform platform)
+        private static int? Compression(XmlAttribute attr)
         {
             if (attr == null) return null;
-            string text = attr.Value;
-            if (platform == TargetPlatform.PlayStation3)
+            switch (attr.Value)
             {
-                if (text == "XAS") return 0;
-                if (text == "EALAYER3") return 1;
+                case "NONE": return 0;
+                case "XAS": return 1;
+                case "EALAYER3": return 2;
+                default: throw new NotSupportedException("Unknown audio compression setting: " + attr.Value);
             }
-            else
-            {
-                if (text == "NONE") return 0;
-                if (text == "XAS") return 1;
-                if (text == "EALAYER3") return 2;
-            }
-            throw new NotSupportedException("Unknown audio compression setting: " + text);
         }
 
         private static bool Bool(string text)

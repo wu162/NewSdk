@@ -1,5 +1,5 @@
 {
-  "status": "passed-with-explicit-scope",
+  "status": "pc-only-pending-validation",
   "branch": "recovery/audio-compiler-source",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
@@ -148,50 +148,17 @@
   "fullUpheavalValidated": false,
   "next": "../../AUDIO_COMPILER.md",
   "sdkPolicy": "Component and plugin differentials first; run real SDK only at explicit larger milestones. Existing SDK receipts use dedicated minimal audio MODs and do not certify full Upheaval.",
-  "wholeSourceBuild": {
-    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
-    "excludedPlatforms": [
-      "Xbox360"
-    ],
-    "scope": "Whole recovered AudioCompiler source project builds only",
-    "runId": "40240685038",
-    "runAttempt": "1",
-    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
-    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
-    "sdkStarted": false,
-    "modCompiled": false,
-    "modes": [
-      {
-        "libraryBytes": 138240,
-        "passed": true,
-        "librarySha256": "ba6210f2de9e844dda61434741a8e1dfd195a4178dc3a8a5293aa4027f638132",
-        "log": "Debug-build.log",
-        "configuration": "Debug"
-      },
-      {
-        "libraryBytes": 124416,
-        "passed": true,
-        "librarySha256": "3ddc2de0605417523965631695adb5fd55c28494789680cb8c20f2531137e5ef",
-        "log": "Release-build.log",
-        "configuration": "Release"
-      }
-    ],
-    "status": "passed",
-    "receipt": "standalone-build-validation/40240685038-1/validation.json"
-  },
   "remaining": [
     "PC input and loop metadata boundaries documented in AUDIO_COMPILER.md",
     "ADP4/SSND batched SDK acceptance",
     "Production integration, final exe integration and full Upheaval acceptance"
   ],
-  "targetScope": "PC Win32 audio compilation; Xbox support and recovery work removed by user request on 2026-10-26",
+  "targetScope": "PC Win32 only; all other target platforms rejected",
   "scopeChange": {
-    "removed": "Xbox-specific source, test hosts, scripts, workflows and recovery plans",
-    "historicalEvidence": "Raw prior receipts remain immutable historical records, not current platform support",
-    "currentSourceValidated": true,
-    "sdkStarted": false,
-    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
-    "runId": "40240685038"
+    "removed": "All non-PC encoding policies, metadata/asset platform branches, platform-specific byte order and differential fixtures",
+    "historicalEvidence": "Prior receipts remain immutable historical records, not current platform support",
+    "currentSourceValidated": false,
+    "sdkStarted": false
   },
   "historicalWholeSourceBuild": {
     "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71",
@@ -209,7 +176,7 @@
     "historicalProofOnly": true,
     "doesNotCertifyCurrentWholeTree": true
   },
-  "currentValidation": {
+  "historicalValidationBeforePcOnly": {
     "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
     "runId": "40240685038",
     "attempt": 1,
@@ -255,5 +222,36 @@
       "plugin-validation/40240685038-1/Debug-excluded-platform.log",
       "plugin-validation/40240685038-1/Release-excluded-platform.log"
     ]
+  },
+  "historicalBuildBeforePcOnly": {
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "excludedPlatforms": [
+      "Xbox360"
+    ],
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "runId": "40240685038",
+    "runAttempt": "1",
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+    "sdkStarted": false,
+    "modCompiled": false,
+    "modes": [
+      {
+        "libraryBytes": 138240,
+        "passed": true,
+        "librarySha256": "ba6210f2de9e844dda61434741a8e1dfd195a4178dc3a8a5293aa4027f638132",
+        "log": "Debug-build.log",
+        "configuration": "Debug"
+      },
+      {
+        "libraryBytes": 124416,
+        "passed": true,
+        "librarySha256": "3ddc2de0605417523965631695adb5fd55c28494789680cb8c20f2531137e5ef",
+        "log": "Release-build.log",
+        "configuration": "Release"
+      }
+    ],
+    "status": "passed",
+    "receipt": "standalone-build-validation/40240685038-1/validation.json"
   }
 }

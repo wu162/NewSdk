@@ -50,6 +50,6 @@ foreach ($mode in @('Debug', 'Release')) {
 @{
     scope='AudioCatalog only: original plugin metadata functions versus recovered catalog'
     sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT
-    originalSha256=$originalHash; modes=$results; platforms=@(0,2,99,-1,[int]::MinValue,[int]::MaxValue)
+    originalSha256=$originalHash; modes=$results; platforms=@(0)
     originalAbsentFromRecoveredHost=$true; nativeHandlersValidated=$false; pluginLifecycleValidated=$false; sdkValidated=$false
 } | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json"

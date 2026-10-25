@@ -1,7 +1,7 @@
 # AudioCompiler 当前状态
 
 分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`。2026-10-26（北京时间）。
-**当前恢复目标为 PC / Win32。** 用户已取消 Xbox 平台；其专用实现、测试、工作流和恢复规划已移除，不再作为音频恢复完成门槛。精确历史锚点集中在[验收索引](evidence/audio/acceptance-current.json)。
+**仅支持 PC / Win32。** 所有非 Win32 目标在元数据、初始化、直接编译和编码策略入口明确拒绝；非 PC 实现、平台路由、专用字节序分支及恢复规划均已移除。输入/编码格式自身要求的字节序处理保留。精确历史锚点集中在[验收索引](evidence/audio/acceptance-current.json)。
 
 ## PC 产品能力
 
@@ -17,11 +17,9 @@
 构建：`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
 工程 net472、无签名，Core 仍引用 SDK 基线；NLayer 无独立运行时 DLL。不承诺原 C++ 指针 helper 的二进制 ABI。生产源码没有加载原 AudioCompiler 作为运行后端；原 DLL 调用及 native 插桩仅在测试宿主。
 
-## 删除后当前验证
+## 当前验证
 
-源码 `4f2c03c5f7510e71655987189a6b9ecd4a636d80` / [40240685038](https://github.com/wu162/NewSdk/actions/runs/40240685038) 已成功。整工程 Debug/Release 构建对应源码树 `38a94a66e7cca464c465c5947fc428315d217ec9`。
-
-每配置：元数据73,861项；保留插件路由2,899项、单帧安全拒绝8项；AIFC1,080项；ADP4 3,180项；SSND2,436项；PCM组件8项/XAS组件12项原输出及block/frame检查；Xbox排除检查8项。保留路由覆盖现有PC/PS3与适用unknown输入，已删除Xbox对照案例。精确矩阵和收据见[验收索引](evidence/audio/acceptance-current.json)。本次SDK真实编译0次，历史SDK结果不作为当前树的新验收。
+Win32-only 清理后的组件/插件和整工程 Debug/Release 合批验证待运行；SDK不运行。历史混合平台结果不能作为当前源码的新验证。
 
 ## 历史 PC 验证
 

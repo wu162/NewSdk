@@ -16,7 +16,7 @@ on:
         required: true
         default: standalone-build
         type: choice
-        options: [standalone-build, console-removal, formats, formats-sdk, aifc, aifc-sdk, aifc-original, adp4-probe, adp4-decoder, adp4-plugin, ssnd-block]
+        options: [standalone-build, pc-only, formats, formats-sdk, aifc, aifc-sdk, aifc-original, adp4-probe, adp4-decoder, adp4-plugin, ssnd-block]
 permissions:
   contents: write
 concurrency:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[audio-console-removal]') || contains(github.event.head_commit.message, '[audio-input-metadata]') || contains(github.event.head_commit.message, '[audio-aifc]') || contains(github.event.head_commit.message, '[audio-adp4-probe]') || contains(github.event.head_commit.message, '[audio-adp4-decoder]') || contains(github.event.head_commit.message, '[audio-adp4-plugin]') || contains(github.event.head_commit.message, '[audio-ssnd-block]') || contains(github.event.head_commit.message, '[audio-source-build]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[audio-pc-only]') || contains(github.event.head_commit.message, '[audio-input-metadata]') || contains(github.event.head_commit.message, '[audio-aifc]') || contains(github.event.head_commit.message, '[audio-adp4-probe]') || contains(github.event.head_commit.message, '[audio-adp4-decoder]') || contains(github.event.head_commit.message, '[audio-adp4-plugin]') || contains(github.event.head_commit.message, '[audio-ssnd-block]') || contains(github.event.head_commit.message, '[audio-source-build]')
     runs-on: windows-2022
     timeout-minutes: 40
     env:
@@ -42,7 +42,7 @@ jobs:
           $scope = $env:RUN_SCOPE
           if (!$scope) {
             $markers = [ordered]@{
-              '[audio-console-removal]' = 'console-removal'
+              '[audio-pc-only]' = 'pc-only'
               '[audio-input-metadata]' = 'formats'
               '[audio-aifc]' = 'aifc'
               '[audio-adp4-probe]' = 'adp4-probe'
@@ -61,8 +61,8 @@ jobs:
           $hash = (Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant()
           if ($hash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
           @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; scope=$scope; sdkRequested=($scope -in @('formats-sdk','aifc-sdk')); originalSha256=$hash } | ConvertTo-Json | Set-Content "$out/request.json"
-      - name: Compare retained plugin routes after console removal
-        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'console-removal'
+      - name: Compare retained plugin routes for PC only
+        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'pc-only'
         shell: pwsh
         run: |
           ./recovery/scripts/TestAudioMetadata.ps1
@@ -80,10 +80,10 @@ jobs:
             ./recovery/scripts/TestAudioInputMetadata.ps1 -SkipSdk
           }
       - name: Compare AIFC input group
-        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'aifc' || steps.preflight.outputs.scope == 'aifc-sdk' || steps.preflight.outputs.scope == 'adp4-plugin')
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'pc-only' || steps.preflight.outputs.scope == 'aifc' || steps.preflight.outputs.scope == 'aifc-sdk' || steps.preflight.outputs.scope == 'adp4-plugin')
         shell: pwsh
         run: |
-          if ('${{ steps.preflight.outputs.scope }}' -ne 'console-removal') {
+          if ('${{ steps.preflight.outputs.scope }}' -ne 'pc-only') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups @('formats','aiffloops')
           }
           if ('${{ steps.preflight.outputs.scope }}' -eq 'aifc-sdk') {
@@ -104,20 +104,20 @@ jobs:
         shell: pwsh
         run: ./recovery/scripts/TestAudioAdp4Decoder.ps1
       - name: Compare ADP4 plugin group
-        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'adp4-plugin')
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'pc-only' || steps.preflight.outputs.scope == 'adp4-plugin')
         shell: pwsh
         run: ./recovery/scripts/TestAudioAdp4Plugin.ps1
       - name: Compare SSND block-size group
-        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'ssnd-block')
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'pc-only' || steps.preflight.outputs.scope == 'ssnd-block')
         shell: pwsh
         run: |
-          if ('${{ steps.preflight.outputs.scope }}' -eq 'console-removal') {
+          if ('${{ steps.preflight.outputs.scope }}' -eq 'pc-only') {
             ./recovery/scripts/TestAudioAiffSsnd.ps1 -SkipLoopRegression
           } else {
             ./recovery/scripts/TestAudioAiffSsnd.ps1
           }
       - name: Build complete project without SDK execution
-        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'standalone-build')
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'pc-only' || steps.preflight.outputs.scope == 'standalone-build')
         shell: pwsh
         run: ./recovery/scripts/BuildAudioSource.ps1
       - uses: actions/upload-artifact@v4

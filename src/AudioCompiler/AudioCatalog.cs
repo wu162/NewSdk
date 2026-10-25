@@ -13,27 +13,23 @@ namespace BinaryAssetBuilder.AudioCompiler
         public const uint PathMusicTrackTypeId = 2802565590u;
         public const uint AllTypesHash = 1424942948u;
 
+        internal static void RequireWin32(TargetPlatform platform)
+        {
+            if (platform != TargetPlatform.Win32)
+                throw new System.NotSupportedException("Audio compilation supports only Win32.");
+        }
+
         public static uint Version(TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new System.NotSupportedException("Xbox 360 audio metadata is outside the supported platform scope.");
-            switch (platform)
-            {
-                case TargetPlatform.Win32: return 548405252u;
-                case TargetPlatform.PlayStation3: return 548405252u;
-                default: throw new BinaryAssetBuilderException((ErrorCode)1, "Unknown platform {0}", platform);
-            }
+            RequireWin32(platform);
+            return 548405252u;
         }
 
         public static ExtendedTypeInformation PathMusicInformation(uint typeId, TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new System.NotSupportedException("Xbox 360 audio metadata is outside the supported platform scope.");
+            RequireWin32(platform);
             ExtendedTypeInformation info = new ExtendedTypeInformation();
             info.TypeId = typeId;
-            // Original checks the platform even when called directly for an unknown ID.
-            if (platform != TargetPlatform.Win32 && platform != TargetPlatform.PlayStation3)
-                throw new BinaryAssetBuilderException((ErrorCode)1, "Unknown platform {0}", platform);
             switch (typeId)
             {
                 case PathMusicTrackTypeId:
@@ -58,8 +54,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public static ExtendedTypeInformation AudioFileInformation(uint typeId, TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new System.NotSupportedException("Xbox 360 audio metadata is outside the supported platform scope.");
+            RequireWin32(platform);
             ExtendedTypeInformation info = new ExtendedTypeInformation();
             info.TypeId = typeId;
             switch (typeId)
@@ -68,20 +63,13 @@ namespace BinaryAssetBuilder.AudioCompiler
                     info.TypeName = "AudioFile";
                     info.TypeHash = 1405623879u;
                     info.HasCustomData = true;
-                    switch (platform)
-                    {
-                        case TargetPlatform.Win32:
-                        case TargetPlatform.PlayStation3: info.ProcessingHash = 2414318214u; break;
-                    }
+                    info.ProcessingHash = 2414318214u;
                     break;
                 case Mp3PassthroughTypeId:
                     info.TypeName = "AudioFileMP3Passthrough";
                     info.TypeHash = 2457571466u;
                     info.HasCustomData = true;
-                    switch (platform)
-                    {
-                        case TargetPlatform.Win32: info.ProcessingHash = 2822637465u; break;
-                    }
+                    info.ProcessingHash = 2822637465u;
                     break;
             }
             return info;
@@ -89,8 +77,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public static ExtendedTypeInformation TypeInformation(uint typeId, TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new System.NotSupportedException("Xbox 360 audio metadata is outside the supported platform scope.");
+            RequireWin32(platform);
             switch (typeId)
             {
                 case AudioFileTypeId:

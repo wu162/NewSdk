@@ -5,10 +5,6 @@ using System.Reflection;
 // Compares the codec component with original AudioFile output; this is not plugin integration.
 internal static class AudioPcmEncoderOracle
 {
-    private static int Word(byte[] data, int offset, bool big)
-    {
-        return big ? data[offset] << 24 | data[offset+1] << 16 | data[offset+2] << 8 | data[offset+3] : BitConverter.ToInt32(data, offset);
-    }
     private static void Equal(string label, byte[] expected, byte[] actual)
     {
         if (actual == null || expected.Length != actual.Length) throw new Exception(label + " length " + expected.Length + " != " + (actual == null ? -1 : actual.Length));
@@ -35,7 +31,7 @@ internal static class AudioPcmEncoderOracle
                 Type resultType=result.GetType();
                 Func<string,object> get=name=> { var f=resultType.GetField(name); return f!=null?f.GetValue(result):resultType.GetProperty(name).GetValue(result,null); };
                 byte[] original=Convert.FromBase64String(fields[4]);
-                bool big=fields[1]!="0"; int pointer=Word(original,20,big), size=Word(original,24,big);
+                int pointer=BitConverter.ToInt32(original,20), size=BitConverter.ToInt32(original,24);
                 if (size<0 || pointer<0 || pointer+size>original.Length) throw new Exception("Original header bounds are invalid");
                 byte[] header=new byte[size]; Buffer.BlockCopy(original,pointer,header,0,size);
                 Equal(fields[0]+" header",header,(byte[])get("HeaderData"));

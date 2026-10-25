@@ -28,10 +28,10 @@ No original acceptance is inferred from the file-format specification.
 
 ## Reproducible original-first matrix
 
-`TestAudioAifc.ps1 -OriginalOnly` collects1440 full original plugin records,
+`TestAudioAifc.ps1 -OriginalOnly` collects720 full original PC plugin records,
 requiring each to produce a buffer and CustomData. Ten variants are crossed
-with PCM8/16/24, mono/stereo,7/129/2041 frames and all eight supported
-codec/platform/storage combinations:
+with PCM8/16/24, mono/stereo,7/129/2041 frames and all four PC
+codec/storage combinations:
 
 - COMM22 minimum, empty compression name, odd/even/255-byte names,
   extra trailing name data;
@@ -50,7 +50,7 @@ unknown FVER, SSND-first), each NONE/XAS and RAM/streamed. It requires120
 actual calls per side, four MOD products and120 CustomData files equal,
 with the original AudioCompiler DLL absent from the recovered SDK.
 The old input consumer regression is `TestAudioPlugin.ps1 -Groups
-formats,aiffloops`: all2400 WAVE/AIFF/extensible and200 AIFF-loop records.
+formats,aiffloops`: all1200 PC WAVE/AIFF/extensible and200 AIFF-loop records.
 The numerical encoders/resampler, MP3 and PathMusic logic are unchanged.
 
 ## Accepted batch

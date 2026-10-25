@@ -93,7 +93,7 @@ blockSize was subsequently accepted in [SsndBlockSize](SsndBlockSize.md),
 source `d3f96009e64b44c4d9482421cc5922b3309320bc` / run40236037500.
 Loop metadata and nonzero SSND offset remain outside this ADP4 input domain.
 
-`TestAudioAdp4Plugin.ps1` runs4224 full-plugin records in each original,
+`TestAudioAdp4Plugin.ps1` now runs2136 PC full-plugin records in each original,
 Debug and Release host:4032 ordinary cases (3 widths*2 channels*7 frame counts*
 4 patterns*3 COMM declarations),144 partial-SSND-length cases and48 actual
 filter120 sample-rate conversions. It separately checks144 exact normalized

@@ -21,33 +21,20 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static AudioEncodingPolicy Select(int platform, string file,
             int? compression, bool? streamed)
         {
+            if (platform != 0) throw new ArgumentOutOfRangeException("platform", "Audio compilation supports only Win32.");
             bool sounds = Path.GetDirectoryName(file).ToLower().EndsWith("\\sounds");
             if (compression.HasValue && compression.Value < 0)
                 throw new ArgumentOutOfRangeException("compression");
             int representation;
             bool warning = false;
             int value = compression.HasValue ? compression.Value : -1;
-            switch (platform)
+            switch (value)
             {
-                case 0:
-                    switch (value)
-                    {
-                        case -1: representation = sounds ? 29 : 1; break;
-                        case 0: representation = 1; break;
-                        case 1: representation = 29; break;
-                        case 2: representation = 1; warning = true; break;
-                        default: throw new ArgumentOutOfRangeException("compression");
-                    }
-                    break;
-                case 2:
-                    switch (value)
-                    {
-                        case -1: case 0: representation = 29; break;
-                        case 1: representation = 29; warning = true; break;
-                        default: throw new ArgumentOutOfRangeException("compression");
-                    }
-                    break;
-                default: throw new ArgumentOutOfRangeException("platform");
+                case -1: representation = sounds ? 29 : 1; break;
+                case 0: representation = 1; break;
+                case 1: representation = 29; break;
+                case 2: representation = 1; warning = true; break;
+                default: throw new ArgumentOutOfRangeException("compression");
             }
             return new AudioEncodingPolicy(representation, streamed.HasValue ? streamed.Value : !sounds, warning);
         }

@@ -167,7 +167,7 @@ internal static class AudioPluginOracle
             string folder=Path.Combine(root,directory); Directory.CreateDirectory(folder);
             string wave=Path.Combine(folder,"default.wav"); Wav(wave,directory=="sounds"?2:1,257);
             foreach(bool direct in new bool[]{false,true})
-                Run("default-"+directory,0,Element("AudioFile","File='"+Esc(wave)+"' PCQuality='75' PS3Quality='75'"),direct);
+                Run("default-"+directory,0,Element("AudioFile","File='"+Esc(wave)+"' PCQuality='75'"),direct);
         }
     }
     private static int Main(string[] args)
@@ -221,7 +221,7 @@ internal static class AudioPluginOracle
                     File.WriteAllBytes(Path.Combine(root,"zero-payload.mp3"),zeroPayload);
                     File.WriteAllBytes(Path.Combine(root,"mixed.mp3"),monoBytes.Concat(Convert.FromBase64String(AudioMp3Fixtures.Stereo)).ToArray());
                     Wav(Path.Combine(root,"wave.mp3"),1,3);
-                    foreach (int platform in new int[] { 0, 2, 99 }) foreach (bool direct in new bool[] { false, true })
+                    foreach (int platform in new int[] { 0 }) foreach (bool direct in new bool[] { false, true })
                     {
                         Run("map", platform, Element("PathMusicMap", "File='" + Esc(map) + "'"), direct);
                         Run("map-missing", platform, Element("PathMusicMap", "File='" + Esc(map + ".missing") + "'"), direct);

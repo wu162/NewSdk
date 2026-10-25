@@ -12,7 +12,7 @@ $original = Join-Path $work 'original'; $fixtures = Join-Path $work 'fixtures'
 New-Item -ItemType Directory $original,$fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-$receipt = @{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant();status='started';sdkValidated=$false;configurations=@();scope='AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS, PS3 XAS; RAM/streamed'}
+$receipt = @{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant();status='started';sdkValidated=$false;configurations=@();scope='AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS; RAM/streamed'}
 try {
     & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/AudioAifcPluginOracle.exe" (Resolve-Path recovery/tests/AudioAifcPluginOracle.cs).Path (Resolve-Path recovery/tests/AudioAifcInputCases.cs).Path (Resolve-Path recovery/tests/AudioInputFormatCases.cs).Path *> "$out/oracle-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'AIFC plugin oracle build failed' }
@@ -21,9 +21,9 @@ try {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/AudioAifcPluginOracle.exe.config"
     & "$original/AudioAifcPluginOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" $fixtures "$out/original.txt" original *> "$out/original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log" -Tail 40; throw 'Original AIFC probe failed' }
-    if (@(Get-Content "$out/original.txt").Count -ne 1080) { throw 'Expected all1080 original records' }
+    if (@(Get-Content "$out/original.txt").Count -ne 720) { throw 'Expected all720 original records' }
     Get-ChildItem $fixtures -Filter '*.aifc' | Copy-Item -Destination $out
-    $receipt.originalRecords = 1080
+    $receipt.originalRecords = 720
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     foreach ($mode in @('Debug','Release')) {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
@@ -41,8 +41,8 @@ try {
             Compare-Object (Get-Content "$out/original.txt") (Get-Content "$out/$mode.txt") | Out-String -Width 2000 | Set-Content "$out/$mode-difference.txt"
             throw "$mode AIFC transcript differs"
         }
-        $receipt.configurations += @{configuration=$mode;passed=$true;records=1080;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;sampleBitInvariants=60;safetyRefusals=10}
-        Write-Host "PASS AIFC/NONE $mode`:1080 complete plugin records identical"
+        $receipt.configurations += @{configuration=$mode;passed=$true;records=720;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;sampleBitInvariants=60;safetyRefusals=10}
+        Write-Host "PASS AIFC/NONE $mode`:720 complete plugin records identical"
     }
     $receipt.status='passed'
     if (!$SkipSdk) {

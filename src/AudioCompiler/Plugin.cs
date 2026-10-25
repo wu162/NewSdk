@@ -18,7 +18,6 @@ namespace BinaryAssetBuilder.AudioCompiler
     {
         private readonly Tracer m_Tracer = Tracer.GetTracer("AudioCompiler", "Provides Audio processing functionality");
         private uint m_HashCode;
-        private TargetPlatform m_Platform = TargetPlatform.Win32;
         private readonly IAudioFileCompiler audioCompiler;
 
         public Plugin() : this(new PcmWaveAudioCompiler()) { }
@@ -26,10 +25,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
-            if (platform == TargetPlatform.Xbox360)
-                throw new NotSupportedException("Xbox 360 audio compilation is outside the supported platform scope.");
+            AudioCatalog.RequireWin32(platform);
             m_HashCode = HashProvider.GetTypeHash(GetType());
-            m_Platform = platform;
         }
 
         public virtual void ReInitialize(object configSection, TargetPlatform platform)
@@ -38,18 +35,18 @@ namespace BinaryAssetBuilder.AudioCompiler
         }
 
         public virtual uint GetAllTypesHash() { return AudioCatalog.AllTypesHash; }
-        public virtual uint GetVersionNumber() { return AudioCatalog.Version(m_Platform); }
+        public virtual uint GetVersionNumber() { return AudioCatalog.Version(TargetPlatform.Win32); }
         public ExtendedTypeInformation GetPathMusicExtendedTypeInformation(uint typeId)
         {
-            return AudioCatalog.PathMusicInformation(typeId, m_Platform);
+            return AudioCatalog.PathMusicInformation(typeId, TargetPlatform.Win32);
         }
         public ExtendedTypeInformation GetAudioFileExtendedTypeInformation(uint typeId)
         {
-            return AudioCatalog.AudioFileInformation(typeId, m_Platform);
+            return AudioCatalog.AudioFileInformation(typeId, TargetPlatform.Win32);
         }
         public virtual ExtendedTypeInformation GetExtendedTypeInformation(uint typeId)
         {
-            return AudioCatalog.TypeInformation(typeId, m_Platform);
+            return AudioCatalog.TypeInformation(typeId, TargetPlatform.Win32);
         }
 
         public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
@@ -71,7 +68,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             if (audioCompiler == null)
                 throw new NotSupportedException("AudioFile requires a configured encoding backend.");
-            return audioCompiler.CompileAudioFile(declaration, m_Platform);
+            return audioCompiler.CompileAudioFile(declaration, TargetPlatform.Win32);
         }
 
         public AssetBuffer ProcessAudioFileMP3PassthroughInstance(InstanceDeclaration declaration)
@@ -97,7 +94,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 throw new BinaryAssetBuilderException((ErrorCode)1,
                     "Internal error reading element {0} of \"{1}\" (SIMEX_info(): {2}).", 0, file, "Error decoding MPEG Layer 123 data.");
             }
-            PathMusicBuilder builder = new PathMusicBuilder(16, false);
+            PathMusicBuilder builder = new PathMusicBuilder(16);
             string subtitle = attrs["SubtitleStringName"] == null ?
                 "DIALOGEVENT:" + Path.GetFileNameWithoutExtension(file) + "SubTitle" : attrs["SubtitleStringName"].Value;
             builder.String(4, subtitle);
@@ -111,7 +108,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public AssetBuffer ProcessPathMusicMapInstance(InstanceDeclaration declaration)
         {
-            PathMusicBuilder builder = new PathMusicBuilder(12, m_Platform != TargetPlatform.Win32);
+            PathMusicBuilder builder = new PathMusicBuilder(12);
             string file = declaration.XmlNode.Attributes["File"].Value;
             try
             {
@@ -141,7 +138,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         public AssetBuffer ProcessPathMusicTrackInstance(InstanceDeclaration declaration)
         {
             XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
-            PathMusicBuilder builder = new PathMusicBuilder(28, m_Platform != TargetPlatform.Win32);
+            PathMusicBuilder builder = new PathMusicBuilder(28);
             if (attrs["File"] != null) builder.String(4, attrs["File"].Value);
             if (attrs["Type"] != null) builder.Word(12, attrs["Type"].Value == "OVERLAY_0" ? 1u : 0u);
             if (attrs["PathfinderTrackHeader"] != null) builder.String(16, attrs["PathfinderTrackHeader"].Value);
@@ -176,7 +173,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         public AssetBuffer ProcessPathMusicEventInstance(InstanceDeclaration declaration)
         {
             XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
-            PathMusicBuilder builder = new PathMusicBuilder(16, m_Platform != TargetPlatform.Win32);
+            PathMusicBuilder builder = new PathMusicBuilder(16);
             string header = attrs["PathfinderEventHeader"].Value;
             string name = attrs["id"].Value;
             bool opened;

@@ -42,7 +42,7 @@ internal static class AudioAifcPluginOracle
             root = Path.GetFullPath(args[1]); Directory.CreateDirectory(root);
             using (output = new StreamWriter(args[2], false, new UTF8Encoding(false))) AudioAifcInputCases.Run(root, Run);
             ((IDisposable)plugin).Dispose();
-            if (records != 1080) throw new Exception("Expected1080 complete AIFC records; got " + records);
+            if (records != 720) throw new Exception("Expected720 complete AIFC records; got " + records);
             if (args[3] == "recovered") foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 if (loaded.GetName().Name == originalName) throw new Exception("Original DLL loaded in recovered host");
             Console.WriteLine("PASS AIFC/NONE complete plugin records: " + records); return 0;

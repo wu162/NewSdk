@@ -50,7 +50,7 @@ internal static class AudioMetadataOracle
             {
                 Func<string, object[], object> call = (name, values) => type.GetMethod(name).Invoke(plugin, values);
                 writer.WriteLine("all:" + Invoke(() => original ? call("GetAllTypesHash", new object[0]) : type.GetField("AllTypesHash").GetValue(null))); records++;
-                foreach (int platform in new int[] { 0, 2, 99, -1, Int32.MinValue, Int32.MaxValue })
+                foreach (int platform in new int[] { 0 })
                 {
                     var target = (TargetPlatform)platform;
                     if (original) call("Initialize", new object[] { null, target });

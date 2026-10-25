@@ -23,8 +23,7 @@ internal static class AudioAiffSsndCases
             string name = "ssnd-" + kind + "-" + bits + "-" + channels + "-" + frames + "-block" + block;
             string path = Path.Combine(root, name + (kind == 0 ? ".aiff" : ".aifc")); Write(path, kind, bits, channels, frames, block);
             foreach (string codec in new string[] { "NONE", "XAS" }) foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 2 }) {
-                if (platform == 2 && codec != "XAS") continue;
+            foreach (int platform in new int[] { 0 }) {
                 Case(path, name + "-" + codec + "-" + streamed, codec, streamed, platform, run);
             }
         }
@@ -40,8 +39,8 @@ internal static class AudioAiffSsndCases
         string flag = streamed.ToString().ToLowerInvariant();
         string xml = "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' SubtitleStringName='SSND:Fixture' File='" +
             System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-            "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
-            " IsStreamedOnPC='" + flag + "' IsStreamedOnPS3='" + flag + "'/>";
+            "' PCQuality='75'" +
+            " IsStreamedOnPC='" + flag + "'/>";
         run(name, platform, xml, false);
     }
 }

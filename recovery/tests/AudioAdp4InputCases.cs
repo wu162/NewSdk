@@ -34,8 +34,7 @@ internal static class AudioAdp4InputCases
             string name = "adp4-input-" + bits + "-" + channels + "-" + frames + "-" + pattern + "-declared" + declared;
             string path = Path.Combine(root, name + ".aifc"); Write(path, bits, channels, frames, pattern, declared);
             foreach (string codec in new string[] { "NONE", "XAS" }) foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 2 }) {
-                if (platform == 2 && codec != "XAS") continue;
+            foreach (int platform in new int[] { 0 }) {
                 Case(path, name + "-" + codec + "-" + streamed, codec, streamed, platform, 0, run);
             }
         }
@@ -44,8 +43,7 @@ internal static class AudioAdp4InputCases
             string name = "adp4-ssnd-tail-" + bits + "-" + channels + "-" + delta;
             string path = Path.Combine(root, name + ".aifc"); Write(path, bits, channels, 129, 3, 129, delta);
             foreach (string codec in new string[] { "NONE", "XAS" }) foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 2 }) {
-                if (platform == 2 && codec != "XAS") continue;
+            foreach (int platform in new int[] { 0 }) {
                 Case(path, name + "-" + codec + "-" + streamed, codec, streamed, platform, 0, run);
             }
         }
@@ -62,8 +60,8 @@ internal static class AudioAdp4InputCases
         string flag = streamed.ToString().ToLowerInvariant();
         string xml = "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' File='" +
             System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-            "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
-            " IsStreamedOnPC='" + flag + "' IsStreamedOnPS3='" + flag + "'" +
+            "' PCQuality='75'" +
+            " IsStreamedOnPC='" + flag + "'" +
             (rate == 0 ? "" : " PCSampleRate='" + rate + "'") + "/>";
         run(name, platform, xml, false);
     }

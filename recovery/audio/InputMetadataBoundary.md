@@ -27,11 +27,12 @@ the prior canonical-only subset; it does not add a new float decoder.
 
 `TestAudioInputMetadata.ps1` executes original `formats` first, then both
 Debug/Release recovered hosts with the original target DLL absent, followed
-by a dedicated real SDK batch.
+by a dedicated PC SDK batch only when explicitly selected.
+The current matrix is Win32 only; older accepted counts below are historical.
 
-- Existing480 format records remain; 1920 additional records are generated
-  from20 metadata variants,3 widths,2 channels,2 frame counts and8 supported
-  codec/platform/storage combinations. Every plugin fixture must emit a
+- Existing240 PC format records remain; 960 additional records are generated
+  from20 metadata variants,3 widths,2 channels,2 frame counts and4 PC
+  codec/storage combinations. Every plugin fixture must emit a
   buffer and CustomData before byte comparison can pass.
 - Variants: cbSize0/1/21/23/65535; validBits0/1/bits-1/bits+1/65535;
   masks1/4/ffffffff; float/zero/ones/modified-tail GUID; simultaneous garbage;

@@ -11,18 +11,16 @@ namespace BinaryAssetBuilder.AudioCompiler
     {
         private readonly List<byte> bytes;
         private readonly List<int> pointers = new List<int>();
-        private readonly bool big;
 
-        public PathMusicBuilder(int size, bool bigEndian)
+        public PathMusicBuilder(int size)
         {
             bytes = new List<byte>(new byte[size]);
-            big = bigEndian;
         }
 
         public void Word(int at, uint value)
         {
             for (int i = 0; i != 4; ++i)
-                bytes[at + i] = (byte)(value >> ((big ? 3 - i : i) * 8));
+                bytes[at + i] = (byte)(value >> (i * 8));
         }
 
         public void Byte(int at, byte value) { bytes[at] = value; }
@@ -55,7 +53,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             // order, which is also the original bookmark target-block order.
             for (int j = 0; j < pointers.Count; ++j)
                 for (int i = 0; i != 4; ++i)
-                    relocation[j * 4 + i] = (byte)((uint)pointers[j] >> ((big ? 3 - i : i) * 8));
+                    relocation[j * 4 + i] = (byte)((uint)pointers[j] >> (i * 8));
             if (pointers.Count != 0)
                 for (int i = 0; i != 4; ++i) relocation[relocation.Length - 4 + i] = 255;
             return new AssetBuffer { InstanceData = bytes.ToArray(), RelocationData = relocation, ImportsData = new byte[0] };

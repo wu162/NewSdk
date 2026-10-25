@@ -93,7 +93,7 @@ try {
                 $undefinedPattern = '^pcm-resample-400-96000-1-[12]-signal0-(NONE|XAS)-(False|True):0:dispatch:'
                 $originalRows = @(Get-Content $expectedFile)
                 $candidateRows = @(Get-Content $actualFile)
-                if ($originalRows.Count -ne 448 -or $candidateRows.Count -ne 448) { throw 'Expected all 448 registered resampling records' }
+                if ($originalRows.Count -ne 432 -or $candidateRows.Count -ne 432) { throw 'Expected all 432 registered resampling records' }
                 $originalUndefined = @($originalRows | Where-Object { $_ -match $undefinedPattern })
                 $candidateUndefined = @($candidateRows | Where-Object { $_ -match $undefinedPattern })
                 if ($originalUndefined.Count -ne 8 -or $candidateUndefined.Count -ne 8) { throw 'Expected exactly eight undefined single-frame importer records' }

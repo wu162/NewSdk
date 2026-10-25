@@ -23,22 +23,24 @@ internal static class AudioExcludedPlatformOracle
                 throw new Exception("Recovered rejection host must exclude original AudioCompiler DLL");
             Assembly assembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
             const string ns = "BinaryAssetBuilder.AudioCompiler.";
-            TargetPlatform excluded = (TargetPlatform)1;
-            Type catalog = assembly.GetType(ns + "AudioCatalog", true);
-            Rejected(catalog, null, "Version", new object[] { excluded });
-            Rejected(catalog, null, "TypeInformation", new object[] { 0u, excluded });
-            Rejected(catalog, null, "PathMusicInformation", new object[] { 2516466693u, excluded });
-            Rejected(catalog, null, "AudioFileInformation", new object[] { 376113229u, excluded });
-            Type pluginType = assembly.GetType(ns + "Plugin", true);
-            using (IDisposable plugin = (IDisposable)Activator.CreateInstance(pluginType)) {
-                Rejected(pluginType, plugin, "Initialize", new object[] { null, excluded });
-                Rejected(pluginType, plugin, "ReInitialize", new object[] { null, excluded });
+            foreach (int value in new int[] { 1, 2, 99, -1, Int32.MinValue, Int32.MaxValue }) {
+                TargetPlatform excluded = (TargetPlatform)value;
+                Type catalog = assembly.GetType(ns + "AudioCatalog", true);
+                Rejected(catalog, null, "Version", new object[] { excluded });
+                Rejected(catalog, null, "TypeInformation", new object[] { 0u, excluded });
+                Rejected(catalog, null, "PathMusicInformation", new object[] { 2516466693u, excluded });
+                Rejected(catalog, null, "AudioFileInformation", new object[] { 376113229u, excluded });
+                Type pluginType = assembly.GetType(ns + "Plugin", true);
+                using (IDisposable plugin = (IDisposable)Activator.CreateInstance(pluginType)) {
+                    Rejected(pluginType, plugin, "Initialize", new object[] { null, excluded });
+                    Rejected(pluginType, plugin, "ReInitialize", new object[] { null, excluded });
+                }
+                Type compilerType = assembly.GetType(ns + "PcmWaveAudioCompiler", true);
+                Rejected(compilerType, Activator.CreateInstance(compilerType), "CompileAudioFile", new object[] { null, excluded });
+                Type policyType = assembly.GetType(ns + "AudioEncodingPolicy", true);
+                Rejected(policyType, null, "Select", new object[] { value, "C:\\Audio\\probe.wav", null, null });
             }
-            Type compilerType = assembly.GetType(ns + "PcmWaveAudioCompiler", true);
-            Rejected(compilerType, Activator.CreateInstance(compilerType), "CompileAudioFile", new object[] { null, excluded });
-            Type policyType = assembly.GetType(ns + "AudioEncodingPolicy", true);
-            Rejected(policyType, null, "Select", new object[] { 1, "C:\\Audio\\probe.wav", null, null });
-            Console.WriteLine("PASS excluded platform: eight catalog/lifecycle/direct-compile/policy rejection contracts; no original comparison or SDK execution");
+            Console.WriteLine("PASS excluded platforms: 48 catalog/lifecycle/direct-compile/policy rejection contracts; no original comparison or SDK execution");
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

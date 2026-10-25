@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: "!contains(github.event.head_commit.message, '[audio-resampler]') && !contains(github.event.head_commit.message, '[audio-console-removal]') && !contains(github.event.head_commit.message, '[audio-input') && !contains(github.event.head_commit.message, '[audio-aifc]') && !contains(github.event.head_commit.message, '[audio-adp4-') && !contains(github.event.head_commit.message, '[audio-ssnd-block]') && !contains(github.event.head_commit.message, '[audio-source-build]')"
+    if: "!contains(github.event.head_commit.message, '[audio-resampler]') && !contains(github.event.head_commit.message, '[audio-pc-only]') && !contains(github.event.head_commit.message, '[audio-input') && !contains(github.event.head_commit.message, '[audio-aifc]') && !contains(github.event.head_commit.message, '[audio-adp4-') && !contains(github.event.head_commit.message, '[audio-ssnd-block]') && !contains(github.event.head_commit.message, '[audio-source-build]')"
     runs-on: windows-2022
     timeout-minutes: 25
     steps:

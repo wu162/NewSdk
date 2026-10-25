@@ -22,9 +22,9 @@ try {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/AudioAiffSsndOracle.exe.config"
     & "$original/AudioAiffSsndOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" $fixtures "$out/original.txt" original *> "$out/original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log" -Tail 40; throw 'Original SSND block probe failed' }
-    if (@(Get-Content "$out/original.txt").Count -ne 2436) { throw 'Expected all2436 original records' }
+    if (@(Get-Content "$out/original.txt").Count -ne 1680) { throw 'Expected all1680 original records' }
     Get-ChildItem $fixtures -File | Where-Object { $_.Extension -in @('.aiff','.aifc') } | Copy-Item -Destination $out
-    $receipt.originalRecords = 2436
+    $receipt.originalRecords = 1680
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     foreach ($mode in @('Debug','Release')) {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
@@ -42,8 +42,8 @@ try {
             Compare-Object (Get-Content "$out/original.txt") (Get-Content "$out/$mode.txt") | Out-String -Width 2000 | Set-Content "$out/$mode-difference.txt"
             throw "$mode SSND transcript differs"
         }
-        $receipt.configurations += @{configuration=$mode;passed=$true;records=2436;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;sampleBitInvariants=168;safetyRefusals=168}
-        Write-Host "PASS SSND $mode`:2436 complete plugin records identical"
+        $receipt.configurations += @{configuration=$mode;passed=$true;records=1680;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;sampleBitInvariants=168;safetyRefusals=168}
+        Write-Host "PASS SSND $mode`:1680 complete plugin records identical"
     }
     if (!$SkipLoopRegression) {
         & "$PSScriptRoot/TestAudioPlugin.ps1" -Groups aiffloops
@@ -52,9 +52,9 @@ try {
         $receipt.affectedAiffLoopRegressionRecordsPerConfiguration=0
         $receipt.loopRegressionProvidedByCaller=$true
     }
-    $receipt.zeroBlockCanonicalRecordsPerConfiguration=348
-    $receipt.nonzeroVsZeroComparisonsPerConfiguration=2088
+    $receipt.zeroBlockCanonicalRecordsPerConfiguration=240
+    $receipt.nonzeroVsZeroComparisonsPerConfiguration=1440
     $receipt.status='passed'
-    Write-Host 'PASS SSND blockSize:Debug/Release2436 exact records and2088 nonzero-vs-zero comparisons;168 sample invariants/offset refusals; SDK not run'
+    Write-Host 'PASS SSND blockSize:Debug/Release1680 exact records and1440 nonzero-vs-zero comparisons;168 sample invariants/offset refusals; SDK not run'
 } catch { $receipt.status='failed';$receipt.error=$_.Exception.Message;throw }
 finally { $receipt | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json" }

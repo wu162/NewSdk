@@ -34,10 +34,10 @@ An explicit fixed SubtitleStringName prevents different fixture filenames
 from obscuring the exact canonical buffer comparison.
 
 - AIFF PCM,AIFC NONE,AIFC ADP4:3 widths*2 channels*3 frame counts*
-  7 block values*8 codec/platform/storage combinations =3024 records.
+  7 block values*4 PC codec/storage combinations =1512 records.
 - Existing AIFF forward sustain loops:3 widths*2 channels*7 block values*
   PC NONE/XAS RAM/streamed =168 records.
-- Total3192 records,456 zero canonical rows and2736 nonzero-vs-zero exact
+- Total1680 PC records,240 zero canonical rows and1440 nonzero-vs-zero exact
   comparisons per host. Values are0,1,2,4,512,4096,ffffffff.
 - Separate reader oracle:168 exact decoded-sample/metadata invariants and
   168 explicit nonzero-offset refusals, covering all four input kinds.
