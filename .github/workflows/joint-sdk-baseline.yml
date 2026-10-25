@@ -1,0 +1,67 @@
+name: Joint SDK baseline before EXE refactor
+on:
+  push:
+    branches: [refactor/compiler-exe-integration]
+    paths:
+      - '.github/workflows/joint-sdk-baseline.yml'
+      - 'recovery/scripts/TestJointSdkBaseline.ps1'
+      - 'recovery/scripts/AssertJointSdkEvidence.ps1'
+      - 'recovery/scripts/BuildJointManagedBaseline.ps1'
+      - 'recovery/scripts/BuildW3xPlugin.ps1'
+      - 'recovery/src/Managed/Core/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: joint-baseline-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  baseline:
+    runs-on: windows-2022
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Restore complete pinned real MOD input
+        shell: pwsh
+        run: |
+          git restore --source=068643219fded09a05fb7b75c6507b769c430316 --staged --worktree -- SDK/Mods/Upheaval
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned input checkout failed' }
+          $tree=(git write-tree --prefix=SDK/Mods/Upheaval/).Trim()
+          if ($tree -cne 'd48cdbd6fec7b09aa11cf6a767fa6f59476fa6f6') { throw "Pinned input mismatch: $tree" }
+      - name: Original then latest recovered joint BAB compilation
+        shell: pwsh
+        run: ./recovery/scripts/TestJointSdkBaseline.ps1 -TimeoutSeconds 1200
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: joint-baseline-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/joint-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 30
+      - name: Save receipt and compact production evidence without input assets
+        if: always()
+        shell: pwsh
+        run: |
+          $dir="recovery/evidence/joint-baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (!(Test-Path "$dir/validation.json")) { exit 0 }
+          git reset
+          git add "$dir/validation.json"
+          foreach($name in @('inputs.json','actual-dispatch.json','Original.config','Recovered.config','Original-dlls.json','Recovered-dlls.json')) {
+            if (Test-Path "$dir/$name") { git add "$dir/$name" }
+          }
+          Get-ChildItem "$dir/production" -Filter *.tsv -Recurse -ErrorAction SilentlyContinue | ForEach-Object { git add -- $_.FullName }
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Record joint baseline $env:GITHUB_RUN_ID attempt $env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent branch update requires manual integration' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

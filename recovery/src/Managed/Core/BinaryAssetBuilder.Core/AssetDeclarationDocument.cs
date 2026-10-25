@@ -661,6 +661,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				_Current.XmlDocument.NodeInserted += NodeInsertedHandler;
 			}
 			_Current.XmlDocument.Load(xmlReader);
+			JointBaselineTrace.XmlLoaded(_Current.SourcePath, xmlReader, xmlResolver);
 			if (flag)
 			{
 				_Current.XmlDocument.NodeInserted -= NodeInsertedHandler;
@@ -1083,6 +1084,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 				_Current.VerificationErrors = true;
 				throw new BinaryAssetBuilderException(ErrorCode.GameDataVerification, "FATAL: An asset failed the Game Data Verification step.  See previous output.");
 			}
+			JointBaselineTrace.Verified(declaration, plugin);
 		}
 	}
 
@@ -1105,6 +1107,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		IAssetBuilderPlugin plugin = _Current.DocumentProcessor.Plugins.GetPlugin(asset.Instance.Handle.TypeId);
 		asset.Buffer = plugin.ProcessInstance(asset.Instance);
 		_Current.DocumentProcessor.AddCompileTime(asset.Instance.Handle, DateTime.Now - now);
+		JointBaselineTrace.Processed(asset.Instance, plugin, asset.Buffer);
 	}
 
 	public void ProcessOverrides()
