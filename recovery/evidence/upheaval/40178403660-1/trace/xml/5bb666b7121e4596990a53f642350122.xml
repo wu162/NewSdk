@@ -1,0 +1,1 @@
+<SpecialPowerTemplate id="SpecialPower_SiegeMarker" TargetType="OBJECT_OR_LOCATION" ReloadTime="3s" PreventConditions="IS_ATTACKING" Flags="WATER_OK IGNORE_MAP_EXTENTS FOGGED_SHROUDED_CELLS_OK" TypeId="2178440954" xmlns="uri:ea.com:eala:asset" />

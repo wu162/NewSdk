@@ -1,0 +1,1 @@
+<ObjectCreationList id="OCL_AlliedArtilleryPreAttack_Marker" TypeId="3899542881" xmlns="uri:ea.com:eala:asset"><CreateObject Options="IGNORE_ALL_OBJECTS CREATE_AT_TARGET" MinLifetime="1.5s" MaxLifetime="1.5s" TypeId="2517552423"><CreateObject TypeId="344905565">AlliedArtilleryVehicleSiegeMarker</CreateObject></CreateObject></ObjectCreationList>

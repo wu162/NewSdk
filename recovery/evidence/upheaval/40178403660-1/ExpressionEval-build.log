@@ -1,0 +1,12 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\recovery\src\Managed\ExpressionEval\BinaryAssetBuilder.ExpressionEval.csproj (in 275 ms).
+D:\a\NewSdk\NewSdk\recovery\src\Managed\ExpressionEval\ExpressionLexer.cs(91,14): warning CS0618: 'Hashtable.Hashtable(int, float, IHashCodeProvider, IComparer)' is obsolete: 'Please use Hashtable(int, float, IEqualityComparer) instead.' [D:\a\NewSdk\NewSdk\recovery\src\Managed\ExpressionEval\BinaryAssetBuilder.ExpressionEval.csproj]
+  BinaryAssetBuilder.ExpressionEval -> D:\a\_temp\upheaval-40178403660-1\managed-ExpressionEval\BinaryAssetBuilder.ExpressionEval.dll
+
+Build succeeded.
+
+D:\a\NewSdk\NewSdk\recovery\src\Managed\ExpressionEval\ExpressionLexer.cs(91,14): warning CS0618: 'Hashtable.Hashtable(int, float, IHashCodeProvider, IComparer)' is obsolete: 'Please use Hashtable(int, float, IEqualityComparer) instead.' [D:\a\NewSdk\NewSdk\recovery\src\Managed\ExpressionEval\BinaryAssetBuilder.ExpressionEval.csproj]
+    1 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.58

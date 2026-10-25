@@ -1,0 +1,1 @@
+<SpecialPowerTemplate id="SpecialPower_TriggerNitrousBoost" ReloadTime="10s" TargetType="NONE" NameOfVoiceNameToUseAsInitiateIntendToDoVoice="voiceNitroBoost" PreventConditions="IMMOBILE IMMOBILE_ALLOW_ROTATE" TypeId="2178440954" xmlns="uri:ea.com:eala:asset" />

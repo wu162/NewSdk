@@ -1,0 +1,1 @@
+<SpecialPowerTemplate id="SpecialPower_ArcherArrowBarrage" ReloadTime="10s" TargetType="LOCATION" RadiusCursorRadius="60" Flags="WATER_OK NOT_IN_NANOSWARM CANNOT_LEAVE_ENCLOSURE" NameOfVoiceNameToUseAsInitiateIntendToDoVoice="voiceArrowBarrage" TypeId="2178440954" xmlns="uri:ea.com:eala:asset"></SpecialPowerTemplate>

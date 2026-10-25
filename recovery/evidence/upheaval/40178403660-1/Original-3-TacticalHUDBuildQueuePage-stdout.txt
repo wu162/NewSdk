@@ -1,0 +1,93 @@
+Command Line: D:\a\_temp\upheaval-40178403660-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDBuildQueuePage.xml /od:D:\a\_temp/upheaval-40178403660-1/Original/builtmods /iod:D:\a\_temp/upheaval-40178403660-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\upheaval-40178403660-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDBuildQueuePage.xml /od:D:\a\_temp/upheaval-40178403660-1/Original/builtmods /iod:D:\a\_temp/upheaval-40178403660-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+[00:00:00.0156278] BinaryAssetBuilder started
+[00:00:00.4063797] Cached session data not available.
+[00:00:00.4063797] Session caching enabled ('D:\a\_temp/upheaval-40178403660-1/Original/builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.4219336] Network caching enabled ('D:\a\_temp/upheaval-40178403660-1/Original/builtmods\cache').
+[00:00:00.4375599] Loading 'file://d:\a\_temp\upheaval-40178403660-1\original\mods\upheaval\data\aptui\tacticalhudbuildqueuepage.xml'.
+[00:00:00.4697704] Loading 'file://d:\a\_temp\upheaval-40178403660-1\original\mods\upheaval\data\aptui\tacticalhudbuildqueuepage\tacticalhudbuildqueuepage.xml'.
+[00:00:00.5166839] tacticalhudbuildqueuepage.xml: Compiling AptAptData:TacticalHUDBuildQueuePage_apt [6c41e6dc:251eaaf6]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptConstData:TacticalHUDBuildQueuePage_const [3a9ce0b0:b493828f]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptDatData:TacticalHUDBuildQueuePage_dat [423395e1:1a2b4d62]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_1 [3daa8c20:5541570b]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_10 [3daa8c20:8adfefa0]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_101 [3daa8c20:19d60bdf]
+[00:00:00.5479362] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_103 [3daa8c20:17ecb593]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_106 [3daa8c20:8e073aec]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_110 [3daa8c20:fef4780b]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_112 [3daa8c20:3cb1c543]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_114 [3daa8c20:373993ee]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_117 [3daa8c20:3b84d075]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_17 [3daa8c20:a6d23712]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_19 [3daa8c20:0ef39153]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_22 [3daa8c20:8ff4cc5a]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_24 [3daa8c20:023d3a8d]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_27 [3daa8c20:93b2104d]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_29 [3daa8c20:6cd981f4]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_32 [3daa8c20:898efab0]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_34 [3daa8c20:3e7683a7]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_37 [3daa8c20:90245de7]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_39 [3daa8c20:0704c018]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_4 [3daa8c20:cb328e2b]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_42 [3daa8c20:8471a5b8]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_44 [3daa8c20:1b40205c]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_48 [3daa8c20:bb1d29cd]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_50 [3daa8c20:fa415307]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_52 [3daa8c20:8367a449]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_55 [3daa8c20:3fc3a298]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_58 [3daa8c20:b8424222]
+[00:00:00.5635569] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_6 [3daa8c20:fe3a575d]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_61 [3daa8c20:6656db36]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_64 [3daa8c20:10699e81]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_67 [3daa8c20:86b7987f]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_70 [3daa8c20:0fd74dd6]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_76 [3daa8c20:9f963c34]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_79 [3daa8c20:95eceb3e]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_8 [3daa8c20:005a10b6]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_81 [3daa8c20:71dfb014]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_83 [3daa8c20:74cd14c0]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_87 [3daa8c20:8efdc26d]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_89 [3daa8c20:e8032313]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_91 [3daa8c20:79778693]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_93 [3daa8c20:61139a3e]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_95 [3daa8c20:f1def92c]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling AptGeometryData:TacticalHUDBuildQueuePage_99 [3daa8c20:7258dc4b]
+[00:00:00.5791824] tacticalhudbuildqueuepage.xml: Compiling Texture:apt_TacticalHUDBuildQueuePage_1 [21e727da:695055b5]
+[00:00:00.7510958] tacticalhudbuildqueuepage.xml: Submitting to cache Texture:apt_TacticalHUDBuildQueuePage_1 [21e727da:695055b5]
+[00:00:00.7510958] Resolving references: mods\upheaval\data\aptui\tacticalhudbuildqueuepage
+[00:00:00.7666883] Stable sorting assets
+[00:00:00.7666883] Sorting by schema dependencies
+[00:00:00.7666883] Sorting by asset dependencies
+[00:00:00.7666883] Generating stream: mods\upheaval\data\aptui\tacticalhudbuildqueuepage
+[00:00:00.7823087] Slow asset clean-up (expected: 47, actual: 47, old: 0, current: 47)
+[00:00:00.7823087] mods\upheaval\data\aptui\tacticalhudbuildqueuepage Linking binary data
+[00:00:00.7979350] mods\upheaval\data\aptui\tacticalhudbuildqueuepage Linking import data
+[00:00:00.7979350] mods\upheaval\data\aptui\tacticalhudbuildqueuepage Linking relocation data
+[00:00:00.7979350] mods\upheaval\data\aptui\tacticalhudbuildqueuepage Stream complete
+[00:00:00.7979350] BinaryAssetBuilder complete
+[00:00:00.7979350] Texture:
+[00:00:00.7979350]       Instances Processed: 1
+[00:00:00.7979350]       Total Processing Time: 00:00:00.1719134
+[00:00:00.7979350]       Longest Processing Time: 00:00:00.1719134 (apt_TacticalHUDBuildQueuePage_1)
+[00:00:00.7979350]       Average Processing Time: 0.1719134 seconds
+[00:00:00.7979350] AptConstData:
+[00:00:00.7979350]       Instances Processed: 1
+[00:00:00.7979350]       Total Processing Time: 00:00:00
+[00:00:00.7979350]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7979350]       Average Processing Time: 0 seconds
+[00:00:00.7979350] AptGeometryData:
+[00:00:00.7979350]       Instances Processed: 43
+[00:00:00.7979350]       Total Processing Time: 00:00:00
+[00:00:00.7979350]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7979350]       Average Processing Time: 0 seconds
+[00:00:00.7979350] AptDatData:
+[00:00:00.7979350]       Instances Processed: 1
+[00:00:00.7979350]       Total Processing Time: 00:00:00
+[00:00:00.7979350]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7979350]       Average Processing Time: 0 seconds
+[00:00:00.7979350] AptAptData:
+[00:00:00.7979350]       Instances Processed: 1
+[00:00:00.7979350]       Total Processing Time: 00:00:00.0312523
+[00:00:00.7979350]       Longest Processing Time: 00:00:00.0312523 (TacticalHUDBuildQueuePage_apt)
+[00:00:00.7979350]       Average Processing Time: 0.0312523 seconds
+[00:00:00.8135577] Total Processing Time for All Types: 00:00:00.2031657

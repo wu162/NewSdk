@@ -1,0 +1,1 @@
+<UnitAbilityButtonTemplate id="MouseButtonGrinderNitrousBoostPower" LogicCommand="Command_ActivateGrinderNitrousBoostSpecialPower\0" TypeId="3517887782" xmlns="uri:ea.com:eala:asset"><Data TypeId="1323159685"><SpecialPower StateData="ButtonStateAbilityGrinderNitrousBoost\1" TypeId="230292782" /></Data></UnitAbilityButtonTemplate>
