@@ -15,6 +15,7 @@ try {
  python recovery/scripts/GenerateAudioXmaPacketOracle.py --output $oracleInput
  if($LASTEXITCODE -ne 0){throw 'Original bounded integer packet oracle generation failed'}
  $state.oracleSha256=(Get-FileHash $oracleInput).Hash.ToLowerInvariant()
+ if($state.oracleSha256 -ne '8f64dfaf0c179e00613fd397c81122fb0cd78c6fb9eeac3e5d1b3005db01e0bf'){throw 'Pinned XMA packet oracle fingerprint changed'}
  $original=Join-Path $work 'original'
  New-Item -ItemType Directory $original|Out-Null
  Copy-Item SDK/tools/*.dll $original
