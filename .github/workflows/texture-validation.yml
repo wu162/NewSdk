@@ -80,6 +80,9 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
       - name: Run selected complete groups serially
         id: tests
         shell: pwsh
@@ -95,3 +98,4 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path recovery/evidence/texture -Message "texture: record batch $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+
