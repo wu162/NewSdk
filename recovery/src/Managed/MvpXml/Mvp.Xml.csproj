@@ -7,7 +7,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace />
     <SignAssembly>true</SignAssembly>
-    <DelaySign>true</DelaySign>
+    <PublicSign>true</PublicSign>
     <AssemblyOriginatorKeyFile>PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>

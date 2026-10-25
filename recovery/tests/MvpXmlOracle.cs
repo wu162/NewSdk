@@ -27,6 +27,7 @@ public class MvpXmlOracle {
     }
     static void Contract() {
         Assembly a=typeof(XIncludingReader).Assembly;
+        Check(String.Equals(Path.GetFullPath(a.Location),Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Mvp.Xml.dll"),StringComparison.OrdinalIgnoreCase));
         Rows.Add(new[]{"assembly",a.GetName().FullName});
         var entries=new List<string>();
         foreach(Type t in a.GetTypes()) {

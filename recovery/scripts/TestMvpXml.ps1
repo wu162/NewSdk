@@ -20,7 +20,7 @@ if (!$msbuild) { throw "Full .NET Framework MSBuild is required for net20 ResGen
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:System.Web.Extensions.dll /r:"$original/Mvp.Xml.dll" /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/MvpXmlOracle.exe" (Resolve-Path 'recovery/tests/MvpXmlOracle.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Oracle compilation failed' }
-'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/MvpXmlOracle.exe.config"
+'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup><runtime><bypassTrustedAppStrongNames enabled="true" /></runtime></configuration>' | Set-Content "$original/MvpXmlOracle.exe.config"
 & "$original/MvpXmlOracle.exe" "$out/original.json" *> "$out/original.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log"; throw 'Original oracle failed' }
 Get-Content "$out/original.log"
