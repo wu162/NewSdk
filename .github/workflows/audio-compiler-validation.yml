@@ -25,7 +25,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Compare isolated resampler FFT component
-        if: "!contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-aiff]')"
+        if: "!contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-resample-plugin]')"
         shell: pwsh
         env:
           AUDIO_NATIVE_CPU_ONLY: ${{ contains(github.event.head_commit.message, '[native-cpu-only]') }}
@@ -38,11 +38,14 @@ jobs:
       - name: Compare PathMusic and MP3 handlers and collect codec probes
         if: "!contains(github.event.head_commit.message, '[audio-fft]')"
         env:
+          AUDIO_RESAMPLE_ONLY: ${{ contains(github.event.head_commit.message, '[audio-resample-plugin]') }}
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
           AUDIO_NATIVE_PROBE: ${{ contains(github.event.head_commit.message, '[audio-native-probe]') }}
         shell: pwsh
         run: |
-          if ($env:AUDIO_NATIVE_PROBE -eq 'true') {
+          if ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
+            ./recovery/scripts/TestAudioPlugin.ps1 -Groups resample-full
+          } elseif ($env:AUDIO_NATIVE_PROBE -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly -Groups xma,resample
           } elseif ($env:AUDIO_AIFF_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups formats,aiffloops
@@ -58,20 +61,23 @@ jobs:
           dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release
           if ($LASTEXITCODE -ne 0) { throw "Release project build failed" }
       - name: Compare PCM encoder component
-        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
+        if: always() && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare XAS encoder component
-        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
+        if: always() && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare original and recovered SDK builds
         if: success() && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         env:
+          AUDIO_RESAMPLE_ONLY: ${{ contains(github.event.head_commit.message, '[audio-resample-plugin]') }}
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
         shell: pwsh
         run: |
-          if ($env:AUDIO_AIFF_ONLY -eq 'true') {
+          if ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
+            ./recovery/scripts/TestAudioSdk.ps1 -ResamplingOnly
+          } elseif ($env:AUDIO_AIFF_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioSdk.ps1 -AiffLoopsOnly
           } else {
             ./recovery/scripts/TestAudioSdk.ps1
@@ -96,7 +102,9 @@ jobs:
           if ($evidencePaths.Count -eq 0) { throw 'No audio validation evidence was produced' }
           git add -- $evidencePaths
           if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
-          if (git diff --cached --quiet) { exit 0 }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
           git commit -m "audio: preserve component validation evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
           git pull --rebase origin $env:GITHUB_REF_NAME

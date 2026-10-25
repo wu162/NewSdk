@@ -5,8 +5,8 @@ using BinaryAssetBuilder.Core;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
-    // Fully managed backend for the currently recovered no-loop PCM8/PCM16 WAVE
-    // input subset. Unsupported codec/filter/input combinations are explicit.
+    // Fully managed backend for the recovered integral WAVE/AIFF input
+    // subset, including supported forward loops and filter 120 rate conversion. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
         private static readonly bool[] compressionWarnings = new bool[3];
@@ -50,7 +50,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                     if (rate < 400 || rate > 96000)
                         throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument,
                             "Audio file {0}: Sample rate must be between 400 and 96000", declaration);
-                    throw new NotSupportedException("Audio resampling has not been recovered. Omit SampleRate or use the input rate.");
+                    AudioResampling.Apply(ref input, rate, hasLoop, ref loopStart, ref loopEnd);
                 }
             }
             // Quality is ignored for representations PCM(1) and XAS(29) by the
