@@ -130,7 +130,7 @@ const ModuleField drawBeamW3DTracerDrawModuleDataFields[] = {
     { "UseAdditiveBlending", 108u, ModuleValue::Boolean, "false", nullptr },
     { "TracerHitFx", 60u, ModuleValue::Reference, nullptr, nullptr },
     { "TracerEmitFx", 64u, ModuleValue::Reference, nullptr, nullptr },
-    { "TextureIndex", 68u, ModuleValue::Unsigned, nullptr, nullptr },
+    { "TextureIndex", 68u, ModuleValue::Signed, nullptr, nullptr },
 };
 const ModuleToken drawBeamW3DTracerDrawModuleDataTokens[] = {
     { 1u, 402003752u, 0u, &drawBeamDrawModuleData, 0u, 0u },
