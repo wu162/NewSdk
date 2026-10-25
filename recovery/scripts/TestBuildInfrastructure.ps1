@@ -20,13 +20,14 @@ try {
         $rebuilt="$work/$mode"
         New-Item -ItemType Directory -Force $rebuilt | Out-Null
         # Exclude target originals: this directory contains only source-built targets.
-        Get-ChildItem SDK/tools/*.dll | Where-Object { $_.Name -notin @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.Remote.dll') } | Copy-Item -Destination $rebuilt
+        Get-ChildItem SDK/tools/*.dll | Where-Object { $_.Name -notin @('BinaryAssetBuilder.Core.dll','BinaryAssetBuilder.Remote.dll','Mvp.Xml.dll') } | Copy-Item -Destination $rebuilt
         Copy-Item "$original/BuildInfrastructureContract.exe*" $rebuilt
         foreach ($name in @('Core','Remote','EALABuild')) {
             $assembly=if($name -eq 'EALABuild'){'EALABuild'}else{"BinaryAssetBuilder.$name"}
             dotnet build "recovery/src/Managed/$name/$assembly.csproj" -c $mode -p:PlatformTarget=x86 -o "$work/build-$mode-$name" --nologo *> "$out/$mode-$name-build.log"
             if($LASTEXITCODE -ne 0){Get-Content "$out/$mode-$name-build.log" -Tail 50; throw "$mode $name build failed"}
             Copy-Item "$work/build-$mode-$name/$assembly.dll" $rebuilt
+            if($name -eq 'Core'){Copy-Item "$work/build-$mode-$name/Mvp.Xml.dll" $rebuilt}
         }
         & "$rebuilt/BuildInfrastructureContract.exe" "$out/$mode.txt" *> "$out/$mode.log"
         if($LASTEXITCODE -ne 0){Get-Content "$out/$mode.log"; throw "$mode oracle failed"}

@@ -29,12 +29,15 @@ class BuildInfrastructureContract
             foreach (Type i in t.GetInterfaces()) Rows.Add(t.FullName + ":interface:" + i);
             foreach (FieldInfo f in t.GetFields(All)) {
                 if (f.Name.StartsWith("<")) continue;
+                // Direct XInclude calls intentionally remove the optional loader's private state.
+                if(t.FullName=="BinaryAssetBuilder.Core.XIncludingReaderWrapper" && f.IsPrivate && f.IsStatic && (f.Name=="_Lib" || f.Name=="_Tracer")) continue;
                 Rows.Add(t.FullName + ":field:" + f.Name + ":" + f.FieldType + ":" + f.Attributes + ":" + (f.IsLiteral ? Text(f.GetRawConstantValue()) : ""));
             }
             foreach (MethodInfo m in t.GetMethods(All)) {
                 if (!m.Name.StartsWith("<")) Rows.Add(t.FullName + ":method:" + Signature(m) + ":" + m.Attributes);
             }
             foreach (ConstructorInfo c in t.GetConstructors(All)) {
+                if(t.FullName=="BinaryAssetBuilder.Core.XIncludingReaderWrapper" && c.IsStatic) continue;
                 // Original IL is only ldsflda _TheNop; initobj Nop; ret (12 bytes).
                 // Roslyn omits this redundant zero initializer; the C# initializer remains in Set.cs.
                 if(t.FullName=="BinaryAssetBuilder.Core.Set`1" && c.IsStatic) {
