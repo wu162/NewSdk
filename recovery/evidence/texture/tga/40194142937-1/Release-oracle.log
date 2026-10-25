@@ -1,0 +1,431 @@
+DIFFERENCE 1x1-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor8-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor8-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor24-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor24-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor40-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor40-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor56-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleFalse-descriptor56-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor8-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor8-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor24-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor24-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor40-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor40-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor56-alpha2-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x1-32-rleTrue-descriptor56-alpha2-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor0-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x2-24-rleTrue-descriptor48-alpha3-id7 TargetInvocationException
+DIFFERENCE 1x2-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x2-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 1x2-32-rleTrue-descriptor8-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor8-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor8-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor8-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor56-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor56-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor56-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x2-32-rleTrue-descriptor56-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor0-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha2-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha2-id7 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha3-id0 TargetInvocationException
+PROBE originalFailure 1x4-24-rleTrue-descriptor48-alpha3-id7 TargetInvocationException
+DIFFERENCE 1x4-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 1x4-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 1x4-32-rleTrue-descriptor8-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor8-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor8-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor8-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor56-alpha0-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor56-alpha0-id7 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor56-alpha1-id0 TargetInvocationException
+PROBE originalFailure 1x4-32-rleTrue-descriptor56-alpha1-id7 TargetInvocationException
+DIFFERENCE 2x1-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x1-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 2x2-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 2x2-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 2x2-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x2-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 2x2-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x2-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 2x4-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 2x4-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 2x4-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 2x4-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 2x4-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 2x4-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x1-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 4x2-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 4x2-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 4x2-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x2-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 4x2-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x2-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 4x4-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 4x4-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 4x4-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 4x4-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 4x4-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 4x4-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x1-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 8x2-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 8x2-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 8x2-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x2-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 8x2-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x2-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha2-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha2-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha3-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor16-alpha3-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha2-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha2-id7 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha3-id0 TargetInvocationException
+PROBE originalFailure 8x4-24-rleTrue-descriptor32-alpha3-id7 TargetInvocationException
+DIFFERENCE 8x4-32-rleFalse-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor24-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor24-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor40-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor40-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleFalse-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleTrue-descriptor8-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleTrue-descriptor8-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure 8x4-32-rleTrue-descriptor24-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor24-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor24-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor24-alpha1-id7 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor40-alpha0-id0 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor40-alpha0-id7 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor40-alpha1-id0 TargetInvocationException
+PROBE originalFailure 8x4-32-rleTrue-descriptor40-alpha1-id7 TargetInvocationException
+DIFFERENCE 8x4-32-rleTrue-descriptor56-alpha0-id0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE 8x4-32-rleTrue-descriptor56-alpha0-id7 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure long-run-64-24-direction0 TargetInvocationException
+PROBE originalFailure long-run-64-24-direction16 TargetInvocationException
+PROBE originalFailure long-run-64-24-direction32 TargetInvocationException
+PROBE originalFailure long-run-64-24-direction48 TargetInvocationException
+PROBE originalFailure long-run-64-32-direction0 TargetInvocationException
+PROBE originalFailure long-run-64-32-direction16 TargetInvocationException
+PROBE originalFailure long-run-64-32-direction32 TargetInvocationException
+PROBE originalFailure long-run-64-32-direction48 TargetInvocationException
+DIFFERENCE empty-footer-24-rleTrue-direction16 original alpha=False candidate alpha=False original first=FF564953 candidate first=FF4F050D
+DIFFERENCE empty-footer-24-rleTrue-direction32 original alpha=False candidate alpha=False original first=FF4F050D candidate first=FF4F050D
+DIFFERENCE descriptor0-0-rleFalse-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE descriptor0-0-rleTrue-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE descriptor0-16-rleFalse-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure descriptor0-16-rleTrue-alpha0 TargetInvocationException
+PROBE originalFailure descriptor0-16-rleTrue-alpha1 TargetInvocationException
+DIFFERENCE descriptor0-32-rleFalse-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE originalFailure descriptor0-32-rleTrue-alpha0 TargetInvocationException
+PROBE originalFailure descriptor0-32-rleTrue-alpha1 TargetInvocationException
+DIFFERENCE descriptor0-48-rleFalse-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+DIFFERENCE descriptor0-48-rleTrue-alpha0 original alpha=False candidate alpha=True original first=FF4F050D candidate first=004F050D
+PROBE candidateUnsupported real:apt_tacticalhudbuildqueuepage_1.tga original=1024x512 alpha=True reason=Only an exact TGA footer with zero extension/developer offsets is supported after the pixel data.
+PROBE candidateUnsupported real:apt_tacticalhudmaincommandbar_1.tga original=512x256 alpha=True reason=Only an exact TGA footer with zero extension/developer offsets is supported after the pixel data.
+PROBE Texture TGA original loading: fixtures=1611; mismatches=430; unsupportedCount=2; originalFailures=252; no acceptance claim
