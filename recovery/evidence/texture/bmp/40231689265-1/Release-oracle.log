@@ -1,0 +1,13 @@
+DIFFERENCE d1-1x1-topFalse-p0-reserved0-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p0-reserved0-gap7 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p0-reserved255-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p0-reserved255-gap7 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p1-reserved0-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p1-reserved0-gap7 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p1-reserved255-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p1-reserved255-gap7 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p2-reserved0-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p2-reserved0-gap7 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p2-reserved255-gap0 alpha=error/False first=-1
+DIFFERENCE d1-1x1-topFalse-p2-reserved255-gap7 alpha=error/False first=-1
+PROBE Texture BMP fixtures=3240 decodedMatches=240 originalFailures=2160 mismatches=3000 assertions=3250
