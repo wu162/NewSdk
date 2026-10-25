@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\recovery\src\Managed\Remote\BinaryAssetBuilder.Remote.csproj (in 246 ms).
+  BinaryAssetBuilder.Remote -> D:\a\_temp\infrastructure-validation-07e4b1c9b02c41bb886270a77ed28d04\build-Debug-Remote\BinaryAssetBuilder.Remote.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.30
