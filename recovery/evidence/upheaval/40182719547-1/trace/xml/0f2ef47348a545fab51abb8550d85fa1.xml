@@ -1,0 +1,1 @@
+<SpecialPowerTemplate id="SpecialPower_AlliedFutureTankLaserWeapon" TargetType="LOCATION" Flags="WATER_OK CANNOT_LEAVE_ENCLOSURE" ReloadTime="15s" NameOfVoiceNameToUseAsInitiateIntendToDoVoice="voiceAttackRiotBeam" WaypointModeTerminal="false" TypeId="2178440954" xmlns="uri:ea.com:eala:asset" />

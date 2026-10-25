@@ -1,0 +1,5 @@
+<FXList id="FX_JapanCommandoSecondaryFire" TypeId="2254974584" xmlns="uri:ea.com:eala:asset"><NuggetList TypeId="877998740"><Sound Value="JAP_Yuriko_PsychokineticBurstMS\0" TypeId="503892219" /><ParticleSystem Particle="YurikoPsyonicBlastAdditive\1" TypeId="751572338" /><ParticleSystem Particle="YurikoPsyonicBlastDistortion\2" TypeId="751572338" /><ParticleSystem Particle="YurikoPsyonicBlastFlash\3" TypeId="751572338" /><ParticleSystem Particle="YurikoPsyonicBlastLight\4" TypeId="751572338" /><!--
+			<ParticleSystem Particle="JapSchoolgirl_BlastRays">
+				<Offset x="0" y="0" z="35.0" />
+			</ParticleSystem>
+			--></NuggetList></FXList>

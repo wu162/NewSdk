@@ -1,0 +1,1 @@
+<LogicCommand Type="SPECIAL_POWER" id="PublicHello_Command_PackSovietMCV" TypeId="2101756272" xmlns="uri:ea.com:eala:asset"><SpecialPower TypeId="2934454408">SpecialPower_PackReplaceSelf\0</SpecialPower><AISpecialPowerInfo Heuristic="PACK" Manager="TACTIC" TypeId="3416703170" /></LogicCommand>

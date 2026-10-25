@@ -1,0 +1,1 @@
+<FXList id="FX_Allied_FutureTank_HitVet" TypeId="2254974584" xmlns="uri:ea.com:eala:asset"><NuggetList TypeId="877998740"><ParticleSystem Particle="AlliedFutureTankNodeVet\0" TypeId="751572338" /><ParticleSystem Particle="AlliedFutureTankNodeHitLightVet\1" TypeId="751572338" /><ParticleSystem Particle="AlliedFutureTankNodeHitGlowVet\2" TypeId="751572338" /></NuggetList></FXList>

@@ -1,0 +1,1 @@
+<ObjectCreationList id="AUGunshipAircraft_Dying_OCL" TypeId="3899542881" xmlns="uri:ea.com:eala:asset"><CreateObject Options="IGNORE_ALL_OBJECTS" Disposition="LIKE_EXISTING INHERIT_VELOCITY" Count="1" VelocityScale="0.5" TypeId="2517552423"><CreateObject TypeId="344905565">AlliedGunshipAircraft_Dying</CreateObject></CreateObject></ObjectCreationList>

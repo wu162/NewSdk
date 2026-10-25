@@ -1,0 +1,1 @@
+<ObjectFilterAsset id="SovietMagneticSingularitySpecialPowerObjectFilter" TypeId="1151702845" xmlns="uri:ea.com:eala:asset"><Filter Rule="ANY" Include="VEHICLE INFANTRY STRUCTURE" Exclude="UNATTACKABLE" StatusBitFlagsExclude="SUBMERGED AIRBORNE_TARGET UNDER_IRON_CURTAIN" TypeId="3832456114" /></ObjectFilterAsset>

@@ -1,0 +1,100 @@
+Command Line: D:\a\_temp\upheaval-40182719547-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDMainCommandBar.xml /od:D:\a\_temp/upheaval-40182719547-1/Original/builtmods /iod:D:\a\_temp/upheaval-40182719547-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\upheaval-40182719547-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDMainCommandBar.xml /od:D:\a\_temp/upheaval-40182719547-1/Original/builtmods /iod:D:\a\_temp/upheaval-40182719547-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+[00:00:00.0156241] BinaryAssetBuilder started
+[00:00:00.2978411] Loading previous string hash file from D:\a\_temp/upheaval-40182719547-1/Original/builtmods\StringHashes.xml
+[00:00:00.2978411] Loading XML cache
+[00:00:00.3134525] Session cache age is 0 days, 0 hours, 0 minutes.
+[00:00:00.3134525] Checking 54 files for updates.
+[00:00:00.3134525] Cached session data available.
+[00:00:00.3134525] Session caching enabled ('D:\a\_temp/upheaval-40182719547-1/Original/builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.3290736] Network caching enabled ('D:\a\_temp/upheaval-40182719547-1/Original/builtmods\cache').
+[00:00:00.3447660] Loading 'file://d:\a\_temp\upheaval-40182719547-1\original\mods\upheaval\data\aptui\tacticalhudmaincommandbar.xml'.
+[00:00:00.3603495] Loading 'file://d:\a\_temp\upheaval-40182719547-1\original\mods\upheaval\data\aptui\tacticalhudmaincommandbar\tacticalhudmaincommandbar.xml'.
+[00:00:00.4073656] tacticalhudmaincommandbar.xml: Compiling AptAptData:TacticalHUDMainCommandBar_apt [6c41e6dc:8932b456]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptConstData:TacticalHUDMainCommandBar_const [3a9ce0b0:3f55ae72]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptDatData:TacticalHUDMainCommandBar_dat [423395e1:85ff4bfd]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_1 [3daa8c20:b422f225]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_104 [3daa8c20:2185786a]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_106 [3daa8c20:2bceb23c]
+[00:00:00.4386056] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_108 [3daa8c20:3a6489a8]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_110 [3daa8c20:1ce08fa2]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_112 [3daa8c20:347b4bda]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_114 [3daa8c20:366788cb]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_116 [3daa8c20:a1d0ac7b]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_12 [3daa8c20:bcbdc0cd]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_14 [3daa8c20:34fe54da]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_16 [3daa8c20:ad607559]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_19 [3daa8c20:420c0b7b]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_21 [3daa8c20:be396d4e]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_23 [3daa8c20:7e5d98e2]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_26 [3daa8c20:adb30987]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_28 [3daa8c20:cb868955]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_30 [3daa8c20:2046034c]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_33 [3daa8c20:179cbe36]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_35 [3daa8c20:89f3ac62]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_37 [3daa8c20:23d31d5a]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_40 [3daa8c20:025044cc]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_42 [3daa8c20:a50b84c7]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_44 [3daa8c20:3bb3e343]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_47 [3daa8c20:059017fc]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_49 [3daa8c20:a3de19e1]
+[00:00:00.4542326] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_5 [3daa8c20:55d51f97]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_51 [3daa8c20:66e3b277]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_56 [3daa8c20:b41b0e10]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_60 [3daa8c20:0950b440]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_62 [3daa8c20:ba1ff02b]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_65 [3daa8c20:a5228ee7]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_67 [3daa8c20:19490475]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_7 [3daa8c20:7174c3ef]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_70 [3daa8c20:06d4c1a5]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_72 [3daa8c20:af7597e4]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_75 [3daa8c20:b97ed035]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_77 [3daa8c20:dea6cffa]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_80 [3daa8c20:0f2e73a6]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_82 [3daa8c20:b33c284f]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_85 [3daa8c20:a1850f4d]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_87 [3daa8c20:c972c785]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_9 [3daa8c20:710866f8]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_90 [3daa8c20:dec1b14b]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_92 [3daa8c20:ee88f4a6]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_95 [3daa8c20:dbaa6b37]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling AptGeometryData:TacticalHUDMainCommandBar_97 [3daa8c20:d43fc110]
+[00:00:00.4698528] tacticalhudmaincommandbar.xml: Compiling Texture:apt_TacticalHUDMainCommandBar_1 [21e727da:11bb0652]
+[00:00:00.5323686] tacticalhudmaincommandbar.xml: Submitting to cache Texture:apt_TacticalHUDMainCommandBar_1 [21e727da:11bb0652]
+[00:00:00.5479884] Resolving references: mods\upheaval\data\aptui\tacticalhudmaincommandbar
+[00:00:00.5479884] Stable sorting assets
+[00:00:00.5479884] Sorting by schema dependencies
+[00:00:00.5479884] Sorting by asset dependencies
+[00:00:00.5636072] Generating stream: mods\upheaval\data\aptui\tacticalhudmaincommandbar
+[00:00:00.5636072] Slow asset clean-up (expected: 50, actual: 50, old: 0, current: 50)
+[00:00:00.5636072] mods\upheaval\data\aptui\tacticalhudmaincommandbar Linking binary data
+[00:00:00.5792261] mods\upheaval\data\aptui\tacticalhudmaincommandbar Linking import data
+[00:00:00.5792261] mods\upheaval\data\aptui\tacticalhudmaincommandbar Linking relocation data
+[00:00:00.5792261] mods\upheaval\data\aptui\tacticalhudmaincommandbar Stream complete
+[00:00:00.5792261] BinaryAssetBuilder complete
+[00:00:00.5792261] Texture:
+[00:00:00.5792261]       Instances Processed: 1
+[00:00:00.5792261]       Total Processing Time: 00:00:00.0625158
+[00:00:00.5792261]       Longest Processing Time: 00:00:00.0625158 (apt_TacticalHUDMainCommandBar_1)
+[00:00:00.5792261]       Average Processing Time: 0.0625158 seconds
+[00:00:00.5792261] AptConstData:
+[00:00:00.5792261]       Instances Processed: 1
+[00:00:00.5792261]       Total Processing Time: 00:00:00
+[00:00:00.5792261]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5792261]       Average Processing Time: 0 seconds
+[00:00:00.5792261] AptGeometryData:
+[00:00:00.5792261]       Instances Processed: 46
+[00:00:00.5792261]       Total Processing Time: 00:00:00
+[00:00:00.5792261]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5792261]       Average Processing Time: 0 seconds
+[00:00:00.5792261] AptDatData:
+[00:00:00.5792261]       Instances Processed: 1
+[00:00:00.5792261]       Total Processing Time: 00:00:00
+[00:00:00.5792261]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5948530]       Average Processing Time: 0 seconds
+[00:00:00.5948530] AptAptData:
+[00:00:00.5948530]       Instances Processed: 1
+[00:00:00.5948530]       Total Processing Time: 00:00:00.0312400
+[00:00:00.5948530]       Longest Processing Time: 00:00:00.0312400 (TacticalHUDMainCommandBar_apt)
+[00:00:00.5948530]       Average Processing Time: 0.03124 seconds
+[00:00:00.5948530] Total Processing Time for All Types: 00:00:00.0937558
