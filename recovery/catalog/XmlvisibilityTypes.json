@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "InvisibilityTemplate",
+      "typeId": 1431290504,
+      "typeHash": 419230569,
+      "schemaGlobal": true
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "typeId": 254471188,
+      "typeHash": 1688533139,
+      "schemaGlobal": true
+    }
+  ]
+}

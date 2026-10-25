@@ -1,0 +1,1 @@
+<PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults" TypeId="2140592493" xmlns="uri:ea.com:eala:asset"><Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Defaults\0" UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support\1" TypeId="2531163012" /></PlayerTechUpgradeBinding>

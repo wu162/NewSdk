@@ -1,0 +1,584 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "componentImplemented": true,
+  "sdkValidated": false,
+  "root": {
+    "name": "UIConfigList",
+    "bytes": 12,
+    "uidynamicConfigBytes": 16,
+    "componentPointerStride": 4,
+    "typeId": 3072160547,
+    "typeHash": 3852040349
+  },
+  "dispatch": [
+    {
+      "name": "UIComponentMovieArchive",
+      "typeId": 145221318,
+      "bytes": 24,
+      "helperLine": 69081,
+      "marshalLine": 33421,
+      "marshalLines": 14
+    },
+    {
+      "name": "UIComponentMovie",
+      "typeId": 133731258,
+      "bytes": 20,
+      "helperLine": 68933,
+      "marshalLine": 33478,
+      "marshalLines": 20
+    },
+    {
+      "name": "UIComponentObjectAction",
+      "typeId": 172478244,
+      "bytes": 8,
+      "helperLine": 68692,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentPlasmaInterface",
+      "typeId": 179455844,
+      "bytes": 8,
+      "helperLine": 69003,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentObjectSelector",
+      "typeId": 216165117,
+      "bytes": 116,
+      "helperLine": 69073,
+      "marshalLine": 34629,
+      "marshalLines": 136
+    },
+    {
+      "name": "UIComponentOnlineLobbyList",
+      "typeId": 488322475,
+      "bytes": 16,
+      "helperLine": 68906,
+      "marshalLine": 38520,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentDisconnect",
+      "typeId": 429483379,
+      "bytes": 8,
+      "helperLine": 68513,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentKeyboard",
+      "typeId": 346843115,
+      "bytes": 16,
+      "helperLine": 68641,
+      "marshalLine": 37849,
+      "marshalLines": 13
+    },
+    {
+      "name": "UIComponentAptMediator",
+      "typeId": 489894998,
+      "bytes": 104,
+      "helperLine": 68949,
+      "marshalLine": 40012,
+      "marshalLines": 79
+    },
+    {
+      "name": "UIComponentPlayerTechStore",
+      "typeId": 668315732,
+      "bytes": 32,
+      "helperLine": 68957,
+      "marshalLine": 35862,
+      "marshalLines": 25
+    },
+    {
+      "name": "UIComponentCommandList",
+      "typeId": 638067136,
+      "bytes": 56,
+      "helperLine": 69065,
+      "marshalLine": 36093,
+      "marshalLines": 43
+    },
+    {
+      "name": "UIComponentJoypadTactical",
+      "typeId": 521477685,
+      "bytes": 8,
+      "helperLine": 68546,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentStats",
+      "typeId": 820184420,
+      "bytes": 32,
+      "helperLine": 68995,
+      "marshalLine": 34277,
+      "marshalLines": 25
+    },
+    {
+      "name": "UIComponentTutorial",
+      "typeId": 1356364876,
+      "bytes": 8,
+      "helperLine": 68630,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentAptJoypad",
+      "typeId": 1206483093,
+      "bytes": 12,
+      "helperLine": 68649,
+      "marshalLine": 33468,
+      "marshalLines": 9
+    },
+    {
+      "name": "UIComponentOptionsSettingsNetwork",
+      "typeId": 836201403,
+      "bytes": 16,
+      "helperLine": 68886,
+      "marshalLine": 39790,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentOptions",
+      "typeId": 1391293877,
+      "bytes": 112,
+      "helperLine": 68840,
+      "marshalLine": 33898,
+      "marshalLines": 37
+    },
+    {
+      "name": "UIComponentMode",
+      "typeId": 1395831105,
+      "bytes": 8,
+      "helperLine": 69097,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentFormation",
+      "typeId": 1394517147,
+      "bytes": 12,
+      "helperLine": 68576,
+      "marshalLine": 35756,
+      "marshalLines": 14
+    },
+    {
+      "name": "UIComponentOptionsSettingsGraphics",
+      "typeId": 1498808370,
+      "bytes": 212,
+      "helperLine": 68676,
+      "marshalLine": 39138,
+      "marshalLines": 387
+    },
+    {
+      "name": "UIComponentAutoMatch",
+      "typeId": 1520523841,
+      "bytes": 8,
+      "helperLine": 68856,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentMapList",
+      "typeId": 1537649639,
+      "bytes": 16,
+      "helperLine": 69135,
+      "marshalLine": 38077,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentMouseTactical",
+      "typeId": 1653095567,
+      "bytes": 8,
+      "helperLine": 69014,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentCampaign",
+      "typeId": 1596408516,
+      "bytes": 8,
+      "helperLine": 68735,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentInGameShowHide",
+      "typeId": 1568450771,
+      "bytes": 8,
+      "helperLine": 68600,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentMessage",
+      "typeId": 1688289936,
+      "bytes": 8,
+      "helperLine": 68611,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentCheats",
+      "typeId": 1786017422,
+      "bytes": 8,
+      "helperLine": 68797,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentCareerStats",
+      "typeId": 1779284912,
+      "bytes": 20,
+      "helperLine": 68832,
+      "marshalLine": 39979,
+      "marshalLines": 9
+    },
+    {
+      "name": "UIComponentBootup",
+      "typeId": 1729048602,
+      "bytes": 24,
+      "helperLine": 69033,
+      "marshalLine": 37584,
+      "marshalLines": 19
+    },
+    {
+      "name": "UIComponentInputBridge",
+      "typeId": 2006261339,
+      "bytes": 8,
+      "helperLine": 68973,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentChat",
+      "typeId": 2095311623,
+      "bytes": 24,
+      "helperLine": 68824,
+      "marshalLine": 39855,
+      "marshalLines": 19
+    },
+    {
+      "name": "UIComponentOptionsSettingsGeneral",
+      "typeId": 2054456400,
+      "bytes": 36,
+      "helperLine": 68778,
+      "marshalLine": 38913,
+      "marshalLines": 157
+    },
+    {
+      "name": "UIComponentCommandBar",
+      "typeId": 2047963295,
+      "bytes": 184,
+      "helperLine": 68711,
+      "marshalLine": 34955,
+      "marshalLines": 113
+    },
+    {
+      "name": "UIComponentGameSetup",
+      "typeId": 2115806557,
+      "bytes": 8,
+      "helperLine": 69124,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentOnlinePlayerList",
+      "typeId": 2161371176,
+      "bytes": 16,
+      "helperLine": 68965,
+      "marshalLine": 38585,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentRadar",
+      "typeId": 2130185433,
+      "bytes": 44,
+      "helperLine": 68727,
+      "marshalLine": 35937,
+      "marshalLines": 61
+    },
+    {
+      "name": "UIComponentLobby",
+      "typeId": 2182109677,
+      "bytes": 264,
+      "helperLine": 68848,
+      "marshalLine": 37165,
+      "marshalLines": 267
+    },
+    {
+      "name": "UIComponentSUDs",
+      "typeId": 2195693074,
+      "bytes": 12,
+      "helperLine": 68867,
+      "marshalLine": 35278,
+      "marshalLines": 13
+    },
+    {
+      "name": "UIComponentShellVisibility",
+      "typeId": 2212922687,
+      "bytes": 8,
+      "helperLine": 68524,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentOnlineInvite",
+      "typeId": 2344926053,
+      "bytes": 20,
+      "helperLine": 68584,
+      "marshalLine": 38207,
+      "marshalLines": 49
+    },
+    {
+      "name": "UIComponentOnlineLogin",
+      "typeId": 2293681924,
+      "bytes": 8,
+      "helperLine": 68922,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentSpecialPowers",
+      "typeId": 2347332328,
+      "bytes": 20,
+      "helperLine": 68754,
+      "marshalLine": 35802,
+      "marshalLines": 19
+    },
+    {
+      "name": "UIComponentPause",
+      "typeId": 2391930354,
+      "bytes": 8,
+      "helperLine": 68565,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentCoopCommander",
+      "typeId": 2671011847,
+      "bytes": 88,
+      "helperLine": 69108,
+      "marshalLine": 36213,
+      "marshalLines": 79
+    },
+    {
+      "name": "UIComponentGameInfo",
+      "typeId": 2817293816,
+      "bytes": 120,
+      "helperLine": 68914,
+      "marshalLine": 33979,
+      "marshalLines": 100
+    },
+    {
+      "name": "UIComponentInGameText",
+      "typeId": 2744604583,
+      "bytes": 168,
+      "helperLine": 69025,
+      "marshalLine": 35452,
+      "marshalLines": 133
+    },
+    {
+      "name": "UIComponentProfileManager",
+      "typeId": 2986175133,
+      "bytes": 16,
+      "helperLine": 68703,
+      "marshalLine": 38142,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentOnlineGameList",
+      "typeId": 3007635665,
+      "bytes": 28,
+      "helperLine": 69116,
+      "marshalLine": 38396,
+      "marshalLines": 74
+    },
+    {
+      "name": "UIComponentComlinkNotification",
+      "typeId": 3037661275,
+      "bytes": 16,
+      "helperLine": 69057,
+      "marshalLine": 37784,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentSound",
+      "typeId": 3344922402,
+      "bytes": 8,
+      "helperLine": 68535,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentMouse",
+      "typeId": 3155304710,
+      "bytes": 8,
+      "helperLine": 68657,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentLoadScreen",
+      "typeId": 3098235692,
+      "bytes": 8,
+      "helperLine": 68984,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentShell",
+      "typeId": 3383634269,
+      "bytes": 28,
+      "helperLine": 69049,
+      "marshalLine": 36468,
+      "marshalLines": 20
+    },
+    {
+      "name": "UIComponentPlayerPowers",
+      "typeId": 3515436843,
+      "bytes": 12,
+      "helperLine": 68592,
+      "marshalLine": 36423,
+      "marshalLines": 13
+    },
+    {
+      "name": "UIComponentCursor",
+      "typeId": 3406678138,
+      "bytes": 16,
+      "helperLine": 68770,
+      "marshalLine": 34880,
+      "marshalLines": 26
+    },
+    {
+      "name": "UIComponentOptionsSettingsAudio",
+      "typeId": 3553258344,
+      "bytes": 20,
+      "helperLine": 68816,
+      "marshalLine": 38808,
+      "marshalLines": 73
+    },
+    {
+      "name": "UIComponentTicker",
+      "typeId": 3588196759,
+      "bytes": 40,
+      "helperLine": 69089,
+      "marshalLine": 37663,
+      "marshalLines": 52
+    },
+    {
+      "name": "UIComponentVoiceChat",
+      "typeId": 3592118106,
+      "bytes": 12,
+      "helperLine": 68894,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentCredits",
+      "typeId": 3836561924,
+      "bytes": 8,
+      "helperLine": 68875,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentSaveLoad",
+      "typeId": 3677255217,
+      "bytes": 16,
+      "helperLine": 69041,
+      "marshalLine": 33539,
+      "marshalLines": 13
+    },
+    {
+      "name": "UIComponentOnlineBuddyList",
+      "typeId": 3653544330,
+      "bytes": 24,
+      "helperLine": 68557,
+      "marshalLine": 38297,
+      "marshalLines": 58
+    },
+    {
+      "name": "UIComponentGameViewJoypad",
+      "typeId": 3873690386,
+      "bytes": 116,
+      "helperLine": 68622,
+      "marshalLine": 34352,
+      "marshalLines": 112
+    },
+    {
+      "name": "UIComponentPostGame",
+      "typeId": 3923001196,
+      "bytes": 32,
+      "helperLine": 68941,
+      "marshalLine": 40236,
+      "marshalLines": 12
+    },
+    {
+      "name": "UIComponentLanLobby",
+      "typeId": 3884300109,
+      "bytes": 40,
+      "helperLine": 68746,
+      "marshalLine": 37894,
+      "marshalLines": 115
+    },
+    {
+      "name": "UIComponentShellMultiplayer",
+      "typeId": 4003898361,
+      "bytes": 72,
+      "helperLine": 68684,
+      "marshalLine": 36564,
+      "marshalLines": 128
+    },
+    {
+      "name": "UIComponentVictoryDefeat",
+      "typeId": 4022366951,
+      "bytes": 24,
+      "helperLine": 68762,
+      "marshalLine": 35352,
+      "marshalLines": 24
+    },
+    {
+      "name": "UIComponentMouseInGame",
+      "typeId": 4034175932,
+      "bytes": 8,
+      "helperLine": 68786,
+      "marshalLine": null,
+      "marshalLines": 0
+    },
+    {
+      "name": "UIComponentObjectives",
+      "typeId": 4253150630,
+      "bytes": 24,
+      "helperLine": 68808,
+      "marshalLine": 35292,
+      "marshalLines": 19
+    },
+    {
+      "name": "UIComponentOptionsSettingsHotkeys",
+      "typeId": 4246026337,
+      "bytes": 16,
+      "helperLine": 68719,
+      "marshalLine": 39725,
+      "marshalLines": 33
+    },
+    {
+      "name": "UIComponentPcSaveLoad",
+      "typeId": 4222241874,
+      "bytes": 40,
+      "helperLine": 68668,
+      "marshalLine": 38650,
+      "marshalLines": 99
+    }
+  ],
+  "originalUnknownPolymorphicFallback": {
+    "methodLine": 69143,
+    "bytes": 8,
+    "runtimeTypeId": 0,
+    "payload": "signed Priority at +4"
+  },
+  "componentValidated": true,
+  "componentAcceptanceSourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+  "componentAcceptanceRunId": "40159834447"
+}

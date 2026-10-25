@@ -1,0 +1,1 @@
+PASS SDK full XSD: 277 in-scope assets/130 root types, 0 support assets; 2 negative fixtures rejected.

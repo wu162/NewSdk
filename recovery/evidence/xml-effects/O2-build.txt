@@ -1,6 +1,9 @@
 Relocation.cpp
 ScalarParsing.cpp
 ResourceMarshaling.cpp
+DataInitializers.cpp
+EnumBitset.cpp
+ObjectFilter.cpp
 Xmleffects.cpp
 XmleffectsNuggets.cpp
 XmleffectsEnums.cpp

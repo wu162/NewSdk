@@ -1,0 +1,15 @@
+{
+  "profiles": [
+    "XmlCompilerRecoveryB",
+    "FullMymod",
+    "XmlCompilerRecoveryApt"
+  ],
+  "acceptedCompilerSource": "4401069feaf5df91043afadaad2410293c33b67e",
+  "acceptedCompilerRunId": "40159834447",
+  "purpose": "Original/recovered real SDK compile via extracted EALAModStudio defaultscript flow; schema-valid test MODs",
+  "reuseProfiles": [
+    "XmlCompilerRecoveryBaseline",
+    "XmlCompilerRecoveryA"
+  ],
+  "reason": "Only legal SDK root-metadata normalization changed; validated profiles must pass unchanged-source/native/delegation and identity-guard proofs instead of rebuilding; add targeted APT actual file-read proof after old A inputs resolved to nonexistent doubled paths"
+}

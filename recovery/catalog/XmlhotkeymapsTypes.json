@@ -1,0 +1,29 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "roots": [
+    {
+      "name": "GeneralHotKeySlots",
+      "typeId": 417176643,
+      "typeHash": 655411104,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DefaultHotKeys",
+      "typeId": 3741098742,
+      "typeHash": 1229544125,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DebugHotKeys",
+      "typeId": 3359870461,
+      "typeHash": 73026796,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MappableKey",
+      "typeId": 1350608344,
+      "typeHash": 2226564801,
+      "schemaGlobal": true
+    }
+  ]
+}

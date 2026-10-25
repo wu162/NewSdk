@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=120 arrayComparisons=720 rejections=17 layoutAssertions=226261
+PASS platform=1 fixtures=120 arrayComparisons=720 rejections=17 layoutAssertions=226261
+PASS platform=2 fixtures=120 arrayComparisons=720 rejections=17 layoutAssertions=226261
+PASS platform=99 fixtures=120 arrayComparisons=720 rejections=17 layoutAssertions=226261
+PASS Test textures fixtures=480 arrayComparisons=2880 rejections=68 layoutAssertions=905045

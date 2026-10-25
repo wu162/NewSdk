@@ -12,65 +12,292 @@ ROUTE root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler
 ROUTE root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler
 ROUTE root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler
 ROUTE root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler
-PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
-PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
-PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
-PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=0 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
-PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
-PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
-PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
-PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
-PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
-PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
-PASS platform=0 types=14 fixtures=14 comparisons=42
-PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
-PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
-PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
-PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=1 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
-PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
-PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
-PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
-PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
-PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
-PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
-PASS platform=1 types=14 fixtures=14 comparisons=42
-PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
-PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
-PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
-PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=2 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
-PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
-PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
-PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
-PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
-PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
-PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
-PASS platform=2 types=14 fixtures=14 comparisons=42
-PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
-PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
-PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
-PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=99 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
-PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
-PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
-PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
-PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
-PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
-PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
-PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
-PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
-PASS platform=99 types=14 fixtures=14 comparisons=42
-PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 platforms=0/1/2/99; link/default-root smoke only
+ROUTE root=LogicCommand TypeId=2101756272 compiler=Recovered.LogicCommandCompiler
+ROUTE root=PlayerTech TypeId=2131237081 compiler=Recovered.PlayerTechCompiler
+ROUTE root=PlayerTechRank TypeId=1802643394 compiler=Recovered.PlayerTechRankCompiler
+ROUTE root=PlayerTechUpgradeBinding TypeId=2140592493 compiler=Recovered.PlayerTechUpgradeBindingCompiler
+ROUTE root=ExperienceLevelTemplate TypeId=1874610847 compiler=Recovered.ExperienceLevelTemplateCompiler
+ROUTE root=PlayerTechStoreTemplate TypeId=1213037816 compiler=Recovered.PlayerTechStoreTemplateCompiler
+ROUTE root=PurchasePlayerTechButtonTemplate TypeId=1566941920 compiler=Recovered.PurchasePlayerTechButtonTemplateCompiler
+ROUTE root=ButtonSingleStateData TypeId=3048039928 compiler=Recovered.ButtonSingleStateDataCompiler
+ROUTE root=UICommandButton TypeId=134745024 compiler=Recovered.UICommandButtonCompiler
+ROUTE root=FontDefaultSetting TypeId=1371131236 compiler=Recovered.FontDefaultSettingCompiler
+ROUTE root=FontTranslation TypeId=1318336226 compiler=Recovered.FontTranslationCompiler
+ROUTE root=FontSubstitution TypeId=91719417 compiler=Recovered.FontSubstitutionCompiler
+ROUTE root=Weather TypeId=2430161325 compiler=Recovered.WeatherCompiler
+ROUTE root=WaterTransparency TypeId=1479531562 compiler=Recovered.WaterTransparencyCompiler
+ROUTE root=WaterSetting TypeId=2728605516 compiler=Recovered.WaterSettingCompiler
+ROUTE root=Environment TypeId=680780553 compiler=Recovered.EnvironmentCompiler
+ROUTE root=LightingSettings TypeId=3169690211 compiler=Recovered.LightingSettingsCompiler
+ROUTE root=WaterTextureList TypeId=2995571269 compiler=Recovered.WaterTextureListCompiler
+ROUTE root=TerrainParticleMapping TypeId=1469498551 compiler=Recovered.TerrainParticleMappingCompiler
+ROUTE root=BounceKickTerrainMapping TypeId=2368878637 compiler=Recovered.BounceKickTerrainMappingCompiler
+ROUTE root=ShadowMap TypeId=4157475773 compiler=Recovered.ShadowMapCompiler
+ROUTE root=OrdersManagerSettings TypeId=2996766068 compiler=Recovered.OrdersManagerSettingsCompiler
+ROUTE root=TerrainVisualSettings TypeId=1184276792 compiler=Recovered.TerrainVisualSettingsCompiler
+ROUTE root=CameraSettings TypeId=3898802054 compiler=Recovered.CameraSettingsCompiler
+ROUTE root=AIData TypeId=3827723072 compiler=Recovered.AIDataCompiler
+ROUTE root=UnitAISettings TypeId=2964891936 compiler=Recovered.UnitAISettingsCompiler
+ROUTE root=PlayerTemplate TypeId=4063352333 compiler=Recovered.PlayerTemplateCompiler
+ROUTE root=MultiplayerSettings TypeId=191082224 compiler=Recovered.MultiplayerSettingsCompiler
+ROUTE root=AIBuildStateDefinition TypeId=1644972043 compiler=Recovered.AIBuildStateDefinitionCompiler
+ROUTE root=AIStrategicStateName TypeId=2010562192 compiler=Recovered.AIStrategicStateNameCompiler
+ROUTE root=MultiplayerColor TypeId=2384988189 compiler=Recovered.MultiplayerColorCompiler
+ROUTE root=AIPersonalityToAchievementEventMapping TypeId=4086175864 compiler=Recovered.AIPersonalityToAchievementEventMappingCompiler
+ROUTE root=FormationAssistantUnitDefinition TypeId=838130914 compiler=Recovered.FormationAssistantUnitDefinitionCompiler
+ROUTE root=FormationAssistantTemplate TypeId=2912385462 compiler=Recovered.FormationAssistantTemplateCompiler
+ROUTE root=FormationSelectionTemplate TypeId=3374519264 compiler=Recovered.FormationSelectionTemplateCompiler
+ROUTE root=FormationAssistant TypeId=1963196508 compiler=Recovered.FormationAssistantCompiler
+ROUTE root=GameStatsModeData TypeId=3249689110 compiler=Recovered.GameStatsModeDataCompiler
+ROUTE root=SkirmishSettings TypeId=402082255 compiler=Recovered.SkirmishSettingsCompiler
+ROUTE root=DamageFX TypeId=2905958645 compiler=Recovered.DamageFXCompiler
+ROUTE root=DamageFXSettings TypeId=75989905 compiler=Recovered.DamageFXSettingsCompiler
+ROUTE root=GeneralHotKeySlots TypeId=417176643 compiler=Recovered.GeneralHotKeySlotsCompiler
+ROUTE root=DefaultHotKeys TypeId=3741098742 compiler=Recovered.DefaultHotKeysCompiler
+ROUTE root=DebugHotKeys TypeId=3359870461 compiler=Recovered.DebugHotKeysCompiler
+ROUTE root=MappableKey TypeId=1350608344 compiler=Recovered.MappableKeyCompiler
+ROUTE root=AudioEventLimitGroup TypeId=3906227957 compiler=Recovered.AudioEventLimitGroupCompiler
+ROUTE root=AudioLOD TypeId=299416263 compiler=Recovered.AudioLODCompiler
+ROUTE root=AudioSettings TypeId=1443425905 compiler=Recovered.AudioSettingsCompiler
+ROUTE root=Video TypeId=587347702 compiler=Recovered.VideoCompiler
+ROUTE root=VideoEventList TypeId=1447728787 compiler=Recovered.VideoEventListCompiler
+ROUTE root=MicrophoneSettings TypeId=1826140078 compiler=Recovered.MicrophoneSettingsCompiler
+ROUTE root=BootupDisplaySequence TypeId=3370391592 compiler=Recovered.BootupDisplaySequenceCompiler
+ROUTE root=HotKeySlot TypeId=2800139175 compiler=Recovered.HotKeySlotCompiler
+ROUTE root=MouseCursor TypeId=3784442503 compiler=Recovered.MouseCursorCompiler
+ROUTE root=BasicMouseCursors TypeId=611271731 compiler=Recovered.BasicMouseCursorsCompiler
+ROUTE root=UIMouseDragSelectionFeedback TypeId=611126373 compiler=Recovered.UIMouseDragSelectionFeedbackCompiler
+ROUTE root=UIFloatingTextDisplay TypeId=1559937240 compiler=Recovered.UIFloatingTextDisplayCompiler
+ROUTE root=UIMessageDisplay TypeId=1697313181 compiler=Recovered.UIMessageDisplayCompiler
+ROUTE root=UIMilitaryCaptionDisplay TypeId=1043989897 compiler=Recovered.UIMilitaryCaptionDisplayCompiler
+ROUTE root=UISubtitleDisplay TypeId=165611890 compiler=Recovered.UISubtitleDisplayCompiler
+ROUTE root=UITimerDisplay TypeId=951036436 compiler=Recovered.UITimerDisplayCompiler
+ROUTE root=DynamicGameLOD TypeId=2901356964 compiler=Recovered.DynamicGameLODCompiler
+ROUTE root=GameLODPreset TypeId=354222972 compiler=Recovered.GameLODPresetCompiler
+ROUTE root=StaticGameLOD TypeId=531798225 compiler=Recovered.StaticGameLODCompiler
+ROUTE root=UICoopTinting TypeId=4243804314 compiler=Recovered.UICoopTintingCompiler
+ROUTE root=RadiusCursor TypeId=544776545 compiler=Recovered.RadiusCursorCompiler
+ROUTE root=AnimationSoundSettings TypeId=1302035577 compiler=Recovered.AnimationSoundSettingsCompiler
+ROUTE root=MiscAudio TypeId=2070603733 compiler=Recovered.MiscAudioCompiler
+ROUTE root=LargeGroupAudioMap TypeId=534008255 compiler=Recovered.LargeGroupAudioMapCompiler
+ROUTE root=UIMouseTacticalSelectionDetailsButtonHotKeys TypeId=1296329066 compiler=Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler
+ROUTE root=UIMouseTacticalMainCommandBarHotKeys TypeId=2591692061 compiler=Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler
+ROUTE root=UIMouseTacticalPlayerPowerHotKeys TypeId=2283998413 compiler=Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler
+ROUTE root=UIMouseTacticalMiscHotKeys TypeId=2014061824 compiler=Recovered.UIMouseTacticalMiscHotKeysCompiler
+ROUTE root=UIMouseHUDElementHotKeyGate TypeId=2738273474 compiler=Recovered.UIMouseHUDElementHotKeyGateCompiler
+ROUTE root=UIQuickChatMessage TypeId=4098431913 compiler=Recovered.UIQuickChatMessageCompiler
+ROUTE root=UIMouseTacticalQuickChatDisplay TypeId=2891878770 compiler=Recovered.UIMouseTacticalQuickChatDisplayCompiler
+ROUTE root=UIMouseVoiceChat TypeId=3746130610 compiler=Recovered.UIMouseVoiceChatCompiler
+ROUTE root=UIDecalGrid TypeId=2599418799 compiler=Recovered.UIDecalGridCompiler
+ROUTE root=UIDecalCloud TypeId=2524893660 compiler=Recovered.UIDecalCloudCompiler
+ROUTE root=UIDecalDestinationMarker TypeId=1532214660 compiler=Recovered.UIDecalDestinationMarkerCompiler
+ROUTE root=UIWorldBuilderDecalGrid TypeId=1238702511 compiler=Recovered.UIWorldBuilderDecalGridCompiler
+ROUTE root=BaseAudioEventInfo TypeId=1079232276 compiler=Recovered.BaseAudioEventInfoCompiler
+ROUTE root=BaseSingleSound TypeId=3228425025 compiler=Recovered.BaseSingleSoundCompiler
+ROUTE root=AudioEvent TypeId=2219670431 compiler=Recovered.AudioEventCompiler
+ROUTE root=MusicTrack TypeId=1883691512 compiler=Recovered.MusicTrackCompiler
+ROUTE root=MP3MusicTrack TypeId=1013434420 compiler=Recovered.MP3MusicTrackCompiler
+ROUTE root=DialogEvent TypeId=3558134211 compiler=Recovered.DialogEventCompiler
+ROUTE root=MP3DialogEvent TypeId=1479988269 compiler=Recovered.MP3DialogEventCompiler
+ROUTE root=AmbientStream TypeId=3928762264 compiler=Recovered.AmbientStreamCompiler
+ROUTE root=MP3AmbientStream TypeId=1813598662 compiler=Recovered.MP3AmbientStreamCompiler
+ROUTE root=Multisound TypeId=2745675575 compiler=Recovered.MultisoundCompiler
+ROUTE root=PathMusicGameDynamicState TypeId=97402485 compiler=Recovered.PathMusicGameDynamicStateCompiler
+ROUTE root=PathMusicGameDynamicStateSet TypeId=343094706 compiler=Recovered.PathMusicGameDynamicStateSetCompiler
+ROUTE root=PathMusicGameDynamicTransition TypeId=2343360052 compiler=Recovered.PathMusicGameDynamicTransitionCompiler
+ROUTE root=PathMusicEventRuntime TypeId=1122327197 compiler=Recovered.PathMusicEventRuntimeCompiler
+ROUTE root=PathMusicEventSet TypeId=3339496789 compiler=Recovered.PathMusicEventSetCompiler
+ROUTE root=PathMusicMapRuntime TypeId=2026048286 compiler=Recovered.PathMusicMapRuntimeCompiler
+ROUTE root=MusicPalette TypeId=2407383451 compiler=Recovered.MusicPaletteCompiler
+ROUTE root=MusicScriptConditionNuggetBase TypeId=2292378780 compiler=Recovered.MusicScriptConditionNuggetBaseCompiler
+ROUTE root=MusicScriptConditionExpensiveNuggetBase TypeId=849624115 compiler=Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler
+ROUTE root=MusicScriptConditionNugget_LocalPlayerIsObserver TypeId=188286714 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler
+ROUTE root=MusicScriptConditionNugget_UnitsFarFromBase TypeId=2620791304 compiler=Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler
+ROUTE root=MusicScriptConditionNugget_TimeFromStartOfLevel TypeId=1464425282 compiler=Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler
+ROUTE root=MusicScriptConditionNugget_TrackPlayedCount TypeId=57370491 compiler=Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler
+ROUTE root=MusicScriptConditionNugget_SpecificTrackTypePlaying TypeId=739280456 compiler=Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler
+ROUTE root=MusicScriptConditionNugget_AnyTrackPlaying TypeId=3402992833 compiler=Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler
+ROUTE root=MusicScriptConditionNugget_ObjectsOfTypeExist TypeId=4286308287 compiler=Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler
+ROUTE root=MusicScriptConditionNugget_EvaEventPlayedRecently TypeId=2743973749 compiler=Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler
+ROUTE root=MusicScriptConditionNugget_ObjectsNearEvaEvent TypeId=3386715757 compiler=Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler
+ROUTE root=MusicScriptConditionNugget_ScoredKillCount TypeId=3620764004 compiler=Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler
+ROUTE root=MusicScriptConditionNugget_Not TypeId=4007043648 compiler=Recovered.MusicScriptConditionNugget_NotCompiler
+ROUTE root=MusicScriptConditionNugget_Or TypeId=2281773838 compiler=Recovered.MusicScriptConditionNugget_OrCompiler
+ROUTE root=MusicScriptConditionNugget_And TypeId=1343682755 compiler=Recovered.MusicScriptConditionNugget_AndCompiler
+ROUTE root=MusicScriptConditionNugget_PathMusicStateLastActive TypeId=2912435838 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler
+ROUTE root=MusicScriptConditionNugget_PathMusicStateCurrentlyActive TypeId=3727134806 compiler=Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler
+ROUTE root=MusicScriptConditionNugget_EngagementCount TypeId=3476397162 compiler=Recovered.MusicScriptConditionNugget_EngagementCountCompiler
+ROUTE root=MusicScriptConditionNugget_LocalPlayerKillRatio TypeId=2818967523 compiler=Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler
+ROUTE root=MusicScriptConditionNugget_HitBySuperWeapon TypeId=1634186921 compiler=Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler
+ROUTE root=MusicScriptTrack TypeId=1038067901 compiler=Recovered.MusicScriptTrackCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHelpButton TypeId=104126924 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler
+ROUTE root=UIMouseTacticalCommandCommunicateWithAllies TypeId=113029208 compiler=Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler
+ROUTE root=UIMouseTacticalToggleRepairModeButton TypeId=346077409 compiler=Recovered.UIMouseTacticalToggleRepairModeButtonCompiler
+ROUTE root=UIMouseTacticalAttackMoveButton TypeId=442957564 compiler=Recovered.UIMouseTacticalAttackMoveButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceWall TypeId=485977567 compiler=Recovered.UIMouseTacticalCommandPlaceWallCompiler
+ROUTE root=UIMouseTacticalForceAttackMoveButton TypeId=694838069 compiler=Recovered.UIMouseTacticalForceAttackMoveButtonCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHoldObjectButton TypeId=772462768 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler
+ROUTE root=UIMouseTacticalExitContainerButton TypeId=1014034471 compiler=Recovered.UIMouseTacticalExitContainerButtonCompiler
+ROUTE root=UIMouseTacticalPlayerTechStoreButton TypeId=1138847078 compiler=Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler
+ROUTE root=UIMouseTacticalCommandMove TypeId=1234485619 compiler=Recovered.UIMouseTacticalCommandMoveCompiler
+ROUTE root=UIMouseTacticalCommandSell TypeId=1249197161 compiler=Recovered.UIMouseTacticalCommandSellCompiler
+ROUTE root=UIMouseTacticalUnitIntroButton TypeId=1277109486 compiler=Recovered.UIMouseTacticalUnitIntroButtonCompiler
+ROUTE root=UIMouseTacticalCommandSelect TypeId=1334543376 compiler=Recovered.UIMouseTacticalCommandSelectCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsNormalButton TypeId=1371977384 compiler=Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceRallyPoint TypeId=1474300054 compiler=Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler
+ROUTE root=UIMouseTacticalCommandHarvest TypeId=1499648070 compiler=Recovered.UIMouseTacticalCommandHarvestCompiler
+ROUTE root=UIMouseTacticalCommandToggleSelfRepair TypeId=1956336137 compiler=Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler
+ROUTE root=UIMouseTacticalBuildQueueTab TypeId=1974922393 compiler=Recovered.UIMouseTacticalBuildQueueTabCompiler
+ROUTE root=UIMouseTacticalCommandGetCrate TypeId=2067763016 compiler=Recovered.UIMouseTacticalCommandGetCrateCompiler
+ROUTE root=UIMouseTacticalDeactivateMissionHotSpotsButton TypeId=2047841880 compiler=Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler
+ROUTE root=UIMouseTacticalCommandForceAttack TypeId=2074164365 compiler=Recovered.UIMouseTacticalCommandForceAttackCompiler
+ROUTE root=UIMouseTacticalPlanningModeButton TypeId=2278083954 compiler=Recovered.UIMouseTacticalPlanningModeButtonCompiler
+ROUTE root=UIMouseTacticalCommandMisc TypeId=2505151835 compiler=Recovered.UIMouseTacticalCommandMiscCompiler
+ROUTE root=UIMouseTacticalSelectionRefinementTab TypeId=2635272840 compiler=Recovered.UIMouseTacticalSelectionRefinementTabCompiler
+ROUTE root=UIMouseTacticalCommandForceMove TypeId=2697587777 compiler=Recovered.UIMouseTacticalCommandForceMoveCompiler
+ROUTE root=UIMouseTacticalOpenAdvancedCommandsButton TypeId=2808773267 compiler=Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler
+ROUTE root=UIMouseTacticalSetStanceButton TypeId=2873949396 compiler=Recovered.UIMouseTacticalSetStanceButtonCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsHoldPositionButton TypeId=2914137727 compiler=Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler
+ROUTE root=UIMouseTacticalCommandMineOre TypeId=2957071942 compiler=Recovered.UIMouseTacticalCommandMineOreCompiler
+ROUTE root=UIMouseTacticalWaypointModeButton TypeId=2958905921 compiler=Recovered.UIMouseTacticalWaypointModeButtonCompiler
+ROUTE root=UIMouseTacticalReverseMoveButton TypeId=2987234945 compiler=Recovered.UIMouseTacticalReverseMoveButtonCompiler
+ROUTE root=UIMouseTacticalCommandEnter TypeId=3057018816 compiler=Recovered.UIMouseTacticalCommandEnterCompiler
+ROUTE root=UIMouseTacticalCoOpAIButtonsAssaultButton TypeId=3094553884 compiler=Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler
+ROUTE root=UIMouseTacticalPauseButton TypeId=3420020972 compiler=Recovered.UIMouseTacticalPauseButtonCompiler
+ROUTE root=UIMouseTacticalCommandAttack TypeId=3548787763 compiler=Recovered.UIMouseTacticalCommandAttackCompiler
+ROUTE root=UIMouseTacticalCommandAttackMove TypeId=3575834349 compiler=Recovered.UIMouseTacticalCommandAttackMoveCompiler
+ROUTE root=UIMouseTacticalForceMoveButton TypeId=3716369729 compiler=Recovered.UIMouseTacticalForceMoveButtonCompiler
+ROUTE root=UIMouseTacticalForceAttackButton TypeId=3756168709 compiler=Recovered.UIMouseTacticalForceAttackButtonCompiler
+ROUTE root=UIMouseTacticalCommandPlaceAIBeacon TypeId=3809842710 compiler=Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler
+ROUTE root=UIMouseTacticalCommandDock TypeId=3976885676 compiler=Recovered.UIMouseTacticalCommandDockCompiler
+ROUTE root=UIMouseTacticalCommandReverseMove TypeId=4026878150 compiler=Recovered.UIMouseTacticalCommandReverseMoveCompiler
+ROUTE root=UIMouseTacticalBuildQueueTypeTab TypeId=4094578721 compiler=Recovered.UIMouseTacticalBuildQueueTypeTabCompiler
+ROUTE root=UIMouseTacticalSellModeButton TypeId=4102242385 compiler=Recovered.UIMouseTacticalSellModeButtonCompiler
+ROUTE root=UIMouseTacticalStopButton TypeId=4140422551 compiler=Recovered.UIMouseTacticalStopButtonCompiler
+ROUTE root=UIMouseTacticalCommandSetRallyPoint TypeId=4180354873 compiler=Recovered.UIMouseTacticalCommandSetRallyPointCompiler
+ROUTE root=UIMouseTacticalFastForwardButton TypeId=4232364483 compiler=Recovered.UIMouseTacticalFastForwardButtonCompiler
+ROUTE root=UIMouseTacticalGroupSelection TypeId=241329492 compiler=Recovered.UIMouseTacticalGroupSelectionCompiler
+ROUTE root=UIMouseTacticalLookAt TypeId=1795213437 compiler=Recovered.UIMouseTacticalLookAtCompiler
+ROUTE root=UIMouseTacticalRadarTelestrator TypeId=3366599054 compiler=Recovered.UIMouseTacticalRadarTelestratorCompiler
+ROUTE root=UIMouseTacticalTelestrator TypeId=1921726501 compiler=Recovered.UIMouseTacticalTelestratorCompiler
+ROUTE root=UIMouseTacticalThreatMeter TypeId=4143989686 compiler=Recovered.UIMouseTacticalThreatMeterCompiler
+ROUTE root=BaseConditionData TypeId=3899256902 compiler=Recovered.BaseConditionDataCompiler
+ROUTE root=ObjectConditionData TypeId=519519951 compiler=Recovered.ObjectConditionDataCompiler
+ROUTE root=UpgradeConditionData TypeId=76901015 compiler=Recovered.UpgradeConditionDataCompiler
+ROUTE root=GameplayConditionData TypeId=2309012900 compiler=Recovered.GameplayConditionDataCompiler
+ROUTE root=TargetingBaseCompare TypeId=3600209407 compiler=Recovered.TargetingBaseCompareCompiler
+ROUTE root=TargetingDistanceCompare TypeId=2359666647 compiler=Recovered.TargetingDistanceCompareCompiler
+ROUTE root=TargetingCombatChainCompare TypeId=89767986 compiler=Recovered.TargetingCombatChainCompareCompiler
+ROUTE root=TargetingInTurretArcCompare TypeId=2007776008 compiler=Recovered.TargetingInTurretArcCompareCompiler
+ROUTE root=TargetingCompareList TypeId=3188107749 compiler=Recovered.TargetingCompareListCompiler
+ROUTE root=SiegeEvaEvent TypeId=1268003905 compiler=Recovered.SiegeEvaEventCompiler
+ROUTE root=EvaSettings TypeId=2361666546 compiler=Recovered.EvaSettingsCompiler
+ROUTE root=EvaEvent TypeId=357806494 compiler=Recovered.EvaEventCompiler
+ROUTE root=MiscEvaEvents TypeId=1807540972 compiler=Recovered.MiscEvaEventsCompiler
+ROUTE root=AchievementEvent TypeId=4230032093 compiler=Recovered.AchievementEventCompiler
+ROUTE root=MapNameToAchievementEventMapping TypeId=3594283852 compiler=Recovered.MapNameToAchievementEventMappingCompiler
+ROUTE root=GameplayAchievementTriggerData TypeId=348670903 compiler=Recovered.GameplayAchievementTriggerDataCompiler
+ROUTE root=HealthBarTemplate TypeId=1507490649 compiler=Recovered.HealthBarTemplateCompiler
+ROUTE root=HealthBarSettings TypeId=3919360587 compiler=Recovered.HealthBarSettingsCompiler
+ROUTE root=UnitOverlayIconSettings TypeId=2421413379 compiler=Recovered.UnitOverlayIconSettingsCompiler
+ROUTE root=ObjectFilterAsset TypeId=1151702845 compiler=Recovered.ObjectFilterAssetCompiler
+ROUTE root=RegisteredObjectSet TypeId=814796096 compiler=Recovered.RegisteredObjectSetCompiler
+ROUTE root=ObjectVisionRangeItem TypeId=772930644 compiler=Recovered.ObjectVisionRangeItemCompiler
+ROUTE root=InvisibilityTemplate TypeId=1431290504 compiler=Recovered.InvisibilityTemplateCompiler
+ROUTE root=InvisibilityManagerSettings TypeId=254471188 compiler=Recovered.InvisibilityManagerSettingsCompiler
+ROUTE root=StanceTemplate TypeId=2525284163 compiler=Recovered.StanceTemplateCompiler
+ROUTE root=EmotionTemplate TypeId=2836737428 compiler=Recovered.EmotionTemplateCompiler
+ROUTE root=ProjectilePath TypeId=1710207315 compiler=Recovered.ProjectilePathCompiler
+ROUTE root=ForceFeedbackEvent TypeId=474482543 compiler=Recovered.ForceFeedbackEventCompiler
+ROUTE root=EngagingContent TypeId=3058114834 compiler=Recovered.EngagingContentCompiler
+ROUTE root=EngagingContentGroup TypeId=11280974 compiler=Recovered.EngagingContentGroupCompiler
+ROUTE root=EngagingContentSequence TypeId=3799634821 compiler=Recovered.EngagingContentSequenceCompiler
+ROUTE root=IntelDB TypeId=530081230 compiler=Recovered.IntelDBCompiler
+ROUTE root=UnitIntro TypeId=1870180772 compiler=Recovered.UnitIntroCompiler
+ROUTE root=BreezeInfo TypeId=1626415288 compiler=Recovered.BreezeInfoCompiler
+ROUTE root=ModelSettings TypeId=1968811301 compiler=Recovered.ModelSettingsCompiler
+ROUTE root=AutoParticleSystemSettings TypeId=3278684478 compiler=Recovered.AutoParticleSystemSettingsCompiler
+ROUTE root=CrowdResponse TypeId=400896388 compiler=Recovered.CrowdResponseCompiler
+ROUTE root=RadarTerrainImage TypeId=1099769729 compiler=Recovered.RadarTerrainImageCompiler
+ROUTE root=UIRadarObjectsLayer TypeId=4039592522 compiler=Recovered.UIRadarObjectsLayerCompiler
+ROUTE root=W3DDeviceSettings TypeId=1469055344 compiler=Recovered.W3DDeviceSettingsCompiler
+ROUTE root=ScorchMarkSettings TypeId=2383722691 compiler=Recovered.ScorchMarkSettingsCompiler
+ROUTE root=Language TypeId=2915726794 compiler=Recovered.LanguageCompiler
+ROUTE root=HeaderTemplate TypeId=1218703046 compiler=Recovered.HeaderTemplateCompiler
+ROUTE root=FontDirectory TypeId=3569007303 compiler=Recovered.FontDirectoryCompiler
+ROUTE root=TheVersion TypeId=4236434438 compiler=Recovered.TheVersionCompiler
+ROUTE root=Credits TypeId=3978455785 compiler=Recovered.CreditsCompiler
+ROUTE root=CommandSet TypeId=2584759047 compiler=Recovered.CommandSetCompiler
+ROUTE root=Road TypeId=3516764358 compiler=Recovered.RoadCompiler
+ROUTE root=ShaderOverride TypeId=3166846828 compiler=Recovered.ShaderOverrideCompiler
+ROUTE root=ShaderOverrideRule TypeId=3648907125 compiler=Recovered.ShaderOverrideRuleCompiler
+ROUTE root=ImageSequence TypeId=565855655 compiler=Recovered.ImageSequenceCompiler
+ROUTE root=UnitTypeIcon TypeId=3614134471 compiler=Recovered.UnitTypeIconCompiler
+ROUTE root=DrawGroupInfo TypeId=2913856066 compiler=Recovered.DrawGroupInfoCompiler
+ROUTE root=OnlineChatColors TypeId=1345252658 compiler=Recovered.OnlineChatColorsCompiler
+ROUTE root=ArchivableMovie TypeId=3741496377 compiler=Recovered.ArchivableMovieCompiler
+ROUTE root=ArchiveMovieList TypeId=2099472558 compiler=Recovered.ArchiveMovieListCompiler
+ROUTE root=NetworkSettings TypeId=4272453293 compiler=Recovered.NetworkSettingsCompiler
+ROUTE root=PathfindSettings TypeId=970663416 compiler=Recovered.PathfindSettingsCompiler
+ROUTE root=ResourceSettings TypeId=3279338544 compiler=Recovered.ResourceSettingsCompiler
+ROUTE root=GraphicsHardware TypeId=2846460739 compiler=Recovered.GraphicsHardwareCompiler
+ROUTE root=CampaignTemplate TypeId=1482556238 compiler=Recovered.CampaignTemplateCompiler
+ROUTE root=CampaignEnumerator TypeId=731899443 compiler=Recovered.CampaignEnumeratorCompiler
+ROUTE root=MissionTemplate TypeId=3477794083 compiler=Recovered.MissionTemplateCompiler
+ROUTE root=MissionHotSpotSettings TypeId=3175516876 compiler=Recovered.MissionHotSpotSettingsCompiler
+ROUTE root=TutorialMapData TypeId=3408790761 compiler=Recovered.TutorialMapDataCompiler
+ROUTE root=LocalBuildListMonitor TypeId=315614191 compiler=Recovered.LocalBuildListMonitorCompiler
+ROUTE root=BuildSystemSettings TypeId=3974617950 compiler=Recovered.BuildSystemSettingsCompiler
+ROUTE root=GiftManagerSettings TypeId=1047799468 compiler=Recovered.GiftManagerSettingsCompiler
+ROUTE root=MpGameRules TypeId=741706624 compiler=Recovered.MpGameRulesCompiler
+ROUTE root=DynamicsContactTagMapping TypeId=1044178106 compiler=Recovered.DynamicsContactTagMappingCompiler
+ROUTE root=ConnectionLineManager TypeId=105587076 compiler=Recovered.ConnectionLineManagerCompiler
+ROUTE root=RedAlertTemplate TypeId=4141306833 compiler=Recovered.RedAlertTemplateCompiler
+ROUTE root=ConquerCardDefinitionBase TypeId=3258480561 compiler=Recovered.ConquerCardDefinitionBaseCompiler
+ROUTE root=ConquerCardDefinitionUnit TypeId=3562795973 compiler=Recovered.ConquerCardDefinitionUnitCompiler
+ROUTE root=ConquerCardDefinitionStructure TypeId=4289687760 compiler=Recovered.ConquerCardDefinitionStructureCompiler
+ROUTE root=ConquerCardDefinitionPower TypeId=4164089898 compiler=Recovered.ConquerCardDefinitionPowerCompiler
+ROUTE root=ConquerCardPrebuiltDeck TypeId=2806522526 compiler=Recovered.ConquerCardPrebuiltDeckCompiler
+ROUTE root=ArmyDefinition TypeId=3587539190 compiler=Recovered.ArmyDefinitionCompiler
+ROUTE root=SkirmishOpeningMove TypeId=3971904488 compiler=Recovered.SkirmishOpeningMoveCompiler
+ROUTE root=DLContent TypeId=212695140 compiler=Recovered.DLContentCompiler
+ROUTE root=AssetReportTable TypeId=255713734 compiler=Recovered.AssetReportTableCompiler
+ROUTE root=StringHashTable TypeId=300273508 compiler=Recovered.StringHashTableCompiler
+ROUTE root=MeshInstanceTemplate TypeId=815686049 compiler=Recovered.MeshInstanceTemplateCompiler
+ROUTE root=PackedTextureImage TypeId=1449288224 compiler=Recovered.PackedTextureImageCompiler
+ROUTE root=OnDemandTextureImage TypeId=4262364347 compiler=Recovered.OnDemandTextureImageCompiler
+ROUTE root=AptAptData TypeId=1816258268 compiler=Recovered.AptAptDataCompiler
+ROUTE root=AptConstData TypeId=983359664 compiler=Recovered.AptConstDataCompiler
+ROUTE root=AptDatData TypeId=1110676961 compiler=Recovered.AptDatDataCompiler
+ROUTE root=AptGeometryData TypeId=1034587168 compiler=Recovered.AptGeometryDataCompiler
+ROUTE root=BaseRenderAssetType TypeId=2989459401 compiler=Recovered.BaseRenderAssetTypeCompiler
+ROUTE root=AudioFileRuntime TypeId=584092973 compiler=Recovered.AudioFileRuntimeCompiler
+ROUTE root=Mouse TypeId=2525492603 compiler=Recovered.MouseCompiler
+ROUTE root=UnitAbilityButtonTemplate TypeId=3517887782 compiler=Recovered.UnitAbilityButtonTemplateCompiler
+ROUTE root=PlayerPowerButtonTemplate TypeId=4044322798 compiler=Recovered.PlayerPowerButtonTemplateCompiler
+ROUTE root=TestTexture TypeId=2826773070 compiler=Recovered.TestTextureCompiler
+ROUTE root=TestTextureCollection TypeId=49556361 compiler=Recovered.TestTextureCollectionCompiler
+ROUTE root=TerrainAssetCollection TypeId=582251659 compiler=Recovered.TerrainAssetCollectionCompiler
+ROUTE root=TerrainTextureAtlasRuntime TypeId=3878948534 compiler=Recovered.TerrainTextureAtlasRuntimeCompiler
+ROUTE root=W3DHierarchy TypeId=1641540160 compiler=Recovered.W3DHierarchyCompiler
+ROUTE root=W3DContainer TypeId=4042295058 compiler=Recovered.W3DContainerCompiler
+ROUTE root=W3DAnimationRuntime TypeId=3534264507 compiler=Recovered.W3DAnimationRuntimeCompiler
+ROUTE root=W3DCollisionBox TypeId=3810008068 compiler=Recovered.W3DCollisionBoxCompiler
+ROUTE root=MapMetaData TypeId=1603703110 compiler=Recovered.MapMetaDataCompiler
+ROUTE root=GameScriptList TypeId=3737094024 compiler=Recovered.GameScriptListCompiler
+ROUTE root=GameMap TypeId=3575309793 compiler=Recovered.GameMapCompiler
+ROUTE root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=0 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=0 metadataRoutes=289 testedTypes=1 fixtures=1 comparisons=3
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=1 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=1 metadataRoutes=289 testedTypes=1 fixtures=1 comparisons=3
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=2 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=2 metadataRoutes=289 testedTypes=1 fixtures=1 comparisons=3
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=UIConfigList TypeId=3072160547 compiler=Recovered.UIConfigListCompiler platform=99 fixtures=1 comparisons=3 instance=276 relocations=24 imports=0
+PASS platform=99 metadataRoutes=289 testedTypes=1 fixtures=1 comparisons=3
+PASS XmlPriorityLink metadataRoutes=289 testedTypes=1 fixtures=4 comparisons=12 completionFixtures=4 completionComparisons=12 platforms=0/1/2/99; selected-root link smoke only
 PROCESS EXIT mode=Od exitCode=0 exitCodeHex=0x00000000

@@ -1,6 +1,6 @@
 Relocation.cpp
 ScalarParsing.cpp
 ResourceMarshaling.cpp
-Xmlfxparticle.cpp
 XmlfxparticleCompiler.cpp
+Xmlfxparticle.cpp
 Generating Code...

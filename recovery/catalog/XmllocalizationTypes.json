@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "Language",
+      "typeId": 2915726794,
+      "typeHash": 3221193174,
+      "schemaGlobal": true
+    },
+    {
+      "name": "HeaderTemplate",
+      "typeId": 1218703046,
+      "typeHash": 1075836011,
+      "schemaGlobal": true
+    },
+    {
+      "name": "FontDirectory",
+      "typeId": 3569007303,
+      "typeHash": 3617141059,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TheVersion",
+      "typeId": 4236434438,
+      "typeHash": 2782889071,
+      "schemaGlobal": true
+    },
+    {
+      "name": "Credits",
+      "typeId": 3978455785,
+      "typeHash": 282482670,
+      "schemaGlobal": true
+    }
+  ]
+}

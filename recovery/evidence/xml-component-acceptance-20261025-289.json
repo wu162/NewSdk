@@ -1,0 +1,455 @@
+{
+  "status": "accepted component scope; final run completed/success",
+  "registeredEntries": 301,
+  "componentAcceptedEntries": 289,
+  "componentGroupCount": 63,
+  "originalPluginBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "originalModuleBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "newRoots": [
+    {
+      "name": "GameMap",
+      "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+      "runId": "40158416072",
+      "modes": [
+        "/Od",
+        "/O2"
+      ],
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "fixtures": 30736,
+      "arrayComparisons": 184416,
+      "rejections": 592
+    },
+    {
+      "name": "UIConfigList",
+      "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+      "runId": "40159834447",
+      "modes": [
+        "/Od",
+        "/O2"
+      ],
+      "platforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "internalDispatchBranches": 70,
+      "specializedLayouts": 47,
+      "componentFields": 288,
+      "fixtures": 171184,
+      "arrayComparisons": 1027104,
+      "rejections": 2160
+    }
+  ],
+  "selection": {
+    "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+    "runId": "40159834447",
+    "groups": [
+      "uiconfig"
+    ],
+    "reused": [
+      {
+        "group": "abilitybuttons",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "ai",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "aptdata",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "armyopening",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "assetindexes",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "attributes",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "audio",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "buildeconomy",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "campaign",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "chatcolors",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "commandset",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "conditions",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "connections",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "conquercards",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "content",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "crowd",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "damagefx",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "dynamics",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "effects",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "emotions",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "environment",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "evaachievement",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "forcefeedback",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "fxparticle",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "gamemap",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "gamescripts",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "healthbars",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "hotkeymaps",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "localization",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "locomotor",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "mapmetadata",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "materialrules",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "mouse",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "moviearchive",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "musicscript",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "objectsets",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "pathmusic",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "players",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "powers",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "progression",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "projectilepath",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "radar",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "redalert",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "renderassets",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "renderdevice",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "runtimeopaque",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "singlesound",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "soundmaps",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "systemsettings",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "tacticalhotkeys",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "targeting",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "terrain",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "testtextures",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "uichat",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "uidecals",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "uiimages",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "uisettings",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "uitactical",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "unitoverlay",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "visibility",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "visualsystems",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      },
+      {
+        "group": "w3d",
+        "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+        "runId": "40158416072"
+      }
+    ],
+    "combinedRoots": [
+      "UIConfigList"
+    ],
+    "selectorUnitTests": 26
+  },
+  "combined": {
+    "pending": false,
+    "succeeded": true,
+    "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+    "runId": "40159834447",
+    "fullMetadataRoutes": 289,
+    "testedTypes": 1,
+    "testedRootNames": [
+      "UIConfigList"
+    ],
+    "modes": [
+      {
+        "mode": "Od",
+        "exitCode": 0,
+        "metadataRoutes": 289,
+        "testedTypes": 1,
+        "platforms": [
+          0,
+          1,
+          2,
+          99
+        ],
+        "fixtures": 4,
+        "arrayComparisons": 12,
+        "completionFixtures": 4,
+        "completionComparisons": 12
+      },
+      {
+        "mode": "O2",
+        "exitCode": 0,
+        "metadataRoutes": 289,
+        "testedTypes": 1,
+        "platforms": [
+          0,
+          1,
+          2,
+          99
+        ],
+        "fixtures": 4,
+        "arrayComparisons": 12,
+        "completionFixtures": 4,
+        "completionComparisons": 12
+      }
+    ],
+    "note": "All289 exported routes loaded; only affected UIConfigList default/completion fixtures executed, not all289 types re-tested"
+  },
+  "previousFullCombinedSmoke": {
+    "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+    "runId": "40158416072",
+    "metadataRoutes": 289,
+    "testedRoots": 289,
+    "fixturesPerMode": 1156,
+    "arrayComparisonsPerMode": 3468,
+    "completionFixturesPerMode": 208,
+    "completionComparisonsPerMode": 624
+  },
+  "sdk": {
+    "realCompilationsThisRound": 0,
+    "historicalSdkCatalogEntries": 82,
+    "componentOnlyEntries": 207,
+    "currentCombinedDllSdkValidated": false,
+    "productionRoutesUnchanged": true
+  },
+  "excludedRoots": [
+    "TestGameObject",
+    "UIJoypadCommandBarMixedGroup",
+    "UIJoypadCommandBarHomogenousGroup",
+    "UIJoypadCommandBarCoopCommunicator",
+    "JoypadCommandBarButtonTemplate",
+    "UIJoypadCommandBarStances",
+    "JoypadCommandBarTemplate",
+    "UIJoypadCommandBarTopMenu",
+    "UIJoypadCommandBarPlayerPowers",
+    "UIJoypadCommandBarButtonBuild",
+    "UIJoypadCommandBarControlGroups",
+    "UIJoypadCommandBarSingleUnit"
+  ],
+  "limitations": [
+    "Component inputs require original BAB preprocessing/defaults/inheritance/references and numeric TypeId",
+    "Not a complete Tokenizer or custom APT/Audio/Map/Texture compiler replacement",
+    "Array comparisons include direct CompileXml comparisons; not all are independent original DLL invocations"
+  ]
+}

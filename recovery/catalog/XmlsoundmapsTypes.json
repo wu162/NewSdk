@@ -1,0 +1,22 @@
+{
+  "roots": [
+    {
+      "name": "AnimationSoundSettings",
+      "typeId": 1302035577,
+      "typeHash": 3170370516,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MiscAudio",
+      "typeId": 2070603733,
+      "typeHash": 1484343325,
+      "schemaGlobal": true
+    },
+    {
+      "name": "LargeGroupAudioMap",
+      "typeId": 534008255,
+      "typeHash": 1045439046,
+      "schemaGlobal": true
+    }
+  ]
+}

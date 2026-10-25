@@ -1,0 +1,1 @@
+<DefaultHotKeys id="RecoveryHotkeyDefaultNonDefault" TypeId="3741098742" xmlns="uri:ea.com:eala:asset"><Map TypeId="230935484"><HotKey Slot="RecoveryUiHotKey\0" Key="RecoveryHotkeyKeyNonDefault\1" Modifiers="CTRL SHIFT" TypeId="3304757645" /><HotKey Slot="RecoveryUiHotKey\2" Key="RecoveryHotkeyKeyInherited\3" Modifiers="ALT" TypeId="3304757645" /></Map></DefaultHotKeys>

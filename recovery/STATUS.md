@@ -724,6 +724,39 @@ WeaponSet源码45625616880eb075147618813786d27794ee38c2/run40071300506 success�
 
 下一完整AI Update八模块仅取证：源码bae88f824dd018ba5a46ba390ab5f095cc046d07/run40072829359 success，96精确方法/PE枚举，见GAMEOBJECT_AI_UPDATE_NEXT.md。UnitChooser40与TurretChooser44区分，AIUpdate pointer@68/StandGround bool@72；该组尚未接入，仍拒绝。约45分钟单代理有效实现、10–15分钟检查点、完整组统一差分、SDK降频与正确性门槛均保留。所有提交普通推送，保留并发Actions证据，没有强推/无必要新分支。优化只避免重复上下文/调查/SDK探针，不声称可量化账号额度下降。
 
+
+## 2026-10-24 XmlCompiler 五组扩展：82入口最终验收
+
+目标recovery/xmlcompiler-priority，本轮新增30入口（damagefx2/hotkeymaps4/audio7/uisettings14/soundmaps3），总82个原Plugin入口/80全局schema类型。组件e7580311f36811265e6ed5af5a184ef623f31284，完整14组与联合DLL运行40099095351成功；362992 fixtures、1728984数组比较（含适用CompileXml对照）、12984显式拒绝，均/Od、/O2、四平台0/1/2/99。
+
+SDK92180f9bbd830b9dbd49a696c259e54ffe2d7721，运行40098695436成功；159固定资产，Reduced159/FullMymod162实际调用，各原版与隔离恢复版477/486数组比较，四产物一致，完整7 Includes保留，两原DLL不变。SDK后仅UI Oracle断言修改，src/sdk/scripts/原SDK/.github及SDK Oracle Git对象完全相同，复用有精确证据。历史失败40098375480/40098375483/40098695441保留，最终以成功锚点为准。
+
+源码分支父历史全部合并，无强推。GameObject与Joypad命名根继续排除；不是完整301入口/Tokenizer替代。精确矩阵、限制和下一轮五根战术UI热键证据见XMLCOMPILER_PRIORITY.md、XML_PRIORITY_SDK.md、XML_TACTICAL_HOTKEYS_NEXT.md及evidence/xml-priority-acceptance.json。
+
+
+## 2026-10-25：101新增组件，183入口差分通过；SDK0
+
+用户要求一小时/最多3子代理/本轮禁止SDK真实编译。七组新增101：tacticalhotkeys5、uichat3、uidecals4、singlesound10、pathmusic7、musicscript21、uitactical51。最终源码d9908f57107f11b7ab875ac5787fce2bf23e00a9，运行40132543491 completed/success，21完整组/Od/O2/四平台与183入口联合DLL全过。645344 fixtures、3423096数组比较（含direct）、22704拒绝；联合每模式732/2196与40/120 completion，实际退出0。
+
+首轮40132183077真实LookAt三个100%默认值漏失已按原静态symbol修正，加defaults/partial独立ABI；历史失败保留。SDK真实编译0次，SDK工作流最近仍40098695436。主Plugin/SDK配置/scripts/oracle/probe/SDK工作流及原82SDK清单未改，保护SHA见evidence/xml-component-acceptance-20261025.json。新增101全部sdkValidated=false，原82历史SDK证据不冒充当前183联合DLL验收；原SDK未替换。下一轮按XMLCOMPILER_PRIORITY.md选择新的完整组，或仅在明确获准SDK时批量集成新增能力。
+
+
+## 2026-10-25 XmlCompiler priority第二轮交接
+
+源码0f0ab2fce098fef2d78d6a165f3f5ce86c591077，组件运行40142560815 completed/success。本轮104个新入口/40完整组，合计287/301登记入口、61完整组件矩阵及联合DLL全部验收。SDK真实编译0次，当前联合DLL未SDK验证；原82历史清单保留、205组件专用入口SDK pending。剩UIConfigList/GameMap及原排除12根，不称301完成。详细结果及限制见XMLCOMPILER_PRIORITY.md与evidence/xml-component-acceptance-20261025-287.json。
+
+
+## 2026-10-25：当前289路由DLL，267全局根真实SDK验收完成
+
+源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`，运行[40164710673](https://github.com/wu162/NewSdk/actions/runs/40164710673)，completed/success；最终收据 [xml-priority-sdk/acceptance.json](evidence/xml-priority-sdk/acceptance.json)。组件289入口已完成；SDK四平台metadata共16200项比较/56次未知与排除入口拒绝。真实SDK只复现EALAModStudio建立基础数据case5 BAB（清理阶段1/2），/O2、Win32，没有GUI/LoD/修复/打包。
+
+五profile为Baseline159次/80类型、A173/59、B277/130、FullMymod162/80、APT12/4；合计783次实际调用，类型并集精确267，原版及无原DLL隔离重放合计4698次三缓冲区比较，每profile四产物原/恢复逐字节一致。Baseline/A共332次调用复用887444e8b46ef185fdd120df5403dc8ff584840f/40162875013成功收据，Native/输入未变、metadata/委托路径与每个旧XML的identity guard完整，未重新调用编译器。最终运行只对B/Full/APT做6次原/恢复真实BAB构建，完整mymod7个Includes保留。
+
+APT专项四根12次调用覆盖8个非空文件和4个空文件，46/13/0字节源文件的236个payload字节逐字节核对，根大小、指针/count、padding、重定位、每asset空imports与最终mod.bin实际字节均检查。旧A错误相对路径导致空payload的事实保留，未将其计为非空文件能力证明。前四profile imports非空，APT纯blob profile最终imp4字节。
+
+失败及修复保留：合法根metadata buildRule/typeHashCode仍进入恢复组件，SDK插件边界按原Marshal不读这些metadata的合同克隆归一；B保留130个buildRule及1个typeHashCode样例。TestTexture.CustomData序列化工作目录，原/恢复两个目录名导致两个资产80字节差异；改为同一绝对SDK路径顺序运行，未归一化输出比较、未修改Native。SDK阶段沿用已验收的Native/Bridge与/O2 DLL，不重复未变成功组件矩阵。
+
+289组件/登记、267真实SDK全局根、22非全局metadata项、12排除项分别计数。22项仅按真实owner说明适用嵌套能力，不伪造独立SDK入口。历史82类及92180f9/40098695436旧DLL结果继续单列，不能套用当前联合DLL；当前索引见XML_SDK_RECOVERY.md、XMLCOMPILER_PRIORITY.md和新SDK收据。原DLL保持原样，不代表完整Tokenizer或非XML自定义编译器替代，禁止强推。
 ## 2026-10-24：136→155，AI Update / 经济采集 / 辅助协同三个完整组
 
 用户允许任务时长提高至约1小时，已记录STAGE_DURATION.md/EFFICIENCY.md，旧45分钟引用以新约定为准。AGENTS保持远程原文。
@@ -829,3 +862,25 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 所有失败、取消与修正记录保留在RESUME及Git历史；15分钟累计上限不足，改30分钟且不减测试。原KindOf未知149、Tracer/Stream Marshal与Token父层差异、TextureIndex signed CRT、Shader未知type0均有原方法证据。validation.scope旧尾句13拒绝暂存，实际剩余5拒绝已核对，后续实现批次顺带改标签。
 
 只剩ScriptedModel/Spotlight/Tank/Dynamics/Truck五类模型Draw继续拒绝。GAMEOBJECT_DRAW_MODEL_NEXT.md保存完整父层与结构方法/stride；不能把原证据283方法/17PE表当实现完成。完整编译器与正式SDK/mymod集成独立验收。下一轮先读RESUME。
+
+
+## 2026-10-25：最后五类Draw完成，322/322模块与真实SDK验收
+
+五个子代理分担模型条件、动画、Dynamics、测试和SDK接入，主代理完成Scripted/Spotlight/Tank/Truck与整合；代码已普通快进到recovery/compiler-source，未强推。完整新增五类及依赖见GAMEOBJECT_DRAW_MODEL.md。
+
+首轮模块source d5daae74/run40162286167 success；含CrusherInfo pipelineOnly id修复的最新完整source8939717b0a8af4435e41eb2da430977b8c945084/run40162645578 success，/Od/O2各1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性，平台0/1/2/99。两模式实际日志、不可变validation身份核对成功，共享根同步不可变40162645578-1树。322/322已知Marshal模块已验收，58 Token-only回退保留。
+
+正式GameObject插件与SDK/Mods/recoverydraw七资产已新增，按EALAModStudio defaultscript.cs case5提取的BAB基础数据命令执行。最终SDK sourcef8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，基础40162947146 success；自建mod七调用+完整mymod三调用，四产物逐字节一致、全部实际三缓冲区和无原DLL重放通过；原始zip再次解码独立比较所有八对文件及XSD日志通过，bin分别54936/209548字节。SDK归档SHA25615a1112127592f74c4b5a186cde3cee70fd82a71db2d3fef34bf26d0779666ef。
+
+SDK依次暴露csc相对路径误解析、CrusherInfo.id pipelineOnly误拒绝、XInclude注入xml:base误拒绝，均精确修复并新增回归，失败40162286198/40162402496/40162645592保留。实际捕获XML证明头灯/升级XIncludes携带xml:base，非猜测放宽。正式SDK主目录仍保留原DLL和配置；不宣称XmlCompiler另分支或两个完整替代DLL完成。
+
+用户明确允许长时间等待Actions时交接停止，最终XML上下文适配完整累计f8726d62/run40162947222仍in_progress，不提前标通过；下次只收取终态及证据，不重复已通过SDK和矩阵。RESUME保存精确续接步骤。本轮复用原方法/公共依赖与集中验收；无账号额度数据，不能量化额度节省。
+
+
+## 2026-10-25：最终XML上下文累计回归验收完成，无待收取项
+
+最终共同源码f8726d624b0a74ea0927705bca352027cbf76e30。GameObject完整累计run40162947222 success；/Od/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，四平台0/1/2/99；两模式合计8294592次三缓冲区比较。两条实际PASS日志、各作业步骤/归档/上传终态和不可变validation.sourceCommit/runId/platforms/modes已核对。共享gameobject-root同步为不可变40162947222-1树ee09d1721d1c5cfc50df886df8813f6997ce999d。
+
+同源码真实SDK40162947209、基础40162947146均success；此前核对的自建七资产mod与完整mymod四产物逐字节一致、七+三实际调用的三缓冲区及无原DLL重放、完整XSD和负向断言继续有效。322/322已知Marshal模块验收完成，剩余0；58 Token-only回退保留。
+
+本次只收取既有Actions结果、核对身份/原日志并更新文档与共享证据，没有重复触发已通过矩阵/SDK，没有修改实现、测试或主SDK原路由。RESUME已标记本轮目标全部完成，不再保留待运行/待收取状态；XmlCompiler另分支与两个完整替代DLL未纳入本轮完成声明。

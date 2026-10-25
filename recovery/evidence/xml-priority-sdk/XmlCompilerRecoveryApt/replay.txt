@@ -1,0 +1,13 @@
+PASS original SDK replay AptAptData/XmlRecoveryApt_AptAptData_defaults, bytes=12
+PASS original SDK replay AptAptData/XmlRecoveryApt_AptAptData_rich, bytes=60
+PASS original SDK replay AptAptData/XmlRecoveryApt_AptAptData_repeat, bytes=28
+PASS original SDK replay AptConstData/XmlRecoveryApt_AptConstData_defaults, bytes=12
+PASS original SDK replay AptConstData/XmlRecoveryApt_AptConstData_rich, bytes=60
+PASS original SDK replay AptConstData/XmlRecoveryApt_AptConstData_repeat, bytes=28
+PASS original SDK replay AptDatData/XmlRecoveryApt_AptDatData_defaults, bytes=12
+PASS original SDK replay AptDatData/XmlRecoveryApt_AptDatData_rich, bytes=60
+PASS original SDK replay AptDatData/XmlRecoveryApt_AptDatData_repeat, bytes=28
+PASS original SDK replay AptGeometryData/XmlRecoveryApt_AptGeometryData_defaults, bytes=16
+PASS original SDK replay AptGeometryData/XmlRecoveryApt_AptGeometryData_rich, bytes=64
+PASS original SDK replay AptGeometryData/XmlRecoveryApt_AptGeometryData_repeat, bytes=32
+PASS replay: 12 SDK calls, 36 exact buffer comparisons, 12 required assets across 4 root types, isolated=False

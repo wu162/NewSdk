@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=1996 threeArrayComparisons=5988 directArrayComparisons=5988 rejections=48 independentLayouts=2099
+PASS platform=1 fixtures=1996 threeArrayComparisons=5988 directArrayComparisons=5988 rejections=48 independentLayouts=2099
+PASS platform=2 fixtures=1996 threeArrayComparisons=5988 directArrayComparisons=5988 rejections=48 independentLayouts=2099
+PASS platform=99 fixtures=1996 threeArrayComparisons=5988 directArrayComparisons=5988 rejections=48 independentLayouts=2099
+RESULT fixtures=7984 threeArrayComparisons=23952 directArrayComparisons=23952 rejections=192 independentLayouts=8396

@@ -1,0 +1,93 @@
+{
+  "succeeded": true,
+  "sourceCommit": "dddb9ac2804da1380a5b9b94a9035253c6e48f63",
+  "runId": "40086732440",
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "modes": [
+    {
+      "mode": "Od",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 1,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 2,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 99,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        }
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "O2",
+      "succeeded": true,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 1,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 2,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        },
+        {
+          "platform": 99,
+          "fixtures": 839,
+          "threeArrayComparisons": 2517,
+          "directArrayComparisons": 2517,
+          "rejections": 19,
+          "independentLayouts": 858
+        }
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "scope": "FXList root and fifteen known nugget layouts; two ObjectFilter children and unknown TypeId explicitly refused; component only",
+  "status": "Od and O2 four-platform three-buffer differential passed for documented support boundary"
+}

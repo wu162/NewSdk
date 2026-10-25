@@ -1,0 +1,49 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "SiegeEvaEvent",
+      "typeId": 1268003905,
+      "typeHash": 277018796,
+      "schemaGlobal": true
+    },
+    {
+      "name": "EvaSettings",
+      "typeId": 2361666546,
+      "typeHash": 2947372396,
+      "schemaGlobal": true
+    },
+    {
+      "name": "EvaEvent",
+      "typeId": 357806494,
+      "typeHash": 1889946602,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MiscEvaEvents",
+      "typeId": 1807540972,
+      "typeHash": 3038881679,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AchievementEvent",
+      "typeId": 4230032093,
+      "typeHash": 2866528179,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MapNameToAchievementEventMapping",
+      "typeId": 3594283852,
+      "typeHash": 1078828637,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GameplayAchievementTriggerData",
+      "typeId": 348670903,
+      "typeHash": 478718253,
+      "schemaGlobal": true
+    }
+  ]
+}

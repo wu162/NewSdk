@@ -1,0 +1,1 @@
+<MusicScriptConditionNugget_HitBySuperWeapon buildRule="RecoveryXmlB_Value" TrackedWeapon="RecoveryXmlB_Weak_WeaponTemplate" Time="250ms" Count="3" CountOnlyHitsAgainstTheLocalPlayer="true" TargetFilter="RecoveryXmlB_ObjectFilterAsset_Defaults\0" id="RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Fields" TypeId="1634186921" xmlns="uri:ea.com:eala:asset" />

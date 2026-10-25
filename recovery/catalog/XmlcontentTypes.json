@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "EngagingContent",
+      "typeId": 3058114834,
+      "typeHash": 725292512,
+      "schemaGlobal": true
+    },
+    {
+      "name": "EngagingContentGroup",
+      "typeId": 11280974,
+      "typeHash": 1507896455,
+      "schemaGlobal": true
+    },
+    {
+      "name": "EngagingContentSequence",
+      "typeId": 3799634821,
+      "typeHash": 226620221,
+      "schemaGlobal": true
+    },
+    {
+      "name": "IntelDB",
+      "typeId": 530081230,
+      "typeHash": 751047049,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UnitIntro",
+      "typeId": 1870180772,
+      "typeHash": 1460143826,
+      "schemaGlobal": true
+    }
+  ]
+}

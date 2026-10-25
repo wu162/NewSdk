@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=1 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=2 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS platform=99 fixtures=3529 arrayComparisons=21174 rejections=301 layoutAssertions=19614
+PASS UI settings fixtures=14116 arrayComparisons=84696 rejections=1204 layoutAssertions=78457

@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "RadarTerrainImage",
+      "typeId": 1099769729,
+      "typeHash": 4223091486,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "typeId": 4039592522,
+      "typeHash": 2176451698,
+      "schemaGlobal": true
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+<LogicCommandSet id="AlliedWarFactoryCommandSet" TypeId="3959844197" xmlns="uri:ea.com:eala:asset"><Cmd TypeId="3772950554">Command_Constructmytank\0</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedMiner\1</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedAntiInfantryVehicle_Ground\2</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedAntiAirVehicleTech1\3</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedAntiVehicleVehicleTech1\4</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedAntiStructureVehicle\5</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedAntiVehicleVehicleTech3\6</Cmd><Cmd TypeId="3772950554">Command_ConstructAlliedMCV\7</Cmd><!--
+		<Cmd>Command_UpgradeAlliedWarFactoryRepairBay</Cmd>
+--></LogicCommandSet>

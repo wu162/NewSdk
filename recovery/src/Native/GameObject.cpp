@@ -93,6 +93,11 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectContainCore.h"
 #include "GameObjectContainRemaining.h"
 #include "GameObjectDrawBeam.h"
+extern const ModuleLayout drawMainW3DScriptedModelDrawModuleData;
+#include "GameObjectDrawModelConditions.h"
+#include "GameObjectDrawAnimation.h"
+#include "GameObjectDrawDynamics.h"
+#include "GameObjectDrawModel.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};
@@ -322,6 +327,7 @@ bool GameObjectAIAttributeSupported(const std::string& name,const std::string& a
     const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
     return false;
 }
+#include "GameObjectDrawModelSupport.h"
 #include "GameObjectModuleSupport.h"
 Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
     for(const auto& a:attributes) {

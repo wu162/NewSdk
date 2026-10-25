@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ArchivableMovie",
+      "typeId": 3741496377,
+      "typeHash": 291064791,
+      "schemaGlobal": false
+    },
+    {
+      "name": "ArchiveMovieList",
+      "typeId": 2099472558,
+      "typeHash": 131545626,
+      "schemaGlobal": false
+    }
+  ]
+}

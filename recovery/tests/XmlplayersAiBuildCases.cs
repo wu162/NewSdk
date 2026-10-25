@@ -1,0 +1,72 @@
+using System;
+using BinaryAssetBuilder.Core;
+partial class XmlplayersOracle {
+    static void AiBuildMatrix(IAssetBuilderPlugin o,TargetPlatform p){
+        string[] fixtures={
+"<Heuristic><H TypeId=\'2269801993\' PercentOfFairShare=\'50%\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2269801993\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'75667102\' Money=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'75667102\' Account=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'75667102\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'278936256\' StartTime=\'250ms\'/></Heuristic>",
+"<Heuristic><H TypeId=\'278936256\' EndTime=\'250ms\'/></Heuristic>",
+"<Heuristic><H TypeId=\'278936256\' CountFrom=\'AI_START\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2225927560\' Exists=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2225927560\' MinDistanceFromEnemy=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'263056479\' ExcessEnergy=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'263056479\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'263056479\' Relationship=\'ALLIES\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2665825158\' MinPlacementGridCells=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2665825158\' MaxPlacementGridCells=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2665825158\' Surfaces=\'DEEP_WATER\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3152351395\' BridgeHealthMinimumPercentage=\'50%\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3152351395\' BridgeHealthMaximumPercentage=\'50%\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3416369467\' PercentOfFairShare=\'50%\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3416369467\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3826170916\' Time=\'250ms\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3826170916\' Past=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1740211623\' Distance=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1740211623\' EnemyNearby=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1740211623\' MinEnemyValue=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2156949943\' FlagName=\'MixedCase\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' Value=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' IncludeOwnDefenses=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' IncludeEnemyDefenses=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' OwnKindOf=\'ACTIVATE_AFTER_UNPACK\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2915089289\' EnemyKindOf=\'ACTIVATE_AFTER_UNPACK\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2128923060\' Complete=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1278812460\' NumGarrisons=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1278812460\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1278812460\' Relationship=\'ALLIES\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1170787490\' KindOf=\'ACTIVATE_AFTER_UNPACK\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1170787490\' PassIfBuilding=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3371681655\' On=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2386854964\' MaxHarvesters=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1390340504\' Value=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1390340504\' Above=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1375432082\' Weight=\'2\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2174347641\' IntervalTime=\'250ms\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2174347641\' ActiveTime=\'250ms\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2174347641\' CountFrom=\'AI_START\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3195463252\' Location=\'Land\'/></Heuristic>",
+"<Heuristic><H TypeId=\'3195463252\' PassIfExists=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4054901427\' Surface=\'Land\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4054901427\' ObjectTypeToUseForTest=\'MixedCase\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4054901427\' LocomotorConditionToUseForTest=\'ATTACKING\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4054901427\' PathExists=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4090667391\' On=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'4090667391\' Directive=\'Assault\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2115602688\' Exists=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'2115602688\' Type=\'Assault\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1801850452\' UnderAttack=\'false\'/></Heuristic>",
+"<Heuristic><H TypeId=\'1801850452\' TimeSinceAttacked=\'250ms\'/></Heuristic>",
+"<Heuristic><LinearCombinationHeuristic TypeId='121779834'><WeightedHeuristic Weight='0.75'><Heuristic><ConstantHeuristic TypeId='1375432082' Weight='2'/></Heuristic></WeightedHeuristic><WeightedHeuristic Weight='0.25'><Heuristic><TimerHeuristic TypeId='278936256' EndTime='3s'/></Heuristic></WeightedHeuristic></LinearCombinationHeuristic></Heuristic>",
+"<Heuristic><EnemyNearbyHeuristic TypeId='1740211623'><EnemyFilter Include='INFANTRY'/></EnemyNearbyHeuristic><ObjectOfTypeExistsHeuristic TypeId='3195463252'><ObjectFilter Rule='ALL' Include='STRUCTURE'/></ObjectOfTypeExistsHeuristic></Heuristic>"
+        };
+        foreach(string child in fixtures)Test(o,p,"inherited-build-state/heuristic",Root("AIBuildStateDefinition","","<BuildEntry Build='Tank' Upgrade='Upgrade' Heuristic='BEST_UNIT_WEIGHTED'><BlockIfThingNearFactory Include='STRUCTURE'/></BuildEntry>"+child));
+        var b=Test(o,p,"ABI-BuildState-order",Root("AIBuildStateDefinition","","<BuildEntry><BlockIfThingNearFactory/></BuildEntry><Heuristic><H TypeId='1375432082' Weight='2'/></Heuristic>"));bool big=p!=TargetPlatform.Win32;
+        Assert(b.InstanceData.Length==200,"BuildEntry/filter then inherited heuristic allocation total");Assert(Word(b.InstanceData,12,big)==1&&Word(b.InstanceData,16,big)==20&&Word(b.InstanceData,72,big)==76,"BuildEntry list/filter allocation");Assert(Word(b.InstanceData,4,big)==1&&Word(b.InstanceData,8,big)==188&&Word(b.InstanceData,188,big)==192&&Word(b.InstanceData,192,big)==1375432082u,"inherited heuristic follows build allocations");
+        foreach(string child in new[]{"<Heuristic><H TypeId='999'/></Heuristic>","<Heuristic><H/></Heuristic>","<Heuristic/><Heuristic/>","<Heuristic Bad='1'/>","<BuildEntry><BlockIfThingNearFactory/><BlockIfThingNearFactory/></BuildEntry>"})Reject(Root("AIBuildStateDefinition","",child),p);
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "Road",
+      "typeId": 3516764358,
+      "typeHash": 738011492,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ShaderOverride",
+      "typeId": 3166846828,
+      "typeHash": 1029381398,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ShaderOverrideRule",
+      "typeId": 3648907125,
+      "typeHash": 279003514,
+      "schemaGlobal": false
+    }
+  ]
+}

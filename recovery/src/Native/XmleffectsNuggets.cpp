@@ -102,12 +102,18 @@ void MarshalXmleffectsNugget(Relo::Tracker& tracker, void** pointer, const Xmlef
         tracker.Pop();
     }
     Word(target+32,static_cast<U32>(input.disabled.size()));
+    for(U32 i=0;i<2;++i) if(input.hasFilters[i]) {
+        ObjectFilter* filter=static_cast<ObjectFilter*>(tracker.Push(reinterpret_cast<void**>(target+24+4*i),112,1));
+        MarshalObjectFilter(input.filters[i],filter,tracker);
+        if(bigEndian) EndianObjectFilter(filter);
+        tracker.Pop();
+    }
     if(!input.disabled.empty()) {
         U32* list=static_cast<U32*>(tracker.Push(reinterpret_cast<void**>(target+36),4,static_cast<U32>(input.disabled.size())));
         for(U32 i=0;i<input.disabled.size();++i) {list[i]=XmleffectsEnum("DisabledType",input.disabled[i]);if(bigEndian)Swap(list+i);}
         tracker.Pop();
     }
-    Word(target,input.typeId);
+    Word(target,input.size==44 ? 0u : input.typeId);
     if(bigEndian) {
         Swap(target); Swap(target+32);
         for(const auto& field:input.fields)
@@ -119,3 +125,4 @@ void MarshalXmleffectsNugget(Relo::Tracker& tracker, void** pointer, const Xmlef
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+

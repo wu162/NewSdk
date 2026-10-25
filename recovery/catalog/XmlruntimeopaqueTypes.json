@@ -1,0 +1,21 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "BaseRenderAssetType",
+      "typeId": 2989459401,
+      "typeHash": 3866869572,
+      "schemaGlobal": false,
+      "xmlCompilerNoOp": true
+    },
+    {
+      "name": "AudioFileRuntime",
+      "typeId": 584092973,
+      "typeHash": 2941751938,
+      "schemaGlobal": false,
+      "xmlCompilerNoOp": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "TerrainAssetCollection",
+      "typeId": 582251659,
+      "typeHash": 339527263,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TerrainTextureAtlasRuntime",
+      "typeId": 3878948534,
+      "typeHash": 1182599100,
+      "schemaGlobal": false
+    }
+  ]
+}

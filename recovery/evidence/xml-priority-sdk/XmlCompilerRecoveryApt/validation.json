@@ -1,0 +1,25 @@
+{
+  "name": "XmlCompilerRecoveryApt",
+  "sourceCommit": "9b2ef85bc45e6b397fce3d275165715afa921a92",
+  "runId": "40164710673",
+  "succeeded": true,
+  "schemaValidated": true,
+  "fourOutputsIdentical": true,
+  "originalAndIsolatedReplay": true,
+  "compilerSha256": "170C2218A27339BC8B262C8C6A528090ADE1A23A3CFA6C0855294239C68B82AE",
+  "pluginSha256": "8FFEF757D19B154241DB740E551FCFF58C95B253C0BAB0A4835DC58288C7A106",
+  "sourceFiles": [
+    {
+      "path": "SDK/Mods/XmlCompilerRecoveryApt/Data/FixturesApt.xml",
+      "sha256": "5FC8430499FC419A682FBE8016AD38284F54E2691041892DB752824309B15969"
+    },
+    {
+      "path": "SDK/Mods/XmlCompilerRecoveryApt/Data/Mod.xml",
+      "sha256": "AA64015A9E0C5C8945539AE4D2E5A2880757634C5E2BA6E4094BBC7B3B7918FC"
+    }
+  ],
+  "probeSha256": "90C825D7839DE287FDBEA9486D5AF51571FB0A01B4DC4F5D4A6EB848BE63350C",
+  "nonemptyImports": false,
+  "rawBlobOnlyImports": true,
+  "filePayloadsVerified": true
+}

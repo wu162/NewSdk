@@ -1,0 +1,1 @@
+<GameLODPreset id="RecoveryUiLodPreset" Level="HIGH" SystemMemory="2048" Xres="1920" YRes="1080" TypeId="354222972" xmlns="uri:ea.com:eala:asset"><Processor Type="CORE_DUO" MinMHz="2000" TypeId="3600394363" /><Processor Type="ATHLON_64" MinMHz="2400" TypeId="3600394363" /><Processor Type="PENTIUM_4" MinMHz="3000" TypeId="3600394363" /></GameLODPreset>

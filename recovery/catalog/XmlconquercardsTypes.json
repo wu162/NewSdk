@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ConquerCardDefinitionBase",
+      "typeId": 3258480561,
+      "typeHash": 343077480,
+      "schemaGlobal": false
+    },
+    {
+      "name": "ConquerCardDefinitionUnit",
+      "typeId": 3562795973,
+      "typeHash": 3660672133,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ConquerCardDefinitionStructure",
+      "typeId": 4289687760,
+      "typeHash": 3391723256,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ConquerCardDefinitionPower",
+      "typeId": 4164089898,
+      "typeHash": 587170934,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ConquerCardPrebuiltDeck",
+      "typeId": 2806522526,
+      "typeHash": 808620711,
+      "schemaGlobal": true
+    }
+  ]
+}

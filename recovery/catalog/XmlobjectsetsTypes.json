@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ObjectFilterAsset",
+      "typeId": 1151702845,
+      "typeHash": 1129453918,
+      "schemaGlobal": true
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "typeId": 814796096,
+      "typeHash": 235028480,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ObjectVisionRangeItem",
+      "typeId": 772930644,
+      "typeHash": 1028521956,
+      "schemaGlobal": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Nine new root types. Binding requires both strong references and at
+       least one Binding, so one already recovered UpgradeTemplate support
+       asset is included. All references are local; no raw TypeId/reference
+       index or external resource is injected by these source fixtures. -->
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Defaults" />
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Defaults" />
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Defaults" />
+  <UpgradeTemplate id="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Defaults"
+        UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults">
+    <LevelUpTintColor />
+  </ExperienceLevelTemplate>
+  <ButtonSingleStateData id="RecoveryXmlAdditional_ButtonSingleStateData_Defaults"><State /></ButtonSingleStateData>
+  <PurchasePlayerTechButtonTemplate id="RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults"
+      PlayerTech="RecoveryXmlAdditional_PlayerTech_Defaults"
+      StateData="RecoveryXmlAdditional_ButtonSingleStateData_Defaults" />
+  <PlayerTechStoreTemplate id="RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults" Faction="Japan">
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+  </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Defaults" />
+</AssetDeclaration>

@@ -1,5 +1,5 @@
-PASS platform=0 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
-PASS platform=1 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
-PASS platform=2 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
-PASS platform=99 fixtures=839 threeArrayComparisons=2517 directArrayComparisons=2517 rejections=19 independentLayouts=858
-RESULT fixtures=3356 arrayComparisons=20136 rejections=76 independentLayouts=3432
+PASS platform=0 fixtures=1630 threeArrayComparisons=4890 directArrayComparisons=4890 rejections=40 independentLayouts=1651
+PASS platform=1 fixtures=1630 threeArrayComparisons=4890 directArrayComparisons=4890 rejections=40 independentLayouts=1651
+PASS platform=2 fixtures=1630 threeArrayComparisons=4890 directArrayComparisons=4890 rejections=40 independentLayouts=1651
+PASS platform=99 fixtures=1630 threeArrayComparisons=4890 directArrayComparisons=4890 rejections=40 independentLayouts=1651
+RESULT fixtures=6520 arrayComparisons=39120 rejections=160 independentLayouts=6604

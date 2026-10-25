@@ -1,0 +1,2140 @@
+{
+  "mod": "XmlCompilerRecoveryA",
+  "scope": "24 sorted component-only groups; actual SDK integration fixtures, source XSD validated before BAB",
+  "groups": [
+    "abilitybuttons",
+    "aptdata",
+    "armyopening",
+    "assetindexes",
+    "buildeconomy",
+    "campaign",
+    "chatcolors",
+    "commandset",
+    "conditions",
+    "connections",
+    "conquercards",
+    "content",
+    "crowd",
+    "dynamics",
+    "emotions",
+    "evaachievement",
+    "forcefeedback",
+    "gamemap",
+    "gamescripts",
+    "healthbars",
+    "localization",
+    "mapmetadata",
+    "materialrules",
+    "mouse"
+  ],
+  "roots": {
+    "UnitAbilityButtonTemplate": {
+      "group": "abilitybuttons",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_UnitAbilityButtonTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_UnitAbilityButtonTemplate_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_UnitAbilityButtonTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 2
+        }
+      ]
+    },
+    "PlayerPowerButtonTemplate": {
+      "group": "abilitybuttons",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_PlayerPowerButtonTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_PlayerPowerButtonTemplate_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 6
+        },
+        {
+          "id": "XmlRecoveryA_PlayerPowerButtonTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 4
+        }
+      ]
+    },
+    "AptAptData": {
+      "group": "aptdata",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AptAptData_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptAptData_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptAptData_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "AptConstData": {
+      "group": "aptdata",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AptConstData_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptConstData_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptConstData_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "AptDatData": {
+      "group": "aptdata",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AptDatData_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptDatData_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptDatData_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "AptGeometryData": {
+      "group": "aptdata",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AptGeometryData_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptGeometryData_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AptGeometryData_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 0
+        }
+      ]
+    },
+    "ArmyDefinition": {
+      "group": "armyopening",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ArmyDefinition_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ArmyDefinition_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_ArmyDefinition_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 7
+        }
+      ]
+    },
+    "SkirmishOpeningMove": {
+      "group": "armyopening",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_SkirmishOpeningMove_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_SkirmishOpeningMove_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_SkirmishOpeningMove_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 7
+        }
+      ]
+    },
+    "DLContent": {
+      "group": "assetindexes",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_DLContent_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_DLContent_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 15
+        },
+        {
+          "id": "XmlRecoveryA_DLContent_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 63
+        }
+      ]
+    },
+    "AssetReportTable": {
+      "group": "assetindexes",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AssetReportTable_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_AssetReportTable_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 12
+        },
+        {
+          "id": "XmlRecoveryA_AssetReportTable_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 56
+        }
+      ]
+    },
+    "StringHashTable": {
+      "group": "assetindexes",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_StringHashTable_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_StringHashTable_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_StringHashTable_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 7
+        }
+      ]
+    },
+    "LocalBuildListMonitor": {
+      "group": "buildeconomy",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_LocalBuildListMonitor_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_LocalBuildListMonitor_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 7
+        },
+        {
+          "id": "XmlRecoveryA_LocalBuildListMonitor_repeat",
+          "variant": "repeat",
+          "attributes": 4,
+          "descendants": 15
+        }
+      ]
+    },
+    "BuildSystemSettings": {
+      "group": "buildeconomy",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_BuildSystemSettings_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_BuildSystemSettings_rich",
+          "variant": "rich",
+          "attributes": 8,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_BuildSystemSettings_repeat",
+          "variant": "repeat",
+          "attributes": 8,
+          "descendants": 0
+        }
+      ]
+    },
+    "GiftManagerSettings": {
+      "group": "buildeconomy",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_GiftManagerSettings_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_GiftManagerSettings_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 4
+        },
+        {
+          "id": "XmlRecoveryA_GiftManagerSettings_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 4
+        }
+      ]
+    },
+    "MpGameRules": {
+      "group": "buildeconomy",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MpGameRules_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_MpGameRules_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_MpGameRules_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 1
+        }
+      ]
+    },
+    "CampaignTemplate": {
+      "group": "campaign",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_CampaignTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_CampaignTemplate_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 5
+        },
+        {
+          "id": "XmlRecoveryA_CampaignTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 9
+        }
+      ]
+    },
+    "CampaignEnumerator": {
+      "group": "campaign",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_CampaignEnumerator_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_CampaignEnumerator_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_CampaignEnumerator_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 7
+        }
+      ]
+    },
+    "MissionTemplate": {
+      "group": "campaign",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MissionTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_MissionTemplate_rich",
+          "variant": "rich",
+          "attributes": 13,
+          "descendants": 10
+        },
+        {
+          "id": "XmlRecoveryA_MissionTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 13,
+          "descendants": 18
+        }
+      ]
+    },
+    "MissionHotSpotSettings": {
+      "group": "campaign",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MissionHotSpotSettings_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_MissionHotSpotSettings_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 7
+        },
+        {
+          "id": "XmlRecoveryA_MissionHotSpotSettings_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 15
+        }
+      ]
+    },
+    "TutorialMapData": {
+      "group": "campaign",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_TutorialMapData_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_TutorialMapData_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_TutorialMapData_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 7
+        }
+      ]
+    },
+    "OnlineChatColors": {
+      "group": "chatcolors",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_OnlineChatColors_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 29
+        },
+        {
+          "id": "XmlRecoveryA_OnlineChatColors_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 29
+        },
+        {
+          "id": "XmlRecoveryA_OnlineChatColors_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 29
+        }
+      ]
+    },
+    "GameplayConditionData": {
+      "group": "conditions",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_GameplayConditionData_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_GameplayConditionData_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 17
+        },
+        {
+          "id": "XmlRecoveryA_GameplayConditionData_repeat",
+          "variant": "repeat",
+          "attributes": 4,
+          "descendants": 21
+        }
+      ]
+    },
+    "ConnectionLineManager": {
+      "group": "connections",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ConnectionLineManager_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_ConnectionLineManager_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 4
+        },
+        {
+          "id": "XmlRecoveryA_ConnectionLineManager_repeat",
+          "variant": "inherited",
+          "attributes": 1,
+          "descendants": 1
+        }
+      ]
+    },
+    "ConquerCardDefinitionUnit": {
+      "group": "conquercards",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionUnit_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionUnit_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 6
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionUnit_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 14
+        }
+      ]
+    },
+    "ConquerCardDefinitionStructure": {
+      "group": "conquercards",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionStructure_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionStructure_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionStructure_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 0
+        }
+      ]
+    },
+    "ConquerCardDefinitionPower": {
+      "group": "conquercards",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionPower_defaults",
+          "variant": "defaults",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionPower_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardDefinitionPower_repeat",
+          "variant": "repeat",
+          "attributes": 4,
+          "descendants": 0
+        }
+      ]
+    },
+    "ConquerCardPrebuiltDeck": {
+      "group": "conquercards",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 2
+        }
+      ]
+    },
+    "EngagingContent": {
+      "group": "content",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EngagingContent_defaults",
+          "variant": "defaults",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContent_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContent_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 0
+        }
+      ]
+    },
+    "EngagingContentGroup": {
+      "group": "content",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EngagingContentGroup_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContentGroup_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContentGroup_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 7
+        }
+      ]
+    },
+    "EngagingContentSequence": {
+      "group": "content",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EngagingContentSequence_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContentSequence_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EngagingContentSequence_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 0
+        }
+      ]
+    },
+    "IntelDB": {
+      "group": "content",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_IntelDB_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_IntelDB_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_IntelDB_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 7
+        }
+      ]
+    },
+    "UnitIntro": {
+      "group": "content",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_UnitIntro_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_UnitIntro_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_UnitIntro_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 0
+        }
+      ]
+    },
+    "CrowdResponse": {
+      "group": "crowd",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_CrowdResponse_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_CrowdResponse_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 15
+        },
+        {
+          "id": "XmlRecoveryA_CrowdResponse_repeat",
+          "variant": "inherited",
+          "attributes": 1,
+          "descendants": 2
+        }
+      ]
+    },
+    "DynamicsContactTagMapping": {
+      "group": "dynamics",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_DynamicsContactTagMapping_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_DynamicsContactTagMapping_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_DynamicsContactTagMapping_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 7
+        }
+      ]
+    },
+    "StanceTemplate": {
+      "group": "emotions",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_StanceTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_StanceTemplate_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_StanceTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 1
+        }
+      ]
+    },
+    "EmotionTemplate": {
+      "group": "emotions",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EmotionTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EmotionTemplate_rich",
+          "variant": "rich",
+          "attributes": 19,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EmotionTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 19,
+          "descendants": 0
+        }
+      ]
+    },
+    "SiegeEvaEvent": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_SiegeEvaEvent_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_SiegeEvaEvent_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_SiegeEvaEvent_repeat",
+          "variant": "inherited",
+          "attributes": 3,
+          "descendants": 0
+        }
+      ]
+    },
+    "EvaSettings": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EvaSettings_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EvaSettings_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EvaSettings_repeat",
+          "variant": "repeat",
+          "attributes": 4,
+          "descendants": 0
+        }
+      ]
+    },
+    "EvaEvent": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_EvaEvent_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_EvaEvent_rich",
+          "variant": "rich",
+          "attributes": 9,
+          "descendants": 6
+        },
+        {
+          "id": "XmlRecoveryA_EvaEvent_repeat",
+          "variant": "inherited",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "MiscEvaEvents": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MiscEvaEvents_defaults",
+          "variant": "defaults",
+          "attributes": 38,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_MiscEvaEvents_rich",
+          "variant": "rich",
+          "attributes": 38,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_MiscEvaEvents_repeat",
+          "variant": "inherited",
+          "attributes": 39,
+          "descendants": 0
+        }
+      ]
+    },
+    "AchievementEvent": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_AchievementEvent_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_AchievementEvent_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_AchievementEvent_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 7
+        }
+      ]
+    },
+    "MapNameToAchievementEventMapping": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MapNameToAchievementEventMapping_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_MapNameToAchievementEventMapping_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_MapNameToAchievementEventMapping_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 0
+        }
+      ]
+    },
+    "GameplayAchievementTriggerData": {
+      "group": "evaachievement",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_GameplayAchievementTriggerData_defaults",
+          "variant": "defaults",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_GameplayAchievementTriggerData_rich",
+          "variant": "rich",
+          "attributes": 2,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_GameplayAchievementTriggerData_repeat",
+          "variant": "repeat",
+          "attributes": 2,
+          "descendants": 0
+        }
+      ]
+    },
+    "ForceFeedbackEvent": {
+      "group": "forcefeedback",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ForceFeedbackEvent_defaults",
+          "variant": "defaults",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ForceFeedbackEvent_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_ForceFeedbackEvent_repeat",
+          "variant": "inherited",
+          "attributes": 4,
+          "descendants": 0
+        }
+      ]
+    },
+    "GameMap": {
+      "group": "gamemap",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_GameMap_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_GameMap_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 58
+        },
+        {
+          "id": "XmlRecoveryA_GameMap_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 124
+        }
+      ]
+    },
+    "GameScriptList": {
+      "group": "gamescripts",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_GameScriptList_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_GameScriptList_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 61
+        },
+        {
+          "id": "XmlRecoveryA_GameScriptList_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 141
+        }
+      ]
+    },
+    "HealthBarTemplate": {
+      "group": "healthbars",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_HealthBarTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_HealthBarTemplate_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_HealthBarTemplate_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "HealthBarSettings": {
+      "group": "healthbars",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_HealthBarSettings_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_HealthBarSettings_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 12
+        },
+        {
+          "id": "XmlRecoveryA_HealthBarSettings_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 28
+        }
+      ]
+    },
+    "Language": {
+      "group": "localization",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_Language_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 2
+        },
+        {
+          "id": "XmlRecoveryA_Language_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 11
+        },
+        {
+          "id": "XmlRecoveryA_Language_repeat",
+          "variant": "inherited",
+          "attributes": 1,
+          "descendants": 2
+        }
+      ]
+    },
+    "HeaderTemplate": {
+      "group": "localization",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_HeaderTemplate_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_HeaderTemplate_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_HeaderTemplate_repeat",
+          "variant": "inherited",
+          "attributes": 1,
+          "descendants": 1
+        }
+      ]
+    },
+    "FontDirectory": {
+      "group": "localization",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_FontDirectory_defaults",
+          "variant": "defaults",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_FontDirectory_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_FontDirectory_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 0
+        }
+      ]
+    },
+    "TheVersion": {
+      "group": "localization",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_TheVersion_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_TheVersion_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_TheVersion_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 1
+        }
+      ]
+    },
+    "Credits": {
+      "group": "localization",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_Credits_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_Credits_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 22
+        },
+        {
+          "id": "XmlRecoveryA_Credits_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 78
+        }
+      ]
+    },
+    "MapMetaData": {
+      "group": "mapmetadata",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_MapMetaData_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 5
+        },
+        {
+          "id": "XmlRecoveryA_MapMetaData_rich",
+          "variant": "rich",
+          "attributes": 0,
+          "descendants": 21
+        },
+        {
+          "id": "XmlRecoveryA_MapMetaData_repeat",
+          "variant": "repeat",
+          "attributes": 0,
+          "descendants": 105
+        }
+      ]
+    },
+    "Road": {
+      "group": "materialrules",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_Road_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_Road_rich",
+          "variant": "rich",
+          "attributes": 3,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_Road_repeat",
+          "variant": "repeat",
+          "attributes": 3,
+          "descendants": 0
+        }
+      ]
+    },
+    "ShaderOverride": {
+      "group": "materialrules",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_ShaderOverride_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 1
+        },
+        {
+          "id": "XmlRecoveryA_ShaderOverride_rich",
+          "variant": "rich",
+          "attributes": 1,
+          "descendants": 3
+        },
+        {
+          "id": "XmlRecoveryA_ShaderOverride_repeat",
+          "variant": "repeat",
+          "attributes": 1,
+          "descendants": 7
+        }
+      ]
+    },
+    "Mouse": {
+      "group": "mouse",
+      "schemaGlobal": true,
+      "cases": [
+        {
+          "id": "XmlRecoveryA_Mouse_defaults",
+          "variant": "defaults",
+          "attributes": 0,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_Mouse_rich",
+          "variant": "rich",
+          "attributes": 4,
+          "descendants": 0
+        },
+        {
+          "id": "XmlRecoveryA_Mouse_repeat",
+          "variant": "repeat",
+          "attributes": 4,
+          "descendants": 0
+        }
+      ]
+    }
+  },
+  "nestedRegisteredMappings": {
+    "BaseConditionData": [
+      [
+        "GameplayConditionData",
+        "PrimaryObject"
+      ]
+    ],
+    "ObjectConditionData": [
+      [
+        "GameplayConditionData",
+        "PrimaryObject"
+      ]
+    ],
+    "UpgradeConditionData": [
+      [
+        "GameplayConditionData",
+        "RequiredUpgradeCondition"
+      ]
+    ],
+    "ConquerCardDefinitionBase": [
+      [
+        "ConquerCardDefinitionUnit",
+        "inherited base fields"
+      ]
+    ],
+    "ShaderOverrideRule": [
+      [
+        "ShaderOverride",
+        "Rule"
+      ]
+    ]
+  },
+  "sdkUnreachableRegisteredRoots": {
+    "CommandSet": "Declared complexType but no AssetDeclaration global element and no nested owner uses CommandSet in source XSD; LogicCommandSet is a different type. Component validation only."
+  },
+  "files": [
+    "Data/Mod.xml",
+    "Data/FixturesA.xml",
+    "Data/fixture.bin",
+    "Data/fixture-empty.bin",
+    "Data/fixture-odd.bin"
+  ],
+  "validation": "source XSD passed (in-memory include flattening solely for case-insensitive Windows schema paths; original files unchanged)",
+  "originalSchemasModified": false,
+  "assetCount": 173,
+  "globalRoots": 57,
+  "declaredAssets": [
+    {
+      "type": "LogicCommand",
+      "id": "XmlRecoveryA_Support_LogicCommand"
+    },
+    {
+      "type": "UnitAbilityButtonTemplate",
+      "id": "XmlRecoveryA_UnitAbilityButtonTemplate_defaults"
+    },
+    {
+      "type": "UnitAbilityButtonTemplate",
+      "id": "XmlRecoveryA_UnitAbilityButtonTemplate_rich"
+    },
+    {
+      "type": "UnitAbilityButtonTemplate",
+      "id": "XmlRecoveryA_UnitAbilityButtonTemplate_repeat"
+    },
+    {
+      "type": "PlayerPowerButtonTemplate",
+      "id": "XmlRecoveryA_PlayerPowerButtonTemplate_defaults"
+    },
+    {
+      "type": "PlayerPowerButtonTemplate",
+      "id": "XmlRecoveryA_PlayerPowerButtonTemplate_rich"
+    },
+    {
+      "type": "PlayerPowerButtonTemplate",
+      "id": "XmlRecoveryA_PlayerPowerButtonTemplate_repeat"
+    },
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryA_AptAptData_defaults"
+    },
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryA_AptAptData_rich"
+    },
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryA_AptAptData_repeat"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryA_AptConstData_defaults"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryA_AptConstData_rich"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryA_AptConstData_repeat"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryA_AptDatData_defaults"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryA_AptDatData_rich"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryA_AptDatData_repeat"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryA_AptGeometryData_defaults"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryA_AptGeometryData_rich"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryA_AptGeometryData_repeat"
+    },
+    {
+      "type": "ArmyDefinition",
+      "id": "XmlRecoveryA_ArmyDefinition_defaults"
+    },
+    {
+      "type": "ArmyDefinition",
+      "id": "XmlRecoveryA_ArmyDefinition_rich"
+    },
+    {
+      "type": "ArmyDefinition",
+      "id": "XmlRecoveryA_ArmyDefinition_repeat"
+    },
+    {
+      "type": "SkirmishOpeningMove",
+      "id": "XmlRecoveryA_SkirmishOpeningMove_defaults"
+    },
+    {
+      "type": "SkirmishOpeningMove",
+      "id": "XmlRecoveryA_SkirmishOpeningMove_rich"
+    },
+    {
+      "type": "SkirmishOpeningMove",
+      "id": "XmlRecoveryA_SkirmishOpeningMove_repeat"
+    },
+    {
+      "type": "DLContent",
+      "id": "XmlRecoveryA_DLContent_defaults"
+    },
+    {
+      "type": "DLContent",
+      "id": "XmlRecoveryA_DLContent_rich"
+    },
+    {
+      "type": "DLContent",
+      "id": "XmlRecoveryA_DLContent_repeat"
+    },
+    {
+      "type": "AssetReportTable",
+      "id": "XmlRecoveryA_AssetReportTable_defaults"
+    },
+    {
+      "type": "AssetReportTable",
+      "id": "XmlRecoveryA_AssetReportTable_rich"
+    },
+    {
+      "type": "AssetReportTable",
+      "id": "XmlRecoveryA_AssetReportTable_repeat"
+    },
+    {
+      "type": "StringHashTable",
+      "id": "XmlRecoveryA_StringHashTable_defaults"
+    },
+    {
+      "type": "StringHashTable",
+      "id": "XmlRecoveryA_StringHashTable_rich"
+    },
+    {
+      "type": "StringHashTable",
+      "id": "XmlRecoveryA_StringHashTable_repeat"
+    },
+    {
+      "type": "LocalBuildListMonitor",
+      "id": "XmlRecoveryA_LocalBuildListMonitor_defaults"
+    },
+    {
+      "type": "LocalBuildListMonitor",
+      "id": "XmlRecoveryA_LocalBuildListMonitor_rich"
+    },
+    {
+      "type": "LocalBuildListMonitor",
+      "id": "XmlRecoveryA_LocalBuildListMonitor_repeat"
+    },
+    {
+      "type": "BuildSystemSettings",
+      "id": "XmlRecoveryA_BuildSystemSettings_defaults"
+    },
+    {
+      "type": "BuildSystemSettings",
+      "id": "XmlRecoveryA_BuildSystemSettings_rich"
+    },
+    {
+      "type": "BuildSystemSettings",
+      "id": "XmlRecoveryA_BuildSystemSettings_repeat"
+    },
+    {
+      "type": "GiftManagerSettings",
+      "id": "XmlRecoveryA_GiftManagerSettings_defaults"
+    },
+    {
+      "type": "GiftManagerSettings",
+      "id": "XmlRecoveryA_GiftManagerSettings_rich"
+    },
+    {
+      "type": "GiftManagerSettings",
+      "id": "XmlRecoveryA_GiftManagerSettings_repeat"
+    },
+    {
+      "type": "MpGameRules",
+      "id": "XmlRecoveryA_MpGameRules_defaults"
+    },
+    {
+      "type": "MpGameRules",
+      "id": "XmlRecoveryA_MpGameRules_rich"
+    },
+    {
+      "type": "MpGameRules",
+      "id": "XmlRecoveryA_MpGameRules_repeat"
+    },
+    {
+      "type": "CampaignTemplate",
+      "id": "XmlRecoveryA_CampaignTemplate_defaults"
+    },
+    {
+      "type": "CampaignTemplate",
+      "id": "XmlRecoveryA_CampaignTemplate_rich"
+    },
+    {
+      "type": "CampaignTemplate",
+      "id": "XmlRecoveryA_CampaignTemplate_repeat"
+    },
+    {
+      "type": "CampaignEnumerator",
+      "id": "XmlRecoveryA_CampaignEnumerator_defaults"
+    },
+    {
+      "type": "CampaignEnumerator",
+      "id": "XmlRecoveryA_CampaignEnumerator_rich"
+    },
+    {
+      "type": "CampaignEnumerator",
+      "id": "XmlRecoveryA_CampaignEnumerator_repeat"
+    },
+    {
+      "type": "MissionTemplate",
+      "id": "XmlRecoveryA_MissionTemplate_defaults"
+    },
+    {
+      "type": "MissionTemplate",
+      "id": "XmlRecoveryA_MissionTemplate_rich"
+    },
+    {
+      "type": "MissionTemplate",
+      "id": "XmlRecoveryA_MissionTemplate_repeat"
+    },
+    {
+      "type": "MissionHotSpotSettings",
+      "id": "XmlRecoveryA_MissionHotSpotSettings_defaults"
+    },
+    {
+      "type": "MissionHotSpotSettings",
+      "id": "XmlRecoveryA_MissionHotSpotSettings_rich"
+    },
+    {
+      "type": "MissionHotSpotSettings",
+      "id": "XmlRecoveryA_MissionHotSpotSettings_repeat"
+    },
+    {
+      "type": "TutorialMapData",
+      "id": "XmlRecoveryA_TutorialMapData_defaults"
+    },
+    {
+      "type": "TutorialMapData",
+      "id": "XmlRecoveryA_TutorialMapData_rich"
+    },
+    {
+      "type": "TutorialMapData",
+      "id": "XmlRecoveryA_TutorialMapData_repeat"
+    },
+    {
+      "type": "OnlineChatColors",
+      "id": "XmlRecoveryA_OnlineChatColors_defaults"
+    },
+    {
+      "type": "OnlineChatColors",
+      "id": "XmlRecoveryA_OnlineChatColors_rich"
+    },
+    {
+      "type": "OnlineChatColors",
+      "id": "XmlRecoveryA_OnlineChatColors_repeat"
+    },
+    {
+      "type": "GameplayConditionData",
+      "id": "XmlRecoveryA_GameplayConditionData_defaults"
+    },
+    {
+      "type": "GameplayConditionData",
+      "id": "XmlRecoveryA_GameplayConditionData_rich"
+    },
+    {
+      "type": "GameplayConditionData",
+      "id": "XmlRecoveryA_GameplayConditionData_repeat"
+    },
+    {
+      "type": "ConnectionLineManager",
+      "id": "XmlRecoveryA_ConnectionLineManager_defaults"
+    },
+    {
+      "type": "ConnectionLineManager",
+      "id": "XmlRecoveryA_ConnectionLineManager_rich"
+    },
+    {
+      "type": "ConnectionLineManager",
+      "id": "XmlRecoveryA_ConnectionLineManager_repeat"
+    },
+    {
+      "type": "ConquerCardDefinitionUnit",
+      "id": "XmlRecoveryA_ConquerCardDefinitionUnit_defaults"
+    },
+    {
+      "type": "ConquerCardDefinitionUnit",
+      "id": "XmlRecoveryA_ConquerCardDefinitionUnit_rich"
+    },
+    {
+      "type": "ConquerCardDefinitionUnit",
+      "id": "XmlRecoveryA_ConquerCardDefinitionUnit_repeat"
+    },
+    {
+      "type": "ConquerCardDefinitionStructure",
+      "id": "XmlRecoveryA_ConquerCardDefinitionStructure_defaults"
+    },
+    {
+      "type": "ConquerCardDefinitionStructure",
+      "id": "XmlRecoveryA_ConquerCardDefinitionStructure_rich"
+    },
+    {
+      "type": "ConquerCardDefinitionStructure",
+      "id": "XmlRecoveryA_ConquerCardDefinitionStructure_repeat"
+    },
+    {
+      "type": "ConquerCardDefinitionPower",
+      "id": "XmlRecoveryA_ConquerCardDefinitionPower_defaults"
+    },
+    {
+      "type": "ConquerCardDefinitionPower",
+      "id": "XmlRecoveryA_ConquerCardDefinitionPower_rich"
+    },
+    {
+      "type": "ConquerCardDefinitionPower",
+      "id": "XmlRecoveryA_ConquerCardDefinitionPower_repeat"
+    },
+    {
+      "type": "ConquerCardPrebuiltDeck",
+      "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_defaults"
+    },
+    {
+      "type": "ConquerCardPrebuiltDeck",
+      "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_rich"
+    },
+    {
+      "type": "ConquerCardPrebuiltDeck",
+      "id": "XmlRecoveryA_ConquerCardPrebuiltDeck_repeat"
+    },
+    {
+      "type": "EngagingContent",
+      "id": "XmlRecoveryA_EngagingContent_defaults"
+    },
+    {
+      "type": "EngagingContent",
+      "id": "XmlRecoveryA_EngagingContent_rich"
+    },
+    {
+      "type": "EngagingContent",
+      "id": "XmlRecoveryA_EngagingContent_repeat"
+    },
+    {
+      "type": "EngagingContentGroup",
+      "id": "XmlRecoveryA_EngagingContentGroup_defaults"
+    },
+    {
+      "type": "EngagingContentGroup",
+      "id": "XmlRecoveryA_EngagingContentGroup_rich"
+    },
+    {
+      "type": "EngagingContentGroup",
+      "id": "XmlRecoveryA_EngagingContentGroup_repeat"
+    },
+    {
+      "type": "EngagingContentSequence",
+      "id": "XmlRecoveryA_EngagingContentSequence_defaults"
+    },
+    {
+      "type": "EngagingContentSequence",
+      "id": "XmlRecoveryA_EngagingContentSequence_rich"
+    },
+    {
+      "type": "EngagingContentSequence",
+      "id": "XmlRecoveryA_EngagingContentSequence_repeat"
+    },
+    {
+      "type": "IntelDB",
+      "id": "XmlRecoveryA_IntelDB_defaults"
+    },
+    {
+      "type": "IntelDB",
+      "id": "XmlRecoveryA_IntelDB_rich"
+    },
+    {
+      "type": "IntelDB",
+      "id": "XmlRecoveryA_IntelDB_repeat"
+    },
+    {
+      "type": "UnitIntro",
+      "id": "XmlRecoveryA_UnitIntro_defaults"
+    },
+    {
+      "type": "UnitIntro",
+      "id": "XmlRecoveryA_UnitIntro_rich"
+    },
+    {
+      "type": "UnitIntro",
+      "id": "XmlRecoveryA_UnitIntro_repeat"
+    },
+    {
+      "type": "CrowdResponse",
+      "id": "XmlRecoveryA_CrowdResponse_defaults"
+    },
+    {
+      "type": "CrowdResponse",
+      "id": "XmlRecoveryA_CrowdResponse_rich"
+    },
+    {
+      "type": "CrowdResponse",
+      "id": "XmlRecoveryA_CrowdResponse_repeat"
+    },
+    {
+      "type": "DynamicsContactTagMapping",
+      "id": "XmlRecoveryA_DynamicsContactTagMapping_defaults"
+    },
+    {
+      "type": "DynamicsContactTagMapping",
+      "id": "XmlRecoveryA_DynamicsContactTagMapping_rich"
+    },
+    {
+      "type": "DynamicsContactTagMapping",
+      "id": "XmlRecoveryA_DynamicsContactTagMapping_repeat"
+    },
+    {
+      "type": "StanceTemplate",
+      "id": "XmlRecoveryA_StanceTemplate_defaults"
+    },
+    {
+      "type": "StanceTemplate",
+      "id": "XmlRecoveryA_StanceTemplate_rich"
+    },
+    {
+      "type": "StanceTemplate",
+      "id": "XmlRecoveryA_StanceTemplate_repeat"
+    },
+    {
+      "type": "EmotionTemplate",
+      "id": "XmlRecoveryA_EmotionTemplate_defaults"
+    },
+    {
+      "type": "EmotionTemplate",
+      "id": "XmlRecoveryA_EmotionTemplate_rich"
+    },
+    {
+      "type": "EmotionTemplate",
+      "id": "XmlRecoveryA_EmotionTemplate_repeat"
+    },
+    {
+      "type": "SiegeEvaEvent",
+      "id": "XmlRecoveryA_SiegeEvaEvent_defaults"
+    },
+    {
+      "type": "SiegeEvaEvent",
+      "id": "XmlRecoveryA_SiegeEvaEvent_rich"
+    },
+    {
+      "type": "SiegeEvaEvent",
+      "id": "XmlRecoveryA_SiegeEvaEvent_repeat"
+    },
+    {
+      "type": "EvaSettings",
+      "id": "XmlRecoveryA_EvaSettings_defaults"
+    },
+    {
+      "type": "EvaSettings",
+      "id": "XmlRecoveryA_EvaSettings_rich"
+    },
+    {
+      "type": "EvaSettings",
+      "id": "XmlRecoveryA_EvaSettings_repeat"
+    },
+    {
+      "type": "EvaEvent",
+      "id": "XmlRecoveryA_EvaEvent_defaults"
+    },
+    {
+      "type": "EvaEvent",
+      "id": "XmlRecoveryA_EvaEvent_rich"
+    },
+    {
+      "type": "EvaEvent",
+      "id": "XmlRecoveryA_EvaEvent_repeat"
+    },
+    {
+      "type": "MiscEvaEvents",
+      "id": "XmlRecoveryA_MiscEvaEvents_defaults"
+    },
+    {
+      "type": "MiscEvaEvents",
+      "id": "XmlRecoveryA_MiscEvaEvents_rich"
+    },
+    {
+      "type": "MiscEvaEvents",
+      "id": "XmlRecoveryA_MiscEvaEvents_repeat"
+    },
+    {
+      "type": "AchievementEvent",
+      "id": "XmlRecoveryA_AchievementEvent_defaults"
+    },
+    {
+      "type": "AchievementEvent",
+      "id": "XmlRecoveryA_AchievementEvent_rich"
+    },
+    {
+      "type": "AchievementEvent",
+      "id": "XmlRecoveryA_AchievementEvent_repeat"
+    },
+    {
+      "type": "MapNameToAchievementEventMapping",
+      "id": "XmlRecoveryA_MapNameToAchievementEventMapping_defaults"
+    },
+    {
+      "type": "MapNameToAchievementEventMapping",
+      "id": "XmlRecoveryA_MapNameToAchievementEventMapping_rich"
+    },
+    {
+      "type": "MapNameToAchievementEventMapping",
+      "id": "XmlRecoveryA_MapNameToAchievementEventMapping_repeat"
+    },
+    {
+      "type": "GameplayAchievementTriggerData",
+      "id": "XmlRecoveryA_GameplayAchievementTriggerData_defaults"
+    },
+    {
+      "type": "GameplayAchievementTriggerData",
+      "id": "XmlRecoveryA_GameplayAchievementTriggerData_rich"
+    },
+    {
+      "type": "GameplayAchievementTriggerData",
+      "id": "XmlRecoveryA_GameplayAchievementTriggerData_repeat"
+    },
+    {
+      "type": "ForceFeedbackEvent",
+      "id": "XmlRecoveryA_ForceFeedbackEvent_defaults"
+    },
+    {
+      "type": "ForceFeedbackEvent",
+      "id": "XmlRecoveryA_ForceFeedbackEvent_rich"
+    },
+    {
+      "type": "ForceFeedbackEvent",
+      "id": "XmlRecoveryA_ForceFeedbackEvent_repeat"
+    },
+    {
+      "type": "GameMap",
+      "id": "XmlRecoveryA_GameMap_defaults"
+    },
+    {
+      "type": "GameMap",
+      "id": "XmlRecoveryA_GameMap_rich"
+    },
+    {
+      "type": "GameMap",
+      "id": "XmlRecoveryA_GameMap_repeat"
+    },
+    {
+      "type": "GameScriptList",
+      "id": "XmlRecoveryA_GameScriptList_defaults"
+    },
+    {
+      "type": "GameScriptList",
+      "id": "XmlRecoveryA_GameScriptList_rich"
+    },
+    {
+      "type": "GameScriptList",
+      "id": "XmlRecoveryA_GameScriptList_repeat"
+    },
+    {
+      "type": "HealthBarTemplate",
+      "id": "XmlRecoveryA_HealthBarTemplate_defaults"
+    },
+    {
+      "type": "HealthBarTemplate",
+      "id": "XmlRecoveryA_HealthBarTemplate_rich"
+    },
+    {
+      "type": "HealthBarTemplate",
+      "id": "XmlRecoveryA_HealthBarTemplate_repeat"
+    },
+    {
+      "type": "HealthBarSettings",
+      "id": "XmlRecoveryA_HealthBarSettings_defaults"
+    },
+    {
+      "type": "HealthBarSettings",
+      "id": "XmlRecoveryA_HealthBarSettings_rich"
+    },
+    {
+      "type": "HealthBarSettings",
+      "id": "XmlRecoveryA_HealthBarSettings_repeat"
+    },
+    {
+      "type": "Language",
+      "id": "XmlRecoveryA_Language_defaults"
+    },
+    {
+      "type": "Language",
+      "id": "XmlRecoveryA_Language_rich"
+    },
+    {
+      "type": "Language",
+      "id": "XmlRecoveryA_Language_repeat"
+    },
+    {
+      "type": "HeaderTemplate",
+      "id": "XmlRecoveryA_HeaderTemplate_defaults"
+    },
+    {
+      "type": "HeaderTemplate",
+      "id": "XmlRecoveryA_HeaderTemplate_rich"
+    },
+    {
+      "type": "HeaderTemplate",
+      "id": "XmlRecoveryA_HeaderTemplate_repeat"
+    },
+    {
+      "type": "FontDirectory",
+      "id": "XmlRecoveryA_FontDirectory_defaults"
+    },
+    {
+      "type": "FontDirectory",
+      "id": "XmlRecoveryA_FontDirectory_rich"
+    },
+    {
+      "type": "FontDirectory",
+      "id": "XmlRecoveryA_FontDirectory_repeat"
+    },
+    {
+      "type": "TheVersion",
+      "id": "XmlRecoveryA_TheVersion_defaults"
+    },
+    {
+      "type": "TheVersion",
+      "id": "XmlRecoveryA_TheVersion_rich"
+    },
+    {
+      "type": "TheVersion",
+      "id": "XmlRecoveryA_TheVersion_repeat"
+    },
+    {
+      "type": "Credits",
+      "id": "XmlRecoveryA_Credits_defaults"
+    },
+    {
+      "type": "Credits",
+      "id": "XmlRecoveryA_Credits_rich"
+    },
+    {
+      "type": "Credits",
+      "id": "XmlRecoveryA_Credits_repeat"
+    },
+    {
+      "type": "MapMetaData",
+      "id": "XmlRecoveryA_MapMetaData_defaults"
+    },
+    {
+      "type": "MapMetaData",
+      "id": "XmlRecoveryA_MapMetaData_rich"
+    },
+    {
+      "type": "MapMetaData",
+      "id": "XmlRecoveryA_MapMetaData_repeat"
+    },
+    {
+      "type": "Road",
+      "id": "XmlRecoveryA_Road_defaults"
+    },
+    {
+      "type": "Road",
+      "id": "XmlRecoveryA_Road_rich"
+    },
+    {
+      "type": "Road",
+      "id": "XmlRecoveryA_Road_repeat"
+    },
+    {
+      "type": "ShaderOverride",
+      "id": "XmlRecoveryA_ShaderOverride_defaults"
+    },
+    {
+      "type": "ShaderOverride",
+      "id": "XmlRecoveryA_ShaderOverride_rich"
+    },
+    {
+      "type": "ShaderOverride",
+      "id": "XmlRecoveryA_ShaderOverride_repeat"
+    },
+    {
+      "type": "Mouse",
+      "id": "XmlRecoveryA_Mouse_defaults"
+    },
+    {
+      "type": "Mouse",
+      "id": "XmlRecoveryA_Mouse_rich"
+    },
+    {
+      "type": "Mouse",
+      "id": "XmlRecoveryA_Mouse_repeat"
+    },
+    {
+      "type": "LogicCommandSet",
+      "id": "XmlRecoveryA_Support_LogicCommandSet"
+    }
+  ]
+}

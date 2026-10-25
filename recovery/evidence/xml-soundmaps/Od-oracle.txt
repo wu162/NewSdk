@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=3056 arrayComparisons=18336 rejections=29 layoutAssertions=20389
+PASS platform=1 fixtures=3056 arrayComparisons=18336 rejections=29 layoutAssertions=20389
+PASS platform=2 fixtures=3056 arrayComparisons=18336 rejections=29 layoutAssertions=20389
+PASS platform=99 fixtures=3056 arrayComparisons=18336 rejections=29 layoutAssertions=20389
+PASS Soundmaps fixtures=12224 arrayComparisons=73344 rejections=116 layoutAssertions=81557

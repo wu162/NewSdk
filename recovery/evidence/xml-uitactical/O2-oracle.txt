@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=1 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=2 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS platform=99 fixtures=8119 arrayComparisons=48714 rejections=552 layoutAssertions=92249
+PASS Tactical UI fixtures=32476 arrayComparisons=194856 rejections=2208 layoutAssertions=368997

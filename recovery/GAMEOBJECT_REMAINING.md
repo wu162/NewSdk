@@ -1,13 +1,11 @@
-# 剩余模块清单：317/322已验收，剩余5类
+# GameObject模块：322/322已验收，剩余0
 
-最终source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f，run40160094730 success；/Od与/O2完整累计、平台0/1/2/99、原DLL三缓冲区逐字节差分、拒绝与不变性均已通过。新增完整8类已验收，不含SDK集成；58 Token-only回退保留。
+最后ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396及全部依赖已完整实现。58 Token-only类型保留原未知Marshal回退，未扩展为有Marshal支持的类型。
 
-| TypeId | 类型 | native |
-|---:|---|---:|
-|1121390653|W3DSpotlightDrawModuleData|224|
-|1322199627|W3DScriptedModelDrawModuleData|216|
-|2323717438|W3DTankDrawModuleData|228|
-|2615586235|W3DDynamicsDrawModuleData|252|
-|2756454809|W3DTruckDrawModuleData|396|
+最终共同源码f8726d624b0a74ea0927705bca352027cbf76e30：
 
-这5类继续显式拒绝。完整下一组入口、原方法和结构大小见GAMEOBJECT_DRAW_MODEL_NEXT.md；原证据283方法/17张PE表不是实现数量。完整编译器、两替代DLL、正式SDK与完整mymod集成仍是独立验收门槛。
+- 完整累计run40162947222 success；/Od/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，四平台0/1/2/99。
+- 自建recoverydraw和完整mymod真实SDK run40162947209 success；基础组件40162947146 success。
+- 不可变组件目录40162947222-1与共享gameobject-root相同树ee09d1721d1c5cfc50df886df8813f6997ce999d。
+
+本轮无待收取验证。精确证据和SDK范围见RESUME.md。未宣称XmlCompiler另分支或两个完整替代DLL完成。

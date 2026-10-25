@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=1 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=2 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=99 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS complete UIConfigList fixtures=85592 arrayComparisons=513552 rejections=1080 layoutAssertions=1974789

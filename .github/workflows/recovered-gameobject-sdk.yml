@@ -1,0 +1,59 @@
+name: GameObject real SDK integration
+on:
+  workflow_dispatch:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-gameobject-sdk.yml'
+      - 'recovery/scripts/TestGameObjectSdk.ps1'
+      - 'recovery/scripts/SetGameObjectPlugin.ps1'
+      - 'recovery/src/Plugin/GameObjectPlugin.cs'
+      - 'recovery/tests/GameObjectSdkOracle.cs'
+      - 'SDK/Mods/recoverydraw/**'
+permissions:
+  contents: write
+jobs:
+  sdk:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-gameobject]')
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build own mod and full mymod through original and recovered GameObject routes
+        shell: pwsh
+        run: ./recovery/scripts/TestGameObjectSdk.ps1
+      - name: Preserve immutable evidence
+        if: always()
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $source = 'recovery/evidence/gameobject-sdk'
+          if (!(Test-Path "$source/validation.json")) { exit 0 }
+          $target = "recovery/evidence/gameobject-sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Force $target | Out-Null
+          Copy-Item "$source/validation.json" "$target/validation.json"
+          Compress-Archive -Path "$source/*" -DestinationPath "$target/output.zip" -Force
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add $target
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Unable to inspect SDK evidence' }
+          git commit -m "recovery: preserve GameObject SDK run $env:GITHUB_RUN_ID source $env:GITHUB_SHA"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to commit SDK evidence' }
+          for ($attempt = 0; $attempt -lt 3; ++$attempt) {
+            git pull --rebase origin recovery/compiler-source
+            if ($LASTEXITCODE -ne 0) { throw 'SDK evidence rebase failed; artifact retained' }
+            git push origin HEAD:recovery/compiler-source
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+          }
+          throw 'Unable to push SDK evidence; artifact retained'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-gameobject-sdk-evidence
+          path: recovery/evidence/gameobject-sdk
+          if-no-files-found: error

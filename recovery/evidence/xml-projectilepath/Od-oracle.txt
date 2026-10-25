@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=339 arrayComparisons=2034 rejections=21 layoutAssertions=2158
+PASS platform=1 fixtures=339 arrayComparisons=2034 rejections=21 layoutAssertions=2158
+PASS platform=2 fixtures=339 arrayComparisons=2034 rejections=21 layoutAssertions=2158
+PASS platform=99 fixtures=339 arrayComparisons=2034 rejections=21 layoutAssertions=2158
+PASS projectile path fixtures=1356 arrayComparisons=8136 rejections=84 layoutAssertions=8633

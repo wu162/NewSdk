@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "UIDecalGrid",
+      "typeId": 2599418799,
+      "typeHash": 4073471,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIDecalCloud",
+      "typeId": 2524893660,
+      "typeHash": 325319211,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "typeId": 1532214660,
+      "typeHash": 4106878882,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "typeId": 1238702511,
+      "typeHash": 1469314420,
+      "schemaGlobal": true
+    }
+  ]
+}

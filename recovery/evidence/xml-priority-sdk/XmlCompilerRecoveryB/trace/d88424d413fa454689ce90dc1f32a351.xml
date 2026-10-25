@@ -1,0 +1,1 @@
+<MusicScriptConditionNugget_UnitsFarFromBase buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" MinUnitsToPass="3" MinDistanceFromBase="0.5" Relationship="SAME_PLAYER SAME_PLAYER" id="RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields" TypeId="2620791304" xmlns="uri:ea.com:eala:asset" />

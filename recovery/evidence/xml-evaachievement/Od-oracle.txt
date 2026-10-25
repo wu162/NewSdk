@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=1747 arrayComparisons=10482 rejections=53 layoutAssertions=12341
+PASS platform=1 fixtures=1747 arrayComparisons=10482 rejections=53 layoutAssertions=12341
+PASS platform=2 fixtures=1747 arrayComparisons=10482 rejections=53 layoutAssertions=12341
+PASS platform=99 fixtures=1747 arrayComparisons=10482 rejections=53 layoutAssertions=12341
+PASS Eva/achievement fixtures=6988 arrayComparisons=41928 rejections=212 layoutAssertions=49365

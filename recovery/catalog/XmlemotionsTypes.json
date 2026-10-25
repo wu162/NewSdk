@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "StanceTemplate",
+      "typeId": 2525284163,
+      "typeHash": 1210708834,
+      "schemaGlobal": true
+    },
+    {
+      "name": "EmotionTemplate",
+      "typeId": 2836737428,
+      "typeHash": 1088041681,
+      "schemaGlobal": true
+    }
+  ]
+}

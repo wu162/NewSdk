@@ -1,0 +1,386 @@
+{
+  "succeeded": true,
+  "date": "2026-10-25",
+  "repository": "wu162/NewSdk",
+  "branch": "recovery/xmlcompiler-priority",
+  "sourceCommit": "d9908f57107f11b7ab875ac5787fce2bf23e00a9",
+  "runId": "40132543491",
+  "conclusion": "success",
+  "scope": {
+    "originalRegisteredEntries": 301,
+    "componentValidatedEntries": 183,
+    "newComponentValidatedEntries": 101,
+    "componentSchemaGlobalTypes": 175,
+    "newComponentSchemaGlobalTypes": 95,
+    "newSdkValidatedEntries": 0,
+    "currentCombinedDllSdkValidated": false,
+    "realSdkCompilationThisRound": false,
+    "realSdkCompilationExecutions": 0,
+    "historicalSdkValidatedEntries": 82,
+    "historicalSdkSourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+    "historicalSdkRunId": "40098695436"
+  },
+  "modes": [
+    "/Od",
+    "/O2"
+  ],
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "groups": [
+    {
+      "group": "attributes",
+      "fixtures": 9528,
+      "arrays": 28872,
+      "rejections": 288
+    },
+    {
+      "group": "effects",
+      "fixtures": 13040,
+      "arrays": 78240,
+      "rejections": 320
+    },
+    {
+      "group": "powers",
+      "fixtures": 34656,
+      "arrays": 103968,
+      "rejections": 1072
+    },
+    {
+      "group": "locomotor",
+      "fixtures": 33048,
+      "arrays": 99144,
+      "rejections": 2024
+    },
+    {
+      "group": "ai",
+      "fixtures": 15824,
+      "arrays": 94920,
+      "rejections": 416
+    },
+    {
+      "group": "fxparticle",
+      "fixtures": 27752,
+      "arrays": 83256,
+      "rejections": 784
+    },
+    {
+      "group": "progression",
+      "fixtures": 33280,
+      "arrays": 199680,
+      "rejections": 976
+    },
+    {
+      "group": "environment",
+      "fixtures": 49056,
+      "arrays": 294336,
+      "rejections": 2448
+    },
+    {
+      "group": "players",
+      "fixtures": 44760,
+      "arrays": 134280,
+      "rejections": 984
+    },
+    {
+      "group": "damagefx",
+      "fixtures": 2368,
+      "arrays": 14208,
+      "rejections": 160
+    },
+    {
+      "group": "hotkeymaps",
+      "fixtures": 13144,
+      "arrays": 78864,
+      "rejections": 296
+    },
+    {
+      "group": "audio",
+      "fixtures": 33856,
+      "arrays": 203136,
+      "rejections": 576
+    },
+    {
+      "group": "uisettings",
+      "fixtures": 28232,
+      "arrays": 169392,
+      "rejections": 2408
+    },
+    {
+      "group": "soundmaps",
+      "fixtures": 24448,
+      "arrays": 146688,
+      "rejections": 232
+    },
+    {
+      "group": "tacticalhotkeys",
+      "fixtures": 10464,
+      "arrays": 62784,
+      "rejections": 400
+    },
+    {
+      "group": "uichat",
+      "fixtures": 4072,
+      "arrays": 24432,
+      "rejections": 336
+    },
+    {
+      "group": "uidecals",
+      "fixtures": 11408,
+      "arrays": 68448,
+      "rejections": 496
+    },
+    {
+      "group": "singlesound",
+      "fixtures": 82744,
+      "arrays": 496464,
+      "rejections": 2672
+    },
+    {
+      "group": "pathmusic",
+      "fixtures": 15968,
+      "arrays": 95808,
+      "rejections": 384
+    },
+    {
+      "group": "musicscript",
+      "fixtures": 92744,
+      "arrays": 556464,
+      "rejections": 1016
+    },
+    {
+      "group": "uitactical",
+      "fixtures": 64952,
+      "arrays": 389712,
+      "rejections": 4416
+    }
+  ],
+  "totals": {
+    "fixtures": 645344,
+    "arrays": 3423096,
+    "rejections": 22704
+  },
+  "arrayComparisonNote": "Includes applicable direct CompileXml comparisons; not every array comparison is a distinct original-DLL call.",
+  "newGroups": {
+    "tacticalhotkeys": {
+      "count": 5,
+      "roots": [
+        "UIMouseTacticalSelectionDetailsButtonHotKeys",
+        "UIMouseTacticalMainCommandBarHotKeys",
+        "UIMouseTacticalPlayerPowerHotKeys",
+        "UIMouseTacticalMiscHotKeys",
+        "UIMouseHUDElementHotKeyGate"
+      ],
+      "sdkValidated": false
+    },
+    "uichat": {
+      "count": 3,
+      "roots": [
+        "UIQuickChatMessage",
+        "UIMouseTacticalQuickChatDisplay",
+        "UIMouseVoiceChat"
+      ],
+      "sdkValidated": false
+    },
+    "uidecals": {
+      "count": 4,
+      "roots": [
+        "UIDecalGrid",
+        "UIDecalCloud",
+        "UIDecalDestinationMarker",
+        "UIWorldBuilderDecalGrid"
+      ],
+      "sdkValidated": false
+    },
+    "singlesound": {
+      "count": 10,
+      "roots": [
+        "BaseAudioEventInfo",
+        "BaseSingleSound",
+        "AudioEvent",
+        "MusicTrack",
+        "MP3MusicTrack",
+        "DialogEvent",
+        "MP3DialogEvent",
+        "AmbientStream",
+        "MP3AmbientStream",
+        "Multisound"
+      ],
+      "sdkValidated": false
+    },
+    "pathmusic": {
+      "count": 7,
+      "roots": [
+        "PathMusicGameDynamicState",
+        "PathMusicGameDynamicStateSet",
+        "PathMusicGameDynamicTransition",
+        "PathMusicEventRuntime",
+        "PathMusicEventSet",
+        "PathMusicMapRuntime",
+        "MusicPalette"
+      ],
+      "sdkValidated": false
+    },
+    "musicscript": {
+      "count": 21,
+      "roots": [
+        "MusicScriptConditionNuggetBase",
+        "MusicScriptConditionExpensiveNuggetBase",
+        "MusicScriptConditionNugget_LocalPlayerIsObserver",
+        "MusicScriptConditionNugget_UnitsFarFromBase",
+        "MusicScriptConditionNugget_TimeFromStartOfLevel",
+        "MusicScriptConditionNugget_TrackPlayedCount",
+        "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+        "MusicScriptConditionNugget_AnyTrackPlaying",
+        "MusicScriptConditionNugget_ObjectsOfTypeExist",
+        "MusicScriptConditionNugget_EvaEventPlayedRecently",
+        "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+        "MusicScriptConditionNugget_ScoredKillCount",
+        "MusicScriptConditionNugget_Not",
+        "MusicScriptConditionNugget_Or",
+        "MusicScriptConditionNugget_And",
+        "MusicScriptConditionNugget_PathMusicStateLastActive",
+        "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+        "MusicScriptConditionNugget_EngagementCount",
+        "MusicScriptConditionNugget_LocalPlayerKillRatio",
+        "MusicScriptConditionNugget_HitBySuperWeapon",
+        "MusicScriptTrack"
+      ],
+      "sdkValidated": false
+    },
+    "uitactical": {
+      "count": 51,
+      "roots": [
+        "UIMouseTacticalCoOpAIButtonsHelpButton",
+        "UIMouseTacticalCommandCommunicateWithAllies",
+        "UIMouseTacticalToggleRepairModeButton",
+        "UIMouseTacticalAttackMoveButton",
+        "UIMouseTacticalCommandPlaceWall",
+        "UIMouseTacticalForceAttackMoveButton",
+        "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+        "UIMouseTacticalExitContainerButton",
+        "UIMouseTacticalPlayerTechStoreButton",
+        "UIMouseTacticalCommandMove",
+        "UIMouseTacticalCommandSell",
+        "UIMouseTacticalUnitIntroButton",
+        "UIMouseTacticalCommandSelect",
+        "UIMouseTacticalCoOpAIButtonsNormalButton",
+        "UIMouseTacticalCommandPlaceRallyPoint",
+        "UIMouseTacticalCommandHarvest",
+        "UIMouseTacticalCommandToggleSelfRepair",
+        "UIMouseTacticalBuildQueueTab",
+        "UIMouseTacticalCommandGetCrate",
+        "UIMouseTacticalDeactivateMissionHotSpotsButton",
+        "UIMouseTacticalCommandForceAttack",
+        "UIMouseTacticalPlanningModeButton",
+        "UIMouseTacticalCommandMisc",
+        "UIMouseTacticalSelectionRefinementTab",
+        "UIMouseTacticalCommandForceMove",
+        "UIMouseTacticalOpenAdvancedCommandsButton",
+        "UIMouseTacticalSetStanceButton",
+        "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+        "UIMouseTacticalCommandMineOre",
+        "UIMouseTacticalWaypointModeButton",
+        "UIMouseTacticalReverseMoveButton",
+        "UIMouseTacticalCommandEnter",
+        "UIMouseTacticalCoOpAIButtonsAssaultButton",
+        "UIMouseTacticalPauseButton",
+        "UIMouseTacticalCommandAttack",
+        "UIMouseTacticalCommandAttackMove",
+        "UIMouseTacticalForceMoveButton",
+        "UIMouseTacticalForceAttackButton",
+        "UIMouseTacticalCommandPlaceAIBeacon",
+        "UIMouseTacticalCommandDock",
+        "UIMouseTacticalCommandReverseMove",
+        "UIMouseTacticalBuildQueueTypeTab",
+        "UIMouseTacticalSellModeButton",
+        "UIMouseTacticalStopButton",
+        "UIMouseTacticalCommandSetRallyPoint",
+        "UIMouseTacticalFastForwardButton",
+        "UIMouseTacticalGroupSelection",
+        "UIMouseTacticalLookAt",
+        "UIMouseTacticalRadarTelestrator",
+        "UIMouseTacticalTelestrator",
+        "UIMouseTacticalThreatMeter"
+      ],
+      "sdkValidated": false
+    }
+  },
+  "combinedLink": {
+    "types": 183,
+    "defaultFixturesPerMode": 732,
+    "arrayComparisonsPerMode": 2196,
+    "completionFixturesPerMode": 40,
+    "completionComparisonsPerMode": 120,
+    "processExits": [
+      0,
+      0
+    ],
+    "artifactRunId": "40132543491"
+  },
+  "sdkFrozenProof": [
+    {
+      "path": "recovery/src/Plugin/XmlPriorityPlugin.cs",
+      "sha": "afd8c2ad7d5f27927d2dcc107d911a192565f0dd"
+    },
+    {
+      "path": "recovery/scripts/SetXmlPriorityPlugin.ps1",
+      "sha": "298afc2fe9f9559cb0c5bda12e60d6c3b1a28bf9"
+    },
+    {
+      "path": "recovery/scripts/TestXmlPrioritySdk.ps1",
+      "sha": "de1a77d246d9d51d2392e420bc07351065ab4c76"
+    },
+    {
+      "path": "recovery/tests/XmlPrioritySdkOracle.cs",
+      "sha": "7f8dd522eeeb694b9eaf16912f94a6c124c234c1"
+    },
+    {
+      "path": "recovery/sdk/XmlPriorityAllProbe.xml",
+      "sha": "15f96c1ae194b93bd2a25aeab78c405b9199203c"
+    },
+    {
+      "path": "recovery/catalog/XmlRecoveredTypes.json",
+      "sha": "d06b35e1f0b8a1fc98550e792458cfe70a81a09b"
+    },
+    {
+      "path": ".github/workflows/recovered-xml-priority-sdk.yml",
+      "sha": "3475aef4f69836399c9310457010f2c3be1f1867"
+    }
+  ],
+  "latestSdkRun": {
+    "id": 40098695436,
+    "created_at": "2026-10-24T13:34:05Z",
+    "head_sha": "92180f9bbd830b9dbd49a696c259e54ffe2d7721"
+  },
+  "workflowRunsThisRound": [
+    {
+      "id": 40132543491,
+      "name": "XmlCompiler priority type differential validation",
+      "created_at": "2026-10-24T21:03:39Z",
+      "sha": "d9908f57107f11b7ab875ac5787fce2bf23e00a9"
+    },
+    {
+      "id": 40132183077,
+      "name": "XmlCompiler priority type differential validation",
+      "created_at": "2026-10-24T20:58:53Z",
+      "sha": "ab40abb7777ee0e4bda6ff472f382f0c5897836d"
+    }
+  ],
+  "historicalFailedRun": {
+    "id": "40132183077",
+    "sourceCommit": "ab40abb7777ee0e4bda6ff472f382f0c5897836d",
+    "reason": "LookAt original three percentage defaults are100%; mangled percent string was initially omitted. All three defaults restored and independent absent/partial-value ABI checks added."
+  },
+  "originalXmlCompilerSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "exclusions": [
+    "Joypad-named roots",
+    "GameObject restoration",
+    "formal SDK promotion of new101 entries",
+    "full Tokenizer replacement"
+  ],
+  "originalSdkTreeSha": "60cba342afc4db0c372ca61e033a9fd8977d72d1"
+}

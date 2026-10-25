@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "W3DDeviceSettings",
+      "typeId": 1469055344,
+      "typeHash": 2638871790,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "typeId": 2383722691,
+      "typeHash": 1770851834,
+      "schemaGlobal": true
+    }
+  ]
+}

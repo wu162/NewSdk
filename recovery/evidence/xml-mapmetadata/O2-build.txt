@@ -1,0 +1,8 @@
+Relocation.cpp
+ScalarParsing.cpp
+DataInitializers.cpp
+EnumBitset.cpp
+ResourceMarshaling.cpp
+XmlmapmetadataCompiler.cpp
+Xmlmapmetadata.cpp
+Generating Code...

@@ -1,0 +1,182 @@
+{
+  "succeeded": true,
+  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+  "runId": "40158416072",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "scope": "Fourteen XmlCompiler player/formation/skirmish roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending",
+  "modes": [
+    {
+      "mode": "/Od",
+      "exitCode": 0,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 1,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 2,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 99,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        }
+      ],
+      "log": "Od-oracle.txt"
+    },
+    {
+      "mode": "/O2",
+      "exitCode": 0,
+      "platforms": [
+        {
+          "platform": 0,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 1,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 2,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        },
+        {
+          "platform": 99,
+          "fixtures": 5595,
+          "arrayComparisons": 16785,
+          "rejections": 123,
+          "layoutAssertions": 79423
+        }
+      ],
+      "log": "O2-oracle.txt"
+    }
+  ],
+  "status": "Od/O2 four-platform original DLL three-buffer differential completed; SDK integration not claimed",
+  "sources": [
+    {
+      "path": "recovery/src/Native/Relocation.cpp",
+      "sha256": "1cf8c667ea71cf37ac16d21bdbe78179c4b9c3c28d93b917db5d5abbfa3731c9"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.cpp",
+      "sha256": "f9f31a6537e601936097e5a6b4b8f764a412f5d08f3b3b6ad77bb25a75b9fe79"
+    },
+    {
+      "path": "recovery/src/Native/DataInitializers.cpp",
+      "sha256": "0628632c12f14fd1f37cb31219b7cac706ca179f381b474d6738443f7a895a60"
+    },
+    {
+      "path": "recovery/src/Native/ResourceMarshaling.cpp",
+      "sha256": "2946042bfb72f73310edd642900fe36f7491faa1029d7988ea3a261a2fc7ac4c"
+    },
+    {
+      "path": "recovery/src/Native/EnumBitset.cpp",
+      "sha256": "8e486f18fef0f85fd4c28f9c23e6eabcc086b4ff75ef2c68228e108edc8f4fa4"
+    },
+    {
+      "path": "recovery/src/Native/ObjectFilter.cpp",
+      "sha256": "e494f5d7ba09e0ff98a171edac7771cca238ab61b3f0962f6933911068764f11"
+    },
+    {
+      "path": "recovery/src/Native/Xmlai.cpp",
+      "sha256": "fbe7ab6b597a4cf7b5952b6bbd47618417cde450b6bc5a1179d58713eb204254"
+    },
+    {
+      "path": "recovery/src/Native/Xmlplayers.cpp",
+      "sha256": "844ef5ccc44fd9d8a057d2054fc3f33d45bbd81944432877dd9f6166c64ab7c3"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
+      "sha256": "c4f7680bfcb493b13ecc38e3a9af89fb3973f6a61d97d6b6569e01a09bc3694a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersEnums.inc",
+      "sha256": "0445b0cc767f93d31cc2a939a4b2db0641ac5d5c21812df6c5bb2fce52e934ed"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersFormations.inc",
+      "sha256": "cc5bc2e2b3c5110b984708276bdeb473e4e8cc0dc78b7508700cb5cdebd89951"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersLayouts.inc",
+      "sha256": "e3e7acd7edef94751fa127e3cd65528a3bdf84afadfa3884e10d9748fded7b08"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlplayersSkirmish.inc",
+      "sha256": "52a777b1da7decdb274fc5324a350ed41af2b030ff5fadc8ea119c0f33532e44"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlaiLayouts.inc",
+      "sha256": "c6e5f9a849260cdf85f5abe1485d350aaf449d34b1728bbfc60cb4e86e53a98e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlaiPersonality.inc",
+      "sha256": "dd0253c8e2fbf5ef79d3e7344b1f2b124b43c04607e25646db580864ec70fcf6"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\XmlaiPersonalityEnums.inc",
+      "sha256": "c909c78a8ee620ec0a4ff7fd2206cd82855bf9ab85d95b88865fd59c40e5fe4e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\Xmlplayers.h",
+      "sha256": "645b77339a08b5ed182afab736459e1afdfdeedc83631c90a1a343ec55b4131a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Native\\Xmlai.h",
+      "sha256": "fc4122717325b7cc4fed40f1f984ff691823e33ccd042592220ccbb7b483b26e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\src\\Bridge\\XmlNodeAdapter.h",
+      "sha256": "8fe082a209af33994defe36cdd0294b64fb3eef75069fd3228b2d56b5a34865f"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersOracle.cs",
+      "sha256": "2858b79bf56760519d53fcb4ce5b2d8ba30ee26a97eb4a1b626019a2d6600681"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersAdditionalCases.cs",
+      "sha256": "3dd6f24c65134f5b3bd0fe34ac32618a628698eb62e4b451586d0ee5dc942632"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersAiBuildCases.cs",
+      "sha256": "8a8069056de82ec53fe0996cbafec32322e16870867797c18d3211dbcf9cc81d"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersChildCases.cs",
+      "sha256": "f80e0b6ec8df29d4ea40b56d3b6af08c2a86b3691fcd5d2adf3290dac3eafe92"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersFormationCases.cs",
+      "sha256": "48ec328131064c517c37c3a183aa93ccfb4fae84b902c585d354ca816dd0a2b7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\XmlplayersSkirmishCases.cs",
+      "sha256": "f201392a00264a2d4d69016aedd568a5c581a38285df3b50d95b8b04d53344f6"
+    }
+  ]
+}

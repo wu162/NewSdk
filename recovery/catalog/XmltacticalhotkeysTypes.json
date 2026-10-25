@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "typeId": 1296329066,
+      "typeHash": 1187295208,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "typeId": 2591692061,
+      "typeHash": 1944261033,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "typeId": 2283998413,
+      "typeHash": 2326182616,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "typeId": 2014061824,
+      "typeHash": 3544626863,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "typeId": 2738273474,
+      "typeHash": 3442548366,
+      "schemaGlobal": true
+    }
+  ]
+}

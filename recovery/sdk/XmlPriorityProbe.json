@@ -1,0 +1,86 @@
+{
+  "scope": "FXList and FXParticleSystemTemplate only; source fixtures pending full Windows XSD and SDK acceptance",
+  "schema": "SDK/Schemas/xsd/CnC3Types.xsd",
+  "assets": [
+    {
+      "type": "FXList",
+      "typeId": 2254974584,
+      "id": "RecoveryXmlPriority_FX_Defaults"
+    },
+    {
+      "type": "FXList",
+      "typeId": 2254974584,
+      "id": "RecoveryXmlPriority_FX_Filters"
+    },
+    {
+      "type": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "id": "RecoveryXmlPriority_Particle_Defaults"
+    },
+    {
+      "type": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "id": "RecoveryXmlPriority_Particle_Gpu"
+    },
+    {
+      "type": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "id": "RecoveryXmlPriority_Particle_Lightning"
+    },
+    {
+      "type": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "id": "RecoveryXmlPriority_Particle_RenderObject"
+    }
+  ],
+  "coverage": {
+    "RecoveryXmlPriority_FX_Filters": [
+      "SecondaryObjectFilter",
+      "SourceObjectFilter",
+      "IncludeThing",
+      "ExcludeThing",
+      "KindOf/status bitsets"
+    ],
+    "RecoveryXmlPriority_Particle_Gpu": [
+      "FXParticleDrawGpu",
+      "FXParticleEventLife",
+      "FXParticleEventCollision",
+      "FXParticleUpdateDefault",
+      "Event list Life then Collision"
+    ],
+    "RecoveryXmlPriority_Particle_Lightning": [
+      "FXParticleDrawLightning",
+      "exactly two distinct RandomSet children",
+      "empty Event",
+      "default Update"
+    ],
+    "RecoveryXmlPriority_Particle_RenderObject": [
+      "FXParticleDrawRenderObject",
+      "exactly three distinct ObjectSet children",
+      "FXParticleUpdateRenderObject",
+      "three RandCoord3D fields"
+    ]
+  },
+  "schemaLimits": [
+    "FXList and FXParticleSystemTemplate extend BaseAssetType, not BaseInheritableAsset; inheritFrom is invalid for both.",
+    "FXNuggetTypes exposes only fifteen known concrete elements; unknown numeric TypeId fallback remains component-only.",
+    "FXParticleEventModule exposes only Life and Collision; FXParticleEventBase remains component-only.",
+    "Raw SDK source must omit numeric TypeId; BAB creates polymorphic TypeId.",
+    "ObjectFilter list order is all IncludeThing children then all ExcludeThing children.",
+    "Particle root child order is Physics, Draw, Volume, Velocity, Event, Update after preceding optional root data."
+  ],
+  "dependencies": "No TextureRef/RenderObjectRef/AudioEventInfoRef/EventFX imports. Shader and RenderGroup use AssetId strings; filter IncludeThing/ExcludeThing use weak GameObject names.",
+  "negativeMutations": [
+    "Add inheritFrom to either root (not in BaseAssetType).",
+    "Add numeric TypeId to ViewShake (not an XML source attribute).",
+    "Remove one Lightning RandomSet (exactly two required).",
+    "Remove one RenderObject ObjectSet (exactly three required).",
+    "Remove EventTime from Life or HeightOffset from Collision.",
+    "Remove StartSize/SizeRate/SizeDamping from Update/RenderObject."
+  ],
+  "validation": {
+    "xmlWellFormed": true,
+    "fullXsd": false,
+    "sdk": false
+  }
+}

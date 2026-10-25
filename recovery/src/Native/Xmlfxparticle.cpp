@@ -27,11 +27,13 @@ void Module(Relo::Tracker& tracker, void** location, const XmlfxparticleModuleIn
         if(field.kind==ParticleBoolean) target[field.offset]=ParseBoolean(field.text);
         else if(field.kind==ParticleEnum) Word(target,field.offset,XmlfxparticleEnum(field.enumType,field.text));
         else if(field.kind==ParticleReference) MarshalReference(tracker,target+field.offset,field.text);
+        else if(field.kind==ParticleString) MarshalString(tracker,target+field.offset,field.text);
         else if(field.kind==ParticlePercentage) Float(target,field.offset,ParsePercentage(field.text));
         else if(field.kind==ParticleSigned) Word(target,field.offset,static_cast<U32>(ParseSigned(field.text)));
         else Float(target,field.offset,ParseFloat(field.text));
     }
     for(const auto& random:input.random) Random(target,random.offset,random.input);
+    #include "XmlfxparticleModuleLists.inc"
     if(bigEndian) {
         Swap(target,0);
         for(const auto& field:input.fields) if(field.kind!=ParticleBoolean && field.kind!=ParticleReference) Swap(target,field.offset);
@@ -106,7 +108,17 @@ Relo::Chunk CompileXmlfxparticleParticle(const XmlfxparticleParticleInput& input
         tracker.Pop();
     }
     const U32 locations[]={140,144,148,152,164};
-    for(U32 i=0;i<5;++i) Module(tracker,reinterpret_cast<void**>(root+locations[i]),input.modules[i],bigEndian);
+    for(U32 i=0;i<4;++i) Module(tracker,reinterpret_cast<void**>(root+locations[i]),input.modules[i],bigEndian);
+    List* events = reinterpret_cast<List*>(root+156);
+    events->count = static_cast<U32>(input.events.size());
+    if(events->count) {
+        tracker.Push(&events->items, 4, events->count);
+        for(U32 i=0;i<events->count;++i)
+            Module(tracker,static_cast<void**>(events->items)+i,input.events[i],bigEndian);
+        tracker.Pop();
+    }
+    if(bigEndian) Swap(events,0);
+    Module(tracker,reinterpret_cast<void**>(root+164),input.modules[4],bigEndian);
     if (bigEndian) {
         const U32 words[] = {4,8,12,24,28,32,36};
         for (U32 offset : words) Swap(root,offset);
@@ -118,3 +130,4 @@ Relo::Chunk CompileXmlfxparticleParticle(const XmlfxparticleParticleInput& input
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
+

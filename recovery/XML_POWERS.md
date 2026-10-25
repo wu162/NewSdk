@@ -1,7 +1,9 @@
 # XmlCompiler powers recovery
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
-Branch: recovery/xmlcompiler-powers. Status: **component differential accepted; SDK integration pending**.
+Integrated branch: recovery/xmlcompiler-priority.
+
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 
 Public classes: Recovered.SpecialPowerTemplateCompiler and Recovered.ObjectCreationListCompiler.
 Both expose CompileXml(XmlNode, XmlNamespaceManager, bool) and
@@ -38,8 +40,7 @@ OCL root is 56: flags @4, six count/pointer pairs @8..@48. Nugget sizes
 within each group. Default values come from the original Marshal IL.
 
 The implementation contains all root attributes, six OCL nugget groups,
-ObjectFilter and GameDependency. The original-DLL component matrix passed for this implemented scope; SDK integration
-has not been performed. Unknown attributes,
+ObjectFilter and GameDependency. The original-DLL component matrix passed for this implemented scope; the documented Reduced and FullMymod SDK batch also passed. Unknown attributes,
 children, foreign namespaces, mixed structured text, duplicate singleton nodes
 and structured reference values are explicitly rejected. Enumeration unknown
 values retain the original fallback rather than being treated as unknown fields.
@@ -48,7 +49,7 @@ be resolved by BAB. No original DLL is called from the recovered compiler.
 
 Validation entry: recovery/scripts/TestXmlpowers.ps1, x86 VS2022 devshell.
 Evidence: recovery/evidence/xml-powers/validation.json, sourceCommit/runId,
-separate Od/O2 logs. SDK integration remains pending; Windows component execution passed.
+separate Od/O2 logs. The latest component and SDK acceptance anchors are above.
 
 OCL has six independent typed lists selected by EA-qualified element name.
 The original root/list/nugget methods do not read TypeId or dispatch polymorphically.
@@ -68,7 +69,7 @@ Original static LOGICFRAMES_PER_SECONDS_REAL bytes are 00 00 A0 40 at Module lin
 rounding to float, and VelocityTag multiplies two floats promoted to double.
 This was corrected by source/static-data audit before final Windows acceptance.
 
-## Accepted component evidence
+## Historical initial component evidence
 
 Run [40080474059](https://github.com/wu162/NewSdk/actions/runs/40080474059),
 sourceCommit 977313a17647051df333e223f7a6c45f732bdc63, succeeded=true.
@@ -95,8 +96,7 @@ the original Marshal audit verified 39 CreateObject, 3 Attack, 6 FlingObject,
 Resource references/imports, scalar/endian fields, dynamic strings/hashes,
 nested vectors/ranges, list allocation order and relocations are reconstructed.
 
-Remaining boundaries: formal SDK/plugin integration and full replacement DLLs
-are not validated. Prefix-root declarations have not been treated as valid
+Remaining boundaries: full replacement DLLs for all types and additional real-content field coverage are not validated. The current 52-entry/51-schema-type SDK/full-mymod batch is accepted. Prefix-root declarations have not been treated as valid
 ProcessInstance handles; direct CompileXml prefix-navigation and arbitrary
 namespace-manager bindings were not separately tested by this oracle.
 Strict rejection boundaries above remain intentional.

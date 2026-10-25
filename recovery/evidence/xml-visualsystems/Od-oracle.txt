@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=800 arrayComparisons=4800 rejections=45 layoutAssertions=2072
+PASS platform=1 fixtures=800 arrayComparisons=4800 rejections=45 layoutAssertions=2072
+PASS platform=2 fixtures=800 arrayComparisons=4800 rejections=45 layoutAssertions=2072
+PASS platform=99 fixtures=800 arrayComparisons=4800 rejections=45 layoutAssertions=2072
+PASS Visual systems fixtures=3200 arrayComparisons=19200 rejections=180 layoutAssertions=8289

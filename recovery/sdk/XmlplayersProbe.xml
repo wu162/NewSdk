@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <AIData id="RecoveryXmlAdditional_AIData_Defaults" LowLodTree="RecoveryTree" LowLodTreeNoGrab="RecoveryTreeNoGrab" LowLodTreeNoHarvest="RecoveryTreeNoHarvest" />
+  <UnitAISettings id="RecoveryXmlAdditional_UnitAISettings_Defaults">
+    <VictoryConditionUnitObjectFilter />
+    <VictoryConditionStructureObjectFilter />
+  </UnitAISettings>
+  <PlayerTemplate id="RecoveryXmlAdditional_PlayerTemplate_Defaults">
+    <PreferredColor R="0" G="0" B="0" />
+    <PreferredCampaignRadarColor R="0" G="0" B="0" />
+  </PlayerTemplate>
+  <MultiplayerSettings id="RecoveryXmlAdditional_MultiplayerSettings_Defaults">
+    <InitialCreditsVeryLow>0</InitialCreditsVeryLow>
+    <InitialCreditsLow>0</InitialCreditsLow>
+    <InitialCreditsMedium>0</InitialCreditsMedium>
+    <InitialCreditsHigh>0</InitialCreditsHigh>
+    <InitialCreditsVeryHigh>0</InitialCreditsVeryHigh>
+    <StartCountdownTimer>0</StartCountdownTimer>
+    <MaxBeaconsPerPlayer>0</MaxBeaconsPerPlayer>
+    <UseShroud>false</UseShroud>
+    <ShowRandomPlayerTemplate>false</ShowRandomPlayerTemplate>
+    <ShowRandomStartPos>false</ShowRandomStartPos>
+    <ShowRandomColor>false</ShowRandomColor>
+    <GameStatsModeData id="RecoveryXmlAdditional_InlineStats" GameStatsMode="LAN_GAME">
+      <AvailableMapName>RecoveryMap</AvailableMapName>
+    </GameStatsModeData>
+  </MultiplayerSettings>
+  <AIBuildStateDefinition id="RecoveryXmlAdditional_AIBuildStateDefinition_Defaults">
+    <Heuristic><ConstantHeuristic Weight="1" /></Heuristic>
+    <BuildEntry Heuristic="CONSTANT" Score="1" />
+  </AIBuildStateDefinition>
+  <AIStrategicStateName id="RecoveryXmlAdditional_AIStrategicStateName_Defaults"
+      State="RecoveryXmlPriority_Strategic_Defaults" Name="RecoveryState" />
+  <MultiplayerColor id="RecoveryXmlAdditional_MultiplayerColor_Defaults">
+    <RGBColor R="1" G="2" B="3" A="255" />
+    <RGBNightColor R="4" G="5" B="6" A="255" />
+    <TooltipName>Recovery Color</TooltipName>
+    <AvailableInMetaGame>false</AvailableInMetaGame>
+  </MultiplayerColor>
+  <AIPersonalityToAchievementEventMapping
+      id="RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults"
+      AIPersonalityDef="RecoveryXmlPriority_Personality_Defaults" AchievementEventId="17" />
+</AssetDeclaration>
