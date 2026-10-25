@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 64
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -29,9 +31,21 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ matrix.group }}' -eq 'Formats') {
-            ./recovery/scripts/TestTextureStage2.ps1 -Group Formats -ProbeOnly
+            ./recovery/scripts/TestTextureStage2.ps1 -Group Formats
           } else {
-            ./recovery/scripts/TestTextureStage2.ps1 -Group Volume
+            $prior='recovery/evidence/texture/stage2/Volume/40197368504-1'
+            $receipt=Get-Content "$prior/validation.json" -Raw | ConvertFrom-Json
+            git merge-base --is-ancestor $receipt.sourceCommit HEAD
+            $ancestor=($LASTEXITCODE -eq 0)
+            git diff --quiet $receipt.sourceCommit HEAD -- src/TextureCompiler/Managed/TextureVolume.cs recovery/tests/TextureVolumeOracle.cs src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj SDK/tools/BinaryAssetBuilder.TextureCompiler.dll SDK/tools/BinaryAssetBuilder.Core.dll SDK/tools/BinaryAssetBuilder.Utility.dll
+            if ($ancestor -and $LASTEXITCODE -eq 0 -and $receipt.status -eq 'passed' -and @($receipt.configurations | Where-Object passed -eq $true).Count -eq 2) {
+              $out="recovery/evidence/texture/stage2/Volume/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+              New-Item -ItemType Directory -Force $out | Out-Null
+              @{status='reused';passed=$true;sourceCommit=$receipt.sourceCommit;runId=$receipt.runId;runAttempt=$receipt.runAttempt;sdkValidated=$false;checkedAtCommit=(git rev-parse HEAD).Trim()} | ConvertTo-Json | Set-Content "$out/validation.json"
+              Write-Output "REUSE Volume source=$($receipt.sourceCommit) run=$($receipt.runId)-$($receipt.runAttempt); unchanged full component inputs"
+            } else {
+              ./recovery/scripts/TestTextureStage2.ps1 -Group Volume
+            }
           }
       - name: Preserve group results
         if: always()

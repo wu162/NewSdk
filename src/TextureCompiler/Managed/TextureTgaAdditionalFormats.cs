@@ -23,19 +23,23 @@ namespace Recovered.Compiler.Texture
         { if (offset >= source.Length) throw Bad(); return source[offset++]; }
         private static int Word(byte[] source, ref int offset)
         { int low = Byte(source, ref offset); return low | Byte(source, ref offset) << 8; }
-        private static uint Five(int value) { return (uint)((value << 3) | (value >> 2)); }
-        private static uint Color(byte[] source, ref int offset, int depth)
+        private static uint Five(int value, bool palette) { return (uint)(palette ? (value << 3) | (value >> 2) : (value * 255 + 15) / 31); }
+        private static uint Color(byte[] source, ref int offset, int depth, bool palette)
         {
             if (depth == 15 || depth == 16)
             {
                 int value = Word(source, ref offset);
-                return Five((value >> 10) & 31) | Five((value >> 5) & 31) << 8 |
-                    Five(value & 31) << 16 | (depth == 16 ? (uint)((value & 0x8000) != 0 ? 255 : 0) : 255u) << 24;
+                uint color = Five((value >> 10) & 31, palette) | Five((value >> 5) & 31, palette) << 8 |
+                    Five(value & 31, palette) << 16 | (depth == 16 ? (uint)((value & 0x8000) != 0 ? 255 : 0) : 255u) << 24;
+                return palette ? SwapRedBlue(color) : color;
             }
             uint blue = (uint)Byte(source, ref offset), green = (uint)Byte(source, ref offset), red = (uint)Byte(source, ref offset);
             uint alpha = depth == 32 ? (uint)Byte(source, ref offset) : 255u;
-            return red | green << 8 | blue << 16 | alpha << 24;
+            uint rgba = red | green << 8 | blue << 16 | alpha << 24;
+            return palette ? SwapRedBlue(rgba) : rgba;
         }
+        private static uint SwapRedBlue(uint value)
+        { return (value & 0xFF00FF00u) | (value & 255u) << 16 | (value >> 16 & 255u); }
         private static uint Pixel(byte[] source, ref int offset, int depth, bool mapped, bool gray, uint[] palette, int first)
         {
             if (mapped)
@@ -51,7 +55,7 @@ namespace Recovered.Compiler.Texture
                 uint alpha = depth == 16 ? (uint)Byte(source, ref offset) : 255u;
                 return intensity | intensity << 8 | intensity << 16 | alpha << 24;
             }
-            return Color(source, ref offset, depth);
+            return Color(source, ref offset, depth, false);
         }
         public static TexturePacker.Image Decode(byte[] source)
         {
@@ -67,10 +71,27 @@ namespace Recovered.Compiler.Texture
             if (mapped ? source[1] != 1 || entries == 0 || (depth != 8 && depth != 16) ||
                 (paletteDepth != 15 && paletteDepth != 16 && paletteDepth != 24 && paletteDepth != 32)
                 : source[1] != 0 || first != 0 || entries != 0 || paletteDepth != 0 || (gray && depth != 8 && depth != 16)) throw Bad();
+            if ((mapped && depth != 8) || (gray && depth != 8)) throw Bad();
+            if (mapped && first + entries > 256) throw Bad();
+            int attributes = descriptor & 15;
+            if (mapped || gray ? attributes != 0 : attributes != 0 && attributes != 1)
+                throw new NotSupportedException("Additional TGA descriptor attribute counts outside the validated format subset are not recovered.");
             int offset = 18 + source[0];
             if (offset > source.Length) throw Bad();
             uint[] palette = mapped ? new uint[entries] : null;
-            if (mapped) for (int i = 0; i < entries; i++) palette[i] = Color(source, ref offset, paletteDepth);
+            if (mapped)
+            {
+                bool anyPaletteAlpha = false;
+                for (int i = 0; i < entries; i++)
+                {
+                    palette[i] = Color(source, ref offset, paletteDepth, true);
+                    if ((palette[i] & 0xFF000000u) != 0) anyPaletteAlpha = true;
+                }
+                // The original pre-normalizes an entirely zero-alpha palette
+                // before image pixels are expanded. This differs from truecolor.
+                if (!anyPaletteAlpha)
+                    for (int i = 0; i < entries; i++) palette[i] |= 0xFF000000u;
+            }
             int count = checked(width * height), position = 0;
             uint[] pixels = new uint[count];
             while (position < count)
@@ -91,7 +112,7 @@ namespace Recovered.Compiler.Texture
                 }
             }
             if (offset != source.Length) throw new NotSupportedException("Additional-format TGA metadata/footer support is not yet recovered.");
-            bool hasAlpha = mapped ? paletteDepth == 16 || paletteDepth == 32 : depth == 16;
+            bool hasAlpha = mapped || depth == 16;
             if (hasAlpha)
             {
                 bool anyAlpha = false;

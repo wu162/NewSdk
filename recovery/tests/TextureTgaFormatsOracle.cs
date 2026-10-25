@@ -165,6 +165,46 @@ internal static unsafe class TextureTgaFormatsOracle
             writer.Flush(); return stream.ToArray();
         }
     }
+    private static byte[] EveryGrayValue(int depth, int direction, int attributes)
+    {
+        int width = 256, height = depth == 8 ? 1 : 256;
+        using (MemoryStream stream = new MemoryStream())
+        using (BinaryWriter writer = new BinaryWriter(stream))
+        {
+            byte[] header = new byte[18]; header[2] = 3; header[13] = 1;
+            header[14] = (byte)height; header[15] = (byte)(height >> 8); header[16] = (byte)depth; header[17] = (byte)(direction | attributes);
+            writer.Write(header);
+            for (int fy = 0; fy < height; fy++) for (int fx = 0; fx < width; fx++)
+            {
+                int x = (direction & 16) != 0 ? width - 1 - fx : fx;
+                int y = (direction & 32) != 0 ? fy : height - 1 - fy;
+                int word = y * width + x;
+                writer.Write((byte)word); if (depth == 16) writer.Write((byte)(word >> 8));
+            }
+            writer.Flush(); return stream.ToArray();
+        }
+    }
+    private static byte[] ExhaustivePalette(int paletteDepth, int block)
+    {
+        using (MemoryStream stream = new MemoryStream())
+        using (BinaryWriter writer = new BinaryWriter(stream))
+        {
+            byte[] header = new byte[18]; header[1] = 1; header[2] = 1;
+            header[6] = 1; header[7] = (byte)paletteDepth; header[13] = 1; header[14] = 1; header[16] = 8;
+            writer.Write(header);
+            for (int i = 0; i < 256; i++)
+            {
+                if (paletteDepth == 15 || paletteDepth == 16) writer.Write((ushort)(block * 256 + i));
+                else
+                {
+                    uint color = (uint)i | (uint)(255 - i) << 8 | (uint)((i * 73) & 255) << 16 | (uint)i << 24;
+                    writer.Write(StoredColor(color, paletteDepth));
+                }
+            }
+            for (int i = 0; i < 256; i++) writer.Write((byte)i);
+            writer.Flush(); return stream.ToArray();
+        }
+    }
     private static bool Equal(byte[] a, byte[] b)
     { if (a.Length != b.Length) return false; for (int i = 0; i < a.Length; i++) if (a[i] != b[i]) return false; return true; }
     private static void Compare(StreamWriter transcript, string path, string label, byte[] bytes, bool probe)
@@ -227,12 +267,32 @@ internal static unsafe class TextureTgaFormatsOracle
                     foreach (int direction in new int[] { 0, 16, 32, 48 })
                     foreach (int attributes in new int[] { 0, 1 })
                         Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "every16bit-pattern-direction" + direction + "-attributes" + attributes, Every16BitPattern(direction, attributes), probe);
+                    foreach (int direction in new int[] { 0, 16, 32, 48 })
+                    {
+                        Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "every-gray8-direction" + direction, EveryGrayValue(8, direction, 0), probe);
+                        foreach (int attributes in new int[] { 0, 8 })
+                            Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "every-gray16-direction" + direction + "-attributes" + attributes, EveryGrayValue(16, direction, attributes), probe);
+                    }
+                    foreach (int paletteDepth in new int[] { 15, 16, 24, 32 })
+                    {
+                        int blocks = paletteDepth == 15 ? 128 : paletteDepth == 16 ? 256 : 1;
+                        for (int block = 0; block < blocks; block++)
+                            Compare(transcript, Path.Combine(fixturesDirectory, "current.tga"), "exhaustive-palette" + paletteDepth + "-block" + block, ExhaustivePalette(paletteDepth, block), probe);
+                        foreach (int edge in new int[] { 0, 1, 2 })
+                        foreach (bool rle in new bool[] { false, true }) foreach (int direction in new int[] { 0, 16, 32, 48 })
+                            Case(transcript, fixturesDirectory, probe, 8, 4, 1, 8, paletteDepth, edge == 0 ? 250 : edge == 1 ? 253 : 255, edge == 0 ? 4 : edge == 1 ? 3 : 1, rle, direction, 0, 0, 3);
+                    }
                 }
             }
             finally { ((IDisposable)plugin).Dispose(); }
-            Check(fixtures == 4040, "Full new-format matrix count");
+            Check(fixtures == 4534, "Full new-format matrix count");
             Console.WriteLine((probe ? "PROBE" : "PASS") + " Texture TGA additional formats: fixtures=" + fixtures + "; decodedMatches=" + decodedMatches + "; rejectionMatches=" + rejectionMatches + "; originalFailures=" + originalFailures + "; mismatches=" + mismatches + "; no old-format rerun; no SDK claim");
-            Check(probe || mismatches == 0, "Strict differences"); return 0;
+            Check(probe || mismatches == 0, "Strict differences");
+            if (!probe)
+            {
+                Check(decodedMatches == 2606 && rejectionMatches == 1928 && originalFailures == 1928, "Exact accepted format/negative accounting");
+            }
+            return 0;
         }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
     }
