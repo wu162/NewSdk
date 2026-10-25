@@ -1,3 +1,7 @@
+# 当前任务：XmlCompiler SDK真实验收
+
+2026-10-25用户授权开始真实SDK编译，只复现EALAModStudio“建立基础数据”case5 BAB调用，不走GUI/LoD/修复/打包。SDK/Mods下独立Baseline/A/B测试MOD加完整mymod profile正在验收；未成功前不能宣称289入口SDK完成。先读XML_SDK_RECOVERY.md、XML_PRIORITY_SDK.md及当前SDK工作流/脚本，核实recovery/evidence/xml-priority-sdk的sourceCommit/runId。以下为已完成组件阶段记录。
+
 # XmlCompiler分支续接
 
 2026-10-25（北京时间）。目标分支recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md、XMLCOMPILER_PRIORITY.md。

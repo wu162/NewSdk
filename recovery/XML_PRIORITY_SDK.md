@@ -1,4 +1,8 @@
-# XmlCompiler SDK：82入口最终验收
+# XmlCompiler SDK：新289入口真实验收进行中
+
+2026-10-25新阶段：用户已明确授权真实SDK建立基础数据，使用SDK/Mods中的独立测试MOD，按EALAModStudio默认脚本case5启动BAB。当前阶段尚未验收成功，见[XML_SDK_RECOVERY.md](XML_SDK_RECOVERY.md)。下文为旧82入口历史记录，旧轮禁止SDK的限制不适用于本次已授权阶段。
+
+## 历史82入口验收
 
 2026-10-25状态说明：本页仅记录旧82入口及旧DLL的历史SDK基线。本轮用户禁止SDK真实编译，实际0次；新增101入口仅组件验收，当前183入口联合DLL尚未SDK验收。主Plugin/SDK路由与本页旧证据不变，不能把下列历史结果用于宣称新联合DLL已集成。当前状态见XMLCOMPILER_PRIORITY.md。
 

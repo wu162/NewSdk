@@ -1,0 +1,11 @@
+# XmlCompiler SDK真实验收：进行中
+
+2026-10-25。用户已授权真实SDK编译，并明确只需EALAModStudio的“建立基础数据”。从SDK/defaultscript.cs的executeModBuildStep case5提取BAB参数，清理一次性副本后执行同一BAB调用。不启动GUI，不执行LoD、资产合并/修复、BIG打包或安装。
+
+测试MOD实际位于SDK/Mods/XmlCompilerRecoveryBaseline、XmlCompilerRecoveryA、XmlCompilerRecoveryB；另保留完整原mymod的全部Includes进行整体验证。源数据先通过原CnC3Types.xsd，目标是默认值、非空完整字段、继承、引用、列表增长、UI70种多态以及文件blob的真实预处理输入。原版与恢复版使用相同MOD源和显式289类型注册拓扑、关闭缓存；比较bin/manifest/imp/relo四产物，再重放实际调用XML与三缓冲区，并在物理排除原XmlCompiler/Tokenizer的目录隔离恢复版重放。
+
+当前289入口组件验收已完成，但本页SDK阶段尚未运行成功，不将旧82类SDK结果当作289入口新DLL的SDK结果。新元数据表XmlSdkTypes.json含289登记项、267个schema全局类型和22个非全局/抽象/runtime项；后者仅按实际XSD可达的嵌套能力证明，不伪造全局资产或独立SDK入口调用。12个排除根及非XML自定义编译器路由保持不变。
+
+SDK工作流仅由显式[sdk-xml-priority]提交或手工dispatch触发。已验收且Native/Bridge输入未变时复用40159834447/O2联合DLL，验证文件差异和DLL指纹，不重跑已有组件矩阵。若SDK发现实现差异，再重建受影响DLL并取得完整必要回归。
+
+验收状态与精确sourceCommit/runId见recovery/evidence/xml-priority-sdk；成功前不更新最终SDK完成声明。SDK代码、MOD和验证工具检查点已准备，首次批次验证中。

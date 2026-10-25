@@ -1,0 +1,4490 @@
+{
+  "scope": "Real SDK source fixture plan; local schema validation is not SDK success or runtime coverage",
+  "groups": [
+    "moviearchive",
+    "musicscript",
+    "objectsets",
+    "pathmusic",
+    "projectilepath",
+    "radar",
+    "redalert",
+    "renderassets",
+    "renderdevice",
+    "runtimeopaque",
+    "singlesound",
+    "systemsettings",
+    "tacticalhotkeys",
+    "targeting",
+    "terrain",
+    "testtextures",
+    "uichat",
+    "uiconfig",
+    "uidecals",
+    "uiimages",
+    "uitactical",
+    "unitoverlay",
+    "visibility",
+    "visualsystems",
+    "w3d"
+  ],
+  "cases": [
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 5
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 5
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 7,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_Not_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_Not_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_Or_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 2
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_Or_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_And_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 2
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_And_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 9,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "id": "RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 7,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptTrack",
+      "id": "RecoveryXmlB_MusicScriptTrack_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "MusicScriptTrack",
+      "id": "RecoveryXmlB_MusicScriptTrack_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 10,
+      "descendants": 2
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "id": "RecoveryXmlB_ObjectFilterAsset_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "id": "RecoveryXmlB_ObjectFilterAsset_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 5
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "id": "RecoveryXmlB_ObjectFilterAsset_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_ObjectFilterAsset_Defaults"
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "id": "RecoveryXmlB_RegisteredObjectSet_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 1
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "id": "RecoveryXmlB_RegisteredObjectSet_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 5
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "id": "RecoveryXmlB_RegisteredObjectSet_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_RegisteredObjectSet_Defaults"
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "id": "RecoveryXmlB_PathMusicGameDynamicState_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "id": "RecoveryXmlB_PathMusicGameDynamicState_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "id": "RecoveryXmlB_PathMusicGameDynamicState_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "id": "RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "id": "RecoveryXmlB_PathMusicGameDynamicStateSet_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "id": "RecoveryXmlB_PathMusicGameDynamicTransition_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "id": "RecoveryXmlB_PathMusicGameDynamicTransition_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 1
+    },
+    {
+      "name": "PathMusicEventSet",
+      "id": "RecoveryXmlB_PathMusicEventSet_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "PathMusicEventSet",
+      "id": "RecoveryXmlB_PathMusicEventSet_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    },
+    {
+      "name": "MusicPalette",
+      "id": "RecoveryXmlB_MusicPalette_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MusicPalette",
+      "id": "RecoveryXmlB_MusicPalette_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    },
+    {
+      "name": "ProjectilePath",
+      "id": "RecoveryXmlB_ProjectilePath_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "ProjectilePath",
+      "id": "RecoveryXmlB_ProjectilePath_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 3
+    },
+    {
+      "name": "ProjectilePath",
+      "id": "RecoveryXmlB_ProjectilePath_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_ProjectilePath_Defaults"
+    },
+    {
+      "name": "RadarTerrainImage",
+      "id": "RecoveryXmlB_RadarTerrainImage_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 3
+    },
+    {
+      "name": "RadarTerrainImage",
+      "id": "RecoveryXmlB_RadarTerrainImage_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 3
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "id": "RecoveryXmlB_UIRadarObjectsLayer_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "id": "RecoveryXmlB_UIRadarObjectsLayer_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 15
+    },
+    {
+      "name": "RedAlertTemplate",
+      "id": "RecoveryXmlB_RedAlertTemplate_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "RedAlertTemplate",
+      "id": "RecoveryXmlB_RedAlertTemplate_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 19,
+      "descendants": 4
+    },
+    {
+      "name": "RedAlertTemplate",
+      "id": "RecoveryXmlB_RedAlertTemplate_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_RedAlertTemplate_Defaults"
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "id": "RecoveryXmlB_MeshInstanceTemplate_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "id": "RecoveryXmlB_MeshInstanceTemplate_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "id": "RecoveryXmlB_MeshInstanceTemplate_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_MeshInstanceTemplate_Defaults"
+    },
+    {
+      "name": "PackedTextureImage",
+      "id": "RecoveryXmlB_PackedTextureImage_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 3
+    },
+    {
+      "name": "PackedTextureImage",
+      "id": "RecoveryXmlB_PackedTextureImage_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 3
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "id": "RecoveryXmlB_OnDemandTextureImage_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 3
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "id": "RecoveryXmlB_OnDemandTextureImage_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 3
+    },
+    {
+      "name": "W3DDeviceSettings",
+      "id": "RecoveryXmlB_W3DDeviceSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 2
+    },
+    {
+      "name": "W3DDeviceSettings",
+      "id": "RecoveryXmlB_W3DDeviceSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 13,
+      "descendants": 8
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "id": "RecoveryXmlB_ScorchMarkSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "id": "RecoveryXmlB_ScorchMarkSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 6
+    },
+    {
+      "name": "AudioEvent",
+      "id": "RecoveryXmlB_AudioEvent_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "AudioEvent",
+      "id": "RecoveryXmlB_AudioEvent_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 17
+    },
+    {
+      "name": "AudioEvent",
+      "id": "RecoveryXmlB_AudioEvent_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "name": "MusicTrack",
+      "id": "RecoveryXmlB_MusicTrack_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MusicTrack",
+      "id": "RecoveryXmlB_MusicTrack_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "MusicTrack",
+      "id": "RecoveryXmlB_MusicTrack_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_MusicTrack_Defaults"
+    },
+    {
+      "name": "MP3MusicTrack",
+      "id": "RecoveryXmlB_MP3MusicTrack_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MP3MusicTrack",
+      "id": "RecoveryXmlB_MP3MusicTrack_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "MP3MusicTrack",
+      "id": "RecoveryXmlB_MP3MusicTrack_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_MP3MusicTrack_Defaults"
+    },
+    {
+      "name": "DialogEvent",
+      "id": "RecoveryXmlB_DialogEvent_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "DialogEvent",
+      "id": "RecoveryXmlB_DialogEvent_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "DialogEvent",
+      "id": "RecoveryXmlB_DialogEvent_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_DialogEvent_Defaults"
+    },
+    {
+      "name": "MP3DialogEvent",
+      "id": "RecoveryXmlB_MP3DialogEvent_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MP3DialogEvent",
+      "id": "RecoveryXmlB_MP3DialogEvent_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "MP3DialogEvent",
+      "id": "RecoveryXmlB_MP3DialogEvent_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_MP3DialogEvent_Defaults"
+    },
+    {
+      "name": "AmbientStream",
+      "id": "RecoveryXmlB_AmbientStream_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "AmbientStream",
+      "id": "RecoveryXmlB_AmbientStream_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "AmbientStream",
+      "id": "RecoveryXmlB_AmbientStream_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_AmbientStream_Defaults"
+    },
+    {
+      "name": "MP3AmbientStream",
+      "id": "RecoveryXmlB_MP3AmbientStream_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "MP3AmbientStream",
+      "id": "RecoveryXmlB_MP3AmbientStream_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 22,
+      "descendants": 12
+    },
+    {
+      "name": "MP3AmbientStream",
+      "id": "RecoveryXmlB_MP3AmbientStream_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_MP3AmbientStream_Defaults"
+    },
+    {
+      "name": "Multisound",
+      "id": "RecoveryXmlB_Multisound_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "Multisound",
+      "id": "RecoveryXmlB_Multisound_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    },
+    {
+      "name": "Multisound",
+      "id": "RecoveryXmlB_Multisound_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_Multisound_Defaults"
+    },
+    {
+      "name": "NetworkSettings",
+      "id": "RecoveryXmlB_NetworkSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "NetworkSettings",
+      "id": "RecoveryXmlB_NetworkSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "PathfindSettings",
+      "id": "RecoveryXmlB_PathfindSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 16,
+      "descendants": 0
+    },
+    {
+      "name": "PathfindSettings",
+      "id": "RecoveryXmlB_PathfindSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 17,
+      "descendants": 0
+    },
+    {
+      "name": "ResourceSettings",
+      "id": "RecoveryXmlB_ResourceSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "ResourceSettings",
+      "id": "RecoveryXmlB_ResourceSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "GraphicsHardware",
+      "id": "RecoveryXmlB_GraphicsHardware_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "GraphicsHardware",
+      "id": "RecoveryXmlB_GraphicsHardware_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 4
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalMiscHotKeys_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "id": "RecoveryXmlB_UIMouseTacticalMiscHotKeys_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "id": "RecoveryXmlB_UIMouseHUDElementHotKeyGate_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "id": "RecoveryXmlB_UIMouseHUDElementHotKeyGate_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "id": "RecoveryXmlB_TargetingDistanceCompare_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "id": "RecoveryXmlB_TargetingDistanceCompare_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "id": "RecoveryXmlB_TargetingCombatChainCompare_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "id": "RecoveryXmlB_TargetingCombatChainCompare_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "id": "RecoveryXmlB_TargetingInTurretArcCompare_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "id": "RecoveryXmlB_TargetingInTurretArcCompare_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "TargetingCompareList",
+      "id": "RecoveryXmlB_TargetingCompareList_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "TargetingCompareList",
+      "id": "RecoveryXmlB_TargetingCompareList_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "TerrainAssetCollection",
+      "id": "RecoveryXmlB_TerrainAssetCollection_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "TerrainAssetCollection",
+      "id": "RecoveryXmlB_TerrainAssetCollection_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "TestTexture",
+      "id": "RecoveryXmlB_TestTexture_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "TestTexture",
+      "id": "RecoveryXmlB_TestTexture_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    },
+    {
+      "name": "TestTextureCollection",
+      "id": "RecoveryXmlB_TestTextureCollection_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "TestTextureCollection",
+      "id": "RecoveryXmlB_TestTextureCollection_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIQuickChatMessage",
+      "id": "RecoveryXmlB_UIQuickChatMessage_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIQuickChatMessage",
+      "id": "RecoveryXmlB_UIQuickChatMessage_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "id": "RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "id": "RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 21
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "id": "RecoveryXmlB_UIMouseVoiceChat_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "id": "RecoveryXmlB_UIMouseVoiceChat_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIConfigList",
+      "id": "RecoveryXmlB_UIConfigList_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIConfigList",
+      "id": "RecoveryXmlB_UIConfigList_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 540
+    },
+    {
+      "name": "UIDecalGrid",
+      "id": "RecoveryXmlB_UIDecalGrid_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 7
+    },
+    {
+      "name": "UIDecalGrid",
+      "id": "RecoveryXmlB_UIDecalGrid_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 7
+    },
+    {
+      "name": "UIDecalCloud",
+      "id": "RecoveryXmlB_UIDecalCloud_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "UIDecalCloud",
+      "id": "RecoveryXmlB_UIDecalCloud_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 0
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "id": "RecoveryXmlB_UIDecalDestinationMarker_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 5
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "id": "RecoveryXmlB_UIDecalDestinationMarker_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 8
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "id": "RecoveryXmlB_UIWorldBuilderDecalGrid_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "id": "RecoveryXmlB_UIWorldBuilderDecalGrid_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 1
+    },
+    {
+      "name": "ImageSequence",
+      "id": "RecoveryXmlB_ImageSequence_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "ImageSequence",
+      "id": "RecoveryXmlB_ImageSequence_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "ImageSequence",
+      "id": "RecoveryXmlB_ImageSequence_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "name": "UnitTypeIcon",
+      "id": "RecoveryXmlB_UnitTypeIcon_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UnitTypeIcon",
+      "id": "RecoveryXmlB_UnitTypeIcon_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 1
+    },
+    {
+      "name": "UnitTypeIcon",
+      "id": "RecoveryXmlB_UnitTypeIcon_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_UnitTypeIcon_Defaults"
+    },
+    {
+      "name": "DrawGroupInfo",
+      "id": "RecoveryXmlB_DrawGroupInfo_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 2
+    },
+    {
+      "name": "DrawGroupInfo",
+      "id": "RecoveryXmlB_DrawGroupInfo_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 13,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 5
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalAttackMoveButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalAttackMoveButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "id": "RecoveryXmlB_UIMouseTacticalExitContainerButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "id": "RecoveryXmlB_UIMouseTacticalExitContainerButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMove_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMove_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSell_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSell_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 5
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "id": "RecoveryXmlB_UIMouseTacticalUnitIntroButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "id": "RecoveryXmlB_UIMouseTacticalUnitIntroButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSelect_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSelect_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandHarvest_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandHarvest_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "id": "RecoveryXmlB_UIMouseTacticalBuildQueueTab_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "id": "RecoveryXmlB_UIMouseTacticalBuildQueueTab_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 4
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandGetCrate_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandGetCrate_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "id": "RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "id": "RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandForceAttack_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandForceAttack_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPlanningModeButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPlanningModeButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMisc_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMisc_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "id": "RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "id": "RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandForceMove_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandForceMove_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "id": "RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "id": "RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "id": "RecoveryXmlB_UIMouseTacticalSetStanceButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "id": "RecoveryXmlB_UIMouseTacticalSetStanceButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 4
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMineOre_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandMineOre_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalWaypointModeButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalWaypointModeButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalReverseMoveButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalReverseMoveButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandEnter_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandEnter_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "id": "RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPauseButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "id": "RecoveryXmlB_UIMouseTacticalPauseButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandAttack_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandAttack_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandAttackMove_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandAttackMove_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceMoveButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceMoveButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceAttackButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "id": "RecoveryXmlB_UIMouseTacticalForceAttackButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 12
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandDock_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandDock_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandReverseMove_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandReverseMove_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "id": "RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "id": "RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 4
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalSellModeButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "id": "RecoveryXmlB_UIMouseTacticalSellModeButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "id": "RecoveryXmlB_UIMouseTacticalStopButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "id": "RecoveryXmlB_UIMouseTacticalStopButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "id": "RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "id": "RecoveryXmlB_UIMouseTacticalFastForwardButton_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "id": "RecoveryXmlB_UIMouseTacticalFastForwardButton_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "id": "RecoveryXmlB_UIMouseTacticalGroupSelection_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "id": "RecoveryXmlB_UIMouseTacticalGroupSelection_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "id": "RecoveryXmlB_UIMouseTacticalLookAt_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "id": "RecoveryXmlB_UIMouseTacticalLookAt_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 5,
+      "descendants": 2
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "id": "RecoveryXmlB_UIMouseTacticalRadarTelestrator_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "id": "RecoveryXmlB_UIMouseTacticalRadarTelestrator_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "id": "RecoveryXmlB_UIMouseTacticalTelestrator_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "id": "RecoveryXmlB_UIMouseTacticalTelestrator_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 0
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "id": "RecoveryXmlB_UIMouseTacticalThreatMeter_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "id": "RecoveryXmlB_UIMouseTacticalThreatMeter_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 1
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "id": "RecoveryXmlB_UnitOverlayIconSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "id": "RecoveryXmlB_UnitOverlayIconSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 25,
+      "descendants": 6
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "id": "RecoveryXmlB_UnitOverlayIconSettings_Inherited",
+      "variant": "Inherited",
+      "schemaValidated": true,
+      "inheritFrom": "RecoveryXmlB_UnitOverlayIconSettings_Defaults"
+    },
+    {
+      "name": "InvisibilityTemplate",
+      "id": "RecoveryXmlB_InvisibilityTemplate_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "InvisibilityTemplate",
+      "id": "RecoveryXmlB_InvisibilityTemplate_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 11,
+      "descendants": 2
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "id": "RecoveryXmlB_InvisibilityManagerSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 1
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "id": "RecoveryXmlB_InvisibilityManagerSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 5
+    },
+    {
+      "name": "BreezeInfo",
+      "id": "RecoveryXmlB_BreezeInfo_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "BreezeInfo",
+      "id": "RecoveryXmlB_BreezeInfo_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 8,
+      "descendants": 0
+    },
+    {
+      "name": "ModelSettings",
+      "id": "RecoveryXmlB_ModelSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 6,
+      "descendants": 0
+    },
+    {
+      "name": "ModelSettings",
+      "id": "RecoveryXmlB_ModelSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 8,
+      "descendants": 0
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "id": "RecoveryXmlB_AutoParticleSystemSettings_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 7
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "id": "RecoveryXmlB_AutoParticleSystemSettings_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 4,
+      "descendants": 7
+    },
+    {
+      "name": "W3DHierarchy",
+      "id": "RecoveryXmlB_W3DHierarchy_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 4
+    },
+    {
+      "name": "W3DHierarchy",
+      "id": "RecoveryXmlB_W3DHierarchy_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 2,
+      "descendants": 8
+    },
+    {
+      "name": "W3DContainer",
+      "id": "RecoveryXmlB_W3DContainer_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 0
+    },
+    {
+      "name": "W3DContainer",
+      "id": "RecoveryXmlB_W3DContainer_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 6
+    },
+    {
+      "name": "W3DCollisionBox",
+      "id": "RecoveryXmlB_W3DCollisionBox_Defaults",
+      "variant": "Defaults",
+      "schemaValidated": true,
+      "attributes": 1,
+      "descendants": 2
+    },
+    {
+      "name": "W3DCollisionBox",
+      "id": "RecoveryXmlB_W3DCollisionBox_Fields",
+      "variant": "Fields",
+      "schemaValidated": true,
+      "attributes": 3,
+      "descendants": 2
+    }
+  ],
+  "blocked": [
+    {
+      "name": "ArchivableMovie",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "ArchiveMovieList",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "MusicScriptConditionNuggetBase",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "MusicScriptConditionExpensiveNuggetBase",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "ObjectVisionRangeItem",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "PathMusicEventRuntime",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "PathMusicMapRuntime",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "BaseRenderAssetType",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "AudioFileRuntime",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "BaseAudioEventInfo",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "BaseSingleSound",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "TargetingBaseCompare",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "TerrainTextureAtlasRuntime",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "reason": "not a concrete global AssetDeclaration entry; SDK reachability requires real nested owner/custom source pipeline"
+    }
+  ],
+  "sourceGlobalTypes": [
+    "AmbientStream",
+    "AudioEvent",
+    "AutoParticleSystemSettings",
+    "BreezeInfo",
+    "DialogEvent",
+    "DrawGroupInfo",
+    "GraphicsHardware",
+    "ImageSequence",
+    "InvisibilityManagerSettings",
+    "InvisibilityTemplate",
+    "MP3AmbientStream",
+    "MP3DialogEvent",
+    "MP3MusicTrack",
+    "MeshInstanceTemplate",
+    "ModelSettings",
+    "Multisound",
+    "MusicPalette",
+    "MusicScriptConditionNugget_And",
+    "MusicScriptConditionNugget_AnyTrackPlaying",
+    "MusicScriptConditionNugget_EngagementCount",
+    "MusicScriptConditionNugget_EvaEventPlayedRecently",
+    "MusicScriptConditionNugget_HitBySuperWeapon",
+    "MusicScriptConditionNugget_LocalPlayerIsObserver",
+    "MusicScriptConditionNugget_LocalPlayerKillRatio",
+    "MusicScriptConditionNugget_Not",
+    "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+    "MusicScriptConditionNugget_ObjectsOfTypeExist",
+    "MusicScriptConditionNugget_Or",
+    "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+    "MusicScriptConditionNugget_PathMusicStateLastActive",
+    "MusicScriptConditionNugget_ScoredKillCount",
+    "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+    "MusicScriptConditionNugget_TimeFromStartOfLevel",
+    "MusicScriptConditionNugget_TrackPlayedCount",
+    "MusicScriptConditionNugget_UnitsFarFromBase",
+    "MusicScriptTrack",
+    "MusicTrack",
+    "NetworkSettings",
+    "ObjectFilterAsset",
+    "OnDemandTextureImage",
+    "PackedTextureImage",
+    "PathMusicEventSet",
+    "PathMusicGameDynamicState",
+    "PathMusicGameDynamicStateSet",
+    "PathMusicGameDynamicTransition",
+    "PathfindSettings",
+    "ProjectilePath",
+    "RadarTerrainImage",
+    "RedAlertTemplate",
+    "RegisteredObjectSet",
+    "ResourceSettings",
+    "ScorchMarkSettings",
+    "TargetingCombatChainCompare",
+    "TargetingCompareList",
+    "TargetingDistanceCompare",
+    "TargetingInTurretArcCompare",
+    "TerrainAssetCollection",
+    "TestTexture",
+    "TestTextureCollection",
+    "UIConfigList",
+    "UIDecalCloud",
+    "UIDecalDestinationMarker",
+    "UIDecalGrid",
+    "UIMouseHUDElementHotKeyGate",
+    "UIMouseTacticalAttackMoveButton",
+    "UIMouseTacticalBuildQueueTab",
+    "UIMouseTacticalBuildQueueTypeTab",
+    "UIMouseTacticalCoOpAIButtonsAssaultButton",
+    "UIMouseTacticalCoOpAIButtonsHelpButton",
+    "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+    "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+    "UIMouseTacticalCoOpAIButtonsNormalButton",
+    "UIMouseTacticalCommandAttack",
+    "UIMouseTacticalCommandAttackMove",
+    "UIMouseTacticalCommandCommunicateWithAllies",
+    "UIMouseTacticalCommandDock",
+    "UIMouseTacticalCommandEnter",
+    "UIMouseTacticalCommandForceAttack",
+    "UIMouseTacticalCommandForceMove",
+    "UIMouseTacticalCommandGetCrate",
+    "UIMouseTacticalCommandHarvest",
+    "UIMouseTacticalCommandMineOre",
+    "UIMouseTacticalCommandMisc",
+    "UIMouseTacticalCommandMove",
+    "UIMouseTacticalCommandPlaceAIBeacon",
+    "UIMouseTacticalCommandPlaceRallyPoint",
+    "UIMouseTacticalCommandPlaceWall",
+    "UIMouseTacticalCommandReverseMove",
+    "UIMouseTacticalCommandSelect",
+    "UIMouseTacticalCommandSell",
+    "UIMouseTacticalCommandSetRallyPoint",
+    "UIMouseTacticalCommandToggleSelfRepair",
+    "UIMouseTacticalDeactivateMissionHotSpotsButton",
+    "UIMouseTacticalExitContainerButton",
+    "UIMouseTacticalFastForwardButton",
+    "UIMouseTacticalForceAttackButton",
+    "UIMouseTacticalForceAttackMoveButton",
+    "UIMouseTacticalForceMoveButton",
+    "UIMouseTacticalGroupSelection",
+    "UIMouseTacticalLookAt",
+    "UIMouseTacticalMainCommandBarHotKeys",
+    "UIMouseTacticalMiscHotKeys",
+    "UIMouseTacticalOpenAdvancedCommandsButton",
+    "UIMouseTacticalPauseButton",
+    "UIMouseTacticalPlanningModeButton",
+    "UIMouseTacticalPlayerPowerHotKeys",
+    "UIMouseTacticalPlayerTechStoreButton",
+    "UIMouseTacticalQuickChatDisplay",
+    "UIMouseTacticalRadarTelestrator",
+    "UIMouseTacticalReverseMoveButton",
+    "UIMouseTacticalSelectionDetailsButtonHotKeys",
+    "UIMouseTacticalSelectionRefinementTab",
+    "UIMouseTacticalSellModeButton",
+    "UIMouseTacticalSetStanceButton",
+    "UIMouseTacticalStopButton",
+    "UIMouseTacticalTelestrator",
+    "UIMouseTacticalThreatMeter",
+    "UIMouseTacticalToggleRepairModeButton",
+    "UIMouseTacticalUnitIntroButton",
+    "UIMouseTacticalWaypointModeButton",
+    "UIMouseVoiceChat",
+    "UIQuickChatMessage",
+    "UIRadarObjectsLayer",
+    "UIWorldBuilderDecalGrid",
+    "UnitOverlayIconSettings",
+    "UnitTypeIcon",
+    "W3DCollisionBox",
+    "W3DContainer",
+    "W3DDeviceSettings",
+    "W3DHierarchy"
+  ],
+  "schemaReachableTypes": [
+    "AIDifficultySetting",
+    "AmbientStream",
+    "ArchivableMovie",
+    "ArchiveMovieList",
+    "AssetId",
+    "AssetReference",
+    "AttributeModifierRef",
+    "AudioEvent",
+    "AudioEventLimitGroupRef",
+    "AudioFileMP3PassthroughRef",
+    "AudioFileRef",
+    "AudioFileRefWithWeight",
+    "AudioVolumeSliderMultiplier",
+    "AutoParticleSettings",
+    "AutoParticleSystemSettings",
+    "BreezeInfo",
+    "CareerStatData",
+    "Color3",
+    "Color4",
+    "DataBlob",
+    "DecalSettings",
+    "DefaultValues",
+    "DialogEvent",
+    "DrawGroupInfo",
+    "FactionType",
+    "FactionVeterancyOverlayIcons",
+    "FontDesc",
+    "GameFlagsSetting",
+    "GamePointsSetting",
+    "GameResourcesSetting",
+    "GameTimeSetting",
+    "GameplayTypeSetting",
+    "GraphicsDevice",
+    "GraphicsHardware",
+    "HotKeySlotRef",
+    "ICoord2D",
+    "ImageRef",
+    "ImageSequence",
+    "InGameUISimpleHelpTemplate",
+    "InputButton",
+    "IntRange",
+    "InvisibilityManagerSettings",
+    "InvisibilityTemplate",
+    "MP3AmbientStream",
+    "MP3DialogEvent",
+    "MP3MusicTrack",
+    "MapListType",
+    "MatchRule",
+    "MeshInstanceTemplate",
+    "ModelSettings",
+    "MultiplayerLobbyData",
+    "Multisound",
+    "MultisoundSubsoundRef",
+    "MusicPalette",
+    "MusicScriptConditionNugget_And",
+    "MusicScriptConditionNugget_AnyTrackPlaying",
+    "MusicScriptConditionNugget_EngagementCount",
+    "MusicScriptConditionNugget_EvaEventPlayedRecently",
+    "MusicScriptConditionNugget_HitBySuperWeapon",
+    "MusicScriptConditionNugget_LocalPlayerIsObserver",
+    "MusicScriptConditionNugget_LocalPlayerKillRatio",
+    "MusicScriptConditionNugget_Not",
+    "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+    "MusicScriptConditionNugget_ObjectsOfTypeExist",
+    "MusicScriptConditionNugget_Or",
+    "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+    "MusicScriptConditionNugget_PathMusicStateLastActive",
+    "MusicScriptConditionNugget_ScoredKillCount",
+    "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+    "MusicScriptConditionNugget_TimeFromStartOfLevel",
+    "MusicScriptConditionNugget_TrackPlayedCount",
+    "MusicScriptConditionNugget_UnitsFarFromBase",
+    "MusicScriptConditionRef",
+    "MusicScriptTimeoutSpecifier",
+    "MusicScriptTrack",
+    "MusicScriptTrackRef",
+    "MusicTrack",
+    "NetworkSettings",
+    "ObjectFilter",
+    "ObjectFilterAsset",
+    "OnDemandTextureImage",
+    "PackedTextureImage",
+    "PathMusicEventRef",
+    "PathMusicEventSet",
+    "PathMusicGameDynamicState",
+    "PathMusicGameDynamicStateRef",
+    "PathMusicGameDynamicStateSet",
+    "PathMusicGameDynamicTransition",
+    "PathMusicGameDynamicTransitionRef",
+    "PathfindSettings",
+    "PostGameStatData",
+    "ProjectilePath",
+    "RGBColor",
+    "RadarTerrainImage",
+    "RadiusDecalComponent",
+    "RadiusDecalTemplate",
+    "RankedOptionSetting",
+    "RealRange",
+    "RedAlertTemplate",
+    "RegisteredObjectSet",
+    "RenderSubObjectReference",
+    "ResourceSettings",
+    "SageBool",
+    "SageInt",
+    "SageReal",
+    "SageUnsignedInt",
+    "ScorchMarkSetting",
+    "ScorchMarkSettings",
+    "SingleCommandLine",
+    "SingleCommandList",
+    "SkirmishLobbyData",
+    "SlotState",
+    "SubObject",
+    "TargetingCombatChainCompare",
+    "TargetingCompareList",
+    "TargetingDistanceCompare",
+    "TargetingInTurretArcCompare",
+    "TeamSetting",
+    "TerrainAsset",
+    "TerrainAssetCollection",
+    "TerrainScorchType",
+    "TestTexture",
+    "TestTextureCollection",
+    "TestTextureRef",
+    "TimeRange",
+    "UIBaseComponentTypes",
+    "UIComponentAptJoypad",
+    "UIComponentAptMediator",
+    "UIComponentAutoMatch",
+    "UIComponentBootup",
+    "UIComponentCampaign",
+    "UIComponentCareerStats",
+    "UIComponentChat",
+    "UIComponentCheats",
+    "UIComponentComlinkNotification",
+    "UIComponentCommandBar",
+    "UIComponentCommandList",
+    "UIComponentCoopCommander",
+    "UIComponentCredits",
+    "UIComponentCursor",
+    "UIComponentDisconnect",
+    "UIComponentFormation",
+    "UIComponentGameInfo",
+    "UIComponentGameSetup",
+    "UIComponentGameViewJoypad",
+    "UIComponentInGameShowHide",
+    "UIComponentInGameText",
+    "UIComponentInputBridge",
+    "UIComponentJoypadTactical",
+    "UIComponentKeyboard",
+    "UIComponentLanLobby",
+    "UIComponentLoadScreen",
+    "UIComponentLobby",
+    "UIComponentMapList",
+    "UIComponentMessage",
+    "UIComponentMode",
+    "UIComponentMouse",
+    "UIComponentMouseInGame",
+    "UIComponentMouseTactical",
+    "UIComponentMovie",
+    "UIComponentMovieArchive",
+    "UIComponentObjectAction",
+    "UIComponentObjectSelector",
+    "UIComponentObjectives",
+    "UIComponentOnlineBuddyList",
+    "UIComponentOnlineGameList",
+    "UIComponentOnlineInvite",
+    "UIComponentOnlineLobbyList",
+    "UIComponentOnlineLogin",
+    "UIComponentOnlinePlayerList",
+    "UIComponentOptions",
+    "UIComponentOptionsSettingsAudio",
+    "UIComponentOptionsSettingsGeneral",
+    "UIComponentOptionsSettingsGraphics",
+    "UIComponentOptionsSettingsHotkeys",
+    "UIComponentOptionsSettingsNetwork",
+    "UIComponentPause",
+    "UIComponentPcSaveLoad",
+    "UIComponentPlasmaInterface",
+    "UIComponentPlayerPowers",
+    "UIComponentPlayerTechStore",
+    "UIComponentPostGame",
+    "UIComponentProfileManager",
+    "UIComponentRadar",
+    "UIComponentSUDs",
+    "UIComponentSaveLoad",
+    "UIComponentShell",
+    "UIComponentShellMultiplayer",
+    "UIComponentShellVisibility",
+    "UIComponentSound",
+    "UIComponentSpecialPowers",
+    "UIComponentStats",
+    "UIComponentTicker",
+    "UIComponentTickerGroup",
+    "UIComponentTutorial",
+    "UIComponentVictoryDefeat",
+    "UIComponentVoiceChat",
+    "UIConfigList",
+    "UIDecalCloud",
+    "UIDecalDestinationMarker",
+    "UIDecalDestinationMarkerDestinationTypeSettings",
+    "UIDecalDestinationMarkerRenderInfo",
+    "UIDecalGrid",
+    "UIDynamicConfig",
+    "UIMouseHUDElementHotKeyGate",
+    "UIMouseHUDElementHotKeyMapping",
+    "UIMouseTacticalAttackMoveButton",
+    "UIMouseTacticalBuildQueueTab",
+    "UIMouseTacticalBuildQueueTabQueueTypeSettings",
+    "UIMouseTacticalBuildQueueTypeTab",
+    "UIMouseTacticalBuildQueueTypeTabQueueTypeSettings",
+    "UIMouseTacticalCoOpAIButtonsAssaultButton",
+    "UIMouseTacticalCoOpAIButtonsHelpButton",
+    "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+    "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+    "UIMouseTacticalCoOpAIButtonsNormalButton",
+    "UIMouseTacticalCommandAttack",
+    "UIMouseTacticalCommandAttackMove",
+    "UIMouseTacticalCommandCommunicateWithAllies",
+    "UIMouseTacticalCommandDock",
+    "UIMouseTacticalCommandEnter",
+    "UIMouseTacticalCommandEnterInfiltratorEffectTypeSettings",
+    "UIMouseTacticalCommandForceAttack",
+    "UIMouseTacticalCommandForceMove",
+    "UIMouseTacticalCommandGetCrate",
+    "UIMouseTacticalCommandHarvest",
+    "UIMouseTacticalCommandMineOre",
+    "UIMouseTacticalCommandMisc",
+    "UIMouseTacticalCommandMove",
+    "UIMouseTacticalCommandPlaceAIBeacon",
+    "UIMouseTacticalCommandPlaceAIBeaconTypeSettings",
+    "UIMouseTacticalCommandPlaceRallyPoint",
+    "UIMouseTacticalCommandPlaceWall",
+    "UIMouseTacticalCommandReverseMove",
+    "UIMouseTacticalCommandSelect",
+    "UIMouseTacticalCommandSell",
+    "UIMouseTacticalCommandSellCursorSet",
+    "UIMouseTacticalCommandSellFactionCursorSet",
+    "UIMouseTacticalCommandSetRallyPoint",
+    "UIMouseTacticalCommandToggleSelfRepair",
+    "UIMouseTacticalDeactivateMissionHotSpotsButton",
+    "UIMouseTacticalExitContainerButton",
+    "UIMouseTacticalFastForwardButton",
+    "UIMouseTacticalForceAttackButton",
+    "UIMouseTacticalForceAttackMoveButton",
+    "UIMouseTacticalForceMoveButton",
+    "UIMouseTacticalGroupSelection",
+    "UIMouseTacticalGroupSelectionGroup",
+    "UIMouseTacticalLookAt",
+    "UIMouseTacticalLookAtViewBookmark",
+    "UIMouseTacticalMainCommandBarHotKeys",
+    "UIMouseTacticalMainCommandBarHotKeysBuildQueue",
+    "UIMouseTacticalMiscHotKeys",
+    "UIMouseTacticalMiscHotKeysStanceSettings",
+    "UIMouseTacticalOpenAdvancedCommandsButton",
+    "UIMouseTacticalPauseButton",
+    "UIMouseTacticalPlanningModeButton",
+    "UIMouseTacticalPlayerPowerHotKeys",
+    "UIMouseTacticalPlayerTechStoreButton",
+    "UIMouseTacticalQuickChatDisplay",
+    "UIMouseTacticalQuickChatDisplayCloseItem",
+    "UIMouseTacticalQuickChatDisplayMenuItem",
+    "UIMouseTacticalQuickChatDisplayMenuItemChatMessage",
+    "UIMouseTacticalQuickChatDisplayMenuItemChatMessageGroup",
+    "UIMouseTacticalRadarTelestrator",
+    "UIMouseTacticalReverseMoveButton",
+    "UIMouseTacticalSelectionDetailsButtonHotKeys",
+    "UIMouseTacticalSelectionRefinementTab",
+    "UIMouseTacticalSellModeButton",
+    "UIMouseTacticalSetStanceButton",
+    "UIMouseTacticalSetStanceButtonStanceSettings",
+    "UIMouseTacticalStopButton",
+    "UIMouseTacticalTelestrator",
+    "UIMouseTacticalThreatMeter",
+    "UIMouseTacticalToggleRepairModeButton",
+    "UIMouseTacticalUnitIntroButton",
+    "UIMouseTacticalWaypointModeButton",
+    "UIMouseVoiceChat",
+    "UIQuickChatMessage",
+    "UIRadarObjectsLayer",
+    "UIRadarObjectsLayerSpecialIcon",
+    "UIWorldBuilderDecalGrid",
+    "UnitOverlayIconSettings",
+    "UnitTypeIcon",
+    "UpgradeTemplateWeakRef",
+    "Vector2",
+    "Vector4",
+    "VeterancyRankOverlayIcon",
+    "W3DCollisionBox",
+    "W3DContainer",
+    "W3DDeviceSettings",
+    "W3DHierarchy",
+    "W3DQuaternion",
+    "W3DVector3",
+    "WeakReference",
+    "string"
+  ],
+  "schemaReachableElements": [
+    "AIDifficulty",
+    "AIDifficultyLabelSpec",
+    "AIPersonalityLabelSpec",
+    "Aflame",
+    "AlienHighlightDecal",
+    "AnimationDetailAptTokenSpec",
+    "AnimationDetailStrLookupSpec",
+    "AntialiasingAptTokenSpec",
+    "AntialiasingOffStrLookupSpec",
+    "AntialiasingOnStrLookupSpec",
+    "AnyOptionLabelSpec",
+    "AttachableObjectFilter",
+    "Attack",
+    "BarrierTime",
+    "BarrierTimeSpec",
+    "BeaconAttachableObjectFilter",
+    "BeaconTypeSettings",
+    "BuddyLocAptTokenSpec",
+    "BuddyNameAptTokenSpec",
+    "BuildQueuePage",
+    "ButtonSlot",
+    "CamouflageDetectorObjectFilter",
+    "CaptureFlags",
+    "CaptureFlagsSpec",
+    "CapturePoints",
+    "CapturePointsSpec",
+    "CareerStat",
+    "Center",
+    "ChatMessage",
+    "ChatMessageGroup",
+    "ClockColor",
+    "CloseMenuItem",
+    "Color",
+    "CommandLine",
+    "CommandList",
+    "Compare",
+    "Component",
+    "ComponentList",
+    "ComponentScale",
+    "Condition",
+    "ControlsText",
+    "Coords",
+    "Cursors",
+    "DatePrefix",
+    "DecalDetailAptTokenSpec",
+    "DecalDetailStrLookupSpec",
+    "Decay",
+    "DefaultAlternateMouse",
+    "DefaultBrightness",
+    "DefaultCursors",
+    "DefaultMouseSensitivity",
+    "DefaultRenderInfo",
+    "DefaultShowAds",
+    "DefaultShowNews",
+    "DefaultTooltipDelayMS",
+    "DefaultValues",
+    "DefaultVoipBoostMicGain",
+    "DefaultVoipEnable",
+    "Delay",
+    "DescriptionPrefix",
+    "DestinationTypeSettings",
+    "Device",
+    "Dimensions",
+    "ElementHotKeyMapping",
+    "EndGameMusicAlias",
+    "Event",
+    "ExcludeThing",
+    "Extent",
+    "Faction",
+    "FactionCursors",
+    "FactionLabelSpec",
+    "FactionMovieArchive",
+    "FactionValue",
+    "FactionVeterancy",
+    "File",
+    "Filename",
+    "Filter",
+    "FireLarge",
+    "FireMedium",
+    "FireSmall",
+    "FixupMatrix",
+    "GDIHighlightDecal",
+    "GameListRefreshInterval",
+    "GameMapNameAptTokenSpec",
+    "GameNameAptTokenSpec",
+    "GameResources",
+    "GameResourcesSpec",
+    "GameTime",
+    "GameTimeLimitSpec",
+    "GameType",
+    "GamelistMinUpdateFreq",
+    "GameplayTypeSpec",
+    "Group",
+    "HillTime",
+    "HillTimeSpec",
+    "IgnoreTreeCheckUpgrade",
+    "Image",
+    "ImageOffset",
+    "ImagePosition",
+    "ImageSize",
+    "IncludeThing",
+    "InfiltratorEffectTypeSettings",
+    "InitialDelay",
+    "Input",
+    "InvalidColor",
+    "InviteNameAptTokenSpec",
+    "LegalColor",
+    "LimitGroup",
+    "LoadMusic",
+    "LoadVarQueryReturnToken",
+    "LobbyNameAptTokenSpec",
+    "LobbyTitleLabelSpec",
+    "LocalPlayerNameAptTokenSpec",
+    "MagnetismObjectFilter",
+    "Map",
+    "MapListLabelPrefix",
+    "MapListSpec",
+    "MapPrefix",
+    "MatchOptionsMatchTypeLabelSpec",
+    "MatchOptionsPlayersLabelSpec",
+    "MatchOptionsRankedLabelSpec",
+    "MaxNumberLoggedInvites",
+    "MaxRangeShift",
+    "MaxTooltipDelayMS",
+    "MenuItem",
+    "Mesh",
+    "MessageTokenSpec",
+    "MinRangeShift",
+    "MinTooltipDelayMS",
+    "ModeButtonHelp",
+    "ModelDetailAptTokenSpec",
+    "ModelDetailStrLookupSpec",
+    "ModeratedLobbyTitleTemplateSpec",
+    "MouseOverHelp",
+    "Movie",
+    "MultiplayerLobbySettings",
+    "NODHighlightDecal",
+    "NeutralColor",
+    "NonInterruptibleTime",
+    "ObjectFilter",
+    "OfficialMapList",
+    "Offset",
+    "OrangeAreaEffect",
+    "PerFilePitchShift",
+    "PitchShift",
+    "Pivot",
+    "PlayerNameAptTokenSpec",
+    "PlayerNameLabelSpec",
+    "PlayerlistMinUpdateFreq",
+    "Point",
+    "PostEndGameMusic",
+    "PostGameStat",
+    "PresetsAptTokenSpec",
+    "PresetsStrLookupSpec",
+    "PrimarySettings",
+    "ProductionTextColor",
+    "ProductionTextFont",
+    "ProfileListLabelPrefix",
+    "QueueTypeSettings",
+    "RandomStringLabel",
+    "RankIcon",
+    "RankedOption",
+    "RedAlertEffect",
+    "RedAreaEffect",
+    "RenderInfo",
+    "RenderObject",
+    "ResolutionAptTokenSpec",
+    "Rotation",
+    "Rule",
+    "Scorch",
+    "ScorchMarkSetting",
+    "SecondarySettings",
+    "ShaderDetailAptTokenSpec",
+    "ShaderDetailStrLookupSpec",
+    "ShadowDetailAptTokenSpec",
+    "ShadowDetailStrLookupSpec",
+    "ShortcutObjects",
+    "ShroudColor",
+    "SkirmishLobbySettings",
+    "Slot",
+    "SlotLabelSpec",
+    "SlotState",
+    "SmokeLarge",
+    "SmokeMedium",
+    "SmokeSmall",
+    "Sound",
+    "SpecialIcon",
+    "StanceSettings",
+    "StandardPublicBone",
+    "State",
+    "StatusTextPosition",
+    "SubObject",
+    "Subsound",
+    "SupportObjects",
+    "TACLineLabelSpec",
+    "TalkButtonHelp",
+    "Team",
+    "TeamLabelSpec",
+    "TerrainAsset",
+    "TerrainDetailAptTokenSpec",
+    "TerrainDetailStrLookupSpec",
+    "TextColor",
+    "TextDropShadowColor",
+    "Texture",
+    "TextureDimensions",
+    "TextureQualityAptTokenSpec",
+    "TextureQualityStrLookupSpec",
+    "TextureSize",
+    "TickerColor",
+    "TickerGroup",
+    "TimePrefix",
+    "Timeout",
+    "Track",
+    "Transition",
+    "Translation",
+    "TreeFadeObjectFilter",
+    "UIComponentAptJoypad",
+    "UIComponentAptMediator",
+    "UIComponentAutoMatch",
+    "UIComponentBootup",
+    "UIComponentCampaign",
+    "UIComponentCareerStats",
+    "UIComponentChat",
+    "UIComponentCheats",
+    "UIComponentComlinkNotification",
+    "UIComponentCommandBar",
+    "UIComponentCommandList",
+    "UIComponentCoopCommander",
+    "UIComponentCredits",
+    "UIComponentCursor",
+    "UIComponentDisconnect",
+    "UIComponentFormation",
+    "UIComponentGameInfo",
+    "UIComponentGameSetup",
+    "UIComponentGameViewJoypad",
+    "UIComponentInGameShowHide",
+    "UIComponentInGameText",
+    "UIComponentInputBridge",
+    "UIComponentJoypadTactical",
+    "UIComponentKeyboard",
+    "UIComponentLanLobby",
+    "UIComponentLoadScreen",
+    "UIComponentLobby",
+    "UIComponentMapList",
+    "UIComponentMessage",
+    "UIComponentMode",
+    "UIComponentMouse",
+    "UIComponentMouseInGame",
+    "UIComponentMouseTactical",
+    "UIComponentMovie",
+    "UIComponentMovieArchive",
+    "UIComponentObjectAction",
+    "UIComponentObjectSelector",
+    "UIComponentObjectives",
+    "UIComponentOnlineBuddyList",
+    "UIComponentOnlineGameList",
+    "UIComponentOnlineInvite",
+    "UIComponentOnlineLobbyList",
+    "UIComponentOnlineLogin",
+    "UIComponentOnlinePlayerList",
+    "UIComponentOptions",
+    "UIComponentOptionsSettingsAudio",
+    "UIComponentOptionsSettingsGeneral",
+    "UIComponentOptionsSettingsGraphics",
+    "UIComponentOptionsSettingsHotkeys",
+    "UIComponentOptionsSettingsNetwork",
+    "UIComponentPause",
+    "UIComponentPcSaveLoad",
+    "UIComponentPlasmaInterface",
+    "UIComponentPlayerPowers",
+    "UIComponentPlayerTechStore",
+    "UIComponentPostGame",
+    "UIComponentProfileManager",
+    "UIComponentRadar",
+    "UIComponentSUDs",
+    "UIComponentSaveLoad",
+    "UIComponentShell",
+    "UIComponentShellMultiplayer",
+    "UIComponentShellVisibility",
+    "UIComponentSound",
+    "UIComponentSpecialPowers",
+    "UIComponentStats",
+    "UIComponentTicker",
+    "UIComponentTutorial",
+    "UIComponentVictoryDefeat",
+    "UIComponentVoiceChat",
+    "UIDynamicConfig",
+    "UnitAbilitySlot",
+    "UnmoderatedLobbyTitleTemplateSpec",
+    "VFXDetailAptTokenSpec",
+    "VFXDetailStrLookupSpec",
+    "ViewBookmark",
+    "VolumeSliderMultiplier",
+    "WallDecalColor",
+    "WaterDetailAptTokenSpec",
+    "WaterDetailStrLookupSpec",
+    "YellowAreaEffect"
+  ],
+  "generatedReferences": [
+    {
+      "type": "MusicScriptTrackWeakRef",
+      "targetType": "MusicScriptTrack",
+      "asset": "RecoveryXmlB_MusicScriptTrack_Defaults"
+    },
+    {
+      "type": "MusicScriptTrackWeakRef",
+      "targetType": "MusicScriptTrack",
+      "asset": "RecoveryXmlB_MusicScriptTrack_Defaults"
+    },
+    {
+      "type": "ObjectFilterAssetRef",
+      "targetType": "ObjectFilterAsset",
+      "asset": "RecoveryXmlB_ObjectFilterAsset_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "ObjectFilterAssetRef",
+      "targetType": "ObjectFilterAsset",
+      "asset": "RecoveryXmlB_ObjectFilterAsset_Defaults"
+    },
+    {
+      "type": "ObjectFilterAssetRef",
+      "targetType": "ObjectFilterAsset",
+      "asset": "RecoveryXmlB_ObjectFilterAsset_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicTransitionRef",
+      "targetType": "PathMusicGameDynamicTransition",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicTransition_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicTransitionRef",
+      "targetType": "PathMusicGameDynamicTransition",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicTransition_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "MusicScriptConditionRef",
+      "targetType": "MusicScriptConditionNuggetBase",
+      "asset": "RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults"
+    },
+    {
+      "type": "PathMusicGameDynamicStateWeakRef",
+      "targetType": "PathMusicGameDynamicState",
+      "asset": "RecoveryXmlB_PathMusicGameDynamicState_Defaults"
+    },
+    {
+      "type": "MusicScriptTrackRef",
+      "targetType": "MusicScriptTrack",
+      "asset": "RecoveryXmlB_MusicScriptTrack_Defaults"
+    },
+    {
+      "type": "MusicScriptTrackRef",
+      "targetType": "MusicScriptTrack",
+      "asset": "RecoveryXmlB_MusicScriptTrack_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "TestTextureRef",
+      "targetType": "TestTexture",
+      "asset": "RecoveryXmlB_TestTexture_Defaults"
+    },
+    {
+      "type": "TestTextureRef",
+      "targetType": "TestTexture",
+      "asset": "RecoveryXmlB_TestTexture_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "QuickChatMessageWeakRef",
+      "targetType": "UIQuickChatMessage",
+      "asset": "RecoveryXmlB_UIQuickChatMessage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageWeakRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "OnDemandImageRef",
+      "targetType": "OnDemandTextureImage",
+      "asset": "RecoveryXmlB_OnDemandTextureImage_Defaults"
+    },
+    {
+      "type": "RenderObjectRef",
+      "targetType": "BaseRenderAssetType",
+      "asset": "RecoveryXmlB_W3DContainer_Defaults"
+    },
+    {
+      "type": "RenderObjectRef",
+      "targetType": "BaseRenderAssetType",
+      "asset": "RecoveryXmlB_W3DContainer_Defaults"
+    },
+    {
+      "type": "RenderObjectRef",
+      "targetType": "BaseRenderAssetType",
+      "asset": "RecoveryXmlB_W3DContainer_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "AudioEventInfoRef",
+      "targetType": "BaseAudioEventInfo",
+      "asset": "RecoveryXmlB_AudioEvent_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageRef",
+      "targetType": "PackedTextureImage",
+      "asset": "RecoveryXmlB_PackedTextureImage_Defaults"
+    },
+    {
+      "type": "ImageSequenceRef",
+      "targetType": "ImageSequence",
+      "asset": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "type": "ImageSequenceRef",
+      "targetType": "ImageSequence",
+      "asset": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "type": "ImageSequenceRef",
+      "targetType": "ImageSequence",
+      "asset": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "type": "ImageSequenceRef",
+      "targetType": "ImageSequence",
+      "asset": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "type": "ImageSequenceRef",
+      "targetType": "ImageSequence",
+      "asset": "RecoveryXmlB_ImageSequence_Defaults"
+    },
+    {
+      "type": "SubsystemSettingsRef",
+      "targetType": "BaseSubsystemSettings",
+      "asset": "RecoveryXmlB_BreezeInfo_Defaults"
+    },
+    {
+      "type": "SubsystemSettingsRef",
+      "targetType": "BaseSubsystemSettings",
+      "asset": "RecoveryXmlB_BreezeInfo_Defaults"
+    },
+    {
+      "type": "AssetReference",
+      "targetType": "W3DHierarchy",
+      "asset": "RecoveryXmlB_W3DHierarchy_Defaults"
+    }
+  ],
+  "omittedOptionalUnresolvedReferences": [
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "PathMusicEventRef",
+      "targetType": "PathMusicEvent"
+    },
+    {
+      "type": "PathMusicEventRef",
+      "targetType": "PathMusicEvent"
+    },
+    {
+      "type": "PathMusicEventRef",
+      "targetType": "PathMusicEvent"
+    },
+    {
+      "type": "PathMusicEventRef",
+      "targetType": "PathMusicEvent"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "AttributeModifierRef",
+      "targetType": "AttributeModifier"
+    },
+    {
+      "type": "AttributeModifierRef",
+      "targetType": "AttributeModifier"
+    },
+    {
+      "type": "AttributeModifierRef",
+      "targetType": "AttributeModifier"
+    },
+    {
+      "type": "AttributeModifierRef",
+      "targetType": "AttributeModifier"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "EvaEventRef",
+      "targetType": "EvaEvent"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "OnDemandTextureRef",
+      "targetType": "OnDemandTexture"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileMP3PassthroughRef",
+      "targetType": "AudioFileMP3Passthrough"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileMP3PassthroughRef",
+      "targetType": "AudioFileMP3Passthrough"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileRef",
+      "targetType": "AudioFile"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioEventLimitGroupRef",
+      "targetType": "AudioEventLimitGroup"
+    },
+    {
+      "type": "AudioFileMP3PassthroughRef",
+      "targetType": "AudioFileMP3Passthrough"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "TextureRef",
+      "targetType": "Texture"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "HotKeySlotRef",
+      "targetType": "HotKeySlot"
+    },
+    {
+      "type": "MouseCursorRef",
+      "targetType": "MouseCursor"
+    },
+    {
+      "type": "FXListRef",
+      "targetType": "FXList"
+    },
+    {
+      "type": "FXListRef",
+      "targetType": "FXList"
+    }
+  ],
+  "noHandAuthoredTypeId": true,
+  "validatorAdapter": "read-only canonicalization of Windows include casing/backslashes and QName whitespace; original XSD files unchanged"
+}

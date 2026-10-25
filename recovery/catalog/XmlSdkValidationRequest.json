@@ -1,0 +1,11 @@
+{
+  "profiles": [
+    "XmlCompilerRecoveryBaseline",
+    "XmlCompilerRecoveryA",
+    "XmlCompilerRecoveryB",
+    "FullMymod"
+  ],
+  "acceptedCompilerSource": "4401069feaf5df91043afadaad2410293c33b67e",
+  "acceptedCompilerRunId": "40159834447",
+  "purpose": "Original/recovered real SDK compile via extracted EALAModStudio defaultscript flow; schema-valid test MODs"
+}

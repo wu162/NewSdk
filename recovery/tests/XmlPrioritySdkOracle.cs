@@ -12,251 +12,307 @@ using BinaryAssetBuilder.Core;
 
 class XmlPrioritySdkOracle {
     const string NS="uri:ea.com:eala:asset";
-    static readonly Dictionary<string,string> Required=new Dictionary<string,string>(StringComparer.Ordinal) {
-        {"RecoveryXmlPriority_FX_Defaults","FXList"},
-        {"RecoveryXmlPriority_FX_Filters","FXList"},
-        {"RecoveryXmlPriority_Particle_Defaults","FXParticleSystemTemplate"},
-        {"RecoveryXmlPriority_Particle_Gpu","FXParticleSystemTemplate"},
-        {"RecoveryXmlPriority_Particle_Lightning","FXParticleSystemTemplate"},
-        {"RecoveryXmlPriority_Particle_RenderObject","FXParticleSystemTemplate"},
-        {"RecoveryXmlPriority_AttributeModifier_Defaults","AttributeModifier"},
-        {"RecoveryXmlPriority_SpecialPower_Defaults","SpecialPowerTemplate"},
-        {"RecoveryXmlPriority_OCL_Defaults","ObjectCreationList"},
-        {"RecoveryXmlPriority_Locomotor_Defaults","LocomotorTemplate"},
-        {"RecoveryXmlPriority_CommandSet_Defaults","LogicCommandSet"},
-        {"RecoveryXmlPriority_Upgrade_Defaults","UpgradeTemplate"},
-        {"RecoveryXmlPriority_Personality_Defaults","AIPersonalityDefinition"},
-        {"RecoveryXmlPriority_Strategic_Defaults","AIStrategicStateDefinition"},
-        {"RecoveryXmlPriority_Micro_Defaults","AIMicroManagerData"},
-        {"RecoveryXmlPriority_Budget_Defaults","AIBudgetStateDefinition"},
-        {"RecoveryXmlPriority_State_Defaults","AIStateDefinition"},
-        {"RecoveryXmlPriority_Target_Defaults","AITargetingHeuristic"},
-        {"RecoveryXmlAdditional_LogicCommand_Defaults","LogicCommand"},
-        {"RecoveryXmlAdditional_PlayerTech_Defaults","PlayerTech"},
-        {"RecoveryXmlAdditional_PlayerTechRank_Defaults","PlayerTechRank"},
-        {"RecoveryXmlAdditional_UpgradeTemplate_Support","UpgradeTemplate"},
-        {"RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults","PlayerTechUpgradeBinding"},
-        {"RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults","ExperienceLevelTemplate"},
-        {"RecoveryXmlAdditional_ButtonSingleStateData_Defaults","ButtonSingleStateData"},
-        {"RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults","PurchasePlayerTechButtonTemplate"},
-        {"RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults","PlayerTechStoreTemplate"},
-        {"RecoveryXmlAdditional_UICommandButton_Defaults","UICommandButton"},
-        {"RecoveryXmlAdditional_FXList_Support","FXList"},
-        {"RecoveryXmlAdditional_ObjectCreationList_Support","ObjectCreationList"},
-        {"RecoveryXmlAdditional_AttributeModifier_Support","AttributeModifier"},
-        {"RecoveryXmlAdditional_LogicCommand_Combined","LogicCommand"},
-        {"RecoveryXmlAdditional_LogicCommand_Inherited","LogicCommand"},
-        {"RecoveryXmlAdditional_PlayerTech_Combined","PlayerTech"},
-        {"RecoveryXmlAdditional_PlayerTech_Inherited","PlayerTech"},
-        {"RecoveryXmlAdditional_PlayerTechRank_Combined","PlayerTechRank"},
-        {"RecoveryXmlAdditional_PlayerTechRank_Inherited","PlayerTechRank"},
-        {"RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined","PlayerTechUpgradeBinding"},
-        {"RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited","PlayerTechUpgradeBinding"},
-        {"RecoveryXmlAdditional_ExperienceLevelTemplate_Combined","ExperienceLevelTemplate"},
-        {"RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited","ExperienceLevelTemplate"},
-        {"RecoveryXmlAdditional_ButtonSingleStateData_Combined","ButtonSingleStateData"},
-        {"RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined","PurchasePlayerTechButtonTemplate"},
-        {"RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined","PlayerTechStoreTemplate"},
-        {"RecoveryXmlAdditional_UICommandButton_Combined","UICommandButton"},
-        {"RecoveryXmlAdditional_FontDefaultSetting_Defaults","FontDefaultSetting"},
-        {"RecoveryXmlAdditional_FontTranslation_Defaults","FontTranslation"},
-        {"RecoveryXmlAdditional_FontSubstitution_Defaults","FontSubstitution"},
-        {"RecoveryXmlAdditional_FontDefaultSetting_Combined","FontDefaultSetting"},
-        {"RecoveryXmlAdditional_FontTranslation_Combined","FontTranslation"},
-        {"RecoveryXmlAdditional_FontSubstitution_Combined","FontSubstitution"},
-        {"RecoveryXmlAdditional_FontDefaultSetting_Inherited","FontDefaultSetting"},
-        {"RecoveryXmlAdditional_FontSubstitution_Inherited","FontSubstitution"},
-        {"RecoveryXmlAdditional_Weather_Defaults","Weather"},
-        {"RecoveryXmlAdditional_Weather_Combined","Weather"},
-        {"RecoveryXmlAdditional_WaterTransparency_Defaults","WaterTransparency"},
-        {"RecoveryXmlAdditional_WaterTransparency_Combined","WaterTransparency"},
-        {"RecoveryXmlAdditional_WaterSetting_Defaults","WaterSetting"},
-        {"RecoveryXmlAdditional_WaterSetting_Combined","WaterSetting"},
-        {"RecoveryXmlAdditional_WaterTextureList_Defaults","WaterTextureList"},
-        {"RecoveryXmlAdditional_WaterTextureList_Combined","WaterTextureList"},
-        {"RecoveryXmlAdditional_Environment_Defaults","Environment"},
-        {"RecoveryXmlAdditional_LightingSettings_Defaults","LightingSettings"},
-        {"RecoveryXmlAdditional_LightingSettings_Combined","LightingSettings"},
-        {"RecoveryXmlAdditional_Environment_Combined","Environment"},
-        {"RecoveryXmlAdditional_TerrainParticleMapping_Defaults","TerrainParticleMapping"},
-        {"RecoveryXmlAdditional_TerrainParticleMapping_Combined","TerrainParticleMapping"},
-        {"RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults","BounceKickTerrainMapping"},
-        {"RecoveryXmlAdditional_BounceKickTerrainMapping_Combined","BounceKickTerrainMapping"},
-        {"RecoveryXmlAdditional_ShadowMap_Defaults","ShadowMap"},
-        {"RecoveryXmlAdditional_ShadowMap_Combined","ShadowMap"},
-        {"RecoveryXmlAdditional_OrdersManagerSettings_Defaults","OrdersManagerSettings"},
-        {"RecoveryXmlAdditional_OrdersManagerSettings_Combined","OrdersManagerSettings"},
-        {"RecoveryXmlAdditional_Weather_Inherited","Weather"},
-        {"RecoveryXmlAdditional_TerrainParticleMapping_Inherited","TerrainParticleMapping"},
-        {"RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited","BounceKickTerrainMapping"},
-        {"RecoveryXmlAdditional_ShadowMap_Inherited","ShadowMap"},
-        {"RecoveryXmlAdditional_TerrainVisualSettings_Defaults","TerrainVisualSettings"},
-        {"RecoveryXmlAdditional_CameraSettings_Defaults","CameraSettings"},
-        {"RecoveryXmlAdditional_TerrainVisualSettings_Combined","TerrainVisualSettings"},
-        {"RecoveryXmlAdditional_CameraSettings_Combined","CameraSettings"},
-        {"RecoveryXmlAdditional_AIData_Defaults","AIData"},
-        {"RecoveryXmlAdditional_UnitAISettings_Defaults","UnitAISettings"},
-        {"RecoveryXmlAdditional_PlayerTemplate_Defaults","PlayerTemplate"},
-        {"RecoveryXmlAdditional_MultiplayerSettings_Defaults","MultiplayerSettings"},
-        {"RecoveryXmlAdditional_AIBuildStateDefinition_Defaults","AIBuildStateDefinition"},
-        {"RecoveryXmlAdditional_AIStrategicStateName_Defaults","AIStrategicStateName"},
-        {"RecoveryXmlAdditional_MultiplayerColor_Defaults","MultiplayerColor"},
-        {"RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults","AIPersonalityToAchievementEventMapping"},
-        {"RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults","FormationAssistantUnitDefinition"},
-        {"RecoveryXmlAdditional_FormationAssistantTemplate_Defaults","FormationAssistantTemplate"},
-        {"RecoveryXmlAdditional_FormationSelectionTemplate_Defaults","FormationSelectionTemplate"},
-        {"RecoveryXmlAdditional_FormationAssistant_Defaults","FormationAssistant"},
-        {"RecoveryXmlAdditional_SkirmishSettings_Defaults","SkirmishSettings"},
-        {"RecoveryDamageFxLeaf","FXList"},
-        {"RecoveryDamageFxDefault","DamageFX"},
-        {"RecoveryDamageFxNonDefault","DamageFX"},
-        {"RecoveryDamageFxSettingsDefault","DamageFXSettings"},
-        {"RecoveryDamageFxSettingsNonDefault","DamageFXSettings"},
-        {"RecoveryHotkeyGeneralDefault","GeneralHotKeySlots"},
-        {"RecoveryHotkeyGeneralNonDefault","GeneralHotKeySlots"},
-        {"RecoveryHotkeyKeyDefault","MappableKey"},
-        {"RecoveryHotkeyKeyNonDefault","MappableKey"},
-        {"RecoveryHotkeyKeyInherited","MappableKey"},
-        {"RecoveryHotkeyDefaultDefault","DefaultHotKeys"},
-        {"RecoveryHotkeyDefaultNonDefault","DefaultHotKeys"},
-        {"RecoveryHotkeyDefaultInherited","DefaultHotKeys"},
-        {"RecoveryHotkeyDebugDefault","DebugHotKeys"},
-        {"RecoveryHotkeyDebugNonDefault","DebugHotKeys"},
-        {"RecoveryHotkeyDebugInherited","DebugHotKeys"},
-        {"RecoveryXmlAudio_Limit_Defaults","AudioEventLimitGroup"},
-        {"RecoveryXmlAudio_Limit_Nondefault","AudioEventLimitGroup"},
-        {"RecoveryXmlAudio_Limit_Inherited","AudioEventLimitGroup"},
-        {"RecoveryXmlAudio_Lod_Defaults","AudioLOD"},
-        {"RecoveryXmlAudio_Lod_Nondefault","AudioLOD"},
-        {"RecoveryXmlAudio_Settings_Defaults","AudioSettings"},
-        {"RecoveryXmlAudio_Settings_Nondefault","AudioSettings"},
-        {"RecoveryXmlAudio_Video_Defaults","Video"},
-        {"RecoveryXmlAudio_Video_Nondefault","Video"},
-        {"RecoveryXmlAudio_Sequence_Defaults","VideoEventList"},
-        {"RecoveryXmlAudio_Sequence_Nondefault","VideoEventList"},
-        {"RecoveryXmlAudio_Bootup_Defaults","BootupDisplaySequence"},
-        {"RecoveryXmlAudio_Bootup_Nondefault","BootupDisplaySequence"},
-        {"RecoveryUiHotKeyDefault","HotKeySlot"},
-        {"RecoveryUiHotKey","HotKeySlot"},
-        {"RecoveryUiHotKeyInherited","HotKeySlot"},
-        {"RecoveryUiCursorDefault","MouseCursor"},
-        {"RecoveryUiCursor","MouseCursor"},
-        {"RecoveryUiCursorsDefault","BasicMouseCursors"},
-        {"RecoveryUiCursors","BasicMouseCursors"},
-        {"RecoveryUiDragDefault","UIMouseDragSelectionFeedback"},
-        {"RecoveryUiDrag","UIMouseDragSelectionFeedback"},
-        {"RecoveryUiFloatingDefault","UIFloatingTextDisplay"},
-        {"RecoveryUiFloating","UIFloatingTextDisplay"},
-        {"RecoveryUiMessageDefault","UIMessageDisplay"},
-        {"RecoveryUiMessage","UIMessageDisplay"},
-        {"RecoveryUiMilitaryDefault","UIMilitaryCaptionDisplay"},
-        {"RecoveryUiMilitary","UIMilitaryCaptionDisplay"},
-        {"RecoveryUiSubtitleDefault","UISubtitleDisplay"},
-        {"RecoveryUiSubtitle","UISubtitleDisplay"},
-        {"RecoveryUiTimerDefault","UITimerDisplay"},
-        {"RecoveryUiTimer","UITimerDisplay"},
-        {"RecoveryUiDynamicLodDefault","DynamicGameLOD"},
-        {"RecoveryUiDynamicLod","DynamicGameLOD"},
-        {"RecoveryUiLodPresetDefault","GameLODPreset"},
-        {"RecoveryUiLodPreset","GameLODPreset"},
-        {"RecoveryUiStaticLodDefault","StaticGameLOD"},
-        {"RecoveryUiStaticLod","StaticGameLOD"},
-        {"RecoveryUiCoopDefault","UICoopTinting"},
-        {"RecoveryUiCoop","UICoopTinting"},
-        {"RecoveryUiRadiusDefault","RadiusCursor"},
-        {"RecoveryUiRadius","RadiusCursor"},
-        {"RecoverySoundAnimationDefault","AnimationSoundSettings"},
-        {"RecoverySoundAnimationNonDefault","AnimationSoundSettings"},
-        {"RecoverySoundMiscDefault","MiscAudio"},
-        {"RecoverySoundMiscNonDefault","MiscAudio"},
-        {"RecoverySoundMapDefault","LargeGroupAudioMap"},
-        {"RecoverySoundMapNonDefault","LargeGroupAudioMap"},
-        {"RecoverySoundMapInherited","LargeGroupAudioMap"},
+    // This route table is generated from the formal component manifest by GenerateXmlSdkRoutes.py.
+    // BEGIN GENERATED SDK ROUTES
+    static readonly Dictionary<string,uint> Supported=new Dictionary<string,uint>(StringComparer.Ordinal) {
+        {"AttributeModifier",3319822471u},
+        {"FXList",2254974584u},
+        {"SpecialPowerTemplate",2178440954u},
+        {"ObjectCreationList",3899542881u},
+        {"LocomotorTemplate",3972178387u},
+        {"LogicCommandSet",3959844197u},
+        {"FXParticleSystemTemplate",686292351u},
+        {"UpgradeTemplate",3786401627u},
+        {"AIPersonalityDefinition",3604279694u},
+        {"AIStrategicStateDefinition",607123156u},
+        {"AIMicroManagerData",2423780215u},
+        {"AIBudgetStateDefinition",2893598307u},
+        {"AIStateDefinition",3239935619u},
+        {"AITargetingHeuristic",926814458u},
+        {"LogicCommand",2101756272u},
+        {"PlayerTech",2131237081u},
+        {"PlayerTechRank",1802643394u},
+        {"PlayerTechUpgradeBinding",2140592493u},
+        {"ExperienceLevelTemplate",1874610847u},
+        {"PlayerTechStoreTemplate",1213037816u},
+        {"PurchasePlayerTechButtonTemplate",1566941920u},
+        {"ButtonSingleStateData",3048039928u},
+        {"UICommandButton",134745024u},
+        {"FontDefaultSetting",1371131236u},
+        {"FontTranslation",1318336226u},
+        {"FontSubstitution",91719417u},
+        {"Weather",2430161325u},
+        {"WaterTransparency",1479531562u},
+        {"WaterSetting",2728605516u},
+        {"Environment",680780553u},
+        {"LightingSettings",3169690211u},
+        {"WaterTextureList",2995571269u},
+        {"TerrainParticleMapping",1469498551u},
+        {"BounceKickTerrainMapping",2368878637u},
+        {"ShadowMap",4157475773u},
+        {"OrdersManagerSettings",2996766068u},
+        {"TerrainVisualSettings",1184276792u},
+        {"CameraSettings",3898802054u},
+        {"AIData",3827723072u},
+        {"UnitAISettings",2964891936u},
+        {"PlayerTemplate",4063352333u},
+        {"MultiplayerSettings",191082224u},
+        {"AIBuildStateDefinition",1644972043u},
+        {"AIStrategicStateName",2010562192u},
+        {"MultiplayerColor",2384988189u},
+        {"AIPersonalityToAchievementEventMapping",4086175864u},
+        {"FormationAssistantUnitDefinition",838130914u},
+        {"FormationAssistantTemplate",2912385462u},
+        {"FormationSelectionTemplate",3374519264u},
+        {"FormationAssistant",1963196508u},
+        {"GameStatsModeData",3249689110u},
+        {"SkirmishSettings",402082255u},
+        {"DamageFX",2905958645u},
+        {"DamageFXSettings",75989905u},
+        {"GeneralHotKeySlots",417176643u},
+        {"DefaultHotKeys",3741098742u},
+        {"DebugHotKeys",3359870461u},
+        {"MappableKey",1350608344u},
+        {"AudioEventLimitGroup",3906227957u},
+        {"AudioLOD",299416263u},
+        {"AudioSettings",1443425905u},
+        {"Video",587347702u},
+        {"VideoEventList",1447728787u},
+        {"MicrophoneSettings",1826140078u},
+        {"BootupDisplaySequence",3370391592u},
+        {"HotKeySlot",2800139175u},
+        {"MouseCursor",3784442503u},
+        {"BasicMouseCursors",611271731u},
+        {"UIMouseDragSelectionFeedback",611126373u},
+        {"UIFloatingTextDisplay",1559937240u},
+        {"UIMessageDisplay",1697313181u},
+        {"UIMilitaryCaptionDisplay",1043989897u},
+        {"UISubtitleDisplay",165611890u},
+        {"UITimerDisplay",951036436u},
+        {"DynamicGameLOD",2901356964u},
+        {"GameLODPreset",354222972u},
+        {"StaticGameLOD",531798225u},
+        {"UICoopTinting",4243804314u},
+        {"RadiusCursor",544776545u},
+        {"AnimationSoundSettings",1302035577u},
+        {"MiscAudio",2070603733u},
+        {"LargeGroupAudioMap",534008255u},
+        {"UIMouseTacticalSelectionDetailsButtonHotKeys",1296329066u},
+        {"UIMouseTacticalMainCommandBarHotKeys",2591692061u},
+        {"UIMouseTacticalPlayerPowerHotKeys",2283998413u},
+        {"UIMouseTacticalMiscHotKeys",2014061824u},
+        {"UIMouseHUDElementHotKeyGate",2738273474u},
+        {"UIQuickChatMessage",4098431913u},
+        {"UIMouseTacticalQuickChatDisplay",2891878770u},
+        {"UIMouseVoiceChat",3746130610u},
+        {"UIDecalGrid",2599418799u},
+        {"UIDecalCloud",2524893660u},
+        {"UIDecalDestinationMarker",1532214660u},
+        {"UIWorldBuilderDecalGrid",1238702511u},
+        {"BaseAudioEventInfo",1079232276u},
+        {"BaseSingleSound",3228425025u},
+        {"AudioEvent",2219670431u},
+        {"MusicTrack",1883691512u},
+        {"MP3MusicTrack",1013434420u},
+        {"DialogEvent",3558134211u},
+        {"MP3DialogEvent",1479988269u},
+        {"AmbientStream",3928762264u},
+        {"MP3AmbientStream",1813598662u},
+        {"Multisound",2745675575u},
+        {"PathMusicGameDynamicState",97402485u},
+        {"PathMusicGameDynamicStateSet",343094706u},
+        {"PathMusicGameDynamicTransition",2343360052u},
+        {"PathMusicEventRuntime",1122327197u},
+        {"PathMusicEventSet",3339496789u},
+        {"PathMusicMapRuntime",2026048286u},
+        {"MusicPalette",2407383451u},
+        {"MusicScriptConditionNuggetBase",2292378780u},
+        {"MusicScriptConditionExpensiveNuggetBase",849624115u},
+        {"MusicScriptConditionNugget_LocalPlayerIsObserver",188286714u},
+        {"MusicScriptConditionNugget_UnitsFarFromBase",2620791304u},
+        {"MusicScriptConditionNugget_TimeFromStartOfLevel",1464425282u},
+        {"MusicScriptConditionNugget_TrackPlayedCount",57370491u},
+        {"MusicScriptConditionNugget_SpecificTrackTypePlaying",739280456u},
+        {"MusicScriptConditionNugget_AnyTrackPlaying",3402992833u},
+        {"MusicScriptConditionNugget_ObjectsOfTypeExist",4286308287u},
+        {"MusicScriptConditionNugget_EvaEventPlayedRecently",2743973749u},
+        {"MusicScriptConditionNugget_ObjectsNearEvaEvent",3386715757u},
+        {"MusicScriptConditionNugget_ScoredKillCount",3620764004u},
+        {"MusicScriptConditionNugget_Not",4007043648u},
+        {"MusicScriptConditionNugget_Or",2281773838u},
+        {"MusicScriptConditionNugget_And",1343682755u},
+        {"MusicScriptConditionNugget_PathMusicStateLastActive",2912435838u},
+        {"MusicScriptConditionNugget_PathMusicStateCurrentlyActive",3727134806u},
+        {"MusicScriptConditionNugget_EngagementCount",3476397162u},
+        {"MusicScriptConditionNugget_LocalPlayerKillRatio",2818967523u},
+        {"MusicScriptConditionNugget_HitBySuperWeapon",1634186921u},
+        {"MusicScriptTrack",1038067901u},
+        {"UIMouseTacticalCoOpAIButtonsHelpButton",104126924u},
+        {"UIMouseTacticalCommandCommunicateWithAllies",113029208u},
+        {"UIMouseTacticalToggleRepairModeButton",346077409u},
+        {"UIMouseTacticalAttackMoveButton",442957564u},
+        {"UIMouseTacticalCommandPlaceWall",485977567u},
+        {"UIMouseTacticalForceAttackMoveButton",694838069u},
+        {"UIMouseTacticalCoOpAIButtonsHoldObjectButton",772462768u},
+        {"UIMouseTacticalExitContainerButton",1014034471u},
+        {"UIMouseTacticalPlayerTechStoreButton",1138847078u},
+        {"UIMouseTacticalCommandMove",1234485619u},
+        {"UIMouseTacticalCommandSell",1249197161u},
+        {"UIMouseTacticalUnitIntroButton",1277109486u},
+        {"UIMouseTacticalCommandSelect",1334543376u},
+        {"UIMouseTacticalCoOpAIButtonsNormalButton",1371977384u},
+        {"UIMouseTacticalCommandPlaceRallyPoint",1474300054u},
+        {"UIMouseTacticalCommandHarvest",1499648070u},
+        {"UIMouseTacticalCommandToggleSelfRepair",1956336137u},
+        {"UIMouseTacticalBuildQueueTab",1974922393u},
+        {"UIMouseTacticalCommandGetCrate",2067763016u},
+        {"UIMouseTacticalDeactivateMissionHotSpotsButton",2047841880u},
+        {"UIMouseTacticalCommandForceAttack",2074164365u},
+        {"UIMouseTacticalPlanningModeButton",2278083954u},
+        {"UIMouseTacticalCommandMisc",2505151835u},
+        {"UIMouseTacticalSelectionRefinementTab",2635272840u},
+        {"UIMouseTacticalCommandForceMove",2697587777u},
+        {"UIMouseTacticalOpenAdvancedCommandsButton",2808773267u},
+        {"UIMouseTacticalSetStanceButton",2873949396u},
+        {"UIMouseTacticalCoOpAIButtonsHoldPositionButton",2914137727u},
+        {"UIMouseTacticalCommandMineOre",2957071942u},
+        {"UIMouseTacticalWaypointModeButton",2958905921u},
+        {"UIMouseTacticalReverseMoveButton",2987234945u},
+        {"UIMouseTacticalCommandEnter",3057018816u},
+        {"UIMouseTacticalCoOpAIButtonsAssaultButton",3094553884u},
+        {"UIMouseTacticalPauseButton",3420020972u},
+        {"UIMouseTacticalCommandAttack",3548787763u},
+        {"UIMouseTacticalCommandAttackMove",3575834349u},
+        {"UIMouseTacticalForceMoveButton",3716369729u},
+        {"UIMouseTacticalForceAttackButton",3756168709u},
+        {"UIMouseTacticalCommandPlaceAIBeacon",3809842710u},
+        {"UIMouseTacticalCommandDock",3976885676u},
+        {"UIMouseTacticalCommandReverseMove",4026878150u},
+        {"UIMouseTacticalBuildQueueTypeTab",4094578721u},
+        {"UIMouseTacticalSellModeButton",4102242385u},
+        {"UIMouseTacticalStopButton",4140422551u},
+        {"UIMouseTacticalCommandSetRallyPoint",4180354873u},
+        {"UIMouseTacticalFastForwardButton",4232364483u},
+        {"UIMouseTacticalGroupSelection",241329492u},
+        {"UIMouseTacticalLookAt",1795213437u},
+        {"UIMouseTacticalRadarTelestrator",3366599054u},
+        {"UIMouseTacticalTelestrator",1921726501u},
+        {"UIMouseTacticalThreatMeter",4143989686u},
+        {"BaseConditionData",3899256902u},
+        {"ObjectConditionData",519519951u},
+        {"UpgradeConditionData",76901015u},
+        {"GameplayConditionData",2309012900u},
+        {"TargetingBaseCompare",3600209407u},
+        {"TargetingDistanceCompare",2359666647u},
+        {"TargetingCombatChainCompare",89767986u},
+        {"TargetingInTurretArcCompare",2007776008u},
+        {"TargetingCompareList",3188107749u},
+        {"SiegeEvaEvent",1268003905u},
+        {"EvaSettings",2361666546u},
+        {"EvaEvent",357806494u},
+        {"MiscEvaEvents",1807540972u},
+        {"AchievementEvent",4230032093u},
+        {"MapNameToAchievementEventMapping",3594283852u},
+        {"GameplayAchievementTriggerData",348670903u},
+        {"HealthBarTemplate",1507490649u},
+        {"HealthBarSettings",3919360587u},
+        {"UnitOverlayIconSettings",2421413379u},
+        {"ObjectFilterAsset",1151702845u},
+        {"RegisteredObjectSet",814796096u},
+        {"ObjectVisionRangeItem",772930644u},
+        {"InvisibilityTemplate",1431290504u},
+        {"InvisibilityManagerSettings",254471188u},
+        {"StanceTemplate",2525284163u},
+        {"EmotionTemplate",2836737428u},
+        {"ProjectilePath",1710207315u},
+        {"ForceFeedbackEvent",474482543u},
+        {"EngagingContent",3058114834u},
+        {"EngagingContentGroup",11280974u},
+        {"EngagingContentSequence",3799634821u},
+        {"IntelDB",530081230u},
+        {"UnitIntro",1870180772u},
+        {"BreezeInfo",1626415288u},
+        {"ModelSettings",1968811301u},
+        {"AutoParticleSystemSettings",3278684478u},
+        {"CrowdResponse",400896388u},
+        {"RadarTerrainImage",1099769729u},
+        {"UIRadarObjectsLayer",4039592522u},
+        {"W3DDeviceSettings",1469055344u},
+        {"ScorchMarkSettings",2383722691u},
+        {"Language",2915726794u},
+        {"HeaderTemplate",1218703046u},
+        {"FontDirectory",3569007303u},
+        {"TheVersion",4236434438u},
+        {"Credits",3978455785u},
+        {"CommandSet",2584759047u},
+        {"Road",3516764358u},
+        {"ShaderOverride",3166846828u},
+        {"ShaderOverrideRule",3648907125u},
+        {"ImageSequence",565855655u},
+        {"UnitTypeIcon",3614134471u},
+        {"DrawGroupInfo",2913856066u},
+        {"OnlineChatColors",1345252658u},
+        {"ArchivableMovie",3741496377u},
+        {"ArchiveMovieList",2099472558u},
+        {"NetworkSettings",4272453293u},
+        {"PathfindSettings",970663416u},
+        {"ResourceSettings",3279338544u},
+        {"GraphicsHardware",2846460739u},
+        {"CampaignTemplate",1482556238u},
+        {"CampaignEnumerator",731899443u},
+        {"MissionTemplate",3477794083u},
+        {"MissionHotSpotSettings",3175516876u},
+        {"TutorialMapData",3408790761u},
+        {"LocalBuildListMonitor",315614191u},
+        {"BuildSystemSettings",3974617950u},
+        {"GiftManagerSettings",1047799468u},
+        {"MpGameRules",741706624u},
+        {"DynamicsContactTagMapping",1044178106u},
+        {"ConnectionLineManager",105587076u},
+        {"RedAlertTemplate",4141306833u},
+        {"ConquerCardDefinitionBase",3258480561u},
+        {"ConquerCardDefinitionUnit",3562795973u},
+        {"ConquerCardDefinitionStructure",4289687760u},
+        {"ConquerCardDefinitionPower",4164089898u},
+        {"ConquerCardPrebuiltDeck",2806522526u},
+        {"ArmyDefinition",3587539190u},
+        {"SkirmishOpeningMove",3971904488u},
+        {"DLContent",212695140u},
+        {"AssetReportTable",255713734u},
+        {"StringHashTable",300273508u},
+        {"MeshInstanceTemplate",815686049u},
+        {"PackedTextureImage",1449288224u},
+        {"OnDemandTextureImage",4262364347u},
+        {"AptAptData",1816258268u},
+        {"AptConstData",983359664u},
+        {"AptDatData",1110676961u},
+        {"AptGeometryData",1034587168u},
+        {"BaseRenderAssetType",2989459401u},
+        {"AudioFileRuntime",584092973u},
+        {"Mouse",2525492603u},
+        {"UnitAbilityButtonTemplate",3517887782u},
+        {"PlayerPowerButtonTemplate",4044322798u},
+        {"TestTexture",2826773070u},
+        {"TestTextureCollection",49556361u},
+        {"TerrainAssetCollection",582251659u},
+        {"TerrainTextureAtlasRuntime",3878948534u},
+        {"W3DHierarchy",1641540160u},
+        {"W3DContainer",4042295058u},
+        {"W3DAnimationRuntime",3534264507u},
+        {"W3DCollisionBox",3810008068u},
+        {"MapMetaData",1603703110u},
+        {"GameScriptList",3737094024u},
+        {"GameMap",3575309793u},
+        {"UIConfigList",3072160547u},
     };
+    static readonly string[] NonGlobalRoots=new[]{"GameStatsModeData","MicrophoneSettings","BaseAudioEventInfo","BaseSingleSound","PathMusicEventRuntime","PathMusicMapRuntime","MusicScriptConditionNuggetBase","MusicScriptConditionExpensiveNuggetBase","BaseConditionData","ObjectConditionData","UpgradeConditionData","TargetingBaseCompare","ObjectVisionRangeItem","CommandSet","ShaderOverrideRule","ArchivableMovie","ArchiveMovieList","ConquerCardDefinitionBase","BaseRenderAssetType","AudioFileRuntime","TerrainTextureAtlasRuntime","W3DAnimationRuntime"};
+    static readonly uint[] ExcludedTypeIds=new uint[]{26632491u,1276968974u,1546953756u,1654297531u,1804891371u,1887864852u,1931769760u,2170044043u,2742786440u,3423839194u,3645205636u,3901433122u};
+    // END GENERATED SDK ROUTES
+    static readonly Dictionary<string,string> Required=new Dictionary<string,string>(StringComparer.Ordinal);
+    static readonly Dictionary<string,string> SupportAssets=new Dictionary<string,string>(StringComparer.Ordinal);
+    static readonly HashSet<string> RequiredTypes=new HashSet<string>(StringComparer.Ordinal);
     static uint TypeId(string name) {
-        if(name=="AttributeModifier")return 3319822471u;
-        if(name=="FXList")return 2254974584u;
-        if(name=="SpecialPowerTemplate")return 2178440954u;
-        if(name=="ObjectCreationList")return 3899542881u;
-        if(name=="LocomotorTemplate")return 3972178387u;
-        if(name=="LogicCommandSet")return 3959844197u;
-        if(name=="FXParticleSystemTemplate")return 686292351u;
-        if(name=="UpgradeTemplate")return 3786401627u;
-        if(name=="AIPersonalityDefinition")return 3604279694u;
-        if(name=="AIStrategicStateDefinition")return 607123156u;
-        if(name=="AIMicroManagerData")return 2423780215u;
-        if(name=="AIBudgetStateDefinition")return 2893598307u;
-        if(name=="AIStateDefinition")return 3239935619u;
-        if(name=="AITargetingHeuristic")return 926814458u;
-        if(name=="LogicCommand")return 2101756272u;
-        if(name=="PlayerTech")return 2131237081u;
-        if(name=="PlayerTechRank")return 1802643394u;
-        if(name=="PlayerTechUpgradeBinding")return 2140592493u;
-        if(name=="ExperienceLevelTemplate")return 1874610847u;
-        if(name=="PlayerTechStoreTemplate")return 1213037816u;
-        if(name=="PurchasePlayerTechButtonTemplate")return 1566941920u;
-        if(name=="ButtonSingleStateData")return 3048039928u;
-        if(name=="UICommandButton")return 134745024u;
-        if(name=="FontDefaultSetting")return 1371131236u;
-        if(name=="FontTranslation")return 1318336226u;
-        if(name=="FontSubstitution")return 91719417u;
-        if(name=="Weather")return 2430161325u;
-        if(name=="WaterTransparency")return 1479531562u;
-        if(name=="WaterSetting")return 2728605516u;
-        if(name=="Environment")return 680780553u;
-        if(name=="LightingSettings")return 3169690211u;
-        if(name=="WaterTextureList")return 2995571269u;
-        if(name=="TerrainParticleMapping")return 1469498551u;
-        if(name=="BounceKickTerrainMapping")return 2368878637u;
-        if(name=="ShadowMap")return 4157475773u;
-        if(name=="OrdersManagerSettings")return 2996766068u;
-        if(name=="TerrainVisualSettings")return 1184276792u;
-        if(name=="CameraSettings")return 3898802054u;
-        if(name=="AIData")return 3827723072u;
-        if(name=="UnitAISettings")return 2964891936u;
-        if(name=="PlayerTemplate")return 4063352333u;
-        if(name=="MultiplayerSettings")return 191082224u;
-        if(name=="AIBuildStateDefinition")return 1644972043u;
-        if(name=="AIStrategicStateName")return 2010562192u;
-        if(name=="MultiplayerColor")return 2384988189u;
-        if(name=="AIPersonalityToAchievementEventMapping")return 4086175864u;
-        if(name=="FormationAssistantUnitDefinition")return 838130914u;
-        if(name=="FormationAssistantTemplate")return 2912385462u;
-        if(name=="FormationSelectionTemplate")return 3374519264u;
-        if(name=="FormationAssistant")return 1963196508u;
-        if(name=="GameStatsModeData")return 3249689110u;
-        if(name=="SkirmishSettings")return 402082255u;
-        if(name=="DamageFX")return 2905958645u;
-        if(name=="DamageFXSettings")return 75989905u;
-        if(name=="GeneralHotKeySlots")return 417176643u;
-        if(name=="DefaultHotKeys")return 3741098742u;
-        if(name=="DebugHotKeys")return 3359870461u;
-        if(name=="MappableKey")return 1350608344u;
-        if(name=="AudioEventLimitGroup")return 3906227957u;
-        if(name=="AudioLOD")return 299416263u;
-        if(name=="AudioSettings")return 1443425905u;
-        if(name=="Video")return 587347702u;
-        if(name=="VideoEventList")return 1447728787u;
-        if(name=="MicrophoneSettings")return 1826140078u;
-        if(name=="BootupDisplaySequence")return 3370391592u;
-        if(name=="HotKeySlot")return 2800139175u;
-        if(name=="MouseCursor")return 3784442503u;
-        if(name=="BasicMouseCursors")return 611271731u;
-        if(name=="UIMouseDragSelectionFeedback")return 611126373u;
-        if(name=="UIFloatingTextDisplay")return 1559937240u;
-        if(name=="UIMessageDisplay")return 1697313181u;
-        if(name=="UIMilitaryCaptionDisplay")return 1043989897u;
-        if(name=="UISubtitleDisplay")return 165611890u;
-        if(name=="UITimerDisplay")return 951036436u;
-        if(name=="DynamicGameLOD")return 2901356964u;
-        if(name=="GameLODPreset")return 354222972u;
-        if(name=="StaticGameLOD")return 531798225u;
-        if(name=="UICoopTinting")return 4243804314u;
-        if(name=="RadiusCursor")return 544776545u;
-        if(name=="AnimationSoundSettings")return 1302035577u;
-        if(name=="MiscAudio")return 2070603733u;
-        if(name=="LargeGroupAudioMap")return 534008255u;
-
+        uint value;if(Supported.TryGetValue(name,out value))return value;
         throw new Exception("Unexpected SDK trace type: "+name);
     }
     static InstanceDeclaration Declaration(XmlDocument xml) {
@@ -339,17 +395,20 @@ class XmlPrioritySdkOracle {
     static void ValidateProbe(string path) {
         var d=new XmlDocument();d.Load(path);
         if(d.DocumentElement.LocalName!="AssetDeclaration" || d.DocumentElement.NamespaceURI!=NS)throw new Exception("Expected source AssetDeclaration");
+        Required.Clear();SupportAssets.Clear();RequiredTypes.Clear();
         var seen=new HashSet<string>(StringComparer.Ordinal);
         foreach(XmlNode node in d.DocumentElement.ChildNodes) {
             if(node.NodeType!=XmlNodeType.Element)continue;
             XmlElement e=(XmlElement)node;
             if(e.NamespaceURI!=NS)throw new Exception("Foreign source probe namespace");
-            if(e.LocalName=="Includes")continue;
-            string id=e.GetAttribute("id"),type;
-            if(!Required.TryGetValue(id,out type) || e.LocalName!=type || !seen.Add(id))
-                throw new Exception("Unexpected, duplicated, or wrong-type source probe: "+id+"/"+e.LocalName);
+            if(e.LocalName=="Includes" || e.LocalName=="Tags" || e.LocalName=="Defines")continue;
+            string id=e.GetAttribute("id");
+            if(String.IsNullOrEmpty(id) || !seen.Add(id))throw new Exception("Empty or duplicated source asset id: "+id);
+            if(Supported.ContainsKey(e.LocalName)) {
+                Required.Add(id,e.LocalName);RequiredTypes.Add(e.LocalName);
+            } else SupportAssets.Add(id,e.LocalName);
         }
-        if(seen.Count!=Required.Count)throw new Exception("Source probe must contain exactly 159 expected SDK assets");
+        if(Required.Count==0)throw new Exception("Source probe has no in-scope recovered XmlCompiler assets");
     }
     static void WriteResult(string path,object value) {
         File.WriteAllText(path,new JavaScriptSerializer().Serialize(value));
@@ -371,15 +430,20 @@ class XmlPrioritySdkOracle {
         });
         if(schemaErrors.Count!=0)throw new Exception("Legal SDK probe schema errors ("+schemaErrors.Count+"): \n"+String.Join("\n",schemaErrors.ToArray()));
         int rejected=0;
-        foreach(string kind in new[]{"missing-id","missing-physics","bad-fx-attribute"}) {
+        // General negatives apply to every profile. The mandatory-Physics boundary is
+        // additionally retained whenever the profile contains a particle template.
+        var negatives=new List<string>(new[]{"missing-id","unknown-attribute"});
+        var originalNamespaces=Namespaces(source);
+        if(source.SelectSingleNode("/ea:AssetDeclaration/ea:FXParticleSystemTemplate/ea:Physics",originalNamespaces)!=null)negatives.Add("missing-physics");
+        foreach(string kind in negatives) {
             var invalid=new XmlDocument();invalid.Load(probe);invalid.Schemas=schemas;var ns=Namespaces(invalid);
             if(kind=="missing-id") {
-                ((XmlElement)invalid.SelectSingleNode("/ea:AssetDeclaration/ea:FXList",ns)).RemoveAttribute("id");
+                foreach(XmlNode assetNode in invalid.DocumentElement.ChildNodes){XmlElement asset=assetNode as XmlElement;if(asset!=null && Required.ContainsKey(asset.GetAttribute("id"))){asset.RemoveAttribute("id");break;}}
             } else if(kind=="missing-physics") {
                 XmlNode physics=invalid.SelectSingleNode("/ea:AssetDeclaration/ea:FXParticleSystemTemplate/ea:Physics",ns);
                 if(physics==null)throw new Exception("Probe has no mandatory Physics child to test");
                 physics.ParentNode.RemoveChild(physics);
-            } else ((XmlElement)invalid.SelectSingleNode("/ea:AssetDeclaration/ea:FXList",ns)).SetAttribute("Bad","1");
+            } else { foreach(XmlNode assetNode in invalid.DocumentElement.ChildNodes) { XmlElement asset=assetNode as XmlElement;if(asset!=null && Required.ContainsKey(asset.GetAttribute("id"))){asset.SetAttribute("RecoveryInvalidAttribute","1");break;} } }
             bool failed=false;
             try { invalid.Validate(delegate(object sender,ValidationEventArgs e){throw new Exception(e.Message);}); }
             catch(XmlSchemaValidationException){failed=true;}
@@ -387,14 +451,14 @@ class XmlPrioritySdkOracle {
             if(!failed)throw new Exception("Full SDK XSD accepted invalid "+kind);
             ++rejected;
         }
-        WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
-        Console.WriteLine("PASS SDK full XSD: 159 assets; 3 negative fixtures rejected.");
+        WriteResult(report,new{succeeded=true,mode="schema",validatedDocuments=1,negativeFixtures=rejected,expectedAssets=Required.Count,expectedTypes=RequiredTypes.Count,supportAssets=SupportAssets,registeredTypes=Supported.Count,nonGlobalRegisteredRoots=NonGlobalRoots,probeSha256=Hash(probe),schemaEntry="Schemas/xsd/CnC3Types.xsd"});
+        Console.WriteLine("PASS SDK full XSD: {0} in-scope assets/{1} root types, {2} support assets; {3} negative fixtures rejected.",Required.Count,RequiredTypes.Count,SupportAssets.Count,rejected);
     }
     static void CompareMetadata(IAssetBuilderPlugin original,IAssetBuilderPlugin recovered,int platform,ref int fields) {
         if(original.GetVersionNumber()!=recovered.GetVersionNumber())throw new Exception("SDK version differs on platform "+platform);
         if(original.GetAllTypesHash()!=recovered.GetAllTypesHash())throw new Exception("SDK all-types hash differs on platform "+platform);
         fields+=2;
-        foreach(uint id in new[]{3319822471u,2254974584u,2178440954u,3899542881u,3972178387u,3959844197u,686292351u,3786401627u,3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u,2101756272u,2131237081u,1802643394u,2140592493u,1874610847u,1213037816u,1566941920u,3048039928u,134745024u,1371131236u,1318336226u,91719417u,2430161325u,1479531562u,2728605516u,680780553u,3169690211u,2995571269u,1469498551u,2368878637u,4157475773u,2996766068u,1184276792u,3898802054u,3827723072u,2964891936u,4063352333u,191082224u,1644972043u,2010562192u,2384988189u,4086175864u,838130914u,2912385462u,3374519264u,1963196508u,3249689110u,402082255u,2905958645u,75989905u,417176643u,3741098742u,3359870461u,1350608344u,3906227957u,299416263u,1443425905u,587347702u,1447728787u,1826140078u,3370391592u,2800139175u,3784442503u,611271731u,611126373u,1559937240u,1697313181u,1043989897u,165611890u,951036436u,2901356964u,354222972u,531798225u,4243804314u,544776545u,1302035577u,2070603733u,534008255u}) {
+        foreach(uint id in Supported.Values) {
             object a=original.GetExtendedTypeInformation(id),b=recovered.GetExtendedTypeInformation(id);
             if(a==null || b==null)throw new Exception("Null ExtendedTypeInformation");
             foreach(FieldInfo field in typeof(ExtendedTypeInformation).GetFields(BindingFlags.Public|BindingFlags.Instance)) {
@@ -426,9 +490,13 @@ class XmlPrioritySdkOracle {
             refused=false;
             try { recovered.ProcessInstance(Declaration(xml)); }catch(NotSupportedException){refused=true;}
             if(!refused)throw new Exception("Recovered SDK plugin accepts unknown ProcessInstance type");++rejections;
+            foreach(uint excludedId in ExcludedTypeIds) {
+                refused=false;try{recovered.GetExtendedTypeInformation(excludedId);}catch(NotSupportedException){refused=true;}
+                if(!refused)throw new Exception("Recovered SDK plugin accepts an excluded root: "+excludedId);++rejections;
+            }
         }
         if(fields<16)throw new Exception("No metadata fields were compared");
-        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=82,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
+        WriteResult(report,new{succeeded=true,mode="metadata",platforms=new[]{0,1,2,99},supportedTypes=Supported.Count,nonGlobalRegisteredRoots=NonGlobalRoots,excludedTypes=ExcludedTypeIds.Length,initializations=initializations,reinitializations=reinitializations,fieldComparisons=fields,unknownTypeRejections=rejections,originalSha256=Hash(originalPath),recoveredSha256=Hash(recoveredPath)});
         Console.WriteLine("PASS SDK metadata: four platforms, Initialize/ReInitialize, all public metadata fields, unknown type rejection.");
     }
     static int Main(string[] args) {
@@ -436,13 +504,13 @@ class XmlPrioritySdkOracle {
         try {
             if(args.Length==4 && args[0]=="schema") { Schema(args[1],args[2],args[3]);return 0; }
             if(args.Length==4 && args[0]=="metadata") { Metadata(args[1],args[2],args[3]);return 0; }
-            if(args.Length!=6 && args.Length!=7 && args.Length!=8)throw new Exception("Usage: replay|isolated plugin.dll traceDir mod.bin probe.xml result.json [platform=0] [profile=Reduced|FullMymod]");
+            if(args.Length!=6 && args.Length!=7 && args.Length!=8)throw new Exception("Usage: replay|isolated plugin.dll traceDir mod.bin probe.xml result.json [platform=0] [profile=MOD-name|FullMymod]");
             bool isolated=args[0]=="isolated";
             if(!isolated && args[0]!="replay")throw new Exception("Unknown replay mode");
             int platform=args.Length>=7?Int32.Parse(args[6],CultureInfo.InvariantCulture):0;
             if(platform!=0 && platform!=1 && platform!=2 && platform!=99)throw new Exception("Unsupported platform selector");
             string profile=args.Length==8?args[7]:"Reduced";
-            if(profile!="Reduced" && profile!="FullMymod")throw new Exception("Unknown SDK profile");
+            if(String.IsNullOrWhiteSpace(profile))throw new Exception("SDK profile name is empty");
             string dll=Path.GetFullPath(args[1]),trace=Path.GetFullPath(args[2]);
             string manifest=Path.Combine(trace,"calls.tsv");
             ValidateProbe(args[4]);
@@ -474,7 +542,7 @@ class XmlPrioritySdkOracle {
                 if(String.IsNullOrEmpty(id))throw new Exception("SDK trace asset id is empty");
                 if(Required.TryGetValue(id,out expectedType)) {
                     if(type!=expectedType)throw new Exception("Wrong SDK probe type: "+type+"/"+id);
-                } else if(profile!="FullMymod")throw new Exception("Unexpected reduced SDK call: "+type+"/"+id);
+                } else if(profile!="FullMymod")throw new Exception("Unexpected SDK profile call: "+type+"/"+id);
                 int recordedPlatform;
                 if(!Int32.TryParse(fields[3],NumberStyles.Integer,CultureInfo.InvariantCulture,out recordedPlatform) || recordedPlatform!=platform)throw new Exception("SDK trace platform mismatch");
                 if(String.IsNullOrEmpty(stem) || stem!=Path.GetFileName(stem) || stem.IndexOfAny(new[]{'/','\\',':'})>=0 || !stems.Add(stem))
@@ -496,7 +564,9 @@ class XmlPrioritySdkOracle {
                 Console.WriteLine("PASS {0} SDK replay {1}/{2}, bytes={3}",isolated?"isolated recovered":"original",type,id,instance.Length);
                 if(isolated)NoOriginalAssemblies();
             }
-            if(calls<Required.Count || seen.Count!=Required.Count || typeCalls.Count!=80)throw new Exception("Incomplete SDK plugin call coverage");
+            if(calls<Required.Count || seen.Count!=Required.Count)throw new Exception("Incomplete SDK plugin asset call coverage");
+            foreach(string requiredType in RequiredTypes)if(!typeCalls.ContainsKey(requiredType))throw new Exception("Missing required SDK root type: "+requiredType);
+            if(profile!="FullMymod" && typeCalls.Count!=RequiredTypes.Count)throw new Exception("Unexpected SDK plugin type coverage");
             foreach(string id in Required.Keys)if(!seen.Contains(id))throw new Exception("No real SDK plugin call for "+id);
             foreach(string extension in new[]{"*.xml","*.bin","*.relo","*.imp"}) {
                 string[] files=Directory.GetFiles(trace,extension,SearchOption.TopDirectoryOnly);
@@ -511,13 +581,14 @@ class XmlPrioritySdkOracle {
             var result=new {
                 succeeded=true,mode=args[0],profile=profile,platform=platform,sourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),
                 runId=Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),expectedAssets=Required.Count,requiredAssetsVerified=seen.Count,additionalAssets=idCalls.Count-Required.Count,verifiedCalls=calls,
-                comparisons=comparisons,typeCalls=typeCalls,idCalls=idCalls,traceManifestSha256=Hash(manifest),
+                comparisons=comparisons,typeCalls=typeCalls,idCalls=idCalls,requiredTypeCount=RequiredTypes.Count,supportAssets=SupportAssets,registeredTypes=Supported.Count,
+                nonGlobalRegisteredRoots=NonGlobalRoots,nonGlobalRootEntryCoverageClaimed=false,traceManifestSha256=Hash(manifest),
                 probeSha256=Hash(args[4]),modSha256=Hash(args[3]),compilerSha256=Hash(dll),
                 originalDllFilesAbsent=isolated,originalCompilerAssembliesAbsent=isolated,
-                sdkScope=profile=="FullMymod"?"Full shipped mymod Includes plus 159 required probes across 80 recovered global types":"Reduced disposable SDK MOD with 159 required probes across 80 recovered global types"
+                sdkScope="Actual MOD source assets in this profile; only direct in-scope root calls are counted. Non-global nested/runtime root registrations require separate reachability evidence."
             };
             File.WriteAllText(report,new JavaScriptSerializer().Serialize(result));
-            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, 159 required assets across 80 recovered global types, isolated={3}",args[0],calls,comparisons,isolated);
+            Console.WriteLine("PASS {0}: {1} SDK calls, {2} exact buffer comparisons, {3} required assets across {4} root types, isolated={5}",args[0],calls,comparisons,Required.Count,RequiredTypes.Count,isolated);
             return 0;
         } catch(Exception e) {
             Console.Error.WriteLine(e);

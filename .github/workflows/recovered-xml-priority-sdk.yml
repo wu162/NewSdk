@@ -7,24 +7,45 @@ on:
       - '.github/workflows/recovered-xml-priority-sdk.yml'
       - 'recovery/scripts/TestXmlPrioritySdk.ps1'
       - 'recovery/scripts/SetXmlPriorityPlugin.ps1'
+      - 'recovery/scripts/InvokeEalaModStudioBuild.ps1'
+      - 'recovery/catalog/XmlSdkValidationRequest.json'
+      - 'SDK/Mods/XmlCompilerRecovery*/**'
       - 'recovery/src/Plugin/XmlPriorityPlugin.cs'
       - 'recovery/tests/XmlPrioritySdkOracle.cs'
       - 'recovery/sdk/XmlPriority*Probe.*'
 permissions:
   contents: write
+  actions: read
 jobs:
   integration:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-xml-priority]')
     runs-on: windows-2022
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reuse accepted compiler artifact when native inputs are unchanged
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: recovered-xmlcompiler-priority-x86
+          run-id: 40159834447
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/xml-accepted-compiler
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
       - name: Compare fresh original and recovered SDK builds
         shell: pwsh
+        env:
+          XML_PRIORITY_COMPILER_ARTIFACT: ${{ runner.temp }}/xml-accepted-compiler
         run: |
+          foreach ($script in @('recovery/scripts/TestXmlPrioritySdk.ps1','recovery/scripts/SetXmlPriorityPlugin.ps1','recovery/scripts/InvokeEalaModStudioBuild.ps1')) {
+            $parseTokens = $null; $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $script), [ref]$parseTokens, [ref]$parseErrors) | Out-Null
+            if ($parseErrors.Count) { throw ($parseErrors | Out-String) }
+          }
           ./recovery/scripts/TestXmlPrioritySdk.ps1
           $result = Get-Content recovery/evidence/xml-priority-sdk/validation.json -Raw | ConvertFrom-Json
           if (!$result.succeeded -or !$result.originalDllUnchanged -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) { throw 'Missing or mismatched SDK validation evidence' }
