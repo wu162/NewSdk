@@ -1,0 +1,24 @@
+
+InputObject                                                                                                                                   SideIndicator
+-----------                                                                                                                                   -------------
+type:BinaryAssetBuilder.Core.IAssetBuilderPlugin::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit         =>
+type:BinaryAssetBuilder.Core.IAssetBuilderVerifierPlugin::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit =>
+type:BinaryAssetBuilder.Core.IExpressionEvaluator::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit        =>
+type:BinaryAssetBuilder.Core.ISessionCache::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit               =>
+type:BinaryAssetBuilder.IAssetBuilderPluginBase::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit          =>
+type:BinaryAssetBuilder.Remote.IClientCommand::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit            =>
+type:BinaryAssetBuilder.Remote.IServerCommand::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit            =>
+type:EALABuild.EALABuildScript::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit                           =>
+type:EALAModStudio.EALABuildGUI::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, BeforeFieldInit                          =>
+BinaryAssetBuilder.Core.Set`1:ctor:.cctor():PrivateScope, Private, Static, HideBySig, SpecialName, RTSpecialName                              <=
+type:BinaryAssetBuilder.Core.IAssetBuilderPlugin::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                          <=
+type:BinaryAssetBuilder.Core.IAssetBuilderVerifierPlugin::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                  <=
+type:BinaryAssetBuilder.Core.IExpressionEvaluator::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                         <=
+type:BinaryAssetBuilder.Core.ISessionCache::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                                <=
+type:BinaryAssetBuilder.IAssetBuilderPluginBase::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                           <=
+type:BinaryAssetBuilder.Remote.IClientCommand::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                             <=
+type:BinaryAssetBuilder.Remote.IServerCommand::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                             <=
+type:EALABuild.EALABuildScript::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                                            <=
+type:EALAModStudio.EALABuildGUI::AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract                                           <=
+
+

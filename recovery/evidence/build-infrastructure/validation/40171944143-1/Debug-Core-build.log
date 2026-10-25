@@ -1,0 +1,14 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj (in 1.47 sec).
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\GUIBuildOutput.cs(53,21): warning CS0649: Field 'GUIBuildOutput.components' is never assigned to, and will always have its default value null [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\AssetDeclarationDocument.cs(223,15): warning CS0649: Field 'AssetDeclarationDocument.CurrentState.Processing' is never assigned to, and will always have its default value false [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+  BinaryAssetBuilder.Core -> D:\a\_temp\infrastructure-validation-07e4b1c9b02c41bb886270a77ed28d04\build-Debug-Core\BinaryAssetBuilder.Core.dll
+
+Build succeeded.
+
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\GUIBuildOutput.cs(53,21): warning CS0649: Field 'GUIBuildOutput.components' is never assigned to, and will always have its default value null [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\AssetDeclarationDocument.cs(223,15): warning CS0649: Field 'AssetDeclarationDocument.CurrentState.Processing' is never assigned to, and will always have its default value false [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:07.86
