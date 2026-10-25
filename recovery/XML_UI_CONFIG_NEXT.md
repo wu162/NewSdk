@@ -1,4 +1,6 @@
-# UIConfigList: complete dependency investigation, not implemented
+# UIConfigList：历史调查（已完成组件验收）
+
+2026-10-25更新：以下为实现前调查存档，已由[XML_UI_CONFIG.md](XML_UI_CONFIG.md)和XMLCOMPILER_PRIORITY.md中的最终验收取代，不再作为未实现清单。
 
 This is an evidence handoff only. UIConfigList is **not** added to any component catalog, bridge, native implementation, success count or SDK route. Mouse is implemented independently in XML_MOUSE.md.
 

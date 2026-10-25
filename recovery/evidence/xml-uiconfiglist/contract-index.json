@@ -1,6 +1,6 @@
 {
   "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
-  "componentImplemented": false,
+  "componentImplemented": true,
   "sdkValidated": false,
   "root": {
     "name": "UIConfigList",
@@ -577,5 +577,8 @@
     "bytes": 8,
     "runtimeTypeId": 0,
     "payload": "signed Priority at +4"
-  }
+  },
+  "componentValidated": true,
+  "componentAcceptanceSourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+  "componentAcceptanceRunId": "40159834447"
 }

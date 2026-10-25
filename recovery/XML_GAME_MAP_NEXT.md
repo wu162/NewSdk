@@ -1,4 +1,6 @@
-# GameMap尚未实现：完整依赖入口
+# GameMap：历史调查（已完成组件验收）
+
+2026-10-25更新：以下为实现前调查存档，已由[XML_GAME_MAP.md](XML_GAME_MAP.md)和XMLCOMPILER_PRIORITY.md中的最终验收取代，不再作为未实现清单。
 
 2026-10-25。本轮只调查，**GameMap仍未恢复，不登记为已支持，不拿空根样本计完成**。MapMetaData、Terrain和GameScriptList各自完整组件另有源码及矩阵；不能代替这根。SDK未编译。
 

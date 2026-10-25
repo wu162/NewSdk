@@ -1,17 +1,13 @@
 # XmlCompiler分支续接
 
-2026-10-25（北京时间）。目标recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md，再读[XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)。
+2026-10-25（北京时间）。目标分支recovery/xmlcompiler-priority。先读AGENTS.md、EFFICIENCY.md、XMLCOMPILER_PRIORITY.md。
 
-组件已验证287/301入口，本轮新增104（40组）；完整61组/Od、/O2、平台0/1/2/99及287入口联合DLL运行40142560815成功，源码0f0ab2fce098fef2d78d6a165f3f5ce86c591077。合计1716864 fixtures、9852216数组比较（含适用CompileXml对照）、34264拒绝；联合两模式真实退出0。
+排除12个独立根后，范围内289个XmlCompiler入口的组件还原完成：本轮补齐GameMap和UIConfigList70个内部分派，原Plugin总数301。11个Joypad根及TestGameObject仍排除，不能称301全部完成。
 
-本轮SDK真实编译0次。组件专用catalog现205类，全部SDK pending；历史82类SDK清单/主Plugin/SDK工作流/原SDK未改。旧SDK40098695436只对应92180f9，不能当新287入口DLL的SDK验收。精确证明evidence/xml-component-acceptance-20261025-287.json。
+GameMap完整矩阵锚点092bb95c06647f95891c7f62b4b6fbc875c4c07a/40158416072；UIConfigList完整矩阵锚点4401069feaf5df91043afadaad2410293c33b67e/40159834447，两模式四平台全部通过。最终联合检查状态：completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0。验收索引evidence/xml-component-acceptance-20261025-289.json；静态301项审计evidence/xml-coverage-20261025-289.json。
 
-下一轮完整组：UIConfigList70分派（XML_UI_CONFIG_NEXT.md）或GameMap80根及WorldDict/MapAnalysis（XML_GAME_MAP_NEXT.md），两者都没有半根实现/登记。另11个Joypad根及TestGameObject属原排除项，合计剩14，不能称301完成。非完整Tokenizer/自定义编译器替代；若仍禁SDK继续组件层。
+用户新增要求：不重复触发已验证类型测试。选择器按成功验收提交与真实依赖复用，26项临时Git仓库测试通过；最终运行只选择uiconfig，复用其余62组。联合DLL预检全部289路由，仅对受影响UIConfigList执行差分。未变组保留原sourceCommit/runId，缺失/失败/输入变化仍跑完整矩阵；组件通过后才进行必要联合构建。
 
-保留所有失败/修复/并发父提交与Actions证据。每10–15分钟保存检查点，GitHub插件正常推送，禁止强推；不重做已验证组，不删完整原DLL差分/独立ABI/拒绝边界。详见主交接的ANSI、ALL控制流、Time舍入、文件blob与原真实no-op边界。
+本轮SDK真实编译0次。历史82类SDK清单保持原状，组件专用207类及当前289入口联合DLL整体SDK待验收；旧SDK40098695436/92180f9不可套用。无生产Plugin/SDK路由/原SDK变更，无SDK触发标记或SDK dispatch。组件接受BAB预处理输入，不等于完整Tokenizer或自定义非XML编译器替代。
 
-## 当前进行中检查点
-
-GameMap与UIConfigList完整根/依赖、完整差分测试、289入口联合路由已编写，本地C++语法及生成器重现/静态登记审计通过，Windows矩阵待最终验收。正式验收仍为上面的287入口，不能把289路由登记视为验收通过。见XML_GAME_MAP.md、XML_UI_CONFIG.md。本轮SDK真实编译0次，原排除12个独立根不变。
-
-2026-10-25用户新增：不要触发已验证类型测试。已实现按成功sourceCommit实际依赖复用的组选择与联合根选择，26项选择器测试通过。UI首次宿主CS0136变量冲突已修复，下一运行只测uiconfig及所需联合UI根；最终验收待记录。
+本范围内无剩余根待还原。未来只有明确扩展范围才做排除项，只有授权SDK集成才集中做生产路由、合法输入、真实覆盖、四产物/隔离重放。详见两根类型文档及主交接。保留所有失败/修复/Actions证据，禁止强推。

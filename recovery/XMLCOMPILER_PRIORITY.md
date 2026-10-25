@@ -1,92 +1,47 @@
-# XmlCompiler：当前续接入口
+# XmlCompiler：范围内剩余还原完成
 
-更新：2026-10-25（北京时间）。目标分支 `recovery/xmlcompiler-priority`。本轮约一小时、最多三个子代理，**SDK真实编译0次**。
+2026-10-25（北京时间），目标分支 `recovery/xmlcompiler-priority`。
 
-## 最终状态
+## 当前范围
 
-原Plugin301个登记入口中，**287个完整组件入口通过验收**，较上轮183个新增104个，分40个完整组。当前61组完整矩阵及287入口联合DLL全部通过；这不是301全部完成，也不是总代码复杂度比例。
+原Plugin登记301个入口，**排除12个独立根后，范围内289个入口已完成组件还原**。本轮补齐最后两根：GameMap、UIConfigList。不是301全部恢复，也不是生产SDK全部集成。最终联合检查：completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0。
 
-- 验收源码：`0f0ab2fce098fef2d78d6a165f3f5ce86c591077`。
-- 组件运行：[40142560815](https://github.com/wu162/NewSdk/actions/runs/40142560815)，completed/success，已核sourceCommit/runId与每组两模式、四平台。
-- 完整矩阵：/Od、/O2；平台0/1/2/99；原ProcessInstance三缓冲区逐字节差分、适用直接CompileXml对照、独立ABI与拒绝边界。共1716864 fixtures、9852216数组比较、34264显式拒绝；数组比较含适用直接调用对照，不能全部称为独立原DLL调用。
-- 联合DLL每模式287×4=1148默认样本/3444数组比较，另200 completion场景/600比较（包含真实no-op入口输入）。两模式实际进程退出0；287个精确公开ProcessInstance路由均加载。smoke不替代61组完整矩阵。
-- 265个组件类型在CnC3Types AssetDeclaration中列为资产，其余有独立Plugin登记但仅嵌套/抽象/runtime schema；不能把每个入口都称作可直接声明的SDK资产。
-- 精确证据：[xml-component-acceptance-20261025-287.json](evidence/xml-component-acceptance-20261025-287.json)。完整301项静态登记/路由审计：[xml-coverage-20261025-287.json](evidence/xml-coverage-20261025-287.json)；静态审计本身不代替运行验收。
+- GameMap：完整80字节根、8种列表、Environment12、WorldDict56的7类属性对、MapAnalysis28；见[XML_GAME_MAP.md](XML_GAME_MAP.md)。验收源码 `092bb95c06647f95891c7f62b4b6fbc875c4c07a`，运行[40158416072](https://github.com/wu162/NewSdk/actions/runs/40158416072)。该运行组件62组和289入口联合smoke成功，UI当时测试宿主未通过，不能把整次运行称为整体成功。
+- UIConfigList：完整70个内部分派（47个专用布局、288个字段，23个保留真实尺寸的基类分支）及完整嵌套依赖；见[XML_UI_CONFIG.md](XML_UI_CONFIG.md)。验收源码 `4401069feaf5df91043afadaad2410293c33b67e`，运行[40159834447](https://github.com/wu162/NewSdk/actions/runs/40159834447)。独立ABI覆盖所有70分派、直接/嵌套字段、37条嵌套列表增长路径、全部适用枚举/位集、NUL/ANSI及拒绝边界。
+- 以上两组均完成/Od、/O2、平台0/1/2/99，原ProcessInstance三缓冲区逐字节差分、直接CompileXml对照、独立ABI与显式拒绝。数组比较包含直接对照，不能全部称为独立原DLL调用。
 
-## SDK边界
+| 本轮新增完整根 | Fixtures（两模式） | 数组比较 | 显式拒绝 |
+| --- | ---: | ---: | ---: |
+| GameMap | 30736 | 184416 | 592 |
+| UIConfigList | 171184 | 1027104 | 2160 |
 
-`catalog/XmlRecoveredTypes.json`保留历史82类SDK清单；最后SDK基线仍为40098695436、源码92180f9bbd830b9dbd49a696c259e54ffe2d7721。`catalog/XmlComponentOnlyTypes.json`现单列205类，全部sdkValidated=false，其中本轮新增104、上一轮新增101。当前287入口联合DLL整体SDK未验收，不能把旧82类旧DLL成功结果套到新联合DLL。
+正式验收索引：[xml-component-acceptance-20261025-289.json](evidence/xml-component-acceptance-20261025-289.json)。完整301项静态登记/路由审计：[xml-coverage-20261025-289.json](evidence/xml-coverage-20261025-289.json)，静态审计不替代运行验收。此前287入口基线仍保留在0f0ab2fce098fef2d78d6a165f3f5ce86c591077/运行40142560815及其验收文件。
 
-主Plugin、SetXmlPriorityPlugin、TestXmlPrioritySdk、SDK Oracle/联合probe、SDK工作流、原SDK文件和原DLL均未修改；无SDK触发标记、无手动dispatch SDK。两份联合DLL位于本轮recovered-xmlcompiler-priority-x86 artifact。组件接收BAB预处理后的引用/defaults/继承及数字TypeId，未恢复完整Tokenizer、生产SDK路由或自定义APT/Audio/Map/Texture编译器。
+## 已验证组不重复触发
 
-## 本轮40个完整组
+用户本轮新增要求：不要触发已经验证过类型的测试。工作流现依据 `SelectXmlComponentGroups.py` 对照成功验收sourceCommit与实际源码、测试及递归依赖。未变且已通过的组复用原sourceCommit/runId；缺失、失败、不完整、非祖先证据或输入变化才重新选择。包含验收时和当前依赖集合，删除文件不会造成误跳过；带数字的w3d同样参与。选择器26项临时Git仓库测试通过。
 
-| 组 | 新入口 | Fixtures（两模式合计） | 数组比较 | 拒绝 |
-| --- | ---: | ---: | ---: | ---: |
-| conditions | 4 | 443936 | 2663616 | 504 |
-| targeting | 5 | 656 | 3936 | 280 |
-| evaachievement | 7 | 13976 | 83856 | 424 |
-| healthbars | 2 | 26464 | 158784 | 184 |
-| unitoverlay | 1 | 5168 | 31008 | 128 |
-| objectsets | 3 | 178224 | 1069344 | 288 |
-| visibility | 2 | 65912 | 395472 | 192 |
-| emotions | 2 | 48856 | 293136 | 144 |
-| projectilepath | 1 | 2712 | 16272 | 168 |
-| forcefeedback | 1 | 6536 | 39216 | 64 |
-| content | 5 | 4208 | 25248 | 280 |
-| visualsystems | 3 | 6400 | 38400 | 360 |
-| crowd | 1 | 5576 | 33456 | 192 |
-| radar | 2 | 29688 | 178128 | 352 |
-| renderdevice | 2 | 29592 | 177552 | 208 |
-| localization | 5 | 6440 | 38640 | 416 |
-| commandset | 1 | 2040 | 12240 | 144 |
-| materialrules | 3 | 3000 | 18000 | 168 |
-| uiimages | 3 | 4720 | 28320 | 304 |
-| chatcolors | 1 | 37616 | 225696 | 1688 |
-| moviearchive | 2 | 3184 | 19104 | 136 |
-| systemsettings | 4 | 6776 | 40656 | 216 |
-| campaign | 5 | 12584 | 75504 | 392 |
-| buildeconomy | 4 | 55328 | 331968 | 336 |
-| dynamics | 1 | 1328 | 7968 | 104 |
-| connections | 1 | 1992 | 11952 | 312 |
-| redalert | 1 | 4616 | 27696 | 224 |
-| conquercards | 5 | 5752 | 34512 | 328 |
-| armyopening | 2 | 4704 | 28224 | 144 |
-| assetindexes | 3 | 4760 | 28560 | 240 |
-| renderassets | 3 | 6544 | 39264 | 416 |
-| aptdata | 4 | 1752 | 10512 | 208 |
-| runtimeopaque | 2 | 3280 | 19680 | 136 |
-| mouse | 1 | 1376 | 8256 | 64 |
-| abilitybuttons | 2 | 12072 | 72432 | 824 |
-| testtextures | 2 | 960 | 5760 | 136 |
-| terrain | 2 | 3600 | 21600 | 168 |
-| w3d | 4 | 13856 | 83136 | 328 |
-| mapmetadata | 1 | 3336 | 20016 | 152 |
-| gamescripts | 1 | 2000 | 12000 | 208 |
+最终运行实际只选择uiconfig，复用其余62组，联合差分仅选择UIConfigList。所有选中组保留完整矩阵；联合DLL始终预检289个公开路由，但不对未选根调用原DLL。联合构建在受影响组件通过后才启动，输入未变则复用。最新选择性smoke不能冒充289个根全部重新做默认样本；完整289根smoke锚点为092bb95c/40158416072，最新代码的全部路由预检及受影响UI根smoke另有本轮精确证据。
 
-逐根名称、TypeId、TypeHash、schemaGlobal在对应Xml<group>Types.json及组件专用总表；字段/原方法/布局见对应XML_*.md。条件、目标比较、Eva/成就、健康条、叠层、对象集、隐身、情绪、弹道、力反馈、内容/情报、本地化/字幕、命令集、渲染设备/资源、系统设置、道路/着色器、群体/雷达/图像、征服卡/战役/军队、文件blob、按钮分派、W3D、地图元数据和游戏脚本均按完整根及依赖实现，不把内部helper或未知根fallback另计入口。
+## 原范围排除12根
 
-## 关键合同与修复
+`TestGameObject`、`UIJoypadCommandBarMixedGroup`、`UIJoypadCommandBarHomogenousGroup`、`UIJoypadCommandBarCoopCommunicator`、`JoypadCommandBarButtonTemplate`、`UIJoypadCommandBarStances`、`JoypadCommandBarTemplate`、`UIJoypadCommandBarTopMenu`、`UIJoypadCommandBarPlayerPowers`、`UIJoypadCommandBarButtonBuild`、`UIJoypadCommandBarControlGroups`、`UIJoypadCommandBarSingleUnit`。
 
-- 原IValue字符串使用StringToHGlobalAnsi；字符串长度和hash按首NUL的ANSI字节合同，不能自行改为UTF8。uiimages独立断言已逐字节验证ANSI、终止NUL及padding，Unicode/NUL样本未删。
-- ModelCondition的ALL虽在静态表也有编号，但原Marshal先识别ALL并填满所有word（含padding）；INVALID=-1被范围guard跳过。ALL分支未推进token，后续负号项不执行；已核原控制流并保留独立逐word断言和无ALL负号对照。
-- Time保留原float单位比例后乘法/回舍入；1500ms位是3fc00001，不是十进制近似1.5f。未修改共享helper迁就错误预期。
-- 强引用输出index+1、-1仍产生import；bookmarks按owner block再按index/target block排序。各分配混合与逆序引用均有独立ABI。
-- ShaderOverrideRule/ArchivableMovie/ArchiveMovieList及三个Condition根首word不是统一保留0；按真实结构核验。CommandSet不是CnC3Types全局资产，其大端默认word32断言按完整word验证。
-- APT4根和TestTexture确实读本地文件，完整覆盖空文件Push0、target==实例末尾、失败文件、padding及不swap payload；测试仅用临时夹具，未碰SDK真实编译。
-- BaseRenderAssetType4与AudioFileRuntime32是原独立Xml入口明确no-op（后者Value读后丢弃），有原Handler合同与hash证据；不是未知TypeId空fallback，也不是恢复自定义Audio/Render编译器。方法digest注明UTF8/LF规范化。
-- Ability按钮17种Data、W3D Delta/Timecoded、ConquerCard和GameScript参数保留完整原数字分派及原base fallback；unknown根继续拒绝。W3D矩阵/short/byte、地图StartPosition小写坐标与W3D大写坐标按各自合同；NUL边界用DOM构造，不删样本。
-- 前四次失败运行及修复保留在提交/Actions历史；不删断言、不以重试掩盖差异。最终以上述成功源码/运行与完整矩阵为准。
+11个Joypad命名独立根和TestGameObject没有计入完成。UIConfigList内部带Joypad名称的组件是该根的必要依赖，未新增这些独立根的支持。GameObject源码及另会话compiler-source分支未改。只有未来明确扩展范围时才恢复上述排除项。
 
-## 剩余14入口
+## 关键合同和本轮修复
 
-本轮仍未恢复的两根：
+- IValue按Windows ANSI、首NUL的C字符串合同处理；字符串payload不改UTF8。UIDynamicConfig.Name使用保留大小写的FastHash；Type缺省0、显式未知2。ComponentList按数字BAB TypeId分派，未知内部ID保留原8字节基类回退/runtime0；未知根仍拒绝。
+- GameMap的MapMetaData子节点原本是pipelineOnly且不写根；AssetIdListProperty保存ANSI字符串记录，不是hash/import。USP派生字符串先于基类；引用按owner block和无符号资源index排序，index=-1排在该owner末尾。首轮独立排序断言错误已修正，未修改实现迁就预期。
+- UI的PercentageTag默认字符串1.0原样缩放为0.01，位0x3c23d70a；独立测试保留该单位合同，不能按普通float预期1.0。原测试宿主CS0136变量重名和此预期问题均已修复，样本未删。
+- UI ObjectFilter适配层对Rule/Alignment显式截至首NUL，修复ANY加NUL尾部原2/恢复1的实际差异；共享ObjectFilter.cpp未改。其他hash、位集及字符串沿用已验证的首NUL实现。ObjectStatus223个命名值，七个word的ALL包括padding位。
+- packed ColorTag仅在子节点存在时应用A255，缺失子节点保留0；RGBColor为独立float3。所有70分派保留原默认、布局、分配顺序和RuntimeTypeId，不按XML标签猜测类型、不用半根或空根计完成。
+- 原先287入口的ALL不推进token、Time舍入、强引用index+1、ANSI和文件blob合同保持不变；本轮未改共享解析/重定位/helper。历史失败、修复、并发父提交和Actions产物保留；一次旧证据回写rebase冲突不作为运行成功证明。
 
-1. `UIConfigList`：完整70个内部多态分派，见[XML_UI_CONFIG_NEXT.md](XML_UI_CONFIG_NEXT.md)及evidence/xml-uiconfiglist/contract-index.json。没有登记部分实现。
-2. `GameMap`：80字节根、8种列表、Environment/WorldDict56七种pair、MapAnalysis28等完整依赖，见[XML_GAME_MAP_NEXT.md](XML_GAME_MAP_NEXT.md)。原入口不是no-op；不截断根，MapMetaData pipelineOnly忽略等合同已记录。
+## SDK边界与下一步
 
-原范围排除12根：`TestGameObject`, `UIJoypadCommandBarMixedGroup`, `UIJoypadCommandBarHomogenousGroup`, `UIJoypadCommandBarCoopCommunicator`, `JoypadCommandBarButtonTemplate`, `UIJoypadCommandBarStances`, `JoypadCommandBarTemplate`, `UIJoypadCommandBarTopMenu`, `UIJoypadCommandBarPlayerPowers`, `UIJoypadCommandBarButtonBuild`, `UIJoypadCommandBarControlGroups`, `UIJoypadCommandBarSingleUnit`。其中11个Joypad命名根与TestGameObject未计完成；GameObject源码/另会话compiler-source未动。若要301全登记入口，需要之后明确把排除项纳入，并完成它们各自完整组件矩阵；当前仅287/301。
+**本轮SDK真实编译0次。** 历史82类SDK清单保持原状，当前组件专用清单207类全部sdkValidated=false。最后历史SDK基线仍是40098695436、源码92180f9bbd830b9dbd49a696c259e54ffe2d7721，不能套用到新289入口联合DLL。
 
-下一轮先按用户范围选择UIConfigList或GameMap完整组；如仍禁SDK，继续component-only。仅未来明确允许时再批量做205类生产SDK路由、合法样例、真实覆盖与四产物/隔离重放，不得暗中触发。
+生产Plugin、SetXmlPriorityPlugin、SDK probe/工作流及原SDK/DLL未修改，没有SDK触发标记或SDK dispatch。组件接受BAB预处理后的defaults/继承/引用和数字TypeId；未恢复完整Tokenizer及自定义APT/Audio/Map/Texture编译器，不宣称替代整个生产SDK。
 
-固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。复用原证据/共享helper，按完整能力组合批，检查点与完整验证分开；分支recovery/xmlcompiler-20261025-components及主分支保留全部父历史，GitHub插件正常更新，无强推。没有可比账号额度数据，不量化节省。
+范围内组件还原已收尾。未来若明确授权SDK集成，再集中做207类生产路由、合法样例、真实覆盖及四产物/隔离重放验收；不得自动启动。继续按受影响输入选择测试，不重跑未变成功组。固定Module blob `2d2f471c8008b7c2e1f78e39752d0726da395cea`、Plugin blob `00bb9e5df72d07a21204f85f9a9a2f1d9557f00b`、原DLL SHA256 `d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6`。禁止强推。

@@ -1,4 +1,4 @@
-# UIConfigList — complete component implementation, acceptance pending
+# UIConfigList — complete component implementation accepted
 
 2026-10-25. This batch targets the one original UIConfigList root, including all70 concrete internal component layouts and their nested dependencies. It does not recover or register any of the11 excluded independent Joypad roots or TestGameObject. Internal component names that contain Joypad remain required dependencies of this root. No real SDK compilation or production SDK routing changes.
 
@@ -10,7 +10,7 @@ The70-branch inventory is evidence/xml-uiconfiglist/contract-index.json. Source-
 
 Nested dependencies include Options DefaultValues72 and SingleCommandList/InputButton, lobby option lists and slot state, ticker/stat/movie lists, RadiusDecalTemplate64-byte components, ObjectFilter112, FontDesc, RGBColor, packed ColorTag, coordinates, text AssetIds and typed asset lists. ColorTag uses byte truncation of unsigned channels, with A255 only when the child is present; absent child remains0. RGBColor uses separate float channels. Original odd string/default values are preserved from static bytes, not inferred from schema.
 
-Validation entry TestXmluiconfig.ps1: /Od and /O2, platforms0/1/2/99, original ProcessInstance three buffers plus direct recovered CompileXml comparison, independently asserted runtime IDs/sizes/offsets/defaults, nonempty scalar and nested inputs, every enum, ANSI/NUL, unknown enums and original internal fallback, allocations/list growth and explicit rejected input boundaries. Combined-link smoke is additional coverage, not a substitute for this full matrix. Runtime results and acceptance sourceCommit/runId are pending until explicitly recorded after success.
+Validation entry TestXmluiconfig.ps1: /Od and /O2, platforms0/1/2/99, original ProcessInstance three buffers plus direct recovered CompileXml comparison, independently asserted runtime IDs/sizes/offsets/defaults, nonempty scalar and nested inputs, every enum, ANSI/NUL, unknown enums and original internal fallback, allocations/list growth and explicit rejected input boundaries. Combined-link smoke is additional coverage, not a substitute for this full matrix. Full component matrix accepted at4401069feaf5df91043afadaad2410293c33b67e/run40159834447:171184fixtures,1027104array comparisons,2160rejections across both modes and all four platforms. Final combined check:completed/success：源码4401069feaf5df91043afadaad2410293c33b67e，运行40159834447；289路由全部预检，UIConfigList选择性smoke两模式四平台真实退出0.
 
 Implementation is split into Xmluiconfig.cpp (root/common), XmluiconfigComponents.inc (concrete components), XmluiconfigNested.inc (dependencies) and XmluiconfigCompiler.cpp (managed bridge), to keep the large source navigable. No recovery of full production Tokenizer, BAB preprocessing or custom non-XML compilers is claimed.
 
