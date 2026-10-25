@@ -16,7 +16,10 @@ excerpts are in [loop-metadata-disassembly.txt](loop-metadata-disassembly.txt).
   positive; `0x37447..0x37483` reads only the first 24-byte record and copies
   its start and inclusive end. It never tests record type, ID, fractional
   offset, or play count. Additional records and later sampler chunks cannot
-  override that first range. Consequently type1/type2 are accepted as the
+  override that first range. The lookup advances by exactly size+8 without
+  adding RIFF odd-byte padding: a sampler after odd-sized data is invisible.
+  The candidate separately performs strict standard chunk bounds checks and
+  bounded native-style lookup, preserving that behavior. Consequently type1/type2 are accepted as the
   ordinary forward runtime range; this is **not alternating/reverse playback**.
 - AIFF and AIFC use the same chunk scan. `0x384a6..0x384fc` reads each INST
   sustain mode/start-ID/end-ID into the same local storage. The last INST
@@ -33,7 +36,7 @@ excerpts are in [loop-metadata-disassembly.txt](loop-metadata-disassembly.txt).
 - Native marker-group allocation is `0x324` bytes: one count plus 200 pointer
   slots. The candidate bounds each group and the group list to 200. Truncated
   records/names, excessive counts, trailing marker bytes, ambiguous IDs,
-  missing instrument/marker chunks, incomplete selected pairs, and invalid
+  marker-only chunks, incomplete selected pairs, and invalid
   loop ranges remain explicit refusals. Unsafe original memory behavior is
   outside the compatibility contract.
 
@@ -63,8 +66,8 @@ are exercised at unchanged rate and 11025 Hz:
 
 The batch contains 4,224 plugin records per configuration and 2,112 independent
 variant-versus-canonical comparisons per side. `AudioLoopMetadataReaderOracle`
-adds 528 independent expected-range checks and four malformed/oversized-marker
-refusals. Prior loop boundary tests are updated to assert the newly accepted
+adds 528 independent expected-range checks, two explicit smpl-before-odd-data
+checks, and four malformed/oversized-marker refusals. Prior loop boundary tests are updated to assert the newly accepted
 metadata behavior; their other structural, missing-marker, range and encoder
 bounds assertions are retained. Existing loop/format/ADP4/SSND regressions are
 still required for this shared importer change.
@@ -110,10 +113,29 @@ show the initialized no-loop contract:
   neither selected ID cannot change the final range. Their positions may be
   ignored by the candidate while their structural/name bounds remain checked.
 
-The draft `AudioLoopMetadataOptionalCases.cs` contains3,888 records and1,944
-canonical comparisons: AIFF/AIFC NONE/raw ADP4, PCM8/16/24 mono/stereo,
+The candidate follow-up `AudioLoopMetadataOptionalCases.cs` contains3,888 records
+and1,944 canonical comparisons: AIFF/AIFC NONE/raw ADP4, PCM8/16/24 mono/stereo,
 NONE/XAS RAM/streamed, and unchanged/downsample/upsample rates. Nine variants
 cover INST-only and empty-MARK modes0/1/2, neither selected ID, auxiliary
 positions beyond the source extent, and signed-negative auxiliary positions.
-This draft is not part of source40ebb670's already running matrix and has not
-yet been accepted or enabled.
+This follow-up is implemented but pending its original/candidate differential;
+it was not part of source40ebb670's matrix. Its independent reader adds324
+expected-range assertions plus4 retained refusals (start-only, end-only,
+MARK-only, selected signed-negative position). Script:
+`recovery/scripts/TestAudioLoopOptionalMetadata.ps1`; receipts use
+`evidence/audio/loop-optional-validation/<runId>-<attempt>`.
+
+## First recovered differential and correction
+
+Source40ebb670, run40242571724-1: the532 then-current independent reader
+assertions passed and all4,224 recovered Debug plugin calls completed, but
+224 records differed from the original. All differences were WAVE mono
+PCM8/24 with257 frames, for which the data chunk has an odd byte length.
+The native lookup skipped no padding and therefore never found the trailing
+smpl; the prior candidate found it through normal padded traversal. The
+correction preserves bounded native lookup independently of container safety
+validation. The original/canonical same-side invariants passing did not prove
+cross-implementation equivalence. This run remains failed, not accepted.
+The corrected candidate requires a fresh full loop differential; the new
+independent assertions explicitly cover both trailing-invisible and
+preceding-visible samplers for odd-sized sources.

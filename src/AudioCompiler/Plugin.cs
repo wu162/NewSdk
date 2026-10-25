@@ -13,7 +13,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 
     // PathMusic business handlers and metadata are recovered. The original
     // Initialize's native RenderWare codec registry is deliberately not created:
-    // AudioFile uses the recovered PCM8/PCM16 WAVE backend; MPEG validation uses bundled NLayer.
+    // AudioFile uses recovered PCM import/encoding; MPEG passthrough recovers
+    // SIMEX identification and header-info behavior without decoding the payload.
     public class Plugin : IAssetBuilderPlugin, IDisposable
     {
         private readonly Tracer m_Tracer = Tracer.GetTracer("AudioCompiler", "Provides Audio processing functionality");

@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
@@ -77,15 +76,55 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         internal static bool IsContainer(byte[] data)
         {
-            // The original SIMEX registry gives these enclosing formats priority
-            // over the score-75 MPEG scan. Do not reinterpret their payload as a
-            // raw MPEG file merely because seven headers happen to occur inside.
-            if (data.Length < 4) return false;
-            return Matches(data, "RIFF") || Matches(data, "FORM") || Matches(data, "OggS") || Matches(data, "fLaC") || Matches(data, "SCHl");
+            // Native score100 importers outrank the score75 MPEG scanner only
+            // after their own identification succeeds. A four-byte prefix alone
+            // does not identify an enclosing format (RVA 0x370D0 / 0x38010).
+            if (data.Length < 12) return false;
+            if (Matches(data, "RIFF", 0) && Matches(data, "WAVE", 8))
+            {
+                for (long at = 12; at <= data.Length - 8; )
+                {
+                    int offset = (int)at;
+                    if (Matches(data, "fmt ", offset))
+                    {
+                        if (at > data.Length - 24) return false;
+                        int format = data[offset + 8] | (data[offset + 9] << 8);
+                        return format == 1 || format == 0xfffe;
+                    }
+                    // The identifier skips the declared byte count; unlike the
+                    // AIFF identifier it does not round odd chunk sizes up.
+                    at += 8L + Word(data, offset + 4, false);
+                }
+                return false;
+            }
+            if (data.Length < 50 || !Matches(data, "FORM", 0)) return false;
+            if (Matches(data, "AIFF", 8)) return true;
+            if (!Matches(data, "AIFC", 8)) return false;
+            long declared = Word(data, 4, true), consumed = 4;
+            for (long at = 12; at <= data.Length - 8; )
+            {
+                int offset = (int)at;
+                uint size = Word(data, offset + 4, true);
+                long padded = size + (size & 1L);
+                if (Matches(data, "COMM", offset))
+                {
+                    if (size < 22 || at + 8 + padded > data.Length) return false;
+                    return Matches(data, "NONE", offset + 26) || Matches(data, "ADP4", offset + 26);
+                }
+                consumed += 8 + padded;
+                if (consumed >= declared) return false;
+                at += 8 + padded;
+            }
+            return false;
         }
-        private static bool Matches(byte[] data, string value)
+        private static uint Word(byte[] data, int at, bool big)
         {
-            for (int i = 0; i < value.Length; ++i) if (data[i] != value[i]) return false;
+            return big ? ((uint)data[at] << 24) | ((uint)data[at+1] << 16) | ((uint)data[at+2] << 8) | data[at+3] :
+                data[at] | ((uint)data[at+1] << 8) | ((uint)data[at+2] << 16) | ((uint)data[at+3] << 24);
+        }
+        private static bool Matches(byte[] data, string value, int at)
+        {
+            for (int i = 0; i < value.Length; ++i) if (data[at+i] != value[i]) return false;
             return true;
         }
 
@@ -99,18 +138,10 @@ namespace BinaryAssetBuilder.AudioCompiler
                 if (payload == 0) break;
                 position += 4L + payload;
             }
-            // NLayer is a MIT-licensed replacement for the original decoder.
-            // Decode all available samples so passthrough is not reduced to a
-            // header-only acceptance check. PCM output is intentionally discarded.
-            using (MemoryStream stream = new MemoryStream(data, first, data.Length - first, false))
-            using (NLayer.MpegFile decoder = new NLayer.MpegFile(stream))
-            {
-                float[] pcm = new float[8192];
-                long samples = 0;
-                int count;
-                while ((count = decoder.ReadSamples(pcm, 0, pcm.Length)) != 0) samples += count;
-                if (samples == 0) throw new InvalidDataException("No MPEG audio samples were decoded.");
-            }
+            // SIMEX_info (RVA 0x25490) dispatches MPEG format34 to RVA
+            // 0x2F8C0. That routine scans headers and seeks over payload bytes;
+            // PCM decoding belongs to the separate import/read path. Requiring
+            // a replacement decoder here rejects inputs accepted by the SDK.
             return channels;
         }
     }

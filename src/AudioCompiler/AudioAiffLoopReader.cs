@@ -46,8 +46,11 @@ namespace BinaryAssetBuilder.AudioCompiler
                 if (cursor > limit) throw new InvalidDataException("Missing AIFF chunk padding");
             }
             if (instrument < 0 && markerChunks.Count == 0) return false;
-            if (instrument < 0 || markerChunks.Count == 0)
-                throw new NotSupportedException("AIFF sustain metadata requires both instrument and marker chunks");
+            if (instrument < 0)
+                throw new NotSupportedException("AIFF marker-only metadata reads an uninitialized native sustain mode");
+            // With no MARK groups the native importer skips resolution; both
+            // initialized SSOUND loop positions remain -1, for every INST mode.
+            if (markerChunks.Count == 0) return false;
             int mode = U16(bytes, instrument + 8);
             int beginId = U16(bytes, instrument + 10), endId = U16(bytes, instrument + 12);
             if (mode == 1 && (beginId == 0 || endId == 0 || beginId == endId))
@@ -68,7 +71,11 @@ namespace BinaryAssetBuilder.AudioCompiler
                     int at = checked((int)record);
                     int id = U16(bytes, at), nameLength = bytes[at + 6];
                     uint position = U32(bytes, at + 2);
-                    if (position > int.MaxValue) throw new NotSupportedException("AIFF marker position is out of range");
+                    bool selected = mode == 1 && (id == beginId || id == endId);
+                    if (selected && position > int.MaxValue)
+                        throw new NotSupportedException("AIFF selected marker position is out of range");
+                    // Unselected auxiliary positions never change the runtime
+                    // loop, including native signed-negative/out-of-range values.
                     // Both native comparisons are independent; selected IDs are distinct.
                     // Every later matching record replaces the previous position.
                     if (mode == 1 && id == beginId) first = position;
@@ -81,6 +88,9 @@ namespace BinaryAssetBuilder.AudioCompiler
             // Native reads sustain mode only. Release fields are ignored, and
             // other sustain modes do not install a runtime loop.
             if (mode != 1) return false;
+            // No matching selected ID is the initialized no-loop domain. A
+            // partial pair is different (notably under resampling), so refuse it.
+            if (first == uint.MaxValue && final == uint.MaxValue) return false;
             if (first == uint.MaxValue || final == uint.MaxValue || final <= first)
                 throw new NotSupportedException("AIFF sustain loop markers must form a nonempty range");
             start = (int)first;

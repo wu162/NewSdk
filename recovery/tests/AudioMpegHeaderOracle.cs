@@ -9,11 +9,12 @@ internal static class AudioMpegHeaderOracle
     private static int Main(string[] args)
     {
         try {
-            if (args.Length!=3) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv identifier.tsv");
+            if (args.Length!=4) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv identifier.tsv info.tsv");
             Assembly library=Assembly.LoadFrom(Path.GetFullPath(args[0]));
             Type type=library.GetType("BinaryAssetBuilder.AudioCompiler.MpegPassthrough",true);
             MethodInfo parse=type.GetMethod("ParseHeader",BindingFlags.Static|BindingFlags.NonPublic);
             MethodInfo find=type.GetMethod("FindFirstFrame",BindingFlags.Static|BindingFlags.NonPublic);
+            MethodInfo info=type.GetMethod("Validate",BindingFlags.Static|BindingFlags.NonPublic);
             int count=0;
             foreach (string line in File.ReadLines(args[1])) {
                 string[] fields=line.Split('\t');
@@ -34,6 +35,14 @@ internal static class AudioMpegHeaderOracle
                 identifiers++;
             }
             if (identifiers!=441) throw new Exception("Incomplete original identifier matrix: "+identifiers);
+            int infos=0;
+            foreach (string line in File.ReadLines(args[3])) {
+                string[] fields=line.Split('\t');
+                byte actual=(byte)info.Invoke(null,new object[] {Convert.FromBase64String(fields[3]),int.Parse(fields[1])});
+                if (actual!=byte.Parse(fields[2])) throw new Exception("Original SIMEX_info channel mismatch: "+fields[0]);
+                infos++;
+            }
+            if (infos!=324) throw new Exception("Incomplete original SIMEX_info matrix: "+infos);
             byte[] header={255,251,80,196}; object[] valid={header,0,(byte)0};
             int stride=4+(int)parse.Invoke(null,valid);
             int checks=0;
@@ -47,7 +56,7 @@ internal static class AudioMpegHeaderOracle
                 if (actual!=expected) throw new Exception("MPEG seven-header boundary mismatch");
                 checks++;
             }
-            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+identifiers+" native identifier records; "+checks+" identification boundaries"); return 0;
+            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+identifiers+" native identifier records; "+infos+" native SIMEX_info records; "+checks+" identification boundaries"); return 0;
         } catch (Exception error) { Console.Error.WriteLine(error);return 1; }
     }
 }

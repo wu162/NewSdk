@@ -76,7 +76,7 @@ internal static class AudioAiffLoopReaderOracle
             Reject(altered, typeof(NotSupportedException));
             altered = new byte[valid.Length - 28];
             Array.Copy(valid, altered, altered.Length); BE(altered, 4, (uint)(altered.Length - 8), 4);
-            Reject(altered, typeof(NotSupportedException));
+            Accept(altered, false, -1, -1);
             altered = new byte[valid.Length - 28];
             Array.Copy(valid, altered, plain.Length);
             Array.Copy(valid, valid.Length - 28, altered, plain.Length, 28);

@@ -41,10 +41,24 @@ internal static class AudioLoopMetadataReaderOracle
             {
                 string path = Path.Combine(args[1], "loopmeta-" + format + "-" + bits + "-" + channels + "-" + variant + "." + (format == "wave" ? "wav" : "aiff"));
                 bool expected = variant != "mode0" && variant != "first-zero" && (variant != "mode2" || format == "wave");
+                // Native smpl lookup does not add RIFF odd-byte padding.
+                if (format == "wave" && channels == 1 && bits != 16) expected = false;
                 Read(File.ReadAllBytes(path), format == "wave", expected);
                 Read(File.ReadAllBytes(path + ".canonical"), format == "wave", expected);
             }
             if (checks != 528) throw new Exception("Missing loop metadata fixture coverage");
+            // A smpl placed before the same odd-sized data remains visible:
+            // the regression must not disable all mono PCM8/24 WAVE looping.
+            foreach (int bits in new int[] { 8, 24 })
+            {
+                byte[] odd = File.ReadAllBytes(Path.Combine(args[1], "loopmeta-wave-" + bits + "-1-canonical.wav"));
+                int sampler = odd.Length - 68;
+                byte[] shifted = new byte[odd.Length];
+                Array.Copy(odd, 0, shifted, 0, 36);
+                Array.Copy(odd, sampler, shifted, 36, 68);
+                Array.Copy(odd, 36, shifted, 104, sampler - 36);
+                Read(shifted, true, true);
+            }
             byte[] valid = File.ReadAllBytes(Path.Combine(args[1], "loopmeta-aiff-16-1-canonical.aiff"));
             // Final MARK has two eight-byte records: count at length-18.
             int count = valid.Length - 18;

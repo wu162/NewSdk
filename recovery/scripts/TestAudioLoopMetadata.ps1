@@ -42,7 +42,7 @@ try {
             Compare-Object (Get-Content "$out/original.txt") (Get-Content "$out/$mode.txt") | Out-String -Width 2000 | Set-Content "$out/$mode-difference.txt"
             throw "$mode loop metadata transcript differs"
         }
-        $receipt.configurations += @{configuration=$mode;passed=$true;records=4224;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;canonicalPairInvariants=2112;readerAssertions=532}
+        $receipt.configurations += @{configuration=$mode;passed=$true;records=4224;transcriptSha256=(Get-FileHash "$out/$mode.txt").Hash.ToLowerInvariant();recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true;canonicalPairInvariants=2112;readerAssertions=534}
         Write-Host "PASS loop metadata $mode`:4224 complete plugin records identical"
     }
     $receipt.status='passed'

@@ -10,6 +10,7 @@ import hashlib
 import itertools
 import json
 import pathlib
+import random
 import struct
 
 import pefile
@@ -34,7 +35,7 @@ def main():
     cpu.mem_map(0x10000000, 0x140000)
     cpu.mem_write(0x10000000, pe.get_memory_mapped_image())
     cpu.mem_map(0x20000000, 0x10000)
-    cpu.mem_map(0x30000000, 0x1000)
+    cpu.mem_map(0x30000000, 0x10000)
     cpu.mem_map(0x40000000, 0x1000)
     words = []
     # All return/channel-affecting header fields. All four mode values matter
@@ -70,12 +71,14 @@ def main():
     state = {}
 
     def file_hook(machine, address, size, unused):
-        if address not in (0x1003a310, 0x1003a1c0, 0x10039ef0, 0x100398c0):
+        if address in (0x1003bc00, 0x1002fa80, 0x100404e0):
+            raise ValueError("MPEG info unexpectedly entered a PCM sample-read path")
+        if address not in (0x1003a300, 0x1003a310, 0x1003a1c0, 0x10039ef0, 0x100398c0, 0x10039630, 0x10009aae):
             return
         stack = machine.reg_read(UC_X86_REG_ESP)
         ret, a, b, c = struct.unpack("<4I", machine.mem_read(stack, 16))
-        if address == 0x1003a310:
-            result = state["position"]
+        if address in (0x1003a300, 0x1003a310):
+            result = len(state["data"]) if address == 0x1003a300 else state["position"]
             machine.reg_write(UC_X86_REG_EDX, result >> 32)
         elif address == 0x1003a1c0:
             state["position"] = b | c << 32
@@ -85,10 +88,19 @@ def main():
             if result:
                 machine.mem_write(b, state["data"][state["position"]:state["position"] + result])
             state["position"] += result
-        else:
+        elif address == 0x100398c0:
             if b != 4:
                 raise ValueError("Unexpected original header endian read")
             result = int.from_bytes(machine.mem_read(a, b), "big")
+        elif address == 0x10039630:
+            result = state["heap"]
+            state["heap"] += (a + 15) & ~15
+            if state["heap"] > 0x30010000:
+                raise ValueError("Original MPEG info allocator exceeded its bound")
+            machine.mem_write(result, bytes([0xa5]) * a)
+        else:
+            machine.mem_write(a, bytes([b & 255]) * c)
+            result = a
         machine.reg_write(UC_X86_REG_EAX, result & 0xffffffff)
         machine.reg_write(UC_X86_REG_ESP, stack + 4)
         machine.reg_write(UC_X86_REG_EIP, ret)
@@ -131,14 +143,50 @@ def main():
         identifier_rows.append(f"{label}\t{offset}\t{base64.b64encode(data).decode('ascii')}\n")
     identifier_path = output.with_name(output.stem + "-identifier.tsv")
     identifier_path.write_text("".join(identifier_rows), encoding="ascii")
+    info_rows = []
+    patterns = ("zero", "one", "55", "aa", "ff", "seed1", "seed7", "seed12345", "seed19088743")
+    for mode, frames, pattern, prefix, last_payload in itertools.product(
+            (0, 3), (7, 8, 13), patterns, (0, 17), (0, 1, 100)):
+        rng = random.Random(int(pattern[4:])) if pattern.startswith("seed") else None
+        fill = {"zero": 0, "one": 1, "55": 85, "aa": 170, "ff": 255}.get(pattern, 0)
+        data = bytearray([0x55] * prefix)
+        data.extend(bytes((frames - 1) * stride + 4 + last_payload))
+        for index in range(frames):
+            start = prefix + index * stride
+            data[start:start + 4] = bytes([255, 251, 16, mode << 6])
+            for at in range(start + 4, min(len(data), start + stride)):
+                data[at] = rng.randrange(256) if rng else fill
+        state.update(data=bytes(data), position=0, heap=0x30001000)
+        cpu.mem_write(0x30000000, bytes(0x440))
+        cpu.mem_write(0x30000004, struct.pack("<I", 34))
+        cpu.mem_write(0x30000010, struct.pack("<I", 0x30000600))
+        cpu.mem_write(0x30000800, bytes(4))
+        cpu.mem_write(0x20008000, struct.pack("<4I", 0x40000000, 0x30000000, 0x30000800, 0))
+        cpu.reg_write(UC_X86_REG_ESP, 0x20008000)
+        cpu.reg_write(UC_X86_REG_FPCW, 0x37f)
+        # Actual public dispatch, native format34 callback and SINFO constructors;
+        # only OS file I/O, allocator and memset are hooks.
+        cpu.emu_start(0x10025490, 0x40000000, count=1000000)
+        if cpu.reg_read(UC_X86_REG_ESP) != 0x20008004 or cpu.reg_read(UC_X86_REG_EAX) != 1:
+            raise ValueError("Original MPEG SIMEX_info did not succeed normally")
+        info = struct.unpack("<I", cpu.mem_read(0x30000800, 4))[0]
+        metadata = struct.unpack("<I", cpu.mem_read(info, 4))[0]
+        channels = cpu.mem_read(metadata + 0x1f6, 1)[0]
+        sample_count = struct.unpack("<I", cpu.mem_read(metadata + 0x218, 4))[0]
+        label = f"info-{mode}-{frames}-{pattern}-{prefix}-{last_payload}"
+        info_rows.append(f"{label}\t{prefix}\t{channels}\t{base64.b64encode(data).decode('ascii')}\t{sample_count}\n")
+    info_path = output.with_name(output.stem + "-info.tsv")
+    info_path.write_text("".join(info_rows), encoding="ascii")
     receipt = dict(originalSha256=EXPECTED_SHA, nativeRva="0x44d40", records=len(rows),
                    transcriptSha256=hashlib.sha256(output.read_bytes()).hexdigest(),
                    identifierRva="0x2f6f0", identifierRecords=len(identifier_rows),
                    identifierSha256=hashlib.sha256(identifier_path.read_bytes()).hexdigest(),
+                   infoDispatchRva="0x25490", infoCallbackRva="0x2f8c0", infoRecords=len(info_rows),
+                   infoSha256=hashlib.sha256(info_path.read_bytes()).hexdigest(),
                    emulator="Unicorn x86; initialized SINFO; x87 control 0x037f",
-                   scope="MPEG header return/channel mutation and raw file identification; not decoder acceptance")
+                   scope="MPEG header return/channel, raw identification and SIMEX_info payload independence; no PCM decoder path")
     output.with_suffix(".json").write_text(json.dumps(receipt, indent=2) + "\n")
-    print(f"PASS original MPEG machine-code oracle: {len(rows)} header and {len(identifier_rows)} identifier records")
+    print(f"PASS original MPEG machine-code oracle: {len(rows)} header, {len(identifier_rows)} identifier and {len(info_rows)} SIMEX_info records")
 
 
 if __name__ == "__main__":

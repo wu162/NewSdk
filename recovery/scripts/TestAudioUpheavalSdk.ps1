@@ -4,13 +4,18 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path; Set-Location $root
 if (!$env:RUNNER_TEMP) { $env:RUNNER_TEMP=[IO.Path]::GetTempPath() }
 if (!$env:GITHUB_RUN_ID -or !$env:GITHUB_RUN_ATTEMPT) { throw 'Upheaval milestone requires an identified Actions run' }
 $source=(Resolve-Path $ModSourcePath).Path
+$expectedModCommit='068643219fded09a05fb7b75c6507b769c430316'
+$actualModCommit=(& git -C $source rev-parse HEAD).Trim()
+if ($LASTEXITCODE -ne 0 -or $actualModCommit -ne $expectedModCommit) { throw 'Upheaval source is not the required pinned checkout' }
+$sourceChanges=@(& git -C $source status --porcelain --untracked-files=all -- .)
+if ($LASTEXITCODE -ne 0 -or $sourceChanges.Count -ne 0) { throw 'Pinned Upheaval source has local modifications or untracked inputs' }
 $out="recovery/evidence/audio/upheaval-sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 if (Test-Path $out) { throw 'Refusing to overwrite Upheaval SDK evidence' }
 New-Item -ItemType Directory $out | Out-Null; $out=(Resolve-Path $out).Path
 $work=Join-Path $env:RUNNER_TEMP ('audio-upheaval-'+[Guid]::NewGuid().ToString('N'))
 $sdk=Join-Path $work 'SDK'; $build=Join-Path $work 'build'
 New-Item -ItemType Directory $sdk,$build -Force | Out-Null
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';succeeded=$false;sdkStarted=$false;originalBaselinePassed=$false;modSourceCommit='068643219fded09a05fb7b75c6507b769c430316';scope='Complete pinned Upheaval/PublicCases input; original BAB case3/4/5; only AudioCompiler replaced; other compiler plugins use SDK baseline';fullCombinedRecoveredCompilerValidated=$false;finalExeIntegrated=$false;invocations=@();outputs=@();runs=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';succeeded=$false;sdkStarted=$false;originalBaselinePassed=$false;modSourceCommit=$actualModCommit;expectedModSourceCommit=$expectedModCommit;scope='Complete pinned Upheaval/PublicCases input; original BAB case3/4/5; only AudioCompiler replaced; other compiler plugins use SDK baseline';fullCombinedRecoveredCompilerValidated=$false;finalExeIntegrated=$false;invocations=@();outputs=@();runs=@()}
 $savedSide=$env:AUDIO_SDK_IMPLEMENTATION; $savedTrace=$env:AUDIO_SDK_TRACE
 try {
     Get-ChildItem SDK -Force | Where-Object Name -notin @('Mods','builtmods') | Copy-Item -Destination $sdk -Recurse
@@ -18,15 +23,27 @@ try {
     Copy-Item $source "$sdk/Mods/Upheaval" -Recurse
     if (!(Test-Path "$sdk/Mods/Upheaval/Data/Mod/PublicCases/manifest.json")) { throw 'Pinned complete Upheaval/PublicCases input absent' }
     $state.inputFiles=@(Get-ChildItem "$sdk/Mods/Upheaval" -Recurse -File).Count
-    Get-ChildItem "$sdk/Mods/Upheaval" -Recurse -File | Sort-Object FullName | ForEach-Object {
+    $modInputs=@(Get-ChildItem "$sdk/Mods/Upheaval" -Recurse -File | Sort-Object FullName | ForEach-Object {
         @{path=$_.FullName.Substring($sdk.Length+1).Replace('\','/');sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant();bytes=$_.Length}
-    } | ConvertTo-Json -Depth 5 | Set-Content "$out/inputs.json"
+    })
+    $modInputs | ConvertTo-Json -Depth 5 | Set-Content "$out/inputs.json"
+    $state.pinnedAssetInputFiles=@($modInputs | Where-Object { $_.path.StartsWith('Mods/Upheaval/Assets/',[StringComparison]::OrdinalIgnoreCase) -and $_.path.EndsWith('.asset',[StringComparison]::OrdinalIgnoreCase) }).Count
+    if ($state.pinnedAssetInputFiles -ne 194) { throw 'Pinned complete Upheaval must retain its194 precompiled asset inputs' }
     $originalHash=(Get-FileHash "$sdk/tools/BinaryAssetBuilder.AudioCompiler.dll").Hash.ToLowerInvariant()
     if ($originalHash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
     $state.originalSha256=$originalHash
+    $state.defaultScriptSha256=(Get-FileHash SDK/defaultscript.cs).Hash.ToLowerInvariant()
+    Copy-Item SDK/defaultscript.cs "$out/defaultscript.cs"
+    # These thirteen declarations are unconditionally reachable through
+    # Mod.xml -> Mod/Specific.xml -> Specific/AudioFile.xml in this pinned MOD.
+    [xml]$specificAudio=Get-Content "$sdk/Mods/Upheaval/Data/Mod/Specific/AudioFile.xml" -Raw
+    $knownAudioIds=@($specificAudio.SelectNodes("/*[local-name()='AssetDeclaration']/*[local-name()='AudioFile']") | ForEach-Object { $_.GetAttribute('id') })
+    if ($knownAudioIds.Count -ne 13 -or $knownAudioIds -notcontains 'JUPearl_ambiLoopa') { throw 'Pinned Upheaval reachable audio declarations changed' }
+    $state.expectedSpecificAudioIds=$knownAudioIds
     dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/library-build.log" -Tail 60; throw 'Recovered audio build failed' }
     Copy-Item "$build/Recovered.AudioCompiler.dll" "$sdk/tools"
+    $state.recoveredSha256=(Get-FileHash "$sdk/tools/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()
     $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     & $csc /nologo /target:library /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /out:"$sdk/tools/AudioSdkProbe.dll" (Resolve-Path recovery/tests/AudioSdkTracingPlugin.cs).Path *> "$out/tracer-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/tracer-build.log"; throw 'Audio tracing adapter build failed' }
@@ -38,16 +55,35 @@ try {
     $startup=$config.CreateElement('startup'); $startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
     $runtime=$config.CreateElement('supportedRuntime'); $runtime.SetAttribute('version','v4.0'); $startup.AppendChild($runtime) | Out-Null
     $config.configuration.AppendChild($startup) | Out-Null; $config.Save($cfg); Copy-Item $cfg "$out/sdk.config"
+    $unchangedDlls=@(Get-ChildItem "$sdk/tools" -File -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll' | Sort-Object Name | ForEach-Object {
+        @{name=$_.Name;sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()}
+    })
+    $unchangedDlls | ConvertTo-Json -Depth 4 | Set-Content "$out/unchanged-sdk-dlls.json"
+    $state.onlyAudioCompilerReplaced=$true
     $targets=@(@{step=3;folder='AptUI';filter='*.xml'},@{step=4;folder='AdditionalMaps';filter='mapmetadata_*.xml'},@{step=5;folder='';filter='Mod.xml'})
     foreach ($side in @('Original','Recovered')) {
         if ($side -eq 'Recovered') {
             if (!$state.originalBaselinePassed) { throw 'Original baseline gate not satisfied' }
             Remove-Item "$sdk/tools/BinaryAssetBuilder.AudioCompiler.dll" -Force
             if (Test-Path "$sdk/tools/BinaryAssetBuilder.AudioCompiler.dll") { throw 'Original target remains in recovered SDK' }
+            # Restore the same complete pinned input at the same absolute path;
+            # generated source-local files from the original run cannot leak.
+            Remove-Item "$sdk/Mods/Upheaval" -Recurse -Force
+            Copy-Item $source "$sdk/Mods/Upheaval" -Recurse
+        }
+        if (@(Get-ChildItem "$sdk/Mods/Upheaval" -Recurse -File).Count -ne $modInputs.Count) { throw 'Pinned MOD input file count changed' }
+        foreach ($modInput in $modInputs) {
+            $inputPath=Join-Path $sdk $modInput.path
+            if (!(Test-Path $inputPath) -or (Get-FileHash $inputPath).Hash.ToLowerInvariant() -ne $modInput.sha256) { throw "Pinned MOD input changed: $($modInput.path)" }
+        }
+        foreach ($dll in $unchangedDlls) {
+            if (!(Test-Path "$sdk/tools/$($dll.name)") -or (Get-FileHash "$sdk/tools/$($dll.name)").Hash.ToLowerInvariant() -ne $dll.sha256) { throw "Unrelated SDK DLL changed: $($dll.name)" }
         }
         Remove-Item "$sdk/builtmods" -Recurse -Force -ErrorAction SilentlyContinue
-        Get-ChildItem $sdk -Recurse -Directory | Where-Object { $_.Name -in @('cache','buildcache','sessioncache') } | Remove-Item -Recurse -Force
-        Get-ChildItem $sdk -Recurse -File | Where-Object { $_.Extension -eq '.asset' -or $_.Name -like 'binaryassetbuilder.sessioncache.xml*' } | Remove-Item -Force
+        $modPrefix=[IO.Path]::GetFullPath("$sdk/Mods/Upheaval")+[IO.Path]::DirectorySeparatorChar
+        Get-ChildItem $sdk -Recurse -Directory | Where-Object { $_.Name -in @('cache','buildcache','sessioncache') -and !$_.FullName.StartsWith($modPrefix,[StringComparison]::OrdinalIgnoreCase) } | Remove-Item -Recurse -Force
+        # Studio case2 removes generated caches, not versioned Mods/Upheaval/Assets.
+        Get-ChildItem $sdk -File | Where-Object { $_.Name -like 'binaryassetbuilder.sessioncache.xml*' -or $_.Name -eq 'stringhashes.xml' } | Remove-Item -Force
         $env:AUDIO_SDK_IMPLEMENTATION=$side; $env:AUDIO_SDK_TRACE="$out/$side-calls.tsv"
         $built="$sdk/builtmods"
         foreach ($target in $targets) {
@@ -95,6 +131,22 @@ try {
     if ($state.invocations.Count -ne 10 -or $state.comparisons.Count -ne 20) { throw 'Pinned complete Upheaval case3/4/5 coverage changed' }
     $state.audioPluginExercised=($originalCalls.Count -gt 0)
     $state.audioCalls=$originalCalls.Count
+    $observedAudioKeys=@{}
+    foreach ($record in $originalCalls) {
+        $fields=$record -split "`t"
+        if ($fields.Count -ne 6 -or $fields[0] -notin @('AudioFile','AudioFileMP3Passthrough','PathMusicMap','PathMusicTrack','PathMusicEvent') -or !$fields[1]) { throw 'Malformed actual Upheaval audio trace' }
+        $observedAudioKeys[$fields[0]+"`t"+$fields[1]]=$true
+        foreach ($field in $fields[2..5]) {
+            if ($field -ne '<null>' -and $field -ne '<absent>') { [void][Convert]::FromBase64String($field) }
+        }
+    }
+    $state.specificAudioCoverage=@()
+    foreach ($id in $knownAudioIds) {
+        $called=$observedAudioKeys.ContainsKey("AudioFile`t"+$id)
+        $state.specificAudioCoverage+=@{type='AudioFile';id=$id;actualHandlerObserved=$called}
+        if (!$called) { throw "Pinned reachable AudioFile never reached actual audio handler: $id; audio replacement is not validated" }
+    }
+    if (!$state.audioPluginExercised) { throw 'audioCalls=0: full MOD output compatibility cannot establish actual audio plugin coverage' }
     $state.succeeded=$true; $state.status='passed'
     Write-Host "PASS complete pinned Upheaval audio replacement:10 BAB invocations,20 identical products,custom data identical,audio calls=$($originalCalls.Count)"
 } catch { $state.status='failed'; $state.error=$_.Exception.ToString(); throw }

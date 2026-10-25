@@ -18,6 +18,10 @@ namespace BinaryAssetBuilder.AudioCompiler
             long riffEnd = 8L + ReadLE(wave, 4);
             if (riffEnd < 12 || riffEnd > wave.Length)
                 throw new InvalidDataException("Truncated RIFF data");
+            // Native 0x36ed0's lookup skips exactly chunkSize+8, without
+            // RIFF odd-byte padding. A smpl after odd-sized data is therefore
+            // invisible to that lookup. Keep structural validation separate.
+            int selectedSampler = FindWaveSampler(wave, riffEnd);
             bool samplerSeen = false;
             for (long cursor = 12; cursor < riffEnd; )
             {
@@ -28,7 +32,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 long next = cursor + 8 + size;
                 if (next > riffEnd)
                     throw new InvalidDataException("Truncated RIFF chunk");
-                if (Tag(wave, at, "smpl") && !samplerSeen)
+                if (at == selectedSampler)
                 {
                     // The native chunk lookup returns the first smpl only.
                     samplerSeen = true;
@@ -54,7 +58,20 @@ namespace BinaryAssetBuilder.AudioCompiler
                 if (cursor > riffEnd)
                     throw new InvalidDataException("Missing RIFF chunk padding");
             }
+            if (selectedSampler >= 0 && !samplerSeen)
+                throw new NotSupportedException("Misaligned native WAVE sampler lookup has no bounded chunk contract");
             return start >= 0;
+        }
+
+        private static int FindWaveSampler(byte[] wave, long riffEnd)
+        {
+            for (long cursor = 12; cursor + 8 <= riffEnd; )
+            {
+                int at = checked((int)cursor);
+                if (Tag(wave, at, "smpl")) return at;
+                cursor += 8L + ReadLE(wave, at + 4);
+            }
+            return -1;
         }
 
         internal static PcmEncodingResult EncodeSamples(float[] samples, int channels,

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 
 // Dedicated PC SDK milestone: previously component-validated raw ADP4 and
-// ignored SSND blockSize inputs. Every asset passes the original full XSD.
+// ignored SSND blockSize inputs, plus bounded offset and loop metadata. Every asset passes the original full XSD.
 internal static class AudioPcInputSdkCases
 {
-    internal const int AssetCount = 864;
+    internal const int AssetCount = 4488;
     internal static IEnumerable<string> WriteSdkCases(string root)
     {
         var elements = new List<string>();
@@ -37,6 +37,7 @@ internal static class AudioPcInputSdkCases
             AudioAiffSsndCases.Write(Path.Combine(root, name), kind, bits, channels, kind == 3 ? 4096 : 129, block);
             Add(elements, id, name, 0);
         }
+        elements.AddRange(AudioPcBoundarySdkCases.WriteSdkCases(root));
         if (elements.Count != AssetCount) throw new Exception("PC input SDK matrix count changed: " + elements.Count);
         return elements;
     }

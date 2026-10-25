@@ -24,6 +24,11 @@ internal static class AudioMpegBoundaryOracle
         int rate=new int[] { 44100,48000,32000 }[(b[at+2] >> 2) & 3] / (version==3 ? 1 : version==2 ? 2 : 4);
         return (version==3 ? 144000 : 72000) * bitrates[b[at+2] >> 4] / rate + ((b[at+2] >> 1) & 1);
     }
+    private static byte[] Enclose(string magic,string type,byte[] payload,bool big)
+    {
+        byte[] size=BitConverter.GetBytes(payload.Length+4); if (big) Array.Reverse(size);
+        return Join(Encoding.ASCII.GetBytes(magic),size,Encoding.ASCII.GetBytes(type),payload);
+    }
     private static void CreateCases()
     {
         byte[] mono = Convert.FromBase64String(AudioMp3Fixtures.Mono), stereo = Convert.FromBase64String(AudioMp3Fixtures.Stereo);
@@ -67,12 +72,34 @@ internal static class AudioMpegBoundaryOracle
                 byte[] broken = (byte[])data.Clone(); broken[starts[frame]]=0;
                 Add(name+"-broken-sync-"+frame,broken);
             }
-            foreach (byte fill in new byte[] { 0,255 })
+            foreach (byte fill in new byte[] { 0,1,85,170,255 })
             {
                 byte[] broken = (byte[])data.Clone();
                 foreach (int start in starts) for (int i=start+4;i<Math.Min(data.Length,start+FrameSize(data,start));i++) broken[i]=fill;
                 Add(name+"-payload-fill-"+fill,broken);
             }
+            foreach (int seed in new[] {1,7,12345,0x1234567})
+            {
+                byte[] broken=(byte[])data.Clone(); var random=new Random(seed);
+                foreach (int start in starts) for (int i=start+4;i<Math.Min(data.Length,start+FrameSize(data,start));i++) broken[i]=(byte)random.Next(256);
+                Add(name+"-payload-seed-"+seed,broken);
+            }
+            foreach (int format in new[] {1,0xfffe,3,0x55})
+            {
+                byte[] fmt=new byte[24]; Encoding.ASCII.GetBytes("fmt ").CopyTo(fmt,0); fmt[4]=16; fmt[8]=(byte)format;fmt[9]=(byte)(format>>8);fmt[10]=1;fmt[20]=2;fmt[22]=16;
+                Add(name+"-wave-format-"+format,Enclose("RIFF","WAVE",Join(fmt,data),false));
+                Add(name+"-wave-junk-format-"+format,Enclose("RIFF","WAVE",Join(Encoding.ASCII.GetBytes("JUNK"),new byte[] {1,0,0,0,0},fmt,data),false));
+            }
+            Add(name+"-wave-no-fmt",Enclose("RIFF","WAVE",data,false));
+            Add(name+"-riff-other-type",Enclose("RIFF","AVI ",data,false));
+            Add(name+"-aiff-type",Enclose("FORM","AIFF",data,true));
+            foreach (string compression in new[] {"NONE","ADP4","sowt"})
+            {
+                byte[] comm=new byte[30]; Encoding.ASCII.GetBytes("COMM").CopyTo(comm,0);comm[7]=22;Encoding.ASCII.GetBytes(compression).CopyTo(comm,26);
+                Add(name+"-aifc-"+compression,Enclose("FORM","AIFC",Join(comm,data),true));
+                Add(name+"-aifc-junk-"+compression,Enclose("FORM","AIFC",Join(Encoding.ASCII.GetBytes("JUNK"),new byte[] {0,0,0,1,0,0},comm,data),true));
+            }
+            Add(name+"-aifc-no-comm",Enclose("FORM","AIFC",data,true));
             // SIMEX identification considers enclosing-container signatures first.
             foreach (string magic in new[] { "RIFF","FORM","OggS","fLaC","SCHl" }) Add(name+"-container-"+magic,Join(Encoding.ASCII.GetBytes(magic),data));
         }
@@ -94,6 +121,7 @@ internal static class AudioMpegBoundaryOracle
         try {
             if ((args.Length != 4 && args.Length != 5) || IntPtr.Size != 4) throw new ArgumentException("Usage (x86): AudioMpegBoundaryOracle assembly fixtures output original|recovered");
             string root=Path.GetFullPath(args[1]); Directory.CreateDirectory(root); CreateCases();
+            if (cases.Count!=169) throw new Exception("Incomplete MPEG fixture corpus: "+cases.Count);
             if (args[3]=="list") {
                 foreach (var pair in cases) File.WriteAllBytes(Path.Combine(root,pair.Key+".mp3"),pair.Value);
                 File.WriteAllLines(args[2],cases.Keys); return 0;

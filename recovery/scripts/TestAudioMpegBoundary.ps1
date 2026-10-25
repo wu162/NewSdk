@@ -12,7 +12,7 @@ $original=Join-Path $work 'original'; $fixtures=Join-Path $work 'fixtures'
 New-Item -ItemType Directory $original,$fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-$receipt=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant();status='started';sdkValidated=$false;configurations=@();scope='Win32 MPEG Layer3 prefix/suffix/truncation/synchronization/container-priority acceptance; experimental cases recorded separately from established baseline';originalCases=@()}
+$receipt=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant();status='started';sdkValidated=$false;configurations=@();scope='Win32 MPEG Layer3 header-info, payload independence, prefix/suffix/truncation/synchronization and bounded WAVE/AIFF/AIFC importer priority; no PCM decoder required';originalCases=@()}
 function Run-Corpus([string]$hostDirectory,[string]$library,[string]$side) {
     $outputs=@()
     foreach ($case in $cases) {
@@ -39,7 +39,7 @@ try {
     & "$original/AudioMpegBoundaryOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" $fixtures "$out/cases.txt" list *> "$out/fixture-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/fixture-build.log";throw 'MPEG fixture creation failed' }
     $cases=@(Get-Content "$out/cases.txt")
-    if ($cases.Count -lt 60) { throw 'Incomplete MPEG corpus' }
+    if ($cases.Count -ne 169) { throw 'Incomplete MPEG corpus' }
     $receipt.fixtureCount=$cases.Count
     $receipt.fixtures=@(Get-ChildItem $fixtures -Filter '*.mp3'|ForEach-Object { @{name=$_.BaseName;length=$_.Length;sha256=(Get-FileHash $_.FullName).Hash.ToLowerInvariant()} })
     $receipt.originalCases=@(Run-Corpus $original "$original/BinaryAssetBuilder.AudioCompiler.dll" original)
@@ -58,7 +58,7 @@ try {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log" -Tail 50;throw "$mode MPEG project build failed" }
         Copy-Item "$original/AudioMpegBoundaryOracle.exe*" $candidate
         Copy-Item "$original/AudioMpegHeaderOracle.exe" $candidate
-        & "$candidate/AudioMpegHeaderOracle.exe" "$candidate/Recovered.AudioCompiler.dll" "$out/header-native.tsv" "$out/header-native-identifier.tsv" *> "$out/$mode-header.log"
+        & "$candidate/AudioMpegHeaderOracle.exe" "$candidate/Recovered.AudioCompiler.dll" "$out/header-native.tsv" "$out/header-native-identifier.tsv" "$out/header-native-info.tsv" *> "$out/$mode-header.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-header.log";throw "$mode MPEG header differential failed" }
         Get-Content "$out/$mode-header.log"
         $actual=@(Run-Corpus $candidate "$candidate/Recovered.AudioCompiler.dll" $mode)
@@ -72,7 +72,7 @@ try {
             }
         }
         $differences=@($comparisons|Where-Object { !$_.equal }).Count
-        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;headerNativeRecords=32783;identifierNativeRecords=441;identificationBoundaryChecks=15;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
+        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;headerNativeRecords=32783;identifierNativeRecords=441;infoNativeRecords=324;identificationBoundaryChecks=15;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
         Write-Host "MPEG $mode`: $($cases.Count-$differences)/$($cases.Count) matching isolated cases; $differences differences"
     }
     if (@($receipt.configurations|Where-Object { !$_.passed }).Count -gt 0) { $receipt.status='differences-found';throw 'MPEG boundary differences found; inspect per-case receipts before changing production support' }
