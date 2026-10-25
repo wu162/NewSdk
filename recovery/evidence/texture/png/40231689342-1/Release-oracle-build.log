@@ -1,0 +1,2 @@
+recovery\tests\TexturePngOracle.cs(20,58): warning CS0169: The field 'TexturePngOracle.unsupportedCount' is never used
+recovery\tests\TexturePngOracle.cs(20,94): warning CS0169: The field 'TexturePngOracle.rejectionMatches' is never used

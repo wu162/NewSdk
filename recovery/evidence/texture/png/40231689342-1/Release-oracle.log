@@ -1,0 +1,779 @@
+DIFFERENCE c0-d1-i0-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i0-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d1-i1-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i0-meta5-p0 alpha=False/False first=0 pixels=FF9B9B9B/FF555555
+DIFFERENCE c0-d2-i1-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d2-i1-meta5-p0 alpha=False/False first=0 pixels=FF9B9B9B/FF555555
+DIFFERENCE c0-d4-i0-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i0-meta5-p0 alpha=False/False first=0 pixels=FF4A4A4A/FF111111
+DIFFERENCE c0-d4-i1-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d4-i1-meta5-p0 alpha=False/False first=0 pixels=FF4A4A4A/FF111111
+DIFFERENCE c0-d8-i0-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i0-meta5-p0 alpha=False/False first=0 pixels=FF4A4A4A/FF111111
+DIFFERENCE c0-d8-i1-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c0-d8-i1-meta5-p0 alpha=False/False first=0 pixels=FF4A4A4A/FF111111
+DIFFERENCE c0-d16-i0-f0-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f0-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f0-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f1-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f1-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f1-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f2-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f2-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f2-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f3-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f3-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f3-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f4-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f4-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f4-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f5-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f5-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-f5-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f0-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f0-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f0-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f1-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f1-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f1-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f2-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f2-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f2-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f3-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f3-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f3-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f4-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f4-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f4-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f5-s4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f5-s8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-f5-s16-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-meta4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-meta5-p0 alpha=False/False first=0 pixels=FF060606/FF000000
+DIFFERENCE c0-d16-i0-meta6-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-meta7-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i0-meta8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-meta4-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-meta5-p0 alpha=False/False first=0 pixels=FF060606/FF000000
+DIFFERENCE c0-d16-i1-meta6-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-meta7-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c0-d16-i1-meta8-p0 alpha=False/False first=2 pixels=FF0A0A0A/FF090909
+DIFFERENCE c2-d8-i0-meta1-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i0-meta1-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i0-meta1-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i0-meta1-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i0-meta2-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i0-meta2-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i0-meta2-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i0-meta2-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i0-meta3-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i0-meta3-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i0-meta3-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i0-meta3-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i0-meta5-p0 alpha=False/False first=0 pixels=FFECFA4A/FFD7F411
+DIFFERENCE c2-d8-i1-meta1-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i1-meta1-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i1-meta1-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i1-meta1-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i1-meta2-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i1-meta2-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i1-meta2-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i1-meta2-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i1-meta3-p0 alpha=False/True first=0 pixels=FFD7F411/00D7F411
+DIFFERENCE c2-d8-i1-meta3-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d8-i1-meta3-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d8-i1-meta3-p3 alpha=False/True first=0 pixels=FF00FF00/0000FF00
+DIFFERENCE c2-d8-i1-meta5-p0 alpha=False/False first=0 pixels=FFECFA4A/FFD7F411
+DIFFERENCE c2-d16-i0-f0-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f0-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f0-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f0-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f0-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f0-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f0-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f0-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f0-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f0-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f0-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f0-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f0-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f0-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f1-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f1-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f1-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f1-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f1-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f1-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f1-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f1-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f1-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f1-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f1-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f1-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f1-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f1-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f2-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f2-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f2-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f2-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f2-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f2-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f2-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f2-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f2-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f2-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f2-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f2-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f2-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f2-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f3-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f3-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f3-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f3-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f3-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f3-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f3-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f3-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f3-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f3-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f3-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f3-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f3-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f3-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f4-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f4-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f4-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f4-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f4-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f4-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f4-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f4-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f4-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f4-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f4-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f4-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f4-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f4-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f5-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f5-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f5-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f5-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f5-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f5-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f5-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f5-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f5-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f5-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f5-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-f5-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-f5-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-f5-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f0-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f0-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f0-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f0-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f0-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f0-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f0-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f0-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f0-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f0-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f0-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f0-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f0-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f0-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f1-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f1-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f1-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f1-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f1-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f1-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f1-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f1-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f1-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f1-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f1-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f1-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f1-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f1-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f2-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f2-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f2-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f2-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f2-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f2-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f2-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f2-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f2-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f2-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f2-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f2-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f2-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f2-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f3-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f3-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f3-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f3-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f3-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f3-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f3-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f3-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f3-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f3-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f3-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f3-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f3-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f3-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f4-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f4-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f4-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f4-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f4-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f4-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f4-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f4-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f4-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f4-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f4-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f4-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f4-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f4-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f5-s1-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f5-s1-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f5-s2-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f5-s2-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f5-s2-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f5-s4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f5-s4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f5-s4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f5-s8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f5-s8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f5-s8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-f5-s16-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-f5-s16-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-f5-s16-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-meta1-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i0-meta1-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i0-meta1-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i0-meta1-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i0-meta2-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i0-meta2-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i0-meta2-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i0-meta2-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i0-meta3-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i0-meta3-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i0-meta3-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i0-meta3-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i0-meta4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-meta4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-meta4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-meta5-p0 alpha=False/False first=0 pixels=FFEA2DAE/FF050200
+DIFFERENCE c2-d16-i0-meta5-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-meta5-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-meta6-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-meta6-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-meta6-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-meta7-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-meta7-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-meta7-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i0-meta8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i0-meta8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i0-meta8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-meta1-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i1-meta1-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i1-meta1-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i1-meta1-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i1-meta2-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i1-meta2-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i1-meta2-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i1-meta2-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i1-meta3-p0 alpha=False/True first=0 pixels=FFD705F4/00050200
+DIFFERENCE c2-d16-i1-meta3-p1 alpha=False/True first=0 pixels=FF000000/00000000
+DIFFERENCE c2-d16-i1-meta3-p2 alpha=False/True first=0 pixels=FFFFFFFF/00FFFFFF
+DIFFERENCE c2-d16-i1-meta3-p3 alpha=False/True first=0 pixels=FF0000FF/0000FF00
+DIFFERENCE c2-d16-i1-meta4-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-meta4-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-meta4-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-meta5-p0 alpha=False/False first=0 pixels=FFEA2DAE/FF050200
+DIFFERENCE c2-d16-i1-meta5-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-meta5-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-meta6-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-meta6-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-meta6-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-meta7-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-meta7-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-meta7-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c2-d16-i1-meta8-p0 alpha=False/False first=0 pixels=FFD705F4/FF050200
+DIFFERENCE c2-d16-i1-meta8-p2 alpha=False/False first=1 pixels=FFFFFF00/FFFFFFFF
+DIFFERENCE c2-d16-i1-meta8-p3 alpha=False/False first=0 pixels=FF0000FF/FF00FF00
+DIFFERENCE c4-d8-i0-f0-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f0-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f1-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f2-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f3-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f4-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-f5-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f0-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f1-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f2-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f3-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f4-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s16-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s16-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s16-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-f5-s16-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta5-p0 alpha=False/True first=0 pixels=F44A4A4A/F4111111
+DIFFERENCE c4-d8-i0-meta5-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta5-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta5-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta6-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta6-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta6-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta6-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta7-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta7-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta7-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta7-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i0-meta8-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta1-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta1-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta1-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta1-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta2-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta2-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta2-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta2-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta3-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta3-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta3-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta3-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta4-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta4-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta4-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta4-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta5-p0 alpha=False/True first=0 pixels=F44A4A4A/F4111111
+DIFFERENCE c4-d8-i1-meta5-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta5-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta5-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta6-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta6-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta6-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta6-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta7-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta7-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta7-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta7-p3 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta8-p0 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta8-p1 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta8-p2 alpha=False/True first=-1
+DIFFERENCE c4-d8-i1-meta8-p3 alpha=False/True first=-1
+DIFFERENCE c6-d8-i0-meta5-p0 alpha=True/True first=0 pixels=BAECFA4A/BAD7F411
+DIFFERENCE c6-d8-i1-meta5-p0 alpha=True/True first=0 pixels=BAECFA4A/BAD7F411
+DIFFERENCE c6-d16-i0-f0-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f0-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f0-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f0-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f0-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f1-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f1-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f1-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f1-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f1-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f2-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f2-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f2-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f2-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f2-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f3-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f3-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f3-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f3-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f3-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f4-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f4-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f4-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f4-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f4-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f5-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f5-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f5-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f5-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-f5-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f0-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f0-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f0-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f0-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f0-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f1-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f1-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f1-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f1-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f1-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f2-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f2-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f2-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f2-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f2-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f3-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f3-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f3-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f3-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f3-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f4-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f4-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f4-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f4-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f4-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f5-s1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f5-s2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f5-s4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f5-s8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-f5-s16-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta3-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta5-p0 alpha=True/True first=0 pixels=092E2206/08050200
+DIFFERENCE c6-d16-i0-meta6-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta7-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i0-meta8-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta1-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta2-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta3-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta4-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta5-p0 alpha=True/True first=0 pixels=092E2206/08050200
+DIFFERENCE c6-d16-i1-meta6-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta7-p0 alpha=True/True first=0 pixels=09060300/08050200
+DIFFERENCE c6-d16-i1-meta8-p0 alpha=True/True first=0 pixels=09060300/08050200
+PROBE Texture PNG fixtures=4560 decodedMatches=2238 originalFailures=1544 mismatches=2322 assertions=9058
