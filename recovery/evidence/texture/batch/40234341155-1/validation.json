@@ -1,0 +1,44 @@
+{
+  "selected": [
+    "png",
+    "raster-images",
+    "png-ranges"
+  ],
+  "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+  "runId": "40234341155",
+  "status": "passed",
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "bmp"
+  ],
+  "groups": [
+    {
+      "group": "png",
+      "passed": true
+    },
+    {
+      "group": "raster-images",
+      "passed": true
+    },
+    {
+      "group": "png-ranges",
+      "passed": true
+    }
+  ]
+}
