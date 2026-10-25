@@ -51,3 +51,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 用户要求 SDK 直接调用恢复函数。Core 的 `AssetDeclarationDocument.LoadXml()` 现在直接构造 `Mvp.Xml.XInclude.XIncludingReader` 并设置 XmlResolver，`DocumentProcessor.ProcessDocument()` 移除动态加载初始化，Core 项目引用 MvpXml 源码工程；旧包装类仅保留公开方法兼容，不再反射。MvpXml 使用原始二进制资源直接嵌入，保留可读 resx，从而让原有 dotnet 构建方式可用。验证同时排除原 Core/MvpXml、实际执行 LoadXml 和依赖记录，并检查产物 IL 的直接构造/setter 调用；另运行 Core/Remote/EALABuild 既有组件矩阵。验收源码 `a75b48a960d32e199acb2716e06e57e6deca82ce`，运行 [40189585854](https://github.com/wu162/NewSdk/actions/runs/40189585854) attempt1 成功：Debug/Release 各 2,111 条 MvpXml/真实 LoadXml 对照及各 2,434 条基础组件记录一致，直接调用 IL 审计通过。修改位于 `recovery/mvp-xml-source`，SDK/tools 原二进制仍作基线；合入追踪：[PR #9](https://github.com/wu162/NewSdk/pull/9)，目标 `recovery/compiler-source`；未执行完整 MOD 编译。
 
 合并核对：目标分支 `4e86bf87e9339a5b5662f5aa6a27debe8970fe79` 在共同基线后新增 Utility 源码/脚本/文档/证据及 primitives 验证收据；与 Mvp.Xml 分支唯一重叠是本续接文档。Utility 全部子树和 primitives 收据按目标 SHA 原样保留，Core/MvpXml/测试/构建工具/SDK 原 DLL 与验收源码保持不变，复用运行 40189585854 的精确结果，不将文档合并冒充新验证。
+
+
+## AudioCompiler 独立还原阶段交接（2026-10-25）
+
+分支 `recovery/audio-compiler-source` 从 `b122a54abe4405516b021e425b8fb9235d914a0e` 新建。代码按用户要求在根目录 `src/AudioCompiler`；无原AudioCompiler业务回调，NLayer MIT解码源码静态编入。已取得metadata Debug/Release各86171条一致（40192722185）、三PathMusic各95条一致（40193025288）、PCM16编码16条及XAS编码12条各Debug/Release一致、独立工程构建通过（40193438615）。后两次整体运行有其他步骤失败，不称整体成功。当前新增PCM8/main真实音频、完整AudioFile及MP3路由、262组XAS native样本、SDK对照均待最终验收；legacy csc构建阻塞已改Roslyn但尚待新运行确认。AIFF、其他sample formats、loop、resample、XMA尚未恢复，不宣称完整DLL还原；未修改生产SDK DLL/config。先读 [AUDIO_COMPILER.md](AUDIO_COMPILER.md) 与 [native审计](audio/NativeAudit.md)，再跑音频专用完整工作流；不要重复触发既有无变化GameObject/XmlCompiler矩阵。

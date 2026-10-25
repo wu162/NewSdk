@@ -5,10 +5,11 @@ using BinaryAssetBuilder.Core;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
-    // Fully managed backend for the currently recovered no-loop PCM16 WAVE
+    // Fully managed backend for the currently recovered no-loop PCM8/PCM16 WAVE
     // input subset. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
+        private static readonly bool[] compressionWarnings = new bool[3];
         public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
             XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
@@ -27,8 +28,11 @@ namespace BinaryAssetBuilder.AudioCompiler
             AudioEncodingPolicy policy = AudioEncodingPolicy.Select((int)platform, file, compression, streamed);
             if (policy.SampleRepresentation != 1 && policy.SampleRepresentation != 29)
                 throw new NotSupportedException("XMA encoding has not been recovered. Select NONE compression for Xbox360 PCM output.");
-            if (policy.CompressionWarning)
+            if (policy.CompressionWarning && !compressionWarnings[(int)platform])
+            {
                 Console.WriteLine("WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed");
+                compressionWarnings[(int)platform] = true;
+            }
             byte[] wave;
             try { wave = File.ReadAllBytes(file); }
             catch (IOException) { return null; }

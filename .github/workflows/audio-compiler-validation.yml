@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validate:
     runs-on: windows-2022
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -43,6 +43,9 @@ jobs:
         if: always()
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Compare original and recovered SDK builds
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioSdk.ps1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -51,13 +54,14 @@ jobs:
             recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
       - name: Preserve validation evidence
         if: always()
         shell: pwsh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- recovery/evidence/audio/plugin-validation recovery/evidence/audio/pcm-validation recovery/evidence/audio/xas-validation
+          git add -- recovery/evidence/audio/plugin-validation recovery/evidence/audio/pcm-validation recovery/evidence/audio/xas-validation recovery/evidence/audio/sdk-validation
           if (git diff --cached --quiet) { exit 0 }
           git commit -m "audio: preserve component validation evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }

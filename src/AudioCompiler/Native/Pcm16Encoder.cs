@@ -17,7 +17,7 @@ namespace BinaryAssetBuilder.AudioCompiler
     }
 
     // Managed replacement for the native P6B0 encoder and SIMEX format 39
-    // container writer. This narrow entry point accepts PCM16 RIFF/WAVE only;
+    // container writer. This narrow entry point accepts PCM8/16 RIFF/WAVE;
     // AIFF, loop metadata, channel remapping, and resampling are not inferred.
     public static class Pcm16Encoder
     {
@@ -38,7 +38,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             if (wave == null) throw new ArgumentNullException("wave");
             if (wave.Length < 12 || Tag(wave, 0) != "RIFF" || Tag(wave, 8) != "WAVE")
-                throw new NotSupportedException("PCM16 RIFF/WAVE input is required");
+                throw new NotSupportedException("PCM8/16 RIFF/WAVE input is required");
             int channels = 0, rate = 0, bits = 0, format = 0, align = 0;
             int dataOffset = -1, dataLength = 0;
             long end = 8L + U32(wave, 4);
@@ -63,17 +63,27 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (tag == "smpl") throw new NotSupportedException("WAVE loop metadata is not supported by this entry point");
                 at = next + (size & 1);
             }
-            if (format != 1 || bits != 16 || (channels != 1 && channels != 2))
-                throw new NotSupportedException("Only mono/stereo PCM16 WAVE is supported by this entry point");
-            if (rate <= 0 || rate > 0x3ffff || align != channels * 2 || dataOffset < 0 || dataLength % align != 0)
+            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2))
+                throw new NotSupportedException("Only mono/stereo PCM8/16 WAVE is supported by this entry point");
+            int bytesPerSample = bits / 8;
+            if (rate <= 0 || rate > 0x3ffff || align != channels * bytesPerSample || dataOffset < 0 || dataLength % align != 0)
                 throw new InvalidDataException("Invalid PCM WAVE format");
             int frames = dataLength / align;
             if (frames == 0 || frames > 0x1fffffff) throw new NotSupportedException("Unsupported PCM frame count");
-            float[] samples = new float[dataLength / 2];
+            float[] samples = new float[dataLength / bytesPerSample];
             for (int i = 0; i < samples.Length; ++i)
             {
-                short sample = unchecked((short)U16(wave, dataOffset + i * 2));
-                samples[i] = sample / 32768.0f;
+                if (bits == 8)
+                {
+                    // P8U0 native decoder, RVA 0x10390: zero-extend byte,
+                    // subtract 128, multiply by float constant 1/128.
+                    samples[i] = (wave[dataOffset + i] - 128) * 0.0078125f;
+                }
+                else
+                {
+                    short sample = unchecked((short)U16(wave, dataOffset + i * 2));
+                    samples[i] = sample / 32768.0f;
+                }
             }
             PcmWaveInput input = new PcmWaveInput();
             input.Samples = samples; input.Channels = channels; input.SampleRate = rate;

@@ -35,6 +35,14 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/xas-original.log"; throw 'Original XAS probe failed' }
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/defaults-original.txt" defaults *> "$out/defaults-original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/defaults-original.log"; throw 'Original AudioFile defaults probe failed' }
+    & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/rates-original.txt" rates *> "$out/rates-original.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/rates-original.log"; throw 'Original rate boundary probe failed' }
+    $env:AUDIO_TEST_REAL_DIRECTORY = (Resolve-Path recovery/fixtures/audio/main).Path
+    foreach ($extraGroup in @('main','pcm8')) {
+        & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/$extraGroup-original.txt" $extraGroup *> "$out/$extraGroup-original.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$extraGroup-original.log"; throw "Original $extraGroup probe failed" }
+    }
+    $receipt.realMainProvenanceSha256=(Get-FileHash recovery/fixtures/audio/main/provenance.json).Hash.ToLowerInvariant()
     Get-ChildItem $fixtures -Filter '*.wav' | Copy-Item -Destination $out
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     $baseline = (Get-FileHash "$out/original.txt").Hash
@@ -45,10 +53,10 @@ try {
         $sources = @(Get-ChildItem src/AudioCompiler -Filter '*.cs' -Recurse | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' } | ForEach-Object FullName)
         if ($sources.Count -lt 2) { throw 'Recovered AudioCompiler implementation is missing' }
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
-        & $csc /nologo /unsafe /target:library /platform:x86 $optimize /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$library" $sources *> "$out/$mode-build.log"
+        & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
-        foreach ($group in @('business','pcm','xas','defaults')) {
+        foreach ($group in @('business','pcm','xas','defaults','rates','main','pcm8')) {
             $scope = if ($group -eq 'business') { $businessScope } else { $group }
             $expectedFile = if ($group -eq 'business') { "$out/original.txt" } else { "$out/$group-original.txt" }
             $actualFile = "$out/$mode-$group.txt"

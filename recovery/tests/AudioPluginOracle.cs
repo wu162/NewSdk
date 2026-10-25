@@ -57,7 +57,7 @@ internal static class AudioPluginOracle
         }
         if ((label.StartsWith("map") || label.StartsWith("track") || label.StartsWith("event")) && !result.StartsWith("BUFFER:"))
             throw new Exception("Required PathMusic fixture failed: " + label + " platform=" + platform + " result=" + result);
-        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
+        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
             throw new Exception("Required AudioFile fixture failed: " + label + " platform=" + platform + " result=" + result);
         bool validMp3 = label.StartsWith("mp3-mono.") || label.StartsWith("mp3-stereo.") || label.StartsWith("mp3-subtitle-");
         if (validMp3)
@@ -70,12 +70,13 @@ internal static class AudioPluginOracle
         result += ":CUSTOM:" + (File.Exists(custom) ? Data(File.ReadAllBytes(custom)) : "<absent>");
         writer.WriteLine(label + ":" + platform + ":" + (direct ? "direct" : "dispatch") + ":" + result); writer.Flush(); count++;
     }
-    private static void Wav(string path, int channels, int frames)
+    private static void Wav(string path,int channels,int frames){Wav(path,channels,frames,22050);}
+    private static void Wav(string path, int channels, int frames,int sampleRate)
     {
         using (var stream = File.Create(path)) using (var b = new BinaryWriter(stream))
         {
             b.Write(Encoding.ASCII.GetBytes("RIFF")); b.Write(36 + channels * frames * 2); b.Write(Encoding.ASCII.GetBytes("WAVEfmt "));
-            b.Write(16); b.Write((short)1); b.Write((short)channels); b.Write(22050); b.Write(22050 * channels * 2);
+            b.Write(16); b.Write((short)1); b.Write((short)channels); b.Write(sampleRate); b.Write(sampleRate * channels * 2);
             b.Write((short)(channels * 2)); b.Write((short)16); b.Write(Encoding.ASCII.GetBytes("data")); b.Write(channels * frames * 2);
             short[] samples = { 0, 1, -1, 32767, -32768, 0x1234 };
             for (int i = 0; i < channels * frames; i++) b.Write(samples[i % samples.Length]);
@@ -121,6 +122,36 @@ internal static class AudioPluginOracle
             }
         }
     }
+    private static void RateProbe()
+    {
+        foreach(int rate in new int[]{400,431}) {
+            string wave=Path.Combine(root,"rate-"+rate+".wav");Wav(wave,1,20001,rate);
+            Run("pcm-rate-"+rate,0,Element("AudioFile","File='"+Esc(wave)+"' PCCompression='NONE' PCQuality='75' IsStreamedOnPC='true'"),false);
+        }
+    }
+    private static void MainProbe()
+    {
+        string directory=Environment.GetEnvironmentVariable("AUDIO_TEST_REAL_DIRECTORY");
+        foreach(string name in new string[]{"real-0.wav","real-1.wav"})foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true}) {
+            string file=Path.Combine(directory,name);
+            if(!File.Exists(file))throw new Exception("Required main audio input missing: "+file);
+            Run("main-"+name+"-"+codec+"-"+streamed,0,Element("AudioFile","File='"+Esc(file)+"' PCCompression='"+codec+"' PCQuality='75' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'"),false);
+        }
+    }
+    private static void Pcm8Probe()
+    {
+        foreach(int channels in new int[]{1,2})foreach(int frames in new int[]{3,257,20001}) {
+            string file=Path.Combine(root,"pcm8-"+channels+"-"+frames+".wav");
+            using(var stream=File.Create(file))using(var b=new BinaryWriter(stream)) {
+                b.Write(Encoding.ASCII.GetBytes("RIFF"));b.Write(36+channels*frames+(channels*frames&1));b.Write(Encoding.ASCII.GetBytes("WAVEfmt "));
+                b.Write(16);b.Write((short)1);b.Write((short)channels);b.Write(22050);b.Write(22050*channels);b.Write((short)channels);b.Write((short)8);
+                b.Write(Encoding.ASCII.GetBytes("data"));b.Write(channels*frames);byte[] samples={0,1,127,128,129,254,255};
+                for(int i=0;i<channels*frames;i++)b.Write(frames==257?(byte)i:samples[i%samples.Length]);if((channels*frames&1)!=0)b.Write((byte)0);
+            }
+            foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
+                Run("pcm8-"+channels+"-"+frames+"-"+codec+"-"+streamed,0,Element("AudioFile","File='"+Esc(file)+"' PCCompression='"+codec+"' PCQuality='75' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'"),false);
+        }
+    }
     private static void DefaultProbe()
     {
         foreach (string directory in new string[] { "sounds", "music" })
@@ -135,7 +166,7 @@ internal static class AudioPluginOracle
     {
         try
         {
-            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults");
+            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults|rates|main|pcm8");
             if (IntPtr.Size != 4) throw new Exception("x86 CLR required");
             bool original = args[1] == "original";
             string originalName = "BinaryAssetBuilder.AudioCompiler";
@@ -147,6 +178,9 @@ internal static class AudioPluginOracle
             {
                 if (args[4] == "pcm" || args[4] == "xas") NativeProbe(args[4] == "xas");
                 else if (args[4] == "defaults") DefaultProbe();
+                else if (args[4] == "rates") RateProbe();
+                else if (args[4] == "main") MainProbe();
+                else if (args[4] == "pcm8") Pcm8Probe();
                 else
                 {
                     ParseProbe();
@@ -163,6 +197,15 @@ internal static class AudioPluginOracle
                     File.WriteAllBytes(Path.Combine(root,"truncated.mp3"),monoBytes.Take(100).ToArray());
                     byte[] invalid = (byte[])monoBytes.Clone(); invalid[0]=0; File.WriteAllBytes(Path.Combine(root,"invalid-first.mp3"),invalid);
                     File.WriteAllBytes(Path.Combine(root,"double.mp3"),monoBytes.Concat(monoBytes).ToArray());
+                    File.WriteAllBytes(Path.Combine(root,"truncated-tail.mp3"),monoBytes.Take(monoBytes.Length-100).ToArray());
+                    byte[] zeroPayload=(byte[])monoBytes.Clone();
+                    for(int at=0;at+4<=zeroPayload.Length;) {
+                        int frameSize=144000*64/44100+((zeroPayload[at+2]>>1)&1);
+                        for(int j=at+4;j<Math.Min(at+frameSize,zeroPayload.Length);j++)zeroPayload[j]=0;
+                        at+=frameSize;
+                    }
+                    File.WriteAllBytes(Path.Combine(root,"zero-payload.mp3"),zeroPayload);
+                    File.WriteAllBytes(Path.Combine(root,"mixed.mp3"),monoBytes.Concat(Convert.FromBase64String(AudioMp3Fixtures.Stereo)).ToArray());
                     Wav(Path.Combine(root,"wave.mp3"),1,3);
                     foreach (int platform in new int[] { 0, 1, 2, 99 }) foreach (bool direct in new bool[] { false, true })
                     {
@@ -182,7 +225,7 @@ internal static class AudioPluginOracle
                             Run("mp3-" + Path.GetFileName(file) + "-" + streamed, platform, Element("AudioFileMP3Passthrough", "File='" + Esc(file) + "' IsStreamed='" + streamed.ToString().ToLowerInvariant() + "'"), direct);
                             Run("mp3-subtitle-" + Path.GetFileName(file) + "-" + streamed, platform, Element("AudioFileMP3Passthrough", "File='" + Esc(file) + "' IsStreamed='" + streamed.ToString().ToLowerInvariant() + "' SubtitleStringName='ExplicitSubtitle'"), direct);
                         }
-                        foreach(string edge in new string[]{"id3.mp3","empty.mp3","truncated.mp3","invalid-first.mp3","double.mp3","wave.mp3"})
+                        foreach(string edge in new string[]{"id3.mp3","empty.mp3","truncated.mp3","invalid-first.mp3","double.mp3","wave.mp3","truncated-tail.mp3","zero-payload.mp3","mixed.mp3"})
                             Run("mp3-edge-"+edge,platform,Element("AudioFileMP3Passthrough","File='"+Esc(Path.Combine(root,edge))+"' IsStreamed='true'"),direct);
                         Run("mp3-not-mp3", platform, Element("AudioFileMP3Passthrough", "File='" + Esc(track) + "' IsStreamed='true'"), direct);
                         }
