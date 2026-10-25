@@ -1,7 +1,11 @@
-# GameObject模块：322/322已知Marshal类型已验收
+# GameObject模块：322/322已验收，剩余0
 
-剩余已知Marshal模块：0。最后ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396及全部依赖已完整实现。58 Token-only类型保留原未知Marshal回退，未扩展为有Marshal支持的类型。
+最后ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396及全部依赖已完整实现。58 Token-only类型保留原未知Marshal回退，未扩展为有Marshal支持的类型。
 
-最新完整成功source8939717b0a8af4435e41eb2da430977b8c945084/run40162645578；/Od/O2每模式1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性，四平台0/1/2/99。
+最终共同源码f8726d624b0a74ea0927705bca352027cbf76e30：
 
-真实SDK sourcef8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，自建recoverydraw和完整mymod均通过；最终XML上下文适配的累计run40162947222仍待收取，见RESUME.md。模块完成、SDK成功和该最终累计回归状态分别记录，不宣称两份完整替代DLL已完成。
+- 完整累计run40162947222 success；/Od/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，四平台0/1/2/99。
+- 自建recoverydraw和完整mymod真实SDK run40162947209 success；基础组件40162947146 success。
+- 不可变组件目录40162947222-1与共享gameobject-root相同树ee09d1721d1c5cfc50df886df8813f6997ce999d。
+
+本轮无待收取验证。精确证据和SDK范围见RESUME.md。未宣称XmlCompiler另分支或两个完整替代DLL完成。

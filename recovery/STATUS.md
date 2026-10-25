@@ -842,3 +842,12 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 SDK依次暴露csc相对路径误解析、CrusherInfo.id pipelineOnly误拒绝、XInclude注入xml:base误拒绝，均精确修复并新增回归，失败40162286198/40162402496/40162645592保留。实际捕获XML证明头灯/升级XIncludes携带xml:base，非猜测放宽。正式SDK主目录仍保留原DLL和配置；不宣称XmlCompiler另分支或两个完整替代DLL完成。
 
 用户明确允许长时间等待Actions时交接停止，最终XML上下文适配完整累计f8726d62/run40162947222仍in_progress，不提前标通过；下次只收取终态及证据，不重复已通过SDK和矩阵。RESUME保存精确续接步骤。本轮复用原方法/公共依赖与集中验收；无账号额度数据，不能量化额度节省。
+
+
+## 2026-10-25：最终XML上下文累计回归验收完成，无待收取项
+
+最终共同源码f8726d624b0a74ea0927705bca352027cbf76e30。GameObject完整累计run40162947222 success；/Od/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性，四平台0/1/2/99；两模式合计8294592次三缓冲区比较。两条实际PASS日志、各作业步骤/归档/上传终态和不可变validation.sourceCommit/runId/platforms/modes已核对。共享gameobject-root同步为不可变40162947222-1树ee09d1721d1c5cfc50df886df8813f6997ce999d。
+
+同源码真实SDK40162947209、基础40162947146均success；此前核对的自建七资产mod与完整mymod四产物逐字节一致、七+三实际调用的三缓冲区及无原DLL重放、完整XSD和负向断言继续有效。322/322已知Marshal模块验收完成，剩余0；58 Token-only回退保留。
+
+本次只收取既有Actions结果、核对身份/原日志并更新文档与共享证据，没有重复触发已通过矩阵/SDK，没有修改实现、测试或主SDK原路由。RESUME已标记本轮目标全部完成，不再保留待运行/待收取状态；XmlCompiler另分支与两个完整替代DLL未纳入本轮完成声明。
