@@ -37,7 +37,7 @@ dumpbin /disasm:nobytes $inputFile > "$work/original.native.asm"
 if ($LASTEXITCODE -ne 0) { throw 'Native disassembly failed' }
 Compress-Archive -Path "$work/original.il", "$work/original.native.asm" -DestinationPath "$out/raw-listings.zip"
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$work/W3xPluginContractOracle.exe" recovery/tests/W3xPluginContractOracle.cs *> "$out/oracle-build.log"
+& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$work/W3xPluginContractOracle.exe" (Resolve-Path 'recovery/tests/W3xPluginContractOracle.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'W3X contract oracle build failed' }
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$work/W3xPluginContractOracle.exe.config"
 & "$work/W3xPluginContractOracle.exe" $inputFile "$out/plugin-contract.json" *> "$out/oracle.log"
