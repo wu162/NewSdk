@@ -23,7 +23,7 @@ try{
   switch($Group){
    'Volume'{Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll"}}
    'Formats'{$flag=if($ProbeOnly){'--probe'}else{'--strict'};Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" "$work/fixtures-$mode" $flag}}
-   'Ps3Mips'{Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" $dll}}
+   'Ps3Mips'{Checked "$mode-oracle" {& "$work/$oracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" $dll $(if($ProbeOnly){"--probe"})}}
   }
   $r.configurations+=@{configuration=$mode;passed=(!$ProbeOnly);summary=@(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE) '})}
  }

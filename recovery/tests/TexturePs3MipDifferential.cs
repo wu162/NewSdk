@@ -17,6 +17,7 @@ internal static unsafe class TexturePs3MipDifferential
     private static MemoryStream capture;
     private static List<string> calls;
     private static int checks, fixtures;
+    private static bool probeOnly;
     private static void Check(bool value, string message) { checks++; if (!value) throw new Exception(message); }
     private static int Write(IntPtr data, uint size, IntPtr mip, IntPtr user)
     {
@@ -105,6 +106,11 @@ internal static unsafe class TexturePs3MipDifferential
         byte[] expected=Original(compress,plugin,optionsMethod,width,height,originalSource,format,true);
         string chunkInfo=String.Join(";",calls.ToArray());
         Check(Hash(originalSource)==Hash(source),"original source preservation "+name);
+        if(probeOnly)
+        {
+            if(width<=8 && height<=8 && name=="2") Console.WriteLine("PROBE {0} {1}x{2} bytes={3} mips={4} chunks={5} dds={6}",format,width,height,expected.Length,BitConverter.ToUInt32(expected,28),chunkInfo,Convert.ToBase64String(expected));
+            transcript.WriteLine("probe|{0}|{1}|{2}|{3}|{4}",format,width,height,name,Convert.ToBase64String(expected));fixtures++;return;
+        }
         byte[] recoveredSource=(byte[])source.Clone();
         byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,recoveredSource,format});
         Check(Hash(recoveredSource)==Hash(source),"recovered source preservation "+name);
@@ -120,7 +126,8 @@ internal static unsafe class TexturePs3MipDifferential
         try
         {
             Check(IntPtr.Size==4, "x86 host required");
-            if(args.Length!=3) throw new ArgumentException("Usage: TexturePs3MipDifferential original.dll transcript.txt recovered.dll");
+            probeOnly=args.Length==4 && args[3]=="--probe";
+            if(args.Length!=3 && !probeOnly) throw new ArgumentException("Usage: TexturePs3MipDifferential original.dll transcript.txt recovered.dll");
             string input = Path.GetFullPath(args[0]);
             Check(Hash(File.ReadAllBytes(input))=="4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e", "original SHA256 changed");
             string directory = Path.GetDirectoryName(input);
@@ -134,7 +141,7 @@ internal static unsafe class TexturePs3MipDifferential
             object plugin=Activator.CreateInstance(type);
             FieldInfo platform=type.GetField("_Platform",BindingFlags.Instance|BindingFlags.NonPublic);
             Check(platform!=null,"platform field missing");
-            platform.SetValue(plugin,Enum.ToObject(platform.FieldType,2));
+            platform.SetValue(plugin,Enum.Parse(platform.FieldType,"PlayStation3"));
             MethodInfo optionsMethod=type.GetMethod("GetNVCompressionOptions",BindingFlags.Instance|BindingFlags.NonPublic);
             IntPtr module=Marshal.GetHINSTANCE(original.ManifestModule);
             Check(module!=IntPtr.Zero && module!=new IntPtr(-1),"original native image base unavailable");
@@ -142,7 +149,7 @@ internal static unsafe class TexturePs3MipDifferential
             Check(native.Name=="nvDDS.nvDXTcompress", "native RGBAImage metadata token changed");
             Compressor compress=(Compressor)Marshal.GetDelegateForFunctionPointer(new IntPtr(module.ToInt32()+0x52B60),typeof(Compressor));
             MethodInfo encode=null;
-            if(args.Length==3)
+            if(args.Length>=3)
             {
                 Type recovered=Assembly.LoadFrom(Path.GetFullPath(args[2])).GetType("Recovered.Compiler.Texture.TexturePs3MipEncoder",true);
                 encode=recovered.GetMethod("Encode",new Type[]{typeof(uint),typeof(uint),typeof(byte[]),typeof(string)});
@@ -180,7 +187,7 @@ internal static unsafe class TexturePs3MipDifferential
                             Case(compress,plugin,optionsMethod,encode,transcript,width,height,format,"impulse-"+d+"-"+variant,pixels);
                         }
             }
-            Console.WriteLine("PASS TexturePs3MipDifferential fixtures={0} checks={1} recoveredCompared=true mipmapsAccepted=PS3ThreeLevels",fixtures,checks);
+            Console.WriteLine((probeOnly?"PROBE ":"PASS ")+"TexturePs3MipDifferential fixtures={0} checks={1} recoveredCompared=true mipmapsAccepted=PS3ThreeLevels",fixtures,checks);
             return 0;
         }
         catch(Exception e) { Console.Error.WriteLine(e);return 1; }
