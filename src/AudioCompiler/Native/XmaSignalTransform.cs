@@ -37,7 +37,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             int size = Size(windowed);
             if (leadingZeroCount < 0 || leadingZeroCount > size) throw new ArgumentOutOfRangeException("leadingZeroCount");
-            if (legacyUpperLimit < 0) throw new ArgumentOutOfRangeException("legacyUpperLimit");
+            if (codecVersion <= 2 && legacyUpperLimit < 0) throw new ArgumentOutOfRangeException("legacyUpperLimit");
             if (Single.IsNaN(retainedFraction) || Single.IsInfinity(retainedFraction) || retainedFraction < 0.0f)
                 throw new ArgumentOutOfRangeException("retainedFraction");
             float scaled = Store((double)retainedFraction * size);
