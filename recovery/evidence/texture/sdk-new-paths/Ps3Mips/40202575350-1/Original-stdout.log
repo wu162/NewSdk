@@ -1,0 +1,102 @@
+Command Line: D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods /iod:D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods /iod:D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00.0468712] BinaryAssetBuilder started
+[00:00:01.0782064] Cached session data not available.
+[00:00:01.0938184] Session caching enabled ('D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:01.0938184] Network caching enabled ('D:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\Original\builtmods\cache').
+[00:00:01.1406942] Loading 'file://d:\a\_temp\texture-sdk-4e7262550d95426589d0e7f45af13913\original\mods\recoverytexture\data\mod.xml'.
+[00:00:01.2349581] mod.xml: Compiling Texture:RecoveredTexture_0 [21e727da:c4014f66]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_0 [21e727da:c4014f66] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5318482] mod.xml: Compiling Texture:RecoveredTexture_1 [21e727da:75a17cd2]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_1 [21e727da:75a17cd2] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7083689] mod.xml: Compiling Texture:RecoveredTexture_2 [21e727da:7a7605cd]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_2 [21e727da:7a7605cd] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8913460] mod.xml: Compiling OnDemandTexture:RecoveredTexture_3 [9312b9ac:64c129f1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_3 [9312b9ac:64c129f1] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1257281] mod.xml: Compiling OnDemandTexture:RecoveredTexture_4 [9312b9ac:2492e965]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_4 [9312b9ac:2492e965] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3136658] mod.xml: Compiling OnDemandTexture:RecoveredTexture_5 [9312b9ac:357224d0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_5 [9312b9ac:357224d0] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5011743] mod.xml: Compiling Texture:RecoveredTexture_6 [21e727da:bd0429c2]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_6 [21e727da:bd0429c2] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5480508] mod.xml: Compiling Texture:RecoveredTexture_7 [21e727da:45454814]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_7 [21e727da:45454814] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5949242] mod.xml: Compiling Texture:RecoveredTexture_8 [21e727da:f428344b]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_8 [21e727da:f428344b] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6418011] mod.xml: Compiling OnDemandTexture:RecoveredTexture_9 [9312b9ac:10b44b5b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_9 [9312b9ac:10b44b5b] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6886762] mod.xml: Compiling OnDemandTexture:RecoveredTexture_10 [9312b9ac:b53c9d02]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_10 [9312b9ac:b53c9d02] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7357187] mod.xml: Compiling OnDemandTexture:RecoveredTexture_11 [9312b9ac:c9acaaeb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_11 [9312b9ac:c9acaaeb] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7826358] mod.xml: Compiling Texture:RecoveredTexture_12 [21e727da:f7cc4d4c]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_12 [21e727da:f7cc4d4c] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.8763930] mod.xml: Compiling Texture:RecoveredTexture_13 [21e727da:39b9889d]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_13 [21e727da:39b9889d] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.9701396] mod.xml: Compiling Texture:RecoveredTexture_14 [21e727da:0c4caeef]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_14 [21e727da:0c4caeef] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:03.0638873] mod.xml: Compiling OnDemandTexture:RecoveredTexture_15 [9312b9ac:df51ccf1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_15 [9312b9ac:df51ccf1] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:03.1576458] mod.xml: Compiling OnDemandTexture:RecoveredTexture_16 [9312b9ac:20bd0c24]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_16 [9312b9ac:20bd0c24] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:03.2518327] mod.xml: Compiling OnDemandTexture:RecoveredTexture_17 [9312b9ac:5b2441bb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_17 [9312b9ac:5b2441bb] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:03.3612035] Resolving references: mods\recoverytexture\data\mod
+[00:00:03.3768407] Stable sorting assets
+[00:00:03.3768407] Sorting by schema dependencies
+[00:00:03.3924610] Sorting by asset dependencies
+[00:00:03.3924610] Generating stream: mods\recoverytexture\data\mod
+[00:00:03.4237051] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
+[00:00:03.4237051] Slow custom data clean-up (expected: 9, actual: 9, old asset count: 0)
+[00:00:03.4237051] mods\recoverytexture\data\mod Linking binary data
+[00:00:03.4237051] mods\recoverytexture\data\mod Linking import data
+[00:00:03.4237051] mods\recoverytexture\data\mod Linking relocation data
+[00:00:03.4237051] mods\recoverytexture\data\mod Stream complete
+[00:00:03.4549657] BinaryAssetBuilder complete
+[00:00:03.4705775] Texture:
+[00:00:03.5018275]       Instances Processed: 9
+[00:00:03.5018275]       Total Processing Time: 00:00:01.0626315
+[00:00:03.5330869]       Longest Processing Time: 00:00:00.2812554 (RecoveredTexture_0)
+[00:00:03.5330869]       Average Processing Time: 0.118070166666667 seconds
+[00:00:03.5330869] OnDemandTexture:
+[00:00:03.5330869]       Instances Processed: 9
+[00:00:03.5330869]       Total Processing Time: 00:00:01.0323565
+[00:00:03.5330869]       Longest Processing Time: 00:00:00.2343821 (RecoveredTexture_3)
+[00:00:03.5330869]       Average Processing Time: 0.114706277777778 seconds
+[00:00:03.5330869] Total Processing Time for All Types: 00:00:02.0949880
