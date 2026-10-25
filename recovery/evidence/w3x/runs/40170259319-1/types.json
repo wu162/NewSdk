@@ -1,0 +1,3807 @@
+[
+  {
+    "token": "0x02000001",
+    "name": "\u003CModule\u003E",
+    "attributes": "NotPublic",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "??_C@_0P@GHFPNOJB@bad?5allocation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_05JKPKJCFD@EASTL?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_0FB@ODGLLPF@C?3?2projects?2Ra3?2Production?2code?2@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1110"
+      },
+      {
+        "name": "?A0x0e388f25.initTable",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?A0x0e388f25.initTable$initializer$",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x0e388f25.filtertable",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180CC"
+      },
+      {
+        "name": "std.?A0x0e388f25._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "??_C@_07JPHEIBJD@W3DMesh?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E0"
+      },
+      {
+        "name": "??_C@_07PANJAJNG@Color3f?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E0"
+      },
+      {
+        "name": "??_C@_07PFJGBPFD@Color4f?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E0"
+      },
+      {
+        "name": "??_C@_09KFNFGFBK@TimeRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_09IMMILGNF@RealRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_08NNHOCNMK@IntRange?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_0P@CKKGANJ@RandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_0BE@BAEOEBCO@LogicRandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_0BF@GINIFKAB@ClientRandomVariable?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F0"
+      },
+      {
+        "name": "??_C@_0P@NMEAADDN@ReplaceTexture?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_0BA@BNPMOACI@SoundOrEvaEvent?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F4"
+      },
+      {
+        "name": "??_C@_0BB@BEFBMPPK@MoneyTransaction?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F8"
+      },
+      {
+        "name": "??_C@_0BE@PCEPIOMH@BaseRenderAssetType?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_0O@GILDMIHG@BoneInfluence?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180FC"
+      },
+      {
+        "name": "??_C@_08NMAPBDDP@Triangle?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_09JBPNNFEK@BoxMinMax?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_06JBMJMGAL@Sphere?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_0BB@ECHPOGAB@FXShaderConstant?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F8"
+      },
+      {
+        "name": "??_C@_0BI@NMCKDACM@FXShaderConstantTexture?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118104"
+      },
+      {
+        "name": "??_C@_0BG@LHFGLMDD@FXShaderConstantFloat?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118108"
+      },
+      {
+        "name": "??_C@_0BE@CGFKBPNN@FXShaderConstantInt?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_0BF@OOBDMKDI@FXShaderConstantBool?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F0"
+      },
+      {
+        "name": "??_C@_0BB@EKKFAPIM@FXShaderMaterial?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F8"
+      },
+      {
+        "name": "??_C@_07IFDFKAHK@AABTree?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E0"
+      },
+      {
+        "name": "??_C@_0BK@GLFGEIED@W3DMeshPipelineVertexData?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11810C"
+      },
+      {
+        "name": "??_C@_09EPGLIBAJ@SubObject?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_0N@HFCDOJOG@W3DContainer?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0N@MOBFHGCB@W3DHierarchy?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0BF@CMLEHIBO@AnimationChannelBase?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F0"
+      },
+      {
+        "name": "??_C@_0BH@DFMKONBP@AnimationChannelScalar?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118110"
+      },
+      {
+        "name": "??_C@_0BL@DPPCACKP@AnimationChannelQuaternion?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118114"
+      },
+      {
+        "name": "??_C@_0BM@FGGHIKGH@AnimationChannelBaseRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118118"
+      },
+      {
+        "name": "??_C@_0BK@BMKPLGAI@AnimationChannelTimecoded?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11810C"
+      },
+      {
+        "name": "??_C@_0BG@LAICBIKO@AnimationChannelDelta?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118108"
+      },
+      {
+        "name": "??_C@_0BE@MNAEJFEK@W3DAnimationRuntime?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_0N@HAGJEOJN@W3DAnimation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0BA@OOFOOKKI@W3DCollisionBox?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F4"
+      },
+      {
+        "name": "??_C@_0O@NHJPPGGC@CameraAligned?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180FC"
+      },
+      {
+        "name": "??_C@_0P@KHKGDCGM@CameraOriented?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_06EFAGIKOH@Normal?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_04BGDBHLHN@Skin?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_0M@LHPCLPIO@Orientation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11812C"
+      },
+      {
+        "name": "??_C@_0L@KLDABBOG@Visibility?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118124"
+      },
+      {
+        "name": "??_C@_0N@MPFNLKPH@XTranslation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0N@BCMLGDHC@YTranslation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0N@KPABAPLM@ZTranslation?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_01GBGANLPD@0?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01DGKLNCNG@R?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01BBODEMC@G?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01HMGJMAIH@B?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01FHEEJDEE@A?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_04KOACHJEN@Type?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_00CNPNBAHC@?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118138"
+      },
+      {
+        "name": "??_C@_06ODJMJFLN@Weight?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_04CCGIJNFG@Bone?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04FABLJDN@Name?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_01MMEEDKFM@X?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01NFFPALBN@Y?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01POHCFINO@Z?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01ELNMCGJD@W?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_05LPIJGKJ@Value?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_01EJNLAFE@P?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_05HOHBLJAP@Front?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_04FEOMFELI@Back?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_05EHPGHEDK@Begin?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_05IJGIMMHE@Count?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_03LLNBGIF@Min?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_03BJDGPCOK@Max?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_08IEBJFPPC@Children?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_05HHBDIHGG@Polys?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_0M@GFCHFNAP@PolyIndices?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11812C"
+      },
+      {
+        "name": "??_C@_04OKAPPFIB@Node?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_06BCNEEODO@TypeId?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_0L@LBFPEED@ShaderName?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118124"
+      },
+      {
+        "name": "??_C@_0O@DDEFCAPO@TechniqueName?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180FC"
+      },
+      {
+        "name": "??_C@_0P@FPINIBCG@TechniqueIndex?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_09EKDBGGMD@Constants?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_05JABNIMDI@Pivot?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_09CLPNCNDO@NumFrames?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_0L@OCNGDGDE@FirstFrame?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118124"
+      },
+      {
+        "name": "??_C@_06GJMFONGK@Radius?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_06NOADDNNE@Center?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_01FCMHBHNC@V?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_03CCFGKGDJ@Nrm?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_04MPGECEBJ@Dist?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_05LAPONLG@false?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_0L@GDEEFGDC@BinaryMove?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118124"
+      },
+      {
+        "name": "??_C@_05MPDBFDHF@Frame?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_01NANMIPIL@N?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01GAPBHFFA@T?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01GFHCPBMG@C?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_01JPJNBJEM@I?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118130"
+      },
+      {
+        "name": "??_C@_08JMEOJNII@Vertices?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_07DKDJFLGE@Normals?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E0"
+      },
+      {
+        "name": "??_C@_08DJLAMBOA@Tangents?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_09CPGIGOEP@Binormals?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_0N@DJBJPDKO@VertexColors?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_09NIBCOMFM@TexCoords?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_0P@LNBMENPE@BoneInfluences?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_0N@LMLGBMDA@ShadeIndices?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_09FDDEOHGF@Hierarchy?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_09HFKGELHH@FrameRate?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_08INPNJAIK@Channels?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "??_C@_04LOAJBDKD@true?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_0P@FPKKANKC@AllowTimeCoded?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_0BD@PACLLEOL@AllowAdaptiveDelta?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1114"
+      },
+      {
+        "name": "??_C@_05CGKLNCBH@0?4001?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_0BE@OJKBNDPA@MaxTranslationError?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_04DKCHIKEL@0?401?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_0BB@OAPHHBAN@MaxRotationError?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F8"
+      },
+      {
+        "name": "??_C@_0BD@KDDHFEEI@MaxVisibilityError?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1114"
+      },
+      {
+        "name": "??_C@_04IBBOIMJ@0?403?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_0BG@DFLPCJGM@MaxAdaptiveDeltaError?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118108"
+      },
+      {
+        "name": "??_C@_03HLLJOCDO@1?40?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_0BD@NJLHHJDO@ForceReductionRate?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1114"
+      },
+      {
+        "name": "??_C@_0BE@GOBLKNOJ@CompressionSettings?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180EC"
+      },
+      {
+        "name": "??_C@_06FHBILLDG@Hidden?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "??_C@_0L@MBLKBNFB@CastShadow?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118124"
+      },
+      {
+        "name": "??_C@_0N@JJFKGPIN@GeometryType?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_09NLJGGGGI@SortLevel?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_0M@NJIMOLLO@BoundingBox?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11812C"
+      },
+      {
+        "name": "??_C@_0P@IGIKKCLE@BoundingSphere?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1108"
+      },
+      {
+        "name": "??_C@_09LCKIAIBL@Triangles?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E4"
+      },
+      {
+        "name": "??_C@_08IHCECLKE@FXShader?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180E8"
+      },
+      {
+        "name": "?A0x325460ff.?enumMap@?1??GetValue@?$EnumNameGetter@W4AnimationChannelType@SageBinaryData@@@@SA?BW4AnimationChannelType@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118254"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.SECONDS_PER_LOGICFRAME_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.MSEC_PER_SECOND",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.RADS_PER_DEGREE",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.LOGICFRAMES_PER_SECOND",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.LOGICFRAMES_PER_SECONDS_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.LOGICFRAMES_PER_MSEC_REAL",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.PI",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D0C"
+      },
+      {
+        "name": "DataInitializers.?A0x325460ff.SECONDS_PER_LOGICFRAME_REAL$initializer$",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?TypeHash@W3DMesh@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelBase@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@FXShaderConstantFloat@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelScalar@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@Color4f@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@W3DCollisionBox@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@LogicRandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@TimeRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@FXShaderConstantBool@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@ClientRandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@AnimationChannelBaseRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@Color3f@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@MoneyTransaction@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@SubObject@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@Triangle@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@Color4f@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@Sphere@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@W3DHierarchy@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@AnimationChannelQuaternion@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@BoxMinMax@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@AnimationChannelDelta@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@Triangle@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@W3DAnimationRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@W3DAnimation@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@BoxMinMax@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@RealRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@AnimationChannelBase@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@FXShaderMaterial@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@FXShaderMaterial@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@RandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@MoneyTransaction@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@BoneInfluence@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@FXShaderConstantTexture@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@BaseRenderAssetType@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@LogicRandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@W3DMeshPipelineVertexData@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@ReplaceTexture@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelTimecoded@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@W3DAnimationRuntime@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelDelta@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@ReplaceTexture@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@W3DAnimation@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@AnimationChannelTimecoded@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@FXShaderConstantTexture@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@BaseRenderAssetType@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@W3DMeshPipelineVertexData@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@FXShaderConstant@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@BoneInfluence@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelBaseRuntime@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@FXShaderConstant@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@W3DContainer@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@TimeRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@FXShaderConstantFloat@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@FXShaderConstantInt@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@SoundOrEvaEvent@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@W3DCollisionBox@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@IntRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@RandomVariable@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@AABTree@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@AABTree@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@SubObject@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@FXShaderConstantBool@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@ClientRandomVariable@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@W3DHierarchy@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@AnimationChannelQuaternion@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@W3DContainer@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@FXShaderConstantInt@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@SoundOrEvaEvent@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@RealRange@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeName@AnimationChannelScalar@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@Sphere@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeName@W3DMesh@SageBinaryData@@2PBDB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "?TypeHash@Color3f@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?TypeHash@IntRange@SageBinaryData@@2IB",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "?A0x325460ff.?enumMap@?1??GetValue@?$EnumNameGetter@W4MeshGeometryType@SageBinaryData@@@@SA?BW4MeshGeometryType@SageBinaryData@@PBDPA_N@Z@4QBUEnumPair@?$EnumNameGetter@H@@B",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11825C"
+      },
+      {
+        "name": "std.?A0x325460ff._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "__unep@??$BookmarkCompare@U?$GenericBookmark@I@Tracker@Relo@@@Tracker@Relo@@$$FCA_NABU?$GenericBookmark@I@01@0@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "std.?A0x8a5de553._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "??_R3IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_R2INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180C8"
+      },
+      {
+        "name": "??_R4Value@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "??_R2Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180B8"
+      },
+      {
+        "name": "??_7List@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118270"
+      },
+      {
+        "name": "??_R0?AVValue@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118284"
+      },
+      {
+        "name": "??_R1A@?0A@EA@Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_R2List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180B8"
+      },
+      {
+        "name": "??_R3INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_7Value@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11826C"
+      },
+      {
+        "name": "??_R1A@?0A@EA@IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_7Node@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118264"
+      },
+      {
+        "name": "??_R4IList@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "??_R3IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_R0?AVIValue@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118260"
+      },
+      {
+        "name": "??_R3List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_7INode@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118264"
+      },
+      {
+        "name": "??_R4IValue@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "??_R1A@?0A@EA@Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_R4Node@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "??_R3Value@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_R0?AVNode@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118288"
+      },
+      {
+        "name": "??_R0?AVINode@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118268"
+      },
+      {
+        "name": "??_R0?AVIList@Marshaler@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118268"
+      },
+      {
+        "name": "??_R2IList@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180C8"
+      },
+      {
+        "name": "??_R2IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180C8"
+      },
+      {
+        "name": "??_R1A@?0A@EA@List@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_R1A@?0A@EA@IValue@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_7IValue@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11826C"
+      },
+      {
+        "name": "??_R2Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180B8"
+      },
+      {
+        "name": "??_R3Node@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180C0"
+      },
+      {
+        "name": "??_R4INode@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "??_R4List@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180D8"
+      },
+      {
+        "name": "std.?A0x385f832d._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "??_R1A@?0A@EA@INode@Marshaler@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180B0"
+      },
+      {
+        "name": "??_R0?AVList@@@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118288"
+      },
+      {
+        "name": "??_7IList@Marshaler@@6B@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118270"
+      },
+      {
+        "name": "??_C@_0EJ@GDEJDBKH@Assert?5failed?3?5srcIndex?5?$DM?5conver@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11829C"
+      },
+      {
+        "name": "??_C@_0FG@LMNBEMCD@Assert?5failed?3?5?$CKbone?5?$DO?$DN?50?5?$CG?$CG?5?$CKbo@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182A4"
+      },
+      {
+        "name": "??_C@_0BL@DBJIEAG@Assert?5failed?3?5m2?5?9?5m?5?$DM?$DN?54?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118114"
+      },
+      {
+        "name": "??_C@_0N@BKCHANDB@?$CFc?$CFX?3?$CF02X?3?$CFs?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1120"
+      },
+      {
+        "name": "??_C@_0BL@GICDAKDA@Assert?5failed?3?5m2?5?9?5m?5?$DN?$DN?52?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118114"
+      },
+      {
+        "name": "??_C@_0DF@HPFNIGGK@Assert?5failed?3?5?$CBconverterData?4m_@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182A8"
+      },
+      {
+        "name": "?A0x431bf441.?defaultColor@?L@??DetermineVertexDataContents@W3DMeshProcessor@@YAXABUW3DMeshPipelineVertexData@SageBinaryData@@AAV?$vector@UDataMapping@W3DMeshProcessor@@Vallocator@eastl@@@eastl@@@Z@4UVector4@Math@SageMathOnly@@A",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061180C4"
+      },
+      {
+        "name": "_CTA2PAD",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061182E4"
+      },
+      {
+        "name": "??_R0PAD@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061182E8"
+      },
+      {
+        "name": "_TI2PAD",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182E0"
+      },
+      {
+        "name": "W3DMeshProcessor.?A0x431bf441.DataHandlers_Xenon",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182EC"
+      },
+      {
+        "name": "W3DMeshProcessor.?A0x431bf441.DataHandlers_PS3",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182EC"
+      },
+      {
+        "name": "W3DMeshProcessor.?A0x431bf441.DataHandlers_Windows",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182EC"
+      },
+      {
+        "name": "std.?A0x431bf441._bad_alloc_Message",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F200D202104"
+      },
+      {
+        "name": "_CT??_R0PAX@84",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182F4"
+      },
+      {
+        "name": "_CT??_R0PAD@84",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182F4"
+      },
+      {
+        "name": "??_R0PAX@8",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061182E8"
+      },
+      {
+        "name": "??_C@_04GKJNKENE@void?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04HAIMDOLD@1f32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04BHELJJBO@1s32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04HAKDIIHE@1s16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_03NHAENFNF@1s8?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_04DHCMEEGD@2f32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04FAOLODMO@2s32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04DHADPCKE@2s16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_03MFLBHKDL@2s8?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_04KEMGNND@3f32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04GNILMKHO@3s32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04KGDNLBE@3s16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_03HNANBNFO@3s8?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_04LIGMLBMD@4f32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04NPKLBGGO@4s32?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04LIEDAHAE@4s16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_03OANKCFOH@4s8?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_03OEFHFJFF@4u8?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118134"
+      },
+      {
+        "name": "??_C@_04OAJLLEAL@4u8n?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_0BB@KNBDCFNH@4u8EndianSwapped?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180F8"
+      },
+      {
+        "name": "??_C@_0BC@CKBNACNN@4u8nEndianSwapped?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D11813C"
+      },
+      {
+        "name": "??_C@_05CKPCCCCK@2s16n?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_05PMKLMBDH@4s16n?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_04HJFCCDEO@3u10?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_05OFCDINDN@3s10n?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_05OEOBOHAK@3s11n?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D110C"
+      },
+      {
+        "name": "??_C@_04FAMEFFAJ@2f16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_04NPIEKAKJ@4f16?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118128"
+      },
+      {
+        "name": "??_C@_06EKNFNOKI@custom?$AA@",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118100"
+      },
+      {
+        "name": "?A0xfa41eb23.s_ElementInfo",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1182F8"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_mp_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "?Uninitialized@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2HA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?A0x176e81b8.?Uninitialized$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xi_vt_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "?InitializedPerAppDomain@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118308"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedPerAppDomain$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?IsDefaultDomain@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2_NA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?A0x176e81b8.?IsDefaultDomain$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_ma_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "?InitializedNative@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118308"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedNative$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?Initialized@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2HA",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?A0x176e81b8.?Initialized$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_ma_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "?InitializedVtables@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118308"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedVtables$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?A0x176e81b8.__xi_vt_z",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "?InitializedPerProcess@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2W4State@Progress@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118308"
+      },
+      {
+        "name": "?A0x176e81b8.?InitializedPerProcess$initializer$@CurrentDomain@\u003CCrtImplementationDetails\u003E@@$$Q2P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "?InitializedPerProcess@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?Entered@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?InitializedNative@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?Count@AllDomains@\u003CCrtImplementationDetails\u003E@@2HA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0608"
+      },
+      {
+        "name": "?hasNative@DefaultDomain@\u003CCrtImplementationDetails\u003E@@0W4State@TriBool@2@A",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611831C"
+      },
+      {
+        "name": "?hasPerProcess@DefaultDomain@\u003CCrtImplementationDetails\u003E@@0W4State@TriBool@2@A",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611831C"
+      },
+      {
+        "name": "?InitializedNativeFromCCTOR@DefaultDomain@\u003CCrtImplementationDetails\u003E@@2_NA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0602"
+      },
+      {
+        "name": "?A0x176e81b8.__xc_mp_a",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D118300"
+      },
+      {
+        "name": "__unep@?DoNothing@DefaultDomain@\u003CCrtImplementationDetails\u003E@@$$FCGJPAX@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "__unep@?_UninitializeDefaultDomain@LanguageSupport@\u003CCrtImplementationDetails\u003E@@$$FCGJPAX@Z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F0F08"
+      },
+      {
+        "name": "__exit_list_size_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "?_lock@AtExitLock@\u003CCrtImplementationDetails\u003E@@$$Q0V?$Handle@P$AAVObject@System@@@2@A",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "06118324"
+      },
+      {
+        "name": "?A0x23130d9f.?_lock$initializer$@AtExitLock@\u003CCrtImplementationDetails\u003E@@$$Q0P6MXXZA",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061B000001"
+      },
+      {
+        "name": "__onexitbegin_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__exit_list_size",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "__onexitend_app_domain",
+        "attributes": "Assembly, Static",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__onexitbegin_m",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "?A0x23130d9f.__onexitend_m",
+        "attributes": "Assembly, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1B000001"
+      },
+      {
+        "name": "eastl.gEmptyString",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "??_7type_info@@6B@",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06200D1180AC"
+      },
+      {
+        "name": "__xc_z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611830C"
+      },
+      {
+        "name": "__native_vcclrit_reason",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F80FD09"
+      },
+      {
+        "name": "__xc_a",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "0611830C"
+      },
+      {
+        "name": "__xi_a",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118310"
+      },
+      {
+        "name": "__native_startup_state",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F80FD118314"
+      },
+      {
+        "name": "__xi_z",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "06118310"
+      },
+      {
+        "name": "__native_startup_lock",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "060F1F80FD01"
+      },
+      {
+        "name": "__native_dllmain_reason",
+        "attributes": "Public, Static, HasFieldRVA",
+        "offset": -1,
+        "signature": "061F80FD09"
+      }
+    ]
+  },
+  {
+    "token": "0x02000002",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0P@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 15,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000003",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY05$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 6,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000004",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0FB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 81,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000005",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BD@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 19,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000006",
+    "name": "SageBinaryData.MeshGeometryType",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000007",
+    "name": "SageBinaryData.AnimationChannelType",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000008",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0N@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 13,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000009",
+    "name": "eastl.integral_constant\u003Cbool,0\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000A",
+    "name": "eastl.generic_iterator\u003CSrcFrame *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000B",
+    "name": "eastl.generic_iterator\u003CRelo::Tracker::Block *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000C",
+    "name": "eastl.generic_iterator\u003CRelo::Tracker::GenericBookmark\u003Cunsigned int\u003E *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000D",
+    "name": "eastl.integral_constant\u003Cbool,1\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000E",
+    "name": "eastl.generic_iterator\u003Cfloat *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200000F",
+    "name": "eastl.generic_iterator\u003CCompressedAdaptiveDelta::Frame *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000010",
+    "name": "eastl.generic_iterator\u003Cunsigned int *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000011",
+    "name": "Relo.Tracker",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 88,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000012",
+    "name": "Block",
+    "attributes": "NestedAssembly, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000013",
+    "name": "GenericBookmark\u003Cunsigned int\u003E",
+    "attributes": "NestedAssembly, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000014",
+    "name": "Endian.EndianHelper",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000015",
+    "name": "Relo.Chunk",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000016",
+    "name": "eastl.stack\u003Cunsigned int,eastl::vector\u003Cunsigned int,eastl::allocator\u003E \u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000017",
+    "name": "WWQuat",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000018",
+    "name": "eastl.vector\u003CSrcFrame,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000019",
+    "name": "eastl.vector\u003Cfloat,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001A",
+    "name": "CompressedTimecoded",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001B",
+    "name": "SageBinaryData.AnimationChannelBase",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001C",
+    "name": "SageBinaryData.W3DAnimation",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001D",
+    "name": "CompressionSettings",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001E",
+    "name": "SageBinaryData.AnimationChannelTimecoded",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 36,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200001F",
+    "name": "CompressedAdaptiveDelta",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 52,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000020",
+    "name": "Frame",
+    "attributes": "NestedAssembly, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 17,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000021",
+    "name": "SageBinaryData.AnimationChannelDelta",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 44,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000022",
+    "name": "eastl.vector\u003CRelo::Tracker::Block,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000023",
+    "name": "eastl.vector\u003CRelo::Tracker::GenericBookmark\u003Cunsigned int\u003E,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000024",
+    "name": "eastl.vector\u003CRelo::Tracker::GenericBookmark\u003Cvoid *\u003E,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000025",
+    "name": "eastl.vector\u003Cunsigned int,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000026",
+    "name": "SrcFrame",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000027",
+    "name": "eastl.vector\u003CCompressedAdaptiveDelta::Frame,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000028",
+    "name": "eastl.VectorBase\u003Cfloat,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000029",
+    "name": "eastl.VectorBase\u003CSrcFrame,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002A",
+    "name": "SageMathOnly.Math.Quaternion",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY01Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002C",
+    "name": "_s__RTTIBaseClassDescriptor2",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002D",
+    "name": "Relo.AssetReference\u003CSageBinaryData::W3DHierarchy,Sage::Render::W3DHierarchyWrapper\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002E",
+    "name": "$_s__RTTIBaseClassArray$_extraBytes_8",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 9,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200002F",
+    "name": "SageMathOnly.Math.Vector3",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000030",
+    "name": "_s__RTTIClassHierarchyDescriptor",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000031",
+    "name": "SageMathOnly.Math.Vector4",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000032",
+    "name": "$_s__RTTIBaseClassArray$_extraBytes_4",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 5,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000033",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BAA@M",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1024,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000034",
+    "name": "SageMathOnly.Math.Vector2",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000035",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BB@M",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 68,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000036",
+    "name": "_s__RTTICompleteObjectLocator",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000037",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03M",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000038",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY07$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000039",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY09$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 10,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003A",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY08$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 9,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BE@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BF@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 21,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003D",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BA@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003E",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BB@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 17,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200003F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0O@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 14,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000040",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY06$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 7,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000041",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BI@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000042",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BG@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 22,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000043",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BK@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 26,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000044",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BH@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 23,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000045",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BL@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 27,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000046",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BM@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000047",
+    "name": "BinaryAssetBuilder.W3XCompiler.Plugin",
+    "attributes": "Public, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "m_HashCode",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "0609"
+      },
+      {
+        "name": "m_Platform",
+        "attributes": "Private",
+        "offset": -1,
+        "signature": "06118081"
+      },
+      {
+        "name": "W3XPluginVersion_PC",
+        "attributes": "Private, Static, HasDefault",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "W3XPluginVersion_Xenon",
+        "attributes": "Private, Static, HasDefault",
+        "offset": -1,
+        "signature": "06200D09"
+      },
+      {
+        "name": "W3XPluginVersion_PS3",
+        "attributes": "Private, Static, HasDefault",
+        "offset": -1,
+        "signature": "06200D09"
+      }
+    ]
+  },
+  {
+    "token": "0x02000048",
+    "name": "eastl.RBTreeSide",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x02000049",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0L@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 11,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004A",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY04$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 5,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0M@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY01$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 2,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004D",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004E",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY00$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200004F",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BC@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 18,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000050",
+    "name": "Marshaler.NodeHolder",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000051",
+    "name": "Marshaler.INode",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000052",
+    "name": "Marshaler.IValue",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000053",
+    "name": "Marshaler.IList",
+    "attributes": "SequentialLayout, Abstract, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000054",
+    "name": "RGBAColor",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000055",
+    "name": "SageBinaryData.BoneInfluence",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000056",
+    "name": "SageBinaryData.FXShaderConstant",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000057",
+    "name": "SageBinaryData.FXShaderConstantBool",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000058",
+    "name": "SageBinaryData.AABTree",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000059",
+    "name": "PolyIndices",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005A",
+    "name": "Node",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 32,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005B",
+    "name": "Children",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005C",
+    "name": "Polys",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005D",
+    "name": "SageBinaryData.FXShaderMaterial",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005E",
+    "name": "SageBinaryData.AnimationChannelBaseRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200005F",
+    "name": "SageBinaryData.Sphere",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000060",
+    "name": "SageBinaryData.BoxMinMax",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000061",
+    "name": "SageBinaryData.Triangle",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000062",
+    "name": "SageBinaryData.FXShaderConstantFloat",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000063",
+    "name": "SageBinaryData.FXShaderConstantInt",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000064",
+    "name": "SageBinaryData.AnimationChannelScalar",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000065",
+    "name": "Frame",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000066",
+    "name": "SageBinaryData.FXShaderConstantTexture",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000067",
+    "name": "SageBinaryData.AnimationChannelQuaternion",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000068",
+    "name": "Frame",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000069",
+    "name": "SageBinaryData.W3DMeshPipelineVertexData",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 48,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006A",
+    "name": "Vertices",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006B",
+    "name": "Normals",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006C",
+    "name": "Tangents",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006D",
+    "name": "Binormals",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006E",
+    "name": "VertexColors",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200006F",
+    "name": "TexCoords",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000070",
+    "name": "BoneInfluences",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000071",
+    "name": "ShadeIndices",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000072",
+    "name": "SageBinaryData.W3DAnimationRuntime",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000073",
+    "name": "SageBinaryData.W3DMesh",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 96,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000074",
+    "name": "Vertices",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000075",
+    "name": "Normals",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000076",
+    "name": "Tangents",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000077",
+    "name": "Binormals",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000078",
+    "name": "VertexColors",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000079",
+    "name": "TexCoords",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007A",
+    "name": "BoneInfluences",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007B",
+    "name": "ShadeIndices",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007C",
+    "name": "Triangles",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007D",
+    "name": "gcroot\u003CSystem::Xml::XmlNamespaceManager ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007E",
+    "name": "gcroot\u003CSystem::Xml::XPath::XPathNavigator ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200007F",
+    "name": "Relo.List\u003CSageBinaryData::AnimationChannelScalar::Frame\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000080",
+    "name": "Relo.List\u003CSageBinaryData::AnimationChannelQuaternion::Frame\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000081",
+    "name": "Relo.List\u003CSageBinaryData::AnimationChannelBase *\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000082",
+    "name": "Relo.String\u003Cchar\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000083",
+    "name": "EnumNameGetter\u003Cint\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000084",
+    "name": "EnumPair",
+    "attributes": "NestedPublic, SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000085",
+    "name": "Relo.AssetReference\u003CSageBinaryData::Texture,RNA::TextureC\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000086",
+    "name": "Relo.List\u003Cunsigned int\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000087",
+    "name": "Relo.List\u003CSageBinaryData::AABTree::Node\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000088",
+    "name": "Relo.List\u003CSageBinaryData::FXShaderConstant *\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000089",
+    "name": "Relo.List\u003Cfloat\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008A",
+    "name": "Relo.List\u003CSageMathOnly::Math::Vector3\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008B",
+    "name": "Relo.List\u003CRGBAColor\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008C",
+    "name": "Relo.List\u003CSageMathOnly::Math::Vector2\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008D",
+    "name": "Relo.List\u003CSageBinaryData::BoneInfluence\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008E",
+    "name": "Relo.List\u003CSageBinaryData::W3DMeshPipelineVertexData::TexCoords\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200008F",
+    "name": "Relo.List\u003CSageBinaryData::Triangle\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000090",
+    "name": "W3DMeshVertexData",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000091",
+    "name": "Relo.List\u003CSageBinaryData::W3DMeshPipelineVertexData::Vertices\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000092",
+    "name": "Relo.List\u003CSageBinaryData::W3DMeshPipelineVertexData::Normals\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000093",
+    "name": "Relo.List\u003CSageBinaryData::W3DMeshPipelineVertexData::BoneInfluences\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000094",
+    "name": "Node",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000095",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY04$$CBUEnumPair@?$EnumNameGetter@H@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 40,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000096",
+    "name": "eastl.rbtree_node_base",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000097",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03$$CBUEnumPair@?$EnumNameGetter@H@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 32,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000098",
+    "name": "$_TypeDescriptor$_extraBytes_23",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 31,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x02000099",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY06Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009A",
+    "name": "$_TypeDescriptor$_extraBytes_22",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 30,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009B",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY03Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009C",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY05Q6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009D",
+    "name": "gcroot\u003CSystem::String ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009E",
+    "name": "gcroot\u003CSystem::Xml::XPath::XPathNodeIterator ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x0200009F",
+    "name": "List",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A0",
+    "name": "Value",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A1",
+    "name": "$_TypeDescriptor$_extraBytes_12",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A2",
+    "name": "$_TypeDescriptor$_extraBytes_11",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 19,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A3",
+    "name": "RNA.ElementNameE",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A4",
+    "name": "RNA.ElementFormatE",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A5",
+    "name": "__vector4",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A6",
+    "name": "W3DMeshProcessor.UsageType",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000A7",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0EJ@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 73,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A8",
+    "name": "eastl.rbtree_iterator\u003Cunsigned short,unsigned short const *,unsigned short const \u0026\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000A9",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0FG@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 86,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AA",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0DF@$$CBD",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 53,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AB",
+    "name": "std.forward_iterator_tag",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AC",
+    "name": "eastl.generic_iterator\u003CW3DMeshProcessor::DataMapping *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AD",
+    "name": "eastl.generic_iterator\u003Cunsigned short *,void\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AE",
+    "name": "_XMUBYTEN4",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000AF",
+    "name": "W3DMeshProcessor.ConverterData",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 24,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B0",
+    "name": "W3DMeshProcessor.DataMapping",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B1",
+    "name": "eastl.vector\u003CW3DMeshProcessor::DataMapping,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B2",
+    "name": "W3DMeshProcessor.DataHandler",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B3",
+    "name": "eastl.vector\u003Cunsigned short,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B4",
+    "name": "eastl.set\u003Cunsigned short,eastl::less\u003Cunsigned short\u003E,eastl::allocator\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B5",
+    "name": "eastl.rbtree\u003Cunsigned short,unsigned short,eastl::less\u003Cunsigned short\u003E,eastl::allocator,eastl::use_self\u003Cunsigned short\u003E,0,1\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B6",
+    "name": "eastl.pair\u003Ceastl::rbtree_iterator\u003Cunsigned short,unsigned short const *,unsigned short const \u0026\u003E,bool\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B7",
+    "name": "eastl.rbtree_node\u003Cunsigned short\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 20,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B8",
+    "name": "_s__ThrowInfo",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 16,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000B9",
+    "name": "$_s__CatchableTypeArray$_extraBytes_8",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 12,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BA",
+    "name": "$_TypeDescriptor$_extraBytes_5",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 13,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BB",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY07$$CBUDataHandler@W3DMeshProcessor@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 128,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BC",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0CAA@D",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 512,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BD",
+    "name": "_s__CatchableType",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 28,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BE",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0BO@$$CBUElementInfoT@@",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 360,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000BF",
+    "name": "\u003CCrtImplementationDetails\u003E.LanguageSupport",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C0",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY00Q6MPBXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C1",
+    "name": "\u003CCrtImplementationDetails\u003E.Progress",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C2",
+    "name": "State",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000C3",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0A@P6AXXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C4",
+    "name": "\u003CCppImplementationDetails\u003E.$ArrayType$$$BY0A@P6AHXZ",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C5",
+    "name": "__enative_startup_state",
+    "attributes": "Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000C6",
+    "name": "\u003CCrtImplementationDetails\u003E.TriBool",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C7",
+    "name": "State",
+    "attributes": "NestedPublic, Sealed, BeforeFieldInit",
+    "size": 0,
+    "packing": 0,
+    "fields": [
+      {
+        "name": "value__",
+        "attributes": "Public, SpecialName, RTSpecialName",
+        "offset": -1,
+        "signature": "0608"
+      }
+    ]
+  },
+  {
+    "token": "0x020000C8",
+    "name": "_EXCEPTION_POINTERS",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 8,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000C9",
+    "name": "\u003CCrtImplementationDetails\u003E.Handle\u003CSystem::Object ^\u003E",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 4,
+    "packing": 0,
+    "fields": []
+  },
+  {
+    "token": "0x020000CA",
+    "name": "\u003CCrtImplementationDetails\u003E.ThisModule",
+    "attributes": "SequentialLayout, Sealed, BeforeFieldInit",
+    "size": 1,
+    "packing": 0,
+    "fields": []
+  }
+]

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.W3XCompiler</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net20</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>..\..\..\..\..\..\SDK\tools\BinaryAssetBuilder.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EALA.Hash">
+      <HintPath>..\..\..\..\..\..\SDK\tools\EALA.Hash.dll</HintPath>
+    </Reference>
+    <Reference Include="EALA.ProcessUtility" />
+    <Reference Include="EALA.Metrics">
+      <HintPath>..\..\..\..\..\..\SDK\tools\EALA.Metrics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualC" />
+  </ItemGroup>
+</Project>

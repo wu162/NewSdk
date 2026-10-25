@@ -1,0 +1,32 @@
+{
+  "runId": "40171556389",
+  "sdkValidated": false,
+  "assemblies": [
+    {
+      "sources": 78,
+      "originalSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "name": "BinaryAssetBuilder.Core"
+    },
+    {
+      "sources": 5,
+      "originalSha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135",
+      "name": "BinaryAssetBuilder.Remote"
+    },
+    {
+      "sources": 15,
+      "originalSha256": "5e46cfdad438d8fb6e2b683035ab79811c1e696bd673fd1af0ccd68558c7bb7f",
+      "name": "EALABuild"
+    }
+  ],
+  "sourceCommit": "04e98e55ab2c634758695a37d8ed51ef25a75fa1",
+  "runAttempt": "1",
+  "builds": [
+    {
+      "exitCode": 1,
+      "assembly": "BinaryAssetBuilder.Core",
+      "mode": "Debug"
+    }
+  ],
+  "status": "started",
+  "ilspyVersion": "9.1.0.7988"
+}
