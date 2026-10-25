@@ -1,0 +1,342 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35229.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\a\NewSdk\NewSdk\SDK\tools\BinaryAssetBuilder.TextureCompiler.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+             14C machine (x86)
+               5 number of sections
+        4A6A1967 time date stamp Fri Jul 24 20:28:23 2009
+               0 file pointer to symbol table
+               0 number of symbols
+              E0 size of optional header
+            2102 characteristics
+                   Executable
+                   32 bit word machine
+                   DLL
+
+OPTIONAL HEADER VALUES
+             10B magic # (PE32)
+            8.00 linker version
+           96000 size of code
+           30000 size of initialized data
+               0 size of uninitialized data
+           95804 entry point (10095804)
+            1000 base of code
+           97000 base of data
+        10000000 image base (10000000 to 100D0FFF)
+            1000 section alignment
+            1000 file alignment
+            4.00 operating system version
+            0.00 image version
+            4.00 subsystem version
+               0 Win32 version
+           D1000 size of image
+            1000 size of headers
+           D6ABD checksum
+               3 subsystem (Windows CUI)
+               0 DLL characteristics
+          100000 size of stack reserve
+            1000 size of stack commit
+          100000 size of heap reserve
+            1000 size of heap commit
+               0 loader flags
+              10 number of directories
+               0 [       0] RVA [size] of Export Directory
+           B6764 [      A0] RVA [size] of Import Directory
+           C9000 [     2A8] RVA [size] of Resource Directory
+               0 [       0] RVA [size] of Exception Directory
+               0 [       0] RVA [size] of Certificates Directory
+           CA000 [    3AEC] RVA [size] of Base Relocation Directory
+           972B0 [      1C] RVA [size] of Debug Directory
+               0 [       0] RVA [size] of Architecture Directory
+               0 [       0] RVA [size] of Global Pointer Directory
+               0 [       0] RVA [size] of Thread Storage Directory
+           A3E30 [      40] RVA [size] of Load Configuration Directory
+               0 [       0] RVA [size] of Bound Import Directory
+           97000 [     24C] RVA [size] of Import Address Table Directory
+               0 [       0] RVA [size] of Delay Import Directory
+           972CC [      48] RVA [size] of COM Descriptor Directory
+               0 [       0] RVA [size] of Reserved Directory
+
+
+SECTION HEADER #1
+   .text name
+   9566E virtual size
+    1000 virtual address (10001000 to 1009666D)
+   96000 size of raw data
+    1000 file pointer to raw data (00001000 to 00096FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+60000020 flags
+         Code
+         Execute Read
+
+SECTION HEADER #2
+  .rdata name
+   2060C virtual size
+   97000 virtual address (10097000 to 100B760B)
+   21000 size of raw data
+   97000 file pointer to raw data (00097000 to 000B7FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+40000040 flags
+         Initialized Data
+         Read Only
+
+  Debug Directories
+
+        Time Type        Size      RVA  Pointer
+    -------- ------- -------- -------- --------
+    4A6A1967 cv            C3 000B4EEC    B4EEC    Format: RSDS, {E87D126E-6353-4A81-9DE2-394F5D6A2EA6}, 142, C:\projects\Ra3\Production\code\PackageBuild\pipeline\AssetCompilers\0.0-dev\pc-vc-dev-opt\build\BinaryAssetBuilder.TextureCompiler\BinaryAssetBuilder.TextureCompiler.pdb
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+              10097010 Import Address Table
+              100B6814 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  163 GetFileSize
+                   53 CreateFileA
+                  3C6 lstrcpyA
+                  2B5 ReadFile
+                  258 LocalAlloc
+                  381 VirtualAlloc
+                  25C LocalFree
+                   34 CloseHandle
+                  3C3 lstrcmpiA
+                  28D OutputDebugStringA
+                  239 IsDebuggerPresent
+                  34A SetUnhandledExceptionFilter
+                  36E UnhandledExceptionFilter
+                  142 GetCurrentProcess
+                  35E TerminateProcess
+                  1CA GetSystemTimeAsFileTime
+                  143 GetCurrentProcessId
+                  1DF GetTickCount
+                  2A3 QueryPerformanceCounter
+                   8B DisableThreadLibraryCalls
+                  356 Sleep
+                  229 InterlockedExchange
+                  1E9 GetVersionExA
+                  394 WideCharToMultiByte
+                   56 CreateFileW
+                  171 GetLastError
+                  17F GetModuleHandleA
+                  1A0 GetProcAddress
+                  252 LoadLibraryA
+                  216 HeapFree
+                  1A3 GetProcessHeap
+                  210 HeapAlloc
+                   98 EnterCriticalSection
+                  251 LeaveCriticalSection
+                  146 GetCurrentThreadId
+                  228 InterlockedDecrement
+                  22C InterlockedIncrement
+                  22A InterlockedExchangeAdd
+                  383 VirtualFree
+                  226 InterlockedCompareExchange
+
+    MSVCR80.dll
+              100970C8 Import Address Table
+              100B68CC Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  4F2 fread
+                  4FA fseek
+                  4FF fwrite
+                  4DF fclose
+                  56B strncpy
+                  57E tmpfile
+                  4D5 ceil
+                   43 ?terminate@@YAXXZ
+                  172 _encode_pointer
+                  293 _malloc_crt
+                  173 _encoded_null
+                  168 _decode_pointer
+                  210 _initterm
+                  211 _initterm_e
+                  11D _amsg_exit
+                  113 _adjust_fdiv
+                   6D __CppXcptFilter
+                   36 ?_type_info_dtor_internal_method@type_info@@QAEXXZ
+                  17B _except_handler4_common
+                   8F __clean_type_info_names_internal
+                  3F3 _unlock
+                   99 __dllonexit
+                  282 _lock
+                  328 _onexit
+                  153 _crt_debugger_hook
+                  4DC exit
+                   4E _CIcos
+                   55 _CIsin
+                   54 _CIpow
+                  551 setlocale
+                  3A4 _strdup
+                  371 _setjmp3
+                  4F7 frexp
+                  52A longjmp
+                   57 _CIsqrt
+                  538 memmove
+                  545 qsort
+                   46 ?what@exception@std@@UBEPBDXZ
+                    8 ??0exception@std@@QAE@ABV01@@Z
+                    D ??1exception@std@@UAE@XZ
+                   52 _CIlog
+                  525 ldexp
+                  55A sscanf
+                  50E isdigit
+                  4E8 floor
+                   5D _CxxThrowException
+                  556 sprintf
+                  53A memset
+                   1F ??_U@YAPAXI@Z
+                   21 ??_V@YAXPAX@Z
+                    F ??2@YAPAXI@Z
+                  56A strncmp
+                   76 __CxxFrameHandler3
+                  417 _vsnprintf
+                  209 _hypot
+                  276 _j1
+                  514 isspace
+                  339 _purecall
+                  4F4 free
+                   11 ??3@YAXPAX@Z
+                  576 strtoul
+                  4CE atof
+                  4D4 calloc
+                  4CF atoi
+                  55E strchr
+                  4EA fopen
+                   7A __CxxUnregisterExceptionObject
+                   72 __CxxDetectRethrow
+                   79 __CxxRegisterExceptionObject
+                   73 __CxxExceptionFilter
+                   78 __CxxQueryExceptionSize
+                  134 _cexit
+                   7C __FrameUnwindFilter
+                   50 _CIexp
+                  4E5 fgets
+                   51 _CIfmod
+                    6 ??0exception@std@@QAE@ABQBD@Z
+                    9 ??0exception@std@@QAE@XZ
+                  216 _invalid_parameter_noinfo
+                  539 memmove_s
+                  3D7 _time64
+                  54A realloc
+                  536 memcpy
+                  52B malloc
+
+    MSVCP80.dll
+              100970B4 Import Address Table
+              100B68B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  179 ??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@PBD@Z
+                  62D ?c_str@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEPBDXZ
+                  172 ??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@ABV01@@Z
+                  25E ??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ
+
+    USER32.dll
+              1009721C Import Address Table
+              100B6A20 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  26C SetRect
+                  1DF MessageBoxA
+
+    ADVAPI32.dll
+              10097000 Import Address Table
+              100B6804 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  1CB RegCloseKey
+                  1EB RegOpenKeyA
+                  1F7 RegQueryValueExA
+
+    msvcm80.dll
+              10097230 Import Address Table
+              100B6A34 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                    0 ?DoCallBackInDefaultDomain@<CrtImplementationDetails>@@YAXP6GJPAX@Z0@Z
+                    4 ?ThrowModuleLoadException@<CrtImplementationDetails>@@YAXP$AAVString@System@@P$AAVException@3@@Z
+                    1 ?DoDllLanguageSupportValidation@<CrtImplementationDetails>@@YAXXZ
+                    5 ?ThrowNestedModuleLoadException@<CrtImplementationDetails>@@YAXP$AAVException@System@@0@Z
+                    3 ?ThrowModuleLoadException@<CrtImplementationDetails>@@YAXP$AAVString@System@@@Z
+                    2 ?RegisterModuleUninitializer@<CrtImplementationDetails>@@YAXP$AAVEventHandler@System@@@Z
+
+    mscoree.dll
+              10097228 Import Address Table
+              100B6A2C Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   59 _CorDllMain
+
+SECTION HEADER #3
+   .data name
+   10E90 virtual size
+   B8000 virtual address (100B8000 to 100C8E8F)
+    7000 size of raw data
+   B8000 file pointer to raw data (000B8000 to 000BEFFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+C0000040 flags
+         Initialized Data
+         Read Write
+
+SECTION HEADER #4
+   .rsrc name
+     2A8 virtual size
+   C9000 virtual address (100C9000 to 100C92A7)
+    1000 size of raw data
+   BF000 file pointer to raw data (000BF000 to 000BFFFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+40000040 flags
+         Initialized Data
+         Read Only
+
+SECTION HEADER #5
+  .reloc name
+    6DDA virtual size
+   CA000 virtual address (100CA000 to 100D0DD9)
+    7000 size of raw data
+   C0000 file pointer to raw data (000C0000 to 000C6FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+42000040 flags
+         Initialized Data
+         Discardable
+         Read Only
+
+  Summary
+
+       11000 .data
+       21000 .rdata
+        7000 .reloc
+        1000 .rsrc
+       96000 .text

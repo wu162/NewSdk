@@ -1,0 +1,67 @@
+{
+  "sourceCommit": "5272c0c4c35183000ecebf656a9bc368dc863f37",
+  "project": "TextureCompiler",
+  "sdkValidated": false,
+  "decompilerExit": 0,
+  "ilspyVersion": "9.1.0.7988",
+  "runId": "40191971356",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "baseCommit": "b122a54abe4405516b021e425b8fb9235d914a0e",
+  "runAttempt": "1",
+  "recoveredBehaviorValidated": false,
+  "ilExit": 0,
+  "summary": {
+    "file": "BinaryAssetBuilder.TextureCompiler.dll",
+    "sha256": "4F559428E11A5CF8B914792E0ECCF3B94397B8851233EC658D4C02C4633E9D9E",
+    "assembly": "BinaryAssetBuilder.TextureCompiler",
+    "version": "1.0.3492.22451",
+    "runtime": "v2.0.50727",
+    "machine": "I386",
+    "imageBase": "0x10000000",
+    "corFlags": "NativeEntryPoint",
+    "types": 142,
+    "methods": 286,
+    "il": 228,
+    "native": 58,
+    "other": 0,
+    "references": [
+      {
+        "name": "mscorlib",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System.Data",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "System.Xml",
+        "version": "2.0.0.0"
+      },
+      {
+        "name": "BinaryAssetBuilder.Core",
+        "version": "1.0.0.0"
+      },
+      {
+        "name": "EALA.Hash",
+        "version": "1.0.3344.32674"
+      },
+      {
+        "name": "EALA.ProcessUtility",
+        "version": "1.0.3152.32169"
+      },
+      {
+        "name": "EALA.Metrics",
+        "version": "1.0.0.0"
+      },
+      {
+        "name": "Microsoft.VisualC",
+        "version": "8.0.0.0"
+      }
+    ]
+  },
+  "scope": "original evidence and contract inventory only"
+}
