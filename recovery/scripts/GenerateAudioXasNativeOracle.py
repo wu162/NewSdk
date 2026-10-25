@@ -12,6 +12,7 @@ import pathlib
 import random
 import struct
 import platform
+import re
 
 import pefile
 import unicorn
@@ -68,10 +69,35 @@ def cases():
             yield "random-%d" % index, channels, [f32(rng.uniform(-1, 1)) for _ in range(128 * channels)]
 
 
+def precision_cases():
+    # Read the checked-in regression source so Python/C# cannot silently drift.
+    source = pathlib.Path('recovery/tests/AudioXasPrecisionFixture.cs').read_text()
+    match = re.search(r'Signed16\s*=\s*new short\[\]\s*\{(.*?)\};', source, re.S)
+    if not match:
+        raise ValueError('Precision fixture Signed16 declaration missing')
+    samples = [int(value) for value in re.findall(r'-?\d+', match.group(1))]
+    if len(samples) != 32 or any(value < -32768 or value > 32767 for value in samples):
+        raise ValueError('Precision fixture must hold exactly32 signed16 samples')
+    for channels in (1, 2):
+        yield 'precision-resampled-sine6144', channels, [
+            f32(samples[(index // channels) % 32] / 32768.0)
+            for index in range(128 * channels)]
+
+
+def assert_precision_group(encoded, channels):
+    expected = bytes.fromhex('c2f536fc464666576676766765665555344241')
+    for channel in range(channels):
+        for group in range(4):
+            block = encoded[channel * 76:(channel + 1) * 76]
+            actual = block[group * 4:group * 4 + 4] + bytes(block[16 + row * 4 + group] for row in range(15))
+            if actual != expected:
+                raise ValueError('Original precision fixture does not match the actual plugin group bytes')
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dll", default="SDK/tools/BinaryAssetBuilder.AudioCompiler.dll")
     parser.add_argument("--output", default="recovery/evidence/audio/native-xas/original-blocks.tsv")
+    parser.add_argument("--include-precision", action="store_true", help="Add the two signed16-derived precision regression cases (264 total)")
     args = parser.parse_args()
     encoder = OriginalEncoder(args.dll)
     if unicorn.__version__ != "2.1.4":
@@ -81,12 +107,18 @@ def main():
              + "; fpuControl=0x037f; codeMode=x86-32; platform=" + platform.system()]
     filters = set()
     shifts = set()
-    for name, channels, samples in cases():
+    from itertools import chain
+    matrix = chain(cases(), precision_cases()) if args.include_precision else cases()
+    for name, channels, samples in matrix:
         encoded = encoder.encode(samples, channels)
+        if name == 'precision-resampled-sine6144':
+            assert_precision_group(encoded, channels)
         filters.update(encoded[c * 76 + group * 4] & 15 for c in range(channels) for group in range(4))
         shifts.update(encoded[c * 76 + group * 4 + 2] & 15 for c in range(channels) for group in range(4))
         source = struct.pack("<%df" % len(samples), *samples)
         lines.append("\t".join([name, str(channels), base64.b64encode(source).decode(), base64.b64encode(encoded).decode()]))
+    if len(lines) - 1 != (264 if args.include_precision else 262):
+        raise ValueError('Original XAS matrix count differs')
     if filters != {0, 1, 2, 3}:
         raise ValueError("The native oracle did not cover all four predictors")
     if shifts != set(range(13)):

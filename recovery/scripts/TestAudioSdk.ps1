@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[int]$TimeoutSeconds=300,[string[]]$RealAudioFiles=@(),[switch]$AiffLoopsOnly,[switch]$ResamplingOnly)
+param([string]$OutputDirectory,[int]$TimeoutSeconds=300,[string[]]$RealAudioFiles=@(),[switch]$AiffLoopsOnly,[switch]$ResamplingOnly,[switch]$ResamplingRegression)
 $ErrorActionPreference='Stop'
 if($RealAudioFiles.Count -eq 0){$RealAudioFiles=@('recovery/fixtures/audio/main/real-0.wav','recovery/fixtures/audio/main/real-1.wav')}
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
@@ -17,7 +17,7 @@ if($LASTEXITCODE -ne 0){Get-Content "$out/library-build.log" -Tail 60;throw 'Rec
 if($LASTEXITCODE -ne 0){Get-Content "$out/tracer-build.log";throw 'SDK tracing adapter build failed'}
 & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /out:"$build/AudioSdkSupport.exe" (Resolve-Path recovery/tests/AudioSdkSupport.cs).Path (Resolve-Path recovery/tests/AudioMp3Fixtures.cs).Path (Resolve-Path recovery/tests/AudioInputFormatCases.cs).Path (Resolve-Path recovery/tests/AudioLoopProbeCases.cs).Path (Resolve-Path recovery/tests/AudioAiffLoopCases.cs).Path (Resolve-Path recovery/tests/AudioUnrecoveredProbeCases.cs).Path (Resolve-Path recovery/tests/AudioResampleCases.cs).Path *> "$out/support-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/support-build.log";throw 'SDK support host build failed'}
-$createMode=if($ResamplingOnly){'create-resample'}elseif($AiffLoopsOnly){'create-aiff-loops'}else{'create'}
+$createMode=if($ResamplingRegression){'create-resample-regression'}elseif($ResamplingOnly){'create-resample'}elseif($AiffLoopsOnly){'create-aiff-loops'}else{'create'}
 & "$build/AudioSdkSupport.exe" $createMode $sdk "$out/expected-assets.tsv" @RealAudioFiles *> "$out/schema.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/schema.log";throw 'Full original CnC3Types schema validation failed; BAB not started'}
 Copy-Item "$build/Recovered.AudioCompiler.dll" "$sdk/tools"

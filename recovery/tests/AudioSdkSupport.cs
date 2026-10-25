@@ -18,7 +18,7 @@ internal static class AudioSdkSupport
             for(int i=0;i<frames*channels;i++)b.Write(values[i%values.Length]);
         }
     }
-    private static void Create(string sdk,string expected,string[] realFiles,bool aiffLoopsOnly,bool resamplingOnly)
+    private static void Create(string sdk,string expected,string[] realFiles,bool aiffLoopsOnly,bool resamplingOnly,bool resamplingRegression)
     {
         string mod=Path.Combine(sdk,"Mods/AudioRecoveryProbe"),data=Path.Combine(mod,"Data"),audio=Path.Combine(mod,"Audio");
         Directory.CreateDirectory(data);Directory.CreateDirectory(audio);Directory.CreateDirectory(Path.Combine(audio,"sounds"));Directory.CreateDirectory(Path.Combine(audio,"music"));
@@ -55,7 +55,7 @@ internal static class AudioSdkSupport
         AudioAiffLoopCases.Write(Path.Combine(audio,"aiff-loop.aiff"),16,2,4096,129,4094,false);
         foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
             xml.Append("<AudioFile id='AiffLoop"+codec+streamed+"' File='../Audio/aiff-loop.aiff' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
-        if(resamplingOnly) foreach(string element in AudioResampleCases.WriteSdkCases(audio)) xml.Append(element);
+        if(resamplingOnly || resamplingRegression) foreach(string element in AudioResampleCases.WriteSdkCases(audio)) xml.Append(element);
         xml.Append("<AudioFile id='AudioDefaultSounds' File='../Audio/sounds/default.wav'/><AudioFile id='AudioDefaultMusic' File='../Audio/music/default.wav'/></AssetDeclaration>");
         if(aiffLoopsOnly || resamplingOnly) {
             var selected=new XmlDocument(); selected.LoadXml(xml.ToString());
@@ -87,7 +87,7 @@ internal static class AudioSdkSupport
     }
     private static int Main(string[] args)
     {
-        try{if(args.Length>=3 && (args[0]=="create" || args[0]=="create-aiff-loops" || args[0]=="create-resample")){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real,args[0]=="create-aiff-loops",args[0]=="create-resample");return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
+        try{if(args.Length>=3 && (args[0]=="create" || args[0]=="create-aiff-loops" || args[0]=="create-resample" || args[0]=="create-resample-regression")){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real,args[0]=="create-aiff-loops",args[0]=="create-resample",args[0]=="create-resample-regression");return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
         catch(Exception ex){Console.Error.WriteLine(ex);return 1;}
     }
 }

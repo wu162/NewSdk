@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
@@ -10,6 +11,13 @@ namespace BinaryAssetBuilder.AudioCompiler
     {
         private static readonly float[] Previous = { 0.0f, -0.9375f, -1.796875f, -1.53125f };
         private static readonly float[] Older = { 0.0f, 0.0f, 0.8125f, 0.859375f };
+
+        // Original 0xf700 uses SSE binary32 after every mulss/addss. Legacy
+        // x86 Release JIT otherwise retains extended x87 temporaries, which
+        // can cross an XAS quantization threshold even for exact signed16
+        // imported/resampled samples. Preserve each original float boundary.
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static float F(float value) { return value; }
 
         public static byte[] EncodeBlock128(float[] samples, int channels)
         {
@@ -34,8 +42,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         private static byte[] EncodeGroup(float[] samples, int channels, int at)
         {
-            int first = Math.Min(32752, ((int)(samples[at] * 32767.0f + 8.0f)) & ~15);
-            int second = Math.Min(32752, ((int)(samples[at + channels] * 32767.0f + 8.0f)) & ~15);
+            int first = Math.Min(32752, ((int)F(F(samples[at] * 32767.0f) + 8.0f)) & ~15);
+            int second = Math.Min(32752, ((int)F(F(samples[at + channels] * 32767.0f) + 8.0f)) & ~15);
             float best = 1000000000.0f;
             int filter = 0;
             float[] source = new float[30];
@@ -45,11 +53,11 @@ namespace BinaryAssetBuilder.AudioCompiler
                 float maximum = 0.0f;
                 for (int i = 0; i < 30; ++i)
                 {
-                    float value = samples[at + (i + 2) * channels] * 32767.0f;
+                    float value = F(samples[at + (i + 2) * channels] * 32767.0f);
                     source[i] = value;
-                    float prediction = previous * Previous[f];
-                    prediction = prediction + old * Older[f];
-                    float residual = prediction + value;
+                    float prediction = F(previous * Previous[f]);
+                    prediction = F(prediction + F(old * Older[f]));
+                    float residual = F(prediction + value);
                     maximum = Math.Max(maximum, residual > 0 ? residual : -residual);
                     old = previous;
                     previous = (int)value;
@@ -69,16 +77,16 @@ namespace BinaryAssetBuilder.AudioCompiler
             float gain = 1 << shift;
             for (int i = 0; i < 30; ++i)
             {
-                float p2 = Older[filter] * h2;
-                float p1 = Previous[filter] * h1;
-                float prediction = p2 + p1;
-                float residual = prediction + source[i];
-                residual = residual * gain;
+                float p2 = F(Older[filter] * h2);
+                float p1 = F(Previous[filter] * h1);
+                float prediction = F(p2 + p1);
+                float residual = F(prediction + source[i]);
+                residual = F(residual * gain);
                 int quantized = ((int)residual + 0x800) & ~0xfff;
                 quantized = Math.Max(-32768, Math.Min(32767, quantized));
                 if ((i & 1) == 0) output[4 + i / 2] = (byte)((quantized >> 8) & 0xf0);
                 else output[4 + i / 2] |= (byte)((quantized >> 12) & 15);
-                float reconstructed = (quantized >> shift) - prediction;
+                float reconstructed = F((quantized >> shift) - prediction);
                 h2 = h1; h1 = reconstructed;
             }
             return output;

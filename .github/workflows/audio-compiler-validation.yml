@@ -25,7 +25,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Compare isolated resampler FFT component
-        if: "!contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-resample-plugin]')"
+        if: "!contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-xas-precision]')"
         shell: pwsh
         env:
           AUDIO_NATIVE_CPU_ONLY: ${{ contains(github.event.head_commit.message, '[native-cpu-only]') }}
@@ -38,12 +38,15 @@ jobs:
       - name: Compare PathMusic and MP3 handlers and collect codec probes
         if: "!contains(github.event.head_commit.message, '[audio-fft]')"
         env:
+          AUDIO_XAS_PRECISION: ${{ contains(github.event.head_commit.message, '[audio-xas-precision]') }}
           AUDIO_RESAMPLE_ONLY: ${{ contains(github.event.head_commit.message, '[audio-resample-plugin]') }}
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
           AUDIO_NATIVE_PROBE: ${{ contains(github.event.head_commit.message, '[audio-native-probe]') }}
         shell: pwsh
         run: |
-          if ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
+          if ($env:AUDIO_XAS_PRECISION -eq 'true') {
+            ./recovery/scripts/TestAudioPlugin.ps1 -Groups @('resample-full','xas','defaults','main','pcm8','formats','loops','aiffloops')
+          } elseif ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups resample-full
           } elseif ($env:AUDIO_NATIVE_PROBE -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly -Groups xma,resample
@@ -61,21 +64,39 @@ jobs:
           dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release
           if ($LASTEXITCODE -ne 0) { throw "Release project build failed" }
       - name: Compare PCM encoder component
-        if: always() && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
+        if: always() && !contains(github.event.head_commit.message, '[audio-xas-precision]') && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/setup-python@v5
+        if: contains(github.event.head_commit.message, '[audio-xas-precision]')
+        with:
+          python-version: '3.12'
+      - name: Install XAS machine-code oracle dependencies
+        if: contains(github.event.head_commit.message, '[audio-xas-precision]')
+        shell: pwsh
+        run: python -m pip install unicorn==2.1.4 pefile==2024.8.26
       - name: Compare XAS encoder component
         if: always() && !contains(github.event.head_commit.message, '[audio-resample-plugin]') && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         shell: pwsh
-        run: ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+        env:
+          AUDIO_XAS_PRECISION: ${{ contains(github.event.head_commit.message, '[audio-xas-precision]') }}
+        run: |
+          if ($env:AUDIO_XAS_PRECISION -eq 'true') {
+            ./recovery/scripts/TestAudioXasPrecision.ps1
+          } else {
+            ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          }
       - name: Compare original and recovered SDK builds
         if: success() && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         env:
+          AUDIO_XAS_PRECISION: ${{ contains(github.event.head_commit.message, '[audio-xas-precision]') }}
           AUDIO_RESAMPLE_ONLY: ${{ contains(github.event.head_commit.message, '[audio-resample-plugin]') }}
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
         shell: pwsh
         run: |
-          if ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
+          if ($env:AUDIO_XAS_PRECISION -eq 'true') {
+            ./recovery/scripts/TestAudioSdk.ps1 -ResamplingRegression
+          } elseif ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioSdk.ps1 -ResamplingOnly
           } elseif ($env:AUDIO_AIFF_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioSdk.ps1 -AiffLoopsOnly
@@ -92,13 +113,14 @@ jobs:
             recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}
       - name: Preserve validation evidence
         if: always()
         shell: pwsh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $evidencePaths = @('plugin-validation','pcm-validation','xas-validation','sdk-validation','fft-validation') | ForEach-Object { "recovery/evidence/audio/$_" } | Where-Object { Test-Path $_ }
+          $evidencePaths = @('plugin-validation','pcm-validation','xas-validation','sdk-validation','fft-validation','xas-precision-validation') | ForEach-Object { "recovery/evidence/audio/$_" } | Where-Object { Test-Path $_ }
           if ($evidencePaths.Count -eq 0) { throw 'No audio validation evidence was produced' }
           git add -- $evidencePaths
           if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
