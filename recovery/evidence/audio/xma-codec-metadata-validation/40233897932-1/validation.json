@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "sourceCommit": "1ebd94a9c61dc4c44ea66784075f43062840ad41",
+  "runAttempt": "1",
+  "scope": "Complete bounded XMA EA-format, XMA2WAVE and BE cumulative seek serialization; mocked original state, real original CPU",
+  "nativeRvas": [
+    "0x5f170",
+    "0x5f000",
+    "0x5eea0"
+  ],
+  "audioFileXmaRouteEnabled": false,
+  "modes": [
+    {
+      "passed": true,
+      "summary": "PASS candidate XMA output metadata: 384 exact real-CPU synthetic-state cases, EA/WAVE/BE cumulative seek and source immutability; 15 safety rejections; no codec encoding or actual wrapper-state acceptance",
+      "candidateSafetyRejections": 15,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "recoveredSha256": "dedebafe02e0ecbef4f1b83ae3b747e2f3d6163851d5c51790d38181234a88fa",
+      "records": 384
+    },
+    {
+      "passed": true,
+      "summary": "PASS candidate XMA output metadata: 384 exact real-CPU synthetic-state cases, EA/WAVE/BE cumulative seek and source immutability; 15 safety rejections; no codec encoding or actual wrapper-state acceptance",
+      "candidateSafetyRejections": 15,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "recoveredSha256": "e3f66270e32f18cb0709209ce7ad8f493c5c04183d23f044e421bbffc9222411",
+      "records": 384
+    }
+  ],
+  "xmaEncodingRecovered": false,
+  "originalCpuValidated": true,
+  "sdkValidated": false,
+  "nativeExportRvas": [
+    "0x5af00",
+    "0x5afd0",
+    "0x5b570",
+    "0x5b5d0"
+  ],
+  "runId": "40233897932",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "syntheticStateRecords": 384,
+  "actualWrapperStates": 0,
+  "oracleSha256": "33ac1c5c4a56cd2a4a50bfbaa855262295575c0ce11b397cb44b4933b3049190"
+}
