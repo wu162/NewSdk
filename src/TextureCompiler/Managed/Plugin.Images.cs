@@ -36,7 +36,7 @@ namespace Recovered.Compiler.Texture
                 throw new NotSupportedException("Only the declared TGA image decoder subset has been recovered.");
 
             TexturePacker.Image image;
-            try { image = TextureTgaDecoder.Load(file); }
+            try { image = TextureImageLoader.Load(file); }
             catch (InvalidDataException)
             {
                 throw new BinaryAssetBuilderException(null, ErrorCode.BadTextureFile,
@@ -66,7 +66,11 @@ namespace Recovered.Compiler.Texture
                         // for >256 textures before encoding. Do not silently omit it.
                         if (_Platform == TargetPlatform.PlayStation3 && resize && (image.Width > 256 || image.Height > 256))
                             throw new NotSupportedException("PS3 automatic image resizing has not been recovered.");
-                        byte[] dds = TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, mipmaps);
+                        if (mipmaps && _Platform != TargetPlatform.Win32)
+                            throw new NotSupportedException("Raw mip encoding is accepted only for the Win32 option profile.");
+                        byte[] dds = mipmaps
+                            ? TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
+                            : TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, false);
                         result = EmbedDds(dds, !onDemand, _Platform);
                         break;
                     // Original unknown enum text leaves TextureFileData empty.
