@@ -1,0 +1,1 @@
+PASS TexturePs3MipDifferential fixtures=279 checks=4949263 probeOnly=False mipProfile=PS3ThreePayloads
