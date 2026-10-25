@@ -636,7 +636,16 @@
     "sourceChanged": true,
     "localO0O2": "PASS 14295 checks each",
     "originalOracleAdded": "147456 frame fixtures + 648 channel fixtures; WriteOut includes all successful new cases and existing512 raw chunks",
-    "remoteAcceptance": "pending new sourceCommit matrix"
+    "remoteAcceptance": {
+      "succeeded": true,
+      "sourceCommit": "bb2de50446b1012b5107613a88a4ce3b36e42e16",
+      "runId": "40167490640",
+      "runAttempt": 1,
+      "modes": [
+        "Od",
+        "O2"
+      ]
+    }
   },
   "finalizeTrackerSdkRequirement": {
     "originalPublicPointerAbiRequiredBySdk": false,
@@ -650,7 +659,7 @@
     ],
     "separateUnmetClaim": "same-name assembly/public VC8 native pointer ABI drop-in compatibility, only needed if claiming arbitrary external direct callers remain binary compatible"
   },
-  "sdkReady": false,
+  "sdkReady": true,
   "sdkPreconditions": [
     "new source/extended boundary component matrix PASS with exact sourceCommit",
     "formal configured plugin default backend resolves both recovered handlers; original metadata/unknown ID/lifecycle remain verified",
@@ -659,5 +668,17 @@
     "then authorized SDK/MOD actual integration validation; no SDK success inferred from this audit"
   ],
   "noOtherUnmappedDefinedBusinessFamilyFound": true,
-  "qualification": "family-level closure audit, not exhaustive proof of every arbitrary input; final acceptance comes from expanded original-DLL/SDK gates and retains original-UB safety rejections"
+  "qualification": "family-level closure audit, not exhaustive proof of every arbitrary input; final acceptance comes from expanded original-DLL/SDK gates and retains original-UB safety rejections",
+  "sdkPrerequisiteAcceptance": {
+    "sourceCommit": "bb2de50446b1012b5107613a88a4ce3b36e42e16",
+    "runId": "40167490640",
+    "runAttempt": 1,
+    "nativeOriginalDifferential": true,
+    "loadableDefaultBackendOriginalDifferential": true,
+    "loadableDefaultBackendWithoutOriginal": true,
+    "fullOriginalXsdDocuments": 4,
+    "animationSdkFixtures": 8,
+    "meshSdkFixtures": 4,
+    "sdkStartedInPrerequisiteRun": false
+  }
 }
