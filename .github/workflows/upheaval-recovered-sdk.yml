@@ -26,6 +26,9 @@ jobs:
           $tokens=$null; $errors=$null
           [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path recovery/scripts/TestUpheavalSdk.ps1),[ref]$tokens,[ref]$errors)|Out-Null
           if($errors.Count){throw ($errors|Out-String)}
+      - name: Validate affected AI compiler against original DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestXmlai.ps1
       - name: Build recovered components and compare real Upheaval stages 3 4 5
         shell: pwsh
         run: ./recovery/scripts/TestUpheavalSdk.ps1
@@ -33,7 +36,9 @@ jobs:
         if: always()
         with:
           name: upheaval-sdk-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/upheaval
+          path: |
+            recovery/evidence/upheaval
+            recovery/evidence/xml-ai
           if-no-files-found: warn
       - name: Preserve evidence on validation branch
         if: always()
@@ -41,7 +46,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/upheaval
+          git add recovery/evidence/upheaval recovery/evidence/xml-ai
           if(git diff --cached --quiet){exit 0}
           git commit -m "Record Upheaval SDK evidence for $env:GITHUB_SHA"
           if($LASTEXITCODE -ne 0){throw 'Evidence commit failed'}

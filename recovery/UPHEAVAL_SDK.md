@@ -13,3 +13,9 @@
 运行 [40174918364](https://github.com/wu162/NewSdk/actions/runs/40174918364)，源码 ca604c23a68e76709ff3ace38175f248312f8c31：所有恢复组件构建成功；原版 SDK 的3个 AptUI、全局数据、Mod.xml 五次调用均 exit=0，20份产物齐全。恢复版在编译前的 SetArmorPlugin 注册阶段失败（清空原 Tokenizer 最后一个类型后仍要求其存在），没有执行恢复版 BAB，不能声明联合验证通过。原始失败证据保留。
 
 修复提交 324c1e08da9c02c523680101348bb038bd991ac3：本轮专用脚本原子替换 GameObject/WeaponTemplate/ArmorTemplate 三条路由，同时检查重复类型和最终目标；不修改既有单插件脚本或编译器实现。新运行 [40175382847](https://github.com/wu162/NewSdk/actions/runs/40175382847) 正在验证。继续时先检查此运行结果与对应 validation.json；失败按日志定位，不将旧原版成功当作恢复版成功。
+
+## 第二次运行与 AI 子节点修复（待验证）
+
+运行40175382847、源码324c1e08da9c02c523680101348bb038bd991ac3：原版5入口成功；恢复版3个AptUI和全局数据成功，16份产物与原版SHA256一致。恢复版基础数据处理BasePersonality时拒绝嵌套StrategicState的id。错误堆栈为 BAB.DoBuildData -> Core.DocumentProcessor -> Core.AssetDeclarationDocument.CompileInstance -> Recovered.XmlPriority.Plugin -> Recovered.XmlaiCompiler，确认实际SDK调度。
+
+XSD SkirmishAI/AssetTypeAIPersonalityDefinition.xsd 中 AIStrategicState、AIBudgetState、AIBuildState 继承 BaseAssetType（含id），AIBuildDelayRange显式声明pipelineOnly id。恢复代码仅允许独立根id，误拒绝上述嵌套合法属性。本次仅为这四种结构接纳id，不将其他未知属性全部放行；已有AIStateTactic的id二进制Hash字段保持原处理。新增对应原DLL差分样例，先运行受影响AI组/Od、/O2和四平台矩阵，通过后再执行联合SDK。修复状态待实际运行证实。
