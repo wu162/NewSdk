@@ -38,13 +38,25 @@ internal static class AudioMpegBoundaryOracle
             foreach (int suffix in new[] { 1,3,4,127,128 }) Add(name+"-suffix-"+suffix,Join(data,Enumerable.Repeat((byte)0x55,suffix).ToArray()));
             Add(name+"-id3v2",Join(new byte[] { 73,68,51,4,0,0,0,0,0,0 },data));
             Add(name+"-id3v1",Join(data,Encoding.ASCII.GetBytes("TAG"),new byte[125]));
+            // Invalid final headers can mutate channel metadata before rejecting
+            // free-format bitrate0; verify that behavior through SIMEX_info.
+            foreach (int mode in new[] {0,3}) foreach (string defect in new[] {"free","reserved-bitrate","reserved-rate","reserved-version"})
+            {
+                byte[] tail=data.Take(4).ToArray(); tail[3]=(byte)((tail[3]&0x3f)|(mode<<6));
+                if (defect=="free") tail[2]=(byte)(tail[2]&15);
+                else if (defect=="reserved-bitrate") tail[2]=(byte)(tail[2]|0xf0);
+                else if (defect=="reserved-rate") tail[2]=(byte)(tail[2]|12);
+                else tail[1]=(byte)((tail[1]&0xe7)|8);
+                Add(name+"-tail-"+defect+"-mode"+mode,Join(data,tail));
+            }
+
             foreach (int frames in new[] { 1,6,7,8 }) if (frames <= starts.Count)
             {
                 int last = starts[frames-1], size = FrameSize(data,last);
                 foreach (int payload in new[] { 0,1,size/2,size-4 })
                     Add(name+"-frames"+frames+"-lastpayload"+payload,data.Take(Math.Min(data.Length,last+4+payload)).ToArray());
             }
-            foreach (int frame in new[] { 0,3,6,starts.Count-1 })
+            foreach (int frame in new[] { 0,3,6,starts.Count-1 }.Distinct())
             {
                 byte[] broken = (byte[])data.Clone(); broken[starts[frame]]=0;
                 Add(name+"-broken-sync-"+frame,broken);

@@ -19,6 +19,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             int channels = 0, rate = 0, bits = 0, format = 0, align = 0;
             bool adp4 = false;
             int dataOffset = -1, dataLength = 0;
+            uint soundOffset = 0;
             long end = 8L + U32(bytes, 4, aiff);
             if (end < 12 || end > bytes.Length) throw new InvalidDataException("Truncated audio container");
             for (long at = 12; at + 8 <= end; )
@@ -78,8 +79,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (aiff && tag == "SSND")
                 {
                     if (size < 8) throw new InvalidDataException("Truncated AIFF sound chunk");
-                    if (U32(bytes, body, true) != 0)
-                        throw new NotSupportedException("AIFF sound offsets have not been recovered");
+                    soundOffset = U32(bytes, body, true);
                     // Native read wrapper 0x38b26..38b46 interprets offset,
                     // but never reads the second SSND word (blockSize).
                     // Its opaque uint32 value does not change PCM/ADP4 data.
@@ -100,6 +100,15 @@ namespace BinaryAssetBuilder.AudioCompiler
             // Native AIFF importer corrects COMM's count from the SSND length
             // (0x388f8..38949). A mismatch therefore does not truncate samples.
             if (frames == 0 || frames > 0x1fffffff) throw new NotSupportedException("Unsupported PCM frame count");
+            // Native 0x38b26..38b88 adds offset to the source position but
+            // still requests the raw-length-derived frame count above. Keep
+            // that count; subtracting offset would implement different AIFF
+            // semantics. Only accept its deterministic in-SSND sample window.
+            // Neither pad bytes nor later chunks may satisfy this bound.
+            long consumed = adp4 ? ((long)frames * channels + 1) / 2 : (long)frames * frameSize;
+            if ((long)soundOffset + consumed > dataLength)
+                throw new NotSupportedException("AIFF sound offset requires samples outside its declared SSND payload");
+            dataOffset = checked(dataOffset + (int)soundOffset);
             float[] samples = new float[frames * channels];
             if (adp4)
             {

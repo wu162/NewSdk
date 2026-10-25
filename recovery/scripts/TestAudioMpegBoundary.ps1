@@ -45,12 +45,22 @@ try {
     $receipt.originalCases=@(Run-Corpus $original "$original/BinaryAssetBuilder.AudioCompiler.dll" original)
     $receipt.originalProcessFailures=@($receipt.originalCases|Where-Object { $_.status -ne 'recorded' }).Count
     if ($OriginalOnly) { $receipt.status='original-evidence-only';return }
+    python recovery/scripts/GenerateAudioMpegHeaderOracle.py --output "$out/header-native.tsv" *> "$out/header-native.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/header-native.log";throw 'Original MPEG header machine-code oracle failed' }
+    $receipt.headerNative=Get-Content "$out/header-native.json" -Raw|ConvertFrom-Json
+    if ($receipt.headerNative.records -ne 32783) { throw 'Incomplete original MPEG header matrix' }
+    & $csc /nologo /platform:x86 /out:"$original/AudioMpegHeaderOracle.exe" (Resolve-Path recovery/tests/AudioMpegHeaderOracle.cs).Path *> "$out/header-oracle-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/header-oracle-build.log";throw 'MPEG header oracle build failed' }
     foreach ($mode in @('Debug','Release')) {
         $candidate=Join-Path $work $mode;New-Item -ItemType Directory $candidate|Out-Null
         Get-ChildItem SDK/tools -Filter '*.dll'|Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll'|Copy-Item -Destination $candidate
         dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c $mode -o $candidate -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log" -Tail 50;throw "$mode MPEG project build failed" }
         Copy-Item "$original/AudioMpegBoundaryOracle.exe*" $candidate
+        Copy-Item "$original/AudioMpegHeaderOracle.exe" $candidate
+        & "$candidate/AudioMpegHeaderOracle.exe" "$candidate/Recovered.AudioCompiler.dll" "$out/header-native.tsv" *> "$out/$mode-header.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-header.log";throw "$mode MPEG header differential failed" }
+        Get-Content "$out/$mode-header.log"
         $actual=@(Run-Corpus $candidate "$candidate/Recovered.AudioCompiler.dll" $mode)
         $comparisons=@()
         foreach ($expected in $receipt.originalCases) {
@@ -62,7 +72,7 @@ try {
             }
         }
         $differences=@($comparisons|Where-Object { !$_.equal }).Count
-        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
+        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;headerNativeRecords=32783;identificationBoundaryChecks=15;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
         Write-Host "MPEG $mode`: $($cases.Count-$differences)/$($cases.Count) matching isolated cases; $differences differences"
     }
     if (@($receipt.configurations|Where-Object { !$_.passed }).Count -gt 0) { $receipt.status='differences-found';throw 'MPEG boundary differences found; inspect per-case receipts before changing production support' }

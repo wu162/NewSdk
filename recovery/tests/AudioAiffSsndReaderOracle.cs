@@ -23,15 +23,16 @@ internal static class AudioAiffSsndReaderOracle
                         throw new Exception("SSND blockSize changed metadata");
                     for (int i = 0; i < first.Length; ++i)
                         if (BitConverter.ToInt32(BitConverter.GetBytes(first[i]), 0) != BitConverter.ToInt32(BitConverter.GetBytes(second[i]), 0)) throw new Exception("SSND blockSize changed sample bits");
-                    // Offset remains separately refused, including when blockSize is accepted.
-                    int offsetAt = AudioAiffSsndCases.BlockOffset(kind) - 4; input[offsetAt + 3] = 1;
+                    // An offset outside the declared SSND sample window remains
+                    // refused, including when blockSize itself is accepted.
+                    int offsetAt = AudioAiffSsndCases.BlockOffset(kind) - 4; for (int i = 0; i < 4; ++i) input[offsetAt + i] = 255;
                     try { read.Invoke(null, new object[] { input, kind == 3 }); }
                     catch (TargetInvocationException error) { if (error.InnerException is NotSupportedException) { ++records; continue; } throw; }
-                    throw new Exception("Nonzero SSND offset was silently accepted");
+                    throw new Exception("Out-of-chunk SSND offset was silently accepted");
                 }
             }
             if (records != 168) throw new Exception("Incomplete SSND metadata checks");
-            Console.WriteLine("PASS SSND blockSize:168 exact sample/metadata invariants and168 nonzero-offset refusals"); return 0;
+            Console.WriteLine("PASS SSND blockSize:168 exact sample/metadata invariants and168 out-of-chunk-offset refusals"); return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
