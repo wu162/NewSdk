@@ -62,6 +62,11 @@ on:
       - 'recovery/tests/AudioXmaCodecMetadataOracle.cs'
       - 'recovery/tests/AudioXmaRawPacketOracle.cs'
       - 'recovery/tests/AudioXmaMetadataStateOracle.cs'
+      - 'recovery/scripts/TestAudioXmaSignal.ps1'
+      - 'recovery/tests/AudioXmaSignalOracle.cs'
+      - 'src/AudioCompiler/Native/XmaSignalTransform.cs'
+      - 'recovery/scripts/TestAudioXmaRawPacketState.ps1'
+      - 'recovery/tests/AudioXmaRawPacketStateOracle.cs'
   workflow_dispatch:
     inputs:
       scope:
@@ -69,7 +74,7 @@ on:
         required: true
         default: components
         type: choice
-        options: [components, raw, corpus, rewrite, noise, pcm, formats, window, schedule, fft, dct, dct-state, dct-snapshot, ssnd-block, window-snapshot, dispatch, numerical-dispatch, aifc-original, aifc, adp4-probe, adp4-decoder, adp4-plugin, codec-metadata, metadata-state, raw-packet, all]
+        options: [components, raw, corpus, rewrite, noise, pcm, formats, window, schedule, fft, dct, dct-state, dct-snapshot, ssnd-block, window-snapshot, dispatch, numerical-dispatch, aifc-original, aifc, adp4-probe, adp4-decoder, adp4-plugin, codec-metadata, metadata-state, raw-packet, signal, raw-packet-state, all]
 permissions:
   contents: write
 concurrency:
@@ -103,6 +108,8 @@ jobs:
       RUN_AIFC: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc]')) }}
       RUN_AIFC_ORIGINAL: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'aifc-original') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-aifc-original]')) }}
       RUN_FORMATS: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'formats') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-input-metadata]')) }}
+      RUN_SIGNAL: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'signal') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-signal]')) }}
+      RUN_RAW_PACKET_STATE: ${{ (github.event_name == 'workflow_dispatch' && inputs.scope == 'raw-packet-state') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-raw-packet-state]')) }}
     steps:
       - uses: actions/checkout@v4
       - name: Record requested groups and verify original input
@@ -135,6 +142,8 @@ jobs:
           if ($env:RUN_AIFC -eq 'true') { $groups += 'aifc' }
           if ($env:RUN_AIFC_ORIGINAL -eq 'true') { $groups += 'aifc-original' }
           if ($env:RUN_FORMATS -eq 'true') { $groups += 'formats' }
+          if ($env:RUN_SIGNAL -eq 'true') { $groups += 'signal' }
+          if ($env:RUN_RAW_PACKET_STATE -eq 'true') { $groups += 'raw-packet-state' }
           $state = @{
             sourceCommit = (git rev-parse HEAD).Trim()
             runId = $env:GITHUB_RUN_ID
@@ -148,7 +157,7 @@ jobs:
           if ($env:RUN_SSND_BLOCK -eq 'true' -and ($env:RUN_FORMATS -eq 'true' -or $env:RUN_AIFC -eq 'true' -or $env:RUN_AIFC_ORIGINAL -eq 'true' -or $env:RUN_ADP4_PLUGIN -eq 'true')) { throw 'SSND component group must run separately from other input groups that share evidence directories' }
           if ($env:RUN_ADP4_PLUGIN -eq 'true' -and ($env:RUN_FORMATS -eq 'true' -or $env:RUN_AIFC -eq 'true' -or $env:RUN_AIFC_ORIGINAL -eq 'true')) { throw 'ADP4 plugin component group must run separately from formats/AIFC groups that share evidence directories' }
           if ($env:RUN_AIFC -eq 'true' -and ($env:RUN_FORMATS -eq 'true' -or $env:RUN_AIFC_ORIGINAL -eq 'true')) { throw 'AIFC full acceptance must run separately from formats and AIFC original-only to preserve distinct evidence directories' }
-          if ($groups.Count -eq 0) { throw 'Select explicit [xma-raw], [xma-corpus], [xma-rewrite], [xma-noise], [xma-pcm], [xma-window], [xma-schedule], [xma-fft], [xma-dct], [xma-dct-state], [xma-dct-snapshot], [audio-ssnd-block], [xma-window-snapshot], [xma-dispatch], [xma-numerical-dispatch], [audio-input-metadata], [audio-aifc], [audio-aifc-original], [audio-adp4-probe], [audio-adp4-decoder], [audio-adp4-plugin], [xma-codec-metadata], [xma-metadata-state], or [xma-raw-packet] push markers, or dispatch a scope' }
+          if ($groups.Count -eq 0) { throw 'Select explicit [xma-raw], [xma-corpus], [xma-rewrite], [xma-noise], [xma-pcm], [xma-window], [xma-schedule], [xma-fft], [xma-dct], [xma-dct-state], [xma-dct-snapshot], [audio-ssnd-block], [xma-window-snapshot], [xma-dispatch], [xma-numerical-dispatch], [audio-input-metadata], [audio-aifc], [audio-aifc-original], [audio-adp4-probe], [audio-adp4-decoder], [audio-adp4-plugin], [xma-codec-metadata], [xma-metadata-state], [xma-raw-packet], [xma-signal], or [xma-raw-packet-state] push markers, or dispatch a scope' }
           if ($state.originalSha256 -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler DLL fingerprint changed' }
       - uses: actions/setup-dotnet@v4
         if: env.RUN_FORMATS == 'true' || env.RUN_AIFC == 'true' || env.RUN_ADP4_PLUGIN == 'true' || env.RUN_SSND_BLOCK == 'true'
@@ -282,12 +291,22 @@ jobs:
         if: always() && steps.preflight.outcome == 'success' && env.RUN_RAW_PACKET == 'true'
         shell: pwsh
         run: "& './recovery/scripts/TestAudioXmaRawPacket.ps1'"
+      - name: Compare complete signal transform against original CPU and isolated candidates
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_SIGNAL == 'true'
+        shell: pwsh
+        run: "& './recovery/scripts/TestAudioXmaSignal.ps1'"
+      - name: Capture actual raw packet states and replay isolated recovered lifecycle
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_RAW_PACKET_STATE == 'true'
+        shell: pwsh
+        run: "& './recovery/scripts/TestAudioXmaRawPacketState.ps1'"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: audio-xma-next-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: error
           path: |
+            recovery/evidence/audio/xma-signal-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-raw-packet-state-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xma-next-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xma-raw-validation/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/audio/xma-corpus-validation/${{ github.run_id }}-${{ github.run_attempt }}
@@ -318,7 +337,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          $paths = @('xma-next-validation','xma-raw-validation','xma-corpus-validation','xma-rewrite-validation','xma-noise-validation','xma-pcm-validation','xma-window-validation','xma-schedule-validation','xma-fft-validation','xma-dct-validation','xma-dct-snapshot-validation','ssnd-block-validation','xma-window-snapshot-validation','xma-dispatch-validation','xma-numerical-dispatch-validation','aifc-validation','adp4-probe','adp4-decoder-validation','adp4-plugin-validation','xma-codec-metadata-validation','xma-metadata-state-validation','xma-raw-packet-validation','plugin-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
+          $paths = @('xma-raw-packet-state-validation','xma-signal-validation','xma-next-validation','xma-raw-validation','xma-corpus-validation','xma-rewrite-validation','xma-noise-validation','xma-pcm-validation','xma-window-validation','xma-schedule-validation','xma-fft-validation','xma-dct-validation','xma-dct-snapshot-validation','ssnd-block-validation','xma-window-snapshot-validation','xma-dispatch-validation','xma-numerical-dispatch-validation','aifc-validation','adp4-probe','adp4-decoder-validation','adp4-plugin-validation','xma-codec-metadata-validation','xma-metadata-state-validation','xma-raw-packet-validation','plugin-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
           if ($paths.Count -eq 0) { throw 'No selected run evidence was produced' }
           git add -- $paths
           if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }

@@ -79,3 +79,14 @@ states, not captures of the original numerical encoder at packet append time.
 The metadata real-state evidence does not expand this packet-writer claim.
 Component sourceCommit/runId must be taken from the Windows validation receipt
 when it completes; local instruction-emulator checks do not substitute for it.
+
+Component acceptance: source
+`d3f96009` (use the full sourceCommit in its receipt), run
+[40236037500](https://github.com/wu162/NewSdk/actions/runs/40236037500),
+attempt1: original CPU plus Debug/Release1106 cases and15 safety rejections
+passed. Eight inputs are accepted real raw payload bytes; that run correctly
+keeps `actualEncoderStates=0`. `TestAudioXmaRawPacketState.ps1` is a separate
+pending two-long-case entry/return capture, reusing the accepted65536-frame
+seeded stereo corpus (40233712043). It must preserve all three original
+allocations and replay only captured header/next/padding states; it does not
+repeat the1106 component cases or claim actual bitsplice-state coverage.
