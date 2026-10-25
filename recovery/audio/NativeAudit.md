@@ -39,7 +39,7 @@ The native SNR writer maps IDs to codec registry identifiers: PCM16BE 1 → `P6B
 
 ## PCM16BE and SNR/SNS
 
-The implemented component `src/AudioCompiler/Native/Pcm16Encoder.cs` is a managed replacement for native code and does not call the original DLL. Its current input entry accepts mono/stereo PCM8/PCM16 RIFF/WAVE, rejects loop metadata, and does not resample. Unsupported cases remain explicit exceptions.
+The implemented component `src/AudioCompiler/Native/Pcm16Encoder.cs` is a managed replacement for native code and does not call the original DLL. The full plugin input reader now accepts mono/stereo PCM8/16/24 WAVE, canonical PCM extensible and AIFF8/16/24; single forward WAVE loops compose PCM/XAS segments. Resampling remains explicitly rejected. The standalone EncodeWave helper retains its PCM8/16 no-loop subset. See PcmInputAudit.md for the actual 24-bit import path, which truncates to signed16 before float normalization.
 
 SNR's eight-byte header is MSB-first: version 4 bits (0), codec 4 (PCM=2/XAS1=4), channels-minus-one 6, sample rate 18, storage 2 (RAM=0/stream=1), loop-present 1, frame count 29. Each data block has a BE32 size including the 8-byte block header and a BE32 frame count. RAM uses a single data block without the final high bit. Streamed output sets `0x80000000` in the final block and pads the final block to a 64-byte file boundary. The native branch adds a full 64 padding bytes when the unpadded length is already aligned.
 
@@ -65,4 +65,4 @@ Public format cross-checks were read after the independent implementation: vgmst
 
 ## Unrecovered native scope
 
-AIFF importing, WAVE formats beyond the explicit PCM8/PCM16 entry, loop marker semantics, automatic channel remapping, SIMEX resampling filter 120, EA-XMA, and generic SIMEX filters remain outside this source component. They must not silently fall back to approximate behavior. Metadata and PathMusic/MP3 components have separate scopes and evidence.
+AIFF loop markers/AIFC, noncanonical extensible metadata, automatic channel remapping, SIMEX resampling filter 120, EA-XMA, and generic SIMEX filters remain outside this source component. Ordinary AIFF8/16/24, WAVE24/extensible and single forward WAVE loops passed full plugin and SDK validation at source ad37841d5bf7fba3cbdede2bdae60da2b49d9639 / run40197878572. They must not silently fall back to approximate behavior. Metadata and PathMusic/MP3 components have separate scopes and evidence.

@@ -53,6 +53,6 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 合并核对：目标分支 `4e86bf87e9339a5b5662f5aa6a27debe8970fe79` 在共同基线后新增 Utility 源码/脚本/文档/证据及 primitives 验证收据；与 Mvp.Xml 分支唯一重叠是本续接文档。Utility 全部子树和 primitives 收据按目标 SHA 原样保留，Core/MvpXml/测试/构建工具/SDK 原 DLL 与验收源码保持不变，复用运行 40189585854 的精确结果，不将文档合并冒充新验证。
 
 
-## AudioCompiler 独立还原阶段交接（2026-10-25）
+## AudioCompiler 独立分支最新验收（2026-10-25）
 
-分支 `recovery/audio-compiler-source` 从 `b122a54abe4405516b021e425b8fb9235d914a0e` 新建。代码按用户要求在根目录 `src/AudioCompiler`；无原AudioCompiler业务回调，NLayer MIT解码源码静态编入。已取得metadata Debug/Release各86171条一致（40192722185）、三PathMusic各95条一致（40193025288）、PCM16编码16条及XAS编码12条各Debug/Release一致、独立工程构建通过（40193438615）。后两次整体运行有其他步骤失败，不称整体成功。当前新增PCM8/main真实音频、完整AudioFile及MP3路由、262组XAS native样本、SDK对照均待最终验收；legacy csc构建阻塞已改Roslyn但尚待新运行确认。AIFF、其他sample formats、loop、resample、XMA尚未恢复，不宣称完整DLL还原；未修改生产SDK DLL/config。先读 [AUDIO_COMPILER.md](AUDIO_COMPILER.md) 与 [native审计](audio/NativeAudit.md)，再跑音频专用完整工作流；不要重复触发既有无变化GameObject/XmlCompiler矩阵。
+分支 `recovery/audio-compiler-source`，根目录 `src/AudioCompiler`。源码 `ad37841d5bf7fba3cbdede2bdae60da2b49d9639`，运行[40197878572](https://github.com/wu162/NewSdk/actions/runs/40197878572) attempt1整体成功：Debug/Release各1001条完整插件记录（含480格式、216 WAVE loop及main真实PCM8）、1008 block-size标量样本、262 XAS block样本通过；真实SDK专用MOD28次实际调用、四产物和26份CustomData相同，恢复侧删除原AudioCompiler DLL。已支持WAVE PCM8/16/24、标准PCM extensible子集、AIFF8/16/24及合法单forward WAVE loop；修复CLR x87精度、24bit导入丢低8bit、AIFF padding三个真实差异。metadata历史86171条身份核对保留原40192722185锚点。重采样、AIFF MARK/INST loop、AIFC、XMA仍未恢复，MP3公开NLayer后端对特殊/损坏流不承诺普遍等价，不能宣称完整DLL还原。未改生产SDK DLL/config、未合入compiler-source。先读[AUDIO_COMPILER.md](AUDIO_COMPILER.md)及其中最新收据，再按未完成范围续接，不重复触发未变GameObject/XmlCompiler矩阵。

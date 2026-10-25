@@ -1,4 +1,4 @@
-# AudioCompiler 源码恢复（阶段交接，未完整验收）
+# AudioCompiler 源码恢复（阶段验收通过，仍有未恢复能力）
 
 目标：从 `recovery/compiler-source` 的 `b122a54abe4405516b021e425b8fb9235d914a0e` 新建 `recovery/audio-compiler-source`。
 原 DLL SHA256：`a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`。
@@ -11,17 +11,28 @@
 - `PathMusicTrack`：复制 MUS 到 CustomData，解析 PATH_TRACK_ header handle，生成 runtime 与字符串分配。
 - `PathMusicEvent`：解析 PATH_EVENT_ header、weak reference、IsXferable，生成 runtime。
 - `AudioFileMP3Passthrough`：恢复原生七连续 MPEG 帧识别和头解析；MIT NLayer 源码作为实际 MPEG 解码验证后端。文件原样传递，生成 subtitle/channels/streamed runtime。第三方代码静态编入目标程序集，不使用独立 NLayer DLL。
-- `AudioFile`：默认 `PcmWaveAudioCompiler` 后端支持单/双声道 PCM8/16 RIFF/WAVE、NONE 和 XAS v1、RAM/streamed SNR/SNS 容器；恢复平台策略、默认 subtitle、runtime 布局、重定位和 CustomData。
+- `AudioFile`：默认 `PcmWaveAudioCompiler` 后端支持单/双声道 PCM8/16/24 RIFF/WAVE、标准 PCM WAVE EXTENSIBLE 子集、AIFF signed8/BE16/BE24、NONE 和 XAS v1、RAM/streamed SNR/SNS 容器；合法单 forward WAVE smpl loop 已恢复；恢复平台策略、默认 subtitle、runtime 布局、重定位和 CustomData。
 - `Pcm16Encoder` 与 `Xas1Encoder` 从原 DLL 算法独立重建，不读取/加载原目标 DLL 作为运行后端。
 
-明确未覆盖：AIFF、PCM8/16 之外的 WAV sample format、loop 元数据、重采样、XMA。上述输入显式拒绝，不静默使用不同编码格式。MP3 采用公开解码后端，损坏/特殊 MPEG 流的接受行为不保证普遍等同原 RenderWare decoder；必须按实测样本描述兼容性，不能称原 native decoder 全量还原。
+明确未覆盖：AIFC、AIFF MARK/INST loop、非标准 WAVE EXTENSIBLE 元数据、PCM32/IEEE float WAVE、重采样、XMA。原 DLL 本身也不接受 PCM32/IEEE float WAVE，不将其误记为待恢复的原能力。上述输入显式拒绝，不静默使用不同编码格式。MP3 采用公开解码后端，损坏/特殊 MPEG 流的接受行为不保证普遍等同原 RenderWare decoder；必须按实测样本描述兼容性，不能称原 native decoder 全量还原。
 
 ## 构建
 
 `dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
 工程目标 net472（为公开 MPEG 后端提供兼容运行时），无签名，Core 引用保留原 SDK 基线。代码可直接纳入将来的单 exe；此独立工程用于阶段验证，不代表已修改生产 SDK。
 
-## 已有证据
+## 本轮最新验收（2026-10-25）
+
+源码 `ad37841d5bf7fba3cbdede2bdae60da2b49d9639`，运行 [40197878572](https://github.com/wu162/NewSdk/actions/runs/40197878572) attempt1 **整体成功**。实际收据均绑定该源码，不将后续文档提交冒充新运行。
+
+- Debug/Release 各1001条完整插件记录逐字节一致：business239、PCM16、XAS12、defaults4、rates2、main真实音频8、PCM8 24、formats480、loops216；比较InstanceData、RelocationData、ImportsData和完整CustomData，恢复宿主无原目标DLL。
+- Debug/Release 各1008条原native block-size标量样本（PCM/XAS各504）和262条XAS编码块样本通过；独立工程两配置构建通过。候选输入拒绝19项、loop结构/拒绝14项通过，不把安全拒绝样本算为原版业务等价。
+- 真实SDK从EALAModStudio case5 BAB基础数据流程执行，原版/恢复版使用同一临时SDK根、同一完整XSD合法输入。28次实际handler调用的三缓冲区/CustomData相同；四份MOD产物和26份CustomData相同；恢复侧删除原AudioCompiler DLL。覆盖全部五个路由、main两份PCM8真实音频、AIFF16/WAVE24/extensible24和WAVE loop。此为专用音频MOD验收，非完整Upheaval全量编译。
+- 收据：`evidence/audio/plugin-validation/40197878572-1/validation.json`、`pcm-validation`、`xas-validation`和`sdk-validation`同运行目录；SDK `calls-validation.log`明确28次调用，`Original-command.json`/`Recovered-command.json`保留命令及原DLL存在状态。
+
+关键修复：CLR下x87实际为53位精度，上轮64位模拟在400/431Hz块大小差一帧；PCM24真实SIMEX导入路径先丢弃低8位转signed16，并非直接使用P2L0/P2B0 float decoder；AIFF SSND帧数使用原始chunk长度，排除padding。原始指令、1008条标量oracle及差分失败/成功锚点均保留。详细见 `audio/PcmInputAudit.md`、`audio/NativeAudit.md`、`audio/LoopsAndResampling.md`。
+
+## 历史阶段证据（不扩大旧运行的范围）
 
 - 原始 ILSpy 9.1.0.7988 全工程/IL/CLR 清单：`evidence/audio`，提取运行 `40192090985`，源码 `b957b1977fc1350d1ef366ef1a1727fab04e0b71`。
 - 元数据：源码 `3ecb7ad3fed175d71675c9a527954364e04c7141`，运行 `40192722185`。Debug/Release 各 86,171 条完全一致；恢复宿主不含原 AudioCompiler DLL。记录保留原精确锚点，不将新实现冒充该次验证。
@@ -38,6 +49,6 @@
 - vgmstream：`src/meta/ea_eaac.c`（SNR/SNS 容器）和相关 XAS decoder 可交叉核对格式；项目 COPYING 为保留声明的宽松许可。当前未复制该项目源码到产物。
 - lgdel/eaxas：公开 XAS encoder 与 XasWriter 证明可参考的编码方向；检查时没有 LICENSE，未直接复制。恢复核心仍从本仓库原 DLL native 指令推导并通过原版输出对照。
 
-## 后续
+## 当前下一步
 
-本轮达到1小时时限停止新增实现。下一轮先运行最新检查点的Windows完整差分；定位真实差异后重跑受影响组。真实 SDK 使用同一临时根顺序对照，避免 PathMusic 绝对路径产生假差异。完成后更新本文件与 RESUME，保留未支持格式和公开后端边界。
+已验收范围无需重复跑未变矩阵。AIFF sustain/release loop 正在按 MARK/INST 原native路径调查，尚未接入，不包含在上述216组WAVE loop验收内。随后重点是SIMEX filter120重采样的完整FIR/插值依赖链；XMA仍未恢复。MP3后端对损坏/特殊MPEG流的普遍接受行为仍非全量等价。生产SDK二进制/config未改，本分支尚未合入compiler-source。

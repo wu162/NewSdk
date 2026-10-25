@@ -138,7 +138,5 @@ pass-band constants 0.5 and binary32 0.95, and different filter shape codes
   as plugin or SDK acceptance.
 
 The accompanying `Native/LoopPcmEncoder.cs` candidate composes existing PCM/XAS
-segment encoding with the recovered loop header and truncation rules. It is
-not accepted until the 216-fixture `AudioLoopProbeCases.cs` original-plugin
-matrix passes. Resampling remains unimplemented. Production SDK binaries
+segment encoding with the recovered loop header and truncation rules. It passed the 216-fixture `AudioLoopProbeCases.cs` original-plugin matrix in Debug/Release and the dedicated SDK loop subset at source `ad37841d5bf7fba3cbdede2bdae60da2b49d9639`, run `40197878572` attempt1. Resampling remains unimplemented. Production SDK binaries
 and configuration were not modified by this investigation.
