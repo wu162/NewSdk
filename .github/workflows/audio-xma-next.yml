@@ -1,0 +1,134 @@
+name: Audio XMA next recovery batch
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-xma-next.yml'
+      - 'src/AudioCompiler/Native/XmaOutputRewriter.cs'
+      - 'src/AudioCompiler/Native/Xma*Noise*.cs'
+      - 'src/AudioCompiler/Native/XmaPcmConverter.cs'
+      - 'recovery/scripts/TestAudioXmaRaw.ps1'
+      - 'recovery/scripts/TestAudioXmaRewrite.ps1'
+      - 'recovery/scripts/TestAudioXmaNoise.ps1'
+      - 'recovery/scripts/TestAudioXmaPcm.ps1'
+      - 'recovery/scripts/TestAudioInputMetadata.ps1'
+      - 'recovery/tests/AudioXmaRawOracle.cs'
+      - 'recovery/tests/AudioXmaRewriteOracle.cs'
+      - 'recovery/tests/AudioXmaNoiseOracle.cs'
+      - 'recovery/tests/AudioXmaPcmOracle.cs'
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: Complete affected group to run; raw collects original-only evidence
+        required: true
+        default: all
+        type: choice
+        options: [raw, rewrite, noise, pcm, formats, all]
+permissions:
+  contents: write
+concurrency:
+  group: audio-xma-next-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    env:
+      RUN_RAW: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'raw' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-raw]')) }}
+      RUN_REWRITE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'rewrite' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-rewrite]')) }}
+      RUN_NOISE: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'noise' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-noise]')) }}
+      RUN_PCM: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'pcm' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[xma-pcm]')) }}
+      RUN_FORMATS: ${{ (github.event_name == 'workflow_dispatch' && (inputs.scope == 'formats' || inputs.scope == 'all')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[audio-input-metadata]')) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record requested groups and verify original input
+        id: preflight
+        shell: pwsh
+        run: |
+          $out = "recovery/evidence/audio/xma-next-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          $groups = @()
+          if ($env:RUN_RAW -eq 'true') { $groups += 'raw' }
+          if ($env:RUN_REWRITE -eq 'true') { $groups += 'rewrite' }
+          if ($env:RUN_NOISE -eq 'true') { $groups += 'noise' }
+          if ($env:RUN_PCM -eq 'true') { $groups += 'pcm' }
+          if ($env:RUN_FORMATS -eq 'true') { $groups += 'formats' }
+          $state = @{
+            sourceCommit = (git rev-parse HEAD).Trim()
+            runId = $env:GITHUB_RUN_ID
+            runAttempt = $env:GITHUB_RUN_ATTEMPT
+            requestedGroups = @($groups)
+            rawEvidenceIsOriginalOnly = $true
+            xmaEncoderRecovered = $false
+            originalSha256 = (Get-FileHash 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll').Hash.ToLowerInvariant()
+          }
+          $state | ConvertTo-Json -Depth 6 | Set-Content "$out/request.json"
+          if ($groups.Count -eq 0) { throw 'Select explicit [xma-raw], [xma-rewrite], [xma-noise], [xma-pcm], or [audio-input-metadata] push markers, or dispatch a scope' }
+          if ($state.originalSha256 -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler DLL fingerprint changed' }
+      - uses: actions/setup-dotnet@v4
+        if: env.RUN_FORMATS == 'true'
+        with:
+          dotnet-version: '8.0.x'
+      - name: Collect original raw XMA output before packet rewriting
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_RAW == 'true'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioXmaRaw.ps1
+      - name: Compare original CPU and Debug/Release packet rewriting
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_REWRITE == 'true'
+        shell: pwsh
+        run: |
+          $raw = "recovery/evidence/audio/xma-raw-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($env:RUN_RAW -eq 'true' -and (Test-Path "$raw/validation.json")) {
+            $receipt = Get-Content "$raw/validation.json" -Raw | ConvertFrom-Json
+            if ($receipt.status -eq 'original-evidence-only') {
+              ./recovery/scripts/TestAudioXmaRewrite.ps1 -RawEvidenceDirectory $raw
+            } else {
+              ./recovery/scripts/TestAudioXmaRewrite.ps1
+            }
+          } else {
+            ./recovery/scripts/TestAudioXmaRewrite.ps1
+          }
+      - name: Compare original CPU and Debug/Release numerical noise helpers
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_NOISE == 'true'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioXmaNoise.ps1
+      - name: Compare original CPU and Debug/Release PCM preconversion
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_PCM == 'true'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioXmaPcm.ps1
+      - name: Compare input metadata group and real SDK products
+        if: always() && steps.preflight.outcome == 'success' && env.RUN_FORMATS == 'true'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioInputMetadata.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-xma-next-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          path: |
+            recovery/evidence/audio/xma-next-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-raw-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-rewrite-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-noise-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xma-pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve exact run evidence without replacing concurrent changes
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $paths = @('xma-next-validation','xma-raw-validation','xma-rewrite-validation','xma-noise-validation','xma-pcm-validation','plugin-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
+          if ($paths.Count -eq 0) { throw 'No selected run evidence was produced' }
+          git add -- $paths
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve XMA next-batch evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
