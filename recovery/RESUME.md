@@ -73,4 +73,6 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 
 ## TextureCompiler 第五轮：PNG/BMP 与集中验证
 
-2026-10-26（北京时间）。单代理完成 POT PNG/BMP 解码及实际 Texture/OnDemandTexture、PC/PS3 raw/mip/volume 路由；保持原版调色板、灰度 alpha16、BMP bitfields 拒绝。PNG 核心5882例及98组全值采样(3684352像素)在14b22c15/40234341155通过；BMP4320例与最终入口9216例在e20a40cc/40235000007通过，均Debug/Release零差异。初始552资产四profile SDK 40232650147成功；新增RGB16的最终600资产/profile SDK待收取。当前准确状态及边界见 [TEXTURE_PNG_BMP.md](TEXTURE_PNG_BMP.md)。用户反馈测试触发太多后，已改 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)：普通检查点不跑Windows，完整组 [texture-test]，SDK [texture-sdk]，一个自动入口、至多一个Windows作业，未变成功组复用原锚点。禁止强推，Xbox360继续排除，生产SDK不替换。
+2026-10-26（北京时间）。单代理完成 POT PNG/BMP 解码及实际 Texture/OnDemandTexture、PC/PS3 raw/mip/volume 路由；保持原版调色板、灰度 alpha16、BMP bitfields 拒绝。PNG 核心5882例及98组全值采样(3684352像素)在14b22c15/40234341155通过；BMP4320例与最终入口9216例在e20a40cc/40235000007通过，均Debug/Release零差异。初始552资产四profile SDK 40232650147成功；新增RGB16的最终SDK源码9ba02841、运行40235430314成功：四profile各三组600资产/600次实际Core调用，四产物及全部三buffer/full cdata一致。当前准确状态及边界见 [TEXTURE_PNG_BMP.md](TEXTURE_PNG_BMP.md)。用户反馈测试触发太多后，已改 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)：普通检查点不跑Windows，完整组 [texture-test]，SDK [texture-sdk]，一个自动入口、至多一个Windows作业，未变成功组复用原锚点。禁止强推，Xbox360继续排除，生产SDK不替换。
+
+第五轮收尾：19 个 Managed 输入与最终 SDK 验收逐 blob 相同，生产 SDK 整树未变。最新交接 [TEXTURE_PNG_BMP.md](TEXTURE_PNG_BMP.md)、精简收据 evidence/texture/handoffs/20261026-stage5/acceptance.json。额外 DXT 参考库符号采集 40236386719 成功，仅 evidence-only；下一轮可按 [TEXTURE_DXT_ENTRYPOINTS.md](TEXTURE_DXT_ENTRYPOINTS.md) 继续原生块压缩，不重跑未变 PNG/BMP/TGA。选择器 13 项检查通过，取证批次只执行 dxt-symbols、复用全部 20 个组件组。仓库状态以本第五轮收尾为准。

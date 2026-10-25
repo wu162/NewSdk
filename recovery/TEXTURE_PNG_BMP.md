@@ -1,6 +1,6 @@
 # TextureCompiler 第五轮：PNG/BMP 与集中验证
 
-2026-10-26（北京时间）。分支 recovery/texturecompiler-source；本轮按用户要求单代理推进，不启动子代理，禁止强推。当前组件验收已完成，包含 RGB16 的最终 SDK 批次待收取。生产 SDK 的 DLL/config 未替换，源码未合入其他分支。
+2026-10-26（北京时间）。分支 recovery/texturecompiler-source；本轮按用户要求单代理推进，不启动子代理，禁止强推。当前组件及包含 RGB16 的最终四 profile SDK 验收均已完成。生产 SDK 的 DLL/config 未替换，源码未合入其他分支。
 
 ## 成功解码与原版拒绝范围
 
@@ -43,14 +43,18 @@
 
 初始不含 RGB16 的专用 MOD 已在源码 8a70300bf84ae60a5bb6ef00e6322c70fd27d91a、运行 40232650147 四个 profile 全部成功。PcNoMip/PcMips/Ps3NoMip/Ps3Mips 各 Original/Recovered/NoOriginal 三组、每组 552 资产及 552 次实际 Core 调用，四产物和实际三个 buffer/full cdata 完全一致。
 
-包含 RGB16、修正 gamma 和最终 BMP 拒绝范围的最终批次待收取。当前生成器产生 50 张成功输入，每张 Standard/Volume × Texture/OnDemandTexture × 三 raw 格式，共每 profile 600 资产；不把原版必拒绝的 bitfields 加入成功 MOD。收取后须核对 sourceCommit、runId、三组资产/调用数、四产物及 traces.zip。旧 552 资产 SDK 不代表新增 RGB16 已经完成 SDK 验收。
+最终 SDK 验收源码 9ba02841cf320083c6ec3c571744f3c4c36e401b，运行 [40235430314](https://github.com/wu162/NewSdk/actions/runs/40235430314) completed/success，attempt1。PcNoMip/PcMips/Ps3NoMip/Ps3Mips 四 profile 均通过；每 profile 是 50 张成功输入 × Standard/Volume × Texture/OnDemandTexture × 三 raw 格式，共 600 资产。每组 Original/Recovered/NoOriginal 均为 600 次实际 Core 成功调用，合计 7200 次；每 profile 四产物及全部实际三个 buffer/full cdata 一致。bitfields 原版拒绝样本只留在组件/入口矩阵，未加入成功 MOD。
+
+精简验收收据与 19 个 Managed 输入指纹见 [acceptance.json](evidence/texture/handoffs/20261026-stage5/acceptance.json)；原始收据为 evidence/texture/sdk-rasters/{profile}/40235430314-1/validation.json，完整实际调用位于同目录 traces.zip。19 个 SDK 构建输入跨四 profile 一致，最终文档/取证提交与该 SDK 源码逐 Git blob 相同。SDK 整个子树仍为 1f2d71a20ce8bf7d9343c7a2246c10275abe28f9，与本轮起始树一致，证明生产 SDK 未被修改。
 
 SDK 使用 EALAModStudio case5 的 BAB 基础数据流程，仅在临时 SDK/MOD 副本改路由；NoOriginal 移除原目标 DLL。完整调用轨迹压缩为 traces.zip 保存，减少数千个小文件；比较在压缩前逐文件完成，收据保留压缩包 SHA256。
 
 ## 触发规则与下一轮
 
-用户反馈“每次触发的测试个数太多了”后已改为 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)。普通检查点不启动 Windows；完整组提交加 [texture-test]，SDK 里程碑加 [texture-sdk]。仅一个自动入口、至多一个 Windows 作业；依赖选择器核对完整成功祖先证据。11 项选择器检查通过；40233600075 为计划验证，未启动 Windows。PNG 新修改只运行 png/raster-images/png-ranges，BMP 更新只运行 bmp/raster-images，其余成功组保留原锚点。
+用户反馈“每次触发的测试个数太多了”后已改为 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)。普通检查点不启动 Windows；完整组提交加 [texture-test]，SDK 里程碑加 [texture-sdk]。仅一个自动入口、至多一个 Windows 作业；依赖选择器核对完整成功祖先证据。选择器最新 13 项边界检查通过（40236386719）；40233600075 为早期计划验证，未启动 Windows。PNG 新修改只运行 png/raster-images/png-ranges，BMP 更新只运行 bmp/raster-images，其余成功组保留原锚点。
 
-下一轮先读本页及 TEXTURECOMPILER.md，继续 DXT1/DXT1A/DXT3/DXT5 核心、JPEG/NPOT、剩余 TGA metadata、完整 atlas 入口或 PC/PS3 公共 native 生命周期。Xbox360/Xenon 专属实现与验收继续排除。公开参考为 W3C PNG 规范、Microsoft BITMAPINFOHEADER；旧压缩器复用核查见 TEXTURE_UPSTREAM.md。原版差分始终是行为基准。
+下一轮先读本页及 TEXTURECOMPILER.md。DXT 原生入口与旧参考库 223 行相关 COFF 符号已采集，见 [TEXTURE_DXT_ENTRYPOINTS.md](TEXTURE_DXT_ENTRYPOINTS.md)，仅属取证，不是 DXT 恢复完成。继续 DXT1/DXT1A/DXT3/DXT5 核心、JPEG/NPOT、剩余 TGA metadata、完整 atlas 入口或 PC/PS3 公共 native 生命周期。Xbox360/Xenon 专属实现与验收继续排除。公开参考为 W3C PNG 规范、Microsoft BITMAPINFOHEADER；旧压缩器复用核查见 TEXTURE_UPSTREAM.md。原版差分始终是行为基准。
 
 本轮未量化账号额度节省；实际减少的是未变成功组重跑、多个 Windows 安装环境和 SDK 中间批次。运行环境末段变为不可用后，通过 GitHub 接口继续收取 Actions 和保存文档；远程源码与证据已持续提交。
+
+本轮末段运行环境失效后仍通过 GitHub/Actions 完成 SDK 收取与旧库符号采集。最终 SDK 和取证阶段每次仅一个 Windows 作业，取证运行明确只选 dxt-symbols，20 个已成功组件组全部复用。无源代码/行为变更后不再启动 Windows 重测。

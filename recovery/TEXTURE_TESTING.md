@@ -11,3 +11,7 @@
 - 每个实际组仍生成自身收据；batch/selection.json 区分本轮执行与沿用结果，沿用记录保留原 sourceCommit/runId，不写成当前源码新跑成功。失败组保存证据并继续完成本批其他已选组，最终 batch 必须失败。
 
 当前依赖表按 TGA 入口与 PNG/BMP 入口分别登记：只改 PNG 解码分支不会重跑只使用 TGA 的旧入口；修改共用 ImageLoader 或插件入口时才扩展到其实际消费者。生产 SDK 配置及 DLL 仍不替换。
+
+## 取证入口补充
+
+[texture-dxt-evidence] 显式选择 dxt-symbols，用同一个集中入口采集参考库 COFF 符号；该组 manual_only/evidence_only，普通回归与 SDK 不会自动选它。收据为 probe-only，绝不能作为 DXT 恢复验收或业务组件成功证据。40236386719 实测只选此组，复用全部20个已验收组件组；13项选择器检查包含旧依赖删除、实际非祖先提交、SDK完整三模式及取证非自动触发边界。

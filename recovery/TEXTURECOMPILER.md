@@ -1,12 +1,12 @@
 # TextureCompiler 当前交接
 
-2026-10-25。分支 `recovery/texturecompiler-source`；源码全部在根目录 [src/TextureCompiler](../src/TextureCompiler)。原DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。原始IL、metadata/native清单仍在 `evidence/texture/runs/40191971356-1`，不把反编译导出冒充完整可构建还原。
+2026-10-26（第五轮更新）。分支 `recovery/texturecompiler-source`；源码全部在根目录 [src/TextureCompiler](../src/TextureCompiler)。原DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。原始IL、metadata/native清单仍在 `evidence/texture/runs/40191971356-1`，不把反编译导出冒充完整可构建还原。
 
 **DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收；PS3 POT TGA >256自动cubic缩放也已取得组件/入口/真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
 ## 第五轮当前入口
 
-PNG/BMP 解码与实际入口组件已完成；最终含 RGB16 的四 profile SDK 批次待收取。精确格式边界、gamma/RGB16/BMP 原版语义、组件锚点及 SDK 状态见 [第五轮交接](TEXTURE_PNG_BMP.md)。新的测试触发规则见 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)，后续不再每次提交启动多条 Texture 工作流。
+PNG/BMP 解码、实际入口组件及最终含 RGB16 的四 profile SDK 均已完成；源码 9ba02841、运行 40235430314，每 profile 三组各 600 资产/实际 Core 调用，四产物与实际 buffer/cdata 相同。精确格式边界、gamma/RGB16/BMP 原版语义、组件锚点及 SDK 状态见 [第五轮交接](TEXTURE_PNG_BMP.md)。新的测试触发规则见 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)，后续不再每次提交启动多条 Texture 工作流。
 
 ## 已验收范围
 
@@ -58,3 +58,5 @@ NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直
 
 详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
 
+
+第五轮 DXT 取证补充：旧 nvDXT VC8 静态库已采集 223 行相关 COFF 符号，精确入口、库指纹及下一步见 [TEXTURE_DXT_ENTRYPOINTS.md](TEXTURE_DXT_ENTRYPOINTS.md)。未引入业务实现，未声称 DXT 字节等价。
