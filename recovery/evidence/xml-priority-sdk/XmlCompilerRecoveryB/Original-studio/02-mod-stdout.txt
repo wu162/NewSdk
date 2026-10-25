@@ -1,963 +1,963 @@
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
-Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
-[00:00:00] BinaryAssetBuilder started
-[00:00:00.2500552] Cached session data not available.
-[00:00:00.2500552] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
-[00:00:00.2500552] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods\cache').
-[00:00:00.2656895] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml'.
-[00:00:00.2969375] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\static.xml which has not been compiled, attempting to use precompiled
-[00:00:00.2969375] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods\static.manifest, file not found
-[00:00:00.2969375] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\static.xml'.
-[00:00:00.2969375] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\global.xml which has not been compiled, attempting to use precompiled
-[00:00:00.2969375] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods\global.manifest, file not found
-[00:00:00.2969375] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\global.xml'.
-[00:00:00.3125593] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\audio.xml which has not been compiled, attempting to use precompiled
-[00:00:00.3125593] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Original\builtmods\audio.manifest, file not found
-[00:00:00.3125593] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\audio.xml'.
-[00:00:00.3282001] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'.
-[00:00:00.3750463] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults [0b3906fa:912fefa9]
-[00:00:00.4063045] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields [0b3906fa:8b862c08]
-[00:00:00.4063045] probe.xml: Compiling MusicScriptConditionNugget_UnitsFarFromBase:RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults [9c361a08:035a8628]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_UnitsFarFromBase:RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields [9c361a08:8a791016]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_TimeFromStartOfLevel:RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Defaults [57495b42:433ce32f]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_TimeFromStartOfLevel:RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Fields [57495b42:9054a92e]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_TrackPlayedCount:RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Defaults [036b677b:8c50131c]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_TrackPlayedCount:RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Fields [036b677b:0aba0bb3]
-[00:00:00.4158558] probe.xml: Compiling MusicScriptConditionNugget_SpecificTrackTypePlaying:RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Defaults [2c108648:304e3d3b]
-[00:00:00.4225507] probe.xml: Compiling MusicScriptConditionNugget_SpecificTrackTypePlaying:RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Fields [2c108648:6c513089]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_AnyTrackPlaying:RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Defaults [cad58cc1:2113e53c]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_AnyTrackPlaying:RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Fields [cad58cc1:9c259844]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_ObjectsOfTypeExist:RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Defaults [ff7bdfbf:bf66205b]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_ObjectsOfTypeExist:RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Fields [ff7bdfbf:3b0f686e]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_EvaEventPlayedRecently:RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Defaults [a38db775:0746dc88]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_EvaEventPlayedRecently:RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Fields [a38db775:bb518849]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_ObjectsNearEvaEvent:RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Defaults [c9dd2e6d:c101dbb1]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_ObjectsNearEvaEvent:RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Fields [c9dd2e6d:32027e29]
-[00:00:00.4231918] probe.xml: Compiling MusicScriptConditionNugget_ScoredKillCount:RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Defaults [d7d07964:4dbaeac5]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_ScoredKillCount:RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Fields [d7d07964:ea8cdc2b]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_Not:RecoveryXmlB_MusicScriptConditionNugget_Not_Defaults [eed6a240:e240d826]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_Not:RecoveryXmlB_MusicScriptConditionNugget_Not_Fields [eed6a240:731468f4]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_Or:RecoveryXmlB_MusicScriptConditionNugget_Or_Defaults [88011b0e:1825ba74]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_Or:RecoveryXmlB_MusicScriptConditionNugget_Or_Fields [88011b0e:2251c84f]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_And:RecoveryXmlB_MusicScriptConditionNugget_And_Defaults [5016f8c3:85090ae7]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_And:RecoveryXmlB_MusicScriptConditionNugget_And_Fields [5016f8c3:2cff43d0]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateLastActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Defaults [ad983e7e:d8ba981d]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateLastActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Fields [ad983e7e:c7f04cf6]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateCurrentlyActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Defaults [de279056:1f8261ee]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateCurrentlyActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Fields [de279056:3dd21fff]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_EngagementCount:RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Defaults [cf359c6a:b859dd4f]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_EngagementCount:RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Fields [cf359c6a:653de511]
-[00:00:00.4388738] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerKillRatio:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults [a80607e3:d4d8df66]
-[00:00:00.4544974] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerKillRatio:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Fields [a80607e3:3e300959]
-[00:00:00.4544974] probe.xml: Compiling MusicScriptConditionNugget_HitBySuperWeapon:RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Defaults [6167b6a9:a827aa3a]
-[00:00:00.4544974] probe.xml: Compiling MusicScriptConditionNugget_HitBySuperWeapon:RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Fields [6167b6a9:7bbff529]
-[00:00:00.4544974] probe.xml: Compiling MusicScriptTrack:RecoveryXmlB_MusicScriptTrack_Defaults [3ddfa8bd:b775c8d0]
-[00:00:00.4544974] probe.xml: Compiling MusicScriptTrack:RecoveryXmlB_MusicScriptTrack_Fields [3ddfa8bd:a613c6d4]
-[00:00:00.4544974] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Defaults [44a5973d:2612f66e]
-[00:00:00.4544974] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Fields [44a5973d:6bcb30b3]
-[00:00:00.4544974] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Inherited [44a5973d:5afc4c66]
-[00:00:00.4544974] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Defaults [3090cd40:308cbc69]
-[00:00:00.4544974] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Fields [3090cd40:286fa1f8]
-[00:00:00.4544974] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Inherited [3090cd40:a8180531]
-[00:00:00.4544974] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Defaults [05ce3e75:0d9ef15f]
-[00:00:00.4544974] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Fields [05ce3e75:32d373e3]
-[00:00:00.4544974] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Inherited [05ce3e75:3e9f53fd]
-[00:00:00.4544974] probe.xml: Compiling PathMusicGameDynamicStateSet:RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults [147335b2:caa3fd01]
-[00:00:00.4701222] probe.xml: Compiling PathMusicGameDynamicStateSet:RecoveryXmlB_PathMusicGameDynamicStateSet_Fields [147335b2:f1b5f9be]
-[00:00:00.4701222] probe.xml: Compiling PathMusicGameDynamicTransition:RecoveryXmlB_PathMusicGameDynamicTransition_Defaults [8bacd634:84ac9cc2]
-[00:00:00.4701222] probe.xml: Compiling PathMusicGameDynamicTransition:RecoveryXmlB_PathMusicGameDynamicTransition_Fields [8bacd634:152eced7]
-[00:00:00.4701222] probe.xml: Compiling PathMusicEventSet:RecoveryXmlB_PathMusicEventSet_Defaults [c70cad55:ff218858]
-[00:00:00.4701222] probe.xml: Compiling PathMusicEventSet:RecoveryXmlB_PathMusicEventSet_Fields [c70cad55:8902138e]
-[00:00:00.4701222] probe.xml: Compiling MusicPalette:RecoveryXmlB_MusicPalette_Defaults [8f7dc19b:657401ed]
-[00:00:00.4701222] probe.xml: Compiling MusicPalette:RecoveryXmlB_MusicPalette_Fields [8f7dc19b:09059766]
-[00:00:00.4701222] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Defaults [65efb153:7d4f66a9]
-[00:00:00.4701222] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Fields [65efb153:86d039bf]
-[00:00:00.4701222] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Inherited [65efb153:456bf302]
-[00:00:00.4701222] probe.xml: Compiling RadarTerrainImage:RecoveryXmlB_RadarTerrainImage_Defaults [418d2781:14ce38db]
-[00:00:00.4701222] probe.xml: Compiling RadarTerrainImage:RecoveryXmlB_RadarTerrainImage_Fields [418d2781:b2ece6dc]
-[00:00:00.4857430] probe.xml: Compiling UIRadarObjectsLayer:RecoveryXmlB_UIRadarObjectsLayer_Defaults [f0c74a4a:cd81af66]
-[00:00:00.4857430] probe.xml: Compiling UIRadarObjectsLayer:RecoveryXmlB_UIRadarObjectsLayer_Fields [f0c74a4a:27111070]
-[00:00:00.4857430] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Defaults [f6d753d1:c62161a8]
-[00:00:00.4935721] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Fields [f6d753d1:d9b02d1b]
-[00:00:00.4941005] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Inherited [f6d753d1:2dcc98b3]
-[00:00:00.4941005] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Defaults [309e61a1:7a656e2b]
-[00:00:00.4941005] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Fields [309e61a1:ae5cdbf8]
-[00:00:00.4941005] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Inherited [309e61a1:466f92e3]
-[00:00:00.4941005] probe.xml: Compiling PackedTextureImage:RecoveryXmlB_PackedTextureImage_Defaults [56626220:4e0c4269]
-[00:00:00.4941005] probe.xml: Compiling PackedTextureImage:RecoveryXmlB_PackedTextureImage_Fields [56626220:17b8c27d]
-[00:00:00.4941005] probe.xml: Compiling OnDemandTextureImage:RecoveryXmlB_OnDemandTextureImage_Defaults [fe0e84bb:72e070aa]
-[00:00:00.5016377] probe.xml: Compiling OnDemandTextureImage:RecoveryXmlB_OnDemandTextureImage_Fields [fe0e84bb:da9f240f]
-[00:00:00.5016377] probe.xml: Compiling W3DDeviceSettings:RecoveryXmlB_W3DDeviceSettings_Defaults [57900170:db481513]
-[00:00:00.5016377] probe.xml: Compiling W3DDeviceSettings:RecoveryXmlB_W3DDeviceSettings_Fields [57900170:c38839bf]
-[00:00:00.5016377] probe.xml: Compiling ScorchMarkSettings:RecoveryXmlB_ScorchMarkSettings_Defaults [8e14b8c3:e659d0a2]
-[00:00:00.5016377] probe.xml: Compiling ScorchMarkSettings:RecoveryXmlB_ScorchMarkSettings_Fields [8e14b8c3:4155cc06]
-[00:00:00.5016377] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Defaults [844d7b9f:7eb797eb]
-[00:00:00.5016377] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Fields [844d7b9f:0c22fee5]
-[00:00:00.5016377] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Inherited [844d7b9f:fede7009]
-[00:00:00.5016377] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Defaults [7046d9f8:dd7ee3e6]
-[00:00:00.5173051] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Fields [7046d9f8:f8eee8e6]
-[00:00:00.5173051] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Inherited [7046d9f8:fe9c5803]
-[00:00:00.5173051] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Defaults [3c67c834:605db5ba]
-[00:00:00.5173051] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Fields [3c67c834:6773f2cb]
-[00:00:00.5173051] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Inherited [3c67c834:39c6e3cd]
-[00:00:00.5173051] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Defaults [d414d1c3:558d6be9]
-[00:00:00.5173051] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Fields [d414d1c3:a4176734]
-[00:00:00.5173051] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Inherited [d414d1c3:363f13b9]
-[00:00:00.5173051] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Defaults [5836d42d:d275b8f7]
-[00:00:00.5173051] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Fields [5836d42d:7ae5faf0]
-[00:00:00.5173051] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Inherited [5836d42d:9d35bc25]
-[00:00:00.5173051] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Defaults [ea2c2798:c8e14591]
-[00:00:00.5173051] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Fields [ea2c2798:4263fcad]
-[00:00:00.5173051] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Inherited [ea2c2798:008c8bcc]
-[00:00:00.5173051] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Defaults [6c1951c6:de374319]
-[00:00:00.5173051] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Fields [6c1951c6:ba5a9307]
-[00:00:00.5329300] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Inherited [6c1951c6:084f0be9]
-[00:00:00.5329300] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Defaults [a3a7af37:3b964bc5]
-[00:00:00.5329300] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Fields [a3a7af37:de7c6796]
-[00:00:00.5329300] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Inherited [a3a7af37:4b46047c]
-[00:00:00.5329300] probe.xml: Compiling NetworkSettings:RecoveryXmlB_NetworkSettings_Defaults [fea876ad:204c6460]
-[00:00:00.5329300] probe.xml: Compiling NetworkSettings:RecoveryXmlB_NetworkSettings_Fields [fea876ad:08352ed8]
-[00:00:00.5329300] probe.xml: Compiling PathfindSettings:RecoveryXmlB_PathfindSettings_Defaults [39db25f8:9a75241a]
-[00:00:00.5329300] probe.xml: Compiling PathfindSettings:RecoveryXmlB_PathfindSettings_Fields [39db25f8:04f1b086]
-[00:00:00.5329300] probe.xml: Compiling ResourceSettings:RecoveryXmlB_ResourceSettings_Defaults [c376bc30:6093d15e]
-[00:00:00.5329300] probe.xml: Compiling ResourceSettings:RecoveryXmlB_ResourceSettings_Fields [c376bc30:55ba30df]
-[00:00:00.5329300] probe.xml: Compiling GraphicsHardware:RecoveryXmlB_GraphicsHardware_Defaults [a9a98b43:09003c40]
-[00:00:00.5329300] probe.xml: Compiling GraphicsHardware:RecoveryXmlB_GraphicsHardware_Fields [a9a98b43:9428a328]
-[00:00:00.5329300] probe.xml: Compiling UIMouseTacticalSelectionDetailsButtonHotKeys:RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Defaults [4d44696a:146c417b]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalSelectionDetailsButtonHotKeys:RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Fields [4d44696a:49ccc092]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalMainCommandBarHotKeys:RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Defaults [9a7a151d:0047775b]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalMainCommandBarHotKeys:RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Fields [9a7a151d:2cf23609]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalPlayerPowerHotKeys:RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Defaults [88230ccd:a62587b2]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalPlayerPowerHotKeys:RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Fields [88230ccd:dd351678]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalMiscHotKeys:RecoveryXmlB_UIMouseTacticalMiscHotKeys_Defaults [780c2500:5d7159a6]
-[00:00:00.5485608] probe.xml: Compiling UIMouseTacticalMiscHotKeys:RecoveryXmlB_UIMouseTacticalMiscHotKeys_Fields [780c2500:3c61c3f9]
-[00:00:00.5485608] probe.xml: Compiling UIMouseHUDElementHotKeyGate:RecoveryXmlB_UIMouseHUDElementHotKeyGate_Defaults [a336bcc2:25fe57e3]
-[00:00:00.5485608] probe.xml: Compiling UIMouseHUDElementHotKeyGate:RecoveryXmlB_UIMouseHUDElementHotKeyGate_Fields [a336bcc2:8ff5e81f]
-[00:00:00.5485608] probe.xml: Compiling TargetingDistanceCompare:RecoveryXmlB_TargetingDistanceCompare_Defaults [8ca5a7d7:b4c897c0]
-[00:00:00.5485608] probe.xml: Compiling TargetingDistanceCompare:RecoveryXmlB_TargetingDistanceCompare_Fields [8ca5a7d7:44be4f42]
-[00:00:00.5485608] probe.xml: Compiling TargetingCombatChainCompare:RecoveryXmlB_TargetingCombatChainCompare_Defaults [0559c032:d00d94fc]
-[00:00:00.5485608] probe.xml: Compiling TargetingCombatChainCompare:RecoveryXmlB_TargetingCombatChainCompare_Fields [0559c032:4d1954e1]
-[00:00:00.5485608] probe.xml: Compiling TargetingInTurretArcCompare:RecoveryXmlB_TargetingInTurretArcCompare_Defaults [77ac3b08:f1a7ce32]
-[00:00:00.5641788] probe.xml: Compiling TargetingInTurretArcCompare:RecoveryXmlB_TargetingInTurretArcCompare_Fields [77ac3b08:b494b995]
-[00:00:00.5641788] probe.xml: Compiling TargetingCompareList:RecoveryXmlB_TargetingCompareList_Defaults [be06a9e5:40a531fd]
-[00:00:00.5641788] probe.xml: Compiling TargetingCompareList:RecoveryXmlB_TargetingCompareList_Fields [be06a9e5:dfd731a0]
-[00:00:00.5641788] probe.xml: Compiling TerrainAssetCollection:RecoveryXmlB_TerrainAssetCollection_Defaults [22b4748b:8cbdb668]
-[00:00:00.5641788] probe.xml: Compiling TerrainAssetCollection:RecoveryXmlB_TerrainAssetCollection_Fields [22b4748b:94d34c34]
-[00:00:00.5641788] probe.xml: Compiling TestTexture:RecoveryXmlB_TestTexture_Defaults [a87d224e:7c01cbc4]
-[00:00:00.5641788] probe.xml: Compiling TestTexture:RecoveryXmlB_TestTexture_Fields [a87d224e:9eca947c]
-[00:00:00.5641788] probe.xml: Compiling TestTextureCollection:RecoveryXmlB_TestTextureCollection_Defaults [02f42b89:491543fc]
-[00:00:00.5641788] probe.xml: Compiling TestTextureCollection:RecoveryXmlB_TestTextureCollection_Fields [02f42b89:af36ee60]
-[00:00:00.5641788] probe.xml: Compiling UIQuickChatMessage:RecoveryXmlB_UIQuickChatMessage_Defaults [f4491ba9:3ac1bd35]
-[00:00:00.5641788] probe.xml: Compiling UIQuickChatMessage:RecoveryXmlB_UIQuickChatMessage_Fields [f4491ba9:b15bd120]
-[00:00:00.5641788] probe.xml: Compiling UIMouseTacticalQuickChatDisplay:RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Defaults [ac5e9172:ab8b70ee]
-[00:00:00.5641788] probe.xml: Compiling UIMouseTacticalQuickChatDisplay:RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Fields [ac5e9172:2dca3897]
-[00:00:00.5798075] probe.xml: Compiling UIMouseVoiceChat:RecoveryXmlB_UIMouseVoiceChat_Defaults [df496ab2:65bc4d75]
-[00:00:00.5798075] probe.xml: Compiling UIMouseVoiceChat:RecoveryXmlB_UIMouseVoiceChat_Fields [df496ab2:4aba8838]
-[00:00:00.5798075] probe.xml: Compiling UIConfigList:RecoveryXmlB_UIConfigList_Defaults [b71d7323:c4291b0f]
-[00:00:00.5798075] probe.xml: Compiling UIConfigList:RecoveryXmlB_UIConfigList_Fields [b71d7323:b3c3f3cb]
-[00:00:00.6266868] probe.xml: Compiling UIDecalGrid:RecoveryXmlB_UIDecalGrid_Defaults [9aeffbaf:a76857d3]
-[00:00:00.6266868] probe.xml: Compiling UIDecalGrid:RecoveryXmlB_UIDecalGrid_Fields [9aeffbaf:001183a4]
-[00:00:00.6266868] probe.xml: Compiling UIDecalCloud:RecoveryXmlB_UIDecalCloud_Defaults [967ed1dc:b307275a]
-[00:00:00.6266868] probe.xml: Compiling UIDecalCloud:RecoveryXmlB_UIDecalCloud_Fields [967ed1dc:3756b563]
-[00:00:00.6266868] probe.xml: Compiling UIDecalDestinationMarker:RecoveryXmlB_UIDecalDestinationMarker_Defaults [5b53bd84:dfebbf95]
-[00:00:00.6266868] probe.xml: Compiling UIDecalDestinationMarker:RecoveryXmlB_UIDecalDestinationMarker_Fields [5b53bd84:7fd93d44]
-[00:00:00.6266868] probe.xml: Compiling UIWorldBuilderDecalGrid:RecoveryXmlB_UIWorldBuilderDecalGrid_Defaults [49d519af:9d0a1c6c]
-[00:00:00.6266868] probe.xml: Compiling UIWorldBuilderDecalGrid:RecoveryXmlB_UIWorldBuilderDecalGrid_Fields [49d519af:6b4480c1]
-[00:00:00.6266868] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Defaults [21ba45a7:d43e8aeb]
-[00:00:00.6266868] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Fields [21ba45a7:4deb7f2b]
-[00:00:00.6423081] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Inherited [21ba45a7:e2b76682]
-[00:00:00.6423081] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Defaults [d76b50c7:856bb7f7]
-[00:00:00.6423081] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Fields [d76b50c7:66ef748e]
-[00:00:00.6423081] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Inherited [d76b50c7:c21548fd]
-[00:00:00.6423081] probe.xml: Compiling DrawGroupInfo:RecoveryXmlB_DrawGroupInfo_Defaults [adadea42:658e156c]
-[00:00:00.6423081] probe.xml: Compiling DrawGroupInfo:RecoveryXmlB_DrawGroupInfo_Fields [adadea42:4342e729]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHelpButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Defaults [0634d9cc:ae610868]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHelpButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Fields [0634d9cc:68ebe524]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCommandCommunicateWithAllies:RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Defaults [06bcb058:9ea33407]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCommandCommunicateWithAllies:RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Fields [06bcb058:69e835ec]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalToggleRepairModeButton:RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Defaults [14a0b8e1:5f81d3ac]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalToggleRepairModeButton:RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Fields [14a0b8e1:ee52c725]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalAttackMoveButton:RecoveryXmlB_UIMouseTacticalAttackMoveButton_Defaults [1a66fefc:dfe14d85]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalAttackMoveButton:RecoveryXmlB_UIMouseTacticalAttackMoveButton_Fields [1a66fefc:bb80bdf3]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCommandPlaceWall:RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Defaults [1cf76ddf:ba04a667]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalCommandPlaceWall:RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Fields [1cf76ddf:6e1cb011]
-[00:00:00.6423081] probe.xml: Compiling UIMouseTacticalForceAttackMoveButton:RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Defaults [296a6335:891d7da8]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalForceAttackMoveButton:RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Fields [296a6335:55d549da]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldObjectButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Defaults [2e0ad8b0:4bc4faa1]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldObjectButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Fields [2e0ad8b0:c94e7be2]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalExitContainerButton:RecoveryXmlB_UIMouseTacticalExitContainerButton_Defaults [3c70f027:db1fb572]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalExitContainerButton:RecoveryXmlB_UIMouseTacticalExitContainerButton_Fields [3c70f027:710721a3]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalPlayerTechStoreButton:RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Defaults [43e16d66:b2299242]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalPlayerTechStoreButton:RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Fields [43e16d66:b7e26e73]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandMove:RecoveryXmlB_UIMouseTacticalCommandMove_Defaults [4994c173:5813a736]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandMove:RecoveryXmlB_UIMouseTacticalCommandMove_Fields [4994c173:b2754d83]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandSell:RecoveryXmlB_UIMouseTacticalCommandSell_Defaults [4a753c69:1e4aef44]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandSell:RecoveryXmlB_UIMouseTacticalCommandSell_Fields [4a753c69:ffbd46f1]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalUnitIntroButton:RecoveryXmlB_UIMouseTacticalUnitIntroButton_Defaults [4c1f24ee:09c5c32c]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalUnitIntroButton:RecoveryXmlB_UIMouseTacticalUnitIntroButton_Fields [4c1f24ee:28322a31]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandSelect:RecoveryXmlB_UIMouseTacticalCommandSelect_Defaults [4f8b8410:ded4745a]
-[00:00:00.6579275] probe.xml: Compiling UIMouseTacticalCommandSelect:RecoveryXmlB_UIMouseTacticalCommandSelect_Fields [4f8b8410:2c257488]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsNormalButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Defaults [51c6b6a8:66b2ce14]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsNormalButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Fields [51c6b6a8:fa497949]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandPlaceRallyPoint:RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Defaults [57e00896:de600912]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandPlaceRallyPoint:RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Fields [57e00896:c9240a1d]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandHarvest:RecoveryXmlB_UIMouseTacticalCommandHarvest_Defaults [5962d046:93939ee2]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandHarvest:RecoveryXmlB_UIMouseTacticalCommandHarvest_Fields [5962d046:b66c6489]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandToggleSelfRepair:RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Defaults [749b5209:c997ec23]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandToggleSelfRepair:RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Fields [749b5209:9682b3fd]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalBuildQueueTab:RecoveryXmlB_UIMouseTacticalBuildQueueTab_Defaults [75b6ec99:0d99266c]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalBuildQueueTab:RecoveryXmlB_UIMouseTacticalBuildQueueTab_Fields [75b6ec99:617da64a]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandGetCrate:RecoveryXmlB_UIMouseTacticalCommandGetCrate_Defaults [7b3f8f48:14b94737]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandGetCrate:RecoveryXmlB_UIMouseTacticalCommandGetCrate_Fields [7b3f8f48:1b01d278]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalDeactivateMissionHotSpotsButton:RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Defaults [7a0f9658:dbd39bc9]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalDeactivateMissionHotSpotsButton:RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Fields [7a0f9658:fa907f5c]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandForceAttack:RecoveryXmlB_UIMouseTacticalCommandForceAttack_Defaults [7ba13c8d:5a5bc8fb]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalCommandForceAttack:RecoveryXmlB_UIMouseTacticalCommandForceAttack_Fields [7ba13c8d:fb8298c6]
-[00:00:00.6735592] probe.xml: Compiling UIMouseTacticalPlanningModeButton:RecoveryXmlB_UIMouseTacticalPlanningModeButton_Defaults [87c8cd72:88e46b2b]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalPlanningModeButton:RecoveryXmlB_UIMouseTacticalPlanningModeButton_Fields [87c8cd72:9f214317]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandMisc:RecoveryXmlB_UIMouseTacticalCommandMisc_Defaults [9551955b:67efd903]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandMisc:RecoveryXmlB_UIMouseTacticalCommandMisc_Fields [9551955b:d4f44523]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalSelectionRefinementTab:RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Defaults [9d131288:d5b55f1b]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalSelectionRefinementTab:RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Fields [9d131288:f09a264d]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandForceMove:RecoveryXmlB_UIMouseTacticalCommandForceMove_Defaults [a0c9ec41:bb30d836]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandForceMove:RecoveryXmlB_UIMouseTacticalCommandForceMove_Fields [a0c9ec41:1749e372]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalOpenAdvancedCommandsButton:RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Defaults [a76a7a93:b8bac292]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalOpenAdvancedCommandsButton:RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Fields [a76a7a93:56db249f]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalSetStanceButton:RecoveryXmlB_UIMouseTacticalSetStanceButton_Defaults [ab4cfcd4:5591dd70]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalSetStanceButton:RecoveryXmlB_UIMouseTacticalSetStanceButton_Fields [ab4cfcd4:c0b6913a]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldPositionButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Defaults [adb2367f:c5e74e3a]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldPositionButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Fields [adb2367f:ee4c8267]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandMineOre:RecoveryXmlB_UIMouseTacticalCommandMineOre_Defaults [b0415646:b5a0b02c]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalCommandMineOre:RecoveryXmlB_UIMouseTacticalCommandMineOre_Fields [b0415646:558f44ab]
-[00:00:00.6891914] probe.xml: Compiling UIMouseTacticalWaypointModeButton:RecoveryXmlB_UIMouseTacticalWaypointModeButton_Defaults [b05d5241:26b79a35]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalWaypointModeButton:RecoveryXmlB_UIMouseTacticalWaypointModeButton_Fields [b05d5241:c8cfeac0]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalReverseMoveButton:RecoveryXmlB_UIMouseTacticalReverseMoveButton_Defaults [b20d9681:ce725d13]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalReverseMoveButton:RecoveryXmlB_UIMouseTacticalReverseMoveButton_Fields [b20d9681:a7d50475]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandEnter:RecoveryXmlB_UIMouseTacticalCommandEnter_Defaults [b63667c0:b711a4dc]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandEnter:RecoveryXmlB_UIMouseTacticalCommandEnter_Fields [b63667c0:affe819f]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsAssaultButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Defaults [b873251c:6f0cf0c5]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsAssaultButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Fields [b873251c:1806c82e]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalPauseButton:RecoveryXmlB_UIMouseTacticalPauseButton_Defaults [cbd960ec:544f54ea]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalPauseButton:RecoveryXmlB_UIMouseTacticalPauseButton_Fields [cbd960ec:78562575]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandAttack:RecoveryXmlB_UIMouseTacticalCommandAttack_Defaults [d3863433:f7033647]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandAttack:RecoveryXmlB_UIMouseTacticalCommandAttack_Fields [d3863433:7832cbc8]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandAttackMove:RecoveryXmlB_UIMouseTacticalCommandAttackMove_Defaults [d522e6ed:6051edcd]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalCommandAttackMove:RecoveryXmlB_UIMouseTacticalCommandAttackMove_Fields [d522e6ed:6c72889a]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalForceMoveButton:RecoveryXmlB_UIMouseTacticalForceMoveButton_Defaults [dd834d41:ea226f78]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalForceMoveButton:RecoveryXmlB_UIMouseTacticalForceMoveButton_Fields [dd834d41:af903f35]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalForceAttackButton:RecoveryXmlB_UIMouseTacticalForceAttackButton_Defaults [dfe29605:5e449153]
-[00:00:00.7048093] probe.xml: Compiling UIMouseTacticalForceAttackButton:RecoveryXmlB_UIMouseTacticalForceAttackButton_Fields [dfe29605:5bae7571]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandPlaceAIBeacon:RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Defaults [e3159616:fb2e6ed8]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandPlaceAIBeacon:RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Fields [e3159616:c8a57ad4]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandDock:RecoveryXmlB_UIMouseTacticalCommandDock_Defaults [ed0a75ac:dec77d35]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandDock:RecoveryXmlB_UIMouseTacticalCommandDock_Fields [ed0a75ac:0f086216]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandReverseMove:RecoveryXmlB_UIMouseTacticalCommandReverseMove_Defaults [f00548c6:1e81b003]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandReverseMove:RecoveryXmlB_UIMouseTacticalCommandReverseMove_Fields [f00548c6:ccf07ba0]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalBuildQueueTypeTab:RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Defaults [f40e5021:2f7f60f5]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalBuildQueueTypeTab:RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Fields [f40e5021:58ebbf2d]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalSellModeButton:RecoveryXmlB_UIMouseTacticalSellModeButton_Defaults [f4834051:661c6e0d]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalSellModeButton:RecoveryXmlB_UIMouseTacticalSellModeButton_Fields [f4834051:be4cbdfd]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalStopButton:RecoveryXmlB_UIMouseTacticalStopButton_Defaults [f6c9d597:f215d7e7]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalStopButton:RecoveryXmlB_UIMouseTacticalStopButton_Fields [f6c9d597:b9f2a68a]
-[00:00:00.7204323] probe.xml: Compiling UIMouseTacticalCommandSetRallyPoint:RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Defaults [f92b2739:185256f6]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalCommandSetRallyPoint:RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Fields [f92b2739:831ab1ca]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalFastForwardButton:RecoveryXmlB_UIMouseTacticalFastForwardButton_Defaults [fc44c1c3:884a568c]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalFastForwardButton:RecoveryXmlB_UIMouseTacticalFastForwardButton_Fields [fc44c1c3:efc07b75]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalGroupSelection:RecoveryXmlB_UIMouseTacticalGroupSelection_Defaults [0e626554:b97a5e72]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalGroupSelection:RecoveryXmlB_UIMouseTacticalGroupSelection_Fields [0e626554:fd4e4b6c]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalLookAt:RecoveryXmlB_UIMouseTacticalLookAt_Defaults [6b00c87d:74bed6f2]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalLookAt:RecoveryXmlB_UIMouseTacticalLookAt_Fields [6b00c87d:3da2e119]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalRadarTelestrator:RecoveryXmlB_UIMouseTacticalRadarTelestrator_Defaults [c8aa398e:4d897ff8]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalRadarTelestrator:RecoveryXmlB_UIMouseTacticalRadarTelestrator_Fields [c8aa398e:c2a9927d]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalTelestrator:RecoveryXmlB_UIMouseTacticalTelestrator_Defaults [728b3825:31c1d4f7]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalTelestrator:RecoveryXmlB_UIMouseTacticalTelestrator_Fields [728b3825:9b6073a1]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalThreatMeter:RecoveryXmlB_UIMouseTacticalThreatMeter_Defaults [f70043b6:8787ee25]
-[00:00:00.7360587] probe.xml: Compiling UIMouseTacticalThreatMeter:RecoveryXmlB_UIMouseTacticalThreatMeter_Fields [f70043b6:ac200691]
-[00:00:00.7360587] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Defaults [9053d603:674f7315]
-[00:00:00.7516843] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Fields [9053d603:bbe24e93]
-[00:00:00.7516843] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Inherited [9053d603:dfc89243]
-[00:00:00.7516843] probe.xml: Compiling InvisibilityTemplate:RecoveryXmlB_InvisibilityTemplate_Defaults [554fc288:b047716b]
-[00:00:00.7516843] probe.xml: Compiling InvisibilityTemplate:RecoveryXmlB_InvisibilityTemplate_Fields [554fc288:0af490f9]
-[00:00:00.7516843] probe.xml: Compiling InvisibilityManagerSettings:RecoveryXmlB_InvisibilityManagerSettings_Defaults [0f2aec14:26f1be81]
-[00:00:00.7516843] probe.xml: Compiling InvisibilityManagerSettings:RecoveryXmlB_InvisibilityManagerSettings_Fields [0f2aec14:c3340e71]
-[00:00:00.7516843] probe.xml: Compiling BreezeInfo:RecoveryXmlB_BreezeInfo_Defaults [60f120b8:ffa68418]
-[00:00:00.7516843] probe.xml: Compiling BreezeInfo:RecoveryXmlB_BreezeInfo_Fields [60f120b8:7578c9c4]
-[00:00:00.7516843] probe.xml: Compiling ModelSettings:RecoveryXmlB_ModelSettings_Defaults [7559ad25:7d11b174]
-[00:00:00.7516843] probe.xml: Compiling ModelSettings:RecoveryXmlB_ModelSettings_Fields [7559ad25:b1f1cec7]
-[00:00:00.7516843] probe.xml: Compiling AutoParticleSystemSettings:RecoveryXmlB_AutoParticleSystemSettings_Defaults [c36cc13e:3498ada5]
-[00:00:00.7516843] probe.xml: Compiling AutoParticleSystemSettings:RecoveryXmlB_AutoParticleSystemSettings_Fields [c36cc13e:3e1cbca2]
-[00:00:00.7516843] probe.xml: Compiling W3DHierarchy:RecoveryXmlB_W3DHierarchy_Defaults [61d7ea40:1fdc55fb]
-[00:00:00.7673094] probe.xml: Compiling W3DHierarchy:RecoveryXmlB_W3DHierarchy_Fields [61d7ea40:a3baa174]
-[00:00:00.7673094] probe.xml: Compiling W3DContainer:RecoveryXmlB_W3DContainer_Defaults [f0f08712:c096a0d9]
-[00:00:00.7673094] probe.xml: Compiling W3DContainer:RecoveryXmlB_W3DContainer_Fields [f0f08712:3474a85c]
-[00:00:00.7673094] probe.xml: Compiling W3DCollisionBox:RecoveryXmlB_W3DCollisionBox_Defaults [e3181c04:08c09efc]
-[00:00:00.7673094] probe.xml: Compiling W3DCollisionBox:RecoveryXmlB_W3DCollisionBox_Fields [e3181c04:180dd483]
-[00:00:00.7673094] Resolving references: mods\xmlcompilerrecoveryb\data\mod
-[00:00:00.7673094] Warning: Unknown asset 'TargetingBaseCompare:RecoveryXmlB_Default' referenced from 'TargetingCompareList:RecoveryXmlB_TargetingCompareList_Defaults' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
-[00:00:00.7673094] Warning: Unknown asset 'TargetingBaseCompare:RecoveryXmlB_Value' referenced from 'TargetingCompareList:RecoveryXmlB_TargetingCompareList_Fields' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
-[00:00:00.7673094] Warning: Referenced file not found: 
-[00:00:00.7673094] Warning: Referenced file not found: 
-[00:00:00.7673094] Warning: Referenced file not found: 
-[00:00:00.7673094] Warning: Referenced file not found: 
-[00:00:00.7673094] Warning: Unknown asset 'W3DMesh:RecoveryXmlB_Value' referenced from 'W3DContainer:RecoveryXmlB_W3DContainer_Fields' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
-[00:00:00.7829269] Stable sorting assets
-[00:00:00.7829269] Sorting by schema dependencies
-[00:00:00.7829269] Sorting by asset dependencies
-[00:00:00.7829269] Generating stream: mods\xmlcompilerrecoveryb\data\mod
-[00:00:00.7985574] Slow asset clean-up (expected: 277, actual: 277, old: 0, current: 277)
-[00:00:00.7985574] mods\xmlcompilerrecoveryb\data\mod Linking binary data
-[00:00:00.8141836] mods\xmlcompilerrecoveryb\data\mod Linking import data
-[00:00:00.8141836] mods\xmlcompilerrecoveryb\data\mod Linking relocation data
-[00:00:00.8141836] mods\xmlcompilerrecoveryb\data\mod Stream complete
-[00:00:00.8298089] BinaryAssetBuilder complete
-[00:00:00.8298089] TestTextureCollection:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] MusicScriptConditionNugget_TrackPlayedCount:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] TargetingCombatChainCompare:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] PathMusicGameDynamicState:
-[00:00:00.8298089]       Instances Processed: 3
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] UIMouseTacticalCoOpAIButtonsHelpButton:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] UIMouseTacticalCommandCommunicateWithAllies:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] MusicScriptConditionNugget_LocalPlayerIsObserver:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00.0312582
-[00:00:00.8298089]       Longest Processing Time: 00:00:00.0312582 (RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults)
-[00:00:00.8298089]       Average Processing Time: 0.0156291 seconds
-[00:00:00.8298089] UIMouseTacticalGroupSelection:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] InvisibilityManagerSettings:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] PathMusicGameDynamicStateSet:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00.0156248
-[00:00:00.8298089]       Longest Processing Time: 00:00:00.0156248 (RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults)
-[00:00:00.8298089]       Average Processing Time: 0.0078124 seconds
-[00:00:00.8298089] UIMouseTacticalToggleRepairModeButton:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] UIMouseTacticalAttackMoveButton:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8298089]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8298089]       Average Processing Time: 0 seconds
-[00:00:00.8298089] UIMouseTacticalCommandPlaceWall:
-[00:00:00.8298089]       Instances Processed: 2
-[00:00:00.8298089]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] ImageSequence:
-[00:00:00.8454237]       Instances Processed: 3
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] TerrainAssetCollection:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] UIMouseTacticalForceAttackMoveButton:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] MusicScriptConditionNugget_SpecificTrackTypePlaying:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] UIMouseTacticalCoOpAIButtonsHoldObjectButton:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] RegisteredObjectSet:
-[00:00:00.8454237]       Instances Processed: 3
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] MeshInstanceTemplate:
-[00:00:00.8454237]       Instances Processed: 3
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] PathfindSettings:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] MP3MusicTrack:
-[00:00:00.8454237]       Instances Processed: 3
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] UIMouseTacticalExitContainerButton:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] MusicScriptTrack:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] RadarTerrainImage:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00.0156208
-[00:00:00.8454237]       Longest Processing Time: 00:00:00.0156208 (RecoveryXmlB_RadarTerrainImage_Fields)
-[00:00:00.8454237]       Average Processing Time: 0.0078104 seconds
-[00:00:00.8454237] UIMouseTacticalPlayerTechStoreButton:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] ObjectFilterAsset:
-[00:00:00.8454237]       Instances Processed: 3
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8454237]       Average Processing Time: 0 seconds
-[00:00:00.8454237] UIMouseTacticalCommandMove:
-[00:00:00.8454237]       Instances Processed: 2
-[00:00:00.8454237]       Total Processing Time: 00:00:00
-[00:00:00.8454237]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIWorldBuilderDecalGrid:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalCommandSell:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalUnitIntroButton:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalSelectionDetailsButtonHotKeys:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00.0156308
-[00:00:00.8610633]       Longest Processing Time: 00:00:00.0156308 (RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Defaults)
-[00:00:00.8610633]       Average Processing Time: 0.0078154 seconds
-[00:00:00.8610633] UIMouseTacticalCommandSelect:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] MusicScriptConditionNugget_And:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalCoOpAIButtonsNormalButton:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] InvisibilityTemplate:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] PackedTextureImage:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] MusicScriptConditionNugget_TimeFromStartOfLevel:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] W3DDeviceSettings:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalCommandPlaceRallyPoint:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] MP3DialogEvent:
-[00:00:00.8610633]       Instances Processed: 3
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIMouseTacticalCommandHarvest:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] UIDecalDestinationMarker:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8610633]       Average Processing Time: 0 seconds
-[00:00:00.8610633] BreezeInfo:
-[00:00:00.8610633]       Instances Processed: 2
-[00:00:00.8610633]       Total Processing Time: 00:00:00
-[00:00:00.8610633]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] MusicScriptConditionNugget_HitBySuperWeapon:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] W3DHierarchy:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00.0156251
-[00:00:00.8766847]       Longest Processing Time: 00:00:00.0156251 (RecoveryXmlB_W3DHierarchy_Defaults)
-[00:00:00.8766847]       Average Processing Time: 0.00781255 seconds
-[00:00:00.8766847] ProjectilePath:
-[00:00:00.8766847]       Instances Processed: 3
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalLookAt:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] MP3AmbientStream:
-[00:00:00.8766847]       Instances Processed: 3
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] MusicTrack:
-[00:00:00.8766847]       Instances Processed: 3
-[00:00:00.8766847]       Total Processing Time: 00:00:00.0156674
-[00:00:00.8766847]       Longest Processing Time: 00:00:00.0156674 (RecoveryXmlB_MusicTrack_Defaults)
-[00:00:00.8766847]       Average Processing Time: 0.00522246666666667 seconds
-[00:00:00.8766847] UIMouseTacticalTelestrator:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalCommandToggleSelfRepair:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] ModelSettings:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalBuildQueueTab:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] TargetingInTurretArcCompare:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalMiscHotKeys:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalDeactivateMissionHotSpotsButton:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalCommandGetCrate:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8766847]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8766847]       Average Processing Time: 0 seconds
-[00:00:00.8766847] UIMouseTacticalCommandForceAttack:
-[00:00:00.8766847]       Instances Processed: 2
-[00:00:00.8766847]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] AudioEvent:
-[00:00:00.8923144]       Instances Processed: 3
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIMouseTacticalPlanningModeButton:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] MusicScriptConditionNugget_Or:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIMouseTacticalPlayerPowerHotKeys:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] PathMusicGameDynamicTransition:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] TargetingDistanceCompare:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] ScorchMarkSettings:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] MusicPalette:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UnitOverlayIconSettings:
-[00:00:00.8923144]       Instances Processed: 3
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIMouseTacticalCommandMisc:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIDecalCloud:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIMouseTacticalMainCommandBarHotKeys:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] UIDecalGrid:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00
-[00:00:00.8923144]       Longest Processing Time: 00:00:00 ()
-[00:00:00.8923144]       Average Processing Time: 0 seconds
-[00:00:00.8923144] MusicScriptConditionNugget_UnitsFarFromBase:
-[00:00:00.8923144]       Instances Processed: 2
-[00:00:00.8923144]       Total Processing Time: 00:00:00.0095513
-[00:00:00.8923144]       Longest Processing Time: 00:00:00.0095513 (RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults)
-[00:00:00.8923144]       Average Processing Time: 0.00477565 seconds
-[00:00:00.9079284] UIMouseTacticalSelectionRefinementTab:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalCommandForceMove:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseHUDElementHotKeyGate:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] MusicScriptConditionNugget_EvaEventPlayedRecently:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] Multisound:
-[00:00:00.9079284]       Instances Processed: 3
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalOpenAdvancedCommandsButton:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] MusicScriptConditionNugget_LocalPlayerKillRatio:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00.0156236
-[00:00:00.9079284]       Longest Processing Time: 00:00:00.0156236 (RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults)
-[00:00:00.9079284]       Average Processing Time: 0.0078118 seconds
-[00:00:00.9079284] TestTexture:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] GraphicsHardware:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalSetStanceButton:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalQuickChatDisplay:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00.0156287
-[00:00:00.9079284]       Longest Processing Time: 00:00:00.0156287 (RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Fields)
-[00:00:00.9079284]       Average Processing Time: 0.00781435 seconds
-[00:00:00.9079284] MusicScriptConditionNugget_PathMusicStateLastActive:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] DrawGroupInfo:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalCoOpAIButtonsHoldPositionButton:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9079284]       Total Processing Time: 00:00:00
-[00:00:00.9079284]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9079284]       Average Processing Time: 0 seconds
-[00:00:00.9079284] UIMouseTacticalCommandMineOre:
-[00:00:00.9079284]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIMouseTacticalWaypointModeButton:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIMouseTacticalReverseMoveButton:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIMouseTacticalCommandEnter:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIConfigList:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00.0468793
-[00:00:00.9235484]       Longest Processing Time: 00:00:00.0468793 (RecoveryXmlB_UIConfigList_Fields)
-[00:00:00.9235484]       Average Processing Time: 0.02343965 seconds
-[00:00:00.9235484] UIMouseTacticalCoOpAIButtonsAssaultButton:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] TargetingCompareList:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] AutoParticleSystemSettings:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] ResourceSettings:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] PathMusicEventSet:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIMouseTacticalRadarTelestrator:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] MusicScriptConditionNugget_ObjectsNearEvaEvent:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] MusicScriptConditionNugget_AnyTrackPlaying:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] UIMouseTacticalPauseButton:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9235484]       Average Processing Time: 0 seconds
-[00:00:00.9235484] MusicScriptConditionNugget_EngagementCount:
-[00:00:00.9235484]       Instances Processed: 2
-[00:00:00.9235484]       Total Processing Time: 00:00:00
-[00:00:00.9235484]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UIMouseTacticalCommandAttack:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] DialogEvent:
-[00:00:00.9391761]       Instances Processed: 3
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UIMouseTacticalCommandAttackMove:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UnitTypeIcon:
-[00:00:00.9391761]       Instances Processed: 3
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] MusicScriptConditionNugget_ScoredKillCount:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00.0156820
-[00:00:00.9391761]       Longest Processing Time: 00:00:00.0156820 (RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Defaults)
-[00:00:00.9391761]       Average Processing Time: 0.007841 seconds
-[00:00:00.9391761] UIMouseTacticalForceMoveButton:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] MusicScriptConditionNugget_PathMusicStateCurrentlyActive:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UIMouseVoiceChat:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UIMouseTacticalForceAttackButton:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] UIMouseTacticalCommandPlaceAIBeacon:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] W3DCollisionBox:
-[00:00:00.9391761]       Instances Processed: 2
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9391761]       Average Processing Time: 0 seconds
-[00:00:00.9391761] AmbientStream:
-[00:00:00.9391761]       Instances Processed: 3
-[00:00:00.9391761]       Total Processing Time: 00:00:00
-[00:00:00.9391761]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalCommandDock:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] MusicScriptConditionNugget_Not:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalCommandReverseMove:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIRadarObjectsLayer:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] W3DContainer:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalBuildQueueTypeTab:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIQuickChatMessage:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalSellModeButton:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalStopButton:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] RedAlertTemplate:
-[00:00:00.9548006]       Instances Processed: 3
-[00:00:00.9548006]       Total Processing Time: 00:00:00.0005284
-[00:00:00.9548006]       Longest Processing Time: 00:00:00.0005284 (RecoveryXmlB_RedAlertTemplate_Fields)
-[00:00:00.9548006]       Average Processing Time: 0.000176133333333333 seconds
-[00:00:00.9548006] UIMouseTacticalThreatMeter:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] UIMouseTacticalCommandSetRallyPoint:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00.0156264
-[00:00:00.9548006]       Longest Processing Time: 00:00:00.0156264 (RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Defaults)
-[00:00:00.9548006]       Average Processing Time: 0.0078132 seconds
-[00:00:00.9548006] UIMouseTacticalFastForwardButton:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9548006] OnDemandTextureImage:
-[00:00:00.9548006]       Instances Processed: 2
-[00:00:00.9548006]       Total Processing Time: 00:00:00
-[00:00:00.9548006]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9548006]       Average Processing Time: 0 seconds
-[00:00:00.9704368] NetworkSettings:
-[00:00:00.9704368]       Instances Processed: 2
-[00:00:00.9704368]       Total Processing Time: 00:00:00
-[00:00:00.9704368]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9704368]       Average Processing Time: 0 seconds
-[00:00:00.9704368] MusicScriptConditionNugget_ObjectsOfTypeExist:
-[00:00:00.9704368]       Instances Processed: 2
-[00:00:00.9704368]       Total Processing Time: 00:00:00
-[00:00:00.9704368]       Longest Processing Time: 00:00:00 ()
-[00:00:00.9729675]       Average Processing Time: 0 seconds
-[00:00:00.9729675] Total Processing Time for All Types: 00:00:00.2289468
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
+[00:00:00.0442433] BinaryAssetBuilder started
+[00:00:00.5110329] Cached session data not available.
+[00:00:00.5436736] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.5436736] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods\cache').
+[00:00:00.5748618] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml'.
+[00:00:00.6061186] Stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.6061186] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods\static.manifest, file not found
+[00:00:00.6061186] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\static.xml'.
+[00:00:00.6686082] Stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.6686082] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods\global.manifest, file not found
+[00:00:00.6686082] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\global.xml'.
+[00:00:00.6686082] Stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.6686082] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\XmlCompilerRecoveryB-Original\builtmods\audio.manifest, file not found
+[00:00:00.6686082] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\audio.xml'.
+[00:00:00.6842414] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'.
+[00:00:00.7779921] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults [0b3906fa:912fefa9]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields [0b3906fa:8b862c08]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_UnitsFarFromBase:RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults [9c361a08:035a8628]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_UnitsFarFromBase:RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields [9c361a08:8a791016]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_TimeFromStartOfLevel:RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Defaults [57495b42:433ce32f]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_TimeFromStartOfLevel:RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Fields [57495b42:9054a92e]
+[00:00:00.8092481] probe.xml: Compiling MusicScriptConditionNugget_TrackPlayedCount:RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Defaults [036b677b:8c50131c]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_TrackPlayedCount:RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Fields [036b677b:0aba0bb3]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_SpecificTrackTypePlaying:RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Defaults [2c108648:304e3d3b]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_SpecificTrackTypePlaying:RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Fields [2c108648:6c513089]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_AnyTrackPlaying:RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Defaults [cad58cc1:2113e53c]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_AnyTrackPlaying:RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Fields [cad58cc1:9c259844]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_ObjectsOfTypeExist:RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Defaults [ff7bdfbf:bf66205b]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_ObjectsOfTypeExist:RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Fields [ff7bdfbf:3b0f686e]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_EvaEventPlayedRecently:RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Defaults [a38db775:0746dc88]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_EvaEventPlayedRecently:RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Fields [a38db775:bb518849]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_ObjectsNearEvaEvent:RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Defaults [c9dd2e6d:c101dbb1]
+[00:00:00.8248652] probe.xml: Compiling MusicScriptConditionNugget_ObjectsNearEvaEvent:RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Fields [c9dd2e6d:32027e29]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_ScoredKillCount:RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Defaults [d7d07964:4dbaeac5]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_ScoredKillCount:RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Fields [d7d07964:ea8cdc2b]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_Not:RecoveryXmlB_MusicScriptConditionNugget_Not_Defaults [eed6a240:e240d826]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_Not:RecoveryXmlB_MusicScriptConditionNugget_Not_Fields [eed6a240:731468f4]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_Or:RecoveryXmlB_MusicScriptConditionNugget_Or_Defaults [88011b0e:1825ba74]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_Or:RecoveryXmlB_MusicScriptConditionNugget_Or_Fields [88011b0e:2251c84f]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_And:RecoveryXmlB_MusicScriptConditionNugget_And_Defaults [5016f8c3:85090ae7]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_And:RecoveryXmlB_MusicScriptConditionNugget_And_Fields [5016f8c3:2cff43d0]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateLastActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Defaults [ad983e7e:d8ba981d]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateLastActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Fields [ad983e7e:c7f04cf6]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateCurrentlyActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Defaults [de279056:1f8261ee]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_PathMusicStateCurrentlyActive:RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Fields [de279056:3dd21fff]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_EngagementCount:RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Defaults [cf359c6a:b859dd4f]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_EngagementCount:RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Fields [cf359c6a:653de511]
+[00:00:00.8404851] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerKillRatio:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults [a80607e3:d4d8df66]
+[00:00:00.8561053] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerKillRatio:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Fields [a80607e3:3e300959]
+[00:00:00.8561053] probe.xml: Compiling MusicScriptConditionNugget_HitBySuperWeapon:RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Defaults [6167b6a9:a827aa3a]
+[00:00:00.8561053] probe.xml: Compiling MusicScriptConditionNugget_HitBySuperWeapon:RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Fields [6167b6a9:7bbff529]
+[00:00:00.8561053] probe.xml: Compiling MusicScriptTrack:RecoveryXmlB_MusicScriptTrack_Defaults [3ddfa8bd:b775c8d0]
+[00:00:00.8561053] probe.xml: Compiling MusicScriptTrack:RecoveryXmlB_MusicScriptTrack_Fields [3ddfa8bd:a613c6d4]
+[00:00:00.8561053] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Defaults [44a5973d:2612f66e]
+[00:00:00.8561053] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Fields [44a5973d:6bcb30b3]
+[00:00:00.8561053] probe.xml: Compiling ObjectFilterAsset:RecoveryXmlB_ObjectFilterAsset_Inherited [44a5973d:5afc4c66]
+[00:00:00.8561053] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Defaults [3090cd40:308cbc69]
+[00:00:00.8561053] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Fields [3090cd40:286fa1f8]
+[00:00:00.8561053] probe.xml: Compiling RegisteredObjectSet:RecoveryXmlB_RegisteredObjectSet_Inherited [3090cd40:a8180531]
+[00:00:00.8561053] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Defaults [05ce3e75:0d9ef15f]
+[00:00:00.8561053] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Fields [05ce3e75:32d373e3]
+[00:00:00.8561053] probe.xml: Compiling PathMusicGameDynamicState:RecoveryXmlB_PathMusicGameDynamicState_Inherited [05ce3e75:3e9f53fd]
+[00:00:00.8561053] probe.xml: Compiling PathMusicGameDynamicStateSet:RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults [147335b2:caa3fd01]
+[00:00:00.8717336] probe.xml: Compiling PathMusicGameDynamicStateSet:RecoveryXmlB_PathMusicGameDynamicStateSet_Fields [147335b2:f1b5f9be]
+[00:00:00.8717336] probe.xml: Compiling PathMusicGameDynamicTransition:RecoveryXmlB_PathMusicGameDynamicTransition_Defaults [8bacd634:84ac9cc2]
+[00:00:00.8717336] probe.xml: Compiling PathMusicGameDynamicTransition:RecoveryXmlB_PathMusicGameDynamicTransition_Fields [8bacd634:152eced7]
+[00:00:00.8717336] probe.xml: Compiling PathMusicEventSet:RecoveryXmlB_PathMusicEventSet_Defaults [c70cad55:ff218858]
+[00:00:00.8717336] probe.xml: Compiling PathMusicEventSet:RecoveryXmlB_PathMusicEventSet_Fields [c70cad55:8902138e]
+[00:00:00.8717336] probe.xml: Compiling MusicPalette:RecoveryXmlB_MusicPalette_Defaults [8f7dc19b:657401ed]
+[00:00:00.8717336] probe.xml: Compiling MusicPalette:RecoveryXmlB_MusicPalette_Fields [8f7dc19b:09059766]
+[00:00:00.8717336] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Defaults [65efb153:7d4f66a9]
+[00:00:00.8717336] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Fields [65efb153:86d039bf]
+[00:00:00.8717336] probe.xml: Compiling ProjectilePath:RecoveryXmlB_ProjectilePath_Inherited [65efb153:456bf302]
+[00:00:00.8717336] probe.xml: Compiling RadarTerrainImage:RecoveryXmlB_RadarTerrainImage_Defaults [418d2781:14ce38db]
+[00:00:00.8717336] probe.xml: Compiling RadarTerrainImage:RecoveryXmlB_RadarTerrainImage_Fields [418d2781:b2ece6dc]
+[00:00:00.8717336] probe.xml: Compiling UIRadarObjectsLayer:RecoveryXmlB_UIRadarObjectsLayer_Defaults [f0c74a4a:cd81af66]
+[00:00:00.8873526] probe.xml: Compiling UIRadarObjectsLayer:RecoveryXmlB_UIRadarObjectsLayer_Fields [f0c74a4a:27111070]
+[00:00:00.8873526] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Defaults [f6d753d1:c62161a8]
+[00:00:00.8873526] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Fields [f6d753d1:d9b02d1b]
+[00:00:00.8873526] probe.xml: Compiling RedAlertTemplate:RecoveryXmlB_RedAlertTemplate_Inherited [f6d753d1:2dcc98b3]
+[00:00:00.8873526] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Defaults [309e61a1:7a656e2b]
+[00:00:00.8873526] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Fields [309e61a1:ae5cdbf8]
+[00:00:00.8873526] probe.xml: Compiling MeshInstanceTemplate:RecoveryXmlB_MeshInstanceTemplate_Inherited [309e61a1:466f92e3]
+[00:00:00.8873526] probe.xml: Compiling PackedTextureImage:RecoveryXmlB_PackedTextureImage_Defaults [56626220:4e0c4269]
+[00:00:00.8873526] probe.xml: Compiling PackedTextureImage:RecoveryXmlB_PackedTextureImage_Fields [56626220:17b8c27d]
+[00:00:00.8873526] probe.xml: Compiling OnDemandTextureImage:RecoveryXmlB_OnDemandTextureImage_Defaults [fe0e84bb:72e070aa]
+[00:00:00.8873526] probe.xml: Compiling OnDemandTextureImage:RecoveryXmlB_OnDemandTextureImage_Fields [fe0e84bb:da9f240f]
+[00:00:00.8873526] probe.xml: Compiling W3DDeviceSettings:RecoveryXmlB_W3DDeviceSettings_Defaults [57900170:db481513]
+[00:00:00.9029882] probe.xml: Compiling W3DDeviceSettings:RecoveryXmlB_W3DDeviceSettings_Fields [57900170:c38839bf]
+[00:00:00.9029882] probe.xml: Compiling ScorchMarkSettings:RecoveryXmlB_ScorchMarkSettings_Defaults [8e14b8c3:e659d0a2]
+[00:00:00.9029882] probe.xml: Compiling ScorchMarkSettings:RecoveryXmlB_ScorchMarkSettings_Fields [8e14b8c3:4155cc06]
+[00:00:00.9029882] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Defaults [844d7b9f:7eb797eb]
+[00:00:00.9029882] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Fields [844d7b9f:0c22fee5]
+[00:00:00.9029882] probe.xml: Compiling AudioEvent:RecoveryXmlB_AudioEvent_Inherited [844d7b9f:fede7009]
+[00:00:00.9029882] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Defaults [7046d9f8:dd7ee3e6]
+[00:00:00.9029882] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Fields [7046d9f8:f8eee8e6]
+[00:00:00.9029882] probe.xml: Compiling MusicTrack:RecoveryXmlB_MusicTrack_Inherited [7046d9f8:fe9c5803]
+[00:00:00.9029882] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Defaults [3c67c834:605db5ba]
+[00:00:00.9029882] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Fields [3c67c834:6773f2cb]
+[00:00:00.9186073] probe.xml: Compiling MP3MusicTrack:RecoveryXmlB_MP3MusicTrack_Inherited [3c67c834:39c6e3cd]
+[00:00:00.9186073] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Defaults [d414d1c3:558d6be9]
+[00:00:00.9186073] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Fields [d414d1c3:a4176734]
+[00:00:00.9186073] probe.xml: Compiling DialogEvent:RecoveryXmlB_DialogEvent_Inherited [d414d1c3:363f13b9]
+[00:00:00.9186073] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Defaults [5836d42d:d275b8f7]
+[00:00:00.9186073] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Fields [5836d42d:7ae5faf0]
+[00:00:00.9186073] probe.xml: Compiling MP3DialogEvent:RecoveryXmlB_MP3DialogEvent_Inherited [5836d42d:9d35bc25]
+[00:00:00.9186073] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Defaults [ea2c2798:c8e14591]
+[00:00:00.9186073] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Fields [ea2c2798:4263fcad]
+[00:00:00.9186073] probe.xml: Compiling AmbientStream:RecoveryXmlB_AmbientStream_Inherited [ea2c2798:008c8bcc]
+[00:00:00.9186073] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Defaults [6c1951c6:de374319]
+[00:00:00.9186073] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Fields [6c1951c6:ba5a9307]
+[00:00:00.9186073] probe.xml: Compiling MP3AmbientStream:RecoveryXmlB_MP3AmbientStream_Inherited [6c1951c6:084f0be9]
+[00:00:00.9186073] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Defaults [a3a7af37:3b964bc5]
+[00:00:00.9186073] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Fields [a3a7af37:de7c6796]
+[00:00:00.9186073] probe.xml: Compiling Multisound:RecoveryXmlB_Multisound_Inherited [a3a7af37:4b46047c]
+[00:00:00.9186073] probe.xml: Compiling NetworkSettings:RecoveryXmlB_NetworkSettings_Defaults [fea876ad:204c6460]
+[00:00:00.9342439] probe.xml: Compiling NetworkSettings:RecoveryXmlB_NetworkSettings_Fields [fea876ad:08352ed8]
+[00:00:00.9342439] probe.xml: Compiling PathfindSettings:RecoveryXmlB_PathfindSettings_Defaults [39db25f8:9a75241a]
+[00:00:00.9342439] probe.xml: Compiling PathfindSettings:RecoveryXmlB_PathfindSettings_Fields [39db25f8:04f1b086]
+[00:00:00.9342439] probe.xml: Compiling ResourceSettings:RecoveryXmlB_ResourceSettings_Defaults [c376bc30:6093d15e]
+[00:00:00.9342439] probe.xml: Compiling ResourceSettings:RecoveryXmlB_ResourceSettings_Fields [c376bc30:55ba30df]
+[00:00:00.9342439] probe.xml: Compiling GraphicsHardware:RecoveryXmlB_GraphicsHardware_Defaults [a9a98b43:09003c40]
+[00:00:00.9342439] probe.xml: Compiling GraphicsHardware:RecoveryXmlB_GraphicsHardware_Fields [a9a98b43:9428a328]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalSelectionDetailsButtonHotKeys:RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Defaults [4d44696a:146c417b]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalSelectionDetailsButtonHotKeys:RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Fields [4d44696a:49ccc092]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalMainCommandBarHotKeys:RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Defaults [9a7a151d:0047775b]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalMainCommandBarHotKeys:RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Fields [9a7a151d:2cf23609]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalPlayerPowerHotKeys:RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Defaults [88230ccd:a62587b2]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalPlayerPowerHotKeys:RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Fields [88230ccd:dd351678]
+[00:00:00.9342439] probe.xml: Compiling UIMouseTacticalMiscHotKeys:RecoveryXmlB_UIMouseTacticalMiscHotKeys_Defaults [780c2500:5d7159a6]
+[00:00:00.9498641] probe.xml: Compiling UIMouseTacticalMiscHotKeys:RecoveryXmlB_UIMouseTacticalMiscHotKeys_Fields [780c2500:3c61c3f9]
+[00:00:00.9498641] probe.xml: Compiling UIMouseHUDElementHotKeyGate:RecoveryXmlB_UIMouseHUDElementHotKeyGate_Defaults [a336bcc2:25fe57e3]
+[00:00:00.9498641] probe.xml: Compiling UIMouseHUDElementHotKeyGate:RecoveryXmlB_UIMouseHUDElementHotKeyGate_Fields [a336bcc2:8ff5e81f]
+[00:00:00.9498641] probe.xml: Compiling TargetingDistanceCompare:RecoveryXmlB_TargetingDistanceCompare_Defaults [8ca5a7d7:b4c897c0]
+[00:00:00.9498641] probe.xml: Compiling TargetingDistanceCompare:RecoveryXmlB_TargetingDistanceCompare_Fields [8ca5a7d7:44be4f42]
+[00:00:00.9498641] probe.xml: Compiling TargetingCombatChainCompare:RecoveryXmlB_TargetingCombatChainCompare_Defaults [0559c032:d00d94fc]
+[00:00:00.9498641] probe.xml: Compiling TargetingCombatChainCompare:RecoveryXmlB_TargetingCombatChainCompare_Fields [0559c032:4d1954e1]
+[00:00:00.9498641] probe.xml: Compiling TargetingInTurretArcCompare:RecoveryXmlB_TargetingInTurretArcCompare_Defaults [77ac3b08:f1a7ce32]
+[00:00:00.9498641] probe.xml: Compiling TargetingInTurretArcCompare:RecoveryXmlB_TargetingInTurretArcCompare_Fields [77ac3b08:b494b995]
+[00:00:00.9498641] probe.xml: Compiling TargetingCompareList:RecoveryXmlB_TargetingCompareList_Defaults [be06a9e5:40a531fd]
+[00:00:00.9498641] probe.xml: Compiling TargetingCompareList:RecoveryXmlB_TargetingCompareList_Fields [be06a9e5:dfd731a0]
+[00:00:00.9498641] probe.xml: Compiling TerrainAssetCollection:RecoveryXmlB_TerrainAssetCollection_Defaults [22b4748b:8cbdb668]
+[00:00:00.9498641] probe.xml: Compiling TerrainAssetCollection:RecoveryXmlB_TerrainAssetCollection_Fields [22b4748b:94d34c34]
+[00:00:00.9498641] probe.xml: Compiling TestTexture:RecoveryXmlB_TestTexture_Defaults [a87d224e:7c01cbc4]
+[00:00:00.9498641] probe.xml: Compiling TestTexture:RecoveryXmlB_TestTexture_Fields [a87d224e:9eca947c]
+[00:00:00.9654919] probe.xml: Compiling TestTextureCollection:RecoveryXmlB_TestTextureCollection_Defaults [02f42b89:491543fc]
+[00:00:00.9654919] probe.xml: Compiling TestTextureCollection:RecoveryXmlB_TestTextureCollection_Fields [02f42b89:af36ee60]
+[00:00:00.9654919] probe.xml: Compiling UIQuickChatMessage:RecoveryXmlB_UIQuickChatMessage_Defaults [f4491ba9:3ac1bd35]
+[00:00:00.9654919] probe.xml: Compiling UIQuickChatMessage:RecoveryXmlB_UIQuickChatMessage_Fields [f4491ba9:b15bd120]
+[00:00:00.9654919] probe.xml: Compiling UIMouseTacticalQuickChatDisplay:RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Defaults [ac5e9172:ab8b70ee]
+[00:00:00.9654919] probe.xml: Compiling UIMouseTacticalQuickChatDisplay:RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Fields [ac5e9172:2dca3897]
+[00:00:00.9654919] probe.xml: Compiling UIMouseVoiceChat:RecoveryXmlB_UIMouseVoiceChat_Defaults [df496ab2:65bc4d75]
+[00:00:00.9654919] probe.xml: Compiling UIMouseVoiceChat:RecoveryXmlB_UIMouseVoiceChat_Fields [df496ab2:4aba8838]
+[00:00:00.9654919] probe.xml: Compiling UIConfigList:RecoveryXmlB_UIConfigList_Defaults [b71d7323:c4291b0f]
+[00:00:00.9654919] probe.xml: Compiling UIConfigList:RecoveryXmlB_UIConfigList_Fields [b71d7323:b3c3f3cb]
+[00:00:01.0123635] probe.xml: Compiling UIDecalGrid:RecoveryXmlB_UIDecalGrid_Defaults [9aeffbaf:a76857d3]
+[00:00:01.0279758] probe.xml: Compiling UIDecalGrid:RecoveryXmlB_UIDecalGrid_Fields [9aeffbaf:001183a4]
+[00:00:01.0279758] probe.xml: Compiling UIDecalCloud:RecoveryXmlB_UIDecalCloud_Defaults [967ed1dc:b307275a]
+[00:00:01.0279758] probe.xml: Compiling UIDecalCloud:RecoveryXmlB_UIDecalCloud_Fields [967ed1dc:3756b563]
+[00:00:01.0279758] probe.xml: Compiling UIDecalDestinationMarker:RecoveryXmlB_UIDecalDestinationMarker_Defaults [5b53bd84:dfebbf95]
+[00:00:01.0279758] probe.xml: Compiling UIDecalDestinationMarker:RecoveryXmlB_UIDecalDestinationMarker_Fields [5b53bd84:7fd93d44]
+[00:00:01.0279758] probe.xml: Compiling UIWorldBuilderDecalGrid:RecoveryXmlB_UIWorldBuilderDecalGrid_Defaults [49d519af:9d0a1c6c]
+[00:00:01.0279758] probe.xml: Compiling UIWorldBuilderDecalGrid:RecoveryXmlB_UIWorldBuilderDecalGrid_Fields [49d519af:6b4480c1]
+[00:00:01.0279758] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Defaults [21ba45a7:d43e8aeb]
+[00:00:01.0279758] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Fields [21ba45a7:4deb7f2b]
+[00:00:01.0279758] probe.xml: Compiling ImageSequence:RecoveryXmlB_ImageSequence_Inherited [21ba45a7:e2b76682]
+[00:00:01.0279758] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Defaults [d76b50c7:856bb7f7]
+[00:00:01.0279758] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Fields [d76b50c7:66ef748e]
+[00:00:01.0279758] probe.xml: Compiling UnitTypeIcon:RecoveryXmlB_UnitTypeIcon_Inherited [d76b50c7:c21548fd]
+[00:00:01.0279758] probe.xml: Compiling DrawGroupInfo:RecoveryXmlB_DrawGroupInfo_Defaults [adadea42:658e156c]
+[00:00:01.0448305] probe.xml: Compiling DrawGroupInfo:RecoveryXmlB_DrawGroupInfo_Fields [adadea42:4342e729]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHelpButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Defaults [0634d9cc:ae610868]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHelpButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Fields [0634d9cc:68ebe524]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCommandCommunicateWithAllies:RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Defaults [06bcb058:9ea33407]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCommandCommunicateWithAllies:RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Fields [06bcb058:69e835ec]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalToggleRepairModeButton:RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Defaults [14a0b8e1:5f81d3ac]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalToggleRepairModeButton:RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Fields [14a0b8e1:ee52c725]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalAttackMoveButton:RecoveryXmlB_UIMouseTacticalAttackMoveButton_Defaults [1a66fefc:dfe14d85]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalAttackMoveButton:RecoveryXmlB_UIMouseTacticalAttackMoveButton_Fields [1a66fefc:bb80bdf3]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCommandPlaceWall:RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Defaults [1cf76ddf:ba04a667]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCommandPlaceWall:RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Fields [1cf76ddf:6e1cb011]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalForceAttackMoveButton:RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Defaults [296a6335:891d7da8]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalForceAttackMoveButton:RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Fields [296a6335:55d549da]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldObjectButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Defaults [2e0ad8b0:4bc4faa1]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldObjectButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Fields [2e0ad8b0:c94e7be2]
+[00:00:01.0448305] probe.xml: Compiling UIMouseTacticalExitContainerButton:RecoveryXmlB_UIMouseTacticalExitContainerButton_Defaults [3c70f027:db1fb572]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalExitContainerButton:RecoveryXmlB_UIMouseTacticalExitContainerButton_Fields [3c70f027:710721a3]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalPlayerTechStoreButton:RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Defaults [43e16d66:b2299242]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalPlayerTechStoreButton:RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Fields [43e16d66:b7e26e73]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandMove:RecoveryXmlB_UIMouseTacticalCommandMove_Defaults [4994c173:5813a736]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandMove:RecoveryXmlB_UIMouseTacticalCommandMove_Fields [4994c173:b2754d83]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandSell:RecoveryXmlB_UIMouseTacticalCommandSell_Defaults [4a753c69:1e4aef44]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandSell:RecoveryXmlB_UIMouseTacticalCommandSell_Fields [4a753c69:ffbd46f1]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalUnitIntroButton:RecoveryXmlB_UIMouseTacticalUnitIntroButton_Defaults [4c1f24ee:09c5c32c]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalUnitIntroButton:RecoveryXmlB_UIMouseTacticalUnitIntroButton_Fields [4c1f24ee:28322a31]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandSelect:RecoveryXmlB_UIMouseTacticalCommandSelect_Defaults [4f8b8410:ded4745a]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandSelect:RecoveryXmlB_UIMouseTacticalCommandSelect_Fields [4f8b8410:2c257488]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsNormalButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Defaults [51c6b6a8:66b2ce14]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsNormalButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Fields [51c6b6a8:fa497949]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandPlaceRallyPoint:RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Defaults [57e00896:de600912]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandPlaceRallyPoint:RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Fields [57e00896:c9240a1d]
+[00:00:01.0593524] probe.xml: Compiling UIMouseTacticalCommandHarvest:RecoveryXmlB_UIMouseTacticalCommandHarvest_Defaults [5962d046:93939ee2]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandHarvest:RecoveryXmlB_UIMouseTacticalCommandHarvest_Fields [5962d046:b66c6489]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandToggleSelfRepair:RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Defaults [749b5209:c997ec23]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandToggleSelfRepair:RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Fields [749b5209:9682b3fd]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalBuildQueueTab:RecoveryXmlB_UIMouseTacticalBuildQueueTab_Defaults [75b6ec99:0d99266c]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalBuildQueueTab:RecoveryXmlB_UIMouseTacticalBuildQueueTab_Fields [75b6ec99:617da64a]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandGetCrate:RecoveryXmlB_UIMouseTacticalCommandGetCrate_Defaults [7b3f8f48:14b94737]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandGetCrate:RecoveryXmlB_UIMouseTacticalCommandGetCrate_Fields [7b3f8f48:1b01d278]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalDeactivateMissionHotSpotsButton:RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Defaults [7a0f9658:dbd39bc9]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalDeactivateMissionHotSpotsButton:RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Fields [7a0f9658:fa907f5c]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandForceAttack:RecoveryXmlB_UIMouseTacticalCommandForceAttack_Defaults [7ba13c8d:5a5bc8fb]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandForceAttack:RecoveryXmlB_UIMouseTacticalCommandForceAttack_Fields [7ba13c8d:fb8298c6]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalPlanningModeButton:RecoveryXmlB_UIMouseTacticalPlanningModeButton_Defaults [87c8cd72:88e46b2b]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalPlanningModeButton:RecoveryXmlB_UIMouseTacticalPlanningModeButton_Fields [87c8cd72:9f214317]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandMisc:RecoveryXmlB_UIMouseTacticalCommandMisc_Defaults [9551955b:67efd903]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalCommandMisc:RecoveryXmlB_UIMouseTacticalCommandMisc_Fields [9551955b:d4f44523]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalSelectionRefinementTab:RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Defaults [9d131288:d5b55f1b]
+[00:00:01.0750128] probe.xml: Compiling UIMouseTacticalSelectionRefinementTab:RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Fields [9d131288:f09a264d]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandForceMove:RecoveryXmlB_UIMouseTacticalCommandForceMove_Defaults [a0c9ec41:bb30d836]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandForceMove:RecoveryXmlB_UIMouseTacticalCommandForceMove_Fields [a0c9ec41:1749e372]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalOpenAdvancedCommandsButton:RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Defaults [a76a7a93:b8bac292]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalOpenAdvancedCommandsButton:RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Fields [a76a7a93:56db249f]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalSetStanceButton:RecoveryXmlB_UIMouseTacticalSetStanceButton_Defaults [ab4cfcd4:5591dd70]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalSetStanceButton:RecoveryXmlB_UIMouseTacticalSetStanceButton_Fields [ab4cfcd4:c0b6913a]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldPositionButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Defaults [adb2367f:c5e74e3a]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsHoldPositionButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Fields [adb2367f:ee4c8267]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandMineOre:RecoveryXmlB_UIMouseTacticalCommandMineOre_Defaults [b0415646:b5a0b02c]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandMineOre:RecoveryXmlB_UIMouseTacticalCommandMineOre_Fields [b0415646:558f44ab]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalWaypointModeButton:RecoveryXmlB_UIMouseTacticalWaypointModeButton_Defaults [b05d5241:26b79a35]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalWaypointModeButton:RecoveryXmlB_UIMouseTacticalWaypointModeButton_Fields [b05d5241:c8cfeac0]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalReverseMoveButton:RecoveryXmlB_UIMouseTacticalReverseMoveButton_Defaults [b20d9681:ce725d13]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalReverseMoveButton:RecoveryXmlB_UIMouseTacticalReverseMoveButton_Fields [b20d9681:a7d50475]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandEnter:RecoveryXmlB_UIMouseTacticalCommandEnter_Defaults [b63667c0:b711a4dc]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCommandEnter:RecoveryXmlB_UIMouseTacticalCommandEnter_Fields [b63667c0:affe819f]
+[00:00:01.0906344] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsAssaultButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Defaults [b873251c:6f0cf0c5]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCoOpAIButtonsAssaultButton:RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Fields [b873251c:1806c82e]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalPauseButton:RecoveryXmlB_UIMouseTacticalPauseButton_Defaults [cbd960ec:544f54ea]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalPauseButton:RecoveryXmlB_UIMouseTacticalPauseButton_Fields [cbd960ec:78562575]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandAttack:RecoveryXmlB_UIMouseTacticalCommandAttack_Defaults [d3863433:f7033647]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandAttack:RecoveryXmlB_UIMouseTacticalCommandAttack_Fields [d3863433:7832cbc8]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandAttackMove:RecoveryXmlB_UIMouseTacticalCommandAttackMove_Defaults [d522e6ed:6051edcd]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandAttackMove:RecoveryXmlB_UIMouseTacticalCommandAttackMove_Fields [d522e6ed:6c72889a]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalForceMoveButton:RecoveryXmlB_UIMouseTacticalForceMoveButton_Defaults [dd834d41:ea226f78]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalForceMoveButton:RecoveryXmlB_UIMouseTacticalForceMoveButton_Fields [dd834d41:af903f35]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalForceAttackButton:RecoveryXmlB_UIMouseTacticalForceAttackButton_Defaults [dfe29605:5e449153]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalForceAttackButton:RecoveryXmlB_UIMouseTacticalForceAttackButton_Fields [dfe29605:5bae7571]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandPlaceAIBeacon:RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Defaults [e3159616:fb2e6ed8]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandPlaceAIBeacon:RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Fields [e3159616:c8a57ad4]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandDock:RecoveryXmlB_UIMouseTacticalCommandDock_Defaults [ed0a75ac:dec77d35]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandDock:RecoveryXmlB_UIMouseTacticalCommandDock_Fields [ed0a75ac:0f086216]
+[00:00:01.1062632] probe.xml: Compiling UIMouseTacticalCommandReverseMove:RecoveryXmlB_UIMouseTacticalCommandReverseMove_Defaults [f00548c6:1e81b003]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalCommandReverseMove:RecoveryXmlB_UIMouseTacticalCommandReverseMove_Fields [f00548c6:ccf07ba0]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalBuildQueueTypeTab:RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Defaults [f40e5021:2f7f60f5]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalBuildQueueTypeTab:RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Fields [f40e5021:58ebbf2d]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalSellModeButton:RecoveryXmlB_UIMouseTacticalSellModeButton_Defaults [f4834051:661c6e0d]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalSellModeButton:RecoveryXmlB_UIMouseTacticalSellModeButton_Fields [f4834051:be4cbdfd]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalStopButton:RecoveryXmlB_UIMouseTacticalStopButton_Defaults [f6c9d597:f215d7e7]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalStopButton:RecoveryXmlB_UIMouseTacticalStopButton_Fields [f6c9d597:b9f2a68a]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalCommandSetRallyPoint:RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Defaults [f92b2739:185256f6]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalCommandSetRallyPoint:RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Fields [f92b2739:831ab1ca]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalFastForwardButton:RecoveryXmlB_UIMouseTacticalFastForwardButton_Defaults [fc44c1c3:884a568c]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalFastForwardButton:RecoveryXmlB_UIMouseTacticalFastForwardButton_Fields [fc44c1c3:efc07b75]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalGroupSelection:RecoveryXmlB_UIMouseTacticalGroupSelection_Defaults [0e626554:b97a5e72]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalGroupSelection:RecoveryXmlB_UIMouseTacticalGroupSelection_Fields [0e626554:fd4e4b6c]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalLookAt:RecoveryXmlB_UIMouseTacticalLookAt_Defaults [6b00c87d:74bed6f2]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalLookAt:RecoveryXmlB_UIMouseTacticalLookAt_Fields [6b00c87d:3da2e119]
+[00:00:01.1218871] probe.xml: Compiling UIMouseTacticalRadarTelestrator:RecoveryXmlB_UIMouseTacticalRadarTelestrator_Defaults [c8aa398e:4d897ff8]
+[00:00:01.1375145] probe.xml: Compiling UIMouseTacticalRadarTelestrator:RecoveryXmlB_UIMouseTacticalRadarTelestrator_Fields [c8aa398e:c2a9927d]
+[00:00:01.1375145] probe.xml: Compiling UIMouseTacticalTelestrator:RecoveryXmlB_UIMouseTacticalTelestrator_Defaults [728b3825:31c1d4f7]
+[00:00:01.1375145] probe.xml: Compiling UIMouseTacticalTelestrator:RecoveryXmlB_UIMouseTacticalTelestrator_Fields [728b3825:9b6073a1]
+[00:00:01.1375145] probe.xml: Compiling UIMouseTacticalThreatMeter:RecoveryXmlB_UIMouseTacticalThreatMeter_Defaults [f70043b6:8787ee25]
+[00:00:01.1375145] probe.xml: Compiling UIMouseTacticalThreatMeter:RecoveryXmlB_UIMouseTacticalThreatMeter_Fields [f70043b6:ac200691]
+[00:00:01.1375145] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Defaults [9053d603:674f7315]
+[00:00:01.1375145] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Fields [9053d603:bbe24e93]
+[00:00:01.1375145] probe.xml: Compiling UnitOverlayIconSettings:RecoveryXmlB_UnitOverlayIconSettings_Inherited [9053d603:dfc89243]
+[00:00:01.1375145] probe.xml: Compiling InvisibilityTemplate:RecoveryXmlB_InvisibilityTemplate_Defaults [554fc288:b047716b]
+[00:00:01.1375145] probe.xml: Compiling InvisibilityTemplate:RecoveryXmlB_InvisibilityTemplate_Fields [554fc288:0af490f9]
+[00:00:01.1375145] probe.xml: Compiling InvisibilityManagerSettings:RecoveryXmlB_InvisibilityManagerSettings_Defaults [0f2aec14:26f1be81]
+[00:00:01.1375145] probe.xml: Compiling InvisibilityManagerSettings:RecoveryXmlB_InvisibilityManagerSettings_Fields [0f2aec14:c3340e71]
+[00:00:01.1375145] probe.xml: Compiling BreezeInfo:RecoveryXmlB_BreezeInfo_Defaults [60f120b8:ffa68418]
+[00:00:01.1375145] probe.xml: Compiling BreezeInfo:RecoveryXmlB_BreezeInfo_Fields [60f120b8:7578c9c4]
+[00:00:01.1375145] probe.xml: Compiling ModelSettings:RecoveryXmlB_ModelSettings_Defaults [7559ad25:7d11b174]
+[00:00:01.1531320] probe.xml: Compiling ModelSettings:RecoveryXmlB_ModelSettings_Fields [7559ad25:b1f1cec7]
+[00:00:01.1531320] probe.xml: Compiling AutoParticleSystemSettings:RecoveryXmlB_AutoParticleSystemSettings_Defaults [c36cc13e:3498ada5]
+[00:00:01.1531320] probe.xml: Compiling AutoParticleSystemSettings:RecoveryXmlB_AutoParticleSystemSettings_Fields [c36cc13e:3e1cbca2]
+[00:00:01.1531320] probe.xml: Compiling W3DHierarchy:RecoveryXmlB_W3DHierarchy_Defaults [61d7ea40:1fdc55fb]
+[00:00:01.1531320] probe.xml: Compiling W3DHierarchy:RecoveryXmlB_W3DHierarchy_Fields [61d7ea40:a3baa174]
+[00:00:01.1531320] probe.xml: Compiling W3DContainer:RecoveryXmlB_W3DContainer_Defaults [f0f08712:c096a0d9]
+[00:00:01.1531320] probe.xml: Compiling W3DContainer:RecoveryXmlB_W3DContainer_Fields [f0f08712:3474a85c]
+[00:00:01.1531320] probe.xml: Compiling W3DCollisionBox:RecoveryXmlB_W3DCollisionBox_Defaults [e3181c04:08c09efc]
+[00:00:01.1531320] probe.xml: Compiling W3DCollisionBox:RecoveryXmlB_W3DCollisionBox_Fields [e3181c04:180dd483]
+[00:00:01.1531320] Resolving references: mods\xmlcompilerrecoveryb\data\mod
+[00:00:01.1687673] Warning: Unknown asset 'TargetingBaseCompare:RecoveryXmlB_Default' referenced from 'TargetingCompareList:RecoveryXmlB_TargetingCompareList_Defaults' in 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
+[00:00:01.1687673] Warning: Unknown asset 'TargetingBaseCompare:RecoveryXmlB_Value' referenced from 'TargetingCompareList:RecoveryXmlB_TargetingCompareList_Fields' in 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
+[00:00:01.1687673] Warning: Referenced file not found: 
+[00:00:01.1687673] Warning: Referenced file not found: 
+[00:00:01.1687673] Warning: Referenced file not found: 
+[00:00:01.1687673] Warning: Referenced file not found: 
+[00:00:01.1687673] Warning: Unknown asset 'W3DMesh:RecoveryXmlB_Value' referenced from 'W3DContainer:RecoveryXmlB_W3DContainer_Fields' in 'file://d:\a\_temp\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\xmlcompilerrecoveryb-original\mods\xmlcompilerrecoveryb\data\probe.xml'
+[00:00:01.1687673] Stable sorting assets
+[00:00:01.1687673] Sorting by schema dependencies
+[00:00:01.1687673] Sorting by asset dependencies
+[00:00:01.1843899] Generating stream: mods\xmlcompilerrecoveryb\data\mod
+[00:00:01.2000142] Slow asset clean-up (expected: 277, actual: 277, old: 0, current: 277)
+[00:00:01.2000142] mods\xmlcompilerrecoveryb\data\mod Linking binary data
+[00:00:01.2156421] mods\xmlcompilerrecoveryb\data\mod Linking import data
+[00:00:01.2156421] mods\xmlcompilerrecoveryb\data\mod Linking relocation data
+[00:00:01.2156421] mods\xmlcompilerrecoveryb\data\mod Stream complete
+[00:00:01.2315771] BinaryAssetBuilder complete
+[00:00:01.2315771] TestTextureCollection:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] MusicScriptConditionNugget_TrackPlayedCount:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] TargetingCombatChainCompare:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] PathMusicGameDynamicState:
+[00:00:01.2315771]       Instances Processed: 3
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] UIMouseTacticalCoOpAIButtonsHelpButton:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] UIMouseTacticalCommandCommunicateWithAllies:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] MusicScriptConditionNugget_LocalPlayerIsObserver:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00.0312560
+[00:00:01.2315771]       Longest Processing Time: 00:00:00.0312560 (RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults)
+[00:00:01.2315771]       Average Processing Time: 0.015628 seconds
+[00:00:01.2315771] UIMouseTacticalGroupSelection:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] InvisibilityManagerSettings:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] PathMusicGameDynamicStateSet:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00.0156283
+[00:00:01.2315771]       Longest Processing Time: 00:00:00.0156283 (RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults)
+[00:00:01.2315771]       Average Processing Time: 0.00781415 seconds
+[00:00:01.2315771] UIMouseTacticalToggleRepairModeButton:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] UIMouseTacticalAttackMoveButton:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2315771]       Average Processing Time: 0 seconds
+[00:00:01.2315771] UIMouseTacticalCommandPlaceWall:
+[00:00:01.2315771]       Instances Processed: 2
+[00:00:01.2315771]       Total Processing Time: 00:00:00
+[00:00:01.2315771]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] ImageSequence:
+[00:00:01.2468809]       Instances Processed: 3
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] TerrainAssetCollection:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalForceAttackMoveButton:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] MusicScriptConditionNugget_SpecificTrackTypePlaying:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalCoOpAIButtonsHoldObjectButton:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] RegisteredObjectSet:
+[00:00:01.2468809]       Instances Processed: 3
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] MeshInstanceTemplate:
+[00:00:01.2468809]       Instances Processed: 3
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] PathfindSettings:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] MP3MusicTrack:
+[00:00:01.2468809]       Instances Processed: 3
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalExitContainerButton:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] MusicScriptTrack:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] RadarTerrainImage:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalPlayerTechStoreButton:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] ObjectFilterAsset:
+[00:00:01.2468809]       Instances Processed: 3
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalCommandMove:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIWorldBuilderDecalGrid:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalCommandSell:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2468809] UIMouseTacticalUnitIntroButton:
+[00:00:01.2468809]       Instances Processed: 2
+[00:00:01.2468809]       Total Processing Time: 00:00:00
+[00:00:01.2468809]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2468809]       Average Processing Time: 0 seconds
+[00:00:01.2625041] UIMouseTacticalSelectionDetailsButtonHotKeys:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] UIMouseTacticalCommandSelect:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MusicScriptConditionNugget_And:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] UIMouseTacticalCoOpAIButtonsNormalButton:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] InvisibilityTemplate:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] PackedTextureImage:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MusicScriptConditionNugget_TimeFromStartOfLevel:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] W3DDeviceSettings:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00.0156356
+[00:00:01.2625041]       Longest Processing Time: 00:00:00.0156356 (RecoveryXmlB_W3DDeviceSettings_Defaults)
+[00:00:01.2625041]       Average Processing Time: 0.0078178 seconds
+[00:00:01.2625041] UIMouseTacticalCommandPlaceRallyPoint:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MP3DialogEvent:
+[00:00:01.2625041]       Instances Processed: 3
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] UIMouseTacticalCommandHarvest:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00.0156604
+[00:00:01.2625041]       Longest Processing Time: 00:00:00.0156604 (RecoveryXmlB_UIMouseTacticalCommandHarvest_Defaults)
+[00:00:01.2625041]       Average Processing Time: 0.0078302 seconds
+[00:00:01.2625041] UIDecalDestinationMarker:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] BreezeInfo:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MusicScriptConditionNugget_HitBySuperWeapon:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] W3DHierarchy:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] ProjectilePath:
+[00:00:01.2625041]       Instances Processed: 3
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] UIMouseTacticalLookAt:
+[00:00:01.2625041]       Instances Processed: 2
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MP3AmbientStream:
+[00:00:01.2625041]       Instances Processed: 3
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2625041]       Average Processing Time: 0 seconds
+[00:00:01.2625041] MusicTrack:
+[00:00:01.2625041]       Instances Processed: 3
+[00:00:01.2625041]       Total Processing Time: 00:00:00
+[00:00:01.2625041]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalTelestrator:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalCommandToggleSelfRepair:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] ModelSettings:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalBuildQueueTab:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] TargetingInTurretArcCompare:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalMiscHotKeys:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00.0156202
+[00:00:01.2781283]       Longest Processing Time: 00:00:00.0156202 (RecoveryXmlB_UIMouseTacticalMiscHotKeys_Defaults)
+[00:00:01.2781283]       Average Processing Time: 0.0078101 seconds
+[00:00:01.2781283] UIMouseTacticalDeactivateMissionHotSpotsButton:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalCommandGetCrate:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalCommandForceAttack:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] AudioEvent:
+[00:00:01.2781283]       Instances Processed: 3
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalPlanningModeButton:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] MusicScriptConditionNugget_Or:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] UIMouseTacticalPlayerPowerHotKeys:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] PathMusicGameDynamicTransition:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] TargetingDistanceCompare:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] ScorchMarkSettings:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2781283]       Total Processing Time: 00:00:00
+[00:00:01.2781283]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2781283]       Average Processing Time: 0 seconds
+[00:00:01.2781283] MusicPalette:
+[00:00:01.2781283]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UnitOverlayIconSettings:
+[00:00:01.2937707]       Instances Processed: 3
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalCommandMisc:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIDecalCloud:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalMainCommandBarHotKeys:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIDecalGrid:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] MusicScriptConditionNugget_UnitsFarFromBase:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalSelectionRefinementTab:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalCommandForceMove:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseHUDElementHotKeyGate:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] MusicScriptConditionNugget_EvaEventPlayedRecently:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] Multisound:
+[00:00:01.2937707]       Instances Processed: 3
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalOpenAdvancedCommandsButton:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] MusicScriptConditionNugget_LocalPlayerKillRatio:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00.0156202
+[00:00:01.2937707]       Longest Processing Time: 00:00:00.0156202 (RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults)
+[00:00:01.2937707]       Average Processing Time: 0.0078101 seconds
+[00:00:01.2937707] TestTexture:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] GraphicsHardware:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.2937707]       Longest Processing Time: 00:00:00 ()
+[00:00:01.2937707]       Average Processing Time: 0 seconds
+[00:00:01.2937707] UIMouseTacticalSetStanceButton:
+[00:00:01.2937707]       Instances Processed: 2
+[00:00:01.2937707]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalQuickChatDisplay:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] MusicScriptConditionNugget_PathMusicStateLastActive:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] DrawGroupInfo:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00.0163061
+[00:00:01.3093775]       Longest Processing Time: 00:00:00.0163061 (RecoveryXmlB_DrawGroupInfo_Defaults)
+[00:00:01.3093775]       Average Processing Time: 0.00815305 seconds
+[00:00:01.3093775] UIMouseTacticalCoOpAIButtonsHoldPositionButton:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalCommandMineOre:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalWaypointModeButton:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalReverseMoveButton:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalCommandEnter:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIConfigList:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00.0468716
+[00:00:01.3093775]       Longest Processing Time: 00:00:00.0468716 (RecoveryXmlB_UIConfigList_Fields)
+[00:00:01.3093775]       Average Processing Time: 0.0234358 seconds
+[00:00:01.3093775] UIMouseTacticalCoOpAIButtonsAssaultButton:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00.0156288
+[00:00:01.3093775]       Longest Processing Time: 00:00:00.0156288 (RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Defaults)
+[00:00:01.3093775]       Average Processing Time: 0.0078144 seconds
+[00:00:01.3093775] TargetingCompareList:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] AutoParticleSystemSettings:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] ResourceSettings:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] PathMusicEventSet:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00
+[00:00:01.3093775]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3093775]       Average Processing Time: 0 seconds
+[00:00:01.3093775] UIMouseTacticalRadarTelestrator:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3093775]       Total Processing Time: 00:00:00.0156274
+[00:00:01.3093775]       Longest Processing Time: 00:00:00.0156274 (RecoveryXmlB_UIMouseTacticalRadarTelestrator_Defaults)
+[00:00:01.3093775]       Average Processing Time: 0.0078137 seconds
+[00:00:01.3093775] MusicScriptConditionNugget_ObjectsNearEvaEvent:
+[00:00:01.3093775]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] MusicScriptConditionNugget_AnyTrackPlaying:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseTacticalPauseButton:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] MusicScriptConditionNugget_EngagementCount:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseTacticalCommandAttack:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] DialogEvent:
+[00:00:01.3253331]       Instances Processed: 3
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseTacticalCommandAttackMove:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UnitTypeIcon:
+[00:00:01.3253331]       Instances Processed: 3
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] MusicScriptConditionNugget_ScoredKillCount:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseTacticalForceMoveButton:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] MusicScriptConditionNugget_PathMusicStateCurrentlyActive:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseVoiceChat:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3253331]       Average Processing Time: 0 seconds
+[00:00:01.3253331] UIMouseTacticalForceAttackButton:
+[00:00:01.3253331]       Instances Processed: 2
+[00:00:01.3253331]       Total Processing Time: 00:00:00
+[00:00:01.3253331]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3416911]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalCommandPlaceAIBeacon:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] W3DCollisionBox:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] AmbientStream:
+[00:00:01.3418198]       Instances Processed: 3
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalCommandDock:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] MusicScriptConditionNugget_Not:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalCommandReverseMove:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00.0156239
+[00:00:01.3418198]       Longest Processing Time: 00:00:00.0156239 (RecoveryXmlB_UIMouseTacticalCommandReverseMove_Defaults)
+[00:00:01.3418198]       Average Processing Time: 0.00781195 seconds
+[00:00:01.3418198] UIRadarObjectsLayer:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00.0156190
+[00:00:01.3418198]       Longest Processing Time: 00:00:00.0156190 (RecoveryXmlB_UIRadarObjectsLayer_Defaults)
+[00:00:01.3418198]       Average Processing Time: 0.0078095 seconds
+[00:00:01.3418198] W3DContainer:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalBuildQueueTypeTab:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIQuickChatMessage:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalSellModeButton:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalStopButton:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] RedAlertTemplate:
+[00:00:01.3418198]       Instances Processed: 3
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalThreatMeter:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalCommandSetRallyPoint:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] UIMouseTacticalFastForwardButton:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3418198]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3418198]       Average Processing Time: 0 seconds
+[00:00:01.3418198] OnDemandTextureImage:
+[00:00:01.3418198]       Instances Processed: 2
+[00:00:01.3418198]       Total Processing Time: 00:00:00
+[00:00:01.3574882]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3574882]       Average Processing Time: 0 seconds
+[00:00:01.3574882] NetworkSettings:
+[00:00:01.3574882]       Instances Processed: 2
+[00:00:01.3574882]       Total Processing Time: 00:00:00
+[00:00:01.3574882]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3574882]       Average Processing Time: 0 seconds
+[00:00:01.3574882] MusicScriptConditionNugget_ObjectsOfTypeExist:
+[00:00:01.3574882]       Instances Processed: 2
+[00:00:01.3574882]       Total Processing Time: 00:00:00
+[00:00:01.3574882]       Longest Processing Time: 00:00:00 ()
+[00:00:01.3574882]       Average Processing Time: 0 seconds
+[00:00:01.3574882] Total Processing Time for All Types: 00:00:00.2350975

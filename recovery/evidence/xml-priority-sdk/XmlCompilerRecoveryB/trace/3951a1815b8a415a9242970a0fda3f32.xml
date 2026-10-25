@@ -1,0 +1,1 @@
+<MusicScriptConditionNugget_ScoredKillCount buildRule="RecoveryXmlB_Value" Count="3" Time="250ms" CountOnlyKillsAgainstTheLocalPlayer="true" CountOnlyKillsByTheLocalPlayer="true" Filter="RecoveryXmlB_ObjectFilterAsset_Defaults\0" id="RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Fields" TypeId="3620764004" xmlns="uri:ea.com:eala:asset" />

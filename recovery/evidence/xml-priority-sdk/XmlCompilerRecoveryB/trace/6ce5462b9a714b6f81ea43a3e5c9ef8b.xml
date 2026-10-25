@@ -1,0 +1,1 @@
+<ModelSettings buildRule="RecoveryXmlB_Value" LoadAfter="RecoveryXmlB_BreezeInfo_Defaults\0" ForceModelsToFollowTimeOfDay="true" ForceModelsToFollowWeather="true" AnimationSharingCap="3" AnimationSharingFrameTolerance="0.5" AnimationSharingDrasticThreshold="0.5" id="RecoveryXmlB_ModelSettings_Fields" TypeId="1968811301" xmlns="uri:ea.com:eala:asset" />

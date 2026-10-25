@@ -1,10 +1,10 @@
 {
-  "succeeded": false,
+  "succeeded": true,
   "entry": "EALAModStudio.ModStudioUI.loadBuildScript -> SDK/defaultscript.cs BuildScript.buildMod -> executeModBuildStep",
   "defaultscriptSha256": "A4F41C72EA81319AD75E5251F40B10EFA202C28F8021B0594AF222321686426E",
   "modName": "XmlCompilerRecoveryB",
-  "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered",
-  "sourceModXml": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml",
+  "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered",
+  "sourceModXml": "D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml",
   "selectedSteps": [
     1,
     2,
@@ -39,16 +39,40 @@
       "step": 5,
       "label": "mod",
       "executable": "BinaryAssetBuilder.exe",
-      "arguments": "\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml\" /od:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\builtmods\" /iod:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\XmlCompilerRecoveryB\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\XmlCompilerRecoveryB\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\XmlCompilerRecoveryB\\Data;.\\Mods;.\\SageXml\"",
-      "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered",
-      "exitCode": -1,
-      "startedUtc": "2026-10-25T04:44:29.6169313Z",
-      "endedUtc": "2026-10-25T04:44:30.3906764Z",
+      "arguments": "\"D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml\" /od:\"D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered\\builtmods\" /iod:\"D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered\\builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\XmlCompilerRecoveryB\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\XmlCompilerRecoveryB\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\XmlCompilerRecoveryB\\Data;.\\Mods;.\\SageXml\"",
+      "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-8aaa8ba6fcf74b10bd78d74ae5d0df8c\\XmlCompilerRecoveryB-Recovered",
+      "exitCode": 0,
+      "startedUtc": "2026-10-25T05:10:00.6848235Z",
+      "endedUtc": "2026-10-25T05:10:02.0176014Z",
       "stdout": "02-mod-stdout.txt",
       "stderr": "02-mod-stderr.txt"
     }
   ],
-  "outputs": [],
-  "status": "failed",
-  "error": "Studio step 5/mod failed: -1"
+  "outputs": [
+    {
+      "name": "mod.bin",
+      "stage": "BAB",
+      "bytes": 38072,
+      "sha256": "7C5C08BC6B95B6015984C567083F1EF6C94E958C58114394450B69BC5C561D7A"
+    },
+    {
+      "name": "mod.manifest",
+      "stage": "BAB",
+      "bytes": 35353,
+      "sha256": "47E33047CA8930B525AB82B08D42F717F9C0D6D2E4A73F23734334B5951FB922"
+    },
+    {
+      "name": "mod.imp",
+      "stage": "BAB",
+      "bytes": 460,
+      "sha256": "63EEDB97D39CCFF5D692CD0C7ED7D87C316E0C75CD4681A6233EB97D669125FE"
+    },
+    {
+      "name": "mod.relo",
+      "stage": "BAB",
+      "bytes": 4936,
+      "sha256": "016365A8FA8851FB7321A55EF86DCEB9A21E310F6A70703EA28492A950CB09B7"
+    }
+  ],
+  "status": "EALAModStudio base-data BAB invocation completed; later GUI stages intentionally excluded"
 }
