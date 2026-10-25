@@ -1,5 +1,7 @@
 # 初步还原计划
 
+最新执行方式：用户要求先快速恢复C#，可利用ILSpy等工具。首批托管元信息/生命周期/分派已经实现并通过双模式原版差分，见 MANAGED.md 和 RESUME.md。后续直接实现证据明确的完整能力组，再统一验证；本文件保留总体路线，不是每阶段必须重新调查/规划的审批流程。
+
 ## 已确认的起点
 
 - 基点：`c66339e49e32cfe3f44aa2f9f1757f9993bbac7a`；原 DLL 位于 `SDK/tools/BinaryAssetBuilder.W3XCompiler.dll`，159744 字节，SHA-256 `bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1`。
