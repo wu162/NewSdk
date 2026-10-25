@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
-  "runId": "40158416072",
+  "sourceCommit": "ff61a995bbce360ba4aec99d1114835d1e8a075f",
+  "runId": "40185608816",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "scope": "Fourteen XmlCompiler player/formation/skirmish roots: complete fields/lists/filters, inherited AIState heuristics; components only, SDK integration pending",
   "modes": [
@@ -104,7 +104,7 @@
     },
     {
       "path": "recovery/src/Native/Xmlai.cpp",
-      "sha256": "fbe7ab6b597a4cf7b5952b6bbd47618417cde450b6bc5a1179d58713eb204254"
+      "sha256": "d4bcbdf51b3b61c0f54b0c6a4c03cb6c6eac76eceeb26012a1f77828e5d7a22e"
     },
     {
       "path": "recovery/src/Native/Xmlplayers.cpp",
