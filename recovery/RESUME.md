@@ -1,27 +1,9 @@
-# 当前进行中：最后五类Draw及GameObject真实SDK验收
+# 当前里程碑：322种模块已过首轮差分，真实SDK已通过
 
-2026-10-25：五类模型Draw及其完整依赖已实现，Windows原DLL完整差分与真实SDK尚待执行，不提前计入317已验收。新增GameObjectDrawModel* / DrawAnimation* / DrawDynamics*及生成器，测试入口DrawModelFamily。自建SDK/Mods/recoverydraw含七个资产，正式GameObject插件、可逆配置和TestGameObjectSdk.ps1已准备，按EALAModStudio defaultscript case5参数执行原版/恢复版冷构建。临时分支recovery/draw-model-sdk保存未验收检查点，最终回到recovery/compiler-source。下方是上次已验收锚点，仍有效；本轮最终结果随后更新。
+2026-10-25，目标recovery/compiler-source。五类最后模型Draw在source d5daae746428937d17ce6beb0b2ae3ef0650cab4/run40162286167完整/Od/O2、四平台差分通过，各1382356 fixtures/4147068三缓冲区比较/24932拒绝/4132不变性。317→322模块；58 Token-only原未知Marshal回退保留。
 
-# 编译器恢复：317/322已完成累计验收与交接
+随后真实SDK发现并修复旧适配器对CrusherInfo.id（XSD pipelineOnly）及XInclude标准XML上下文base/lang的误拒绝，补充精确原DLL差分与不变性。正式GameObject插件自建SDK/Mods/recoverydraw七资产及完整mymod通过，source f8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，七+三次实际调用、四产物一致、三缓冲区与无原DLL重放均通过。
 
-更新：2026-10-25，北京时间。分支recovery/compiler-source，单代理，禁止强推，本轮SDK0次。
+最终同源码GameObject累计run40162947222仍在运行，基础run40162947146已success。需核对最终/Od/O2日志及validation再同步共享证据、收尾；当前不把适配器最终累计回归提前标为完成。细节GAMEOBJECT_DRAW_MODEL.md；SDK失败40162286198/40162402496/40162645592保留。
 
-## 已验收317/322，剩余5类模型Draw
-
-最终完整成功source `ffd4e0aa440dbb6a8742b283bf0b7c455a50115f`，GameObject run `40160094730 success`，基础组件run40160094713 success。/Od、/O2各 **1281576 fixtures、3844728三缓冲区比较、23848拒绝、4072不变性**，平台0/1/2/99；两模式合计7689456三缓冲区比较。已核对实际两条PASS原日志、作业/运行终态及不可变validation的sourceCommit/runId/modes/platforms。不可变目录evidence/gameobject-runs/40160094730-1；共享gameobject-root同步完全相同Git树。此前309类source9c138e8/run40145009538与全部失败/中间证据保留。
-
-本轮新增完整8类：Engineer88、Infiltrator128、Transport332、HordeTransport336、Horde500；W3DLaser112、Tracer112、Stream76及完整FXShader28/四种多态常量（Bool16、Int16、Texture16、Float20）/Color4f16/nullable ParticleSystemList8。合同GAMEOBJECT_CONTAIN_REMAINING.md、GAMEOBJECT_DRAW_BEAM.md；源码生成器、完整runtime和C#累计测试已保存并全部验收。58 Token-only回退保留，正式DLL与插件路由保留。
-
-重要已核实语义：Engineer/Infiltrator Marshal直接ModuleData而Token保留Contain父层；Tracer/Stream Marshal直接ModuleData而Token仍含Draw父层；HordeTransport独立bool332；KindOf任意未知位149；TextureIndex是signed int并保留CRT溢出；Shader常量未知类型保存type0且Token无嵌套表。原方法283+197指纹、父层调用与标量Token类型交叉检查均保留。
-
-失败与修正保留：40157547072独立语音哈希期望；40158022383测试表名重复前缀；40158330433仅/Od通过（1269184 fixtures）后/O2被15分钟上限取消；40159265840/40159330006/40159478438新旧beam符号冲突与漏改引用；40159602595 Tracer少24字节Draw父表；40159867519 TextureIndex错作unsigned。最终生成符号统一drawBeam、测试DrawBeam；累计作业现30分钟，新组前置后仍跑全部历史回归。最终成功不依赖修改/跳过失败断言。
-
-validation.scope历史尾句仍写13个拒绝，是旧说明；实际UnsupportedModuleTypes已核对只有5个且完整回归按5个执行。下一实现批次顺带更正该尾句，不为纯标签重复启动相同完整矩阵。
-
-## 下一轮
-
-剩余完整组：ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396，继续显式拒绝。先读GAMEOBJECT_DRAW_MODEL_NEXT.md及GAMEOBJECT_REMAINING.md；draw-source已有283原方法、17张PE表，显式保留全局ModuleData**分派的source-inventory边界。ModelConditionState196、AnimationState140、Animation60、ParticleSysBone36等须完整实现，不能只启用Scripted根属性。共享Shader实现可复用，完整组统一验证。
-
-完整GameObject、两个完整替代DLL、正式SDK及完整mymod仍是独立门槛；组件成功不得冒充SDK成功。XmlCompiler另一恢复分支不在本轮范围。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md；约1小时阶段、10–15分钟检查点、GitHub插件普通提交推送与保留并发证据继续适用。自动证据只写不可变目录，共享根快照须在完整成功后手动同步并核实锚点。
-
-本轮约69分钟，后段用于修正差分和收取最终完整矩阵，没有扩充收尾范围。避免重复clone、全量历史/反编译上下文与逐字段SDK运行；无可比额度计量，不能量化节省。
+原完整mymod和新测试mod是实际EALAModStudio defaultscript case5的BAB流程。正式SDK主目录原DLL/路由保留，验证只在隔离副本启用新GameObject插件；XmlCompiler另分支和两完整替代DLL不在本轮完成声明内。禁止强推。
