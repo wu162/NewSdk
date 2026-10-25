@@ -1,0 +1,11 @@
+{
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "e93d53df7841a74e9e86e785f56a0161331df5e5",
+  "runAttempt": "1",
+  "xmaEncoderRecovered": false,
+  "rawEvidenceIsOriginalOnly": true,
+  "runId": "40232992739",
+  "requestedGroups": [
+    "dispatch"
+  ]
+}

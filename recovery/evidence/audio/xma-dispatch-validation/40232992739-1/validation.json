@@ -1,0 +1,13 @@
+{
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "status": "failed",
+  "sdkValidated": false,
+  "runId": "40232992739",
+  "runAttempt": "1",
+  "tracedCases": 0,
+  "error": "Original XMA dynamic dispatch oracle failed",
+  "xmaEncodingRecovered": false,
+  "sourceCommit": "e93d53df7841a74e9e86e785f56a0161331df5e5",
+  "baselineRunId": "40232525056",
+  "scope": "Real x86 CPU dynamic original XMA indirect dispatch"
+}
