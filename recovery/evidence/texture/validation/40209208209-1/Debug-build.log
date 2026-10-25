@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored D:\a\NewSdk\NewSdk\src\TextureCompiler\Managed\Recovered.TextureCompiler.csproj (in 126 ms).
+  Recovered.TextureCompiler -> D:\a\_temp\texture-validation-8b61deac1cc34bcf9943da87fe04c8c6\build-Debug\Recovered.BinaryAssetBuilder.TextureCompiler.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.85
