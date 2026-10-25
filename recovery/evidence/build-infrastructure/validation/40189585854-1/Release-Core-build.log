@@ -1,0 +1,19 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Mvp.Xml -> D:\a\_temp\infrastructure-validation-29e02f0999e24b4abe570c30c77ddbcb\build-Release-Core\Mvp.Xml.dll
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  MvpXmlMetadata -> D:\a\NewSdk\NewSdk\recovery\tools\MvpXmlMetadata\bin\Release\net48\MvpXmlMetadata.exe
+  Restored 51 EXSLT CLR method names
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\AssetDeclarationDocument.cs(223,15): warning CS0649: Field 'AssetDeclarationDocument.CurrentState.Processing' is never assigned to, and will always have its default value false [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\GUIBuildOutput.cs(53,21): warning CS0649: Field 'GUIBuildOutput.components' is never assigned to, and will always have its default value null [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+  BinaryAssetBuilder.Core -> D:\a\_temp\infrastructure-validation-29e02f0999e24b4abe570c30c77ddbcb\build-Release-Core\BinaryAssetBuilder.Core.dll
+
+Build succeeded.
+
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\AssetDeclarationDocument.cs(223,15): warning CS0649: Field 'AssetDeclarationDocument.CurrentState.Processing' is never assigned to, and will always have its default value false [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core\GUIBuildOutput.cs(53,21): warning CS0649: Field 'GUIBuildOutput.components' is never assigned to, and will always have its default value null [D:\a\NewSdk\NewSdk\recovery\src\Managed\Core\BinaryAssetBuilder.Core.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.23

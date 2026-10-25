@@ -41,3 +41,10 @@ dotnet build recovery/src/Managed/EALABuild/EALABuild.csproj -c Release -p:Platf
 [运行 40171944143 attempt 1](https://github.com/wu162/NewSdk/actions/runs/40171944143) 成功：三个工程 Debug/Release 均构建成功，两个配置各 2,429 条原版对照记录（异常文本包含换行，文件物理行数为 2,437）全部一致，完整转录 SHA256 相同（`d52862f2b1f4f1672ea98e2c37979307b80e9d47260ed03f9dc256bea2afcacb`）。记录中的异常是原版拒绝边界的对照结果，并非测试失败。
 
 [验收收据](evidence/build-infrastructure/validation/40171944143-1/validation.json) 和同目录原版/恢复版完整转录、构建日志已入库。此前导出及构建失败日志保留用于溯源，不覆盖为成功。本分支没有合并回 compiler-source。
+
+
+## Core 的 Mvp.Xml 源码依赖（2026-10-25）
+
+`recovery/mvp-xml-source` 按用户要求将 AssetDeclarationDocument.LoadXml 改为直接构造 XIncludingReader 并设置 XmlResolver；Core 项目引用恢复版 MvpXml，ProcessDocument 不再初始化反射加载。旧包装类公开方法保留，只有 `_Lib`/`_Tracer` 私有字段及静态初始化器被删除，基础契约测试精确排除这些有意差异，其他比较保留。
+
+MvpXml 的原始资源按字节嵌入，Core 仍可用 dotnet build 构建；基础测试目录排除原 MvpXml，并复制同次源码构建的 MvpXml/Core。当前源码 `a75b48a960d32e199acb2716e06e57e6deca82ce`、运行 [40189585854](https://github.com/wu162/NewSdk/actions/runs/40189585854) attempt1 成功，Debug/Release 各 2,434 条基础回归及 2,111 条 MvpXml/SDK XML 加载对照一致；未执行完整 MOD 编译，SDK/tools 原二进制保留作基线。详见 [MVP_XML.md](MVP_XML.md)。
