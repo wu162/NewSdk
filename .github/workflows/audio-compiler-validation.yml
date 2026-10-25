@@ -9,6 +9,11 @@ on:
       - 'recovery/tests/Audio*.cs'
       - 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll'
   workflow_dispatch:
+    inputs:
+      sdk:
+        description: Explicitly run the dedicated real SDK comparison
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -16,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: "!contains(github.event.head_commit.message, '[audio-resampler]') && !contains(github.event.head_commit.message, '[audio-xma-packet]')"
+    if: "!contains(github.event.head_commit.message, '[audio-resampler]') && !contains(github.event.head_commit.message, '[audio-console-removal]') && !contains(github.event.head_commit.message, '[audio-input') && !contains(github.event.head_commit.message, '[audio-aifc]') && !contains(github.event.head_commit.message, '[audio-adp4-') && !contains(github.event.head_commit.message, '[audio-ssnd-block]') && !contains(github.event.head_commit.message, '[audio-source-build]')"
     runs-on: windows-2022
     timeout-minutes: 25
     steps:
@@ -49,7 +54,7 @@ jobs:
           } elseif ($env:AUDIO_RESAMPLE_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups resample-full
           } elseif ($env:AUDIO_NATIVE_PROBE -eq 'true') {
-            ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly -Groups xma,resample
+            ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly -Groups resample
           } elseif ($env:AUDIO_AIFF_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups formats,aiffloops
           } else {
@@ -87,7 +92,7 @@ jobs:
             ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           }
       - name: Compare original and recovered SDK builds
-        if: success() && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
+        if: success() && (inputs.sdk == true || contains(github.event.head_commit.message, '[audio-sdk]')) && !contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-fft]')
         env:
           AUDIO_XAS_PRECISION: ${{ contains(github.event.head_commit.message, '[audio-xas-precision]') }}
           AUDIO_RESAMPLE_ONLY: ${{ contains(github.event.head_commit.message, '[audio-resample-plugin]') }}

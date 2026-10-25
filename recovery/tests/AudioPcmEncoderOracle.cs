@@ -26,6 +26,7 @@ internal static class AudioPcmEncoderOracle
             foreach (string line in File.ReadAllLines(args[1]))
             {
                 string[] fields=line.Split(':');
+                if (fields.Length > 1 && fields[1] != "0") continue; // Component acceptance targets PC output.
                 if (fields.Length!=9 || fields[3]!="BUFFER" || fields[7]!="CUSTOM") throw new Exception("Original PCM evidence contains a failed case: " + fields[0]);
                 string[] id=fields[0].Split('-');
                 int channels=Int32.Parse(id[1]), frames=Int32.Parse(id[2]); bool streamed=Boolean.Parse(id[3]);
@@ -42,7 +43,7 @@ internal static class AudioPcmEncoderOracle
                 if (Convert.ToInt32(get("Channels"))!=channels || Convert.ToInt32(get("Frames"))!=frames || Convert.ToInt32(get("SampleRate"))!=22050) throw new Exception("PCM result metadata differs");
                 count++;
             }
-            int expectedCount = xas ? 12 : 16;
+            int expectedCount = xas ? 12 : 8;
             if(count!=expectedCount) throw new Exception("Expected " + expectedCount + " original " + args[3] + " cases; found "+count);
             Console.WriteLine("PASS " + args[3] + " encoder component: " + count + " original HeaderData/CustomData comparisons; no SDK or plugin acceptance"); return 0;
         }

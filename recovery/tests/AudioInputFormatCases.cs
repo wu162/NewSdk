@@ -19,14 +19,13 @@ internal static class AudioInputFormatCases
             Write(path, aiff, bits, channels, frames);
             foreach (string codec in new string[] { "NONE", "XAS" })
             foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 1, 2 })
+            foreach (int platform in new int[] { 0, 2 })
             {
-                // Xenon NONE and PS3 XAS are the supported original codecs.
-                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                // Preserve the supported PS3 XAS regression alongside PC NONE/XAS.
+                if (platform == 2 && codec != "XAS") continue;
                 string attrs = "File='" + System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
-                    " IsStreamedOnPC='" + streamed.ToString().ToLowerInvariant() + "' IsStreamedOnXenon='" +
-                    streamed.ToString().ToLowerInvariant() + "' IsStreamedOnPS3='" + streamed.ToString().ToLowerInvariant() + "'";
+                    "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + streamed.ToString().ToLowerInvariant() + "' IsStreamedOnPS3='" + streamed.ToString().ToLowerInvariant() + "'";
                 // pcm- prefix enforces successful buffer and custom-data output
                 // in the existing oracle; errors cannot compare equal as PASS.
                 run("pcm-format-" + name + "-" + codec + "-" + streamed, platform,
@@ -42,13 +41,13 @@ internal static class AudioInputFormatCases
             string path = Path.Combine(root, name + ".wav"); WriteExtensible(path, bits, channels, frames, mask);
             foreach (string codec in new string[] { "NONE", "XAS" })
             foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 1, 2 })
+            foreach (int platform in new int[] { 0, 2 })
             {
-                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                if (platform == 2 && codec != "XAS") continue;
                 string flag = streamed.ToString().ToLowerInvariant();
                 string attrs = "File='" + System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
-                    " IsStreamedOnPC='" + flag + "' IsStreamedOnXenon='" + flag + "' IsStreamedOnPS3='" + flag + "'";
+                    "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + flag + "' IsStreamedOnPS3='" + flag + "'";
                 run("pcm-format-" + name + "-" + codec + "-" + streamed, platform,
                     "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
             }
@@ -78,13 +77,13 @@ internal static class AudioInputFormatCases
             WriteMetadataExtension(path, bits, channels, frames, variant);
             foreach (string codec in new string[] { "NONE", "XAS" })
             foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 1, 2 })
+            foreach (int platform in new int[] { 0, 2 })
             {
-                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                if (platform == 2 && codec != "XAS") continue;
                 string flag = streamed.ToString().ToLowerInvariant();
                 string attrs = "File='" + System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
-                    " IsStreamedOnPC='" + flag + "' IsStreamedOnXenon='" + flag + "' IsStreamedOnPS3='" + flag + "'";
+                    "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + flag + "' IsStreamedOnPS3='" + flag + "'";
                 run("pcm-" + name + "-" + codec + "-" + streamed, platform,
                     "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
             }

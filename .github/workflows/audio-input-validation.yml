@@ -1,0 +1,159 @@
+name: Audio PC input validation
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-input-validation.yml'
+      - 'src/AudioCompiler/**'
+      - 'recovery/scripts/TestAudio*.ps1'
+      - 'recovery/scripts/BuildAudioSource.ps1'
+      - 'recovery/tests/Audio*.cs'
+      - 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll'
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: Component and plugin checks; SDK runs only in explicit formats-sdk/aifc-sdk scopes
+        required: true
+        default: standalone-build
+        type: choice
+        options: [standalone-build, console-removal, formats, formats-sdk, aifc, aifc-sdk, aifc-original, adp4-probe, adp4-decoder, adp4-plugin, ssnd-block]
+permissions:
+  contents: write
+concurrency:
+  group: audio-input-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[audio-console-removal]') || contains(github.event.head_commit.message, '[audio-input-metadata]') || contains(github.event.head_commit.message, '[audio-aifc]') || contains(github.event.head_commit.message, '[audio-adp4-probe]') || contains(github.event.head_commit.message, '[audio-adp4-decoder]') || contains(github.event.head_commit.message, '[audio-adp4-plugin]') || contains(github.event.head_commit.message, '[audio-ssnd-block]') || contains(github.event.head_commit.message, '[audio-source-build]')
+    runs-on: windows-2022
+    timeout-minutes: 40
+    env:
+      RUN_SCOPE: ${{ github.event_name == 'workflow_dispatch' && inputs.scope || '' }}
+      PUSH_MESSAGE: ${{ github.event_name == 'push' && github.event.head_commit.message || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Select one complete input batch
+        id: preflight
+        shell: pwsh
+        run: |
+          $scope = $env:RUN_SCOPE
+          if (!$scope) {
+            $markers = [ordered]@{
+              '[audio-console-removal]' = 'console-removal'
+              '[audio-input-metadata]' = 'formats'
+              '[audio-aifc]' = 'aifc'
+              '[audio-adp4-probe]' = 'adp4-probe'
+              '[audio-adp4-decoder]' = 'adp4-decoder'
+              '[audio-adp4-plugin]' = 'adp4-plugin'
+              '[audio-ssnd-block]' = 'ssnd-block'
+              '[audio-source-build]' = 'standalone-build'
+            }
+            $selected = @($markers.Keys | Where-Object { $env:PUSH_MESSAGE.Contains($_) })
+            if ($selected.Count -ne 1) { throw 'Select exactly one explicit audio input batch marker' }
+            $scope = $markers[$selected[0]]
+          }
+          "scope=$scope" | Add-Content $env:GITHUB_OUTPUT
+          $out = "recovery/evidence/audio/input-batch-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory $out -Force | Out-Null
+          $hash = (Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant()
+          if ($hash -ne 'a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139') { throw 'Original AudioCompiler fingerprint changed' }
+          @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; scope=$scope; sdkRequested=($scope -in @('formats-sdk','aifc-sdk')); originalSha256=$hash } | ConvertTo-Json | Set-Content "$out/request.json"
+      - name: Compare retained plugin routes after console removal
+        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'console-removal'
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioMetadata.ps1
+          ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3 -Groups @('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample-full')
+          $evidence = "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory $evidence
+          ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory $evidence
+      - name: Compare WAVE extension metadata
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'formats' || steps.preflight.outputs.scope == 'formats-sdk')
+        shell: pwsh
+        run: |
+          if ('${{ steps.preflight.outputs.scope }}' -eq 'formats-sdk') {
+            ./recovery/scripts/TestAudioInputMetadata.ps1
+          } else {
+            ./recovery/scripts/TestAudioInputMetadata.ps1 -SkipSdk
+          }
+      - name: Compare AIFC input group
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'aifc' || steps.preflight.outputs.scope == 'aifc-sdk' || steps.preflight.outputs.scope == 'adp4-plugin')
+        shell: pwsh
+        run: |
+          if ('${{ steps.preflight.outputs.scope }}' -ne 'console-removal') {
+            ./recovery/scripts/TestAudioPlugin.ps1 -Groups @('formats','aiffloops')
+          }
+          if ('${{ steps.preflight.outputs.scope }}' -eq 'aifc-sdk') {
+            ./recovery/scripts/TestAudioAifc.ps1
+          } else {
+            ./recovery/scripts/TestAudioAifc.ps1 -SkipSdk
+          }
+      - name: Collect original AIFC evidence
+        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'aifc-original'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioAifc.ps1 -OriginalOnly
+      - name: Collect original ADP4 evidence
+        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'adp4-probe'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioAdp4Probe.ps1
+      - name: Compare ADP4 decoder component
+        if: always() && steps.preflight.outcome == 'success' && steps.preflight.outputs.scope == 'adp4-decoder'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioAdp4Decoder.ps1
+      - name: Compare ADP4 plugin group
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'adp4-plugin')
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioAdp4Plugin.ps1
+      - name: Compare SSND block-size group
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'ssnd-block')
+        shell: pwsh
+        run: |
+          if ('${{ steps.preflight.outputs.scope }}' -eq 'console-removal') {
+            ./recovery/scripts/TestAudioAiffSsnd.ps1 -SkipLoopRegression
+          } else {
+            ./recovery/scripts/TestAudioAiffSsnd.ps1
+          }
+      - name: Build complete project without SDK execution
+        if: always() && steps.preflight.outcome == 'success' && (steps.preflight.outputs.scope == 'console-removal' || steps.preflight.outputs.scope == 'standalone-build')
+        shell: pwsh
+        run: ./recovery/scripts/BuildAudioSource.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-input-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          path: |
+            recovery/evidence/audio/input-batch-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/standalone-build-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/metadata-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/aifc-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/adp4-probe/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/adp4-decoder-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/adp4-plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/ssnd-block-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve exact run evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $paths = @('input-batch-validation','standalone-build-validation','metadata-validation','plugin-validation','pcm-validation','xas-validation','aifc-validation','adp4-probe','adp4-decoder-validation','adp4-plugin-validation','ssnd-block-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } | Where-Object { Test-Path $_ }
+          if ($paths.Count -eq 0) { throw 'No selected run evidence was produced' }
+          git add -- $paths
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve PC input validation evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

@@ -1,4 +1,4 @@
-param([switch]$OriginalOnly)
+param([switch]$OriginalOnly, [switch]$SkipSdk)
 $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 if (!$env:GITHUB_RUN_ID -or !$env:GITHUB_RUN_ATTEMPT) { throw 'Input metadata batch requires an identified Actions run' }
@@ -11,21 +11,22 @@ if ($OriginalOnly) {
 } else {
     & "$PSScriptRoot/TestAudioPlugin.ps1" -Groups formats
 }
-if (@(Get-Content "$pluginDirectory/formats-original.txt").Count -ne 2400) {
-    throw 'Expected 480 existing and 1920 ignored-extension original plugin records'
+if (@(Get-Content "$pluginDirectory/formats-original.txt").Count -ne 1800) {
+    throw 'Expected 1800 retained-platform format records'
 }
 if ($OriginalOnly) { return }
 $receipt = Get-Content "$pluginDirectory/validation.json" -Raw | ConvertFrom-Json
 if ($receipt.status -ne 'passed' -or @($receipt.configurations).Count -ne 2) { throw 'Missing Debug/Release input metadata differential' }
 foreach ($mode in @('Debug','Release')) {
     $configuration = @($receipt.configurations | Where-Object { $_.configuration -eq $mode -and $_.group -eq 'formats' })
-    if ($configuration.Count -ne 1 -or !$configuration[0].passed -or $configuration[0].records -ne 2400) {
+    if ($configuration.Count -ne 1 -or !$configuration[0].passed -or $configuration[0].records -ne 1800) {
         throw "Incomplete $mode input metadata matrix"
     }
     if (!(Select-String -Path "$pluginDirectory/$mode-reader-boundaries.log" -SimpleMatch 'PASS Audio ignored-extension sample invariants: 120')) {
         throw "Missing $mode decoded sample-bit invariants"
     }
 }
+if ($SkipSdk) { Write-Host 'PASS WAVE ignored extension: Debug/Release1800 plugin records and120 sample-bit invariants; SDK not run'; return }
 & "$PSScriptRoot/TestAudioSdk.ps1" -InputMetadataOnly
 $sdkDirectory = "recovery/evidence/audio/sdk-validation/$batch"
 $sdk = Get-Content "$sdkDirectory/validation.json" -Raw | ConvertFrom-Json
@@ -34,4 +35,4 @@ if (@(Get-Content "$sdkDirectory/expected-assets.tsv").Count -ne 120) { throw 'E
 foreach ($side in @('Original','Recovered')) {
     if (@(Get-Content "$sdkDirectory/$side-calls.tsv").Count -ne 120) { throw "Expected all 120 actual $side SDK calls" }
 }
-Write-Host 'PASS WAVE ignored extension batch: Debug/Release 2400 exact plugin records, 120 sample-bit invariants, SDK 120 calls/four products/120 CustomData'
+Write-Host 'PASS WAVE ignored extension batch: Debug/Release 1800 exact plugin records, 120 sample-bit invariants, SDK 120 calls/four products/120 CustomData'

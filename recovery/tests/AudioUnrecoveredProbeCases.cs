@@ -6,17 +6,8 @@ using System.Text;
 // These records must never be counted as candidate support or acceptance.
 internal static class AudioUnrecoveredProbeCases
 {
-    internal static void Run(string root, Action<string,int,string,bool> run, bool xma)
+    internal static void Run(string root, Action<string,int,string,bool> run)
     {
-        if(xma) {
-            foreach(int channels in new int[]{1,2})foreach(int frames in new int[]{257,4096})foreach(bool streamed in new bool[]{false,true}) {
-                string file=Path.Combine(root,"xma-original-"+channels+"-"+frames+".wav");
-                Wave(file,channels,frames,22050,0);
-                run("xma-evidence-"+channels+"-"+frames+"-"+streamed,1,
-                    Element(file,"XenonCompression='XMA' XenonQuality='75' IsStreamedOnXenon='"+streamed.ToString().ToLowerInvariant()+"'"),false);
-            }
-            return;
-        }
         int[,] cases={
             {22050,44100,129},{22050,11025,129},{22050,32000,129},{8000,22050,129},
             {22050,400,2},{22050,400,8193},{400,96000,1},{400,96000,2},

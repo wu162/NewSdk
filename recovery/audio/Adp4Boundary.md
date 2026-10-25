@@ -116,6 +116,6 @@ invariants and12 safety refusals passed. Affected formats2400,AIFF loops200,
 and AIFC/NONE1440 regressions passed in both configurations. Receipts are
 `adp4-plugin-validation/40234514000-1`, `plugin-validation/40234514000-1`
 and `aifc-validation/40234514000-1`; SDK was not run.
-The overall workflow failure was a separate XMA snapshot tool export-name
-mismatch; it does not change these input-scope successful receipts. Do not
+The overall workflow failure was a separate out-of-scope snapshot tool
+export-name mismatch; it does not change these input-scope successful receipts. Do not
 label the entire multi-scope workflow successful or claim ADP4 SDK acceptance.

@@ -1,5 +1,11 @@
 # Integral PCM input importer recovery
 
+This document retains the original importer investigation and its historical
+matrices. Current recovery targets PC / Win32 only. Later accepted AIFC, ADP4,
+extensible metadata and SSND blockSize behavior is authoritative in
+[InputMetadataBoundary](InputMetadataBoundary.md) and [AUDIO_COMPILER](../AUDIO_COMPILER.md);
+the historical conservative refusals below are not current pending work.
+
 Evidence input: original `SDK/tools/BinaryAssetBuilder.AudioCompiler.dll`, SHA256
 `a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`.
 Addresses are RVAs, image base `0x10000000`. Relevant disassembly is preserved in
@@ -90,7 +96,7 @@ and ordinary no-loop input is enabled. A separate AudioAiffLoopReader now enable
 
 `AudioInputFormatCases` exercises all four newly enabled combinations (WAVE24,
 AIFF8/16/24), mono/stereo, 7/129/2041 frames, RAM/streamed, PC NONE/XAS,
-Xenon NONE and PS3 XAS: 192 ordinary-format complete-plugin records per configuration.
+and historical other-platform cases: 192 ordinary-format complete-plugin records per configuration. These totals describe the original mixed-platform receipt; current PC coverage must be identified from its records.
 Canonical extensible8/16/24 adds 288 records spanning mono/stereo, the same frame
 boundaries, both zero/conventional masks and all eight codec/storage/platform
 combinations. Every

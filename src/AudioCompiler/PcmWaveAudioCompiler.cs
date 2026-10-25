@@ -12,13 +12,14 @@ namespace BinaryAssetBuilder.AudioCompiler
         private static readonly bool[] compressionWarnings = new bool[3];
         public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
+            if (platform == TargetPlatform.Xbox360)
+                throw new NotSupportedException("Xbox 360 audio compilation is outside the supported platform scope.");
             XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
             string file = attrs["File"].Value;
             string prefix;
             switch (platform)
             {
                 case TargetPlatform.Win32: prefix = "PC"; break;
-                case TargetPlatform.Xbox360: prefix = "Xenon"; break;
                 case TargetPlatform.PlayStation3: prefix = "PS3"; break;
                 default: throw new BinaryAssetBuilderException((ErrorCode)1, "Internal error: unknown platform {0}", platform);
             }
@@ -26,8 +27,6 @@ namespace BinaryAssetBuilder.AudioCompiler
             string streamedKey = "IsStreamedOn" + prefix;
             bool? streamed = attrs[streamedKey] == null ? (bool?)null : Bool(attrs[streamedKey].Value);
             AudioEncodingPolicy policy = AudioEncodingPolicy.Select((int)platform, file, compression, streamed);
-            if (policy.SampleRepresentation != 1 && policy.SampleRepresentation != 29)
-                throw new NotSupportedException("XMA encoding has not been recovered. Select NONE compression for Xbox360 PCM output.");
             if (policy.CompressionWarning && !compressionWarnings[(int)platform])
             {
                 Console.WriteLine("WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed");
@@ -89,7 +88,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             else
             {
                 if (text == "NONE") return 0;
-                if (text == (platform == TargetPlatform.Win32 ? "XAS" : "XMA")) return 1;
+                if (text == "XAS") return 1;
                 if (text == "EALAYER3") return 2;
             }
             throw new NotSupportedException("Unknown audio compression setting: " + text);

@@ -37,6 +37,6 @@ foreach($mode in @('Debug','Release')) {
   if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-blocks.log"; throw "$mode XAS block algorithm differs" }
   Get-Content "$out/$mode-blocks.log"
  }
- $modes+=@{configuration=$mode;passed=$true;records=$(if($Codec -eq 'XAS'){12}else{16});recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant();blockFrameRecords=504}
+ $modes+=@{configuration=$mode;passed=$true;records=$(if($Codec -eq 'XAS'){12}else{8});recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant();blockFrameRecords=504}
 }
 @{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;scope="$Codec encoder component only, original AudioFile HeaderData/CustomData versus static encoder";modes=$modes;originalEvidenceSha256=(Get-FileHash "$evidence/$evidenceFile").Hash.ToLowerInvariant();pluginValidated=$false;sdkValidated=$false}|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json"

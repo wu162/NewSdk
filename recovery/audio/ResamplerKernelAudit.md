@@ -51,7 +51,7 @@ These seven recorded ranges contain **1497 instructions**, before the small
 FFT allocator/destructor, optional progress callbacks, or a differential test
 host. The remaining work is concentrated here; it does not require recovering
 generic SIMEX format dispatch, the unrelated filter 220 text-profile parser at
-`0x42320`, or EA-XMA to implement this one input/output operation.
+`0x42320` to implement this one PC input/output operation.
 
 `0x4ec40` allocates separate real/imaginary arrays of `4*(1<<order)` bytes;
 `0x4ec80` frees them. These can become managed arrays without preserving native

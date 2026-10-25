@@ -123,9 +123,9 @@ internal static class AudioPluginOracle
         foreach (int channels in new int[] { 1, 2 }) foreach (int frames in (xas ? new int[] {128,129,4096} : new int[] { 3, 20001 }))
         {
             string wave = Path.Combine(root, "pcm-" + channels + "-" + frames + ".wav"); Wav(wave, channels, frames);
-            foreach (int platform in (xas ? new int[] {0} : new int[] { 0, 1 })) foreach (bool streamed in new bool[] { false, true })
+            foreach (int platform in new int[] { 0 }) foreach (bool streamed in new bool[] { false, true })
             {
-                string attributes = "File='" + Esc(wave) + "' PCCompression='"+(xas?"XAS":"NONE")+"' XenonCompression='NONE' PCQuality='75' XenonQuality='75' IsStreamedOnPC='" + streamed.ToString().ToLowerInvariant() + "' IsStreamedOnXenon='" + streamed.ToString().ToLowerInvariant() + "'";
+                string attributes = "File='" + Esc(wave) + "' PCCompression='"+(xas?"XAS":"NONE")+"' PCQuality='75' IsStreamedOnPC='" + streamed.ToString().ToLowerInvariant() + "'";
                 Run((xas?"xas-":"pcm-") + channels + "-" + frames + "-" + streamed, platform, Element("AudioFile", attributes), false);
             }
         }
@@ -167,7 +167,7 @@ internal static class AudioPluginOracle
             string folder=Path.Combine(root,directory); Directory.CreateDirectory(folder);
             string wave=Path.Combine(folder,"default.wav"); Wav(wave,directory=="sounds"?2:1,257);
             foreach(bool direct in new bool[]{false,true})
-                Run("default-"+directory,0,Element("AudioFile","File='"+Esc(wave)+"' PCQuality='75' XenonQuality='75' PS3Quality='75'"),direct);
+                Run("default-"+directory,0,Element("AudioFile","File='"+Esc(wave)+"' PCQuality='75' PS3Quality='75'"),direct);
         }
     }
     private static int Main(string[] args)
@@ -194,7 +194,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
                 else if (args[4] == "aiffloops") AudioAiffLoopCases.Run(root, Run);
                 else if (args[4] == "resample-full") AudioResampleCases.Run(root, Run);
-                else if (args[4] == "resample" || args[4] == "xma") AudioUnrecoveredProbeCases.Run(root, Run, args[4] == "xma");
+                else if (args[4] == "resample") AudioUnrecoveredProbeCases.Run(root, Run);
                 else
                 {
                     ParseProbe();
@@ -221,7 +221,7 @@ internal static class AudioPluginOracle
                     File.WriteAllBytes(Path.Combine(root,"zero-payload.mp3"),zeroPayload);
                     File.WriteAllBytes(Path.Combine(root,"mixed.mp3"),monoBytes.Concat(Convert.FromBase64String(AudioMp3Fixtures.Stereo)).ToArray());
                     Wav(Path.Combine(root,"wave.mp3"),1,3);
-                    foreach (int platform in new int[] { 0, 1, 2, 99 }) foreach (bool direct in new bool[] { false, true })
+                    foreach (int platform in new int[] { 0, 2, 99 }) foreach (bool direct in new bool[] { false, true })
                     {
                         Run("map", platform, Element("PathMusicMap", "File='" + Esc(map) + "'"), direct);
                         Run("map-missing", platform, Element("PathMusicMap", "File='" + Esc(map + ".missing") + "'"), direct);

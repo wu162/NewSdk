@@ -1,6 +1,6 @@
-param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full','xma')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
+param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
 $ErrorActionPreference = 'Stop'
-if (!$OriginalOnly -and (@($Groups | Where-Object { $_ -in @('resample','xma') }).Count -gt 0)) { throw 'Unrecovered native groups are original-only evidence, not candidate validation' }
+if (!$OriginalOnly -and (@($Groups | Where-Object { $_ -in @('resample') }).Count -gt 0)) { throw 'Unrecovered native groups are original-only evidence, not candidate validation' }
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 if (!$env:RUNNER_TEMP) { $env:RUNNER_TEMP = [IO.Path]::GetTempPath() }
 if (!$OutputDirectory) {
@@ -19,6 +19,8 @@ $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
 & $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioAiffLoopCases.cs').Path (Resolve-Path 'recovery/tests/AudioUnrecoveredProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioResampleCases.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
+& $csc /nologo /platform:x86 /r:"$core" /out:"$original/AudioExcludedPlatformOracle.exe" (Resolve-Path 'recovery/tests/AudioExcludedPlatformOracle.cs').Path *> "$out/excluded-platform-oracle-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/excluded-platform-oracle-build.log"; throw 'Excluded-platform oracle build failed' }
 & $csc /nologo /platform:x86 /out:"$original/AudioInputReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioInputReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/reader-oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/reader-oracle-build.log"; throw 'Audio reader boundary oracle build failed' }
 & $csc /nologo /platform:x86 /out:"$original/AudioLoopReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioLoopReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path *> "$out/loop-reader-oracle-build.log"
@@ -55,6 +57,10 @@ try {
         & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
+        Copy-Item "$original/AudioExcludedPlatformOracle.exe" $candidate
+        & "$candidate/AudioExcludedPlatformOracle.exe" $library *> "$out/$mode-excluded-platform.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-excluded-platform.log"; throw "$mode excluded-platform rejection failed" }
+        Get-Content "$out/$mode-excluded-platform.log"
         Copy-Item "$original/AudioInputReaderOracle.exe" $candidate
         if ($Groups -notcontains 'resample-full' -or $Groups.Count -ne 1) {
         & "$candidate/AudioInputReaderOracle.exe" $library $fixtures *> "$out/$mode-reader-boundaries.log"
@@ -87,7 +93,7 @@ try {
                 $undefinedPattern = '^pcm-resample-400-96000-1-[12]-signal0-(NONE|XAS)-(False|True):0:dispatch:'
                 $originalRows = @(Get-Content $expectedFile)
                 $candidateRows = @(Get-Content $actualFile)
-                if ($originalRows.Count -ne 456 -or $candidateRows.Count -ne 456) { throw 'Expected all 456 registered resampling records' }
+                if ($originalRows.Count -ne 448 -or $candidateRows.Count -ne 448) { throw 'Expected all 448 registered resampling records' }
                 $originalUndefined = @($originalRows | Where-Object { $_ -match $undefinedPattern })
                 $candidateUndefined = @($candidateRows | Where-Object { $_ -match $undefinedPattern })
                 if ($originalUndefined.Count -ne 8 -or $candidateUndefined.Count -ne 8) { throw 'Expected exactly eight undefined single-frame importer records' }

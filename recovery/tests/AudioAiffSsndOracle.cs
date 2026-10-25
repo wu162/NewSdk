@@ -47,8 +47,8 @@ internal static class AudioAiffSsndOracle
             root = Path.GetFullPath(args[1]); Directory.CreateDirectory(root);
             using (output = new StreamWriter(args[2], false, new UTF8Encoding(false))) AudioAiffSsndCases.Run(root, Run);
             ((IDisposable)plugin).Dispose();
-            if (canonical.Count != 456) throw new Exception("Expected456 canonical SSND records");
-            if (records != 3192) throw new Exception("Expected3192 complete AIFC records; got " + records);
+            if (canonical.Count != 348) throw new Exception("Expected348 canonical SSND records");
+            if (records != 2436) throw new Exception("Expected2436 complete AIFC records; got " + records);
             if (args[3] == "recovered") foreach (Assembly loaded in AppDomain.CurrentDomain.GetAssemblies())
                 if (loaded.GetName().Name == originalName) throw new Exception("Original DLL loaded in recovered host");
             Console.WriteLine("PASS SSND blockSize complete plugin records: " + records); return 0;

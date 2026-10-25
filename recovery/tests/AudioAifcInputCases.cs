@@ -21,14 +21,14 @@ internal static class AudioAifcInputCases
             Write(path, bits, channels, frames, variant, "NONE");
             foreach (string codec in new string[] { "NONE", "XAS" })
             foreach (bool streamed in new bool[] { false, true })
-            foreach (int platform in new int[] { 0, 1, 2 })
+            foreach (int platform in new int[] { 0, 2 })
             {
-                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                if (platform == 2 && codec != "XAS") continue;
                 string flag = streamed.ToString().ToLowerInvariant();
                 string xml = "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' File='" +
                     System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
-                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
-                    " IsStreamedOnPC='" + flag + "' IsStreamedOnXenon='" + flag + "' IsStreamedOnPS3='" + flag + "'/>";
+                    "' PS3Compression='XAS' PCQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + flag + "' IsStreamedOnPS3='" + flag + "'/>";
                 run(name + "-" + codec + "-" + streamed, platform, xml, false);
             }
         }

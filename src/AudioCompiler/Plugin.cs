@@ -26,6 +26,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
+            if (platform == TargetPlatform.Xbox360)
+                throw new NotSupportedException("Xbox 360 audio compilation is outside the supported platform scope.");
             m_HashCode = HashProvider.GetTypeHash(GetType());
             m_Platform = platform;
         }
@@ -95,7 +97,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 throw new BinaryAssetBuilderException((ErrorCode)1,
                     "Internal error reading element {0} of \"{1}\" (SIMEX_info(): {2}).", 0, file, "Error decoding MPEG Layer 123 data.");
             }
-            PathMusicBuilder builder = new PathMusicBuilder(16, m_Platform == TargetPlatform.Xbox360);
+            PathMusicBuilder builder = new PathMusicBuilder(16, false);
             string subtitle = attrs["SubtitleStringName"] == null ?
                 "DIALOGEVENT:" + Path.GetFileNameWithoutExtension(file) + "SubTitle" : attrs["SubtitleStringName"].Value;
             builder.String(4, subtitle);

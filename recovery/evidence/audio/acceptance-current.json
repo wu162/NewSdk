@@ -1,5 +1,5 @@
 {
-  "status": "passed-with-explicit-scope",
+  "status": "scope-reduced-pending-validation",
   "branch": "recovery/audio-compiler-source",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
@@ -24,7 +24,8 @@
       "recordsPerConfiguration": 258,
       "safetyChecks": 5,
       "originalCpuWindowBinary64Values": 512,
-      "receipt": "resampler-validation/40207847717-1/validation.json"
+      "receipt": "resampler-validation/40207847717-1/validation.json",
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "affected audio plugins and XAS precision",
@@ -42,7 +43,8 @@
       "receipts": [
         "plugin-validation/40209451010-1/validation.json",
         "xas-precision-validation/40209451010-1/validation.json"
-      ]
+      ],
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "combined dedicated audio MOD via real BAB case5",
@@ -53,23 +55,8 @@
       "productsCompared": 4,
       "customFilesCompared": 36,
       "originalDllAbsentFromRecoveredSdk": true,
-      "receipt": "sdk-validation/40209451010-1/validation.json"
-    },
-    {
-      "scope": "bounded XMA integer packet helpers only",
-      "sourceCommit": "96f72d037b840ad09590688e8d4ec1f998446d8d",
-      "runId": "40209977895",
-      "attempt": 1,
-      "configurations": [
-        "Debug",
-        "Release"
-      ],
-      "recordsPerConfiguration": 1025,
-      "safetyRefusals": 6,
-      "realEaBlocks": 8,
-      "rawCodecPackets": 0,
-      "originalCpuValidated": true,
-      "receipt": "xma-packet-validation/40209977895-1/validation.json"
+      "receipt": "sdk-validation/40209451010-1/validation.json",
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "WAVE extensible ignored extension metadata",
@@ -83,43 +70,8 @@
       "recordsPerConfiguration": 2400,
       "sdkActualCalls": 120,
       "sdkProducts": 4,
-      "sdkCustomFiles": 120
-    },
-    {
-      "scope": "XMA PCM preconversion only",
-      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
-      "runId": "40232917060",
-      "attempt": 1,
-      "receipts": [
-        "xma-pcm-validation/40232917060-1/validation.json"
-      ],
-      "recordsPerConfiguration": 124,
-      "signed16SamplesPerConfiguration": 142193,
-      "safetyRefusals": 9
-    },
-    {
-      "scope": "XMA raw packet to EA output rewriting only",
-      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
-      "runId": "40232917060",
-      "attempt": 1,
-      "receipts": [
-        "xma-rewrite-validation/40232917060-1/validation.json"
-      ],
-      "recordsPerConfiguration": 801,
-      "realRawBlocks": 8,
-      "historicalPluginClosedLoopBlocks": 8,
-      "safetyRefusals": 12
-    },
-    {
-      "scope": "XMA PRNG and numeric noise helpers only",
-      "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
-      "runId": "40232917060",
-      "attempt": 1,
-      "receipts": [
-        "xma-noise-validation/40232917060-1/validation.json"
-      ],
-      "recordsPerConfiguration": 6360,
-      "safetyRefusals": 8
+      "sdkCustomFiles": 120,
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "AIFC NONE integral input",
@@ -137,18 +89,8 @@
       "affectedOldPluginRecords": 2600,
       "sdkActualCalls": 120,
       "sdkProducts": 4,
-      "sdkCustomFiles": 120
-    },
-    {
-      "scope": "XMA six integral window and copy leaves only",
-      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
-      "runId": "40233712043",
-      "attempt": 1,
-      "receipts": [
-        "xma-window-validation/40233712043-1/validation.json"
-      ],
-      "recordsPerConfiguration": 6888,
-      "safetyRefusals": 12
+      "sdkCustomFiles": 120,
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "ADP4 raw nibble decoder component only",
@@ -162,33 +104,8 @@
       "scalarCases": 18067,
       "initializedSequences": 176,
       "safetyRefusals": 11,
-      "sdkValidated": false
-    },
-    {
-      "scope": "XMA metadata serialization with synthetic state only",
-      "sourceCommit": "1ebd94a9c61dc4c44ea66784075f43062840ad41",
-      "runId": "40233897932",
-      "attempt": 1,
-      "receipts": [
-        "xma-codec-metadata-validation/40233897932-1/validation.json"
-      ],
-      "recordsPerConfiguration": 384,
-      "actualWrapperStates": 0,
-      "safetyRefusals": 15
-    },
-    {
-      "scope": "XMA metadata serialization with captured actual state",
-      "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
-      "runId": "40234514000",
-      "attempt": 1,
-      "receipts": [
-        "xma-metadata-state-validation/40234514000-1/validation.json"
-      ],
-      "actualWrapperStates": 8,
-      "originalCodecAllocationsUnchanged": true,
-      "eaSeekEqualActualCodecAllocations": true,
-      "waveFormatComparedToCapturedStateNativeReplay": true,
-      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed"
+      "sdkValidated": false,
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "AIFC ADP4 file input component and plugin only",
@@ -205,39 +122,8 @@
       "safetyRefusals": 12,
       "affectedOldPluginRecords": 4040,
       "sdkValidated": false,
-      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed"
-    },
-    {
-      "scope": "XMA integral window scheduler and actual input replay",
-      "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
-      "runId": "40234805270",
-      "attempt": 1,
-      "receipts": [
-        "xma-schedule-validation/40234805270-1/validation.json",
-        "xma-window-snapshot-validation/40234805270-1/validation.json"
-      ],
-      "syntheticRecordsPerConfiguration": 3240,
-      "realSnapshotsPerConfiguration": 111,
-      "nativeArguments32Verified": true,
-      "safetyRefusals": 15
-    },
-    {
-      "scope": "XMA table backed complex FFT only",
-      "sourceCommit": "03d98ce656c5df660befd4af5166cbe7f4ac453d",
-      "runId": "40235031462",
-      "attempt": 1,
-      "receipts": [
-        "xma-fft-validation/40235031462-1/validation.json"
-      ],
-      "recordsPerConfiguration": 192,
-      "orders": [
-        0,
-        15
-      ],
-      "directions": 2,
-      "patterns": 6,
-      "safetyRefusals": 6,
-      "dctRecovered": false
+      "overallRunConclusion": "failure in independent window snapshot export audit; this component passed",
+      "historicalEvidenceOnly": true
     },
     {
       "scope": "SSND ignored blockSize input component and plugin only",
@@ -253,121 +139,15 @@
       "sampleBitChecks": 168,
       "nonzeroOffsetRefusals": 168,
       "affectedOldAiffLoopRecords": 200,
-      "sdkValidated": false
-    },
-    {
-      "scope": "XMA table backed DCT IV and actual input output replay",
-      "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
-      "runId": "40236037500",
-      "attempt": 1,
-      "receipts": [
-        "xma-dct-validation/40236037500-1/validation.json",
-        "xma-dct-snapshot-validation/40236037500-1/validation.json"
-      ],
-      "syntheticRecordsPerConfiguration": 360,
-      "realSnapshotsPerConfiguration": 111,
-      "sizes": [
-        64,
-        128,
-        256,
-        512,
-        1024,
-        2048
-      ],
-      "safetyRefusals": 9
-    },
-    {
-      "scope": "XMA raw packet lifecycle helpers and native bitsplice",
-      "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
-      "runId": "40236037500",
-      "attempt": 1,
-      "receipts": [
-        "xma-raw-packet-validation/40236037500-1/validation.json"
-      ],
-      "recordsPerConfiguration": 1106,
-      "syntheticStateRecords": 1098,
-      "realRawPayloadInputs": 8,
-      "actualEncoderStates": 0,
-      "safetyRefusals": 15
-    },
-    {
-      "scope": "XMA actual raw packet header and next state replay",
-      "sourceCommit": "93ba818ef53b6eb23a94a2f847409aadb31f4c44",
-      "runId": "40236621021",
-      "attempt": 1,
-      "receipts": [
-        "xma-raw-packet-state-validation/40236621021-1/validation.json"
-      ],
-      "actualEncoderStates": 92,
-      "headerStates": 63,
-      "nextPacketStates": 29,
-      "paddingStates": 0,
-      "actualBitspliceStates": 0,
-      "originalCodecAllocationsUnchanged": true
-    },
-    {
-      "scope": "XMA complete bounded signal transform and actual input output replay",
-      "sourceCommit": "f683edd76b9619b23a6242b3dd5ddd450fcdb51b",
-      "runId": "40236818983",
-      "attempt": 1,
-      "receipts": [
-        "xma-signal-validation/40236818983-1/validation.json",
-        "xma-signal-snapshot-validation/40236818983-1/validation.json"
-      ],
-      "syntheticRecordsPerConfiguration": 5760,
-      "realSnapshotsPerConfiguration": 111,
-      "safetyRefusals": 13,
-      "scopeEndsAtOriginalCallerRva": "0x8c0b4",
-      "callerAdditionalMaskAndSpectralGateIncluded": false
-    },
-    {
-      "scope": "XMA optional spectral attenuation stage",
-      "sourceCommit": "5bc9328c415cf1ea0f57e65e0d28d6caaa703284",
-      "runId": "40237077516",
-      "attempt": 1,
-      "receipts": [
-        "xma-spectral-gate-validation/40237077516-1/validation.json"
-      ],
-      "recordsPerConfiguration": 2400,
-      "safetyRefusals": 11,
-      "actualFullAnalysisChainValidated": false
+      "sdkValidated": false,
+      "historicalEvidenceOnly": true
     }
   ],
   "completeDllRecovered": false,
-  "xmaEncodingRecovered": false,
   "productionSdkReplaced": false,
   "fullUpheavalValidated": false,
-  "next": "../../audio/XmaAfterTransform.md",
-  "originalOnlyEvidence": [
-    {
-      "scope": "raw codec before EE00",
-      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
-      "runId": "40232525056",
-      "cases": 8,
-      "nativeEncodes": 16,
-      "receipt": "xma-raw-validation/40232525056-1/validation.json"
-    },
-    {
-      "scope": "long real main audio and seeded stereo",
-      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
-      "runId": "40233712043",
-      "cases": 8,
-      "nativeEncodes": 16,
-      "packets": 121,
-      "multiBlockCases": 4,
-      "receipt": "xma-corpus-validation/40233712043-1/validation.json"
-    },
-    {
-      "scope": "actual numerical dispatch target only",
-      "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
-      "runId": "40233712043",
-      "actualCalls": 111,
-      "callSiteRva": "0x97d97",
-      "targetRva": "0x98267",
-      "receipt": "xma-numerical-dispatch-validation/40233712043-1/validation.json"
-    }
-  ],
-  "sdkPolicy": "Component and plugin differentials first; no implicit SDK in default components/all; batch real SDK at explicit larger milestones. Two current SDK receipts are dedicated minimal audio MODs, not full Upheaval.",
+  "next": "../../AUDIO_COMPILER.md",
+  "sdkPolicy": "Component and plugin differentials first; run real SDK only at explicit larger milestones. Existing SDK receipts use dedicated minimal audio MODs and do not certify full Upheaval.",
   "wholeSourceBuild": {
     "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71",
     "runId": "40237397076",
@@ -381,26 +161,19 @@
     "modCompiled": false,
     "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
     "receipt": "standalone-build-validation/40237397076-1/validation.json",
-    "localSourceTreeComparedToBuildReceipt": true
+    "historicalProofOnly": true,
+    "doesNotCertifyCurrentWholeTree": true
   },
   "remaining": [
-    "Full XMA initialization and continuous encoder state/driver",
-    "Channel analysis, quantization and entropy/coded-frame generation",
-    "Complete frame appender 0x5e8f0 and remaining raw block/output orchestration",
-    "Output FIFO 0x60136->0x728e3, compaction 0x70fd6, bitrate clock 0x710a2 and flush integration",
-    "Generic reader and non-table numerical domains remain explicitly outside recovered component scope",
-    "Additional AIFF/WAVE loop/marker acceptance, bounded nonzero SSND offset and special/damaged MP3 compatibility",
-    "ADP4/SSND SDK milestone, final exe integration and full Upheaval acceptance"
+    "PC input and loop metadata boundaries documented in AUDIO_COMPILER.md",
+    "ADP4/SSND batched SDK acceptance",
+    "Production integration, final exe integration and full Upheaval acceptance"
   ],
-  "finalAudit": {
-    "checkedHeadBeforeDocumentation": "b3c5a10c3626302dc2ac793d0f930f78560067aa",
-    "audioSourceTree": "aaac794cc64e04b9f68e202a53d9ae245f5d6ace",
-    "audioSourceTreeMatchesWholeProjectBuild": true,
-    "productionSdkTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
-    "productionSdkTreeUnchanged": true,
-    "localTestScriptWorkflowFilesCompared": 66,
-    "unpublishedCodeDifferences": 0,
-    "relativeMarkdownLinksChecked": true,
-    "fullXmaRouteStillExplicitlyRejected": true
+  "targetScope": "PC Win32 audio compilation; Xbox support and recovery work removed by user request on 2026-10-26",
+  "scopeChange": {
+    "removed": "Xbox-specific source, test hosts, scripts, workflows and recovery plans",
+    "historicalEvidence": "Raw prior receipts remain immutable historical records, not current platform support",
+    "currentSourceValidated": false,
+    "sdkStarted": false
   }
 }

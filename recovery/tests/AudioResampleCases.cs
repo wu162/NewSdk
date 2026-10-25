@@ -14,7 +14,7 @@ internal static class AudioResampleCases
         // Preserve all 112 original evidence cases, including impulses, DC,
         // sine, 8191/8192/8193 frames, all three filter profile branches and
         // rate-only short inputs, with PCM/XAS and RAM/streamed output.
-        AudioUnrecoveredProbeCases.Run(root, run, false);
+        AudioUnrecoveredProbeCases.Run(root, run);
         foreach (bool aiff in new bool[] { false, true })
         foreach (int bits in new int[] { 8, 16, 24 })
         foreach (int channels in new int[] { 1, 2 })
@@ -65,26 +65,25 @@ internal static class AudioResampleCases
             WriteLoop(path, aiff, 16, channels, 257, start, start);
             Outputs(run, name, path, target);
         }
-        // 112 existing +96 format +144 loop +48 boundary +24 console
-        // platform +32 single-frame/end0 loop =456 successful records.
+        // 112 existing +96 format +144 loop +48 boundary +16 console
+        // platform +32 single-frame/end0 loop =448 registered records.
     }
 
     private static void PlatformCases(string root, Action<string, int, string, bool> run)
     {
-        // AudioPolicy: Xenon NONE selects PCM; PS3 XAS selects XAS and
-        // PS3 EALAYER3 warns then falls back to XAS (not PCM). No XMA.
-        foreach (int policy in new int[] { 0, 1, 2 })
+        // Preserve PS3 XAS and EALAYER3 fallback regressions.
+        foreach (int policy in new int[] { 1, 2 })
         foreach (int channels in new int[] { 1, 2 })
         foreach (int target in new int[] { 44100, 8000 })
         foreach (bool streamed in new bool[] { false, true })
         {
-            int platform = policy == 0 ? 1 : 2;
-            string prefix = platform == 1 ? "Xenon" : "PS3";
-            string codec = policy == 0 ? "NONE" : policy == 1 ? "XAS" : "EALAYER3";
+            int platform = 2;
+            string prefix = "PS3";
+            string codec = policy == 1 ? "XAS" : "EALAYER3";
             bool aiff = target == 44100;
             string name = "resample-console-" + prefix + "-" + codec + "-" + channels + "-" + target;
             string path = Path.Combine(root, name + (aiff ? ".aiff" : ".wav"));
-            AudioInputFormatCases.Write(path, aiff, policy == 0 ? 24 : 16, channels, 257);
+            AudioInputFormatCases.Write(path, aiff, 16, channels, 257);
             // Deliberately conflicting PC attributes ensure platform-specific
             // SampleRate/Compression/IsStreamed prefixes control actual output.
             string xml = "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' File='" +

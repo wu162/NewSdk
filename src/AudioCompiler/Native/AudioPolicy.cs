@@ -39,15 +39,6 @@ namespace BinaryAssetBuilder.AudioCompiler
                         default: throw new ArgumentOutOfRangeException("compression");
                     }
                     break;
-                case 1:
-                    switch (value)
-                    {
-                        case -1: case 1: representation = 28; break;
-                        case 0: representation = 1; break;
-                        case 2: representation = 1; warning = true; break;
-                        default: throw new ArgumentOutOfRangeException("compression");
-                    }
-                    break;
                 case 2:
                     switch (value)
                     {
@@ -61,14 +52,8 @@ namespace BinaryAssetBuilder.AudioCompiler
             return new AudioEncodingPolicy(representation, streamed.HasValue ? streamed.Value : !sounds, warning);
         }
 
-        // The original validates quality only when the selected representation
-        // is EA-XMA (28) or EALayer3 v2 PCM (31), not for PCM or XAS.
-        public void ValidateQuality(int quality)
-        {
-            if ((SampleRepresentation == 28 || SampleRepresentation == 31)
-                && (quality < 0 || quality > 100))
-                throw new ArgumentOutOfRangeException("quality", "Quality parameter must be between 0 and 100");
-        }
+        // Supported PCM/XAS representations ignore quality, as in the original.
+        public void ValidateQuality(int quality) { }
 
         // A redundant explicit rate bypasses the original resampling filter and
         // its range validation. Do not reject it earlier than the original.
