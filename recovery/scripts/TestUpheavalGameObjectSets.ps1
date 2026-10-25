@@ -1,4 +1,4 @@
-param([ValidateSet('locomotor-sets','dependency-metadata')][string]$Scope='locomotor-sets')
+param([ValidateSet('locomotor-sets','dependency-metadata','vision-metadata')][string]$Scope='locomotor-sets')
 $ErrorActionPreference='Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 $out=Join-Path $env:RUNNER_TEMP 'upheaval-gameobject-sets'
