@@ -1,0 +1,47 @@
+name: Upheaval original SDK validation
+on:
+  push:
+    branches: [validation/upheaval-original-sdk]
+    paths:
+      - '.github/workflows/upheaval-original-sdk.yml'
+      - 'validation/scripts/TestUpheavalOriginal.ps1'
+      - 'SDK/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  original-sdk:
+    runs-on: windows-2022
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse script then compile full Upheaval with original SDK
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'validation/scripts/TestUpheavalOriginal.ps1'),[ref]$tokens,[ref]$errors)|Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+          ./validation/scripts/TestUpheavalOriginal.ps1 -TimeoutSeconds 2700
+      - name: Upload logs, original compiler outputs and package
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upheaval-original-sdk
+          path: validation/upheaval-original-sdk
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve result and logs on validation branch
+        if: always()
+        shell: pwsh
+        run: |
+          if(!(Test-Path validation/upheaval-original-sdk)){exit 0}
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add validation/upheaval-original-sdk/*.json validation/upheaval-original-sdk/*.txt
+          if(git diff --cached --quiet){exit 0}
+          git commit -m "validation: record Upheaval original SDK result for $env:GITHUB_SHA"
+          if($LASTEXITCODE -ne 0){throw 'Evidence commit failed'}
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if($LASTEXITCODE -ne 0){throw 'Evidence rebase failed'}
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if($LASTEXITCODE -ne 0){throw 'Evidence push failed'}
