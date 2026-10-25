@@ -1,0 +1,1 @@
+PASS TextureCubicResizeDifferential fixtures=1854 checks=19066353 recoveredCompared=true cubicResize=true PS3Mips=falseAndTrue
