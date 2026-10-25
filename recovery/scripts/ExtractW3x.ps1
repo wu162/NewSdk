@@ -18,10 +18,10 @@ $actual = (Get-FileHash $inputFile -Algorithm SHA256).Hash.ToLowerInvariant()
 if ($actual -ne $expected) { throw 'Original W3X DLL changed; review provenance before extracting.' }
 $source = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
-dotnet build recovery/MetadataInventory -c Release -o "$work/inventory" *> "$out/inventory-build.log"
-if ($LASTEXITCODE -ne 0) { throw 'MetadataInventory build failed' }
+dotnet build recovery/MetadataInventory -c Release -p:Platform=AnyCPU -o "$work/inventory" *> "$out/inventory-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/inventory-build.log"; throw 'MetadataInventory build failed' }
 dotnet "$work/inventory/MetadataInventory.dll" $inputFile $out *> "$out/inventory.log"
-if ($LASTEXITCODE -ne 0) { throw 'W3X metadata inventory failed' }
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/inventory.log"; throw 'W3X metadata inventory failed' }
 $ilspy = Join-Path $work 'ilspycmd.exe'
 dotnet tool install ilspycmd --tool-path $work --version 9.1.0.7988 *> "$out/ilspy-install.log"
 if ($LASTEXITCODE -ne 0) { throw 'Pinned decompiler installation failed' }
@@ -38,10 +38,10 @@ if ($LASTEXITCODE -ne 0) { throw 'Native disassembly failed' }
 Compress-Archive -Path "$work/original.il", "$work/original.native.asm" -DestinationPath "$out/raw-listings.zip"
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$work/W3xPluginContractOracle.exe" recovery/tests/W3xPluginContractOracle.cs *> "$out/oracle-build.log"
-if ($LASTEXITCODE -ne 0) { throw 'W3X contract oracle build failed' }
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'W3X contract oracle build failed' }
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$work/W3xPluginContractOracle.exe.config"
 & "$work/W3xPluginContractOracle.exe" $inputFile "$out/plugin-contract.json" *> "$out/oracle.log"
-if ($LASTEXITCODE -ne 0) { throw 'Original plugin contract inventory failed' }
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle.log"; throw 'Original plugin contract inventory failed' }
 $summary = Get-Content "$out/summary.json" -Raw | ConvertFrom-Json
 $methods = @(Get-Content "$out/methods.json" -Raw | ConvertFrom-Json)
 $types = @(Get-Content "$out/types.json" -Raw | ConvertFrom-Json)

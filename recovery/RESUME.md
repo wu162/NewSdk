@@ -1,3 +1,11 @@
+# 当前分支项目导航：W3XCompiler
+
+本分支 `recovery/w3xcompiler-source` 从 `c66339e49e32cfe3f44aa2f9f1757f9993bbac7a` 创建，用于新的 W3XCompiler 还原项目。**当前工作入口：[w3x/RESUME.md](w3x/RESUME.md)**，总体规划：[w3x/PLAN.md](w3x/PLAN.md)。不接续下方旧 GameObject/XmlCompiler/Tokenizer 待办。代码仍使用 recovery 的共同源码/测试/脚本体系，未来合回原工作线并复用或共同重构。
+
+下方保留基点的另一项目交接供参考；其验收数据不属于 W3X。将来合并时保留两个项目入口并按用户当轮目标选择。
+
+---
+
 # 编译器恢复：317/322已完成累计验收与交接
 
 更新：2026-10-25，北京时间。分支recovery/compiler-source，单代理，禁止强推，本轮SDK0次。
