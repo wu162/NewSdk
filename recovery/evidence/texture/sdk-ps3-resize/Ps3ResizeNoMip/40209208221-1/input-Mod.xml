@@ -1,0 +1,18 @@
+<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags /><Texture id='RecoveredTexture_0' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_1' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_2' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_3' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_4' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_5' File='..\Art\resize-0.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_6' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_7' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_8' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_9' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_10' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_11' File='..\Art\resize-1.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_12' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_13' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<Texture id='RecoveredTexture_14' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_15' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='A8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_16' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='X8R8G8B8' GenerateMipMaps='false' AllowAutomaticResize='true' />
+<OnDemandTexture id='RecoveredTexture_17' File='..\Art\resize-2.tga' Type='StandardTexture' OutputFormat='R5G6B5' GenerateMipMaps='false' AllowAutomaticResize='true' /></AssetDeclaration>

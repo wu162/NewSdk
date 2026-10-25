@@ -1,0 +1,48 @@
+Command Line: D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods /iod:D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods /iod:D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2187234] Cached session data not available.
+[00:00:00.2187234] Session caching enabled ('D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2187234] Network caching enabled ('D:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\Recovered\builtmods\cache').
+[00:00:00.2343486] Loading 'file://d:\a\_temp\texture-sdk-03a9240c7cae46428a02a8b535bb8154\recovered\mods\recoverytexture\data\mod.xml'.
+[00:00:00.2655986] mod.xml: Compiling Texture:RecoveredTexture_0 [21e727da:c4014f66]
+[00:00:00.2812540] mod.xml: Compiling Texture:RecoveredTexture_1 [21e727da:75a17cd2]
+[00:00:00.3125046] mod.xml: Compiling Texture:RecoveredTexture_2 [21e727da:7a7605cd]
+[00:00:00.3125046] mod.xml: Compiling OnDemandTexture:RecoveredTexture_3 [9312b9ac:64c129f1]
+[00:00:00.3593607] mod.xml: Compiling OnDemandTexture:RecoveredTexture_4 [9312b9ac:2492e965]
+[00:00:00.3749777] mod.xml: Compiling OnDemandTexture:RecoveredTexture_5 [9312b9ac:357224d0]
+[00:00:00.3906126] mod.xml: Compiling Texture:RecoveredTexture_6 [21e727da:bd0429c2]
+[00:00:00.3906126] mod.xml: Compiling Texture:RecoveredTexture_7 [21e727da:45454814]
+[00:00:00.4062380] mod.xml: Compiling Texture:RecoveredTexture_8 [21e727da:f428344b]
+[00:00:00.4062380] mod.xml: Compiling OnDemandTexture:RecoveredTexture_9 [9312b9ac:10b44b5b]
+[00:00:00.4218856] mod.xml: Compiling OnDemandTexture:RecoveredTexture_10 [9312b9ac:b53c9d02]
+[00:00:00.4255426] mod.xml: Compiling OnDemandTexture:RecoveredTexture_11 [9312b9ac:c9acaaeb]
+[00:00:00.4375848] mod.xml: Compiling Texture:RecoveredTexture_12 [21e727da:f7cc4d4c]
+[00:00:00.4532627] mod.xml: Compiling Texture:RecoveredTexture_13 [21e727da:39b9889d]
+[00:00:00.4845010] mod.xml: Compiling Texture:RecoveredTexture_14 [21e727da:0c4caeef]
+[00:00:00.5157527] mod.xml: Compiling OnDemandTexture:RecoveredTexture_15 [9312b9ac:df51ccf1]
+[00:00:00.5313829] mod.xml: Compiling OnDemandTexture:RecoveredTexture_16 [9312b9ac:20bd0c24]
+[00:00:00.5626254] mod.xml: Compiling OnDemandTexture:RecoveredTexture_17 [9312b9ac:5b2441bb]
+[00:00:00.5938964] Resolving references: mods\recoverytexture\data\mod
+[00:00:00.5938964] Stable sorting assets
+[00:00:00.5938964] Sorting by schema dependencies
+[00:00:00.5938964] Sorting by asset dependencies
+[00:00:00.5938964] Generating stream: mods\recoverytexture\data\mod
+[00:00:00.6095256] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
+[00:00:00.6095256] Slow custom data clean-up (expected: 9, actual: 9, old asset count: 0)
+[00:00:00.6095256] mods\recoverytexture\data\mod Linking binary data
+[00:00:00.6095256] mods\recoverytexture\data\mod Linking import data
+[00:00:00.6095256] mods\recoverytexture\data\mod Linking relocation data
+[00:00:00.6095256] mods\recoverytexture\data\mod Stream complete
+[00:00:00.6251561] BinaryAssetBuilder complete
+[00:00:00.6251561] Texture:
+[00:00:00.6251561]       Instances Processed: 9
+[00:00:00.6251561]       Total Processing Time: 00:00:00.1406993
+[00:00:00.6251561]       Longest Processing Time: 00:00:00.0312517 (RecoveredTexture_14)
+[00:00:00.6251561]       Average Processing Time: 0.0156332555555556 seconds
+[00:00:00.6251561] OnDemandTexture:
+[00:00:00.6251561]       Instances Processed: 9
+[00:00:00.6251561]       Total Processing Time: 00:00:00.1719815
+[00:00:00.6251561]       Longest Processing Time: 00:00:00.0468561 (RecoveredTexture_3)
+[00:00:00.6251561]       Average Processing Time: 0.0191090555555556 seconds
+[00:00:00.6251561] Total Processing Time for All Types: 00:00:00.3126808
