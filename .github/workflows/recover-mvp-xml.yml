@@ -1,0 +1,64 @@
+name: Recover Mvp Xml
+on:
+  push:
+    branches: [recovery/mvp-xml-source]
+    paths:
+      - '.github/workflows/recover-eala-mvp-xml.yml'
+      - 'recovery/scripts/TestMvpXml.ps1'
+      - 'recovery/tests/MvpXmlOracle.cs'
+      - 'recovery/src/Managed/MvpXml/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mvp-xml-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Export complete original assembly
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $out = "recovery/evidence/mvp-xml/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Force $out | Out-Null
+          if (!(Test-Path recovery/src/Managed/MvpXml)) {
+            dotnet tool install ilspycmd --tool-path "$env:RUNNER_TEMP/mvp-xml-ilspy" --version 9.1.0.7988
+            if ($LASTEXITCODE -ne 0) { throw 'ILSpy installation failed' }
+            & "$env:RUNNER_TEMP/mvp-xml-ilspy/ilspycmd.exe" -p -o recovery/src/Managed/MvpXml -r SDK/tools SDK/tools/Mvp.Xml.dll
+            if ($LASTEXITCODE -ne 0) { throw 'Decompilation failed' }
+            & "$env:RUNNER_TEMP/mvp-xml-ilspy/ilspycmd.exe" -il SDK/tools/Mvp.Xml.dll > "$out/original.il"
+            if ($LASTEXITCODE -ne 0) { throw 'IL extraction failed' }
+            $path = 'recovery/src/Managed/MvpXml/Mvp.Xml.csproj'
+            [xml]$project = Get-Content $path -Raw
+            foreach ($hint in @($project.SelectNodes('//HintPath'))) {
+              $hint.InnerText = '../../../../SDK/tools/' + [IO.Path]::GetFileName($hint.InnerText.Replace('\', '/'))
+            }
+            $pg = $project.CreateElement('PropertyGroup')
+            $lang = $project.CreateElement('LangVersion')
+            $lang.InnerText = '10.0'
+            [void]$pg.AppendChild($lang)
+            [void]$project.Project.AppendChild($pg)
+            $project.Save((Join-Path $PWD $path))
+          }
+          if (Test-Path recovery/scripts/TestMvpXml.ps1) {
+            ./recovery/scripts/TestMvpXml.ps1
+          } else {
+            foreach ($config in @('Debug','Release')) {
+              dotnet build recovery/src/Managed/MvpXml/Mvp.Xml.csproj -c $config > "$out/$config-build.log"
+              if ($LASTEXITCODE -ne 0) { Get-Content "$out/$config-build.log"; throw 'Build failed' }
+            }
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mvp-xml-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/src/Managed/MvpXml
+            recovery/evidence/mvp-xml
