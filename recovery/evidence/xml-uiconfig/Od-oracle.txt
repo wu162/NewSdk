@@ -1,0 +1,7 @@
+System.Exception: explicit original float default
+   at XmluiconfigOracle.Check(Boolean test, String label)
+   at XmluiconfigOracle.DefaultAbi(Field f, AssetBuffer b, Int32 at, Boolean big)
+   at XmluiconfigOracle.RoutesMatrix(Route[] routes, TargetPlatform p)
+   at XmluiconfigOracle.Nested(TargetPlatform p)
+   at XmluiconfigOracle.Matrix(TargetPlatform p)
+   at XmluiconfigOracle.Main(String[] args)

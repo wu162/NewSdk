@@ -1,7 +1,7 @@
 {
   "succeeded": false,
-  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
-  "runId": "40158416072",
+  "sourceCommit": "8049bde54b7870dca920b17272d0c6beb41da526",
+  "runId": "40159171331",
   "scope": "XmlCompiler uiconfig single-root component; original ProcessInstance three buffers; SDK integration pending",
   "platforms": [
     0,
@@ -11,5 +11,5 @@
   ],
   "modes": [],
   "status": "failed",
-  "error": "Od oracle host build failed"
+  "error": "Od original ProcessInstance differential failed (exit 1)"
 }
