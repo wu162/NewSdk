@@ -387,6 +387,8 @@ partial class GameObjectOracle {
     }
     static void GameDependencyGroup(IAssetBuilderPlugin original,TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
+        foreach(string id in new[]{"Dependency_Metadata","MiXeD_Id",""})
+            Check(original,p,"","<GameDependency id='"+id+"'><RequiredObject>Tank</RequiredObject></GameDependency>");
         var empty=Check(original,p,"","<GameDependency/>");var d=empty.InstanceData;
         int root=(int)Word(d,8,big)-4,obj=(int)Word(d,root+404,big),tab=(int)Word(d,Token(d,0,1812791604u,big)+8,big);
         if(root!=1752 || obj!=2344 || d.Length!=2384)throw new Exception("Independent GameDependency allocation");
@@ -2058,6 +2060,11 @@ partial class GameObjectOracle {
                 if(args.Length>1 && args[1]=="locomotor-sets") {
                     ArmorAndLocomotorSets(original,p);
                     Console.WriteLine("PASS locomotor-sets platform="+(int)p+" fixtures="+fixtures+" comparisons="+comparisons+" rejections="+refusals);
+                    continue;
+                }
+                if(args.Length>1 && args[1]=="dependency-metadata") {
+                    GameDependencyGroup(original,p);
+                    Console.WriteLine("PASS dependency-metadata platform="+(int)p+" fixtures="+fixtures+" comparisons="+comparisons+" rejections="+refusals);
                     continue;
                 }
                 DrawModelFamily(original,p);DrawBeamFamily(original,p);ContainRemainingFamily(original,p);Layout(Check(original,p,""),p!=TargetPlatform.Win32);IndependentBindings(original,p);Enums(original,p);BrowserLayout(original,p);KindOf(original,p);ChildrenAndDuration(original,p);LeafCollections(original,p);ArmorAndLocomotorSets(original,p);VisualLeaves(original,p);AutoResolveFamily(original,p);PointerStringLists(original,p);ObjectResourceLists(original,p);GameDependencyGroup(original,p);CrushAndPlacement(original,p);GeometryGroup(original,p);AudioGroups(original,p);SkirmishAIGroup(original,p);EmptyModuleMarkers(original,p);ModuleFoundation(original,p);BodyFamily(original,p);ClientUpdateFamily(original,p);SoundPlaybackFamily(original,p);SoundSelectorFamily(original,p);LifecycleFamily(original,p);DieFamily(original,p);UpgradeFamily(original,p);RemainingUpgradeFamily(original,p);ProductionFamily(original,p);CreateFamily(original,p);SlavedFamily(original,p);TechReceiverFamily(original,p);VisionFamily(original,p);WeaponBehaviorFamily(original,p);BeamStateFamily(original,p);MotionFamily(original,p);FlightFamily(original,p);ReactiveFamily(original,p);WeaponSetFamily(original,p);HealingFamily(original,p);CrateFamily(original,p);AIUpdateFamily(original,p);EconomyFamily(original,p);AssistFamily(original,p);SpawnUpdateFamily(original,p);SpawnCrateWatcherFamily(original,p);QueueParkingFamily(original,p);BuildingStructureFamily(original,p);EconomyPowerFamily(original,p);StructureWallFamily(original,p);CombatResponseFamily(original,p);StatusEffectsFamily(original,p);StealthVisionFamily(original,p);TiberiumFamily(original,p);WallEncloseFamily(original,p);ResourceAlliesFamily(original,p);StateEventFamily(original,p);ModelConditionFamily(original,p);MotionCleanupFamily(original,p);SpecialPowerBaseFamily(original,p);SpecialPowerDerivedFamily(original,p);PowerRoutingFamily(original,p);SpecialAbilityFamily(original,p);AbilityWeaponFamily(original,p);PowerCreationFamily(original,p);AbilityMovementFamily(original,p);AbilityStateFamily(original,p);AbilityRoutingFamily(original,p);AbilityResourceFamily(original,p);AbilityToggleFamily(original,p);AbilityFinishFamily(original,p);AttachFamily(original,p);UtilityFamily(original,p);AreaFamily(original,p);SupportFamily(original,p);ObjectControlFamily(original,p);SlowDeathFamily(original,p);ContainCoreFamily(original,p);

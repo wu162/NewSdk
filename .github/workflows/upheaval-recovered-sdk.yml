@@ -26,9 +26,12 @@ jobs:
           $tokens=$null; $errors=$null
           [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path recovery/scripts/TestUpheavalSdk.ps1),[ref]$tokens,[ref]$errors)|Out-Null
           if($errors.Count){throw ($errors|Out-String)}
-      - name: Validate affected GameObject set reader against original DLL
+      - name: Validate affected GameDependency reader against original DLL
         shell: pwsh
-        run: ./recovery/scripts/TestUpheavalGameObjectSets.ps1
+        run: ./recovery/scripts/TestUpheavalGameObjectSets.ps1 -Scope dependency-metadata
+      - name: Validate affected powers compiler against original DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestXmlpowers.ps1
       - name: Build recovered components and compare real Upheaval stages 3 4 5
         shell: pwsh
         run: ./recovery/scripts/TestUpheavalSdk.ps1
@@ -39,6 +42,7 @@ jobs:
           path: |
             recovery/evidence/upheaval
             recovery/evidence/xml-ai
+            recovery/evidence/xml-powers
           if-no-files-found: warn
       - name: Preserve evidence on validation branch
         if: always()
@@ -46,7 +50,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add recovery/evidence/upheaval recovery/evidence/xml-ai
+          git add recovery/evidence/upheaval recovery/evidence/xml-ai recovery/evidence/xml-powers
           if(git diff --cached --quiet){exit 0}
           git commit -m "Record Upheaval SDK evidence for $env:GITHUB_SHA"
           if($LASTEXITCODE -ne 0){throw 'Evidence commit failed'}

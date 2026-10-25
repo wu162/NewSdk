@@ -47,6 +47,8 @@ public ref class GameObjectCompiler abstract sealed {
         auto a=node->Clone();
         if(a->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            // GameDependencyType.id is pipelineOnly, not a Token/native field.
+            if(a->NamespaceURI->Length==0 && a->LocalName=="id") continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported GameDependency attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
