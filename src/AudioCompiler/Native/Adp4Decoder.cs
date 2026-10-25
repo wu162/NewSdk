@@ -4,7 +4,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 {
     // Original 0x48500 plus the nibble order in 0x3b970/0x3bab0. This is
     // EA ADP4's raw nibble decoder, not Apple ima4's packet-header format.
-    // Standalone component only; the AudioFile AIFC/ADP4 route stays disabled.
+    // AudioFile AIFC/ADP4 also uses this component; SDK integration is separate.
     public static class Adp4Decoder
     {
         private static readonly int[] Steps = {

@@ -5,7 +5,7 @@ using System.Text;
 namespace BinaryAssetBuilder.AudioCompiler
 {
     // SIMEX WAVE importer 0x37210 and AIFF importer 0x381c0. This reader
-    // deliberately accepts only uncompressed, integral, mono/stereo input.
+    // accepts integral WAVE/AIFF and raw AIFC ADP4 mono/stereo input.
     internal static class AudioPcmInputReader
     {
         internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowLoop = false)
@@ -78,8 +78,11 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (aiff && tag == "SSND")
                 {
                     if (size < 8) throw new InvalidDataException("Truncated AIFF sound chunk");
-                    if (U32(bytes, body, true) != 0 || U32(bytes, body + 4, true) != 0)
-                        throw new NotSupportedException("AIFF sound offsets and block sizes have not been recovered");
+                    if (U32(bytes, body, true) != 0)
+                        throw new NotSupportedException("AIFF sound offsets have not been recovered");
+                    // Native read wrapper 0x38b26..38b46 interprets offset,
+                    // but never reads the second SSND word (blockSize).
+                    // Its opaque uint32 value does not change PCM/ADP4 data.
                     // Chunk traversal rounds size up, but 0x385ea preserves
                     // the raw SSND size for the frame calculation at 0x38907.
                     dataOffset = body + 8; dataLength = checked((int)size - 8);

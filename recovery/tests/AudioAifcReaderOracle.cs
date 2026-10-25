@@ -51,7 +51,7 @@ internal static class AudioAifcReaderOracle
             altered = (byte[])valid.Clone(); altered[21] = 3; Reject(altered, "three-channel");
             // First SSND follows FORM12 + COMM header8 + body24.
             altered = (byte[])valid.Clone(); altered[55] = 1; Reject(altered, "nonzero-offset");
-            altered = (byte[])valid.Clone(); altered[59] = 1; Reject(altered, "nonzero-block-size");
+            altered = (byte[])valid.Clone(); altered[48] = altered[49] = altered[50] = 0; altered[51] = 7; Reject(altered, "truncated-SSND-prefix");
             altered = (byte[])valid.Clone(); altered[44] = (byte)'I'; altered[45] = (byte)'N'; altered[46] = (byte)'S'; altered[47] = (byte)'T'; Reject(altered, "loop-not-enabled");
             if (equivalent != 60 || refused != 10) throw new Exception("Incomplete AIFC reader boundary coverage");
             Console.WriteLine("PASS AIFC reader:60 sample-bit invariants,10 safety refusals"); return 0;

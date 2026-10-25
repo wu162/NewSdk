@@ -58,7 +58,7 @@ internal static class AudioInputReaderOracle
             AudioInputFormatCases.Write(path, true, 16, 1, 129); valid = File.ReadAllBytes(path);
             copy = (byte[])valid.Clone(); copy[11] = (byte)'C'; Reject("truncated-AIFC-COMM", copy);
             copy = (byte[])valid.Clone(); copy[49] = 1; Reject("AIFF-SSND-offset", copy);
-            copy = (byte[])valid.Clone(); copy[53] = 1; Reject("AIFF-SSND-block-size", copy);
+            copy = (byte[])valid.Clone(); copy[42] = copy[43] = copy[44] = 0; copy[45] = 7; Reject("AIFF-truncated-SSND-prefix", copy);
             copy = (byte[])valid.Clone(); copy[38] = (byte)'I'; copy[39] = (byte)'N'; copy[40] = (byte)'S'; copy[41] = (byte)'T'; Reject("AIFF-loop", copy);
             AudioInputFormatCases.WriteExtensible(path, 24, 2, 129, true); valid = File.ReadAllBytes(path);
             copy = (byte[])valid.Clone(); copy[16] = 38; Reject("extensible-short38", copy);

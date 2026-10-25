@@ -5,7 +5,8 @@ namespace BinaryAssetBuilder.AudioCompiler
 {
     // Complete integral PCM leaf group used by native window dispatch 0x98267:
     // 0x98010/0x97da4/0x97edd and 0x980da/0x97e7d/0x97fb3.
-    // The outer old/new source-block scheduler and transform remain unrecovered.
+    // XmaPcmWindowScheduler handles the integral old/new source-block schedule;
+    // subsequent transforms and the complete encoder are separate components.
     public static class XmaPcmWindow
     {
         // A physical binary32 store is required at the original FSTP points.
