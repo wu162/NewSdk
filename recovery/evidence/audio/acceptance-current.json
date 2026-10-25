@@ -1,5 +1,5 @@
 {
-  "status": "scope-reduced-pending-validation",
+  "status": "passed-with-explicit-scope",
   "branch": "recovery/audio-compiler-source",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
@@ -149,6 +149,51 @@
   "next": "../../AUDIO_COMPILER.md",
   "sdkPolicy": "Component and plugin differentials first; run real SDK only at explicit larger milestones. Existing SDK receipts use dedicated minimal audio MODs and do not certify full Upheaval.",
   "wholeSourceBuild": {
+    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+    "excludedPlatforms": [
+      "Xbox360"
+    ],
+    "scope": "Whole recovered AudioCompiler source project builds only",
+    "runId": "40240685038",
+    "runAttempt": "1",
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+    "sdkStarted": false,
+    "modCompiled": false,
+    "modes": [
+      {
+        "libraryBytes": 138240,
+        "passed": true,
+        "librarySha256": "ba6210f2de9e844dda61434741a8e1dfd195a4178dc3a8a5293aa4027f638132",
+        "log": "Debug-build.log",
+        "configuration": "Debug"
+      },
+      {
+        "libraryBytes": 124416,
+        "passed": true,
+        "librarySha256": "3ddc2de0605417523965631695adb5fd55c28494789680cb8c20f2531137e5ef",
+        "log": "Release-build.log",
+        "configuration": "Release"
+      }
+    ],
+    "status": "passed",
+    "receipt": "standalone-build-validation/40240685038-1/validation.json"
+  },
+  "remaining": [
+    "PC input and loop metadata boundaries documented in AUDIO_COMPILER.md",
+    "ADP4/SSND batched SDK acceptance",
+    "Production integration, final exe integration and full Upheaval acceptance"
+  ],
+  "targetScope": "PC Win32 audio compilation; Xbox support and recovery work removed by user request on 2026-10-26",
+  "scopeChange": {
+    "removed": "Xbox-specific source, test hosts, scripts, workflows and recovery plans",
+    "historicalEvidence": "Raw prior receipts remain immutable historical records, not current platform support",
+    "currentSourceValidated": true,
+    "sdkStarted": false,
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "runId": "40240685038"
+  },
+  "historicalWholeSourceBuild": {
     "sourceCommit": "ec1e34657edb8395570d8e325fe81dc8ab762c71",
     "runId": "40237397076",
     "attempt": 1,
@@ -164,16 +209,51 @@
     "historicalProofOnly": true,
     "doesNotCertifyCurrentWholeTree": true
   },
-  "remaining": [
-    "PC input and loop metadata boundaries documented in AUDIO_COMPILER.md",
-    "ADP4/SSND batched SDK acceptance",
-    "Production integration, final exe integration and full Upheaval acceptance"
-  ],
-  "targetScope": "PC Win32 audio compilation; Xbox support and recovery work removed by user request on 2026-10-26",
-  "scopeChange": {
-    "removed": "Xbox-specific source, test hosts, scripts, workflows and recovery plans",
-    "historicalEvidence": "Raw prior receipts remain immutable historical records, not current platform support",
-    "currentSourceValidated": false,
-    "sdkStarted": false
+  "currentValidation": {
+    "sourceCommit": "4f2c03c5f7510e71655987189a6b9ecd4a636d80",
+    "runId": "40240685038",
+    "attempt": 1,
+    "status": "passed",
+    "sourceTree": "38a94a66e7cca464c465c5947fc428315d217ec9",
+    "sdkStarted": false,
+    "excludedPlatform": "Xbox360",
+    "excludedPlatformRejectionChecksPerConfiguration": 8,
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "metadataRecordsPerConfiguration": 73861,
+    "pluginRecordsPerConfiguration": 2899,
+    "resampleSafetyRefusalsPerConfiguration": 8,
+    "pluginGroups": [
+      "business",
+      "pcm",
+      "xas",
+      "defaults",
+      "rates",
+      "main",
+      "pcm8",
+      "formats",
+      "loops",
+      "aiffloops",
+      "resample-full"
+    ],
+    "aifcRecordsPerConfiguration": 1080,
+    "adp4RecordsPerConfiguration": 3180,
+    "ssndRecordsPerConfiguration": 2436,
+    "receipts": [
+      "metadata-validation/40240685038-1/validation.json",
+      "plugin-validation/40240685038-1/validation.json",
+      "pcm-validation/40240685038-1/validation.json",
+      "xas-validation/40240685038-1/validation.json",
+      "aifc-validation/40240685038-1/validation.json",
+      "adp4-plugin-validation/40240685038-1/validation.json",
+      "ssnd-block-validation/40240685038-1/validation.json",
+      "standalone-build-validation/40240685038-1/validation.json"
+    ],
+    "exclusionLogs": [
+      "plugin-validation/40240685038-1/Debug-excluded-platform.log",
+      "plugin-validation/40240685038-1/Release-excluded-platform.log"
+    ]
   }
 }

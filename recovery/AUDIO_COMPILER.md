@@ -17,7 +17,13 @@
 构建：`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
 工程 net472、无签名，Core 仍引用 SDK 基线；NLayer 无独立运行时 DLL。不承诺原 C++ 指针 helper 的二进制 ABI。生产源码没有加载原 AudioCompiler 作为运行后端；原 DLL 调用及 native 插桩仅在测试宿主。
 
-## 已有 PC 验证
+## 删除后当前验证
+
+源码 `4f2c03c5f7510e71655987189a6b9ecd4a636d80` / [40240685038](https://github.com/wu162/NewSdk/actions/runs/40240685038) 已成功。整工程 Debug/Release 构建对应源码树 `38a94a66e7cca464c465c5947fc428315d217ec9`。
+
+每配置：元数据73,861项；保留插件路由2,899项、单帧安全拒绝8项；AIFC1,080项；ADP4 3,180项；SSND2,436项；PCM组件8项/XAS组件12项原输出及block/frame检查；Xbox排除检查8项。保留路由覆盖现有PC/PS3与适用unknown输入，已删除Xbox对照案例。精确矩阵和收据见[验收索引](evidence/audio/acceptance-current.json)。本次SDK真实编译0次，历史SDK结果不作为当前树的新验收。
+
+## 历史 PC 验证
 
 既有结果必须按原 sourceCommit/runId 复用，不能写成删除代码后的新运行。历史矩阵包含其他平台时，PC 子集以原收据的具体记录为准；历史总数不是当前 PC 专用矩阵数量。
 

@@ -16,7 +16,9 @@ ADP4/SSND 已过真实插件 ProcessInstance 三缓冲区/CustomData 差分，**
 2. 将 ADP4、SSND 等已积累输入能力合成一次最小合法 PC 音频 MOD，做 SDK 原/恢复版对照。不要重复运行未变且已有有效证据的组件。
 3. PC 范围满足后处理 `compiler-source` 合并、最终 exe 集成及完整 Upheaval 里程碑验收；目前生产 SDK DLL/config 未替换，最终 exe 未接入。
 
-精确 sourceCommit/runId、收据及支持边界见 [验收索引](evidence/audio/acceptance-current.json) 和 [AUDIO_COMPILER](AUDIO_COMPILER.md)。删除前整工程 Debug/Release 历史构建：`ec1e34657edb8395570d8e325fe81dc8ab762c71` / [40237397076](https://github.com/wu162/NewSdk/actions/runs/40237397076)；这是旧源码构建，不是删除后树或 SDK/MOD 验收。
+本次删除后验证已通过：源码 `4f2c03c5f7510e71655987189a6b9ecd4a636d80` / [40240685038](https://github.com/wu162/NewSdk/actions/runs/40240685038)，产品源码树 `38a94a66e7cca464c465c5947fc428315d217ec9`。每种 Debug/Release：元数据73,861项、保留路由2,899项及8项单帧安全拒绝、AIFC1,080项、ADP4 3,180项、SSND2,436项、Xbox排除检查8项；PCM/XAS组件及整工程构建通过。SDK运行0次。保留路由矩阵包含现有PC/PS3及适用unknown检查；Xbox已排除。
+
+精确收据见[验收索引](evidence/audio/acceptance-current.json)；PC剩余边界及后续集成见[AUDIO_COMPILER](AUDIO_COMPILER.md)。历史SDK成功仍只对应原提交，不代表本次清理后的SDK验收。
 
 **用户要求：不要频繁触发完整 SDK 真实验证。** 组件/插件差分优先，实际依赖变化组完整验证，SDK 按更大里程碑显式合批。
 
