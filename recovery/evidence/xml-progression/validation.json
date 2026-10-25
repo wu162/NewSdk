@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
-  "runId": "40158416072",
+  "sourceCommit": "3d32896d2d2607f4819cfd81c044a240dd278e46",
+  "runId": "40180066600",
   "platforms": [
     0,
     1,
@@ -15,35 +15,35 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 1,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 2,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 99,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         }
       ],
       "log": "Od-oracle.txt"
@@ -54,35 +54,35 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 1,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 2,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         },
         {
           "platform": 99,
-          "fixtures": 4160,
-          "threeArrayComparisons": 12480,
-          "directArrayComparisons": 12480,
-          "rejections": 122,
-          "independentLayouts": 4184
+          "fixtures": 4165,
+          "threeArrayComparisons": 12495,
+          "directArrayComparisons": 12495,
+          "rejections": 123,
+          "independentLayouts": 4189
         }
       ],
       "log": "O2-oracle.txt"
