@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes>
+    <Include type="all" source="PublicCases/AttributeModifier.xml" />
+    <Include type="all" source="PublicCases/FXParticleSystemTemplate.xml" />
+    <Include type="all" source="PublicCases/FXList.xml" />
+    <Include type="all" source="PublicCases/WeaponTemplate.xml" />
+    <Include type="all" source="PublicCases/LogicCommand.xml" />
+    <Include type="all" source="PublicCases/LogicCommandSet.xml" />
+    <Include type="all" source="PublicCases/GameObject.xml" />
+    <Include type="all" source="PublicCases/AfterdashFilters.xml" />
+  </Includes>
+</AssetDeclaration>

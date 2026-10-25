@@ -6,7 +6,7 @@ $work="$env:RUNNER_TEMP/upheaval-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $report="$root/recovery/evidence/upheaval/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $build="$work/plugins"
 New-Item -ItemType Directory -Force $build,$report | Out-Null
-$result=[ordered]@{sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;succeeded=$false;selectedSteps=@(3,4,5);sourceMain='bacfc69fc3e71c8116d1f22b933b8b6173170ecf';upheavalTree='5551fc26a6f96b62613443e0d0fa2958c14cbce0';builds=@();invocations=@();outputs=@();comparisons=@()}
+$result=[ordered]@{originalBaselinePassed=$false;sourceCommit=$env:GITHUB_SHA;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;succeeded=$false;selectedSteps=@(3,4,5);sourceMain='bacfc69fc3e71c8116d1f22b933b8b6173170ecf';upheavalBaseTree='5551fc26a6f96b62613443e0d0fa2958c14cbce0';publicCases='SDK/Mods/Upheaval/Data/Mod/PublicCases/manifest.json';builds=@();invocations=@();outputs=@();comparisons=@()}
 $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 function Check([string]$Label) {
  if($LASTEXITCODE -ne 0){Get-Content "$report/$Label.log";throw "$Label failed: $LASTEXITCODE"}
@@ -24,6 +24,10 @@ try {
  })|ConvertTo-Json -Depth 5|Set-Content "$report/inputs.json"
  Copy-Item SDK/defaultscript.cs "$report/defaultscript.cs"
  Copy-Item SDK/tools/*.dll $build
+ $targets=@(@{step=3;folder='AptUI';filter='*.xml'},@{step=4;folder='AdditionalMaps';filter='mapmetadata_*.xml'},@{step=5;folder='';filter='Mod.xml'})
+ foreach($mode in @('Original','Recovered')){
+  if($mode -eq 'Recovered'){
+   if(!$result.originalBaselinePassed){throw 'Original SDK gate has not passed'}
  $common=@('Relocation','ScalarParsing','DataInitializers','ResourceMarshaling','EnumBitset','ObjectFilter')|ForEach-Object{"recovery/src/Native/$_.cpp"}
  $xmlSources=@($common)+@(Get-ChildItem recovery/src/Native/Xml*.cpp -File|Where-Object Name -notmatch Draft|Sort-Object Name|ForEach-Object FullName)+@(Get-ChildItem recovery/src/Bridge/Xml*Compiler.cpp -File|Where-Object Name -notmatch Draft|Sort-Object Name|ForEach-Object FullName)
  Build-Plugin 'Recovered.XmlCompilerPriority' $xmlSources 'recovery/src/Plugin/XmlPriorityPlugin.cs' 'Recovered.XmlPriority.Plugin'
@@ -39,8 +43,7 @@ try {
   Check "$name-build"
   $result.builds+=@{assembly=$assembly;file="$output/$assembly.dll";sha256=(Get-FileHash "$output/$assembly.dll").Hash}
  }
- $targets=@(@{step=3;folder='AptUI';filter='*.xml'},@{step=4;folder='AdditionalMaps';filter='mapmetadata_*.xml'},@{step=5;folder='';filter='Mod.xml'})
- foreach($mode in @('Original','Recovered')){
+  }
   $sdk="$work/$mode"
   New-Item -ItemType Directory -Force $sdk|Out-Null
   Get-ChildItem SDK -Force|Where-Object Name -notin @('Mods','builtmods')|Copy-Item -Destination $sdk -Recurse
@@ -130,12 +133,24 @@ try {
     }
     $result.invocations+=$row
     Write-Host "$label success=$($row.succeeded) exit=$($p.ExitCode)"
+    if(!$row.succeeded){throw "$label failed; baseline gate prevents proceeding to recovered SDK"}
    }
   }
+  if($mode -eq 'Original'){$result.originalBaselinePassed=$true;Write-Host 'ORIGINAL SDK BASELINE PASSED; recovered build and execution now permitted'}
  }
  foreach($row in @($result.outputs|Where-Object mode -eq Original)){
   $other=@($result.outputs|Where-Object{$_.mode -eq 'Recovered' -and $_.step -eq $row.step -and $_.input -eq $row.input -and $_.extension -eq $row.extension})
   $result.comparisons+=@{step=$row.step;input=$row.input;extension=$row.extension;identical=($other.Count -eq 1 -and $other[0].sha256 -eq $row.sha256)}
+ }
+ $caseManifest=Get-Content 'SDK/Mods/Upheaval/Data/Mod/PublicCases/manifest.json' -Raw|ConvertFrom-Json
+ $xmlCalls=Get-Content "$report/trace/xml/calls.tsv"
+ $objectCalls=Get-Content "$report/trace/gameobject/calls.tsv"
+ $result['publicCaseCoverage']=@()
+ foreach($asset in $caseManifest.registeredAssets){
+  if($asset.type -eq 'WeaponTemplate'){continue} # Compared via complete four-output SDK differential; this plugin has no trace sink.
+  $matches=if($asset.type -eq 'GameObject'){@($objectCalls|Where-Object{($_ -split "`t")[0] -ceq $asset.id})}else{@($xmlCalls|Where-Object{($_ -split "`t")[1] -ceq $asset.id})}
+  $result.publicCaseCoverage+=@{type=$asset.type;id=$asset.id;calls=$matches.Count}
+  if(!$matches.Count){throw "Registered public asset never reached recovered plugin: $($asset.id)"}
  }
  $result.succeeded=$result.invocations.Count -eq 10 -and @($result.invocations|Where-Object{!$_.succeeded}).Count -eq 0 -and $result.comparisons.Count -eq 20 -and @($result.comparisons|Where-Object{!$_.identical}).Count -eq 0
  if(!$result.succeeded){throw 'Upheaval SDK invocation or output comparison failed'}

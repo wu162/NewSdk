@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- Attack weapon: AoE gas centered on the drone (DamageDealtAtSelfPosition).
+         CD must be ordered to attack an enemy to release gas.
+         All nugget effects radiate from the CD's position, not the target. -->
+    <WeaponTemplate
+        id="PublicYuri_ChaosDroneGasAura"
+        AttackRange="150.0"
+        AcceptableAimDelta="180d"
+        CanFireWhileMoving="true"
+        Flags="NOT_ATTRACTED_BY_MAGNETS"
+        RequiredAntiMask="ANTI_GROUND"
+        RadiusDamageAffects="ENEMIES NEUTRALS"
+        DamageDealtAtSelfPosition="true"
+        FireFX="PublicYuri_FX_ChaosDroneGasRing"
+        ClipSize="1">
+        <FiringDuration
+            MinSeconds="0.5s"
+            MaxSeconds="0.5s" />
+        <ClipReloadTime
+            MinSeconds="1.5s"
+            MaxSeconds="1.5s" />
+        <Nuggets>
+            <!-- AoE 0-damage hit centered on drone -->
+            <DamageNugget
+                Damage="0.0"
+                Radius="150.0"
+                DamageType="UNRESISTABLE"
+                DeathType="NORMAL" />
+
+            <!-- Apply EMOTION_DISSIDENT via attribute modifier to enemies in range -->
+            <AttributeModifierNugget
+                AttributeModifierName="PublicYuri_AttributeModifier_Hallucinate"
+                Radius="150.0">
+                <SpecialObjectFilter
+                    Rule="ANY"
+                    Relationship="ENEMIES NEUTRAL"
+                    Include="INFANTRY VEHICLE"
+                    StatusBitFlagsExclude="AIRBORNE_TARGET" />
+            </AttributeModifierNugget>
+
+            <!-- Tint affected enemies red BEFORE team switch.
+                 Must come before LuaEventNugget which changes the unit's team.
+                 Total = 0+18+2 = 20s matching dissident duration -->
+            <TintObjectsNugget
+                      PreColorTime="0s"
+                      SustainedColorTime="18.0s"
+                      PostColorTime="2s"
+                      Frequency="0"
+                      Amplitude="0"
+                      Radius="150.0" >
+                <SpecialObjectFilter
+                    Rule="ANY"
+                    Relationship="ENEMIES NEUTRAL"
+                    Include="INFANTRY VEHICLE"
+                    StatusBitFlagsExclude="AIRBORNE_TARGET" />
+                <Color R="3" G="0" B="0" />
+            </TintObjectsNugget>
+
+            <!-- Dispatch BecomeDissident ScriptedEvent to enemies in range.
+                 This is the trigger for dissident Lua behavior.
+                 MUST be last nugget — it switches the unit's team. -->
+            <LuaEventNugget
+                EventName="BecomeDissident"
+                Radius="150.0"
+                SendToEnemies="true"
+                SendToNeutral="true"
+                SendToAllies="false" />
+        </Nuggets>
+    </WeaponTemplate>
+</AssetDeclaration>

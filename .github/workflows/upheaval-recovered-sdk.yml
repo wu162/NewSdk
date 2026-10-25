@@ -5,13 +5,15 @@ on:
     paths:
       - '.github/workflows/upheaval-recovered-sdk.yml'
       - 'recovery/scripts/TestUpheavalSdk.ps1'
+      - 'SDK/Mods/Upheaval/Data/Mod/PublicCases/**'
+      - 'SDK/Mods/Upheaval/Data/Mod/PublicCases.xml'
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   sdk:
     runs-on: windows-2022
-    timeout-minutes: 60
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -26,10 +28,7 @@ jobs:
           $tokens=$null; $errors=$null
           [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path recovery/scripts/TestUpheavalSdk.ps1),[ref]$tokens,[ref]$errors)|Out-Null
           if($errors.Count){throw ($errors|Out-String)}
-      - name: Validate affected AIUpdate and WeaponSet chooser readers against original DLL
-        shell: pwsh
-        run: ./recovery/scripts/TestUpheavalGameObjectSets.ps1 -Scope vision-metadata
-      - name: Build recovered components and compare real Upheaval stages 3 4 5
+      - name: Gate public cases with original SDK then compare recovered stages 3 4 5
         shell: pwsh
         run: ./recovery/scripts/TestUpheavalSdk.ps1
       - uses: actions/upload-artifact@v4

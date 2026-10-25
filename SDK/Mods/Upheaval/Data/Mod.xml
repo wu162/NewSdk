@@ -16,5 +16,6 @@
 		<!-- Objects -->
 		<Include type="all" source="Mod/Structures.xml" />
 		<Include type="all" source="Mod/Units.xml" />
+		<Include type="all" source="Mod/PublicCases.xml" />
 	</Includes>
 </AssetDeclaration>

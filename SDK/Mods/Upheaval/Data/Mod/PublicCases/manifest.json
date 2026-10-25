@@ -1,0 +1,143 @@
+{
+  "sources": [
+    {
+      "repository": "https://github.com/CptGit/yuris-retaliation",
+      "commit": "7f3fa9b83acffb62d36da5c9710dad78992b3feb",
+      "files": [
+        {
+          "path": "AttributeModifier.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/AttributeModifier.xml",
+          "sha256": "0f3a09bd0b3cc38376eb04c724023a973c631c4abb41d94eac5cd3c6c43b78c2"
+        },
+        {
+          "path": "FXParticleSystemTemplate.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/FXParticleSystemTemplate.xml",
+          "sha256": "34015ab5a59211d7cbbac0aecee3cfd794f017b130fd14ce5e7021166d818732"
+        },
+        {
+          "path": "FXList.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/FXList.xml",
+          "sha256": "e305b2b35eabe07006b2ef90704bce2c139bd07ddd0c54910d6d07f2e38627a0"
+        },
+        {
+          "path": "WeaponTemplate.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/WeaponTemplate.xml",
+          "sha256": "9e6c4f2c114bc37996f7d305b15c132f4fe51531523e25f2ae0d40b3f3e79bab"
+        },
+        {
+          "path": "LogicCommand.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/LogicCommand.xml",
+          "sha256": "4dfcb1bbe3640639a5d4a3e7640b39ce3001015fa594c2a209663c412e5bdc9d"
+        },
+        {
+          "path": "LogicCommandSet.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/LogicCommandSet.xml",
+          "sha256": "a5f57f9fd5d65d3bfa80a78b9c6c8bd0b4c6feb6f83fefb812e8b112880dd5c0"
+        },
+        {
+          "path": "GameObject.xml",
+          "source": "src/Retaliation/Data/Yuri/ChaosDrone/GameObject.xml",
+          "sha256": "aff2281a7033cea7b4c81c0a56d09cf60785ac6494faf341e74ffc57303942b6"
+        }
+      ],
+      "license": "No license file supplied by upstream; attribution retained; compile fixtures only."
+    },
+    {
+      "repository": "https://github.com/valorad/RA3Afterdash",
+      "commit": "bc0adfd047471071159cb7f2c8d12441e40d5f2c",
+      "file": "Data/Mod/Common/ObjectFilterAsset.xml",
+      "selectedIds": [
+        "AlliedChronosphereSpecialPowerObjectFilter",
+        "JapanPointDefenseDroneSpecialPowerObjectFilter"
+      ],
+      "license": "GPL-3.0; full upstream license in Afterdash-LICENSE.txt"
+    }
+  ],
+  "registeredAssets": [
+    {
+      "type": "AttributeModifier",
+      "id": "PublicYuri_AttributeModifier_Hallucinate"
+    },
+    {
+      "type": "AttributeModifier",
+      "id": "PublicYuri_AttributeModifer_ChaosGenerator"
+    },
+    {
+      "type": "AttributeModifier",
+      "id": "PublicYuri_AttributeModifer_ChaosGeneratorTrigger"
+    },
+    {
+      "type": "FXParticleSystemTemplate",
+      "id": "PublicYuri_ChaosDroneGasRing"
+    },
+    {
+      "type": "FXList",
+      "id": "PublicYuri_FX_ChaosDroneGasRing"
+    },
+    {
+      "type": "WeaponTemplate",
+      "id": "PublicYuri_ChaosDroneGasAura"
+    },
+    {
+      "type": "LogicCommand",
+      "id": "PublicYuri_Command_ConstructChaosDrone"
+    },
+    {
+      "type": "LogicCommandSet",
+      "id": "PublicYuri_ChaosDroneCommandSet"
+    },
+    {
+      "type": "GameObject",
+      "id": "PublicYuri_ChaosDrone"
+    },
+    {
+      "type": "ObjectFilterAsset",
+      "id": "PublicAfterdash_AlliedChronosphereSpecialPowerObjectFilter"
+    },
+    {
+      "type": "ObjectFilterAsset",
+      "id": "PublicAfterdash_JapanPointDefenseDroneSpecialPowerObjectFilter"
+    }
+  ],
+  "adaptations": [
+    "Prefix local asset IDs and their references to avoid Upheaval collisions.",
+    "Use SDK BaseVehicle via original DATA:BaseObjects/BaseVehicle.xml include; upstream custom BaseVehicle is not imported.",
+    "Lua event names are preserved strings; Lua execution and gameplay are outside stages 3/4/5."
+  ],
+  "dependencies": {
+    "local": [
+      "LogicCommand -> ChaosDrone -> ChaosDroneCommandSet",
+      "ChaosDrone -> ChaosDroneGasAura -> AttributeModifier_Hallucinate",
+      "ChaosDroneGasAura -> FX_ChaosDroneGasRing -> ChaosDroneGasRing"
+    ],
+    "sdkArtIncludes": [
+      "DATA:GlobalData/GlobalDefines.xml",
+      "ART:AUAntiVehicleVehicleTech1_SKN.w3x",
+      "ART:AUAntiVehicleVehicleTech1_MOVA.w3x",
+      "ART:AUAntiVehicleVehicleTech1_D.xml",
+      "ART:EX_Headlights.w3x",
+      "ART:EXTnkTrack.xml",
+      "ART:fxring01.xml",
+      "ART:FXObeliskLaser.xml",
+      "ART:FXRailGunCoreDistortion.xml",
+      "ART:FXRailGunCoreMask.xml",
+      "DATA:BaseObjects/BaseVehicle.xml"
+    ],
+    "referenceStreams": [
+      "DATA:static.xml",
+      "DATA:global.xml",
+      "DATA:audio.xml"
+    ],
+    "stockAssetRefs": [
+      "FXDustCloud",
+      "Command_AttackMove",
+      "Command_Stop",
+      "Command_MoveToPositionAndCollect",
+      "AlliedTimeBombLvl1",
+      "AlliedTimeBombLvl2",
+      "AlliedTimeBombLvl3",
+      "JapanPointDefenseDrone"
+    ],
+    "note": "All remaining GameObject refs are stock RA3 assets resolved by the existing reference streams. Original SDK compile is the authoritative XSD/include/inheritance/link gate."
+  }
+}

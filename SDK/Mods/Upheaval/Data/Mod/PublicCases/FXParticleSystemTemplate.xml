@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+    <!-- Red gas cloud via FireFX. Moderate smoke blobs in a ring shape. -->
+    <FXParticleSystemTemplate
+        ParticleTexture="FXDustCloud"
+        PerParticleAttachedSystem=""
+        Priority="ALWAYS_RENDER"
+        SortLevel="1"
+        SystemLifetime="10"
+        Type="GPU_PARTICLE"
+        id="PublicYuri_ChaosDroneGasRing">
+        <Lifetime High="6" Low="5"/>
+        <Size High="35" Low="20"/>
+        <BurstCount High="10" Low="8"/>
+        <Alphas>
+            <Alpha Frame="1" High="0.4" Low="0.3" RelativeAge="0"/>
+            <Alpha Frame="2" High="0.4" Low="0.3" RelativeAge="40"/>
+            <Alpha Frame="3" High="0.15" Low="0.1" RelativeAge="70"/>
+            <Alpha Frame="4" High="0" Low="0" RelativeAge="100"/>
+        </Alphas>
+        <Colors>
+            <Color Frame="1" RelativeAge="0">
+                <Color r="0.8" g="0.1" b="0.05"/>
+            </Color>
+            <Color Frame="2" RelativeAge="60">
+                <Color r="0.5" g="0.05" b="0.0"/>
+            </Color>
+            <Color Frame="3" RelativeAge="100">
+                <Color r="0.2" g="0.02" b="0.0"/>
+            </Color>
+            <ColorScale High="3" Low="2"/>
+        </Colors>
+        <Physics>
+            <Default>
+                <VelocityDamping High="0.95" Low="0.9"/>
+            </Default>
+        </Physics>
+        <Draw>
+            <Gpu SpeedMultiplier="1"/>
+        </Draw>
+        <Volume>
+            <Cylinder IsHollow="true" Radius="150">
+                <Offset x="0" y="0" z="0"/>
+            </Cylinder>
+        </Volume>
+        <Velocity>
+            <Outward>
+                <Speed High="5" Low="2"/>
+                <OtherSpeed High="1" Low="-1"/>
+            </Outward>
+        </Velocity>
+        <Event/>
+        <Update>
+            <Default>
+                <SizeRate High="1" Low="0"/>
+                <SizeRateDamping High="0.98" Low="0.96"/>
+                <AngleZ High="2" Low="-2"/>
+                <AngularDampingXY High="1" Low="1"/>
+            </Default>
+        </Update>
+    </FXParticleSystemTemplate>
+</AssetDeclaration>

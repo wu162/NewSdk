@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <ObjectFilterAsset id="PublicAfterdash_AlliedChronosphereSpecialPowerObjectFilter">
+    <Filter Rule="ANY" Include="INFANTRY VEHICLE" Exclude="AIRCRAFT" StatusBitFlagsExclude="SUBMERGED AIRBORNE_TARGET NOT_IN_WORLD">
+      <IncludeThing>AlliedTimeBombLvl1</IncludeThing>
+      <IncludeThing>AlliedTimeBombLvl2</IncludeThing>
+      <IncludeThing>AlliedTimeBombLvl3</IncludeThing>
+    </Filter>
+  </ObjectFilterAsset>
+  <ObjectFilterAsset id="PublicAfterdash_JapanPointDefenseDroneSpecialPowerObjectFilter">
+    <Filter Rule="ANY" Relationship="ALLIES" Include="VEHICLE HUGE_VEHICLE SHIP" Exclude="INFANTRY AIRCRAFT SUBMARINE" StatusBitFlagsExclude="SUBMERGED AIRBORNE_TARGET IN_NANOHIVE NOT_IN_WORLD POINT_DEFENSE_DRONE_ATTACHED">
+      <ExcludeThing>JapanPointDefenseDrone</ExcludeThing>
+    </Filter>
+  </ObjectFilterAsset>
+</AssetDeclaration>

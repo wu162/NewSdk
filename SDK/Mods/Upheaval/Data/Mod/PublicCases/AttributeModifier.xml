@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+    <AttributeModifier
+        id="PublicYuri_AttributeModifier_Hallucinate"
+        Category="NONE"
+        Duration="20s"
+        ObjectStatusToSet="NON_AUTOACQUIRABLE" >
+    </AttributeModifier>
+
+    <AttributeModifier
+        id="PublicYuri_AttributeModifer_ChaosGenerator"
+        ObjectStatusToSet="GENERIC_TOGGLE_STATE" >
+        <Modifier Type="SPEED" Value="0%"/>
+    </AttributeModifier>
+
+    <AttributeModifier
+        id="PublicYuri_AttributeModifer_ChaosGeneratorTrigger"
+        ObjectStatusToSet="GENERIC_TOGGLE_STATE" >
+    </AttributeModifier>
+</AssetDeclaration>

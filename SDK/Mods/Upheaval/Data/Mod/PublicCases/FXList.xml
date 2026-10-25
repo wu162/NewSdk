@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+    <!-- Red ring triggered by gas weapon FireFX on each attack -->
+    <FXList id="PublicYuri_FX_ChaosDroneGasRing">
+        <NuggetList>
+            <ParticleSystem
+                Particle="PublicYuri_ChaosDroneGasRing"
+                OrientToObject="true">
+            </ParticleSystem>
+        </NuggetList>
+    </FXList>
+</AssetDeclaration>
