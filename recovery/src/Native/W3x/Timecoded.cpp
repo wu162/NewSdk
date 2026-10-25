@@ -116,6 +116,19 @@ void Put16(unsigned char* p, std::uint16_t value, bool be) {
 void Put32(unsigned char* p, std::uint32_t value, bool be) {
     for (unsigned i=0;i<4;++i) p[be?3-i:i]=static_cast<unsigned char>(value>>(i*8));
 }
+void PutFloat(unsigned char* p, std::uint32_t bits, bool be) {
+    Put32(p,bits,be);
+    if (be) {
+        // WriteOut calls the original float-returning EndianToPlatform helper.
+        // Its swapped word passes through x87 as a float, quieting an sNaN
+        // created by the byte swap even when the source float was finite.
+        const std::uint32_t swapped=(bits>>24)|((bits>>8)&0x0000ff00u)|
+            ((bits<<8)&0x00ff0000u)|(bits<<24);
+        if ((swapped&0x7f800000u)==0x7f800000u &&
+            (swapped&0x007fffffu)!=0 && (swapped&0x00400000u)==0)
+            p[2]|=0x40u;
+    }
+}
 }
 TimecodedChannel CompressTimecoded(std::uint32_t type, std::uint16_t pivot,
     const std::vector<TimecodedFrame>& frames, float translationError,
@@ -167,7 +180,7 @@ TimecodedEncoded EncodeTimecoded(const TimecodedChannel& channel, bool bigEndian
         for (std::size_t j=0;j<width;++j) {
             std::uint32_t bits;
             std::memcpy(&bits,&channel.frames[i].values[j],4);
-            Put32(encoded.values.data()+(i*width+j)*4,bits,bigEndian);
+            PutFloat(encoded.values.data()+(i*width+j)*4,bits,bigEndian);
         }
     }
     return encoded;

@@ -52,6 +52,19 @@ void ValidateChannel(const AdaptiveDeltaChannel& c) {
 void Put(unsigned char* out,std::uint32_t value,unsigned bytes,bool big) {
     for (unsigned i=0;i<bytes;++i) out[i]=static_cast<unsigned char>(value>>((big?bytes-i-1:i)*8));
 }
+void PutFloat(unsigned char* out,float value,bool big) {
+    std::uint32_t bits=Bits(value);
+    if (big) {
+        const std::uint32_t swapped=((bits&0x000000ffu)<<24)|((bits&0x0000ff00u)<<8)|
+            ((bits&0x00ff0000u)>>8)|((bits&0xff000000u)>>24);
+        // WriteOut reloads its swapped float local (IL_015b / IL_0266)
+        // before stind.r4. CLR x86 x87 loads quiet even an sNaN manufactured
+        // by swapping a finite source. Swapped bit22 is source bit14.
+        if ((swapped&0x7f800000u)==0x7f800000u && (swapped&0x007fffffu)!=0)
+            bits|=0x00004000u;
+    }
+    Put(out,bits,4,big);
+}
 }
 float AdaptiveDeltaFilter(unsigned filter) {
     if (filter>255) throw std::invalid_argument("Adaptive delta filter out of range");
@@ -161,11 +174,11 @@ AdaptiveDeltaEncoded EncodeAdaptiveDelta(const AdaptiveDeltaChannel& c,bool bigE
     Put(out.root.data()+8,(frameCount/width)*16u,4,bigEndian);
     Put(out.root.data()+12,width,4,bigEndian);
     Put(out.root.data()+16,c.pivot,2,bigEndian);
-    Put(out.root.data()+20,Bits(c.scale),4,bigEndian);
+    PutFloat(out.root.data()+20,c.scale,bigEndian);
     Put(out.root.data()+24,width,4,bigEndian);
     Put(out.root.data()+32,c.bits,4,bigEndian);
     out.initial.resize(width*4u);
-    for (std::uint32_t i=0;i<width;++i) Put(out.initial.data()+i*4u,Bits(c.initial[i]),4,bigEndian);
+    for (std::uint32_t i=0;i<width;++i) PutFloat(out.initial.data()+i*4u,c.initial[i],bigEndian);
     out.data.reserve(frameCount*(c.bits==4?9u:17u));
     for (std::size_t i=0;i<c.frames.size();++i) {
         out.data.push_back(c.frames[i].filter);

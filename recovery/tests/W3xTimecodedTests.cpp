@@ -2,6 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
+#include <cstring>
 using namespace Recovered::W3x;
 namespace {
 TimecodedFrame Scalar(unsigned index,float value,bool binary=false) {
@@ -47,6 +48,16 @@ int main() {
     assert(le.values[2]==0x80 && le.values[3]==0x3f);
     assert(be.values[0]==0x3f && be.values[1]==0x80);
     assert(be.codes[0]==0x23 && be.codes[1]==0x45);
+    // A finite source whose byte swap is an sNaN: original float-returning
+    // EndianToPlatform quiets the swapped representation through x87.
+    std::uint32_t specialBits=0xf6d882ffu;
+    float special;
+    std::memcpy(&special,&specialBits,4);
+    c=Compress(0,{Scalar(0,special)},-1.f);
+    be=EncodeTimecoded(c,true);
+    le=EncodeTimecoded(c,false);
+    assert(be.values[0]==0xf6 && be.values[1]==0xd8 && be.values[2]==0xc2 && be.values[3]==0xff);
+    assert(le.values[0]==0xff && le.values[1]==0x82 && le.values[2]==0xd8 && le.values[3]==0xf6);
     TimecodedChannel empty=Compress(0,{});
     assert(EstimateTimecodedSize(empty)==0);
     bool rejected=false;

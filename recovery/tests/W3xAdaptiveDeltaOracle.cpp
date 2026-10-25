@@ -1,6 +1,7 @@
 // x86 CLR4 component oracle; never starts SDK/BAB. Original internal method
 // tokens and layouts are from extraction 40162934653-1, SHA fixed by runner.
 #include "../src/Native/W3x/AdaptiveDelta.h"
+#include "../src/Native/Relocation.h"
 #include <cmath>
 #include <cstdint>
 #include <cstring>
@@ -12,7 +13,7 @@ using namespace System;
 using namespace System::Reflection;
 using namespace Recovered::W3x;
 
-static unsigned frameFixtures, channelFixtures, comparedBytes, nullChannels;
+static unsigned frameFixtures, channelFixtures, comparedBytes, nullChannels, serialized;
 static std::uint32_t Bits(float value) { std::uint32_t b; std::memcpy(&b,&value,4); return b; }
 static float Float(std::uint32_t bits) { float f; std::memcpy(&f,&bits,4); return f; }
 static std::uint32_t ReadU32(const unsigned char* p) { std::uint32_t n; std::memcpy(&n,p,4); return n; }
@@ -93,7 +94,61 @@ static void FrameCase(MethodInfo^ original,unsigned filter,unsigned bits,
     }
     ++frameFixtures;
 }
-static void ChannelCase(MethodInfo^ original,MethodInfo^ estimate,
+static Object^ P(MethodInfo^ method,int index,void* pointer) {
+    return Pointer::Box(pointer,method->GetParameters()[index]->ParameterType);
+}
+static Recovered::Relo::Chunk NativeChunk(const AdaptiveDeltaChannel& channel,bool big) {
+    AdaptiveDeltaEncoded encoded=EncodeAdaptiveDelta(channel,big);
+    Recovered::Relo::Tracker tracker;
+    void* root=0;
+    unsigned char* output=static_cast<unsigned char*>(tracker.Push(&root,44,1));
+    std::memcpy(output,encoded.root.data(),44);
+    void* initial=tracker.Push(reinterpret_cast<void**>(output+28),4,static_cast<std::uint32_t>(encoded.initial.size()/4));
+    std::memcpy(initial,encoded.initial.data(),encoded.initial.size());tracker.Pop();
+    void* data=tracker.Push(reinterpret_cast<void**>(output+40),1,static_cast<std::uint32_t>(encoded.data.size()));
+    std::memcpy(data,encoded.data.data(),encoded.data.size());tracker.Pop();tracker.Pop();
+    return tracker.MakeRelocatable(big,0);
+}
+static void WriteCase(Assembly^ a,unsigned char* compressed,const AdaptiveDeltaChannel& channel,bool big) {
+    MethodInfo^ write=Resolve(a,0x06000015,4), ^finalize=Resolve(a,0x06000038,4);
+    MethodInfo^ destroy=Resolve(a,0x06000037,1), ^destroyChunk=Resolve(a,0x06000035,1);
+    unsigned char tracker[88]={0},chunk[24]={0};void* root=0;
+    array<Object^>^ args=gcnew array<Object^>(4);
+    args[0]=P(write,0,compressed);args[1]=P(write,1,tracker);args[2]=P(write,2,&big);args[3]=P(write,3,&root);
+    Invoke(write,args);
+    try {
+        args=gcnew array<Object^>(4);
+        args[0]=P(finalize,0,tracker);args[1]=P(finalize,1,chunk);args[2]=P(finalize,2,&big);args[3]=static_cast<UInt32>(0);
+        Invoke(finalize,args);
+        try {
+            Recovered::Relo::Chunk native=NativeChunk(channel,big);
+            const std::vector<unsigned char>* buffers[]={&native.instance,&native.relocations,&native.imports};
+            for(int i=0;i<3;++i) {
+                if(ReadU32(chunk+i*8+4)!=buffers[i]->size()) throw gcnew Exception("AdaptiveDelta serialized buffer size mismatch");
+                Equal(ReadPointer(chunk+i*8),buffers[i]->data(),static_cast<unsigned>(buffers[i]->size()),"WriteOut/Finalize three buffers");
+            }
+            ++serialized;
+        } finally {array<Object^>^ d=gcnew array<Object^>(1);d[0]=P(destroyChunk,0,chunk);Invoke(destroyChunk,d);}
+    } finally {array<Object^>^ d=gcnew array<Object^>(1);d[0]=P(destroy,0,tracker);Invoke(destroy,d);}
+}
+static void ManualWriteCase(Assembly^ a,const AdaptiveDeltaChannel& channel,bool big) {
+    unsigned char compressed[52]={0};
+    WriteU32(compressed,channel.type);std::memcpy(compressed+4,&channel.pivot,2);
+    std::memcpy(compressed+8,&channel.scale,4);WriteU32(compressed+28,channel.bits);
+    WriteU32(compressed+48,static_cast<std::uint32_t>(channel.initial.size()));
+    std::vector<float> initial=channel.initial;
+    std::vector<unsigned char> frames(channel.frames.size()*17);
+    for(std::size_t i=0;i<channel.frames.size();++i) {
+        frames[i*17]=channel.frames[i].filter;
+        for(unsigned j=0;j<16;++j) frames[i*17+1+j]=static_cast<unsigned char>(channel.frames[i].delta[j]);
+    }
+    void* begin=initial.data();void* end=initial.data()+initial.size();
+    std::memcpy(compressed+12,&begin,4);std::memcpy(compressed+16,&end,4);std::memcpy(compressed+20,&end,4);
+    begin=frames.data();end=frames.data()+frames.size();
+    std::memcpy(compressed+32,&begin,4);std::memcpy(compressed+36,&end,4);std::memcpy(compressed+40,&end,4);
+    WriteCase(a,compressed,channel,big);
+}
+static void ChannelCase(Assembly^ a,MethodInfo^ original,MethodInfo^ estimate,
     const std::vector<std::vector<float> >& samples,float maxError) {
     const std::size_t width=samples.empty()?1:samples[0].size();
     // Source EASTL vector size16, SrcFrame size24: index0; value vector4..19;
@@ -156,6 +211,7 @@ static void ChannelCase(MethodInfo^ original,MethodInfo^ estimate,
     const std::uint32_t expectedEstimate=safe_cast<unsigned int>(Invoke(estimate,estimateArgs));
     const std::uint32_t actualEstimate=EstimateAdaptiveDeltaSize(actual);
     Equal(&expectedEstimate,&actualEstimate,4,"Original estimate formula");
+    WriteCase(a,expected,actual,false);WriteCase(a,expected,actual,true);
     // Original owns this small allocation through MSVCR80. The standalone oracle
     // intentionally keeps it for its process lifetime rather than freeing it
     // through the host's unrelated CRT. Bounded fixture count <1MB in total.
@@ -206,12 +262,29 @@ int main(array<String^>^ args) {
                         random=random*1664525u+1013904223u;
                         samples[i][j]=pattern==0?2.0f:(pattern==1?float(i+j)*0.125f:float(int(random%1000u)-500)/100.0f);
                     }
-                    ChannelCase(compress,estimate,samples,0.0f);
-                    ChannelCase(compress,estimate,samples,0.03f);
-                    ChannelCase(compress,estimate,samples,1.0f);
+                    ChannelCase(a,compress,estimate,samples,0.0f);
+                    ChannelCase(a,compress,estimate,samples,0.03f);
+                    ChannelCase(a,compress,estimate,samples,1.0f);
                 }
+        // Drive the ACTUAL original WriteOut with known compressed native
+        // layouts, including finite words that become sNaN/qNaN/Inf only after
+        // swapping. This distinguishes float-store semantics from integer swaps.
+        const std::uint32_t endianWords[]={0x0080807fu,0x76d882ffu,0xf6d882ffu,
+            0x0100807fu,0x010080ffu,0x0000807fu,0x0100c07fu,0x00000000u};
+        for(unsigned si=0;si<8;++si) for(unsigned vi=0;vi<8;++vi)
+        for(unsigned bits=4;bits<=8;bits+=4) for(unsigned width=1;width<=4;width+=3) {
+            AdaptiveDeltaChannel c;c.type=0x0100807fu;c.pivot=0xff80u;c.scale=Float(endianWords[si]);c.bits=bits;
+            for(unsigned j=0;j<width;++j) c.initial.push_back(Float(endianWords[(vi+j)%8]));
+            for(unsigned j=0;j<width*2;++j) {
+                AdaptiveDeltaFrame f;f.filter=static_cast<std::uint8_t>(j*31u);
+                for(unsigned k=0;k<16;++k) f.delta[k]=static_cast<std::int8_t>(int((j+k)%(bits==4?16:256))-(bits==4?8:128));
+                c.frames.push_back(f);
+            }
+            try {ManualWriteCase(a,c,false);ManualWriteCase(a,c,true);}
+            catch(Exception^) {Console::Error->WriteLine("WriteOut scaleBits={0:X8} initialBits={1:X8} bits={2}",endianWords[si],endianWords[vi],bits);throw;}
+        }
         Console::WriteLine(String::Format("PASS W3X adaptive delta original differential frameFixtures={0} channelFixtures={1}",frameFixtures,channelFixtures)+
-            String::Format(" comparedBytes={0} nullChannels={1}; SDK not run",comparedBytes,nullChannels));
+            String::Format(" comparedBytes={0} nullChannels={1} serializedChunks={2}; SDK not run",comparedBytes,nullChannels,serialized));
         return 0;
     } catch(Exception^ e) { Console::Error->WriteLine(e); return 1; }
       catch(const std::exception& e) { Console::Error->WriteLine(gcnew String(e.what())); return 1; }

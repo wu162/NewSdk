@@ -134,6 +134,17 @@ int main(array<String^>^ args) {
             try {Test(a,type,input,errors[ei],rates[ri]);}
             catch(Exception^) {Console::Error->WriteLine("type={0} count={1} pattern={2}",type,counts[ci],pattern);Console::Error->WriteLine("base={0} error={1} rate={2}",base,errors[ei],rates[ri]);throw;}
         }
+        // Finite source words with sNaN/qNaN/infinity after byte swap.
+        // Original WriteOut's EndianToPlatform(float) return quiets swapped
+        // signaling NaNs; this must be compared through the actual helper.
+        const std::uint32_t endianWords[]={0xf6d882ffu,0x0100807fu,0x010080ffu,
+            0x0000807fu,0x0100c07fu,0x00000000u,0x00000080u};
+        for(unsigned wi=0;wi<sizeof(endianWords)/sizeof(endianWords[0]);++wi) {
+            float value;
+            std::memcpy(&value,&endianWords[wi],4);
+            TimecodedFrame frame={0,std::vector<float>(1,value),false};
+            Test(a,0,std::vector<TimecodedFrame>(1,frame),-1.f,1.f);
+        }
         Console::WriteLine("PASS W3X Timecoded original differential channels={0} serializedChunks={1} comparedBytes={2}; Compress/Estimate/WriteOut; SDK not run",channels,serialized,comparedBytes);
         return 0;
     }catch(Exception^ e){Console::Error->WriteLine(e);return 1;}

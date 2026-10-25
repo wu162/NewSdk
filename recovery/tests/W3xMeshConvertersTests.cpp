@@ -37,6 +37,15 @@ void Golden() {
     Check(LE(&out[0])==0x3e800000);Check(LE(&out[4])==0x3e800000);
     out=Convert(MeshConversion::CompressTexCoord,uv,1,8,12);
     Check(out[0]==0&&out[1]==0x34&&out[2]==0&&out[3]==0x34);
+    // Original run40165200024: finite v becomes an sNaN only AFTER byte
+    // swapping into a float local, and the CLR float store quiets that sNaN.
+    float swappedNaN[2]={Bits(0xa89a8620U),Bits(0x76d882ffU)};
+    out=Convert(MeshConversion::CopyTexCoord,swappedNaN,1,8,12,true);
+    const unsigned char swappedGolden[]={0xa8,0x9a,0x86,0x20,0xf6,0xd8,0xc2,0xff};
+    Check(std::memcmp(&out[0],swappedGolden,8)==0);
+    float swappedU[2]={Bits(0x76d882ffU),0.0f};
+    out=Convert(MeshConversion::CopyTexCoord,swappedU,1,8,12,true);
+    Check(LE(&out[0])==0xffc2d876U);
     float xyz[3]={1.0f,-2.0f,0.0f};
     out=Convert(MeshConversion::Vector3ToHalf4,xyz,1,12,12);
     const unsigned char expected[]={0,0x3c,0,0xc0,0,0,0,0};

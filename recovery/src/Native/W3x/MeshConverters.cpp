@@ -17,8 +17,21 @@ void Store16(unsigned char* p, std::uint16_t v, bool be) {
 void Store32(unsigned char* p, std::uint32_t v, bool be) {
     for (int i=0;i<4;++i) p[be ? 3-i : i] = static_cast<unsigned char>(v >> (i*8));
 }
+std::uint32_t QuietNaNBits(std::uint32_t bits) {
+    if ((bits & 0x7f800000U) == 0x7f800000U && (bits & 0x007fffffU) != 0)
+        bits |= 0x00400000U;
+    return bits;
+}
 void StoreFloat(unsigned char* p, float v, bool be) {
-    std::uint32_t bits; std::memcpy(&bits,&v,4); Store32(p,bits,be);
+    std::uint32_t bits; std::memcpy(&bits,&v,4);
+    // CopyTexCoord stores the endian-swapped bits back into a float local,
+    // then executes ldloc/stind.r4. CLR4 x86 quiets a signaling NaN at that
+    // float store, even when byte swapping a perfectly finite source value
+    // happened to manufacture the signaling NaN. A raw byte store differs.
+    bits=QuietNaNBits(bits);
+    if (be) bits=(bits>>24) | ((bits>>8)&0x0000ff00U) |
+        ((bits<<8)&0x00ff0000U) | (bits<<24);
+    Store32(p,QuietNaNBits(bits),false);
 }
 // C++ casts of a negative FP value to unsigned are undefined. The original
 // CLR x86 conv.u4 truncates and keeps the low 32 bits in this finite range.

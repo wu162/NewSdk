@@ -101,6 +101,18 @@ int main() {
         Check(EncodeAdaptiveDelta(wire,true).data==encoded.data,"Packed bytes not endian swapped");
         wire.bits=8; encoded=EncodeAdaptiveDelta(wire,false);
         Check(encoded.data.size()==17 && encoded.data[1]==0xf8 && encoded.data[16]==7,"Eight bit wire fixture");
+        // Byte-swapping finite input can manufacture an sNaN. Original CLR
+        // WriteOut reloads the swapped float; integer fields do not quiet.
+        const std::uint32_t scaleBits=0x0080807fu, initialBits=0x76d882ffu;
+        std::memcpy(&wire.scale,&scaleBits,4);
+        std::memcpy(&wire.initial[0],&initialBits,4);
+        wire.type=scaleBits;
+        AdaptiveDeltaEncoded snanBig=EncodeAdaptiveDelta(wire,true);
+        AdaptiveDeltaEncoded snanLittle=EncodeAdaptiveDelta(wire,false);
+        Check(U32(snanBig.root.data()+20,true)==0x0080c07fu,"Swapped scale sNaN must quiet");
+        Check(U32(snanBig.initial.data(),true)==0x76d8c2ffu,"Swapped initial sNaN must quiet");
+        Check(U32(snanBig.root.data()+4,true)==scaleBits,"Integer field must not quiet");
+        Check(U32(snanLittle.root.data()+20,false)==scaleBits && U32(snanLittle.initial.data(),false)==initialBits,"Finite LE float bits unchanged");
         unsigned four=0,eight=0,rejected=0;
         std::uint32_t random=123456789;
         for(unsigned fixture=0;fixture<40;++fixture) {
