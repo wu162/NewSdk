@@ -1,0 +1,14 @@
+{
+  "requestedGroups": [
+    "window-snapshot",
+    "schedule",
+    "adp4-plugin",
+    "metadata-state"
+  ],
+  "rawEvidenceIsOriginalOnly": true,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "runId": "40234514000"
+}

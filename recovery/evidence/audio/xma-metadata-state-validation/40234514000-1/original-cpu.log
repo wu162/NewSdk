@@ -1,0 +1,9 @@
+PASS captured actual metadata state xma-1-257-ram three original allocations unchanged
+PASS captured actual metadata state xma-1-257-stream three original allocations unchanged
+PASS captured actual metadata state xma-1-4096-ram three original allocations unchanged
+PASS captured actual metadata state xma-1-4096-stream three original allocations unchanged
+PASS captured actual metadata state xma-2-257-ram three original allocations unchanged
+PASS captured actual metadata state xma-2-257-stream three original allocations unchanged
+PASS captured actual metadata state xma-2-4096-ram three original allocations unchanged
+PASS captured actual metadata state xma-2-4096-stream three original allocations unchanged
+PASS actual original metadata states: 8 captures, 8 original encodes, three allocations unchanged; captured-state EA/seek exactly equal real codec allocations; original entry restored before replay

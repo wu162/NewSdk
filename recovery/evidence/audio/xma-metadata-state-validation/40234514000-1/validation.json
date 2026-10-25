@@ -1,0 +1,38 @@
+{
+  "audioFileXmaRouteEnabled": false,
+  "originalCodecAllocationsUnchanged": true,
+  "xmaEncodingRecovered": false,
+  "baselineRunAttempt": "1",
+  "status": "passed",
+  "scope": "Actual original XMA metadata state captured by native-only entry journal, replayed against original codec EA/seek allocations and isolated candidate",
+  "syntheticStateRecords": 0,
+  "baselineReceiptSha256": "3ee425fb3ad857154c8673d717268dc514435686301240469553cd3c2685841b",
+  "actualWrapperStates": 8,
+  "originalMetadataReplayMatchesRealCodecAllocations": true,
+  "oracleSha256": "56684a66af5fe7ebfc72cb5d70f4fbbfe3068103294d12e101efea4e479a4d34",
+  "modes": [
+    {
+      "summary": "PASS candidate actual metadata states: 8 captured wrapper states; EA44 and BEseek4 exactly equal original real codec allocations, WAVE52 equal original captured-state replay; source inputs immutable; no encoding support",
+      "recoveredSha256": "4d528ed4189aef316d642c7ea517e5c6b9b72c3793a25696b00121aad967e628",
+      "configuration": "Debug",
+      "actualWrapperStates": 8,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true
+    },
+    {
+      "summary": "PASS candidate actual metadata states: 8 captured wrapper states; EA44 and BEseek4 exactly equal original real codec allocations, WAVE52 equal original captured-state replay; source inputs immutable; no encoding support",
+      "recoveredSha256": "029ad3792c43b04e6b501e4ea2b8302ebcae1ac3c6b23dd15a09a27dd3063644",
+      "configuration": "Release",
+      "actualWrapperStates": 8,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true
+    }
+  ],
+  "originalCpuValidated": true,
+  "baselineRunId": "40232525056",
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "runId": "40234514000",
+  "runAttempt": "1",
+  "sdkValidated": false
+}

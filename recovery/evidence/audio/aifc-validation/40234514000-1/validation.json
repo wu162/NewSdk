@@ -1,0 +1,32 @@
+{
+  "originalRecords": 1440,
+  "status": "passed",
+  "sdkValidated": false,
+  "sourceCommit": "5495da2d703ca429434de369f5414cd45e4de819",
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "safetyRefusals": 10,
+      "configuration": "Debug",
+      "passed": true,
+      "transcriptSha256": "64372b24b261c8bfde9b9d0a70298013766082f85387ac7d48d46fe501c8a566",
+      "records": 1440,
+      "originalAbsentFromRecoveredHost": true,
+      "sampleBitInvariants": 60,
+      "recoveredSha256": "2cb74c66ecc8c73cf2c51765e1c21494f81ce866ac954b669607cdfb71be7b32"
+    },
+    {
+      "safetyRefusals": 10,
+      "configuration": "Release",
+      "passed": true,
+      "transcriptSha256": "64372b24b261c8bfde9b9d0a70298013766082f85387ac7d48d46fe501c8a566",
+      "records": 1440,
+      "originalAbsentFromRecoveredHost": true,
+      "sampleBitInvariants": 60,
+      "recoveredSha256": "3a35e8926f9c3d81eacddc4fa75778111ee577b0859600947365e3f2517c04dd"
+    }
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "scope": "AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS, Xenon NONE, PS3 XAS; RAM/streamed",
+  "runId": "40234514000"
+}

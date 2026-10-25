@@ -1,0 +1,1 @@
+PASS candidate actual metadata states: 8 captured wrapper states; EA44 and BEseek4 exactly equal original real codec allocations, WAVE52 equal original captured-state replay; source inputs immutable; no encoding support

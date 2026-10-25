@@ -1,0 +1,10 @@
+recovery\tests\AudioXmaMetadataStateOracle.cs(85,51): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedFile.path' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaMetadataStateOracle.cs(85,68): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedFile.length' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaMetadataStateOracle.cs(85,90): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedFile.sha256' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,51): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.name' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,67): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.channels' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,76): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.frames' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,83): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.sampleRate' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,94): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.blockBytes' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,117): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.streamed' is never assigned to, and will always have its default value false
+recovery\tests\AudioXmaMetadataStateOracle.cs(86,145): warning CS0649: Field 'AudioXmaMetadataStateOracle.SavedCase.files' is never assigned to, and will always have its default value null
