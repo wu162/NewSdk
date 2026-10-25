@@ -1,0 +1,120 @@
+Command Line: D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods /iod:D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods /iod:D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00.0471253] BinaryAssetBuilder started
+[00:00:00.9709724] Cached session data not available.
+[00:00:00.9865810] Session caching enabled ('D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.9865810] Network caching enabled ('D:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\Original\builtmods\cache').
+[00:00:01.0334576] Loading 'file://d:\a\_temp\texture-sdk-9ce594a6ea6143f9b78072c510ba97a7\original\mods\recoverytexture\data\mod.xml'.
+[00:00:01.1272149] mod.xml: Compiling Texture:RecoveredTexture_0 [21e727da:c4014f66]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_0 [21e727da:c4014f66] forceformat D3DFMT_A8R8G8B8.
+[00:00:01.2376288] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.2532685] mod.xml: Compiling Texture:RecoveredTexture_1 [21e727da:75a17cd2]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_1 [21e727da:75a17cd2] forceformat D3DFMT_X8R8G8B8.
+[00:00:01.2844964] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.2844964] mod.xml: Compiling Texture:RecoveredTexture_2 [21e727da:7a7605cd]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_2 [21e727da:7a7605cd] forceformat D3DFMT_R5G6B5.
+[00:00:01.3157529] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3157529] mod.xml: Compiling OnDemandTexture:RecoveredTexture_3 [9312b9ac:64c129f1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_3 [9312b9ac:64c129f1] forceformat D3DFMT_A8R8G8B8.
+[00:00:01.3469791] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3469791] mod.xml: Compiling OnDemandTexture:RecoveredTexture_4 [9312b9ac:2492e965]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_4 [9312b9ac:2492e965] forceformat D3DFMT_X8R8G8B8.
+[00:00:01.3626394] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3782476] mod.xml: Compiling OnDemandTexture:RecoveredTexture_5 [9312b9ac:357224d0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_5 [9312b9ac:357224d0] forceformat D3DFMT_R5G6B5.
+[00:00:01.3939043] Resizing the image from 512x128 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4095103] mod.xml: Compiling Texture:RecoveredTexture_6 [21e727da:bd0429c2]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_6 [21e727da:bd0429c2] forceformat D3DFMT_A8R8G8B8.
+[00:00:01.4251536] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4407631] mod.xml: Compiling Texture:RecoveredTexture_7 [21e727da:45454814]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_7 [21e727da:45454814] forceformat D3DFMT_X8R8G8B8.
+[00:00:01.4563893] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5501160] mod.xml: Compiling Texture:RecoveredTexture_8 [21e727da:f428344b]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_8 [21e727da:f428344b] forceformat D3DFMT_R5G6B5.
+[00:00:01.5657698] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5657698] mod.xml: Compiling OnDemandTexture:RecoveredTexture_9 [9312b9ac:10b44b5b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_9 [9312b9ac:10b44b5b] forceformat D3DFMT_A8R8G8B8.
+[00:00:01.5970271] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5970271] mod.xml: Compiling OnDemandTexture:RecoveredTexture_10 [9312b9ac:b53c9d02]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_10 [9312b9ac:b53c9d02] forceformat D3DFMT_X8R8G8B8.
+[00:00:01.6282382] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6282382] mod.xml: Compiling OnDemandTexture:RecoveredTexture_11 [9312b9ac:c9acaaeb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_11 [9312b9ac:c9acaaeb] forceformat D3DFMT_R5G6B5.
+[00:00:01.6596995] Resizing the image from 128x512 to 64x256 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6596995] mod.xml: Compiling Texture:RecoveredTexture_12 [21e727da:f7cc4d4c]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_12 [21e727da:f7cc4d4c] forceformat D3DFMT_A8R8G8B8.
+[00:00:01.7380256] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7536590] mod.xml: Compiling Texture:RecoveredTexture_13 [21e727da:39b9889d]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_13 [21e727da:39b9889d] forceformat D3DFMT_X8R8G8B8.
+[00:00:01.8317679] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8630534] mod.xml: Compiling Texture:RecoveredTexture_14 [21e727da:0c4caeef]
+ProcessTexture PS3 Texture Texture:RecoveredTexture_14 [21e727da:0c4caeef] forceformat D3DFMT_R5G6B5.
+[00:00:01.9411325] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9567879] mod.xml: Compiling OnDemandTexture:RecoveredTexture_15 [9312b9ac:df51ccf1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_15 [9312b9ac:df51ccf1] forceformat D3DFMT_A8R8G8B8.
+[00:00:02.0352313] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0977236] mod.xml: Compiling OnDemandTexture:RecoveredTexture_16 [9312b9ac:20bd0c24]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_16 [9312b9ac:20bd0c24] forceformat D3DFMT_X8R8G8B8.
+[00:00:02.1758861] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1916167] mod.xml: Compiling OnDemandTexture:RecoveredTexture_17 [9312b9ac:5b2441bb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredTexture_17 [9312b9ac:5b2441bb] forceformat D3DFMT_R5G6B5.
+[00:00:02.2698033] Resizing the image from 1024x256 to 256x64 on the PS3.  Specify the 'AllowAutomaticResize' field in the texture XML to override this behavior.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3010553] Resolving references: mods\recoverytexture\data\mod
+[00:00:02.3166936] Stable sorting assets
+[00:00:02.3166936] Sorting by schema dependencies
+[00:00:02.3166936] Sorting by asset dependencies
+[00:00:02.3166936] Generating stream: mods\recoverytexture\data\mod
+[00:00:02.3479447] Slow asset clean-up (expected: 18, actual: 18, old: 0, current: 18)
+[00:00:02.3479447] Slow custom data clean-up (expected: 9, actual: 9, old asset count: 0)
+[00:00:02.3479447] mods\recoverytexture\data\mod Linking binary data
+[00:00:02.3479447] mods\recoverytexture\data\mod Linking import data
+[00:00:02.3479447] mods\recoverytexture\data\mod Linking relocation data
+[00:00:02.3635963] mods\recoverytexture\data\mod Stream complete
+[00:00:02.3791899] BinaryAssetBuilder complete
+[00:00:02.3791899] Texture:
+[00:00:02.3791899]       Instances Processed: 9
+[00:00:02.3791899]       Total Processing Time: 00:00:00.6418859
+[00:00:02.3791899]       Longest Processing Time: 00:00:00.1260536 (RecoveredTexture_0)
+[00:00:02.3791899]       Average Processing Time: 0.0713206555555556 seconds
+[00:00:02.3791899] OnDemandTexture:
+[00:00:02.3791899]       Instances Processed: 9
+[00:00:02.3791899]       Total Processing Time: 00:00:00.5163451
+[00:00:02.3791899]       Longest Processing Time: 00:00:00.1409357 (RecoveredTexture_15)
+[00:00:02.3791899]       Average Processing Time: 0.0573716777777778 seconds
+[00:00:02.3791899] Total Processing Time for All Types: 00:00:01.1582310
