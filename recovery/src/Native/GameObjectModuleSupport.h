@@ -4,7 +4,7 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
-    if(choice->kind>=283 && choice->kind<=285){const auto& fs=beamFieldSets[choice->kind-283];for(unsigned i=0;i<fs.count;++i)if(attribute==fs.fields[i].name)return true;return false;}
+    if(choice->kind>=283 && choice->kind<=285){const auto& fs=drawBeamFieldSets[choice->kind-283];for(unsigned i=0;i<fs.count;++i)if(attribute==fs.fields[i].name)return true;return false;}
     if(choice->kind>=278 && choice->kind<=282) {
         const auto& own=containRestFieldSets[choice->kind-278];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
         if(choice->kind>=280) {if(choice->kind!=280) for(const auto& f:containRestTransportContainModuleDataFields) if(attribute==f.name) return true;for(const auto& f:containOpenContainModuleDataFields) if(attribute==f.name) return true;}

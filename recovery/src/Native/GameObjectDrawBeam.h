@@ -1,5 +1,5 @@
-// Generated original beam Draw group and complete FXShader28 dependency; blob 6e40a9ed6c9f961d294d49768d911e6a6f354619.
-const EnumNameValue beamWeaponSlotTypeNames[] = {
+// Generated original drawBeam Draw group and complete FXShader28 dependency; blob 6e40a9ed6c9f961d294d49768d911e6a6f354619.
+const EnumNameValue drawBeamWeaponSlotTypeNames[] = {
     { "NO_WEAPON", 5 },
     { "PRIMARY_WEAPON", 0 },
     { "QUATERNARY_WEAPON", 3 },
@@ -7,69 +7,69 @@ const EnumNameValue beamWeaponSlotTypeNames[] = {
     { "SECONDARY_WEAPON", 1 },
     { "TERTIARY_WEAPON", 2 },
 };
-const AIEnum beamWeaponSlotType = { beamWeaponSlotTypeNames, 6u, 5, 0u };
-const ModuleToken beamDrawModuleDataTokens[] = {
+const AIEnum drawBeamWeaponSlotType = { drawBeamWeaponSlotTypeNames, 6u, 5, 0u };
+const ModuleToken drawBeamDrawModuleDataTokens[] = {
     { 1u, 3613234082u, 0u, &dieModuleData, 0u, 0u },
 };
-const ModuleLayout beamDrawModuleData = { beamDrawModuleDataTokens, 1u };
-const ModuleField beamColor4fFields[] = {
+const ModuleLayout drawBeamDrawModuleData = { drawBeamDrawModuleDataTokens, 1u };
+const ModuleField drawBeamColor4fFields[] = {
     { "r", 0u, ModuleValue::Float, nullptr, nullptr },
     { "g", 4u, ModuleValue::Float, nullptr, nullptr },
     { "b", 8u, ModuleValue::Float, nullptr, nullptr },
     { "a", 12u, ModuleValue::Float, nullptr, nullptr },
 };
-const ModuleToken beamColor4fTokens[] = {
+const ModuleToken drawBeamColor4fTokens[] = {
     { 568241586u, 1683514611u, 0u, nullptr, 0u, 0u },
     { 1645004052u, 1683514611u, 4u, nullptr, 0u, 0u },
     { 1370364569u, 1683514611u, 8u, nullptr, 0u, 0u },
     { 1214652683u, 1683514611u, 12u, nullptr, 0u, 0u },
 };
-const ModuleLayout beamColor4f = { beamColor4fTokens, 4u };
-const ModuleField beamFXShaderConstantFields[] = {
+const ModuleLayout drawBeamColor4f = { drawBeamColor4fTokens, 4u };
+const ModuleField drawBeamFXShaderConstantFields[] = {
     { "Name", 4u, ModuleValue::String, nullptr, nullptr },
 };
-const ModuleToken beamFXShaderConstantTokens[] = {
+const ModuleToken drawBeamFXShaderConstantTokens[] = {
     { 430981792u, 602296504u, 0u, nullptr, 0u, 0u },
     { 1501410244u, 438907818u, 4u, nullptr, 0u, 0u },
 };
-const ModuleLayout beamFXShaderConstant = { beamFXShaderConstantTokens, 2u };
-const ModuleToken beamFXShaderConstantBoolTokens[] = {
-    { 1u, 388283141u, 0u, &beamFXShaderConstant, 0u, 0u },
+const ModuleLayout drawBeamFXShaderConstant = { drawBeamFXShaderConstantTokens, 2u };
+const ModuleToken drawBeamFXShaderConstantBoolTokens[] = {
+    { 1u, 388283141u, 0u, &drawBeamFXShaderConstant, 0u, 0u },
     { 3893002744u, 2011428087u, 12u, nullptr, 0u, 0u },
 };
-const ModuleLayout beamFXShaderConstantBool = { beamFXShaderConstantBoolTokens, 2u };
-const ModuleToken beamFXShaderConstantIntTokens[] = {
-    { 1u, 388283141u, 0u, &beamFXShaderConstant, 0u, 0u },
+const ModuleLayout drawBeamFXShaderConstantBool = { drawBeamFXShaderConstantBoolTokens, 2u };
+const ModuleToken drawBeamFXShaderConstantIntTokens[] = {
+    { 1u, 388283141u, 0u, &drawBeamFXShaderConstant, 0u, 0u },
     { 3893002744u, 602296504u, 12u, nullptr, 0u, 0u },
 };
-const ModuleLayout beamFXShaderConstantInt = { beamFXShaderConstantIntTokens, 2u };
-const ModuleToken beamFXShaderConstantTextureTokens[] = {
-    { 1u, 388283141u, 0u, &beamFXShaderConstant, 0u, 0u },
+const ModuleLayout drawBeamFXShaderConstantInt = { drawBeamFXShaderConstantIntTokens, 2u };
+const ModuleToken drawBeamFXShaderConstantTextureTokens[] = {
+    { 1u, 388283141u, 0u, &drawBeamFXShaderConstant, 0u, 0u },
     { 3893002744u, 3182837526u, 12u, nullptr, 0u, 0u },
 };
-const ModuleLayout beamFXShaderConstantTexture = { beamFXShaderConstantTextureTokens, 2u };
-const ModuleToken beamFXShaderConstantFloatTokens[] = {
-    { 1u, 388283141u, 0u, &beamFXShaderConstant, 0u, 0u },
+const ModuleLayout drawBeamFXShaderConstantTexture = { drawBeamFXShaderConstantTextureTokens, 2u };
+const ModuleToken drawBeamFXShaderConstantFloatTokens[] = {
+    { 1u, 388283141u, 0u, &drawBeamFXShaderConstant, 0u, 0u },
     { 3893002744u, 1683514611u, 12u, nullptr, 3u, 0u },
 };
-const ModuleLayout beamFXShaderConstantFloat = { beamFXShaderConstantFloatTokens, 2u };
-const ModuleToken beamParticleSystemListTokens[] = {
+const ModuleLayout drawBeamFXShaderConstantFloat = { drawBeamFXShaderConstantFloatTokens, 2u };
+const ModuleToken drawBeamParticleSystemListTokens[] = {
     { 117547473u, 1139920438u, 0u, nullptr, 3u, 0u },
 };
-const ModuleLayout beamParticleSystemList = { beamParticleSystemListTokens, 1u };
-const ModuleField beamFXShaderMaterialFields[] = {
+const ModuleLayout drawBeamParticleSystemList = { drawBeamParticleSystemListTokens, 1u };
+const ModuleField drawBeamFXShaderMaterialFields[] = {
     { "ShaderName", 0u, ModuleValue::String, nullptr, nullptr },
     { "TechniqueName", 8u, ModuleValue::String, "", nullptr },
     { "TechniqueIndex", 24u, ModuleValue::Byte, "0", nullptr },
 };
-const ModuleToken beamFXShaderMaterialTokens[] = {
+const ModuleToken drawBeamFXShaderMaterialTokens[] = {
     { 3679191380u, 438907818u, 0u, nullptr, 0u, 0u },
     { 1287768679u, 438907818u, 8u, nullptr, 0u, 0u },
     { 2050609923u, 814836630u, 24u, nullptr, 0u, 0u },
     { 1723017645u, 428092207u, 16u, nullptr, 10u, 0u },
 };
-const ModuleLayout beamFXShaderMaterial = { beamFXShaderMaterialTokens, 4u };
-const ModuleField beamW3DLaserDrawModuleDataFields[] = {
+const ModuleLayout drawBeamFXShaderMaterial = { drawBeamFXShaderMaterialTokens, 4u };
+const ModuleField drawBeamW3DLaserDrawModuleDataFields[] = {
     { "UseDistortionShader", 108u, ModuleValue::Boolean, "false", nullptr },
     { "Texture1_UTile", 8u, ModuleValue::Float, "1.0", nullptr },
     { "Texture1_VTile", 12u, ModuleValue::Float, "1.0", nullptr },
@@ -89,8 +89,8 @@ const ModuleField beamW3DLaserDrawModuleDataFields[] = {
     { "WeaponSlotID", 68u, ModuleValue::Signed, "-1", nullptr },
     { "LaserStateID", 72u, ModuleValue::Signed, "0", nullptr },
 };
-const ModuleToken beamW3DLaserDrawModuleDataTokens[] = {
-    { 1u, 402003752u, 0u, &beamDrawModuleData, 0u, 0u },
+const ModuleToken drawBeamW3DLaserDrawModuleDataTokens[] = {
+    { 1u, 402003752u, 0u, &drawBeamDrawModuleData, 0u, 0u },
     { 1165348214u, 2011428087u, 108u, nullptr, 0u, 0u },
     { 420094846u, 1683514611u, 8u, nullptr, 0u, 0u },
     { 4217272356u, 1683514611u, 12u, nullptr, 0u, 0u },
@@ -109,11 +109,11 @@ const ModuleToken beamW3DLaserDrawModuleDataTokens[] = {
     { 155167005u, 2575722984u, 64u, nullptr, 0u, 0u },
     { 1579523250u, 602296504u, 68u, nullptr, 0u, 0u },
     { 943702378u, 602296504u, 72u, nullptr, 0u, 0u },
-    { 3431444789u, 3354017012u, 76u, &beamFXShaderMaterial, 0u, 0u },
+    { 3431444789u, 3354017012u, 76u, &drawBeamFXShaderMaterial, 0u, 0u },
     { 3933465695u, 1049596812u, 104u, &lifecycleObjectStatusValidationDataType, 4u, 0u },
 };
-const ModuleLayout beamW3DLaserDrawModuleData = { beamW3DLaserDrawModuleDataTokens, 21u };
-const ModuleField beamW3DTracerDrawModuleDataFields[] = {
+const ModuleLayout drawBeamW3DLaserDrawModuleData = { drawBeamW3DLaserDrawModuleDataTokens, 21u };
+const ModuleField drawBeamW3DTracerDrawModuleDataFields[] = {
     { "MinLength", 8u, ModuleValue::Float, nullptr, nullptr },
     { "MaxLength", 12u, ModuleValue::Float, nullptr, nullptr },
     { "Width", 16u, ModuleValue::Float, nullptr, nullptr },
@@ -124,7 +124,7 @@ const ModuleField beamW3DTracerDrawModuleDataFields[] = {
     { "MinTracersPerFrame", 36u, ModuleValue::Float, nullptr, nullptr },
     { "MaxTracersPerFrame", 40u, ModuleValue::Float, nullptr, nullptr },
     { "FrameLifeTime", 44u, ModuleValue::Float, nullptr, nullptr },
-    { "WeaponSlotType", 48u, ModuleValue::Enum, nullptr, &beamWeaponSlotType },
+    { "WeaponSlotType", 48u, ModuleValue::Enum, nullptr, &drawBeamWeaponSlotType },
     { "WeaponSlotID", 52u, ModuleValue::Signed, "1", nullptr },
     { "Texture", 56u, ModuleValue::Reference, nullptr, nullptr },
     { "UseAdditiveBlending", 108u, ModuleValue::Boolean, "false", nullptr },
@@ -132,7 +132,7 @@ const ModuleField beamW3DTracerDrawModuleDataFields[] = {
     { "TracerEmitFx", 64u, ModuleValue::Reference, nullptr, nullptr },
     { "TextureIndex", 68u, ModuleValue::Unsigned, nullptr, nullptr },
 };
-const ModuleToken beamW3DTracerDrawModuleDataTokens[] = {
+const ModuleToken drawBeamW3DTracerDrawModuleDataTokens[] = {
     { 1u, 402003752u, 0u, &dieModuleData, 0u, 0u },
     { 3831657100u, 1683514611u, 8u, nullptr, 0u, 0u },
     { 1039421983u, 1683514611u, 12u, nullptr, 0u, 0u },
@@ -151,12 +151,12 @@ const ModuleToken beamW3DTracerDrawModuleDataTokens[] = {
     { 550660024u, 219975299u, 60u, nullptr, 0u, 0u },
     { 3819471697u, 219975299u, 64u, nullptr, 0u, 0u },
     { 4174938475u, 602296504u, 68u, nullptr, 0u, 0u },
-    { 3033318555u, 380498768u, 72u, &beamColor4f, 0u, 0u },
-    { 2913514849u, 380498768u, 88u, &beamColor4f, 0u, 0u },
+    { 3033318555u, 380498768u, 72u, &drawBeamColor4f, 0u, 0u },
+    { 2913514849u, 380498768u, 88u, &drawBeamColor4f, 0u, 0u },
     { 3933465695u, 1049596812u, 104u, &lifecycleObjectStatusValidationDataType, 4u, 0u },
 };
-const ModuleLayout beamW3DTracerDrawModuleData = { beamW3DTracerDrawModuleDataTokens, 21u };
-const ModuleField beamW3DStreamDrawModuleDataFields[] = {
+const ModuleLayout drawBeamW3DTracerDrawModuleData = { drawBeamW3DTracerDrawModuleDataTokens, 21u };
+const ModuleField drawBeamW3DStreamDrawModuleDataFields[] = {
     { "UseDistortionShader", 72u, ModuleValue::Boolean, "false", nullptr },
     { "Velocity", 8u, ModuleValue::Float, "200.0", nullptr },
     { "ArcHeightFactor", 12u, ModuleValue::Float, "0.0", nullptr },
@@ -167,8 +167,8 @@ const ModuleField beamW3DStreamDrawModuleDataFields[] = {
     { "WeaponSlotID", 32u, ModuleValue::Signed, "-1", nullptr },
     { "StreamStateID", 36u, ModuleValue::Signed, "0", nullptr },
 };
-const ModuleToken beamW3DStreamDrawModuleDataTokens[] = {
-    { 1u, 402003752u, 0u, &beamDrawModuleData, 0u, 0u },
+const ModuleToken drawBeamW3DStreamDrawModuleDataTokens[] = {
+    { 1u, 402003752u, 0u, &drawBeamDrawModuleData, 0u, 0u },
     { 1165348214u, 2011428087u, 72u, nullptr, 0u, 0u },
     { 2054604302u, 1683514611u, 8u, nullptr, 0u, 0u },
     { 1054640522u, 1683514611u, 12u, nullptr, 0u, 0u },
@@ -178,17 +178,17 @@ const ModuleToken beamW3DStreamDrawModuleDataTokens[] = {
     { 635676468u, 219975299u, 28u, nullptr, 0u, 0u },
     { 1579523250u, 602296504u, 32u, nullptr, 0u, 0u },
     { 2417861220u, 602296504u, 36u, nullptr, 0u, 0u },
-    { 3431444789u, 3354017012u, 40u, &beamFXShaderMaterial, 0u, 0u },
-    { 19305773u, 2993638615u, 68u, &beamParticleSystemList, 4u, 0u },
+    { 3431444789u, 3354017012u, 40u, &drawBeamFXShaderMaterial, 0u, 0u },
+    { 19305773u, 2993638615u, 68u, &drawBeamParticleSystemList, 4u, 0u },
 };
-const ModuleLayout beamW3DStreamDrawModuleData = { beamW3DStreamDrawModuleDataTokens, 12u };
-const ModuleFieldSet beamFieldSets[] = {
-    { beamW3DLaserDrawModuleDataFields, 18u },
-    { beamW3DTracerDrawModuleDataFields, 17u },
-    { beamW3DStreamDrawModuleDataFields, 9u },
+const ModuleLayout drawBeamW3DStreamDrawModuleData = { drawBeamW3DStreamDrawModuleDataTokens, 12u };
+const ModuleFieldSet drawBeamFieldSets[] = {
+    { drawBeamW3DLaserDrawModuleDataFields, 18u },
+    { drawBeamW3DTracerDrawModuleDataFields, 17u },
+    { drawBeamW3DStreamDrawModuleDataFields, 9u },
 };
-const ModuleChoice beamChoices[] = {
-    { 803073101u, &beamW3DLaserDrawModuleData, 112u, 283u },
-    { 1409388128u, &beamW3DTracerDrawModuleData, 112u, 284u },
-    { 1610744897u, &beamW3DStreamDrawModuleData, 76u, 285u },
+const ModuleChoice drawBeamChoices[] = {
+    { 803073101u, &drawBeamW3DLaserDrawModuleData, 112u, 283u },
+    { 1409388128u, &drawBeamW3DTracerDrawModuleData, 112u, 284u },
+    { 1610744897u, &drawBeamW3DStreamDrawModuleData, 76u, 285u },
 };

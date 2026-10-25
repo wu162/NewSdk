@@ -1,6 +1,6 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 const ModuleChoice* FindModule(U32 type) {
-    for(const auto& choice:beamChoices) if(choice.type==type) return &choice;
+    for(const auto& choice:drawBeamChoices) if(choice.type==type) return &choice;
     for(const auto& choice:containRestChoices) if(choice.type==type) return &choice;
     for(const auto& choice:containChoices) if(choice.type==type) return &choice;
     for(const auto& choice:slowChoices) if(choice.type==type) return &choice;
