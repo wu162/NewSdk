@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+  "selectedGroups": [
+    "formats"
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "mp3Validated": false,
+  "status": "passed",
+  "nativeAudioFileValidated": false,
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "scope": "Component differential: formats",
+  "runId": "40232917060",
+  "configurations": [
+    {
+      "recoveredSha256": "0777c7c81f068a066756e0ce2bbb23ddbd65862f75c992b9adf9bee97d620810",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "formats",
+      "records": 2400,
+      "candidateSafetyRejections": 0,
+      "configuration": "Debug",
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8"
+    },
+    {
+      "recoveredSha256": "2e8250503e79e40f63b17dfc12881be546e3aaa0710ce61bb45554bfb3db41dd",
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "group": "formats",
+      "records": 2400,
+      "candidateSafetyRejections": 0,
+      "configuration": "Release",
+      "originalUndefinedEvidenceRecords": 0,
+      "transcriptSha256": "cd361967fa500be89e89d387176483e6b0c5df1ffaad0ef136ecfc44bb8e8bd8"
+    }
+  ]
+}

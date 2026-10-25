@@ -1,0 +1,15 @@
+{
+  "rawEvidenceIsOriginalOnly": true,
+  "requestedGroups": [
+    "rewrite",
+    "noise",
+    "pcm",
+    "aifc-original",
+    "formats"
+  ],
+  "xmaEncoderRecovered": false,
+  "runId": "40232917060",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "5d56d52ff11510c7e93f83b47d08b1def5c99d27",
+  "runAttempt": "1"
+}

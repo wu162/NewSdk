@@ -1,0 +1,1 @@
+PASS candidate XMA output rewrite: 801 exact real-CPU cases; synthetic=793; rawBlocks=8; full writes, guards, both APIs and source immutability; 12 pre-write safety rejections; encoding not recovered
