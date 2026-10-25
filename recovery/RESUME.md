@@ -54,15 +54,19 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 
 ## TextureCompiler 独立还原分支（2026-10-25）
 
-分支 `recovery/texturecompiler-source`，根目录 `src/TextureCompiler`。元数据、image rules/options、内存atlas packer、native buffer及PC/PS3/unknown DDS直通已取得组件验收，运行40194142827成功；其中未变元数据/image/packer精确复用40193344145的分组成功，收据区分原锚点。选用main固定提交的9 DDS+3 TGA真实样本；TGA受限解码最终运行40195290786成功（1675样例：1421像素匹配/252拒绝匹配/2明确未支持），全部3张main真实TGA像素一致，详细边界见专门文档。完整nvDDS压缩、XGraphics/Xenon、native生命周期和完整atlas入口尚未还原；未替换SDK DLL/config、未跑真实MOD SDK、未合入原分支。详细续接：[TEXTURECOMPILER.md](TEXTURECOMPILER.md)，公开源码复用核查：[TEXTURE_UPSTREAM.md](TEXTURE_UPSTREAM.md)。
+分支 `recovery/texturecompiler-source`，根目录 `src/TextureCompiler`。元数据、image rules/options、内存atlas packer、native buffer及PC/PS3/unknown DDS直通已取得组件验收，运行40194142827成功；其中未变元数据/image/packer精确复用40193344145的分组成功，收据区分原锚点。选用main固定提交的9 DDS+3 TGA真实样本；TGA受限解码最终运行40195290786成功（1675样例：1421像素匹配/252拒绝匹配/2明确未支持），全部3张main真实TGA像素一致，详细边界见专门文档。完整nvDDS压缩、PC/PS3所需native生命周期和完整atlas入口尚未还原；Xbox 360/Xenon现已排除出目标；未替换SDK DLL/config、未跑真实MOD SDK、未合入原分支。详细续接：[TEXTURECOMPILER.md](TEXTURECOMPILER.md)，公开源码复用核查：[TEXTURE_UPSTREAM.md](TEXTURE_UPSTREAM.md)。
 
 ### TextureCompiler 第二轮续接（2026-10-25）
 
-根src/TextureCompiler新增raw三格式编码、Win32完整triangle mip、Volume helper与4534组TGA额外格式，并接ProcessInstance。无mip真实SDK40199309214成功；mip SDK40199691305编译/三组逐字节比较成功，workflow最后因证据推送并发冲突failure，收据与原artifact链接另存，不冒充整workflow成功。两个18资产profile均原版/恢复版/无原目标DLL三组4产物及真实Core调用buffer/cdata一致。仍缺DXT/Xenon/NPOT与PS3 resize/完整atlas，详细锚点与边界见TEXTURECOMPILER.md。
+根src/TextureCompiler新增raw三格式编码、Win32完整triangle mip、Volume helper与4534组TGA额外格式，并接ProcessInstance。无mip真实SDK40199309214成功；mip SDK40199691305编译/三组逐字节比较成功，workflow最后因证据推送并发冲突failure，收据与原artifact链接另存，不冒充整workflow成功。两个18资产profile均原版/恢复版/无原目标DLL三组4产物及真实Core调用buffer/cdata一致。当前范围仍缺DXT/NPOT与PS3 resize/完整atlas（Xbox 360/Xenon已排除），详细锚点与边界见TEXTURECOMPILER.md。
 
 
 ### TextureCompiler 第三轮续接（2026-10-25）
 
-本轮单代理完成二维PS3三份mip payload、PC/PS3体积raw DDS及递归体积mip，并接入实际ProcessInstance。PS3/volume raw SDK源码31f45e04，运行40202575350三profile成功；volume mip SDK源码75f302ef，运行40203176308两profile成功。每profile原/恢复/无原目标DLL三组18资产，四产物与全部Core实际调用buffer/cdata一致。Debug/Release核心矩阵279/1200/2832组，volume入口各2610组；最终路由受影响回归全部通过。不变已验收组保留原锚点。PS3标准纹理>256自动resize、NPOT、DXT、Xenon、完整atlas仍未支持；生产SDK DLL/config不替换，分支未合入。精确规则/锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)，当前任务入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。
+本轮单代理完成二维PS3三份mip payload、PC/PS3体积raw DDS及递归体积mip，并接入实际ProcessInstance。PS3/volume raw SDK源码31f45e04，运行40202575350三profile成功；volume mip SDK源码75f302ef，运行40203176308两profile成功。每profile原/恢复/无原目标DLL三组18资产，四产物与全部Core实际调用buffer/cdata一致。Debug/Release核心矩阵279/1200/2832组，volume入口各2610组；最终路由受影响回归全部通过。不变已验收组保留原锚点。PS3标准纹理>256自动resize、NPOT、DXT、完整atlas仍未支持；Xbox 360/Xenon已排除出还原目标；生产SDK DLL/config不替换，分支未合入。精确规则/锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)，当前任务入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。
 
 第三轮末段补充：PS3 cubic自动resize仅完成原版279组DDS取证40203552957与保持270组原输出不变的float探针40204552902。完整恢复差分未通过；候选已隔离在根src/TextureCompiler/Experiments，默认Managed 16份输入逐blob与75f302ef SDK验收源码完全相同。当前插件仍明确拒绝该路径，未跑resize SDK。下一轮先读[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)处理末级float边界，不要把实验workflow failure误当已验收PS3/volume回归失败。
+
+### TextureCompiler 范围调整（2026-10-25 用户要求）
+
+剔除Xbox 360；后续只推进Win32/PC与PS3。XenonBundler及Xbox专属header/surface/tiling转换不再列为剩余任务、验收门槛或完成阻塞。已有历史证据与平台枚举信息保留；PC/PS3仍依赖的公共XGraphics/图像资源逻辑继续按需恢复。剩余任务以[TEXTURECOMPILER.md](TEXTURECOMPILER.md)为准，当前数值续接仍见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)。

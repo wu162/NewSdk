@@ -32,7 +32,9 @@
 
 stb的16位TGA最高位alpha、TGA水平方向和JPEG IDCT语义与旧库未证明相同；DirectXTex默认将全零TGA alpha改255，需要 `TGA_FLAGS_ALLOW_ALL_ZERO_ALPHA` 等选项核对。强制4通道后有alpha字节，不能直接等同于原hasAlpha。PNG gamma/palette/tRNS/16bit、JPEG gray/RGB/CMYK/progressive均应独立验收。原DLL包含IJG6b指纹，不能凭使用相同文件格式推定现代解码逐像素一致。
 
-## Xbox360：Xenia 可复用地址与布局算法，仍缺完整Bundler
+## Xbox360 历史调研（已排除出还原目标）
+
+2026-10-25用户要求剔除Xbox 360；本节仅保留已完成调研的来源，不再安排Xenia/Xenon专属实现或验收任务，不作为完成阻塞。
 
 固定提交：https://github.com/xenia-project/xenia/tree/95a5c3ee250f80c3b9d139658649d9ffb6db3eec
 
@@ -55,4 +57,4 @@ https://github.com/jonwil/sagetools/blob/49373be5e922e8d7ae0b2caa2c74fa6c64d6cf4
 1. 保留本轮已恢复DDS直通、纯image rules、atlas packing及native buffer的原版差分。
 2. 先用原LoadImageA取得像素和hasAlpha oracle，验收TGA24/32 raw/RLE，再扩PNG/JPEG。
 3. 区分“精确还原旧压缩器”和“提供新开源压缩后端”两个交付范围，分别记录输出差异；当前未默认切换到NVTT。
-4. Xbox360复用Xenia地址数学后仍逐阶段验证完整Xenon输出，不用Xbox One代码代替。
+4. 后续仅推进PC/PS3。Xbox360/Xenon专属恢复已按用户要求剔除；PC/PS3仍依赖的公共图像处理不因XGraphics命名而被排除。

@@ -35,3 +35,7 @@
 
 中断保护与完整验证分开：每约 10–15 分钟检查并及时 commit/普通 push 保存有意义的成果，注明未验证/验证中/已验证；完整批次准备好后统一取得完整回归结果。保留并发提交和 Actions 证据，不关闭工作流、不跳过最终验收，未验证检查点不得标为完成。约 45 分钟实现阶段及 SDK 降频规则继续适用。
 
+
+## TextureCompiler 目标范围（2026-10-25 用户调整）
+
+用户明确要求剔除 Xbox 360。`recovery/texturecompiler-source` 的 TextureCompiler 后续还原及完成验收目标仅为 Win32/PC 与 PlayStation 3；Xbox 360/XenonBundler、专属纹理header/surface/tiling转换不再列为待办、验收门槛或完成阻塞，不为该平台新增实现或验证任务。已有原DLL/IL、历史证据与平台枚举兼容信息保留，不将排除范围写成已恢复。XGraphics 中仍服务于 PC/PS3 图像读取或公共处理的依赖继续按实际需要恢复，不能因名字涉及 Xbox 而误删公共路径。本调整仅适用于 TextureCompiler 项目。

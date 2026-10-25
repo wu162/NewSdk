@@ -4,6 +4,10 @@
 
 **DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
+## 目标范围
+
+2026-10-25用户明确剔除Xbox 360。后续目标与完成验收仅为Win32/PC和PS3；XenonBundler、Xbox 360专属surface/header/tiling转换不再属于待办或完成阻塞。历史证据与平台枚举信息保留；PC/PS3仍依赖的公共XGraphics图像处理继续按需恢复。
+
 ## 已验收范围
 
 | 能力 | 精确证据 |
@@ -47,7 +51,7 @@ NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直
 ## 下一轮
 
 1. DXT1/DXT1A/DXT3/DXT5压缩核心仍缺，不把raw DDS或options恢复称为DXT恢复。
-2. XenonBundler/XGraphics完整surface/header/tiling转换、原native生命周期仍缺；Volume raw/mip已接入并取得PC/PS3 SDK验收。
+2. PC/PS3仍需的图像设备/资源及原native生命周期尚有缺口；Xbox 360专属XenonBundler/surface/header/tiling转换已排除，不再恢复。Volume raw/mip已取得PC/PS3 SDK验收。
 3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
 4. PNG/JPEG、剩余TGA metadata和NPOT/PS3 resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
 5. PS3 mip已单独验收；>256的PS3 cubic resize实验及浮点阻塞见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)，候选隔离在src/TextureCompiler/Experiments，不编入默认DLL。NPOT D3DX resize仍未支持。

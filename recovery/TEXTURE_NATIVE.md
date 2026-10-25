@@ -62,6 +62,10 @@ would change behavior to replace them blindly with a system Direct3D9 API.
 The DLL imports no d3d9/d3dx DLL in its static PE import table.
 
 This support group does not restore those internal device/resource routines,
-`D3DXCreateTextureFromFileA`, NVIDIA `nvDDS.nvDXTcompress`, or XenonBundler /
-Xbox texture conversion. The two constant facades must not be interpreted as
+`D3DXCreateTextureFromFileA` or NVIDIA `nvDDS.nvDXTcompress`.
+
+Scope update (2026-10-25, user instruction): Xbox 360 / XenonBundler and
+Xbox-specific header/surface/tiling conversion are excluded from recovery and
+acceptance targets. Shared image/device/resource routines needed by PC/PS3
+remain in scope, including any such routines exposed through XGraphics names. The two constant facades must not be interpreted as
 providing those larger algorithms or making a working graphics device.

@@ -51,4 +51,4 @@ Win32/非PS3生成 `bitLength(max(width,height,depth))` 份 payload；PS3固定3
 
 证据推送新增 `SaveTextureEvidence.ps1`，并发普通 push 被拒绝时先 rebase 再有限重试；禁止强推。40202111197的比较步骤已成功，但最后证据 push 冲突导致整个workflow failure；最终0f012b99完整重跑与持久化成功，不将旧失败改写为绿色。当前不变成功组不另开相同 SDK 复验。
 
-仍缺 DXT1/DXT1A/DXT3/DXT5、Xenon/XGraphics、完整 native 生命周期与完整 TerrainTextureAtlas，PNG/JPEG、剩余 TGA metadata、NPOT/PS3 cubic resize仍未验收；未支持输入不隐藏回退原目标 DLL。
+目标仅为PC/PS3，Xbox 360/Xenon专属转换已按用户要求剔除。仍缺 DXT1/DXT1A/DXT3/DXT5、PC/PS3所需公共图像处理/完整 native 生命周期与完整 TerrainTextureAtlas，PNG/JPEG、剩余 TGA metadata、NPOT/PS3 cubic resize仍未验收；未支持输入不隐藏回退原目标 DLL。
