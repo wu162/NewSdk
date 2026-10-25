@@ -11,17 +11,17 @@
 - `PathMusicTrack`：复制 MUS 到 CustomData，解析 PATH_TRACK_ header handle，生成 runtime 与字符串分配。
 - `PathMusicEvent`：解析 PATH_EVENT_ header、weak reference、IsXferable，生成 runtime。
 - `AudioFileMP3Passthrough`：恢复原生七连续 MPEG 帧识别和头解析；MIT NLayer 源码作为实际 MPEG 解码验证后端。文件原样传递，生成 subtitle/channels/streamed runtime。第三方代码静态编入目标程序集，不使用独立 NLayer DLL。
-- `AudioFile`：默认 `PcmWaveAudioCompiler` 后端支持单/双声道 PCM8/16/24 RIFF/WAVE、标准 PCM WAVE EXTENSIBLE 子集、AIFF signed8/BE16/BE24、NONE 和 XAS v1、RAM/streamed SNR/SNS 容器；合法单 forward WAVE smpl loop 已恢复；恢复平台策略、默认 subtitle、runtime 布局、重定位和 CustomData。
+- `AudioFile`：默认 `PcmWaveAudioCompiler` 后端支持单/双声道 PCM8/16/24 RIFF/WAVE、标准 PCM WAVE EXTENSIBLE 子集、AIFF signed8/BE16/BE24、NONE 和 XAS v1、RAM/streamed SNR/SNS 容器；合法单 forward WAVE smpl loop 和保守 AIFF forward sustain loop 已恢复；恢复平台策略、默认 subtitle、runtime 布局、重定位和 CustomData。
 - `Pcm16Encoder` 与 `Xas1Encoder` 从原 DLL 算法独立重建，不读取/加载原目标 DLL 作为运行后端。
 
-明确未覆盖：AIFC、AIFF MARK/INST loop、非标准 WAVE EXTENSIBLE 元数据、PCM32/IEEE float WAVE、重采样、XMA。原 DLL 本身也不接受 PCM32/IEEE float WAVE，不将其误记为待恢复的原能力。上述输入显式拒绝，不静默使用不同编码格式。MP3 采用公开解码后端，损坏/特殊 MPEG 流的接受行为不保证普遍等同原 RenderWare decoder；必须按实测样本描述兼容性，不能称原 native decoder 全量还原。
+明确未覆盖：AIFC、AIFF release/pingpong/额外MARK行为、非标准 WAVE EXTENSIBLE 元数据、PCM32/IEEE float WAVE、重采样、XMA。原 DLL 本身也不接受 PCM32/IEEE float WAVE，不将其误记为待恢复的原能力。上述输入显式拒绝，不静默使用不同编码格式。MP3 采用公开解码后端，损坏/特殊 MPEG 流的接受行为不保证普遍等同原 RenderWare decoder；必须按实测样本描述兼容性，不能称原 native decoder 全量还原。
 
 ## 构建
 
 `dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
 工程目标 net472（为公开 MPEG 后端提供兼容运行时），无签名，Core 引用保留原 SDK 基线。代码可直接纳入将来的单 exe；此独立工程用于阶段验证，不代表已修改生产 SDK。
 
-## 本轮最新验收（2026-10-25）
+## 第1阶段联合验收（2026-10-25）
 
 源码 `ad37841d5bf7fba3cbdede2bdae60da2b49d9639`，运行 [40197878572](https://github.com/wu162/NewSdk/actions/runs/40197878572) attempt1 **整体成功**。实际收据均绑定该源码，不将后续文档提交冒充新运行。
 
@@ -31,6 +31,18 @@
 - 收据：`evidence/audio/plugin-validation/40197878572-1/validation.json`、`pcm-validation`、`xas-validation`和`sdk-validation`同运行目录；SDK `calls-validation.log`明确28次调用，`Original-command.json`/`Recovered-command.json`保留命令及原DLL存在状态。
 
 关键修复：CLR下x87实际为53位精度，上轮64位模拟在400/431Hz块大小差一帧；PCM24真实SIMEX导入路径先丢弃低8位转signed16，并非直接使用P2L0/P2B0 float decoder；AIFF SSND帧数使用原始chunk长度，排除padding。原始指令、1008条标量oracle及差分失败/成功锚点均保留。详细见 `audio/PcmInputAudit.md`、`audio/NativeAudit.md`、`audio/LoopsAndResampling.md`。
+
+## 第2阶段 AIFF sustain loop 验收
+
+源码 `78f819c1f061a4ba27d1d58145839517da1b72a9`，运行 [40198458731](https://github.com/wu162/NewSdk/actions/runs/40198458731) attempt1整体成功。Debug/Release各480条受影响format记录和200条新增AIFF loop记录相同，另16条AIFF reader安全检查通过；SDK专用4资产MOD原/恢复版4次实际调用、四产物和4份CustomData相同，恢复侧删除原目标DLL。未变PCM/XAS矩阵复用上节精确锚点，没有重复触发。
+
+AIFF支持恰一个标准INST和一个MARK、两个唯一匹配marker、sustain playMode1、release playMode0的子集；end marker.position减1成为闭区间结束，允许MARK/INST和marker顺序颠倒。其余结构显式拒绝，不称完整AIFF元数据恢复。最新运行收据位于 `evidence/audio/plugin-validation/40198458731-1` 与 `sdk-validation/40198458731-1`。
+
+## 尚未恢复能力的原版样本
+
+源码 `1c0457599f2a78082a283aade83a19e3f60a430e`，运行 [40199000936](https://github.com/wu162/NewSdk/actions/runs/40199000936) attempt1收取原版证据成功：112条重采样和8条Xenon XMA记录，XMA八条均实际产出buffer/CustomData，并非缺外部编码DLL导致必然失败。保存完整源WAV、原版三缓冲区/CustomData、专用脚本及精确native函数证据。收据状态是 `original-evidence-only`，不含candidate配置、不是恢复版验收，重采样/XMA仍明确拒绝。
+
+下一轮从 `audio/ResamplerKernelAudit.md` 的7函数依赖及原版 `plugin-validation/40199000936-1/resample-original.txt` 开始；XMA见 `audio/XmaAudit.md` 和同目录 `xma-original.txt`。不要再次收集相同原版样本，除非输入/探针/原DLL变化。
 
 ## 历史阶段证据（不扩大旧运行的范围）
 
@@ -51,4 +63,4 @@
 
 ## 当前下一步
 
-已验收范围无需重复跑未变矩阵。AIFF sustain/release loop 正在按 MARK/INST 原native路径调查，尚未接入，不包含在上述216组WAVE loop验收内。随后重点是SIMEX filter120重采样的完整FIR/插值依赖链；XMA仍未恢复。MP3后端对损坏/特殊MPEG流的普遍接受行为仍非全量等价。生产SDK二进制/config未改，本分支尚未合入compiler-source。
+已验收范围无需重复跑未变矩阵。AIFF保守forward sustain loop已按第2阶段验收。下一完整能力组是SIMEX filter120重采样的完整FIR/FFT/插值依赖链（7函数约1497指令）；XMA仍未恢复。MP3后端对损坏/特殊MPEG流的普遍接受行为仍非全量等价。生产SDK二进制/config未改，本分支尚未合入compiler-source。

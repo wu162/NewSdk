@@ -65,4 +65,6 @@ Public format cross-checks were read after the independent implementation: vgmst
 
 ## Unrecovered native scope
 
-AIFF loop markers/AIFC, noncanonical extensible metadata, automatic channel remapping, SIMEX resampling filter 120, EA-XMA, and generic SIMEX filters remain outside this source component. Ordinary AIFF8/16/24, WAVE24/extensible and single forward WAVE loops passed full plugin and SDK validation at source ad37841d5bf7fba3cbdede2bdae60da2b49d9639 / run40197878572. They must not silently fall back to approximate behavior. Metadata and PathMusic/MP3 components have separate scopes and evidence.
+AIFF release/pingpong/extra-marker metadata and AIFC, noncanonical extensible metadata, automatic channel remapping, SIMEX resampling filter 120, EA-XMA, and generic SIMEX filters remain outside this source component. Ordinary AIFF8/16/24, WAVE24/extensible and single forward WAVE loops passed full plugin and SDK validation at source ad37841d5bf7fba3cbdede2bdae60da2b49d9639 / run40197878572. They must not silently fall back to approximate behavior. Metadata and PathMusic/MP3 components have separate scopes and evidence.
+
+AIFF forward sustain loops additionally passed 200 plugin cases per configuration and a four-call dedicated SDK build at source 78f819c1f061a4ba27d1d58145839517da1b72a9 / run40198458731. These receipts supplement, rather than replace, the preceding WAVE loop/full-batch source anchor.

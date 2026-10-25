@@ -168,3 +168,5 @@ and reversed chunk/marker order. `AudioAiffLoopReaderOracle.cs` adds 16
 candidate safety checks, separately from original equivalence. The batch is
 pending its original-plugin and real SDK differential; these investigation
 notes alone do not certify it.
+
+AIFF candidate accepted: source `78f819c1f061a4ba27d1d58145839517da1b72a9`, run `40198458731` attempt1; Debug/Release 200 AIFF loop records and 480 ordinary/extensible format records equal, 16 reader safety checks pass, dedicated SDK four actual calls/four products/four CustomData equal with original target DLL absent. Resampling remains unsupported; original-only 112-case filter evidence is preserved at source `1c0457599f2a78082a283aade83a19e3f60a430e`, run `40199000936`.

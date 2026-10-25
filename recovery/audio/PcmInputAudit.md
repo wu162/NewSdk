@@ -84,8 +84,7 @@ mistakenly included the padding; full-plugin differential caught this and the
 reader now uses unrounded SSND payload size.
 
 Only ordinary uncompressed AIFF with SSND offset0/blockSize0, mono or stereo,
-and no INST/MARK metadata is enabled. AIFC, marker/loop behavior, channel
-remapping and resampling remain explicit refusals.
+and ordinary no-loop input is enabled. A separate AudioAiffLoopReader now enables the conservative forward sustain subset described in LoopsAndResampling.md (200 cases / SDK run40198458731). AIFC, release/pingpong/extra-marker behavior, channel remapping and resampling remain explicit refusals.
 
 ## Tests
 

@@ -144,3 +144,33 @@ No resampler runtime code was added in this audit. Unsupported rate changes
 continue to fail explicitly. Existing loop and no-resampling format acceptance
 must retain their original sourceCommit/runId receipts; this document supplies
 investigation evidence only.
+
+
+## Separate FFT component candidate
+
+`src/AudioCompiler/Native/ResamplerFft.cs` now independently translates the
+bit-reversal, radix-2 butterfly operation order, stage-twiddle recurrence and
+direction-dependent normalization for orders **1..13** and directions **0/1**.
+It is not called by `PcmWaveAudioCompiler`, does not change the explicit rate
+conversion rejection, and does not claim the full resampling kernel or the
+native FFT's behavior outside this declared subset.
+
+`GenerateAudioFftOracle.py` executes the original `0x4eca0` code under pinned
+Unicorn 2.1.4 with x87 control word `0x027f`, captures all 26 stage coefficient
+pairs, and preserves exact binary32 input/output arrays for 78 fixtures:
+13 orders, both directions, impulse/DC/seeded complex noise. Native coefficient
+float bits are embedded statically in the component, so candidate execution
+does not read or load the original DLL. `native-fft/original.tsv.gz` and
+`native-fft/twiddles.tsv` regenerate byte-for-byte deterministically. An
+independent Python binary32 replay of the recovered operation sequence matched
+all 78 original-machine-code outputs bit-for-bit.
+
+The C# implementation uses a non-inlined float argument boundary after each
+arithmetic operation to prevent legacy x86 extended-register temporaries;
+future simplification or FMA/vectorization must rerun the exact-bit oracle.
+`AudioResamplerFftOracle.cs` compares every real/imaginary output bit and checks
+all order/direction/pattern coverage, plus nine separate candidate safety
+rejections. Its Windows Debug/Release results must be collected before C#
+acceptance is claimed; the Python replay is not a substitute. This component
+still requires integration with coefficient generation and scheduling, then
+an original-plugin rate-conversion and actual SDK differential.
