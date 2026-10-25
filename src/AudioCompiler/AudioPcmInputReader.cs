@@ -8,7 +8,7 @@ namespace BinaryAssetBuilder.AudioCompiler
     // deliberately accepts only uncompressed, integral, mono/stereo input.
     internal static class AudioPcmInputReader
     {
-        internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes)
+        internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowWaveLoop = false)
         {
             if (bytes == null) throw new ArgumentNullException("bytes");
             if (bytes.Length < 12) throw new InvalidDataException("Truncated audio file");
@@ -35,6 +35,19 @@ namespace BinaryAssetBuilder.AudioCompiler
                     rate = checked((int)U32(bytes, body + 4, false));
                     align = U16(bytes, body + 12, false);
                     bits = U16(bytes, body + 14, false);
+                    if (format == 0xfffe)
+                    {
+                        // Native 0x37335..37369 rereads 40 format bytes but
+                        // ignores all extension metadata. Enable the canonical
+                        // integer PCM subset; do not reinterpret other GUIDs.
+                        if (size < 40 || U16(bytes, body + 16, false) != 22 ||
+                            U16(bytes, body + 18, false) != bits || !PcmGuid(bytes, body + 24))
+                            throw new NotSupportedException("Only canonical PCM WAVE extensible input with full valid bits is supported");
+                        uint mask = U32(bytes, body + 20, false);
+                        if (mask != 0 && mask != (channels == 1 ? 4u : 3u))
+                            throw new NotSupportedException("Nonstandard WAVE extensible channel masks have not been recovered");
+                        format = 1;
+                    }
                 }
                 else if (aiff && tag == "COMM")
                 {
@@ -55,12 +68,11 @@ namespace BinaryAssetBuilder.AudioCompiler
                     if (size < 8) throw new InvalidDataException("Truncated AIFF sound chunk");
                     if (U32(bytes, body, true) != 0 || U32(bytes, body + 4, true) != 0)
                         throw new NotSupportedException("AIFF sound offsets and block sizes have not been recovered");
-                    // Native rounds the chunk size before deriving the sample
-                    // count. For odd mono8 data the pad becomes one sample.
-                    if ((size & 1) != 0 && next >= end) throw new InvalidDataException("Missing AIFF chunk padding");
-                    dataOffset = body + 8; dataLength = checked((int)(size + (size & 1)) - 8);
+                    // Chunk traversal rounds size up, but 0x385ea preserves
+                    // the raw SSND size for the frame calculation at 0x38907.
+                    dataOffset = body + 8; dataLength = checked((int)size - 8);
                 }
-                else if ((wave && tag == "smpl") || (aiff && (tag == "INST" || tag == "MARK")))
+                else if ((wave && tag == "smpl" && !allowWaveLoop) || (aiff && (tag == "INST" || tag == "MARK")))
                     throw new NotSupportedException("Audio loop and marker metadata has not been recovered");
                 at = next + (size & 1);
             }
@@ -80,16 +92,23 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (bits == 16) samples[i] = unchecked((short)U16(bytes, at, aiff)) * (1.0f / 32768.0f);
                 else
                 {
-                    // Native P2L0/P2B0 (0x10670/0x10830) place the three
-                    // bytes in bits31..8, cvtsi2ss, then multiply by 2^-31.
-                    int signed = aiff ? (bytes[at] << 24) | (bytes[at + 1] << 16) | (bytes[at + 2] << 8) :
-                        (bytes[at + 2] << 24) | (bytes[at + 1] << 16) | (bytes[at] << 8);
-                    samples[i] = signed * (1.0f / 2147483648.0f);
+                    // SIMEX import dispatch19/21 selects 0x3a9e0/0x3ab80,
+                    // whose 0x47630/0x47720 readers discard the low byte and
+                    // store signed16. The AudioCore P2L0/P2B0 float decoder
+                    // is a different path and must not be used here.
+                    int high16 = aiff ? U16(bytes, at, true) : U16(bytes, at + 1, false);
+                    samples[i] = unchecked((short)high16) * (1.0f / 32768.0f);
                 }
             }
             return new Pcm16Encoder.PcmWaveInput { Samples = samples, Channels = channels, SampleRate = rate };
         }
         private static string Tag(byte[] b, int at) { return Encoding.ASCII.GetString(b, at, 4); }
+        private static bool PcmGuid(byte[] b, int at)
+        {
+            byte[] pcm = { 1, 0, 0, 0, 0, 0, 0x10, 0, 0x80, 0, 0, 0xaa, 0, 0x38, 0x9b, 0x71 };
+            for (int i = 0; i < pcm.Length; ++i) if (b[at + i] != pcm[i]) return false;
+            return true;
+        }
         private static int U16(byte[] b, int at, bool be) { return be ? (b[at] << 8) | b[at + 1] : b[at] | (b[at + 1] << 8); }
         private static uint U32(byte[] b, int at, bool be)
         {

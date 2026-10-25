@@ -16,10 +16,12 @@ New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
-& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/oracle-build.log"
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
 & $csc /nologo /platform:x86 /out:"$original/AudioInputReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioInputReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/reader-oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/reader-oracle-build.log"; throw 'Audio reader boundary oracle build failed' }
+& $csc /nologo /platform:x86 /out:"$original/AudioLoopReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioLoopReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path *> "$out/loop-reader-oracle-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/loop-reader-oracle-build.log"; throw 'Audio loop reader oracle build failed' }
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$hostExe.config"
 $sourceCommit = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
@@ -40,7 +42,7 @@ try {
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/rates-original.txt" rates *> "$out/rates-original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/rates-original.log"; throw 'Original rate boundary probe failed' }
     $env:AUDIO_TEST_REAL_DIRECTORY = (Resolve-Path recovery/fixtures/audio/main).Path
-    foreach ($extraGroup in @('main','pcm8','formats')) {
+    foreach ($extraGroup in @('main','pcm8','formats','loops')) {
         & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/$extraGroup-original.txt" $extraGroup *> "$out/$extraGroup-original.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$extraGroup-original.log"; throw "Original $extraGroup probe failed" }
     }
@@ -62,7 +64,11 @@ try {
         & "$candidate/AudioInputReaderOracle.exe" $library $fixtures *> "$out/$mode-reader-boundaries.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-reader-boundaries.log"; throw "$mode input rejection boundaries failed" }
         Get-Content "$out/$mode-reader-boundaries.log" -Tail 1
-        foreach ($group in @('business','pcm','xas','defaults','rates','main','pcm8','formats')) {
+        Copy-Item "$original/AudioLoopReaderOracle.exe" $candidate
+        & "$candidate/AudioLoopReaderOracle.exe" $library *> "$out/$mode-loop-boundaries.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-loop-boundaries.log"; throw "$mode loop rejection boundaries failed" }
+        Get-Content "$out/$mode-loop-boundaries.log" -Tail 1
+        foreach ($group in @('business','pcm','xas','defaults','rates','main','pcm8','formats','loops')) {
             $scope = if ($group -eq 'business') { $businessScope } else { $group }
             $expectedFile = if ($group -eq 'business') { "$out/original.txt" } else { "$out/$group-original.txt" }
             $actualFile = "$out/$mode-$group.txt"

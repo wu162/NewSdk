@@ -33,6 +33,26 @@ internal static class AudioInputFormatCases
                     "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
             }
         }
+        foreach (int bits in new int[] { 8, 16, 24 })
+        foreach (int channels in new int[] { 1, 2 })
+        foreach (int frames in new int[] { 7, 129, 2041 })
+        foreach (bool mask in new bool[] { false, true })
+        {
+            string name = "extensible" + bits + "-" + channels + "-" + frames + "-mask" + mask;
+            string path = Path.Combine(root, name + ".wav"); WriteExtensible(path, bits, channels, frames, mask);
+            foreach (string codec in new string[] { "NONE", "XAS" })
+            foreach (bool streamed in new bool[] { false, true })
+            foreach (int platform in new int[] { 0, 1, 2 })
+            {
+                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                string flag = streamed.ToString().ToLowerInvariant();
+                string attrs = "File='" + System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
+                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + flag + "' IsStreamedOnXenon='" + flag + "' IsStreamedOnPS3='" + flag + "'";
+                run("pcm-format-" + name + "-" + codec + "-" + streamed, platform,
+                    "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
+            }
+        }
     }
     private static void BE(BinaryWriter b, uint value, int bytes)
     { for (int i = bytes - 1; i >= 0; --i) b.Write((byte)(value >> (i * 8))); }
@@ -60,10 +80,24 @@ internal static class AudioInputFormatCases
             for (int i = 0; i < channels * frames; ++i)
             {
                 int value = values[i % values.Length] >> (24 - bits);
+                if (!aiff && bits == 8) value += 128;
                 if (aiff) BE(b, unchecked((uint)value), bits / 8);
                 else for (int j = 0; j < bits / 8; ++j) b.Write((byte)(value >> (8 * j)));
             }
             if ((length & 1) != 0) b.Write((byte)0);
+        }
+    }
+    internal static void WriteExtensible(string path, int bits, int channels, int frames, bool channelMask)
+    {
+        Write(path, false, bits, channels, frames);
+        byte[] pcm = File.ReadAllBytes(path);
+        using (var file = File.Create(path)) using (var b = new BinaryWriter(file))
+        {
+            b.Write(pcm, 0, 4); b.Write(pcm.Length + 24 - 8); b.Write(pcm, 8, 8); b.Write(40);
+            b.Write((ushort)0xfffe); b.Write(pcm, 22, 14); b.Write((ushort)22); b.Write((ushort)bits);
+            b.Write(channelMask ? (channels == 1 ? 4u : 3u) : 0u);
+            b.Write(new byte[] { 1, 0, 0, 0, 0, 0, 0x10, 0, 0x80, 0, 0, 0xaa, 0, 0x38, 0x9b, 0x71 });
+            b.Write(pcm, 36, pcm.Length - 36);
         }
     }
 }

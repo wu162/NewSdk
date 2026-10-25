@@ -57,7 +57,7 @@ internal static class AudioPluginOracle
         }
         if ((label.StartsWith("map") || label.StartsWith("track") || label.StartsWith("event")) && !result.StartsWith("BUFFER:"))
             throw new Exception("Required PathMusic fixture failed: " + label + " platform=" + platform + " result=" + result);
-        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
+        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-") || label.StartsWith("main-") || label.StartsWith("pcm8-") || label.StartsWith("loop-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
             throw new Exception("Required AudioFile fixture failed: " + label + " platform=" + platform + " result=" + result);
         bool validMp3 = label.StartsWith("mp3-mono.") || label.StartsWith("mp3-stereo.") || label.StartsWith("mp3-subtitle-");
         if (validMp3)
@@ -182,6 +182,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "main") MainProbe();
                 else if (args[4] == "pcm8") Pcm8Probe();
                 else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
+                else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
                 else
                 {
                     ParseProbe();

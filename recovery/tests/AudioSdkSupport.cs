@@ -46,6 +46,12 @@ internal static class AudioSdkSupport
             foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
                 xml.Append("<AudioFile id='Format"+(aiff?"Aiff":"Wave24")+codec+streamed+"' File='../Audio/"+name+"' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
         }
+        AudioLoopProbeCases.Wave(Path.Combine(audio,"loop.wav"),1,4096,129,4094);
+        foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
+            xml.Append("<AudioFile id='Loop"+codec+streamed+"' File='../Audio/loop.wav' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
+        AudioInputFormatCases.WriteExtensible(Path.Combine(audio,"extensible.wav"),24,2,2041,true);
+        foreach(string codec in new string[]{"NONE","XAS"})
+            xml.Append("<AudioFile id='Extensible"+codec+"' File='../Audio/extensible.wav' PCCompression='"+codec+"' IsStreamedOnPC='false'/>");
         xml.Append("<AudioFile id='AudioDefaultSounds' File='../Audio/sounds/default.wav'/><AudioFile id='AudioDefaultMusic' File='../Audio/music/default.wav'/></AssetDeclaration>");
         string path=Path.Combine(data,"Mod.xml");File.WriteAllText(path,xml.ToString());
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();schemas.Add(Ns,Path.Combine(sdk,"Schemas/xsd/CnC3Types.xsd"));schemas.Compile();

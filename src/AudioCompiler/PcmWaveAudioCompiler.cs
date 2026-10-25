@@ -37,7 +37,9 @@ namespace BinaryAssetBuilder.AudioCompiler
             try { wave = File.ReadAllBytes(file); }
             catch (IOException) { return null; }
             catch (UnauthorizedAccessException) { return null; }
-            Pcm16Encoder.PcmWaveInput input = AudioPcmInputReader.Read(wave);
+            int loopStart, loopEnd;
+            bool hasLoop = LoopPcmEncoder.TryReadWaveLoop(wave, out loopStart, out loopEnd);
+            Pcm16Encoder.PcmWaveInput input = AudioPcmInputReader.Read(wave, hasLoop);
             XmlAttribute requested = attrs[prefix + "SampleRate"];
             if (requested != null)
             {
@@ -52,7 +54,9 @@ namespace BinaryAssetBuilder.AudioCompiler
             }
             // Quality is ignored for representations PCM(1) and XAS(29) by the
             // original. In particular, do not add a new [0,100] rejection here.
-            PcmEncodingResult encoded = policy.SampleRepresentation == 1 ?
+            PcmEncodingResult encoded = hasLoop ?
+                LoopPcmEncoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed, loopStart, loopEnd, policy.SampleRepresentation == 29) :
+                policy.SampleRepresentation == 1 ?
                 Pcm16Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed) :
                 Xas1Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed);
             PathMusicBuilder builder = new PathMusicBuilder(32, platform != TargetPlatform.Win32);
