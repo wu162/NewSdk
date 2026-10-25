@@ -71,6 +71,8 @@ public ref class GameObjectCompiler abstract sealed {
         auto allowed=crusher?crushAttributes:projectionAttributes;
         auto a=node->Clone();if(a->MoveToFirstAttribute()) do {
             if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/" || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            // CrusherInfo.id is XSD pipeline-only and has no native member.
+            if(crusher && a->NamespaceURI->Length==0 && a->LocalName=="id") continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported crush/placement attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());

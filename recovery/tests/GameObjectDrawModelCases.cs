@@ -25,6 +25,16 @@ partial class GameObjectOracle {
         for(int i=8;i<DrawModelSizes[g];++i)if(b[at+i]!=golden[i])throw new Exception("Independent full model defaults/padding g="+g+" byte="+i+" value="+b[at+i]+" expected="+golden[i]);
     }
     static void DrawModelFamily(IAssetBuilderPlugin original,TargetPlatform p) {
+        // The SDK retains the schema pipeline-only CrusherInfo id after inheritance.
+        var crusherWithoutId=Check(original,p,"","<CrusherInfo CrusherLevel='10' CrushableLevel='20' CrushDecelerationPercent='80%'><ExtraCrushLevels ModelConditionMatch='SHRINK_EFFECT'/></CrusherInfo>");
+        foreach(string id in new[]{"","id_CrusherInfo","CaseSensitiveId"}) {
+            var crusherWithId=Check(original,p,"","<CrusherInfo id='"+id+"' CrusherLevel='10' CrushableLevel='20' CrushDecelerationPercent='80%'><ExtraCrushLevels ModelConditionMatch='SHRINK_EFFECT'/></CrusherInfo>");
+            Equal(crusherWithoutId.InstanceData,crusherWithId.InstanceData,"pipeline-only CrusherInfo id instance",false);
+            Equal(crusherWithoutId.RelocationData,crusherWithId.RelocationData,"pipeline-only CrusherInfo id relocation",false);
+            Equal(crusherWithoutId.ImportsData,crusherWithId.ImportsData,"pipeline-only CrusherInfo id imports",false);
+        }
+        Reject(p,"","<CrusherInfo xmlns:f='foreign' f:id='x'/>");
+        Reject(p,"","<ProjectedBuildabilityInfo id='x'/>");
         bool big=p!=TargetPlatform.Win32;
         for(int g=0;g<5;++g){
             DrawModelDefaults(Check(original,p,"",DrawModelXML(g)).InstanceData,g,big);DrawModelTokens(Check(original,p,"",DrawModelXML(g)).InstanceData,g,big);DrawModelNested(original,p,g);

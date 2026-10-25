@@ -97,6 +97,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Contain original method evidence mismatch' }
 python recovery/scripts/ExportW3DDrawMethods.py --check
 if ($LASTEXITCODE -ne 0) { throw 'W3D original closure mismatch' }
 python recovery/scripts/GenerateDrawBeamFields.py --check
+if ($LASTEXITCODE -ne 0) { throw 'W3D beam source metadata mismatch' }
 python recovery/scripts/GenerateDrawModelConditionFields.py --check
 if ($LASTEXITCODE -ne 0) { throw "Model condition contract check failed" }
 python recovery/scripts/GenerateDrawAnimationFields.py --check
@@ -104,7 +105,7 @@ if ($LASTEXITCODE -ne 0) { throw "Animation contract check failed" }
 python recovery/scripts/GenerateDrawDynamicsFields.py --check
 if ($LASTEXITCODE -ne 0) { throw "Dynamics contract check failed" }
 python recovery/scripts/GenerateDrawModelFields.py --check
-if ($LASTEXITCODE -ne 0) { throw 'W3D beam source metadata mismatch' }
+if ($LASTEXITCODE -ne 0) { throw 'W3D model source metadata mismatch' }
 python recovery/scripts/GenerateContainRemainingFields.py --check
 if ($LASTEXITCODE -ne 0) { throw 'Remaining Contain source metadata mismatch' }
 python recovery/scripts/GenerateContainCoreFields.py --check
