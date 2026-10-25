@@ -1,0 +1,26 @@
+{
+  "scope": "dependency-metadata",
+  "modes": [
+    {
+      "mode": "Od",
+      "platformSummaries": [
+        "PASS dependency-metadata platform=0 fixtures=4230 comparisons=12690 rejections=18",
+        "PASS dependency-metadata platform=1 fixtures=8460 comparisons=25380 rejections=36",
+        "PASS dependency-metadata platform=2 fixtures=12690 comparisons=38070 rejections=54",
+        "PASS dependency-metadata platform=99 fixtures=16920 comparisons=50760 rejections=72"
+      ]
+    },
+    {
+      "mode": "O2",
+      "platformSummaries": [
+        "PASS dependency-metadata platform=0 fixtures=4230 comparisons=12690 rejections=18",
+        "PASS dependency-metadata platform=1 fixtures=8460 comparisons=25380 rejections=36",
+        "PASS dependency-metadata platform=2 fixtures=12690 comparisons=38070 rejections=54",
+        "PASS dependency-metadata platform=99 fixtures=16920 comparisons=50760 rejections=72"
+      ]
+    }
+  ],
+  "succeeded": true,
+  "sourceCommit": "9fa6d8dc9f62bc4453b88891e16d0e3cfcb3ca5f",
+  "runId": "40177066058"
+}

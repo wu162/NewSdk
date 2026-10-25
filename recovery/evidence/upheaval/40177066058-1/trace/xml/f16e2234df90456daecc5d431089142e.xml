@@ -1,0 +1,1 @@
+<ObjectFilterAsset id="JapanEmperorsResolveSpecialPowerObjectFilter" TypeId="1151702845" xmlns="uri:ea.com:eala:asset"><Filter Rule="ANY" Include="INFANTRY VEHICLE HUGE_VEHICLE SHIP" Exclude="STRUCTURE" StatusBitFlagsExclude="SUBMERGED AIRBORNE_TARGET NOT_IN_WORLD" TypeId="3832456114" /></ObjectFilterAsset>
