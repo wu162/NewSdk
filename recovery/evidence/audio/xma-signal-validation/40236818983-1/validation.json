@@ -1,0 +1,46 @@
+{
+  "sdkValidated": false,
+  "sourceCommit": "f683edd76b9619b23a6242b3dd5ddd450fcdb51b",
+  "sizes": 6,
+  "oracleSha256": "128712f596189a1076982a71ee5d92bca2f8ededad7826c04dbb7733fd03d7de",
+  "versions": 4,
+  "patterns": 3,
+  "realSnapshotInputsAndOutputsVerified": true,
+  "xmaEncoderRecovered": false,
+  "realSnapshotsReplayed": 111,
+  "tailPolicies": 2,
+  "curveModes": 4,
+  "runAttempt": "1",
+  "audioFileXmaRouteEnabled": false,
+  "snapshotsDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\audio\\xma-signal-snapshot-validation\\40236818983-1\\signals",
+  "status": "passed",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "scope": "Complete bounded XMA signal transform 0x97b00 with folding, DCT, masks and 256 weights",
+  "physicalX87ControlWord": "0x027f",
+  "realSnapshotsExpected": 111,
+  "recordsPerConfiguration": 5760,
+  "modes": [
+    {
+      "recoveredSha256": "fae4b9a6cc21f49b91badd831a2bb23553876e376990c1c7184f1bed7f517d5f",
+      "records": 5760,
+      "candidateSafetyRejections": 13,
+      "originalAbsentFromRecoveredHost": true,
+      "summary": "PASS candidate XMA signal transform: 5760 synthetic complete spectrum/HRESULT/shift comparisons; realSnapshots=111; six sizes, four codec-version values, ten ratios around half ties, two tail policies, four gain-curve modes, three input patterns; thirteen separate safety refusals; recovered DCT/FFT; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "recoveredSha256": "9c07af352c9443509a74874609cad5b0eb998dd295e3a12162e05fa40a9d9a85",
+      "records": 5760,
+      "candidateSafetyRejections": 13,
+      "originalAbsentFromRecoveredHost": true,
+      "summary": "PASS candidate XMA signal transform: 5760 synthetic complete spectrum/HRESULT/shift comparisons; realSnapshots=111; six sizes, four codec-version values, ten ratios around half ties, two tail policies, four gain-curve modes, three input patterns; thirteen separate safety refusals; recovered DCT/FFT; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "originalCpuValidated": true,
+  "realOnly": false,
+  "runId": "40236818983",
+  "ratios": 10
+}

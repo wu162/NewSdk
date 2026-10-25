@@ -1,0 +1,16 @@
+{
+  "status": "started",
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "stage": "native-execution",
+  "sdkValidated": false,
+  "nativeExitCode": 0,
+  "nativeHelperSha256": "4bba58cdd0cd4d3a569c975ae6ff20598a686b255638aab7bebace1bf994d148",
+  "runId": "40236818983",
+  "xmaEncodingRecovered": false,
+  "callSiteRva": "0x8c0af",
+  "sourceCommit": "f683edd76b9619b23a6242b3dd5ddd450fcdb51b",
+  "scope": "Real x86 CPU actual original XMA whole signal-wrapper entry/return pairs",
+  "runAttempt": "1",
+  "tracedCases": 0,
+  "baselineRunId": "40232525056"
+}

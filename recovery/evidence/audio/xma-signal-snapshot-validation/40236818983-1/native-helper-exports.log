@@ -1,0 +1,30 @@
+
+Dump of file D:\a\_temp\audio-xma-signal-snapshot-857bcac6bc0947f98a3635f43f8c0b47\AudioXmaSignalSnapshotNative.dll
+
+File Type: DLL
+
+  Section contains the following exports for AudioXmaSignalSnapshotNative.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000013E0 SignalConfigure
+          2    1 00001400 SignalCount
+          3    2 00001420 SignalHook
+          4    3 00001430 SignalRecord
+          5    4 00001460 SignalSetCase
+          6    5 00001470 SignalSize
+
+  Summary
+
+      649000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

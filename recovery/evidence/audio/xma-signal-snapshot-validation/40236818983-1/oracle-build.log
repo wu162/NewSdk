@@ -1,0 +1,9 @@
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(36,49): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedFile.path' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(36,65): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedFile.length' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(36,86): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedFile.sha256' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,49): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.name' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,65): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.channels' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,74): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.frames' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,81): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.sampleRate' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,92): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.blockBytes' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaSignalSnapshotOracle.cs(37,122): warning CS0649: Field 'AudioXmaSignalSnapshotOracle.SavedCase.files' is never assigned to, and will always have its default value null
