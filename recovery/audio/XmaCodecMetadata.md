@@ -54,31 +54,28 @@ buffer (`40+4*256`), not a claim that the complete encoder accepts256 streams.
 Null inputs and malformed record sizes are rejected. Allocation failures and
 out-of-bounds native behavior are not emulated.
 
-## Validation scope
+## Current validation scope
 
-`TestAudioXmaCodecMetadata.ps1` runs all384 synthetic-state cases on original
-Windows x86 CPU, then isolated Debug/Release builds with no original DLL present
-or loaded. All three output buffers, export lengths, fresh allocation semantics,
-source immutability and input guards are checked. The matrix spans8 stream
-counts,6 block counts and8 patterns covering masks, unsigned wrapping and loop
-boundaries;15 candidate safety rejections are separate from equivalence cases.
+| Group | Exact sourceCommit / run | Accepted scope |
+|---|---|---|
+| Synthetic states | `1ebd94a9c61dc4c44ea66784075f43062840ad41` / [40233897932](https://github.com/wu162/NewSdk/actions/runs/40233897932), attempt1 | Original CPU plus Debug/Release384 synthetic-state cases and15 safety rejections; historical actualWrapperStates=0. |
+| Actual wrapper states | `5495da2d703ca429434de369f5414cd45e4de819` / [40234514000](https://github.com/wu162/NewSdk/actions/runs/40234514000), attempt1 | Eight original states captured with a native-only journal at5f170; both candidate configurations agree. EA44/seek4 exactly equal actual codec allocations; WAVE52 agrees with the original routine's replay from those real states. |
 
-The original codec's real44-byte EA format and4-byte seek output have already
-been captured by the raw codec oracle. This metadata component matrix does not
-claim capture/replay of the internal state that generated those exact outputs;
-its receipt therefore records `actualWrapperStates=0`. Original real-codec
-outputs must not be reverse-derived into inputs and presented as independent
-wrapper-state evidence. Exact component sourceCommit/runId must be taken from
-its validation receipt after the Windows run completes.
+The synthetic matrix spans8 stream counts,6 block counts and8 patterns covering
+masks, unsigned wrapping and loop boundaries. It checks all three output buffers,
+export lengths/fresh allocations, source immutability and guards in an isolated
+candidate host with no original DLL present or loaded. Safety rejections are
+separate from defined native equivalence.
 
-Synthetic-state component acceptance: source
-`1ebd94a9c61dc4c44ea66784075f43062840ad41`, run
-[40233897932](https://github.com/wu162/NewSdk/actions/runs/40233897932),
-attempt1 passed: original CPU and Debug/Release384 cases,15 safety rejections;
-`actualWrapperStates=0`. The separate `TestAudioXmaMetadataState.ps1` captures
-only8 real wrapper states through an integer-only native entry journal at
-`5f170`; it must compare all three original allocations to the accepted
-uninstrumented baseline, restore the original entry, then replay metadata and
-compare isolated candidate output. Its new results are pending and do not
-replace or relabel the synthetic-state run. The unchanged384-case group is
-not repeated by the actual-state harness.
+Actual-state encodes preserve all three accepted uninstrumented original
+allocations and input fingerprints. The native-only entry journal copies state,
+32-byte stream formats and block counts without CLR callback/VEH/FP operations;
+it restores and checks the original entry before direct replays. WAVE52 is not
+an additional allocation returned by589d0. No output was reverse-derived into
+inputs and presented as independent state evidence.
+
+Run40234514000 has an unrelated numerical snapshot helper-name failure, so its
+aggregate result is failure; the precise metadata-state receipt is passed.
+That successful8-state group is not repeated for the unrelated repair. The
+synthetic384-state run remains separately pinned and its original receipt is
+not relabeled as actual-wrapper acceptance. Neither group enables XMA encoding.

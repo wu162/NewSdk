@@ -3,9 +3,8 @@
 Original DLL SHA256
 `a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`.
 All addresses are RVAs. The standalone decoder and original-only plugin
-probe are accepted at the exact batch below. The candidate AudioFile ADP4
-route is now prepared and awaits its own complete plugin differential;
-SDK integration is deliberately deferred to a larger milestone. No Apple
+probe and AudioFile ADP4 component/plugin route are accepted at the exact
+batches below. SDK integration is deliberately deferred to a larger milestone. No Apple
 ima4 packet decoder is implied.
 
 ## Actual original decoder chain
@@ -83,13 +82,16 @@ Receipts are `adp4-decoder-validation/40233712043-1` and
 frame count from rawSSND/(channels*2) for the original bits16 probe domain.
 Those receipts do not prove the later candidate file route or SDK.
 
-## Candidate file-import batch (pending acceptance)
+## Accepted file-import component batch
 
 The candidate reader selects raw ADP4 for FORM/AIFC COMM typeADP4, normalizes
 its decoded signed16 samples by2^-15 and preserves the original frame-count
 correction from raw SSND and COMM bits8/16/24. It requires mono/stereo and
 at least two imported frames;0-frame and1-frame sources are separate refusals.
-Loop metadata and nonzero SSND offset/block size remain outside this domain.
+This initial file-import batch used SSND blockSize0. Arbitrary ignored
+blockSize was subsequently accepted in [SsndBlockSize](SsndBlockSize.md),
+source `d3f96009e64b44c4d9482421cc5922b3309320bc` / run40236037500.
+Loop metadata and nonzero SSND offset remain outside this ADP4 input domain.
 
 `TestAudioAdp4Plugin.ps1` runs4224 full-plugin records in each original,
 Debug and Release host:4032 ordinary cases (3 widths*2 channels*7 frame counts*
@@ -106,3 +108,14 @@ records in Debug/Release. The AIFC safety case now explicitly rejects undefined
 ADP4 single-frame import rather than treating all ADP4 as unsupported.
 No script in this new batch triggers real SDK; report component/plugin status
 and **SDK not validated for ADP4** until a later accumulated integration run.
+
+Source `5495da2d703ca429434de369f5414cd45e4de819`, run
+[40234514000](https://github.com/wu162/NewSdk/actions/runs/40234514000),
+attempt1: Debug/Release each4224 exact ADP4 plugin records,144 sample/frame
+invariants and12 safety refusals passed. Affected formats2400,AIFF loops200,
+and AIFC/NONE1440 regressions passed in both configurations. Receipts are
+`adp4-plugin-validation/40234514000-1`, `plugin-validation/40234514000-1`
+and `aifc-validation/40234514000-1`; SDK was not run.
+The overall workflow failure was a separate XMA snapshot tool export-name
+mismatch; it does not change these input-scope successful receipts. Do not
+label the entire multi-scope workflow successful or claim ADP4 SDK acceptance.

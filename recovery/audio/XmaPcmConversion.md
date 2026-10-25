@@ -29,6 +29,8 @@ neighbors and offset/stride/frame-count combinations. All source bits, destinati
 prefix/suffix guards and untouched output tails are checked. Nine candidate safety
 refusals are separate from the native-equivalence records.
 
-Status at implementation checkpoint: Windows validation pending. No XMA encoder
-or product route is enabled by this component. Exact sourceCommit/runId belongs
-in the run receipt after verification, never inferred from this audit note.
+Accepted source `5d56d52ff11510c7e93f83b47d08b1def5c99d27`,
+run40232917060 attempt1: actual original CPU and Debug/Release each124 cases /
+142193 signed16 samples matched, with nine separate safety refusals. Receipt:
+`../evidence/audio/xma-pcm-validation/40232917060-1/validation.json`.
+This component does not enable an XMA product route.

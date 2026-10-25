@@ -4,6 +4,10 @@
 `a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`.
 All addresses are RVAs. **No XMA encoding route is enabled.**
 
+Accepted source `5d56d52ff11510c7e93f83b47d08b1def5c99d27`, run40232917060
+attempt1: actual original CPU and Debug/Release passed6360 cases, with8 separate
+safety refusals. Receipt: `../evidence/audio/xma-noise-validation/40232917060-1/validation.json`.
+
 ## Closed numeric group implemented
 
 `src/AudioCompiler/Native/XmaNoiseGenerator.cs` implements the complete pair
@@ -88,8 +92,9 @@ this source note does not predeclare the batch passed.
   `69094` and optional `675ce`. These callees have additional allocation,
   table and transform dependencies; this batch does not recover them.
 
-Next actual codec milestone remains reproducible raw `589d0` output before
-`ee00` rewriting, then live indirect targets and a complete transform /
-quantization / entropy group. The numeric pair above removes one closed
-helper dependency but does not materially establish complete encoder scope.
-See [XmaNextBatch](XmaNextBatch.md) and [XmaAudit](XmaAudit.md).
+The original raw output milestone, numerical targets and integral window /
+FFT/DCT/signal groups have since passed under their separate exact receipts.
+Do not restart them from this historical dependency audit. Continue the actual
+channel analysis, coded-frame generation and driver from
+[XmaAfterTransform](XmaAfterTransform.md); the numeric pair here never implied
+complete encoder scope.

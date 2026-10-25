@@ -90,3 +90,13 @@ sanity only, not Windows/C# acceptance. The final receipt must provide actual
 sourceCommit/runId and Debug/Release outcomes. Real raw-window snapshots are
 an additional replay input, retaining their native provenance and distinct
 scope; synthetic cases are not labeled real codec input coverage.
+
+## Accepted result
+
+Source `de20ba24dc6941c56ee27ade3c897ece6a22b17e`, run40234805270 attempt1:
+original CPU and Debug/Release passed3240 synthetic plus111 actual snapshots,
+with15 separate safety refusals. All real128-byte/32-slot arguments were
+cross-checked against the captured geometry, coefficient bits and source hashes.
+Receipt: `../evidence/audio/xma-schedule-validation/40234805270-1/validation.json`.
+The matched raw codec outputs and window captures are a separate original-only
+receipt in `xma-window-snapshot-validation/40234805270-1`.

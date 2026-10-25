@@ -20,9 +20,10 @@ All addresses below are RVAs in original DLL SHA256
   skips it. SSND count correction remains `388f8..38949`, using the raw
   SSND length without even-chunk padding.
 
-The candidate requires the complete fixed22-byte AIFC COMM prefix and
-NONE compression. It ignores compressionName/FVER while preserving the
-existing no-loop, SSND offset0/blockSize0, integral mono/stereo safety domain.
+This initial candidate batch required the complete fixed22-byte AIFC COMM
+prefix and NONE compression. It ignored compressionName/FVER within the
+no-loop, SSND offset0/blockSize0, integral mono/stereo domain. Later ADP4
+and arbitrary ignored blockSize support are separately recorded below.
 No original acceptance is inferred from the file-format specification.
 
 ## Reproducible original-first matrix
@@ -67,4 +68,8 @@ The SDK profile is dedicated AIFC/NONE input, not full Upheaval.
 The earlier original-only1440 probe at source
 `5d56d52ff11510c7e93f83b47d08b1def5c99d27`, run40232917060, remains an
 original-only receipt; do not relabel it candidate or SDK acceptance.
-ADP4 and extra loop metadata remain outside the accepted AIFC/NONE domain.
+Subsequent [ADP4 component/plugin acceptance](Adp4Boundary.md) and
+[arbitrary ignored SSND blockSize acceptance](SsndBlockSize.md) have their own
+sourceCommit/runId scopes and no new SDK run. The original SDK receipt above
+continues to prove only its exact AIFC/NONE profile. Extra AIFC loop metadata
+and nonzero SSND offset remain outside the current accepted input domain.

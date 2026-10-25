@@ -62,31 +62,35 @@ parameters; all other native state/slot bytes remain untouched.
   to0..16384 bits. Invalid indices, lookahead and capacity fail before modifying
   packet bytes. Native out-of-bounds behavior is not copied.
 
-## Validation
+## Current validation scope
 
-`TestAudioXmaRawPacket.ps1` prepares original real-CPU versus isolated
-Debug/Release comparison of1106 cases:1098 synthetic states (960 bit splices,
-24 headers,60 next-packet transitions,30 padding cases,12 set/clear cases,
-and12 complete two-packet construction sequences), plus8 hash-verified accepted
-raw codec payload inputs. The real payload inputs do not establish actual
-encoder-state capture. It compares the complete
-`4050`-byte codec state, three full stream slots, raw packet buffer, all public
-scalar results, input immutability and guard bytes. Fifteen candidate safety
-refusals remain separate from defined native equivalence.
+| Group | Exact sourceCommit / run | Accepted scope |
+|---|---|---|
+| Component matrix | `d3f96009e64b44c4d9482421cc5922b3309320bc` / [40236037500](https://github.com/wu162/NewSdk/actions/runs/40236037500), attempt1 | Original CPU and Debug/Release1106 cases:1098 synthetic states plus8 accepted real raw payload inputs;15 safety rejections. Historical receipt keeps actualEncoderStates=0. |
+| Actual entry/return states | `93ba818ef53b6eb23a94a2f847409aadb31f4c44` / [40236621021](https://github.com/wu162/NewSdk/actions/runs/40236621021), attempt1 | **92 observations:63 header,29 next-packet,0 padding**; original and Debug/Release replay agree. Two65536-frame seeded stereo encodes preserve all three accepted original allocations and input fingerprints. |
 
-`actualEncoderStates=0` is intentional: these are comprehensive constructed
-states, not captures of the original numerical encoder at packet append time.
-The metadata real-state evidence does not expand this packet-writer claim.
-Component sourceCommit/runId must be taken from the Windows validation receipt
-when it completes; local instruction-emulator checks do not substitute for it.
+The1106-case component matrix includes960 bit splices,24 headers,60 next-packet
+transitions,30 padding cases,12 set/clear cases,12 complete two-packet sequences
+and8 hash-verified accepted raw payload inputs. It checks the complete4050-byte
+synthetic codec state, three complete stream slots, raw buffers, scalar results,
+source immutability and guards. Safety refusals are not native equivalence cases.
 
-Component acceptance: source
-`d3f96009` (use the full sourceCommit in its receipt), run
-[40236037500](https://github.com/wu162/NewSdk/actions/runs/40236037500),
-attempt1: original CPU plus Debug/Release1106 cases and15 safety rejections
-passed. Eight inputs are accepted real raw payload bytes; that run correctly
-keeps `actualEncoderStates=0`. `TestAudioXmaRawPacketState.ps1` is a separate
-pending two-long-case entry/return capture, reusing the accepted65536-frame
-seeded stereo corpus (40233712043). It must preserve all three original
-allocations and replay only captured header/next/padding states; it does not
-repeat the1106 component cases or claim actual bitsplice-state coverage.
+The92 actual observations prove only the exercised header and next-packet
+transitions. **No actual padding or bitsplice state was captured**; padding
+retains its30 synthetic-case proof and bitsplice its component/payload proof.
+Do not broaden this into complete lifecycle actual-state coverage or XMA audio
+encoding support. The successful1106 group was not repeated for this capture.
+
+The actual-state tool patches helper prologues with native-only entry stubs and
+uses a different native return continuation per record. It temporarily changes
+the helper's return slot, preserves integer registers/flags and performs no FP
+operation, CLR callback or VEH. It copies exactly the old/new2048-byte packet
+regions and used scalar fields; returns are paired per record. All entries are
+restored and checked before producing acceptance. The original codec output
+comparison is a required gate, not an assumption about instrumentation.
+
+Source capacity is independently checked against state+4028:5f44f writes block
+bytes, and5f464..5f485 allocate floor(blockBytes/2048)*2048 at state+4030.
+Capture bounds are never relaxed to force a successful observation. The baseline
+is the immutable long corpus source579c95661d90f067ab414c4133f033c2571b96e1 /
+run40233712043-1; case metadata and file mappings must match its pinned manifest.

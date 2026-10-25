@@ -15,21 +15,21 @@
 | integral window/copy六叶 | [XmaPcmWindow](XmaPcmWindow.md) | 579c956 / 40233712043，6888组 |
 | 98267 integral旧/新块调度 | [XmaPcmWindowScheduler](XmaPcmWindowScheduler.md) | de20ba2 / 40234805270，3240 synthetic＋111真实输入回放、15拒绝 |
 | EA/WAVE/BE seek元数据 | [XmaCodecMetadata](XmaCodecMetadata.md) | 1ebd94a / 40233897932，384 synthetic；5495da2 / 40234514000，8真实state及原codec分配闭环 |
-| 默认table-backed complex FFT a7de3 | XmaComplexFft | 03d98ce / 40235031462，order0..15双向/6pattern，共192组/6拒绝 |
+| 默认table-backed complex FFT a7de3 | [XmaComplexFft](XmaComplexFft.md) | 03d98ce / 40235031462，order0..15双向192组/6拒绝 |
+| table-backed DCT-IV a81db | [XmaDct4](XmaDct4.md) | d3f9600 / 40236037500，360＋111真实重放/9拒绝 |
+| 完整97b00 signal wrapper | [XmaSignalTransform](XmaSignalTransform.md) | f683edd / 40236818983，5760＋111真实重放/13拒绝 |
+| 可选855ef谱衰减 | [XmaSpectralGate](XmaSpectralGate.md) | 5bc9328 / 40237077516，2400组/11拒绝 |
+| raw packet构造/bitsplice | [XmaRawPacketWriter](XmaRawPacketWriter.md) | d3f9600 / 40236037500，1106组；93ba818 / 40236621021，92实际header/next观察 |
 
 除原整数packet历史行外，本轮各候选均以实际原Windows x86 CPU、Debug/Release完整位模式比较；安全拒绝另计。精确完整sourceCommit/runId和路径见[验收索引](../evidence/audio/acceptance-current.json)，不能把缩写或旧运行改写为后续提交的新验收。
 
-## 当前第一任务
+## 下一轮直接任务
 
-`97b00 -> [backend+1f0]` 的默认DCT样式核是 `a81db`，其FFT回调由 `[backend+204]` 提供，默认构造指向 `a7de3`。完整table-backed DCT组（N64/128/256/512/1024/2048）正在实现/验证；以新收据判断完成，不能因FFT已通过就宣称DCT通过。
+从[XmaAfterTransform](XmaAfterTransform.md)继续原channel分析/量化/entropy/初始化与状态驱动。完整signal函数返回点为8c0b4，之后caller额外mask/copy、8c133等分析分派不属于已恢复97b00；855ef只在独立范围验收。
 
-下一步按完整数据流组推进：
+完整5e8f0帧appender、跨packet分割/continuation、输出FIFO与码率时钟仍缺。raw packet helpers虽有1106组件样本和92真实状态，后者仅header63/next29；padding0、实际bitsplice state未覆盖。不能把格式写入函数当作coded-frame生成器。
 
-1. DCT本身：原9槽ABI、66个原binary32系数、pre/post rotation各FSTP落点、原FFT回调及scale/输出参数，取得完整原CPU/两配置差分。
-2. 实际DCT输入与输出捕获：从真实编码callsite截取，三份最终codec返回分配与未插桩原版一致，捕获数据再在隔离恢复宿主重放；不以synthetic输入冒充真实路径。
-3. 后续分析/量化/bitstream编码核心、初始化/状态更新和完整raw packet生命周期；仅在这些完整闭合后才能启用编码路由并取得插件差分及里程碑SDK验收。
-
-超出table域时若原版走CRT sin/cos，当前对应组件仍明确拒绝；不猜数值、不用系统数学库替代而放松逐位比较。通用generic reader、8/float window分支未恢复，不把integral61/78/94的结果扩大到这些表示。
+默认backend的DCT a81db、FFT a7de3已经通过，不再从这里重复起步。超出table域的CRT sin/cos和generic reader/8float窗口仍拒绝，不能用系统数学库替代而放松位比较。
 
 ## 可信原版输入/取证工具
 
@@ -40,6 +40,9 @@
 - 旧managed-VEH外围探针40232992739失败，不能作可用基线；不要重新采用有回调的断点方案。新native工具对特定实际site的成功也不冒充旧外围3site全部动态验证。
 
 原始格式/方法调查：[XmaAudit](XmaAudit.md)、[PublicXmaReferences](PublicXmaReferences.md)、[wrapper反汇编](xma-wrapper-disassembly.txt)。原 `589d0 -> 59a60 -> 5d180 -> 659b8/6978f` 及编码循环 `59070 -> 5d5b0 -> 648b6`、flush `5d520 -> 60136` 是实际大codec；小工厂5a6d0仅18byte facade，绝非全部编码器。
+
+- `d3f96009e64b44c4d9482421cc5922b3309320bc` / 40236037500：111个实际DCT输入/输出，360＋111原CPU/两配置逐位通过。
+- `f683edd76b9619b23a6242b3dd5ddd450fcdb51b` / 40236818983：111个实际97b00整wrapper输入/输出，5760＋111原CPU/两配置逐位通过；不包含caller后续mask/855ef。
 
 ## 验证约束
 

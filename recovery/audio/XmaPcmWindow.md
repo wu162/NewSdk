@@ -77,16 +77,18 @@ Both hosts require actual physical x87 CW027f and verify restoration of the
 previous physical control word. Candidate runs check original target DLL
 absence on disk and in loaded modules. Receipts are stored under
 `recovery/evidence/audio/xma-window-validation/<runId>-<attempt>` with exact
-sourceCommit/runId. Take final pass/fail from that receipt; this source note
-does not predeclare a Windows run passed.
+sourceCommit/runId. Accepted source `579c95661d90f067ab414c4133f033c2571b96e1`,
+run40233712043 attempt1: original CPU and both candidate configurations passed
+all6888 cases and12 separate safety refusals.
 
 Local preflight ran original machine code in Unicorn against an independent
 Python recurrence for 45 combinations, each31 samples, with complete state
 and float-bit agreement. This only catches implementation/ABI mistakes;
 it is not a substitute for real CPU or candidate Debug/Release acceptance.
 
-The next integration work is the entire `98267` scheduler and the downstream
-actual transform/quantization/entropy core. This leaf group alone does not
-recover those paths, supply production XMA output, or justify an SDK success
-claim. See [XmaCodecCore](XmaCodecCore.md) for the previously recovered noise
-pair, and [XmaNextBatch](XmaNextBatch.md) for the larger codec milestones.
+The integral98267 scheduler subsequently passed3240 synthetic and111 actual
+window replays under source `de20ba24dc6941c56ee27ade3c897ece6a22b17e`,
+run40234805270. FFT/DCT/signal and spectral attenuation have separate receipts.
+This leaf group alone does not supply production XMA output or an SDK success
+claim. Current remaining driver/analysis/quantization/entropy work is in
+[XmaAfterTransform](XmaAfterTransform.md).

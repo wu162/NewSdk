@@ -1,60 +1,61 @@
-# AudioCompiler 当前状态与交接
+# AudioCompiler 当前状态
 
-更新：2026-10-26（北京时间）。分支 `recovery/audio-compiler-source`，源码 `src/AudioCompiler`。
-**完整 DLL 尚未恢复；最大缺口仍是 XMA 数值编码核心。** 验收必须区分独立组件、实际插件调用、专用 SDK MOD 和完整真实 MOD。
+分支 `recovery/audio-compiler-source`；源码 `src/AudioCompiler`。2026-10-26（北京时间）。
+**本轮能力已取得对应验收，完整DLL/XMA编码器仍未恢复。** 精确锚点集中在[验收索引](evidence/audio/acceptance-current.json)，避免在多份文档复制完整历史。
 
-## 已支持范围
+## 产品能力
 
-| 能力 | 当前范围 |
+| 范围 | 当前支持与边界 |
 |---|---|
-| PathMusicMap / Track / Event | MPF、MUS、PATH header、weak reference、runtime、重定位及 CustomData |
-| MP3 passthrough | 原七连续 MPEG 帧识别/头解析、原文件传递；静态编入 MIT NLayer 作解码验证，特殊/损坏流不承诺普遍等价 |
-| WAVE | 单/双声道 PCM8/16/24；EXTENSIBLE 按容器整数位宽解码，原版忽略 cbSize/validBits/mask/GUID，**不是新增 float 解码器** |
-| AIFF / AIFC | signed8/BE16/BE24 AIFF；AIFC/NONE 的 COMM 名称/FVER/块顺序已恢复；raw ADP4 文件输入已通过组件/插件差分，SDK尚未验收 |
-| 编码/容器 | NONE/PCM16、XAS v1，RAM/streamed SNR/SNS；编码算法独立恢复，无原目标 DLL 运行后端 |
-| Loop | 单 forward WAVE smpl；AIFF 恰一个 INST/MARK、两个唯一匹配 marker、sustain mode1/release mode0，允许块/marker逆序 |
-| 重采样 | filter120 已接入，至少两个源帧；保留原短输入及 loop 缩放规则 |
-
-五个 BAB IAssetBuilderPlugin 路由、命名空间/程序集版本及类型元数据保留；不承诺原 C++ 指针 helper 的二进制 ABI。工程 net472、无签名，Core 仍引用 SDK 基线；NLayer 没有独立运行时 DLL。
+| 五个BAB路由 | PathMusicMap/Track/Event、AudioFileMP3Passthrough、AudioFile；runtime/重定位/CustomData |
+| WAVE | mono/stereo PCM8/16/24；EXTENSIBLE按整数容器位宽解码，原版忽略cbSize/validBits/mask/GUID，并非新增float解码 |
+| AIFF/AIFC | AIFF signed8/BE16/BE24；AIFC/NONE和EA raw ADP4（非标准Apple ima4）；SSND blockSize任意uint32被忽略，offset仍要求0 |
+| 编码/重采样 | NONE/PCM16、XAS v1、RAM/streamed SNR/SNS；filter120及原短输入/loop缩放，至少两个源帧 |
+| Loop | 单forward WAVE smpl；AIFF一个INST/MARK、两个唯一匹配marker、sustain mode1/release mode0子集，允许块/marker逆序 |
+| MP3 | 原七连续MPEG帧识别/头解析、原文件传递；静态编入MIT NLayer解码验证，特殊/损坏流不承诺普遍等价 |
+| XMA | 已恢复多个独立结构/数值组件，**尚不能编码XMA，representation28明确拒绝** |
 
 构建：`dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release`。
+工程net472、无签名，Core仍引用SDK基线；NLayer无独立运行时DLL。不承诺原C++指针helper的二进制ABI。生产源码没有加载原AudioCompiler作为运行后端；原DLL调用和native插桩仅在测试宿主。
 
-## 本轮已取得的验证
+## 本轮验证摘要
 
-完整 sourceCommit/runId 以对应收据为准；文档提交不冒充新运行。
+各数值/结构候选均比较实际原Windows x86 CPU、Debug/Release完整位模式，原DLL从恢复宿主排除；拒绝检查另计。sourceCommit全文及收据路径见索引。
 
-| 范围 | sourceCommit / runId | 已验证结果 |
-|---|---|---|
-| EXTENSIBLE 元数据、XMA PCM/rewriter/noise | `5d56d52ff11510c7e93f83b47d08b1def5c99d27` / [40232917060](https://github.com/wu162/NewSdk/actions/runs/40232917060) | 输入各2400条、SDK120次调用；XMA预转换124例/142193样本、rewriter801例含8真实闭环、noise6360例，均Debug/Release |
-| AIFC/NONE | `3863a632faac79ef586569e134b7eb46014fab94` / [40233228823](https://github.com/wu162/NewSdk/actions/runs/40233228823) | 各1440插件记录、60 sample-bit检查/10拒绝；旧2600回归及SDK120次调用 |
-| 六个 XMA integral window/copy 叶函数 | `579c95661d90f067ab414c4133f033c2571b96e1` / [40233712043](https://github.com/wu162/NewSdk/actions/runs/40233712043) | 各6888组、12拒绝；无原 DLL 的隔离候选宿主 |
-| ADP4 独立 decoder | 同上579c956 / 40233712043 | 各18243组、11拒绝；原插件96例双进程相同；尚不等于ADP4文件/SDK验收 |
-| XMA EA/WAVE/BE seek 元数据 | `1ebd94a9c61dc4c44ea66784075f43062840ad41` / [40233897932](https://github.com/wu162/NewSdk/actions/runs/40233897932) | 各384个合成state、15拒绝；原合成state边界保留；5495da2/40234514000另取得8个真实state与原分配闭环 |
-| 原始 codec 输出 | `cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499` / [40232525056](https://github.com/wu162/NewSdk/actions/runs/40232525056) | 8例各两次、三返回分配逐byte一致，捕获ee00重写前的raw packet |
-| 长/真实音频、实际window目标 | 579c956 / 40233712043 | 8例16次原编码，121 packet、4个多block案例；纯native journal111次实际调用确认97d97→98267，三原始输出SHA不变 |
+| 完整能力组 | 运行 / 结果 |
+|---|---|
+| EXTENSIBLE元数据 | 40232917060：各2400插件记录、120资产专用SDK |
+| AIFC/NONE | 40233228823：各1440插件记录、60样本检查/10拒绝，旧2600回归、120资产专用SDK |
+| raw ADP4 | 40233712043：decoder各18243组/11拒绝；40234514000：文件各4224插件记录、144样本检查/12拒绝，旧4040回归 |
+| SSND blockSize | 40236037500：各3192插件记录，含2736非零/零值闭环、168样本检查/168 offset拒绝，AIFF loop200回归 |
+| XMA预转换/重写/noise | 40232917060：124例/142193样本、801重写例含8真实闭环、6360 noise例 |
+| XMA window/调度 | 40233712043：六叶各6888组；40234805270：调度各3240 synthetic＋111实际输入，15拒绝 |
+| XMA FFT/DCT | 40235031462：order0..15双向192组/6拒绝；40236037500：N64..2048的DCT各360＋111真实输入输出，9拒绝 |
+| XMA signal/谱门限 | 40236818983：完整97b00 wrapper各5760＋111真实输入输出，13拒绝；40237077516：独立855ef各2400组/11拒绝 |
+| XMA元数据 | 40233897932：384 synthetic；40234514000：8真实state的EA/seek与原codec分配闭环，WAVE52为原真实state重放 |
+| XMA raw packet | 40236037500：1106例（1098 synthetic＋8真实payload）/15拒绝；40236621021：92真实state仅header63/next29，padding0、实际bitsplice状态未覆盖 |
+| 整工程构建 | 40237397076：默认Debug/Release通过；源码树`aaac794cc64e04b9f68e202a53d9ae245f5d6ace`与当前产品源码相同 |
 
-两个 SDK 批次均用相同合法输入和临时 SDK 根，走 EALAModStudio case5 BAB 基础数据，实际三缓冲区/CustomData、四产物相同，恢复侧删除原 AudioCompiler DLL。它们是**最小专用音频 MOD，不是完整 Upheaval**。
+原版取证另保留40232525056的8例/16次raw编码、40233712043的长/真实音频8例/16次编码（121packet、4多block案例）。window/DCT/signal插桩都要求原三份最终返回分配与未插桩原版一致。
 
-XMA 所有组件仍未组成完整编码器，representation28继续明确拒绝。新增源 `5495da2d703ca429434de369f5414cd45e4de819` / 40234514000 的ADP4文件各4224条、旧4040回归，以及8个真实metadata state均通过；该运行整体因独立snapshot工具导出名错误失败，不能称整体成功。该工具修复后 `de20ba24dc6941c56ee27ade3c897ece6a22b17e` / 40234805270 取得111真实window快照及各3240+111调度回放成功。FFT192组也已独立通过；DCT和raw packet构造正在整组验证。
+两个SDK批次走EALAModStudio case5 BAB基础数据流程，原/恢复版同一合法输入和临时SDK根，实际三缓冲区、四产物及CustomData一致，恢复侧删除原目标DLL。**这是最小专用音频MOD，不是完整Upheaval。** ADP4/SSND新增路径仅组件/插件验收，SDK尚未运行。
 
-## 还差什么
+40234514000整体因独立snapshot工具导出名错误失败，但ADP4及metadata收据成功；修复后40234805270整体通过。旧managed-VEH外围探针40232992739失败保留，不能作可用基线。不得将局部成功写成整体运行成功。
 
-1. **完整 XMA 编码器**：加窗调度/真实输入回放与table-backed FFT已通过；继续DCT、后续分析/量化/bitstream，再连接预转换、元数据和packet封装，最后整组插件及必要SDK里程碑验收。见 [XmaNextBatch](audio/XmaNextBatch.md)。
-2. 更多 AIFF loop/marker、非零 SSND offset等仍在当前边界外；blockSize忽略语义正在新组件矩阵验收。ADP4文件已取得组件差分但SDK留待里程碑。不要把标准 Apple ima4 包当成原 EA raw ADP4。
-3. 特殊/损坏 MPEG 流的原版接受/拒绝兼容，当前 NLayer 后端不能证明 RenderWare decoder 全量等价。
-4. 最终集成：未替换生产SDK DLL/config，未合入compiler-source、未接入最终exe、未完成完整Upheaval验证。当前ADP4新增路径尚无SDK验收。
+## 还缺什么
 
-原 DLL 本身拒绝 PCM32/IEEE-float WAVE，不将其记作待恢复原能力。原SIMEX单帧文件导入可能成功却不写malloc样本；当前单帧重采样/ADP4文件输入安全拒绝，不拟合旧堆内容。显式初始化的单帧数值组件是另一边界。
+1. **完整XMA**：初始化与状态驱动、channel分析/量化/entropy、连续编码和flush；完整`5e8f0`帧appender、FIFO `60136→728e3`、`70fd6`缓冲回收、`710a2`码率时钟等编排。已恢复helpers及transform不等于整个编码链；下一入口见[XmaAfterTransform](audio/XmaAfterTransform.md)。
+2. generic reader和超出table-backed域的数值分支；当前window仅integral61/78/94，FFT order0..15、DCT N64..2048，不扩大到CRT trig或8/float输入分支。
+3. 额外/重复/不匹配AIFF MARK、多INST/MARK、AIFC loop元数据、WAVE多smpl/多loop/nonforward的接受行为；release/pingpong原版只表现为忽略/不安装forward loop，不能暗示原版具备完整高级循环。非零SSND offset需先界定不会读出sound范围的确定行为。
+4. 特殊/损坏MPEG的接受/拒绝兼容。PCM32/IEEE-float WAVE、sowt等原路径本就拒绝的格式不列作待恢复原能力；单帧ADP4文件/重采样为原未初始化内存安全拒绝。
+5. ADP4/SSND等SDK里程碑、最终exe集成、合入compiler-source和完整Upheaval验证。
 
-## 续接规则与证据入口
+**不要频繁触发完整SDK真实验证。** 先累计组件/插件差分，实际依赖变更组完整验证，SDK按更大里程碑显式合批。工作流默认components/all不运行SDK。未变组复用精确旧锚点，文档提交不冒充新运行。
 
-**用户要求不要频繁触发完整SDK真实验证。** 先累计组件/插件差分与定向原版取证，真实SDK按更大里程碑合批且显式启用；当前工作流默认components/all只运行独立组件，不隐式启动SDK。未变成功组复用精确锚点，只对实际依赖变更组运行完整必要矩阵。不得把组件支持写成SDK已验收。
+## 按需阅读
 
-- [验收索引](evidence/audio/acceptance-current.json)；本轮新运行收据在 `evidence/audio/<group>/<runId>-1`，最终同步索引时不改旧锚点。
-- [输入元数据](audio/InputMetadataBoundary.md)、[AIFC/NONE](audio/AifcNoneBoundary.md)、[ADP4](audio/Adp4Boundary.md)。
-- [XMA预转换](audio/XmaPcmConversion.md)、[数值noise](audio/XmaCodecCore.md)、[window叶函数](audio/XmaPcmWindow.md)、[window调度](audio/XmaPcmWindowScheduler.md)、[metadata](audio/XmaCodecMetadata.md)。
-- [重采样](audio/ResamplerKernelAudit.md)、[单帧边界](audio/SingleFrameImportBoundary.md)、[XAS精度](audio/XasPrecision.md)：真实原CPU常数权威；x87中间53位与SSE逐步binary32不可混用。
-- [NLayer来源](../src/AudioCompiler/ThirdParty/NLayer/PROVENANCE.md)、[公开XMA交叉核对](audio/PublicXmaReferences.md)。公开decoder/parser不能代替原编码器验收。
+[输入元数据](audio/InputMetadataBoundary.md) · [AIFC/NONE](audio/AifcNoneBoundary.md) · [ADP4](audio/Adp4Boundary.md) · [SSND](audio/SsndBlockSize.md) · [XMA导航](audio/XmaNextBatch.md) · [Signal](audio/XmaSignalTransform.md) · [Gate](audio/XmaSpectralGate.md) · [下一分析链](audio/XmaAfterTransform.md)
 
-[整理前阶段历史](https://github.com/wu162/NewSdk/blob/36880397ce00f18690edf21e78bc68b39736eac4/recovery/AUDIO_COMPILER.md)保留旧成功/失败及完整SHA；其“src整树1347625与SDK验收相同”只适用当时固定提交，不能证明本轮当前整树已SDK验收。
-原 DLL SHA256：`a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`。
+[重采样](audio/ResamplerKernelAudit.md)、[单帧边界](audio/SingleFrameImportBoundary.md)、[XAS精度](audio/XasPrecision.md)保留原CPU常数权威与x87/SSE精度要求；[NLayer来源](../src/AudioCompiler/ThirdParty/NLayer/PROVENANCE.md)、[公开XMA核对](audio/PublicXmaReferences.md)保留来源边界。
+
+[整理前历史](https://github.com/wu162/NewSdk/blob/36880397ce00f18690edf21e78bc68b39736eac4/recovery/AUDIO_COMPILER.md)的src整树1347625相同证明只适用于当时固定提交，不能证明当前整树已SDK验收。原DLL SHA256：`a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`。

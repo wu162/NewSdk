@@ -52,7 +52,15 @@ loops and ADP4. Numerical encoders, resampler and nibble decoder are unchanged.
 Original runtime DWORD fields, full CustomData and all three buffers must
 match; merely accepting the file cannot pass.
 
-Acceptance is pending actual sourceCommit/runId receipts at
-`evidence/audio/ssnd-block-validation/<runId>-<attempt>` and the old-loop
-`plugin-validation` receipt. Component/plugin success must not be relabeled
-SDK or full production integration acceptance.
+## Accepted component/plugin batch
+
+Source `d3f96009e64b44c4d9482421cc5922b3309320bc`, run
+[40236037500](https://github.com/wu162/NewSdk/actions/runs/40236037500),
+attempt1 overall succeeded. Debug/Release each3192 exact plugin records,
+2736 nonzero-vs-zero canonical comparisons,168 sample/metadata invariants
+and168 nonzero-offset refusals passed; the affected AIFF-loop200-record
+regression and existing reader safety checks also passed.
+Exact receipts are `evidence/audio/ssnd-block-validation/40236037500-1/validation.json`
+and `evidence/audio/plugin-validation/40236037500-1/validation.json`.
+SDK was not run; this is component/plugin acceptance, not production SDK or
+full MOD integration acceptance.
