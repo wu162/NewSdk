@@ -22,7 +22,10 @@ class BuildInfrastructureContract
         Rows.Add("assembly:" + a.GetName().Name + ":" + a.GetName().Version);
         foreach (Type t in a.GetTypes()) {
             if (t.Name.StartsWith("<")) continue;
-            Rows.Add("type:" + t.FullName + ":" + t.BaseType + ":" + t.Attributes);
+            // Roslyn sets BeforeFieldInit on interfaces; no interface has static state here.
+            TypeAttributes attrs=t.Attributes;
+            if(t.IsInterface && t.GetFields(All).Length==0) attrs &= ~TypeAttributes.BeforeFieldInit;
+            Rows.Add("type:" + t.FullName + ":" + t.BaseType + ":" + attrs);
             foreach (Type i in t.GetInterfaces()) Rows.Add(t.FullName + ":interface:" + i);
             foreach (FieldInfo f in t.GetFields(All)) {
                 if (f.Name.StartsWith("<")) continue;
@@ -31,7 +34,17 @@ class BuildInfrastructureContract
             foreach (MethodInfo m in t.GetMethods(All)) {
                 if (!m.Name.StartsWith("<")) Rows.Add(t.FullName + ":method:" + Signature(m) + ":" + m.Attributes);
             }
-            foreach (ConstructorInfo c in t.GetConstructors(All)) Rows.Add(t.FullName + ":ctor:" + Signature(c) + ":" + c.Attributes);
+            foreach (ConstructorInfo c in t.GetConstructors(All)) {
+                // Original IL is only ldsflda _TheNop; initobj Nop; ret (12 bytes).
+                // Roslyn omits this redundant zero initializer; the C# initializer remains in Set.cs.
+                if(t.FullName=="BinaryAssetBuilder.Core.Set`1" && c.IsStatic) {
+                    byte[] il=c.GetMethodBody().GetILAsByteArray();
+                    if(il.Length!=12 || il[0]!=0x7f || il[5]!=0xfe || il[6]!=0x15 || il[11]!=0x2a)
+                        throw new InvalidOperationException("Unexpected Set<T> initializer; re-audit normalization");
+                    continue;
+                }
+                Rows.Add(t.FullName + ":ctor:" + Signature(c) + ":" + c.Attributes);
+            }
         }
         foreach (string name in a.GetManifestResourceNames()) {
             using (Stream s = a.GetManifestResourceStream(name))
@@ -85,6 +98,18 @@ class BuildInfrastructureContract
                 var e=list.GetEnumerator();e.MoveNext();list.Add(88);
                 try{e.MoveNext();parts.Add("enumerator:accepted");}catch(Exception ex){parts.Add("enumerator:"+ex.GetType().FullName);}
                 return String.Join(",",parts.ToArray());
+            });
+        }
+        for(int seed=0;seed<20;seed++) {
+            int sample=seed;
+            Case("core:set:"+seed,delegate {
+                var r=new Random(sample); var set=new Set<int>();
+                for(int i=0;i<60;i++) set.Add(r.Next(-10,11));
+                var copy=new Set<int>(set); set.AddRange(new[]{100,100,200});set.Remove(0);
+                var result=new List<string>();foreach(int n in set) result.Add(n.ToString());
+                result.Add("contains="+set.Contains(100));result.Add("copy="+copy.Count);result.Add("hash="+set.GetHashCode());
+                result.Add("empty="+Set<int>.Empty.Count);copy.Clear();result.Add("cleared="+copy.Count);
+                return String.Join(",",result.ToArray());
             });
         }
         foreach(int index in new[]{-1,0,1,10,int.MaxValue}) {
