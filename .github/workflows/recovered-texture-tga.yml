@@ -1,4 +1,4 @@
-name: Texture TGA decoder probe
+name: Recovered Texture TGA subset
 on:
   push:
     branches: [recovery/texturecompiler-source]
@@ -20,23 +20,23 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Probe original decoder and candidate without claiming acceptance
+      - name: Validate declared TGA decoding and rejection boundaries
         shell: pwsh
-        run: ./recovery/scripts/TestTextureTga.ps1 -ProbeOnly
+        run: ./recovery/scripts/TestTextureTga.ps1
       - name: Preserve pixel evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: texture-tga-${{ github.run_id }}-${{ github.run_attempt }}
           path: recovery/evidence/texture/tga/${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Commit probe evidence
+      - name: Commit TGA subset validation evidence
         shell: pwsh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- "recovery/evidence/texture/tga/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if (git diff --cached --quiet) { exit 0 }
-          git commit -m "texture: record TGA decoder probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          git commit -m "texture: record TGA subset validation $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
           git pull --rebase origin $env:GITHUB_REF_NAME
           if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution' }

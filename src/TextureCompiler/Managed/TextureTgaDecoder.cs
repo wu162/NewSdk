@@ -44,6 +44,9 @@ namespace Recovered.Compiler.Texture
                 int packet = type == 10 ? ReadByte(source, ref offset) : 0;
                 int length = type == 10 ? (packet & 127) + 1 : count - position;
                 bool repeat = type == 10 && (packet & 128) != 0;
+                if (type == 10 && length > width - position % width)
+                    throw new BinaryAssetBuilder.BinaryAssetBuilderException(BinaryAssetBuilder.ErrorCode.BadTextureFile,
+                        "D3DX cannot load the texture from disk.", new object[0]);
                 if (length > count - position) throw new InvalidDataException("TGA RLE packet exceeds the declared image.");
                 uint repeated = repeat ? ReadPixel(source, ref offset, bytesPerPixel) : 0;
                 for (int i = 0; i < length; i++)
@@ -58,7 +61,19 @@ namespace Recovered.Compiler.Texture
             }
             if (offset != source.Length && !IsEmptyFooter(source, offset))
                 throw new NotSupportedException("Only an exact TGA footer with zero extension/developer offsets is supported after the pixel data.");
-            return new TexturePacker.Image(width, height, pixels, depth == 32);
+            bool hasAlpha = depth == 32;
+            if (hasAlpha)
+            {
+                bool anyNonzeroAlpha = false;
+                for (int i = 0; i < pixels.Length; i++)
+                    if ((pixels[i] & 0xFF000000u) != 0) { anyNonzeroAlpha = true; break; }
+                if (!anyNonzeroAlpha)
+                {
+                    for (int i = 0; i < pixels.Length; i++) pixels[i] |= 0xFF000000u;
+                    hasAlpha = false;
+                }
+            }
+            return new TexturePacker.Image(width, height, pixels, hasAlpha);
         }
         private static bool IsEmptyFooter(byte[] source, int offset)
         {

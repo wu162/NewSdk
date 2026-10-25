@@ -16,7 +16,7 @@ internal static unsafe class TextureTgaOracle
     private static MallocFunction malloc;
     private static FreeFunction free;
     private static MethodInfo construct, destroy, load;
-    private static int fixtures, mismatches, assertions, unsupportedCount, originalFailures;
+    private static int fixtures, mismatches, assertions, unsupportedCount, originalFailures, rejectionMatches, decodedMatches;
     private static object PointerArg(MethodInfo method, int index, void* value)
     { return Pointer.Box(value, method.GetParameters()[index].ParameterType); }
     private static void Check(bool condition, string message)
@@ -135,42 +135,75 @@ internal static unsafe class TextureTgaOracle
         foreach (uint value in image.Pixels) { if (b.Length > 0) b.Append(','); b.Append(value.ToString("X8")); }
         return b.ToString();
     }
+    private static Exception Unwrap(Exception e)
+    {
+        while (e is TargetInvocationException && e.InnerException != null) e = e.InnerException;
+        return e;
+    }
+    private static string FailureSignature(Exception failure)
+    {
+        Exception e = Unwrap(failure);
+        PropertyInfo code = e.GetType().GetProperty("ErrorCode");
+        return e.GetType().FullName + ": " + e.Message + "; errorCode=" + (code == null ? "<none>" : Convert.ToString(code.GetValue(e, null)));
+    }
+    private static bool DeclaredUnsupported(string label)
+    {
+        // Exact boundary profile retained from immutable probe 40194142937-1.
+        // These four original-success fixtures are NOT pixel-equivalence passes.
+        return label == "empty-footer-24-rleTrue-direction16" ||
+            label == "empty-footer-24-rleTrue-direction32" ||
+            label == "real:apt_tacticalhudbuildqueuepage_1.tga" ||
+            label == "real:apt_tacticalhudmaincommandbar_1.tga";
+    }
     private static void Compare(StreamWriter transcript, string path, string label, byte[] bytes, bool probe)
     {
         File.WriteAllBytes(path, bytes);
         fixtures++;
-        TexturePacker.Image expected;
-        try { expected = Original(path); }
-        catch (Exception ex)
+        TexturePacker.Image expected = null, actual = null;
+        Exception originalError = null, candidateError = null;
+        try { expected = Original(path); } catch (Exception ex) { originalError = ex; }
+        try { actual = TextureTgaDecoder.Decode(bytes); } catch (Exception ex) { candidateError = ex; }
+        if (originalError != null)
         {
-            transcript.WriteLine("{0}|originalFailure={1}", label, ex.ToString().Replace('\r', ' ').Replace('\n', ' '));
             originalFailures++;
+            string expectedFailure = FailureSignature(originalError);
+            string actualFailure = candidateError == null ? "<success>" : FailureSignature(candidateError);
+            bool matched = expectedFailure == actualFailure;
+            transcript.WriteLine("{0}|negativeMatched={1}|originalFailure={2}|candidateFailure={3}", label, matched, expectedFailure, actualFailure);
+            if (matched) { rejectionMatches++; return; }
             mismatches++;
-            if (!probe) { transcript.Flush(); throw; }
-            Console.WriteLine("PROBE originalFailure " + label + " " + ex.GetType().Name);
+            Console.WriteLine("DIFFERENCE rejection " + label + " original=" + expectedFailure + " candidate=" + actualFailure);
+            if (!probe) { transcript.Flush(); throw new InvalidDataException("Original/candidate TGA rejection differs: " + label); }
             return;
         }
         string originalPixels = Pixels(expected);
-        TexturePacker.Image actual;
-        try { actual = TextureTgaDecoder.Decode(bytes); }
-        catch (Exception ex)
+        if (DeclaredUnsupported(label))
         {
-            transcript.WriteLine("{0}|original={1}x{2},alpha={3}|candidateFailure={4}|originalPixels={5}", label, expected.Width, expected.Height, expected.HasAlpha, ex.GetType().FullName + ": " + ex.Message, originalPixels);
-            if (ex is NotSupportedException) unsupportedCount++;
+            bool properBoundary = candidateError != null &&
+                ((label.StartsWith("real:") && Unwrap(candidateError) is NotSupportedException) ||
+                 (!label.StartsWith("real:") && FailureSignature(candidateError) == "BinaryAssetBuilder.BinaryAssetBuilderException: D3DX cannot load the texture from disk.; errorCode=BadTextureFile"));
+            transcript.WriteLine("{0}|declaredUnsupported=True|boundaryRejected={1}|original={2}x{3},alpha={4}|candidateFailure={5}|originalPixels={6}", label, properBoundary, expected.Width, expected.Height, expected.HasAlpha, candidateError == null ? "<success>" : FailureSignature(candidateError), originalPixels);
+            if (properBoundary) { unsupportedCount++; return; }
             mismatches++;
-            if (!probe) { transcript.Flush(); throw; }
-            Console.WriteLine("PROBE candidateUnsupported " + label + " original=" + expected.Width + "x" + expected.Height + " alpha=" + expected.HasAlpha + " reason=" + ex.Message);
+            Console.WriteLine("DIFFERENCE declared unsupported boundary " + label);
+            if (!probe) { transcript.Flush(); throw new InvalidDataException("Declared unsupported boundary changed: " + label); }
+            return;
+        }
+        if (candidateError != null)
+        {
+            transcript.WriteLine("{0}|unexpectedCandidateFailure={1}|original={2}x{3},alpha={4}|originalPixels={5}", label, FailureSignature(candidateError), expected.Width, expected.Height, expected.HasAlpha, originalPixels);
+            mismatches++;
+            Console.WriteLine("DIFFERENCE unexpected candidate failure " + label + " " + FailureSignature(candidateError));
+            if (!probe) { transcript.Flush(); throw new InvalidDataException("Unexpected candidate failure: " + label, candidateError); }
             return;
         }
         string recoveredPixels = Pixels(actual);
         bool equal = expected.Width == actual.Width && expected.Height == actual.Height && expected.HasAlpha == actual.HasAlpha && originalPixels == recoveredPixels;
         transcript.WriteLine("{0}|equal={1}|original={2}x{3},alpha={4}|recovered={5}x{6},alpha={7}|originalPixels={8}|recoveredPixels={9}", label, equal, expected.Width, expected.Height, expected.HasAlpha, actual.Width, actual.Height, actual.HasAlpha, originalPixels, recoveredPixels);
-        if (!equal)
-        {
-            mismatches++;
-            Console.WriteLine("DIFFERENCE " + label + " original alpha=" + expected.HasAlpha + " candidate alpha=" + actual.HasAlpha + " original first=" + expected.Pixels[0].ToString("X8") + " candidate first=" + actual.Pixels[0].ToString("X8"));
-            if (!probe) { transcript.Flush(); throw new InvalidDataException("TGA decoder differs from original LoadImageA: " + label); }
-        }
+        if (equal) { decodedMatches++; return; }
+        mismatches++;
+        Console.WriteLine("DIFFERENCE " + label + " original alpha=" + expected.HasAlpha + " candidate alpha=" + actual.HasAlpha + " original first=" + expected.Pixels[0].ToString("X8") + " candidate first=" + actual.Pixels[0].ToString("X8"));
+        if (!probe) { transcript.Flush(); throw new InvalidDataException("TGA decoder differs from original LoadImageA: " + label); }
     }
 
     private static int Main(string[] args)
@@ -246,10 +279,14 @@ internal static unsafe class TextureTgaOracle
             finally { ((IDisposable)plugin).Dispose(); }
             if (probe)
             {
-                Console.WriteLine("PROBE Texture TGA original loading: fixtures=" + fixtures + "; mismatches=" + mismatches + "; unsupportedCount=" + unsupportedCount + "; originalFailures=" + originalFailures + "; no acceptance claim");
+                Console.WriteLine("PROBE Texture TGA original loading: fixtures=" + fixtures + "; mismatches=" + mismatches + "; unsupportedCount=" + unsupportedCount + "; originalFailures=" + originalFailures + "; decodedMatches=" + decodedMatches + "; rejectionMatches=" + rejectionMatches + "; no acceptance claim");
                 return 0;
             }
-            Console.WriteLine("PASS Texture TGA original LoadImageA differential: fixtures=" + fixtures + "; assertions=" + assertions + "; unsupportedCount=" + unsupportedCount + "; complete pixels and hasAlpha; raw/RLE24/32; four orientations");
+            Check(fixtures == (args.Length == 5 ? 1611 : 1608), "Full declared generated/real fixture count must remain intact");
+            Check(rejectionMatches == 252, "All 252 original-rejected cross-scanline RLE fixtures must match rejection");
+            Check(unsupportedCount == (args.Length == 5 ? 4 : 2), "All explicit unsupported boundaries must remain visible");
+            Check(decodedMatches == fixtures - rejectionMatches - unsupportedCount && mismatches == 0, "Exact partial-scope accounting");
+            Console.WriteLine("PASS Texture TGA partial scope: fixtures=" + fixtures + "; decodedMatches=" + decodedMatches + "; rejectionMatches=" + rejectionMatches + "; unsupportedCount=" + unsupportedCount + "; mismatches=" + mismatches + "; assertions=" + assertions + "; unsupported originals are NOT equivalent decoding passes; no SDK claim");
             return 0;
         }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
