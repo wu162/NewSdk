@@ -8,7 +8,8 @@
 
 - **已通过**：`bb4a225` / [40243817293](https://github.com/wu162/NewSdk/actions/runs/40243817293)。Debug/Release 每配置：loop4224、optional3888、offset2704、MPEG676、旧插件2175、AIFC720、ADP42136、SSND1680；整工程构建通过。MPEG 原机器码32783 header /441 identifier /324 info另有15识别边界。
 - **已通过 SDK**：同源码、同运行的4488资产专用 PC 音频 MOD，原/恢复版实际三缓冲区、四产物及4488份CustomData一致，恢复侧删除原目标 DLL。该批不是完整 Upheaval。
-- **本轮最终候选验证中**：`2d64684742f9b19808d8fd721fbe31a549907c37` / [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458)。新增COMM声明范围7776条、MPEG1084条及72容器判断，并复验受影响完整组；成功后只跑新增1820资产SDK（COMM1728、MPEG44、ADP4 offset组合48）。不得把前一源码的成功写成最终候选重跑成功。
+- **最终候选已通过**：`2d64684742f9b19808d8fd721fbe31a549907c37` / [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) attempt1 success。D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及旧受影响完整回归、整工程构建均通过；原机器码32783 header/441 identifier/324 info/72容器及15识别边界通过。
+- **新增SDK已通过**：同最终源码、同运行的1820资产专用PC MOD（COMM1728、MPEG44、ADP4 offset组合48），原/恢复版实际三缓冲区、四产物、1820份CustomData一致；恢复侧删除原目标DLL。前一4488保留原锚点，不冒充本次重跑。
 
 精确收据、配置、源码树和历史锚点见[验收索引](evidence/audio/acceptance-current.json)。
 
@@ -21,7 +22,7 @@
 | 编码 | NONE/PCM16、XAS v1；RAM/streamed SNR/SNS；filter120重采样，至少两个源帧 |
 | WAVE loop | 原无padding查找的首smpl/首条range；type等被忽略，仍是普通forward loop，非高级pingpong播放 |
 | AIFF/AIFC loop | 多INST/MARK、额外/重复marker；INST-only/空MARK/双端均不匹配为无loop；release忽略；mode0/2无forward loop |
-| COMM过滤候选 | 用最后COMM的signed声明帧数先筛marker，负值/超声明位置跳过，之后才按SSND长度修正actual frames |
+| COMM过滤 | 用最后COMM的signed声明帧数先筛marker，负值/超声明位置跳过，之后才按SSND长度修正actual frames |
 | SSND | 任意uint32 blockSize忽略；非零offset仅接受完整采样窗口在声明sound范围内，保留原raw-length帧数 |
 | MP3透传 | 原七帧识别、EOF终止、MPEG头信息与有界WAVE/AIFF/AIFC优先级；按原SIMEX_info仅查信息，不解PCM；原文件逐字节复制 |
 
@@ -31,9 +32,11 @@
 
 ## 尚未完成
 
-1. 收取最终候选的完整组件和1820资产SDK终态；失败先定位修复，不扩大完成声明。
-2. 完整固定Upheaval/PublicCases的音频替换验收（AptUI/全局/基础数据，其他插件用原SDK）。入口 `TestAudioUpheavalSdk.ps1`，保留194个预编译.asset输入并检查真实AudioFile调用。完整Upheaval全部WAV，不替代AIFF声明边界SDK。
-3. 合入`compiler-source`；最终exe集成仍属于后续重构。`refactor/compiler-exe-integration`当前只有联合基线准备，尚无可接入的最终exe工程。
+用户要求先交接，本轮停止新运行。既有两个SDK批次及最终组件均已终态成功，不重复触发。
+
+1. 完整固定Upheaval/PublicCases的音频替换验收（AptUI/全局/基础数据，其他插件用原SDK）。入口 `TestAudioUpheavalSdk.ps1`，工作流已准备源码树/SDK收据门槛，保留194个预编译.asset输入并检查真实AudioFile调用。完整Upheaval全部WAV，不替代AIFF声明边界SDK。
+2. 合入`compiler-source`；合并时保留其通用续接导航。SDK及shared recovery/src源码树均与目标b122a54相同，不重跑未变编译器。
+3. 最终exe集成。已查`refactor/compiler-exe-integration`的46b8785仅有联合基线准备，尚无可接入的最终exe工程。
 
 继续明确拒绝：MARK-only原未初始化mode、单端匹配、无效loop范围、结构损坏/marker超限，以及超出SSND的offset。
 尚未界定的畸形容器识别组合不承诺普遍等价。PCM32/IEEE-float、sowt等原路径本就拒绝的格式不是待恢复能力；单帧ADP4/import-resample原未初始化行为保持安全拒绝。

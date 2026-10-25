@@ -1,5 +1,5 @@
 {
-  "status": "validation-in-progress",
+  "status": "passed-with-explicit-scope",
   "branch": "recovery/audio-compiler-source",
   "sdkAndSourceTreeProof": {
     "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
@@ -165,9 +165,9 @@
   "next": "../../AUDIO_COMPILER.md",
   "sdkPolicy": "Component and plugin differentials first; run real SDK only at explicit larger milestones. Existing SDK receipts use dedicated minimal audio MODs and do not certify full Upheaval.",
   "remaining": [
-    "Final COMM/MPEG complete component and1820-asset SDK milestone terminal results",
     "Complete pinned Upheaval audio replacement acceptance; other plugins use original SDK",
-    "Merge into compiler-source and later final exe integration",
+    "Merge into compiler-source, retaining its shared subsystem navigation",
+    "Final exe integration in later compiler refactor",
     "Undefined native reads, partial AIFF marker pairs and unaudited malformed containers remain explicit limits"
   ],
   "targetScope": "PC Win32 only; all other target platforms rejected",
@@ -274,7 +274,7 @@
     "receipt": "standalone-build-validation/40240685038-1/validation.json"
   },
   "currentValidation": {
-    "status": "in-progress",
+    "status": "passed",
     "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
     "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
     "runId": "40244825458",
@@ -282,44 +282,53 @@
     "supportedPlatforms": [
       "Win32"
     ],
-    "plannedLoopRecordsPerConfiguration": 4224,
-    "plannedOptionalLoopRecordsPerConfiguration": 3888,
-    "plannedMarkerRangeRecordsPerConfiguration": 7776,
-    "plannedOffsetRecordsPerConfiguration": 2704,
-    "plannedMpegRecordsPerConfiguration": 1084,
-    "plannedSdkAssets": 1820,
-    "sdkStarted": false
+    "sdkStarted": true,
+    "observedSuccessfulSteps": [
+      "loop metadata and optional metadata and signed COMM marker range",
+      "bounded SSND offset",
+      "MPEG complete boundary group",
+      "complete affected PC plugin regressions and source build"
+    ],
+    "sdkPassed": true,
+    "sdkAssets": 1820,
+    "sdkActualCalls": 1820,
+    "sdkProducts": 4,
+    "sdkCustomFiles": 1820,
+    "originalDllAbsentFromRecoveredSdk": true,
+    "loopRecordsPerConfiguration": 4224,
+    "optionalLoopRecordsPerConfiguration": 3888,
+    "markerRangeRecordsPerConfiguration": 7776,
+    "offsetRecordsPerConfiguration": 2704,
+    "mpegRecordsPerConfiguration": 1084,
+    "receiptCommit": "3bf0cfb83fe59a9f5e012a40f5f431d9b87c1891",
+    "receipts": [
+      "loop-metadata-validation/40244825458-1/validation.json",
+      "loop-optional-validation/40244825458-1/validation.json",
+      "marker-range-validation/40244825458-1/validation.json",
+      "ssnd-offset-validation/40244825458-1/validation.json",
+      "mpeg-boundary-validation/40244825458-1/validation.json",
+      "plugin-validation/40244825458-1/validation.json",
+      "aifc-validation/40244825458-1/validation.json",
+      "adp4-plugin-validation/40244825458-1/validation.json",
+      "ssnd-block-validation/40244825458-1/validation.json",
+      "standalone-build-validation/40244825458-1/validation.json",
+      "sdk-validation/40244825458-1/validation.json"
+    ],
+    "mpegNativeHeaderRecords": 32783,
+    "mpegNativeIdentifierRecords": 441,
+    "mpegNativeInfoRecords": 324,
+    "mpegNativeContainerRecords": 72,
+    "identificationBoundaryChecks": 15
   },
   "wholeSourceBuild": {
-    "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
     "status": "passed",
-    "modes": [
-      {
-        "libraryBytes": 137216,
-        "librarySha256": "41222db3367773c3309e84e0517cb7d81ef018d80bee92f195dd4723f92c0c45",
-        "passed": true,
-        "log": "Debug-build.log",
-        "configuration": "Debug"
-      },
-      {
-        "libraryBytes": 123904,
-        "librarySha256": "30289064984c7cbbf322d35741015ccac2ed7db0b9523d7c10b7ffb56ac88473",
-        "passed": true,
-        "log": "Release-build.log",
-        "configuration": "Release"
-      }
-    ],
+    "sourceCommit": "2d64684742f9b19808d8fd721fbe31a549907c37",
+    "sourceTree": "ee6074a096795aa66b682fcb363e360feabe4d2f",
+    "runId": "40244825458",
+    "attempt": 1,
+    "receipt": "standalone-build-validation/40244825458-1/validation.json",
     "sdkStarted": false,
-    "runAttempt": "1",
-    "sourceTree": "44d8089ff03c9af29c6e6cb12245eff8ba0c25c2",
-    "supportedPlatforms": [
-      "Win32"
-    ],
-    "runId": "40241451234",
-    "modCompiled": false,
-    "sourceCommit": "376243310ad44a164c7ac29b100e5489c5d93928",
-    "scope": "Whole recovered AudioCompiler source project builds only",
-    "receipt": "standalone-build-validation/40241451234-1/validation.json"
+    "scope": "Whole project Debug/Release source build; SDK receipt separate"
   },
   "historicalPcOnlyValidation": {
     "status": "passed",
@@ -379,5 +388,15 @@
     ]
   },
   "mpegInfoPolicy": "Recovered original SIMEX_info header-only path, not PCM decoding; unused NLayer removed",
-  "finalExeIntegrated": false
+  "finalExeIntegrated": false,
+  "handoff": {
+    "requestedByUser": true,
+    "newRunsStopped": true,
+    "existingRunContinues": false,
+    "firstAction": "Do not rerun passed components/SDKs; next milestone is complete pinned Upheaval audio replacement using the prepared gated workflow",
+    "upheavalStarted": false,
+    "compilerSourceMerged": false,
+    "finalExeIntegrated": false,
+    "runTerminalConfirmed": true
+  }
 }
