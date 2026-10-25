@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader><resheader name="version"><value>1.3</value></resheader><resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader><data name="SyntaxErrorInXmlnsSchemeData" xml:space="preserve"><value>Syntax error in xmlns() scheme data: {0}</value></data>
+  <data name="ZeroIndexInElementSchemechildSequence" xml:space="preserve"><value>Syntax error in element() scheme data: 0 index in ChildSequence.</value></data>
+  <data name="UnexpectedEndOfSchemeData" xml:space="preserve"><value>Unexpected end of scheme data.</value></data>
+  <data name="CircumflexCharMustBeEscaped" xml:space="preserve"><value>Circumflex character must be escaped in XPointer.</value></data>
+  <data name="InvalidTokenInElementSchemeWhileClosingRoundBracketExpected" xml:space="preserve"><value>Syntax error in element() scheme data: Invalid token in ChildSequence, a closing round bracket was expected.</value></data>
+  <data name="NullXPointer" xml:space="preserve"><value>XPointer pointer cannot be null.</value></data>
+  <data name="UndeclaredPrefix" xml:space="preserve"><value>Undeclared prefix '{0}'.</value></data>
+  <data name="InvalidNameToken" xml:space="preserve"><value>Invalid Name token: {0}:{1}.</value></data>
+  <data name="EmptyElementSchemeXPointer" xml:space="preserve"><value>Syntax error in element() scheme data: empty XPointer.</value></data>
+  <data name="SyntaxErrorInXPath1SchemeData" xml:space="preserve"><value>Syntax error in xpath1() scheme data: {0}</value></data>
+  <data name="InvalidTokenAfterShorthandPointer" xml:space="preserve"><value>Invalid token after shorthand pointer.</value></data>
+  <data name="InvalidTokenInXmlnsSchemeWhileNCNameExpected" xml:space="preserve"><value>Syntax error in xmlns() scheme data: Invalid token in XmlnsSchemaData, NCName was expected.</value></data>
+  <data name="NoSubresourcesIdentifiedException" xml:space="preserve"><value>XPointer '{0}' doesn't identify any subresources.</value></data>
+  <data name="SyntaxErrorInXPointerSchemeData" xml:space="preserve"><value>Syntax error in xpointer() scheme data: {0}</value></data>
+  <data name="InvalidToken" xml:space="preserve"><value>Invalid token.</value></data>
+  <data name="InvalidTokenInElementSchemeWhileNumberExpected" xml:space="preserve"><value>Syntax error in element() scheme data: Invalid token in ChildSequence, a number was expected.</value></data>
+  </root>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Mvp.Xml</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net20</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Web" />
+    <!-- Embed original resources verbatim; keep .resx files as readable source.
+         net20 ResGen is unavailable in dotnet MSBuild. SR is not a culture. -->
+    <EmbeddedResource Remove="*.resx" />
+    <EmbeddedResource Include="*.resources" LogicalName="%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+  <Target Name="RestoreExsltClrNames" AfterTargets="Build">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)../../../tools/MvpXmlMetadata/MvpXmlMetadata.csproj"
+             Targets="Restore;Build" Properties="Configuration=$(Configuration)"
+             RemoveProperties="TargetFramework;OutputPath;PlatformTarget;RuntimeIdentifier;SelfContained" />
+    <Exec Command="&quot;$(MSBuildThisFileDirectory)../../../tools/MvpXmlMetadata/bin/$(Configuration)/net48/MvpXmlMetadata.exe&quot; &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "a75b48a960d32e199acb2716e06e57e6deca82ce",
+  "runAttempt": "1",
+  "runId": "40189585854",
+  "sdkValidated": false,
+  "modes": [
+    {
+      "records": 2434,
+      "passed": true,
+      "sha256": "43e6ad64ff1c2400ecb6cd3a652521c517f380da62ba16df53130f480c83650e",
+      "mode": "Debug"
+    },
+    {
+      "records": 2434,
+      "passed": true,
+      "sha256": "43e6ad64ff1c2400ecb6cd3a652521c517f380da62ba16df53130f480c83650e",
+      "mode": "Release"
+    }
+  ],
+  "status": "passed"
+}

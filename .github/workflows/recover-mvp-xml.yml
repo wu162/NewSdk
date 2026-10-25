@@ -1,0 +1,42 @@
+name: Recover Mvp Xml
+on:
+  push:
+    branches: [recovery/mvp-xml-source]
+    paths:
+      - '.github/workflows/recover-mvp-xml.yml'
+      - 'recovery/scripts/TestMvpXml.ps1'
+      - 'recovery/scripts/TestBuildInfrastructure.ps1'
+      - 'recovery/tests/BuildInfrastructureContract.cs'
+      - 'recovery/tests/MvpXmlOracle.cs'
+      - 'recovery/src/Managed/MvpXml/**'
+      - 'recovery/src/Managed/Core/**'
+      - 'recovery/tools/MvpXmlMetadata/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mvp-xml-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Validate original and recovered Mvp.Xml in isolated processes
+        shell: pwsh
+        run: ./recovery/scripts/TestMvpXml.ps1
+      - name: Validate Core public contracts and infrastructure consumers
+        shell: pwsh
+        run: ./recovery/scripts/TestBuildInfrastructure.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mvp-xml-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/src/Managed/MvpXml
+            recovery/evidence/mvp-xml
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}

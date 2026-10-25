@@ -39,3 +39,15 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 
 分支 `recovery/utility-source` 从本分支 `7fc417546989ca94a18742b37965e9c6751a409e` 新建。原 C++/CLI Utility 的完整业务源码已重建到 `src/Managed/Utility`；原始 ILSpy 工程与 IL 保留在 `evidence/utility`。构建后恢复原模板类型身份及 C++ 签名修饰符（GetErrorString 的 IsLong），不调用原 DLL 业务实现。验收源码 `9c7b59036c0bc518727023331603e59bf16c48a4`，运行 [40186857933](https://github.com/wu162/NewSdk/actions/runs/40186857933) 成功：Debug/Release 各269,516条原版对照完全相同，恢复运行目录无原Utility DLL，七份真实manifest全资产读取通过。组件已验收，未替换SDK DLL/config、未跑完整MOD编译；通过 [PR #8](https://github.com/wu162/NewSdk/pull/8) 合入compiler-source，保留同期Metrics与其他组件验收证据；原版越界/未初始化内存/重复释放不属确定行为承诺，卷刷新成功路径未实际操作。详见 [UTILITY.md](UTILITY.md) 和 [验收收据](evidence/utility/validation/40186857933-1/validation.json)。
 
+
+
+## Mvp.Xml 独立还原分支（2026-10-25）
+
+分支 `recovery/mvp-xml-source` 从 `260f1d2c34d52910ff27d53ef070059c4b1c9785` 新建。完整工程位于 `recovery/src/Managed/MvpXml`，91 个 C# 文件，覆盖原库 XInclude/XPointer/XPath/EXSLT/XSLT/序列化能力。按用户要求只恢复功能，输出无签名 DLL；保留简单程序集名/版本，未替换 SDK 原 DLL。构建后恢复 51 个 EXSLT 原始 CLR 方法名，避免 ILSpy 的 C# 名称转义改变 XSLT 反射入口。验收源码 `fe38f6039f77a45a77ed53da93a53ac97e110da3`，运行 [40188365985](https://github.com/wu162/NewSdk/actions/runs/40188365985) attempt1 成功：Debug/Release 各 2,110 条原版对照记录一致，包含 Core 原包装方法实际调用，恢复宿主排除原目标 DLL；详细构建、签名边界与组件覆盖见 [MVP_XML.md](MVP_XML.md)。合入追踪：[PR #9](https://github.com/wu162/NewSdk/pull/9)，目标 `recovery/compiler-source`；未执行真实 MOD SDK 编译。
+
+
+### Mvp.Xml 调用处改为静态引用（2026-10-25）
+
+用户要求 SDK 直接调用恢复函数。Core 的 `AssetDeclarationDocument.LoadXml()` 现在直接构造 `Mvp.Xml.XInclude.XIncludingReader` 并设置 XmlResolver，`DocumentProcessor.ProcessDocument()` 移除动态加载初始化，Core 项目引用 MvpXml 源码工程；旧包装类仅保留公开方法兼容，不再反射。MvpXml 使用原始二进制资源直接嵌入，保留可读 resx，从而让原有 dotnet 构建方式可用。验证同时排除原 Core/MvpXml、实际执行 LoadXml 和依赖记录，并检查产物 IL 的直接构造/setter 调用；另运行 Core/Remote/EALABuild 既有组件矩阵。验收源码 `a75b48a960d32e199acb2716e06e57e6deca82ce`，运行 [40189585854](https://github.com/wu162/NewSdk/actions/runs/40189585854) attempt1 成功：Debug/Release 各 2,111 条 MvpXml/真实 LoadXml 对照及各 2,434 条基础组件记录一致，直接调用 IL 审计通过。修改位于 `recovery/mvp-xml-source`，SDK/tools 原二进制仍作基线；合入追踪：[PR #9](https://github.com/wu162/NewSdk/pull/9)，目标 `recovery/compiler-source`；未执行完整 MOD 编译。
+
+合并核对：目标分支 `4e86bf87e9339a5b5662f5aa6a27debe8970fe79` 在共同基线后新增 Utility 源码/脚本/文档/证据及 primitives 验证收据；与 Mvp.Xml 分支唯一重叠是本续接文档。Utility 全部子树和 primitives 收据按目标 SHA 原样保留，Core/MvpXml/测试/构建工具/SDK 原 DLL 与验收源码保持不变，复用运行 40189585854 的精确结果，不将文档合并冒充新验证。

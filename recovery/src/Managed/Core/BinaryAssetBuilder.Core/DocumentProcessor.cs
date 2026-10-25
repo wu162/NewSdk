@@ -166,7 +166,6 @@ public class DocumentProcessor
 
 	public void ProcessDocument(string fileName, bool generateOutput, bool __outputStringHashes, out bool success)
 	{
-		XIncludingReaderWrapper.LoadAssembly();
 		ExpressionEvaluatorWrapper.LoadAssembly();
 		DateTime now = DateTime.Now;
 		using (new MetricTimer("BAB.ProcessingTime"))
