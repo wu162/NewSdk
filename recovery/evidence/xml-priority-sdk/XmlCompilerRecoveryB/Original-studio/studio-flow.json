@@ -1,0 +1,78 @@
+{
+  "succeeded": true,
+  "entry": "EALAModStudio.ModStudioUI.loadBuildScript -> SDK/defaultscript.cs BuildScript.buildMod -> executeModBuildStep",
+  "defaultscriptSha256": "A4F41C72EA81319AD75E5251F40B10EFA202C28F8021B0594AF222321686426E",
+  "modName": "XmlCompilerRecoveryB",
+  "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original",
+  "sourceModXml": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml",
+  "selectedSteps": [
+    1,
+    2,
+    5
+  ],
+  "disabledSteps": [
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "disabledReason": "User requested only establishing base data (Studio case5); no AptUI/additionalmaps, LoD, asset merge/fix, copy, packaging or installation steps",
+  "steps": [
+    {
+      "step": 1,
+      "label": "clear-built-mod",
+      "succeeded": true,
+      "freshCopy": true
+    },
+    {
+      "step": 2,
+      "label": "clear-cache",
+      "succeeded": true,
+      "freshCopy": true
+    },
+    {
+      "step": 5,
+      "label": "mod",
+      "executable": "BinaryAssetBuilder.exe",
+      "arguments": "\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml\" /od:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original\\builtmods\" /iod:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original\\builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\XmlCompilerRecoveryB\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\XmlCompilerRecoveryB\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\XmlCompilerRecoveryB\\Data;.\\Mods;.\\SageXml\"",
+      "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Original",
+      "exitCode": 0,
+      "startedUtc": "2026-10-25T04:44:20.6574598Z",
+      "endedUtc": "2026-10-25T04:44:21.9102569Z",
+      "stdout": "02-mod-stdout.txt",
+      "stderr": "02-mod-stderr.txt"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "mod.bin",
+      "stage": "BAB",
+      "bytes": 38072,
+      "sha256": "01560C81B0C54F6C0685219F0FD99B9EAEBF3BBDB18A0CD37F25790EF11E77DD"
+    },
+    {
+      "name": "mod.manifest",
+      "stage": "BAB",
+      "bytes": 35353,
+      "sha256": "1C69CB08A14B960D176AA03B0710ACF59A2BB7B3A5A99E6CEC35A3496DCECF14"
+    },
+    {
+      "name": "mod.imp",
+      "stage": "BAB",
+      "bytes": 460,
+      "sha256": "2000BE2E00DBD2F62CCD4521B95830ACAF45563E8BFF3D94075091EB0E38E04B"
+    },
+    {
+      "name": "mod.relo",
+      "stage": "BAB",
+      "bytes": 4936,
+      "sha256": "699C7FAB77B6BDD22BA13340442E380295FF5C0E3ED524572150E8E950461D51"
+    }
+  ],
+  "status": "EALAModStudio base-data BAB invocation completed; later GUI stages intentionally excluded"
+}

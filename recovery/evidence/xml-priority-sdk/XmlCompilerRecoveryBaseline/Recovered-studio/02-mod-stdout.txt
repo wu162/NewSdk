@@ -1,0 +1,591 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\Mods\XmlCompilerRecoveryBaseline\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryBaseline\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryBaseline\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryBaseline\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\Mods\XmlCompilerRecoveryBaseline\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryBaseline\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryBaseline\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryBaseline\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2660946] Cached session data not available.
+[00:00:00.2660946] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2660946] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods\cache').
+[00:00:00.2816939] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\mod.xml'.
+[00:00:00.3129359] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3129359] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods\static.manifest, file not found
+[00:00:00.3129359] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\static.xml'.
+[00:00:00.3285593] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3285593] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods\global.manifest, file not found
+[00:00:00.3285593] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\global.xml'.
+[00:00:00.3285593] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3285593] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryBaseline-Recovered\builtmods\audio.manifest, file not found
+[00:00:00.3285593] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\audio.xml'.
+[00:00:00.3441834] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\probe.xml'.
+[00:00:00.3910602] probe.xml: Compiling FXList:RecoveryXmlPriority_FX_Defaults [86682e78:b930c15b]
+[00:00:00.4379462] probe.xml: Compiling FXList:RecoveryXmlPriority_FX_Filters [86682e78:38dc906d]
+[00:00:00.5316854] probe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Defaults [28e7fd7f:e765a528]
+[00:00:00.5316854] probe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Gpu [28e7fd7f:87c5626a]
+[00:00:00.5473038] probe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_Lightning [28e7fd7f:a9b47343]
+[00:00:00.5473038] probe.xml: Compiling FXParticleSystemTemplate:RecoveryXmlPriority_Particle_RenderObject [28e7fd7f:9a2c75fe]
+[00:00:00.5473038] probe.xml: Compiling AttributeModifier:RecoveryXmlPriority_AttributeModifier_Defaults [c5e07887:2b5cd2a2]
+[00:00:00.5629285] probe.xml: Compiling SpecialPowerTemplate:RecoveryXmlPriority_SpecialPower_Defaults [81d85efa:54d5572e]
+[00:00:00.5629285] probe.xml: Compiling ObjectCreationList:RecoveryXmlPriority_OCL_Defaults [e86e4d61:f2482487]
+[00:00:00.5629285] probe.xml: Compiling LocomotorTemplate:RecoveryXmlPriority_Locomotor_Defaults [ecc2a1d3:009b27ca]
+[00:00:00.5785549] probe.xml: Compiling LogicCommandSet:RecoveryXmlPriority_CommandSet_Defaults [ec066d65:c94c1f43]
+[00:00:00.5785549] probe.xml: Compiling UpgradeTemplate:RecoveryXmlPriority_Upgrade_Defaults [e1afe75b:b336f1d1]
+[00:00:00.5785549] probe.xml: Compiling AIPersonalityDefinition:RecoveryXmlPriority_Personality_Defaults [d6d4f18e:d5e155ef]
+[00:00:00.5941919] probe.xml: Compiling AIStrategicStateDefinition:RecoveryXmlPriority_Strategic_Defaults [242ff6d4:a91e3ed0]
+[00:00:00.5941919] probe.xml: Compiling AIMicroManagerData:RecoveryXmlPriority_Micro_Defaults [9077f377:14575e38]
+[00:00:00.5941919] probe.xml: Compiling AIBudgetStateDefinition:RecoveryXmlPriority_Budget_Defaults [ac78ce63:8bf657ab]
+[00:00:00.5941919] probe.xml: Compiling AIStateDefinition:RecoveryXmlPriority_State_Defaults [c11d7e83:a742d7b3]
+[00:00:00.5941919] probe.xml: Compiling AITargetingHeuristic:RecoveryXmlPriority_Target_Defaults [373e10fa:32cfec0c]
+[00:00:00.5941919] probe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Defaults [7d464170:7229795b]
+[00:00:00.6098052] probe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Defaults [7f0818d9:07610b61]
+[00:00:00.6098052] probe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Defaults [6b7227c2:bad11596]
+[00:00:00.6098052] probe.xml: Compiling UpgradeTemplate:RecoveryXmlAdditional_UpgradeTemplate_Support [e1afe75b:08e099b9]
+[00:00:00.6098052] probe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Defaults [7f96d96d:68857a65]
+[00:00:00.6098052] probe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults [6fbc4a9f:3e83b0c2]
+[00:00:00.6098052] probe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Defaults [b5ad65f8:55212829]
+[00:00:00.6098052] probe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults [5d65a2e0:26a4f0c3]
+[00:00:00.6098052] probe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Defaults [484d7cf8:1070dc06]
+[00:00:00.6098052] probe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Defaults [08080bc0:8ebcb793]
+[00:00:00.6098052] probe.xml: Compiling FXList:RecoveryXmlAdditional_FXList_Support [86682e78:d8206184]
+[00:00:00.6254274] probe.xml: Compiling ObjectCreationList:RecoveryXmlAdditional_ObjectCreationList_Support [e86e4d61:bc20e3b3]
+[00:00:00.6254274] probe.xml: Compiling AttributeModifier:RecoveryXmlAdditional_AttributeModifier_Support [c5e07887:9f513c74]
+[00:00:00.6254274] probe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Combined [7d464170:d15f4696]
+[00:00:00.6254274] probe.xml: Compiling LogicCommand:RecoveryXmlAdditional_LogicCommand_Inherited [7d464170:d8ac85fe]
+[00:00:00.6254274] probe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Combined [7f0818d9:a6003c15]
+[00:00:00.6254274] probe.xml: Compiling PlayerTech:RecoveryXmlAdditional_PlayerTech_Inherited [7f0818d9:d42d15b7]
+[00:00:00.6254274] probe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Combined [6b7227c2:650bfd3e]
+[00:00:00.6254274] probe.xml: Compiling PlayerTechRank:RecoveryXmlAdditional_PlayerTechRank_Inherited [6b7227c2:688b2781]
+[00:00:00.6254274] probe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined [7f96d96d:bc036e94]
+[00:00:00.6254274] probe.xml: Compiling PlayerTechUpgradeBinding:RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited [7f96d96d:38b3cc8b]
+[00:00:00.6365669] probe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Combined [6fbc4a9f:ffd2fc12]
+[00:00:00.6365669] probe.xml: Compiling ExperienceLevelTemplate:RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited [6fbc4a9f:e79c6250]
+[00:00:00.6365669] probe.xml: Compiling ButtonSingleStateData:RecoveryXmlAdditional_ButtonSingleStateData_Combined [b5ad65f8:527b0a06]
+[00:00:00.6410932] probe.xml: Compiling PurchasePlayerTechButtonTemplate:RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined [5d65a2e0:ce55dd4c]
+[00:00:00.6410932] probe.xml: Compiling PlayerTechStoreTemplate:RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined [484d7cf8:d81b3601]
+[00:00:00.6410932] probe.xml: Compiling UICommandButton:RecoveryXmlAdditional_UICommandButton_Combined [08080bc0:4d30d507]
+[00:00:00.6410932] probe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Defaults [51b9cd64:f1e8e110]
+[00:00:00.6410932] probe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Defaults [4e9436e2:90d11720]
+[00:00:00.6410932] probe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Defaults [057786f9:e005d601]
+[00:00:00.6410932] probe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Combined [51b9cd64:c71e9239]
+[00:00:00.6410932] probe.xml: Compiling FontTranslation:RecoveryXmlAdditional_FontTranslation_Combined [4e9436e2:a63d2090]
+[00:00:00.6410932] probe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Combined [057786f9:4406f26b]
+[00:00:00.6410932] probe.xml: Compiling FontDefaultSetting:RecoveryXmlAdditional_FontDefaultSetting_Inherited [51b9cd64:6aec8c22]
+[00:00:00.6410932] probe.xml: Compiling FontSubstitution:RecoveryXmlAdditional_FontSubstitution_Inherited [057786f9:617db942]
+[00:00:00.6410932] probe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Defaults [90d951ad:e0ada0b8]
+[00:00:00.6567568] probe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Combined [90d951ad:8196615c]
+[00:00:00.6567568] probe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Defaults [582fdc2a:931ef71a]
+[00:00:00.6567568] probe.xml: Compiling WaterTransparency:RecoveryXmlAdditional_WaterTransparency_Combined [582fdc2a:12cba4e7]
+[00:00:00.6567568] probe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Defaults [a2a3374c:4934a7db]
+[00:00:00.6567568] probe.xml: Compiling WaterSetting:RecoveryXmlAdditional_WaterSetting_Combined [a2a3374c:02cea3c5]
+[00:00:00.6567568] probe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Defaults [b28cca45:a82144b7]
+[00:00:00.6567568] probe.xml: Compiling WaterTextureList:RecoveryXmlAdditional_WaterTextureList_Combined [b28cca45:b46d4d82]
+[00:00:00.6723776] probe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Defaults [2893e309:2b9abd35]
+[00:00:00.6723776] probe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Defaults [bceda263:c6c994af]
+[00:00:00.6723776] probe.xml: Compiling LightingSettings:RecoveryXmlAdditional_LightingSettings_Combined [bceda263:fe89c0ba]
+[00:00:00.6723776] probe.xml: Compiling Environment:RecoveryXmlAdditional_Environment_Combined [2893e309:6df98146]
+[00:00:00.6723776] probe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Defaults [5796c4b7:d3ddb67a]
+[00:00:00.6723776] probe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Combined [5796c4b7:5ac98fec]
+[00:00:00.6723776] probe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Defaults [8d32382d:4e16b87f]
+[00:00:00.6723776] probe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Combined [8d32382d:fb67645d]
+[00:00:00.6723776] probe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Defaults [f7ce0bbd:09d58a3f]
+[00:00:00.6880028] probe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Combined [f7ce0bbd:b026d360]
+[00:00:00.6880028] probe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Defaults [b29f0574:de9f071b]
+[00:00:00.6880028] probe.xml: Compiling OrdersManagerSettings:RecoveryXmlAdditional_OrdersManagerSettings_Combined [b29f0574:a62dc98d]
+[00:00:00.6880028] probe.xml: Compiling Weather:RecoveryXmlAdditional_Weather_Inherited [90d951ad:28139751]
+[00:00:00.6880028] probe.xml: Compiling TerrainParticleMapping:RecoveryXmlAdditional_TerrainParticleMapping_Inherited [5796c4b7:7b01d98e]
+[00:00:00.6880028] probe.xml: Compiling BounceKickTerrainMapping:RecoveryXmlAdditional_BounceKickTerrainMapping_Inherited [8d32382d:b704dbfc]
+[00:00:00.6880028] probe.xml: Compiling ShadowMap:RecoveryXmlAdditional_ShadowMap_Inherited [f7ce0bbd:77e80187]
+[00:00:00.6880028] probe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Defaults [4696a138:b198f200]
+[00:00:00.6880028] probe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Defaults [e862ff86:61c53946]
+[00:00:00.6880028] probe.xml: Compiling TerrainVisualSettings:RecoveryXmlAdditional_TerrainVisualSettings_Combined [4696a138:d11490a7]
+[00:00:00.6880028] probe.xml: Compiling CameraSettings:RecoveryXmlAdditional_CameraSettings_Combined [e862ff86:0370e7e6]
+[00:00:00.6880028] probe.xml: Compiling AIData:RecoveryXmlAdditional_AIData_Defaults [e4266b40:5e63969b]
+[00:00:00.7036307] probe.xml: Compiling UnitAISettings:RecoveryXmlAdditional_UnitAISettings_Defaults [b0b8a920:abac0286]
+[00:00:00.7036307] probe.xml: Compiling PlayerTemplate:RecoveryXmlAdditional_PlayerTemplate_Defaults [f231d60d:2c9e83c6]
+[00:00:00.7036307] probe.xml: Compiling MultiplayerSettings:RecoveryXmlAdditional_MultiplayerSettings_Defaults [0b63aef0:47f679e7]
+[00:00:00.7036307] probe.xml: Compiling AIBuildStateDefinition:RecoveryXmlAdditional_AIBuildStateDefinition_Defaults [620c480b:5a0ec916]
+[00:00:00.7036307] probe.xml: Compiling AIStrategicStateName:RecoveryXmlAdditional_AIStrategicStateName_Defaults [77d6be90:3bd466f7]
+[00:00:00.7036307] probe.xml: Compiling MultiplayerColor:RecoveryXmlAdditional_MultiplayerColor_Defaults [8e28081d:1f93e8e5]
+[00:00:00.7036307] probe.xml: Compiling AIPersonalityToAchievementEventMapping:RecoveryXmlAdditional_AIPersonalityToAchievementEventMapping_Defaults [f38e1878:0e104f6e]
+[00:00:00.7036307] probe.xml: Compiling FormationAssistantUnitDefinition:RecoveryXmlAdditional_FormationAssistantUnitDefinition_Defaults [31f4dce2:6c51e294]
+[00:00:00.7036307] probe.xml: Compiling FormationAssistantTemplate:RecoveryXmlAdditional_FormationAssistantTemplate_Defaults [ad9779b6:44c7d3a7]
+[00:00:00.7192531] probe.xml: Compiling FormationSelectionTemplate:RecoveryXmlAdditional_FormationSelectionTemplate_Defaults [c92313e0:5a6f2330]
+[00:00:00.7192531] probe.xml: Compiling FormationAssistant:RecoveryXmlAdditional_FormationAssistant_Defaults [7504005c:ab5e889d]
+[00:00:00.7192531] probe.xml: Compiling SkirmishSettings:RecoveryXmlAdditional_SkirmishSettings_Defaults [17f749cf:ca501972]
+[00:00:00.7192531] probe.xml: Compiling FXList:RecoveryDamageFxLeaf [86682e78:934a9616]
+[00:00:00.7192531] probe.xml: Compiling DamageFX:RecoveryDamageFxDefault [ad3568f5:1d719c39]
+[00:00:00.7192531] probe.xml: Compiling DamageFX:RecoveryDamageFxNonDefault [ad3568f5:108d3028]
+[00:00:00.7192531] probe.xml: Compiling DamageFXSettings:RecoveryDamageFxSettingsDefault [04878391:d20d1f36]
+[00:00:00.7192531] probe.xml: Compiling DamageFXSettings:RecoveryDamageFxSettingsNonDefault [04878391:c06d9491]
+[00:00:00.7192531] probe.xml: Compiling GeneralHotKeySlots:RecoveryHotkeyGeneralDefault [18dd9c43:ff7b5dfd]
+[00:00:00.7348750] probe.xml: Compiling GeneralHotKeySlots:RecoveryHotkeyGeneralNonDefault [18dd9c43:ab796892]
+[00:00:00.7348750] probe.xml: Compiling MappableKey:RecoveryHotkeyKeyDefault [5080a5d8:5ac12e0f]
+[00:00:00.7348750] probe.xml: Compiling MappableKey:RecoveryHotkeyKeyNonDefault [5080a5d8:6a7b0581]
+[00:00:00.7348750] probe.xml: Compiling MappableKey:RecoveryHotkeyKeyInherited [5080a5d8:0df07675]
+[00:00:00.7505132] probe.xml: Compiling DefaultHotKeys:RecoveryHotkeyDefaultDefault [defca2f6:dec39e43]
+[00:00:00.7505132] probe.xml: Compiling DefaultHotKeys:RecoveryHotkeyDefaultNonDefault [defca2f6:f10237d0]
+[00:00:00.7505132] probe.xml: Compiling DefaultHotKeys:RecoveryHotkeyDefaultInherited [defca2f6:9aa05e1b]
+[00:00:00.7505132] probe.xml: Compiling DebugHotKeys:RecoveryHotkeyDebugDefault [c8438dfd:2fa5ddd8]
+[00:00:00.7505132] probe.xml: Compiling DebugHotKeys:RecoveryHotkeyDebugNonDefault [c8438dfd:4dba6515]
+[00:00:00.7505132] probe.xml: Compiling DebugHotKeys:RecoveryHotkeyDebugInherited [c8438dfd:4dfe3d2e]
+[00:00:00.7505132] probe.xml: Compiling AudioEventLimitGroup:RecoveryXmlAudio_Limit_Defaults [e8d44ef5:72199c75]
+[00:00:00.7661301] probe.xml: Compiling AudioEventLimitGroup:RecoveryXmlAudio_Limit_Nondefault [e8d44ef5:98f47cce]
+[00:00:00.7661301] probe.xml: Compiling AudioEventLimitGroup:RecoveryXmlAudio_Limit_Inherited [e8d44ef5:772e205c]
+[00:00:00.7661301] probe.xml: Compiling AudioLOD:RecoveryXmlAudio_Lod_Defaults [11d8bac7:56259a8a]
+[00:00:00.7661301] probe.xml: Compiling AudioLOD:RecoveryXmlAudio_Lod_Nondefault [11d8bac7:ee5a6433]
+[00:00:00.7661301] probe.xml: Compiling AudioSettings:RecoveryXmlAudio_Settings_Defaults [5608ee71:0e59e022]
+[00:00:00.7661301] probe.xml: Compiling AudioSettings:RecoveryXmlAudio_Settings_Nondefault [5608ee71:79ce7fda]
+[00:00:00.7661301] probe.xml: Compiling Video:RecoveryXmlAudio_Video_Defaults [230236f6:2c5051ef]
+[00:00:00.7661301] probe.xml: Compiling Video:RecoveryXmlAudio_Video_Nondefault [230236f6:b5237370]
+[00:00:00.7661301] probe.xml: Compiling VideoEventList:RecoveryXmlAudio_Sequence_Defaults [564a9693:8186373e]
+[00:00:00.7661301] probe.xml: Compiling VideoEventList:RecoveryXmlAudio_Sequence_Nondefault [564a9693:2bb85f1d]
+[00:00:00.7817515] probe.xml: Compiling BootupDisplaySequence:RecoveryXmlAudio_Bootup_Defaults [c8e41828:c15de966]
+[00:00:00.7817515] probe.xml: Compiling BootupDisplaySequence:RecoveryXmlAudio_Bootup_Nondefault [c8e41828:89892a11]
+[00:00:00.7817515] probe.xml: Compiling HotKeySlot:RecoveryUiHotKeyDefault [a6e6bba7:b2f0a040]
+[00:00:00.7817515] probe.xml: Compiling HotKeySlot:RecoveryUiHotKey [a6e6bba7:dbf05ca8]
+[00:00:00.7817515] probe.xml: Compiling HotKeySlot:RecoveryUiHotKeyInherited [a6e6bba7:7ea4d20b]
+[00:00:00.7817515] probe.xml: Compiling MouseCursor:RecoveryUiCursorDefault [e1920287:43077aed]
+[00:00:00.7817515] probe.xml: Compiling MouseCursor:RecoveryUiCursor [e1920287:88c865e0]
+[00:00:00.7973772] probe.xml: Compiling BasicMouseCursors:RecoveryUiCursorsDefault [246f4433:03c69531]
+[00:00:00.7973772] probe.xml: Compiling BasicMouseCursors:RecoveryUiCursors [246f4433:0fd1cc14]
+[00:00:00.7973772] probe.xml: Compiling UIMouseDragSelectionFeedback:RecoveryUiDragDefault [246d0c65:d96f65a6]
+[00:00:00.7973772] probe.xml: Compiling UIMouseDragSelectionFeedback:RecoveryUiDrag [246d0c65:ed698049]
+[00:00:00.7973772] probe.xml: Compiling UIFloatingTextDisplay:RecoveryUiFloatingDefault [5cfac0d8:f824cdb5]
+[00:00:00.7973772] probe.xml: Compiling UIFloatingTextDisplay:RecoveryUiFloating [5cfac0d8:f0cf28b5]
+[00:00:00.7973772] probe.xml: Compiling UIMessageDisplay:RecoveryUiMessageDefault [652af19d:824b87dc]
+[00:00:00.7973772] probe.xml: Compiling UIMessageDisplay:RecoveryUiMessage [652af19d:ed89d252]
+[00:00:00.7973772] probe.xml: Compiling UIMilitaryCaptionDisplay:RecoveryUiMilitaryDefault [3e3a0589:77cf6701]
+[00:00:00.7973772] probe.xml: Compiling UIMilitaryCaptionDisplay:RecoveryUiMilitary [3e3a0589:e182d21c]
+[00:00:00.8130030] probe.xml: Compiling UISubtitleDisplay:RecoveryUiSubtitleDefault [09df0972:6f2c5366]
+[00:00:00.8130030] probe.xml: Compiling UISubtitleDisplay:RecoveryUiSubtitle [09df0972:ee7992a4]
+[00:00:00.8130030] probe.xml: Compiling UITimerDisplay:RecoveryUiTimerDefault [38afaa14:743377d6]
+[00:00:00.8130030] probe.xml: Compiling UITimerDisplay:RecoveryUiTimer [38afaa14:71c13a1f]
+[00:00:00.8130030] probe.xml: Compiling DynamicGameLOD:RecoveryUiDynamicLodDefault [acef31a4:dafb481a]
+[00:00:00.8130030] probe.xml: Compiling DynamicGameLOD:RecoveryUiDynamicLod [acef31a4:6a6f43cb]
+[00:00:00.8130030] probe.xml: Compiling GameLODPreset:RecoveryUiLodPresetDefault [151d037c:99ab5fd4]
+[00:00:00.8130030] probe.xml: Compiling GameLODPreset:RecoveryUiLodPreset [151d037c:ab603cbc]
+[00:00:00.8130030] probe.xml: Compiling StaticGameLOD:RecoveryUiStaticLodDefault [1fb298d1:18eb6d7a]
+[00:00:00.8130030] probe.xml: Compiling StaticGameLOD:RecoveryUiStaticLod [1fb298d1:b7e2d4cd]
+[00:00:00.8130030] probe.xml: Compiling UICoopTinting:RecoveryUiCoopDefault [fcf3509a:b354188b]
+[00:00:00.8130030] probe.xml: Compiling UICoopTinting:RecoveryUiCoop [fcf3509a:f54796fc]
+[00:00:00.8286254] probe.xml: Compiling RadiusCursor:RecoveryUiRadiusDefault [2078a161:6c83caad]
+[00:00:00.8286254] probe.xml: Compiling RadiusCursor:RecoveryUiRadius [2078a161:bcffcc48]
+[00:00:00.8286254] probe.xml: Compiling AnimationSoundSettings:RecoverySoundAnimationDefault [4d9b7c79:aca92fc4]
+[00:00:00.8286254] probe.xml: Compiling AnimationSoundSettings:RecoverySoundAnimationNonDefault [4d9b7c79:88b76d5b]
+[00:00:00.8286254] probe.xml: Compiling MiscAudio:RecoverySoundMiscDefault [7b6ae7d5:1d10b86a]
+[00:00:00.8286254] probe.xml: Compiling MiscAudio:RecoverySoundMiscNonDefault [7b6ae7d5:6a0244d9]
+[00:00:00.8286254] probe.xml: Compiling LargeGroupAudioMap:RecoverySoundMapDefault [1fd451bf:c74360c7]
+[00:00:00.8286254] probe.xml: Compiling LargeGroupAudioMap:RecoverySoundMapNonDefault [1fd451bf:0b74d93a]
+[00:00:00.8442515] probe.xml: Compiling LargeGroupAudioMap:RecoverySoundMapInherited [1fd451bf:d7be7bcd]
+[00:00:00.8442515] Resolving references: mods\xmlcompilerrecoverybaseline\data\mod
+[00:00:00.8442515] Warning: Unknown asset 'Texture:loadingText' referenced from 'BootupDisplaySequence:RecoveryXmlAudio_Bootup_Defaults' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\probe.xml'
+[00:00:00.8442515] Warning: Unknown asset 'BaseAudioEventInfo:RadarOn' referenced from 'MiscAudio:RecoverySoundMiscNonDefault' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\probe.xml'
+[00:00:00.8442515] Warning: Unknown asset 'BaseAudioEventInfo:RadarOff' referenced from 'LargeGroupAudioMap:RecoverySoundMapNonDefault' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverybaseline-recovered\mods\xmlcompilerrecoverybaseline\data\probe.xml'
+[00:00:00.8442515] Stable sorting assets
+[00:00:00.8442515] Sorting by schema dependencies
+[00:00:00.8442515] Sorting by asset dependencies
+[00:00:00.8598773] Generating stream: mods\xmlcompilerrecoverybaseline\data\mod
+[00:00:00.8598773] Slow asset clean-up (expected: 159, actual: 159, old: 0, current: 159)
+[00:00:00.8755037] mods\xmlcompilerrecoverybaseline\data\mod Linking binary data
+[00:00:00.8755037] mods\xmlcompilerrecoverybaseline\data\mod Linking import data
+[00:00:00.8755037] mods\xmlcompilerrecoverybaseline\data\mod Linking relocation data
+[00:00:00.8755037] mods\xmlcompilerrecoverybaseline\data\mod Stream complete
+[00:00:00.8911284] BinaryAssetBuilder complete
+[00:00:00.8911284] DamageFXSettings:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] FontSubstitution:
+[00:00:00.8911284]       Instances Processed: 3
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] UICommandButton:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] UISubtitleDisplay:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] MultiplayerSettings:
+[00:00:00.8911284]       Instances Processed: 1
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] AudioLOD:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] GameLODPreset:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] SkirmishSettings:
+[00:00:00.8911284]       Instances Processed: 1
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] GeneralHotKeySlots:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00.0156219
+[00:00:00.8911284]       Longest Processing Time: 00:00:00.0156219 (RecoveryHotkeyGeneralDefault)
+[00:00:00.8911284]       Average Processing Time: 0.00781095 seconds
+[00:00:00.8911284] StaticGameLOD:
+[00:00:00.8911284]       Instances Processed: 2
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] LargeGroupAudioMap:
+[00:00:00.8911284]       Instances Processed: 3
+[00:00:00.8911284]       Total Processing Time: 00:00:00
+[00:00:00.8911284]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8911284]       Average Processing Time: 0 seconds
+[00:00:00.8911284] RadiusCursor:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] Video:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] AIStrategicStateDefinition:
+[00:00:00.9067519]       Instances Processed: 1
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] UIMouseDragSelectionFeedback:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] BasicMouseCursors:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] Environment:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] FXParticleSystemTemplate:
+[00:00:00.9067519]       Instances Processed: 4
+[00:00:00.9067519]       Total Processing Time: 00:00:00.0156184
+[00:00:00.9067519]       Longest Processing Time: 00:00:00.0156184 (RecoveryXmlPriority_Particle_Gpu)
+[00:00:00.9067519]       Average Processing Time: 0.0039046 seconds
+[00:00:00.9067519] FormationAssistantUnitDefinition:
+[00:00:00.9067519]       Instances Processed: 1
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] AITargetingHeuristic:
+[00:00:00.9067519]       Instances Processed: 1
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] UITimerDisplay:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] UIMilitaryCaptionDisplay:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00.0156258
+[00:00:00.9067519]       Longest Processing Time: 00:00:00.0156258 (RecoveryUiMilitary)
+[00:00:00.9067519]       Average Processing Time: 0.0078129 seconds
+[00:00:00.9067519] TerrainVisualSettings:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] PlayerTechStoreTemplate:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] AnimationSoundSettings:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] FontTranslation:
+[00:00:00.9067519]       Instances Processed: 2
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] MappableKey:
+[00:00:00.9067519]       Instances Processed: 3
+[00:00:00.9067519]       Total Processing Time: 00:00:00
+[00:00:00.9067519]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9067519]       Average Processing Time: 0 seconds
+[00:00:00.9067519] FontDefaultSetting:
+[00:00:00.9067519]       Instances Processed: 3
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] AudioSettings:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] VideoEventList:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00.0156214
+[00:00:00.9223728]       Longest Processing Time: 00:00:00.0156214 (RecoveryXmlAudio_Sequence_Nondefault)
+[00:00:00.9223728]       Average Processing Time: 0.0078107 seconds
+[00:00:00.9223728] TerrainParticleMapping:
+[00:00:00.9223728]       Instances Processed: 3
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] WaterTransparency:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] UIFloatingTextDisplay:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] PurchasePlayerTechButtonTemplate:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] AIBuildStateDefinition:
+[00:00:00.9223728]       Instances Processed: 1
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] UIMessageDisplay:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] PlayerTechRank:
+[00:00:00.9223728]       Instances Processed: 3
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] ExperienceLevelTemplate:
+[00:00:00.9223728]       Instances Processed: 3
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] FormationAssistant:
+[00:00:00.9223728]       Instances Processed: 1
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] AIStrategicStateName:
+[00:00:00.9223728]       Instances Processed: 1
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] MiscAudio:
+[00:00:00.9223728]       Instances Processed: 2
+[00:00:00.9223728]       Total Processing Time: 00:00:00
+[00:00:00.9223728]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9223728]       Average Processing Time: 0 seconds
+[00:00:00.9223728] LogicCommand:
+[00:00:00.9223728]       Instances Processed: 3
+[00:00:00.9223728]       Total Processing Time: 00:00:00.0156133
+[00:00:00.9223728]       Longest Processing Time: 00:00:00.0156133 (RecoveryXmlAdditional_LogicCommand_Defaults)
+[00:00:00.9380003]       Average Processing Time: 0.00520443333333333 seconds
+[00:00:00.9380003] PlayerTech:
+[00:00:00.9380003]       Instances Processed: 3
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] PlayerTechUpgradeBinding:
+[00:00:00.9380003]       Instances Processed: 3
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] SpecialPowerTemplate:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] FXList:
+[00:00:00.9380003]       Instances Processed: 4
+[00:00:00.9380003]       Total Processing Time: 00:00:00.1562474
+[00:00:00.9380003]       Longest Processing Time: 00:00:00.0937392 (RecoveryXmlPriority_FX_Filters)
+[00:00:00.9380003]       Average Processing Time: 0.03906185 seconds
+[00:00:00.9380003] BounceKickTerrainMapping:
+[00:00:00.9380003]       Instances Processed: 3
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] MultiplayerColor:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] AIMicroManagerData:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] Weather:
+[00:00:00.9380003]       Instances Processed: 3
+[00:00:00.9380003]       Total Processing Time: 00:00:00.0156636
+[00:00:00.9380003]       Longest Processing Time: 00:00:00.0156636 (RecoveryXmlAdditional_Weather_Defaults)
+[00:00:00.9380003]       Average Processing Time: 0.0052212 seconds
+[00:00:00.9380003] WaterSetting:
+[00:00:00.9380003]       Instances Processed: 2
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] HotKeySlot:
+[00:00:00.9380003]       Instances Processed: 3
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] AIBudgetStateDefinition:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] DynamicGameLOD:
+[00:00:00.9380003]       Instances Processed: 2
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] DamageFX:
+[00:00:00.9380003]       Instances Processed: 2
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] FormationAssistantTemplate:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] UnitAISettings:
+[00:00:00.9380003]       Instances Processed: 1
+[00:00:00.9380003]       Total Processing Time: 00:00:00
+[00:00:00.9380003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9380003]       Average Processing Time: 0 seconds
+[00:00:00.9380003] WaterTextureList:
+[00:00:00.9380003]       Instances Processed: 2
+[00:00:00.9380003]       Total Processing Time: 00:00:00.0156208
+[00:00:00.9380003]       Longest Processing Time: 00:00:00.0156208 (RecoveryXmlAdditional_WaterTextureList_Combined)
+[00:00:00.9380003]       Average Processing Time: 0.0078104 seconds
+[00:00:00.9538095] OrdersManagerSettings:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] ButtonSingleStateData:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] LightingSettings:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] AIStateDefinition:
+[00:00:00.9539960]       Instances Processed: 1
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] AttributeModifier:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00.0156247
+[00:00:00.9539960]       Longest Processing Time: 00:00:00.0156247 (RecoveryXmlPriority_AttributeModifier_Defaults)
+[00:00:00.9539960]       Average Processing Time: 0.00781235 seconds
+[00:00:00.9539960] DebugHotKeys:
+[00:00:00.9539960]       Instances Processed: 3
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] BootupDisplaySequence:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] FormationSelectionTemplate:
+[00:00:00.9539960]       Instances Processed: 1
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] AIPersonalityDefinition:
+[00:00:00.9539960]       Instances Processed: 1
+[00:00:00.9539960]       Total Processing Time: 00:00:00.0156370
+[00:00:00.9539960]       Longest Processing Time: 00:00:00.0156370 (RecoveryXmlPriority_Personality_Defaults)
+[00:00:00.9539960]       Average Processing Time: 0.015637 seconds
+[00:00:00.9539960] DefaultHotKeys:
+[00:00:00.9539960]       Instances Processed: 3
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] MouseCursor:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00.0156257
+[00:00:00.9539960]       Longest Processing Time: 00:00:00.0156257 (RecoveryUiCursor)
+[00:00:00.9539960]       Average Processing Time: 0.00781285 seconds
+[00:00:00.9539960] UpgradeTemplate:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] AIData:
+[00:00:00.9539960]       Instances Processed: 1
+[00:00:00.9539960]       Total Processing Time: 00:00:00.0156279
+[00:00:00.9539960]       Longest Processing Time: 00:00:00.0156279 (RecoveryXmlAdditional_AIData_Defaults)
+[00:00:00.9539960]       Average Processing Time: 0.0156279 seconds
+[00:00:00.9539960] CameraSettings:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9539960]       Total Processing Time: 00:00:00
+[00:00:00.9539960]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9539960]       Average Processing Time: 0 seconds
+[00:00:00.9539960] ObjectCreationList:
+[00:00:00.9539960]       Instances Processed: 2
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] AudioEventLimitGroup:
+[00:00:00.9696739]       Instances Processed: 3
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] LogicCommandSet:
+[00:00:00.9696739]       Instances Processed: 1
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] LocomotorTemplate:
+[00:00:00.9696739]       Instances Processed: 1
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] PlayerTemplate:
+[00:00:00.9696739]       Instances Processed: 1
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] AIPersonalityToAchievementEventMapping:
+[00:00:00.9696739]       Instances Processed: 1
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] ShadowMap:
+[00:00:00.9696739]       Instances Processed: 3
+[00:00:00.9696739]       Total Processing Time: 00:00:00
+[00:00:00.9696739]       Longest Processing Time: 00:00:00 ()
+[00:00:00.9696739]       Average Processing Time: 0 seconds
+[00:00:00.9696739] UICoopTinting:
+[00:00:00.9696739]       Instances Processed: 2
+[00:00:00.9696739]       Total Processing Time: 00:00:00.0156224
+[00:00:00.9696739]       Longest Processing Time: 00:00:00.0156224 (RecoveryUiCoop)
+[00:00:00.9696739]       Average Processing Time: 0.0078112 seconds
+[00:00:00.9696739] Total Processing Time for All Types: 00:00:00.3437703

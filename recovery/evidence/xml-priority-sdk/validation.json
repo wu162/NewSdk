@@ -1,156 +1,239 @@
 {
-  "succeeded": true,
-  "sourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
-  "runId": "40098695436",
-  "status": "Full XSD and negatives; exact original metadata on four platforms; same compiled DLL/plugin: Reduced and FullMymod original/recovered Win32 SDK; all shipped mymod Includes preserved; four identical outputs per profile; every actual call replayed with and without original DLLs",
-  "scope": "82 recovered XmlCompiler entries; 80 schema-global types; required probes pinned by the SDK oracle; same O2 compiler tested in Reduced and complete shipped mymod include profiles; not all XmlCompiler types",
-  "componentModes": [
-    "/Od",
-    "/O2"
-  ],
+  "succeeded": false,
+  "sourceCommit": "887444e8b46ef185fdd120df5403dc8ff584840f",
+  "runId": "40162875013",
+  "status": "failed",
+  "scope": "289 recovered XmlCompiler entries; schema-valid real MODs under SDK/Mods; EALAModStudio defaultscript base-data BAB flow only",
   "sdkMode": "/O2",
   "sdkPlatform": 0,
-  "files": [
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.bin",
-      "bytes": 17576,
-      "sha256": "6B56D6D94567E318B0D880A794B72C1AB5FDEC032FA2828B2A303B92DE5B6EA2"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.manifest",
-      "bytes": 18413,
-      "sha256": "5216537C893882A6C006EBF9D06F5FE632D6B6F5DB06075E1650C1B74427269C"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.imp",
-      "bytes": 992,
-      "sha256": "BA2DAA0046FC207A55D8F692158DA83B17BFB8C9E8480070DC80DCE5CDC002F1"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Original",
-      "file": "mod.relo",
-      "bytes": 1380,
-      "sha256": "27E282A3D6CFD76E45735015CD8D3CCA28F5E68A6904EEBA36927A06613466CC"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.bin",
-      "bytes": 17576,
-      "sha256": "6B56D6D94567E318B0D880A794B72C1AB5FDEC032FA2828B2A303B92DE5B6EA2"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.manifest",
-      "bytes": 18413,
-      "sha256": "5216537C893882A6C006EBF9D06F5FE632D6B6F5DB06075E1650C1B74427269C"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.imp",
-      "bytes": 992,
-      "sha256": "BA2DAA0046FC207A55D8F692158DA83B17BFB8C9E8480070DC80DCE5CDC002F1"
-    },
-    {
-      "profile": "Reduced",
-      "mode": "Recovered",
-      "file": "mod.relo",
-      "bytes": 1380,
-      "sha256": "27E282A3D6CFD76E45735015CD8D3CCA28F5E68A6904EEBA36927A06613466CC"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.bin",
-      "bytes": 227120,
-      "sha256": "AB29F3CFF865232F07D7CB72EB086D4D4472F2B9033C1BB8D27FCF40B97B909E"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.manifest",
-      "bytes": 23310,
-      "sha256": "F18C94FF5CF7235443F20D76B804F0CC10B31986FD90887C126CF30A0E0E3367"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.imp",
-      "bytes": 1052,
-      "sha256": "84BBAECC39F0F864B697062D179FD1F2E894281203A2E45C7A0BCA2ABD66D8AB"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Original",
-      "file": "mod.relo",
-      "bytes": 6032,
-      "sha256": "D1E75BB63077334B9202B121A953F4C115EC5131A20AA1427E7093C48AB95BF1"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.bin",
-      "bytes": 227120,
-      "sha256": "AB29F3CFF865232F07D7CB72EB086D4D4472F2B9033C1BB8D27FCF40B97B909E"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.manifest",
-      "bytes": 23310,
-      "sha256": "F18C94FF5CF7235443F20D76B804F0CC10B31986FD90887C126CF30A0E0E3367"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.imp",
-      "bytes": 1052,
-      "sha256": "84BBAECC39F0F864B697062D179FD1F2E894281203A2E45C7A0BCA2ABD66D8AB"
-    },
-    {
-      "profile": "FullMymod",
-      "mode": "Recovered",
-      "file": "mod.relo",
-      "bytes": 6032,
-      "sha256": "D1E75BB63077334B9202B121A953F4C115EC5131A20AA1427E7093C48AB95BF1"
-    }
+  "requestedProfiles": [
+    "XmlCompilerRecoveryBaseline",
+    "XmlCompilerRecoveryA",
+    "XmlCompilerRecoveryB",
+    "FullMymod"
   ],
   "profiles": [
     {
-      "name": "Reduced",
+      "name": "XmlCompilerRecoveryBaseline",
       "succeeded": true,
-      "fullMymod": false,
-      "inputSha256": "F84CBC869182CE68033F423E0F5D72DD98D318AF786E1C9B3ADE4B66DE018A7E",
+      "schemaValidated": true,
       "fourOutputsIdentical": true,
-      "compilerSha256": "D1DBBA4CC3E7CAC38CDAD1E94FEC242850A4C6A0C4BD4DC07A677D64E7C97200",
-      "pluginSha256": "205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652",
-      "originalAndIsolatedReplay": true
+      "originalAndIsolatedReplay": true,
+      "compilerSha256": "170C2218A27339BC8B262C8C6A528090ADE1A23A3CFA6C0855294239C68B82AE",
+      "pluginSha256": "8B97670E952AC8C49E8CCD3CE093C9311AA19CD926689246D9177FE6E8E0B3E5",
+      "sourceFiles": [
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryBaseline/Data/Mod.xml",
+          "sha256": "E6FAF3A5956DF776249F40DBD6BE05139B8D485EE7B22BF0A108077EE867F489"
+        },
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryBaseline/Data/Probe.xml",
+          "sha256": "370D612E4C578ADAD8D250C8E97041A7F7C30F92C19FBF5025F8C0F47ADB2797"
+        }
+      ],
+      "probeSha256": "D4AEEB3A307978ED91AA2266F2A886AE26196DC8EAD63B20F95AEDA3561EDA3E",
+      "nonemptyImports": true
     },
     {
-      "name": "FullMymod",
+      "name": "XmlCompilerRecoveryA",
       "succeeded": true,
-      "fullMymod": true,
-      "shippedIncludesPreserved": 7,
-      "inputSha256": "2F3A52439CA1CA8702222299C6C1CB7F44569A54864A5485DC62F961974B10B3",
+      "schemaValidated": true,
       "fourOutputsIdentical": true,
-      "compilerSha256": "D1DBBA4CC3E7CAC38CDAD1E94FEC242850A4C6A0C4BD4DC07A677D64E7C97200",
-      "pluginSha256": "205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652",
-      "originalAndIsolatedReplay": true
+      "originalAndIsolatedReplay": true,
+      "compilerSha256": "170C2218A27339BC8B262C8C6A528090ADE1A23A3CFA6C0855294239C68B82AE",
+      "pluginSha256": "8B97670E952AC8C49E8CCD3CE093C9311AA19CD926689246D9177FE6E8E0B3E5",
+      "sourceFiles": [
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryA/Data/FixturesA.xml",
+          "sha256": "798B5570F59EA658AA6C4A93B5D530B0672D02A52AEB4D7ABDE9359F8AE19086"
+        },
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryA/Data/Mod.xml",
+          "sha256": "41C45D3340FEB7D7122FD7967C03533FC48D155A0FE62672DABCC8EAAB471729"
+        }
+      ],
+      "probeSha256": "9386D922062D10FFF0FB3BFEA6F9419BB1ECF05DF08F744C3C7667ECAE861B6B",
+      "nonemptyImports": true
+    },
+    {
+      "name": "XmlCompilerRecoveryB",
+      "succeeded": false,
+      "schemaValidated": true,
+      "fourOutputsIdentical": false,
+      "originalAndIsolatedReplay": false,
+      "compilerSha256": "170C2218A27339BC8B262C8C6A528090ADE1A23A3CFA6C0855294239C68B82AE",
+      "pluginSha256": "8B97670E952AC8C49E8CCD3CE093C9311AA19CD926689246D9177FE6E8E0B3E5",
+      "sourceFiles": [
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryB/Data/Mod.xml",
+          "sha256": "3D6AF2434E7EC09E3F7BD84D51371462AB3B3B66CE035DA32D4198AB172E5CDE"
+        },
+        {
+          "path": "SDK/Mods/XmlCompilerRecoveryB/Data/Probe.xml",
+          "sha256": "7670392F8C9E05BD8B58101EB635715BF7C4EFB8D7907D0A85207A7B9E312E9E"
+        }
+      ],
+      "probeSha256": "0159EA21B7F9D78BDA03A4196B45E8337D8D19D294A04D55BAB22E8B956B3BEE"
     }
   ],
-  "profileCount": 2,
-  "fullMymodGate": true,
+  "files": [
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Original",
+      "file": "mod.bin",
+      "bytes": 17576,
+      "sha256": "6B56D6D94567E318B0D880A794B72C1AB5FDEC032FA2828B2A303B92DE5B6EA2"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Original",
+      "file": "mod.manifest",
+      "bytes": 18416,
+      "sha256": "E62546A7B609564D16EFEE6C3BA0DFBBB7190C0A57E15B7C6857BAE742E44F54"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Original",
+      "file": "mod.imp",
+      "bytes": 992,
+      "sha256": "BA2DAA0046FC207A55D8F692158DA83B17BFB8C9E8480070DC80DCE5CDC002F1"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Original",
+      "file": "mod.relo",
+      "bytes": 1380,
+      "sha256": "27E282A3D6CFD76E45735015CD8D3CCA28F5E68A6904EEBA36927A06613466CC"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Recovered",
+      "file": "mod.bin",
+      "bytes": 17576,
+      "sha256": "6B56D6D94567E318B0D880A794B72C1AB5FDEC032FA2828B2A303B92DE5B6EA2"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Recovered",
+      "file": "mod.manifest",
+      "bytes": 18416,
+      "sha256": "E62546A7B609564D16EFEE6C3BA0DFBBB7190C0A57E15B7C6857BAE742E44F54"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Recovered",
+      "file": "mod.imp",
+      "bytes": 992,
+      "sha256": "BA2DAA0046FC207A55D8F692158DA83B17BFB8C9E8480070DC80DCE5CDC002F1"
+    },
+    {
+      "profile": "XmlCompilerRecoveryBaseline",
+      "mode": "Recovered",
+      "file": "mod.relo",
+      "bytes": 1380,
+      "sha256": "27E282A3D6CFD76E45735015CD8D3CCA28F5E68A6904EEBA36927A06613466CC"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Original",
+      "file": "mod.bin",
+      "bytes": 26664,
+      "sha256": "334F88A19960C70F2E85FB20846E3264236F46A16D7C8C03C4F32B7787CB5271"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Original",
+      "file": "mod.manifest",
+      "bytes": 19516,
+      "sha256": "4EE906921403B8163BE69A41D172A0148C27BFD287B617AC62B4AA47ECDA2195"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Original",
+      "file": "mod.imp",
+      "bytes": 952,
+      "sha256": "78A233F066D90A97269E512D90A106F8D9433F5A384BDFEE681E3FB73D44912F"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Original",
+      "file": "mod.relo",
+      "bytes": 4264,
+      "sha256": "78F848C8A8D29B8EE57A145BE271F4DAAC8008C4FE5B99F833F0CA45ED775650"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Recovered",
+      "file": "mod.bin",
+      "bytes": 26664,
+      "sha256": "334F88A19960C70F2E85FB20846E3264236F46A16D7C8C03C4F32B7787CB5271"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Recovered",
+      "file": "mod.manifest",
+      "bytes": 19516,
+      "sha256": "4EE906921403B8163BE69A41D172A0148C27BFD287B617AC62B4AA47ECDA2195"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Recovered",
+      "file": "mod.imp",
+      "bytes": 952,
+      "sha256": "78A233F066D90A97269E512D90A106F8D9433F5A384BDFEE681E3FB73D44912F"
+    },
+    {
+      "profile": "XmlCompilerRecoveryA",
+      "mode": "Recovered",
+      "file": "mod.relo",
+      "bytes": 4264,
+      "sha256": "78F848C8A8D29B8EE57A145BE271F4DAAC8008C4FE5B99F833F0CA45ED775650"
+    },
+    {
+      "profile": "XmlCompilerRecoveryB",
+      "mode": "Original",
+      "file": "mod.bin",
+      "bytes": 38072,
+      "sha256": "01560C81B0C54F6C0685219F0FD99B9EAEBF3BBDB18A0CD37F25790EF11E77DD"
+    },
+    {
+      "profile": "XmlCompilerRecoveryB",
+      "mode": "Original",
+      "file": "mod.manifest",
+      "bytes": 35353,
+      "sha256": "1C69CB08A14B960D176AA03B0710ACF59A2BB7B3A5A99E6CEC35A3496DCECF14"
+    },
+    {
+      "profile": "XmlCompilerRecoveryB",
+      "mode": "Original",
+      "file": "mod.imp",
+      "bytes": 460,
+      "sha256": "2000BE2E00DBD2F62CCD4521B95830ACAF45563E8BFF3D94075091EB0E38E04B"
+    },
+    {
+      "profile": "XmlCompilerRecoveryB",
+      "mode": "Original",
+      "file": "mod.relo",
+      "bytes": 4936,
+      "sha256": "699C7FAB77B6BDD22BA13340442E380295FF5C0E3ED524572150E8E950461D51"
+    }
+  ],
   "originalDllUnchanged": true,
-  "probeSha256": "370D612E4C578ADAD8D250C8E97041A7F7C30F92C19FBF5025F8C0F47ADB2797",
-  "compilerSha256": "D1DBBA4CC3E7CAC38CDAD1E94FEC242850A4C6A0C4BD4DC07A677D64E7C97200",
-  "pluginSha256": "205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652"
+  "fullMymodGate": false,
+  "profileCount": 4,
+  "studioStages": [
+    1,
+    2,
+    5
+  ],
+  "realSdkBuilds": 5,
+  "compilerReuse": {
+    "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+    "runId": "40159834447",
+    "sha256": "170c2218a27339bc8b262c8c6a528090ade1a23a3cfa6c0855294239c68b82ae",
+    "nativeAndBridgeInputsUnchanged": true
+  },
+  "compilerSha256": "170C2218A27339BC8B262C8C6A528090ADE1A23A3CFA6C0855294239C68B82AE",
+  "pluginSha256": "8B97670E952AC8C49E8CCD3CE093C9311AA19CD926689246D9177FE6E8E0B3E5",
+  "error": "Studio step 5/mod failed: -1"
 }

@@ -1,0 +1,5 @@
+TypeId=188286714 platform=0
+System.NotSupportedException: Unknown music-script attribute
+   at Recovered.XmlmusicscriptBridge.Compile(XmlNode node, XmlNamespaceManager namespaces, Boolean big, String type)
+   at Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at Recovered.XmlPriority.Plugin.ProcessInstance(InstanceDeclaration instance)

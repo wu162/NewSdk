@@ -1,0 +1,1 @@
+<ConnectionLineManager id="XmlRecoveryA_ConnectionLineManager_repeat" TypeId="105587076" xmlns="uri:ea.com:eala:asset"><FXShader ShaderName="" TechniqueName="SampleA" TechniqueIndex="3" TypeId="3354017012"><Constants><Bool Name="SampleA" TypeId="2750958653"><Value>true</Value></Bool></Constants></FXShader></ConnectionLineManager>

@@ -1,0 +1,513 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\Mods\XmlCompilerRecoveryA\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryA\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryA\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryA\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\Mods\XmlCompilerRecoveryA\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryA\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryA\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryA\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2660084] Cached session data not available.
+[00:00:00.2660084] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2660084] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods\cache').
+[00:00:00.2816488] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\mod.xml'.
+[00:00:00.3129010] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3129010] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods\static.manifest, file not found
+[00:00:00.3129010] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\static.xml'.
+[00:00:00.3129010] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3285061] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods\global.manifest, file not found
+[00:00:00.3285061] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\global.xml'.
+[00:00:00.3285061] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3285061] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryA-Original\builtmods\audio.manifest, file not found
+[00:00:00.3285061] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\audio.xml'.
+[00:00:00.3441634] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\fixturesa.xml'.
+[00:00:00.4066598] fixturesa.xml: Compiling LogicCommand:XmlRecoveryA_Support_LogicCommand [7d464170:23ad0996]
+[00:00:00.4379089] fixturesa.xml: Compiling UnitAbilityButtonTemplate:XmlRecoveryA_UnitAbilityButtonTemplate_defaults [d1aeb526:b39acf47]
+[00:00:00.4379089] fixturesa.xml: Compiling UnitAbilityButtonTemplate:XmlRecoveryA_UnitAbilityButtonTemplate_rich [d1aeb526:970c8ffb]
+[00:00:00.4535325] fixturesa.xml: Compiling UnitAbilityButtonTemplate:XmlRecoveryA_UnitAbilityButtonTemplate_repeat [d1aeb526:b63e00d7]
+[00:00:00.4535325] fixturesa.xml: Compiling PlayerPowerButtonTemplate:XmlRecoveryA_PlayerPowerButtonTemplate_defaults [f10f77ee:a6575a55]
+[00:00:00.4535325] fixturesa.xml: Compiling PlayerPowerButtonTemplate:XmlRecoveryA_PlayerPowerButtonTemplate_rich [f10f77ee:80a20d73]
+[00:00:00.4535325] fixturesa.xml: Compiling PlayerPowerButtonTemplate:XmlRecoveryA_PlayerPowerButtonTemplate_repeat [f10f77ee:4cf603fd]
+[00:00:00.4535325] fixturesa.xml: Compiling AptAptData:XmlRecoveryA_AptAptData_defaults [6c41e6dc:3394e47e]
+[00:00:00.4535325] fixturesa.xml: Compiling AptAptData:XmlRecoveryA_AptAptData_rich [6c41e6dc:4c953e2a]
+[00:00:00.4535325] fixturesa.xml: Compiling AptAptData:XmlRecoveryA_AptAptData_repeat [6c41e6dc:27ed2b54]
+[00:00:00.4535325] fixturesa.xml: Compiling AptConstData:XmlRecoveryA_AptConstData_defaults [3a9ce0b0:3656ecb1]
+[00:00:00.4535325] fixturesa.xml: Compiling AptConstData:XmlRecoveryA_AptConstData_rich [3a9ce0b0:d0cf200e]
+[00:00:00.4535325] fixturesa.xml: Compiling AptConstData:XmlRecoveryA_AptConstData_repeat [3a9ce0b0:5c89fc6d]
+[00:00:00.4535325] fixturesa.xml: Compiling AptDatData:XmlRecoveryA_AptDatData_defaults [423395e1:058d6f1b]
+[00:00:00.4535325] fixturesa.xml: Compiling AptDatData:XmlRecoveryA_AptDatData_rich [423395e1:dae59949]
+[00:00:00.4535325] fixturesa.xml: Compiling AptDatData:XmlRecoveryA_AptDatData_repeat [423395e1:29656d3e]
+[00:00:00.4535325] fixturesa.xml: Compiling AptGeometryData:XmlRecoveryA_AptGeometryData_defaults [3daa8c20:07ee7125]
+[00:00:00.4691477] fixturesa.xml: Compiling AptGeometryData:XmlRecoveryA_AptGeometryData_rich [3daa8c20:eb1ba3f4]
+[00:00:00.4691477] fixturesa.xml: Compiling AptGeometryData:XmlRecoveryA_AptGeometryData_repeat [3daa8c20:26ad7f3f]
+[00:00:00.4691477] fixturesa.xml: Compiling ArmyDefinition:XmlRecoveryA_ArmyDefinition_defaults [d5d580f6:e6024c7c]
+[00:00:00.4691477] fixturesa.xml: Compiling ArmyDefinition:XmlRecoveryA_ArmyDefinition_rich [d5d580f6:614b13aa]
+[00:00:00.4691477] fixturesa.xml: Compiling ArmyDefinition:XmlRecoveryA_ArmyDefinition_repeat [d5d580f6:db9c6ac0]
+[00:00:00.4691477] fixturesa.xml: Compiling SkirmishOpeningMove:XmlRecoveryA_SkirmishOpeningMove_defaults [ecbe73e8:a2cd8fc7]
+[00:00:00.4691477] fixturesa.xml: Compiling SkirmishOpeningMove:XmlRecoveryA_SkirmishOpeningMove_rich [ecbe73e8:e9cf425d]
+[00:00:00.4691477] fixturesa.xml: Compiling SkirmishOpeningMove:XmlRecoveryA_SkirmishOpeningMove_repeat [ecbe73e8:94ba9613]
+[00:00:00.4691477] fixturesa.xml: Compiling DLContent:XmlRecoveryA_DLContent_defaults [0cad7864:84c53d4d]
+[00:00:00.4691477] fixturesa.xml: Compiling DLContent:XmlRecoveryA_DLContent_rich [0cad7864:311f1d85]
+[00:00:00.4691477] fixturesa.xml: Compiling DLContent:XmlRecoveryA_DLContent_repeat [0cad7864:a75698bc]
+[00:00:00.4691477] fixturesa.xml: Compiling AssetReportTable:XmlRecoveryA_AssetReportTable_defaults [0f3de1c6:57e76ef8]
+[00:00:00.4847814] fixturesa.xml: Compiling AssetReportTable:XmlRecoveryA_AssetReportTable_rich [0f3de1c6:dd87514d]
+[00:00:00.4847814] fixturesa.xml: Compiling AssetReportTable:XmlRecoveryA_AssetReportTable_repeat [0f3de1c6:f0d1f0cb]
+[00:00:00.4847814] fixturesa.xml: Compiling StringHashTable:XmlRecoveryA_StringHashTable_defaults [11e5cf64:4d5673ca]
+[00:00:00.4847814] fixturesa.xml: Compiling StringHashTable:XmlRecoveryA_StringHashTable_rich [11e5cf64:4d52d3f8]
+[00:00:00.4847814] fixturesa.xml: Compiling StringHashTable:XmlRecoveryA_StringHashTable_repeat [11e5cf64:d7c23015]
+[00:00:00.4847814] fixturesa.xml: Compiling LocalBuildListMonitor:XmlRecoveryA_LocalBuildListMonitor_defaults [12cfe3ef:2f4cdeec]
+[00:00:00.4847814] fixturesa.xml: Compiling LocalBuildListMonitor:XmlRecoveryA_LocalBuildListMonitor_rich [12cfe3ef:688e65b4]
+[00:00:00.4847814] fixturesa.xml: Compiling LocalBuildListMonitor:XmlRecoveryA_LocalBuildListMonitor_repeat [12cfe3ef:9c6cf600]
+[00:00:00.4847814] fixturesa.xml: Compiling BuildSystemSettings:XmlRecoveryA_BuildSystemSettings_defaults [ece7db5e:a151e311]
+[00:00:00.4847814] fixturesa.xml: Compiling BuildSystemSettings:XmlRecoveryA_BuildSystemSettings_rich [ece7db5e:37773235]
+[00:00:00.4847814] fixturesa.xml: Compiling BuildSystemSettings:XmlRecoveryA_BuildSystemSettings_repeat [ece7db5e:db10f61f]
+[00:00:00.4847814] fixturesa.xml: Compiling GiftManagerSettings:XmlRecoveryA_GiftManagerSettings_defaults [3e7426ac:cc32221b]
+[00:00:00.5004048] fixturesa.xml: Compiling GiftManagerSettings:XmlRecoveryA_GiftManagerSettings_rich [3e7426ac:681f6a41]
+[00:00:00.5004048] fixturesa.xml: Compiling GiftManagerSettings:XmlRecoveryA_GiftManagerSettings_repeat [3e7426ac:4d6c8e9b]
+[00:00:00.5004048] fixturesa.xml: Compiling MpGameRules:XmlRecoveryA_MpGameRules_defaults [2c358b80:ab0baebf]
+[00:00:00.5004048] fixturesa.xml: Compiling MpGameRules:XmlRecoveryA_MpGameRules_rich [2c358b80:5abd4ef3]
+[00:00:00.5004048] fixturesa.xml: Compiling MpGameRules:XmlRecoveryA_MpGameRules_repeat [2c358b80:766a2b63]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignTemplate:XmlRecoveryA_CampaignTemplate_defaults [585e034e:7958cb67]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignTemplate:XmlRecoveryA_CampaignTemplate_rich [585e034e:2b481adb]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignTemplate:XmlRecoveryA_CampaignTemplate_repeat [585e034e:5df583d7]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignEnumerator:XmlRecoveryA_CampaignEnumerator_defaults [2b9fe633:e1eb57de]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignEnumerator:XmlRecoveryA_CampaignEnumerator_rich [2b9fe633:844887b7]
+[00:00:00.5004048] fixturesa.xml: Compiling CampaignEnumerator:XmlRecoveryA_CampaignEnumerator_repeat [2b9fe633:f2d86112]
+[00:00:00.5004048] fixturesa.xml: Compiling MissionTemplate:XmlRecoveryA_MissionTemplate_defaults [cf4aed23:378cf701]
+[00:00:00.5004048] fixturesa.xml: Compiling MissionTemplate:XmlRecoveryA_MissionTemplate_rich [cf4aed23:2f6db3e7]
+[00:00:00.5004048] fixturesa.xml: Compiling MissionTemplate:XmlRecoveryA_MissionTemplate_repeat [cf4aed23:b0cfb6c8]
+[00:00:00.5004048] fixturesa.xml: Compiling MissionHotSpotSettings:XmlRecoveryA_MissionHotSpotSettings_defaults [bd468acc:5a2f21c5]
+[00:00:00.5160376] fixturesa.xml: Compiling MissionHotSpotSettings:XmlRecoveryA_MissionHotSpotSettings_rich [bd468acc:f208b8a7]
+[00:00:00.5160376] fixturesa.xml: Compiling MissionHotSpotSettings:XmlRecoveryA_MissionHotSpotSettings_repeat [bd468acc:e2e17c28]
+[00:00:00.5160376] fixturesa.xml: Compiling TutorialMapData:XmlRecoveryA_TutorialMapData_defaults [cb2e04e9:e48e0b7c]
+[00:00:00.5160376] fixturesa.xml: Compiling TutorialMapData:XmlRecoveryA_TutorialMapData_rich [cb2e04e9:6387724f]
+[00:00:00.5160376] fixturesa.xml: Compiling TutorialMapData:XmlRecoveryA_TutorialMapData_repeat [cb2e04e9:dd8e1405]
+[00:00:00.5160376] fixturesa.xml: Compiling OnlineChatColors:XmlRecoveryA_OnlineChatColors_defaults [502eed32:a99cce72]
+[00:00:00.5160376] fixturesa.xml: Compiling OnlineChatColors:XmlRecoveryA_OnlineChatColors_rich [502eed32:ec1e6f3d]
+[00:00:00.5160376] fixturesa.xml: Compiling OnlineChatColors:XmlRecoveryA_OnlineChatColors_repeat [502eed32:e4cc5514]
+[00:00:00.5160376] fixturesa.xml: Compiling GameplayConditionData:XmlRecoveryA_GameplayConditionData_defaults [89a0bda4:646c6aaa]
+[00:00:00.5160376] fixturesa.xml: Compiling GameplayConditionData:XmlRecoveryA_GameplayConditionData_rich [89a0bda4:5af13e29]
+[00:00:00.5316540] fixturesa.xml: Compiling GameplayConditionData:XmlRecoveryA_GameplayConditionData_repeat [89a0bda4:efcf6cfa]
+[00:00:00.5316540] fixturesa.xml: Compiling ConnectionLineManager:XmlRecoveryA_ConnectionLineManager_defaults [064b2184:38d22f74]
+[00:00:00.5316540] fixturesa.xml: Compiling ConnectionLineManager:XmlRecoveryA_ConnectionLineManager_rich [064b2184:5f8243d5]
+[00:00:00.5316540] fixturesa.xml: Compiling ConnectionLineManager:XmlRecoveryA_ConnectionLineManager_repeat [064b2184:7ae2f371]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionUnit:XmlRecoveryA_ConquerCardDefinitionUnit_defaults [d45bf3c5:c3caf457]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionUnit:XmlRecoveryA_ConquerCardDefinitionUnit_rich [d45bf3c5:ef58131c]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionUnit:XmlRecoveryA_ConquerCardDefinitionUnit_repeat [d45bf3c5:01d7f324]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionStructure:XmlRecoveryA_ConquerCardDefinitionStructure_defaults [ffaf70d0:a45e6577]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionStructure:XmlRecoveryA_ConquerCardDefinitionStructure_rich [ffaf70d0:fffc96e8]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionStructure:XmlRecoveryA_ConquerCardDefinitionStructure_repeat [ffaf70d0:b27b4a05]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionPower:XmlRecoveryA_ConquerCardDefinitionPower_defaults [f832f82a:f7a5a6a9]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionPower:XmlRecoveryA_ConquerCardDefinitionPower_rich [f832f82a:a7f86b78]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardDefinitionPower:XmlRecoveryA_ConquerCardDefinitionPower_repeat [f832f82a:f92609d3]
+[00:00:00.5316540] fixturesa.xml: Compiling ConquerCardPrebuiltDeck:XmlRecoveryA_ConquerCardPrebuiltDeck_defaults [a748229e:fc5eab1d]
+[00:00:00.5472733] fixturesa.xml: Compiling ConquerCardPrebuiltDeck:XmlRecoveryA_ConquerCardPrebuiltDeck_rich [a748229e:2f9c63b3]
+[00:00:00.5472733] fixturesa.xml: Compiling ConquerCardPrebuiltDeck:XmlRecoveryA_ConquerCardPrebuiltDeck_repeat [a748229e:f52b4a14]
+[00:00:00.5472733] fixturesa.xml: Compiling EngagingContent:XmlRecoveryA_EngagingContent_defaults [b6472112:b6578a6b]
+[00:00:00.5472733] fixturesa.xml: Compiling EngagingContent:XmlRecoveryA_EngagingContent_rich [b6472112:3849dfb3]
+[00:00:00.5472733] fixturesa.xml: Compiling EngagingContent:XmlRecoveryA_EngagingContent_repeat [b6472112:51821b21]
+[00:00:00.5472733] fixturesa.xml: Compiling EngagingContentGroup:XmlRecoveryA_EngagingContentGroup_defaults [00ac224e:5e789f72]
+[00:00:00.5472733] fixturesa.xml: Compiling EngagingContentGroup:XmlRecoveryA_EngagingContentGroup_rich [00ac224e:6a3f3719]
+[00:00:00.5578282] fixturesa.xml: Compiling EngagingContentGroup:XmlRecoveryA_EngagingContentGroup_repeat [00ac224e:b0e6d9a7]
+[00:00:00.5939466] fixturesa.xml: Compiling EngagingContentSequence:XmlRecoveryA_EngagingContentSequence_defaults [e279d385:e4d80b87]
+[00:00:00.6102863] fixturesa.xml: Compiling EngagingContentSequence:XmlRecoveryA_EngagingContentSequence_rich [e279d385:84543f88]
+[00:00:00.6102863] fixturesa.xml: Compiling EngagingContentSequence:XmlRecoveryA_EngagingContentSequence_repeat [e279d385:a73585a3]
+[00:00:00.6259195] fixturesa.xml: Compiling IntelDB:XmlRecoveryA_IntelDB_defaults [1f9865ce:070f113b]
+[00:00:00.6415372] fixturesa.xml: Compiling IntelDB:XmlRecoveryA_IntelDB_rich [1f9865ce:9f2b5faf]
+[00:00:00.6415372] fixturesa.xml: Compiling IntelDB:XmlRecoveryA_IntelDB_repeat [1f9865ce:70e6596c]
+[00:00:00.6415372] fixturesa.xml: Compiling UnitIntro:XmlRecoveryA_UnitIntro_defaults [6f78b1a4:bf293271]
+[00:00:00.6415372] fixturesa.xml: Compiling UnitIntro:XmlRecoveryA_UnitIntro_rich [6f78b1a4:9dc0ce87]
+[00:00:00.6415372] fixturesa.xml: Compiling UnitIntro:XmlRecoveryA_UnitIntro_repeat [6f78b1a4:70481b5a]
+[00:00:00.6415372] fixturesa.xml: Compiling CrowdResponse:XmlRecoveryA_CrowdResponse_defaults [17e53184:31a54e24]
+[00:00:00.6415372] fixturesa.xml: Compiling CrowdResponse:XmlRecoveryA_CrowdResponse_rich [17e53184:04fc98fa]
+[00:00:00.6415372] fixturesa.xml: Compiling CrowdResponse:XmlRecoveryA_CrowdResponse_repeat [17e53184:f6803335]
+[00:00:00.6415372] fixturesa.xml: Compiling DynamicsContactTagMapping:XmlRecoveryA_DynamicsContactTagMapping_defaults [3e3ce4ba:6fd62503]
+[00:00:00.6415372] fixturesa.xml: Compiling DynamicsContactTagMapping:XmlRecoveryA_DynamicsContactTagMapping_rich [3e3ce4ba:e2ceda54]
+[00:00:00.6415372] fixturesa.xml: Compiling DynamicsContactTagMapping:XmlRecoveryA_DynamicsContactTagMapping_repeat [3e3ce4ba:1249832c]
+[00:00:00.6415372] fixturesa.xml: Compiling StanceTemplate:XmlRecoveryA_StanceTemplate_defaults [9684c743:ca26a1a0]
+[00:00:00.6571719] fixturesa.xml: Compiling StanceTemplate:XmlRecoveryA_StanceTemplate_rich [9684c743:6b0e6a1a]
+[00:00:00.6571719] fixturesa.xml: Compiling StanceTemplate:XmlRecoveryA_StanceTemplate_repeat [9684c743:56cf71ec]
+[00:00:00.6571719] fixturesa.xml: Compiling EmotionTemplate:XmlRecoveryA_EmotionTemplate_defaults [a9152d94:57f1481c]
+[00:00:00.6571719] fixturesa.xml: Compiling EmotionTemplate:XmlRecoveryA_EmotionTemplate_rich [a9152d94:9af1a612]
+[00:00:00.6571719] fixturesa.xml: Compiling EmotionTemplate:XmlRecoveryA_EmotionTemplate_repeat [a9152d94:8c670fa2]
+[00:00:00.6571719] fixturesa.xml: Compiling SiegeEvaEvent:XmlRecoveryA_SiegeEvaEvent_defaults [4b943441:c9c393cd]
+[00:00:00.6571719] fixturesa.xml: Compiling SiegeEvaEvent:XmlRecoveryA_SiegeEvaEvent_rich [4b943441:6e44cc99]
+[00:00:00.6571719] fixturesa.xml: Compiling SiegeEvaEvent:XmlRecoveryA_SiegeEvaEvent_repeat [4b943441:99654a6e]
+[00:00:00.6571719] fixturesa.xml: Compiling EvaSettings:XmlRecoveryA_EvaSettings_defaults [8cc42bf2:3b6eb7ff]
+[00:00:00.6571719] fixturesa.xml: Compiling EvaSettings:XmlRecoveryA_EvaSettings_rich [8cc42bf2:2d3d741f]
+[00:00:00.6571719] fixturesa.xml: Compiling EvaSettings:XmlRecoveryA_EvaSettings_repeat [8cc42bf2:27e397dd]
+[00:00:00.6571719] fixturesa.xml: Compiling EvaEvent:XmlRecoveryA_EvaEvent_defaults [1553b19e:fc5517e7]
+[00:00:00.6728015] fixturesa.xml: Compiling EvaEvent:XmlRecoveryA_EvaEvent_rich [1553b19e:344447b7]
+[00:00:00.6728015] fixturesa.xml: Compiling EvaEvent:XmlRecoveryA_EvaEvent_repeat [1553b19e:8adf0473]
+[00:00:00.6728015] fixturesa.xml: Compiling MiscEvaEvents:XmlRecoveryA_MiscEvaEvents_defaults [6bbce2ec:6c190c53]
+[00:00:00.6728015] fixturesa.xml: Compiling MiscEvaEvents:XmlRecoveryA_MiscEvaEvents_rich [6bbce2ec:f72864c8]
+[00:00:00.6728015] fixturesa.xml: Compiling MiscEvaEvents:XmlRecoveryA_MiscEvaEvents_repeat [6bbce2ec:e5bfbf1d]
+[00:00:00.6728015] fixturesa.xml: Compiling AchievementEvent:XmlRecoveryA_AchievementEvent_defaults [fc212add:12a9631e]
+[00:00:00.6728015] fixturesa.xml: Compiling AchievementEvent:XmlRecoveryA_AchievementEvent_rich [fc212add:e660b2c0]
+[00:00:00.6728015] fixturesa.xml: Compiling AchievementEvent:XmlRecoveryA_AchievementEvent_repeat [fc212add:a951fbbb]
+[00:00:00.6728015] fixturesa.xml: Compiling MapNameToAchievementEventMapping:XmlRecoveryA_MapNameToAchievementEventMapping_defaults [d63c6b4c:cdd6748e]
+[00:00:00.6728015] fixturesa.xml: Compiling MapNameToAchievementEventMapping:XmlRecoveryA_MapNameToAchievementEventMapping_rich [d63c6b4c:c4f38404]
+[00:00:00.6728015] fixturesa.xml: Compiling MapNameToAchievementEventMapping:XmlRecoveryA_MapNameToAchievementEventMapping_repeat [d63c6b4c:d1fb041b]
+[00:00:00.6728015] fixturesa.xml: Compiling GameplayAchievementTriggerData:XmlRecoveryA_GameplayAchievementTriggerData_defaults [14c84bb7:4c13c6d5]
+[00:00:00.6728015] fixturesa.xml: Compiling GameplayAchievementTriggerData:XmlRecoveryA_GameplayAchievementTriggerData_rich [14c84bb7:f1e7e571]
+[00:00:00.6728015] fixturesa.xml: Compiling GameplayAchievementTriggerData:XmlRecoveryA_GameplayAchievementTriggerData_repeat [14c84bb7:4bf86861]
+[00:00:00.6728015] fixturesa.xml: Compiling ForceFeedbackEvent:XmlRecoveryA_ForceFeedbackEvent_defaults [1c48076f:09ca4c8e]
+[00:00:00.6884243] fixturesa.xml: Compiling ForceFeedbackEvent:XmlRecoveryA_ForceFeedbackEvent_rich [1c48076f:ecfbaebb]
+[00:00:00.6884243] fixturesa.xml: Compiling ForceFeedbackEvent:XmlRecoveryA_ForceFeedbackEvent_repeat [1c48076f:fcb32d67]
+[00:00:00.6884243] fixturesa.xml: Compiling GameMap:XmlRecoveryA_GameMap_defaults [d51ae5e1:1fe22519]
+[00:00:00.6884243] fixturesa.xml: Compiling GameMap:XmlRecoveryA_GameMap_rich [d51ae5e1:251b6068]
+[00:00:00.6884243] fixturesa.xml: Compiling GameMap:XmlRecoveryA_GameMap_repeat [d51ae5e1:c004eb00]
+[00:00:00.6884243] fixturesa.xml: Compiling GameScriptList:XmlRecoveryA_GameScriptList_defaults [debf8788:9131a12f]
+[00:00:00.6884243] fixturesa.xml: Compiling GameScriptList:XmlRecoveryA_GameScriptList_rich [debf8788:3e2c98c4]
+[00:00:00.6884243] fixturesa.xml: Compiling GameScriptList:XmlRecoveryA_GameScriptList_repeat [debf8788:e9c03a31]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarTemplate:XmlRecoveryA_HealthBarTemplate_defaults [59da7b59:523134b6]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarTemplate:XmlRecoveryA_HealthBarTemplate_rich [59da7b59:7fc64692]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarTemplate:XmlRecoveryA_HealthBarTemplate_repeat [59da7b59:0ba05448]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarSettings:XmlRecoveryA_HealthBarSettings_defaults [e99cb24b:1a8cc799]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarSettings:XmlRecoveryA_HealthBarSettings_rich [e99cb24b:0687d768]
+[00:00:00.7040360] fixturesa.xml: Compiling HealthBarSettings:XmlRecoveryA_HealthBarSettings_repeat [e99cb24b:a4fd9522]
+[00:00:00.7040360] fixturesa.xml: Compiling Language:XmlRecoveryA_Language_defaults [adca75ca:641b79fe]
+[00:00:00.7040360] fixturesa.xml: Compiling Language:XmlRecoveryA_Language_rich [adca75ca:ce76b8d7]
+[00:00:00.7040360] fixturesa.xml: Compiling Language:XmlRecoveryA_Language_repeat [adca75ca:502d8668]
+[00:00:00.7040360] fixturesa.xml: Compiling HeaderTemplate:XmlRecoveryA_HeaderTemplate_defaults [48a3eec6:a6646a44]
+[00:00:00.7040360] fixturesa.xml: Compiling HeaderTemplate:XmlRecoveryA_HeaderTemplate_rich [48a3eec6:7f69b691]
+[00:00:00.7040360] fixturesa.xml: Compiling HeaderTemplate:XmlRecoveryA_HeaderTemplate_repeat [48a3eec6:30b5c9ab]
+[00:00:00.7040360] fixturesa.xml: Compiling FontDirectory:XmlRecoveryA_FontDirectory_defaults [d4babac7:02a7e5b2]
+[00:00:00.7040360] fixturesa.xml: Compiling FontDirectory:XmlRecoveryA_FontDirectory_rich [d4babac7:76c52d74]
+[00:00:00.7196708] fixturesa.xml: Compiling FontDirectory:XmlRecoveryA_FontDirectory_repeat [d4babac7:180d837d]
+[00:00:00.7196708] fixturesa.xml: Compiling TheVersion:XmlRecoveryA_TheVersion_defaults [fc82dc06:3fce0def]
+[00:00:00.7196708] fixturesa.xml: Compiling TheVersion:XmlRecoveryA_TheVersion_rich [fc82dc06:1683a65d]
+[00:00:00.7196708] fixturesa.xml: Compiling TheVersion:XmlRecoveryA_TheVersion_repeat [fc82dc06:3d1c4474]
+[00:00:00.7196708] fixturesa.xml: Compiling Credits:XmlRecoveryA_Credits_defaults [ed226ae9:4f01175a]
+[00:00:00.7196708] fixturesa.xml: Compiling Credits:XmlRecoveryA_Credits_rich [ed226ae9:2bb00f44]
+[00:00:00.7196708] fixturesa.xml: Compiling Credits:XmlRecoveryA_Credits_repeat [ed226ae9:15dc1190]
+[00:00:00.7196708] fixturesa.xml: Compiling MapMetaData:XmlRecoveryA_MapMetaData_defaults [5f969146:5404c877]
+[00:00:00.7196708] fixturesa.xml: Compiling MapMetaData:XmlRecoveryA_MapMetaData_rich [5f969146:66bad168]
+[00:00:00.7196708] fixturesa.xml: Compiling MapMetaData:XmlRecoveryA_MapMetaData_repeat [5f969146:2c4723b5]
+[00:00:00.7196708] fixturesa.xml: Compiling Road:XmlRecoveryA_Road_defaults [d19d90c6:0785aa5c]
+[00:00:00.7196708] fixturesa.xml: Compiling Road:XmlRecoveryA_Road_rich [d19d90c6:da887026]
+[00:00:00.7196708] fixturesa.xml: Compiling Road:XmlRecoveryA_Road_repeat [d19d90c6:3efca6e5]
+[00:00:00.7196708] fixturesa.xml: Compiling ShaderOverride:XmlRecoveryA_ShaderOverride_defaults [bcc23f6c:f24759b8]
+[00:00:00.7352886] fixturesa.xml: Compiling ShaderOverride:XmlRecoveryA_ShaderOverride_rich [bcc23f6c:6a067e15]
+[00:00:00.7352886] fixturesa.xml: Compiling ShaderOverride:XmlRecoveryA_ShaderOverride_repeat [bcc23f6c:e7bba416]
+[00:00:00.7352886] fixturesa.xml: Compiling Mouse:XmlRecoveryA_Mouse_defaults [9687f57b:65e95053]
+[00:00:00.7352886] fixturesa.xml: Compiling Mouse:XmlRecoveryA_Mouse_rich [9687f57b:c4510e0a]
+[00:00:00.7352886] fixturesa.xml: Compiling Mouse:XmlRecoveryA_Mouse_repeat [9687f57b:b4a4232d]
+[00:00:00.7352886] fixturesa.xml: Compiling LogicCommandSet:XmlRecoveryA_Support_LogicCommandSet [ec066d65:6f659348]
+[00:00:00.7352886] Resolving references: mods\xmlcompilerrecoverya\data\mod
+[00:00:00.7352886] Warning: Unknown asset 'MouseCursor:Arrow' referenced from 'PlayerPowerButtonTemplate:XmlRecoveryA_PlayerPowerButtonTemplate_rich' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\fixturesa.xml'
+[00:00:00.7352886] Warning: Unknown asset 'MouseCursor:Invalid' referenced from 'PlayerPowerButtonTemplate:XmlRecoveryA_PlayerPowerButtonTemplate_rich' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\fixturesa.xml'
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-empty.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-odd.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-empty.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-odd.bin
+[00:00:00.7352886] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-empty.bin
+[00:00:00.7509146] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture.bin
+[00:00:00.7509146] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-odd.bin
+[00:00:00.7509146] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-empty.bin
+[00:00:00.7509146] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture.bin
+[00:00:00.7509146] Warning: Referenced file not found: mods/xmlcompilerrecoverya/data/fixture-odd.bin
+[00:00:00.7509146] Warning: Unknown asset 'MissionTemplate:SampleA' referenced from 'CampaignTemplate:XmlRecoveryA_CampaignTemplate_defaults' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\fixturesa.xml'
+[00:00:00.7509146] Warning: Unknown asset 'CampaignTemplate:SampleA' referenced from 'CampaignEnumerator:XmlRecoveryA_CampaignEnumerator_defaults' in 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoverya-original\mods\xmlcompilerrecoverya\data\fixturesa.xml'
+[00:00:00.7509146] Stable sorting assets
+[00:00:00.7509146] Sorting by schema dependencies
+[00:00:00.7509146] Sorting by asset dependencies
+[00:00:00.7509146] Generating stream: mods\xmlcompilerrecoverya\data\mod
+[00:00:00.7665495] Slow asset clean-up (expected: 173, actual: 173, old: 0, current: 173)
+[00:00:00.7665495] mods\xmlcompilerrecoverya\data\mod Linking binary data
+[00:00:00.7821658] mods\xmlcompilerrecoverya\data\mod Linking import data
+[00:00:00.7821658] mods\xmlcompilerrecoverya\data\mod Linking relocation data
+[00:00:00.7821658] mods\xmlcompilerrecoverya\data\mod Stream complete
+[00:00:00.7821658] BinaryAssetBuilder complete
+[00:00:00.7821658] EngagingContentGroup:
+[00:00:00.7821658]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] ConnectionLineManager:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] DLContent:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] AssetReportTable:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00.0156337
+[00:00:00.7977813]       Longest Processing Time: 00:00:00.0156337 (XmlRecoveryA_AssetReportTable_defaults)
+[00:00:00.7977813]       Average Processing Time: 0.00521123333333333 seconds
+[00:00:00.7977813] StringHashTable:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] LocalBuildListMonitor:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] GameplayAchievementTriggerData:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] EvaEvent:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] CrowdResponse:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] ForceFeedbackEvent:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] IntelDB:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] CampaignEnumerator:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] MpGameRules:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] AptConstData:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] AptGeometryData:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] DynamicsContactTagMapping:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00
+[00:00:00.7977813]       Longest Processing Time: 00:00:00 ()
+[00:00:00.7977813]       Average Processing Time: 0 seconds
+[00:00:00.7977813] GiftManagerSettings:
+[00:00:00.7977813]       Instances Processed: 3
+[00:00:00.7977813]       Total Processing Time: 00:00:00.0156234
+[00:00:00.7977813]       Longest Processing Time: 00:00:00.0156234 (XmlRecoveryA_GiftManagerSettings_defaults)
+[00:00:00.7977813]       Average Processing Time: 0.0052078 seconds
+[00:00:00.7977813] AptDatData:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] HeaderTemplate:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] SiegeEvaEvent:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] OnlineChatColors:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] CampaignTemplate:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] HealthBarTemplate:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] MapMetaData:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] MiscEvaEvents:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] AptAptData:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] UnitIntro:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] LogicCommand:
+[00:00:00.8134083]       Instances Processed: 1
+[00:00:00.8134083]       Total Processing Time: 00:00:00.0312491
+[00:00:00.8134083]       Longest Processing Time: 00:00:00.0312491 (XmlRecoveryA_Support_LogicCommand)
+[00:00:00.8134083]       Average Processing Time: 0.0312491 seconds
+[00:00:00.8134083] GameplayConditionData:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00.0156164
+[00:00:00.8134083]       Longest Processing Time: 00:00:00.0156164 (XmlRecoveryA_GameplayConditionData_rich)
+[00:00:00.8134083]       Average Processing Time: 0.00520546666666667 seconds
+[00:00:00.8134083] EvaSettings:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] StanceTemplate:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00.0156347
+[00:00:00.8134083]       Longest Processing Time: 00:00:00.0156347 (XmlRecoveryA_StanceTemplate_defaults)
+[00:00:00.8134083]       Average Processing Time: 0.00521156666666667 seconds
+[00:00:00.8134083] Mouse:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8134083] ConquerCardPrebuiltDeck:
+[00:00:00.8134083]       Instances Processed: 3
+[00:00:00.8134083]       Total Processing Time: 00:00:00
+[00:00:00.8134083]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8134083]       Average Processing Time: 0 seconds
+[00:00:00.8290303] EmotionTemplate:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] Language:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] EngagingContent:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] ShaderOverride:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] MissionHotSpotSettings:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] TutorialMapData:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] MissionTemplate:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] Road:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] UnitAbilityButtonTemplate:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00.0156236
+[00:00:00.8290303]       Longest Processing Time: 00:00:00.0156236 (XmlRecoveryA_UnitAbilityButtonTemplate_rich)
+[00:00:00.8290303]       Average Processing Time: 0.00520786666666667 seconds
+[00:00:00.8290303] ConquerCardDefinitionUnit:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] FontDirectory:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] GameMap:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] ArmyDefinition:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] MapNameToAchievementEventMapping:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] GameScriptList:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00.0156117
+[00:00:00.8290303]       Longest Processing Time: 00:00:00.0156117 (XmlRecoveryA_GameScriptList_repeat)
+[00:00:00.8290303]       Average Processing Time: 0.0052039 seconds
+[00:00:00.8290303] EngagingContentSequence:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8290303]       Average Processing Time: 0 seconds
+[00:00:00.8290303] HealthBarSettings:
+[00:00:00.8290303]       Instances Processed: 3
+[00:00:00.8290303]       Total Processing Time: 00:00:00
+[00:00:00.8290303]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] LogicCommandSet:
+[00:00:00.8446597]       Instances Processed: 1
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] SkirmishOpeningMove:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] BuildSystemSettings:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] Credits:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] PlayerPowerButtonTemplate:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] ConquerCardDefinitionPower:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] AchievementEvent:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] TheVersion:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] ConquerCardDefinitionStructure:
+[00:00:00.8446597]       Instances Processed: 3
+[00:00:00.8446597]       Total Processing Time: 00:00:00
+[00:00:00.8446597]       Longest Processing Time: 00:00:00 ()
+[00:00:00.8446597]       Average Processing Time: 0 seconds
+[00:00:00.8446597] Total Processing Time for All Types: 00:00:00.1249926

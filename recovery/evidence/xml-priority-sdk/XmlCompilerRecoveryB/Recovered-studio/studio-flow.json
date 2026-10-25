@@ -1,0 +1,54 @@
+{
+  "succeeded": false,
+  "entry": "EALAModStudio.ModStudioUI.loadBuildScript -> SDK/defaultscript.cs BuildScript.buildMod -> executeModBuildStep",
+  "defaultscriptSha256": "A4F41C72EA81319AD75E5251F40B10EFA202C28F8021B0594AF222321686426E",
+  "modName": "XmlCompilerRecoveryB",
+  "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered",
+  "sourceModXml": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml",
+  "selectedSteps": [
+    1,
+    2,
+    5
+  ],
+  "disabledSteps": [
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "disabledReason": "User requested only establishing base data (Studio case5); no AptUI/additionalmaps, LoD, asset merge/fix, copy, packaging or installation steps",
+  "steps": [
+    {
+      "step": 1,
+      "label": "clear-built-mod",
+      "succeeded": true,
+      "freshCopy": true
+    },
+    {
+      "step": 2,
+      "label": "clear-cache",
+      "succeeded": true,
+      "freshCopy": true
+    },
+    {
+      "step": 5,
+      "label": "mod",
+      "executable": "BinaryAssetBuilder.exe",
+      "arguments": "\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\Mods\\XmlCompilerRecoveryB\\Data\\Mod.xml\" /od:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\builtmods\" /iod:\"D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered\\builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\XmlCompilerRecoveryB\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\XmlCompilerRecoveryB\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\XmlCompilerRecoveryB\\Data;.\\Mods;.\\SageXml\"",
+      "workingDirectory": "D:\\a\\_temp\\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\\XmlCompilerRecoveryB-Recovered",
+      "exitCode": -1,
+      "startedUtc": "2026-10-25T04:44:29.6169313Z",
+      "endedUtc": "2026-10-25T04:44:30.3906764Z",
+      "stdout": "02-mod-stdout.txt",
+      "stderr": "02-mod-stderr.txt"
+    }
+  ],
+  "outputs": [],
+  "status": "failed",
+  "error": "Studio step 5/mod failed: -1"
+}

@@ -1,0 +1,31 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\Mods\XmlCompilerRecoveryB\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryB\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryB\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryB\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2501462] Cached session data not available.
+[00:00:00.2501462] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2501462] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods\cache').
+[00:00:00.2657581] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\mods\xmlcompilerrecoveryb\data\mod.xml'.
+[00:00:00.2970123] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2970123] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods\static.manifest, file not found
+[00:00:00.2970123] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\static.xml'.
+[00:00:00.2970123] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2970123] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods\global.manifest, file not found
+[00:00:00.2970123] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\global.xml'.
+[00:00:00.3126347] Stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\mods\xmlcompilerrecoveryb\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3126347] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\XmlCompilerRecoveryB-Recovered\builtmods\audio.manifest, file not found
+[00:00:00.3126347] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\audio.xml'.
+[00:00:00.3126347] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-dc631505d7534cdab85ad62c4c901af8\xmlcompilerrecoveryb-recovered\mods\xmlcompilerrecoveryb\data\probe.xml'.
+[00:00:00.3595202] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults [0b3906fa:912fefa9]
+[00:00:00.4220184] probe.xml: Compiling MusicScriptConditionNugget_LocalPlayerIsObserver:RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields [0b3906fa:8b862c08]
+[00:00:00.5165313] Error: System.NotSupportedException: Unknown music-script attribute
+   at Recovered.XmlmusicscriptBridge.Compile(XmlNode node, XmlNamespaceManager namespaces, Boolean big, String type)
+   at Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at Recovered.XmlPriority.Plugin.ProcessInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessInstances(OutputManager outputManager, Int32& instancesCompiledCount, Int32& instancesCopiedFromCacheCount)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at BinaryAssetBuilder.BinaryAssetBuilder.DoBuildData()
