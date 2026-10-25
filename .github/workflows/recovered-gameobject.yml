@@ -65,7 +65,7 @@ permissions:
 jobs:
   differential:
     runs-on: windows-2022
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
@@ -88,6 +88,7 @@ jobs:
         with:
           name: recovered-gameobject-component-x86
           path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
+
 
 
 
