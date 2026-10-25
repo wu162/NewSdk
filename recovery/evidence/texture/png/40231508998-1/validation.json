@@ -1,0 +1,63 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "matrixVersion": 1,
+  "probeOnly": true,
+  "configurations": [
+    {
+      "counts": {},
+      "probeCompleted": true,
+      "passed": false,
+      "transcriptSha256": "a54e3417bd6c5f706f9dc6f3945e80bfd1f3b81f090138f60e31414926296eeb",
+      "configuration": "Debug",
+      "summary": [
+        "PROBE Texture native format controls complete"
+      ]
+    },
+    {
+      "counts": {},
+      "probeCompleted": true,
+      "passed": false,
+      "transcriptSha256": "a54e3417bd6c5f706f9dc6f3945e80bfd1f3b81f090138f60e31414926296eeb",
+      "configuration": "Release",
+      "summary": [
+        "PROBE Texture native format controls complete"
+      ]
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+      "sha256": "49405979a7de270cd0b33fb35c70228cc4da4937b5e357c67d5b8459da7c4d47"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs",
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176"
+    },
+    {
+      "path": "recovery/tests/TexturePngOracle.cs",
+      "sha256": "28be8894c47ce2f275293ddc47c2c59ed7fd683dcd36937f313f868d629a8624"
+    },
+    {
+      "path": "recovery/scripts/TestTexturePng.ps1",
+      "sha256": "a5f7507abb26b791e82d59c9fe6132d3e1f3121fb15a5c8f011bac601539aaa3"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll",
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    }
+  ],
+  "runId": "40231508998",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "61ad0c738706794054f0ef3ce61f2df2602e85de",
+  "status": "probe-only",
+  "scope": "PNG POT decoding versus native LoadImageA; production dispatch and SDK not yet validated"
+}

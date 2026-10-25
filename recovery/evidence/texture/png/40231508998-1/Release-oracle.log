@@ -1,0 +1,8 @@
+FORMAT control.tga rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT generated.png rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT generated.tga rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT system.bmp rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT system.gif rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT system.jpg rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+FORMAT system.png rejected=BinaryAssetBuilder.BinaryAssetBuilderException/D3DX cannot load the texture from disk.
+PROBE Texture native format controls complete
