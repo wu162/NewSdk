@@ -184,7 +184,7 @@ internal static class AudioXmaPacketOracle
             {
                 Reject(bitsMethod, new object[] { 0u, null, 0, 1 }, typeof(ArgumentNullException));
                 Reject(bitsMethod, new object[] { 0u, new byte[3], -1, 1 }, typeof(ArgumentOutOfRangeException));
-                Reject(bitsMethod, new object[] { 0u, new byte[2], 0, 1 }, typeof(ArgumentException));
+                Reject(bitsMethod, new object[] { 0u, new byte[2], 0, 1 }, typeof(ArgumentOutOfRangeException));
                 Reject(frameMethod, new object[] { new byte[8192], 0, 0x3fe0, 0 }, typeof(ArgumentOutOfRangeException));
                 Reject(scanMethod, new object[] { new byte[8], 0, new byte[32], 0, 0, 0 }, typeof(ArgumentOutOfRangeException));
                 byte[] zeroFrame = new byte[2055]; zeroFrame[2] = 0x20; zeroFrame[3] = 0x10;
