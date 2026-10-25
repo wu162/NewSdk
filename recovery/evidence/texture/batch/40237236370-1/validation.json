@@ -1,0 +1,38 @@
+{
+  "sourceCommit": "23eaca15a66c665e111fe8e9ec486775e2eb709f",
+  "runId": "40237236370",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ],
+  "groups": [
+    {
+      "group": "dxt-blocks",
+      "passed": true,
+      "evidenceOnly": true
+    }
+  ],
+  "runAttempt": "1",
+  "selected": [
+    "dxt-blocks"
+  ],
+  "status": "passed"
+}
