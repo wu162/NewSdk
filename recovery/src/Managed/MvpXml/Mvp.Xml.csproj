@@ -17,4 +17,10 @@
     <!-- ILSpy omits the original empty resource; preserve it byte for byte. -->
     <EmbeddedResource Include="Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources" />
   </ItemGroup>
+  <Target Name="RestoreExsltClrNames" AfterTargets="Build">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)../../../tools/MvpXmlMetadata/MvpXmlMetadata.csproj"
+             Targets="Restore;Build" Properties="Configuration=$(Configuration)"
+             RemoveProperties="TargetFramework;OutputPath;PlatformTarget;RuntimeIdentifier;SelfContained" />
+    <Exec Command="&quot;$(MSBuildThisFileDirectory)../../../tools/MvpXmlMetadata/bin/$(Configuration)/net48/MvpXmlMetadata.exe&quot; &quot;$(TargetPath)&quot;" />
+  </Target>
 </Project>

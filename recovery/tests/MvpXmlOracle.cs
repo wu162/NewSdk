@@ -60,7 +60,7 @@ public class MvpXmlOracle {
             Check(++count<2000);
             b.Append(r.NodeType).Append(':').Append(r.Depth).Append(':').Append(r.Name).Append(':').Append(r.Value).Append(':').Append(r.BaseURI).Append(':').Append(r.XmlLang).Append(':').Append(r.IsEmptyElement);
             if(r.HasAttributes) {
-                for(int i=0;i<r.AttributeCount;i++) {r.MoveToAttribute(i);b.Append('|').Append(r.Name).Append('=').Append(r.Value);}
+                if(r.MoveToFirstAttribute()) do {b.Append('|').Append(r.Name).Append('=').Append(r.Value);} while(r.MoveToNextAttribute());
                 r.MoveToElement();
             }
             b.Append('\n');
