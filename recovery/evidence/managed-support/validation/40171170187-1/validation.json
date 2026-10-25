@@ -1,0 +1,113 @@
+{
+  "sourceFiles": [
+    {
+      "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval.csproj",
+      "sha256": "666e0ed669fbd9ab2b8852fc681fae3d359a2a532384701930fae9e18b1252a9"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionEvaluator.cs",
+      "sha256": "0d6a2fd92322ab07e132633a14f5b9f01f4fa2985ebccd53e92f5a68eee22167"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval/ExpressionValue.cs",
+      "sha256": "d5c6eef1b34b65b335841e2f5b6e3b6fe5b654ca5f66cddfcf830788e672d0c2"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionLexer.cs",
+      "sha256": "bbafc0552605926bda9d6d606061aa14044e14ba33ad480d4926c72b435d640f"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionParser.cs",
+      "sha256": "1be774022babae02ceffceaf67f7d156810594bb1e483589f5848c4356eea3f8"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/ExpressionParserTokenTypes.cs",
+      "sha256": "4fb1bad55176399994dd4c64c383cbe927a60640e2d94be44cbaf70aa3a128a0"
+    },
+    {
+      "path": "recovery/src/Managed/ExpressionEval/Properties/AssemblyInfo.cs",
+      "sha256": "3193e34232b1c8bff91fc8f26ba1bd4eada3a1fe3b669580ea2f3596d71ac854"
+    },
+    {
+      "path": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier.csproj",
+      "sha256": "e98dfb1df99bf96f63b75cc59b8db128d7bf339dc4f08bfe07fbcce6ca679c86"
+    },
+    {
+      "path": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier/Plugin.cs",
+      "sha256": "3228cb49319f7a359a215f870a4243a83cbbaf368450ef062491056dd3aef64c"
+    },
+    {
+      "path": "recovery/src/Managed/GameDataVerifier/Properties/AssemblyInfo.cs",
+      "sha256": "065cb3f025d7c8c9ed17cf1679abd024dfe3e58f9ef36891a1f4cdf6cd85ebd8"
+    }
+  ],
+  "sdkValidated": false,
+  "runId": "40171170187",
+  "inputs": [
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.ExpressionEval.dll",
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.GameDataVerifier.dll",
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "path": "SDK/tools/antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    }
+  ],
+  "configurations": [
+    {
+      "transcriptSha256": "b94059039ac08ef929ae451beac38c413001dfc552c22ca239c47565d3b355be",
+      "withoutOriginalTargetDlls": true,
+      "succeeded": true,
+      "configuration": "Debug",
+      "libraries": [
+        {
+          "assembly": "ExpressionEval",
+          "sha256": "7a893650ff72809d5d3cdd7cd7491a03a8b914a0de9e1708665494bf210fa185"
+        },
+        {
+          "assembly": "GameDataVerifier",
+          "sha256": "94cee2cf7b2ab6a53ededb09688ce84607a8ed43e8a1748c1c54680bf0eb60f9"
+        }
+      ]
+    },
+    {
+      "transcriptSha256": "b94059039ac08ef929ae451beac38c413001dfc552c22ca239c47565d3b355be",
+      "withoutOriginalTargetDlls": true,
+      "succeeded": true,
+      "configuration": "Release",
+      "libraries": [
+        {
+          "assembly": "ExpressionEval",
+          "sha256": "3594b4a1b304fe1c649a09b21b8e20b83a73b48159ff6b536058fed5dca53bc1"
+        },
+        {
+          "assembly": "GameDataVerifier",
+          "sha256": "be20e44a1a0575fe852e025ebe6232a46ff86b0aa0903701afaff3933bd0c5bf"
+        }
+      ]
+    }
+  ],
+  "sourceCommit": "e806b1ca26509915621d214be2492d572db78f74",
+  "expressionCultures": [
+    "en-US",
+    "de-DE",
+    "tr-TR"
+  ],
+  "runAttempt": "1",
+  "casesPerConfiguration": 32306,
+  "scope": "Complete managed support source; API/member inventory and behavior differential in isolated processes",
+  "verifierPlatforms": [
+    0,
+    1,
+    2,
+    99
+  ]
+}
