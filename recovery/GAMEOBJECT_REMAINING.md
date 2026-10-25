@@ -1,21 +1,13 @@
-# 剩余模块清单（本轮检查点）
+# 剩余模块清单：317/322已验收，剩余5类
 
-当前309/322类已通过完整Windows累计矩阵（source9c138e8/run40145009538），13类显式拒绝；本轮新增26类全部验收。 58 Token-only回退保留。
+最终source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f，run40160094730 success；/Od与/O2完整累计、平台0/1/2/99、原DLL三缓冲区逐字节差分、拒绝与不变性均已通过。新增完整8类已验收，不含SDK集成；58 Token-only回退保留。
 
 | TypeId | 类型 | native |
 |---:|---|---:|
-| 267870432 | EngineerContainModuleData | 88 |
-| 803073101 | W3DLaserDrawModuleData | 112 |
-| 1083087423 | HordeTransportContainModuleData | 336 |
-| 1121390653 | W3DSpotlightDrawModuleData | 224 |
-| 1197014736 | HordeContainModuleData | 500 |
-| 1322199627 | W3DScriptedModelDrawModuleData | 216 |
-| 1346840366 | InfiltratorContainModuleData | 128 |
-| 1409388128 | W3DTracerDrawModuleData | 112 |
-| 1468802863 | TransportContainModuleData | 332 |
-| 1610744897 | W3DStreamDrawModuleData | 76 |
-| 2323717438 | W3DTankDrawModuleData | 228 |
-| 2615586235 | W3DDynamicsDrawModuleData | 252 |
-| 2756454809 | W3DTruckDrawModuleData | 396 |
+|1121390653|W3DSpotlightDrawModuleData|224|
+|1322199627|W3DScriptedModelDrawModuleData|216|
+|2323717438|W3DTankDrawModuleData|228|
+|2615586235|W3DDynamicsDrawModuleData|252|
+|2756454809|W3DTruckDrawModuleData|396|
 
-剩余为Contain5类与复杂W3D Draw8类。完整编译器/SDK集成与模块计数分开；实际验收锚点见RESUME.md。
+这5类继续显式拒绝。完整下一组入口、原方法和结构大小见GAMEOBJECT_DRAW_MODEL_NEXT.md；原证据283方法/17张PE表不是实现数量。完整编译器、两替代DLL、正式SDK与完整mymod集成仍是独立验收门槛。

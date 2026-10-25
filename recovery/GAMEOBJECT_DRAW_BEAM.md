@@ -1,6 +1,6 @@
-# W3D beam Draw complete group (validation pending)
+# W3D beam Draw complete group (accepted)
 
-Complete Laser112, Tracer112 and Stream76, including Color4f16, nullable ObjectStatusValidation56, FXShaderMaterial28, polymorphic shader constants and nullable ParticleSystemList8. This checkpoint is not accepted until the final cumulative Windows /Od and /O2 differential succeeds. SDK not run; original route retained.
+Complete Laser112, Tracer112 and Stream76, including Color4f16, nullable ObjectStatusValidation56, FXShaderMaterial28, polymorphic shader constants and nullable ParticleSystemList8. The final cumulative Windows /Od and /O2 differential has succeeded. SDK not run; original route retained.
 
 Original source blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`, PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`. draw-source contains 283 original methods and seventeen PE maps. The extractor now captures nested polymorphic helpers and FXShaderConstant** Token dispatch regardless of parameter spelling. Existing ModuleData** global dispatch is an explicit separate source-inventory boundary; this is not a claim to recover the five other W3D model classes.
 
@@ -13,3 +13,8 @@ Laser/Stream inline shader allocation precedes nullable validation/particle data
 Tests cover complete native defaults/padding, every field and enum, fourteen Token layouts and all shader variants including unknown, uint8 truncation, list boundaries0/1/2/27/28/29/65, Float Value allocation before Name, strong imports, reversed XML order, all module containers, nullable structures and rejection surfaces. Complete existing cumulative differential, four platforms including99, refusals and invariance remain enabled. New Byte field kind and Token mode10 are additive and used only by this group.
 
 Original main Marshal methods098/103/101, Token210/215/213; shader material082/195, shader pointer dispatch264/276 and subtype helper bodies in manifest. Use signatures and hashes as authority because added dependencies preserve the original first256 archive entries and extend the archive.
+
+
+## Final cumulative acceptance (2026-10-25)
+
+Source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f, GameObject run 40160094730 success; primitive run40160094713 success. /Od and /O2 each: 1281576 fixtures, 3844728 three-buffer byte comparisons, 23848 refusals, 4072 invariance comparisons; platforms0/1/2/99. Both actual PASS log lines, terminal job/run status and immutable validation sourceCommit/runId/modes/platforms were checked. Evidence: recovery/evidence/gameobject-runs/40160094730-1; shared gameobject-root is synchronized to the identical Git tree. GameObject module coverage317/322, five model Draw classes remain rejected; 58 Token-only fallbacks retained. SDK0, original route retained. The historical tail of validation.scope still says13 rejected; actual refusal table has5 and full tests reflect5. Correct that descriptive tail with the next implementation batch rather than retriggering an unchanged complete matrix solely for its label.

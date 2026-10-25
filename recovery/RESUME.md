@@ -1,23 +1,23 @@
-# 编译器恢复：本轮源码已保存，最终累计矩阵运行中
+# 编译器恢复：317/322已完成累计验收与交接
 
-更新：2026-10-25，北京时间；分支recovery/compiler-source，单代理，禁止强推，SDK本轮0次。
+更新：2026-10-25，北京时间。分支recovery/compiler-source，单代理，禁止强推，本轮SDK0次。
 
-## 验收状态
+## 已验收317/322，剩余5类模型Draw
 
-上一完整成功仍为309/322：source9c138e8f182c4dac7c2732c42133e0a789925c01，GameObject run40145009538；/Od、/O2各1212528 fixtures、3637584三缓冲区比较、23056拒绝、3976不变性，平台0/1/2/99。不可变目录evidence/gameobject-runs/40145009538-1与共享根快照保留。
+最终完整成功source `ffd4e0aa440dbb6a8742b283bf0b7c455a50115f`，GameObject run `40160094730 success`，基础组件run40160094713 success。/Od、/O2各 **1281576 fixtures、3844728三缓冲区比较、23848拒绝、4072不变性**，平台0/1/2/99；两模式合计7689456三缓冲区比较。已核对实际两条PASS原日志、作业/运行终态及不可变validation的sourceCommit/runId/modes/platforms。不可变目录evidence/gameobject-runs/40160094730-1；共享gameobject-root同步完全相同Git树。此前309类source9c138e8/run40145009538与全部失败/中间证据保留。
 
-本轮新增完整8类源码和测试：Engineer88、Infiltrator128、Transport332、HordeTransport336、Horde500；W3DLaser112、Tracer112、Stream76及完整Shader28/四种常量/Color4f16/ParticleSystemList8依赖。**尚未最终验收，不得把317/322宣称为已通过。** 当前实现中仅5类模型Draw仍显式拒绝；58 Token-only回退未改。
+本轮新增完整8类：Engineer88、Infiltrator128、Transport332、HordeTransport336、Horde500；W3DLaser112、Tracer112、Stream76及完整FXShader28/四种多态常量（Bool16、Int16、Texture16、Float20）/Color4f16/nullable ParticleSystemList8。合同GAMEOBJECT_CONTAIN_REMAINING.md、GAMEOBJECT_DRAW_BEAM.md；源码生成器、完整runtime和C#累计测试已保存并全部验收。58 Token-only回退保留，正式DLL与插件路由保留。
 
-最终待验收source `ffd4e0aa440dbb6a8742b283bf0b7c455a50115f`，GameObject run `40160094730` 运行中；基础组件run40160094713 success。必须取得完整/Od、/O2和四平台、三缓冲区、拒绝、不变性结果，再核对不可变validation的sourceCommit/runId/modes/platforms并手动同步共享根快照。自动证据只写不可变目录，禁止把旧快照冒充新源码成功。
+重要已核实语义：Engineer/Infiltrator Marshal直接ModuleData而Token保留Contain父层；Tracer/Stream Marshal直接ModuleData而Token仍含Draw父层；HordeTransport独立bool332；KindOf任意未知位149；TextureIndex是signed int并保留CRT溢出；Shader常量未知类型保存type0且Token无嵌套表。原方法283+197指纹、父层调用与标量Token类型交叉检查均保留。
 
-Contain中间source6aad437/run40158330433的/Od完整四平台已PASS：1269184 fixtures、3807552三缓冲区比较、23568拒绝、4036不变性；/O2被15分钟作业上限取消，不是完整验收。累计工作流上限现为30分钟；全部回归保留，新组测试前置以提前定位失败。
+失败与修正保留：40157547072独立语音哈希期望；40158022383测试表名重复前缀；40158330433仅/Od通过（1269184 fixtures）后/O2被15分钟上限取消；40159265840/40159330006/40159478438新旧beam符号冲突与漏改引用；40159602595 Tracer少24字节Draw父表；40159867519 TextureIndex错作unsigned。最终生成符号统一drawBeam、测试DrawBeam；累计作业现30分钟，新组前置后仍跑全部历史回归。最终成功不依赖修改/跳过失败断言。
 
-已修正并保留失败记录：40157547072独立语音哈希期望误用另一套avalanche；40158022383测试表名重复前缀；6aad补原KindOf任意未知值回退149及加减位集边界；40159265840/40159330006新Draw的beam字段/choice与旧光束状态机重名；40159478438最后一处Shader引用未更名前缀。现新Draw全部使用drawBeam前缀，测试DrawBeam前缀；40159602595还原Tracer Token父层DrawModuleData（Marshal为ModuleData，补24字节表）；40159867519还原TextureIndex有符号CRT溢出行为。生成器现交叉验证全部标量Token类型及父层调用。本地验证34个生成符号引用、14张Draw与18张Contain测试表图及197+283原方法哈希。完整Windows最终结果是最终门槛。
+validation.scope历史尾句仍写13个拒绝，是旧说明；实际UnsupportedModuleTypes已核对只有5个且完整回归按5个执行。下一实现批次顺带更正该尾句，不为纯标签重复启动相同完整矩阵。
 
-## 下一步
+## 下一轮
 
-先收取40160094730结果，失败时按原DLL差分定位并统一修复，成功后更新本入口与类型文档/剩余清单/STATUS并保存验收提交。合同GAMEOBJECT_CONTAIN_REMAINING.md、GAMEOBJECT_DRAW_BEAM.md；新增GenerateContainRemainingFields.py、GenerateDrawBeamFields.py及完整C#累计测试均已保存。
+剩余完整组：ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396，继续显式拒绝。先读GAMEOBJECT_DRAW_MODEL_NEXT.md及GAMEOBJECT_REMAINING.md；draw-source已有283原方法、17张PE表，显式保留全局ModuleData**分派的source-inventory边界。ModelConditionState196、AnimationState140、Animation60、ParticleSysBone36等须完整实现，不能只启用Scripted根属性。共享Shader实现可复用，完整组统一验证。
 
-之后完整剩余模型Draw5类：ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396。详细入口和结构stride见GAMEOBJECT_DRAW_MODEL_NEXT.md；draw-source已有283原方法及17张PE表，嵌套Shader多态闭包已补齐，不能把证据数量当实现数量。禁止只启用Scripted根属性而遗漏ModelConditionState196、AnimationState140、Animation60等完整依赖。
+完整GameObject、两个完整替代DLL、正式SDK及完整mymod仍是独立门槛；组件成功不得冒充SDK成功。XmlCompiler另一恢复分支不在本轮范围。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md；约1小时阶段、10–15分钟检查点、GitHub插件普通提交推送与保留并发证据继续适用。自动证据只写不可变目录，共享根快照须在完整成功后手动同步并核实锚点。
 
-两完整替代DLL、完整GameObject、正式SDK及完整mymod验收仍独立；原DLL/正式插件路由保留。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md，按约1小时有效工作量与完整能力组推进，保留并发证据和普通推送，不强推。本轮避免重复clone/全量历史读取和SDK逐字段验证；不能量化额度节省。
+本轮约69分钟，后段用于修正差分和收取最终完整矩阵，没有扩充收尾范围。避免重复clone、全量历史/反编译上下文与逐字段SDK运行；无可比额度计量，不能量化节省。

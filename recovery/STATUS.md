@@ -820,3 +820,12 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 用户要求准备交接后停止扩展。原251→275：完整Attach5、Utility13、Area6；最终source3c5c40a4bd95ff62657d4e0776afb4c94ac30a6d，GameObject40140521059 success，基础40140521060 success。/Od/O2各977064 fixtures、2931192三缓冲区比较、20432拒绝、2752不变性，平台0/1/2/99；两模式原始日志和步骤已核对。260中间验收source1e044cd8/run40139405380每模式952632 fixtures、2857896比较、19932拒绝、2352不变性。失败40139056890为原Steal/Leech wrapper的Attach父Token表缺失，已依原方法更正并保留失败证据。
 
 最后8类effects/locomotor支持组已写完整实现、测试、140原方法及14原PE表，本地源一致性检查通过，Windows最终矩阵待检查点提交后核对，不能计入275。细节GAMEOBJECT_EFFECT_SUPPORT.md；源码接受283但仍有8未验收+39未实现，完整余项GAMEOBJECT_REMAINING.md。SDK本轮0次、原DLL与正式路由不变，完整编译器与正式集成未完成。收尾入口RESUME.md按真实验证状态更新，保留并发Actions证据，未强推。
+
+
+## 2026-10-25 本轮最终：317/322，Contain5类与Draw Beam3类累计验收通过
+
+309→317/322，新增完整Engineer/Infiltrator/Transport/HordeTransport/Horde Contain与Laser/Tracer/Stream Draw；完整Shader28/四种多态常量、Color4f16、nullable ParticleSystemList8依赖均包含。source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f，run 40160094730 success；基础40160094713 success。/Od、/O2各1281576 fixtures、3844728三缓冲区比较、23848拒绝、4072不变性，平台0/1/2/99，两模式合计7689456三缓冲区比较。实际两模式PASS原日志、终态与不可变validation锚点均已核对；共享gameobject-root与不可变40160094730-1相同Git树。SDK0，正式DLL/插件路由保留；58 Token-only回退保留。
+
+所有失败、取消与修正记录保留在RESUME及Git历史；15分钟累计上限不足，改30分钟且不减测试。原KindOf未知149、Tracer/Stream Marshal与Token父层差异、TextureIndex signed CRT、Shader未知type0均有原方法证据。validation.scope旧尾句13拒绝暂存，实际剩余5拒绝已核对，后续实现批次顺带改标签。
+
+只剩ScriptedModel/Spotlight/Tank/Dynamics/Truck五类模型Draw继续拒绝。GAMEOBJECT_DRAW_MODEL_NEXT.md保存完整父层与结构方法/stride；不能把原证据283方法/17PE表当实现完成。完整编译器与正式SDK/mymod集成独立验收。下一轮先读RESUME。

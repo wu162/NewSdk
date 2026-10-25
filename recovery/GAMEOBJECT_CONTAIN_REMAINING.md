@@ -1,6 +1,6 @@
-# Contain remaining five-type implementation (validation pending)
+# Contain remaining five-type implementation (accepted)
 
-Engineer88, Infiltrator128, Transport332, HordeTransport336 and Horde500 are implemented as one complete capability group. This is an unverified checkpoint until the complete Windows /Od and /O2 cumulative differential succeeds. The last accepted coverage remains 309/322; SDK not run and original route retained.
+Engineer88, Infiltrator128, Transport332, HordeTransport336 and Horde500 are implemented as one complete capability group. The complete Windows /Od and /O2 cumulative differential has succeeded. Accepted GameObject coverage is317/322; SDK not run and original route retained.
 
 Pinned source: Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`; existing contain-source manifest contains the complete 197-method closure and eleven PE maps. GenerateContainRemainingFields.py validates every method body hash, all original attribute/default/child sequences, full Token record counts/keys/types/offsets/terminators and original enum fallbacks; GenerateContainCoreFields.py retains original source/PE and enum-map checks.
 
@@ -13,3 +13,8 @@ Horde has full Transport332, Formation unknown0, LocomotorSet unknown12, NO impl
 New additive ModuleValue exact string-hash cases have no existing callers. Complete cumulative GameObject regression remains enabled, as do all prior refusal/invariance/platform checks. Added oracle covers all five native defaults/padding, all field samples and enums, eighteen complete Token tables, nested list boundaries0/1/2/27/28/29/65, Position16 defaults and allocation, native list strides, strong/weak/nullable references, schema allocation/import/relocation order independent of XML order, all module containers and rejection surfaces. Unimplemented W3D8 types remain rejected; 58 Token-only fallbacks unchanged.
 
 Original entry files: Engineer049/002/141, Infiltrator054/006/147, Transport065/013/160, HordeTransport078/026/146, Horde052/004/144; dependencies046/055/062/063/068/069 and associated Token/Endian/list methods in the same closure.
+
+
+## Final cumulative acceptance (2026-10-25)
+
+Source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f, GameObject run 40160094730 success; primitive run40160094713 success. /Od and /O2 each: 1281576 fixtures, 3844728 three-buffer byte comparisons, 23848 refusals, 4072 invariance comparisons; platforms0/1/2/99. Both actual PASS log lines, terminal job/run status and immutable validation sourceCommit/runId/modes/platforms were checked. Evidence: recovery/evidence/gameobject-runs/40160094730-1; shared gameobject-root is synchronized to the identical Git tree. GameObject module coverage317/322, five model Draw classes remain rejected; 58 Token-only fallbacks retained. SDK0, original route retained. The historical tail of validation.scope still says13 rejected; actual refusal table has5 and full tests reflect5. Correct that descriptive tail with the next implementation batch rather than retriggering an unchanged complete matrix solely for its label.
