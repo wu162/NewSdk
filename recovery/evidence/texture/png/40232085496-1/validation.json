@@ -1,0 +1,79 @@
+{
+  "configurations": [
+    {
+      "counts": {
+        "assertions": 9058,
+        "originalFailures": 1544,
+        "unsupportedCount": 304,
+        "decodedMatches": 2712,
+        "rejectionMatches": 1544,
+        "fixtures": 4560,
+        "mismatches": 0
+      },
+      "probeCompleted": true,
+      "summary": [
+        "PROBE Texture PNG fixtures=4560 decodedMatches=2712 originalFailures=1544 mismatches=0 assertions=9058 rejectionMatches=1544 unsupportedCount=304"
+      ],
+      "transcriptSha256": "fbc08d898319aa6bcfed838a788230d42d5f277ea160c29083bf6ae779a02ad8",
+      "configuration": "Debug",
+      "passed": false
+    },
+    {
+      "counts": {
+        "assertions": 9058,
+        "originalFailures": 1544,
+        "unsupportedCount": 304,
+        "decodedMatches": 2712,
+        "rejectionMatches": 1544,
+        "fixtures": 4560,
+        "mismatches": 0
+      },
+      "probeCompleted": true,
+      "summary": [
+        "PROBE Texture PNG fixtures=4560 decodedMatches=2712 originalFailures=1544 mismatches=0 assertions=9058 rejectionMatches=1544 unsupportedCount=304"
+      ],
+      "transcriptSha256": "fbc08d898319aa6bcfed838a788230d42d5f277ea160c29083bf6ae779a02ad8",
+      "configuration": "Release",
+      "passed": false
+    }
+  ],
+  "sourceCommit": "f30f97ba1d62b6acec0a906b13fd252ef71bf275",
+  "sdkValidated": false,
+  "matrixVersion": 1,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40232085496",
+  "probeOnly": true,
+  "sourceFiles": [
+    {
+      "sha256": "acb15cd199d515ddce2eb61248063f27954ab3e2380a92725917b4d7f38e5986",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "54f60f046df5024b0836bb57a5809718a26550a961781811d4ca7e2bbdc53e13",
+      "path": "recovery/tests/TexturePngOracle.cs"
+    },
+    {
+      "sha256": "877c515b558a8fecb21bab1b74d75f1a7dd588deee151d73b199b720d6f3330b",
+      "path": "recovery/scripts/TestTexturePng.ps1"
+    },
+    {
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll"
+    },
+    {
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll"
+    }
+  ],
+  "runAttempt": "1",
+  "scope": "PNG POT decoding versus native LoadImageA; production dispatch and SDK not yet validated",
+  "status": "probe-only"
+}
