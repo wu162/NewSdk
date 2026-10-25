@@ -1,0 +1,12 @@
+{
+  "runId": "40234805270",
+  "xmaEncoderRecovered": false,
+  "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "rawEvidenceIsOriginalOnly": true,
+  "requestedGroups": [
+    "window-snapshot",
+    "schedule"
+  ],
+  "runAttempt": "1"
+}

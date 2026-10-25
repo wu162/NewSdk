@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f
+PASS original integral XMA window scheduler: 3240 complete output/padding cases; realSnapshots=111; three representations, old/new blocks and skip/overlap phases; actual original CPU; no transform or XMA encoder acceptance

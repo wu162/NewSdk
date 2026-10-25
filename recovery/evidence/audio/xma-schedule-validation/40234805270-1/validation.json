@@ -1,0 +1,40 @@
+{
+  "recordsPerConfiguration": 3240,
+  "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
+  "snapshotsDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\audio\\xma-window-snapshot-validation\\40234805270-1\\windows",
+  "oracleSha256": "a1dbd089824db760748684cb8d3bf51c75a842d942d15374cf7339091ed1586d",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "scope": "Complete integral XMA 0x98267 window scheduler over three recovered input representations",
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "physicalX87ControlWord": "0x027f",
+  "originalCpuValidated": true,
+  "xmaEncoderRecovered": false,
+  "realSnapshotsReplayed": 111,
+  "audioFileXmaRouteEnabled": false,
+  "outerWindowSchedulerRecovered": true,
+  "runId": "40234805270",
+  "modes": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "f07114aeb13853fd2e5e50c2d31e4204e9f0579d783d08cfab03ff380eaafc39",
+      "summary": "PASS candidate integral XMA window scheduler: 3240 complete output/padding cases; realSnapshots=111; three representations, old/new blocks and skip/overlap phases; 15 separate safety refusals; original DLL absent; no transform or XMA encoder acceptance",
+      "records": 3240,
+      "candidateSafetyRejections": 15
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "ba0c4826eb41ddfe598ce5a3dfbc3333f3d8e4c9ec963255661495603112b357",
+      "summary": "PASS candidate integral XMA window scheduler: 3240 complete output/padding cases; realSnapshots=111; three representations, old/new blocks and skip/overlap phases; 15 separate safety refusals; original DLL absent; no transform or XMA encoder acceptance",
+      "records": 3240,
+      "candidateSafetyRejections": 15
+    }
+  ],
+  "realSnapshotsExpected": 111,
+  "realSnapshotNativeArgumentsVerified": true,
+  "status": "passed"
+}

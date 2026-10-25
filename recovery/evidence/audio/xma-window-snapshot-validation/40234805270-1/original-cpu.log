@@ -1,0 +1,6 @@
+PHASE load original and native helper
+PHASE capture xma-1-4096-ram before=0
+PASS xma-1-4096-ram snapshots=37 full original outputs unchanged
+PHASE capture xma-2-4096-ram before=37
+PASS xma-2-4096-ram snapshots=74 full original outputs unchanged
+PASS original-only bounded window snapshots: 2 encodes, 111 real windows; all complete outputs equal uninstrumented accepted original

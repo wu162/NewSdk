@@ -1,0 +1,20 @@
+{
+  "baselineSourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+  "runAttempt": "1",
+  "receipt": "window-snapshots.json",
+  "acceptedRawCasesMatched": 2,
+  "receiptSha256": "afc42bc579d324bf3e360740c8e4820d9aa661cf4e1addfd1dc972aa5221fe34",
+  "runId": "40234805270",
+  "stage": "native-execution",
+  "sourceCommit": "de20ba24dc6941c56ee27ade3c897ece6a22b17e",
+  "xmaEncodingRecovered": false,
+  "status": "original-evidence-only",
+  "callSiteRva": "0x97d97",
+  "snapshots": 111,
+  "baselineRunId": "40232525056",
+  "sdkValidated": false,
+  "tracedCases": 2,
+  "nativeHelperSha256": "484db73b807f05f1a1b2d92e355847a057b9f7624a65a3d24813bc6d9307a865",
+  "scope": "Real x86 CPU bounded original XMA window inputs",
+  "nativeExitCode": 0
+}
