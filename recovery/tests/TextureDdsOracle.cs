@@ -74,10 +74,13 @@ internal static class TextureDdsOracle
                 foreach (string root in new string[] { "Texture", "OnDemandTexture" })
                 {
                     if (File.Exists(cdata)) File.Delete(cdata);
-                    File.WriteAllBytes(file,new byte[0]);
-                    Run(plugin,output,platform+"/"+root+"/empty",Declaration(root,file,"StandardTexture","DXT1",cdata));
-                    File.Delete(file);
-                    Run(plugin,output,platform+"/"+root+"/missing",Declaration(root,file,"StandardTexture","DXT1",cdata));
+                    string empty = Path.Combine(work, "empty-" + platform + "-" + root + ".dds");
+                    File.WriteAllBytes(empty,new byte[0]);
+                    Run(plugin,output,platform+"/"+root+"/empty",Declaration(root,empty,"StandardTexture","DXT1",cdata));
+                    // The original leaks the FileStream on zero-length input. Do not
+                    // delete/reuse that file inside the oracle's process.
+                    string missing = Path.Combine(work, "missing-" + platform + "-" + root + ".dds");
+                    Run(plugin,output,platform+"/"+root+"/missing",Declaration(root,missing,"StandardTexture","DXT1",cdata));
                 }
                 Run(plugin,output,platform+"/unknown",Declaration("UnknownTextureType",file,"StandardTexture","DXT1",cdata));
             }

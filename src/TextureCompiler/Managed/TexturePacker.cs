@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 
 namespace Recovered.Compiler.Texture
