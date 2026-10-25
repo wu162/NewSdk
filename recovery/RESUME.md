@@ -53,12 +53,16 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 合并核对：目标分支 `4e86bf87e9339a5b5662f5aa6a27debe8970fe79` 在共同基线后新增 Utility 源码/脚本/文档/证据及 primitives 验证收据；与 Mvp.Xml 分支唯一重叠是本续接文档。Utility 全部子树和 primitives 收据按目标 SHA 原样保留，Core/MvpXml/测试/构建工具/SDK 原 DLL 与验收源码保持不变，复用运行 40189585854 的精确结果，不将文档合并冒充新验证。
 
 
-## AudioCompiler 独立分支最新验收（2026-10-25）
+## AudioCompiler 当前续接入口（2026-10-26 北京时间）
 
-分支 `recovery/audio-compiler-source`，根目录 `src/AudioCompiler`。联合验收源码 `ad37841d5bf7fba3cbdede2bdae60da2b49d9639` / [40197878572](https://github.com/wu162/NewSdk/actions/runs/40197878572) 整体成功：Debug/Release各1001条插件记录（480格式、216 WAVE loop、main真实PCM8等）、1008 block-size标量、262 XAS block通过；真实SDK28次实际调用、四产物和26 CustomData相同。AIFF sustain增量源码 `78f819c1f061a4ba27d1d58145839517da1b72a9` / [40198458731](https://github.com/wu162/NewSdk/actions/runs/40198458731) 成功：Debug/Release各480格式+200 AIFF loop，SDK4调用、四产物和4 CustomData相同。两个SDK恢复侧均删除原AudioCompiler DLL；未变encoder结果复用精确前锚点。metadata历史86171条身份核对保留40192722185锚点。
+分支 `recovery/audio-compiler-source`，全部源码在根目录 `src/AudioCompiler`。
 
-已支持WAVE PCM8/16/24、标准PCM extensible子集、AIFF8/16/24、合法单forward WAVE loop及保守AIFF forward sustain loop；修复CLR x87精度、24bit导入丢低8bit、AIFF padding三个真实差异。重采样、XMA、AIFC及非标准loop/marker行为仍未恢复，MP3 NLayer后端对特殊/损坏流不承诺普遍等价，不能宣称完整DLL还原。原版重采样112条/XMA8条（全部XMA成功buffer）已在源码 `1c0457599f2a78082a283aade83a19e3f60a430e` / [40199000936](https://github.com/wu162/NewSdk/actions/runs/40199000936) 收取，状态original-evidence-only，绝非candidate验收。下一批从[AUDIO_COMPILER.md](AUDIO_COMPILER.md)、[ResamplerKernelAudit](audio/ResamplerKernelAudit.md)、[XmaAudit](audio/XmaAudit.md)和最新收据续接。不重复触发未变GameObject/XmlCompiler矩阵。未改生产SDK DLL/config、未合入compiler-source。
+- **filter120重采样内核已验收**：源码 `25aab8fe5a6b9e762293f9ace71c3edc59e36e36` / [40207847717](https://github.com/wu162/NewSdk/actions/runs/40207847717)。真实Windows x86 CPU512个binary64窗口常数逐位相同；Debug/Release各258组、5安全检查通过。Unicorn FCOS依赖宿主cos，195个double常数曾不同；最终使用原CPU权威数据，不以模拟器替代CPU证明。
+- **重采样插件与XAS精度修复、SDK已验收**：源码 `684e3310004853455dd0b5b4e53287afb067e93c` / [40209451010](https://github.com/wu162/NewSdk/actions/runs/40209451010)。Debug/Release各1392条受影响插件记录一致（其中448条重采样），另8条原单帧未初始化导入明确安全拒绝、原输出全部保留；XAS264 block矩阵含2项Release精度回归通过。真实SDK38次实际调用、四产物和36份CustomData相同，恢复侧删除原AudioCompiler DLL。SDK为专用联合音频MOD，走EALAModStudio case5 BAB基础数据流程，不是完整Upheaval。
+- **XMA整数packet组件**：源码 `96f72d037b840ad09590688e8d4ec1f998446d8d` / [40209977895](https://github.com/wu162/NewSdk/actions/runs/40209977895)。原CPU及Debug/Release各1025组，6安全拒绝，含8份真实EA输出块；只恢复273指令的count/bit/frame/scan组。**不代表XMA编码器恢复**，representation28仍拒绝。
 
-Audio FFT单独组件：源码 `69915484a322542ddf5a8041609b396e40c29a86` / [40199685628](https://github.com/wu162/NewSdk/actions/runs/40199685628) Debug/Release各78组逐float位相同、9安全检查通过；order1..13、两方向，静态原stage常量，无原DLL依赖。**未接AudioFile重采样，重采样仍拒绝**。下一步6个滤波/系数/调度函数及完整原插件/SDK对照，详见ResamplerKernelAudit。
+原单帧文件导入缺陷：`0x404e0`对start0/count1成功返回但不写malloc样本；当前采样率转换要求至少两个源帧。不要把原垃圾堆内容拟合成算法，也不要将明确初始化的一帧数值核测试与文件导入混淆。详见[SingleFrameImportBoundary](audio/SingleFrameImportBoundary.md)。XAS原SSE逐步binary32与旧Release扩展临时跨量化阈值的修复见[XasPrecision](audio/XasPrecision.md)。
 
-FFT真实CPU复核：源码 `eb68933006f54681f33b38baa196e9ff6273f938` / [40199843730](https://github.com/wu162/NewSdk/actions/runs/40199843730) 原DLL实际Windows x86 CPU78组逐位相同，53位最近舍入，与C#所用基准完全一致；该运行original-cpu-passed、C# modes为空，不冒充新C#或重采样/SDK验收。下一轮原生重采样最小7函数中的FFT已完成，余6函数约1005指令及集成待恢复。
+**下一轮直接从 [XmaNextBatch](audio/XmaNextBatch.md) 继续**：先用真实CPU收取`589d0`返回、`ee00`重写前的原始codec输出，再追踪实际`59a60 -> 5d180 -> 659b8/6978f`核心；不要误把邻近`5a710`当编码入口。公开minidx9/FFmpeg/vgmstream实现及EA差异见[PublicXmaReferences](audio/PublicXmaReferences.md)。原大codec数值核心、AIFC、额外loop/marker行为及特殊/损坏MP3普遍等价仍未恢复。
+
+完整范围、构建和精确收据见[AUDIO_COMPILER](AUDIO_COMPILER.md)和[ResamplerKernelAudit](audio/ResamplerKernelAudit.md)。原联合音频/AIFF/FFT/metadata历史锚点继续各自保留（ad37841/40197878572、78f819c/40198458731、6991548/40199685628、eb68933/40199843730、86171条元数据40192722185）。本轮未变GameObject/XmlCompiler/FFT及block-size标量未重跑；XAS依赖实际改变后重跑受影响组。未改生产SDK DLL/config，未合入compiler-source。临时integration分支仅保存过未验证检查点，成果已并入本目标分支。

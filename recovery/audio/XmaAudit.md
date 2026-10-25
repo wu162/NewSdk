@@ -9,3 +9,16 @@ XMA is not merely an absent external codec DLL or an obviously empty registratio
 PE imports are MSVCR80, KERNEL32, msvcm80, MSVCP80, ADVAPI32 and mscoree. This import inventory and the nonempty encoder path rule out treating XMA as a simple missing `xmaencoder.dll` dependency; they do not establish full encoder behavior or portability. The source backend still explicitly rejects representation28.
 
 `xma-wrapper-disassembly.txt` preserves the cited wrapper/API instruction ranges. `AudioUnrecoveredProbeCases` contains eight original-only Xenon XMA cases (mono/stereo, 257/4096 frames, RAM/stream, quality75, rate22050). Their buffers/custom data or exact original errors are evidence for the next complete implementation batch, never candidate acceptance. Actual source `1c0457599f2a78082a283aade83a19e3f60a430e`, run `40199000936` attempt1: all eight original-only cases produced real buffers and CustomData without errors. Full transcripts and source WAVs are in `recovery/evidence/audio/plugin-validation/40199000936-1`. This establishes working original XMA encoding on Windows, not recovered support.
+
+
+## Accepted packet-structure component (not codec recovery)
+
+Source `96f72d037b840ad09590688e8d4ec1f998446d8d`, run40209977895
+attempt1: the closed `e890/ea80/eae0/ef60` group has real original x86 CPU
+and Debug/Release each1025 exact comparisons, including eight existing EA
+output blocks, and six candidate safety refusals. `XmaPacketBits` and
+`XmaPacketScanner` do not implement the numerical encoder and are not wired
+to representation28. Continue from [XmaNextBatch](XmaNextBatch.md), where the
+actual `59a60` dispatch and large codec state are distinguished from its
+small factory. Public format cross-checks are in
+[PublicXmaReferences](PublicXmaReferences.md).

@@ -64,8 +64,10 @@ additional output/state abstraction.
 
 Current implementation: `XmaPacketBits.cs` and `XmaPacketScanner.cs` now cover
 this closed group, with 1,025 original-machine-code fixtures and a real-CPU
-Debug/Release differential prepared. Validation is pending; no encoder route
-is enabled. Public cross-checks are recorded in [PublicXmaReferences.md](PublicXmaReferences.md).
+Debug/Release differential prepared. Accepted source `96f72d037b840ad09590688e8d4ec1f998446d8d`,
+run [40209977895](https://github.com/wu162/NewSdk/actions/runs/40209977895),
+attempt1: real original CPU and Debug/Release each1025 exact fixtures;
+6 candidate safety refusals. No encoder route is enabled. Public cross-checks are recorded in [PublicXmaReferences.md](PublicXmaReferences.md).
 
 Start with the integer-only packet structure group, while preparing native
 codec oracles in parallel with that implementation work. These four functions

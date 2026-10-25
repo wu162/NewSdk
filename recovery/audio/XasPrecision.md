@@ -40,7 +40,13 @@ rows and appends these two cases. `AudioXasBlockOracle ... precision` requires
 all264, original fingerprint/FPU, all predictor/shift coverage and both exact
 signed16 regression inputs/outputs. Old two-argument use still requires262.
 
-Validation is pending for this source change: full264 Debug/Release block
-matrix, all affected XAS plugin groups plus the full448+8 resampling batch,
-and a combined original/original-free recovered SDK MOD. Unchanged PCM scalar,
-FFT and unrelated compiler matrices reuse their precise earlier anchors.
+Accepted at source `684e3310004853455dd0b5b4e53287afb067e93c`,
+run [40209451010](https://github.com/wu162/NewSdk/actions/runs/40209451010),
+attempt1: Debug/Release full264 block matrix passes. The eight affected
+plugin groups have1392 exact records per configuration, including all448
+defined resampling fixtures and8 separately asserted single-frame safety
+refusals. The original/original-free recovered combined SDK MOD passes38
+actual plugin calls, four output products and36 CustomData files. Receipts
+are under `../evidence/audio/xas-precision-validation/40209451010-1`,
+`plugin-validation/40209451010-1` and `sdk-validation/40209451010-1`.
+Unchanged PCM scalar/FFT/unrelated compiler matrices reuse earlier exact anchors.

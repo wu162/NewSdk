@@ -7,7 +7,28 @@ Addresses below are RVAs. [Instruction evidence](resampler-kernel-disassembly.tx
 is decoded directly from that PE; no candidate algorithm or public resampling
 library was used as evidence.
 
-**General resampling remains unimplemented.** It cannot be recovered and
+## Current recovered state (2026-10-25)
+
+The six remaining routines are now implemented in `ResamplerCoefficients.cs`,
+`ResamplerFilter.cs` and `ResamplerScheduler.cs`, alongside the accepted FFT.
+Source `25aab8fe5a6b9e762293f9ace71c3edc59e36e36`, run40207847717:
+original Windows x86 CPU window512 exact binary64 constants and Debug/Release
+258 exact-byte cases pass. The authoritative golden comes from original real
+CPU execution, not Unicorn's host-libm FCOS. The two windows differ in195
+binary64 values even though the sampled final coefficient/output floats agree.
+The actual Windows CPU window SHA256 is
+`605c69534025d105b254107d80806e5e6b07bd8feb36ae0de3cadfc6a9813d87`.
+
+AudioFile integration and XAS precision final acceptance: source
+`684e3310004853455dd0b5b4e53287afb067e93c`, run40209451010; detailed scope and single-frame import
+boundary are in [AUDIO_COMPILER](../AUDIO_COMPILER.md),
+[SingleFrameImportBoundary](SingleFrameImportBoundary.md) and
+[XasPrecision](XasPrecision.md). The original kernel itself has defined explicit
+one-frame-array tests; the uninitialized file importer is a separate issue.
+
+## Historical pre-implementation audit
+
+**At the time of the following audit general resampling was unimplemented.** It cannot be recovered and
 validated safely in the remaining 15-minute implementation window. The small
 policy wrapper is understood, but its ordinary output path depends on a
 frequency-domain filter and exact float interpolation. A different resampling
@@ -174,7 +195,7 @@ rejections. Its Windows Debug/Release component acceptance passed at source `699
 still requires integration with coefficient generation and scheduling, then
 an original-plugin rate-conversion and actual SDK differential.
 
-The FFT is now a verified separate dependency. The six other ordinary-path ranges above contain 1005 original instructions; coefficient generation, window/filter scheduling and final resampling integration remain the next complete capability batch.
+The FFT is now a verified separate dependency. The six other ordinary-path ranges above contain 1005 original instructions. They were the next complete batch at this earlier FFT-only checkpoint; their current recovery and acceptance are recorded at the top of this document.
 
 ## Real original Windows CPU cross-check
 

@@ -91,8 +91,17 @@ Unchanged-rate handling and the standalone numerical kernel remain separate.
 This refusal is a declared candidate safety policy, not a claim that the
 original DLL rejects the file or a claim of byte equivalence in that domain.
 
-The planned full-plugin result is reported as448 successful byte-for-byte
+The full-plugin acceptance is reported as448 successful byte-for-byte
 comparisons plus8 explicit safety refusals, with all8 original output records
 retained. Those counts become acceptance only after the corresponding final
 sourceCommit/runId receipt actually passes; this investigation document does
 not certify a run or convert an earlier failure into success.
+
+## Final plugin acceptance
+
+Source `684e3310004853455dd0b5b4e53287afb067e93c`, run40209451010
+attempt1: Debug/Release each448 defined resampling records are byte-identical,
+and each8 single-frame candidate errors have the exact required type/message
+and no CustomData. Every original single-frame record remains in the full
+transcript and in `original-single-frame-evidence.txt`. No original buffer
+was silently discarded or represented as a successful candidate encoding.

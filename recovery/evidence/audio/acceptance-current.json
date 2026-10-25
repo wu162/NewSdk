@@ -1,0 +1,78 @@
+{
+  "status": "passed-with-explicit-scope",
+  "branch": "recovery/audio-compiler-source",
+  "sdkAndSourceTreeProof": {
+    "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+    "checkedHead": "7429062aa4cdb8dbbaefe3e7a3c54b94d064d8b7",
+    "srcUnchanged": true,
+    "sdkUnchanged": true,
+    "srcSha": "1347625bc33cfa93286af3a119ab070372b4b55f",
+    "sdkSha": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9"
+  },
+  "components": [
+    {
+      "scope": "resampler kernel",
+      "sourceCommit": "25aab8fe5a6b9e762293f9ace71c3edc59e36e36",
+      "runId": "40207847717",
+      "attempt": 1,
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "recordsPerConfiguration": 258,
+      "safetyChecks": 5,
+      "originalCpuWindowBinary64Values": 512,
+      "receipt": "resampler-validation/40207847717-1/validation.json"
+    },
+    {
+      "scope": "affected audio plugins and XAS precision",
+      "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+      "runId": "40209451010",
+      "attempt": 1,
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "pluginEquivalenceRecordsPerConfiguration": 1392,
+      "resamplingEquivalenceRecordsPerConfiguration": 448,
+      "singleFrameSafetyRefusalsPerConfiguration": 8,
+      "xasBlockRecordsPerConfiguration": 264,
+      "receipts": [
+        "plugin-validation/40209451010-1/validation.json",
+        "xas-precision-validation/40209451010-1/validation.json"
+      ]
+    },
+    {
+      "scope": "combined dedicated audio MOD via real BAB case5",
+      "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+      "runId": "40209451010",
+      "attempt": 1,
+      "actualCalls": 38,
+      "productsCompared": 4,
+      "customFilesCompared": 36,
+      "originalDllAbsentFromRecoveredSdk": true,
+      "receipt": "sdk-validation/40209451010-1/validation.json"
+    },
+    {
+      "scope": "bounded XMA integer packet helpers only",
+      "sourceCommit": "96f72d037b840ad09590688e8d4ec1f998446d8d",
+      "runId": "40209977895",
+      "attempt": 1,
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "recordsPerConfiguration": 1025,
+      "safetyRefusals": 6,
+      "realEaBlocks": 8,
+      "rawCodecPackets": 0,
+      "originalCpuValidated": true,
+      "receipt": "xma-packet-validation/40209977895-1/validation.json"
+    }
+  ],
+  "completeDllRecovered": false,
+  "xmaEncodingRecovered": false,
+  "productionSdkReplaced": false,
+  "fullUpheavalValidated": false,
+  "next": "../../audio/XmaNextBatch.md"
+}
