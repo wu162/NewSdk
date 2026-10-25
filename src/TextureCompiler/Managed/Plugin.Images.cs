@@ -32,8 +32,8 @@ namespace Recovered.Compiler.Texture
             bool resize = bool.Parse(declaration.Node.Attributes["AllowAutomaticResize"].Value);
             if (_Platform == TargetPlatform.Xbox360)
                 throw new NotSupportedException("Xenon image bundling has not been recovered.");
-            if (!file.EndsWith(".tga", StringComparison.OrdinalIgnoreCase))
-                throw new NotSupportedException("Only the declared TGA image decoder subset has been recovered.");
+            if (!file.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
+                throw new NotSupportedException("Only the declared TGA/PNG/BMP image decoder subsets have been recovered.");
 
             TexturePacker.Image image;
             try { image = TextureImageLoader.Load(file); }
@@ -111,4 +111,5 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 

@@ -189,6 +189,7 @@ internal static unsafe class TexturePngOracle
             if (metadata == 5) Chunk(w, "gAMA", new byte[] { 0, 1, 0x86, 0xa0 });
             if (metadata == 6) Chunk(w, "sRGB", new byte[] { 0 });
             if (metadata == 7) { byte[] significant = new byte[color == 3 ? 3 : channels]; for (int i = 0; i < significant.Length; i++) significant[i] = (byte)Math.Min(depth, 5); Chunk(w, "sBIT", significant); }
+            if(metadata>=9){uint[] gammas={10000,20000,43000,45000,46000,47000,50000,70000,180000,220000,1000};uint value=gammas[metadata-9];Chunk(w,"gAMA",new byte[]{(byte)(value>>24),(byte)(value>>16),(byte)(value>>8),(byte)value});}
             if (metadata == 8) { Chunk(w, "tEXt", Encoding.ASCII.GetBytes("Software\0TextureCompiler recovery test")); Chunk(w, "pHYs", new byte[] { 0, 0, 11, 19, 0, 0, 11, 19, 1 }); }
             // Non-byte-aligned split exercises concatenation across arbitrary IDAT boundaries.
             int split = zlib.Length / 3; byte[] first = new byte[split], rest = new byte[zlib.Length - split];
@@ -215,7 +216,7 @@ internal static unsafe class TexturePngOracle
         try { actual = TexturePngDecoder.Decode(bytes); } catch (Exception e) { candidateError = e; }
         if(error!=null&&candidateError!=null&&Failure(error)==Failure(candidateError))
         {originalFailures++;rejectionMatches++;transcript.WriteLine(label+"|rejectionMatched=True|failure="+Failure(error));return;}
-        if(error==null&&candidateError is NotSupportedException&&label.StartsWith("c2-d16-"))
+        if(error==null&&candidateError is NotSupportedException&&candidateError.Message=="Legacy PNG RGB16 sample packing has not been recovered."&&label.StartsWith("c2-d16-"))
         {unsupportedCount++;transcript.WriteLine(label+"|declaredUnsupported=True|originalHash="+Hash(expected.Pixels)+"|boundary="+Failure(candidateError));return;}
         if (error != null || candidateError != null)
         {
@@ -279,13 +280,21 @@ internal static unsafe class TexturePngOracle
                         string label = "c" + color + "-d" + depth + "-i" + interlace + "-f" + filter + "-s" + size + "-p" + pattern;
                         Compare(transcript, Path.Combine(args[2], "test.png"), label, Fixture(size, size == 1 ? 1 : size / 2, depth, color, interlace, filter, 0, pattern), probe);
                     }
-                    foreach (int interlace in new int[] { 0, 1 }) for (int meta = 1; meta <= 8; meta++) foreach (int pattern in new int[] { 0, 1, 2, 3 })
+                    foreach (int interlace in new int[] { 0, 1 }) for (int meta = 1; meta <= 19; meta++) foreach (int pattern in new int[] { 0, 1, 2, 3 })
                     {
                         string label = "c" + color + "-d" + depth + "-i" + interlace + "-meta" + meta + "-p" + pattern;
                         Compare(transcript, Path.Combine(args[2], "test.png"), label, Fixture(16, 8, depth, color, interlace, 5, meta, pattern), probe);
                     }
                 }
+                foreach(bool rgba in new[]{false,true})
+                using(var bitmap=new System.Drawing.Bitmap(16,8,rgba?System.Drawing.Imaging.PixelFormat.Format32bppArgb:System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                {
+                    for(int y=0;y<8;y++)for(int x=0;x<16;x++)bitmap.SetPixel(x,y,System.Drawing.Color.FromArgb(rgba?((x*37+y*17)&255):255,x*17,y*31,71));
+                    string path=Path.Combine(args[2],"gdi.png");bitmap.Save(path,System.Drawing.Imaging.ImageFormat.Png);
+                    Compare(transcript,path,"gdi-"+rgba,File.ReadAllBytes(path),probe);
+                }
             }
+            Check(fixtures==decodedMatches+rejectionMatches+unsupportedCount+mismatches,"Complete PNG fixture accounting");
             Console.WriteLine("{0} Texture PNG fixtures={1} decodedMatches={2} originalFailures={3} mismatches={4} assertions={5} rejectionMatches={6} unsupportedCount={7}", probe ? "PROBE" : "PASS", fixtures, decodedMatches, originalFailures, mismatches, assertions, rejectionMatches, unsupportedCount);
             return !probe && mismatches != 0 ? 1 : 0;
         }

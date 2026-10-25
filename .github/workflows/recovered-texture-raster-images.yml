@@ -1,0 +1,39 @@
+name: Recovered Texture raster plugin pipeline
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/Managed/TexturePngDecoder.cs'
+      - 'src/TextureCompiler/Managed/TextureBmpDecoder.cs'
+      - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
+      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
+      - 'recovery/tests/TextureRasterPipelineOracle.cs'
+      - 'recovery/tests/TexturePngOracle.cs'
+      - 'recovery/tests/TextureBmpOracle.cs'
+      - 'recovery/scripts/TestTextureRasterImages.ps1'
+      - '.github/workflows/recovered-texture-raster-images.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  raster:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Validate PNG/BMP actual ProcessInstance and cdata
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureRasterImages.ps1
+      - name: Preserve pixel evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-raster-images-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/raster-images/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save raster entry evidence
+        shell: pwsh
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/raster-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record png component probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
