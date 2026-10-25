@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -14,6 +15,15 @@ internal static class W3xAnimationOracle
     const string Ns="uri:ea.com:eala:asset";
     static int fixtures, comparisons;
     static string label;
+    static BinaryWriter capture;
+    static void Capture(int platform,string xmlText,AssetBuffer expected)
+    {
+        if(capture==null) return;
+        capture.Write(platform);capture.Write(xmlText);
+        foreach(byte[] bytes in new[]{expected.InstanceData,expected.RelocationData,expected.ImportsData}) {
+            capture.Write(bytes.Length);capture.Write(bytes);
+        }
+    }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager ns)
     {
         var document=new AssetDeclarationDocument();
@@ -57,7 +67,8 @@ internal static class W3xAnimationOracle
     {
         label=name+" platform="+platform+" settings="+settings;
         var xml=new XmlDocument();
-        xml.LoadXml("<W3DAnimation xmlns='"+Ns+"' id='ComponentOracle' Hierarchy='H\\37' NumFrames='"+frames+"' FrameRate='30'>"+settings+"<Channels>"+channels+"</Channels></W3DAnimation>");
+        string xmlText="<W3DAnimation xmlns='"+Ns+"' id='ComponentOracle' Hierarchy='H\\37' NumFrames='"+frames+"' FrameRate='30'>"+settings+"<Channels>"+channels+"</Channels></W3DAnimation>";
+        xml.LoadXml(xmlText);
         var ns=new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea",Ns);
         var plugin=new BinaryAssetBuilder.W3XCompiler.Plugin(); plugin.Initialize(null,(TargetPlatform)platform);
         AssetBuffer expected=plugin.ProcessInstance(Declaration(xml,ns));
@@ -65,11 +76,17 @@ internal static class W3xAnimationOracle
         Equal("instance",expected.InstanceData,actual.InstanceData);
         Equal("relocations",expected.RelocationData,actual.RelocationData);
         Equal("imports",expected.ImportsData,actual.ImportsData); ++fixtures;
+        Capture(platform,xmlText,expected);
     }
-    static int Main()
+    static int Main(string[] args)
     {
         try {
             if(IntPtr.Size!=4) throw new Exception("x86 CLR host required");
+            if(args.Length>1) throw new Exception("Usage: W3xAnimationOracle [capture-file]");
+            if(args.Length==1) {
+                capture=new BinaryWriter(File.Open(args[0],FileMode.CreateNew,FileAccess.Write,FileShare.None),Encoding.UTF8);
+                capture.Write("W3X-FIXTURE-1");capture.Write("animation");
+            }
             string[] settings={"", "<CompressionSettings/>",
                 "<CompressionSettings AllowTimeCoded='true' AllowAdaptiveDelta='false'/>",
                 "<CompressionSettings AllowTimeCoded='false' AllowAdaptiveDelta='true'/>",
@@ -90,5 +107,6 @@ internal static class W3xAnimationOracle
             Console.WriteLine("PASS W3X animation original differential fixtures={0} threeBufferComparisons={1}; platforms=0,1,2,99; SDK not run",fixtures,comparisons);
             return 0;
         } catch(Exception e) { Console.Error.WriteLine(label); Console.Error.WriteLine(e); return 1; }
+        finally { if(capture!=null) capture.Dispose(); }
     }
 }

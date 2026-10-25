@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -13,6 +14,15 @@ internal static class W3xMeshAssetOracle
     const string Ns="uri:ea.com:eala:asset";
     static string label;
     static int fixtures,rawFixtures,comparisons;
+    static BinaryWriter capture;
+    static void Capture(int platform,string xmlText,AssetBuffer expected)
+    {
+        if(capture==null) return;
+        capture.Write(platform);capture.Write(xmlText);
+        foreach(byte[] bytes in new[]{expected.InstanceData,expected.RelocationData,expected.ImportsData}) {
+            capture.Write(bytes.Length);capture.Write(bytes);
+        }
+    }
     static InstanceDeclaration Declaration(XmlDocument xml,XmlNamespaceManager ns)
     {
         var document=new AssetDeclarationDocument();
@@ -92,11 +102,17 @@ internal static class W3xMeshAssetOracle
         AssetBuffer actual=MeshCompiler.CompileXml(xml.DocumentElement,ns,(TargetPlatform)platform);
         Equal("instance",expected.InstanceData,actual.InstanceData);Equal("relocations",expected.RelocationData,actual.RelocationData);Equal("imports",expected.ImportsData,actual.ImportsData);
         if(raw) ++rawFixtures;else ++fixtures;
+        Capture(platform,xmlText,expected);
     }
-    static int Main()
+    static int Main(string[] args)
     {
         try {
             if(IntPtr.Size!=4) throw new Exception("x86 CLR host required");
+            if(args.Length>1) throw new Exception("Usage: W3xMeshAssetOracle [capture-file]");
+            if(args.Length==1) {
+                capture=new BinaryWriter(File.Open(args[0],FileMode.CreateNew,FileAccess.Write,FileShare.None),Encoding.UTF8);
+                capture.Write("W3X-FIXTURE-1");capture.Write("mesh");
+            }
             foreach(int platform in new[]{0,1,2}) {
                 for(int geometry=0;geometry<4;++geometry) for(int style=0;style<3;++style)
                 for(int shader=0;shader<6;++shader) for(int tree=0;tree<3;++tree)
@@ -115,5 +131,6 @@ internal static class W3xMeshAssetOracle
             Console.WriteLine("PASS W3X full mesh original differential fixtures={0} rawMarshalerFixtures={1} threeBufferComparisons={2}; platforms=0,1,2; SDK not run",fixtures,rawFixtures,comparisons);
             return 0;
         }catch(Exception e){Console.Error.WriteLine(label);Console.Error.WriteLine(e);return 1;}
+        finally { if(capture!=null) capture.Dispose(); }
     }
 }

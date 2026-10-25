@@ -86,7 +86,7 @@ foreach ($mode in @('Od','O2')) {
             & $csc /nologo /platform:x86 $optimize /r:System.Xml.dll /r:"$work/BinaryAssetBuilder.Core.dll" /r:"$work/BinaryAssetBuilder.W3XCompiler.dll" /r:"$bridge" /out:"$animationOracle" (Resolve-Path 'recovery/tests/W3xAnimationOracle.cs').Path *> "$out/$mode-animation-oracle-build.log"
             if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-animation-oracle-build.log"; throw 'animation oracle build failed' }
             $config | Set-Content "$animationOracle.config"
-            & $animationOracle *> "$out/$mode-animation-oracle.log"
+            & $animationOracle "$out/$mode-animation.fixtures" *> "$out/$mode-animation-oracle.log"
             if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-animation-oracle.log" | Select-Object -Last 50; throw 'original animation three-buffer differential failed' }
             Get-Content "$out/$mode-animation-oracle.log" | Where-Object { $_ -match '^PASS ' }
         }
@@ -104,11 +104,28 @@ foreach ($mode in @('Od','O2')) {
             & $csc /nologo /platform:x86 $optimize /r:System.Xml.dll /r:"$work/BinaryAssetBuilder.Core.dll" /r:"$work/BinaryAssetBuilder.W3XCompiler.dll" /r:"$meshBridge" /out:"$meshOracle" (Resolve-Path 'recovery/tests/W3xMeshAssetOracle.cs').Path *> "$out/$mode-mesh-oracle-build.log"
             if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-mesh-oracle-build.log"; throw 'mesh oracle build failed' }
             $config | Set-Content "$meshOracle.config"
-            & $meshOracle *> "$out/$mode-mesh-oracle.log"
+            & $meshOracle "$out/$mode-mesh.fixtures" *> "$out/$mode-mesh-oracle.log"
             if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-mesh-oracle.log" | Select-Object -Last 50; throw 'original full mesh three-buffer differential failed' }
             Get-Content "$out/$mode-mesh-oracle.log" | Where-Object { $_ -match '^PASS ' }
         }
     } else { $script:groupResults["$mode/W3xMeshAssetOracle"] = $false }
+    if ($script:groupResults["$mode/W3xAnimationOracle"] -and $script:groupResults["$mode/W3xMeshAssetOracle"]) {
+        Invoke-ComponentGroup "$mode/W3xStandaloneReplay" {
+            $standalone = Join-Path $work 'without-original'
+            New-Item -ItemType Directory $standalone | Out-Null
+            Get-ChildItem $work -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.W3XCompiler.dll' | Copy-Item -Destination $standalone
+            if (Test-Path (Join-Path $standalone 'BinaryAssetBuilder.W3XCompiler.dll')) { throw 'Original W3X DLL unexpectedly present in replay directory' }
+            $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+            $replay = Join-Path $standalone 'W3xStandaloneReplay.exe'
+            $optimize = if ($mode -eq 'O2') { '/optimize+' } else { '/optimize-' }
+            & $csc /nologo /platform:x86 $optimize /r:System.Xml.dll /r:"$standalone/BinaryAssetBuilder.Core.dll" /r:"$standalone/Recovered.W3x.Native.dll" /r:"$standalone/Recovered.W3x.Mesh.dll" /out:"$replay" (Resolve-Path 'recovery/tests/W3xStandaloneReplay.cs').Path *> "$out/$mode-standalone-build.log"
+            if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-standalone-build.log"; throw 'standalone replay build failed' }
+            $config | Set-Content "$replay.config"
+            & $replay "$out/$mode-animation.fixtures" "$out/$mode-mesh.fixtures" *> "$out/$mode-standalone.log"
+            if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-standalone.log" | Select-Object -Last 50; throw 'component replay without original W3X DLL failed' }
+            Get-Content "$out/$mode-standalone.log"
+        }
+    } else { $script:groupResults["$mode/W3xStandaloneReplay"] = $false }
     $independent = @{}
     foreach ($test in $tests) { $independent[$test] = $script:groupResults["$mode/$test"] }
     $results += @{
@@ -120,6 +137,7 @@ foreach ($mode in @('Od','O2')) {
         meshVertexDataThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xMeshBuilderOracle"]
         animationThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xAnimationOracle"]
         completeMeshThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xMeshAssetOracle"]
+        componentWithoutOriginalReplay=$script:groupResults["$mode/W3xStandaloneReplay"]
     }
 }
 $allSucceeded = $script:failures.Count -eq 0
@@ -130,6 +148,7 @@ $allSucceeded = $script:failures.Count -eq 0
     originalSha256=$originalHash; modes=$results; failures=$script:failures.ToArray()
     completeAnimationBuffersValidated=($script:groupResults['Od/W3xAnimationOracle'] -eq $true -and $script:groupResults['O2/W3xAnimationOracle'] -eq $true)
     completeMeshBuffersValidated=($script:groupResults['Od/W3xMeshAssetOracle'] -eq $true -and $script:groupResults['O2/W3xMeshAssetOracle'] -eq $true)
+    componentWithoutOriginalReplay=($script:groupResults['Od/W3xStandaloneReplay'] -eq $true -and $script:groupResults['O2/W3xStandaloneReplay'] -eq $true)
     sdkValidated=$false
 } | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json"
 if (!$allSucceeded) { throw "W3X component matrix failed in $($script:failures.Count) groups; all independently runnable groups were attempted, see validation.json and logs" }
