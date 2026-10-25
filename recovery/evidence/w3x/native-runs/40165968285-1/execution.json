@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "41075642ed79ebb06509e00047c22e81cf1248f8",
+  "runId": "40165968285",
+  "runAttempt": 1,
+  "jobId": 121086966602,
+  "artifactId": 12588841120,
+  "conclusion": "success",
+  "artifactZipSha256": "6b84397380ae0e57089b10e0c651f4ac60070b61d1419a0f8607213a3bf98257",
+  "scope": "All nine independent native tests, all four native original differential groups, complete animation and complete mesh three-buffer differential passed Od/O2. No SDK; original-absent component replay is the next gate."
+}

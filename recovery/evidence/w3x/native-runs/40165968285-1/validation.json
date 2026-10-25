@@ -1,0 +1,58 @@
+{
+  "sourceCommit": "41075642ed79ebb06509e00047c22e81cf1248f8",
+  "modes": [
+    {
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "mode": "Od",
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "converterOriginalDifferential": true,
+      "animationThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "independentComponentTests": {
+        "W3xAnimationPipelineTests": true,
+        "W3xMeshAssetTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xTimecodedTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xShaderTests": true
+      }
+    },
+    {
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "mode": "O2",
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "converterOriginalDifferential": true,
+      "animationThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "independentComponentTests": {
+        "W3xAnimationPipelineTests": true,
+        "W3xMeshAssetTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xTimecodedTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xShaderTests": true
+      }
+    }
+  ],
+  "failures": [],
+  "completeMeshBuffersValidated": true,
+  "sdkValidated": false,
+  "scope": "independent native tests; original mesh converter, AdaptiveDelta and Timecoded IL differential; mesh vertex-data and complete mesh/animation ProcessInstance three-buffer differential; SDK not accepted",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "runId": "40165968285",
+  "succeeded": true,
+  "runAttempt": "1",
+  "completeAnimationBuffersValidated": true
+}
