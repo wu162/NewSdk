@@ -1,0 +1,1 @@
+<TerrainParticleMapping id="RecoveryXmlAdditional_TerrainParticleMapping_Combined" AccelerationMultiplier="75%" TypeId="1469498551" xmlns="uri:ea.com:eala:asset"><Mapping TerrainClass="Grass" RequiredModelConditions="MOVING" ForbiddenModelConditions="SNOW" TypeId="3621065432" /></TerrainParticleMapping>

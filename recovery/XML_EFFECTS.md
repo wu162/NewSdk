@@ -1,8 +1,8 @@
 # XmlCompiler FXList recovery
 
 Baseline: ba7a3d6845be5e124d08320cb2c56fda552d9fbe.
-Branch: recovery/xmlcompiler-effects.
-Current code is ready for the unified Windows matrix, **not yet validated**.
+Branch: recovery/xmlcompiler-priority (completion work: recovery/xmlcompiler-fxlist-completion).
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
 
 ## Active interface and exact boundary
 
@@ -11,6 +11,19 @@ CompileXml(XmlNode,XmlNamespaceManager,bool) and
 ProcessInstance(InstanceDeclaration,TargetPlatform).
 All successful results preserve AssetBuffer.InstanceData, RelocationData and
 ImportsData. The bridge validates FXList TypeId 2254974584 and the asset namespace.
+The actual BAB SDK trace also annotates the root with a numeric TypeId.
+An optional matching root TypeId (decimal or base-zero hexadecimal) is accepted
+as metadata and does not add a serialized word; mismatches and foreign namespace
+attributes remain explicitly refused. This correction arose from real SDK run
+40090297467, whose original build succeeded and recovered build rejected the
+root metadata. New default/nugget fixtures cover decimal/hex metadata on all
+four component platforms and retain the full previous matrix.
+BAB also annotates every descendant whose schema type is named. The bridge
+allows inert bare TypeId metadata on containers, vectors, random variables,
+filters and their reference/enum leaves, matching the original marshaler's
+ignored metadata. Filter input maps omit this annotation before invoking the
+shared helper. Nugget TypeId still controls its original polymorphic dispatch;
+the root TypeId guard remains strict. Nested-metadata fixtures cover these paths.
 
 All five root attributes are implemented: PlayEvenIfShrouded, Tailorable,
 CullTracking, CullTrackingMin, CullTrackingMax.
@@ -42,20 +55,15 @@ Inherited support includes all four 456-bit model-condition pointer fields,
 Weather, StopIfPlayed, OnlyIfOnLand, PlayIfSourceIsStealthed and the repeated
 SourceMustNotHaveBeenDisabledThisFrameByType enum list.
 
-**Explicit unresolved boundary:** SecondaryObjectFilter and SourceObjectFilter
-children are refused. Unknown nugget TypeId is refused, although the original
-compiler has an unknown-base fallback. Unknown attributes, foreign namespaces,
+SecondaryObjectFilter and SourceObjectFilter are supported, including all root
+attributes, nullable status bitsets, and repeated IncludeThing/ExcludeThing typed
+hash lists. Unknown nugget TypeId uses the original 44-byte base fallback and
+writes TypeId zero; known branches retain their concrete TypeId.
+Unknown attributes, foreign namespaces,
 duplicate singleton containers/children and non-whitespace unexpected text
-are refused. This is not a claim of complete FXList recovery while the two
-ObjectFilter children remain unsupported. Valid known enum fields retain the
+are refused. This completion is covered by the final matrix cited above.
+Valid known enum fields retain the
 original unknown-text fallbacks; enum misspellings are not schema errors here.
-
-FXParticleSystemTemplate has been reassigned. No particle compiler or stub
-exists in the active Xmleffects bridge/test/script. Substantial unvalidated
-particle root/keyframe/Wind/Velocity/Volume work was preserved for its new owner
-in disabled XmlfxparticleDraft.h/.cpp and XmlfxparticleDraftCompiler.cpp snapshots
-at checkpoint baca81ec04503d2eabeca1be28f41e49e62b9277. They are excluded from the
-active build and should be extracted into the new independent component.
 
 ## Original evidence and important contracts
 
@@ -123,7 +131,30 @@ threeArrayComparisons, directArrayComparisons, rejections and independentLayouts
 counts. Build/host logs and Od-oracle.txt/O2-oracle.txt are retained.
 The script writes succeeded=false before building and on any failure.
 
-Local native syntax-only checking passed with g++ C++17; x86 ABI assertions
-were disabled solely for that x64 host syntax check. This is not Windows ABI,
-C++/CLI, oracle, SDK or replacement-DLL validation. Unified Actions must supply
-the actual sourceCommit/runId success before any such claim.
+## Filter and unknown-base completion evidence (2026-10-24)
+
+Original sourceBlob remains 2d2f471c8008b7c2e1f78e39752d0726da395cea.
+`parts/part-0054.cs.txt` FXNugget Marshal line 27012 allocates SecondaryObjectFilter
+at +24, then SourceObjectFilter at +28, each 112 bytes. Both follow the four
+model-condition bitsets and precede the disabled enum list. The matching endian
+method traverses both pointed filters. `parts/part-0052.cs.txt` ObjectFilter
+Marshal/Endian lines 26334/26371 match the existing verified ObjectFilter helper:
+id/Rule/Relationship/Alignment at 0/4/8/12, KindOf Include/Exclude at 16/52,
+nullable seven-word status bitsets at 88/92, typed hash count/pointers at
+96/100 and 104/108. The component reuses this helper without modifying it.
+PE enum maps in evidence/xml-source/enums pin KindOfType, ObjectStatusType,
+ObjectFilterRule/Alignment/Relationship independently of XSD order.
+
+`parts/part-0129.cs.txt`, unknown wrapper line 64552 allocates 44 bytes, calls
+base Marshal and writes zero to TypeId. Endian dispatch falls back to the base
+method for that zero. The bridge keeps strict validation of unsupported XML
+attributes/children while accepting unknown numeric or absent TypeId as base.
+
+New tests retain all earlier fixtures and add filters on every known branch,
+unknown/default/parsed-TypeId cases, all source PE KindOf/ObjectStatus entries
+with independent bit layout checks on both filters, enum fallbacks, signed
+bitset operations, absent/empty values, repeated typed hash lists at
+0/1/2/27/28/29/64/257 and structural/namespace rejection boundaries.
+The /Od /O2 four-platform full matrix and three-array/direct comparisons remain
+mandatory and passed at the final source above. The 52-entry/51-schema-type SDK plugin and temporary-SDK switch are documented in XML_PRIORITY_SDK.md; original SDK DLLs, public common native helpers and GameObject source remain unchanged.
+

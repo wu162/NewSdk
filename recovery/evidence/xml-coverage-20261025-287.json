@@ -1,0 +1,3534 @@
+{
+  "scope": "Static registration/route/catalog audit only; not component or SDK validation",
+  "originalPluginBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "registeredEntries": 301,
+  "formalComponentRoutes": 287,
+  "componentOnlyEntries": 205,
+  "historicalSdkBaselineEntries": 82,
+  "currentCombinedDllSdkValidated": false,
+  "realSdkCompilationThisRound": false,
+  "unresolved": [
+    "UIConfigList",
+    "GameMap"
+  ],
+  "entries": [
+    {
+      "name": "TestGameObject",
+      "typeId": 26632491,
+      "typeHash": 2517164060,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "EngagingContentGroup",
+      "typeId": 11280974,
+      "typeHash": 1507896455,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcontentTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TestTextureCollection",
+      "typeId": 49556361,
+      "typeHash": 2883151314,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltesttexturesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "typeId": 57370491,
+      "typeHash": 4012559760,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DamageFXSettings",
+      "typeId": 75989905,
+      "typeHash": 2052546860,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmldamagefxTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "typeId": 89767986,
+      "typeHash": 3054734349,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltargetingTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UpgradeConditionData",
+      "typeId": 76901015,
+      "typeHash": 2863617245,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconditionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FontSubstitution",
+      "typeId": 91719417,
+      "typeHash": 2789100025,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "typeId": 97402485,
+      "typeHash": 3806481831,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "typeId": 104126924,
+      "typeHash": 3160055664,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "typeId": 113029208,
+      "typeHash": 2342677506,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConnectionLineManager",
+      "typeId": 105587076,
+      "typeHash": 1802638191,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconnectionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UICommandButton",
+      "typeId": 134745024,
+      "typeHash": 2853539982,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UISubtitleDisplay",
+      "typeId": 165611890,
+      "typeHash": 1129081393,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "typeId": 188286714,
+      "typeHash": 1810715368,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "typeId": 241329492,
+      "typeHash": 1267843369,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DLContent",
+      "typeId": 212695140,
+      "typeHash": 1654379548,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlassetindexesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MultiplayerSettings",
+      "typeId": 191082224,
+      "typeHash": 2620092030,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "typeId": 254471188,
+      "typeHash": 1688533139,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlvisibilityTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AudioLOD",
+      "typeId": 299416263,
+      "typeHash": 21805907,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AssetReportTable",
+      "typeId": 255713734,
+      "typeHash": 1788767883,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlassetindexesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "StringHashTable",
+      "typeId": 300273508,
+      "typeHash": 3959342059,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlassetindexesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LocalBuildListMonitor",
+      "typeId": 315614191,
+      "typeHash": 3578044627,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlbuildeconomyTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "typeId": 343094706,
+      "typeHash": 1360895287,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameplayAchievementTriggerData",
+      "typeId": 348670903,
+      "typeHash": 478718253,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "typeId": 346077409,
+      "typeHash": 2270316023,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameLODPreset",
+      "typeId": 354222972,
+      "typeHash": 3645429389,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "EvaEvent",
+      "typeId": 357806494,
+      "typeHash": 1889946602,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "CrowdResponse",
+      "typeId": 400896388,
+      "typeHash": 129803148,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcrowdTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GeneralHotKeySlots",
+      "typeId": 417176643,
+      "typeHash": 655411104,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlhotkeymapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "SkirmishSettings",
+      "typeId": 402082255,
+      "typeHash": 3814569307,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "typeId": 442957564,
+      "typeHash": 1448492760,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ForceFeedbackEvent",
+      "typeId": 474482543,
+      "typeHash": 3791548904,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlforcefeedbackTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "typeId": 485977567,
+      "typeHash": 1542859068,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "StaticGameLOD",
+      "typeId": 531798225,
+      "typeHash": 1251212385,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "IntelDB",
+      "typeId": 530081230,
+      "typeHash": 751047049,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcontentTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ObjectConditionData",
+      "typeId": 519519951,
+      "typeHash": 3621799508,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconditionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LargeGroupAudioMap",
+      "typeId": 534008255,
+      "typeHash": 1045439046,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlsoundmapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ImageSequence",
+      "typeId": 565855655,
+      "typeHash": 2717629172,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluiimagesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "RadiusCursor",
+      "typeId": 544776545,
+      "typeHash": 2695845168,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TerrainAssetCollection",
+      "typeId": 582251659,
+      "typeHash": 339527263,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlterrainTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AudioFileRuntime",
+      "typeId": 584092973,
+      "typeHash": 2941751938,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlruntimeopaqueTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Video",
+      "typeId": 587347702,
+      "typeHash": 2217996198,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseDragSelectionFeedback",
+      "typeId": 611126373,
+      "typeHash": 549522065,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIStrategicStateDefinition",
+      "typeId": 607123156,
+      "typeHash": 3594381428,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BasicMouseCursors",
+      "typeId": 611271731,
+      "typeHash": 1517904520,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Environment",
+      "typeId": 680780553,
+      "typeHash": 1276225790,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "typeHash": 1465656250,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "CampaignEnumerator",
+      "typeId": 731899443,
+      "typeHash": 118801026,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcampaignTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "typeId": 694838069,
+      "typeHash": 4192036989,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "typeId": 739280456,
+      "typeHash": 3851927382,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MpGameRules",
+      "typeId": 741706624,
+      "typeHash": 886642248,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlbuildeconomyTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "typeId": 772462768,
+      "typeHash": 875756023,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "typeId": 815686049,
+      "typeHash": 1966615229,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlrenderassetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "typeId": 814796096,
+      "typeHash": 235028480,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlobjectsetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ObjectVisionRangeItem",
+      "typeId": 772930644,
+      "typeHash": 1028521956,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlobjectsetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FormationAssistantUnitDefinition",
+      "typeId": 838130914,
+      "typeHash": 1672393125,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AITargetingHeuristic",
+      "typeId": 926814458,
+      "typeHash": 2460454737,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionExpensiveNuggetBase",
+      "typeId": 849624115,
+      "typeHash": 2261613772,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UITimerDisplay",
+      "typeId": 951036436,
+      "typeHash": 2082140658,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathfindSettings",
+      "typeId": 970663416,
+      "typeHash": 2629630449,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsystemsettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AptConstData",
+      "typeId": 983359664,
+      "typeHash": 3876251416,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlaptdataTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "typeId": 1014034471,
+      "typeHash": 2969006564,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MP3MusicTrack",
+      "typeId": 1013434420,
+      "typeHash": 2141170629,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AptGeometryData",
+      "typeId": 1034587168,
+      "typeHash": 1390234602,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlaptdataTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptTrack",
+      "typeId": 1038067901,
+      "typeHash": 3151900516,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMilitaryCaptionDisplay",
+      "typeId": 1043989897,
+      "typeHash": 779899080,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GiftManagerSettings",
+      "typeId": 1047799468,
+      "typeHash": 3376391493,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlbuildeconomyTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DynamicsContactTagMapping",
+      "typeId": 1044178106,
+      "typeHash": 898281629,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmldynamicsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BaseAudioEventInfo",
+      "typeId": 1079232276,
+      "typeHash": 1604640258,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "RadarTerrainImage",
+      "typeId": 1099769729,
+      "typeHash": 4223091486,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlradarTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AptDatData",
+      "typeId": 1110676961,
+      "typeHash": 230038576,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlaptdataTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "typeId": 1151702845,
+      "typeHash": 1129453918,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlobjectsetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "typeId": 1138847078,
+      "typeHash": 1373916399,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicEventRuntime",
+      "typeId": 1122327197,
+      "typeHash": 692705748,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TerrainVisualSettings",
+      "typeId": 1184276792,
+      "typeHash": 1336753171,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "HeaderTemplate",
+      "typeId": 1218703046,
+      "typeHash": 1075836011,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmllocalizationTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PlayerTechStoreTemplate",
+      "typeId": 1213037816,
+      "typeHash": 981786901,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "typeId": 1234485619,
+      "typeHash": 3237545121,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "typeId": 1238702511,
+      "typeHash": 1469314420,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluidecalsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "typeId": 1249197161,
+      "typeHash": 2873907483,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarMixedGroup",
+      "typeId": 1276968974,
+      "typeHash": 3983232506,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "SiegeEvaEvent",
+      "typeId": 1268003905,
+      "typeHash": 277018796,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "typeId": 1277109486,
+      "typeHash": 4038536099,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "typeId": 1296329066,
+      "typeHash": 1187295208,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltacticalhotkeysTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AnimationSoundSettings",
+      "typeId": 1302035577,
+      "typeHash": 3170370516,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlsoundmapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "typeId": 1334543376,
+      "typeHash": 3689232783,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FontTranslation",
+      "typeId": 1318336226,
+      "typeHash": 1815171461,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "typeId": 1343682755,
+      "typeHash": 532337471,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "OnlineChatColors",
+      "typeId": 1345252658,
+      "typeHash": 1378748105,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlchatcolorsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MappableKey",
+      "typeId": 1350608344,
+      "typeHash": 2226564801,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlhotkeymapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "InvisibilityTemplate",
+      "typeId": 1431290504,
+      "typeHash": 419230569,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlvisibilityTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "typeId": 1371977384,
+      "typeHash": 301556505,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FontDefaultSetting",
+      "typeId": 1371131236,
+      "typeHash": 197748432,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AudioSettings",
+      "typeId": 1443425905,
+      "typeHash": 3631141684,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PackedTextureImage",
+      "typeId": 1449288224,
+      "typeHash": 4177308976,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlrenderassetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "VideoEventList",
+      "typeId": 1447728787,
+      "typeHash": 2530876419,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "typeId": 1464425282,
+      "typeHash": 1158381935,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "W3DDeviceSettings",
+      "typeId": 1469055344,
+      "typeHash": 2638871790,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlrenderdeviceTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TerrainParticleMapping",
+      "typeId": 1469498551,
+      "typeHash": 2736882942,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "WaterTransparency",
+      "typeId": 1479531562,
+      "typeHash": 525928939,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "typeId": 1474300054,
+      "typeHash": 1098794956,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MP3DialogEvent",
+      "typeId": 1479988269,
+      "typeHash": 2018565112,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "CampaignTemplate",
+      "typeId": 1482556238,
+      "typeHash": 3502529123,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcampaignTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "typeId": 1499648070,
+      "typeHash": 1611277776,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "typeId": 1532214660,
+      "typeHash": 4106878882,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluidecalsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "HealthBarTemplate",
+      "typeId": 1507490649,
+      "typeHash": 2857307522,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlhealthbarsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarHomogenousGroup",
+      "typeId": 1546953756,
+      "typeHash": 2225127171,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "UIFloatingTextDisplay",
+      "typeId": 1559937240,
+      "typeHash": 2264980354,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PurchasePlayerTechButtonTemplate",
+      "typeId": 1566941920,
+      "typeHash": 2999033148,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "typeId": 1634186921,
+      "typeHash": 607961670,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BreezeInfo",
+      "typeId": 1626415288,
+      "typeHash": 890675481,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlvisualsystemsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MapMetaData",
+      "typeId": 1603703110,
+      "typeHash": 1209903334,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmapmetadataTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "W3DHierarchy",
+      "typeId": 1641540160,
+      "typeHash": 3985956449,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "Xmlw3dTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarCoopCommunicator",
+      "typeId": 1654297531,
+      "typeHash": 2835608034,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "AIBuildStateDefinition",
+      "typeId": 1644972043,
+      "typeHash": 3400281710,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMessageDisplay",
+      "typeId": 1697313181,
+      "typeHash": 3604410282,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ProjectilePath",
+      "typeId": 1710207315,
+      "typeHash": 955128953,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlprojectilepathTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "typeId": 1795213437,
+      "typeHash": 1676252299,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "JoypadCommandBarButtonTemplate",
+      "typeId": 1804891371,
+      "typeHash": 689163324,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "PlayerTechRank",
+      "typeId": 1802643394,
+      "typeHash": 304552910,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MiscEvaEvents",
+      "typeId": 1807540972,
+      "typeHash": 3038881679,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MP3AmbientStream",
+      "typeId": 1813598662,
+      "typeHash": 525549002,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AptAptData",
+      "typeId": 1816258268,
+      "typeHash": 3795385027,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlaptdataTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UnitIntro",
+      "typeId": 1870180772,
+      "typeHash": 1460143826,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcontentTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MicrophoneSettings",
+      "typeId": 1826140078,
+      "typeHash": 1624658388,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ExperienceLevelTemplate",
+      "typeId": 1874610847,
+      "typeHash": 550595366,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicTrack",
+      "typeId": 1883691512,
+      "typeHash": 130352738,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarStances",
+      "typeId": 1887864852,
+      "typeHash": 1145979021,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "typeId": 1956336137,
+      "typeHash": 693782642,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "JoypadCommandBarTemplate",
+      "typeId": 1931769760,
+      "typeHash": 1959031257,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "typeId": 1921726501,
+      "typeHash": 916455758,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FormationAssistant",
+      "typeId": 1963196508,
+      "typeHash": 1061339997,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "typeId": 1974922393,
+      "typeHash": 276486244,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ModelSettings",
+      "typeId": 1968811301,
+      "typeHash": 2503358751,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlvisualsystemsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "typeId": 2007776008,
+      "typeHash": 1553493937,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltargetingTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIStrategicStateName",
+      "typeId": 2010562192,
+      "typeHash": 76343204,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "typeId": 2014061824,
+      "typeHash": 3544626863,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltacticalhotkeysTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "typeId": 2067763016,
+      "typeHash": 2390364070,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "typeId": 2047841880,
+      "typeHash": 3936894160,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicMapRuntime",
+      "typeId": 2026048286,
+      "typeHash": 290548124,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MiscAudio",
+      "typeId": 2070603733,
+      "typeHash": 1484343325,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlsoundmapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ArchiveMovieList",
+      "typeId": 2099472558,
+      "typeHash": 131545626,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmoviearchiveTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "typeId": 2074164365,
+      "typeHash": 3494287844,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LogicCommand",
+      "typeId": 2101756272,
+      "typeHash": 1451688104,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PlayerTech",
+      "typeId": 2131237081,
+      "typeHash": 903715207,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PlayerTechUpgradeBinding",
+      "typeId": 2140592493,
+      "typeHash": 3288487200,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AudioEvent",
+      "typeId": 2219670431,
+      "typeHash": 1443638853,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "SpecialPowerTemplate",
+      "typeId": 2178440954,
+      "typeHash": 984303644,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarTopMenu",
+      "typeId": 2170044043,
+      "typeHash": 360514692,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "FXList",
+      "typeId": 2254974584,
+      "typeHash": 2601721382,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "typeId": 2281773838,
+      "typeHash": 4074957085,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "typeId": 2278083954,
+      "typeHash": 3993871439,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "typeId": 2283998413,
+      "typeHash": 2326182616,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltacticalhotkeysTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNuggetBase",
+      "typeId": 2292378780,
+      "typeHash": 3971458299,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameplayConditionData",
+      "typeId": 2309012900,
+      "typeHash": 3176926574,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconditionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "typeId": 2359666647,
+      "typeHash": 3222028787,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltargetingTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "typeId": 2343360052,
+      "typeHash": 2196796046,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "EvaSettings",
+      "typeId": 2361666546,
+      "typeHash": 2947372396,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BounceKickTerrainMapping",
+      "typeId": 2368878637,
+      "typeHash": 2109862985,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "typeId": 2383722691,
+      "typeHash": 1770851834,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlrenderdeviceTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicPalette",
+      "typeId": 2407383451,
+      "typeHash": 3647979872,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MultiplayerColor",
+      "typeId": 2384988189,
+      "typeHash": 320610464,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "typeId": 2421413379,
+      "typeHash": 3893526655,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlunitoverlayTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIMicroManagerData",
+      "typeId": 2423780215,
+      "typeHash": 1392447443,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Weather",
+      "typeId": 2430161325,
+      "typeHash": 3795761625,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "StanceTemplate",
+      "typeId": 2525284163,
+      "typeHash": 1210708834,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlemotionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIDecalCloud",
+      "typeId": 2524893660,
+      "typeHash": 325319211,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluidecalsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "typeId": 2505151835,
+      "typeHash": 96366804,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Mouse",
+      "typeId": 2525492603,
+      "typeHash": 1246977355,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmouseTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "typeId": 2591692061,
+      "typeHash": 1944261033,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltacticalhotkeysTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "CommandSet",
+      "typeId": 2584759047,
+      "typeHash": 4174095999,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcommandsetTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIDecalGrid",
+      "typeId": 2599418799,
+      "typeHash": 4073471,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluidecalsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "typeId": 2620791304,
+      "typeHash": 3492519332,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "typeId": 2635272840,
+      "typeHash": 4048847353,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "WaterSetting",
+      "typeId": 2728605516,
+      "typeHash": 469423908,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "typeId": 2697587777,
+      "typeHash": 129995987,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "typeId": 2738273474,
+      "typeHash": 3442548366,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltacticalhotkeysTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarPlayerPowers",
+      "typeId": 2742786440,
+      "typeHash": 1752851487,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "typeId": 2743973749,
+      "typeHash": 1875528998,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "HotKeySlot",
+      "typeId": 2800139175,
+      "typeHash": 2481075826,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Multisound",
+      "typeId": 2745675575,
+      "typeHash": 4154219145,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConquerCardPrebuiltDeck",
+      "typeId": 2806522526,
+      "typeHash": 808620711,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconquercardsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "typeId": 2808773267,
+      "typeHash": 2375239281,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "typeId": 2818967523,
+      "typeHash": 3311890413,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GraphicsHardware",
+      "typeId": 2846460739,
+      "typeHash": 1118458536,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsystemsettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "EmotionTemplate",
+      "typeId": 2836737428,
+      "typeHash": 1088041681,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlemotionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TestTexture",
+      "typeId": 2826773070,
+      "typeHash": 275489259,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltesttexturesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "typeId": 2873949396,
+      "typeHash": 4072122752,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIBudgetStateDefinition",
+      "typeId": 2893598307,
+      "typeHash": 2583631670,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "typeId": 2891878770,
+      "typeHash": 884927254,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluichatTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DynamicGameLOD",
+      "typeId": 2901356964,
+      "typeHash": 1764459959,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DamageFX",
+      "typeId": 2905958645,
+      "typeHash": 187609259,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmldamagefxTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FormationAssistantTemplate",
+      "typeId": 2912385462,
+      "typeHash": 156475083,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DrawGroupInfo",
+      "typeId": 2913856066,
+      "typeHash": 1181471134,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluiimagesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "typeId": 2912435838,
+      "typeHash": 2349512303,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "typeId": 2914137727,
+      "typeHash": 1938882503,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Language",
+      "typeId": 2915726794,
+      "typeHash": 3221193174,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmllocalizationTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "typeId": 2957071942,
+      "typeHash": 3017648610,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UnitAISettings",
+      "typeId": 2964891936,
+      "typeHash": 4050675268,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "typeId": 2958905921,
+      "typeHash": 2908721247,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "typeId": 2987234945,
+      "typeHash": 1863152725,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BaseRenderAssetType",
+      "typeId": 2989459401,
+      "typeHash": 3866869572,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlruntimeopaqueTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "WaterTextureList",
+      "typeId": 2995571269,
+      "typeHash": 1905565848,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "typeId": 3057018816,
+      "typeHash": 1130654826,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ButtonSingleStateData",
+      "typeId": 3048039928,
+      "typeHash": 3780991768,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "OrdersManagerSettings",
+      "typeId": 2996766068,
+      "typeHash": 2164060776,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "EngagingContent",
+      "typeId": 3058114834,
+      "typeHash": 725292512,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcontentTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "typeId": 3094553884,
+      "typeHash": 3862996978,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIConfigList",
+      "typeId": 3072160547,
+      "typeHash": 3852040349,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": false
+    },
+    {
+      "name": "ShaderOverride",
+      "typeId": 3166846828,
+      "typeHash": 1029381398,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmaterialrulesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LightingSettings",
+      "typeId": 3169690211,
+      "typeHash": 616355229,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MissionHotSpotSettings",
+      "typeId": 3175516876,
+      "typeHash": 4275530952,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcampaignTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BaseSingleSound",
+      "typeId": 3228425025,
+      "typeHash": 2950045545,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TargetingCompareList",
+      "typeId": 3188107749,
+      "typeHash": 1300486550,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltargetingTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIStateDefinition",
+      "typeId": 3239935619,
+      "typeHash": 50334453,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameStatsModeData",
+      "typeId": 3249689110,
+      "typeHash": 4003247819,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConquerCardDefinitionBase",
+      "typeId": 3258480561,
+      "typeHash": 343077480,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconquercardsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ResourceSettings",
+      "typeId": 3279338544,
+      "typeHash": 1560001831,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsystemsettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "typeId": 3278684478,
+      "typeHash": 1247287143,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlvisualsystemsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AttributeModifier",
+      "typeId": 3319822471,
+      "typeHash": 4177657499,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PathMusicEventSet",
+      "typeId": 3339496789,
+      "typeHash": 1644774436,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlpathmusicTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DebugHotKeys",
+      "typeId": 3359870461,
+      "typeHash": 73026796,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlhotkeymapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FormationSelectionTemplate",
+      "typeId": 3374519264,
+      "typeHash": 87133761,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BootupDisplaySequence",
+      "typeId": 3370391592,
+      "typeHash": 3238903012,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "typeId": 3366599054,
+      "typeHash": 2875609897,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "typeId": 3386715757,
+      "typeHash": 1958333769,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TutorialMapData",
+      "typeId": 3408790761,
+      "typeHash": 2508525962,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcampaignTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "typeId": 3402992833,
+      "typeHash": 1748534571,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "typeId": 3420020972,
+      "typeHash": 1007090371,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarButtonBuild",
+      "typeId": 3423839194,
+      "typeHash": 1141570868,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "typeId": 3476397162,
+      "typeHash": 3050031378,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Road",
+      "typeId": 3516764358,
+      "typeHash": 738011492,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmaterialrulesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MissionTemplate",
+      "typeId": 3477794083,
+      "typeHash": 3533302842,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcampaignTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UnitAbilityButtonTemplate",
+      "typeId": 3517887782,
+      "typeHash": 2961656853,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlabilitybuttonsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "typeId": 3534264507,
+      "typeHash": 3595590881,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "Xmlw3dTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "typeId": 3548787763,
+      "typeHash": 45961792,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConquerCardDefinitionUnit",
+      "typeId": 3562795973,
+      "typeHash": 3660672133,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconquercardsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DialogEvent",
+      "typeId": 3558134211,
+      "typeHash": 3525217272,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "FontDirectory",
+      "typeId": 3569007303,
+      "typeHash": 3617141059,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmllocalizationTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameMap",
+      "typeId": 3575309793,
+      "typeHash": 4100291602,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "typeId": 3575834349,
+      "typeHash": 3529865568,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TargetingBaseCompare",
+      "typeId": 3600209407,
+      "typeHash": 4157686172,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmltargetingTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MapNameToAchievementEventMapping",
+      "typeId": 3594283852,
+      "typeHash": 1078828637,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ArmyDefinition",
+      "typeId": 3587539190,
+      "typeHash": 213154423,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlarmyopeningTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIPersonalityDefinition",
+      "typeId": 3604279694,
+      "typeHash": 3409747243,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "typeId": 3620764004,
+      "typeHash": 3267267860,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UnitTypeIcon",
+      "typeId": 3614134471,
+      "typeHash": 4192635734,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluiimagesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarControlGroups",
+      "typeId": 3645205636,
+      "typeHash": 3852026165,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "ShaderOverrideRule",
+      "typeId": 3648907125,
+      "typeHash": 279003514,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmaterialrulesTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "typeId": 3716369729,
+      "typeHash": 2581745695,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "GameScriptList",
+      "typeId": 3737094024,
+      "typeHash": 2724763994,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlgamescriptsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "typeId": 3727134806,
+      "typeHash": 3386360116,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "DefaultHotKeys",
+      "typeId": 3741098742,
+      "typeHash": 1229544125,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlhotkeymapsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ArchivableMovie",
+      "typeId": 3741496377,
+      "typeHash": 291064791,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmoviearchiveTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "typeId": 3746130610,
+      "typeHash": 3018771479,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluichatTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MouseCursor",
+      "typeId": 3784442503,
+      "typeHash": 334318473,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "typeId": 3756168709,
+      "typeHash": 144321893,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UpgradeTemplate",
+      "typeId": 3786401627,
+      "typeHash": 1334651241,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "EngagingContentSequence",
+      "typeId": 3799634821,
+      "typeHash": 226620221,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlcontentTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "typeId": 3809842710,
+      "typeHash": 4187711090,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TerrainTextureAtlasRuntime",
+      "typeId": 3878948534,
+      "typeHash": 1182599100,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlterrainTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIData",
+      "typeId": 3827723072,
+      "typeHash": 1092854186,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "W3DCollisionBox",
+      "typeId": 3810008068,
+      "typeHash": 1848047257,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "Xmlw3dTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "CameraSettings",
+      "typeId": 3898802054,
+      "typeHash": 4258032094,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ObjectCreationList",
+      "typeId": 3899542881,
+      "typeHash": 578005457,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BaseConditionData",
+      "typeId": 3899256902,
+      "typeHash": 2796907385,
+      "formalComponentRoute": true,
+      "schemaGlobal": false,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconditionsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIJoypadCommandBarSingleUnit",
+      "typeId": 3901433122,
+      "typeHash": 1804668011,
+      "formalComponentRoute": false,
+      "schemaGlobal": true,
+      "catalogs": [],
+      "excludedRoot": true
+    },
+    {
+      "name": "AudioEventLimitGroup",
+      "typeId": 3906227957,
+      "typeHash": 2503036394,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmlaudioTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "HealthBarSettings",
+      "typeId": 3919360587,
+      "typeHash": 4130115945,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlhealthbarsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LogicCommandSet",
+      "typeId": 3959844197,
+      "typeHash": 2330506892,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AmbientStream",
+      "typeId": 3928762264,
+      "typeHash": 1830167803,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsinglesoundTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "SkirmishOpeningMove",
+      "typeId": 3971904488,
+      "typeHash": 1878382208,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlarmyopeningTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "LocomotorTemplate",
+      "typeId": 3972178387,
+      "typeHash": 3392338269,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "BuildSystemSettings",
+      "typeId": 3974617950,
+      "typeHash": 4161179766,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlbuildeconomyTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "Credits",
+      "typeId": 3978455785,
+      "typeHash": 282482670,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmllocalizationTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "typeId": 3976885676,
+      "typeHash": 2900176681,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "typeId": 4007043648,
+      "typeHash": 855988878,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "typeId": 4026878150,
+      "typeHash": 3889487240,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "typeId": 4039592522,
+      "typeHash": 2176451698,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlradarTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PlayerTemplate",
+      "typeId": 4063352333,
+      "typeHash": 891373896,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "PlayerPowerButtonTemplate",
+      "typeId": 4044322798,
+      "typeHash": 2789252562,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlabilitybuttonsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "W3DContainer",
+      "typeId": 4042295058,
+      "typeHash": 1637720895,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "Xmlw3dTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AIPersonalityToAchievementEventMapping",
+      "typeId": 4086175864,
+      "typeHash": 2395097450,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIQuickChatMessage",
+      "typeId": 4098431913,
+      "typeHash": 743017490,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluichatTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "typeId": 4094578721,
+      "typeHash": 4253066583,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "typeId": 4102242385,
+      "typeHash": 3000504919,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "typeId": 4140422551,
+      "typeHash": 3882873771,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "RedAlertTemplate",
+      "typeId": 4141306833,
+      "typeHash": 133543122,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlredalertTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConquerCardDefinitionPower",
+      "typeId": 4164089898,
+      "typeHash": 587170934,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconquercardsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ShadowMap",
+      "typeId": 4157475773,
+      "typeHash": 903854585,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "typeId": 4143989686,
+      "typeHash": 472971368,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "typeId": 4180354873,
+      "typeHash": 3463571609,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "typeId": 4232364483,
+      "typeHash": 3130369778,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmluitacticalTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "AchievementEvent",
+      "typeId": 4230032093,
+      "typeHash": 2866528179,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlevaachievementTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "TheVersion",
+      "typeId": 4236434438,
+      "typeHash": 2782889071,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmllocalizationTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "UICoopTinting",
+      "typeId": 4243804314,
+      "typeHash": 89086670,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlRecoveredTypes.json",
+        "XmluisettingsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "typeId": 4262364347,
+      "typeHash": 333131708,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlrenderassetsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "ConquerCardDefinitionStructure",
+      "typeId": 4289687760,
+      "typeHash": 3391723256,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlconquercardsTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "typeId": 4286308287,
+      "typeHash": 2841937089,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlmusicscriptTypes.json"
+      ],
+      "excludedRoot": false
+    },
+    {
+      "name": "NetworkSettings",
+      "typeId": 4272453293,
+      "typeHash": 2097642646,
+      "formalComponentRoute": true,
+      "schemaGlobal": true,
+      "catalogs": [
+        "XmlComponentOnlyTypes.json",
+        "XmlsystemsettingsTypes.json"
+      ],
+      "excludedRoot": false
+    }
+  ]
+}

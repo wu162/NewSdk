@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=595 arrayComparisons=3570 rejections=30 layoutAssertions=22942
+PASS platform=1 fixtures=595 arrayComparisons=3570 rejections=30 layoutAssertions=22942
+PASS platform=2 fixtures=595 arrayComparisons=3570 rejections=30 layoutAssertions=22942
+PASS platform=99 fixtures=595 arrayComparisons=3570 rejections=30 layoutAssertions=22942
+PASS Asset indexes fixtures=2380 arrayComparisons=14280 rejections=120 layoutAssertions=91769

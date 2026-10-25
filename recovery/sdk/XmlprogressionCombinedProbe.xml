@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Additional cases for the unchanged eight-root component. Include together
+       with XmlprogressionProbe.xml. Inheritance is source-level BAB inheritance;
+       required raw-XSD children are still present on inherited declarations.
+       Three existing recovered types supply local strong-reference dependencies. -->
+  <FXList id="RecoveryXmlAdditional_FXList_Support"><NuggetList /></FXList>
+  <ObjectCreationList id="RecoveryXmlAdditional_ObjectCreationList_Support" />
+  <AttributeModifier id="RecoveryXmlAdditional_AttributeModifier_Support" />
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Combined"
+      Type="PLAYER_UPGRADE" Options="AUTO_ABILITY_TRIGGERED OK_FOR_MULTI_EXECUTE">
+    <Upgrade>RecoveryXmlAdditional_UpgradeTemplate_Support</Upgrade>
+    <AISpecialPowerInfo Heuristic="CAPTURE" Manager="MICRO_MANAGER"
+        Distance="123.5" HealthFraction="0.25" TargetObjectInclude="VEHICLE STRUCTURE"
+        TargetObjectExclude="INFANTRY" UseOnlyWhenPowerAdvantageIsAbove="1.25"
+        NeverUseWhileRetreating="true" NeverUseWhilePullingBack="true"
+        InvulnerabilityDamageLookAheadTime="250ms" InvulnerabilityDamageLookBehindTime="1.5s"
+        InvulnerabilityDamageFractionWhenOutOfRangeOfTarget="0.125"
+        InvulnerabilityDamageFractionWhenInRangeOfTarget="0.375"
+        InvulnerabilityAvoidUseIfAngleToNextPathNodeIsMoreThan="90d"
+        MaxTargetSpeed="23.5" RequireKillTargets="false" MinKillValue="75.25"
+        MinTargetsHit="3" MinEnemiesNearby="4"
+        NextLogicCommand="RecoveryXmlAdditional_LogicCommand_Defaults"
+        UseInMicroManagerState="COMBAT RETREAT" UseNearTacticalTarget="true"
+        UseWhenOutOfAmmo="true" SearchRadius="333.5" Location="Land"
+        MaxUpdatables="9" UseToCounterGarrison="true">
+      <ObjectFilter Rule="ANY" Include="VEHICLE" Exclude="STRUCTURE"
+          Relationship="ENEMIES" StatusBitFlags="STEALTHED"
+          StatusBitFlagsExclude="UNDER_CONSTRUCTION" />
+    </AISpecialPowerInfo>
+  </LogicCommand>
+  <LogicCommand id="RecoveryXmlAdditional_LogicCommand_Inherited"
+      inheritFrom="RecoveryXmlAdditional_LogicCommand_Combined" Type="OBJECT_UPGRADE" />
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Combined" TechPointsRequired="7">
+    <TechDependency>RecoveryXmlAdditional_PlayerTech_Defaults</TechDependency>
+  </PlayerTech>
+  <PlayerTech id="RecoveryXmlAdditional_PlayerTech_Inherited"
+      inheritFrom="RecoveryXmlAdditional_PlayerTech_Combined" TechPointsRequired="11" />
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Combined"
+      ExperiencePointsToNextRank="55" TechPointsGranted="23">
+    <TechGranted>RecoveryXmlAdditional_PlayerTech_Defaults</TechGranted>
+    <TechGranted>RecoveryXmlAdditional_PlayerTech_Combined</TechGranted>
+  </PlayerTechRank>
+  <PlayerTechRank id="RecoveryXmlAdditional_PlayerTechRank_Inherited"
+      inheritFrom="RecoveryXmlAdditional_PlayerTechRank_Combined" ExperiencePointsToNextRank="99" />
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Defaults"
+        UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Combined"
+        UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <PlayerTechUpgradeBinding id="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Inherited"
+      inheritFrom="RecoveryXmlAdditional_PlayerTechUpgradeBinding_Combined">
+    <Binding TechDependency="RecoveryXmlAdditional_PlayerTech_Inherited"
+        UpgradeToGrant="RecoveryXmlAdditional_UpgradeTemplate_Support" />
+  </PlayerTechUpgradeBinding>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Combined"
+      Rank="3" RequiredExperience="11" ExperienceAward="17" ExperienceAwardOwnGuysDie="19"
+      Prerequisite="RecoveryXmlAdditional_ExperienceLevelTemplate_Defaults"
+      LevelUpOCL="RecoveryXmlAdditional_ObjectCreationList_Support"
+      ModelConditionState="MOVING ATTACKING" InformUpdateModule="true"
+      SinglePlayerOnly="true" ShowLevelUpTint="true" LevelUpTintPreColorTime="125ms"
+      LevelUpTintPostColorTime="250ms" LevelUpTintSustainColorTime="750ms"
+      LevelUpTintFrequency="1.25" LevelUpTintAmplitude="0.375">
+    <LevelUpTintColor r="0.125" g="0.25" b="0.5" a="0.75" />
+    <Upgrade>RecoveryXmlAdditional_UpgradeTemplate_Support</Upgrade>
+    <LevelUpFxList FxList="RecoveryXmlAdditional_FXList_Support" BoneName="RecoveryBoneA" />
+    <LevelUpFxList FxList="RecoveryXmlAdditional_FXList_Support" BoneName="RecoveryBoneB" />
+    <AttributeModifier>RecoveryXmlAdditional_AttributeModifier_Support</AttributeModifier>
+    <Decal>
+      <Component Style="ALPHA_DECAL" OpacityMin="25%" OpacityMax="75%"
+          OpacityPulsesPerSecond="0.25" RotationMin="1.25" RotationMax="2.5"
+          RotationDegreesPerSecond="3.75" MinRadius="4.5" MaxRadius="5.25"
+          RadiusPulsesPerSecond="0.375" PositionOffsetMin="6.5"
+          PositionOffsetMax="7.25" PositionOffsetPulsesPerSecond="0.625">
+        <Color R="17" G="34" B="51" A="68" />
+      </Component>
+      <Component Style="ADDITIVE_DECAL" OpacityMin="50%" OpacityMax="100%"
+          MinRadius="8.5" MaxRadius="9.75"><Color R="85" G="102" B="119" A="136" /></Component>
+    </Decal>
+  </ExperienceLevelTemplate>
+  <ExperienceLevelTemplate id="RecoveryXmlAdditional_ExperienceLevelTemplate_Inherited"
+      inheritFrom="RecoveryXmlAdditional_ExperienceLevelTemplate_Combined" Rank="4" ExperienceAward="29">
+    <LevelUpTintColor r="0.875" />
+  </ExperienceLevelTemplate>
+  <ButtonSingleStateData id="RecoveryXmlAdditional_ButtonSingleStateData_Combined">
+    <State Title="Recovery title" Description="Recovery description" TypeDescription="Recovery type" />
+  </ButtonSingleStateData>
+  <PurchasePlayerTechButtonTemplate id="RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined"
+      PlayerTech="RecoveryXmlAdditional_PlayerTech_Combined"
+      StateData="RecoveryXmlAdditional_ButtonSingleStateData_Combined" />
+  <PlayerTechStoreTemplate id="RecoveryXmlAdditional_PlayerTechStoreTemplate_Combined" Faction="Soviet">
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button></Row>
+    <Row><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Combined</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button><Button>RecoveryXmlAdditional_PurchasePlayerTechButtonTemplate_Defaults</Button></Row>
+  </PlayerTechStoreTemplate>
+  <UICommandButton id="RecoveryXmlAdditional_UICommandButton_Combined">
+    <FactionSettings Faction="Allies"><ImageTintColor R="17" G="34" B="51" /></FactionSettings>
+    <FactionSettings Faction="Soviet"><ImageTintColor R="68" G="85" B="102" /></FactionSettings>
+    <FactionSettings Faction="Japan"><ImageTintColor R="119" G="136" B="153" /></FactionSettings>
+  </UICommandButton>
+</AssetDeclaration>

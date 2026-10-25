@@ -1,0 +1,26 @@
+{
+  "sdkDefaultScript": "SDK/defaultscript.cs",
+  "sha256": "a4f41c72ea81319ad75e5251f40b10efa202c28f8021b0594af222321686426e",
+  "guiLoader": "recovery/decompiled/EALAModStudio/EALAModStudio/ModStudioUI.cs:loadBuildScript",
+  "entry": "BuildScript.buildMod -> executeModBuildStep case5",
+  "requestedScope": "base data only",
+  "freshDisposableCleanupSteps": [
+    1,
+    2
+  ],
+  "babStep": 5,
+  "laterStagesExecuted": false,
+  "flags": [
+    "/csc:false",
+    "/ls:true",
+    "/osh:false",
+    "/pc:true",
+    "/res:true",
+    "/slowclean:true",
+    "/ss:true"
+  ],
+  "workingDirectory": "SDK root",
+  "artPath": ".;.\\Mods\\<Mod>\\Art;.\\Mods;.\\Art",
+  "audioPath": ".;.\\Mods\\<Mod>\\Audio;.\\Mods;.\\Audio",
+  "dataPath": ".;.\\Mods\\<Mod>\\Data;.\\Mods;.\\SageXml"
+}

@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "ImageSequence",
+      "typeId": 565855655,
+      "typeHash": 2717629172,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UnitTypeIcon",
+      "typeId": 3614134471,
+      "typeHash": 4192635734,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DrawGroupInfo",
+      "typeId": 2913856066,
+      "typeHash": 1181471134,
+      "schemaGlobal": true
+    }
+  ]
+}

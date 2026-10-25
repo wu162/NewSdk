@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "CampaignTemplate",
+      "typeId": 1482556238,
+      "typeHash": 3502529123,
+      "schemaGlobal": true
+    },
+    {
+      "name": "CampaignEnumerator",
+      "typeId": 731899443,
+      "typeHash": 118801026,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MissionTemplate",
+      "typeId": 3477794083,
+      "typeHash": 3533302842,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MissionHotSpotSettings",
+      "typeId": 3175516876,
+      "typeHash": 4275530952,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TutorialMapData",
+      "typeId": 3408790761,
+      "typeHash": 2508525962,
+      "schemaGlobal": true
+    }
+  ]
+}

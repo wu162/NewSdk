@@ -1,7 +1,7 @@
 # XmlCompiler LocomotorTemplate
 
-Status: implementation and differential matrix prepared; Windows validation pending.
-This is a component recovery, not an SDK integration or replacement DLL acceptance.
+Latest acceptance (2026-10-24): source `71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7`, component run [40095358086](https://github.com/wu162/NewSdk/actions/runs/40095358086), /Od and /O2, platforms 0/1/2/99. 52-entry/51-schema-type Reduced and FullMymod SDK acceptance is recorded in [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md), run [40095358016](https://github.com/wu162/NewSdk/actions/runs/40095358016). Full replacement of all XmlCompiler types remains outside this acceptance.
+Component and the documented 52-entry/51-schema-type SDK batch are accepted; this is not an all-type replacement DLL.
 
 ## Public interface
 
@@ -118,5 +118,4 @@ First matrix run 40079870444 (integrated source a89a743b) built successfully and
 the prefix-routing fixture. The test now distinguishes declaration routing from navigator
 namespace behavior; it does not weaken or remove buffer comparisons.
 
-Pending: final Windows x86 matrix, final sourceCommit/runId
-verification, and future SDK integration. No passing Windows/SDK claim is made by this checkpoint.
+The final exact-source Windows and SDK anchors are at the top of this document; broader real-content field coverage and all-type replacement remain separate work.

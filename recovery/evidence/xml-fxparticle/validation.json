@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "dddb9ac2804da1380a5b9b94a9035253c6e48f63",
-  "runId": "40086732440",
+  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+  "runId": "40158416072",
   "scope": "XmlCompiler FXParticleSystemTemplate component; original ProcessInstance three buffers; SDK integration pending",
   "platforms": [
     0,
@@ -18,37 +18,37 @@
         "platforms": [
           {
             "platform": 0,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 1,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 2,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 99,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           }
         ],
-        "fixtures": 6988,
-        "arrayComparisons": 20964,
-        "rejections": 84,
-        "layoutAssertions": 6988
+        "fixtures": 13876,
+        "arrayComparisons": 41628,
+        "rejections": 392,
+        "layoutAssertions": 13876
       },
       "log": "Od-oracle.txt"
     },
@@ -60,37 +60,37 @@
         "platforms": [
           {
             "platform": 0,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 1,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 2,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           },
           {
             "platform": 99,
-            "fixtures": 1747,
-            "arrayComparisons": 5241,
-            "rejections": 21,
-            "layoutAssertions": 1747
+            "fixtures": 3469,
+            "arrayComparisons": 10407,
+            "rejections": 98,
+            "layoutAssertions": 3469
           }
         ],
-        "fixtures": 6988,
-        "arrayComparisons": 20964,
-        "rejections": 84,
-        "layoutAssertions": 6988
+        "fixtures": 13876,
+        "arrayComparisons": 41628,
+        "rejections": 392,
+        "layoutAssertions": 13876
       },
       "log": "O2-oracle.txt"
     }

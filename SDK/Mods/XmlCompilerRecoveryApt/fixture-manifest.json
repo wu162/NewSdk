@@ -1,0 +1,132 @@
+{
+  "mod": "XmlCompilerRecoveryApt",
+  "scope": "Targeted true file-backed APT SDK proof; not custom APT file-format recovery",
+  "assetCount": 12,
+  "globalRoots": [
+    "AptAptData",
+    "AptConstData",
+    "AptDatData",
+    "AptGeometryData"
+  ],
+  "originalModAChanged": false,
+  "fileResolution": "File basenames relative to Data/FixturesApt.xml; BAB supplies absolute path",
+  "expectedSdkImports": "No asset imports; final mod.imp sentinel only",
+  "cases": [
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryApt_AptAptData_defaults",
+      "variant": "defaults",
+      "file": "Data/fixture-empty.bin",
+      "sourceLiteral": "fixture-empty.bin",
+      "expectedFileBytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryApt_AptAptData_rich",
+      "variant": "rich",
+      "file": "Data/fixture.bin",
+      "sourceLiteral": "fixture.bin",
+      "expectedFileBytes": 46,
+      "sourceSha256": "8c4b16595595e248d6fb18ca5de362d10bc8eabc134486a30011f87dc9a45fc8"
+    },
+    {
+      "type": "AptAptData",
+      "id": "XmlRecoveryApt_AptAptData_repeat",
+      "variant": "repeat",
+      "file": "Data/fixture-odd.bin",
+      "sourceLiteral": "fixture-odd.bin",
+      "expectedFileBytes": 13,
+      "sourceSha256": "969688e42639a0fff64ee2d39c290648084d6451d797aaa0b8ef132294c73bbd"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryApt_AptConstData_defaults",
+      "variant": "defaults",
+      "file": "Data/fixture-empty.bin",
+      "sourceLiteral": "fixture-empty.bin",
+      "expectedFileBytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryApt_AptConstData_rich",
+      "variant": "rich",
+      "file": "Data/fixture.bin",
+      "sourceLiteral": "fixture.bin",
+      "expectedFileBytes": 46,
+      "sourceSha256": "8c4b16595595e248d6fb18ca5de362d10bc8eabc134486a30011f87dc9a45fc8"
+    },
+    {
+      "type": "AptConstData",
+      "id": "XmlRecoveryApt_AptConstData_repeat",
+      "variant": "repeat",
+      "file": "Data/fixture-odd.bin",
+      "sourceLiteral": "fixture-odd.bin",
+      "expectedFileBytes": 13,
+      "sourceSha256": "969688e42639a0fff64ee2d39c290648084d6451d797aaa0b8ef132294c73bbd"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryApt_AptDatData_defaults",
+      "variant": "defaults",
+      "file": "Data/fixture-empty.bin",
+      "sourceLiteral": "fixture-empty.bin",
+      "expectedFileBytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryApt_AptDatData_rich",
+      "variant": "rich",
+      "file": "Data/fixture.bin",
+      "sourceLiteral": "fixture.bin",
+      "expectedFileBytes": 46,
+      "sourceSha256": "8c4b16595595e248d6fb18ca5de362d10bc8eabc134486a30011f87dc9a45fc8"
+    },
+    {
+      "type": "AptDatData",
+      "id": "XmlRecoveryApt_AptDatData_repeat",
+      "variant": "repeat",
+      "file": "Data/fixture-odd.bin",
+      "sourceLiteral": "fixture-odd.bin",
+      "expectedFileBytes": 13,
+      "sourceSha256": "969688e42639a0fff64ee2d39c290648084d6451d797aaa0b8ef132294c73bbd"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryApt_AptGeometryData_defaults",
+      "variant": "defaults",
+      "file": "Data/fixture-empty.bin",
+      "sourceLiteral": "fixture-empty.bin",
+      "expectedFileBytes": 0,
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryApt_AptGeometryData_rich",
+      "variant": "rich",
+      "file": "Data/fixture.bin",
+      "sourceLiteral": "fixture.bin",
+      "expectedFileBytes": 46,
+      "sourceSha256": "8c4b16595595e248d6fb18ca5de362d10bc8eabc134486a30011f87dc9a45fc8"
+    },
+    {
+      "type": "AptGeometryData",
+      "id": "XmlRecoveryApt_AptGeometryData_repeat",
+      "variant": "repeat",
+      "file": "Data/fixture-odd.bin",
+      "sourceLiteral": "fixture-odd.bin",
+      "expectedFileBytes": 13,
+      "sourceSha256": "969688e42639a0fff64ee2d39c290648084d6451d797aaa0b8ef132294c73bbd"
+    }
+  ],
+  "xsdValidated": true,
+  "files": [
+    "Data/Mod.xml",
+    "Data/FixturesApt.xml",
+    "Data/fixture-empty.bin",
+    "Data/fixture.bin",
+    "Data/fixture-odd.bin"
+  ]
+}

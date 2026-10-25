@@ -1,0 +1,10 @@
+originalDllSha256=D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6
+PASS prefixDispatch platform=0 original=null recovered=reject; canonical ProcessInstance vs prefixed CompileXml buffers/layout matched
+PASS platform=0 fixtures=4127 arrayComparisons=12381 rejections=247 layoutAssertions=4128
+PASS prefixDispatch platform=1 original=null recovered=reject; canonical ProcessInstance vs prefixed CompileXml buffers/layout matched
+PASS platform=1 fixtures=4127 arrayComparisons=12381 rejections=247 layoutAssertions=4128
+PASS prefixDispatch platform=2 original=null recovered=reject; canonical ProcessInstance vs prefixed CompileXml buffers/layout matched
+PASS platform=2 fixtures=4127 arrayComparisons=12381 rejections=247 layoutAssertions=4128
+PASS prefixDispatch platform=99 original=null recovered=reject; canonical ProcessInstance vs prefixed CompileXml buffers/layout matched
+PASS platform=99 fixtures=4127 arrayComparisons=12381 rejections=247 layoutAssertions=4128
+PASS LocomotorTemplate fixtures=16508 arrayComparisons=49524 rejections=988 layoutAssertions=16512

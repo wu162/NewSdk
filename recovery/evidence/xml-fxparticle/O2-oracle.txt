@@ -1,6 +1,6 @@
 originalDllSha256=D4B78E2DA951DD458357BEE7B358E6BC9689D1987D55867254D68B3F87BBF0E6
-PASS platform=0 fixtures=1747 arrayComparisons=5241 rejections=21 layoutAssertions=1747
-PASS platform=1 fixtures=1747 arrayComparisons=5241 rejections=21 layoutAssertions=1747
-PASS platform=2 fixtures=1747 arrayComparisons=5241 rejections=21 layoutAssertions=1747
-PASS platform=99 fixtures=1747 arrayComparisons=5241 rejections=21 layoutAssertions=1747
-PASS FXParticleSystemTemplate fixtures=6988 arrayComparisons=20964 rejections=84 layoutAssertions=6988
+PASS platform=0 fixtures=3469 arrayComparisons=10407 rejections=98 layoutAssertions=3469
+PASS platform=1 fixtures=3469 arrayComparisons=10407 rejections=98 layoutAssertions=3469
+PASS platform=2 fixtures=3469 arrayComparisons=10407 rejections=98 layoutAssertions=3469
+PASS platform=99 fixtures=3469 arrayComparisons=10407 rejections=98 layoutAssertions=3469
+PASS FXParticleSystemTemplate fixtures=13876 arrayComparisons=41628 rejections=392 layoutAssertions=13876

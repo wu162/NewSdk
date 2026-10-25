@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "dddb9ac2804da1380a5b9b94a9035253c6e48f63",
-  "runId": "40086732440",
+  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
+  "runId": "40158416072",
   "scope": "XmlCompiler powers components; SDK integration pending",
   "platforms": [
     0,
@@ -13,10 +13,10 @@
     {
       "mode": "Od",
       "succeeded": true,
-      "fixtures": 17296,
-      "comparisons": 51888,
-      "rejections": 520,
-      "independent": 82176,
+      "fixtures": 17328,
+      "comparisons": 51984,
+      "rejections": 536,
+      "independent": 83088,
       "platforms": [
         0,
         1,
@@ -28,10 +28,10 @@
     {
       "mode": "O2",
       "succeeded": true,
-      "fixtures": 17296,
-      "comparisons": 51888,
-      "rejections": 520,
-      "independent": 82176,
+      "fixtures": 17328,
+      "comparisons": 51984,
+      "rejections": 536,
+      "independent": 83088,
       "platforms": [
         0,
         1,

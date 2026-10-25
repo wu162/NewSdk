@@ -1,0 +1,1538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <MusicScriptConditionNugget_LocalPlayerIsObserver CountDeadPlayersAsObservers="false" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults" />
+  <MusicScriptConditionNugget_LocalPlayerIsObserver buildRule="RecoveryXmlB_Value" CountDeadPlayersAsObservers="true" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Fields" typeHashCode="00000000" />
+  <MusicScriptConditionNugget_UnitsFarFromBase MinUnitsToPass="1" MinDistanceFromBase="1.0" Relationship="ALLIES" id="RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Defaults" />
+  <MusicScriptConditionNugget_UnitsFarFromBase buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" MinUnitsToPass="3" MinDistanceFromBase="0.5" Relationship="SAME_PLAYER SAME_PLAYER" id="RecoveryXmlB_MusicScriptConditionNugget_UnitsFarFromBase_Fields" />
+  <MusicScriptConditionNugget_TimeFromStartOfLevel Timeout="250ms" id="RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Defaults" />
+  <MusicScriptConditionNugget_TimeFromStartOfLevel buildRule="RecoveryXmlB_Value" Timeout="250ms" id="RecoveryXmlB_MusicScriptConditionNugget_TimeFromStartOfLevel_Fields" />
+  <MusicScriptConditionNugget_TrackPlayedCount Track="RecoveryXmlB_MusicScriptTrack_Defaults" Count="1" id="RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Defaults" />
+  <MusicScriptConditionNugget_TrackPlayedCount buildRule="RecoveryXmlB_Value" Track="RecoveryXmlB_MusicScriptTrack_Defaults" Count="3" id="RecoveryXmlB_MusicScriptConditionNugget_TrackPlayedCount_Fields" />
+  <MusicScriptConditionNugget_SpecificTrackTypePlaying TrackType="RecoveryXmlB_Default" id="RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Defaults" />
+  <MusicScriptConditionNugget_SpecificTrackTypePlaying buildRule="RecoveryXmlB_Value" TrackType="RecoveryXmlB_Value" id="RecoveryXmlB_MusicScriptConditionNugget_SpecificTrackTypePlaying_Fields" />
+  <MusicScriptConditionNugget_AnyTrackPlaying id="RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Defaults" />
+  <MusicScriptConditionNugget_AnyTrackPlaying buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_MusicScriptConditionNugget_AnyTrackPlaying_Fields" />
+  <MusicScriptConditionNugget_ObjectsOfTypeExist id="RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Defaults" />
+  <MusicScriptConditionNugget_ObjectsOfTypeExist buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" Count="3" RequiredModelConditions="SUCKED_UP_HIGH SUCKED_UP_HIGH" ExcludedModelConditions="SUCKED_UP_HIGH SUCKED_UP_HIGH" id="RecoveryXmlB_MusicScriptConditionNugget_ObjectsOfTypeExist_Fields">
+    <Filter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </Filter>
+  </MusicScriptConditionNugget_ObjectsOfTypeExist>
+  <MusicScriptConditionNugget_EvaEventPlayedRecently EvaEvent="" id="RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Defaults" />
+  <MusicScriptConditionNugget_EvaEventPlayedRecently buildRule="RecoveryXmlB_Value" EvaEvent="" Timeout="250ms" id="RecoveryXmlB_MusicScriptConditionNugget_EvaEventPlayedRecently_Fields" />
+  <MusicScriptConditionNugget_ObjectsNearEvaEvent EvaEvent="" Distance="1.0" id="RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Defaults" />
+  <MusicScriptConditionNugget_ObjectsNearEvaEvent buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" EvaEvent="" Count="3" Distance="0.5" id="RecoveryXmlB_MusicScriptConditionNugget_ObjectsNearEvaEvent_Fields">
+    <Filter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </Filter>
+  </MusicScriptConditionNugget_ObjectsNearEvaEvent>
+  <MusicScriptConditionNugget_ScoredKillCount Count="1" Time="250ms" CountOnlyKillsAgainstTheLocalPlayer="false" CountOnlyKillsByTheLocalPlayer="false" id="RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Defaults" />
+  <MusicScriptConditionNugget_ScoredKillCount buildRule="RecoveryXmlB_Value" Count="3" Time="250ms" CountOnlyKillsAgainstTheLocalPlayer="true" CountOnlyKillsByTheLocalPlayer="true" Filter="RecoveryXmlB_ObjectFilterAsset_Defaults" id="RecoveryXmlB_MusicScriptConditionNugget_ScoredKillCount_Fields" />
+  <MusicScriptConditionNugget_Not id="RecoveryXmlB_MusicScriptConditionNugget_Not_Defaults">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_Not>
+  <MusicScriptConditionNugget_Not buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_MusicScriptConditionNugget_Not_Fields">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_Not>
+  <MusicScriptConditionNugget_Or id="RecoveryXmlB_MusicScriptConditionNugget_Or_Defaults">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_Or>
+  <MusicScriptConditionNugget_Or buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_MusicScriptConditionNugget_Or_Fields">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_Or>
+  <MusicScriptConditionNugget_And id="RecoveryXmlB_MusicScriptConditionNugget_And_Defaults">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_And>
+  <MusicScriptConditionNugget_And buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_MusicScriptConditionNugget_And_Fields">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </MusicScriptConditionNugget_And>
+  <MusicScriptConditionNugget_PathMusicStateLastActive TrackedState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" TrackedStateChange="ENTER" TimeSinceLastActive="250ms" TimeSicneLastActiveOp="LESS_THAN" id="RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Defaults" />
+  <MusicScriptConditionNugget_PathMusicStateLastActive buildRule="RecoveryXmlB_Value" TrackedState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" TrackedStateChange="EXIT" TimeSinceLastActive="250ms" TimeSicneLastActiveOp="GREATER_THAN" id="RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateLastActive_Fields" />
+  <MusicScriptConditionNugget_PathMusicStateCurrentlyActive TrackedState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" id="RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Defaults" />
+  <MusicScriptConditionNugget_PathMusicStateCurrentlyActive buildRule="RecoveryXmlB_Value" TrackedState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" id="RecoveryXmlB_MusicScriptConditionNugget_PathMusicStateCurrentlyActive_Fields" />
+  <MusicScriptConditionNugget_EngagementCount Count="1" Time="250ms" CountOnlyEngagementsAgainstTheLocalPlayer="false" CountOnlyEngagementsByTheLocalPlayer="false" RequiredScreenStatus="ON_SCREEN" id="RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Defaults" />
+  <MusicScriptConditionNugget_EngagementCount buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" Count="3" Time="250ms" CountOnlyEngagementsAgainstTheLocalPlayer="true" CountOnlyEngagementsByTheLocalPlayer="true" RequiredScreenStatus="ON_OR_OFF_SCREEN" TargetFilter="RecoveryXmlB_ObjectFilterAsset_Defaults" id="RecoveryXmlB_MusicScriptConditionNugget_EngagementCount_Fields" />
+  <MusicScriptConditionNugget_LocalPlayerKillRatio Time="250ms" Ratio="1.0" RatioOp="LESS_THAN" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Defaults" />
+  <MusicScriptConditionNugget_LocalPlayerKillRatio buildRule="RecoveryXmlB_Value" TimeBetweenConditionChecks="250ms" Time="250ms" Ratio="0.5" RatioOp="GREATER_THAN" id="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerKillRatio_Fields" />
+  <MusicScriptConditionNugget_HitBySuperWeapon TrackedWeapon="RecoveryXmlB_Weak_WeaponTemplate" Time="250ms" Count="1" CountOnlyHitsAgainstTheLocalPlayer="false" id="RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Defaults" />
+  <MusicScriptConditionNugget_HitBySuperWeapon buildRule="RecoveryXmlB_Value" TrackedWeapon="RecoveryXmlB_Weak_WeaponTemplate" Time="250ms" Count="3" CountOnlyHitsAgainstTheLocalPlayer="true" TargetFilter="RecoveryXmlB_ObjectFilterAsset_Defaults" id="RecoveryXmlB_MusicScriptConditionNugget_HitBySuperWeapon_Fields" />
+  <MusicScriptTrack Level="1" Priority="1" Track="RecoveryXmlB_AudioEvent_Defaults" id="RecoveryXmlB_MusicScriptTrack_Defaults" />
+  <MusicScriptTrack buildRule="RecoveryXmlB_Value" TrackTypeKey="RecoveryXmlB_Value" Level="3" Priority="3" Condition="RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults" ConditionsAreLatch="true" Track="RecoveryXmlB_AudioEvent_Defaults" FadeInTrack="true" FadeOutLowerLevelTrack="true" id="RecoveryXmlB_MusicScriptTrack_Fields">
+    <Timeout Weight="3" Duration="250ms" />
+    <Timeout Weight="3" Duration="250ms" />
+  </MusicScriptTrack>
+  <ObjectFilterAsset id="RecoveryXmlB_ObjectFilterAsset_Defaults">
+    <Filter />
+  </ObjectFilterAsset>
+  <ObjectFilterAsset buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_ObjectFilterAsset_Fields">
+    <Filter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </Filter>
+  </ObjectFilterAsset>
+  <ObjectFilterAsset id="RecoveryXmlB_ObjectFilterAsset_Inherited" inheritFrom="RecoveryXmlB_ObjectFilterAsset_Defaults">
+    <Filter />
+  </ObjectFilterAsset>
+  <RegisteredObjectSet SetId="PLAYER_EVERYTHING" Type="GLOBAL" id="RecoveryXmlB_RegisteredObjectSet_Defaults">
+    <ObjectFilter />
+  </RegisteredObjectSet>
+  <RegisteredObjectSet buildRule="RecoveryXmlB_Value" SetId="ENCLOSURES" Type="PLAYER" id="RecoveryXmlB_RegisteredObjectSet_Fields">
+    <ObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </ObjectFilter>
+  </RegisteredObjectSet>
+  <RegisteredObjectSet SetId="PLAYER_EVERYTHING" Type="GLOBAL" id="RecoveryXmlB_RegisteredObjectSet_Inherited" inheritFrom="RecoveryXmlB_RegisteredObjectSet_Defaults">
+    <ObjectFilter />
+  </RegisteredObjectSet>
+  <PathMusicGameDynamicState id="RecoveryXmlB_PathMusicGameDynamicState_Defaults" />
+  <PathMusicGameDynamicState buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_PathMusicGameDynamicState_Fields">
+    <Transition>RecoveryXmlB_PathMusicGameDynamicTransition_Defaults</Transition>
+    <Transition>RecoveryXmlB_PathMusicGameDynamicTransition_Defaults</Transition>
+  </PathMusicGameDynamicState>
+  <PathMusicGameDynamicState id="RecoveryXmlB_PathMusicGameDynamicState_Inherited" inheritFrom="RecoveryXmlB_PathMusicGameDynamicState_Defaults" />
+  <PathMusicGameDynamicStateSet Category="STANDARD" id="RecoveryXmlB_PathMusicGameDynamicStateSet_Defaults" />
+  <PathMusicGameDynamicStateSet buildRule="RecoveryXmlB_Value" Category="SCRIPTED" id="RecoveryXmlB_PathMusicGameDynamicStateSet_Fields">
+    <State>RecoveryXmlB_PathMusicGameDynamicState_Defaults</State>
+    <State>RecoveryXmlB_PathMusicGameDynamicState_Defaults</State>
+  </PathMusicGameDynamicStateSet>
+  <PathMusicGameDynamicTransition DestinationState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" id="RecoveryXmlB_PathMusicGameDynamicTransition_Defaults">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </PathMusicGameDynamicTransition>
+  <PathMusicGameDynamicTransition buildRule="RecoveryXmlB_Value" DestinationState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" id="RecoveryXmlB_PathMusicGameDynamicTransition_Fields">
+    <Condition>RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults</Condition>
+  </PathMusicGameDynamicTransition>
+  <PathMusicEventSet Category="SHELL" id="RecoveryXmlB_PathMusicEventSet_Defaults" />
+  <PathMusicEventSet buildRule="RecoveryXmlB_Value" Category="SCRIPT" id="RecoveryXmlB_PathMusicEventSet_Fields">
+    <Event />
+    <Event />
+  </PathMusicEventSet>
+  <MusicPalette id="RecoveryXmlB_MusicPalette_Defaults" />
+  <MusicPalette buildRule="RecoveryXmlB_Value" IsDefaultForNewMap="true" id="RecoveryXmlB_MusicPalette_Fields">
+    <Track>RecoveryXmlB_MusicScriptTrack_Defaults</Track>
+    <Track>RecoveryXmlB_MusicScriptTrack_Defaults</Track>
+  </MusicPalette>
+  <ProjectilePath id="RecoveryXmlB_ProjectilePath_Defaults">
+    <Point />
+  </ProjectilePath>
+  <ProjectilePath buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_ProjectilePath_Fields">
+    <ComponentScale x="0.5" y="0.5" z="0.5" w="0.5" />
+    <Point x="0.5" y="0.5" z="0.5" w="0.5" />
+    <Point x="0.5" y="0.5" z="0.5" w="0.5" />
+  </ProjectilePath>
+  <ProjectilePath id="RecoveryXmlB_ProjectilePath_Inherited" inheritFrom="RecoveryXmlB_ProjectilePath_Defaults">
+    <Point />
+  </ProjectilePath>
+  <RadarTerrainImage Texture="" id="RecoveryXmlB_RadarTerrainImage_Defaults">
+    <ImageSize />
+    <ImagePosition />
+    <TextureSize />
+  </RadarTerrainImage>
+  <RadarTerrainImage buildRule="RecoveryXmlB_Value" MapBorder="Pink" Texture="" Rotated="true" id="RecoveryXmlB_RadarTerrainImage_Fields">
+    <ImageSize x="3" y="3" />
+    <ImagePosition x="3" y="3" />
+    <TextureSize x="3" y="3" />
+  </RadarTerrainImage>
+  <UIRadarObjectsLayer id="RecoveryXmlB_UIRadarObjectsLayer_Defaults">
+    <NeutralColor />
+  </UIRadarObjectsLayer>
+  <UIRadarObjectsLayer buildRule="RecoveryXmlB_Value" MinUnitDotSize="3" MinStructureDotSize="3" id="RecoveryXmlB_UIRadarObjectsLayer_Fields">
+    <NeutralColor R="3" G="3" B="3" A="3" />
+    <SpecialIcon Image="RecoveryXmlB_PackedTextureImage_Defaults">
+      <ImageOffset x="0.5" y="0.5" />
+      <ObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      </ObjectFilter>
+    </SpecialIcon>
+    <SpecialIcon Image="RecoveryXmlB_PackedTextureImage_Defaults">
+      <ImageOffset x="0.5" y="0.5" />
+      <ObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      </ObjectFilter>
+    </SpecialIcon>
+  </UIRadarObjectsLayer>
+  <RedAlertTemplate id="RecoveryXmlB_RedAlertTemplate_Defaults" />
+  <RedAlertTemplate buildRule="RecoveryXmlB_Value" OrangeAreaThreatThreshold="3" RedAreaThreatThreshold="3" MaxAllowedThreat="3" KillThreatMultiplier="0.5" DeathThreatMultiplier="0.5" YellowAreaThreatDecayPerSecond="3" OrangeAreaThreatDecayPerSecond="3" RedAreaThreatDecayPerSecond="3" DisableNonRepairability="true" RedAlertBuildingDamagePerSecond="3" RedAlertUpdatedBuildingDamagePerSecond="3" RedAlertBuildingDamageIncreaseTime="250ms" RedAlertDisableStructureBuilding="true" RedAlertShowAllUnitsAndStructures="true" YellowAlertTechPointMultiplier="0.5" OrangeAlertTechPointMultiplier="0.5" RedAlertTechPointMultiplier="0.5" id="RecoveryXmlB_RedAlertTemplate_Fields">
+    <YellowAreaEffect />
+    <OrangeAreaEffect />
+    <RedAreaEffect />
+    <RedAlertEffect />
+  </RedAlertTemplate>
+  <RedAlertTemplate id="RecoveryXmlB_RedAlertTemplate_Inherited" inheritFrom="RecoveryXmlB_RedAlertTemplate_Defaults" />
+  <MeshInstanceTemplate id="RecoveryXmlB_MeshInstanceTemplate_Defaults" />
+  <MeshInstanceTemplate buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_MeshInstanceTemplate_Fields">
+    <Rule MeshID="RecoveryXmlB_Value" Instances="3" />
+    <Rule MeshID="RecoveryXmlB_Value" Instances="3" />
+  </MeshInstanceTemplate>
+  <MeshInstanceTemplate id="RecoveryXmlB_MeshInstanceTemplate_Inherited" inheritFrom="RecoveryXmlB_MeshInstanceTemplate_Defaults" />
+  <PackedTextureImage id="RecoveryXmlB_PackedTextureImage_Defaults">
+    <Dimensions />
+    <Coords />
+    <TextureDimensions />
+  </PackedTextureImage>
+  <PackedTextureImage buildRule="RecoveryXmlB_Value" Rotated="true" id="RecoveryXmlB_PackedTextureImage_Fields">
+    <Dimensions x="3" y="3" />
+    <Coords x="3" y="3" />
+    <TextureDimensions x="3" y="3" />
+  </PackedTextureImage>
+  <OnDemandTextureImage id="RecoveryXmlB_OnDemandTextureImage_Defaults">
+    <Dimensions />
+    <Coords />
+    <TextureDimensions />
+  </OnDemandTextureImage>
+  <OnDemandTextureImage buildRule="RecoveryXmlB_Value" Rotated="true" id="RecoveryXmlB_OnDemandTextureImage_Fields">
+    <Dimensions x="3" y="3" />
+    <Coords x="3" y="3" />
+    <TextureDimensions x="3" y="3" />
+  </OnDemandTextureImage>
+  <W3DDeviceSettings id="RecoveryXmlB_W3DDeviceSettings_Defaults">
+    <ShroudColor R="1.0" G="1.0" B="1.0" />
+    <TreeFadeObjectFilter />
+  </W3DDeviceSettings>
+  <W3DDeviceSettings buildRule="RecoveryXmlB_Value" MaxTerrainTracks="3" UseSimpleHordeDecals="true" OpacityOfSimpleMergeDecals="50%" OccludedColorLuminanceScale="0.5" MaxRoadSegments="3" MaxRoadVertex="3" MaxRoadIndex="3" FogAlpha="3" ShroudAlpha="3" ClearAlpha="3" DefaultShroudStatus="SHROUDED" id="RecoveryXmlB_W3DDeviceSettings_Fields">
+    <ShroudColor R="0.5" G="0.5" B="0.5" />
+    <TreeFadeObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </TreeFadeObjectFilter>
+    <StandardPublicBone>RecoveryXmlB_Value</StandardPublicBone>
+    <StandardPublicBone>RecoveryXmlB_Value</StandardPublicBone>
+  </W3DDeviceSettings>
+  <ScorchMarkSettings id="RecoveryXmlB_ScorchMarkSettings_Defaults" />
+  <ScorchMarkSettings buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_ScorchMarkSettings_Fields">
+    <ScorchMarkSetting TerrainClass="Snow">
+      <Scorch>TERRAIN_MAPPED</Scorch>
+      <Scorch>TERRAIN_MAPPED</Scorch>
+    </ScorchMarkSetting>
+    <ScorchMarkSetting TerrainClass="Snow">
+      <Scorch>TERRAIN_MAPPED</Scorch>
+      <Scorch>TERRAIN_MAPPED</Scorch>
+    </ScorchMarkSetting>
+  </ScorchMarkSettings>
+  <AudioEvent id="RecoveryXmlB_AudioEvent_Defaults" />
+  <AudioEvent buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_AudioEvent_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Attack Weight="3" Volume="50%" />
+    <Attack Weight="3" Volume="50%" />
+    <Sound Weight="3" Volume="50%" />
+    <Sound Weight="3" Volume="50%" />
+    <Decay Weight="3" Volume="50%" />
+    <Decay Weight="3" Volume="50%" />
+  </AudioEvent>
+  <AudioEvent id="RecoveryXmlB_AudioEvent_Inherited" inheritFrom="RecoveryXmlB_AudioEvent_Defaults" />
+  <MusicTrack id="RecoveryXmlB_MusicTrack_Defaults" />
+  <MusicTrack buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_MusicTrack_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </MusicTrack>
+  <MusicTrack id="RecoveryXmlB_MusicTrack_Inherited" inheritFrom="RecoveryXmlB_MusicTrack_Defaults" />
+  <MP3MusicTrack id="RecoveryXmlB_MP3MusicTrack_Defaults" />
+  <MP3MusicTrack buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_MP3MusicTrack_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </MP3MusicTrack>
+  <MP3MusicTrack id="RecoveryXmlB_MP3MusicTrack_Inherited" inheritFrom="RecoveryXmlB_MP3MusicTrack_Defaults" />
+  <DialogEvent id="RecoveryXmlB_DialogEvent_Defaults" />
+  <DialogEvent buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_DialogEvent_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </DialogEvent>
+  <DialogEvent id="RecoveryXmlB_DialogEvent_Inherited" inheritFrom="RecoveryXmlB_DialogEvent_Defaults" />
+  <MP3DialogEvent id="RecoveryXmlB_MP3DialogEvent_Defaults" />
+  <MP3DialogEvent buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_MP3DialogEvent_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </MP3DialogEvent>
+  <MP3DialogEvent id="RecoveryXmlB_MP3DialogEvent_Inherited" inheritFrom="RecoveryXmlB_MP3DialogEvent_Defaults" />
+  <AmbientStream id="RecoveryXmlB_AmbientStream_Defaults" />
+  <AmbientStream buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_AmbientStream_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </AmbientStream>
+  <AmbientStream id="RecoveryXmlB_AmbientStream_Inherited" inheritFrom="RecoveryXmlB_AmbientStream_Defaults" />
+  <MP3AmbientStream id="RecoveryXmlB_MP3AmbientStream_Defaults" />
+  <MP3AmbientStream buildRule="RecoveryXmlB_Value" Volume="50%" VolumeShift="50%" PerFileVolumeShift="50%" MinVolume="50%" ShrunkenPitchModifier="0.5" ShrunkenVolumeModifier="50%" PlayPercent="50%" Limit="3" Priority="CRITICAL" Type="EVERYONE EVERYONE" Control="IMMEDIATE_DECAY_ON_KILL IMMEDIATE_DECAY_ON_KILL" MinRange="0.5" MaxRange="0.5" LowPassCutoff="50%" ZoomedInOffscreenVolumePercent="50%" ZoomedInOffscreenMinVolumePercent="50%" ZoomedInOffscreenOcclusionPercent="50%" ReverbEffectLevel="50%" DryLevel="50%" SubmixSlider="NONE" id="RecoveryXmlB_MP3AmbientStream_Fields">
+    <PitchShift Low="0.5" High="0.5" />
+    <PerFilePitchShift Low="0.5" High="0.5" />
+    <Delay Low="3" High="3" />
+    <InitialDelay Low="3" High="3" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <VolumeSliderMultiplier Slider="NONE" Multiplier="0.5" />
+    <MinRangeShift Low="0.5" High="0.5" />
+    <MaxRangeShift Low="0.5" High="0.5" />
+    <LimitGroup />
+    <LimitGroup />
+    <NonInterruptibleTime Low="250ms" High="250ms" />
+    <Filename />
+  </MP3AmbientStream>
+  <MP3AmbientStream id="RecoveryXmlB_MP3AmbientStream_Inherited" inheritFrom="RecoveryXmlB_MP3AmbientStream_Defaults" />
+  <Multisound id="RecoveryXmlB_Multisound_Defaults" />
+  <Multisound buildRule="RecoveryXmlB_Value" Control="PLAY_ONE PLAY_ONE" id="RecoveryXmlB_Multisound_Fields">
+    <Subsound Weight="3" PitchShiftLow="0.5" PitchShiftHigh="0.5" Volume="50%" PlayPercent="50%" VolumeShift="50%">RecoveryXmlB_AudioEvent_Defaults</Subsound>
+    <Subsound Weight="3" PitchShiftLow="0.5" PitchShiftHigh="0.5" Volume="50%" PlayPercent="50%" VolumeShift="50%">RecoveryXmlB_AudioEvent_Defaults</Subsound>
+  </Multisound>
+  <Multisound id="RecoveryXmlB_Multisound_Inherited" inheritFrom="RecoveryXmlB_Multisound_Defaults" />
+  <NetworkSettings id="RecoveryXmlB_NetworkSettings_Defaults" />
+  <NetworkSettings buildRule="RecoveryXmlB_Value" RunAheadSlack="3" id="RecoveryXmlB_NetworkSettings_Fields" />
+  <PathfindSettings MaxPathfindCellsPerFrame="1" MaxPathfindCellsPerPhase="1" MaxCellsFindMeleeEngagementLocation="1" MaxCellsAdjustDestination="1" MaxCellsAdjustHordeMeleeDestination="1" MaxCellsAdjustTargetDestination="1" MaxCellsAdjustToPossibleDestination="1" MaxCellsAdjustToMeleeDestination="1" MaxCellsAdjustToNearestGroundCell="1" MaxCellsAdjustToNearestValidCell="1" MaxCellsPatchPath="1" MaxCellsToExamineTowardsGoal="1" MaxExtraCollisionResponsePathsPerFrame="1" MaxExtraMoveAwayFromPathPathsPerFrame="1" LayerZCloseEnough="1" id="RecoveryXmlB_PathfindSettings_Defaults" />
+  <PathfindSettings buildRule="RecoveryXmlB_Value" MaxPathfindCellsPerFrame="3" MaxPathfindCellsPerPhase="3" MaxCellsFindMeleeEngagementLocation="3" MaxCellsAdjustDestination="3" MaxCellsAdjustHordeMeleeDestination="3" MaxCellsAdjustTargetDestination="3" MaxCellsAdjustToPossibleDestination="3" MaxCellsAdjustToMeleeDestination="3" MaxCellsAdjustToNearestGroundCell="3" MaxCellsAdjustToNearestValidCell="3" MaxCellsPatchPath="3" MaxCellsToExamineTowardsGoal="3" MaxExtraCollisionResponsePathsPerFrame="3" MaxExtraMoveAwayFromPathPathsPerFrame="3" LayerZCloseEnough="3" id="RecoveryXmlB_PathfindSettings_Fields" />
+  <ResourceSettings id="RecoveryXmlB_ResourceSettings_Defaults" />
+  <ResourceSettings buildRule="RecoveryXmlB_Value" SharedMoneyTransactionCategories="STEAL_MONEY STEAL_MONEY" id="RecoveryXmlB_ResourceSettings_Fields" />
+  <GraphicsHardware id="RecoveryXmlB_GraphicsHardware_Defaults" />
+  <GraphicsHardware buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_GraphicsHardware_Fields">
+    <Device VendorId="3" DeviceId="3" Name="RecoveryXmlB_Value" Level="CUSTOM" MacLevel="CUSTOM" />
+    <Device VendorId="3" DeviceId="3" Name="RecoveryXmlB_Value" Level="CUSTOM" MacLevel="CUSTOM" />
+  </GraphicsHardware>
+  <UIMouseTacticalSelectionDetailsButtonHotKeys id="RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Defaults" />
+  <UIMouseTacticalSelectionDetailsButtonHotKeys buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalSelectionDetailsButtonHotKeys_Fields">
+    <UnitAbilitySlot />
+    <UnitAbilitySlot />
+  </UIMouseTacticalSelectionDetailsButtonHotKeys>
+  <UIMouseTacticalMainCommandBarHotKeys id="RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Defaults" />
+  <UIMouseTacticalMainCommandBarHotKeys buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalMainCommandBarHotKeys_Fields">
+    <BuildQueuePage QueueType="WATERCRAFT" />
+    <BuildQueuePage QueueType="WATERCRAFT" />
+    <ButtonSlot />
+    <ButtonSlot />
+  </UIMouseTacticalMainCommandBarHotKeys>
+  <UIMouseTacticalPlayerPowerHotKeys id="RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Defaults" />
+  <UIMouseTacticalPlayerPowerHotKeys buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalPlayerPowerHotKeys_Fields">
+    <Slot />
+    <Slot />
+  </UIMouseTacticalPlayerPowerHotKeys>
+  <UIMouseTacticalMiscHotKeys id="RecoveryXmlB_UIMouseTacticalMiscHotKeys_Defaults" />
+  <UIMouseTacticalMiscHotKeys buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalMiscHotKeys_Fields">
+    <StanceSettings Stance="HOLD_FIRE" />
+    <StanceSettings Stance="HOLD_FIRE" />
+  </UIMouseTacticalMiscHotKeys>
+  <UIMouseHUDElementHotKeyGate id="RecoveryXmlB_UIMouseHUDElementHotKeyGate_Defaults" />
+  <UIMouseHUDElementHotKeyGate buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseHUDElementHotKeyGate_Fields">
+    <ElementHotKeyMapping ElementId="CoOpAIOrderPanel" HotKeySlot="" />
+    <ElementHotKeyMapping ElementId="CoOpAIOrderPanel" HotKeySlot="" />
+  </UIMouseHUDElementHotKeyGate>
+  <TargetingDistanceCompare id="RecoveryXmlB_TargetingDistanceCompare_Defaults" />
+  <TargetingDistanceCompare buildRule="RecoveryXmlB_Value" Tolerance="0.5" id="RecoveryXmlB_TargetingDistanceCompare_Fields" />
+  <TargetingCombatChainCompare id="RecoveryXmlB_TargetingCombatChainCompare_Defaults" />
+  <TargetingCombatChainCompare buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_TargetingCombatChainCompare_Fields" />
+  <TargetingInTurretArcCompare id="RecoveryXmlB_TargetingInTurretArcCompare_Defaults" />
+  <TargetingInTurretArcCompare buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_TargetingInTurretArcCompare_Fields" />
+  <TargetingCompareList id="RecoveryXmlB_TargetingCompareList_Defaults">
+    <Compare>RecoveryXmlB_Default</Compare>
+  </TargetingCompareList>
+  <TargetingCompareList buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_TargetingCompareList_Fields">
+    <Compare>RecoveryXmlB_Value</Compare>
+    <Compare>RecoveryXmlB_Value</Compare>
+  </TargetingCompareList>
+  <TerrainAssetCollection id="RecoveryXmlB_TerrainAssetCollection_Defaults" />
+  <TerrainAssetCollection buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_TerrainAssetCollection_Fields">
+    <TerrainAsset id="RecoveryXmlB_Nested_54" Texture="RecoveryXmlB_Value" BumpTexture="RecoveryXmlB_Value" Class="Snow" WBFolder="RecoveryXmlB_Value" />
+    <TerrainAsset id="RecoveryXmlB_Nested_54" Texture="RecoveryXmlB_Value" BumpTexture="RecoveryXmlB_Value" Class="Snow" WBFolder="RecoveryXmlB_Value" />
+  </TerrainAssetCollection>
+  <TestTexture CustomData="" id="RecoveryXmlB_TestTexture_Defaults" />
+  <TestTexture buildRule="RecoveryXmlB_Value" CustomData="" id="RecoveryXmlB_TestTexture_Fields">
+    <File />
+    <File />
+  </TestTexture>
+  <TestTextureCollection id="RecoveryXmlB_TestTextureCollection_Defaults" />
+  <TestTextureCollection buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_TestTextureCollection_Fields">
+    <Texture>RecoveryXmlB_TestTexture_Defaults</Texture>
+    <Texture>RecoveryXmlB_TestTexture_Defaults</Texture>
+  </TestTextureCollection>
+  <UIQuickChatMessage MessageText="RecoveryXmlB_Default" id="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+  <UIQuickChatMessage buildRule="RecoveryXmlB_Value" MessageText="RecoveryXmlB_Value" Sound="RecoveryXmlB_AudioEvent_Defaults" id="RecoveryXmlB_UIQuickChatMessage_Fields" />
+  <UIMouseTacticalQuickChatDisplay CloseKey="" id="RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Defaults">
+    <MenuItem Title="RecoveryXmlB_Default" />
+    <CloseMenuItem Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalQuickChatDisplay>
+  <UIMouseTacticalQuickChatDisplay buildRule="RecoveryXmlB_Value" CloseKey="" DelayDuration="250ms" id="RecoveryXmlB_UIMouseTacticalQuickChatDisplay_Fields">
+    <MenuItem Title="RecoveryXmlB_Value" ChatDestination="Everyone">
+      <ChatMessageGroup Faction="Neutral">
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+      </ChatMessageGroup>
+      <ChatMessageGroup Faction="Neutral">
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+      </ChatMessageGroup>
+      <MenuItem Title="RecoveryXmlB_Default" />
+      <MenuItem Title="RecoveryXmlB_Default" />
+      <CloseMenuItem Title="RecoveryXmlB_Value" />
+    </MenuItem>
+    <MenuItem Title="RecoveryXmlB_Value" ChatDestination="Everyone">
+      <ChatMessageGroup Faction="Neutral">
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+      </ChatMessageGroup>
+      <ChatMessageGroup Faction="Neutral">
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+        <ChatMessage MessageRef="RecoveryXmlB_UIQuickChatMessage_Defaults" />
+      </ChatMessageGroup>
+      <MenuItem Title="RecoveryXmlB_Default" />
+      <MenuItem Title="RecoveryXmlB_Default" />
+      <CloseMenuItem Title="RecoveryXmlB_Value" />
+    </MenuItem>
+    <CloseMenuItem Title="RecoveryXmlB_Value" />
+  </UIMouseTacticalQuickChatDisplay>
+  <UIMouseVoiceChat id="RecoveryXmlB_UIMouseVoiceChat_Defaults" />
+  <UIMouseVoiceChat buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseVoiceChat_Fields">
+    <ModeButtonHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    <TalkButtonHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseVoiceChat>
+  <UIConfigList id="RecoveryXmlB_UIConfigList_Defaults" />
+  <UIConfigList buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIConfigList_Fields">
+    <UIDynamicConfig Name="RecoveryXmlB_Value" Type="LOADSCREEN">
+      <ComponentList>
+        <UIComponentAptJoypad Priority="3" RelayLeftStickPosition="true" RelayRightStickPosition="true" />
+        <UIComponentSound Priority="3" />
+        <UIComponentMovie Priority="3" MovieComponentName="RecoveryXmlB_Value" MaxNumberOfStream="3" />
+        <UIComponentSaveLoad Priority="3" FileToken="RecoveryXmlB_Value" />
+        <UIComponentOptions Priority="3" ControlsToken="RecoveryXmlB_Value" SaveFileName="RecoveryXmlB_Value">
+          <ControlsText>RecoveryXmlB_Value</ControlsText>
+          <ControlsText>RecoveryXmlB_Value</ControlsText>
+          <DefaultValues Difficulty="3" Gamma="0.5" Brightness="0.5" Contrast="0.5" VolumeMusic="0.5" VolumeFX="0.5" VolumeVoice="0.5" VolumeAmbient="0.5" VolumeMovie="0.5" ScrollSpeed="0.5" ScrollMagnetism="3" ButtonIcon="true" ShowCommandList="true" HealthBars="true" HighlightPads="true" ToolTips="true" Subtitles="true" InvertRotate="true" Telemetry="true" DefaultFaction="3" VisionCamVisible="true" VisionCamZoom="3" ScrollSpeedMin="0.5" ScrollSpeedMax="0.5" />
+          <CommandList CategoryName="RecoveryXmlB_Value">
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+          </CommandList>
+          <CommandList CategoryName="RecoveryXmlB_Value">
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+          </CommandList>
+        </UIComponentOptions>
+        <UIComponentGameInfo Priority="3" GameScoreDisplayToken="RecoveryXmlB_Value" ScorePlayerToken="RecoveryXmlB_Value" FactionLabelToken="RecoveryXmlB_Value" GameScoreXLocWS="3" GameScoreXLoc="3" GameScoreYLocWS="3" GameScoreYLoc="3" Player1ScoreXLocWS="3" Player1ScoreXLoc="3" Player1ScoreYLocWS="3" Player1ScoreYLoc="3" Player2ScoreXLocWS="3" Player2ScoreXLoc="3" Player2ScoreYLocWS="3" Player2ScoreYLoc="3" Player3ScoreXLocWS="3" Player3ScoreXLoc="3" Player3ScoreYLocWS="3" Player3ScoreYLoc="3" Player4ScoreXLocWS="3" Player4ScoreXLoc="3" Player4ScoreYLocWS="3" Player4ScoreYLoc="3">
+          <FactionValue>RecoveryXmlB_Value</FactionValue>
+          <FactionValue>RecoveryXmlB_Value</FactionValue>
+        </UIComponentGameInfo>
+        <UIComponentStats Priority="3" PlayerToken="RecoveryXmlB_Value" TitleToken="RecoveryXmlB_Value" DataToken="RecoveryXmlB_Value" />
+        <UIComponentPlasmaInterface Priority="3" />
+        <UIComponentCheats Priority="3" />
+        <UIComponentGameViewJoypad Priority="3" LeftStickMultiplier="0.5" RightStickMultiplier="0.5" ObjectAttractivityForce="0.5" MinAttractDistance="0.5" MinAttractDistanceZoomed="0.5" MaxAttractiveForce="0.5" KindOfExemptFromAttraction="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" ScrollSpeedMin="0.5" ScrollSpeedMax="0.5" ScrollSpeedMaxCutoff="0.5" ScrollSpeedMinCutoff="0.5" InternalZoomInValue="0.5" InternalZoomOutValue="0.5" RapidScrollMultiplier="0.5" MagnetismTuning_LOW_Strength="0.5" MagnetismTuning_LOW_Distance="0.5" MagnetismTuning_HIGH_Strength="0.5" MagnetismTuning_HIGH_Distance="0.5">
+          <MagnetismObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </MagnetismObjectFilter>
+        </UIComponentGameViewJoypad>
+        <UIComponentObjectSelector Priority="3" ShowAllHealthBars="true" PortraitName="RecoveryXmlB_Value" UnitAbility="RecoveryXmlB_Value" StatusTextNothingSelected="RecoveryXmlB_Value" StatusTextSelectedAcrossMap="RecoveryXmlB_Value" StatusTextSelectedAcrossScreen="RecoveryXmlB_Value" AllArmyImageGDI="RecoveryXmlB_PackedTextureImage_Defaults" AllArmyImageNOD="RecoveryXmlB_PackedTextureImage_Defaults" AllArmyImageAlien="RecoveryXmlB_PackedTextureImage_Defaults" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" AssaultTargetForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent">
+          <AlienHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </AlienHighlightDecal>
+          <GDIHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </GDIHighlightDecal>
+          <NODHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </NODHighlightDecal>
+          <ShortcutObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </ShortcutObjects>
+          <ShortcutObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </ShortcutObjects>
+          <SupportObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </SupportObjects>
+          <SupportObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </SupportObjects>
+          <ClockColor R="3" G="3" B="3" A="3" />
+        </UIComponentObjectSelector>
+        <UIComponentCursor Priority="3" AptEventCursorChanged="RecoveryXmlB_Value" HoverSelectForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" />
+        <UIComponentObjectAction Priority="3" />
+        <UIComponentCommandBar Priority="3" HomeButtonImageName="RecoveryXmlB_Value" ButtonSlotImageBaseName="RecoveryXmlB_Value" GeneralButtonImageBaseName="RecoveryXmlB_Value" RenderClockName="RecoveryXmlB_Value" ClockScale="0.5" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" UnitCapFlashSeconds="3" UnitCapFinalWarningAmount="3" UnitCapInitialWarningAmount="3" UnitCapNoMoreCP="RecoveryXmlB_Value" UnitCapAlmostNoMoreCP="RecoveryXmlB_Value" ScrollPowersSoundName="RecoveryXmlB_Value" OpenUISoundName="RecoveryXmlB_Value" CloseUISoundName="RecoveryXmlB_Value" HighlightButtonSoundName="RecoveryXmlB_Value" HighlightButtonForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" TransitionForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" SelectButtonSoundName="RecoveryXmlB_Value" ZoomInSoundName="RecoveryXmlB_Value" ZoomOutSoundName="RecoveryXmlB_Value" CycleSoundName="RecoveryXmlB_Value" AptTokenTitle="RecoveryXmlB_Value" AptTokenCost="RecoveryXmlB_Value" AptTokenTime="RecoveryXmlB_Value" AptTokenEnergy="RecoveryXmlB_Value">
+          <ClockColor R="3" G="3" B="3" A="3" />
+        </UIComponentCommandBar>
+        <UIComponentInGameShowHide Priority="3" />
+        <UIComponentSUDs Priority="3" TechPointAwardedSound="RecoveryXmlB_AudioEvent_Defaults" />
+        <UIComponentPause Priority="3" />
+        <UIComponentObjectives Priority="3" AptStringNewBonusObjective="RecoveryXmlB_Value" AptStringObjectiveCompleted="RecoveryXmlB_Value" />
+        <UIComponentVictoryDefeat Priority="3">
+          <PostEndGameMusic>RecoveryXmlB_Value</PostEndGameMusic>
+          <EndGameMusicAlias>RecoveryXmlB_Value</EndGameMusicAlias>
+          <EndGameMusicAlias>RecoveryXmlB_Value</EndGameMusicAlias>
+        </UIComponentVictoryDefeat>
+        <UIComponentInGameText Priority="3" AdjustFactor="0.5" TextIndent="0.5" TooltipAppearDelayMS="3" TooltipDisappearDelayMS="3" AptTokenTitle="RecoveryXmlB_Value" AptTokenPrereq="RecoveryXmlB_Value" AptTokenCost="RecoveryXmlB_Value" AptTokenTime="RecoveryXmlB_Value" AptTokenEnergy="RecoveryXmlB_Value" AptTokenShortDesc="RecoveryXmlB_Value" AptTokenLongDesc="RecoveryXmlB_Value" ProductionTextConstruction="RecoveryXmlB_Value" ProductionTextUpgrade="RecoveryXmlB_Value" ProductionTextRecruit="RecoveryXmlB_Value" ProductionTextScale="0.5" SubtitleStringLabelPrefix="RecoveryXmlB_Value" SubtitleStringLabelSuffix="RecoveryXmlB_Value" SubtitleStringExclusionChar="RecoveryXmlB_Value">
+          <StatusTextPosition x="0.5" y="0.5" />
+          <ProductionTextColor R="0.5" G="0.5" B="0.5" />
+          <ProductionTextFont Name="RecoveryXmlB_Value" Size="3" Bold="true" />
+        </UIComponentInGameText>
+        <UIComponentFormation Priority="3" MaxDragLength="0.5" />
+        <UIComponentInputBridge Priority="3" />
+        <UIComponentSpecialPowers Priority="3" PowerTimerImage="RecoveryXmlB_PackedTextureImage_Defaults" PowerTimerFlashImageName="RecoveryXmlB_Value" />
+        <UIComponentMode Priority="3" />
+        <UIComponentJoypadTactical Priority="3" />
+        <UIComponentPlayerTechStore Priority="3" HighlightButtonSoundName="RecoveryXmlB_Value" SelectButtonSoundName="RecoveryXmlB_Value" CancelButtonSoundName="RecoveryXmlB_Value" />
+        <UIComponentRadar Priority="3" RadarWidth="3" RadarHeight="3" OrientationArrowSize="0.5" OrientationArrowImage="RecoveryXmlB_PackedTextureImage_Defaults" StatusTextInfiltration="RecoveryXmlB_Value" LeftStickMultiplier="0.5" RightStickMultiplier="0.5" LeftTriggerTolerance="3" />
+        <UIComponentCommandList Priority="3" AptTokenLeftTrigger="RecoveryXmlB_Value" AptTokenRightTrigger="RecoveryXmlB_Value" AptTokenAButton="RecoveryXmlB_Value" AptTokenBButton="RecoveryXmlB_Value" AptTokenXButton="RecoveryXmlB_Value" AptTokenYButton="RecoveryXmlB_Value" />
+        <UIComponentCoopCommander Priority="3" AssaultButtonName="RecoveryXmlB_Value" AssaultButtonDesc="RecoveryXmlB_Value" AssaultButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" NormalButtonName="RecoveryXmlB_Value" NormalButtonDesc="RecoveryXmlB_Value" NormalButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" HoldPosButtonName="RecoveryXmlB_Value" HoldPosButtonDesc="RecoveryXmlB_Value" HoldPosButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" HoldObjButtonName="RecoveryXmlB_Value" HoldObjButtonDesc="RecoveryXmlB_Value" HoldObjButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" />
+        <UIComponentPlayerPowers Priority="3" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" />
+        <UIComponentShell Priority="3" LoadMusic="RecoveryXmlB_Value" LogoRenderImage="RecoveryXmlB_Value" />
+        <UIComponentShellMultiplayer Priority="3">
+          <OfficialMapList>
+            <Map>RecoveryXmlB_Value</Map>
+            <Map>RecoveryXmlB_Value</Map>
+          </OfficialMapList>
+          <MatchOptionsRankedLabelSpec>RecoveryXmlB_Value</MatchOptionsRankedLabelSpec>
+          <MatchOptionsMatchTypeLabelSpec>RecoveryXmlB_Value</MatchOptionsMatchTypeLabelSpec>
+          <MatchOptionsPlayersLabelSpec>RecoveryXmlB_Value</MatchOptionsPlayersLabelSpec>
+          <AnyOptionLabelSpec>RecoveryXmlB_Value</AnyOptionLabelSpec>
+          <TACLineLabelSpec>RecoveryXmlB_Value</TACLineLabelSpec>
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <RankedOption Label="RecoveryXmlB_Value" Value="3" />
+          <RankedOption Label="RecoveryXmlB_Value" Value="3" />
+        </UIComponentShellMultiplayer>
+        <UIComponentLobby Priority="3">
+          <RandomStringLabel>RecoveryXmlB_Value</RandomStringLabel>
+          <FactionLabelSpec>RecoveryXmlB_Value</FactionLabelSpec>
+          <AIPersonalityLabelSpec>RecoveryXmlB_Value</AIPersonalityLabelSpec>
+          <AIDifficultyLabelSpec>RecoveryXmlB_Value</AIDifficultyLabelSpec>
+          <TeamLabelSpec>RecoveryXmlB_Value</TeamLabelSpec>
+          <MapListSpec>RecoveryXmlB_Value</MapListSpec>
+          <GameplayTypeSpec>RecoveryXmlB_Value</GameplayTypeSpec>
+          <GameTimeLimitSpec>RecoveryXmlB_Value</GameTimeLimitSpec>
+          <GameResourcesSpec>RecoveryXmlB_Value</GameResourcesSpec>
+          <HillTimeSpec>RecoveryXmlB_Value</HillTimeSpec>
+          <CapturePointsSpec>RecoveryXmlB_Value</CapturePointsSpec>
+          <BarrierTimeSpec>RecoveryXmlB_Value</BarrierTimeSpec>
+          <CaptureFlagsSpec>RecoveryXmlB_Value</CaptureFlagsSpec>
+          <Faction>Neutral</Faction>
+          <Faction>Neutral</Faction>
+          <AIDifficulty Label="RecoveryXmlB_Value" Value="BRUTAL" />
+          <AIDifficulty Label="RecoveryXmlB_Value" Value="BRUTAL" />
+          <Team Label="RecoveryXmlB_Value" Value="3" />
+          <Team Label="RecoveryXmlB_Value" Value="3" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <GameTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <GameResources Value="3" Default="true" />
+          <GameResources Value="3" Default="true" />
+          <HillTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <HillTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <BarrierTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <BarrierTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <CapturePoints Value="3" Default="true" />
+          <CapturePoints Value="3" Default="true" />
+          <CaptureFlags Value="3" Default="true" />
+          <CaptureFlags Value="3" Default="true" />
+          <MultiplayerLobbySettings>
+            <LobbyTitleLabelSpec>RecoveryXmlB_Value</LobbyTitleLabelSpec>
+            <UnmoderatedLobbyTitleTemplateSpec>RecoveryXmlB_Value</UnmoderatedLobbyTitleTemplateSpec>
+            <ModeratedLobbyTitleTemplateSpec>RecoveryXmlB_Value</ModeratedLobbyTitleTemplateSpec>
+            <PlayerNameLabelSpec>RecoveryXmlB_Value</PlayerNameLabelSpec>
+            <SlotLabelSpec>RecoveryXmlB_Value</SlotLabelSpec>
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+          </MultiplayerLobbySettings>
+          <SkirmishLobbySettings>
+            <LoadMusic>RecoveryXmlB_Value</LoadMusic>
+            <SlotLabelSpec>RecoveryXmlB_Value</SlotLabelSpec>
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+          </SkirmishLobbySettings>
+        </UIComponentLobby>
+        <UIComponentBootup Priority="3" RenderImageName="RecoveryXmlB_Value" LoadingTextImageName="RecoveryXmlB_Value" />
+        <UIComponentTicker Priority="3" CustomRenderName="RecoveryXmlB_Value" NumberOfTickerDisplays="3" ScrollSpeedPixelPerSec="0.5" NumberOfPixelsBetweenHeadline="0.5">
+          <TickerColor R="3" G="3" B="3" A="3" />
+          <TickerGroup Name="RecoveryXmlB_Value" HTTPAddress="RecoveryXmlB_Value" />
+          <TickerGroup Name="RecoveryXmlB_Value" HTTPAddress="RecoveryXmlB_Value" />
+        </UIComponentTicker>
+        <UIComponentMouseTactical Priority="3" />
+        <UIComponentDisconnect Priority="3" />
+        <UIComponentMouseInGame Priority="3" />
+        <UIComponentAutoMatch Priority="3" />
+        <UIComponentComlinkNotification Priority="3">
+          <MessageTokenSpec>RecoveryXmlB_Value</MessageTokenSpec>
+        </UIComponentComlinkNotification>
+        <UIComponentGameSetup Priority="3" />
+        <UIComponentKeyboard Priority="3" EditableTextLabelPrefix="RecoveryXmlB_Value" />
+        <UIComponentLanLobby Priority="3">
+          <PlayerlistMinUpdateFreq>3</PlayerlistMinUpdateFreq>
+          <GamelistMinUpdateFreq>3</GamelistMinUpdateFreq>
+          <PlayerNameAptTokenSpec>RecoveryXmlB_Value</PlayerNameAptTokenSpec>
+          <GameNameAptTokenSpec>RecoveryXmlB_Value</GameNameAptTokenSpec>
+          <LocalPlayerNameAptTokenSpec>RecoveryXmlB_Value</LocalPlayerNameAptTokenSpec>
+        </UIComponentLanLobby>
+        <UIComponentMapList Priority="3">
+          <MapListLabelPrefix>RecoveryXmlB_Value</MapListLabelPrefix>
+        </UIComponentMapList>
+        <UIComponentMouse Priority="3" />
+        <UIComponentProfileManager Priority="3">
+          <ProfileListLabelPrefix>RecoveryXmlB_Value</ProfileListLabelPrefix>
+        </UIComponentProfileManager>
+        <UIComponentOnlineInvite Priority="3">
+          <MaxNumberLoggedInvites>3</MaxNumberLoggedInvites>
+          <InviteNameAptTokenSpec>RecoveryXmlB_Value</InviteNameAptTokenSpec>
+        </UIComponentOnlineInvite>
+        <UIComponentOnlineLogin Priority="3" />
+        <UIComponentOnlineBuddyList Priority="3">
+          <BuddyNameAptTokenSpec>RecoveryXmlB_Value</BuddyNameAptTokenSpec>
+          <BuddyLocAptTokenSpec>RecoveryXmlB_Value</BuddyLocAptTokenSpec>
+        </UIComponentOnlineBuddyList>
+        <UIComponentOnlineGameList Priority="3">
+          <GameNameAptTokenSpec>RecoveryXmlB_Value</GameNameAptTokenSpec>
+          <GameMapNameAptTokenSpec>RecoveryXmlB_Value</GameMapNameAptTokenSpec>
+          <GameListRefreshInterval>3</GameListRefreshInterval>
+        </UIComponentOnlineGameList>
+        <UIComponentOnlineLobbyList Priority="3">
+          <LobbyNameAptTokenSpec>RecoveryXmlB_Value</LobbyNameAptTokenSpec>
+        </UIComponentOnlineLobbyList>
+        <UIComponentOnlinePlayerList Priority="3">
+          <PlayerNameAptTokenSpec>RecoveryXmlB_Value</PlayerNameAptTokenSpec>
+        </UIComponentOnlinePlayerList>
+        <UIComponentPcSaveLoad Priority="3">
+          <MapPrefix>RecoveryXmlB_Value</MapPrefix>
+          <DescriptionPrefix>RecoveryXmlB_Value</DescriptionPrefix>
+          <TimePrefix>RecoveryXmlB_Value</TimePrefix>
+          <DatePrefix>RecoveryXmlB_Value</DatePrefix>
+        </UIComponentPcSaveLoad>
+        <UIComponentShellVisibility Priority="3" />
+        <UIComponentOptionsSettingsAudio Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <DefaultVoipEnable>true</DefaultVoipEnable>
+          <DefaultVoipBoostMicGain>true</DefaultVoipBoostMicGain>
+        </UIComponentOptionsSettingsAudio>
+        <UIComponentOptionsSettingsGeneral Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <MinTooltipDelayMS>3</MinTooltipDelayMS>
+          <MaxTooltipDelayMS>3</MaxTooltipDelayMS>
+          <DefaultTooltipDelayMS>3</DefaultTooltipDelayMS>
+          <DefaultMouseSensitivity>0.5</DefaultMouseSensitivity>
+          <DefaultAlternateMouse>true</DefaultAlternateMouse>
+          <DefaultShowNews>true</DefaultShowNews>
+          <DefaultShowAds>true</DefaultShowAds>
+        </UIComponentOptionsSettingsGeneral>
+        <UIComponentOptionsSettingsGraphics Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <DefaultBrightness>0.5</DefaultBrightness>
+          <PresetsAptTokenSpec>RecoveryXmlB_Value</PresetsAptTokenSpec>
+          <PresetsStrLookupSpec>RecoveryXmlB_Value</PresetsStrLookupSpec>
+          <ResolutionAptTokenSpec>RecoveryXmlB_Value</ResolutionAptTokenSpec>
+          <AntialiasingAptTokenSpec>RecoveryXmlB_Value</AntialiasingAptTokenSpec>
+          <AntialiasingOffStrLookupSpec>RecoveryXmlB_Value</AntialiasingOffStrLookupSpec>
+          <AntialiasingOnStrLookupSpec>RecoveryXmlB_Value</AntialiasingOnStrLookupSpec>
+          <TerrainDetailAptTokenSpec>RecoveryXmlB_Value</TerrainDetailAptTokenSpec>
+          <TerrainDetailStrLookupSpec>RecoveryXmlB_Value</TerrainDetailStrLookupSpec>
+          <WaterDetailAptTokenSpec>RecoveryXmlB_Value</WaterDetailAptTokenSpec>
+          <WaterDetailStrLookupSpec>RecoveryXmlB_Value</WaterDetailStrLookupSpec>
+          <ModelDetailAptTokenSpec>RecoveryXmlB_Value</ModelDetailAptTokenSpec>
+          <ModelDetailStrLookupSpec>RecoveryXmlB_Value</ModelDetailStrLookupSpec>
+          <TextureQualityAptTokenSpec>RecoveryXmlB_Value</TextureQualityAptTokenSpec>
+          <TextureQualityStrLookupSpec>RecoveryXmlB_Value</TextureQualityStrLookupSpec>
+          <ShaderDetailAptTokenSpec>RecoveryXmlB_Value</ShaderDetailAptTokenSpec>
+          <ShaderDetailStrLookupSpec>RecoveryXmlB_Value</ShaderDetailStrLookupSpec>
+          <VFXDetailAptTokenSpec>RecoveryXmlB_Value</VFXDetailAptTokenSpec>
+          <VFXDetailStrLookupSpec>RecoveryXmlB_Value</VFXDetailStrLookupSpec>
+          <ShadowDetailAptTokenSpec>RecoveryXmlB_Value</ShadowDetailAptTokenSpec>
+          <ShadowDetailStrLookupSpec>RecoveryXmlB_Value</ShadowDetailStrLookupSpec>
+          <AnimationDetailAptTokenSpec>RecoveryXmlB_Value</AnimationDetailAptTokenSpec>
+          <AnimationDetailStrLookupSpec>RecoveryXmlB_Value</AnimationDetailStrLookupSpec>
+          <DecalDetailAptTokenSpec>RecoveryXmlB_Value</DecalDetailAptTokenSpec>
+          <DecalDetailStrLookupSpec>RecoveryXmlB_Value</DecalDetailStrLookupSpec>
+        </UIComponentOptionsSettingsGraphics>
+        <UIComponentOptionsSettingsHotkeys Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+        </UIComponentOptionsSettingsHotkeys>
+        <UIComponentOptionsSettingsNetwork Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+        </UIComponentOptionsSettingsNetwork>
+        <UIComponentChat Priority="3" ChatTextLocalLabelPrefix="RecoveryXmlB_Value" ChatTextGlobalLabelPrefix="RecoveryXmlB_Value" />
+        <UIComponentVoiceChat Priority="3" />
+        <UIComponentCareerStats Priority="3" DefaultRankImage="RecoveryXmlB_PackedTextureImage_Defaults">
+          <CareerStat StatType="Time" StatLabel="RecoveryXmlB_Value" IsRatio="true" NoSummary="true" RatioNumerator="StructuresInfiltrated" RatioDenominator="StructuresInfiltrated" />
+          <CareerStat StatType="Time" StatLabel="RecoveryXmlB_Value" IsRatio="true" NoSummary="true" RatioNumerator="StructuresInfiltrated" RatioDenominator="StructuresInfiltrated" />
+        </UIComponentCareerStats>
+        <UIComponentLoadScreen Priority="3" />
+        <UIComponentCredits Priority="3" />
+        <UIComponentAptMediator Priority="3" AptGlobalLoadVarName="RecoveryXmlB_Value" AptEventHandlerName="RecoveryXmlB_Value" AptFSCommandHandlerName="RecoveryXmlB_Value" AptTokenDelimiters="RecoveryXmlB_Value" NewSkoolIndicator="x" FunctionSeparator="x" ValueSeparator="x" InputParameterSeparator="x" ParameterNameSeparator="RecoveryXmlB_Value" ParameterStartIndicator="x" SubObjectSeparator="x" OutputParameterSeparator="x" />
+        <UIComponentCampaign Priority="3" />
+        <UIComponentMessage Priority="3" />
+        <UIComponentPostGame Priority="3" AlliesFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" SovietFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" JapanFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" DefaultImage="RecoveryXmlB_PackedTextureImage_Defaults">
+          <PostGameStat StatType="CommanderPowersUsed" StatLabel="RecoveryXmlB_Value" />
+          <PostGameStat StatType="CommanderPowersUsed" StatLabel="RecoveryXmlB_Value" />
+        </UIComponentPostGame>
+        <UIComponentTutorial Priority="3" />
+        <UIComponentMovieArchive Priority="3" MissionSpec="RecoveryXmlB_Value">
+          <FactionMovieArchive Faction="Neutral">
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+          </FactionMovieArchive>
+          <FactionMovieArchive Faction="Neutral">
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+          </FactionMovieArchive>
+        </UIComponentMovieArchive>
+      </ComponentList>
+    </UIDynamicConfig>
+    <UIDynamicConfig Name="RecoveryXmlB_Value" Type="LOADSCREEN">
+      <ComponentList>
+        <UIComponentAptJoypad Priority="3" RelayLeftStickPosition="true" RelayRightStickPosition="true" />
+        <UIComponentSound Priority="3" />
+        <UIComponentMovie Priority="3" MovieComponentName="RecoveryXmlB_Value" MaxNumberOfStream="3" />
+        <UIComponentSaveLoad Priority="3" FileToken="RecoveryXmlB_Value" />
+        <UIComponentOptions Priority="3" ControlsToken="RecoveryXmlB_Value" SaveFileName="RecoveryXmlB_Value">
+          <ControlsText>RecoveryXmlB_Value</ControlsText>
+          <ControlsText>RecoveryXmlB_Value</ControlsText>
+          <DefaultValues Difficulty="3" Gamma="0.5" Brightness="0.5" Contrast="0.5" VolumeMusic="0.5" VolumeFX="0.5" VolumeVoice="0.5" VolumeAmbient="0.5" VolumeMovie="0.5" ScrollSpeed="0.5" ScrollMagnetism="3" ButtonIcon="true" ShowCommandList="true" HealthBars="true" HighlightPads="true" ToolTips="true" Subtitles="true" InvertRotate="true" Telemetry="true" DefaultFaction="3" VisionCamVisible="true" VisionCamZoom="3" ScrollSpeedMin="0.5" ScrollSpeedMax="0.5" />
+          <CommandList CategoryName="RecoveryXmlB_Value">
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+          </CommandList>
+          <CommandList CategoryName="RecoveryXmlB_Value">
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+            <CommandLine Purpose="RecoveryXmlB_Value" Description="RecoveryXmlB_Value">
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+              <Input ButtonName="GUIDE" ButtonAction="LINK_WITH_NEXT" />
+            </CommandLine>
+          </CommandList>
+        </UIComponentOptions>
+        <UIComponentGameInfo Priority="3" GameScoreDisplayToken="RecoveryXmlB_Value" ScorePlayerToken="RecoveryXmlB_Value" FactionLabelToken="RecoveryXmlB_Value" GameScoreXLocWS="3" GameScoreXLoc="3" GameScoreYLocWS="3" GameScoreYLoc="3" Player1ScoreXLocWS="3" Player1ScoreXLoc="3" Player1ScoreYLocWS="3" Player1ScoreYLoc="3" Player2ScoreXLocWS="3" Player2ScoreXLoc="3" Player2ScoreYLocWS="3" Player2ScoreYLoc="3" Player3ScoreXLocWS="3" Player3ScoreXLoc="3" Player3ScoreYLocWS="3" Player3ScoreYLoc="3" Player4ScoreXLocWS="3" Player4ScoreXLoc="3" Player4ScoreYLocWS="3" Player4ScoreYLoc="3">
+          <FactionValue>RecoveryXmlB_Value</FactionValue>
+          <FactionValue>RecoveryXmlB_Value</FactionValue>
+        </UIComponentGameInfo>
+        <UIComponentStats Priority="3" PlayerToken="RecoveryXmlB_Value" TitleToken="RecoveryXmlB_Value" DataToken="RecoveryXmlB_Value" />
+        <UIComponentPlasmaInterface Priority="3" />
+        <UIComponentCheats Priority="3" />
+        <UIComponentGameViewJoypad Priority="3" LeftStickMultiplier="0.5" RightStickMultiplier="0.5" ObjectAttractivityForce="0.5" MinAttractDistance="0.5" MinAttractDistanceZoomed="0.5" MaxAttractiveForce="0.5" KindOfExemptFromAttraction="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" ScrollSpeedMin="0.5" ScrollSpeedMax="0.5" ScrollSpeedMaxCutoff="0.5" ScrollSpeedMinCutoff="0.5" InternalZoomInValue="0.5" InternalZoomOutValue="0.5" RapidScrollMultiplier="0.5" MagnetismTuning_LOW_Strength="0.5" MagnetismTuning_LOW_Distance="0.5" MagnetismTuning_HIGH_Strength="0.5" MagnetismTuning_HIGH_Distance="0.5">
+          <MagnetismObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </MagnetismObjectFilter>
+        </UIComponentGameViewJoypad>
+        <UIComponentObjectSelector Priority="3" ShowAllHealthBars="true" PortraitName="RecoveryXmlB_Value" UnitAbility="RecoveryXmlB_Value" StatusTextNothingSelected="RecoveryXmlB_Value" StatusTextSelectedAcrossMap="RecoveryXmlB_Value" StatusTextSelectedAcrossScreen="RecoveryXmlB_Value" AllArmyImageGDI="RecoveryXmlB_PackedTextureImage_Defaults" AllArmyImageNOD="RecoveryXmlB_PackedTextureImage_Defaults" AllArmyImageAlien="RecoveryXmlB_PackedTextureImage_Defaults" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" AssaultTargetForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent">
+          <AlienHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </AlienHighlightDecal>
+          <GDIHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </GDIHighlightDecal>
+          <NODHighlightDecal>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+            <Component Style="MERGE_DECAL" OpacityMin="50%" OpacityMax="50%" OpacityPulsesPerSecond="0.5" RotationMin="0.5" RotationMax="0.5" RotationDegreesPerSecond="0.5" MinRadius="0.5" MaxRadius="0.5" RadiusPulsesPerSecond="0.5" PositionOffsetMin="0.5" PositionOffsetMax="0.5" PositionOffsetPulsesPerSecond="0.5">
+              <Color R="3" G="3" B="3" A="3" />
+            </Component>
+          </NODHighlightDecal>
+          <ShortcutObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </ShortcutObjects>
+          <ShortcutObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </ShortcutObjects>
+          <SupportObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </SupportObjects>
+          <SupportObjects Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+            <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+          </SupportObjects>
+          <ClockColor R="3" G="3" B="3" A="3" />
+        </UIComponentObjectSelector>
+        <UIComponentCursor Priority="3" AptEventCursorChanged="RecoveryXmlB_Value" HoverSelectForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" />
+        <UIComponentObjectAction Priority="3" />
+        <UIComponentCommandBar Priority="3" HomeButtonImageName="RecoveryXmlB_Value" ButtonSlotImageBaseName="RecoveryXmlB_Value" GeneralButtonImageBaseName="RecoveryXmlB_Value" RenderClockName="RecoveryXmlB_Value" ClockScale="0.5" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" UnitCapFlashSeconds="3" UnitCapFinalWarningAmount="3" UnitCapInitialWarningAmount="3" UnitCapNoMoreCP="RecoveryXmlB_Value" UnitCapAlmostNoMoreCP="RecoveryXmlB_Value" ScrollPowersSoundName="RecoveryXmlB_Value" OpenUISoundName="RecoveryXmlB_Value" CloseUISoundName="RecoveryXmlB_Value" HighlightButtonSoundName="RecoveryXmlB_Value" HighlightButtonForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" TransitionForceFeedback="RecoveryXmlB_Weak_ForceFeedbackEvent" SelectButtonSoundName="RecoveryXmlB_Value" ZoomInSoundName="RecoveryXmlB_Value" ZoomOutSoundName="RecoveryXmlB_Value" CycleSoundName="RecoveryXmlB_Value" AptTokenTitle="RecoveryXmlB_Value" AptTokenCost="RecoveryXmlB_Value" AptTokenTime="RecoveryXmlB_Value" AptTokenEnergy="RecoveryXmlB_Value">
+          <ClockColor R="3" G="3" B="3" A="3" />
+        </UIComponentCommandBar>
+        <UIComponentInGameShowHide Priority="3" />
+        <UIComponentSUDs Priority="3" TechPointAwardedSound="RecoveryXmlB_AudioEvent_Defaults" />
+        <UIComponentPause Priority="3" />
+        <UIComponentObjectives Priority="3" AptStringNewBonusObjective="RecoveryXmlB_Value" AptStringObjectiveCompleted="RecoveryXmlB_Value" />
+        <UIComponentVictoryDefeat Priority="3">
+          <PostEndGameMusic>RecoveryXmlB_Value</PostEndGameMusic>
+          <EndGameMusicAlias>RecoveryXmlB_Value</EndGameMusicAlias>
+          <EndGameMusicAlias>RecoveryXmlB_Value</EndGameMusicAlias>
+        </UIComponentVictoryDefeat>
+        <UIComponentInGameText Priority="3" AdjustFactor="0.5" TextIndent="0.5" TooltipAppearDelayMS="3" TooltipDisappearDelayMS="3" AptTokenTitle="RecoveryXmlB_Value" AptTokenPrereq="RecoveryXmlB_Value" AptTokenCost="RecoveryXmlB_Value" AptTokenTime="RecoveryXmlB_Value" AptTokenEnergy="RecoveryXmlB_Value" AptTokenShortDesc="RecoveryXmlB_Value" AptTokenLongDesc="RecoveryXmlB_Value" ProductionTextConstruction="RecoveryXmlB_Value" ProductionTextUpgrade="RecoveryXmlB_Value" ProductionTextRecruit="RecoveryXmlB_Value" ProductionTextScale="0.5" SubtitleStringLabelPrefix="RecoveryXmlB_Value" SubtitleStringLabelSuffix="RecoveryXmlB_Value" SubtitleStringExclusionChar="RecoveryXmlB_Value">
+          <StatusTextPosition x="0.5" y="0.5" />
+          <ProductionTextColor R="0.5" G="0.5" B="0.5" />
+          <ProductionTextFont Name="RecoveryXmlB_Value" Size="3" Bold="true" />
+        </UIComponentInGameText>
+        <UIComponentFormation Priority="3" MaxDragLength="0.5" />
+        <UIComponentInputBridge Priority="3" />
+        <UIComponentSpecialPowers Priority="3" PowerTimerImage="RecoveryXmlB_PackedTextureImage_Defaults" PowerTimerFlashImageName="RecoveryXmlB_Value" />
+        <UIComponentMode Priority="3" />
+        <UIComponentJoypadTactical Priority="3" />
+        <UIComponentPlayerTechStore Priority="3" HighlightButtonSoundName="RecoveryXmlB_Value" SelectButtonSoundName="RecoveryXmlB_Value" CancelButtonSoundName="RecoveryXmlB_Value" />
+        <UIComponentRadar Priority="3" RadarWidth="3" RadarHeight="3" OrientationArrowSize="0.5" OrientationArrowImage="RecoveryXmlB_PackedTextureImage_Defaults" StatusTextInfiltration="RecoveryXmlB_Value" LeftStickMultiplier="0.5" RightStickMultiplier="0.5" LeftTriggerTolerance="3" />
+        <UIComponentCommandList Priority="3" AptTokenLeftTrigger="RecoveryXmlB_Value" AptTokenRightTrigger="RecoveryXmlB_Value" AptTokenAButton="RecoveryXmlB_Value" AptTokenBButton="RecoveryXmlB_Value" AptTokenXButton="RecoveryXmlB_Value" AptTokenYButton="RecoveryXmlB_Value" />
+        <UIComponentCoopCommander Priority="3" AssaultButtonName="RecoveryXmlB_Value" AssaultButtonDesc="RecoveryXmlB_Value" AssaultButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" NormalButtonName="RecoveryXmlB_Value" NormalButtonDesc="RecoveryXmlB_Value" NormalButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" HoldPosButtonName="RecoveryXmlB_Value" HoldPosButtonDesc="RecoveryXmlB_Value" HoldPosButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" HoldObjButtonName="RecoveryXmlB_Value" HoldObjButtonDesc="RecoveryXmlB_Value" HoldObjButtonCommandBarButtonTemplate="RecoveryXmlB_Weak_JoypadCommandBarButtonTemplate" />
+        <UIComponentPlayerPowers Priority="3" ClockImage="RecoveryXmlB_PackedTextureImage_Defaults" />
+        <UIComponentShell Priority="3" LoadMusic="RecoveryXmlB_Value" LogoRenderImage="RecoveryXmlB_Value" />
+        <UIComponentShellMultiplayer Priority="3">
+          <OfficialMapList>
+            <Map>RecoveryXmlB_Value</Map>
+            <Map>RecoveryXmlB_Value</Map>
+          </OfficialMapList>
+          <MatchOptionsRankedLabelSpec>RecoveryXmlB_Value</MatchOptionsRankedLabelSpec>
+          <MatchOptionsMatchTypeLabelSpec>RecoveryXmlB_Value</MatchOptionsMatchTypeLabelSpec>
+          <MatchOptionsPlayersLabelSpec>RecoveryXmlB_Value</MatchOptionsPlayersLabelSpec>
+          <AnyOptionLabelSpec>RecoveryXmlB_Value</AnyOptionLabelSpec>
+          <TACLineLabelSpec>RecoveryXmlB_Value</TACLineLabelSpec>
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <RankedOption Label="RecoveryXmlB_Value" Value="3" />
+          <RankedOption Label="RecoveryXmlB_Value" Value="3" />
+        </UIComponentShellMultiplayer>
+        <UIComponentLobby Priority="3">
+          <RandomStringLabel>RecoveryXmlB_Value</RandomStringLabel>
+          <FactionLabelSpec>RecoveryXmlB_Value</FactionLabelSpec>
+          <AIPersonalityLabelSpec>RecoveryXmlB_Value</AIPersonalityLabelSpec>
+          <AIDifficultyLabelSpec>RecoveryXmlB_Value</AIDifficultyLabelSpec>
+          <TeamLabelSpec>RecoveryXmlB_Value</TeamLabelSpec>
+          <MapListSpec>RecoveryXmlB_Value</MapListSpec>
+          <GameplayTypeSpec>RecoveryXmlB_Value</GameplayTypeSpec>
+          <GameTimeLimitSpec>RecoveryXmlB_Value</GameTimeLimitSpec>
+          <GameResourcesSpec>RecoveryXmlB_Value</GameResourcesSpec>
+          <HillTimeSpec>RecoveryXmlB_Value</HillTimeSpec>
+          <CapturePointsSpec>RecoveryXmlB_Value</CapturePointsSpec>
+          <BarrierTimeSpec>RecoveryXmlB_Value</BarrierTimeSpec>
+          <CaptureFlagsSpec>RecoveryXmlB_Value</CaptureFlagsSpec>
+          <Faction>Neutral</Faction>
+          <Faction>Neutral</Faction>
+          <AIDifficulty Label="RecoveryXmlB_Value" Value="BRUTAL" />
+          <AIDifficulty Label="RecoveryXmlB_Value" Value="BRUTAL" />
+          <Team Label="RecoveryXmlB_Value" Value="3" />
+          <Team Label="RecoveryXmlB_Value" Value="3" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameType Label="RecoveryXmlB_Value" Value="SIEGE" AvailableWithAI="true" />
+          <GameTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <GameTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <GameResources Value="3" Default="true" />
+          <GameResources Value="3" Default="true" />
+          <HillTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <HillTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <BarrierTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <BarrierTime Label="RecoveryXmlB_Value" Value="3" Default="true" MinGameTimeValue="3" />
+          <CapturePoints Value="3" Default="true" />
+          <CapturePoints Value="3" Default="true" />
+          <CaptureFlags Value="3" Default="true" />
+          <CaptureFlags Value="3" Default="true" />
+          <MultiplayerLobbySettings>
+            <LobbyTitleLabelSpec>RecoveryXmlB_Value</LobbyTitleLabelSpec>
+            <UnmoderatedLobbyTitleTemplateSpec>RecoveryXmlB_Value</UnmoderatedLobbyTitleTemplateSpec>
+            <ModeratedLobbyTitleTemplateSpec>RecoveryXmlB_Value</ModeratedLobbyTitleTemplateSpec>
+            <PlayerNameLabelSpec>RecoveryXmlB_Value</PlayerNameLabelSpec>
+            <SlotLabelSpec>RecoveryXmlB_Value</SlotLabelSpec>
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+          </MultiplayerLobbySettings>
+          <SkirmishLobbySettings>
+            <LoadMusic>RecoveryXmlB_Value</LoadMusic>
+            <SlotLabelSpec>RecoveryXmlB_Value</SlotLabelSpec>
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+            <SlotState Label="RecoveryXmlB_Value" Value="AI" AvailableInRanked="true" AvailableInModerated="true" />
+          </SkirmishLobbySettings>
+        </UIComponentLobby>
+        <UIComponentBootup Priority="3" RenderImageName="RecoveryXmlB_Value" LoadingTextImageName="RecoveryXmlB_Value" />
+        <UIComponentTicker Priority="3" CustomRenderName="RecoveryXmlB_Value" NumberOfTickerDisplays="3" ScrollSpeedPixelPerSec="0.5" NumberOfPixelsBetweenHeadline="0.5">
+          <TickerColor R="3" G="3" B="3" A="3" />
+          <TickerGroup Name="RecoveryXmlB_Value" HTTPAddress="RecoveryXmlB_Value" />
+          <TickerGroup Name="RecoveryXmlB_Value" HTTPAddress="RecoveryXmlB_Value" />
+        </UIComponentTicker>
+        <UIComponentMouseTactical Priority="3" />
+        <UIComponentDisconnect Priority="3" />
+        <UIComponentMouseInGame Priority="3" />
+        <UIComponentAutoMatch Priority="3" />
+        <UIComponentComlinkNotification Priority="3">
+          <MessageTokenSpec>RecoveryXmlB_Value</MessageTokenSpec>
+        </UIComponentComlinkNotification>
+        <UIComponentGameSetup Priority="3" />
+        <UIComponentKeyboard Priority="3" EditableTextLabelPrefix="RecoveryXmlB_Value" />
+        <UIComponentLanLobby Priority="3">
+          <PlayerlistMinUpdateFreq>3</PlayerlistMinUpdateFreq>
+          <GamelistMinUpdateFreq>3</GamelistMinUpdateFreq>
+          <PlayerNameAptTokenSpec>RecoveryXmlB_Value</PlayerNameAptTokenSpec>
+          <GameNameAptTokenSpec>RecoveryXmlB_Value</GameNameAptTokenSpec>
+          <LocalPlayerNameAptTokenSpec>RecoveryXmlB_Value</LocalPlayerNameAptTokenSpec>
+        </UIComponentLanLobby>
+        <UIComponentMapList Priority="3">
+          <MapListLabelPrefix>RecoveryXmlB_Value</MapListLabelPrefix>
+        </UIComponentMapList>
+        <UIComponentMouse Priority="3" />
+        <UIComponentProfileManager Priority="3">
+          <ProfileListLabelPrefix>RecoveryXmlB_Value</ProfileListLabelPrefix>
+        </UIComponentProfileManager>
+        <UIComponentOnlineInvite Priority="3">
+          <MaxNumberLoggedInvites>3</MaxNumberLoggedInvites>
+          <InviteNameAptTokenSpec>RecoveryXmlB_Value</InviteNameAptTokenSpec>
+        </UIComponentOnlineInvite>
+        <UIComponentOnlineLogin Priority="3" />
+        <UIComponentOnlineBuddyList Priority="3">
+          <BuddyNameAptTokenSpec>RecoveryXmlB_Value</BuddyNameAptTokenSpec>
+          <BuddyLocAptTokenSpec>RecoveryXmlB_Value</BuddyLocAptTokenSpec>
+        </UIComponentOnlineBuddyList>
+        <UIComponentOnlineGameList Priority="3">
+          <GameNameAptTokenSpec>RecoveryXmlB_Value</GameNameAptTokenSpec>
+          <GameMapNameAptTokenSpec>RecoveryXmlB_Value</GameMapNameAptTokenSpec>
+          <GameListRefreshInterval>3</GameListRefreshInterval>
+        </UIComponentOnlineGameList>
+        <UIComponentOnlineLobbyList Priority="3">
+          <LobbyNameAptTokenSpec>RecoveryXmlB_Value</LobbyNameAptTokenSpec>
+        </UIComponentOnlineLobbyList>
+        <UIComponentOnlinePlayerList Priority="3">
+          <PlayerNameAptTokenSpec>RecoveryXmlB_Value</PlayerNameAptTokenSpec>
+        </UIComponentOnlinePlayerList>
+        <UIComponentPcSaveLoad Priority="3">
+          <MapPrefix>RecoveryXmlB_Value</MapPrefix>
+          <DescriptionPrefix>RecoveryXmlB_Value</DescriptionPrefix>
+          <TimePrefix>RecoveryXmlB_Value</TimePrefix>
+          <DatePrefix>RecoveryXmlB_Value</DatePrefix>
+        </UIComponentPcSaveLoad>
+        <UIComponentShellVisibility Priority="3" />
+        <UIComponentOptionsSettingsAudio Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <DefaultVoipEnable>true</DefaultVoipEnable>
+          <DefaultVoipBoostMicGain>true</DefaultVoipBoostMicGain>
+        </UIComponentOptionsSettingsAudio>
+        <UIComponentOptionsSettingsGeneral Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <MinTooltipDelayMS>3</MinTooltipDelayMS>
+          <MaxTooltipDelayMS>3</MaxTooltipDelayMS>
+          <DefaultTooltipDelayMS>3</DefaultTooltipDelayMS>
+          <DefaultMouseSensitivity>0.5</DefaultMouseSensitivity>
+          <DefaultAlternateMouse>true</DefaultAlternateMouse>
+          <DefaultShowNews>true</DefaultShowNews>
+          <DefaultShowAds>true</DefaultShowAds>
+        </UIComponentOptionsSettingsGeneral>
+        <UIComponentOptionsSettingsGraphics Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+          <DefaultBrightness>0.5</DefaultBrightness>
+          <PresetsAptTokenSpec>RecoveryXmlB_Value</PresetsAptTokenSpec>
+          <PresetsStrLookupSpec>RecoveryXmlB_Value</PresetsStrLookupSpec>
+          <ResolutionAptTokenSpec>RecoveryXmlB_Value</ResolutionAptTokenSpec>
+          <AntialiasingAptTokenSpec>RecoveryXmlB_Value</AntialiasingAptTokenSpec>
+          <AntialiasingOffStrLookupSpec>RecoveryXmlB_Value</AntialiasingOffStrLookupSpec>
+          <AntialiasingOnStrLookupSpec>RecoveryXmlB_Value</AntialiasingOnStrLookupSpec>
+          <TerrainDetailAptTokenSpec>RecoveryXmlB_Value</TerrainDetailAptTokenSpec>
+          <TerrainDetailStrLookupSpec>RecoveryXmlB_Value</TerrainDetailStrLookupSpec>
+          <WaterDetailAptTokenSpec>RecoveryXmlB_Value</WaterDetailAptTokenSpec>
+          <WaterDetailStrLookupSpec>RecoveryXmlB_Value</WaterDetailStrLookupSpec>
+          <ModelDetailAptTokenSpec>RecoveryXmlB_Value</ModelDetailAptTokenSpec>
+          <ModelDetailStrLookupSpec>RecoveryXmlB_Value</ModelDetailStrLookupSpec>
+          <TextureQualityAptTokenSpec>RecoveryXmlB_Value</TextureQualityAptTokenSpec>
+          <TextureQualityStrLookupSpec>RecoveryXmlB_Value</TextureQualityStrLookupSpec>
+          <ShaderDetailAptTokenSpec>RecoveryXmlB_Value</ShaderDetailAptTokenSpec>
+          <ShaderDetailStrLookupSpec>RecoveryXmlB_Value</ShaderDetailStrLookupSpec>
+          <VFXDetailAptTokenSpec>RecoveryXmlB_Value</VFXDetailAptTokenSpec>
+          <VFXDetailStrLookupSpec>RecoveryXmlB_Value</VFXDetailStrLookupSpec>
+          <ShadowDetailAptTokenSpec>RecoveryXmlB_Value</ShadowDetailAptTokenSpec>
+          <ShadowDetailStrLookupSpec>RecoveryXmlB_Value</ShadowDetailStrLookupSpec>
+          <AnimationDetailAptTokenSpec>RecoveryXmlB_Value</AnimationDetailAptTokenSpec>
+          <AnimationDetailStrLookupSpec>RecoveryXmlB_Value</AnimationDetailStrLookupSpec>
+          <DecalDetailAptTokenSpec>RecoveryXmlB_Value</DecalDetailAptTokenSpec>
+          <DecalDetailStrLookupSpec>RecoveryXmlB_Value</DecalDetailStrLookupSpec>
+        </UIComponentOptionsSettingsGraphics>
+        <UIComponentOptionsSettingsHotkeys Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+        </UIComponentOptionsSettingsHotkeys>
+        <UIComponentOptionsSettingsNetwork Priority="3">
+          <LoadVarQueryReturnToken>RecoveryXmlB_Value</LoadVarQueryReturnToken>
+        </UIComponentOptionsSettingsNetwork>
+        <UIComponentChat Priority="3" ChatTextLocalLabelPrefix="RecoveryXmlB_Value" ChatTextGlobalLabelPrefix="RecoveryXmlB_Value" />
+        <UIComponentVoiceChat Priority="3" />
+        <UIComponentCareerStats Priority="3" DefaultRankImage="RecoveryXmlB_PackedTextureImage_Defaults">
+          <CareerStat StatType="Time" StatLabel="RecoveryXmlB_Value" IsRatio="true" NoSummary="true" RatioNumerator="StructuresInfiltrated" RatioDenominator="StructuresInfiltrated" />
+          <CareerStat StatType="Time" StatLabel="RecoveryXmlB_Value" IsRatio="true" NoSummary="true" RatioNumerator="StructuresInfiltrated" RatioDenominator="StructuresInfiltrated" />
+        </UIComponentCareerStats>
+        <UIComponentLoadScreen Priority="3" />
+        <UIComponentCredits Priority="3" />
+        <UIComponentAptMediator Priority="3" AptGlobalLoadVarName="RecoveryXmlB_Value" AptEventHandlerName="RecoveryXmlB_Value" AptFSCommandHandlerName="RecoveryXmlB_Value" AptTokenDelimiters="RecoveryXmlB_Value" NewSkoolIndicator="x" FunctionSeparator="x" ValueSeparator="x" InputParameterSeparator="x" ParameterNameSeparator="RecoveryXmlB_Value" ParameterStartIndicator="x" SubObjectSeparator="x" OutputParameterSeparator="x" />
+        <UIComponentCampaign Priority="3" />
+        <UIComponentMessage Priority="3" />
+        <UIComponentPostGame Priority="3" AlliesFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" SovietFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" JapanFactionImage="RecoveryXmlB_PackedTextureImage_Defaults" DefaultImage="RecoveryXmlB_PackedTextureImage_Defaults">
+          <PostGameStat StatType="CommanderPowersUsed" StatLabel="RecoveryXmlB_Value" />
+          <PostGameStat StatType="CommanderPowersUsed" StatLabel="RecoveryXmlB_Value" />
+        </UIComponentPostGame>
+        <UIComponentTutorial Priority="3" />
+        <UIComponentMovieArchive Priority="3" MissionSpec="RecoveryXmlB_Value">
+          <FactionMovieArchive Faction="Neutral">
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+          </FactionMovieArchive>
+          <FactionMovieArchive Faction="Neutral">
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+            <Movie ProgressLock="3" MovieImage="RecoveryXmlB_OnDemandTextureImage_Defaults" FileName="RecoveryXmlB_Value" OnScreenName="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" />
+          </FactionMovieArchive>
+        </UIComponentMovieArchive>
+      </ComponentList>
+    </UIDynamicConfig>
+  </UIConfigList>
+  <UIDecalGrid WallTexture="" id="RecoveryXmlB_UIDecalGrid_Defaults">
+    <WallDecalColor />
+    <PrimarySettings ValidTexture="" InvalidTexture="">
+      <LegalColor />
+      <InvalidColor />
+    </PrimarySettings>
+    <SecondarySettings ValidTexture="" InvalidTexture="">
+      <LegalColor />
+      <InvalidColor />
+    </SecondarySettings>
+  </UIDecalGrid>
+  <UIDecalGrid buildRule="RecoveryXmlB_Value" WallTexture="" WallOpacity="0.5" id="RecoveryXmlB_UIDecalGrid_Fields">
+    <WallDecalColor R="3" G="3" B="3" />
+    <PrimarySettings ValidTexture="" InvalidTexture="" Opacity="0.5">
+      <LegalColor R="3" G="3" B="3" />
+      <InvalidColor R="3" G="3" B="3" />
+    </PrimarySettings>
+    <SecondarySettings ValidTexture="" InvalidTexture="" Opacity="0.5">
+      <LegalColor R="3" G="3" B="3" />
+      <InvalidColor R="3" G="3" B="3" />
+    </SecondarySettings>
+  </UIDecalGrid>
+  <UIDecalCloud BuildTexture="" DefenseTexture="" SpecialPowerRestrictionTexture="" id="RecoveryXmlB_UIDecalCloud_Defaults" />
+  <UIDecalCloud buildRule="RecoveryXmlB_Value" BuildTexture="" DefenseTexture="" SpecialPowerRestrictionTexture="" id="RecoveryXmlB_UIDecalCloud_Fields" />
+  <UIDecalDestinationMarker id="RecoveryXmlB_UIDecalDestinationMarker_Defaults">
+    <DefaultRenderInfo>
+      <Color R="1.0" G="1.0" B="1.0" />
+    </DefaultRenderInfo>
+    <DestinationTypeSettings DestinationType="Normal">
+      <RenderInfo>
+        <Color R="1.0" G="1.0" B="1.0" />
+      </RenderInfo>
+    </DestinationTypeSettings>
+  </UIDecalDestinationMarker>
+  <UIDecalDestinationMarker buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIDecalDestinationMarker_Fields">
+    <DefaultRenderInfo Model="RecoveryXmlB_W3DContainer_Defaults" ZBias="0.5">
+      <Color R="0.5" G="0.5" B="0.5" />
+    </DefaultRenderInfo>
+    <DestinationTypeSettings DestinationType="Aggressive">
+      <RenderInfo Model="RecoveryXmlB_W3DContainer_Defaults" ZBias="0.5">
+        <Color R="0.5" G="0.5" B="0.5" />
+      </RenderInfo>
+    </DestinationTypeSettings>
+    <DestinationTypeSettings DestinationType="Aggressive">
+      <RenderInfo Model="RecoveryXmlB_W3DContainer_Defaults" ZBias="0.5">
+        <Color R="0.5" G="0.5" B="0.5" />
+      </RenderInfo>
+    </DestinationTypeSettings>
+  </UIDecalDestinationMarker>
+  <UIWorldBuilderDecalGrid Texture="" id="RecoveryXmlB_UIWorldBuilderDecalGrid_Defaults">
+    <Color />
+  </UIWorldBuilderDecalGrid>
+  <UIWorldBuilderDecalGrid buildRule="RecoveryXmlB_Value" Texture="" Opacity="0.5" id="RecoveryXmlB_UIWorldBuilderDecalGrid_Fields">
+    <Color R="3" G="3" B="3" />
+  </UIWorldBuilderDecalGrid>
+  <ImageSequence id="RecoveryXmlB_ImageSequence_Defaults" />
+  <ImageSequence buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_ImageSequence_Fields">
+    <Image>RecoveryXmlB_PackedTextureImage_Defaults</Image>
+    <Image>RecoveryXmlB_PackedTextureImage_Defaults</Image>
+  </ImageSequence>
+  <ImageSequence id="RecoveryXmlB_ImageSequence_Inherited" inheritFrom="RecoveryXmlB_ImageSequence_Defaults" />
+  <UnitTypeIcon id="RecoveryXmlB_UnitTypeIcon_Defaults" />
+  <UnitTypeIcon buildRule="RecoveryXmlB_Value" Image="RecoveryXmlB_PackedTextureImage_Defaults" id="RecoveryXmlB_UnitTypeIcon_Fields">
+    <Offset x="0.5" y="0.5" />
+  </UnitTypeIcon>
+  <UnitTypeIcon id="RecoveryXmlB_UnitTypeIcon_Inherited" inheritFrom="RecoveryXmlB_UnitTypeIcon_Defaults" />
+  <DrawGroupInfo id="RecoveryXmlB_DrawGroupInfo_Defaults">
+    <TextColor />
+    <TextDropShadowColor />
+  </DrawGroupInfo>
+  <DrawGroupInfo buildRule="RecoveryXmlB_Value" FontName="RecoveryXmlB_Value" FontSize="3" IsBold="true" UsePlayerColor="true" DropShadowOffsetX="3" DropShadowOffsetY="3" PixelOffsetAsPercentage="true" PixelOffetXInteger="3" PixelOffetYInteger="3" PixelOffetXReal="0.5" PixelOffetYReal="0.5" id="RecoveryXmlB_DrawGroupInfo_Fields">
+    <TextColor R="3" G="3" B="3" A="3" />
+    <TextDropShadowColor R="3" G="3" B="3" A="3" />
+  </DrawGroupInfo>
+  <UIMouseTacticalCoOpAIButtonsHelpButton id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalCoOpAIButtonsHelpButton>
+  <UIMouseTacticalCoOpAIButtonsHelpButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHelpButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalCoOpAIButtonsHelpButton>
+  <UIMouseTacticalCommandCommunicateWithAllies PlaceUnattachedBeaconCursor="" PlaceAttachedBeaconCursor="" PingRadarCursor="" id="RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Defaults" />
+  <UIMouseTacticalCommandCommunicateWithAllies buildRule="RecoveryXmlB_Value" PlaceUnattachedBeaconCursor="" PlaceAttachedBeaconCursor="" PingRadarCursor="" id="RecoveryXmlB_UIMouseTacticalCommandCommunicateWithAllies_Fields">
+    <BeaconAttachableObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </BeaconAttachableObjectFilter>
+  </UIMouseTacticalCommandCommunicateWithAllies>
+  <UIMouseTacticalToggleRepairModeButton id="RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalToggleRepairModeButton>
+  <UIMouseTacticalToggleRepairModeButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalToggleRepairModeButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalToggleRepairModeButton>
+  <UIMouseTacticalAttackMoveButton id="RecoveryXmlB_UIMouseTacticalAttackMoveButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalAttackMoveButton>
+  <UIMouseTacticalAttackMoveButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalAttackMoveButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalAttackMoveButton>
+  <UIMouseTacticalCommandPlaceWall id="RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Defaults" />
+  <UIMouseTacticalCommandPlaceWall buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandPlaceWall_Fields" />
+  <UIMouseTacticalForceAttackMoveButton id="RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalForceAttackMoveButton>
+  <UIMouseTacticalForceAttackMoveButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalForceAttackMoveButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalForceAttackMoveButton>
+  <UIMouseTacticalCoOpAIButtonsHoldObjectButton id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalCoOpAIButtonsHoldObjectButton>
+  <UIMouseTacticalCoOpAIButtonsHoldObjectButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldObjectButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalCoOpAIButtonsHoldObjectButton>
+  <UIMouseTacticalExitContainerButton id="RecoveryXmlB_UIMouseTacticalExitContainerButton_Defaults" />
+  <UIMouseTacticalExitContainerButton buildRule="RecoveryXmlB_Value" HelpTitleFormat="RecoveryXmlB_Value" HelpDescription="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalExitContainerButton_Fields" />
+  <UIMouseTacticalPlayerTechStoreButton id="RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalPlayerTechStoreButton>
+  <UIMouseTacticalPlayerTechStoreButton buildRule="RecoveryXmlB_Value" TechPointAwardedSound="RecoveryXmlB_AudioEvent_Defaults" id="RecoveryXmlB_UIMouseTacticalPlayerTechStoreButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalPlayerTechStoreButton>
+  <UIMouseTacticalCommandMove id="RecoveryXmlB_UIMouseTacticalCommandMove_Defaults" />
+  <UIMouseTacticalCommandMove buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandMove_Fields" />
+  <UIMouseTacticalCommandSell id="RecoveryXmlB_UIMouseTacticalCommandSell_Defaults">
+    <DefaultCursors />
+  </UIMouseTacticalCommandSell>
+  <UIMouseTacticalCommandSell buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandSell_Fields">
+    <DefaultCursors />
+    <FactionCursors Faction="Neutral">
+      <Cursors />
+    </FactionCursors>
+    <FactionCursors Faction="Neutral">
+      <Cursors />
+    </FactionCursors>
+  </UIMouseTacticalCommandSell>
+  <UIMouseTacticalUnitIntroButton id="RecoveryXmlB_UIMouseTacticalUnitIntroButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalUnitIntroButton>
+  <UIMouseTacticalUnitIntroButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalUnitIntroButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalUnitIntroButton>
+  <UIMouseTacticalCommandSelect id="RecoveryXmlB_UIMouseTacticalCommandSelect_Defaults" />
+  <UIMouseTacticalCommandSelect buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandSelect_Fields" />
+  <UIMouseTacticalCoOpAIButtonsNormalButton id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalCoOpAIButtonsNormalButton>
+  <UIMouseTacticalCoOpAIButtonsNormalButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsNormalButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalCoOpAIButtonsNormalButton>
+  <UIMouseTacticalCommandPlaceRallyPoint id="RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Defaults" />
+  <UIMouseTacticalCommandPlaceRallyPoint buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandPlaceRallyPoint_Fields" />
+  <UIMouseTacticalCommandHarvest id="RecoveryXmlB_UIMouseTacticalCommandHarvest_Defaults" />
+  <UIMouseTacticalCommandHarvest buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandHarvest_Fields" />
+  <UIMouseTacticalCommandToggleSelfRepair id="RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Defaults" />
+  <UIMouseTacticalCommandToggleSelfRepair buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandToggleSelfRepair_Fields" />
+  <UIMouseTacticalBuildQueueTab id="RecoveryXmlB_UIMouseTacticalBuildQueueTab_Defaults" />
+  <UIMouseTacticalBuildQueueTab buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalBuildQueueTab_Fields">
+    <QueueTypeSettings QueueType="WATERCRAFT">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </QueueTypeSettings>
+    <QueueTypeSettings QueueType="WATERCRAFT">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </QueueTypeSettings>
+  </UIMouseTacticalBuildQueueTab>
+  <UIMouseTacticalCommandGetCrate id="RecoveryXmlB_UIMouseTacticalCommandGetCrate_Defaults" />
+  <UIMouseTacticalCommandGetCrate buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandGetCrate_Fields" />
+  <UIMouseTacticalDeactivateMissionHotSpotsButton id="RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalDeactivateMissionHotSpotsButton>
+  <UIMouseTacticalDeactivateMissionHotSpotsButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalDeactivateMissionHotSpotsButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalDeactivateMissionHotSpotsButton>
+  <UIMouseTacticalCommandForceAttack id="RecoveryXmlB_UIMouseTacticalCommandForceAttack_Defaults" />
+  <UIMouseTacticalCommandForceAttack buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandForceAttack_Fields" />
+  <UIMouseTacticalPlanningModeButton id="RecoveryXmlB_UIMouseTacticalPlanningModeButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalPlanningModeButton>
+  <UIMouseTacticalPlanningModeButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalPlanningModeButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalPlanningModeButton>
+  <UIMouseTacticalCommandMisc id="RecoveryXmlB_UIMouseTacticalCommandMisc_Defaults" />
+  <UIMouseTacticalCommandMisc buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandMisc_Fields" />
+  <UIMouseTacticalSelectionRefinementTab id="RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalSelectionRefinementTab>
+  <UIMouseTacticalSelectionRefinementTab buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalSelectionRefinementTab_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalSelectionRefinementTab>
+  <UIMouseTacticalCommandForceMove id="RecoveryXmlB_UIMouseTacticalCommandForceMove_Defaults" />
+  <UIMouseTacticalCommandForceMove buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandForceMove_Fields" />
+  <UIMouseTacticalOpenAdvancedCommandsButton id="RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalOpenAdvancedCommandsButton>
+  <UIMouseTacticalOpenAdvancedCommandsButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalOpenAdvancedCommandsButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalOpenAdvancedCommandsButton>
+  <UIMouseTacticalSetStanceButton id="RecoveryXmlB_UIMouseTacticalSetStanceButton_Defaults" />
+  <UIMouseTacticalSetStanceButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalSetStanceButton_Fields">
+    <StanceSettings Stance="HOLD_FIRE">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </StanceSettings>
+    <StanceSettings Stance="HOLD_FIRE">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </StanceSettings>
+  </UIMouseTacticalSetStanceButton>
+  <UIMouseTacticalCoOpAIButtonsHoldPositionButton id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalCoOpAIButtonsHoldPositionButton>
+  <UIMouseTacticalCoOpAIButtonsHoldPositionButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsHoldPositionButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalCoOpAIButtonsHoldPositionButton>
+  <UIMouseTacticalCommandMineOre id="RecoveryXmlB_UIMouseTacticalCommandMineOre_Defaults" />
+  <UIMouseTacticalCommandMineOre buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandMineOre_Fields" />
+  <UIMouseTacticalWaypointModeButton id="RecoveryXmlB_UIMouseTacticalWaypointModeButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalWaypointModeButton>
+  <UIMouseTacticalWaypointModeButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalWaypointModeButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalWaypointModeButton>
+  <UIMouseTacticalReverseMoveButton id="RecoveryXmlB_UIMouseTacticalReverseMoveButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalReverseMoveButton>
+  <UIMouseTacticalReverseMoveButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalReverseMoveButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalReverseMoveButton>
+  <UIMouseTacticalCommandEnter id="RecoveryXmlB_UIMouseTacticalCommandEnter_Defaults" />
+  <UIMouseTacticalCommandEnter buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandEnter_Fields">
+    <InfiltratorEffectTypeSettings Effect="KILL" />
+    <InfiltratorEffectTypeSettings Effect="KILL" />
+  </UIMouseTacticalCommandEnter>
+  <UIMouseTacticalCoOpAIButtonsAssaultButton id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalCoOpAIButtonsAssaultButton>
+  <UIMouseTacticalCoOpAIButtonsAssaultButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCoOpAIButtonsAssaultButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalCoOpAIButtonsAssaultButton>
+  <UIMouseTacticalPauseButton id="RecoveryXmlB_UIMouseTacticalPauseButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalPauseButton>
+  <UIMouseTacticalPauseButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalPauseButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalPauseButton>
+  <UIMouseTacticalCommandAttack id="RecoveryXmlB_UIMouseTacticalCommandAttack_Defaults" />
+  <UIMouseTacticalCommandAttack buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandAttack_Fields" />
+  <UIMouseTacticalCommandAttackMove id="RecoveryXmlB_UIMouseTacticalCommandAttackMove_Defaults" />
+  <UIMouseTacticalCommandAttackMove buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandAttackMove_Fields" />
+  <UIMouseTacticalForceMoveButton id="RecoveryXmlB_UIMouseTacticalForceMoveButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalForceMoveButton>
+  <UIMouseTacticalForceMoveButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalForceMoveButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalForceMoveButton>
+  <UIMouseTacticalForceAttackButton id="RecoveryXmlB_UIMouseTacticalForceAttackButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalForceAttackButton>
+  <UIMouseTacticalForceAttackButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalForceAttackButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalForceAttackButton>
+  <UIMouseTacticalCommandPlaceAIBeacon id="RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Defaults" />
+  <UIMouseTacticalCommandPlaceAIBeacon buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandPlaceAIBeacon_Fields">
+    <BeaconTypeSettings Type="HoldObject" CanTargetObjects="true" CanTargetPosition="true">
+      <AttachableObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      </AttachableObjectFilter>
+    </BeaconTypeSettings>
+    <BeaconTypeSettings Type="HoldObject" CanTargetObjects="true" CanTargetPosition="true">
+      <AttachableObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+        <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      </AttachableObjectFilter>
+    </BeaconTypeSettings>
+  </UIMouseTacticalCommandPlaceAIBeacon>
+  <UIMouseTacticalCommandDock id="RecoveryXmlB_UIMouseTacticalCommandDock_Defaults" />
+  <UIMouseTacticalCommandDock buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandDock_Fields" />
+  <UIMouseTacticalCommandReverseMove id="RecoveryXmlB_UIMouseTacticalCommandReverseMove_Defaults" />
+  <UIMouseTacticalCommandReverseMove buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandReverseMove_Fields" />
+  <UIMouseTacticalBuildQueueTypeTab id="RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Defaults" />
+  <UIMouseTacticalBuildQueueTypeTab buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalBuildQueueTypeTab_Fields">
+    <QueueTypeSettings QueueType="WATERCRAFT">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </QueueTypeSettings>
+    <QueueTypeSettings QueueType="WATERCRAFT">
+      <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+    </QueueTypeSettings>
+  </UIMouseTacticalBuildQueueTypeTab>
+  <UIMouseTacticalSellModeButton id="RecoveryXmlB_UIMouseTacticalSellModeButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalSellModeButton>
+  <UIMouseTacticalSellModeButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalSellModeButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalSellModeButton>
+  <UIMouseTacticalStopButton id="RecoveryXmlB_UIMouseTacticalStopButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalStopButton>
+  <UIMouseTacticalStopButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalStopButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalStopButton>
+  <UIMouseTacticalCommandSetRallyPoint id="RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Defaults" />
+  <UIMouseTacticalCommandSetRallyPoint buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalCommandSetRallyPoint_Fields" />
+  <UIMouseTacticalFastForwardButton id="RecoveryXmlB_UIMouseTacticalFastForwardButton_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalFastForwardButton>
+  <UIMouseTacticalFastForwardButton buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalFastForwardButton_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalFastForwardButton>
+  <UIMouseTacticalGroupSelection id="RecoveryXmlB_UIMouseTacticalGroupSelection_Defaults" />
+  <UIMouseTacticalGroupSelection buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalGroupSelection_Fields">
+    <Group />
+    <Group />
+  </UIMouseTacticalGroupSelection>
+  <UIMouseTacticalLookAt id="RecoveryXmlB_UIMouseTacticalLookAt_Defaults" />
+  <UIMouseTacticalLookAt buildRule="RecoveryXmlB_Value" KeyScrollFactor="50%" MouseDragScrollFactor="50%" MouseEdgeScrollFactor="50%" id="RecoveryXmlB_UIMouseTacticalLookAt_Fields">
+    <ViewBookmark />
+    <ViewBookmark />
+  </UIMouseTacticalLookAt>
+  <UIMouseTacticalRadarTelestrator id="RecoveryXmlB_UIMouseTacticalRadarTelestrator_Defaults" />
+  <UIMouseTacticalRadarTelestrator buildRule="RecoveryXmlB_Value" StrokeSustainDuration="250ms" StrokeFadeDuration="250ms" id="RecoveryXmlB_UIMouseTacticalRadarTelestrator_Fields" />
+  <UIMouseTacticalTelestrator id="RecoveryXmlB_UIMouseTacticalTelestrator_Defaults" />
+  <UIMouseTacticalTelestrator buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalTelestrator_Fields" />
+  <UIMouseTacticalThreatMeter id="RecoveryXmlB_UIMouseTacticalThreatMeter_Defaults">
+    <MouseOverHelp Title="RecoveryXmlB_Default" />
+  </UIMouseTacticalThreatMeter>
+  <UIMouseTacticalThreatMeter buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_UIMouseTacticalThreatMeter_Fields">
+    <MouseOverHelp Title="RecoveryXmlB_Value" Description="RecoveryXmlB_Value" TypeDescription="RecoveryXmlB_Value" Instructions="RecoveryXmlB_Value" />
+  </UIMouseTacticalThreatMeter>
+  <UnitOverlayIconSettings id="RecoveryXmlB_UnitOverlayIconSettings_Defaults" />
+  <UnitOverlayIconSettings buildRule="RecoveryXmlB_Value" AmmoPipImage="RecoveryXmlB_PackedTextureImage_Defaults" AmmoPipFrameImage="RecoveryXmlB_PackedTextureImage_Defaults" ContainPipImage="RecoveryXmlB_PackedTextureImage_Defaults" ContainPipFrameImage="RecoveryXmlB_PackedTextureImage_Defaults" GarrisonPipImage="RecoveryXmlB_PackedTextureImage_Defaults" UnitTypeIconBackgroundImage="RecoveryXmlB_PackedTextureImage_Defaults" TargetIndicatorImage="RecoveryXmlB_PackedTextureImage_Defaults" TargetIndicatorGlowImage="RecoveryXmlB_PackedTextureImage_Defaults" PowerIconImageSequence="RecoveryXmlB_ImageSequence_Defaults" RepairIconImageSequence="RecoveryXmlB_ImageSequence_Defaults" InfiltratedIconImageSequence="RecoveryXmlB_ImageSequence_Defaults" HealUnitIconImageSequence="RecoveryXmlB_ImageSequence_Defaults" RepairVehicleIconImageSequence="RecoveryXmlB_ImageSequence_Defaults" AmmoPipScale="50%" AmmoPipRange="3" ContainPipScale="50%" GarrisonPipScale="50%" UnitTypeIconScale="50%" StatusIconScale="50%" VeterancyIconScale="50%" TargetIndicatorScale="50%" HealingIconScale="50%" HealingIconDisplayTime="250ms" id="RecoveryXmlB_UnitOverlayIconSettings_Fields">
+    <FactionVeterancy Faction="Neutral">
+      <RankIcon Rank="3" Image="RecoveryXmlB_PackedTextureImage_Defaults" />
+      <RankIcon Rank="3" Image="RecoveryXmlB_PackedTextureImage_Defaults" />
+    </FactionVeterancy>
+    <FactionVeterancy Faction="Neutral">
+      <RankIcon Rank="3" Image="RecoveryXmlB_PackedTextureImage_Defaults" />
+      <RankIcon Rank="3" Image="RecoveryXmlB_PackedTextureImage_Defaults" />
+    </FactionVeterancy>
+  </UnitOverlayIconSettings>
+  <UnitOverlayIconSettings id="RecoveryXmlB_UnitOverlayIconSettings_Inherited" inheritFrom="RecoveryXmlB_UnitOverlayIconSettings_Defaults" />
+  <InvisibilityTemplate id="RecoveryXmlB_InvisibilityTemplate_Defaults" />
+  <InvisibilityTemplate buildRule="RecoveryXmlB_Value" ForbiddenConditions="SUCKED_UP_HIGH SUCKED_UP_HIGH" ForbiddenConditionExceptions="SUCKED_UP_HIGH SUCKED_UP_HIGH" ForbiddenStatus="ANTI_GARRISON ANTI_GARRISON" CamouflageLevel="3" InvisibilityType="CAMOUFLAGE" Options="CAN_ATTACK_WHILE_ACTIVE CAN_ATTACK_WHILE_ACTIVE" HintDetectableStates="ANTI_GARRISON ANTI_GARRISON" NoStealthForAttackWindow="250ms" RequiredStatus="ANTI_GARRISON ANTI_GARRISON" id="RecoveryXmlB_InvisibilityTemplate_Fields">
+    <IgnoreTreeCheckUpgrade>RecoveryXmlB_Weak_UpgradeTemplate</IgnoreTreeCheckUpgrade>
+    <IgnoreTreeCheckUpgrade>RecoveryXmlB_Weak_UpgradeTemplate</IgnoreTreeCheckUpgrade>
+  </InvisibilityTemplate>
+  <InvisibilityManagerSettings id="RecoveryXmlB_InvisibilityManagerSettings_Defaults">
+    <CamouflageDetectorObjectFilter />
+  </InvisibilityManagerSettings>
+  <InvisibilityManagerSettings buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_InvisibilityManagerSettings_Fields">
+    <CamouflageDetectorObjectFilter Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <IncludeThing>RecoveryXmlB_Value</IncludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+      <ExcludeThing>RecoveryXmlB_Value</ExcludeThing>
+    </CamouflageDetectorObjectFilter>
+  </InvisibilityManagerSettings>
+  <BreezeInfo id="RecoveryXmlB_BreezeInfo_Defaults" />
+  <BreezeInfo buildRule="RecoveryXmlB_Value" LoadAfter="RecoveryXmlB_BreezeInfo_Defaults" Direction="0.5" Intensity="0.5" Lean="0.5" Randomness="0.5" BreezePeriod="250ms" id="RecoveryXmlB_BreezeInfo_Fields" />
+  <ModelSettings ForceModelsToFollowTimeOfDay="false" ForceModelsToFollowWeather="false" AnimationSharingCap="1" AnimationSharingFrameTolerance="1.0" AnimationSharingDrasticThreshold="1.0" id="RecoveryXmlB_ModelSettings_Defaults" />
+  <ModelSettings buildRule="RecoveryXmlB_Value" LoadAfter="RecoveryXmlB_BreezeInfo_Defaults" ForceModelsToFollowTimeOfDay="true" ForceModelsToFollowWeather="true" AnimationSharingCap="3" AnimationSharingFrameTolerance="0.5" AnimationSharingDrasticThreshold="0.5" id="RecoveryXmlB_ModelSettings_Fields" />
+  <AutoParticleSystemSettings id="RecoveryXmlB_AutoParticleSystemSettings_Defaults">
+    <FireSmall ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <FireMedium ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <FireLarge ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <SmokeSmall ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <SmokeMedium ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <SmokeLarge ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+    <Aflame ParticlePrefix="RecoveryXmlB_Default" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="1" />
+  </AutoParticleSystemSettings>
+  <AutoParticleSystemSettings buildRule="RecoveryXmlB_Value" ParticleScale="0.5" MaxParticleCount="3" id="RecoveryXmlB_AutoParticleSystemSettings_Fields">
+    <FireSmall ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <FireMedium ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <FireLarge ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <SmokeSmall ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <SmokeMedium ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <SmokeLarge ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+    <Aflame ParticlePrefix="RecoveryXmlB_Value" ParticleSystemId="RecoveryXmlB_Weak_FXParticleSystemTemplate" ParticleMax="3" />
+  </AutoParticleSystemSettings>
+  <W3DHierarchy id="RecoveryXmlB_W3DHierarchy_Defaults">
+    <Pivot>
+      <Translation X="1.0" Y="1.0" Z="1.0" />
+      <Rotation X="1.0" Y="1.0" Z="1.0" W="1.0" />
+      <FixupMatrix />
+    </Pivot>
+  </W3DHierarchy>
+  <W3DHierarchy buildRule="RecoveryXmlB_Value" id="RecoveryXmlB_W3DHierarchy_Fields">
+    <Pivot Name="RecoveryXmlB_Weak_Pivot" Parent="3">
+      <Translation X="0.5" Y="0.5" Z="0.5" />
+      <Rotation X="0.5" Y="0.5" Z="0.5" W="0.5" />
+      <FixupMatrix M00="0.5" M10="0.5" M20="0.5" M30="0.5" M01="0.5" M11="0.5" M21="0.5" M31="0.5" M02="0.5" M12="0.5" M22="0.5" M32="0.5" M03="0.5" M13="0.5" M23="0.5" M33="0.5" />
+    </Pivot>
+    <Pivot Name="RecoveryXmlB_Weak_Pivot" Parent="3">
+      <Translation X="0.5" Y="0.5" Z="0.5" />
+      <Rotation X="0.5" Y="0.5" Z="0.5" W="0.5" />
+      <FixupMatrix M00="0.5" M10="0.5" M20="0.5" M30="0.5" M01="0.5" M11="0.5" M21="0.5" M31="0.5" M02="0.5" M12="0.5" M22="0.5" M32="0.5" M03="0.5" M13="0.5" M23="0.5" M33="0.5" />
+    </Pivot>
+  </W3DHierarchy>
+  <W3DContainer id="RecoveryXmlB_W3DContainer_Defaults" />
+  <W3DContainer buildRule="RecoveryXmlB_Value" Hierarchy="RecoveryXmlB_W3DHierarchy_Defaults" id="RecoveryXmlB_W3DContainer_Fields">
+    <SubObject BoneIndex="3" SubObjectID="RecoveryXmlB_Value">
+      <RenderObject>
+        <Mesh>RecoveryXmlB_Value</Mesh>
+      </RenderObject>
+    </SubObject>
+    <SubObject BoneIndex="3" SubObjectID="RecoveryXmlB_Value">
+      <RenderObject>
+        <Mesh>RecoveryXmlB_Value</Mesh>
+      </RenderObject>
+    </SubObject>
+  </W3DContainer>
+  <W3DCollisionBox id="RecoveryXmlB_W3DCollisionBox_Defaults">
+    <Center X="1.0" Y="1.0" Z="1.0" />
+    <Extent X="1.0" Y="1.0" Z="1.0" />
+  </W3DCollisionBox>
+  <W3DCollisionBox buildRule="RecoveryXmlB_Value" JoypadPickingOnly="true" id="RecoveryXmlB_W3DCollisionBox_Fields">
+    <Center X="0.5" Y="0.5" Z="0.5" />
+    <Extent X="0.5" Y="0.5" Z="0.5" />
+  </W3DCollisionBox>
+</AssetDeclaration>

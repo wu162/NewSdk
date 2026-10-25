@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "AptAptData",
+      "typeId": 1816258268,
+      "typeHash": 3795385027,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AptConstData",
+      "typeId": 983359664,
+      "typeHash": 3876251416,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AptDatData",
+      "typeId": 1110676961,
+      "typeHash": 230038576,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AptGeometryData",
+      "typeId": 1034587168,
+      "typeHash": 1390234602,
+      "schemaGlobal": true
+    }
+  ]
+}

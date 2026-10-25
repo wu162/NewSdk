@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "BaseConditionData",
+      "typeId": 3899256902,
+      "typeHash": 2796907385,
+      "schemaGlobal": false
+    },
+    {
+      "name": "ObjectConditionData",
+      "typeId": 519519951,
+      "typeHash": 3621799508,
+      "schemaGlobal": false
+    },
+    {
+      "name": "UpgradeConditionData",
+      "typeId": 76901015,
+      "typeHash": 2863617245,
+      "schemaGlobal": false
+    },
+    {
+      "name": "GameplayConditionData",
+      "typeId": 2309012900,
+      "typeHash": 3176926574,
+      "schemaGlobal": true
+    }
+  ]
+}

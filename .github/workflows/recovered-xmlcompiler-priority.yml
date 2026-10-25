@@ -1,6 +1,12 @@
 name: XmlCompiler priority type differential validation
 
 on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: 'Optional comma-separated groups to explicitly validate; unchanged successful groups are reused by default'
+        required: false
+        default: ''
   push:
     branches: [recovery/xmlcompiler-priority, recovery/compiler-source]
     paths:
@@ -15,7 +21,12 @@ on:
       - 'recovery/src/Native/LocomotorTemplate.*'
       - 'recovery/src/Native/AI*'
       - 'recovery/tests/Xml*Oracle.cs'
+      - 'recovery/tests/Xml*Cases.cs'
       - 'recovery/scripts/TestXml*.ps1'
+      - 'recovery/scripts/AuditXmlComponentCatalog.py'
+      - 'recovery/scripts/SelectXmlComponentGroups.py'
+      - 'recovery/tests/test_select_xml_groups.py'
+      - 'recovery/catalog/Xml*Types.json'
       - 'recovery/src/Native/Relocation.*'
       - 'recovery/src/Native/ScalarParsing.*'
       - 'recovery/src/Native/DataInitializers.*'
@@ -31,25 +42,37 @@ jobs:
     outputs:
       groups: ${{ steps.groups.outputs.groups }}
       link_ready: ${{ steps.groups.outputs.link_ready }}
+      link_roots: ${{ steps.groups.outputs.link_roots }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify affected-group selection without compiler runs
+        run: python -m unittest discover -s recovery/tests -p test_select_xml_groups.py -q
+      - name: Audit exact original registration and formal component catalogs
+        run: python recovery/scripts/AuditXmlComponentCatalog.py
       - id: groups
-        name: Select implemented group test entry points
+        name: Reuse unchanged successful matrices and select affected groups
+        env:
+          XML_REQUESTED_GROUPS: ${{ inputs.groups || '' }}
         shell: python
         run: |
-          import json, os, pathlib
-          expected = ["attributes", "effects", "powers", "locomotor", "ai", "fxparticle"]
-          groups = [g for g in expected if pathlib.Path("recovery/scripts/TestXml" + g + ".ps1").is_file()]
-          if not groups:
-              raise RuntimeError("No recovered component test scripts available")
-          with open(os.environ["GITHUB_OUTPUT"], "a") as stream:
-              stream.write("groups=" + json.dumps(groups) + "\n")
-              ready = len(groups) == len(expected) and pathlib.Path("recovery/scripts/TestXmlPriorityLink.ps1").is_file()
-              stream.write("link_ready=" + str(ready).lower() + "\n")
-          print("Validating implemented group scripts: " + ", ".join(groups))
-          print("Not yet present: " + ", ".join(g for g in expected if g not in groups))
+          import importlib.util, json, os, pathlib
+          path = pathlib.Path('recovery/scripts/SelectXmlComponentGroups.py')
+          spec = importlib.util.spec_from_file_location('xml_selection', path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          forced = [g.strip() for g in os.environ.get('XML_REQUESTED_GROUPS', '').split(',') if g.strip()]
+          result = module.select(pathlib.Path.cwd(), force_groups=forced)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as stream:
+              stream.write('groups=' + json.dumps(result['groups']) + '\n')
+              stream.write('link_ready=' + str(result['link_ready']).lower() + '\n')
+              stream.write('link_roots=' + json.dumps(result['link_roots']) + '\n')
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
   differential:
     needs: inventory
+    if: needs.inventory.outputs.groups != '[]'
     strategy:
       fail-fast: false
       matrix:
@@ -80,8 +103,8 @@ jobs:
           path: recovery/evidence/xml-${{ matrix.group }}
           if-no-files-found: error
   link:
-    needs: inventory
-    if: needs.inventory.outputs.link_ready == 'true'
+    needs: [inventory, differential]
+    if: always() && needs.inventory.result == 'success' && needs.inventory.outputs.link_ready == 'true' && (needs.differential.result == 'success' || needs.differential.result == 'skipped')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:
@@ -89,8 +112,10 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
-      - name: Link all recovered groups and compare fourteen default roots
+      - name: Check all public routes and compare only affected roots
         shell: pwsh
+        env:
+          XML_LINK_ROOTS: ${{ needs.inventory.outputs.link_roots }}
         run: ./recovery/scripts/TestXmlPriorityLink.ps1
       - uses: actions/upload-artifact@v4
         if: always()
@@ -114,14 +139,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
+        if: needs.differential.result != 'skipped' || needs.link.result != 'skipped'
         with:
           pattern: xml-priority-*
           path: /tmp/xml-priority-results
       - name: Preserve complete validation logs
+        if: needs.differential.result != 'skipped' || needs.link.result != 'skipped'
         shell: bash
         run: |
           set -euo pipefail
-          for group in attributes effects powers locomotor ai fxparticle priority-link; do
+          for group in attributes effects powers locomotor ai fxparticle progression environment players damagefx hotkeymaps audio uisettings soundmaps tacticalhotkeys uichat uidecals singlesound pathmusic musicscript uitactical conditions targeting evaachievement healthbars unitoverlay objectsets visibility emotions projectilepath forcefeedback content visualsystems crowd radar renderdevice localization commandset materialrules uiimages chatcolors moviearchive systemsettings campaign buildeconomy dynamics connections redalert conquercards armyopening assetindexes renderassets aptdata runtimeopaque mouse abilitybuttons testtextures terrain w3d mapmetadata gamescripts gamemap uiconfig priority-link; do
             src="/tmp/xml-priority-results/xml-priority-$group"
             if [ -d "$src" ]; then
               mkdir -p "recovery/evidence/xml-$group"
@@ -138,8 +165,12 @@ jobs:
       - name: Require all differential groups to pass
         env:
           DIFFERENTIAL_RESULT: ${{ needs.differential.result }}
+          SELECTED_GROUPS: ${{ needs.inventory.outputs.groups }}
           LINK_READY: ${{ needs.inventory.outputs.link_ready }}
           LINK_RESULT: ${{ needs.link.result }}
         run: |
-          test "$DIFFERENTIAL_RESULT" = success
-          if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; fi
+          if [ "$SELECTED_GROUPS" != '[]' ]; then test "$DIFFERENTIAL_RESULT" = success; else test "$DIFFERENTIAL_RESULT" = skipped; fi
+          if [ "$LINK_READY" = true ]; then test "$LINK_RESULT" = success; else test "$LINK_RESULT" = skipped; fi
+
+
+

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Schema source: SDK/Schemas/xsd/CnC3Types.xsd and its unmodified includes.
+       BAB supplies TypeId/defaults/references. These source assets do not invent
+       TypeId or inheritFrom: neither root type inherits BaseInheritableAsset.
+       FXNugget unknown fallback and FXParticleEventBase are component-only;
+       neither has a legal concrete element in the corresponding schema choice. -->
+  <FXList id="RecoveryXmlPriority_FX_Defaults">
+    <NuggetList />
+  </FXList>
+  <FXList id="RecoveryXmlPriority_FX_Filters" PlayEvenIfShrouded="true"
+      Tailorable="true" CullTracking="750ms" CullTrackingMin="-7" CullTrackingMax="19">
+    <NuggetList>
+      <ViewShake Type="STRONG" RequiredSecondaryModelConditions="MOVING"
+          RequiredSourceModelConditions="ATTACKING" StopIfPlayed="true" Weather="RAINY">
+        <SecondaryObjectFilter id="RecoveryXmlPriority_Secondary" Rule="ANY"
+            Relationship="ALLIES SAME_PLAYER" Alignment="GOOD" Include="VEHICLE STRUCTURE"
+            Exclude="INFANTRY" StatusBitFlags="STEALTHED"
+            StatusBitFlagsExclude="UNDER_CONSTRUCTION">
+          <IncludeThing>RecoveryXmlPriority_ThingA</IncludeThing>
+          <IncludeThing>RecoveryXmlPriority_ThingB</IncludeThing>
+          <ExcludeThing>RecoveryXmlPriority_ThingC</ExcludeThing>
+        </SecondaryObjectFilter>
+        <SourceObjectFilter id="RecoveryXmlPriority_Source" Rule="ALL"
+            Relationship="ENEMIES NEUTRAL" Alignment="EVIL"
+            Include="INFANTRY" Exclude="STRUCTURE" StatusBitFlags="UNDER_CONSTRUCTION"
+            StatusBitFlagsExclude="STEALTHED">
+          <IncludeThing>RecoveryXmlPriority_ThingD</IncludeThing>
+          <ExcludeThing>RecoveryXmlPriority_ThingE</ExcludeThing>
+          <ExcludeThing>RecoveryXmlPriority_ThingF</ExcludeThing>
+        </SourceObjectFilter>
+        <SourceMustNotHaveBeenDisabledThisFrameByType>EMP</SourceMustNotHaveBeenDisabledThisFrameByType>
+      </ViewShake>
+    </NuggetList>
+  </FXList>
+  <FXParticleSystemTemplate id="RecoveryXmlPriority_Particle_Defaults">
+    <Physics />
+    <Draw />
+    <Volume />
+    <Velocity />
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="RecoveryXmlPriority_Particle_Gpu"
+      Type="GPU_PARTICLE" IsOneShot="true" SystemLifetime="37" SortLevel="4"
+      IsGroundAligned="true" UseMaximumHeight="true">
+    <Lifetime Type="CONSTANT" Low="8" High="8" />
+    <Size Type="UNIFORM" Low="1.25" High="3.5" />
+    <BurstCount Type="CONSTANT" Low="2" High="2" />
+    <Wind Motion="CIRCULAR" Strength="4.25" TurbulenceAmplitude="0.125" />
+    <Physics><Default Gravity="-0.125" Swirly="true">
+      <VelocityDamping Type="UNIFORM" Low="0.25" High="0.75" />
+      <DriftVelocity x="1.25" y="-2.5" z="3.75" />
+    </Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" FramesPerRow="4" TotalFrames="16"
+        SingleRow="1" RandTex="1" SpeedMultiplier="2.25"
+        GeometryType="TWO_QUADS" SortParticles="true" EnableSoftParticles="false"
+        MiscValue1="1.25" MiscValue2="-2.5" MiscValue3="3.75" MiscValue4="4.5" /></Draw>
+    <Volume><Point IsHollow="true" /></Volume>
+    <Velocity><Spherical><Speed Type="UNIFORM" Low="2.25" High="4.5" /></Spherical></Velocity>
+    <Event>
+      <Life PerParticle="true" KillAfterEvent="false">
+        <EventTime Type="UNIFORM" Low="1.25" High="2.75" />
+      </Life>
+      <Collision PerParticle="false" KillAfterEvent="true" OrientFXToTerrain="true">
+        <HeightOffset Type="CONSTANT" Low="3.5" High="3.5" />
+      </Collision>
+    </Event>
+    <Update><Default Rotation="ROTATE_IN_WORLD_SPACE">
+      <SizeRate Type="UNIFORM" Low="0.25" High="0.75" />
+      <SizeRateDamping Type="CONSTANT" Low="0.875" High="0.875" />
+      <AngleZ Type="CONSTANT" Low="0.125" High="0.125" />
+      <AngularRateZ Type="UNIFORM" Low="0.25" High="0.5" />
+      <AngularDamping Type="CONSTANT" Low="0.75" High="0.75" />
+      <AngleXY Type="CONSTANT" Low="0.5" High="0.5" />
+      <AngularRateXY Type="UNIFORM" Low="0.125" High="0.25" />
+      <AngularDampingXY Type="CONSTANT" Low="0.625" High="0.625" />
+    </Default></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="RecoveryXmlPriority_Particle_Lightning" Type="PARTICLE">
+    <Physics><Default Gravity="0.25" /></Physics>
+    <Draw><Lightning>
+      <StartPoint x="1.25" y="2.5" z="3.75" />
+      <EndPoint x="4.5" y="5.25" z="6.75" />
+      <RandomSet>
+        <StartAmplitude Type="CONSTANT" Low="1.25" High="1.25" />
+        <EndAmplitudeChange Type="UNIFORM" Low="2.25" High="3.5" />
+        <StartFrequency Type="CONSTANT" Low="4.25" High="4.25" />
+        <EndFrequencyChange Type="UNIFORM" Low="5.25" High="6.5" />
+        <StartPhase Type="CONSTANT" Low="7.25" High="7.25" />
+        <EndPhaseChange Type="UNIFORM" Low="8.25" High="9.5" />
+      </RandomSet>
+      <RandomSet>
+        <StartAmplitude Type="CONSTANT" Low="10.25" High="10.25" />
+        <EndAmplitudeChange Type="UNIFORM" Low="11.25" High="12.5" />
+        <StartFrequency Type="CONSTANT" Low="13.25" High="13.25" />
+        <EndFrequencyChange Type="UNIFORM" Low="14.25" High="15.5" />
+        <StartPhase Type="CONSTANT" Low="16.25" High="16.25" />
+        <EndPhaseChange Type="UNIFORM" Low="17.25" High="18.5" />
+      </RandomSet>
+    </Lightning></Draw>
+    <Volume><Sphere Radius="3.25" /></Volume>
+    <Velocity><Spherical><Speed Type="CONSTANT" Low="1.5" High="1.5" /></Spherical></Velocity>
+    <Event />
+    <Update><Default /></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="RecoveryXmlPriority_Particle_RenderObject" Type="DRAWABLE">
+    <Physics><Default /></Physics>
+    <Draw><RenderObject SinkRate="0.375" MultiRenderObjects="true" SinkOnTerrainCollision="true">
+      <ObjectSet RenderGroup="RecoveryXmlPriority_GroupA" NumObjects="2" Percent="25%" />
+      <ObjectSet RenderGroup="RecoveryXmlPriority_GroupB" NumObjects="3" Percent="50%" />
+      <ObjectSet RenderGroup="RecoveryXmlPriority_GroupC" NumObjects="4" Percent="75%" />
+    </RenderObject></Draw>
+    <Volume><Point /></Volume>
+    <Velocity><Spherical><Speed Type="CONSTANT" Low="2.5" High="2.5" /></Spherical></Velocity>
+    <Update><RenderObject Rotation="ROTATE_AROUND_VELOCITY">
+      <AngleX Type="CONSTANT" Low="0.125" High="0.125" />
+      <AngularRateX Type="UNIFORM" Low="0.25" High="0.5" />
+      <AngleY Type="CONSTANT" Low="0.375" High="0.375" />
+      <AngularRateY Type="UNIFORM" Low="0.5" High="0.75" />
+      <AngleZ Type="CONSTANT" Low="0.625" High="0.625" />
+      <AngularRateZ Type="UNIFORM" Low="0.75" High="1.0" />
+      <AngularDamping Type="CONSTANT" Low="0.875" High="0.875" />
+      <StartSize><x Low="1.25" High="1.5" /><y Low="2.25" High="2.5" /><z Low="3.25" High="3.5" /></StartSize>
+      <SizeRate><x Low="4.25" High="4.5" /><y Low="5.25" High="5.5" /><z Low="6.25" High="6.5" /></SizeRate>
+      <SizeDamping><x Low="0.25" High="0.5" /><y Low="0.375" High="0.625" /><z Low="0.5" High="0.75" /></SizeDamping>
+    </RenderObject></Update>
+  </FXParticleSystemTemplate>
+</AssetDeclaration>

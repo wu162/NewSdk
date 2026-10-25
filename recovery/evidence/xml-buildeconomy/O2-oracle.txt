@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=6916 arrayComparisons=41496 rejections=42 layoutAssertions=34498
+PASS platform=1 fixtures=6916 arrayComparisons=41496 rejections=42 layoutAssertions=34498
+PASS platform=2 fixtures=6916 arrayComparisons=41496 rejections=42 layoutAssertions=34498
+PASS platform=99 fixtures=6916 arrayComparisons=41496 rejections=42 layoutAssertions=34498
+PASS Build economy fixtures=27664 arrayComparisons=165984 rejections=168 layoutAssertions=137993

@@ -1,0 +1,1924 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <LogicCommand id="XmlRecoveryA_Support_LogicCommand"/>
+  <UnitAbilityButtonTemplate id="XmlRecoveryA_UnitAbilityButtonTemplate_defaults" LogicCommand="XmlRecoveryA_Support_LogicCommand">
+    <Data>
+      <AssembleStructure StateData=""/>
+    </Data>
+  </UnitAbilityButtonTemplate>
+  <UnitAbilityButtonTemplate id="XmlRecoveryA_UnitAbilityButtonTemplate_rich" LogicCommand="XmlRecoveryA_Support_LogicCommand">
+    <Data>
+      <Unpack StateData=""/>
+    </Data>
+  </UnitAbilityButtonTemplate>
+  <UnitAbilityButtonTemplate id="XmlRecoveryA_UnitAbilityButtonTemplate_repeat" LogicCommand="XmlRecoveryA_Support_LogicCommand">
+    <Data>
+      <ObjectUpgrade StateData=""/>
+    </Data>
+  </UnitAbilityButtonTemplate>
+  <PlayerPowerButtonTemplate id="XmlRecoveryA_PlayerPowerButtonTemplate_defaults" SpecialPower="">
+    <Data>
+      <Power StateData=""/>
+    </Data>
+  </PlayerPowerButtonTemplate>
+  <PlayerPowerButtonTemplate id="XmlRecoveryA_PlayerPowerButtonTemplate_rich" SpecialPower="">
+    <Data>
+      <MultiplePowersTargetedPower StateData="" ValidTargetOutline="HOVER_ATTACK">
+        <ValidTargetTintColor R="1.25" G="1.25" B="1.25"/>
+        <AdditionalSpecialPowerTemplate></AdditionalSpecialPowerTemplate>
+        <AdditionalRadiusCursor></AdditionalRadiusCursor>
+        <AdditionalValidTargetCursor></AdditionalValidTargetCursor>
+      </MultiplePowersTargetedPower>
+    </Data>
+  </PlayerPowerButtonTemplate>
+  <PlayerPowerButtonTemplate id="XmlRecoveryA_PlayerPowerButtonTemplate_repeat" SpecialPower="">
+    <Data>
+      <MultipleTargetsTargetedPower StateData="" ValidTargetOutline="HOVER_ATTACK" TargetCount="27" MinTargetDistance="0.125">
+        <ValidTargetTintColor R="1.25" G="1.25" B="1.25"/>
+        <AdditionalRadiusCursor></AdditionalRadiusCursor>
+      </MultipleTargetsTargetedPower>
+    </Data>
+  </PlayerPowerButtonTemplate>
+  <AptAptData id="XmlRecoveryA_AptAptData_defaults" File="Mods/XmlCompilerRecoveryA/Data/fixture-empty.bin"/>
+  <AptAptData id="XmlRecoveryA_AptAptData_rich" File="Mods/XmlCompilerRecoveryA/Data/fixture.bin"/>
+  <AptAptData id="XmlRecoveryA_AptAptData_repeat" File="Mods/XmlCompilerRecoveryA/Data/fixture-odd.bin"/>
+  <AptConstData id="XmlRecoveryA_AptConstData_defaults" File="Mods/XmlCompilerRecoveryA/Data/fixture-empty.bin"/>
+  <AptConstData id="XmlRecoveryA_AptConstData_rich" File="Mods/XmlCompilerRecoveryA/Data/fixture.bin"/>
+  <AptConstData id="XmlRecoveryA_AptConstData_repeat" File="Mods/XmlCompilerRecoveryA/Data/fixture-odd.bin"/>
+  <AptDatData id="XmlRecoveryA_AptDatData_defaults" File="Mods/XmlCompilerRecoveryA/Data/fixture-empty.bin"/>
+  <AptDatData id="XmlRecoveryA_AptDatData_rich" File="Mods/XmlCompilerRecoveryA/Data/fixture.bin"/>
+  <AptDatData id="XmlRecoveryA_AptDatData_repeat" File="Mods/XmlCompilerRecoveryA/Data/fixture-odd.bin"/>
+  <AptGeometryData id="XmlRecoveryA_AptGeometryData_defaults" File="Mods/XmlCompilerRecoveryA/Data/fixture-empty.bin" AptID="0"/>
+  <AptGeometryData id="XmlRecoveryA_AptGeometryData_rich" File="Mods/XmlCompilerRecoveryA/Data/fixture.bin" AptID="17"/>
+  <AptGeometryData id="XmlRecoveryA_AptGeometryData_repeat" File="Mods/XmlCompilerRecoveryA/Data/fixture-odd.bin" AptID="27"/>
+  <ArmyDefinition id="XmlRecoveryA_ArmyDefinition_defaults"/>
+  <ArmyDefinition id="XmlRecoveryA_ArmyDefinition_rich" Side="SampleA">
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+  </ArmyDefinition>
+  <ArmyDefinition id="XmlRecoveryA_ArmyDefinition_repeat" Side="SampleA">
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+    <TechStructure></TechStructure>
+  </ArmyDefinition>
+  <SkirmishOpeningMove id="XmlRecoveryA_SkirmishOpeningMove_defaults" Side=""/>
+  <SkirmishOpeningMove id="XmlRecoveryA_SkirmishOpeningMove_rich" Side="SampleA">
+    <Order Time="250ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="250ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="250ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+  </SkirmishOpeningMove>
+  <SkirmishOpeningMove id="XmlRecoveryA_SkirmishOpeningMove_repeat" Side="SampleA">
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+    <Order Time="1500ms" Build="SampleA" Account="SLUSH_FUND" Deposit="3"/>
+  </SkirmishOpeningMove>
+  <DLContent id="XmlRecoveryA_DLContent_defaults" PackageNumber="1"/>
+  <DLContent id="XmlRecoveryA_DLContent_rich" PackageNumber="3">
+    <License LicenseMask="17">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="17">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="17">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+  </DLContent>
+  <DLContent id="XmlRecoveryA_DLContent_repeat" PackageNumber="3">
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <License LicenseMask="27">
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+      <Asset>SampleA</Asset>
+    </License>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+    <Patch Name="SampleA" PatchNumber="3"/>
+  </DLContent>
+  <AssetReportTable id="XmlRecoveryA_AssetReportTable_defaults"/>
+  <AssetReportTable id="XmlRecoveryA_AssetReportTable_rich">
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="17">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="17">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="17">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+  </AssetReportTable>
+  <AssetReportTable id="XmlRecoveryA_AssetReportTable_repeat">
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+    <AssetReport Id="SampleA" Type="SampleA" AssetSize="27">
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+      <Reference Id="SampleA" Type="SampleA"/>
+    </AssetReport>
+  </AssetReportTable>
+  <StringHashTable id="XmlRecoveryA_StringHashTable_defaults" StringHashBin="TYPEID" Version="0"/>
+  <StringHashTable id="XmlRecoveryA_StringHashTable_rich" StringHashBin="STRINGHASH" Version="17">
+    <StringAndHash Hash="17" Text="SampleA"/>
+    <StringAndHash Hash="17" Text="SampleA"/>
+    <StringAndHash Hash="17" Text="SampleA"/>
+  </StringHashTable>
+  <StringHashTable id="XmlRecoveryA_StringHashTable_repeat" StringHashBin="STRINGHASH" Version="27">
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+    <StringAndHash Hash="27" Text="SampleA"/>
+  </StringHashTable>
+  <LocalBuildListMonitor id="XmlRecoveryA_LocalBuildListMonitor_defaults"/>
+  <LocalBuildListMonitor id="XmlRecoveryA_LocalBuildListMonitor_rich" TimeBetweenUpdates="250ms" UpdatesToSkipAfterStart="17" UpdatesToSkipAfterSaveFileLoad="17" UpdatesToSkipAfterTargetPlayerChanges="17">
+    <ProducerObjectFilter id="NestedA_37" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+    </ProducerObjectFilter>
+  </LocalBuildListMonitor>
+  <LocalBuildListMonitor id="XmlRecoveryA_LocalBuildListMonitor_repeat" TimeBetweenUpdates="1500ms" UpdatesToSkipAfterStart="27" UpdatesToSkipAfterSaveFileLoad="27" UpdatesToSkipAfterTargetPlayerChanges="27">
+    <ProducerObjectFilter id="NestedA_39" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <IncludeThing>SampleA</IncludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+      <ExcludeThing>SampleA</ExcludeThing>
+    </ProducerObjectFilter>
+  </LocalBuildListMonitor>
+  <BuildSystemSettings id="XmlRecoveryA_BuildSystemSettings_defaults"/>
+  <BuildSystemSettings id="XmlRecoveryA_BuildSystemSettings_rich" AllowedHeightVariationForBuildingPlacement="1.25" RotationalSnapIterations="1.25" BuildabilityDisplayRadius="1.25" BuildabilityDisplayShape="RING" BuildabilityDecalMargin="1.25" BuildabilityUsesStaticDecalSize="true" BuildabilityDecalSize="1.25" BuildabilityDecalRadiusPercent="25%"/>
+  <BuildSystemSettings id="XmlRecoveryA_BuildSystemSettings_repeat" AllowedHeightVariationForBuildingPlacement="0.125" RotationalSnapIterations="0.125" BuildabilityDisplayRadius="0.125" BuildabilityDisplayShape="RING" BuildabilityDecalMargin="0.125" BuildabilityUsesStaticDecalSize="true" BuildabilityDecalSize="0.125" BuildabilityDecalRadiusPercent="75%"/>
+  <GiftManagerSettings id="XmlRecoveryA_GiftManagerSettings_defaults">
+    <ObjectGiftSettings>
+      <AllowObjectFilter/>
+    </ObjectGiftSettings>
+  </GiftManagerSettings>
+  <GiftManagerSettings id="XmlRecoveryA_GiftManagerSettings_rich">
+    <ObjectGiftSettings AllowTransferToSkirmishPlayer="true">
+      <AllowObjectFilter id="NestedA_45" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </AllowObjectFilter>
+    </ObjectGiftSettings>
+  </GiftManagerSettings>
+  <GiftManagerSettings id="XmlRecoveryA_GiftManagerSettings_repeat">
+    <ObjectGiftSettings AllowTransferToSkirmishPlayer="true">
+      <AllowObjectFilter id="NestedA_47" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </AllowObjectFilter>
+    </ObjectGiftSettings>
+  </GiftManagerSettings>
+  <MpGameRules id="XmlRecoveryA_MpGameRules_defaults">
+    <SkirmishStartCash/>
+  </MpGameRules>
+  <MpGameRules id="XmlRecoveryA_MpGameRules_rich" NumMinutesBeforePlayersCanTransferMoney="17">
+    <SkirmishStartCash LoCash="17" HiCash="17" ChoiceStepAmount="17" DefaultChoiceIndex="17"/>
+  </MpGameRules>
+  <MpGameRules id="XmlRecoveryA_MpGameRules_repeat" NumMinutesBeforePlayersCanTransferMoney="27">
+    <SkirmishStartCash LoCash="27" HiCash="27" ChoiceStepAmount="27" DefaultChoiceIndex="27"/>
+  </MpGameRules>
+  <CampaignTemplate id="XmlRecoveryA_CampaignTemplate_defaults">
+    <Mission>SampleA</Mission>
+    <FinalMovie FileName=""/>
+    <AlternateFinalMovie FileName=""/>
+  </CampaignTemplate>
+  <CampaignTemplate id="XmlRecoveryA_CampaignTemplate_rich" DisplayName="SampleA" ConsoleAutosaveFilename="SampleA">
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <FinalMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+    <AlternateFinalMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+  </CampaignTemplate>
+  <CampaignTemplate id="XmlRecoveryA_CampaignTemplate_repeat" DisplayName="SampleA" ConsoleAutosaveFilename="SampleA">
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <Mission>SampleA</Mission>
+    <FinalMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+    <AlternateFinalMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+  </CampaignTemplate>
+  <CampaignEnumerator id="XmlRecoveryA_CampaignEnumerator_defaults">
+    <Campaign>SampleA</Campaign>
+  </CampaignEnumerator>
+  <CampaignEnumerator id="XmlRecoveryA_CampaignEnumerator_rich">
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+  </CampaignEnumerator>
+  <CampaignEnumerator id="XmlRecoveryA_CampaignEnumerator_repeat">
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+    <Campaign>SampleA</Campaign>
+  </CampaignEnumerator>
+  <MissionTemplate id="XmlRecoveryA_MissionTemplate_defaults">
+    <AICommander Faction="RANDOM"/>
+    <IntroMovie FileName=""/>
+  </MissionTemplate>
+  <MissionTemplate id="XmlRecoveryA_MissionTemplate_rich" DisplayName="SampleA" ShortDisplayName="SampleA" OverviewTalkingHead="SampleA" OverviewBackground="SampleA" Title="SampleA" MapName="SampleA" BriefingFLA="SampleA" BriefingSummary="SampleA" VictoryAchEvent="17" VictoryAchEventMedium="17" VictoryAchEventHard="17" VictoryAchEventCoop="17" VictoryAchEventBonusObj="17">
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <Objective>SampleA</Objective>
+    <BonusObjective>SampleA</BonusObjective>
+    <AICommander Personality="SampleA" Description="SampleA" Faction="Neutral"/>
+    <IntroMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+  </MissionTemplate>
+  <MissionTemplate id="XmlRecoveryA_MissionTemplate_repeat" DisplayName="SampleA" ShortDisplayName="SampleA" OverviewTalkingHead="SampleA" OverviewBackground="SampleA" Title="SampleA" MapName="SampleA" BriefingFLA="SampleA" BriefingSummary="SampleA" VictoryAchEvent="27" VictoryAchEventMedium="27" VictoryAchEventHard="27" VictoryAchEventCoop="27" VictoryAchEventBonusObj="27">
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <Prerequisite>3</Prerequisite>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <PrerequisiteTemplate>SampleA</PrerequisiteTemplate>
+    <Objective>SampleA</Objective>
+    <BonusObjective>SampleA</BonusObjective>
+    <AICommander Personality="SampleA" Description="SampleA" Faction="Neutral"/>
+    <IntroMovie FileName="SampleA" ScreenName="SampleA" Description="SampleA"/>
+  </MissionTemplate>
+  <MissionHotSpotSettings id="XmlRecoveryA_MissionHotSpotSettings_defaults">
+    <DecalTemplate/>
+  </MissionHotSpotSettings>
+  <MissionHotSpotSettings id="XmlRecoveryA_MissionHotSpotSettings_rich">
+    <DecalTemplate>
+      <Component Style="MERGE_DECAL" OpacityMin="25%" OpacityMax="25%" OpacityPulsesPerSecond="1.25" RotationMin="1.25" RotationMax="1.25" RotationDegreesPerSecond="1.25" MinRadius="1.25" MaxRadius="1.25" RadiusPulsesPerSecond="1.25" PositionOffsetMin="1.25" PositionOffsetMax="1.25" PositionOffsetPulsesPerSecond="1.25">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="25%" OpacityMax="25%" OpacityPulsesPerSecond="1.25" RotationMin="1.25" RotationMax="1.25" RotationDegreesPerSecond="1.25" MinRadius="1.25" MaxRadius="1.25" RadiusPulsesPerSecond="1.25" PositionOffsetMin="1.25" PositionOffsetMax="1.25" PositionOffsetPulsesPerSecond="1.25">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="25%" OpacityMax="25%" OpacityPulsesPerSecond="1.25" RotationMin="1.25" RotationMax="1.25" RotationDegreesPerSecond="1.25" MinRadius="1.25" MaxRadius="1.25" RadiusPulsesPerSecond="1.25" PositionOffsetMin="1.25" PositionOffsetMax="1.25" PositionOffsetPulsesPerSecond="1.25">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+    </DecalTemplate>
+  </MissionHotSpotSettings>
+  <MissionHotSpotSettings id="XmlRecoveryA_MissionHotSpotSettings_repeat">
+    <DecalTemplate>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+      <Component Style="MERGE_DECAL" OpacityMin="75%" OpacityMax="75%" OpacityPulsesPerSecond="0.125" RotationMin="0.125" RotationMax="0.125" RotationDegreesPerSecond="0.125" MinRadius="0.125" MaxRadius="0.125" RadiusPulsesPerSecond="0.125" PositionOffsetMin="0.125" PositionOffsetMax="0.125" PositionOffsetPulsesPerSecond="0.125">
+        <Color R="3" G="3" B="3" A="3"/>
+      </Component>
+    </DecalTemplate>
+  </MissionHotSpotSettings>
+  <TutorialMapData id="XmlRecoveryA_TutorialMapData_defaults">
+    <Lesson/>
+  </TutorialMapData>
+  <TutorialMapData id="XmlRecoveryA_TutorialMapData_rich">
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+  </TutorialMapData>
+  <TutorialMapData id="XmlRecoveryA_TutorialMapData_repeat">
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+    <Lesson Map="SampleA" Summary="SampleA" ImageName="SampleA"/>
+  </TutorialMapData>
+  <OnlineChatColors id="XmlRecoveryA_OnlineChatColors_defaults">
+    <Default/>
+    <CurrentRoom/>
+    <ChatRoom/>
+    <Game/>
+    <GameFull/>
+    <GameCRCMismatch/>
+    <PlayerNormal/>
+    <PlayerBuddy/>
+    <PlayerOwner/>
+    <OfflinePlayerBuddy/>
+    <PlayerSelf/>
+    <PlayerIgnored/>
+    <OfflinePlayerIgnored/>
+    <ChatNormal/>
+    <ChatEmote/>
+    <ChatOwner/>
+    <ChatOwnerEmote/>
+    <ChatPrivate/>
+    <ChatPrivateEmote/>
+    <ChatPrivateOwner/>
+    <ChatPrivateOwnerEmote/>
+    <ChatBuddy/>
+    <ChatSelf/>
+    <AcceptTrue/>
+    <AcceptFalse/>
+    <MapSelected/>
+    <MapUnselected/>
+    <MessageOfTheDay/>
+    <MessageOfTheDayHeading/>
+  </OnlineChatColors>
+  <OnlineChatColors id="XmlRecoveryA_OnlineChatColors_rich">
+    <Default R="3" G="3" B="3" A="3"/>
+    <CurrentRoom R="3" G="3" B="3" A="3"/>
+    <ChatRoom R="3" G="3" B="3" A="3"/>
+    <Game R="3" G="3" B="3" A="3"/>
+    <GameFull R="3" G="3" B="3" A="3"/>
+    <GameCRCMismatch R="3" G="3" B="3" A="3"/>
+    <PlayerNormal R="3" G="3" B="3" A="3"/>
+    <PlayerBuddy R="3" G="3" B="3" A="3"/>
+    <PlayerOwner R="3" G="3" B="3" A="3"/>
+    <OfflinePlayerBuddy R="3" G="3" B="3" A="3"/>
+    <PlayerSelf R="3" G="3" B="3" A="3"/>
+    <PlayerIgnored R="3" G="3" B="3" A="3"/>
+    <OfflinePlayerIgnored R="3" G="3" B="3" A="3"/>
+    <ChatNormal R="3" G="3" B="3" A="3"/>
+    <ChatEmote R="3" G="3" B="3" A="3"/>
+    <ChatOwner R="3" G="3" B="3" A="3"/>
+    <ChatOwnerEmote R="3" G="3" B="3" A="3"/>
+    <ChatPrivate R="3" G="3" B="3" A="3"/>
+    <ChatPrivateEmote R="3" G="3" B="3" A="3"/>
+    <ChatPrivateOwner R="3" G="3" B="3" A="3"/>
+    <ChatPrivateOwnerEmote R="3" G="3" B="3" A="3"/>
+    <ChatBuddy R="3" G="3" B="3" A="3"/>
+    <ChatSelf R="3" G="3" B="3" A="3"/>
+    <AcceptTrue R="3" G="3" B="3" A="3"/>
+    <AcceptFalse R="3" G="3" B="3" A="3"/>
+    <MapSelected R="3" G="3" B="3" A="3"/>
+    <MapUnselected R="3" G="3" B="3" A="3"/>
+    <MessageOfTheDay R="3" G="3" B="3" A="3"/>
+    <MessageOfTheDayHeading R="3" G="3" B="3" A="3"/>
+  </OnlineChatColors>
+  <OnlineChatColors id="XmlRecoveryA_OnlineChatColors_repeat">
+    <Default R="3" G="3" B="3" A="3"/>
+    <CurrentRoom R="3" G="3" B="3" A="3"/>
+    <ChatRoom R="3" G="3" B="3" A="3"/>
+    <Game R="3" G="3" B="3" A="3"/>
+    <GameFull R="3" G="3" B="3" A="3"/>
+    <GameCRCMismatch R="3" G="3" B="3" A="3"/>
+    <PlayerNormal R="3" G="3" B="3" A="3"/>
+    <PlayerBuddy R="3" G="3" B="3" A="3"/>
+    <PlayerOwner R="3" G="3" B="3" A="3"/>
+    <OfflinePlayerBuddy R="3" G="3" B="3" A="3"/>
+    <PlayerSelf R="3" G="3" B="3" A="3"/>
+    <PlayerIgnored R="3" G="3" B="3" A="3"/>
+    <OfflinePlayerIgnored R="3" G="3" B="3" A="3"/>
+    <ChatNormal R="3" G="3" B="3" A="3"/>
+    <ChatEmote R="3" G="3" B="3" A="3"/>
+    <ChatOwner R="3" G="3" B="3" A="3"/>
+    <ChatOwnerEmote R="3" G="3" B="3" A="3"/>
+    <ChatPrivate R="3" G="3" B="3" A="3"/>
+    <ChatPrivateEmote R="3" G="3" B="3" A="3"/>
+    <ChatPrivateOwner R="3" G="3" B="3" A="3"/>
+    <ChatPrivateOwnerEmote R="3" G="3" B="3" A="3"/>
+    <ChatBuddy R="3" G="3" B="3" A="3"/>
+    <ChatSelf R="3" G="3" B="3" A="3"/>
+    <AcceptTrue R="3" G="3" B="3" A="3"/>
+    <AcceptFalse R="3" G="3" B="3" A="3"/>
+    <MapSelected R="3" G="3" B="3" A="3"/>
+    <MapUnselected R="3" G="3" B="3" A="3"/>
+    <MessageOfTheDay R="3" G="3" B="3" A="3"/>
+    <MessageOfTheDayHeading R="3" G="3" B="3" A="3"/>
+  </OnlineChatColors>
+  <GameplayConditionData id="XmlRecoveryA_GameplayConditionData_defaults">
+    <PrimaryObject/>
+  </GameplayConditionData>
+  <GameplayConditionData id="XmlRecoveryA_GameplayConditionData_rich" GameplayConditionBitFlags="UPGRADE UPGRADE" TimeReq="250ms" AllowedGameTypeBitFlags="RANKED_ONLINE RANKED_ONLINE" GameDifficultyBitFlags="BRUTAL BRUTAL">
+    <PrimaryObject Unique="true" Count="17">
+      <ObjectFilter id="NestedA_71" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="SampleA SampleA" ExemptStatus="ANTI_GARRISON ANTI_GARRISON" RequiredStatus="ANTI_GARRISON ANTI_GARRISON" DamageAmountRequired="1.25" MinKillerAngle="30d" MaxKillerAngle="30d" DeathTypes="ALL ALL" DeathTypesForbidden="ALL ALL"/>
+    </PrimaryObject>
+    <RequiredObjectCondition Unique="true" Count="17">
+      <ObjectFilter id="NestedA_72" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="SampleA SampleA" ExemptStatus="ANTI_GARRISON ANTI_GARRISON" RequiredStatus="ANTI_GARRISON ANTI_GARRISON" DamageAmountRequired="1.25" MinKillerAngle="30d" MaxKillerAngle="30d" DeathTypes="ALL ALL" DeathTypesForbidden="ALL ALL"/>
+    </RequiredObjectCondition>
+    <RequiredUpgradeCondition Unique="true" Count="17">
+      <ObjectFilter id="NestedA_73" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+    </RequiredUpgradeCondition>
+  </GameplayConditionData>
+  <GameplayConditionData id="XmlRecoveryA_GameplayConditionData_repeat" GameplayConditionBitFlags="UPGRADE UPGRADE" TimeReq="1500ms" AllowedGameTypeBitFlags="RANKED_ONLINE RANKED_ONLINE" GameDifficultyBitFlags="BRUTAL BRUTAL">
+    <PrimaryObject Unique="true" Count="27">
+      <ObjectFilter id="NestedA_75" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="SampleA SampleA" ExemptStatus="ANTI_GARRISON ANTI_GARRISON" RequiredStatus="ANTI_GARRISON ANTI_GARRISON" DamageAmountRequired="0.125" MinKillerAngle="-45d" MaxKillerAngle="-45d" DeathTypes="ALL ALL" DeathTypesForbidden="ALL ALL"/>
+    </PrimaryObject>
+    <RequiredObjectCondition Unique="true" Count="27">
+      <ObjectFilter id="NestedA_76" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <DieMuxData VeterancyLevels="SampleA SampleA" ExemptStatus="ANTI_GARRISON ANTI_GARRISON" RequiredStatus="ANTI_GARRISON ANTI_GARRISON" DamageAmountRequired="0.125" MinKillerAngle="-45d" MaxKillerAngle="-45d" DeathTypes="ALL ALL" DeathTypesForbidden="ALL ALL"/>
+    </RequiredObjectCondition>
+    <RequiredUpgradeCondition Unique="true" Count="27">
+      <ObjectFilter id="NestedA_77" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+      <UpgradeRequired></UpgradeRequired>
+    </RequiredUpgradeCondition>
+  </GameplayConditionData>
+  <ConnectionLineManager id="XmlRecoveryA_ConnectionLineManager_defaults">
+    <FXShader ShaderName=""/>
+  </ConnectionLineManager>
+  <ConnectionLineManager id="XmlRecoveryA_ConnectionLineManager_rich">
+    <FXShader ShaderName="SampleA" TechniqueName="SampleA" TechniqueIndex="3">
+      <Constants>
+        <Bool Name="SampleA">
+          <Value>true</Value>
+        </Bool>
+      </Constants>
+    </FXShader>
+  </ConnectionLineManager>
+  <ConnectionLineManager id="XmlRecoveryA_ConnectionLineManager_repeat" inheritFrom="XmlRecoveryA_ConnectionLineManager_rich">
+    <FXShader ShaderName=""/>
+  </ConnectionLineManager>
+  <ConquerCardDefinitionUnit id="XmlRecoveryA_ConquerCardDefinitionUnit_defaults" Cost="0" Unit=""/>
+  <ConquerCardDefinitionUnit id="XmlRecoveryA_ConquerCardDefinitionUnit_rich" Cost="17" Maximum="17" Unit="">
+    <Upgrade Upgrade="" Cost="17"/>
+    <Upgrade Upgrade="" Cost="17"/>
+    <Upgrade Upgrade="" Cost="17"/>
+    <Veterancy Veterancy="HEROIC" Cost="17"/>
+    <Veterancy Veterancy="HEROIC" Cost="17"/>
+    <Veterancy Veterancy="HEROIC" Cost="17"/>
+  </ConquerCardDefinitionUnit>
+  <ConquerCardDefinitionUnit id="XmlRecoveryA_ConquerCardDefinitionUnit_repeat" Cost="27" Maximum="27" Unit="">
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Upgrade Upgrade="" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+    <Veterancy Veterancy="HEROIC" Cost="27"/>
+  </ConquerCardDefinitionUnit>
+  <ConquerCardDefinitionStructure id="XmlRecoveryA_ConquerCardDefinitionStructure_defaults" Cost="0" Structure=""/>
+  <ConquerCardDefinitionStructure id="XmlRecoveryA_ConquerCardDefinitionStructure_rich" Cost="17" Maximum="17" Structure=""/>
+  <ConquerCardDefinitionStructure id="XmlRecoveryA_ConquerCardDefinitionStructure_repeat" Cost="27" Maximum="27" Structure=""/>
+  <ConquerCardDefinitionPower id="XmlRecoveryA_ConquerCardDefinitionPower_defaults" Cost="0" Power="" Side=""/>
+  <ConquerCardDefinitionPower id="XmlRecoveryA_ConquerCardDefinitionPower_rich" Cost="17" Maximum="17" Power="" Side="SampleA"/>
+  <ConquerCardDefinitionPower id="XmlRecoveryA_ConquerCardDefinitionPower_repeat" Cost="27" Maximum="27" Power="" Side="SampleA"/>
+  <ConquerCardPrebuiltDeck id="XmlRecoveryA_ConquerCardPrebuiltDeck_defaults" DisplayName="" Side="">
+    <Cards>
+      <Unit Card=""/>
+    </Cards>
+  </ConquerCardPrebuiltDeck>
+  <ConquerCardPrebuiltDeck id="XmlRecoveryA_ConquerCardPrebuiltDeck_rich" DisplayName="SampleA" Description="SampleA" Side="SampleA">
+    <Cards>
+      <Power Card=""/>
+    </Cards>
+  </ConquerCardPrebuiltDeck>
+  <ConquerCardPrebuiltDeck id="XmlRecoveryA_ConquerCardPrebuiltDeck_repeat" DisplayName="SampleA" Description="SampleA" Side="SampleA">
+    <Cards>
+      <Structure Card=""/>
+    </Cards>
+  </ConquerCardPrebuiltDeck>
+  <EngagingContent id="XmlRecoveryA_EngagingContent_defaults" TitleId="" DescId="" ImageId=""/>
+  <EngagingContent id="XmlRecoveryA_EngagingContent_rich" TitleId="SampleA" DescId="SampleA" ImageId="SampleA"/>
+  <EngagingContent id="XmlRecoveryA_EngagingContent_repeat" TitleId="SampleA" DescId="SampleA" ImageId="SampleA"/>
+  <EngagingContentGroup id="XmlRecoveryA_EngagingContentGroup_defaults">
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+  </EngagingContentGroup>
+  <EngagingContentGroup id="XmlRecoveryA_EngagingContentGroup_rich">
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+  </EngagingContentGroup>
+  <EngagingContentGroup id="XmlRecoveryA_EngagingContentGroup_repeat">
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+    <EngagingContent>XmlRecoveryA_EngagingContent_defaults</EngagingContent>
+  </EngagingContentGroup>
+  <EngagingContentSequence id="XmlRecoveryA_EngagingContentSequence_defaults" MapName=""/>
+  <EngagingContentSequence id="XmlRecoveryA_EngagingContentSequence_rich" MapName="SampleA" RequiredContent="XmlRecoveryA_EngagingContentGroup_defaults" RandomContent="XmlRecoveryA_EngagingContentGroup_defaults"/>
+  <EngagingContentSequence id="XmlRecoveryA_EngagingContentSequence_repeat" MapName="SampleA" RequiredContent="XmlRecoveryA_EngagingContentGroup_defaults" RandomContent="XmlRecoveryA_EngagingContentGroup_defaults"/>
+  <IntelDB id="XmlRecoveryA_IntelDB_defaults">
+    <IntelDBEntry CategoryId="" EntryId=""/>
+  </IntelDB>
+  <IntelDB id="XmlRecoveryA_IntelDB_rich">
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+  </IntelDB>
+  <IntelDB id="XmlRecoveryA_IntelDB_repeat">
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+    <IntelDBEntry CategoryId="SampleA" EntryId="SampleA" TextureId="SampleA"/>
+  </IntelDB>
+  <UnitIntro id="XmlRecoveryA_UnitIntro_defaults" Video="" Audio=""/>
+  <UnitIntro id="XmlRecoveryA_UnitIntro_rich" Video="" Audio=""/>
+  <UnitIntro id="XmlRecoveryA_UnitIntro_repeat" Video="" Audio=""/>
+  <CrowdResponse id="XmlRecoveryA_CrowdResponse_defaults">
+    <Threshold>
+      <AudioArrayVoice/>
+    </Threshold>
+  </CrowdResponse>
+  <CrowdResponse id="XmlRecoveryA_CrowdResponse_rich" Weight="17">
+    <Threshold NumUnits="17">
+      <AudioArrayVoice>
+        <AudioEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceEnterStateMoveWaterToLand"/>
+        <ObjectSpecificEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceFullyCreatedFrom" TargetObject=""/>
+        <NamedEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" Name="SampleA"/>
+      </AudioArrayVoice>
+    </Threshold>
+    <Threshold NumUnits="17">
+      <AudioArrayVoice>
+        <AudioEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceEnterStateMoveWaterToLand"/>
+        <ObjectSpecificEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceFullyCreatedFrom" TargetObject=""/>
+        <NamedEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" Name="SampleA"/>
+      </AudioArrayVoice>
+    </Threshold>
+    <Threshold NumUnits="17">
+      <AudioArrayVoice>
+        <AudioEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceEnterStateMoveWaterToLand"/>
+        <ObjectSpecificEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" AudioType="voiceFullyCreatedFrom" TargetObject=""/>
+        <NamedEntry EvaEvent="XmlRecoveryA_EvaEvent_defaults" Name="SampleA"/>
+      </AudioArrayVoice>
+    </Threshold>
+  </CrowdResponse>
+  <CrowdResponse id="XmlRecoveryA_CrowdResponse_repeat" inheritFrom="XmlRecoveryA_CrowdResponse_rich">
+    <Threshold>
+      <AudioArrayVoice/>
+    </Threshold>
+  </CrowdResponse>
+  <DynamicsContactTagMapping id="XmlRecoveryA_DynamicsContactTagMapping_defaults"/>
+  <DynamicsContactTagMapping id="XmlRecoveryA_DynamicsContactTagMapping_rich">
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="1.25"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="1.25"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="1.25"/>
+  </DynamicsContactTagMapping>
+  <DynamicsContactTagMapping id="XmlRecoveryA_DynamicsContactTagMapping_repeat">
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+    <Mapping ContactA="DEBRIS" ContactB="DEBRIS" MinForce="0.125"/>
+  </DynamicsContactTagMapping>
+  <StanceTemplate id="XmlRecoveryA_StanceTemplate_defaults"/>
+  <StanceTemplate id="XmlRecoveryA_StanceTemplate_rich">
+    <StanceDefinition Type="HOLD_FIRE"/>
+  </StanceTemplate>
+  <StanceTemplate id="XmlRecoveryA_StanceTemplate_repeat">
+    <StanceDefinition Type="HOLD_FIRE"/>
+  </StanceTemplate>
+  <EmotionTemplate id="XmlRecoveryA_EmotionTemplate_defaults" Type="TAUNT"/>
+  <EmotionTemplate id="XmlRecoveryA_EmotionTemplate_rich" Type="CHEER_FOR_ABOUT_TO_CRUSH" Options="PREVENT_PLAYER_COMMANDS PREVENT_PLAYER_COMMANDS" DurationActive="250ms" DurationInactive="250ms" DurationInactiveObject="250ms" DurationInactiveType="250ms" EnemyThreatComparison="VALID_IF_ABOVE" EnemyThreat="17" FriendlyThreatComparison="VALID_IF_ABOVE" FriendlyThreat="17" AttributeModifierStartDelay="250ms" AttributeModifierDuration="250ms" AIStateLockDuration="250ms" AIState="FACE_OBJECT" ModelConditionsSetOnStart="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsSetOnEnd="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsClearOnStart="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsClearOnEnd="SUCKED_UP_HIGH SUCKED_UP_HIGH" AILuaEventsList="SampleA"/>
+  <EmotionTemplate id="XmlRecoveryA_EmotionTemplate_repeat" Type="CHEER_FOR_ABOUT_TO_CRUSH" Options="PREVENT_PLAYER_COMMANDS PREVENT_PLAYER_COMMANDS" DurationActive="1500ms" DurationInactive="1500ms" DurationInactiveObject="1500ms" DurationInactiveType="1500ms" EnemyThreatComparison="VALID_IF_ABOVE" EnemyThreat="27" FriendlyThreatComparison="VALID_IF_ABOVE" FriendlyThreat="27" AttributeModifierStartDelay="1500ms" AttributeModifierDuration="1500ms" AIStateLockDuration="1500ms" AIState="FACE_OBJECT" ModelConditionsSetOnStart="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsSetOnEnd="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsClearOnStart="SUCKED_UP_HIGH SUCKED_UP_HIGH" ModelConditionsClearOnEnd="SUCKED_UP_HIGH SUCKED_UP_HIGH" AILuaEventsList="SampleA"/>
+  <SiegeEvaEvent id="XmlRecoveryA_SiegeEvaEvent_defaults" Seconds="0s" EvaEvent="XmlRecoveryA_EvaEvent_defaults"/>
+  <SiegeEvaEvent id="XmlRecoveryA_SiegeEvaEvent_rich" Seconds="250ms" EvaEvent="XmlRecoveryA_EvaEvent_defaults" EventType="ALL"/>
+  <SiegeEvaEvent id="XmlRecoveryA_SiegeEvaEvent_repeat" Seconds="0s" EvaEvent="XmlRecoveryA_EvaEvent_defaults" inheritFrom="XmlRecoveryA_SiegeEvaEvent_rich"/>
+  <EvaSettings id="XmlRecoveryA_EvaSettings_defaults"/>
+  <EvaSettings id="XmlRecoveryA_EvaSettings_rich" EnemySightedMaxVoicePositionScanRange="17" MaxTimeToKeepJumpToEvents="250ms" MaxTimeBeforeResettingLastJumpTo="250ms" MinDistanceBetweenJumpToEvents="17"/>
+  <EvaSettings id="XmlRecoveryA_EvaSettings_repeat" EnemySightedMaxVoicePositionScanRange="27" MaxTimeToKeepJumpToEvents="1500ms" MaxTimeBeforeResettingLastJumpTo="1500ms" MinDistanceBetweenJumpToEvents="27"/>
+  <EvaEvent id="XmlRecoveryA_EvaEvent_defaults"/>
+  <EvaEvent id="XmlRecoveryA_EvaEvent_rich" Priority="17" TimeBetweenEvents="250ms" ExpirationTime="250ms" AlwaysPlayFromHomeBase="true" CountAsJumpToLocation="true" QuietTime="250ms" TimeToWaitBeforePlaying="250ms" SuppressOn360="true" SuppressOnPC="true">
+    <SideSound Sound="" Side=""/>
+    <SideSound Sound="" Side=""/>
+    <SideSound Sound="" Side=""/>
+    <OtherEvaEventToBlock></OtherEvaEventToBlock>
+    <OtherEvaEventToBlock></OtherEvaEventToBlock>
+    <OtherEvaEventToBlock></OtherEvaEventToBlock>
+  </EvaEvent>
+  <EvaEvent id="XmlRecoveryA_EvaEvent_repeat" inheritFrom="XmlRecoveryA_EvaEvent_rich"/>
+  <MiscEvaEvents id="XmlRecoveryA_MiscEvaEvents_defaults" LowPower="XmlRecoveryA_EvaEvent_defaults" SilosNeeded="XmlRecoveryA_EvaEvent_defaults" BuildingStolen="XmlRecoveryA_EvaEvent_defaults" IncomingRadarTransmission="XmlRecoveryA_EvaEvent_defaults" AllyDefeated="XmlRecoveryA_EvaEvent_defaults" EnemyDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerVictorious="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotRepairDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotUsePowerDueToFunds="XmlRecoveryA_EvaEvent_defaults" TiberiumFieldDepleted="XmlRecoveryA_EvaEvent_defaults" NewMissionObjective="XmlRecoveryA_EvaEvent_defaults" CompletedMissionObjective="XmlRecoveryA_EvaEvent_defaults" NewBonusObjective="XmlRecoveryA_EvaEvent_defaults" CompletedBonusMissionObjective="XmlRecoveryA_EvaEvent_defaults" IntelDatabaseEntryReceived="XmlRecoveryA_EvaEvent_defaults" UpgradeComplete="XmlRecoveryA_EvaEvent_defaults" BuildingBeingStolen="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedPlayer="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedAlly="XmlRecoveryA_EvaEvent_defaults" ObservedPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" WallsBeingClimbed="XmlRecoveryA_EvaEvent_defaults" StructureInfiltrated="XmlRecoveryA_EvaEvent_defaults" ControlPointCaptured="XmlRecoveryA_EvaEvent_defaults" ControlPointLost="XmlRecoveryA_EvaEvent_defaults" ControlPointHasBeenCaptured="XmlRecoveryA_EvaEvent_defaults" CTFFlagCaptured="XmlRecoveryA_EvaEvent_defaults" CTFEnemyCapturedFlag="XmlRecoveryA_EvaEvent_defaults" CTFFlagDropped="XmlRecoveryA_EvaEvent_defaults" CTFEnemyDroppedFlag="XmlRecoveryA_EvaEvent_defaults" CTFYouHaveFlag="XmlRecoveryA_EvaEvent_defaults" CTFEnemyHasFlag="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierDisengaged="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierEngaged="XmlRecoveryA_EvaEvent_defaults"/>
+  <MiscEvaEvents id="XmlRecoveryA_MiscEvaEvents_rich" LowPower="XmlRecoveryA_EvaEvent_defaults" SilosNeeded="XmlRecoveryA_EvaEvent_defaults" BuildingStolen="XmlRecoveryA_EvaEvent_defaults" IncomingRadarTransmission="XmlRecoveryA_EvaEvent_defaults" AllyDefeated="XmlRecoveryA_EvaEvent_defaults" EnemyDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerVictorious="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotRepairDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotUsePowerDueToFunds="XmlRecoveryA_EvaEvent_defaults" TiberiumFieldDepleted="XmlRecoveryA_EvaEvent_defaults" NewMissionObjective="XmlRecoveryA_EvaEvent_defaults" CompletedMissionObjective="XmlRecoveryA_EvaEvent_defaults" NewBonusObjective="XmlRecoveryA_EvaEvent_defaults" CompletedBonusMissionObjective="XmlRecoveryA_EvaEvent_defaults" IntelDatabaseEntryReceived="XmlRecoveryA_EvaEvent_defaults" UpgradeComplete="XmlRecoveryA_EvaEvent_defaults" BuildingBeingStolen="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedPlayer="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedAlly="XmlRecoveryA_EvaEvent_defaults" ObservedPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" WallsBeingClimbed="XmlRecoveryA_EvaEvent_defaults" StructureInfiltrated="XmlRecoveryA_EvaEvent_defaults" ControlPointCaptured="XmlRecoveryA_EvaEvent_defaults" ControlPointLost="XmlRecoveryA_EvaEvent_defaults" ControlPointHasBeenCaptured="XmlRecoveryA_EvaEvent_defaults" CTFFlagCaptured="XmlRecoveryA_EvaEvent_defaults" CTFEnemyCapturedFlag="XmlRecoveryA_EvaEvent_defaults" CTFFlagDropped="XmlRecoveryA_EvaEvent_defaults" CTFEnemyDroppedFlag="XmlRecoveryA_EvaEvent_defaults" CTFYouHaveFlag="XmlRecoveryA_EvaEvent_defaults" CTFEnemyHasFlag="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierDisengaged="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierEngaged="XmlRecoveryA_EvaEvent_defaults">
+    <AIBeaconTypeSettings BeaconType="HoldObject" PlacedEvent="XmlRecoveryA_EvaEvent_defaults"/>
+    <AIBeaconTypeSettings BeaconType="HoldObject" PlacedEvent="XmlRecoveryA_EvaEvent_defaults"/>
+    <AIBeaconTypeSettings BeaconType="HoldObject" PlacedEvent="XmlRecoveryA_EvaEvent_defaults"/>
+  </MiscEvaEvents>
+  <MiscEvaEvents id="XmlRecoveryA_MiscEvaEvents_repeat" LowPower="XmlRecoveryA_EvaEvent_defaults" SilosNeeded="XmlRecoveryA_EvaEvent_defaults" BuildingStolen="XmlRecoveryA_EvaEvent_defaults" IncomingRadarTransmission="XmlRecoveryA_EvaEvent_defaults" AllyDefeated="XmlRecoveryA_EvaEvent_defaults" EnemyDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" LocalPlayerVictorious="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToCPLimit="XmlRecoveryA_EvaEvent_defaults" BuildQueuePausedDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotBuildDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotRepairDueToFunds="XmlRecoveryA_EvaEvent_defaults" CannotUsePowerDueToFunds="XmlRecoveryA_EvaEvent_defaults" TiberiumFieldDepleted="XmlRecoveryA_EvaEvent_defaults" NewMissionObjective="XmlRecoveryA_EvaEvent_defaults" CompletedMissionObjective="XmlRecoveryA_EvaEvent_defaults" NewBonusObjective="XmlRecoveryA_EvaEvent_defaults" CompletedBonusMissionObjective="XmlRecoveryA_EvaEvent_defaults" IntelDatabaseEntryReceived="XmlRecoveryA_EvaEvent_defaults" UpgradeComplete="XmlRecoveryA_EvaEvent_defaults" BuildingBeingStolen="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedPlayer="XmlRecoveryA_EvaEvent_defaults" BeaconPlacedAlly="XmlRecoveryA_EvaEvent_defaults" ObservedPlayerDefeated="XmlRecoveryA_EvaEvent_defaults" WallsBeingClimbed="XmlRecoveryA_EvaEvent_defaults" StructureInfiltrated="XmlRecoveryA_EvaEvent_defaults" ControlPointCaptured="XmlRecoveryA_EvaEvent_defaults" ControlPointLost="XmlRecoveryA_EvaEvent_defaults" ControlPointHasBeenCaptured="XmlRecoveryA_EvaEvent_defaults" CTFFlagCaptured="XmlRecoveryA_EvaEvent_defaults" CTFEnemyCapturedFlag="XmlRecoveryA_EvaEvent_defaults" CTFFlagDropped="XmlRecoveryA_EvaEvent_defaults" CTFEnemyDroppedFlag="XmlRecoveryA_EvaEvent_defaults" CTFYouHaveFlag="XmlRecoveryA_EvaEvent_defaults" CTFEnemyHasFlag="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierDisengaged="XmlRecoveryA_EvaEvent_defaults" SiegeBarrierEngaged="XmlRecoveryA_EvaEvent_defaults" inheritFrom="XmlRecoveryA_MiscEvaEvents_rich"/>
+  <AchievementEvent id="XmlRecoveryA_AchievementEvent_defaults">
+    <Action/>
+  </AchievementEvent>
+  <AchievementEvent id="XmlRecoveryA_AchievementEvent_rich" EventId="17">
+    <Action TargetCount="17" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="17"/>
+    <Action TargetCount="17" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="17"/>
+    <Action TargetCount="17" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="17"/>
+  </AchievementEvent>
+  <AchievementEvent id="XmlRecoveryA_AchievementEvent_repeat" EventId="27">
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+    <Action TargetCount="27" Type="AWARD_ACHIEVEMENT_AFTER_POST_GAME_SHELL" ActionObjId="27"/>
+  </AchievementEvent>
+  <MapNameToAchievementEventMapping id="XmlRecoveryA_MapNameToAchievementEventMapping_defaults" MapName="" AchievementEventId="0"/>
+  <MapNameToAchievementEventMapping id="XmlRecoveryA_MapNameToAchievementEventMapping_rich" MapName="SampleA" AchievementEventId="17"/>
+  <MapNameToAchievementEventMapping id="XmlRecoveryA_MapNameToAchievementEventMapping_repeat" MapName="SampleA" AchievementEventId="27"/>
+  <GameplayAchievementTriggerData id="XmlRecoveryA_GameplayAchievementTriggerData_defaults" GameplayConditionData="XmlRecoveryA_GameplayConditionData_defaults" AchievementEventId="0"/>
+  <GameplayAchievementTriggerData id="XmlRecoveryA_GameplayAchievementTriggerData_rich" GameplayConditionData="XmlRecoveryA_GameplayConditionData_defaults" AchievementEventId="17"/>
+  <GameplayAchievementTriggerData id="XmlRecoveryA_GameplayAchievementTriggerData_repeat" GameplayConditionData="XmlRecoveryA_GameplayConditionData_defaults" AchievementEventId="27"/>
+  <ForceFeedbackEvent id="XmlRecoveryA_ForceFeedbackEvent_defaults" LeftMotorUse="0%" RightMotorUse="0%" Duration="0s"/>
+  <ForceFeedbackEvent id="XmlRecoveryA_ForceFeedbackEvent_rich" LeftMotorUse="25%" RightMotorUse="25%" Duration="250ms" PlayCount="1.25"/>
+  <ForceFeedbackEvent id="XmlRecoveryA_ForceFeedbackEvent_repeat" LeftMotorUse="0%" RightMotorUse="0%" Duration="0s" inheritFrom="XmlRecoveryA_ForceFeedbackEvent_rich"/>
+  <GameMap id="XmlRecoveryA_GameMap_defaults"/>
+  <GameMap id="XmlRecoveryA_GameMap_rich">
+    <Waypoint id="NestedA_146" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Waypoint>
+    <Waypoint id="NestedA_147" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Waypoint>
+    <Waypoint id="NestedA_148" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Waypoint>
+    <Structure id="NestedA_149" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Structure>
+    <Structure id="NestedA_150" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Structure>
+    <Structure id="NestedA_151" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Structure>
+    <Unit id="NestedA_152" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unit>
+    <Unit id="NestedA_153" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unit>
+    <Unit id="NestedA_154" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unit>
+    <Prop id="NestedA_155" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Prop>
+    <Prop id="NestedA_156" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Prop>
+    <Prop id="NestedA_157" Flags="DONT_RENDER DONT_RENDER" Angle="1.25" Faction="SampleA" Team="SampleA" Health="1.25" EventList="SampleA">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Prop>
+    <Audio id="NestedA_158" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Audio>
+    <Audio id="NestedA_159" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Audio>
+    <Audio id="NestedA_160" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Audio>
+    <Unknown id="NestedA_161" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unknown>
+    <Unknown id="NestedA_162" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unknown>
+    <Unknown id="NestedA_163" Flags="DONT_RENDER DONT_RENDER" Angle="1.25">
+      <Position x="1.25" y="1.25" z="1.25"/>
+    </Unknown>
+    <Road/>
+    <Road/>
+    <Road/>
+    <MapMetaData id="NestedA_164" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="17" CRC="17" FileName="SampleA" IsOfficial="true" Width="17" Height="17" BorderSize="17">
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+    </MapMetaData>
+    <EnvironmentData/>
+    <WorldDict>
+      <AssetIdListProperty Key="SampleA" Value="  Alpha&#9;Beta&#10;Gamma  "/>
+      <StringProperty Key="EscapedXml" Value="space &amp; &lt;tag&gt; &quot;quote&quot;"/>
+      <UnicodeStringProperty Key="UnicodeText" Value="汉字é😀"/>
+    </WorldDict>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <MapAnalysis GarrisonableStructures="3" TechStructures="3" CellsExamined="3" WaterCells="3" WaterAreas="3">
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+    </MapAnalysis>
+  </GameMap>
+  <GameMap id="XmlRecoveryA_GameMap_repeat">
+    <Waypoint id="NestedA_166" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_167" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_168" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_169" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_170" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_171" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Waypoint id="NestedA_172" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Waypoint>
+    <Structure id="NestedA_173" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_174" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_175" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_176" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_177" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_178" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Structure id="NestedA_179" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Structure>
+    <Unit id="NestedA_180" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_181" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_182" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_183" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_184" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_185" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Unit id="NestedA_186" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unit>
+    <Prop id="NestedA_187" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_188" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_189" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_190" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_191" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_192" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Prop id="NestedA_193" Flags="DONT_RENDER DONT_RENDER" Angle="0.125" Faction="SampleA" Team="SampleA" Health="0.125" EventList="SampleA">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Prop>
+    <Audio id="NestedA_194" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_195" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_196" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_197" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_198" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_199" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Audio id="NestedA_200" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Audio>
+    <Unknown id="NestedA_201" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_202" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_203" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_204" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_205" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_206" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Unknown id="NestedA_207" Flags="DONT_RENDER DONT_RENDER" Angle="0.125">
+      <Position x="0.125" y="0.125" z="0.125"/>
+    </Unknown>
+    <Road/>
+    <Road/>
+    <Road/>
+    <Road/>
+    <Road/>
+    <Road/>
+    <Road/>
+    <MapMetaData id="NestedA_208" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <EnvironmentData/>
+    <WorldDict>
+      <StringProperty Key="SampleA" Value="SampleA"/>
+    </WorldDict>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <PostEffect/>
+    <MapAnalysis GarrisonableStructures="3" TechStructures="3" CellsExamined="3" WaterCells="3" WaterAreas="3">
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+      <WaterAreaType>EXTERIOR_PARTIAL</WaterAreaType>
+    </MapAnalysis>
+  </GameMap>
+  <GameScriptList id="XmlRecoveryA_GameScriptList_defaults"/>
+  <GameScriptList id="XmlRecoveryA_GameScriptList_rich">
+    <ScriptSet id="NestedA_211">
+      <Script id="NestedA_212">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_213">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_214">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <ScriptGroup id="NestedA_215">
+        <Script id="NestedA_216">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_217">
+          <Script id="NestedA_218">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_219">
+            <Script id="NestedA_220">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_221">
+              <Script id="NestedA_222"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_223">
+        <Script id="NestedA_224">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_225">
+          <Script id="NestedA_226">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_227">
+            <Script id="NestedA_228">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_229">
+              <Script id="NestedA_230"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_231">
+        <Script id="NestedA_232">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_233">
+          <Script id="NestedA_234">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_235">
+            <Script id="NestedA_236">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_237">
+              <Script id="NestedA_238"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+    </ScriptSet>
+  </GameScriptList>
+  <GameScriptList id="XmlRecoveryA_GameScriptList_repeat">
+    <ScriptSet id="NestedA_240">
+      <Script id="NestedA_241">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_242">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_243">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_244">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_245">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_246">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <Script id="NestedA_247">
+        <Action Type="SampleA">
+          <ParameterList>
+            <ObjectTypeList>
+              <Object></Object>
+            </ObjectTypeList>
+          </ParameterList>
+        </Action>
+      </Script>
+      <ScriptGroup id="NestedA_248">
+        <Script id="NestedA_249">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_250">
+          <Script id="NestedA_251">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_252">
+            <Script id="NestedA_253">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_254">
+              <Script id="NestedA_255"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_256">
+        <Script id="NestedA_257">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_258">
+          <Script id="NestedA_259">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_260">
+            <Script id="NestedA_261">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_262">
+              <Script id="NestedA_263"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_264">
+        <Script id="NestedA_265">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_266">
+          <Script id="NestedA_267">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_268">
+            <Script id="NestedA_269">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_270">
+              <Script id="NestedA_271"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_272">
+        <Script id="NestedA_273">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_274">
+          <Script id="NestedA_275">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_276">
+            <Script id="NestedA_277">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_278">
+              <Script id="NestedA_279"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_280">
+        <Script id="NestedA_281">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_282">
+          <Script id="NestedA_283">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_284">
+            <Script id="NestedA_285">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_286">
+              <Script id="NestedA_287"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_288">
+        <Script id="NestedA_289">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_290">
+          <Script id="NestedA_291">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_292">
+            <Script id="NestedA_293">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_294">
+              <Script id="NestedA_295"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+      <ScriptGroup id="NestedA_296">
+        <Script id="NestedA_297">
+          <Action Type="SampleA">
+            <ParameterList>
+              <ObjectTypeList/>
+            </ParameterList>
+          </Action>
+        </Script>
+        <ScriptGroup id="NestedA_298">
+          <Script id="NestedA_299">
+            <Action Type="SampleA">
+              <ParameterList/>
+            </Action>
+          </Script>
+          <ScriptGroup id="NestedA_300">
+            <Script id="NestedA_301">
+              <Action Type="SampleA"/>
+            </Script>
+            <ScriptGroup id="NestedA_302">
+              <Script id="NestedA_303"/>
+              <ScriptGroup/>
+            </ScriptGroup>
+          </ScriptGroup>
+        </ScriptGroup>
+      </ScriptGroup>
+    </ScriptSet>
+  </GameScriptList>
+  <HealthBarTemplate id="XmlRecoveryA_HealthBarTemplate_defaults" Length="0"/>
+  <HealthBarTemplate id="XmlRecoveryA_HealthBarTemplate_rich" Length="17"/>
+  <HealthBarTemplate id="XmlRecoveryA_HealthBarTemplate_repeat" Length="27"/>
+  <HealthBarSettings id="XmlRecoveryA_HealthBarSettings_defaults"/>
+  <HealthBarSettings id="XmlRecoveryA_HealthBarSettings_rich" DefaultHealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_309" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_310" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_311" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+  </HealthBarSettings>
+  <HealthBarSettings id="XmlRecoveryA_HealthBarSettings_repeat" DefaultHealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_313" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_314" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_315" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_316" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_317" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_318" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+    <ObjectMapping HealthBar="XmlRecoveryA_HealthBarTemplate_defaults">
+      <ObjectFilter id="NestedA_319" Rule="NONE" Relationship="SAME_PLAYER SAME_PLAYER" Alignment="GOOD" Include="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" Exclude="TERRAIN_LIKE_GROUND_OBJECT TERRAIN_LIKE_GROUND_OBJECT" StatusBitFlags="ANTI_GARRISON ANTI_GARRISON" StatusBitFlagsExclude="ANTI_GARRISON ANTI_GARRISON">
+        <IncludeThing>SampleA</IncludeThing>
+        <ExcludeThing>SampleA</ExcludeThing>
+      </ObjectFilter>
+    </ObjectMapping>
+  </HealthBarSettings>
+  <Language id="XmlRecoveryA_Language_defaults">
+    <Separators/>
+    <UnicodeFontName></UnicodeFontName>
+  </Language>
+  <Language id="XmlRecoveryA_Language_rich">
+    <Separators Thousand="SampleA" Decimal="SampleA" TimeMinuteToSecond="SampleA"/>
+    <UnicodeFontName>SampleA</UnicodeFontName>
+    <FontInfo>
+      <FontTitle>NativeDebugDisplay</FontTitle>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </FontInfo>
+    <FontInfo>
+      <FontTitle>NativeDebugDisplay</FontTitle>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </FontInfo>
+    <FontInfo>
+      <FontTitle>NativeDebugDisplay</FontTitle>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </FontInfo>
+  </Language>
+  <Language id="XmlRecoveryA_Language_repeat" inheritFrom="XmlRecoveryA_Language_rich">
+    <Separators/>
+    <UnicodeFontName></UnicodeFontName>
+  </Language>
+  <HeaderTemplate id="XmlRecoveryA_HeaderTemplate_defaults">
+    <Font Name="" Size="0"/>
+  </HeaderTemplate>
+  <HeaderTemplate id="XmlRecoveryA_HeaderTemplate_rich">
+    <Font Name="SampleA" Size="17" Bold="true"/>
+  </HeaderTemplate>
+  <HeaderTemplate id="XmlRecoveryA_HeaderTemplate_repeat" inheritFrom="XmlRecoveryA_HeaderTemplate_rich">
+    <Font Name="" Size="0"/>
+  </HeaderTemplate>
+  <FontDirectory id="XmlRecoveryA_FontDirectory_defaults" Path=""/>
+  <FontDirectory id="XmlRecoveryA_FontDirectory_rich" Path="SampleA"/>
+  <FontDirectory id="XmlRecoveryA_FontDirectory_repeat" Path="SampleA"/>
+  <TheVersion id="XmlRecoveryA_TheVersion_defaults">
+    <Version/>
+  </TheVersion>
+  <TheVersion id="XmlRecoveryA_TheVersion_rich">
+    <Version Major="17" Minor="17"/>
+  </TheVersion>
+  <TheVersion id="XmlRecoveryA_TheVersion_repeat">
+    <Version Major="27" Minor="27"/>
+  </TheVersion>
+  <Credits id="XmlRecoveryA_Credits_defaults">
+    <Scroll Rate="0" RateEveryFrame="0" ScrollDown="false"/>
+  </Credits>
+  <Credits id="XmlRecoveryA_Credits_rich">
+    <Scroll Rate="17" RateEveryFrame="17" ScrollDown="true"/>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="17" Bold="true"/>
+    </Style>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+  </Credits>
+  <Credits id="XmlRecoveryA_Credits_repeat">
+    <Scroll Rate="27" RateEveryFrame="27" ScrollDown="true"/>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <Style Name="ColumnFont">
+      <Color R="3" G="3" B="3"/>
+      <Font Name="SampleA" Size="27" Bold="true"/>
+    </Style>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+    <CreditItem Style="ColumnFont">
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+      <Text>SampleA</Text>
+    </CreditItem>
+  </Credits>
+  <MapMetaData id="XmlRecoveryA_MapMetaData_defaults">
+    <MapMetaData>
+      <StartPosition>
+        <Position/>
+      </StartPosition>
+      <StartPosition>
+        <Position/>
+      </StartPosition>
+    </MapMetaData>
+  </MapMetaData>
+  <MapMetaData id="XmlRecoveryA_MapMetaData_rich">
+    <MapMetaData id="NestedA_337" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="17" CRC="17" FileName="SampleA" IsOfficial="true" Width="17" Height="17" BorderSize="17">
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_338" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="17" CRC="17" FileName="SampleA" IsOfficial="true" Width="17" Height="17" BorderSize="17">
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_339" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="17" CRC="17" FileName="SampleA" IsOfficial="true" Width="17" Height="17" BorderSize="17">
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="1.25" y="1.25" z="1.25"/>
+      </StartPosition>
+    </MapMetaData>
+  </MapMetaData>
+  <MapMetaData id="XmlRecoveryA_MapMetaData_repeat">
+    <MapMetaData id="NestedA_341" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_342" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_343" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_344" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_345" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_346" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+    <MapMetaData id="NestedA_347" Description="SampleA" DisplayName="SampleA" IsMultiplayer="true" NumPlayers="27" CRC="27" FileName="SampleA" IsOfficial="true" Width="27" Height="27" BorderSize="27">
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+      <StartPosition Name="SampleA">
+        <Position x="0.125" y="0.125" z="0.125"/>
+      </StartPosition>
+    </MapMetaData>
+  </MapMetaData>
+  <Road id="XmlRecoveryA_Road_defaults"/>
+  <Road id="XmlRecoveryA_Road_rich" RoadWidth="1.25" RoadWidthInTexture="1.25" Priority="1.25"/>
+  <Road id="XmlRecoveryA_Road_repeat" RoadWidth="0.125" RoadWidthInTexture="0.125" Priority="0.125"/>
+  <ShaderOverride id="XmlRecoveryA_ShaderOverride_defaults">
+    <Rule ReplaceShaderName="SampleA" ReplaceTechniqueName=""/>
+  </ShaderOverride>
+  <ShaderOverride id="XmlRecoveryA_ShaderOverride_rich" Priority="3">
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+  </ShaderOverride>
+  <ShaderOverride id="XmlRecoveryA_ShaderOverride_repeat" Priority="3">
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+    <Rule IfOriginalShaderIs="SampleA" ReplaceShaderName="SampleA" ReplaceTechniqueName="SampleA"/>
+  </ShaderOverride>
+  <Mouse id="XmlRecoveryA_Mouse_defaults"/>
+  <Mouse id="XmlRecoveryA_Mouse_rich" DragTolerance="17" DragThreshold="250ms" InGameUIMaxDoubleClickDistance="17" AptHitRegionMaxDoubleClickDistance="17"/>
+  <Mouse id="XmlRecoveryA_Mouse_repeat" DragTolerance="27" DragThreshold="1500ms" InGameUIMaxDoubleClickDistance="27" AptHitRegionMaxDoubleClickDistance="27"/>
+  <LogicCommandSet id="XmlRecoveryA_Support_LogicCommandSet">
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+    <Cmd>XmlRecoveryA_Support_LogicCommand</Cmd>
+  </LogicCommandSet>
+</AssetDeclaration>

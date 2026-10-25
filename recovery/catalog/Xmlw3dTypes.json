@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "W3DHierarchy",
+      "typeId": 1641540160,
+      "typeHash": 3985956449,
+      "schemaGlobal": true
+    },
+    {
+      "name": "W3DContainer",
+      "typeId": 4042295058,
+      "typeHash": 1637720895,
+      "schemaGlobal": true
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "typeId": 3534264507,
+      "typeHash": 3595590881,
+      "schemaGlobal": false
+    },
+    {
+      "name": "W3DCollisionBox",
+      "typeId": 3810008068,
+      "typeHash": 1848047257,
+      "schemaGlobal": true
+    }
+  ]
+}

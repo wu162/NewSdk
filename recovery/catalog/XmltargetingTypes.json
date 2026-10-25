@@ -1,0 +1,37 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "TargetingBaseCompare",
+      "typeId": 3600209407,
+      "typeHash": 4157686172,
+      "schemaGlobal": false
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "typeId": 2359666647,
+      "typeHash": 3222028787,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "typeId": 89767986,
+      "typeHash": 3054734349,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "typeId": 2007776008,
+      "typeHash": 1553493937,
+      "schemaGlobal": true
+    },
+    {
+      "name": "TargetingCompareList",
+      "typeId": 3188107749,
+      "typeHash": 1300486550,
+      "schemaGlobal": true
+    }
+  ]
+}

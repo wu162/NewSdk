@@ -210,7 +210,42 @@ class XmlaiOracle {
     static uint[] HeuristicIds=new uint[]{2269801993u,75667102u,278936256u,2225927560u,263056479u,2665825158u,3152351395u,3416369467u,951319894u,1268468166u,121779834u,3826170916u,1740211623u,2156949943u,4037692679u,2915089289u,2128923060u,1278812460u,1170787490u,3371681655u,2386854964u,1390340504u,1375432082u,2174347641u,3195463252u,4054901427u,4090667391u,2115602688u,1801850452u};
     static string[] HeuristicNames=new string[]{"AIStateResourceNodeShareHeuristic","AIStateMoneyHeuristic","AIStateTimerHeuristic","AIStateOpenNodeHeuristic","AIStateEnergyHeuristic","AIStateCanBuildBuildingsOnSurfaceHeuristic","AIStateBridgeExistsHeuristic","AIStateTechBuildingShareHeuristic","AIStateAllNearbyNodesFullHeuristic","AIStateProductionAdvantageHeuristic","AIStateLinearCombinationHeuristic","AIStateTimeSinceLastExpansionHeuristic","AIStateEnemyNearbyHeuristic","AIStateScriptedFlagHeuristic","AIStateOpponentFundsHeuristic","AIStatePowerAdvantageHeuristic","AIStateOpeningMoveHeuristic","AIStateGarrisonHeuristic","AIStateIsBuildingHeuristic","AIRedAlertHeuristic","AIStateHarvesterCapHeuristic","AIStateIncomeAdvantageHeuristic","AIStateConstantHeuristic","AIStateIntervalHeuristic","AIStateObjectOfTypeExistsHeuristic","AIStatePathToTargetHeuristic","AIStrategicDirectiveHeuristic","AIAlliedBeaconExistsHeuristic","AIStateStructureOrHarvesterUnderAttackHeuristic"};
     static int[] HeuristicSizes=new int[]{12,16,16,12,16,16,12,12,4,4,12,12,20,12,4,84,8,16,44,8,8,12,8,16,124,20,12,12,12};
+    static void MetadataCases(TargetPlatform platform) {
+        uint[] ids={3604279694u,607123156u,2423780215u,2893598307u,3239935619u,926814458u};
+        for(int i=0;i<Types.Length;++i) {
+            Test("BAB-TypeId/root/"+Types[i],Root(Types[i],"TypeId='"+ids[i]+"'",""),platform);
+            Reject("BAB-TypeId/qualified/"+Types[i],Root(Types[i],"xmlns:q='urn:other' q:TypeId='"+ids[i]+"'",""));
+        }
+        // Root dispatch follows the canonical root name/Handle; the original root
+        // Marshal ignores the redundant XML TypeId metadata.
+        Test("BAB-TypeId/root-ignored",Root("AIStateDefinition","TypeId='99'",""),platform);
+        Test("BAB-TypeId/reference-leaf",Root("AIPersonalityDefinition","TypeId='3604279694'","<Side TypeId='1'>First\\7</Side>"),platform);
+#if XMLAI_PERSONALITY_EXTENSION
+        Test("BAB-TypeId/personality-structures",Root("AIPersonalityDefinition","TypeId='3604279694'",
+            "<OpeningMove TypeId='1' Name='Move'><Heuristic TypeId='2'><H TypeId='1375432082' Weight='2'/></Heuristic></OpeningMove>"+
+            "<CountAsStructureForBuildPurposesFilter TypeId='3' Include='STRUCTURE'><IncludeThing TypeId='4'>Tank</IncludeThing></CountAsStructureForBuildPurposesFilter>"),platform);
+#endif
+        Test("BAB-TypeId/tactic-team-filter",Root("AIStrategicStateDefinition","TypeId='607123156'",
+            "<Tactic TypeId='1' Tactic='SimpleAttack'><TeamTemplate TypeId='2' MaxUnits='7'><CreateUnits TypeId='3' UnitName='Tank' MinUnits='2'/>"+
+            "<ObjectFilter TypeId='4' Include='INFANTRY'><IncludeThing TypeId='5'>Tank</IncludeThing><ExcludeThing TypeId='6'>Air</ExcludeThing></ObjectFilter></TeamTemplate></Tactic>"),platform);
+        Test("BAB-TypeId/micro-structures-filter",Root("AIMicroManagerData","TypeId='2423780215'",
+            "<TargetBias TypeId='1' UnitName='Tank'/><SpecificSpecialPowerDelay TypeId='2' MinimumDelay='250ms'/><RetreatBaseCriteria TypeId='3' RequiredBaseTypes='MAIN_BASE'/>"+
+            "<IgnoreTargets TypeId='4' Include='INFANTRY'><IncludeThing TypeId='5'>Tank</IncludeThing></IgnoreTargets>"),platform);
+        Test("BAB-TypeId/budget-wrapper",Root("AIBudgetStateDefinition","TypeId='2893598307'",
+            "<Budget TypeId='1'><AccountShare TypeId='2' Account='PRODUCTION' Percent='50'/></Budget><Heuristic TypeId='3'><H TypeId='1375432082' Weight='2'/></Heuristic>"),platform);
+        Test("BAB-TypeId/heuristic-dispatch",Root("AIStateDefinition","TypeId='3239935619'",
+            "<Heuristic TypeId='1'><H TypeId='121779834'><WeightedHeuristic TypeId='2' Weight='0.75'><Heuristic TypeId='3'><H TypeId='1375432082' Weight='2'/></Heuristic></WeightedHeuristic></H>"+
+            "<H TypeId='1740211623'><EnemyFilter TypeId='4' Include='INFANTRY'><IncludeThing TypeId='5'>Tank</IncludeThing></EnemyFilter></H></Heuristic>"),platform);
+        Test("BAB-TypeId/target-structures",Root("AITargetingHeuristic","TypeId='926814458'",
+            "<BaseSelection TypeId='1'/><BuildingPlacementDistance TypeId='2' Distance='3'/><BuildingPlacementDistance TypeId='3' Distance='1'/>"),platform);
+        Reject("BAB-TypeId/leaf-other-attribute",Root("AIPersonalityDefinition","","<Side TypeId='1' Unknown='1'>Tank</Side>"));
+        Reject("BAB-TypeId/filter-other-attribute",Root("AIMicroManagerData","","<IgnoreTargets TypeId='1' Unknown='1'/>"));
+        Reject("BAB-TypeId/wrapper-other-attribute",Root("AIBudgetStateDefinition","","<Budget TypeId='1' Unknown='1'/>"));
+        Reject("BAB-TypeId/heuristic-still-unknown",Root("AIStateDefinition","TypeId='3239935619'","<Heuristic TypeId='1'><H TypeId='999'/></Heuristic>"));
+        Reject("BAB-TypeId/heuristic-still-required",Root("AIStateDefinition","TypeId='3239935619'","<Heuristic TypeId='1'><H/></Heuristic>"));
+    }
     static void Run(TargetPlatform platform) {
+        MetadataCases(platform);
         bool big=platform!=TargetPlatform.Win32;
         foreach(string type in Types){
             int ix=Array.IndexOf(Types,type);AssetBuffer b=Test(type+"/defaults",Root(type,"",""),platform);
@@ -551,3 +586,4 @@ class XmlaiOracle {
         } catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+

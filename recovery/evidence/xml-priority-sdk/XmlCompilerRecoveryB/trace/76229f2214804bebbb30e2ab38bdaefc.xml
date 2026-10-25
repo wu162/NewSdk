@@ -1,0 +1,1 @@
+<PathMusicGameDynamicTransition DestinationState="RecoveryXmlB_PathMusicGameDynamicState_Defaults" id="RecoveryXmlB_PathMusicGameDynamicTransition_Defaults" TypeId="2343360052" xmlns="uri:ea.com:eala:asset"><Condition TypeId="2281573073">RecoveryXmlB_MusicScriptConditionNugget_LocalPlayerIsObserver_Defaults\0</Condition></PathMusicGameDynamicTransition>

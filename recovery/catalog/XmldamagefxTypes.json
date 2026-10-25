@@ -1,0 +1,17 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "roots": [
+    {
+      "name": "DamageFX",
+      "typeId": 2905958645,
+      "typeHash": 187609259,
+      "schemaGlobal": true
+    },
+    {
+      "name": "DamageFXSettings",
+      "typeId": 75989905,
+      "typeHash": 2052546860,
+      "schemaGlobal": true
+    }
+  ]
+}

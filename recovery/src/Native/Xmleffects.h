@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "ResourceMarshaling.h"
+#include "ObjectFilter.h"
 namespace Recovered { namespace Native {
 enum XmleffectsFieldKind { EffectFloat, EffectUnsigned, EffectHash, EffectReference, EffectString, EffectTime, EffectAngle, EffectBoolean, EffectEnum, EffectPercentage, EffectSigned };
 struct XmleffectsFieldInput {
@@ -17,6 +18,8 @@ struct XmleffectsNuggetInput {
     std::vector<std::string> disabled;
     bool hasModelConditions[4] = {false,false,false,false};
     std::string modelConditions[4];
+    bool hasFilters[2] = {false,false};
+    ObjectFilterInput filters[2]; // Secondary @24, Source @28, in allocation order.
     bool hasTargetOffset = false, hasPackedColor = false;
     std::string targetOffset[3], rgba[4];
     bool hasRange = false;
@@ -30,3 +33,4 @@ struct XmleffectsFXListInput {
 };
 Relo::Chunk CompileXmleffectsFXList(const XmleffectsFXListInput& input, bool bigEndian);
 }}
+

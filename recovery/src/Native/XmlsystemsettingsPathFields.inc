@@ -1,0 +1,2 @@
+// Original Marshal PathfindSettings order/offsets, Module51544.
+const char* PathFields[]={"MaxPathfindCellsPerFrame","MaxPathfindCellsPerPhase","MaxCellsFindMeleeEngagementLocation","MaxCellsAdjustDestination","MaxCellsAdjustHordeMeleeDestination","MaxCellsAdjustTargetDestination","MaxCellsAdjustToPossibleDestination","MaxCellsAdjustToMeleeDestination","MaxCellsAdjustToNearestGroundCell","MaxCellsAdjustToNearestValidCell","MaxCellsPatchPath","MaxCellsToExamineTowardsGoal","MaxExtraCollisionResponsePathsPerFrame","MaxExtraMoveAwayFromPathPathsPerFrame","LayerZCloseEnough"};

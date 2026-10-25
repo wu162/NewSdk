@@ -1,0 +1,130 @@
+{
+  "roots": [
+    {
+      "name": "MusicScriptConditionNuggetBase",
+      "typeId": 2292378780,
+      "typeHash": 3971458299,
+      "schemaGlobal": false
+    },
+    {
+      "name": "MusicScriptConditionExpensiveNuggetBase",
+      "typeId": 849624115,
+      "typeHash": 2261613772,
+      "schemaGlobal": false
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "typeId": 188286714,
+      "typeHash": 1810715368,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "typeId": 2620791304,
+      "typeHash": 3492519332,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "typeId": 1464425282,
+      "typeHash": 1158381935,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "typeId": 57370491,
+      "typeHash": 4012559760,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "typeId": 739280456,
+      "typeHash": 3851927382,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "typeId": 3402992833,
+      "typeHash": 1748534571,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "typeId": 4286308287,
+      "typeHash": 2841937089,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "typeId": 2743973749,
+      "typeHash": 1875528998,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "typeId": 3386715757,
+      "typeHash": 1958333769,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "typeId": 3620764004,
+      "typeHash": 3267267860,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "typeId": 4007043648,
+      "typeHash": 855988878,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "typeId": 2281773838,
+      "typeHash": 4074957085,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "typeId": 1343682755,
+      "typeHash": 532337471,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "typeId": 2912435838,
+      "typeHash": 2349512303,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "typeId": 3727134806,
+      "typeHash": 3386360116,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "typeId": 3476397162,
+      "typeHash": 3050031378,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "typeId": 2818967523,
+      "typeHash": 3311890413,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "typeId": 1634186921,
+      "typeHash": 607961670,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MusicScriptTrack",
+      "typeId": 1038067901,
+      "typeHash": 3151900516,
+      "schemaGlobal": true
+    }
+  ]
+}

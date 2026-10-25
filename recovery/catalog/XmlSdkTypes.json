@@ -1,0 +1,2084 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "scope": "Static current SDK registration scope; runtime acceptance is recorded separately",
+  "sdkAcceptanceEvaluated": false,
+  "runtimeAcceptanceEvidence": "recovery/evidence/xml-priority-sdk/acceptance.json",
+  "registeredEntries": 289,
+  "schemaGlobalEntries": 267,
+  "nonGlobalEntries": 22,
+  "excluded": [
+    {
+      "name": "TestGameObject",
+      "typeId": 26632491
+    },
+    {
+      "name": "UIJoypadCommandBarMixedGroup",
+      "typeId": 1276968974
+    },
+    {
+      "name": "UIJoypadCommandBarHomogenousGroup",
+      "typeId": 1546953756
+    },
+    {
+      "name": "UIJoypadCommandBarCoopCommunicator",
+      "typeId": 1654297531
+    },
+    {
+      "name": "JoypadCommandBarButtonTemplate",
+      "typeId": 1804891371
+    },
+    {
+      "name": "UIJoypadCommandBarStances",
+      "typeId": 1887864852
+    },
+    {
+      "name": "JoypadCommandBarTemplate",
+      "typeId": 1931769760
+    },
+    {
+      "name": "UIJoypadCommandBarTopMenu",
+      "typeId": 2170044043
+    },
+    {
+      "name": "UIJoypadCommandBarPlayerPowers",
+      "typeId": 2742786440
+    },
+    {
+      "name": "UIJoypadCommandBarButtonBuild",
+      "typeId": 3423839194
+    },
+    {
+      "name": "UIJoypadCommandBarControlGroups",
+      "typeId": 3645205636
+    },
+    {
+      "name": "UIJoypadCommandBarSingleUnit",
+      "typeId": 3901433122
+    }
+  ],
+  "roots": [
+    {
+      "name": "AttributeModifier",
+      "typeId": 3319822471,
+      "typeHash": 4177657499,
+      "schemaGlobal": true,
+      "compiler": "AttributeModifierCompiler"
+    },
+    {
+      "name": "FXList",
+      "typeId": 2254974584,
+      "typeHash": 2601721382,
+      "schemaGlobal": true,
+      "compiler": "FXListCompiler"
+    },
+    {
+      "name": "SpecialPowerTemplate",
+      "typeId": 2178440954,
+      "typeHash": 984303644,
+      "schemaGlobal": true,
+      "compiler": "SpecialPowerTemplateCompiler"
+    },
+    {
+      "name": "ObjectCreationList",
+      "typeId": 3899542881,
+      "typeHash": 578005457,
+      "schemaGlobal": true,
+      "compiler": "ObjectCreationListCompiler"
+    },
+    {
+      "name": "LocomotorTemplate",
+      "typeId": 3972178387,
+      "typeHash": 3392338269,
+      "schemaGlobal": true,
+      "compiler": "LocomotorTemplateCompiler"
+    },
+    {
+      "name": "LogicCommandSet",
+      "typeId": 3959844197,
+      "typeHash": 2330506892,
+      "schemaGlobal": true,
+      "compiler": "LogicCommandSetCompiler"
+    },
+    {
+      "name": "FXParticleSystemTemplate",
+      "typeId": 686292351,
+      "typeHash": 1465656250,
+      "schemaGlobal": true,
+      "compiler": "FXParticleSystemTemplateCompiler"
+    },
+    {
+      "name": "UpgradeTemplate",
+      "typeId": 3786401627,
+      "typeHash": 1334651241,
+      "schemaGlobal": true,
+      "compiler": "UpgradeTemplateCompiler"
+    },
+    {
+      "name": "AIPersonalityDefinition",
+      "typeId": 3604279694,
+      "typeHash": 3409747243,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "AIStrategicStateDefinition",
+      "typeId": 607123156,
+      "typeHash": 3594381428,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "AIMicroManagerData",
+      "typeId": 2423780215,
+      "typeHash": 1392447443,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "AIBudgetStateDefinition",
+      "typeId": 2893598307,
+      "typeHash": 2583631670,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "AIStateDefinition",
+      "typeId": 3239935619,
+      "typeHash": 50334453,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "AITargetingHeuristic",
+      "typeId": 926814458,
+      "typeHash": 2460454737,
+      "schemaGlobal": true,
+      "compiler": "XmlaiCompiler"
+    },
+    {
+      "name": "LogicCommand",
+      "typeId": 2101756272,
+      "typeHash": 1451688104,
+      "schemaGlobal": true,
+      "compiler": "LogicCommandCompiler"
+    },
+    {
+      "name": "PlayerTech",
+      "typeId": 2131237081,
+      "typeHash": 903715207,
+      "schemaGlobal": true,
+      "compiler": "PlayerTechCompiler"
+    },
+    {
+      "name": "PlayerTechRank",
+      "typeId": 1802643394,
+      "typeHash": 304552910,
+      "schemaGlobal": true,
+      "compiler": "PlayerTechRankCompiler"
+    },
+    {
+      "name": "PlayerTechUpgradeBinding",
+      "typeId": 2140592493,
+      "typeHash": 3288487200,
+      "schemaGlobal": true,
+      "compiler": "PlayerTechUpgradeBindingCompiler"
+    },
+    {
+      "name": "ExperienceLevelTemplate",
+      "typeId": 1874610847,
+      "typeHash": 550595366,
+      "schemaGlobal": true,
+      "compiler": "ExperienceLevelTemplateCompiler"
+    },
+    {
+      "name": "PlayerTechStoreTemplate",
+      "typeId": 1213037816,
+      "typeHash": 981786901,
+      "schemaGlobal": true,
+      "compiler": "PlayerTechStoreTemplateCompiler"
+    },
+    {
+      "name": "PurchasePlayerTechButtonTemplate",
+      "typeId": 1566941920,
+      "typeHash": 2999033148,
+      "schemaGlobal": true,
+      "compiler": "PurchasePlayerTechButtonTemplateCompiler"
+    },
+    {
+      "name": "ButtonSingleStateData",
+      "typeId": 3048039928,
+      "typeHash": 3780991768,
+      "schemaGlobal": true,
+      "compiler": "ButtonSingleStateDataCompiler"
+    },
+    {
+      "name": "UICommandButton",
+      "typeId": 134745024,
+      "typeHash": 2853539982,
+      "schemaGlobal": true,
+      "compiler": "UICommandButtonCompiler"
+    },
+    {
+      "name": "FontDefaultSetting",
+      "typeId": 1371131236,
+      "typeHash": 197748432,
+      "schemaGlobal": true,
+      "compiler": "FontDefaultSettingCompiler"
+    },
+    {
+      "name": "FontTranslation",
+      "typeId": 1318336226,
+      "typeHash": 1815171461,
+      "schemaGlobal": true,
+      "compiler": "FontTranslationCompiler"
+    },
+    {
+      "name": "FontSubstitution",
+      "typeId": 91719417,
+      "typeHash": 2789100025,
+      "schemaGlobal": true,
+      "compiler": "FontSubstitutionCompiler"
+    },
+    {
+      "name": "Weather",
+      "typeId": 2430161325,
+      "typeHash": 3795761625,
+      "schemaGlobal": true,
+      "compiler": "WeatherCompiler"
+    },
+    {
+      "name": "WaterTransparency",
+      "typeId": 1479531562,
+      "typeHash": 525928939,
+      "schemaGlobal": true,
+      "compiler": "WaterTransparencyCompiler"
+    },
+    {
+      "name": "WaterSetting",
+      "typeId": 2728605516,
+      "typeHash": 469423908,
+      "schemaGlobal": true,
+      "compiler": "WaterSettingCompiler"
+    },
+    {
+      "name": "Environment",
+      "typeId": 680780553,
+      "typeHash": 1276225790,
+      "schemaGlobal": true,
+      "compiler": "EnvironmentCompiler"
+    },
+    {
+      "name": "LightingSettings",
+      "typeId": 3169690211,
+      "typeHash": 616355229,
+      "schemaGlobal": true,
+      "compiler": "LightingSettingsCompiler"
+    },
+    {
+      "name": "WaterTextureList",
+      "typeId": 2995571269,
+      "typeHash": 1905565848,
+      "schemaGlobal": true,
+      "compiler": "WaterTextureListCompiler"
+    },
+    {
+      "name": "TerrainParticleMapping",
+      "typeId": 1469498551,
+      "typeHash": 2736882942,
+      "schemaGlobal": true,
+      "compiler": "TerrainParticleMappingCompiler"
+    },
+    {
+      "name": "BounceKickTerrainMapping",
+      "typeId": 2368878637,
+      "typeHash": 2109862985,
+      "schemaGlobal": true,
+      "compiler": "BounceKickTerrainMappingCompiler"
+    },
+    {
+      "name": "ShadowMap",
+      "typeId": 4157475773,
+      "typeHash": 903854585,
+      "schemaGlobal": true,
+      "compiler": "ShadowMapCompiler"
+    },
+    {
+      "name": "OrdersManagerSettings",
+      "typeId": 2996766068,
+      "typeHash": 2164060776,
+      "schemaGlobal": true,
+      "compiler": "OrdersManagerSettingsCompiler"
+    },
+    {
+      "name": "TerrainVisualSettings",
+      "typeId": 1184276792,
+      "typeHash": 1336753171,
+      "schemaGlobal": true,
+      "compiler": "TerrainVisualSettingsCompiler"
+    },
+    {
+      "name": "CameraSettings",
+      "typeId": 3898802054,
+      "typeHash": 4258032094,
+      "schemaGlobal": true,
+      "compiler": "CameraSettingsCompiler"
+    },
+    {
+      "name": "AIData",
+      "typeId": 3827723072,
+      "typeHash": 1092854186,
+      "schemaGlobal": true,
+      "compiler": "AIDataCompiler"
+    },
+    {
+      "name": "UnitAISettings",
+      "typeId": 2964891936,
+      "typeHash": 4050675268,
+      "schemaGlobal": true,
+      "compiler": "UnitAISettingsCompiler"
+    },
+    {
+      "name": "PlayerTemplate",
+      "typeId": 4063352333,
+      "typeHash": 891373896,
+      "schemaGlobal": true,
+      "compiler": "PlayerTemplateCompiler"
+    },
+    {
+      "name": "MultiplayerSettings",
+      "typeId": 191082224,
+      "typeHash": 2620092030,
+      "schemaGlobal": true,
+      "compiler": "MultiplayerSettingsCompiler"
+    },
+    {
+      "name": "AIBuildStateDefinition",
+      "typeId": 1644972043,
+      "typeHash": 3400281710,
+      "schemaGlobal": true,
+      "compiler": "AIBuildStateDefinitionCompiler"
+    },
+    {
+      "name": "AIStrategicStateName",
+      "typeId": 2010562192,
+      "typeHash": 76343204,
+      "schemaGlobal": true,
+      "compiler": "AIStrategicStateNameCompiler"
+    },
+    {
+      "name": "MultiplayerColor",
+      "typeId": 2384988189,
+      "typeHash": 320610464,
+      "schemaGlobal": true,
+      "compiler": "MultiplayerColorCompiler"
+    },
+    {
+      "name": "AIPersonalityToAchievementEventMapping",
+      "typeId": 4086175864,
+      "typeHash": 2395097450,
+      "schemaGlobal": true,
+      "compiler": "AIPersonalityToAchievementEventMappingCompiler"
+    },
+    {
+      "name": "FormationAssistantUnitDefinition",
+      "typeId": 838130914,
+      "typeHash": 1672393125,
+      "schemaGlobal": true,
+      "compiler": "FormationAssistantUnitDefinitionCompiler"
+    },
+    {
+      "name": "FormationAssistantTemplate",
+      "typeId": 2912385462,
+      "typeHash": 156475083,
+      "schemaGlobal": true,
+      "compiler": "FormationAssistantTemplateCompiler"
+    },
+    {
+      "name": "FormationSelectionTemplate",
+      "typeId": 3374519264,
+      "typeHash": 87133761,
+      "schemaGlobal": true,
+      "compiler": "FormationSelectionTemplateCompiler"
+    },
+    {
+      "name": "FormationAssistant",
+      "typeId": 1963196508,
+      "typeHash": 1061339997,
+      "schemaGlobal": true,
+      "compiler": "FormationAssistantCompiler"
+    },
+    {
+      "name": "GameStatsModeData",
+      "typeId": 3249689110,
+      "typeHash": 4003247819,
+      "schemaGlobal": false,
+      "compiler": "GameStatsModeDataCompiler"
+    },
+    {
+      "name": "SkirmishSettings",
+      "typeId": 402082255,
+      "typeHash": 3814569307,
+      "schemaGlobal": true,
+      "compiler": "SkirmishSettingsCompiler"
+    },
+    {
+      "name": "DamageFX",
+      "typeId": 2905958645,
+      "typeHash": 187609259,
+      "schemaGlobal": true,
+      "compiler": "DamageFXCompiler"
+    },
+    {
+      "name": "DamageFXSettings",
+      "typeId": 75989905,
+      "typeHash": 2052546860,
+      "schemaGlobal": true,
+      "compiler": "DamageFXSettingsCompiler"
+    },
+    {
+      "name": "GeneralHotKeySlots",
+      "typeId": 417176643,
+      "typeHash": 655411104,
+      "schemaGlobal": true,
+      "compiler": "GeneralHotKeySlotsCompiler"
+    },
+    {
+      "name": "DefaultHotKeys",
+      "typeId": 3741098742,
+      "typeHash": 1229544125,
+      "schemaGlobal": true,
+      "compiler": "DefaultHotKeysCompiler"
+    },
+    {
+      "name": "DebugHotKeys",
+      "typeId": 3359870461,
+      "typeHash": 73026796,
+      "schemaGlobal": true,
+      "compiler": "DebugHotKeysCompiler"
+    },
+    {
+      "name": "MappableKey",
+      "typeId": 1350608344,
+      "typeHash": 2226564801,
+      "schemaGlobal": true,
+      "compiler": "MappableKeyCompiler"
+    },
+    {
+      "name": "AudioEventLimitGroup",
+      "typeId": 3906227957,
+      "typeHash": 2503036394,
+      "schemaGlobal": true,
+      "compiler": "AudioEventLimitGroupCompiler"
+    },
+    {
+      "name": "AudioLOD",
+      "typeId": 299416263,
+      "typeHash": 21805907,
+      "schemaGlobal": true,
+      "compiler": "AudioLODCompiler"
+    },
+    {
+      "name": "AudioSettings",
+      "typeId": 1443425905,
+      "typeHash": 3631141684,
+      "schemaGlobal": true,
+      "compiler": "AudioSettingsCompiler"
+    },
+    {
+      "name": "Video",
+      "typeId": 587347702,
+      "typeHash": 2217996198,
+      "schemaGlobal": true,
+      "compiler": "VideoCompiler"
+    },
+    {
+      "name": "VideoEventList",
+      "typeId": 1447728787,
+      "typeHash": 2530876419,
+      "schemaGlobal": true,
+      "compiler": "VideoEventListCompiler"
+    },
+    {
+      "name": "MicrophoneSettings",
+      "typeId": 1826140078,
+      "typeHash": 1624658388,
+      "schemaGlobal": false,
+      "compiler": "MicrophoneSettingsCompiler"
+    },
+    {
+      "name": "BootupDisplaySequence",
+      "typeId": 3370391592,
+      "typeHash": 3238903012,
+      "schemaGlobal": true,
+      "compiler": "BootupDisplaySequenceCompiler"
+    },
+    {
+      "name": "HotKeySlot",
+      "typeId": 2800139175,
+      "typeHash": 2481075826,
+      "schemaGlobal": true,
+      "compiler": "HotKeySlotCompiler"
+    },
+    {
+      "name": "MouseCursor",
+      "typeId": 3784442503,
+      "typeHash": 334318473,
+      "schemaGlobal": true,
+      "compiler": "MouseCursorCompiler"
+    },
+    {
+      "name": "BasicMouseCursors",
+      "typeId": 611271731,
+      "typeHash": 1517904520,
+      "schemaGlobal": true,
+      "compiler": "BasicMouseCursorsCompiler"
+    },
+    {
+      "name": "UIMouseDragSelectionFeedback",
+      "typeId": 611126373,
+      "typeHash": 549522065,
+      "schemaGlobal": true,
+      "compiler": "UIMouseDragSelectionFeedbackCompiler"
+    },
+    {
+      "name": "UIFloatingTextDisplay",
+      "typeId": 1559937240,
+      "typeHash": 2264980354,
+      "schemaGlobal": true,
+      "compiler": "UIFloatingTextDisplayCompiler"
+    },
+    {
+      "name": "UIMessageDisplay",
+      "typeId": 1697313181,
+      "typeHash": 3604410282,
+      "schemaGlobal": true,
+      "compiler": "UIMessageDisplayCompiler"
+    },
+    {
+      "name": "UIMilitaryCaptionDisplay",
+      "typeId": 1043989897,
+      "typeHash": 779899080,
+      "schemaGlobal": true,
+      "compiler": "UIMilitaryCaptionDisplayCompiler"
+    },
+    {
+      "name": "UISubtitleDisplay",
+      "typeId": 165611890,
+      "typeHash": 1129081393,
+      "schemaGlobal": true,
+      "compiler": "UISubtitleDisplayCompiler"
+    },
+    {
+      "name": "UITimerDisplay",
+      "typeId": 951036436,
+      "typeHash": 2082140658,
+      "schemaGlobal": true,
+      "compiler": "UITimerDisplayCompiler"
+    },
+    {
+      "name": "DynamicGameLOD",
+      "typeId": 2901356964,
+      "typeHash": 1764459959,
+      "schemaGlobal": true,
+      "compiler": "DynamicGameLODCompiler"
+    },
+    {
+      "name": "GameLODPreset",
+      "typeId": 354222972,
+      "typeHash": 3645429389,
+      "schemaGlobal": true,
+      "compiler": "GameLODPresetCompiler"
+    },
+    {
+      "name": "StaticGameLOD",
+      "typeId": 531798225,
+      "typeHash": 1251212385,
+      "schemaGlobal": true,
+      "compiler": "StaticGameLODCompiler"
+    },
+    {
+      "name": "UICoopTinting",
+      "typeId": 4243804314,
+      "typeHash": 89086670,
+      "schemaGlobal": true,
+      "compiler": "UICoopTintingCompiler"
+    },
+    {
+      "name": "RadiusCursor",
+      "typeId": 544776545,
+      "typeHash": 2695845168,
+      "schemaGlobal": true,
+      "compiler": "RadiusCursorCompiler"
+    },
+    {
+      "name": "AnimationSoundSettings",
+      "typeId": 1302035577,
+      "typeHash": 3170370516,
+      "schemaGlobal": true,
+      "compiler": "AnimationSoundSettingsCompiler"
+    },
+    {
+      "name": "MiscAudio",
+      "typeId": 2070603733,
+      "typeHash": 1484343325,
+      "schemaGlobal": true,
+      "compiler": "MiscAudioCompiler"
+    },
+    {
+      "name": "LargeGroupAudioMap",
+      "typeId": 534008255,
+      "typeHash": 1045439046,
+      "schemaGlobal": true,
+      "compiler": "LargeGroupAudioMapCompiler"
+    },
+    {
+      "name": "UIMouseTacticalSelectionDetailsButtonHotKeys",
+      "typeId": 1296329066,
+      "typeHash": 1187295208,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalSelectionDetailsButtonHotKeysCompiler"
+    },
+    {
+      "name": "UIMouseTacticalMainCommandBarHotKeys",
+      "typeId": 2591692061,
+      "typeHash": 1944261033,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalMainCommandBarHotKeysCompiler"
+    },
+    {
+      "name": "UIMouseTacticalPlayerPowerHotKeys",
+      "typeId": 2283998413,
+      "typeHash": 2326182616,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalPlayerPowerHotKeysCompiler"
+    },
+    {
+      "name": "UIMouseTacticalMiscHotKeys",
+      "typeId": 2014061824,
+      "typeHash": 3544626863,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalMiscHotKeysCompiler"
+    },
+    {
+      "name": "UIMouseHUDElementHotKeyGate",
+      "typeId": 2738273474,
+      "typeHash": 3442548366,
+      "schemaGlobal": true,
+      "compiler": "UIMouseHUDElementHotKeyGateCompiler"
+    },
+    {
+      "name": "UIQuickChatMessage",
+      "typeId": 4098431913,
+      "typeHash": 743017490,
+      "schemaGlobal": true,
+      "compiler": "UIQuickChatMessageCompiler"
+    },
+    {
+      "name": "UIMouseTacticalQuickChatDisplay",
+      "typeId": 2891878770,
+      "typeHash": 884927254,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalQuickChatDisplayCompiler"
+    },
+    {
+      "name": "UIMouseVoiceChat",
+      "typeId": 3746130610,
+      "typeHash": 3018771479,
+      "schemaGlobal": true,
+      "compiler": "UIMouseVoiceChatCompiler"
+    },
+    {
+      "name": "UIDecalGrid",
+      "typeId": 2599418799,
+      "typeHash": 4073471,
+      "schemaGlobal": true,
+      "compiler": "UIDecalGridCompiler"
+    },
+    {
+      "name": "UIDecalCloud",
+      "typeId": 2524893660,
+      "typeHash": 325319211,
+      "schemaGlobal": true,
+      "compiler": "UIDecalCloudCompiler"
+    },
+    {
+      "name": "UIDecalDestinationMarker",
+      "typeId": 1532214660,
+      "typeHash": 4106878882,
+      "schemaGlobal": true,
+      "compiler": "UIDecalDestinationMarkerCompiler"
+    },
+    {
+      "name": "UIWorldBuilderDecalGrid",
+      "typeId": 1238702511,
+      "typeHash": 1469314420,
+      "schemaGlobal": true,
+      "compiler": "UIWorldBuilderDecalGridCompiler"
+    },
+    {
+      "name": "BaseAudioEventInfo",
+      "typeId": 1079232276,
+      "typeHash": 1604640258,
+      "schemaGlobal": false,
+      "compiler": "BaseAudioEventInfoCompiler"
+    },
+    {
+      "name": "BaseSingleSound",
+      "typeId": 3228425025,
+      "typeHash": 2950045545,
+      "schemaGlobal": false,
+      "compiler": "BaseSingleSoundCompiler"
+    },
+    {
+      "name": "AudioEvent",
+      "typeId": 2219670431,
+      "typeHash": 1443638853,
+      "schemaGlobal": true,
+      "compiler": "AudioEventCompiler"
+    },
+    {
+      "name": "MusicTrack",
+      "typeId": 1883691512,
+      "typeHash": 130352738,
+      "schemaGlobal": true,
+      "compiler": "MusicTrackCompiler"
+    },
+    {
+      "name": "MP3MusicTrack",
+      "typeId": 1013434420,
+      "typeHash": 2141170629,
+      "schemaGlobal": true,
+      "compiler": "MP3MusicTrackCompiler"
+    },
+    {
+      "name": "DialogEvent",
+      "typeId": 3558134211,
+      "typeHash": 3525217272,
+      "schemaGlobal": true,
+      "compiler": "DialogEventCompiler"
+    },
+    {
+      "name": "MP3DialogEvent",
+      "typeId": 1479988269,
+      "typeHash": 2018565112,
+      "schemaGlobal": true,
+      "compiler": "MP3DialogEventCompiler"
+    },
+    {
+      "name": "AmbientStream",
+      "typeId": 3928762264,
+      "typeHash": 1830167803,
+      "schemaGlobal": true,
+      "compiler": "AmbientStreamCompiler"
+    },
+    {
+      "name": "MP3AmbientStream",
+      "typeId": 1813598662,
+      "typeHash": 525549002,
+      "schemaGlobal": true,
+      "compiler": "MP3AmbientStreamCompiler"
+    },
+    {
+      "name": "Multisound",
+      "typeId": 2745675575,
+      "typeHash": 4154219145,
+      "schemaGlobal": true,
+      "compiler": "MultisoundCompiler"
+    },
+    {
+      "name": "PathMusicGameDynamicState",
+      "typeId": 97402485,
+      "typeHash": 3806481831,
+      "schemaGlobal": true,
+      "compiler": "PathMusicGameDynamicStateCompiler"
+    },
+    {
+      "name": "PathMusicGameDynamicStateSet",
+      "typeId": 343094706,
+      "typeHash": 1360895287,
+      "schemaGlobal": true,
+      "compiler": "PathMusicGameDynamicStateSetCompiler"
+    },
+    {
+      "name": "PathMusicGameDynamicTransition",
+      "typeId": 2343360052,
+      "typeHash": 2196796046,
+      "schemaGlobal": true,
+      "compiler": "PathMusicGameDynamicTransitionCompiler"
+    },
+    {
+      "name": "PathMusicEventRuntime",
+      "typeId": 1122327197,
+      "typeHash": 692705748,
+      "schemaGlobal": false,
+      "compiler": "PathMusicEventRuntimeCompiler"
+    },
+    {
+      "name": "PathMusicEventSet",
+      "typeId": 3339496789,
+      "typeHash": 1644774436,
+      "schemaGlobal": true,
+      "compiler": "PathMusicEventSetCompiler"
+    },
+    {
+      "name": "PathMusicMapRuntime",
+      "typeId": 2026048286,
+      "typeHash": 290548124,
+      "schemaGlobal": false,
+      "compiler": "PathMusicMapRuntimeCompiler"
+    },
+    {
+      "name": "MusicPalette",
+      "typeId": 2407383451,
+      "typeHash": 3647979872,
+      "schemaGlobal": true,
+      "compiler": "MusicPaletteCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNuggetBase",
+      "typeId": 2292378780,
+      "typeHash": 3971458299,
+      "schemaGlobal": false,
+      "compiler": "MusicScriptConditionNuggetBaseCompiler"
+    },
+    {
+      "name": "MusicScriptConditionExpensiveNuggetBase",
+      "typeId": 849624115,
+      "typeHash": 2261613772,
+      "schemaGlobal": false,
+      "compiler": "MusicScriptConditionExpensiveNuggetBaseCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerIsObserver",
+      "typeId": 188286714,
+      "typeHash": 1810715368,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_LocalPlayerIsObserverCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_UnitsFarFromBase",
+      "typeId": 2620791304,
+      "typeHash": 3492519332,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_UnitsFarFromBaseCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_TimeFromStartOfLevel",
+      "typeId": 1464425282,
+      "typeHash": 1158381935,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_TimeFromStartOfLevelCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_TrackPlayedCount",
+      "typeId": 57370491,
+      "typeHash": 4012559760,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_TrackPlayedCountCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_SpecificTrackTypePlaying",
+      "typeId": 739280456,
+      "typeHash": 3851927382,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_AnyTrackPlaying",
+      "typeId": 3402992833,
+      "typeHash": 1748534571,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_AnyTrackPlayingCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsOfTypeExist",
+      "typeId": 4286308287,
+      "typeHash": 2841937089,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_ObjectsOfTypeExistCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_EvaEventPlayedRecently",
+      "typeId": 2743973749,
+      "typeHash": 1875528998,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_ObjectsNearEvaEvent",
+      "typeId": 3386715757,
+      "typeHash": 1958333769,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_ObjectsNearEvaEventCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_ScoredKillCount",
+      "typeId": 3620764004,
+      "typeHash": 3267267860,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_ScoredKillCountCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_Not",
+      "typeId": 4007043648,
+      "typeHash": 855988878,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_NotCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_Or",
+      "typeId": 2281773838,
+      "typeHash": 4074957085,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_OrCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_And",
+      "typeId": 1343682755,
+      "typeHash": 532337471,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_AndCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateLastActive",
+      "typeId": 2912435838,
+      "typeHash": 2349512303,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_PathMusicStateLastActiveCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_PathMusicStateCurrentlyActive",
+      "typeId": 3727134806,
+      "typeHash": 3386360116,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_EngagementCount",
+      "typeId": 3476397162,
+      "typeHash": 3050031378,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_EngagementCountCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_LocalPlayerKillRatio",
+      "typeId": 2818967523,
+      "typeHash": 3311890413,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_LocalPlayerKillRatioCompiler"
+    },
+    {
+      "name": "MusicScriptConditionNugget_HitBySuperWeapon",
+      "typeId": 1634186921,
+      "typeHash": 607961670,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptConditionNugget_HitBySuperWeaponCompiler"
+    },
+    {
+      "name": "MusicScriptTrack",
+      "typeId": 1038067901,
+      "typeHash": 3151900516,
+      "schemaGlobal": true,
+      "compiler": "MusicScriptTrackCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHelpButton",
+      "typeId": 104126924,
+      "typeHash": 3160055664,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCoOpAIButtonsHelpButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandCommunicateWithAllies",
+      "typeId": 113029208,
+      "typeHash": 2342677506,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandCommunicateWithAlliesCompiler"
+    },
+    {
+      "name": "UIMouseTacticalToggleRepairModeButton",
+      "typeId": 346077409,
+      "typeHash": 2270316023,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalToggleRepairModeButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalAttackMoveButton",
+      "typeId": 442957564,
+      "typeHash": 1448492760,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalAttackMoveButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceWall",
+      "typeId": 485977567,
+      "typeHash": 1542859068,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandPlaceWallCompiler"
+    },
+    {
+      "name": "UIMouseTacticalForceAttackMoveButton",
+      "typeId": 694838069,
+      "typeHash": 4192036989,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalForceAttackMoveButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldObjectButton",
+      "typeId": 772462768,
+      "typeHash": 875756023,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalExitContainerButton",
+      "typeId": 1014034471,
+      "typeHash": 2969006564,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalExitContainerButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalPlayerTechStoreButton",
+      "typeId": 1138847078,
+      "typeHash": 1373916399,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalPlayerTechStoreButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandMove",
+      "typeId": 1234485619,
+      "typeHash": 3237545121,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandMoveCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandSell",
+      "typeId": 1249197161,
+      "typeHash": 2873907483,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandSellCompiler"
+    },
+    {
+      "name": "UIMouseTacticalUnitIntroButton",
+      "typeId": 1277109486,
+      "typeHash": 4038536099,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalUnitIntroButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandSelect",
+      "typeId": 1334543376,
+      "typeHash": 3689232783,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandSelectCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsNormalButton",
+      "typeId": 1371977384,
+      "typeHash": 301556505,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCoOpAIButtonsNormalButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceRallyPoint",
+      "typeId": 1474300054,
+      "typeHash": 1098794956,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandPlaceRallyPointCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandHarvest",
+      "typeId": 1499648070,
+      "typeHash": 1611277776,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandHarvestCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandToggleSelfRepair",
+      "typeId": 1956336137,
+      "typeHash": 693782642,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandToggleSelfRepairCompiler"
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTab",
+      "typeId": 1974922393,
+      "typeHash": 276486244,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalBuildQueueTabCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandGetCrate",
+      "typeId": 2067763016,
+      "typeHash": 2390364070,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandGetCrateCompiler"
+    },
+    {
+      "name": "UIMouseTacticalDeactivateMissionHotSpotsButton",
+      "typeId": 2047841880,
+      "typeHash": 3936894160,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandForceAttack",
+      "typeId": 2074164365,
+      "typeHash": 3494287844,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandForceAttackCompiler"
+    },
+    {
+      "name": "UIMouseTacticalPlanningModeButton",
+      "typeId": 2278083954,
+      "typeHash": 3993871439,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalPlanningModeButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandMisc",
+      "typeId": 2505151835,
+      "typeHash": 96366804,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandMiscCompiler"
+    },
+    {
+      "name": "UIMouseTacticalSelectionRefinementTab",
+      "typeId": 2635272840,
+      "typeHash": 4048847353,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalSelectionRefinementTabCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandForceMove",
+      "typeId": 2697587777,
+      "typeHash": 129995987,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandForceMoveCompiler"
+    },
+    {
+      "name": "UIMouseTacticalOpenAdvancedCommandsButton",
+      "typeId": 2808773267,
+      "typeHash": 2375239281,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalOpenAdvancedCommandsButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalSetStanceButton",
+      "typeId": 2873949396,
+      "typeHash": 4072122752,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalSetStanceButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsHoldPositionButton",
+      "typeId": 2914137727,
+      "typeHash": 1938882503,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandMineOre",
+      "typeId": 2957071942,
+      "typeHash": 3017648610,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandMineOreCompiler"
+    },
+    {
+      "name": "UIMouseTacticalWaypointModeButton",
+      "typeId": 2958905921,
+      "typeHash": 2908721247,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalWaypointModeButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalReverseMoveButton",
+      "typeId": 2987234945,
+      "typeHash": 1863152725,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalReverseMoveButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandEnter",
+      "typeId": 3057018816,
+      "typeHash": 1130654826,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandEnterCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCoOpAIButtonsAssaultButton",
+      "typeId": 3094553884,
+      "typeHash": 3862996978,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalPauseButton",
+      "typeId": 3420020972,
+      "typeHash": 1007090371,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalPauseButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandAttack",
+      "typeId": 3548787763,
+      "typeHash": 45961792,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandAttackCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandAttackMove",
+      "typeId": 3575834349,
+      "typeHash": 3529865568,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandAttackMoveCompiler"
+    },
+    {
+      "name": "UIMouseTacticalForceMoveButton",
+      "typeId": 3716369729,
+      "typeHash": 2581745695,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalForceMoveButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalForceAttackButton",
+      "typeId": 3756168709,
+      "typeHash": 144321893,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalForceAttackButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandPlaceAIBeacon",
+      "typeId": 3809842710,
+      "typeHash": 4187711090,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandPlaceAIBeaconCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandDock",
+      "typeId": 3976885676,
+      "typeHash": 2900176681,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandDockCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandReverseMove",
+      "typeId": 4026878150,
+      "typeHash": 3889487240,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandReverseMoveCompiler"
+    },
+    {
+      "name": "UIMouseTacticalBuildQueueTypeTab",
+      "typeId": 4094578721,
+      "typeHash": 4253066583,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalBuildQueueTypeTabCompiler"
+    },
+    {
+      "name": "UIMouseTacticalSellModeButton",
+      "typeId": 4102242385,
+      "typeHash": 3000504919,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalSellModeButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalStopButton",
+      "typeId": 4140422551,
+      "typeHash": 3882873771,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalStopButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalCommandSetRallyPoint",
+      "typeId": 4180354873,
+      "typeHash": 3463571609,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalCommandSetRallyPointCompiler"
+    },
+    {
+      "name": "UIMouseTacticalFastForwardButton",
+      "typeId": 4232364483,
+      "typeHash": 3130369778,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalFastForwardButtonCompiler"
+    },
+    {
+      "name": "UIMouseTacticalGroupSelection",
+      "typeId": 241329492,
+      "typeHash": 1267843369,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalGroupSelectionCompiler"
+    },
+    {
+      "name": "UIMouseTacticalLookAt",
+      "typeId": 1795213437,
+      "typeHash": 1676252299,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalLookAtCompiler"
+    },
+    {
+      "name": "UIMouseTacticalRadarTelestrator",
+      "typeId": 3366599054,
+      "typeHash": 2875609897,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalRadarTelestratorCompiler"
+    },
+    {
+      "name": "UIMouseTacticalTelestrator",
+      "typeId": 1921726501,
+      "typeHash": 916455758,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalTelestratorCompiler"
+    },
+    {
+      "name": "UIMouseTacticalThreatMeter",
+      "typeId": 4143989686,
+      "typeHash": 472971368,
+      "schemaGlobal": true,
+      "compiler": "UIMouseTacticalThreatMeterCompiler"
+    },
+    {
+      "name": "BaseConditionData",
+      "typeId": 3899256902,
+      "typeHash": 2796907385,
+      "schemaGlobal": false,
+      "compiler": "BaseConditionDataCompiler"
+    },
+    {
+      "name": "ObjectConditionData",
+      "typeId": 519519951,
+      "typeHash": 3621799508,
+      "schemaGlobal": false,
+      "compiler": "ObjectConditionDataCompiler"
+    },
+    {
+      "name": "UpgradeConditionData",
+      "typeId": 76901015,
+      "typeHash": 2863617245,
+      "schemaGlobal": false,
+      "compiler": "UpgradeConditionDataCompiler"
+    },
+    {
+      "name": "GameplayConditionData",
+      "typeId": 2309012900,
+      "typeHash": 3176926574,
+      "schemaGlobal": true,
+      "compiler": "GameplayConditionDataCompiler"
+    },
+    {
+      "name": "TargetingBaseCompare",
+      "typeId": 3600209407,
+      "typeHash": 4157686172,
+      "schemaGlobal": false,
+      "compiler": "TargetingBaseCompareCompiler"
+    },
+    {
+      "name": "TargetingDistanceCompare",
+      "typeId": 2359666647,
+      "typeHash": 3222028787,
+      "schemaGlobal": true,
+      "compiler": "TargetingDistanceCompareCompiler"
+    },
+    {
+      "name": "TargetingCombatChainCompare",
+      "typeId": 89767986,
+      "typeHash": 3054734349,
+      "schemaGlobal": true,
+      "compiler": "TargetingCombatChainCompareCompiler"
+    },
+    {
+      "name": "TargetingInTurretArcCompare",
+      "typeId": 2007776008,
+      "typeHash": 1553493937,
+      "schemaGlobal": true,
+      "compiler": "TargetingInTurretArcCompareCompiler"
+    },
+    {
+      "name": "TargetingCompareList",
+      "typeId": 3188107749,
+      "typeHash": 1300486550,
+      "schemaGlobal": true,
+      "compiler": "TargetingCompareListCompiler"
+    },
+    {
+      "name": "SiegeEvaEvent",
+      "typeId": 1268003905,
+      "typeHash": 277018796,
+      "schemaGlobal": true,
+      "compiler": "SiegeEvaEventCompiler"
+    },
+    {
+      "name": "EvaSettings",
+      "typeId": 2361666546,
+      "typeHash": 2947372396,
+      "schemaGlobal": true,
+      "compiler": "EvaSettingsCompiler"
+    },
+    {
+      "name": "EvaEvent",
+      "typeId": 357806494,
+      "typeHash": 1889946602,
+      "schemaGlobal": true,
+      "compiler": "EvaEventCompiler"
+    },
+    {
+      "name": "MiscEvaEvents",
+      "typeId": 1807540972,
+      "typeHash": 3038881679,
+      "schemaGlobal": true,
+      "compiler": "MiscEvaEventsCompiler"
+    },
+    {
+      "name": "AchievementEvent",
+      "typeId": 4230032093,
+      "typeHash": 2866528179,
+      "schemaGlobal": true,
+      "compiler": "AchievementEventCompiler"
+    },
+    {
+      "name": "MapNameToAchievementEventMapping",
+      "typeId": 3594283852,
+      "typeHash": 1078828637,
+      "schemaGlobal": true,
+      "compiler": "MapNameToAchievementEventMappingCompiler"
+    },
+    {
+      "name": "GameplayAchievementTriggerData",
+      "typeId": 348670903,
+      "typeHash": 478718253,
+      "schemaGlobal": true,
+      "compiler": "GameplayAchievementTriggerDataCompiler"
+    },
+    {
+      "name": "HealthBarTemplate",
+      "typeId": 1507490649,
+      "typeHash": 2857307522,
+      "schemaGlobal": true,
+      "compiler": "HealthBarTemplateCompiler"
+    },
+    {
+      "name": "HealthBarSettings",
+      "typeId": 3919360587,
+      "typeHash": 4130115945,
+      "schemaGlobal": true,
+      "compiler": "HealthBarSettingsCompiler"
+    },
+    {
+      "name": "UnitOverlayIconSettings",
+      "typeId": 2421413379,
+      "typeHash": 3893526655,
+      "schemaGlobal": true,
+      "compiler": "UnitOverlayIconSettingsCompiler"
+    },
+    {
+      "name": "ObjectFilterAsset",
+      "typeId": 1151702845,
+      "typeHash": 1129453918,
+      "schemaGlobal": true,
+      "compiler": "ObjectFilterAssetCompiler"
+    },
+    {
+      "name": "RegisteredObjectSet",
+      "typeId": 814796096,
+      "typeHash": 235028480,
+      "schemaGlobal": true,
+      "compiler": "RegisteredObjectSetCompiler"
+    },
+    {
+      "name": "ObjectVisionRangeItem",
+      "typeId": 772930644,
+      "typeHash": 1028521956,
+      "schemaGlobal": false,
+      "compiler": "ObjectVisionRangeItemCompiler"
+    },
+    {
+      "name": "InvisibilityTemplate",
+      "typeId": 1431290504,
+      "typeHash": 419230569,
+      "schemaGlobal": true,
+      "compiler": "InvisibilityTemplateCompiler"
+    },
+    {
+      "name": "InvisibilityManagerSettings",
+      "typeId": 254471188,
+      "typeHash": 1688533139,
+      "schemaGlobal": true,
+      "compiler": "InvisibilityManagerSettingsCompiler"
+    },
+    {
+      "name": "StanceTemplate",
+      "typeId": 2525284163,
+      "typeHash": 1210708834,
+      "schemaGlobal": true,
+      "compiler": "StanceTemplateCompiler"
+    },
+    {
+      "name": "EmotionTemplate",
+      "typeId": 2836737428,
+      "typeHash": 1088041681,
+      "schemaGlobal": true,
+      "compiler": "EmotionTemplateCompiler"
+    },
+    {
+      "name": "ProjectilePath",
+      "typeId": 1710207315,
+      "typeHash": 955128953,
+      "schemaGlobal": true,
+      "compiler": "ProjectilePathCompiler"
+    },
+    {
+      "name": "ForceFeedbackEvent",
+      "typeId": 474482543,
+      "typeHash": 3791548904,
+      "schemaGlobal": true,
+      "compiler": "ForceFeedbackEventCompiler"
+    },
+    {
+      "name": "EngagingContent",
+      "typeId": 3058114834,
+      "typeHash": 725292512,
+      "schemaGlobal": true,
+      "compiler": "EngagingContentCompiler"
+    },
+    {
+      "name": "EngagingContentGroup",
+      "typeId": 11280974,
+      "typeHash": 1507896455,
+      "schemaGlobal": true,
+      "compiler": "EngagingContentGroupCompiler"
+    },
+    {
+      "name": "EngagingContentSequence",
+      "typeId": 3799634821,
+      "typeHash": 226620221,
+      "schemaGlobal": true,
+      "compiler": "EngagingContentSequenceCompiler"
+    },
+    {
+      "name": "IntelDB",
+      "typeId": 530081230,
+      "typeHash": 751047049,
+      "schemaGlobal": true,
+      "compiler": "IntelDBCompiler"
+    },
+    {
+      "name": "UnitIntro",
+      "typeId": 1870180772,
+      "typeHash": 1460143826,
+      "schemaGlobal": true,
+      "compiler": "UnitIntroCompiler"
+    },
+    {
+      "name": "BreezeInfo",
+      "typeId": 1626415288,
+      "typeHash": 890675481,
+      "schemaGlobal": true,
+      "compiler": "BreezeInfoCompiler"
+    },
+    {
+      "name": "ModelSettings",
+      "typeId": 1968811301,
+      "typeHash": 2503358751,
+      "schemaGlobal": true,
+      "compiler": "ModelSettingsCompiler"
+    },
+    {
+      "name": "AutoParticleSystemSettings",
+      "typeId": 3278684478,
+      "typeHash": 1247287143,
+      "schemaGlobal": true,
+      "compiler": "AutoParticleSystemSettingsCompiler"
+    },
+    {
+      "name": "CrowdResponse",
+      "typeId": 400896388,
+      "typeHash": 129803148,
+      "schemaGlobal": true,
+      "compiler": "CrowdResponseCompiler"
+    },
+    {
+      "name": "RadarTerrainImage",
+      "typeId": 1099769729,
+      "typeHash": 4223091486,
+      "schemaGlobal": true,
+      "compiler": "RadarTerrainImageCompiler"
+    },
+    {
+      "name": "UIRadarObjectsLayer",
+      "typeId": 4039592522,
+      "typeHash": 2176451698,
+      "schemaGlobal": true,
+      "compiler": "UIRadarObjectsLayerCompiler"
+    },
+    {
+      "name": "W3DDeviceSettings",
+      "typeId": 1469055344,
+      "typeHash": 2638871790,
+      "schemaGlobal": true,
+      "compiler": "W3DDeviceSettingsCompiler"
+    },
+    {
+      "name": "ScorchMarkSettings",
+      "typeId": 2383722691,
+      "typeHash": 1770851834,
+      "schemaGlobal": true,
+      "compiler": "ScorchMarkSettingsCompiler"
+    },
+    {
+      "name": "Language",
+      "typeId": 2915726794,
+      "typeHash": 3221193174,
+      "schemaGlobal": true,
+      "compiler": "LanguageCompiler"
+    },
+    {
+      "name": "HeaderTemplate",
+      "typeId": 1218703046,
+      "typeHash": 1075836011,
+      "schemaGlobal": true,
+      "compiler": "HeaderTemplateCompiler"
+    },
+    {
+      "name": "FontDirectory",
+      "typeId": 3569007303,
+      "typeHash": 3617141059,
+      "schemaGlobal": true,
+      "compiler": "FontDirectoryCompiler"
+    },
+    {
+      "name": "TheVersion",
+      "typeId": 4236434438,
+      "typeHash": 2782889071,
+      "schemaGlobal": true,
+      "compiler": "TheVersionCompiler"
+    },
+    {
+      "name": "Credits",
+      "typeId": 3978455785,
+      "typeHash": 282482670,
+      "schemaGlobal": true,
+      "compiler": "CreditsCompiler"
+    },
+    {
+      "name": "CommandSet",
+      "typeId": 2584759047,
+      "typeHash": 4174095999,
+      "schemaGlobal": false,
+      "compiler": "CommandSetCompiler"
+    },
+    {
+      "name": "Road",
+      "typeId": 3516764358,
+      "typeHash": 738011492,
+      "schemaGlobal": true,
+      "compiler": "RoadCompiler"
+    },
+    {
+      "name": "ShaderOverride",
+      "typeId": 3166846828,
+      "typeHash": 1029381398,
+      "schemaGlobal": true,
+      "compiler": "ShaderOverrideCompiler"
+    },
+    {
+      "name": "ShaderOverrideRule",
+      "typeId": 3648907125,
+      "typeHash": 279003514,
+      "schemaGlobal": false,
+      "compiler": "ShaderOverrideRuleCompiler"
+    },
+    {
+      "name": "ImageSequence",
+      "typeId": 565855655,
+      "typeHash": 2717629172,
+      "schemaGlobal": true,
+      "compiler": "ImageSequenceCompiler"
+    },
+    {
+      "name": "UnitTypeIcon",
+      "typeId": 3614134471,
+      "typeHash": 4192635734,
+      "schemaGlobal": true,
+      "compiler": "UnitTypeIconCompiler"
+    },
+    {
+      "name": "DrawGroupInfo",
+      "typeId": 2913856066,
+      "typeHash": 1181471134,
+      "schemaGlobal": true,
+      "compiler": "DrawGroupInfoCompiler"
+    },
+    {
+      "name": "OnlineChatColors",
+      "typeId": 1345252658,
+      "typeHash": 1378748105,
+      "schemaGlobal": true,
+      "compiler": "OnlineChatColorsCompiler"
+    },
+    {
+      "name": "ArchivableMovie",
+      "typeId": 3741496377,
+      "typeHash": 291064791,
+      "schemaGlobal": false,
+      "compiler": "ArchivableMovieCompiler"
+    },
+    {
+      "name": "ArchiveMovieList",
+      "typeId": 2099472558,
+      "typeHash": 131545626,
+      "schemaGlobal": false,
+      "compiler": "ArchiveMovieListCompiler"
+    },
+    {
+      "name": "NetworkSettings",
+      "typeId": 4272453293,
+      "typeHash": 2097642646,
+      "schemaGlobal": true,
+      "compiler": "NetworkSettingsCompiler"
+    },
+    {
+      "name": "PathfindSettings",
+      "typeId": 970663416,
+      "typeHash": 2629630449,
+      "schemaGlobal": true,
+      "compiler": "PathfindSettingsCompiler"
+    },
+    {
+      "name": "ResourceSettings",
+      "typeId": 3279338544,
+      "typeHash": 1560001831,
+      "schemaGlobal": true,
+      "compiler": "ResourceSettingsCompiler"
+    },
+    {
+      "name": "GraphicsHardware",
+      "typeId": 2846460739,
+      "typeHash": 1118458536,
+      "schemaGlobal": true,
+      "compiler": "GraphicsHardwareCompiler"
+    },
+    {
+      "name": "CampaignTemplate",
+      "typeId": 1482556238,
+      "typeHash": 3502529123,
+      "schemaGlobal": true,
+      "compiler": "CampaignTemplateCompiler"
+    },
+    {
+      "name": "CampaignEnumerator",
+      "typeId": 731899443,
+      "typeHash": 118801026,
+      "schemaGlobal": true,
+      "compiler": "CampaignEnumeratorCompiler"
+    },
+    {
+      "name": "MissionTemplate",
+      "typeId": 3477794083,
+      "typeHash": 3533302842,
+      "schemaGlobal": true,
+      "compiler": "MissionTemplateCompiler"
+    },
+    {
+      "name": "MissionHotSpotSettings",
+      "typeId": 3175516876,
+      "typeHash": 4275530952,
+      "schemaGlobal": true,
+      "compiler": "MissionHotSpotSettingsCompiler"
+    },
+    {
+      "name": "TutorialMapData",
+      "typeId": 3408790761,
+      "typeHash": 2508525962,
+      "schemaGlobal": true,
+      "compiler": "TutorialMapDataCompiler"
+    },
+    {
+      "name": "LocalBuildListMonitor",
+      "typeId": 315614191,
+      "typeHash": 3578044627,
+      "schemaGlobal": true,
+      "compiler": "LocalBuildListMonitorCompiler"
+    },
+    {
+      "name": "BuildSystemSettings",
+      "typeId": 3974617950,
+      "typeHash": 4161179766,
+      "schemaGlobal": true,
+      "compiler": "BuildSystemSettingsCompiler"
+    },
+    {
+      "name": "GiftManagerSettings",
+      "typeId": 1047799468,
+      "typeHash": 3376391493,
+      "schemaGlobal": true,
+      "compiler": "GiftManagerSettingsCompiler"
+    },
+    {
+      "name": "MpGameRules",
+      "typeId": 741706624,
+      "typeHash": 886642248,
+      "schemaGlobal": true,
+      "compiler": "MpGameRulesCompiler"
+    },
+    {
+      "name": "DynamicsContactTagMapping",
+      "typeId": 1044178106,
+      "typeHash": 898281629,
+      "schemaGlobal": true,
+      "compiler": "DynamicsContactTagMappingCompiler"
+    },
+    {
+      "name": "ConnectionLineManager",
+      "typeId": 105587076,
+      "typeHash": 1802638191,
+      "schemaGlobal": true,
+      "compiler": "ConnectionLineManagerCompiler"
+    },
+    {
+      "name": "RedAlertTemplate",
+      "typeId": 4141306833,
+      "typeHash": 133543122,
+      "schemaGlobal": true,
+      "compiler": "RedAlertTemplateCompiler"
+    },
+    {
+      "name": "ConquerCardDefinitionBase",
+      "typeId": 3258480561,
+      "typeHash": 343077480,
+      "schemaGlobal": false,
+      "compiler": "ConquerCardDefinitionBaseCompiler"
+    },
+    {
+      "name": "ConquerCardDefinitionUnit",
+      "typeId": 3562795973,
+      "typeHash": 3660672133,
+      "schemaGlobal": true,
+      "compiler": "ConquerCardDefinitionUnitCompiler"
+    },
+    {
+      "name": "ConquerCardDefinitionStructure",
+      "typeId": 4289687760,
+      "typeHash": 3391723256,
+      "schemaGlobal": true,
+      "compiler": "ConquerCardDefinitionStructureCompiler"
+    },
+    {
+      "name": "ConquerCardDefinitionPower",
+      "typeId": 4164089898,
+      "typeHash": 587170934,
+      "schemaGlobal": true,
+      "compiler": "ConquerCardDefinitionPowerCompiler"
+    },
+    {
+      "name": "ConquerCardPrebuiltDeck",
+      "typeId": 2806522526,
+      "typeHash": 808620711,
+      "schemaGlobal": true,
+      "compiler": "ConquerCardPrebuiltDeckCompiler"
+    },
+    {
+      "name": "ArmyDefinition",
+      "typeId": 3587539190,
+      "typeHash": 213154423,
+      "schemaGlobal": true,
+      "compiler": "ArmyDefinitionCompiler"
+    },
+    {
+      "name": "SkirmishOpeningMove",
+      "typeId": 3971904488,
+      "typeHash": 1878382208,
+      "schemaGlobal": true,
+      "compiler": "SkirmishOpeningMoveCompiler"
+    },
+    {
+      "name": "DLContent",
+      "typeId": 212695140,
+      "typeHash": 1654379548,
+      "schemaGlobal": true,
+      "compiler": "DLContentCompiler"
+    },
+    {
+      "name": "AssetReportTable",
+      "typeId": 255713734,
+      "typeHash": 1788767883,
+      "schemaGlobal": true,
+      "compiler": "AssetReportTableCompiler"
+    },
+    {
+      "name": "StringHashTable",
+      "typeId": 300273508,
+      "typeHash": 3959342059,
+      "schemaGlobal": true,
+      "compiler": "StringHashTableCompiler"
+    },
+    {
+      "name": "MeshInstanceTemplate",
+      "typeId": 815686049,
+      "typeHash": 1966615229,
+      "schemaGlobal": true,
+      "compiler": "MeshInstanceTemplateCompiler"
+    },
+    {
+      "name": "PackedTextureImage",
+      "typeId": 1449288224,
+      "typeHash": 4177308976,
+      "schemaGlobal": true,
+      "compiler": "PackedTextureImageCompiler"
+    },
+    {
+      "name": "OnDemandTextureImage",
+      "typeId": 4262364347,
+      "typeHash": 333131708,
+      "schemaGlobal": true,
+      "compiler": "OnDemandTextureImageCompiler"
+    },
+    {
+      "name": "AptAptData",
+      "typeId": 1816258268,
+      "typeHash": 3795385027,
+      "schemaGlobal": true,
+      "compiler": "AptAptDataCompiler"
+    },
+    {
+      "name": "AptConstData",
+      "typeId": 983359664,
+      "typeHash": 3876251416,
+      "schemaGlobal": true,
+      "compiler": "AptConstDataCompiler"
+    },
+    {
+      "name": "AptDatData",
+      "typeId": 1110676961,
+      "typeHash": 230038576,
+      "schemaGlobal": true,
+      "compiler": "AptDatDataCompiler"
+    },
+    {
+      "name": "AptGeometryData",
+      "typeId": 1034587168,
+      "typeHash": 1390234602,
+      "schemaGlobal": true,
+      "compiler": "AptGeometryDataCompiler"
+    },
+    {
+      "name": "BaseRenderAssetType",
+      "typeId": 2989459401,
+      "typeHash": 3866869572,
+      "schemaGlobal": false,
+      "compiler": "BaseRenderAssetTypeCompiler"
+    },
+    {
+      "name": "AudioFileRuntime",
+      "typeId": 584092973,
+      "typeHash": 2941751938,
+      "schemaGlobal": false,
+      "compiler": "AudioFileRuntimeCompiler"
+    },
+    {
+      "name": "Mouse",
+      "typeId": 2525492603,
+      "typeHash": 1246977355,
+      "schemaGlobal": true,
+      "compiler": "MouseCompiler"
+    },
+    {
+      "name": "UnitAbilityButtonTemplate",
+      "typeId": 3517887782,
+      "typeHash": 2961656853,
+      "schemaGlobal": true,
+      "compiler": "UnitAbilityButtonTemplateCompiler"
+    },
+    {
+      "name": "PlayerPowerButtonTemplate",
+      "typeId": 4044322798,
+      "typeHash": 2789252562,
+      "schemaGlobal": true,
+      "compiler": "PlayerPowerButtonTemplateCompiler"
+    },
+    {
+      "name": "TestTexture",
+      "typeId": 2826773070,
+      "typeHash": 275489259,
+      "schemaGlobal": true,
+      "compiler": "TestTextureCompiler"
+    },
+    {
+      "name": "TestTextureCollection",
+      "typeId": 49556361,
+      "typeHash": 2883151314,
+      "schemaGlobal": true,
+      "compiler": "TestTextureCollectionCompiler"
+    },
+    {
+      "name": "TerrainAssetCollection",
+      "typeId": 582251659,
+      "typeHash": 339527263,
+      "schemaGlobal": true,
+      "compiler": "TerrainAssetCollectionCompiler"
+    },
+    {
+      "name": "TerrainTextureAtlasRuntime",
+      "typeId": 3878948534,
+      "typeHash": 1182599100,
+      "schemaGlobal": false,
+      "compiler": "TerrainTextureAtlasRuntimeCompiler"
+    },
+    {
+      "name": "W3DHierarchy",
+      "typeId": 1641540160,
+      "typeHash": 3985956449,
+      "schemaGlobal": true,
+      "compiler": "W3DHierarchyCompiler"
+    },
+    {
+      "name": "W3DContainer",
+      "typeId": 4042295058,
+      "typeHash": 1637720895,
+      "schemaGlobal": true,
+      "compiler": "W3DContainerCompiler"
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "typeId": 3534264507,
+      "typeHash": 3595590881,
+      "schemaGlobal": false,
+      "compiler": "W3DAnimationRuntimeCompiler"
+    },
+    {
+      "name": "W3DCollisionBox",
+      "typeId": 3810008068,
+      "typeHash": 1848047257,
+      "schemaGlobal": true,
+      "compiler": "W3DCollisionBoxCompiler"
+    },
+    {
+      "name": "MapMetaData",
+      "typeId": 1603703110,
+      "typeHash": 1209903334,
+      "schemaGlobal": true,
+      "compiler": "MapMetaDataCompiler"
+    },
+    {
+      "name": "GameScriptList",
+      "typeId": 3737094024,
+      "typeHash": 2724763994,
+      "schemaGlobal": true,
+      "compiler": "GameScriptListCompiler"
+    },
+    {
+      "name": "GameMap",
+      "typeId": 3575309793,
+      "typeHash": 4100291602,
+      "schemaGlobal": true,
+      "compiler": "GameMapCompiler"
+    },
+    {
+      "name": "UIConfigList",
+      "typeId": 3072160547,
+      "typeHash": 3852040349,
+      "schemaGlobal": true,
+      "compiler": "UIConfigListCompiler"
+    }
+  ]
+}

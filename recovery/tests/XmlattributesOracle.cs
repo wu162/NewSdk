@@ -1307,6 +1307,38 @@ class XmlattributesOracle
         }
     }
 
+    static void BabMetadata(IAssetBuilderPlugin plugin,TargetPlatform p) {
+        string[] types={"LogicCommandSet","AttributeModifier","UpgradeTemplate"};
+        string[] bodies={
+            "<Cmd>Command_A\\7</Cmd><Cmd>Command_B</Cmd>",
+            "<Modifier Type='SPEED' Value='125'/><Modifier Type='ARMOR' Value='-25'/>",
+            "<GameDependency><RequiredObject>Tank\\1</RequiredObject><ForbiddenUpgrade>Upg\\2</ForbiddenUpgrade><NeededUpgrade>Upg\\3</NeededUpgrade><ObjectFilter Rule='ANY' Include='INFANTRY' StatusBitFlags='STEALTHED'><IncludeThing>Thing\\4</IncludeThing><ExcludeThing>Thing\\5</ExcludeThing></ObjectFilter></GameDependency>"
+        };
+        for(int i=0;i<types.Length;++i)foreach(string value in new[]{"0","4294967295","metadata-not-a-number",""}) {
+            var d=new XmlDocument();d.LoadXml("<"+types[i]+" xmlns='"+Ns+"' id='Oracle'>"+bodies[i]+"</"+types[i]+">");
+            var ns=new XmlNamespaceManager(d.NameTable);ns.AddNamespace("ea",Ns);
+            AssetBuffer baseline=plugin.ProcessInstance(Declaration(d,ns));
+            foreach(XmlElement node in d.SelectNodes("//*"))node.SetAttribute("TypeId",value);
+            var declaration=Declaration(d,ns);
+            AssetBuffer original=plugin.ProcessInstance(declaration);
+            AssetBuffer actual=types[i]=="LogicCommandSet"?LogicCommandSetCompiler.ProcessInstance(declaration,p):Compile(declaration,p,types[i]);
+            string label=types[i]+"/BAB-TypeId-"+value;
+            Equal(label+"/original-metadata-instance",baseline.InstanceData,original.InstanceData);
+            Equal(label+"/original-metadata-relocations",baseline.RelocationData,original.RelocationData);
+            Equal(label+"/original-metadata-imports",baseline.ImportsData,original.ImportsData);
+            Equal(label+"/instance",original.InstanceData,actual.InstanceData);
+            Equal(label+"/relocations",original.RelocationData,actual.RelocationData);
+            Equal(label+"/imports",original.ImportsData,actual.ImportsData);++fixtures;
+        }
+        Reject(Xml("xmlns:q='urn:metadata' q:TypeId='1'",""),p);
+        Reject(Xml("","<Cmd xmlns:q='urn:metadata' q:TypeId='1'>Command</Cmd>"),p);
+        RejectGeneric("AttributeModifier","xmlns:q='urn:metadata' q:TypeId='1'","",p);
+        RejectGeneric("AttributeModifier","","<Modifier xmlns:q='urn:metadata' q:TypeId='1'/>",p);
+        RejectGeneric("UpgradeTemplate","TypeId='1' Bogus='1'","",p);
+        RejectGeneric("UpgradeTemplate","","<GameDependency><ObjectFilter TypeId='1' Bogus='1'/></GameDependency>",p);
+        RejectGeneric("UpgradeTemplate","","<GameDependency><ObjectFilter><IncludeThing xmlns:q='urn:metadata' q:TypeId='1'>Thing</IncludeThing></ObjectFilter></GameDependency>",p);
+    }
+
     static int Main(string[] args) {
         try {
             CultureInfo.CurrentCulture=CultureInfo.GetCultureInfo("de-DE");
@@ -1339,6 +1371,7 @@ class XmlattributesOracle
                 catch(NotSupportedException) { rejections++; }
                 OtherTypes(plugin,p);
                 Prefixes(plugin,p);
+                BabMetadata(plugin,p);
                 Console.WriteLine("SUMMARY platform={0} fixtures={1} threeArrayComparisons={2} rejected={3} independentLayouts={4}",(int)p,fixtures-f,comparisons-c,rejections-r,layouts-l);
             }
             Console.WriteLine("TOTAL fixtures={0} threeArrayComparisons={1} rejected={2} independentLayouts={3}",fixtures,comparisons,rejections,layouts);

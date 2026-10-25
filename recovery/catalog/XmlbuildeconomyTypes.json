@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "LocalBuildListMonitor",
+      "typeId": 315614191,
+      "typeHash": 3578044627,
+      "schemaGlobal": true
+    },
+    {
+      "name": "BuildSystemSettings",
+      "typeId": 3974617950,
+      "typeHash": 4161179766,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GiftManagerSettings",
+      "typeId": 1047799468,
+      "typeHash": 3376391493,
+      "schemaGlobal": true
+    },
+    {
+      "name": "MpGameRules",
+      "typeId": 741706624,
+      "typeHash": 886642248,
+      "schemaGlobal": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Relocation.cpp
+ScalarParsing.cpp
+DataInitializers.cpp
+EnumBitset.cpp
+ResourceMarshaling.cpp
+XmlrenderassetsCompiler.cpp
+Xmlrenderassets.cpp
+Generating Code...

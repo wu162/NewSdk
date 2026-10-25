@@ -248,6 +248,21 @@ class XmlpowersOracle
         Reject("<SpecialPowerTemplate xmlns='other' id='Oracle'/>", platform);
         Reject("<ObjectCreationList xmlns='" + Ns + "' id='Oracle' ea:Flags='NONE' xmlns:ea='" + Ns + "'/>", platform);
     }
+    static void BabMetadata(int platform) {
+        string[] sources={
+            Power("","<ObjectFilter Rule='ANY' Include='INFANTRY'><IncludeThing>Thing\\1</IncludeThing><ExcludeThing>Thing\\2</ExcludeThing></ObjectFilter><GameDependency><RequiredObject>Tank\\3</RequiredObject><NeededUpgrade>Upg\\4</NeededUpgrade><ObjectFilter Rule='ALL'><IncludeThing>Thing\\5</IncludeThing></ObjectFilter></GameDependency><ForbiddenPlayerTech>Tech\\6</ForbiddenPlayerTech>"),
+            Ocl("<CreateObject><Offset x='1' y='2' z='3'/><RequiredUpgrade>Upg\\1</RequiredUpgrade><ForbiddenUpgrade>Upg\\2</ForbiddenUpgrade><CreateObject>Tank</CreateObject></CreateObject><Attack/><FireWeapon/><FlingObject><Offset x='4' y='5' z='6'/><DistanceFromTarget Low='1' High='2'/><AngleAroundTarget Low='3' High='4'/><DistanceAtTarget Low='5' High='6'/></FlingObject><StrafeAreaSquad><InterOffset x='1' y='2' z='3'/><IntraOffset x='4' y='5' z='6'/></StrafeAreaSquad><ParabolicCurve><Offset x='7' y='8' z='9'/></ParabolicCurve>")
+        };
+        foreach(string source in sources)foreach(string value in new[]{"0","4294967295","metadata-not-a-number",""}) {
+            var d=new XmlDocument();d.LoadXml(source);
+            foreach(XmlElement node in d.SelectNodes("//*"))node.SetAttribute("TypeId",value);
+            Test("BAB/all-named-element-TypeId-"+value,d.OuterXml,platform);
+        }
+        Reject(Power("xmlns:q='urn:metadata' q:TypeId='1'",""),platform);
+        Reject(Power("","<ObjectFilter TypeId='1' Bad='1'/>"),platform);
+        Reject(Power("","<GameDependency><NeededUpgrade xmlns:q='urn:metadata' q:TypeId='1'>Upg</NeededUpgrade></GameDependency>"),platform);
+        Reject(Ocl("<CreateObject><Offset xmlns:q='urn:metadata' q:TypeId='1'/></CreateObject>"),platform);
+    }
     static int Main(string[] args)
     {
         bool succeeded = false;
@@ -266,6 +281,7 @@ class XmlpowersOracle
                     string[] parts = pair.Split(':'); Attributes(parts[0], parts[1], platform);
                 }
                 Children(platform);
+                BabMetadata(platform);
                 Console.WriteLine("PASS platform={0} fixtures={1} comparisons={2} rejections={3} independent={4}", platform, fixtures-startFixtures, comparisons-startComparisons, rejections-startRejections, independent-startIndependent);
             }
             succeeded = true;

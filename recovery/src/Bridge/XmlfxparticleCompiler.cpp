@@ -11,6 +11,9 @@ public:
     static void Attributes(XmlNode^ node, array<String^>^ allowed) {
         for each (XmlAttribute^ attr in node->Attributes) {
             if (attr->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
+            // BAB attaches TypeId to every named schema type, including structural
+            // children. Their original Marshal methods ignore this metadata.
+            if (attr->NamespaceURI->Length == 0 && attr->LocalName == "TypeId") continue;
             bool found = false;
             if (attr->NamespaceURI->Length == 0)
                 for each (String^ name in allowed) if (attr->LocalName == name) { found = true; break; }
@@ -94,6 +97,7 @@ public:
         if(child == nullptr) return;
         Native::XmlfxparticleModuleRandom field; field.offset=offset; Random(child,field.input); input.random.push_back(field);
     }
+    #include "XmlfxparticleModuleHelpers.inc"
     static void Module(XmlNode^ container, Native::XmlfxparticleModuleInput& input) {
         if(container==nullptr) return;
         Attributes(container,gcnew array<String^>(0));
@@ -105,9 +109,13 @@ public:
             } else if((child->NodeType==XmlNodeType::Text || child->NodeType==XmlNodeType::CDATA) && !String::IsNullOrWhiteSpace(child->Value)) throw gcnew NotSupportedException("Module text");
         }
         if(node==nullptr) return;
+        ModuleNode(node,input);
+    }
+    static void ModuleNode(XmlNode^ node, Native::XmlfxparticleModuleInput& input) {
         input.present=true; input.typeId=Native::ParseUnsigned(Attr(node,"TypeId","0"));
         Native::XmlfxparticleNuggetInput values;
         switch(input.typeId) {
+        #include "XmlfxparticleModuleCases.inc"
         case 877888681u: { // FXParticlePhysicsBase
             input.size=4; Attributes(node,gcnew array<String^>{"TypeId"}); Children(node,gcnew array<String^>{},false);
             break;
@@ -265,14 +273,31 @@ public:
             ModuleRandom(node,"LineAngle",56,input);
             break;
         }
-        case 2693838876u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventBase"); }
-        case 2933826200u: { throw gcnew NotSupportedException("Unrecovered FXParticleUpdateDefault"); }
-        case 234581578u: { throw gcnew NotSupportedException("Unrecovered FXParticleUpdateRenderObject"); }
-        case 2248017887u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawGpu"); }
-        case 3036920908u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawLightning"); }
-        case 3408220251u: { throw gcnew NotSupportedException("Unrecovered FXParticleDrawRenderObject"); }
-        case 1075723135u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventCollision"); }
-        case 3465979181u: { throw gcnew NotSupportedException("Unrecovered FXParticleEventLife"); }
+        case 2693838876u: { // FXParticleEventBase
+            input.size=12; Attributes(node,gcnew array<String^>{"TypeId","EventFX","PerParticle","KillAfterEvent"}); Empty(node);
+            Field(node,"EventFX",nullptr,4,Native::ParticleReference,nullptr,values);
+            Field(node,"PerParticle",nullptr,8,Native::ParticleBoolean,nullptr,values);
+            Field(node,"KillAfterEvent",nullptr,9,Native::ParticleBoolean,nullptr,values);
+            break;
+        }
+        case 1075723135u: { // FXParticleEventCollision
+            input.size=28; Attributes(node,gcnew array<String^>{"TypeId","EventFX","PerParticle","KillAfterEvent","OrientFXToTerrain"}); Children(node,gcnew array<String^>{"HeightOffset"},false);
+            Field(node,"EventFX",nullptr,4,Native::ParticleReference,nullptr,values);
+            Field(node,"PerParticle",nullptr,8,Native::ParticleBoolean,nullptr,values);
+            Field(node,"KillAfterEvent",nullptr,9,Native::ParticleBoolean,nullptr,values);
+            Field(node,"OrientFXToTerrain","false",24,Native::ParticleBoolean,nullptr,values);
+            ModuleRandom(node,"HeightOffset",12,input);
+            break;
+        }
+        case 3465979181u: { // FXParticleEventLife
+            input.size=24; Attributes(node,gcnew array<String^>{"TypeId","EventFX","PerParticle","KillAfterEvent"}); Children(node,gcnew array<String^>{"EventTime"},false);
+            Field(node,"EventFX",nullptr,4,Native::ParticleReference,nullptr,values);
+            Field(node,"PerParticle",nullptr,8,Native::ParticleBoolean,nullptr,values);
+            Field(node,"KillAfterEvent",nullptr,9,Native::ParticleBoolean,nullptr,values);
+            
+            ModuleRandom(node,"EventTime",12,input);
+            break;
+        }
         default: {
             // Original MarshalUnknownPolymorphicType allocates four zero bytes.
             Attributes(node,gcnew array<String^>{"TypeId"}); Empty(node);
@@ -295,8 +320,13 @@ public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         XmlfxparticleXml::Root(node, "FXParticleSystemTemplate");
         if(namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
-        XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});
+        XmlfxparticleXml::Attributes(node, gcnew array<String^>{"id","inheritFrom","TypeId","Priority","Shader","Type","ParticleTexture","Drawable","SlaveSystem","PerParticleAttachedSystem","SystemLifetime","SortLevel","EmitterSound","IsOneShot","IsGroundAligned","IsEmitAboveGroundOnly","IsParticleUpTowardsEmitter","UseMaximumHeight"});
         XmlfxparticleXml::Children(node, gcnew array<String^>{"SlavePosOffset","Lifetime","Size","StartSizeRate","BurstDelay","BurstCount","InitialDelay","Alphas","Colors","Wind","Physics","Draw","Volume","Velocity","Event","Update"}, false);
+        // BAB inserts the root TypeId during preprocessing. The original root ignores
+        // this metadata; this component accepts only its own matching numeric value.
+        if(node->Attributes["TypeId"] != nullptr &&
+            Native::ParseUnsigned(XmlfxparticleXml::Attr(node,"TypeId","0")) != 686292351u)
+            throw gcnew NotSupportedException("Mismatched FXParticleSystemTemplate root TypeId");
         Native::XmlfxparticleParticleInput input;
         input.priority = XmlfxparticleXml::Attr(node,"Priority","ULTRA_HIGH_ONLY");
         input.shader = XmlfxparticleXml::Attr(node,"Shader","ADDITIVE");
@@ -372,7 +402,17 @@ public:
             for(int i=0;i<12;++i) input.wind[i]=XmlfxparticleXml::Attr(wind,names[i],defaults[i]);
         }
         XmlNode^ events = XmlfxparticleXml::Child(node,"Event");
-        if(events != nullptr) { XmlfxparticleXml::Attributes(events,gcnew array<String^>(0)); XmlfxparticleXml::Empty(events); }
+        if(events != nullptr) {
+            XmlfxparticleXml::Attributes(events,gcnew array<String^>(0));
+            for each(XmlNode^ item in events->ChildNodes) {
+                if(item->NodeType==XmlNodeType::Element) {
+                    if(item->NamespaceURI!=events->NamespaceURI) throw gcnew NotSupportedException("Foreign particle event");
+                    Native::XmlfxparticleModuleInput eventInput;
+                    XmlfxparticleXml::ModuleNode(item,eventInput); input.events.push_back(eventInput);
+                } else if((item->NodeType==XmlNodeType::Text || item->NodeType==XmlNodeType::CDATA) && !String::IsNullOrWhiteSpace(item->Value))
+                    throw gcnew NotSupportedException("Particle event text");
+            }
+        }
         array<String^>^ moduleNames={"Physics","Draw","Volume","Velocity","Update"};
         for(int i=0;i<5;++i) XmlfxparticleXml::Module(XmlfxparticleXml::Child(node,moduleNames[i]),input.modules[i]);
         return XmlfxparticleXml::Buffer(Native::CompileXmlfxparticleParticle(input,bigEndian));
@@ -385,4 +425,6 @@ public:
     }
 };
 }
+
+
 

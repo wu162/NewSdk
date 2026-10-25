@@ -1,0 +1,76 @@
+ROUTE root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler
+ROUTE root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler
+ROUTE root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler
+ROUTE root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler
+ROUTE root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler
+ROUTE root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler
+ROUTE root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler
+ROUTE root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler
+ROUTE root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler
+ROUTE root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler
+ROUTE root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler
+ROUTE root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler
+ROUTE root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler
+ROUTE root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler
+PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=0 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=0 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
+PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=0 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
+PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=0 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
+PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
+PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=0 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS platform=0 types=14 fixtures=14 comparisons=42
+PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=1 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=1 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
+PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=1 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
+PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=1 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
+PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
+PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=1 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS platform=1 types=14 fixtures=14 comparisons=42
+PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=2 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=2 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
+PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=2 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
+PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=2 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
+PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
+PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=2 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS platform=2 types=14 fixtures=14 comparisons=42
+PASS root=AttributeModifier TypeId=3319822471 compiler=Recovered.AttributeModifierCompiler platform=99 fixtures=1 comparisons=3 instance=60 relocations=0 imports=0
+PASS root=FXList TypeId=2254974584 compiler=Recovered.FXListCompiler platform=99 fixtures=1 comparisons=3 instance=28 relocations=0 imports=0
+PASS root=SpecialPowerTemplate TypeId=2178440954 compiler=Recovered.SpecialPowerTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=552 relocations=0 imports=0
+PASS root=ObjectCreationList TypeId=3899542881 compiler=Recovered.ObjectCreationListCompiler platform=99 fixtures=1 comparisons=3 instance=56 relocations=0 imports=0
+PASS root=LocomotorTemplate TypeId=3972178387 compiler=Recovered.LocomotorTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=396 relocations=0 imports=0
+PASS root=LogicCommandSet TypeId=3959844197 compiler=Recovered.LogicCommandSetCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=FXParticleSystemTemplate TypeId=686292351 compiler=Recovered.FXParticleSystemTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=UpgradeTemplate TypeId=3786401627 compiler=Recovered.UpgradeTemplateCompiler platform=99 fixtures=1 comparisons=3 instance=140 relocations=0 imports=0
+PASS root=AIPersonalityDefinition TypeId=3604279694 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=512 relocations=0 imports=0
+PASS root=AIStrategicStateDefinition TypeId=607123156 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=64 relocations=0 imports=0
+PASS root=AIMicroManagerData TypeId=2423780215 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=176 relocations=0 imports=0
+PASS root=AIBudgetStateDefinition TypeId=2893598307 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=20 relocations=0 imports=0
+PASS root=AIStateDefinition TypeId=3239935619 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=12 relocations=0 imports=0
+PASS root=AITargetingHeuristic TypeId=926814458 compiler=Recovered.XmlaiCompiler platform=99 fixtures=1 comparisons=3 instance=196 relocations=0 imports=0
+PASS platform=99 types=14 fixtures=14 comparisons=42
+PASS XmlPriorityLink types=14 fixtures=56 comparisons=168 platforms=0/1/2/99; link/default-root smoke only
+PROCESS EXIT mode=Od exitCode=0 exitCodeHex=0x00000000

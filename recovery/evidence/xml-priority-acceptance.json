@@ -1,0 +1,222 @@
+{
+  "succeeded": true,
+  "date": "2026-10-24",
+  "repository": "wu162/NewSdk",
+  "branch": "recovery/xmlcompiler-priority",
+  "scope": {
+    "originalRegisteredEntries": 301,
+    "recoveredEntries": 82,
+    "newEntries": 30,
+    "schemaGlobalTypes": 80,
+    "nestedOnlyEntries": [
+      "GameStatsModeData",
+      "MicrophoneSettings"
+    ],
+    "excludes": [
+      "Joypad-named roots",
+      "GameObject restoration",
+      "complete Tokenizer replacement"
+    ]
+  },
+  "components": {
+    "sourceCommit": "e7580311f36811265e6ed5af5a184ef623f31284",
+    "runId": "40099095351",
+    "conclusion": "success",
+    "modes": [
+      "/Od",
+      "/O2"
+    ],
+    "platforms": [
+      0,
+      1,
+      2,
+      99
+    ],
+    "groups": [
+      {
+        "group": "attributes",
+        "fixtures": 9528,
+        "arrays": 28872,
+        "rejections": 288
+      },
+      {
+        "group": "effects",
+        "fixtures": 13040,
+        "arrays": 78240,
+        "rejections": 320
+      },
+      {
+        "group": "powers",
+        "fixtures": 34656,
+        "arrays": 103968,
+        "rejections": 1072
+      },
+      {
+        "group": "locomotor",
+        "fixtures": 33048,
+        "arrays": 99144,
+        "rejections": 2024
+      },
+      {
+        "group": "ai",
+        "fixtures": 15824,
+        "arrays": 94920,
+        "rejections": 416
+      },
+      {
+        "group": "fxparticle",
+        "fixtures": 27752,
+        "arrays": 83256,
+        "rejections": 784
+      },
+      {
+        "group": "progression",
+        "fixtures": 33280,
+        "arrays": 199680,
+        "rejections": 976
+      },
+      {
+        "group": "environment",
+        "fixtures": 49056,
+        "arrays": 294336,
+        "rejections": 2448
+      },
+      {
+        "group": "players",
+        "fixtures": 44760,
+        "arrays": 134280,
+        "rejections": 984
+      },
+      {
+        "group": "damagefx",
+        "fixtures": 2368,
+        "arrays": 14208,
+        "rejections": 160
+      },
+      {
+        "group": "hotkeymaps",
+        "fixtures": 13144,
+        "arrays": 78864,
+        "rejections": 296
+      },
+      {
+        "group": "audio",
+        "fixtures": 33856,
+        "arrays": 203136,
+        "rejections": 576
+      },
+      {
+        "group": "uisettings",
+        "fixtures": 28232,
+        "arrays": 169392,
+        "rejections": 2408
+      },
+      {
+        "group": "soundmaps",
+        "fixtures": 24448,
+        "arrays": 146688,
+        "rejections": 232
+      }
+    ],
+    "totals": {
+      "fixtures": 362992,
+      "arrays": 1728984,
+      "rejections": 12984
+    },
+    "arrayComparisonNote": "Includes applicable direct CompileXml comparisons; not every comparison is an independent original-DLL call."
+  },
+  "combinedLink": {
+    "types": 82,
+    "fixturesPerMode": 328,
+    "arrayComparisonsPerMode": 984,
+    "completionFixturesPerMode": 40,
+    "completionComparisonsPerMode": 120,
+    "processExits": [
+      0,
+      0
+    ],
+    "artifactRunId": "40099095351"
+  },
+  "sdk": {
+    "sourceCommit": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+    "runId": "40098695436",
+    "conclusion": "success",
+    "mode": "/O2",
+    "platform": 0,
+    "expectedProbeAssets": 159,
+    "metadataComparisons": 4608,
+    "metadataUnknownRejections": 8,
+    "profiles": [
+      {
+        "name": "Reduced",
+        "sourceProbeAssets": 159,
+        "types": 80,
+        "verifiedCalls": 159,
+        "arrayComparisonsPerReplay": 477,
+        "originalReplay": true,
+        "isolatedReplay": true,
+        "originalDllFilesAbsent": true,
+        "originalCompilerAssembliesAbsent": true,
+        "fourOutputsIdentical": true,
+        "shippedIncludesPreserved": null
+      },
+      {
+        "name": "FullMymod",
+        "sourceProbeAssets": 159,
+        "types": 80,
+        "verifiedCalls": 162,
+        "arrayComparisonsPerReplay": 486,
+        "originalReplay": true,
+        "isolatedReplay": true,
+        "originalDllFilesAbsent": true,
+        "originalCompilerAssembliesAbsent": true,
+        "fourOutputsIdentical": true,
+        "shippedIncludesPreserved": 7
+      }
+    ],
+    "compilerSha256": "D1DBBA4CC3E7CAC38CDAD1E94FEC242850A4C6A0C4BD4DC07A677D64E7C97200",
+    "pluginSha256": "205AA8D09AC71F01D863B6415ABF49AA6BD115C988F08439E01A2BD0212F0652",
+    "probeSha256": "370D612E4C578ADAD8D250C8E97041A7F7C30F92C19FBF5025F8C0F47ADB2797",
+    "originalDllsUnchanged": true
+  },
+  "sdkReuse": {
+    "reason": "Only UI oracle assertions changed after successful SDK acceptance; all executable sources, original SDK, workflows, SDK inputs, scripts, and SDK oracle have identical Git object IDs.",
+    "snapshots": [
+      {
+        "ref": "92180f9bbd830b9dbd49a696c259e54ffe2d7721",
+        "SDK": "60cba342afc4db0c372ca61e033a9fd8977d72d1",
+        "github": "b28f3a40d47af3baf168fc069ca988f163ce253c",
+        "src": "ed73175f14643cb8a9579a2a5d04702edabd2bb8",
+        "sdk": "0fa159cc4320d0172cafa22916fcf9b753659c70",
+        "scripts": "376f0047e51644c1f184c3d6b21d9d4526cd10d7",
+        "sdkOracle": "7f8dd522eeeb694b9eaf16912f94a6c124c234c1",
+        "uiOracle": "1cd1d8314d3e7e624f378faa070b5a0d06cf7fa3"
+      },
+      {
+        "ref": "e7580311f36811265e6ed5af5a184ef623f31284",
+        "SDK": "60cba342afc4db0c372ca61e033a9fd8977d72d1",
+        "github": "b28f3a40d47af3baf168fc069ca988f163ce253c",
+        "src": "ed73175f14643cb8a9579a2a5d04702edabd2bb8",
+        "sdk": "0fa159cc4320d0172cafa22916fcf9b753659c70",
+        "scripts": "376f0047e51644c1f184c3d6b21d9d4526cd10d7",
+        "sdkOracle": "7f8dd522eeeb694b9eaf16912f94a6c124c234c1",
+        "uiOracle": "9fdbc7e8ee164a49e029f3c3f6f23e5a2c06545d"
+      }
+    ]
+  },
+  "originalXmlCompilerSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+  "historicalIncompleteRuns": [
+    {
+      "runId": "40098375480",
+      "reason": "Independent UI reference index assertion omitted +1."
+    },
+    {
+      "runId": "40098375483",
+      "reason": "Strict XSD found missing required probe content/attributes."
+    },
+    {
+      "runId": "40098695441",
+      "reason": "Independent UI imports assertion assumed field-address sorting rather than original block/value sorting."
+    }
+  ]
+}

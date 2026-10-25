@@ -1,0 +1,9 @@
+# 原 XmlCompiler metadata 与入口清单
+
+原Plugin blob00bb9e5df72d07a21204f85f9a9a2f1d9557f00b；原Module blob2d2f471c8008b7c2e1f78e39752d0726da395cea。52个已恢复入口的精确TypeId、TypeHash、能力组和schemaGlobal标记见 [catalog/XmlRecoveredTypes.json](catalog/XmlRecoveredTypes.json)。原Plugin共301个登记入口，列表中未恢复项不因metadata取证而宣称支持。
+
+GetAllTypesHash=1424942948；GetVersionNumber默认/Win32=4、PS3=7、Xbox360=6；ProcessingHash=TypeHash XOR version；HasCustomData、Tokenized、UseBuildCache默认false。不能套用Tokenizer的版本号或相加规则。
+
+最终源码71cbdd7bd27478d0bcb9dc3dbd2f22deac888dd7、SDK运行40095358016：52入口、四平台Initialize/ReInitialize、2928项公开字段/属性/哈希/版本比较、8项未知类型拒绝均通过。原DLL SHA256 d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6。
+
+独立原Plugin入口不总等于合法全局XSD资产。GameStatsModeData有独立Handler/Tracker/Marshal和完整组件恢复，但CnC3Types全局choice未注册；SDK仅使用其MultiplayerSettings嵌套形式。其他51入口均在原全局choice逐名核对并有实际SDK调用，见 [XML_PRIORITY_SDK.md](XML_PRIORITY_SDK.md)。

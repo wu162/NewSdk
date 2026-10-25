@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=805 arrayComparisons=4830 rejections=52 layoutAssertions=33319
+PASS platform=1 fixtures=805 arrayComparisons=4830 rejections=52 layoutAssertions=33319
+PASS platform=2 fixtures=805 arrayComparisons=4830 rejections=52 layoutAssertions=33319
+PASS platform=99 fixtures=805 arrayComparisons=4830 rejections=52 layoutAssertions=33319
+PASS Localization fixtures=3220 arrayComparisons=19320 rejections=208 layoutAssertions=133277

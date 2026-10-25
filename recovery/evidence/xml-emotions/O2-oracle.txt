@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=6107 arrayComparisons=36642 rejections=18 layoutAssertions=42257
+PASS platform=1 fixtures=6107 arrayComparisons=36642 rejections=18 layoutAssertions=42257
+PASS platform=2 fixtures=6107 arrayComparisons=36642 rejections=18 layoutAssertions=42257
+PASS platform=99 fixtures=6107 arrayComparisons=36642 rejections=18 layoutAssertions=42257
+PASS Stance and Emotion fixtures=24428 arrayComparisons=146568 rejections=72 layoutAssertions=169029

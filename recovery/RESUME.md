@@ -1,27 +1,12 @@
-# 完成：322/322模块及GameObject真实SDK全部验收
+# GameObject 与 XmlCompiler 当前续接入口
 
-更新：2026-10-25。目标分支recovery/compiler-source，禁止强推。本轮请求“完成剩余类型解析并自建测试mod执行真实SDK编译”已全部完成，无待运行或待收取验收。
+2026-10-25（北京时间）。目标分支 `recovery/compiler-source`。本文件整合PR [#2](https://github.com/wu162/NewSdk/pull/2) 两边状态；禁止强推。先读AGENTS.md与EFFICIENCY.md，再按子系统读取详细交接。
 
-## 最终同源码验证
+- **GameObject**：322/322已知Marshal模块已完成，58个Token-only保持原未知Marshal回退。验收源码 `f8726d624b0a74ea0927705bca352027cbf76e30`；组件运行40162947222、基础40162947146、真实SDK40162947209均成功。详细当前状态及不可变证据见[RESUME_GAMEOBJECT.md](RESUME_GAMEOBJECT.md)和GAMEOBJECT_DRAW_MODEL.md。
+- **XmlCompiler**：原301登记项排除TestGameObject和11个Joypad独立根后，289入口组件还原及元数据核对完成；其中267个XSD全局类型取得真实SDK根调用证明，22个非全局项不冒充独立SDK根。SDK源码 `9b2ef85bc45e6b397fce3d275165715afa921a92`、运行40164710673成功；5个MOD profile四产物相同，783次实际调用、4698次原版/隔离重放缓冲区比较。详细状态见[RESUME_XMLCOMPILER.md](RESUME_XMLCOMPILER.md)、[XMLCOMPILER_PRIORITY.md](XMLCOMPILER_PRIORITY.md)及[SDK验收收据](evidence/xml-priority-sdk/acceptance.json)。
 
-共同源码：f8726d624b0a74ea0927705bca352027cbf76e30。
+两边SDK均执行EALAModStudio defaultscript.cs case5基础数据BAB流程，只在临时SDK副本启用相应恢复插件；各自验收锚点与范围分别保留，不将它们改写成一次双插件同时启用的联合SDK运行。本次合并不修改已验收Native/Bridge/共享helper及原SDK DLL/config，不重复触发未变成功类型的编译测试。
 
-- GameObject完整累计：run40162947222 success。/Od、/O2各1382432 fixtures、4147296三缓冲区比较、24960拒绝、4228不变性；平台0/1/2/99；两模式合计8294592三缓冲区比较。两条实际PASS日志、所有作业步骤、终态与validation.sourceCommit/runId/modes/platforms均已核对。
-- 不可变证据：evidence/gameobject-runs/40162947222-1；树ee09d1721d1c5cfc50df886df8813f6997ce999d。共享gameobject-root同步为该树。之前8939717b/run40162645578及d5daae74/run40162286167完整成功保留。
-- 基础组件：run40162947146 success。
-- 真实SDK：run40162947209 success，evidence/gameobject-sdk-runs/40162947209-1。自建SDK/Mods/recoverydraw七资产与完整mymod（BaseObject/BaseVehicle/mytank三调用）均经原版/恢复版独立冷构建，bin/manifest/imp/relo全产物逐字节一致；实际三缓冲区原DLL重放、移除两原DLL后的恢复版重放均通过。
-- SDK归档已重新解码、独立比较八对文件并检查完整XSD与三个负向XSD断言。output.zip SHA25615a1112127592f74c4b5a186cde3cee70fd82a71db2d3fef34bf26d0779666ef；recoverydraw bin54936字节，mymod bin209548字节。组件validation的“SDK not run”仅说明该组件作业；SDK有上述同源码独立成功证据。
+当前已授权还原范围内没有新增待实现或待收取验收。后续变更按实际影响选择测试；缺失、失败、输入变化的组仍须取得完整必要验收。原XmlCompiler排除12根、22非全局项的边界不因合并扩大，其他自定义编译器及完整Tokenizer不在本次完成声明内。
 
-## 实现与精确边界
-
-全部322/322已知Marshal模块已验收，剩余0。最后五类ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396及完整依赖已还原。58 Token-only保持原未知Marshal回退，未伪造Marshal支持。
-
-GameObjectDrawModel/DrawModelConditions/DrawAnimation/DrawDynamics分文件，实现完整ModelCondition196、AnimationState140、Animation60、Particle36、FXEvent28、Lua16、Shader28/四常量、Shadow60、Attach80、Portal12、物理体积五形状和可空Translation/Rotation/Lifetime。四个GenerateDraw*Fields检查固定原方法/PE/字段默认顺序/Token/stride；GameObjectDrawModelCases为新增完整矩阵。
-
-真实SDK还精确修复既有适配器对CrusherInfo.id（XSD pipelineOnly）和xi:include标准XML上下文base/lang的误拒绝；其他外命名空间仍拒绝，新增原DLL三缓冲区差分/不变性。实际mytank捕获XML证明头灯Draw及AttributeModifierUpgrade携带xml:base，CrusherInfo.id也保留。csc相对路径误解析一并修正；失败SDK40162286198/40162402496/40162645592保留。
-
-SDK流程为EALAModStudio defaultscript.cs case5基础数据BAB命令；只在临时SDK副本启用正式恢复版GameObject插件，主SDK原DLL与配置保留。XmlCompiler另分支、两个完整替代DLL不属于本轮完成声明。
-
-## 后续
-
-本轮无剩余已授权实现项。没有代码/输入/工具链变化时复用以上精确证据，不重复触发累计差分或真实SDK。若后续修改，依据实际影响范围验证并保留不可变证据。细节见GAMEOBJECT_DRAW_MODEL.md、TestGameObjectSdk.ps1。
+证据冲突处理：XmlCompiler当前共享证据保留priority分支已验收版本；compiler-source同名旧证据原样归档在 `evidence/xml-merge-baselines/compiler-source-833c9177`，GameObject不可变运行档案不变。XML/TSV按证据目录.gitattributes检出以核对运行SHA256；源码与运行锚点不得交叉套用。

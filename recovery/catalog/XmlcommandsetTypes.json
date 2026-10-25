@@ -1,0 +1,13 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "CommandSet",
+      "typeId": 2584759047,
+      "typeHash": 4174095999,
+      "schemaGlobal": false
+    }
+  ]
+}

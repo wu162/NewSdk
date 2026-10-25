@@ -1,0 +1,31 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "NetworkSettings",
+      "typeId": 4272453293,
+      "typeHash": 2097642646,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PathfindSettings",
+      "typeId": 970663416,
+      "typeHash": 2629630449,
+      "schemaGlobal": true
+    },
+    {
+      "name": "ResourceSettings",
+      "typeId": 3279338544,
+      "typeHash": 1560001831,
+      "schemaGlobal": true
+    },
+    {
+      "name": "GraphicsHardware",
+      "typeId": 2846460739,
+      "typeHash": 1118458536,
+      "schemaGlobal": true
+    }
+  ]
+}

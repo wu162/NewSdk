@@ -1,0 +1,25 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "DLContent",
+      "typeId": 212695140,
+      "typeHash": 1654379548,
+      "schemaGlobal": true
+    },
+    {
+      "name": "AssetReportTable",
+      "typeId": 255713734,
+      "typeHash": 1788767883,
+      "schemaGlobal": true
+    },
+    {
+      "name": "StringHashTable",
+      "typeId": 300273508,
+      "typeHash": 3959342059,
+      "schemaGlobal": true
+    }
+  ]
+}

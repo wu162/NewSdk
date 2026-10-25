@@ -1,0 +1,5 @@
+PASS platform=0 fixtures=417 arrayComparisons=2502 rejections=19 layoutAssertions=3327
+PASS platform=1 fixtures=417 arrayComparisons=2502 rejections=19 layoutAssertions=3327
+PASS platform=2 fixtures=417 arrayComparisons=2502 rejections=19 layoutAssertions=3327
+PASS platform=99 fixtures=417 arrayComparisons=2502 rejections=19 layoutAssertions=3327
+PASS map metadata fixtures=1668 arrayComparisons=10008 rejections=76 layoutAssertions=13309

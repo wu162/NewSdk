@@ -11,7 +11,7 @@ PASS platform=0 fixture=list-29 commands=29 threeArrayComparisons=3 independentL
 PASS platform=0 fixture=list-31 commands=31 threeArrayComparisons=3 independentLayout=1
 PASS platform=0 fixture=list-64 commands=64 threeArrayComparisons=3 independentLayout=1
 PASS platform=0 fixture=list-129 commands=129 threeArrayComparisons=3 independentLayout=1
-SUMMARY platform=0 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140
+SUMMARY platform=0 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140
 PASS platform=1 fixture=empty commands=0 threeArrayComparisons=3 independentLayout=1
 PASS platform=1 fixture=plain commands=4 threeArrayComparisons=3 independentLayout=1
 PASS platform=1 fixture=resources commands=10 threeArrayComparisons=3 independentLayout=1
@@ -25,7 +25,7 @@ PASS platform=1 fixture=list-29 commands=29 threeArrayComparisons=3 independentL
 PASS platform=1 fixture=list-31 commands=31 threeArrayComparisons=3 independentLayout=1
 PASS platform=1 fixture=list-64 commands=64 threeArrayComparisons=3 independentLayout=1
 PASS platform=1 fixture=list-129 commands=129 threeArrayComparisons=3 independentLayout=1
-SUMMARY platform=1 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140
+SUMMARY platform=1 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140
 PASS platform=2 fixture=empty commands=0 threeArrayComparisons=3 independentLayout=1
 PASS platform=2 fixture=plain commands=4 threeArrayComparisons=3 independentLayout=1
 PASS platform=2 fixture=resources commands=10 threeArrayComparisons=3 independentLayout=1
@@ -39,7 +39,7 @@ PASS platform=2 fixture=list-29 commands=29 threeArrayComparisons=3 independentL
 PASS platform=2 fixture=list-31 commands=31 threeArrayComparisons=3 independentLayout=1
 PASS platform=2 fixture=list-64 commands=64 threeArrayComparisons=3 independentLayout=1
 PASS platform=2 fixture=list-129 commands=129 threeArrayComparisons=3 independentLayout=1
-SUMMARY platform=2 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140
+SUMMARY platform=2 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140
 PASS platform=99 fixture=empty commands=0 threeArrayComparisons=3 independentLayout=1
 PASS platform=99 fixture=plain commands=4 threeArrayComparisons=3 independentLayout=1
 PASS platform=99 fixture=resources commands=10 threeArrayComparisons=3 independentLayout=1
@@ -53,5 +53,5 @@ PASS platform=99 fixture=list-29 commands=29 threeArrayComparisons=3 independent
 PASS platform=99 fixture=list-31 commands=31 threeArrayComparisons=3 independentLayout=1
 PASS platform=99 fixture=list-64 commands=64 threeArrayComparisons=3 independentLayout=1
 PASS platform=99 fixture=list-129 commands=129 threeArrayComparisons=3 independentLayout=1
-SUMMARY platform=99 fixtures=1179 threeArrayComparisons=3537 rejected=29 independentLayouts=1140
-TOTAL fixtures=4716 threeArrayComparisons=14148 rejected=116 independentLayouts=4560
+SUMMARY platform=99 fixtures=1191 threeArrayComparisons=3609 rejected=36 independentLayouts=1140
+TOTAL fixtures=4764 threeArrayComparisons=14436 rejected=144 independentLayouts=4560

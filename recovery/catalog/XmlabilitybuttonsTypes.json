@@ -1,0 +1,19 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "componentOnly": true,
+  "sdkIntegrated": false,
+  "roots": [
+    {
+      "name": "UnitAbilityButtonTemplate",
+      "typeId": 3517887782,
+      "typeHash": 2961656853,
+      "schemaGlobal": true
+    },
+    {
+      "name": "PlayerPowerButtonTemplate",
+      "typeId": 4044322798,
+      "typeHash": 2789252562,
+      "schemaGlobal": true
+    }
+  ]
+}

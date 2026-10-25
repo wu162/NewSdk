@@ -337,6 +337,19 @@ class XmllocomotorOracle {
         Check(fixedBuffer.InstanceData[368]==1 && fixedBuffer.InstanceData[384]==1 && fixedBuffer.InstanceData[388]==1,"packed bools/defaults");
         ++layouts;
     }
+    static void BabMetadata(IAssetBuilderPlugin original,TargetPlatform p) {
+        foreach(string value in new[]{"0","4294967295","metadata-not-a-number",""}) {
+            string tag=Attr("TypeId",value);
+            Test(original,p,"BAB/root-jet-bounce-TypeId-"+value,Xml(tag+" LookAheadMult='2.5' WaterToAirTransitionFX='Fx\\1'",
+                "<JetLocomotorData "+tag+" AttackPathStartRunDistance='17.5'/><BounceKickTerrainMap "+tag+">Terrain\\3</BounceKickTerrainMap>"));
+        }
+        Reject(Xml("xmlns:q='urn:metadata' q:TypeId='1'",""),p);
+        Reject(Xml("","<JetLocomotorData xmlns:q='urn:metadata' q:TypeId='1'/>"),p);
+        Reject(Xml("","<BounceKickTerrainMap xmlns:q='urn:metadata' q:TypeId='1'/>"),p);
+        Reject(Xml("TypeId='1' UnknownField='1'",""),p);
+        Reject(Xml("","<JetLocomotorData TypeId='1' Unknown='1'/>"),p);
+        Reject(Xml("","<BounceKickTerrainMap TypeId='1' Unknown='1'/>"),p);
+    }
     static int Main(string[] args) {
         Dictionary<string,object> result=new Dictionary<string,object>();
         result["succeeded"]=false;
@@ -355,6 +368,7 @@ class XmllocomotorOracle {
             foreach(TargetPlatform p in new TargetPlatform[]{(TargetPlatform)0,(TargetPlatform)1,(TargetPlatform)2,(TargetPlatform)99}) {
                 int f=fixtures,c=comparisons,r=rejections,l=layouts;
                 Matrix(original,p);
+                BabMetadata(original,p);
                 Dictionary<string,object> row=new Dictionary<string,object>();
                 row["platform"]=(int)p; row["fixtures"]=fixtures-f; row["arrayComparisons"]=comparisons-c; row["rejections"]=rejections-r; row["layoutAssertions"]=layouts-l;
                 platformResults.Add(row);
