@@ -22,9 +22,9 @@ Copy-Item SDK/tools/*.dll $build
 cl /nologo /clr /LD /MD /EHa /O2 /fp:precise /AI"$build" /Fo"$build/" /Fe"$build/Recovered.GameObject.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/DataInitializers.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/EnumBitset.cpp recovery/src/Native/ObjectFilter.cpp recovery/src/Native/WeaponSlotOrder.cpp recovery/src/Native/GameObject.cpp recovery/src/Bridge/GameObjectCompiler.cpp *> "$report/build.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/build.txt"; throw 'GameObject SDK component build failed' }
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-& $csc /nologo /target:library /platform:x86 /r:"$build/Recovered.GameObject.dll" /r:"$build/BinaryAssetBuilder.Core.dll" /out:"$build/Recovered.GameObjectPlugin.dll" recovery/src/Plugin/GameObjectPlugin.cs *> "$report/plugin-build.txt"
+& $csc /nologo /target:library /platform:x86 /r:"$build/Recovered.GameObject.dll" /r:"$build/BinaryAssetBuilder.Core.dll" /out:"$build/Recovered.GameObjectPlugin.dll" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs') *> "$report/plugin-build.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/plugin-build.txt"; throw 'GameObject plugin build failed' }
-& $csc /nologo /platform:x86 /r:System.Core.dll /r:"$build/BinaryAssetBuilder.Core.dll" /out:"$build/GameObjectSdkOracle.exe" recovery/tests/GameObjectSdkOracle.cs *> "$report/host-build.txt"
+& $csc /nologo /platform:x86 /r:System.Core.dll /r:"$build/BinaryAssetBuilder.Core.dll" /out:"$build/GameObjectSdkOracle.exe" (Resolve-Path 'recovery/tests/GameObjectSdkOracle.cs') *> "$report/host-build.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/host-build.txt"; throw 'GameObject SDK oracle build failed' }
 '<?xml version="1.0"?><configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>' | Set-Content "$build/GameObjectSdkOracle.exe.config"
 & "$build/GameObjectSdkOracle.exe" schema (Join-Path $root 'SDK') *> "$report/schema.txt"
