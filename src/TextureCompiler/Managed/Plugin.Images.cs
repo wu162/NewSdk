@@ -42,6 +42,8 @@ namespace Recovered.Compiler.Texture
                 throw new BinaryAssetBuilderException(null, ErrorCode.BadTextureFile,
                     "D3DX cannot load the texture from disk.", new object[0]);
             }
+            if ((image.Width & (image.Width - 1)) != 0 || (image.Height & (image.Height - 1)) != 0)
+                throw new NotSupportedException("Original D3DX power-of-two image resampling has not been recovered.");
             AssetBuffer result = new AssetBuffer { InstanceData = new byte[onDemand ? 8 : 12],
                 RelocationData = new byte[0], ImportsData = new byte[0] };
             bool valid = TextureImageRules.IsValidTexture((uint)image.Width, (uint)image.Height,
