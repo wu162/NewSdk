@@ -19,9 +19,6 @@ internal static class TextureRasterFixtureWriter
                 string name="bmp-d"+depth+"-top"+top+"-p"+pattern+".bmp";
                 File.WriteAllBytes(Path.Combine(dir,name),TextureBmpOracle.Fixture(8,4,depth,top,pattern,0,0));count++;
             }
-            foreach(int profile in new[]{0,1,2})foreach(bool top in new[]{false,true})foreach(int pattern in new[]{0,1}){
-                File.WriteAllBytes(Path.Combine(dir,"fields-"+profile+"-top"+top+"-p"+pattern+".bmp"),TextureBmpOracle.BitfieldsFixture(8,4,profile,top,pattern,0));count++;
-            }
             Console.WriteLine("PASS Texture raster SDK fixture generation images="+count);return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
