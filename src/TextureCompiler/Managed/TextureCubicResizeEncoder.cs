@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Recovered.Compiler.Texture
 {
-    // EXPERIMENTAL: not included in the production project or plugin route.
-    // Cubic base pixels match probes; the post-resize mip boundary is unresolved.
+    // PS3 pre-scale type 5 / cubic filter 4, with original normalized-weight
+    // residual correction and base-relative three-payload triangle mips.
     public static class TextureCubicResizeEncoder
     {
         private sealed class Contribution { public int First; public double[] Weights; }

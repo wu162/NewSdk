@@ -71,7 +71,19 @@ namespace Recovered.Compiler.Texture
                         // PS3's automatic resizing modifies dimensions and filtering
                         // for >256 textures before encoding. Do not silently omit it.
                         if (_Platform == TargetPlatform.PlayStation3 && resize && (image.Width > 256 || image.Height > 256))
-                            throw new NotSupportedException("PS3 automatic image resizing has not been recovered.");
+                        {
+                            uint targetWidth = (uint)image.Width, targetHeight = (uint)image.Height;
+                            while (targetWidth > 256 || targetHeight > 256)
+                            {
+                                targetWidth >>= 1; targetHeight >>= 1;
+                            }
+                            if (targetWidth == 0 || targetHeight == 0)
+                                throw new NotSupportedException("PS3 automatic resize producing a zero axis has not been accepted.");
+                            byte[] resizedDds = TextureCubicResizeEncoder.Encode((uint)image.Width,
+                                (uint)image.Height, targetWidth, targetHeight, rgba, format, mipmaps);
+                            result = EmbedDds(resizedDds, !onDemand, _Platform);
+                            break;
+                        }
                         if (mipmaps && _Platform != TargetPlatform.Win32 && _Platform != TargetPlatform.PlayStation3)
                             throw new NotSupportedException("Raw mip encoding is accepted only for Win32 and PS3 option profiles.");
                         byte[] dds = mipmaps
