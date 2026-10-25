@@ -513,5 +513,16 @@
       "resolution": "local",
       "stockCandidates": []
     }
-  ]
+  ],
+  "sdkAcceptance": {
+    "sourceCommit": "8d3fe79706c0ef1a2aa995a2fb669e74ebece444",
+    "runId": 40181842895,
+    "attempt": 1,
+    "succeeded": true,
+    "originalBaselinePassed": true,
+    "successfulInvocations": 10,
+    "identicalOutputPairs": 20,
+    "allElevenAssetsInRecoveredManifest": true,
+    "tracedNonWeaponAssets": 10
+  }
 }

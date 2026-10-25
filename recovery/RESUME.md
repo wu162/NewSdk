@@ -33,3 +33,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ID反复失败根因：把Marshal字段集合当作全部XML合法属性集合，并用全局根登记推断身份属性，漏掉嵌套XSD继承及pipelineOnly元数据；部分低层正例又省略嵌套必填id。已按全部821份XSD、22种显式ID类型与6种嵌套身份类型整理可重现审计门槛，保留ObjectFilter/ModuleData/AIStateTactic等真实二进制ID。详见[ID_METADATA_ROOT_CAUSE.md](ID_METADATA_ROOT_CAUSE.md)。
 
 静态汇总另发现未被Upheaval触发的AISpecialPowerInfo.id遗漏，已补齐并通过独立组件运行40180066600、源码3d32896d2d2607f4819cfd81c044a240dd278e46：/Od、/O2四平台，每模式每平台4165样例、12495原DLL三缓冲区比较及12495直接入口比较。全SDK未机械重跑，两个验收锚点不得交叉冒用。当前请求范围已完成；后续先汇总同组Schema/Marshal元数据边界、统一组件验证，再集中必要SDK批次。
+
+
+## 公开 Mod 用例扩展（2026-10-25）
+
+仅 validation/upheaval-recovered-apt-global：已把 Yuri’s Retaliation 的9个新资产与 Afterdash 的2个同义过滤器对照注册进 Upheaval（共11资产、8类）。本地ID前缀与引用同步改名，58处静态资源引用有本地/SDK清单匹配；原版SDK负责最终Schema/继承/链接验收。源码8d3fe79706c0ef1a2aa995a2fb669e74ebece444，运行40181842895 attempt1成功：原版先通过才开始恢复版，10次BAB调用退出0，20组四产物一致，11资产全部出现在恢复版manifest，10个非Weapon资产各有1次真实插件调用。未修改编译器实现、未重复未变chooser组件矩阵。详见[PUBLIC_MOD_CASES.md](PUBLIC_MOD_CASES.md)及[evidence/upheaval/40181842895-1/validation.json](evidence/upheaval/40181842895-1/validation.json)。仅case3/4/5编译验证；不包含Lua运行、游戏行为及BIG打包。当前请求已验收，无新增阻塞。

@@ -1,6 +1,6 @@
 # Public RA3 source fixtures in Upheaval
 
-Input commit: `8d3fe79706c0ef1a2aa995a2fb669e74ebece444`. Validation run: [40181842895](https://github.com/wu162/NewSdk/actions/runs/40181842895). Status: running; no acceptance claim until the receipt is available.
+Input commit: `8d3fe79706c0ef1a2aa995a2fb669e74ebece444`. Validation run: [40181842895](https://github.com/wu162/NewSdk/actions/runs/40181842895). Status: **accepted**. Run 40181842895 attempt 1 completed successfully on 2026-10-25, 17:51:41 Beijing time. originalBaselinePassed=true; all ten BAB invocations exited 0; all twenty output pairs are identical. All eleven imported assets occur in the recovered Mod.manifest name table; ten non-Weapon assets each have one actual recovered XML/GameObject plugin call. The WeaponTemplate is present in that manifest with the recovered Weapon route enabled and build cache disabled. Receipt: `evidence/upheaval/40181842895-1/validation.json`. No compiler implementation changes or failures were required.
 
 ## Sources and scope
 
