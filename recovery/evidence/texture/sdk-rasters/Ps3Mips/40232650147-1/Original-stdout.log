@@ -1,0 +1,2238 @@
+Command Line: D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods /iod:D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\Mods\RecoveryTexture\Data\Mod.xml /od:D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods /iod:D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods /tp:PlayStation3 /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\RecoveryTexture\Art;.\Mods;.\Art /audio:.;.\Mods\RecoveryTexture\Audio;.\Mods;.\Audio /data:.;.\Mods\RecoveryTexture\Data;.\Mods;.\SageXml 
+[00:00:00.0470537] BinaryAssetBuilder started
+[00:00:01.0327403] Cached session data not available.
+[00:00:01.0483556] Session caching enabled ('D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:01.0659037] Network caching enabled ('D:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\Original\builtmods\cache').
+[00:00:01.1067601] Loading 'file://d:\a\_temp\texture-sdk-4b79ac7123dd40908b8dc4c0c5619197\original\mods\recoverytexture\data\mod.xml'.
+[00:00:01.2544604] mod.xml: Compiling Texture:RecoveredRaster_0 [21e727da:e8d34441]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_0 [21e727da:e8d34441] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3723419] mod.xml: Compiling Texture:RecoveredRaster_1 [21e727da:d12d8c64]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_1 [21e727da:d12d8c64] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3723419] mod.xml: Compiling Texture:RecoveredRaster_2 [21e727da:cc111290]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_2 [21e727da:cc111290] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3723419] mod.xml: Compiling OnDemandTexture:RecoveredRaster_3 [9312b9ac:d55237cd]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_3 [9312b9ac:d55237cd] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3804680] mod.xml: Compiling OnDemandTexture:RecoveredRaster_4 [9312b9ac:dba4e297]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_4 [9312b9ac:dba4e297] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3804680] mod.xml: Compiling OnDemandTexture:RecoveredRaster_5 [9312b9ac:0b979b49]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_5 [9312b9ac:0b979b49] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3804680] mod.xml: Compiling Texture:RecoveredRaster_6 [21e727da:c75cd154]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_6 [21e727da:c75cd154] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3804680] mod.xml: Compiling Texture:RecoveredRaster_7 [21e727da:07f7e391]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_7 [21e727da:07f7e391] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3804680] mod.xml: Compiling Texture:RecoveredRaster_8 [21e727da:c659d806]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_8 [21e727da:c659d806] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3959954] mod.xml: Compiling OnDemandTexture:RecoveredRaster_9 [9312b9ac:4be1d2d1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_9 [9312b9ac:4be1d2d1] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3959954] mod.xml: Compiling OnDemandTexture:RecoveredRaster_10 [9312b9ac:40effed4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_10 [9312b9ac:40effed4] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3959954] mod.xml: Compiling OnDemandTexture:RecoveredRaster_11 [9312b9ac:6e70872b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_11 [9312b9ac:6e70872b] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.3959954] mod.xml: Compiling Texture:RecoveredRaster_12 [21e727da:4d507dc3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_12 [21e727da:4d507dc3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3959954] mod.xml: Compiling Texture:RecoveredRaster_13 [21e727da:5746c5e8]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_13 [21e727da:5746c5e8] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3959954] mod.xml: Compiling Texture:RecoveredRaster_14 [21e727da:7826a33b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_14 [21e727da:7826a33b] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.3959954] mod.xml: Compiling OnDemandTexture:RecoveredRaster_15 [9312b9ac:4d2be32b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_15 [9312b9ac:4d2be32b] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4116640] mod.xml: Compiling OnDemandTexture:RecoveredRaster_16 [9312b9ac:64eafd9c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_16 [9312b9ac:64eafd9c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4116640] mod.xml: Compiling OnDemandTexture:RecoveredRaster_17 [9312b9ac:9cb6d504]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_17 [9312b9ac:9cb6d504] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4116640] mod.xml: Compiling Texture:RecoveredRaster_18 [21e727da:a8195c08]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_18 [21e727da:a8195c08] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4116640] mod.xml: Compiling Texture:RecoveredRaster_19 [21e727da:b411e7d6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_19 [21e727da:b411e7d6] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4116640] mod.xml: Compiling Texture:RecoveredRaster_20 [21e727da:5c79d296]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_20 [21e727da:5c79d296] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4116640] mod.xml: Compiling OnDemandTexture:RecoveredRaster_21 [9312b9ac:6d6fa4d2]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_21 [9312b9ac:6d6fa4d2] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4116640] mod.xml: Compiling OnDemandTexture:RecoveredRaster_22 [9312b9ac:4597309c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_22 [9312b9ac:4597309c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4272882] mod.xml: Compiling OnDemandTexture:RecoveredRaster_23 [9312b9ac:6a2fa067]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_23 [9312b9ac:6a2fa067] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4272882] mod.xml: Compiling Texture:RecoveredRaster_24 [21e727da:b2cfedc5]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_24 [21e727da:b2cfedc5] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4272882] mod.xml: Compiling Texture:RecoveredRaster_25 [21e727da:73fc951b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_25 [21e727da:73fc951b] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4272882] mod.xml: Compiling Texture:RecoveredRaster_26 [21e727da:36847318]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_26 [21e727da:36847318] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4272882] mod.xml: Compiling OnDemandTexture:RecoveredRaster_27 [9312b9ac:98e85ee3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_27 [9312b9ac:98e85ee3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4272882] mod.xml: Compiling OnDemandTexture:RecoveredRaster_28 [9312b9ac:b7404bb8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_28 [9312b9ac:b7404bb8] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4272882] mod.xml: Compiling OnDemandTexture:RecoveredRaster_29 [9312b9ac:a9317221]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_29 [9312b9ac:a9317221] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4429105] mod.xml: Compiling Texture:RecoveredRaster_30 [21e727da:52e5194d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_30 [21e727da:52e5194d] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling Texture:RecoveredRaster_31 [21e727da:557826b3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_31 [21e727da:557826b3] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling Texture:RecoveredRaster_32 [21e727da:2708496a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_32 [21e727da:2708496a] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling OnDemandTexture:RecoveredRaster_33 [9312b9ac:642313ab]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_33 [9312b9ac:642313ab] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling OnDemandTexture:RecoveredRaster_34 [9312b9ac:a7aeacc3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_34 [9312b9ac:a7aeacc3] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling OnDemandTexture:RecoveredRaster_35 [9312b9ac:6f9cf8c6]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_35 [9312b9ac:6f9cf8c6] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4429105] mod.xml: Compiling Texture:RecoveredRaster_36 [21e727da:19ae4f65]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_36 [21e727da:19ae4f65] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling Texture:RecoveredRaster_37 [21e727da:8114c05b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_37 [21e727da:8114c05b] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling Texture:RecoveredRaster_38 [21e727da:a3e858f6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_38 [21e727da:a3e858f6] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling OnDemandTexture:RecoveredRaster_39 [9312b9ac:bf4a059b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_39 [9312b9ac:bf4a059b] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling OnDemandTexture:RecoveredRaster_40 [9312b9ac:4ad3f575]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_40 [9312b9ac:4ad3f575] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling OnDemandTexture:RecoveredRaster_41 [9312b9ac:6bc1331d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_41 [9312b9ac:6bc1331d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4585460] mod.xml: Compiling Texture:RecoveredRaster_42 [21e727da:4f6051eb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_42 [21e727da:4f6051eb] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4585460] mod.xml: Compiling Texture:RecoveredRaster_43 [21e727da:51876dee]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_43 [21e727da:51876dee] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4741632] mod.xml: Compiling Texture:RecoveredRaster_44 [21e727da:74605e40]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_44 [21e727da:74605e40] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4741632] mod.xml: Compiling OnDemandTexture:RecoveredRaster_45 [9312b9ac:4b338d51]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_45 [9312b9ac:4b338d51] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4741632] mod.xml: Compiling OnDemandTexture:RecoveredRaster_46 [9312b9ac:077a83bb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_46 [9312b9ac:077a83bb] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4741632] mod.xml: Compiling OnDemandTexture:RecoveredRaster_47 [9312b9ac:8f3c6291]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_47 [9312b9ac:8f3c6291] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.4741632] mod.xml: Compiling Texture:RecoveredRaster_48 [21e727da:a87d590f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_48 [21e727da:a87d590f] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4741632] mod.xml: Compiling Texture:RecoveredRaster_49 [21e727da:b13de887]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_49 [21e727da:b13de887] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4741632] mod.xml: Compiling Texture:RecoveredRaster_50 [21e727da:77910a1e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_50 [21e727da:77910a1e] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4897945] mod.xml: Compiling OnDemandTexture:RecoveredRaster_51 [9312b9ac:b74a6c01]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_51 [9312b9ac:b74a6c01] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.4897945] mod.xml: Compiling OnDemandTexture:RecoveredRaster_52 [9312b9ac:6dd6e26c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_52 [9312b9ac:6dd6e26c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5054182] mod.xml: Compiling OnDemandTexture:RecoveredRaster_53 [9312b9ac:20c49e07]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_53 [9312b9ac:20c49e07] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5054182] mod.xml: Compiling Texture:RecoveredRaster_54 [21e727da:6d0f0c02]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_54 [21e727da:6d0f0c02] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5054182] mod.xml: Compiling Texture:RecoveredRaster_55 [21e727da:56d30caf]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_55 [21e727da:56d30caf] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5054182] mod.xml: Compiling Texture:RecoveredRaster_56 [21e727da:712b54aa]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_56 [21e727da:712b54aa] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5054182] mod.xml: Compiling OnDemandTexture:RecoveredRaster_57 [9312b9ac:8471a957]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_57 [9312b9ac:8471a957] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5054182] mod.xml: Compiling OnDemandTexture:RecoveredRaster_58 [9312b9ac:be351e7a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_58 [9312b9ac:be351e7a] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5210395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_59 [9312b9ac:adbdd141]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_59 [9312b9ac:adbdd141] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5210395] mod.xml: Compiling Texture:RecoveredRaster_60 [21e727da:4e6d769e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_60 [21e727da:4e6d769e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5210395] mod.xml: Compiling Texture:RecoveredRaster_61 [21e727da:751fcd4f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_61 [21e727da:751fcd4f] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5210395] mod.xml: Compiling Texture:RecoveredRaster_62 [21e727da:575f2bb6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_62 [21e727da:575f2bb6] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5210395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_63 [9312b9ac:4da5b09b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_63 [9312b9ac:4da5b09b] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5210395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_64 [9312b9ac:7ce21e58]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_64 [9312b9ac:7ce21e58] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5210395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_65 [9312b9ac:43a9077a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_65 [9312b9ac:43a9077a] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5366662] mod.xml: Compiling Texture:RecoveredRaster_66 [21e727da:63bda03e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_66 [21e727da:63bda03e] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling Texture:RecoveredRaster_67 [21e727da:8b910d80]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_67 [21e727da:8b910d80] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling Texture:RecoveredRaster_68 [21e727da:d065b4b4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_68 [21e727da:d065b4b4] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling OnDemandTexture:RecoveredRaster_69 [9312b9ac:9fffd2e5]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_69 [9312b9ac:9fffd2e5] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling OnDemandTexture:RecoveredRaster_70 [9312b9ac:5f82045c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_70 [9312b9ac:5f82045c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling OnDemandTexture:RecoveredRaster_71 [9312b9ac:66ef4452]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_71 [9312b9ac:66ef4452] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5366662] mod.xml: Compiling Texture:RecoveredRaster_72 [21e727da:462e62f3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_72 [21e727da:462e62f3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling Texture:RecoveredRaster_73 [21e727da:5e01a8a7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_73 [21e727da:5e01a8a7] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling Texture:RecoveredRaster_74 [21e727da:7071664f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_74 [21e727da:7071664f] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling OnDemandTexture:RecoveredRaster_75 [9312b9ac:79afc56a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_75 [9312b9ac:79afc56a] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling OnDemandTexture:RecoveredRaster_76 [9312b9ac:03fdc223]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_76 [9312b9ac:03fdc223] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling OnDemandTexture:RecoveredRaster_77 [9312b9ac:8f187f94]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_77 [9312b9ac:8f187f94] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5522899] mod.xml: Compiling Texture:RecoveredRaster_78 [21e727da:cda57d5a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_78 [21e727da:cda57d5a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5522899] mod.xml: Compiling Texture:RecoveredRaster_79 [21e727da:b27d0488]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_79 [21e727da:b27d0488] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5522899] mod.xml: Compiling Texture:RecoveredRaster_80 [21e727da:ec1ae984]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_80 [21e727da:ec1ae984] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5679152] mod.xml: Compiling OnDemandTexture:RecoveredRaster_81 [9312b9ac:f62c6d46]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_81 [9312b9ac:f62c6d46] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5679152] mod.xml: Compiling OnDemandTexture:RecoveredRaster_82 [9312b9ac:4a777c51]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_82 [9312b9ac:4a777c51] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5679152] mod.xml: Compiling OnDemandTexture:RecoveredRaster_83 [9312b9ac:2061634e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_83 [9312b9ac:2061634e] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5679152] mod.xml: Compiling Texture:RecoveredRaster_84 [21e727da:3d612282]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_84 [21e727da:3d612282] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5679152] mod.xml: Compiling Texture:RecoveredRaster_85 [21e727da:59e3cc30]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_85 [21e727da:59e3cc30] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5679152] mod.xml: Compiling Texture:RecoveredRaster_86 [21e727da:2091c718]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_86 [21e727da:2091c718] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5835395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_87 [9312b9ac:ce4ea786]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_87 [9312b9ac:ce4ea786] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5835395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_88 [9312b9ac:49556912]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_88 [9312b9ac:49556912] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5835395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_89 [9312b9ac:fc6ca9bb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_89 [9312b9ac:fc6ca9bb] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5835395] mod.xml: Compiling Texture:RecoveredRaster_90 [21e727da:e919453f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_90 [21e727da:e919453f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5835395] mod.xml: Compiling Texture:RecoveredRaster_91 [21e727da:fb0c158a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_91 [21e727da:fb0c158a] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5835395] mod.xml: Compiling Texture:RecoveredRaster_92 [21e727da:7d857fae]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_92 [21e727da:7d857fae] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5835395] mod.xml: Compiling OnDemandTexture:RecoveredRaster_93 [9312b9ac:21c12745]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_93 [9312b9ac:21c12745] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5991731] mod.xml: Compiling OnDemandTexture:RecoveredRaster_94 [9312b9ac:3a29dcc9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_94 [9312b9ac:3a29dcc9] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5991731] mod.xml: Compiling OnDemandTexture:RecoveredRaster_95 [9312b9ac:52b59112]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_95 [9312b9ac:52b59112] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.5991731] mod.xml: Compiling Texture:RecoveredRaster_96 [21e727da:271e3c9e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_96 [21e727da:271e3c9e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5991731] mod.xml: Compiling Texture:RecoveredRaster_97 [21e727da:cad729ac]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_97 [21e727da:cad729ac] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5991731] mod.xml: Compiling Texture:RecoveredRaster_98 [21e727da:cd5a5a98]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_98 [21e727da:cd5a5a98] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.5991731] mod.xml: Compiling OnDemandTexture:RecoveredRaster_99 [9312b9ac:f9fa2040]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_99 [9312b9ac:f9fa2040] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6147904] mod.xml: Compiling OnDemandTexture:RecoveredRaster_100 [9312b9ac:a2ab3a78]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_100 [9312b9ac:a2ab3a78] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6175333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_101 [9312b9ac:1476264c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_101 [9312b9ac:1476264c] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6175333] mod.xml: Compiling Texture:RecoveredRaster_102 [21e727da:23c0b8e0]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_102 [21e727da:23c0b8e0] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6175333] mod.xml: Compiling Texture:RecoveredRaster_103 [21e727da:d915aa6e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_103 [21e727da:d915aa6e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6175333] mod.xml: Compiling Texture:RecoveredRaster_104 [21e727da:e7318443]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_104 [21e727da:e7318443] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6175333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_105 [9312b9ac:825bbc92]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_105 [9312b9ac:825bbc92] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6175333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_106 [9312b9ac:4155bf3d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_106 [9312b9ac:4155bf3d] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6305520] mod.xml: Compiling OnDemandTexture:RecoveredRaster_107 [9312b9ac:51bb4180]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_107 [9312b9ac:51bb4180] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6305520] mod.xml: Compiling Texture:RecoveredRaster_108 [21e727da:1b6f3145]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_108 [21e727da:1b6f3145] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6305520] mod.xml: Compiling Texture:RecoveredRaster_109 [21e727da:279af7f7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_109 [21e727da:279af7f7] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6305520] mod.xml: Compiling Texture:RecoveredRaster_110 [21e727da:23fe7141]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_110 [21e727da:23fe7141] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6305520] mod.xml: Compiling OnDemandTexture:RecoveredRaster_111 [9312b9ac:5aaa47d0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_111 [9312b9ac:5aaa47d0] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6305520] mod.xml: Compiling OnDemandTexture:RecoveredRaster_112 [9312b9ac:97dcd27d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_112 [9312b9ac:97dcd27d] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6305520] mod.xml: Compiling OnDemandTexture:RecoveredRaster_113 [9312b9ac:5e86785d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_113 [9312b9ac:5e86785d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6462048] mod.xml: Compiling Texture:RecoveredRaster_114 [21e727da:40a1047c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_114 [21e727da:40a1047c] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling Texture:RecoveredRaster_115 [21e727da:d7a49861]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_115 [21e727da:d7a49861] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling Texture:RecoveredRaster_116 [21e727da:f57e1cdd]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_116 [21e727da:f57e1cdd] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_117 [9312b9ac:f0f8f537]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_117 [9312b9ac:f0f8f537] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_118 [9312b9ac:51a9403f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_118 [9312b9ac:51a9403f] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_119 [9312b9ac:558b70f9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_119 [9312b9ac:558b70f9] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6462048] mod.xml: Compiling Texture:RecoveredRaster_120 [21e727da:2b4d43e7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_120 [21e727da:2b4d43e7] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling Texture:RecoveredRaster_121 [21e727da:70cbd3e6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_121 [21e727da:70cbd3e6] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling Texture:RecoveredRaster_122 [21e727da:c58c617c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_122 [21e727da:c58c617c] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling OnDemandTexture:RecoveredRaster_123 [9312b9ac:ae7f9b0c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_123 [9312b9ac:ae7f9b0c] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling OnDemandTexture:RecoveredRaster_124 [9312b9ac:4adefccc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_124 [9312b9ac:4adefccc] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling OnDemandTexture:RecoveredRaster_125 [9312b9ac:aabf9a98]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_125 [9312b9ac:aabf9a98] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6618294] mod.xml: Compiling Texture:RecoveredRaster_126 [21e727da:cc5af1b1]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_126 [21e727da:cc5af1b1] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling Texture:RecoveredRaster_127 [21e727da:65de7602]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_127 [21e727da:65de7602] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling Texture:RecoveredRaster_128 [21e727da:f12d547b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_128 [21e727da:f12d547b] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling OnDemandTexture:RecoveredRaster_129 [9312b9ac:6ce3d214]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_129 [9312b9ac:6ce3d214] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling OnDemandTexture:RecoveredRaster_130 [9312b9ac:0bbf339c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_130 [9312b9ac:0bbf339c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling OnDemandTexture:RecoveredRaster_131 [9312b9ac:b2e49ad5]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_131 [9312b9ac:b2e49ad5] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6774544] mod.xml: Compiling Texture:RecoveredRaster_132 [21e727da:b758c9be]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_132 [21e727da:b758c9be] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6774544] mod.xml: Compiling Texture:RecoveredRaster_133 [21e727da:75a91dfb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_133 [21e727da:75a91dfb] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6774544] mod.xml: Compiling Texture:RecoveredRaster_134 [21e727da:77d70a45]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_134 [21e727da:77d70a45] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6930799] mod.xml: Compiling OnDemandTexture:RecoveredRaster_135 [9312b9ac:d4dea674]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_135 [9312b9ac:d4dea674] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6930799] mod.xml: Compiling OnDemandTexture:RecoveredRaster_136 [9312b9ac:c8d58d72]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_136 [9312b9ac:c8d58d72] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6930799] mod.xml: Compiling OnDemandTexture:RecoveredRaster_137 [9312b9ac:680ee1be]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_137 [9312b9ac:680ee1be] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.6930799] mod.xml: Compiling Texture:RecoveredRaster_138 [21e727da:dc13528c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_138 [21e727da:dc13528c] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6930799] mod.xml: Compiling Texture:RecoveredRaster_139 [21e727da:86319b95]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_139 [21e727da:86319b95] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6930799] mod.xml: Compiling Texture:RecoveredRaster_140 [21e727da:75e1ce08]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_140 [21e727da:75e1ce08] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.6930799] mod.xml: Compiling OnDemandTexture:RecoveredRaster_141 [9312b9ac:5c2f5f38]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_141 [9312b9ac:5c2f5f38] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7087078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_142 [9312b9ac:f3c990b3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_142 [9312b9ac:f3c990b3] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7087078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_143 [9312b9ac:047e0a25]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_143 [9312b9ac:047e0a25] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7087078] mod.xml: Compiling Texture:RecoveredRaster_144 [21e727da:50ab96a6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_144 [21e727da:50ab96a6] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7087078] mod.xml: Compiling Texture:RecoveredRaster_145 [21e727da:ed9a4d1d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_145 [21e727da:ed9a4d1d] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7087078] mod.xml: Compiling Texture:RecoveredRaster_146 [21e727da:2a01c38c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_146 [21e727da:2a01c38c] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7087078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_147 [9312b9ac:96a2a0a8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_147 [9312b9ac:96a2a0a8] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7243358] mod.xml: Compiling OnDemandTexture:RecoveredRaster_148 [9312b9ac:811d0506]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_148 [9312b9ac:811d0506] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7243358] mod.xml: Compiling OnDemandTexture:RecoveredRaster_149 [9312b9ac:3d1a933d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_149 [9312b9ac:3d1a933d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7243358] mod.xml: Compiling Texture:RecoveredRaster_150 [21e727da:8a7f6ce6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_150 [21e727da:8a7f6ce6] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7243358] mod.xml: Compiling Texture:RecoveredRaster_151 [21e727da:2c99a351]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_151 [21e727da:2c99a351] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7243358] mod.xml: Compiling Texture:RecoveredRaster_152 [21e727da:ed27bcbe]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_152 [21e727da:ed27bcbe] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7243358] mod.xml: Compiling OnDemandTexture:RecoveredRaster_153 [9312b9ac:51433644]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_153 [9312b9ac:51433644] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7243358] mod.xml: Compiling OnDemandTexture:RecoveredRaster_154 [9312b9ac:a401018a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_154 [9312b9ac:a401018a] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7399638] mod.xml: Compiling OnDemandTexture:RecoveredRaster_155 [9312b9ac:6e1678c2]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_155 [9312b9ac:6e1678c2] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7399638] mod.xml: Compiling Texture:RecoveredRaster_156 [21e727da:652d42b3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_156 [21e727da:652d42b3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling Texture:RecoveredRaster_157 [21e727da:9b4ba8f0]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_157 [21e727da:9b4ba8f0] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling Texture:RecoveredRaster_158 [21e727da:ff348831]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_158 [21e727da:ff348831] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling OnDemandTexture:RecoveredRaster_159 [9312b9ac:5957ce80]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_159 [9312b9ac:5957ce80] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling OnDemandTexture:RecoveredRaster_160 [9312b9ac:446f7002]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_160 [9312b9ac:446f7002] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling OnDemandTexture:RecoveredRaster_161 [9312b9ac:57e2e256]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_161 [9312b9ac:57e2e256] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.7399638] mod.xml: Compiling Texture:RecoveredRaster_162 [21e727da:c5726f6a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_162 [21e727da:c5726f6a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling Texture:RecoveredRaster_163 [21e727da:2359aff3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_163 [21e727da:2359aff3] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling Texture:RecoveredRaster_164 [21e727da:326fc412]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_164 [21e727da:326fc412] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling OnDemandTexture:RecoveredRaster_165 [9312b9ac:99cef6fa]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_165 [9312b9ac:99cef6fa] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling OnDemandTexture:RecoveredRaster_166 [9312b9ac:b77073b8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_166 [9312b9ac:b77073b8] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling OnDemandTexture:RecoveredRaster_167 [9312b9ac:a7473b0d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_167 [9312b9ac:a7473b0d] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.7868310] mod.xml: Compiling Texture:RecoveredRaster_168 [21e727da:31a15c64]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_168 [21e727da:31a15c64] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling Texture:RecoveredRaster_169 [21e727da:05dfc89a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_169 [21e727da:05dfc89a] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling Texture:RecoveredRaster_170 [21e727da:f1fcaa23]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_170 [21e727da:f1fcaa23] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling OnDemandTexture:RecoveredRaster_171 [9312b9ac:2f27c51e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_171 [9312b9ac:2f27c51e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling OnDemandTexture:RecoveredRaster_172 [9312b9ac:2e41ac8a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_172 [9312b9ac:2e41ac8a] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling OnDemandTexture:RecoveredRaster_173 [9312b9ac:efbfcb07]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_173 [9312b9ac:efbfcb07] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8024561] mod.xml: Compiling Texture:RecoveredRaster_174 [21e727da:079697de]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_174 [21e727da:079697de] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8024561] mod.xml: Compiling Texture:RecoveredRaster_175 [21e727da:69e0f8ab]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_175 [21e727da:69e0f8ab] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8180810] mod.xml: Compiling Texture:RecoveredRaster_176 [21e727da:b10778da]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_176 [21e727da:b10778da] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8180810] mod.xml: Compiling OnDemandTexture:RecoveredRaster_177 [9312b9ac:373ee2d9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_177 [9312b9ac:373ee2d9] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8180810] mod.xml: Compiling OnDemandTexture:RecoveredRaster_178 [9312b9ac:e811526e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_178 [9312b9ac:e811526e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8180810] mod.xml: Compiling OnDemandTexture:RecoveredRaster_179 [9312b9ac:c212503e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_179 [9312b9ac:c212503e] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8180810] mod.xml: Compiling Texture:RecoveredRaster_180 [21e727da:12e5c1a5]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_180 [21e727da:12e5c1a5] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8337054] mod.xml: Compiling Texture:RecoveredRaster_181 [21e727da:f1163f7a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_181 [21e727da:f1163f7a] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8337054] mod.xml: Compiling Texture:RecoveredRaster_182 [21e727da:f8044f07]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_182 [21e727da:f8044f07] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8337054] mod.xml: Compiling OnDemandTexture:RecoveredRaster_183 [9312b9ac:747016b0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_183 [9312b9ac:747016b0] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8493309] mod.xml: Compiling OnDemandTexture:RecoveredRaster_184 [9312b9ac:ccb68133]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_184 [9312b9ac:ccb68133] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8493309] mod.xml: Compiling OnDemandTexture:RecoveredRaster_185 [9312b9ac:033ece1f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_185 [9312b9ac:033ece1f] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8493309] mod.xml: Compiling Texture:RecoveredRaster_186 [21e727da:bbd23b66]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_186 [21e727da:bbd23b66] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8649589] mod.xml: Compiling Texture:RecoveredRaster_187 [21e727da:25cb8cdc]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_187 [21e727da:25cb8cdc] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8649589] mod.xml: Compiling Texture:RecoveredRaster_188 [21e727da:ff582dfe]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_188 [21e727da:ff582dfe] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8649589] mod.xml: Compiling OnDemandTexture:RecoveredRaster_189 [9312b9ac:1bfa3f2f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_189 [9312b9ac:1bfa3f2f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8805797] mod.xml: Compiling OnDemandTexture:RecoveredRaster_190 [9312b9ac:914037c4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_190 [9312b9ac:914037c4] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8805797] mod.xml: Compiling OnDemandTexture:RecoveredRaster_191 [9312b9ac:53c4fae8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_191 [9312b9ac:53c4fae8] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.8962124] mod.xml: Compiling Texture:RecoveredRaster_192 [21e727da:1851cb38]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_192 [21e727da:1851cb38] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8962124] mod.xml: Compiling Texture:RecoveredRaster_193 [21e727da:3f8790cb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_193 [21e727da:3f8790cb] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8962124] mod.xml: Compiling Texture:RecoveredRaster_194 [21e727da:4fcfe453]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_194 [21e727da:4fcfe453] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8962124] mod.xml: Compiling OnDemandTexture:RecoveredRaster_195 [9312b9ac:e6dddbdf]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_195 [9312b9ac:e6dddbdf] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8962124] mod.xml: Compiling OnDemandTexture:RecoveredRaster_196 [9312b9ac:b3483251]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_196 [9312b9ac:b3483251] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.8962124] mod.xml: Compiling OnDemandTexture:RecoveredRaster_197 [9312b9ac:29c5dca0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_197 [9312b9ac:29c5dca0] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9118308] mod.xml: Compiling Texture:RecoveredRaster_198 [21e727da:d2c9f45a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_198 [21e727da:d2c9f45a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling Texture:RecoveredRaster_199 [21e727da:14d8c440]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_199 [21e727da:14d8c440] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling Texture:RecoveredRaster_200 [21e727da:7994fc29]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_200 [21e727da:7994fc29] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling OnDemandTexture:RecoveredRaster_201 [9312b9ac:834ab020]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_201 [9312b9ac:834ab020] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling OnDemandTexture:RecoveredRaster_202 [9312b9ac:be990b33]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_202 [9312b9ac:be990b33] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling OnDemandTexture:RecoveredRaster_203 [9312b9ac:1d68794e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_203 [9312b9ac:1d68794e] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9118308] mod.xml: Compiling Texture:RecoveredRaster_204 [21e727da:a2d609f3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_204 [21e727da:a2d609f3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9274559] mod.xml: Compiling Texture:RecoveredRaster_205 [21e727da:78c66885]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_205 [21e727da:78c66885] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9274559] mod.xml: Compiling Texture:RecoveredRaster_206 [21e727da:25d739d9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_206 [21e727da:25d739d9] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9274559] mod.xml: Compiling OnDemandTexture:RecoveredRaster_207 [9312b9ac:6938baea]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_207 [9312b9ac:6938baea] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9430786] mod.xml: Compiling OnDemandTexture:RecoveredRaster_208 [9312b9ac:ceae807e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_208 [9312b9ac:ceae807e] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9430786] mod.xml: Compiling OnDemandTexture:RecoveredRaster_209 [9312b9ac:288b071a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_209 [9312b9ac:288b071a] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9587081] mod.xml: Compiling Texture:RecoveredRaster_210 [21e727da:0a9de73a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_210 [21e727da:0a9de73a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9587081] mod.xml: Compiling Texture:RecoveredRaster_211 [21e727da:4d0b8ac5]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_211 [21e727da:4d0b8ac5] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9587081] mod.xml: Compiling Texture:RecoveredRaster_212 [21e727da:7fb19fbf]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_212 [21e727da:7fb19fbf] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9743333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_213 [9312b9ac:4bb0dc6f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_213 [9312b9ac:4bb0dc6f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9743333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_214 [9312b9ac:2eb98480]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_214 [9312b9ac:2eb98480] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9743333] mod.xml: Compiling OnDemandTexture:RecoveredRaster_215 [9312b9ac:c18a9e96]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_215 [9312b9ac:c18a9e96] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:01.9899560] mod.xml: Compiling Texture:RecoveredRaster_216 [21e727da:b3c8a509]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_216 [21e727da:b3c8a509] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9899560] mod.xml: Compiling Texture:RecoveredRaster_217 [21e727da:3f3cd8fb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_217 [21e727da:3f3cd8fb] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9899560] mod.xml: Compiling Texture:RecoveredRaster_218 [21e727da:d0a2e2cd]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_218 [21e727da:d0a2e2cd] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9899560] mod.xml: Compiling OnDemandTexture:RecoveredRaster_219 [9312b9ac:d4085037]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_219 [9312b9ac:d4085037] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9899560] mod.xml: Compiling OnDemandTexture:RecoveredRaster_220 [9312b9ac:848a20c1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_220 [9312b9ac:848a20c1] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:01.9899560] mod.xml: Compiling OnDemandTexture:RecoveredRaster_221 [9312b9ac:63a370fc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_221 [9312b9ac:63a370fc] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0055788] mod.xml: Compiling Texture:RecoveredRaster_222 [21e727da:348e52e3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_222 [21e727da:348e52e3] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0055788] mod.xml: Compiling Texture:RecoveredRaster_223 [21e727da:5d864242]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_223 [21e727da:5d864242] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0055788] mod.xml: Compiling Texture:RecoveredRaster_224 [21e727da:e09863cd]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_224 [21e727da:e09863cd] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0055788] mod.xml: Compiling OnDemandTexture:RecoveredRaster_225 [9312b9ac:2000b9f9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_225 [9312b9ac:2000b9f9] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0055788] mod.xml: Compiling OnDemandTexture:RecoveredRaster_226 [9312b9ac:666b6374]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_226 [9312b9ac:666b6374] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0055788] mod.xml: Compiling OnDemandTexture:RecoveredRaster_227 [9312b9ac:9f9272a4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_227 [9312b9ac:9f9272a4] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0213378] mod.xml: Compiling Texture:RecoveredRaster_228 [21e727da:f2dd1448]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_228 [21e727da:f2dd1448] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling Texture:RecoveredRaster_229 [21e727da:83cfa7fc]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_229 [21e727da:83cfa7fc] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling Texture:RecoveredRaster_230 [21e727da:55d74053]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_230 [21e727da:55d74053] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling OnDemandTexture:RecoveredRaster_231 [9312b9ac:90897f82]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_231 [9312b9ac:90897f82] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling OnDemandTexture:RecoveredRaster_232 [9312b9ac:2aaf1181]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_232 [9312b9ac:2aaf1181] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling OnDemandTexture:RecoveredRaster_233 [9312b9ac:efefa9cc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_233 [9312b9ac:efefa9cc] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0213378] mod.xml: Compiling Texture:RecoveredRaster_234 [21e727da:f2b4aa95]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_234 [21e727da:f2b4aa95] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling Texture:RecoveredRaster_235 [21e727da:68e37eb7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_235 [21e727da:68e37eb7] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling Texture:RecoveredRaster_236 [21e727da:8546cd66]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_236 [21e727da:8546cd66] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling OnDemandTexture:RecoveredRaster_237 [9312b9ac:2ec98c7c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_237 [9312b9ac:2ec98c7c] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling OnDemandTexture:RecoveredRaster_238 [9312b9ac:28409930]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_238 [9312b9ac:28409930] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling OnDemandTexture:RecoveredRaster_239 [9312b9ac:e8394b5c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_239 [9312b9ac:e8394b5c] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0368295] mod.xml: Compiling Texture:RecoveredRaster_240 [21e727da:a3e68ebb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_240 [21e727da:a3e68ebb] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0368295] mod.xml: Compiling Texture:RecoveredRaster_241 [21e727da:0f9bc33d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_241 [21e727da:0f9bc33d] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0524554] mod.xml: Compiling Texture:RecoveredRaster_242 [21e727da:42adeeb8]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_242 [21e727da:42adeeb8] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0524554] mod.xml: Compiling OnDemandTexture:RecoveredRaster_243 [9312b9ac:a80d4c31]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_243 [9312b9ac:a80d4c31] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0524554] mod.xml: Compiling OnDemandTexture:RecoveredRaster_244 [9312b9ac:e79cf80c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_244 [9312b9ac:e79cf80c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0524554] mod.xml: Compiling OnDemandTexture:RecoveredRaster_245 [9312b9ac:2c073e5b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_245 [9312b9ac:2c073e5b] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0524554] mod.xml: Compiling Texture:RecoveredRaster_246 [21e727da:c525ac62]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_246 [21e727da:c525ac62] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0524554] mod.xml: Compiling Texture:RecoveredRaster_247 [21e727da:fa4a485d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_247 [21e727da:fa4a485d] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0524554] mod.xml: Compiling Texture:RecoveredRaster_248 [21e727da:e952a868]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_248 [21e727da:e952a868] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0680803] mod.xml: Compiling OnDemandTexture:RecoveredRaster_249 [9312b9ac:c751ea40]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_249 [9312b9ac:c751ea40] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0680803] mod.xml: Compiling OnDemandTexture:RecoveredRaster_250 [9312b9ac:fdc7ddbc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_250 [9312b9ac:fdc7ddbc] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0680803] mod.xml: Compiling OnDemandTexture:RecoveredRaster_251 [9312b9ac:bbc91a08]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_251 [9312b9ac:bbc91a08] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0680803] mod.xml: Compiling Texture:RecoveredRaster_252 [21e727da:feba86c5]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_252 [21e727da:feba86c5] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0680803] mod.xml: Compiling Texture:RecoveredRaster_253 [21e727da:3fc54531]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_253 [21e727da:3fc54531] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0680803] mod.xml: Compiling Texture:RecoveredRaster_254 [21e727da:5af8643b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_254 [21e727da:5af8643b] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0680803] mod.xml: Compiling OnDemandTexture:RecoveredRaster_255 [9312b9ac:b79b7e1c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_255 [9312b9ac:b79b7e1c] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0837048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_256 [9312b9ac:92ebf866]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_256 [9312b9ac:92ebf866] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0837048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_257 [9312b9ac:22d13dca]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_257 [9312b9ac:22d13dca] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.0837048] mod.xml: Compiling Texture:RecoveredRaster_258 [21e727da:5016ce90]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_258 [21e727da:5016ce90] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0837048] mod.xml: Compiling Texture:RecoveredRaster_259 [21e727da:f5c62431]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_259 [21e727da:f5c62431] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0837048] mod.xml: Compiling Texture:RecoveredRaster_260 [21e727da:fc1ca373]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_260 [21e727da:fc1ca373] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0837048] mod.xml: Compiling OnDemandTexture:RecoveredRaster_261 [9312b9ac:3f559100]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_261 [9312b9ac:3f559100] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0993290] mod.xml: Compiling OnDemandTexture:RecoveredRaster_262 [9312b9ac:73bb065e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_262 [9312b9ac:73bb065e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0993290] mod.xml: Compiling OnDemandTexture:RecoveredRaster_263 [9312b9ac:a93648ae]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_263 [9312b9ac:a93648ae] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.0993290] mod.xml: Compiling Texture:RecoveredRaster_264 [21e727da:80c00cc8]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_264 [21e727da:80c00cc8] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1069459] mod.xml: Compiling Texture:RecoveredRaster_265 [21e727da:538171bc]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_265 [21e727da:538171bc] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1074740] mod.xml: Compiling Texture:RecoveredRaster_266 [21e727da:077421ae]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_266 [21e727da:077421ae] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1074740] mod.xml: Compiling OnDemandTexture:RecoveredRaster_267 [9312b9ac:c8f2b897]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_267 [9312b9ac:c8f2b897] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1074740] mod.xml: Compiling OnDemandTexture:RecoveredRaster_268 [9312b9ac:c06e18aa]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_268 [9312b9ac:c06e18aa] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1149989] mod.xml: Compiling OnDemandTexture:RecoveredRaster_269 [9312b9ac:7936f103]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_269 [9312b9ac:7936f103] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1149989] mod.xml: Compiling Texture:RecoveredRaster_270 [21e727da:1b0a1d26]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_270 [21e727da:1b0a1d26] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1149989] mod.xml: Compiling Texture:RecoveredRaster_271 [21e727da:0d7894eb]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_271 [21e727da:0d7894eb] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1149989] mod.xml: Compiling Texture:RecoveredRaster_272 [21e727da:d3eadd8b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_272 [21e727da:d3eadd8b] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1149989] mod.xml: Compiling OnDemandTexture:RecoveredRaster_273 [9312b9ac:01cc6d0e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_273 [9312b9ac:01cc6d0e] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1149989] mod.xml: Compiling OnDemandTexture:RecoveredRaster_274 [9312b9ac:79d5ece6]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_274 [9312b9ac:79d5ece6] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1306522] mod.xml: Compiling OnDemandTexture:RecoveredRaster_275 [9312b9ac:787cc2b0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_275 [9312b9ac:787cc2b0] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1306522] mod.xml: Compiling Texture:RecoveredRaster_276 [21e727da:1ea8f1c0]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_276 [21e727da:1ea8f1c0] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1306522] mod.xml: Compiling Texture:RecoveredRaster_277 [21e727da:6c4d2393]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_277 [21e727da:6c4d2393] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1306522] mod.xml: Compiling Texture:RecoveredRaster_278 [21e727da:3a6fe4e3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_278 [21e727da:3a6fe4e3] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1306522] mod.xml: Compiling OnDemandTexture:RecoveredRaster_279 [9312b9ac:74825754]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_279 [9312b9ac:74825754] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1306522] mod.xml: Compiling OnDemandTexture:RecoveredRaster_280 [9312b9ac:a1775a38]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_280 [9312b9ac:a1775a38] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1306522] mod.xml: Compiling OnDemandTexture:RecoveredRaster_281 [9312b9ac:afd377dd]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_281 [9312b9ac:afd377dd] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1462772] mod.xml: Compiling Texture:RecoveredRaster_282 [21e727da:6bff0cea]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_282 [21e727da:6bff0cea] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling Texture:RecoveredRaster_283 [21e727da:12d96a84]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_283 [21e727da:12d96a84] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling Texture:RecoveredRaster_284 [21e727da:bc21b3c7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_284 [21e727da:bc21b3c7] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling OnDemandTexture:RecoveredRaster_285 [9312b9ac:9f1f57b9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_285 [9312b9ac:9f1f57b9] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling OnDemandTexture:RecoveredRaster_286 [9312b9ac:fbfbc901]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_286 [9312b9ac:fbfbc901] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling OnDemandTexture:RecoveredRaster_287 [9312b9ac:b1e2dbc9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_287 [9312b9ac:b1e2dbc9] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1462772] mod.xml: Compiling Texture:RecoveredRaster_288 [21e727da:67aa54ed]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_288 [21e727da:67aa54ed] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling Texture:RecoveredRaster_289 [21e727da:e6338a99]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_289 [21e727da:e6338a99] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling Texture:RecoveredRaster_290 [21e727da:7ba9b30c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_290 [21e727da:7ba9b30c] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_291 [9312b9ac:cc987c3e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_291 [9312b9ac:cc987c3e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_292 [9312b9ac:c8cd3d0b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_292 [9312b9ac:c8cd3d0b] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_293 [9312b9ac:1d72679d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_293 [9312b9ac:1d72679d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1619017] mod.xml: Compiling Texture:RecoveredRaster_294 [21e727da:fc8c2b96]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_294 [21e727da:fc8c2b96] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1619017] mod.xml: Compiling Texture:RecoveredRaster_295 [21e727da:0f66ef8e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_295 [21e727da:0f66ef8e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1775283] mod.xml: Compiling Texture:RecoveredRaster_296 [21e727da:61d68cd4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_296 [21e727da:61d68cd4] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1775283] mod.xml: Compiling OnDemandTexture:RecoveredRaster_297 [9312b9ac:17a0ea07]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_297 [9312b9ac:17a0ea07] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1775283] mod.xml: Compiling OnDemandTexture:RecoveredRaster_298 [9312b9ac:05c5ba3e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_298 [9312b9ac:05c5ba3e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1775283] mod.xml: Compiling OnDemandTexture:RecoveredRaster_299 [9312b9ac:a5d1e11b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_299 [9312b9ac:a5d1e11b] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1775283] mod.xml: Compiling Texture:RecoveredRaster_300 [21e727da:f8db4bf2]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_300 [21e727da:f8db4bf2] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1775283] mod.xml: Compiling Texture:RecoveredRaster_301 [21e727da:4374c7b9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_301 [21e727da:4374c7b9] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1775283] mod.xml: Compiling Texture:RecoveredRaster_302 [21e727da:ef89fbae]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_302 [21e727da:ef89fbae] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1931521] mod.xml: Compiling OnDemandTexture:RecoveredRaster_303 [9312b9ac:0da03671]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_303 [9312b9ac:0da03671] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1931521] mod.xml: Compiling OnDemandTexture:RecoveredRaster_304 [9312b9ac:bd4f3b3f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_304 [9312b9ac:bd4f3b3f] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1931521] mod.xml: Compiling OnDemandTexture:RecoveredRaster_305 [9312b9ac:f394a135]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_305 [9312b9ac:f394a135] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.1931521] mod.xml: Compiling Texture:RecoveredRaster_306 [21e727da:1c28c4a4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_306 [21e727da:1c28c4a4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1931521] mod.xml: Compiling Texture:RecoveredRaster_307 [21e727da:7a322410]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_307 [21e727da:7a322410] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1931521] mod.xml: Compiling Texture:RecoveredRaster_308 [21e727da:f2ffbe95]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_308 [21e727da:f2ffbe95] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.1931521] mod.xml: Compiling OnDemandTexture:RecoveredRaster_309 [9312b9ac:b4a670ae]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_309 [9312b9ac:b4a670ae] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2087793] mod.xml: Compiling OnDemandTexture:RecoveredRaster_310 [9312b9ac:0952ece4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_310 [9312b9ac:0952ece4] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2087793] mod.xml: Compiling OnDemandTexture:RecoveredRaster_311 [9312b9ac:29124ef0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_311 [9312b9ac:29124ef0] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2087793] mod.xml: Compiling Texture:RecoveredRaster_312 [21e727da:c05a3994]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_312 [21e727da:c05a3994] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2087793] mod.xml: Compiling Texture:RecoveredRaster_313 [21e727da:6063ba2b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_313 [21e727da:6063ba2b] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2087793] mod.xml: Compiling Texture:RecoveredRaster_314 [21e727da:6f6560df]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_314 [21e727da:6f6560df] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2087793] mod.xml: Compiling OnDemandTexture:RecoveredRaster_315 [9312b9ac:e60d263a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_315 [9312b9ac:e60d263a] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2244096] mod.xml: Compiling OnDemandTexture:RecoveredRaster_316 [9312b9ac:a6f5f873]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_316 [9312b9ac:a6f5f873] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2244096] mod.xml: Compiling OnDemandTexture:RecoveredRaster_317 [9312b9ac:76147d07]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_317 [9312b9ac:76147d07] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2244096] mod.xml: Compiling Texture:RecoveredRaster_318 [21e727da:35f4c25d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_318 [21e727da:35f4c25d] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2244096] mod.xml: Compiling Texture:RecoveredRaster_319 [21e727da:1a6ece0b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_319 [21e727da:1a6ece0b] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2244096] mod.xml: Compiling Texture:RecoveredRaster_320 [21e727da:14cc9412]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_320 [21e727da:14cc9412] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2244096] mod.xml: Compiling OnDemandTexture:RecoveredRaster_321 [9312b9ac:94894d6e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_321 [9312b9ac:94894d6e] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2244096] mod.xml: Compiling OnDemandTexture:RecoveredRaster_322 [9312b9ac:12fd821c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_322 [9312b9ac:12fd821c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2400274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_323 [9312b9ac:1c61a3c9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_323 [9312b9ac:1c61a3c9] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2400274] mod.xml: Compiling Texture:RecoveredRaster_324 [21e727da:e0000a3a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_324 [21e727da:e0000a3a] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2400274] mod.xml: Compiling Texture:RecoveredRaster_325 [21e727da:860f4b87]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_325 [21e727da:860f4b87] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2400274] mod.xml: Compiling Texture:RecoveredRaster_326 [21e727da:909fe6e9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_326 [21e727da:909fe6e9] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2400274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_327 [9312b9ac:8baeeb21]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_327 [9312b9ac:8baeeb21] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2400274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_328 [9312b9ac:3492081c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_328 [9312b9ac:3492081c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2556612] mod.xml: Compiling OnDemandTexture:RecoveredRaster_329 [9312b9ac:9a8ae953]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_329 [9312b9ac:9a8ae953] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2556612] mod.xml: Compiling Texture:RecoveredRaster_330 [21e727da:ef3bc4c2]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_330 [21e727da:ef3bc4c2] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling Texture:RecoveredRaster_331 [21e727da:1adb57b7]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_331 [21e727da:1adb57b7] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling Texture:RecoveredRaster_332 [21e727da:d72c41df]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_332 [21e727da:d72c41df] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling OnDemandTexture:RecoveredRaster_333 [9312b9ac:322ac8d7]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_333 [9312b9ac:322ac8d7] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling OnDemandTexture:RecoveredRaster_334 [9312b9ac:4b048a39]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_334 [9312b9ac:4b048a39] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling OnDemandTexture:RecoveredRaster_335 [9312b9ac:0f3c1857]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_335 [9312b9ac:0f3c1857] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2556612] mod.xml: Compiling Texture:RecoveredRaster_336 [21e727da:bb4378fa]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_336 [21e727da:bb4378fa] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling Texture:RecoveredRaster_337 [21e727da:9436cf6c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_337 [21e727da:9436cf6c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling Texture:RecoveredRaster_338 [21e727da:c6040595]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_338 [21e727da:c6040595] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling OnDemandTexture:RecoveredRaster_339 [9312b9ac:cc62b0ee]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_339 [9312b9ac:cc62b0ee] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling OnDemandTexture:RecoveredRaster_340 [9312b9ac:3f40eec3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_340 [9312b9ac:3f40eec3] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling OnDemandTexture:RecoveredRaster_341 [9312b9ac:31a7abf8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_341 [9312b9ac:31a7abf8] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2712839] mod.xml: Compiling Texture:RecoveredRaster_342 [21e727da:abbb4e0a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_342 [21e727da:abbb4e0a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling Texture:RecoveredRaster_343 [21e727da:250b399a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_343 [21e727da:250b399a] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling Texture:RecoveredRaster_344 [21e727da:160c9014]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_344 [21e727da:160c9014] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling OnDemandTexture:RecoveredRaster_345 [9312b9ac:743caa00]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_345 [9312b9ac:743caa00] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling OnDemandTexture:RecoveredRaster_346 [9312b9ac:dc8113cf]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_346 [9312b9ac:dc8113cf] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling OnDemandTexture:RecoveredRaster_347 [9312b9ac:59fefc6d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_347 [9312b9ac:59fefc6d] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.2869027] mod.xml: Compiling Texture:RecoveredRaster_348 [21e727da:096803da]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_348 [21e727da:096803da] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.2869027] mod.xml: Compiling Texture:RecoveredRaster_349 [21e727da:0872f556]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_349 [21e727da:0872f556] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3025276] mod.xml: Compiling Texture:RecoveredRaster_350 [21e727da:a49aef10]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_350 [21e727da:a49aef10] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3025276] mod.xml: Compiling OnDemandTexture:RecoveredRaster_351 [9312b9ac:8aa656d9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_351 [9312b9ac:8aa656d9] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3025276] mod.xml: Compiling OnDemandTexture:RecoveredRaster_352 [9312b9ac:c9b69b0d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_352 [9312b9ac:c9b69b0d] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3025276] mod.xml: Compiling OnDemandTexture:RecoveredRaster_353 [9312b9ac:027c20f7]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_353 [9312b9ac:027c20f7] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3025276] mod.xml: Compiling Texture:RecoveredRaster_354 [21e727da:166e3cca]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_354 [21e727da:166e3cca] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3025276] mod.xml: Compiling Texture:RecoveredRaster_355 [21e727da:ae1e7b52]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_355 [21e727da:ae1e7b52] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3025276] mod.xml: Compiling Texture:RecoveredRaster_356 [21e727da:acbc3f29]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_356 [21e727da:acbc3f29] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3181564] mod.xml: Compiling OnDemandTexture:RecoveredRaster_357 [9312b9ac:38383f6f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_357 [9312b9ac:38383f6f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3181564] mod.xml: Compiling OnDemandTexture:RecoveredRaster_358 [9312b9ac:54e0b6da]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_358 [9312b9ac:54e0b6da] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3181564] mod.xml: Compiling OnDemandTexture:RecoveredRaster_359 [9312b9ac:978c9df5]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_359 [9312b9ac:978c9df5] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3181564] mod.xml: Compiling Texture:RecoveredRaster_360 [21e727da:88b14c5b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_360 [21e727da:88b14c5b] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3181564] mod.xml: Compiling Texture:RecoveredRaster_361 [21e727da:d9a4fb26]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_361 [21e727da:d9a4fb26] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3181564] mod.xml: Compiling Texture:RecoveredRaster_362 [21e727da:7cedb753]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_362 [21e727da:7cedb753] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3337896] mod.xml: Compiling OnDemandTexture:RecoveredRaster_363 [9312b9ac:1d4211d9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_363 [9312b9ac:1d4211d9] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3337896] mod.xml: Compiling OnDemandTexture:RecoveredRaster_364 [9312b9ac:4340cb22]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_364 [9312b9ac:4340cb22] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3337896] mod.xml: Compiling OnDemandTexture:RecoveredRaster_365 [9312b9ac:3e4a9ea6]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_365 [9312b9ac:3e4a9ea6] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3337896] mod.xml: Compiling Texture:RecoveredRaster_366 [21e727da:e785a82c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_366 [21e727da:e785a82c] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3337896] mod.xml: Compiling Texture:RecoveredRaster_367 [21e727da:86245658]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_367 [21e727da:86245658] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3337896] mod.xml: Compiling Texture:RecoveredRaster_368 [21e727da:b40c2097]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_368 [21e727da:b40c2097] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3494038] mod.xml: Compiling OnDemandTexture:RecoveredRaster_369 [9312b9ac:5021f9c4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_369 [9312b9ac:5021f9c4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3494038] mod.xml: Compiling OnDemandTexture:RecoveredRaster_370 [9312b9ac:2d866179]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_370 [9312b9ac:2d866179] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3494038] mod.xml: Compiling OnDemandTexture:RecoveredRaster_371 [9312b9ac:3af7405a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_371 [9312b9ac:3af7405a] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3494038] mod.xml: Compiling Texture:RecoveredRaster_372 [21e727da:07e32012]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_372 [21e727da:07e32012] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3494038] mod.xml: Compiling Texture:RecoveredRaster_373 [21e727da:f3f90f4e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_373 [21e727da:f3f90f4e] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3494038] mod.xml: Compiling Texture:RecoveredRaster_374 [21e727da:8b9c8f24]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_374 [21e727da:8b9c8f24] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3494038] mod.xml: Compiling OnDemandTexture:RecoveredRaster_375 [9312b9ac:e975a751]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_375 [9312b9ac:e975a751] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3650280] mod.xml: Compiling OnDemandTexture:RecoveredRaster_376 [9312b9ac:05eef362]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_376 [9312b9ac:05eef362] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3650280] mod.xml: Compiling OnDemandTexture:RecoveredRaster_377 [9312b9ac:3579e197]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_377 [9312b9ac:3579e197] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3650280] mod.xml: Compiling Texture:RecoveredRaster_378 [21e727da:980b254d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_378 [21e727da:980b254d] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3650280] mod.xml: Compiling Texture:RecoveredRaster_379 [21e727da:b700d158]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_379 [21e727da:b700d158] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3650280] mod.xml: Compiling Texture:RecoveredRaster_380 [21e727da:39790c0f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_380 [21e727da:39790c0f] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3650280] mod.xml: Compiling OnDemandTexture:RecoveredRaster_381 [9312b9ac:07d0618e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_381 [9312b9ac:07d0618e] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3650280] mod.xml: Compiling OnDemandTexture:RecoveredRaster_382 [9312b9ac:71ef1cef]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_382 [9312b9ac:71ef1cef] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3806524] mod.xml: Compiling OnDemandTexture:RecoveredRaster_383 [9312b9ac:fbda84cc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_383 [9312b9ac:fbda84cc] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3806524] mod.xml: Compiling Texture:RecoveredRaster_384 [21e727da:45e98230]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_384 [21e727da:45e98230] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3806524] mod.xml: Compiling Texture:RecoveredRaster_385 [21e727da:9cf3cd01]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_385 [21e727da:9cf3cd01] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3806524] mod.xml: Compiling Texture:RecoveredRaster_386 [21e727da:f6d6a2c1]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_386 [21e727da:f6d6a2c1] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3806524] mod.xml: Compiling OnDemandTexture:RecoveredRaster_387 [9312b9ac:aae2d21f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_387 [9312b9ac:aae2d21f] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3806524] mod.xml: Compiling OnDemandTexture:RecoveredRaster_388 [9312b9ac:774b11d6]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_388 [9312b9ac:774b11d6] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3806524] mod.xml: Compiling OnDemandTexture:RecoveredRaster_389 [9312b9ac:3458b13a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_389 [9312b9ac:3458b13a] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.3962775] mod.xml: Compiling Texture:RecoveredRaster_390 [21e727da:e482a81a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_390 [21e727da:e482a81a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3962775] mod.xml: Compiling Texture:RecoveredRaster_391 [21e727da:9c4d4c72]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_391 [21e727da:9c4d4c72] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3962775] mod.xml: Compiling Texture:RecoveredRaster_392 [21e727da:6ad6941d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_392 [21e727da:6ad6941d] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3962775] mod.xml: Compiling OnDemandTexture:RecoveredRaster_393 [9312b9ac:1b9606cb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_393 [9312b9ac:1b9606cb] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3962775] mod.xml: Compiling OnDemandTexture:RecoveredRaster_394 [9312b9ac:e222c191]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_394 [9312b9ac:e222c191] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.3962775] mod.xml: Compiling OnDemandTexture:RecoveredRaster_395 [9312b9ac:9c227e43]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_395 [9312b9ac:9c227e43] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4119078] mod.xml: Compiling Texture:RecoveredRaster_396 [21e727da:74287e64]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_396 [21e727da:74287e64] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling Texture:RecoveredRaster_397 [21e727da:2415d80f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_397 [21e727da:2415d80f] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling Texture:RecoveredRaster_398 [21e727da:9084ab67]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_398 [21e727da:9084ab67] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_399 [9312b9ac:2612e182]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_399 [9312b9ac:2612e182] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_400 [9312b9ac:27fedb67]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_400 [9312b9ac:27fedb67] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling OnDemandTexture:RecoveredRaster_401 [9312b9ac:c5718a84]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_401 [9312b9ac:c5718a84] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4119078] mod.xml: Compiling Texture:RecoveredRaster_402 [21e727da:0c72af47]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_402 [21e727da:0c72af47] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling Texture:RecoveredRaster_403 [21e727da:41287caa]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_403 [21e727da:41287caa] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling Texture:RecoveredRaster_404 [21e727da:cbcaa12c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_404 [21e727da:cbcaa12c] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling OnDemandTexture:RecoveredRaster_405 [9312b9ac:1799440f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_405 [9312b9ac:1799440f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling OnDemandTexture:RecoveredRaster_406 [9312b9ac:ce0a1956]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_406 [9312b9ac:ce0a1956] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling OnDemandTexture:RecoveredRaster_407 [9312b9ac:995d75f9]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_407 [9312b9ac:995d75f9] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4275273] mod.xml: Compiling Texture:RecoveredRaster_408 [21e727da:5c06b63e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_408 [21e727da:5c06b63e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4275273] mod.xml: Compiling Texture:RecoveredRaster_409 [21e727da:803bc0bf]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_409 [21e727da:803bc0bf] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4431534] mod.xml: Compiling Texture:RecoveredRaster_410 [21e727da:b1e6ea68]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_410 [21e727da:b1e6ea68] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4431534] mod.xml: Compiling OnDemandTexture:RecoveredRaster_411 [9312b9ac:f57177f3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_411 [9312b9ac:f57177f3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4431534] mod.xml: Compiling OnDemandTexture:RecoveredRaster_412 [9312b9ac:66550c3f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_412 [9312b9ac:66550c3f] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4431534] mod.xml: Compiling OnDemandTexture:RecoveredRaster_413 [9312b9ac:65261f12]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_413 [9312b9ac:65261f12] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4431534] mod.xml: Compiling Texture:RecoveredRaster_414 [21e727da:82110b15]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_414 [21e727da:82110b15] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling Texture:RecoveredRaster_415 [21e727da:9f0ff11e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_415 [21e727da:9f0ff11e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling Texture:RecoveredRaster_416 [21e727da:72739ca5]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_416 [21e727da:72739ca5] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling OnDemandTexture:RecoveredRaster_417 [9312b9ac:278f92f8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_417 [9312b9ac:278f92f8] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling OnDemandTexture:RecoveredRaster_418 [9312b9ac:d185e853]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_418 [9312b9ac:d185e853] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling OnDemandTexture:RecoveredRaster_419 [9312b9ac:c843fc7a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_419 [9312b9ac:c843fc7a] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4587776] mod.xml: Compiling Texture:RecoveredRaster_420 [21e727da:2b3cebf6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_420 [21e727da:2b3cebf6] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4587776] mod.xml: Compiling Texture:RecoveredRaster_421 [21e727da:4274eb6f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_421 [21e727da:4274eb6f] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4744017] mod.xml: Compiling Texture:RecoveredRaster_422 [21e727da:8c3f3f5d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_422 [21e727da:8c3f3f5d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4744017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_423 [9312b9ac:e3b86247]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_423 [9312b9ac:e3b86247] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4744017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_424 [9312b9ac:a6f7e7b3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_424 [9312b9ac:a6f7e7b3] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4744017] mod.xml: Compiling OnDemandTexture:RecoveredRaster_425 [9312b9ac:48fa2e32]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_425 [9312b9ac:48fa2e32] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4744017] mod.xml: Compiling Texture:RecoveredRaster_426 [21e727da:a2265b99]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_426 [21e727da:a2265b99] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4744017] mod.xml: Compiling Texture:RecoveredRaster_427 [21e727da:ccf9fe9c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_427 [21e727da:ccf9fe9c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4744017] mod.xml: Compiling Texture:RecoveredRaster_428 [21e727da:03df042f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_428 [21e727da:03df042f] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4900274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_429 [9312b9ac:0b803ef4]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_429 [9312b9ac:0b803ef4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4900274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_430 [9312b9ac:e8b67257]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_430 [9312b9ac:e8b67257] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4900274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_431 [9312b9ac:3b2ad5c0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_431 [9312b9ac:3b2ad5c0] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.4900274] mod.xml: Compiling Texture:RecoveredRaster_432 [21e727da:83743a9d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_432 [21e727da:83743a9d] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4900274] mod.xml: Compiling Texture:RecoveredRaster_433 [21e727da:5fe419b2]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_433 [21e727da:5fe419b2] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4900274] mod.xml: Compiling Texture:RecoveredRaster_434 [21e727da:66aea658]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_434 [21e727da:66aea658] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.4900274] mod.xml: Compiling OnDemandTexture:RecoveredRaster_435 [9312b9ac:882a01ae]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_435 [9312b9ac:882a01ae] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5056598] mod.xml: Compiling OnDemandTexture:RecoveredRaster_436 [9312b9ac:17ae9148]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_436 [9312b9ac:17ae9148] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5056598] mod.xml: Compiling OnDemandTexture:RecoveredRaster_437 [9312b9ac:bccdaf3f]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_437 [9312b9ac:bccdaf3f] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5056598] mod.xml: Compiling Texture:RecoveredRaster_438 [21e727da:71ac50f8]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_438 [21e727da:71ac50f8] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5056598] mod.xml: Compiling Texture:RecoveredRaster_439 [21e727da:f99b81fd]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_439 [21e727da:f99b81fd] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5056598] mod.xml: Compiling Texture:RecoveredRaster_440 [21e727da:8f9c92d3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_440 [21e727da:8f9c92d3] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5056598] mod.xml: Compiling OnDemandTexture:RecoveredRaster_441 [9312b9ac:621ec0a8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_441 [9312b9ac:621ec0a8] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5056598] mod.xml: Compiling OnDemandTexture:RecoveredRaster_442 [9312b9ac:038ca97e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_442 [9312b9ac:038ca97e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5212832] mod.xml: Compiling OnDemandTexture:RecoveredRaster_443 [9312b9ac:26971ab3]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_443 [9312b9ac:26971ab3] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5212832] mod.xml: Compiling Texture:RecoveredRaster_444 [21e727da:8f958fc8]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_444 [21e727da:8f958fc8] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling Texture:RecoveredRaster_445 [21e727da:6deb9263]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_445 [21e727da:6deb9263] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling Texture:RecoveredRaster_446 [21e727da:1bae047b]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_446 [21e727da:1bae047b] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling OnDemandTexture:RecoveredRaster_447 [9312b9ac:2823e02e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_447 [9312b9ac:2823e02e] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling OnDemandTexture:RecoveredRaster_448 [9312b9ac:89da8772]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_448 [9312b9ac:89da8772] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling OnDemandTexture:RecoveredRaster_449 [9312b9ac:a4740628]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_449 [9312b9ac:a4740628] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5212832] mod.xml: Compiling Texture:RecoveredRaster_450 [21e727da:d4b112e0]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_450 [21e727da:d4b112e0] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling Texture:RecoveredRaster_451 [21e727da:13e1dead]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_451 [21e727da:13e1dead] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling Texture:RecoveredRaster_452 [21e727da:b2ae0a99]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_452 [21e727da:b2ae0a99] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling OnDemandTexture:RecoveredRaster_453 [9312b9ac:c4d8b5bb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_453 [9312b9ac:c4d8b5bb] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling OnDemandTexture:RecoveredRaster_454 [9312b9ac:d18b39f2]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_454 [9312b9ac:d18b39f2] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling OnDemandTexture:RecoveredRaster_455 [9312b9ac:1a24b6a0]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_455 [9312b9ac:1a24b6a0] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5369016] mod.xml: Compiling Texture:RecoveredRaster_456 [21e727da:d5336b7d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_456 [21e727da:d5336b7d] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5369016] mod.xml: Compiling Texture:RecoveredRaster_457 [21e727da:bf3698b4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_457 [21e727da:bf3698b4] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5525264] mod.xml: Compiling Texture:RecoveredRaster_458 [21e727da:3b17d5cc]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_458 [21e727da:3b17d5cc] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5525264] mod.xml: Compiling OnDemandTexture:RecoveredRaster_459 [9312b9ac:d44d35ae]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_459 [9312b9ac:d44d35ae] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5525264] mod.xml: Compiling OnDemandTexture:RecoveredRaster_460 [9312b9ac:04137018]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_460 [9312b9ac:04137018] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5525264] mod.xml: Compiling OnDemandTexture:RecoveredRaster_461 [9312b9ac:62a195cb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_461 [9312b9ac:62a195cb] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5525264] mod.xml: Compiling Texture:RecoveredRaster_462 [21e727da:4252d778]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_462 [21e727da:4252d778] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5525264] mod.xml: Compiling Texture:RecoveredRaster_463 [21e727da:c6c63d6d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_463 [21e727da:c6c63d6d] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5681517] mod.xml: Compiling Texture:RecoveredRaster_464 [21e727da:b7f06445]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_464 [21e727da:b7f06445] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5681517] mod.xml: Compiling OnDemandTexture:RecoveredRaster_465 [9312b9ac:96020602]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_465 [9312b9ac:96020602] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5681517] mod.xml: Compiling OnDemandTexture:RecoveredRaster_466 [9312b9ac:77e5390c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_466 [9312b9ac:77e5390c] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5748695] mod.xml: Compiling OnDemandTexture:RecoveredRaster_467 [9312b9ac:f04665b7]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_467 [9312b9ac:f04665b7] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5748695] mod.xml: Compiling Texture:RecoveredRaster_468 [21e727da:0d9edbb2]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_468 [21e727da:0d9edbb2] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5748695] mod.xml: Compiling Texture:RecoveredRaster_469 [21e727da:bb487117]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_469 [21e727da:bb487117] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5748695] mod.xml: Compiling Texture:RecoveredRaster_470 [21e727da:9e441ad9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_470 [21e727da:9e441ad9] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5748695] mod.xml: Compiling OnDemandTexture:RecoveredRaster_471 [9312b9ac:fedaff74]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_471 [9312b9ac:fedaff74] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5838944] mod.xml: Compiling OnDemandTexture:RecoveredRaster_472 [9312b9ac:b7c063c2]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_472 [9312b9ac:b7c063c2] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5838944] mod.xml: Compiling OnDemandTexture:RecoveredRaster_473 [9312b9ac:7b74749a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_473 [9312b9ac:7b74749a] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5838944] mod.xml: Compiling Texture:RecoveredRaster_474 [21e727da:390e10a4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_474 [21e727da:390e10a4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5838944] mod.xml: Compiling Texture:RecoveredRaster_475 [21e727da:71ea1935]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_475 [21e727da:71ea1935] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5838944] mod.xml: Compiling Texture:RecoveredRaster_476 [21e727da:d62498c3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_476 [21e727da:d62498c3] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5838944] mod.xml: Compiling OnDemandTexture:RecoveredRaster_477 [9312b9ac:fe88255a]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_477 [9312b9ac:fe88255a] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5995482] mod.xml: Compiling OnDemandTexture:RecoveredRaster_478 [9312b9ac:46b312ac]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_478 [9312b9ac:46b312ac] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5995482] mod.xml: Compiling OnDemandTexture:RecoveredRaster_479 [9312b9ac:3d777813]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_479 [9312b9ac:3d777813] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.5995482] mod.xml: Compiling Texture:RecoveredRaster_480 [21e727da:c8b55c00]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_480 [21e727da:c8b55c00] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5995482] mod.xml: Compiling Texture:RecoveredRaster_481 [21e727da:f72900de]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_481 [21e727da:f72900de] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5995482] mod.xml: Compiling Texture:RecoveredRaster_482 [21e727da:b23792f6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_482 [21e727da:b23792f6] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.5995482] mod.xml: Compiling OnDemandTexture:RecoveredRaster_483 [9312b9ac:2eeb49eb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_483 [9312b9ac:2eeb49eb] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6151801] mod.xml: Compiling OnDemandTexture:RecoveredRaster_484 [9312b9ac:36d51e21]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_484 [9312b9ac:36d51e21] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6178238] mod.xml: Compiling OnDemandTexture:RecoveredRaster_485 [9312b9ac:729b85f2]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_485 [9312b9ac:729b85f2] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6178238] mod.xml: Compiling Texture:RecoveredRaster_486 [21e727da:87c3c091]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_486 [21e727da:87c3c091] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6178238] mod.xml: Compiling Texture:RecoveredRaster_487 [21e727da:0fa150a9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_487 [21e727da:0fa150a9] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6178238] mod.xml: Compiling Texture:RecoveredRaster_488 [21e727da:d15c4261]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_488 [21e727da:d15c4261] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6178238] mod.xml: Compiling OnDemandTexture:RecoveredRaster_489 [9312b9ac:156b43d1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_489 [9312b9ac:156b43d1] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6178238] mod.xml: Compiling OnDemandTexture:RecoveredRaster_490 [9312b9ac:7829c709]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_490 [9312b9ac:7829c709] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6308479] mod.xml: Compiling OnDemandTexture:RecoveredRaster_491 [9312b9ac:369d4edd]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_491 [9312b9ac:369d4edd] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6308479] mod.xml: Compiling Texture:RecoveredRaster_492 [21e727da:c65f44a3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_492 [21e727da:c65f44a3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6308479] mod.xml: Compiling Texture:RecoveredRaster_493 [21e727da:8ebf41ca]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_493 [21e727da:8ebf41ca] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6308479] mod.xml: Compiling Texture:RecoveredRaster_494 [21e727da:51f8fc21]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_494 [21e727da:51f8fc21] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6308479] mod.xml: Compiling OnDemandTexture:RecoveredRaster_495 [9312b9ac:2b8fd651]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_495 [9312b9ac:2b8fd651] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6308479] mod.xml: Compiling OnDemandTexture:RecoveredRaster_496 [9312b9ac:ca323314]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_496 [9312b9ac:ca323314] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6308479] mod.xml: Compiling OnDemandTexture:RecoveredRaster_497 [9312b9ac:940ed1fe]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_497 [9312b9ac:940ed1fe] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6465083] mod.xml: Compiling Texture:RecoveredRaster_498 [21e727da:59c9a8b4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_498 [21e727da:59c9a8b4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling Texture:RecoveredRaster_499 [21e727da:5c4ce1a6]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_499 [21e727da:5c4ce1a6] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling Texture:RecoveredRaster_500 [21e727da:5dc85d78]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_500 [21e727da:5dc85d78] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling OnDemandTexture:RecoveredRaster_501 [9312b9ac:6a95ad79]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_501 [9312b9ac:6a95ad79] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling OnDemandTexture:RecoveredRaster_502 [9312b9ac:7ba81f1e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_502 [9312b9ac:7ba81f1e] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling OnDemandTexture:RecoveredRaster_503 [9312b9ac:bdba3ffc]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_503 [9312b9ac:bdba3ffc] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6465083] mod.xml: Compiling Texture:RecoveredRaster_504 [21e727da:82922384]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_504 [21e727da:82922384] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling Texture:RecoveredRaster_505 [21e727da:8e9d0886]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_505 [21e727da:8e9d0886] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling Texture:RecoveredRaster_506 [21e727da:2781952e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_506 [21e727da:2781952e] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling OnDemandTexture:RecoveredRaster_507 [9312b9ac:1b767314]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_507 [9312b9ac:1b767314] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling OnDemandTexture:RecoveredRaster_508 [9312b9ac:51ba1dd7]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_508 [9312b9ac:51ba1dd7] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling OnDemandTexture:RecoveredRaster_509 [9312b9ac:4156fbec]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_509 [9312b9ac:4156fbec] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6621340] mod.xml: Compiling Texture:RecoveredRaster_510 [21e727da:c9ecef58]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_510 [21e727da:c9ecef58] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling Texture:RecoveredRaster_511 [21e727da:0fb8ee32]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_511 [21e727da:0fb8ee32] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling Texture:RecoveredRaster_512 [21e727da:c28a6275]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_512 [21e727da:c28a6275] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling OnDemandTexture:RecoveredRaster_513 [9312b9ac:2937079c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_513 [9312b9ac:2937079c] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling OnDemandTexture:RecoveredRaster_514 [9312b9ac:2fd8efd6]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_514 [9312b9ac:2fd8efd6] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling OnDemandTexture:RecoveredRaster_515 [9312b9ac:e17a1f8b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_515 [9312b9ac:e17a1f8b] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6777580] mod.xml: Compiling Texture:RecoveredRaster_516 [21e727da:558bd4d0]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_516 [21e727da:558bd4d0] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6777580] mod.xml: Compiling Texture:RecoveredRaster_517 [21e727da:51b603ee]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_517 [21e727da:51b603ee] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6933834] mod.xml: Compiling Texture:RecoveredRaster_518 [21e727da:f0f4120e]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_518 [21e727da:f0f4120e] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6933834] mod.xml: Compiling OnDemandTexture:RecoveredRaster_519 [9312b9ac:f578594c]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_519 [9312b9ac:f578594c] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6933834] mod.xml: Compiling OnDemandTexture:RecoveredRaster_520 [9312b9ac:03a9fc3e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_520 [9312b9ac:03a9fc3e] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6933834] mod.xml: Compiling OnDemandTexture:RecoveredRaster_521 [9312b9ac:eb9992cd]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_521 [9312b9ac:eb9992cd] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.6933834] mod.xml: Compiling Texture:RecoveredRaster_522 [21e727da:704f968f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_522 [21e727da:704f968f] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6933834] mod.xml: Compiling Texture:RecoveredRaster_523 [21e727da:61a21ce3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_523 [21e727da:61a21ce3] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6933834] mod.xml: Compiling Texture:RecoveredRaster_524 [21e727da:f9aa613a]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_524 [21e727da:f9aa613a] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.6933834] mod.xml: Compiling OnDemandTexture:RecoveredRaster_525 [9312b9ac:fbbf7855]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_525 [9312b9ac:fbbf7855] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7090085] mod.xml: Compiling OnDemandTexture:RecoveredRaster_526 [9312b9ac:6f4cc5eb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_526 [9312b9ac:6f4cc5eb] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7090085] mod.xml: Compiling OnDemandTexture:RecoveredRaster_527 [9312b9ac:f1131fea]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_527 [9312b9ac:f1131fea] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7090085] mod.xml: Compiling Texture:RecoveredRaster_528 [21e727da:65dd9af9]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_528 [21e727da:65dd9af9] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7090085] mod.xml: Compiling Texture:RecoveredRaster_529 [21e727da:cc593540]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_529 [21e727da:cc593540] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7090085] mod.xml: Compiling Texture:RecoveredRaster_530 [21e727da:5d70410d]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_530 [21e727da:5d70410d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7090085] mod.xml: Compiling OnDemandTexture:RecoveredRaster_531 [9312b9ac:c3bd7fa8]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_531 [9312b9ac:c3bd7fa8] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7246367] mod.xml: Compiling OnDemandTexture:RecoveredRaster_532 [9312b9ac:9730103e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_532 [9312b9ac:9730103e] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7246367] mod.xml: Compiling OnDemandTexture:RecoveredRaster_533 [9312b9ac:d20f7fbb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_533 [9312b9ac:d20f7fbb] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7246367] mod.xml: Compiling Texture:RecoveredRaster_534 [21e727da:7203c879]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_534 [21e727da:7203c879] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7246367] mod.xml: Compiling Texture:RecoveredRaster_535 [21e727da:33922416]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_535 [21e727da:33922416] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7246367] mod.xml: Compiling Texture:RecoveredRaster_536 [21e727da:8633ff0c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_536 [21e727da:8633ff0c] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7246367] mod.xml: Compiling OnDemandTexture:RecoveredRaster_537 [9312b9ac:dc150f1b]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_537 [9312b9ac:dc150f1b] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7246367] mod.xml: Compiling OnDemandTexture:RecoveredRaster_538 [9312b9ac:680ccd35]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_538 [9312b9ac:680ccd35] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7402587] mod.xml: Compiling OnDemandTexture:RecoveredRaster_539 [9312b9ac:c8d340c1]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_539 [9312b9ac:c8d340c1] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7402587] mod.xml: Compiling Texture:RecoveredRaster_540 [21e727da:189499a3]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_540 [21e727da:189499a3] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7402587] mod.xml: Compiling Texture:RecoveredRaster_541 [21e727da:d1bef39c]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_541 [21e727da:d1bef39c] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7402587] mod.xml: Compiling Texture:RecoveredRaster_542 [21e727da:c77daa02]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_542 [21e727da:c77daa02] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7402587] mod.xml: Compiling OnDemandTexture:RecoveredRaster_543 [9312b9ac:2c76da71]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_543 [9312b9ac:2c76da71] forceformat D3DFMT_A8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7402587] mod.xml: Compiling OnDemandTexture:RecoveredRaster_544 [9312b9ac:b560ed37]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_544 [9312b9ac:b560ed37] forceformat D3DFMT_X8R8G8B8.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7402587] mod.xml: Compiling OnDemandTexture:RecoveredRaster_545 [9312b9ac:4592a69d]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_545 [9312b9ac:4592a69d] forceformat D3DFMT_R5G6B5.
+PS3 StandardTexture, Resize, CompressAndEmbed
+EmbedPS3Texture reverse endian
+[00:00:02.7558835] mod.xml: Compiling Texture:RecoveredRaster_546 [21e727da:3d18b7b4]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_546 [21e727da:3d18b7b4] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7558835] mod.xml: Compiling Texture:RecoveredRaster_547 [21e727da:811c4955]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_547 [21e727da:811c4955] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7558835] mod.xml: Compiling Texture:RecoveredRaster_548 [21e727da:96a0fc3f]
+ProcessTexture PS3 Texture Texture:RecoveredRaster_548 [21e727da:96a0fc3f] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7558835] mod.xml: Compiling OnDemandTexture:RecoveredRaster_549 [9312b9ac:2a091dbb]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_549 [9312b9ac:2a091dbb] forceformat D3DFMT_A8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7558835] mod.xml: Compiling OnDemandTexture:RecoveredRaster_550 [9312b9ac:ec228580]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_550 [9312b9ac:ec228580] forceformat D3DFMT_X8R8G8B8.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7558835] mod.xml: Compiling OnDemandTexture:RecoveredRaster_551 [9312b9ac:8859552e]
+ProcessTexture PS3 Texture OnDemandTexture:RecoveredRaster_551 [9312b9ac:8859552e] forceformat D3DFMT_R5G6B5.
+EmbedPS3Texture reverse endian
+VolumeTexture CompressAndEmbed3D
+[00:00:02.7715150] Resolving references: mods\recoverytexture\data\mod
+[00:00:02.7871380] Stable sorting assets
+[00:00:02.7871380] Sorting by schema dependencies
+[00:00:02.8027606] Sorting by asset dependencies
+[00:00:02.8340273] Generating stream: mods\recoverytexture\data\mod
+[00:00:02.8652569] Slow asset clean-up (expected: 552, actual: 552, old: 0, current: 552)
+[00:00:02.8652569] Slow custom data clean-up (expected: 276, actual: 276, old asset count: 0)
+[00:00:02.8808845] mods\recoverytexture\data\mod Linking binary data
+[00:00:02.8965173] mods\recoverytexture\data\mod Linking import data
+[00:00:02.8965173] mods\recoverytexture\data\mod Linking relocation data
+[00:00:02.8965173] mods\recoverytexture\data\mod Stream complete
+[00:00:02.9433857] BinaryAssetBuilder complete
+[00:00:02.9433857] Texture:
+[00:00:02.9433857]       Instances Processed: 276
+[00:00:02.9433857]       Total Processing Time: 00:00:00.6010889
+[00:00:02.9433857]       Longest Processing Time: 00:00:00.1093532 (RecoveredRaster_0)
+[00:00:02.9433857]       Average Processing Time: 0.00217785833333333 seconds
+[00:00:02.9433857] OnDemandTexture:
+[00:00:02.9433857]       Instances Processed: 276
+[00:00:02.9433857]       Total Processing Time: 00:00:00.5379168
+[00:00:02.9433857]       Longest Processing Time: 00:00:00.0157590 (RecoveredRaster_227)
+[00:00:02.9433857]       Average Processing Time: 0.00194897391304348 seconds
+[00:00:02.9433857] Total Processing Time for All Types: 00:00:01.1390057
