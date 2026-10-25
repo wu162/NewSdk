@@ -1,0 +1,17 @@
+{
+  "selectedGroups": [
+    "xma",
+    "resample"
+  ],
+  "runId": "40199000936",
+  "scope": "Original-only evidence: xma,resample",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "configurations": [],
+  "status": "original-evidence-only",
+  "runAttempt": "1",
+  "nativeAudioFileValidated": false,
+  "sourceCommit": "1c0457599f2a78082a283aade83a19e3f60a430e",
+  "sdkValidated": false,
+  "realMainProvenanceSha256": "bea901cfcb21fb4f0792b8754bf55dd555f0b747dbb02e047d7803fb08137392",
+  "mp3Validated": false
+}
