@@ -8,12 +8,12 @@ namespace Recovered.Compiler.Texture
     public static class TextureVolumeMipEncoder
     {
         private sealed class Contribution { public int First; public double[] Weights; }
-        public static byte[] Encode(uint width, uint height, uint depth, byte[] rgba, string format, bool ps3)
+        public static byte[] Encode(uint width, uint height, uint depth, byte[] rgba, string format)
         {
             byte[] levelZero = TextureVolumeRawDdsEncoder.Encode(width, height, depth, rgba, format, false);
             int stride = format == "D3DFMT_R5G6B5" ? 2 : 4;
             uint w = width, h = height, d = depth;
-            int levels = ps3 ? 3 : checked((int)TextureVolume.MipCount(width, height, depth));
+            int levels = checked((int)TextureVolume.MipCount(width, height, depth));
             long size = levelZero.Length;
             for (int level = 1; level < levels; level++)
             {
@@ -26,7 +26,7 @@ namespace Recovered.Compiler.Texture
             // Original header counts XY levels only, even if depth yields more
             // payload levels. Preserve this observable legacy writer behavior.
             uint headerLevels = TextureVolume.MipCount(width, height, 1);
-            Put(output, 28, ps3 ? Math.Min(headerLevels, 3u) : headerLevels);
+            Put(output, 28, headerLevels);
             float[] current = new float[rgba.Length];
             for (int i = 0; i < rgba.Length; i++) current[i] = (float)((double)rgba[i] / 255.0);
             int offset = levelZero.Length;
@@ -54,7 +54,7 @@ namespace Recovered.Compiler.Texture
             if (offset != output.Length) throw new InvalidOperationException("Volume mip output size mismatch.");
             return output;
         }
-        public static byte[] EncodeStrip(uint width, uint height, byte[] rgba, string format, bool ps3)
+        public static byte[] EncodeStrip(uint width, uint height, byte[] rgba, string format)
         {
             if (rgba == null) throw new ArgumentNullException("rgba");
             if ((rgba.Length & 3) != 0) throw new ArgumentException("RGBA byte count must be divisible by four.", "rgba");
@@ -69,7 +69,7 @@ namespace Recovered.Compiler.Texture
                 int bytes = checked((int)slice.PixelCount * 4);
                 Buffer.BlockCopy(slice.Pixels, 0, ordered, offset, bytes); offset += bytes;
             }
-            return Encode(height, height, checked(width / height), ordered, format, ps3);
+            return Encode(height, height, checked(width / height), ordered, format);
         }
         private static Contribution[] Contributions(int source, int target)
         {
@@ -184,4 +184,5 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 

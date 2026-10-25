@@ -1,5 +1,7 @@
 # PS3 mip 与体积 DDS 源码恢复
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 2026-10-25，分支 `recovery/texturecompiler-source`。代码在根 `src/TextureCompiler/Managed`；只恢复三种 raw 格式 A8R8G8B8、X8R8G8B8、R5G6B5，没有链接旧 nvDDS 库或回调原 TextureCompiler 业务实现。
 
 ## 已取得的精确证据
@@ -56,3 +58,4 @@ Win32/非PS3生成 `bitLength(max(width,height,depth))` 份 payload；PS3固定3
 ## 第四轮补充（2026-10-25）
 
 本页31f45e04/75f302ef验收为历史锚点。普通二维/体积mip归一化残差修正后的源码是fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76；PC/PS3核心与实际入口全部通过，真实SDK40209761463的PcMips/Ps3Mips/VolumeMipPc/VolumeMipPs3四profile全部成功。每profile18资产的Original/Recovered/NoOriginal四产物与真实调用buffer/cdata完全相同。精确新收据和复用指纹见[第四轮交接](TEXTURE_ROUND4_HANDOFF.md)。未变volume raw保留本页原验收，不冒充本轮新跑。
+

@@ -8,11 +8,12 @@ namespace Recovered.Compiler.Texture
         private uint _HashCode;
         private TargetPlatform _Platform;
 
-        // Recovered managed state only. Original Initialize also allocates D3D,
-        // XenonBundler and a shared 64-MiB native compression buffer. Those
+        // Recovered managed state only. Original Win32 Initialize also allocates
+        // D3D and a shared 64-MiB native compression buffer. Those
         // native lifecycle side effects remain unrecovered and are not emulated.
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
+            TextureCatalog.RequireWin32(platform);
             _HashCode = HashProvider.GetTypeHash(GetType());
             _Platform = platform;
         }
@@ -21,6 +22,7 @@ namespace Recovered.Compiler.Texture
         // preserve its direct state assignment and virtual-dispatch behavior.
         public virtual void ReInitialize(object configSection, TargetPlatform platform)
         {
+            TextureCatalog.RequireWin32(platform);
             _HashCode = HashProvider.GetTypeHash(GetType());
             _Platform = platform;
         }
@@ -40,3 +42,4 @@ namespace Recovered.Compiler.Texture
         ~Plugin() { Dispose(false); }
     }
 }
+

@@ -1,5 +1,7 @@
 # Raw DDS encoder recovery (no-mipmap component accepted)
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 Original input SHA256: `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`.
 `nvDDS::nvDXTcompress(RGBAImage const&,...)` is token `060000dc`, RVA `52b60`.
 RVA `52950` is the separate `RGBAMipMappedVolumeMap` overload.
@@ -67,3 +69,4 @@ callback, executes the original quantizer instructions, restores the hook in
 finally, and requires every captured DDS byte and callback record to match the
 immutable 270-fixture transcript. Its traces are only usable after that entire
 comparison passes. The probe is never linked into recovered source.
+

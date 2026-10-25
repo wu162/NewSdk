@@ -82,6 +82,7 @@ namespace Recovered.Compiler.Texture
         // Pass the same initial storage to compare complete byte arrays, including padding.
         public static byte[] GetNVCompressionOptions(string format, bool generateMipMaps, int platform, byte[] initialStorage)
         {
+            if (platform != 0) throw new NotSupportedException("TextureCompiler supports Win32/PC only.");
             if (initialStorage != null && initialStorage.Length != CompressionOptionsSize)
                 throw new ArgumentException("Expected 1644 bytes of initial native storage.", "initialStorage");
             byte[] result = initialStorage == null ? new byte[CompressionOptionsSize] : (byte[])initialStorage.Clone();
@@ -101,7 +102,7 @@ namespace Recovered.Compiler.Texture
             if (generateMipMaps)
             {
                 I(result, 100, 30);
-                I(result, 104, platform == 2 ? 3 : 0);
+                I(result, 104, 0);
             }
             else I(result, 100, 32);
             return result;
@@ -230,3 +231,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

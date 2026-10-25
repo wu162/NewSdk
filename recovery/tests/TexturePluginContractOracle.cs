@@ -166,7 +166,7 @@ internal static class TexturePluginContractOracle
             string hash;
             using (SHA256 sha = SHA256.Create())
                 hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(input))).Replace("-", "").ToLowerInvariant();
-            object[] probes = new int[] { 0, 1, 2, 99 }.Select(p => Probe(plugin, platformType, getTypeId, p)).ToArray();
+            object[] probes = new int[] { 0 }.Select(p => Probe(plugin, platformType, getTypeId, p)).ToArray();
             var result = new {
                 scope = "original-only contract and metadata/lifecycle inventory; no texture compilation, recovered differential acceptance, or SDK validation",
                 sha256 = hash, assembly = original.FullName, runtime = original.ImageRuntimeVersion,
@@ -191,3 +191,4 @@ internal static class TexturePluginContractOracle
         catch (Exception exception) { Console.Error.WriteLine(exception); return 1; }
     }
 }
+

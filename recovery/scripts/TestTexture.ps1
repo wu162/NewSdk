@@ -5,7 +5,7 @@ $out = "recovery/evidence/texture/validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_
 $work = Join-Path $env:RUNNER_TEMP ('texture-validation-' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $work,$out | Out-Null
 $out = (Resolve-Path $out).Path
-$receipt = @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; status='started'; sdkValidated=$false; configurations=@(); originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant(); scope='partial recovery: metadata, image rules, native buffer, PC/PS3/unknown DDS paths only' }
+$receipt = @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; status='started'; sdkValidated=$false; configurations=@(); originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant(); scope='partial recovery: metadata, image rules, native buffer, PC DDS paths only' }
 if ($receipt.originalSha256 -ne '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e') { throw 'Original TextureCompiler changed' }
 $receipt.sourceFiles = @(Get-ChildItem src/TextureCompiler -Recurse -File | Where-Object {$_.FullName -notmatch '[\\/](bin|obj)[\\/]'} | Sort-Object FullName | ForEach-Object { @{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/'); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} })
 $receipt.realTextureFixtures = Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw | ConvertFrom-Json
@@ -115,3 +115,4 @@ try {
     Get-ChildItem "$out/*-dds.txt","$out/*-image.txt" | Remove-Item
     $receipt.status='passed'
 } finally { $receipt | ConvertTo-Json -Depth 12 | Set-Content "$out/validation.json" }
+

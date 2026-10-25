@@ -17,7 +17,6 @@ internal static unsafe class TextureVolumeMipDifferential
     private static MemoryStream capture;
     private static List<string> calls;
     private static int checks, fixtures;
-    private static bool ps3;
     private static void Check(bool value, string message) { checks++; if (!value) throw new Exception(message); }
     private static int Write(IntPtr data, uint size, IntPtr mip, IntPtr user)
     {
@@ -80,9 +79,9 @@ internal static unsafe class TextureVolumeMipDifferential
         byte[] expected=Original(compress,plugin,optionsMethod,width,height,depth,borrowed,format);
         Check(Hash(borrowed)==Hash(source),"original source changed");
         byte[] recoveredSource=(byte[])source.Clone();
-        byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,depth,recoveredSource,format,ps3});
+        byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,depth,recoveredSource,format});
         Check(Hash(recoveredSource)==Hash(source),"recovered source changed");
-        string label=(ps3?"PS3 ":"PC ")+format+" "+width+"x"+height+"x"+depth+" pattern="+pattern;
+        string label="PC "+format+" "+width+"x"+height+"x"+depth+" pattern="+pattern;
         if(expected.Length!=actual.Length)throw new Exception("length "+label+" expected="+expected.Length+" actual="+actual.Length+" header="+Convert.ToBase64String(expected,0,Math.Min(128,expected.Length)));
         for(int i=0;i<expected.Length;i++)if(expected[i]!=actual[i])throw new Exception("byte "+i+" "+label+" expected="+expected[i]+" actual="+actual[i]+" header="+Convert.ToBase64String(expected,0,128));
         checks+=expected.Length;fixtures++;transcript.WriteLine(label+"|"+String.Join(";",calls.ToArray())+"|"+Convert.ToBase64String(actual));
@@ -90,18 +89,18 @@ internal static unsafe class TextureVolumeMipDifferential
     private static void Rejections(MethodInfo encode)
     {
         object[][] inputs={
-            new object[]{1u,1u,1u,null,"D3DFMT_A8R8G8B8",false},
-            new object[]{0u,1u,1u,new byte[0],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,0u,1u,new byte[0],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,1u,0u,new byte[0],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,1u,3u,new byte[12],"D3DFMT_A8R8G8B8",false},
-            new object[]{0x80000000u,0x80000000u,0x80000000u,new byte[0],"D3DFMT_A8R8G8B8",false},
-            new object[]{256u,256u,256u,new byte[0],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,1u,1u,new byte[3],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,1u,1u,new byte[5],"D3DFMT_A8R8G8B8",false},
-            new object[]{1u,1u,1u,new byte[4],"D3DFMT_DXT1",false},
-            new object[]{1u,1u,1u,new byte[4],"unknown",false},
-            new object[]{1u,1u,1u,new byte[4],null,false},
+            new object[]{1u,1u,1u,null,"D3DFMT_A8R8G8B8"},
+            new object[]{0u,1u,1u,new byte[0],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,0u,1u,new byte[0],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,1u,0u,new byte[0],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,1u,3u,new byte[12],"D3DFMT_A8R8G8B8"},
+            new object[]{0x80000000u,0x80000000u,0x80000000u,new byte[0],"D3DFMT_A8R8G8B8"},
+            new object[]{256u,256u,256u,new byte[0],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,1u,1u,new byte[3],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,1u,1u,new byte[5],"D3DFMT_A8R8G8B8"},
+            new object[]{1u,1u,1u,new byte[4],"D3DFMT_DXT1"},
+            new object[]{1u,1u,1u,new byte[4],"unknown"},
+            new object[]{1u,1u,1u,new byte[4],null},
         };
         Type[] errors={typeof(ArgumentNullException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentOutOfRangeException),typeof(ArgumentOutOfRangeException),typeof(ArgumentException),typeof(ArgumentException),typeof(NotSupportedException),typeof(NotSupportedException),typeof(NotSupportedException)};
         for(int i=0;i<inputs.Length;i++)
@@ -137,15 +136,15 @@ internal static unsafe class TextureVolumeMipDifferential
             if(args.Length==3)
             {
                 Type recovered=Assembly.LoadFrom(Path.GetFullPath(args[2])).GetType("Recovered.Compiler.Texture.TextureVolumeMipEncoder",true);
-                encode=recovered.GetMethod("Encode",new Type[]{typeof(uint),typeof(uint),typeof(uint),typeof(byte[]),typeof(string),typeof(bool)});
+                encode=recovered.GetMethod("Encode",new Type[]{typeof(uint),typeof(uint),typeof(uint),typeof(byte[]),typeof(string)});
                 Check(encode!=null,"recovered Encode contract missing");Rejections(encode);
 
             }
             string[] formats={"D3DFMT_A8R8G8B8","D3DFMT_X8R8G8B8","D3DFMT_R5G6B5"};
             using(StreamWriter transcript=new StreamWriter(args[1],false,new UTF8Encoding(false)))
-            foreach(int platform in new int[]{0,2})
+            foreach(int platform in new int[]{0})
             {
-                ps3=platform==2;FieldInfo field=type.GetField("_Platform",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(plugin,Enum.ToObject(field.FieldType,platform));
+                FieldInfo field=type.GetField("_Platform",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(plugin,Enum.ToObject(field.FieldType,platform));
                 foreach(string format in formats)
                 {
                     foreach(uint width in new uint[]{1,2,4,8,16})
@@ -161,10 +160,11 @@ internal static unsafe class TextureVolumeMipDifferential
                     }
                 }
             }
-            Console.WriteLine("PASS TextureVolumeMipDifferential fixtures={0} checks={1} volumeMips=PCFullAndPS3ThreePayloads",fixtures,checks);
+            Console.WriteLine("PASS TextureVolumeMipDifferential fixtures={0} checks={1} volumeMips=PCFull",fixtures,checks);
             return 0;
         }
         catch(Exception e) { Console.Error.WriteLine(e);return 1; }
     }
 }
+
 

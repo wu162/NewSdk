@@ -108,7 +108,7 @@ internal static unsafe class TextureVolumeMipProbe
             MethodInfo encode=null;
             string[] formats={"D3DFMT_A8R8G8B8","D3DFMT_X8R8G8B8","D3DFMT_R5G6B5"};
             using(StreamWriter transcript=new StreamWriter(args[1],false,new UTF8Encoding(false)))
-            foreach(int platform in new int[]{0,2})
+            foreach(int platform in new int[]{0})
             {
                 FieldInfo field=type.GetField("_Platform",BindingFlags.Instance|BindingFlags.NonPublic);field.SetValue(plugin,Enum.ToObject(field.FieldType,platform));
                 Console.WriteLine("PROBE platform="+platform);
@@ -121,4 +121,5 @@ internal static unsafe class TextureVolumeMipProbe
         catch(Exception e) { Console.Error.WriteLine(e);return 1; }
     }
 }
+
 

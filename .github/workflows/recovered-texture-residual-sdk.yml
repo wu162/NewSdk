@@ -13,18 +13,10 @@ jobs:
             script: TestTextureMipSdk.ps1
             arguments: ''
             evidence: sdk-mips
-          - profile: Ps3Mips
-            script: TestTextureNewPathsSdk.ps1
-            arguments: '-Profile Ps3Mips'
-            evidence: sdk-new-paths/Ps3Mips
           - profile: VolumeMipPc
             script: TestTextureVolumeMipSdk.ps1
             arguments: '-Profile VolumeMipPc'
             evidence: sdk-volume-mips/VolumeMipPc
-          - profile: VolumeMipPs3
-            script: TestTextureVolumeMipSdk.ps1
-            arguments: '-Profile VolumeMipPs3'
-            evidence: sdk-volume-mips/VolumeMipPs3
     runs-on: windows-2022
     timeout-minutes: 25
     steps:
@@ -46,4 +38,5 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/${{ matrix.evidence }}/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.profile }} actual SDK run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+
 

@@ -1,4 +1,4 @@
-param([ValidateSet('Ps3Mips','VolumePc','VolumePs3')][string]$Profile='Ps3Mips',[int]$TimeoutSeconds=300)
+param([ValidateSet('VolumePc')][string]$Profile='VolumePc',[int]$TimeoutSeconds=300)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
@@ -6,7 +6,7 @@ $out="recovery/evidence/texture/sdk-new-paths/$Profile/$env:GITHUB_RUN_ID-$env:G
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated 18-asset PS3 three-payload mip or raw volume fixture MOD';profile=$Profile;targetPlatform=$(if($Profile -eq 'VolumePc'){'Win32'}else{'PlayStation3'});modes=@();inputs=(Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw|ConvertFrom-Json)}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated 18-asset PC raw volume fixture MOD';profile=$Profile;targetPlatform='Win32';modes=@();inputs=(Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw|ConvertFrom-Json)}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -17,15 +17,6 @@ try{
   Remove-Item "$sdk/builtmods" -Recurse -Force -ErrorAction SilentlyContinue
   $moddir=Join-Path $sdk 'Mods\RecoveryTexture';New-Item -ItemType Directory -Force "$moddir/Data","$moddir/Art"|Out-Null
   $nodes=@();$index=0
-  if($Profile -eq 'Ps3Mips'){
-   foreach($f in @($r.inputs.files|Where-Object {$_.fixture.EndsWith('.tga')})){
-    if((Get-FileHash $f.fixture -Algorithm SHA256).Hash.ToLowerInvariant() -ne $f.sha256){throw 'Real TGA input hash differs'}
-    $name=[IO.Path]::GetFileName($f.fixture);Copy-Item $f.fixture "$moddir/Art/$name"
-    foreach($type in @('Texture','OnDemandTexture')){foreach($format in @('A8R8G8B8','X8R8G8B8','R5G6B5')){
-     $nodes+="<$type id='RecoveredTexture_$index' File='..\Art\$name' Type='StandardTexture' OutputFormat='$format' GenerateMipMaps='true' AllowAutomaticResize='false' />";$index++
-    }}
-   }
-  }else{
    foreach($depth in @(1,4,16)){
     $width=16*$depth;$height=16;$name="volume-$depth.tga";$pixels=$width*$height
     $tga=New-Object byte[] (18+$pixels*4);$tga[2]=2;$tga[12]=[byte]($width-band 255);$tga[13]=[byte]($width-shr 8);$tga[14]=16;$tga[16]=32;$tga[17]=40
@@ -35,7 +26,6 @@ try{
      $nodes+="<$type id='RecoveredTexture_$index' File='..\Art\$name' Type='VolumeTexture' OutputFormat='$format' GenerateMipMaps='false' AllowAutomaticResize='false' />";$index++
     }}
    }
-  }
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
   $trace="$out/$mode-trace";New-Item -ItemType Directory -Force $trace|Out-Null
   $cfg="$sdk/tools/BinaryAssetBuilder.exe.config";[xml]$xml=Get-Content $cfg -Raw
@@ -85,4 +75,5 @@ try{
  $env:RA3_TEXTURE_SDK_TRACE=$null
  $r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"
 }
+
 

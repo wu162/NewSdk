@@ -1,5 +1,7 @@
 # TextureCompiler 可复用公开实现核查（2026-10-25）
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 本轮按用户要求阅读公开源码，以下为实际适配判断；没有把仅提供头文件或静态库的项目误记为压缩核心源码。当前恢复实现仍以原DLL的IL/native差分为准，未直接引入下列第三方代码或二进制。
 
 ## 旧 NVIDIA DDS Utilities：准确 ABI 依据，核心未开源
@@ -58,3 +60,4 @@ https://github.com/jonwil/sagetools/blob/49373be5e922e8d7ae0b2caa2c74fa6c64d6cf4
 2. 先用原LoadImageA取得像素和hasAlpha oracle，验收TGA24/32 raw/RLE，再扩PNG/JPEG。
 3. 区分“精确还原旧压缩器”和“提供新开源压缩后端”两个交付范围，分别记录输出差异；当前未默认切换到NVTT。
 4. 后续仅推进PC/PS3。Xbox360/Xenon专属恢复已按用户要求剔除；PC/PS3仍依赖的公共图像处理不因XGraphics命名而被排除。
+

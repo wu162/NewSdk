@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "groups": {
     "base": {
       "script": "recovery/scripts/TestTexture.ps1",
@@ -22,7 +22,9 @@
         "src/TextureCompiler/Managed/TextureCatalog.cs",
         "src/TextureCompiler/Managed/TextureImageRules.cs",
         "src/TextureCompiler/Managed/TexturePacker.cs",
-        "src/TextureCompiler/Native/**"
+        "src/TextureCompiler/Native/**",
+        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
+        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/validation/*/validation.json",
       "sdk": false
@@ -120,25 +122,6 @@
       "evidence": "recovery/evidence/texture/stage2/Mips/*/validation.json",
       "sdk": false
     },
-    "ps3-mips": {
-      "script": "recovery/scripts/TestTexturePs3Mips.ps1",
-      "arguments": {},
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTexturePs3Mips.ps1",
-        "recovery/tests/TexturePs3MipDifferential.cs",
-        "src/TextureCompiler/Managed/*.csproj",
-        "src/TextureCompiler/Managed/TextureImageRules.cs",
-        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
-        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
-        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
-      ],
-      "evidence": "recovery/evidence/texture/stage2/Ps3Mips/*/validation.json",
-      "sdk": false
-    },
     "volume-dds": {
       "script": "recovery/scripts/TestTextureVolumeDds.ps1",
       "arguments": {},
@@ -178,25 +161,6 @@
         "src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/stage2/VolumeMips/*/validation.json",
-      "sdk": false
-    },
-    "cubic": {
-      "script": "recovery/scripts/TestTextureCubicResize.ps1",
-      "arguments": {},
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTextureCubicResize.ps1",
-        "recovery/tests/TextureCubicResizeDifferential.cs",
-        "src/TextureCompiler/Managed/*.csproj",
-        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
-        "src/TextureCompiler/Managed/TextureImageRules.cs",
-        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
-        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
-      ],
-      "evidence": "recovery/evidence/texture/stage2/CubicResize/*/validation.json",
       "sdk": false
     },
     "images": {
@@ -246,32 +210,6 @@
         "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
       ],
       "evidence": "recovery/evidence/texture/mip-images/*/validation.json",
-      "sdk": false
-    },
-    "ps3-mip-images": {
-      "script": "recovery/scripts/TestTexturePs3MipImages.ps1",
-      "arguments": {},
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTexturePs3MipImages.ps1",
-        "recovery/tests/TexturePs3MipPipelineOracle.cs",
-        "recovery/tests/fixtures/texture-main/**",
-        "src/TextureCompiler/Managed/*.csproj",
-        "src/TextureCompiler/Managed/Plugin.*.cs",
-        "src/TextureCompiler/Managed/TextureCatalog.cs",
-        "src/TextureCompiler/Managed/TextureImageLoader.cs",
-        "src/TextureCompiler/Managed/TextureImageRules.cs",
-        "src/TextureCompiler/Managed/TexturePacker.cs",
-        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
-        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
-        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
-        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
-        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
-      ],
-      "evidence": "recovery/evidence/texture/ps3-mip-images/*/validation.json",
       "sdk": false
     },
     "volume-images": {
@@ -327,32 +265,6 @@
       "evidence": "recovery/evidence/texture/volume-mip-images/*/validation.json",
       "sdk": false
     },
-    "ps3-resize-images": {
-      "script": "recovery/scripts/TestTexturePs3ResizeImages.ps1",
-      "arguments": {},
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTexturePs3ResizeImages.ps1",
-        "recovery/tests/TexturePs3ResizePipelineOracle.cs",
-        "recovery/tests/fixtures/texture-main/**",
-        "src/TextureCompiler/Managed/*.csproj",
-        "src/TextureCompiler/Managed/Plugin.*.cs",
-        "src/TextureCompiler/Managed/TextureCatalog.cs",
-        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
-        "src/TextureCompiler/Managed/TextureImageLoader.cs",
-        "src/TextureCompiler/Managed/TextureImageRules.cs",
-        "src/TextureCompiler/Managed/TexturePacker.cs",
-        "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
-        "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
-        "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
-        "src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
-      ],
-      "evidence": "recovery/evidence/texture/ps3-resize-images/*/validation.json",
-      "sdk": false
-    },
     "png": {
       "script": "recovery/scripts/TestTexturePng.ps1",
       "arguments": {},
@@ -403,12 +315,10 @@
         "src/TextureCompiler/Managed/Plugin.*.cs",
         "src/TextureCompiler/Managed/TextureBmpDecoder.cs",
         "src/TextureCompiler/Managed/TextureCatalog.cs",
-        "src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs",
         "src/TextureCompiler/Managed/TextureImageLoader.cs",
         "src/TextureCompiler/Managed/TextureImageRules.cs",
         "src/TextureCompiler/Managed/TexturePacker.cs",
         "src/TextureCompiler/Managed/TexturePngDecoder.cs",
-        "src/TextureCompiler/Managed/TexturePs3MipEncoder.cs",
         "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs",
         "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs",
         "src/TextureCompiler/Managed/TextureTgaDecoder.cs",
@@ -466,52 +376,6 @@
       "evidence": "recovery/evidence/texture/sdk-rasters/PcMips/*/validation.json",
       "sdk": true
     },
-    "sdk-Ps3NoMip": {
-      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
-      "arguments": {
-        "Profile": "Ps3NoMip"
-      },
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTextureRasterSdk.ps1",
-        "recovery/tests/TextureBmpOracle.cs",
-        "recovery/tests/TexturePngOracle.cs",
-        "recovery/tests/TextureRasterFixtureWriter.cs",
-        "recovery/tests/TextureSdkTracePlugin.cs",
-        "src/TextureCompiler/Managed/*.cs",
-        "src/TextureCompiler/Managed/*.csproj",
-        "SDK/tools/**",
-        "SDK/Schemas/**"
-      ],
-      "evidence": "recovery/evidence/texture/sdk-rasters/Ps3NoMip/*/validation.json",
-      "sdk": true
-    },
-    "sdk-Ps3Mips": {
-      "script": "recovery/scripts/TestTextureRasterSdk.ps1",
-      "arguments": {
-        "Profile": "Ps3Mips"
-      },
-      "dependencies": [
-        "Directory.Build.*",
-        "NuGet.Config",
-        "SDK/tools/*.dll",
-        "global.json",
-        "recovery/scripts/TestTextureRasterSdk.ps1",
-        "recovery/tests/TextureBmpOracle.cs",
-        "recovery/tests/TexturePngOracle.cs",
-        "recovery/tests/TextureRasterFixtureWriter.cs",
-        "recovery/tests/TextureSdkTracePlugin.cs",
-        "src/TextureCompiler/Managed/*.cs",
-        "src/TextureCompiler/Managed/*.csproj",
-        "SDK/tools/**",
-        "SDK/Schemas/**"
-      ],
-      "evidence": "recovery/evidence/texture/sdk-rasters/Ps3Mips/*/validation.json",
-      "sdk": true
-    },
     "png-ranges": {
       "script": "recovery/scripts/TestTexturePngRanges.ps1",
       "arguments": {},
@@ -556,5 +420,6 @@
       "evidence_only": true,
       "sdk": false
     }
-  }
+  },
+  "targetPlatform": "Win32"
 }

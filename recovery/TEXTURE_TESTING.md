@@ -1,9 +1,9 @@
 # TextureCompiler 验证触发规则
 
-2026-10-26（北京时间），用户反馈“每次触发的测试个数太多了”。本规则优先于旧文档关于每次相关提交自动启动多条 Texture 工作流的安排。断言、Debug/Release、原版差分及 SDK 验收标准不变。
+2026-10-26（北京时间），用户反馈“每次触发的测试个数太多了”。本规则优先于旧文档关于每次相关提交自动启动多条 Texture 工作流的安排。后续仅 Win32/PC；保留 PC 的全部输入、断言、Debug/Release、原版差分及 SDK 三模式，移除非 PC 平台轴和专属组。
 
 - **普通检查点提交不启动 Windows 验证。** 整个能力批次准备好后，在阶段提交消息加 `[texture-test]`。自动验证统一由 `texture-validation.yml` 承担：一个 Linux 选择作业、至多一个 Windows 作业，选中组顺序执行，不再按组/配置创建矩阵作业。
-- `[texture-sdk]` 显式纳入受影响的四个 PNG/BMP SDK profile；普通 `[texture-test]` 不启动 SDK。同样已成功且输入未变的 SDK profile 保留原 sourceCommit/runId，不重复运行。
+- `[texture-sdk]` 显式纳入受影响的两个 PC PNG/BMP SDK profile（PcNoMip、PcMips）；普通 `[texture-test]` 不启动 SDK。同样已成功且输入未变的 SDK profile 保留原 sourceCommit/runId，不重复运行。
 - `[texture-plan]` 仅运行选择器及其单元检查并上传计划，不启动 Windows。手动入口可指定 force_groups、run_sdk 和 plan_only。
 - `TextureTestGroups.json` 明列实际消费者依赖。选择器要求完整成功的 Debug/Release 证据（SDK 则要求 Original/Recovered/NoOriginal 三组成功）、有效祖先 sourceCommit 和 runId，并比较该祖先与当前版本的依赖并集；探针、失败、不完整或非祖先记录不能跳过。原 SDK 工具 DLL 变化使相关组失效；新增/修改但未登记的实现文件按保守方式选组。
 - 新的 helper 或消费关系必须更新依赖表。已登记组改依赖时同时核对验收版本的旧依赖，不能靠删除路径隐藏变化。测试数量选择不改变选中组内部覆盖范围。
@@ -17,3 +17,8 @@
 [texture-dxt-evidence] 显式选择 dxt-symbols，用同一个集中入口采集参考库 COFF 符号；该组 manual_only/evidence_only，普通回归与 SDK 不会自动选它。收据为 probe-only，绝不能作为 DXT 恢复验收或业务组件成功证据。40236386719 实测只选此组，复用全部20个已验收组件组；13项选择器检查包含旧依赖删除、实际非祖先提交、SDK完整三模式及取证非自动触发边界。
 
 [texture-dxt-blocks] 显式选择 dxt-blocks 采集原版小块样本；同样 manual_only/evidence_only，普通回归和SDK不自动执行。40237236370只运行此组，20个已验收组件组全部复用；其probe-only收据不能作为DXT实现完成证据。
+
+
+## PC 唯一目标
+
+PS3 mip/cubic/resize 与其 SDK/取证入口已删除，Xbox360 与 unknown 平台不进入业务差分。非 PC Initialize/ReInitialize 的明确拒绝由 metadata 组检查。历史 PC/PS3 收据原样保留，但选择器须对实际变更重新验收 PC 消费组。修改仅平台专属文件时不扩展到其他编译器；公共 PC 依赖按原规则选组。

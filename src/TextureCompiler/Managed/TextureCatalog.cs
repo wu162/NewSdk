@@ -11,22 +11,22 @@ namespace Recovered.Compiler.Texture
         public const uint TerrainTextureAtlasTypeId = 1601459053u;
         public const uint AllTypesHash = 1424942948u;
 
-        // Original GetVersionNumber omits PS3 despite its declared version
-        // fields. Keep that observable omission and the unknown-platform zero.
-        public static uint Version(TargetPlatform platform)
+        // This recovered plugin supports Win32/PC only.
+        public static void RequireWin32(TargetPlatform platform)
         {
-            switch (platform)
-            {
-                case TargetPlatform.Win32: return 4202u;
-                case TargetPlatform.Xbox360: return 4605u;
-                default: return 0u;
-            }
+            if (platform != TargetPlatform.Win32)
+                throw new System.NotSupportedException("TextureCompiler supports Win32/PC only.");
         }
 
-        // Metadata uses a separate per-type/platform table, not the virtual
-        // GetVersionNumber. Unknown platforms use the PC metadata constants.
+        public static uint Version(TargetPlatform platform)
+        {
+            RequireWin32(platform);
+            return 4202u;
+        }
+
         public static ExtendedTypeInformation TypeInformation(uint typeId, TargetPlatform platform)
         {
+            RequireWin32(platform);
             ExtendedTypeInformation result = new ExtendedTypeInformation();
             result.TypeId = typeId;
             result.HasCustomData = false;
@@ -35,24 +35,22 @@ namespace Recovered.Compiler.Texture
                 case TextureTypeId:
                     result.TypeName = "Texture";
                     result.TypeHash = 2673866970u;
-                    result.ProcessingHash = platform == TargetPlatform.Xbox360 ? 2673862951u :
-                        platform == TargetPlatform.PlayStation3 ? 2673863356u : 2673862832u;
+                    result.ProcessingHash = 2673862832u;
                     break;
                 case OnDemandTextureTypeId:
                     result.TypeName = "OnDemandTexture";
                     result.TypeHash = 4165504734u;
-                    result.ProcessingHash = platform == TargetPlatform.Xbox360 ? 4165508899u :
-                        platform == TargetPlatform.PlayStation3 ? 4165508280u : 4165508788u;
+                    result.ProcessingHash = 4165508788u;
                     result.HasCustomData = true;
                     break;
                 case TerrainTextureAtlasTypeId:
                     result.TypeName = "TerrainTextureAtlas";
                     result.TypeHash = 417928170u;
-                    result.ProcessingHash = platform == TargetPlatform.Xbox360 ? 1182597248u :
-                        platform == TargetPlatform.PlayStation3 ? 1182597327u : 1182597302u;
+                    result.ProcessingHash = 1182597302u;
                     break;
             }
             return result;
         }
     }
 }
+

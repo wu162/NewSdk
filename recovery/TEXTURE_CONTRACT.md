@@ -1,5 +1,7 @@
 # TextureCompiler 输入和 SDK 调用契约
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 本页只记录当前仓库原始配置、XSD、Core 源码及原 DLL 元数据证据；不是恢复完成声明。原 DLL：`SDK/tools/BinaryAssetBuilder.TextureCompiler.dll`，SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
 
 ## 实际入口
@@ -61,3 +63,4 @@ DLL 诊断字符串可定位取证分支，但不是完整行为结论：非 DDS
 `src/TextureCompiler/Managed/TextureCatalog.cs` 和 `Plugin.Metadata.cs` 恢复上述元数据表及托管状态。Initialize 不分配原版D3D/Xenon资源或64MiB共享压缩缓冲区；Dispose不复制原版模块全局native释放，因此不能以元数据通过宣称原native生命周期等价。
 
 `recovery/tests/TexturePluginContractOracle.cs` 输出原版全部托管签名及四平台Initialize/ReInitialize/Dispose观察；`TextureMetadataOracle.cs original.dll recovered.dll` 对照原版state-only ReInitialize与恢复版Initialize/ReInitialize的元数据及托管状态，不调用原native初始化/清理。两者均不执行纹理编译或SDK集成。实际构建及运行结果以本轮脚本生成的精确证据为准，本页本身不构成成功收据。
+

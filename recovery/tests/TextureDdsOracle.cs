@@ -56,7 +56,7 @@ internal static class TextureDdsOracle
             string work = Path.GetFullPath(args[3]); Directory.CreateDirectory(work);
             string file = Path.Combine(work, "fixture.dds"), cdata = Path.Combine(work, "fixture.cdata");
             var output = new StringBuilder();
-            foreach (int platform in new int[] { 0, 2, 99 })
+            foreach(int platform in new int[]{0})
             {
                 plugin.ReInitialize(null, (TargetPlatform)platform);
                 foreach (string root in new string[] { "Texture", "OnDemandTexture" })
@@ -95,10 +95,11 @@ internal static class TextureDdsOracle
                 Run(plugin,output,platform+"/unknown",Declaration("UnknownTextureType",file,"StandardTexture","DXT1",cdata));
             }
             File.WriteAllText(args[2], output.ToString());
-            Console.WriteLine("PASS DDS oracle: "+cases+" cases; three buffers plus complete cdata; PC/PS3/unknown; preexisting tails");
+            Console.WriteLine("PASS DDS oracle: "+cases+" cases; three buffers plus complete cdata; PC; preexisting tails");
             GC.SuppressFinalize(plugin);
             return 0;
         }
         catch(Exception e) { Console.Error.WriteLine(e); return 1; }
     }
 }
+

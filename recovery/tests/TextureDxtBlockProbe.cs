@@ -95,7 +95,7 @@ internal static unsafe class TextureDxtBlockProbe
             Compressor compressor=(Compressor)Marshal.GetDelegateForFunctionPointer(IntPtr.Add(module,0x52b60),typeof(Compressor));
             using(var transcript=new StreamWriter(Path.Combine(output,"transcript.tsv"))){
                 transcript.WriteLine("platform\tformat\tpattern\tbytes\tsha256\tinputBefore\tinputAfter\tcallbacks");
-                foreach(int platform in new[]{0,2}){
+                foreach(int platform in new int[]{0}){
                     reinitialize.Invoke(plugin,new object[]{null,Enum.ToObject(platformType,platform)});
                     foreach(string format in new[]{"D3DFMT_DXT1","D3DFMT_DXT1A","D3DFMT_DXT3","D3DFMT_DXT5"})
                     for(int pattern=0;pattern<8;pattern++){
@@ -122,3 +122,4 @@ internal static unsafe class TextureDxtBlockProbe
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}finally{if(owner!=null)owner.Dispose();}
     }
 }
+

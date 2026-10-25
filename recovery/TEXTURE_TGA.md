@@ -1,5 +1,7 @@
 # TGA decoder subset and original-load oracle
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 `src/TextureCompiler/Managed/TextureTgaDecoder.cs` is an independently written CPU decoder. It remains opt-in through `TexturePacker(TextureTgaDecoder.Load)`; it does not install itself as the default loader or call the original DLL. SDK and compression acceptance are separate.
 
 ## Current behavior
@@ -54,3 +56,4 @@ Build x86 CLR4 `/unsafe /r:Recovered.BinaryAssetBuilder.TextureCompiler.dll`, us
 ## Final immutable acceptance
 
 Source commit `0cd42405f5b757c72383040d2f1ff820c31d29bf`, run [40195290786](https://github.com/wu162/NewSdk/actions/runs/40195290786) attempt1 passed. The exact receipt is [evidence/texture/tga/40195290786-1/validation.json](evidence/texture/tga/40195290786-1/validation.json), with source/input hashes and full transcript archive. Debug and Release each checked all 1,675 fixtures: 1,421 complete-pixel/alpha decoding matches, 252 exact original rejection matches, 2 explicit unsupported original-success anomalies, zero mismatches. All three pinned real main-branch TGA files are included in the decoding matches. The two unsupported inputs are not counted as equivalent decoding passes. No compression or full SDK acceptance is implied.
+

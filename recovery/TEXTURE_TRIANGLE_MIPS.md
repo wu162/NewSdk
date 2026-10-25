@@ -1,5 +1,7 @@
 # Win32 raw triangle mip恢复
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 源码src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs；无mip RawEncoder API不变。输入为RGBA，输出A8R8G8B8/X8R8G8B8/R5G6B5旧DDS完整mip链，仅Win32默认options profile；不等于DXT压缩或PS3限三级语义。
 
 精确规则：每级直接从base独立重采样；triangle越界裁剪后归一化，权重乘统一倒数；中间图较小的轴先，tie先vertical；每tap double乘加后存float32；按原量化舍入。不得用递归缩图、clamp、先舍入乘积或逐项权重除法替换。
@@ -11,3 +13,4 @@
 PS3、Xenon、NPOT重采样及DXT仍不在本helper验收范围。SDK的原native初始化可能影响FPU，因此独立组件成功不能代替真实SDK，现已分别保存两种证据。
 
 2026-10-25第三轮补充：独立TexturePs3MipEncoder及TextureVolumeMipEncoder已完成组件与专用MOD真实SDK验收，分别保留PS3固定三份payload和体积递归先Z后XY算法；本二维helper自身的base-relative契约不变。见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。NPOT及PS3自动resize仍未支持。
+

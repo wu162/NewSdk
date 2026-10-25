@@ -70,18 +70,29 @@ internal static class TextureMetadataOracle
             object original = Activator.CreateInstance(originalType);
             object recovered = Activator.CreateInstance(recoveredType);
             Compare(original, recovered, "constructorDefaults");
-            foreach (int target in new int[] { 0, 1, 2, 99, -1 })
+            foreach(int target in new int[]{0})
             {
                 object platform = Enum.ToObject(platformType, target);
                 Call(originalType, original, "ReInitialize", null, platform);
                 Call(recoveredType, recovered, "Initialize", null, platform);
                 Compare(original, recovered, "initialize-managedState/" + target);
                 CheckManagedState(recovered, platform, "initialize-managedState/" + target);
-                object second = Enum.ToObject(platformType, target == 0 ? 2 : 0);
+                object second = Enum.ToObject(platformType, 0);
                 Call(originalType, original, "ReInitialize", new object(), second);
                 Call(recoveredType, recovered, "ReInitialize", new object(), second);
                 Compare(original, recovered, "reinitialize/" + target);
                 CheckManagedState(recovered, second, "reinitialize/" + target);
+            }
+            // Non-PC requests must fail before changing the accepted PC state.
+            foreach (int unsupported in new int[] { 1, 2, 99, -1 })
+            foreach (string method in new string[] { "Initialize", "ReInitialize" })
+            {
+                bool rejected = false;
+                try { Call(recoveredType, recovered, method, null, Enum.ToObject(platformType, unsupported)); }
+                catch (TargetInvocationException e) { rejected = e.InnerException is NotSupportedException; }
+                Equal(true, rejected, method + "/unsupported/" + unsupported);
+                CheckManagedState(recovered, Enum.ToObject(platformType, 0), "unchangedAfterRejectedPlatform");
+                Compare(original, recovered, "unchangedAfterRejectedPlatform");
             }
             ((IDisposable)recovered).Dispose();
             Compare(original, recovered, "afterRecoveredDispose");
@@ -94,3 +105,4 @@ internal static class TextureMetadataOracle
         catch (Exception exception) { Console.Error.WriteLine(exception); return 1; }
     }
 }
+

@@ -64,7 +64,7 @@ internal static class TextureVolumePipelineOracle
             var recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));
             original.Initialize(null,TargetPlatform.Win32);
             try{
-                foreach(int platform in new[]{0,2,99}){
+                foreach(int platform in new int[]{0}){
                     original.ReInitialize(null,(TargetPlatform)platform);recovered.Initialize(null,(TargetPlatform)platform);
                     foreach(string root in new[]{"Texture","OnDemandTexture"})
                     foreach(string format in new[]{"A8R8G8B8","X8R8G8B8","R5G6B5"})
@@ -80,8 +80,9 @@ internal static class TextureVolumePipelineOracle
                     }
                 }
             }finally{((IDisposable)original).Dispose();((IDisposable)recovered).Dispose();}
-            Console.WriteLine("PASS Texture mip ProcessInstance differential fixtures="+fixtures+" errors="+errors+" unsupportedResampling="+unsupportedResampling+" comparedBytes="+compared+"; PC/PS3/unknown raw volume no mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance");return 0;
+            Console.WriteLine("PASS Texture mip ProcessInstance differential fixtures="+fixtures+" errors="+errors+" unsupportedResampling="+unsupportedResampling+" comparedBytes="+compared+"; PC raw volume no mips; generated horizontal strips; three buffers and full cdata; no SDK acceptance");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
 

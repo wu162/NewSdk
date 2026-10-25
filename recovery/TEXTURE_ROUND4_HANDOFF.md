@@ -1,5 +1,7 @@
 # TextureCompiler 第四轮交接
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 2026-10-25 15:29 UTC开始，约40分钟。单代理；未启动子代理。工作分支 `recovery/texturecompiler-source`；禁止force push。按用户要求积极参考公开实现，Xbox360/Xenon专用实现及验收已剔除，PC/PS3共享依赖保留。
 
 ## 已完成
@@ -51,3 +53,4 @@
 剩余主要工作：DXT1/DXT1A/DXT3/DXT5压缩核心；PNG/JPEG及NPOT D3DX重采样；剩余TGA特殊metadata边界；完整TerrainTextureAtlas压缩入口；原native生命周期以及PC/PS3共享XGraphics依赖审计。Xbox360专用tiling/header/XenonBundler不在任务内。先选一个可独立验收的能力批次，先固定原版安全输入和确定输出，再实现和组件/实际入口/真实SDK对照；不要把整DLL称为完整还原。
 
 本轮公开参考及原native取证过程见TEXTURE_CUBIC_RESIZE.md；两遍滤波参考实现的坐标和量化不等同于旧nvDDS，不能凭公开实现相似就跳过原版差分。所有历史失败和原取证artifact保留，不能以改摘要、放宽比较或隐藏回退掩盖差异。
+

@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        profile: [Ps3Mips, VolumePc, VolumePs3]
+        profile: [VolumePc]
     runs-on: windows-2022
     timeout-minutes: 25
     steps:
@@ -30,4 +30,5 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/sdk-new-paths/${{ matrix.profile }}/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.profile }} actual SDK run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+
 

@@ -1,4 +1,4 @@
-param([ValidateSet('VolumeMipPc','VolumeMipPs3')][string]$Profile='VolumeMipPc',[int]$TimeoutSeconds=300)
+param([ValidateSet('VolumeMipPc')][string]$Profile='VolumeMipPc',[int]$TimeoutSeconds=300)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
@@ -6,7 +6,7 @@ $out="recovery/evidence/texture/sdk-volume-mips/$Profile/$env:GITHUB_RUN_ID-$env
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated 18-asset raw volume mip fixture MOD';profile=$Profile;targetPlatform=$(if($Profile -eq 'VolumeMipPc'){'Win32'}else{'PlayStation3'});modes=@();inputs=(Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw|ConvertFrom-Json)}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated 18-asset raw volume mip fixture MOD';profile=$Profile;targetPlatform='Win32';modes=@();inputs=(Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw|ConvertFrom-Json)}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -76,4 +76,5 @@ try{
  $env:RA3_TEXTURE_SDK_TRACE=$null
  $r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"
 }
+
 

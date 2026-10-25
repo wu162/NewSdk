@@ -166,7 +166,7 @@ internal static unsafe class TextureImageRulesOracle
                 uint[] sizes = { 0u, 1u, 2u, 3u, 4u, 63u, 64u, 1024u, 2048u, 4095u, 4096u, 8192u, 16384u, 65536u, 0x40000000u, 0x80000000u, uint.MaxValue };
                 foreach (uint width in sizes) foreach (uint height in sizes) ValidCase(width, height);
                 string[] formats = { "D3DFMT_A8R8G8B8", "D3DFMT_DXT1", "D3DFMT_DXT1A", "D3DFMT_DXT3", "D3DFMT_DXT5", "D3DFMT_X8R8G8B8", "D3DFMT_R5G6B5", "D3DFMT_UNKNOWN", "d3dfmt_dxt5", "", null };
-                foreach (int platform in new int[] { 0, 1, 2, 99 })
+                foreach(int platform in new int[]{0})
                 {
                     platformField.SetValue(plugin, Enum.ToObject(platformField.FieldType, platform));
                     foreach (string format in formats) foreach (bool mipmaps in new bool[] { false, true })
@@ -182,7 +182,7 @@ internal static unsafe class TextureImageRulesOracle
                 catch (ArgumentException) { rejected = true; }
                 Check(rejected, "managed native-storage guard");
             }
-            Console.WriteLine("PASS Texture pure image rules: records=" + records + "; checks=" + checks + "; platforms=0,1,2,99; no D3D/compression/SDK claims");
+            Console.WriteLine("PASS Texture pure image rules: records=" + records + "; checks=" + checks + "; platforms=0; no D3D/compression/SDK claims");
             return 0;
         }
         catch (Exception ex)
@@ -192,3 +192,4 @@ internal static unsafe class TextureImageRulesOracle
         }
     }
 }
+

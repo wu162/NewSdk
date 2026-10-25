@@ -1,5 +1,7 @@
 # TextureCompiler native support reconstruction
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 Input: `SDK/tools/BinaryAssetBuilder.TextureCompiler.dll`, SHA256
 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`.
 Original image base is `0x10000000`; addresses below are RVAs, not absolute addresses.
@@ -69,3 +71,4 @@ Xbox-specific header/surface/tiling conversion are excluded from recovery and
 acceptance targets. Shared image/device/resource routines needed by PC/PS3
 remain in scope, including any such routines exposed through XGraphics names. The two constant facades must not be interpreted as
 providing those larger algorithms or making a working graphics device.
+

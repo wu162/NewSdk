@@ -29,9 +29,6 @@ namespace Recovered.Compiler.Texture
             }
             bool mipmaps = bool.Parse(declaration.Node.Attributes["GenerateMipMaps"].Value);
             string textureType = declaration.Node.Attributes["Type"].Value;
-            bool resize = bool.Parse(declaration.Node.Attributes["AllowAutomaticResize"].Value);
-            if (_Platform == TargetPlatform.Xbox360)
-                throw new NotSupportedException("Xenon image bundling has not been recovered.");
             if (!file.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && !file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
                 throw new NotSupportedException("Only the declared TGA/PNG/BMP image decoder subsets have been recovered.");
 
@@ -62,34 +59,14 @@ namespace Recovered.Compiler.Texture
                     case "VolumeTexture":
                         byte[] volumeDds = mipmaps
                             ? TextureVolumeMipEncoder.EncodeStrip((uint)image.Width, (uint)image.Height,
-                                rgba, format, _Platform == TargetPlatform.PlayStation3)
+                                rgba, format)
                             : TextureVolumeRawDdsEncoder.EncodeStrip((uint)image.Width,
                                 (uint)image.Height, rgba, format, false);
                         result = EmbedDds(volumeDds, !onDemand, _Platform);
                         break;
                     case "StandardTexture":
-                        // PS3's automatic resizing modifies dimensions and filtering
-                        // for >256 textures before encoding. Do not silently omit it.
-                        if (_Platform == TargetPlatform.PlayStation3 && resize && (image.Width > 256 || image.Height > 256))
-                        {
-                            uint targetWidth = (uint)image.Width, targetHeight = (uint)image.Height;
-                            while (targetWidth > 256 || targetHeight > 256)
-                            {
-                                targetWidth >>= 1; targetHeight >>= 1;
-                            }
-                            if (targetWidth == 0 || targetHeight == 0)
-                                throw new NotSupportedException("PS3 automatic resize producing a zero axis has not been accepted.");
-                            byte[] resizedDds = TextureCubicResizeEncoder.Encode((uint)image.Width,
-                                (uint)image.Height, targetWidth, targetHeight, rgba, format, mipmaps);
-                            result = EmbedDds(resizedDds, !onDemand, _Platform);
-                            break;
-                        }
-                        if (mipmaps && _Platform != TargetPlatform.Win32 && _Platform != TargetPlatform.PlayStation3)
-                            throw new NotSupportedException("Raw mip encoding is accepted only for Win32 and PS3 option profiles.");
                         byte[] dds = mipmaps
-                            ? (_Platform == TargetPlatform.PlayStation3
-                                ? TexturePs3MipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
-                                : TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format))
+                            ? TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
                             : TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, false);
                         result = EmbedDds(dds, !onDemand, _Platform);
                         break;
@@ -111,5 +88,6 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+
 
 

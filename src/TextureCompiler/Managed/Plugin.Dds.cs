@@ -10,6 +10,7 @@ namespace Recovered.Compiler.Texture
         // Original ProcessInstance switches on Handle.TypeId, never XML element name.
         public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
         {
+            TextureCatalog.RequireWin32(_Platform);
             switch (declaration.Handle.TypeId)
             {
                 case TextureCatalog.TextureTypeId: return CompileTexture(declaration, false);
@@ -22,26 +23,24 @@ namespace Recovered.Compiler.Texture
             }
         }
 
-        private static void Write32(byte[] data, int offset, uint value, bool big)
+        private static void Write32(byte[] data, int offset, uint value)
         {
-            for (int i = 0; i < 4; i++) data[offset + i] = (byte)(value >> (8 * (big ? 3 - i : i)));
+            for (int i = 0; i < 4; i++) data[offset + i] = (byte)(value >> (8 * i));
         }
 
         private static AssetBuffer EmbedDds(byte[] bytes, bool rootTexture, TargetPlatform platform)
         {
+            TextureCatalog.RequireWin32(platform);
             int root = rootTexture ? 12 : 8;
             int pointer = rootTexture ? 4 : 0;
             // Tracker::Allocate rounds EACH block to four bytes and zero-fills padding.
             byte[] data = new byte[checked(root + ((bytes.Length + 3) & ~3))];
-            bool big = platform != TargetPlatform.Win32;
-            Write32(data, pointer, (uint)root, big);
-            // Original ProcessTexture swaps the byte count only for PS3. Unknown
-            // platforms use big-endian relocations but keep this count little-endian.
-            Write32(data, pointer + 4, (uint)bytes.Length, platform == TargetPlatform.PlayStation3);
+            Write32(data, pointer, (uint)root);
+            Write32(data, pointer + 4, (uint)bytes.Length);
             Buffer.BlockCopy(bytes, 0, data, root, bytes.Length);
             byte[] relocations = new byte[8];
-            Write32(relocations, 0, (uint)pointer, big);
-            Write32(relocations, 4, uint.MaxValue, big);
+            Write32(relocations, 0, (uint)pointer);
+            Write32(relocations, 4, uint.MaxValue);
             return new AssetBuffer { InstanceData = data, RelocationData = relocations, ImportsData = new byte[0] };
         }
 
@@ -57,8 +56,6 @@ namespace Recovered.Compiler.Texture
             bool mipmaps = bool.Parse(declaration.Node.Attributes["GenerateMipMaps"].Value);
             string textureType = declaration.Node.Attributes["Type"].Value;
             bool resize = bool.Parse(declaration.Node.Attributes["AllowAutomaticResize"].Value);
-            if (_Platform == TargetPlatform.Xbox360)
-                throw new NotSupportedException("Xenon DDS bundling has not been recovered.");
             // Preserve the case-sensitive original suffix test. Core normally lowercases paths.
             if (!file.EndsWith(".dds"))
                 throw new NotSupportedException("Image decoding and nvDDS texture compression have not been recovered.");
@@ -72,20 +69,19 @@ namespace Recovered.Compiler.Texture
 
         private AssetBuffer FinishOnDemand(InstanceDeclaration declaration, string textureType, AssetBuffer result)
         {
-            bool big = _Platform != TargetPlatform.Win32;
             // OnDemandTexture root has only a zero runtime pointer and an enum.
             // The original writes the enum directly without an endian conversion.
             uint type = textureType == "StandardTexture" ? 0u : textureType == "VolumeTexture" ? 1u : 2u;
             byte[] outer = new byte[8];
-            Write32(outer, 4, type, false);
+            Write32(outer, 4, type);
             byte[] header = new byte[32];
-            Write32(header, 0, declaration.Handle.TypeId, big);
-            Write32(header, 4, declaration.Handle.InstanceId, big);
-            Write32(header, 8, declaration.Handle.TypeHash, big);
-            Write32(header, 12, declaration.Handle.InstanceHash, big);
-            Write32(header, 16, (uint)result.InstanceData.Length, big);
-            Write32(header, 20, (uint)result.RelocationData.Length, big);
-            Write32(header, 24, (uint)result.ImportsData.Length, big);
+            Write32(header, 0, declaration.Handle.TypeId);
+            Write32(header, 4, declaration.Handle.InstanceId);
+            Write32(header, 8, declaration.Handle.TypeHash);
+            Write32(header, 12, declaration.Handle.InstanceHash);
+            Write32(header, 16, (uint)result.InstanceData.Length);
+            Write32(header, 20, (uint)result.RelocationData.Length);
+            Write32(header, 24, (uint)result.ImportsData.Length);
             // File.OpenWrite intentionally retains any previous trailing bytes.
             using (FileStream stream = File.OpenWrite(declaration.CustomDataPath))
             {
@@ -97,3 +93,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

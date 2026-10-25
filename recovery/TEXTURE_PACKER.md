@@ -1,5 +1,7 @@
 # TexturePacker IL 恢复
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 源码：`src/TextureCompiler/Managed/TexturePacker.cs`。输入为内存 RGBA Image，或由显式 ImageLoader 委托提供图像；默认文件解码仍未恢复。此类不依赖原 TextureCompiler DLL。下面的算法来自原 DLL 的 IL，不是通用装箱器近似。
 
 原始证据：`recovery/evidence/texture/runs/40191971356-1/decompiled/-Module-.cs` 的 TexturePacker 相关方法，原 DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
@@ -58,3 +60,4 @@ TexturePackerOracle.exe SDK/tools/BinaryAssetBuilder.TextureCompiler.dll
 64个样例覆盖数量0、1、2、3、4、7、8、9、10、21、22、28、29、32、49、50；每组包括反序ID、重复ID、全等uint.MaxValue、混合0/0x80000000/uint.MaxValue，以及有/无normal。比较返回/异常、packed状态、全部atlas像素、每项ID和四坐标、原source释放、打包后Add no-op。重ID结果可检出不等价排序；含坐标像素模式可检出边框clamp或提前排序。测试不冒充文件解码、native生命周期、压缩或SDK验收。
 
 此文档不是运行成功收据；以实际运行sourceCommit、runId和测试结果为准。
+

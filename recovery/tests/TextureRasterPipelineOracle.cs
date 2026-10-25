@@ -52,7 +52,7 @@ internal static class TextureRasterPipelineOracle
             var recovered=(IAssetBuilderPlugin)Activator.CreateInstance(Assembly.LoadFrom(rd).GetType("Recovered.Compiler.Texture.Plugin",true));
             original.Initialize(null,TargetPlatform.Win32);
             try{
-                foreach(int platform in new[]{0,2}){
+                foreach(int platform in new int[]{0}){
                     original.ReInitialize(null,(TargetPlatform)platform);recovered.Initialize(null,(TargetPlatform)platform);
                     foreach(string raster in new[]{"png","bmp","bmp565","bmp555","bmp32fields"})
                     foreach(int color in raster=="png"?new[]{0,2,3,4,6}:new[]{0})
@@ -71,8 +71,9 @@ internal static class TextureRasterPipelineOracle
                     }
                 }
             }finally{((IDisposable)original).Dispose();((IDisposable)recovered).Dispose();}
-            Console.WriteLine("PASS Texture image ProcessInstance differential fixtures="+fixtures+" errors="+errors+" unsupportedRgb16="+unsupportedResampling+" comparedBytes="+compared+"; PC/PS3; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance");return 0;
+            Console.WriteLine("PASS Texture image ProcessInstance differential fixtures="+fixtures+" errors="+errors+" unsupportedRgb16="+unsupportedResampling+" comparedBytes="+compared+"; PC; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance");return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
     }
 }
+
 

@@ -1,5 +1,7 @@
 # Additional TGA format group
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 This independent group leaves the accepted raw24/raw32/metadata `TextureTgaDecoder.cs` and all 1,675 earlier cases unchanged. New implementation: `src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs`; new differential: `recovery/tests/TextureTgaFormatsOracle.cs`. No original-DLL delegation, Plugin/default-loader wiring, or workflow changes are made here.
 
 ## Original behavior established by probe
@@ -43,3 +45,4 @@ Build x86 CLR4 `/unsafe /r:Recovered.BinaryAssetBuilder.TextureCompiler.dll`, le
 `TextureTgaFormatsOracle.exe original.dll transcript.txt fixtures-dir --probe|--strict`
 
 Probe records differences without acceptance. Strict fails any unexpected acceptance/rejection/pixel/alpha result and hard-checks total 4,534 and exact 2,606/1,928 accounting. It never calls rejections successful image decodes and never reruns the old 1,675 group. No SDK integration is implied.
+

@@ -1,4 +1,4 @@
-param([ValidateSet('PcNoMip','PcMips','Ps3NoMip','Ps3Mips')][string]$Profile='PcNoMip',[int]$TimeoutSeconds=300)
+param([ValidateSet('PcNoMip','PcMips')][string]$Profile='PcNoMip',[int]$TimeoutSeconds=300)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 Set-Location $root
@@ -6,7 +6,7 @@ $out="recovery/evidence/texture/sdk-rasters/$Profile/$env:GITHUB_RUN_ID-$env:GIT
 $work=Join-Path $env:RUNNER_TEMP ('texture-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated PNG/BMP standard and volume fixture MOD';profile=$Profile;targetPlatform=$(if($Profile.StartsWith('Ps3')){'PlayStation3'}else{'Win32'});modes=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='EALAModStudio case5 BAB build of dedicated PNG/BMP standard and volume fixture MOD';profile=$Profile;targetPlatform='Win32';modes=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 60;throw "$name failed"}}
 try{
  Checked recovered-build {dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release -o "$work/build" --nologo}
@@ -89,5 +89,6 @@ try{
  }
  $r|ConvertTo-Json -Depth 14|Set-Content "$out/validation.json"
 }
+
 
 

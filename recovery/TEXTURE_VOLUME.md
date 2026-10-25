@@ -1,5 +1,7 @@
 # 体积条带与 RGBAMipMappedVolumeMap 恢复
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 实现：`src/TextureCompiler/Managed/TextureVolume.cs`。验证宿主：`recovery/tests/TextureVolumeOracle.cs`。本组是纯 IL 的图像分片及 vector 逻辑恢复，不包含原 nvDDS 体积压缩器，也不包含 mip 滤波生成。
 
 原证据：`recovery/evidence/texture/runs/40191971356-1/decompiled/-Module-.cs`，DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。
@@ -64,3 +66,4 @@ TextureVolumeOracle.exe SDK/tools/BinaryAssetBuilder.TextureCompiler.dll
 
 
 2026-10-25第三轮补充：本页纯IL helper不变，独立TextureVolumeRawDdsEncoder/TextureVolumeMipEncoder已接入插件并取得PC/PS3真实SDK三组逐字节对照；精确范围、算法及锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。
+

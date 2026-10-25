@@ -3,7 +3,7 @@ $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
 $out="recovery/evidence/texture/dxt-blocks/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
 $work=Join-Path $env:RUNNER_TEMP ('dxt-blocks-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work|Out-Null;$out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='Original-only PC/PS3 4x4 no-mip DXT1/DXT1A/DXT3/DXT5 samples; not recovery acceptance'}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';probeOnly=$true;evidenceOnly=$true;sdkValidated=$false;scope='Original-only PC 4x4 no-mip DXT1/DXT1A/DXT3/DXT5 samples; not recovery acceptance'}
 function Run([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 30;throw "$name failed"}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -20,3 +20,4 @@ try{
  Remove-Item "$out/samples" -Recurse -Force
  $r.status='probe-only'
 }finally{$r|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}
+

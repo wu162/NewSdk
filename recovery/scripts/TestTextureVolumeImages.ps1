@@ -5,7 +5,7 @@ $out="recovery/evidence/texture/volume-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN
 $work=Join-Path $env:RUNNER_TEMP ('texture-images-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
-$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='actual ProcessInstance image entry; supported TGA to raw volume DDS (PC/PS3/unknown, no mips); three buffers/full cdata';configurations=@()}
+$r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkValidated=$false;scope='actual ProcessInstance image entry; supported TGA to raw volume DDS (PC, no mips); three buffers/full cdata';configurations=@()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 40;throw "$name failed"};Get-Content "$out/$name.log" | Where-Object {$_ -match '^PASS '}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -19,4 +19,5 @@ try{
  }
  $r.status='passed'
 }finally{$r|ConvertTo-Json -Depth 10|Set-Content "$out/validation.json"}
+
 

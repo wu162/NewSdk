@@ -1,5 +1,7 @@
 # PS3 cubic 自动缩放：正式源码与 SDK 已验收
 
+> **历史记录：自 2026-10-26 起仅以 Win32/PC 为目标。本文非 PC 能力、旧待办和旧平台矩阵不再适用；当前实现与计划以 [TEXTURECOMPILER.md](TEXTURECOMPILER.md) 为准。原 sourceCommit/runId 仅证明原验收版本，不代表本轮删除后的代码已验证。**
+
 2026-10-25，第四轮约40分钟，单代理；Xbox360不在恢复目标内。正式恢复源码为根 `src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs`，已经接入 `Plugin.Images.cs`。默认项目直接编译该类；不再存在独立实验 DLL 的验收替代正式构建。
 
 ## 能力与边界
@@ -39,3 +41,4 @@ NPOT D3DX resize、PNG/JPEG、DXT 和完整 atlas 入口仍未实现。右移会
 ## 公开实现参考
 
 本轮查阅 [NVIDIA Texture Tools FloatImage](https://github.com/castano/nvidia-texture-tools/blob/master/src/nvimage/FloatImage.cpp)、[ScummVM 2PassScale](https://github.com/scummvm/scummvm/blob/master/engines/qdengine/qdcore/util/2PassScale.h)、FreeImage Toolkit Resize 和 [TwelveMonkeys ResampleOp](https://github.com/haraldk/TwelveMonkeys/blob/master/common/common-image/src/main/java/com/twelvemonkeys/image/ResampleOp.java) 的公开实现，比较两遍滤波、B-spline及边界处理。各版本的坐标、顺序和量化不同，不能直接当旧nvDDS的等价替代。实际修正取自原DLL指令与保持输出不变的探针；没有粘贴这些项目的源码。下一轮可继续积极参考公开实现，以原版逐字节对照为验收标准。
+
