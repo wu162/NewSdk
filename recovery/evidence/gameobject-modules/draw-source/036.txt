@@ -1,0 +1,6 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 9e9e2e2fc8a0347cfe86aefd6067dac7f0fde8172b1ae3c21c9909d9ba40381e
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AW3DSpotlightDrawModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		Marshaler_002EEndianCorrect((W3DSpotlightDrawModuleData*)(int)(*(uint*)pointer), endian);
+	}

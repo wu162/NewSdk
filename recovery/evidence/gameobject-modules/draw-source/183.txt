@@ -1,0 +1,14 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 8504a9169339f5584550a871228c85d195443e4c779c9bdfa670fa0dead3068f
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, DrawModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 2u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = -681733214;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (ModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

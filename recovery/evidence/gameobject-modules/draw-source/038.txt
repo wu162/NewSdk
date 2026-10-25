@@ -1,0 +1,8 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 ca04f4d6a7f66958f27bb0b80ba9f82b2eb9e093fb4ac5102a6ce756178039b9
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrectPolymorphicType_003Cstruct_0020SageBinaryData_003A_003AW3DTankDrawModuleData_002Cstruct_0020SageBinaryData_003A_003AModuleData_003E(ModuleData** pointer, EndianHelper* endian)
+	{
+		W3DTankDrawModuleData* ptr = (W3DTankDrawModuleData*)(int)(*(uint*)pointer);
+		Marshaler_002EEndianCorrect_003Cstruct_0020SageBinaryData_003A_003AArticulationBone_003E((List_003CSageBinaryData_003A_003AArticulationBone_003E*)((byte*)ptr + 220), endian);
+		Marshaler_002EEndianCorrect((W3DScriptedModelDrawModuleData*)ptr, endian);
+	}

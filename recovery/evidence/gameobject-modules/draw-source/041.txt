@@ -1,0 +1,22 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 06a1a61ab7dd63106dbeef35fe15ff5b3388175f4381d5078d482f1b12e30f33
+// Literals: {}
+internal unsafe static void Marshaler_002EEndianCorrect_003Cenum_0020ModelConditionFlagType_002C456_003E(BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* target, EndianHelper* endian)
+	{
+		BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E* ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)target + 2);
+		uint num = 15u;
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out uint num2);
+		do
+		{
+			if (*(bool*)endian)
+			{
+				*(sbyte*)(&num2) = ((sbyte*)ptr)[1];
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 1)) = *(sbyte*)ptr;
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 2)) = *((sbyte*)ptr - 1);
+				System.Runtime.CompilerServices.Unsafe.As<uint, sbyte>(ref System.Runtime.CompilerServices.Unsafe.AddByteOffset(ref num2, 3)) = *((sbyte*)ptr - 2);
+				*(uint*)((byte*)ptr - 2) = num2;
+			}
+			ptr = (BitFlags_003C456_002Cenum_0020ModelConditionFlagType_003E*)((byte*)ptr + 4);
+			num--;
+		}
+		while (num != 0);
+	}

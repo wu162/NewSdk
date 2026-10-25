@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 a101496b5ecbe0956ac57b80e3ce08c569233303391322c3bb93bbeb6a982b48
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsDrawPriority_002Cclass_0020Relo_003A_003ATracker_003E(IValue* value, DynamicsDrawPriority* @object, Tracker* state)
+	{
+		if (value != null)
+		{
+			EnumNameGetter_003Cint_003E.EnumPair* ptr = EnumLookup_002EFindNVPair_003Cstruct_0020EnumNameGetter_003Cint_003E_003A_003AEnumPair_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)value)))((nint)value), (EnumNameGetter_003Cint_003E.EnumPair*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003FA0xf4a5029c_002E_003FenumMap_0040_003F1_003F_003FGetValue_0040_003F_0024EnumNameGetter_0040W4DynamicsDrawPriority_0040SageBinaryData_0040_0040_0040_0040SA_003FBW4DynamicsDrawPriority_0040SageBinaryData_0040_0040PBDPA_N_0040Z_00404QBUEnumPair_0040_003F_0024EnumNameGetter_0040H_0040_0040B), 3u);
+			int num = ((ptr == null) ? 2 : ((int*)ptr)[1]);
+			*@object = (DynamicsDrawPriority)num;
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)value + 4)))((nint)value);
+		}
+	}

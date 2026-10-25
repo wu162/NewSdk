@@ -1,0 +1,70 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 4b386af0cf08ede0a5dccce9b63fd8d087857e06edb7877cd2a6d2c6d23064bf
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, W3DDynamicsDrawModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 11u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 1322199627;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (W3DScriptedModelDrawModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -55611227;
+		((int*)ptr)[1] = 1231950365;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 216, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1758176756;
+		((int*)ptr)[1] = -835940887;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 220, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 234120523;
+		((int*)ptr)[1] = 1098088443;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 224, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -921503344;
+		((int*)ptr)[1] = -203645582;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 228, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 2003221980;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 232, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1744685869;
+		((int*)ptr)[1] = 1683514611;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 236, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1454433568;
+		((int*)ptr)[1] = 2011428087;
+		Relo_002ETracker_002EBookmarkMemberOffset(state, (byte*)@object + 248, (void**)((byte*)ptr + 8));
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -858858522;
+		((int*)ptr)[1] = 689013301;
+		byte* num = (byte*)@object + 240;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Tokenizer_002ETokenize(ptr2, (DynamicsBoneVolumeSetType*)(int)num2, state);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 1411793767;
+		((int*)ptr)[1] = 703544202;
+		byte* num3 = (byte*)@object + 244;
+		void** ptr3 = (void**)((byte*)ptr + 8);
+		uint num4 = *(uint*)num3;
+		if (num4 != 0)
+		{
+			Tokenizer_002ETokenize(ptr3, (DynamicsLifetime*)(int)num4, state);
+		}
+		else
+		{
+			*(int*)ptr3 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

@@ -1,0 +1,32 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 707b2dd2d1ed7ec9ba0e31e133fba2c40aec47237588760ad070fb15ffa7ab3e
+// Literals: {}
+internal unsafe static void Tokenizer_002ETokenize(void** table, W3DTankDrawModuleData* @object, Tracker* state)
+	{
+		ProcTableElement* ptr = (ProcTableElement*)Relo_002ETracker_002EPush(state, table, 12u, 4u);
+		*(int*)ptr = 1;
+		((int*)ptr)[1] = 1322199627;
+		Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (W3DScriptedModelDrawModuleData*)@object, state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 708120020;
+		((int*)ptr)[1] = -1493220015;
+		byte* num = (byte*)@object + 216;
+		void** ptr2 = (void**)((byte*)ptr + 8);
+		uint num2 = *(uint*)num;
+		if (num2 != 0)
+		{
+			Relo_002ETracker_002EBookmarkMemberOffset(state, (void*)(int)num2, ptr2);
+		}
+		else
+		{
+			*(int*)ptr2 = 0;
+		}
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = -1006403637;
+		((int*)ptr)[1] = -1006403637;
+		Tokenizer_002ETokenize_003Cstruct_0020SageBinaryData_003A_003AArticulationBone_003E((void**)((byte*)ptr + 8), (List_003CSageBinaryData_003A_003AArticulationBone_003E*)((byte*)@object + 220), state);
+		ptr = (ProcTableElement*)((byte*)ptr + 12);
+		*(int*)ptr = 0;
+		((int*)ptr)[1] = 0;
+		((int*)ptr)[2] = 0;
+		((int*)((byte*)state + 4))[1] += -4;
+	}

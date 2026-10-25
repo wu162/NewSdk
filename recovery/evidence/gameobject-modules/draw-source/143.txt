@@ -1,0 +1,12 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 b5ffc514abf9a77fbb86a19d30409d9967ae562a05fd18f29227d6859f08c126
+// Literals: {}
+internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_002Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_003E_0020_003E(INode* node, AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E** pointer, Tracker* tracker)
+	{
+		if (node != null)
+		{
+			Relo_002ETracker_002EPush(tracker, (void**)pointer, 4u, 1u);
+			AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E* ptr = (AssetReference_003CSageBinaryData_003A_003ATerrainParticleMapping_002CSageBinaryData_003A_003ATerrainParticleMapping_003E*)(int)(*(uint*)pointer);
+			Marshaler_002EMarshal_003Cstruct_0020Relo_003A_003AAssetReference_003Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_002Cstruct_0020SageBinaryData_003A_003ATerrainParticleMapping_003E_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, IValue*>)(int)(*(uint*)(*(int*)node + 16)))((nint)node), ptr, tracker);
+			((int*)((byte*)tracker + 4))[1] += -4;
+		}
+	}

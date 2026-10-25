@@ -37,6 +37,10 @@ from GenerateUpgradeFields import enum_values
 pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
 enumNames=sorted(set(re.findall(r'EnumNameGetter_0040W4([A-Za-z][A-Za-z0-9]*)_0040', '\n'.join(bodies.values()))))
 manifest['peEnums']={name:enum_values(s,pe,name) for name in enumNames}
+for line in s.splitlines():
+ if line.strip().startswith('internal') and 'FastHashInternal_002EFastHashFn(' in line:
+  sig=line.strip();bodies[sig]=body_of(s,sig)
+manifest['durationConstantEvidence']=[line.strip() for line in s.splitlines() if 'LOGICFRAMES_PER_MSEC_REAL =' in line]
 # Preserve archive numbering independently of hash-randomized dependency traversal.
 # New archives use sorted signatures; existing archives retain their verified signature order.
 if (E/'manifest.json').exists():
@@ -46,10 +50,6 @@ if (E/'manifest.json').exists():
  bodies={sig:bodies[sig] for sig in order}
 else:
  bodies=dict(sorted(bodies.items()))
-for line in s.splitlines():
- if line.strip().startswith('internal') and 'FastHashInternal_002EFastHashFn(' in line:
-  sig=line.strip();bodies[sig]=body_of(s,sig)
-manifest['durationConstantEvidence']=[line.strip() for line in s.splitlines() if 'LOGICFRAMES_PER_MSEC_REAL =' in line]
 exports={}
 
 for index,(sig,body) in enumerate(bodies.items()):

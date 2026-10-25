@@ -1,0 +1,76 @@
+// Original blob 6e40a9ed6c9f961d294d49768d911e6a6f354619; body SHA256 39468dc145514b9496cb38293f7b636af083ca25326c38e8fae344be1cd420f0
+// Literals: {"_003F_003F_C_0040_09EOCCEAAK_0040Collision_003F_0024AA_0040": "Collision", "_003F_003F_C_0040_0BD_0040MJDGNIG_0040IntuitiveCollision_003F_0024AA_0040": "IntuitiveCollision", "_003F_003F_C_0040_0BK_0040JECKMEPM_0040COLLIDES_WITH_GROUND_ONLY_003F_0024AA_0040": "COLLIDES_WITH_GROUND_ONLY", "_003F_003F_C_0040_0N_0040NDJDOAAF_0040DrawPriority_003F_0024AA_0040": "DrawPriority", "_003F_003F_C_0040_0O_0040LBAALBAO_0040MUST_BE_DRAWN_003F_0024AA_0040": "MUST_BE_DRAWN", "_003F_003F_C_0040_0M_0040HADAODCF_0040LODPriority_003F_0024AA_0040": "LODPriority", "_003F_003F_C_0040_08DLFAAHE_0040VERY_LOW_003F_0024AA_0040": "VERY_LOW", "_003F_003F_C_0040_0M_0040FIDALLM_0040Explodiness_003F_0024AA_0040": "Explodiness", "_003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040": "0", "_003F_003F_C_0040_0BC_0040PBFBHPGB_0040FlingPerturbation_003F_0024AA_0040": "FlingPerturbation", "_003F_003F_C_0040_0BA_0040JPGOACEI_0040InitiallyActive_003F_0024AA_0040": "InitiallyActive", "_003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040": "true", "_003F_003F_C_0040_0M_0040GBHFOINK_0040BoneVolumes_003F_0024AA_0040": "BoneVolumes", "_003F_003F_C_0040_0L_0040NHBLCJFI_0040BoneVolume_003F_0024AA_0040": "BoneVolume", "_003F_003F_C_0040_08EMFCHOPD_0040Lifetime_003F_0024AA_0040": "Lifetime"}
+internal unsafe static void Marshaler_002EMarshal(INode* node, W3DDynamicsDrawModuleData* @object, Tracker* state)
+	{
+		if (node == null)
+		{
+			return;
+		}
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsCollisionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_09EOCCEAAK_0040Collision_003F_0024AA_0040), null), (DynamicsCollisionType*)@object + 54, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003AIntuitiveCollisionType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BD_0040MJDGNIG_0040IntuitiveCollision_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BK_0040JECKMEPM_0040COLLIDES_WITH_GROUND_ONLY_003F_0024AA_0040)), (IntuitiveCollisionType*)@object + 55, state);
+		Marshaler_002EMarshal_003Cenum_0020SageBinaryData_003A_003ADynamicsDrawPriority_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0N_0040NDJDOAAF_0040DrawPriority_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0O_0040LBAALBAO_0040MUST_BE_DRAWN_003F_0024AA_0040)), (DynamicsDrawPriority*)@object + 56, state);
+		Marshaler_002EMarshal_003Cenum_0020EffectsLODType_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040HADAODCF_0040LODPriority_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08DLFAAHE_0040VERY_LOW_003F_0024AA_0040)), (EffectsLODType*)@object + 57, state);
+		IValue* ptr = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040FIDALLM_0040Explodiness_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+		if (ptr != null)
+		{
+			sbyte* ptr2 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr)))((nint)ptr);
+			((float*)@object)[58] = (float)atof(ptr2);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr + 4)))((nint)ptr);
+		}
+		IValue* ptr3 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BC_0040PBFBHPGB_0040FlingPerturbation_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_01GBGANLPD_00400_003F_0024AA_0040));
+		if (ptr3 != null)
+		{
+			sbyte* ptr4 = ((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*>)(int)(*(uint*)(int)(*(uint*)ptr3)))((nint)ptr3);
+			((float*)@object)[59] = (float)atof(ptr4);
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(*(int*)ptr3 + 4)))((nint)ptr3);
+		}
+		Marshaler_002EMarshal_003Cbool_002Cclass_0020Relo_003A_003ATracker_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, sbyte*, IValue*>)(int)(*(uint*)(*(int*)node + 12)))((nint)node, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0BA_0040JPGOACEI_0040InitiallyActive_003F_0024AA_0040), (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_04LOAJBDKD_0040true_003F_0024AA_0040)), (bool*)@object + 248, state);
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder);
+		int num = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0M_0040GBHFOINK_0040BoneVolumes_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr5 = (INode*)(int)(*(uint*)num);
+			DynamicsBoneVolumeSetType** ptr6 = (DynamicsBoneVolumeSetType**)((byte*)@object + 240);
+			if (ptr5 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr6, 8u, 1u);
+				DynamicsBoneVolumeSetType* target = (DynamicsBoneVolumeSetType*)(int)(*(uint*)ptr6);
+				Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003ADynamicsBoneVolumeType_003E(((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, sbyte*, IList*>)(int)(*(uint*)(*(int*)ptr5 + 4)))((nint)ptr5, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_0L_0040NHBLCJFI_0040BoneVolume_003F_0024AA_0040)), (List_003CSageBinaryData_003A_003ADynamicsBoneVolumeType_003E*)target, state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder);
+			throw;
+		}
+		if (*(int*)(&nodeHolder) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder)))))((IntPtr)(*(int*)(&nodeHolder)));
+		}
+		System.Runtime.CompilerServices.Unsafe.SkipInit(out NodeHolder nodeHolder2);
+		int num2 = (int)((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, NodeHolder*, sbyte*, sbyte*, NodeHolder*>)(int)(*(uint*)(*(int*)node + 8)))((nint)node, &nodeHolder2, (sbyte*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref _003F_003F_C_0040_08EMFCHOPD_0040Lifetime_003F_0024AA_0040), null);
+		try
+		{
+			INode* ptr7 = (INode*)(int)(*(uint*)num2);
+			DynamicsLifetime** ptr8 = (DynamicsLifetime**)((byte*)@object + 244);
+			if (ptr7 != null)
+			{
+				Relo_002ETracker_002EPush(state, (void**)ptr8, 8u, 1u);
+				Marshaler_002EMarshal(ptr7, (DynamicsLifetime*)(int)(*(uint*)ptr8), state);
+				((int*)((byte*)state + 4))[1] += -4;
+			}
+		}
+		catch
+		{
+			//try-fault
+			___CxxCallUnwindDtor((delegate*<void*, void>)(delegate*<NodeHolder*, void>)(&Marshaler_002ENodeHolder_002E_007Bdtor_007D), &nodeHolder2);
+			throw;
+		}
+		if (*(int*)(&nodeHolder2) != 0)
+		{
+			((delegate* unmanaged[Thiscall, Thiscall]<IntPtr, void>)(int)(*(uint*)(int)(*(uint*)(int)(*(uint*)(&nodeHolder2)))))((IntPtr)(*(int*)(&nodeHolder2)));
+		}
+		Marshaler_002EMarshal(node, (W3DScriptedModelDrawModuleData*)@object, state);
+	}
