@@ -56,7 +56,7 @@ public class UInt32Buffer : IDisposable
 	{
 		if (!P_0)
 		{
-			Finalize();
+
 		}
 	}
 
@@ -66,3 +66,4 @@ public class UInt32Buffer : IDisposable
 		GC.SuppressFinalize(this);
 	}
 }
+

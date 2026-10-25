@@ -189,20 +189,7 @@ public class AssetEntry : StructWrapper_003CAssetStream_003A_003AAssetEntry_003E
 	}
 
 	public unsafe AssetEntry()
-	{
-		AssetStream.AssetEntry* ptr = (AssetStream.AssetEntry*)global::_003CModule_003E.@new(48u);
-		AssetStream.AssetEntry* data;
-		try
-		{
-			data = ptr;
-		}
-		catch
-		{
-			//try-fault
-			global::_003CModule_003E.delete(ptr);
-			throw;
-		}
-		m_Data = data;
-		((object)this)._002Ector();
-	}
+	{ }
+
 }
+

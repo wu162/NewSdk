@@ -12,3 +12,4 @@ public class ReferenceHandle
 
 	public uint TypeId;
 }
+

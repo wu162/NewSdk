@@ -15,3 +15,4 @@ using System.Security.Permissions;
 [assembly: ComVisible(false)]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 [assembly: AssemblyVersion("1.0.3344.32795")]
+

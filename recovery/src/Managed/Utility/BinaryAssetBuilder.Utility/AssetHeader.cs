@@ -122,20 +122,7 @@ public class AssetHeader : StructWrapper_003CAssetStream_003A_003AAssetHeader_00
 	}
 
 	public unsafe AssetHeader()
-	{
-		AssetStream.AssetHeader* ptr = (AssetStream.AssetHeader*)global::_003CModule_003E.@new(32u);
-		AssetStream.AssetHeader* data;
-		try
-		{
-			data = ptr;
-		}
-		catch
-		{
-			//try-fault
-			global::_003CModule_003E.delete(ptr);
-			throw;
-		}
-		m_Data = data;
-		((object)this)._002Ector();
-	}
+	{ }
+
 }
+

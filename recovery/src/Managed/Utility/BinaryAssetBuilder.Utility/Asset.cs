@@ -104,7 +104,7 @@ public class Asset
 		m_LinkedRelocationOffset = linkedRelocationOffset;
 		m_LinkedImportsOffset = linkedImportsOffset;
 		m_SourceManifest = sourceManifest;
-		base._002Ector();
+
 		IntPtr ptr = new IntPtr(assetName);
 		m_Id = (m_QualifiedName = Marshal.PtrToStringAnsi(ptr)).Split(':');
 		m_Index = index;
@@ -137,3 +137,4 @@ public class Asset
 		}
 	}
 }
+

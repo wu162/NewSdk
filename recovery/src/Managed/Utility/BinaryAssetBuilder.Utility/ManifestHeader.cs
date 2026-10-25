@@ -213,37 +213,11 @@ public class ManifestHeader : StructWrapper_003CAssetStream_003A_003AManifestHea
 		*(uint*)ptr11 = (((num11 & 0xFF0000) | (num11 >> 16)) >> 8) | (((num11 & 0xFF00) | (num11 << 16)) << 8);
 		AssetStream.ManifestHeader* ptr12 = (AssetStream.ManifestHeader*)((byte*)m_Data + 2);
 		ushort num12 = *(ushort*)ptr12;
-		*(short*)ptr12 = (short)((ushort)((num12 << 8) & 0xFF00) | (num12 >>> 8));
+		*(short*)ptr12 = (short)((ushort)((num12 << 8) & 0xFF00) | (num12 >> 8));
 	}
 
 	public unsafe ManifestHeader()
-	{
-		AssetStream.ManifestHeader* ptr = (AssetStream.ManifestHeader*)global::_003CModule_003E.@new(48u);
-		AssetStream.ManifestHeader* data;
-		if (ptr != null)
-		{
-			// IL initblk instruction
-			System.Runtime.CompilerServices.Unsafe.InitBlock(ptr, 0, 48);
-			data = ptr;
-		}
-		else
-		{
-			data = null;
-		}
-		m_Data = data;
-		((object)this)._002Ector();
-		try
-		{
-			((short*)m_Data)[1] = 6;
-			return;
-		}
-		catch
-		{
-			//try-fault
-			base.Dispose(true);
-			throw;
-		}
-	}
+	{ ((short*)m_Data)[1] = 6; }
 
 	public unsafe override void SaveToStream(Stream output, [MarshalAs(UnmanagedType.U1)] bool isBigEndian)
 	{
@@ -251,3 +225,4 @@ public class ManifestHeader : StructWrapper_003CAssetStream_003A_003AManifestHea
 		base.SaveToStream(output, isBigEndian);
 	}
 }
+

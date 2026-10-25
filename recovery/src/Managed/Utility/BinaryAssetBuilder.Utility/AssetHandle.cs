@@ -73,3 +73,4 @@ internal class AssetHandle : IComparable<AssetHandle>
 		return 0;
 	}
 }
+

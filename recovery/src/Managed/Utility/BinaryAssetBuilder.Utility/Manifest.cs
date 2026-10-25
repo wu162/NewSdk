@@ -232,7 +232,7 @@ public class Manifest : IDisposable
 		sbyte* pBuffer = m_pBuffer;
 		if (pBuffer != null)
 		{
-			global::_003CModule_003E.delete_005B_005D(pBuffer);
+			Marshal.FreeHGlobal((IntPtr)pBuffer);
 			m_pBuffer = null;
 		}
 	}
@@ -282,52 +282,42 @@ public class Manifest : IDisposable
 		Asset asset = null;
 		Free();
 		m_FileName = Path.GetFullPath(fileName);
-		ref byte reference = ref *(byte*)fileName;
-		if (System.Runtime.CompilerServices.Unsafe.AsPointer(ref reference) != null)
-		{
-			reference = ref *(byte*)((ref *(_003F*)RuntimeHelpers.OffsetToStringData) + (ref System.Runtime.CompilerServices.Unsafe.As<byte, _003F>(ref reference)));
-		}
-		fixed (ushort* ptr = &System.Runtime.CompilerServices.Unsafe.As<byte, ushort>(ref reference))
-		{
-			_iobuf* ptr2 = global::_003CModule_003E._wfopen(ptr, (ushort*)System.Runtime.CompilerServices.Unsafe.AsPointer(ref global::_003CModule_003E._003F_003F_C_0040_15JJPIMNBO_0040_003F_0024AAr_003F_0024AAb_003F_0024AA_003F_0024AA_0040));
-			if (ptr2 == null)
-			{
-				return false;
-			}
-			global::_003CModule_003E.fseek(ptr2, 0, 2);
-			uint num = (uint)global::_003CModule_003E.ftell(ptr2);
-			global::_003CModule_003E.fseek(ptr2, 0, 0);
-			global::_003CModule_003E.fread(m_pBuffer = (sbyte*)global::_003CModule_003E.new_005B_005D(num), num, 1u, ptr2);
-			global::_003CModule_003E.fclose(ptr2);
+        byte[] bytes;
+        try { bytes = File.ReadAllBytes(fileName); }
+        catch (IOException) { return false; }
+        catch (UnauthorizedAccessException) { return false; }
+        m_pBuffer = (sbyte*)Marshal.AllocHGlobal(bytes.Length);
+        Marshal.Copy(bytes, 0, (IntPtr)m_pBuffer, bytes.Length);
+        {
 			string basePath = Path.Combine(Path.GetDirectoryName(m_FileName), Path.GetFileNameWithoutExtension(m_FileName));
 			LoadStringHashes(basePath);
 			sbyte* ptr3 = (sbyte*)(m_pHeader = (AssetStream.ManifestHeader*)m_pBuffer) + 48;
 			AssetStream.ManifestHeader* pHeader = m_pHeader;
 			if (*(bool*)pHeader)
 			{
-				((int*)pHeader)[3] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)pHeader)[3]);
+				((int*)pHeader)[3] = (int)UtilityEndian.Swap(((uint*)pHeader)[3]);
 				byte* num2 = (byte*)m_pHeader + 40;
-				*(uint*)num2 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num2);
+				*(uint*)num2 = UtilityEndian.Swap(*(uint*)num2);
 				byte* num3 = (byte*)m_pHeader + 32;
-				*(uint*)num3 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num3);
+				*(uint*)num3 = UtilityEndian.Swap(*(uint*)num3);
 				byte* num4 = (byte*)m_pHeader + 28;
-				*(uint*)num4 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num4);
+				*(uint*)num4 = UtilityEndian.Swap(*(uint*)num4);
 				byte* num5 = (byte*)m_pHeader + 20;
-				*(uint*)num5 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num5);
+				*(uint*)num5 = UtilityEndian.Swap(*(uint*)num5);
 				byte* num6 = (byte*)m_pHeader + 24;
-				*(uint*)num6 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num6);
+				*(uint*)num6 = UtilityEndian.Swap(*(uint*)num6);
 				byte* num7 = (byte*)m_pHeader + 36;
-				*(uint*)num7 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num7);
+				*(uint*)num7 = UtilityEndian.Swap(*(uint*)num7);
 				byte* num8 = (byte*)m_pHeader + 44;
-				*(uint*)num8 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num8);
+				*(uint*)num8 = UtilityEndian.Swap(*(uint*)num8);
 				byte* num9 = (byte*)m_pHeader + 4;
-				*(uint*)num9 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num9);
+				*(uint*)num9 = UtilityEndian.Swap(*(uint*)num9);
 				byte* num10 = (byte*)m_pHeader + 8;
-				*(uint*)num10 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num10);
+				*(uint*)num10 = UtilityEndian.Swap(*(uint*)num10);
 				byte* num11 = (byte*)m_pHeader + 16;
-				*(uint*)num11 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)num11);
+				*(uint*)num11 = UtilityEndian.Swap(*(uint*)num11);
 				byte* num12 = (byte*)m_pHeader + 2;
-				*(ushort*)num12 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(ushort*)num12);
+				*(ushort*)num12 = UtilityEndian.Swap(*(ushort*)num12);
 			}
 			pHeader = m_pHeader;
 			if ((uint)((ushort*)pHeader)[1] < 4u)
@@ -374,18 +364,18 @@ public class Manifest : IDisposable
 				{
 					if (*(bool*)m_pHeader)
 					{
-						((int*)ptr8)[2] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[2]);
-						((int*)ptr8)[1] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[1]);
-						*((int*)ptr8 - 3) = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*((uint*)ptr8 - 3));
-						*((int*)ptr8 - 2) = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*((uint*)ptr8 - 2));
-						((int*)ptr8)[7] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[7]);
-						((int*)ptr8)[5] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[5]);
+						((int*)ptr8)[2] = (int)UtilityEndian.Swap(((uint*)ptr8)[2]);
+						((int*)ptr8)[1] = (int)UtilityEndian.Swap(((uint*)ptr8)[1]);
+						*((int*)ptr8 - 3) = (int)UtilityEndian.Swap(*((uint*)ptr8 - 3));
+						*((int*)ptr8 - 2) = (int)UtilityEndian.Swap(*((uint*)ptr8 - 2));
+						((int*)ptr8)[7] = (int)UtilityEndian.Swap(((uint*)ptr8)[7]);
+						((int*)ptr8)[5] = (int)UtilityEndian.Swap(((uint*)ptr8)[5]);
 						AssetStream.AssetEntry* intPtr = ptr8;
-						*(uint*)intPtr = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)intPtr);
-						((int*)ptr8)[3] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[3]);
-						((int*)ptr8)[6] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[6]);
-						((int*)ptr8)[4] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr8)[4]);
-						*((int*)ptr8 - 1) = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*((uint*)ptr8 - 1));
+						*(uint*)intPtr = UtilityEndian.Swap(*(uint*)intPtr);
+						((int*)ptr8)[3] = (int)UtilityEndian.Swap(((uint*)ptr8)[3]);
+						((int*)ptr8)[6] = (int)UtilityEndian.Swap(((uint*)ptr8)[6]);
+						((int*)ptr8)[4] = (int)UtilityEndian.Swap(((uint*)ptr8)[4]);
+						*((int*)ptr8 - 1) = (int)UtilityEndian.Swap(*((uint*)ptr8 - 1));
 					}
 					uint num17 = ((uint*)ptr8)[2];
 					ReferenceHandle[] array = new ReferenceHandle[num17];
@@ -398,8 +388,8 @@ public class Manifest : IDisposable
 							if (*(bool*)m_pHeader)
 							{
 								AssetId* intPtr2 = ptr9;
-								*(uint*)intPtr2 = global::_003CModule_003E.EA_002EEndian_002Ebig_endian(*(uint*)intPtr2);
-								((int*)ptr9)[1] = (int)global::_003CModule_003E.EA_002EEndian_002Ebig_endian(((uint*)ptr9)[1]);
+								*(uint*)intPtr2 = UtilityEndian.Swap(*(uint*)intPtr2);
+								((int*)ptr9)[1] = (int)UtilityEndian.Swap(((uint*)ptr9)[1]);
 							}
 							array[num18] = new ReferenceHandle();
 							array[num18].TypeId = *(uint*)ptr9;
@@ -632,7 +622,7 @@ public class Manifest : IDisposable
 		sbyte* pBuffer = m_pBuffer;
 		if (pBuffer != null)
 		{
-			global::_003CModule_003E.delete_005B_005D(pBuffer);
+			Marshal.FreeHGlobal((IntPtr)pBuffer);
 			m_pBuffer = null;
 		}
 	}
@@ -646,13 +636,13 @@ public class Manifest : IDisposable
 			sbyte* pBuffer = m_pBuffer;
 			if (pBuffer != null)
 			{
-				global::_003CModule_003E.delete_005B_005D(pBuffer);
+				Marshal.FreeHGlobal((IntPtr)pBuffer);
 				m_pBuffer = null;
 			}
 		}
 		else
 		{
-			Finalize();
+			// Original Object.Finalize has no user-visible effect here.
 		}
 	}
 
@@ -662,3 +652,4 @@ public class Manifest : IDisposable
 		GC.SuppressFinalize(this);
 	}
 }
+
