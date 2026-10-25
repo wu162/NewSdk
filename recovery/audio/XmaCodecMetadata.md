@@ -70,3 +70,15 @@ its receipt therefore records `actualWrapperStates=0`. Original real-codec
 outputs must not be reverse-derived into inputs and presented as independent
 wrapper-state evidence. Exact component sourceCommit/runId must be taken from
 its validation receipt after the Windows run completes.
+
+Synthetic-state component acceptance: source
+`1ebd94a9c61dc4c44ea66784075f43062840ad41`, run
+[40233897932](https://github.com/wu162/NewSdk/actions/runs/40233897932),
+attempt1 passed: original CPU and Debug/Release384 cases,15 safety rejections;
+`actualWrapperStates=0`. The separate `TestAudioXmaMetadataState.ps1` captures
+only8 real wrapper states through an integer-only native entry journal at
+`5f170`; it must compare all three original allocations to the accepted
+uninstrumented baseline, restore the original entry, then replay metadata and
+compare isolated candidate output. Its new results are pending and do not
+replace or relabel the synthetic-state run. The unchanged384-case group is
+not repeated by the actual-state harness.

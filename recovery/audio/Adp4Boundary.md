@@ -2,9 +2,11 @@
 
 Original DLL SHA256
 `a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`.
-All addresses are RVAs. The AudioFile reader continues to reject ADP4 until
-its complete import/frame-count/initialization behavior has been established
-and plugin/SDK acceptance obtained. No Apple ima4 packet decoder is implied.
+All addresses are RVAs. The standalone decoder and original-only plugin
+probe are accepted at the exact batch below. The candidate AudioFile ADP4
+route is now prepared and awaits its own complete plugin differential;
+SDK integration is deliberately deferred to a larger milestone. No Apple
+ima4 packet decoder is implied.
 
 ## Actual original decoder chain
 
@@ -27,6 +29,10 @@ signed16 and index0..88; only the low four nibble bits affect the result.
 raw SSND length using COMM container bits/8, even when representation13 was
 selected. Do not substitute a standard compressed-size formula or assume the
 whole physical nibble payload contributes decoded frames.
+The shared `404e0` start0/count1 early return also applies to representation13:
+file-imported single-frame data remains uninitialized. A future ADP4 file
+route must refuse that boundary rather than treating the standalone explicitly
+initialized one-frame decode as proof of native file import behavior.
 
 ## Original-only plugin probe
 
@@ -46,7 +52,8 @@ saved under `evidence/audio/adp4-probe/<runId>-<attempt>`.
 ## Standalone decoder component
 
 `Native/Adp4Decoder.cs` recovers the integer leaf and provides a bounded
-zero-initialized raw mono/stereo sequence API. It is not wired to AudioFile.
+zero-initialized raw mono/stereo sequence API. Its original accepted batch
+was standalone; subsequent AudioFile wiring requires the separate batch below.
 `TestAudioAdp4Decoder.ps1` first runs the real original x86 CPU leaf, then
 Debug/Release candidates in original-DLL-free hosts:
 
@@ -67,5 +74,35 @@ against overlooked import state and frame-count behavior.
 
 Local original-machine-code Unicorn execution matched all18067 scalar cases;
 that integer-only quick check does not replace real CPU/C# acceptance.
-Use actual `sourceCommit/runId` receipts before declaring this component
-accepted. Production import integration and SDK acceptance remain separate.
+Accepted source `579c95661d90f067ab414c4133f033c2571b96e1`, run
+[40233712043](https://github.com/wu162/NewSdk/actions/runs/40233712043),
+attempt1: real CPU and Debug/Release18243 exact records,11 safety refusals;
+original plugin96 records across two independent processes were identical.
+Receipts are `adp4-decoder-validation/40233712043-1` and
+`adp4-probe/40233712043-1`. The96 `frame-counts.tsv` rows confirm runtime
+frame count from rawSSND/(channels*2) for the original bits16 probe domain.
+Those receipts do not prove the later candidate file route or SDK.
+
+## Candidate file-import batch (pending acceptance)
+
+The candidate reader selects raw ADP4 for FORM/AIFC COMM typeADP4, normalizes
+its decoded signed16 samples by2^-15 and preserves the original frame-count
+correction from raw SSND and COMM bits8/16/24. It requires mono/stereo and
+at least two imported frames;0-frame and1-frame sources are separate refusals.
+Loop metadata and nonzero SSND offset/block size remain outside this domain.
+
+`TestAudioAdp4Plugin.ps1` runs4224 full-plugin records in each original,
+Debug and Release host:4032 ordinary cases (3 widths*2 channels*7 frame counts*
+4 patterns*3 COMM declarations),144 partial-SSND-length cases and48 actual
+filter120 sample-rate conversions. It separately checks144 exact normalized
+sample/frame invariants and12 empty/single-frame safety refusals.
+The frame boundaries2/7/129/1023/1024/1025/2041 cross both original reader
+chunk lengths; COMM declarations are actual/zero/actual+99. SSND tails include
+-1,+1,+frameSize+1 byte to verify floor division and padding exclusion.
+
+Affected old inputs must also pass `TestAudioPlugin.ps1 -Groups formats,aiffloops`
+and `TestAudioAifc.ps1 -SkipSdk`:2400 formats,200 AIFF loops and1440 AIFC/NONE
+records in Debug/Release. The AIFC safety case now explicitly rejects undefined
+ADP4 single-frame import rather than treating all ADP4 as unsupported.
+No script in this new batch triggers real SDK; report component/plugin status
+and **SDK not validated for ADP4** until a later accumulated integration run.

@@ -17,6 +17,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             bool wave = Tag(bytes, 0) == "RIFF" && Tag(bytes, 8) == "WAVE";
             if (!aiff && !wave) throw new NotSupportedException("Uncompressed AIFF or PCM WAVE input is required");
             int channels = 0, rate = 0, bits = 0, format = 0, align = 0;
+            bool adp4 = false;
             int dataOffset = -1, dataLength = 0;
             long end = 8L + U32(bytes, 4, aiff);
             if (end < 12 || end > bytes.Length) throw new InvalidDataException("Truncated audio container");
@@ -55,10 +56,13 @@ namespace BinaryAssetBuilder.AudioCompiler
                     {
                         // Identifier 0x380c3..381a9 recognizes AIFC NONE;
                         // 0x3845e..3848c retains the AIFF integral decoder for
-                        // NONE. Compression names and FVER are not interpreted.
+                        // NONE; ADP4 selects representation13's raw nibble
+                        // decoder. Compression names and FVER are ignored.
                         if (size < 22) throw new InvalidDataException("Truncated AIFC compression type");
-                        if (Tag(bytes, body + 18) != "NONE")
-                            throw new NotSupportedException("Only uncompressed AIFC NONE input has been recovered");
+                        string compression = Tag(bytes, body + 18);
+                        adp4 = compression == "ADP4";
+                        if (compression != "NONE" && !adp4)
+                            throw new NotSupportedException("Only AIFC NONE and raw ADP4 input have been recovered");
                     }
                     channels = U16(bytes, body, true);
                     bits = U16(bytes, body + 6, true);
@@ -94,6 +98,17 @@ namespace BinaryAssetBuilder.AudioCompiler
             // (0x388f8..38949). A mismatch therefore does not truncate samples.
             if (frames == 0 || frames > 0x1fffffff) throw new NotSupportedException("Unsupported PCM frame count");
             float[] samples = new float[frames * channels];
+            if (adp4)
+            {
+                // The native AIFF importer also corrects ADP4 frame count
+                // using the COMM container width and raw SSND size. Do not
+                // replace it with a standard IMA4 packet-size formula.
+                if (frames == 1)
+                    throw new NotSupportedException("Single-frame SIMEX ADP4 source import leaves samples uninitialized");
+                short[] decoded = Adp4Decoder.Decode(bytes, dataOffset, channels, frames);
+                for (int i = 0; i < samples.Length; ++i) samples[i] = decoded[i] * (1.0f / 32768.0f);
+                return new Pcm16Encoder.PcmWaveInput { Samples = samples, Channels = channels, SampleRate = rate };
+            }
             for (int i = 0, at = dataOffset; i < samples.Length; ++i, at += width)
             {
                 if (bits == 8) samples[i] = (aiff ? (int)unchecked((sbyte)bytes[at]) : bytes[at] - 128) * 0.0078125f;

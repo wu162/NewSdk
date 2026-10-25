@@ -41,9 +41,10 @@ internal static class AudioAifcReaderOracle
                     Same(plain, File.ReadAllBytes(file), bits + "-" + channels + "-" + variant);
                 }
             }
-            foreach (string codec in new string[] { "ADP4", "sowt", "fl32", "????" }) {
+            foreach (string codec in new string[] { "sowt", "fl32", "????" }) {
                 AudioAifcInputCases.Write(file, 16, 1, 129, "empty", codec); Reject(File.ReadAllBytes(file), "codec-" + codec);
             }
+            AudioAifcInputCases.Write(file, 16, 1, 1, "empty", "ADP4"); Reject(File.ReadAllBytes(file), "ADP4-undefined-single-frame");
             AudioAifcInputCases.Write(file, 16, 1, 129, "empty", "NONE"); byte[] valid = File.ReadAllBytes(file), altered;
             altered = (byte[])valid.Clone(); altered[19] = 20; Reject(altered, "short-COMM");
             altered = (byte[])valid.Clone(); altered[27] = 32; Reject(altered, "container32");
