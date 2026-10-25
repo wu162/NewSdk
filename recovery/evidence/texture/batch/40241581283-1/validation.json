@@ -1,0 +1,33 @@
+{
+  "reused": [
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ],
+  "runAttempt": "1",
+  "groups": [
+    {
+      "group": "base",
+      "passed": true,
+      "evidenceOnly": false
+    }
+  ],
+  "selected": [
+    "base"
+  ],
+  "status": "passed",
+  "runId": "40241581283",
+  "sourceCommit": "7786834f71bcb91bace593715de0efb49cb973ab"
+}
