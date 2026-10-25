@@ -46,10 +46,19 @@ class SelectionTests(unittest.TestCase):
         self.receipt(sdkValidated=True,modes=[{'mode':x,'passed':True,'uniqueAssets':1,'actualCalls':1,'withoutOriginalTextureCompiler':x=='NoOriginal'} for x in ['Original','Recovered','NoOriginal']])
         self.assertEqual(self.result(sdk=True)['reused'],['a'])
     def test_historical_dependency_removal_does_not_hide_change(self):
+        self.write('recovery/tests/FormerHelper.cs','old')
+        self.group['dependencies'].append('recovery/tests/FormerHelper.cs')
         old={'groups':{'a':self.group.copy()}}
         self.write('recovery/catalog/TextureTestGroups.json',json.dumps(old));self.anchor=self.commit();self.receipt()
-        self.group['dependencies']=[]
-        self.write('src/TextureCompiler/Managed/A.cs','changed');self.commit();self.assertEqual(self.result()['selected'],['a'])
+        self.group['dependencies']=[x for x in self.group['dependencies'] if x!='recovery/tests/FormerHelper.cs']
+        self.write('recovery/tests/FormerHelper.cs','changed');self.commit();self.assertEqual(self.result()['selected'],['a'])
+    def test_manual_evidence_is_not_automatic_regression(self):
+        self.group['manual_only']=True
+        self.assertEqual(self.result()['selected'],[])
+        self.assertEqual(self.result(requested=['a'])['selected'],['a'])
+    def test_existing_nonancestor_is_rejected(self):
+        foreign=self.git('commit-tree',self.git('rev-parse','HEAD^{tree}'),'-m','foreign')
+        self.receipt(sourceCommit=foreign);self.assertEqual(self.result()['selected'],['a'])
     def test_foreign_commit_rejected(self):
         self.receipt(sourceCommit='f'*40);self.assertEqual(self.result()['selected'],['a'])
     def test_unrelated_doc_change_reuses(self):

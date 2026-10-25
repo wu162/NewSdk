@@ -52,6 +52,9 @@ def select(root, groups, head='HEAD', requested=None, sdk=False):
         if not spec.get('sdk'):
             known |= dependencies(root, spec, head)
     for name, spec in groups.items():
+        if spec.get('manual_only') and name not in forced:
+            details[name] = {'reason': 'evidence collection requires explicit request'}
+            continue
         if spec.get('sdk') and not sdk and name not in forced:
             details[name] = {'reason': 'SDK not requested'}
             continue

@@ -530,6 +530,18 @@
       ],
       "evidence": "recovery/evidence/texture/png-ranges/*/validation.json",
       "sdk": false
+    },
+    "dxt-symbols": {
+      "script": "recovery/scripts/InspectTextureDxtLibrary.ps1",
+      "arguments": {},
+      "dependencies": [
+        "recovery/scripts/InspectTextureDxtLibrary.ps1",
+        "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+      ],
+      "evidence": "recovery/evidence/texture/dxt-library/*/validation.json",
+      "manual_only": true,
+      "evidence_only": true,
+      "sdk": false
     }
   }
 }

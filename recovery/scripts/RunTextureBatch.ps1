@@ -19,9 +19,9 @@ try{
    $global:LASTEXITCODE=0
    & (Join-Path $root $spec.script) @parameters
    if($LASTEXITCODE -ne 0){throw "Native process exit $LASTEXITCODE"}
-   $r.groups+=@{group=$name;passed=$true}
+   $r.groups+=@{group=$name;passed=$true;evidenceOnly=($spec.evidence_only -eq $true)}
   }catch{
-   $r.groups+=@{group=$name;passed=$false;error=$_.Exception.Message};$failures+=$name
+   $r.groups+=@{group=$name;passed=$false;evidenceOnly=($spec.evidence_only -eq $true);error=$_.Exception.Message};$failures+=$name
    Write-Output "::error::Texture $name failed: $($_.Exception.Message)"
   }finally{Write-Output '::endgroup::'}
  }
