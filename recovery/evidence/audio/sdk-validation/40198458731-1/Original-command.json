@@ -1,0 +1,21 @@
+{
+  "mode": "Original",
+  "executable": "D:\\a\\_temp\\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\\SDK/tools/BinaryAssetBuilder.exe",
+  "arguments": [
+    "\"D:\\a\\_temp\\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\\SDK\\Mods\\AudioRecoveryProbe\\Data\\Mod.xml\"",
+    "/od:\"D:\\a\\_temp\\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\\SDK\\builtmods\"",
+    "/iod:\"D:\\a\\_temp\\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\\SDK\\builtmods\"",
+    "/csc:false",
+    "/ls:true",
+    "/osh:false",
+    "/pc:true",
+    "/res:true",
+    "/slowclean:true",
+    "/ss:true",
+    "/art:\".;.\\Mods\\AudioRecoveryProbe\\Art;.\\Mods;.\\Art\"",
+    "/audio:\".;.\\Mods\\AudioRecoveryProbe\\Audio;.\\Mods;.\\Audio\"",
+    "/data:\".;.\\Mods\\AudioRecoveryProbe\\Data;.\\Mods;.\\SageXml\""
+  ],
+  "source": "SDK/defaultscript.cs executeModBuildStep case5",
+  "originalTargetPresent": true
+}

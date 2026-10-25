@@ -1,0 +1,32 @@
+Command Line: D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods /iod:D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\Mods\AudioRecoveryProbe\Data\Mod.xml /od:D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods /iod:D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\AudioRecoveryProbe\Art;.\Mods;.\Art /audio:.;.\Mods\AudioRecoveryProbe\Audio;.\Mods;.\Audio /data:.;.\Mods\AudioRecoveryProbe\Data;.\Mods;.\SageXml 
+[00:00:00.0468634] BinaryAssetBuilder started
+[00:00:00.5474019] Cached session data not available.
+[00:00:00.5630316] Session caching enabled ('D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.5786534] Network caching enabled ('D:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\SDK\builtmods\cache').
+[00:00:00.6098997] Loading 'file://d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\mods\audiorecoveryprobe\data\mod.xml'.
+[00:00:00.6411606] Stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.9542725] Stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\global.xml which has not been compiled, attempting to use precompiled
+[00:00:01.2980207] Stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\mods\audiorecoveryprobe\data\mod.xml references stream d:\a\_temp\audio-sdk-6fe54cd76c1a4ac1b6a345a2a654b496\sdk\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:01.5952848] mod.xml: Compiling AudioFile:AiffLoopNONEFalse [166b084d:6c60719a]
+[00:00:01.6109031] mod.xml: Compiling AudioFile:AiffLoopNONETrue [166b084d:9c81d13b]
+[00:00:01.6109031] mod.xml: Compiling AudioFile:AiffLoopXASFalse [166b084d:f5fe05ef]
+[00:00:01.6265245] mod.xml: Compiling AudioFile:AiffLoopXASTrue [166b084d:88629fb7]
+[00:00:01.6265245] Resolving references: mods\audiorecoveryprobe\data\mod
+[00:00:01.6421518] Stable sorting assets
+[00:00:01.6421518] Sorting by schema dependencies
+[00:00:01.6421518] Sorting by asset dependencies
+[00:00:01.6421518] Generating stream: mods\audiorecoveryprobe\data\mod
+[00:00:01.6577734] Slow asset clean-up (expected: 4, actual: 4, old: 0, current: 4)
+[00:00:01.6577734] Slow custom data clean-up (expected: 4, actual: 4, old asset count: 0)
+[00:00:01.6734023] mods\audiorecoveryprobe\data\mod Linking binary data
+[00:00:01.6734023] mods\audiorecoveryprobe\data\mod Linking import data
+[00:00:01.6734023] mods\audiorecoveryprobe\data\mod Linking relocation data
+[00:00:01.6734023] mods\audiorecoveryprobe\data\mod Stream complete
+[00:00:01.6734023] BinaryAssetBuilder complete
+[00:00:01.6734023] AudioFile:
+[00:00:01.6890238]       Instances Processed: 4
+[00:00:01.6890238]       Total Processing Time: 00:00:00.0312397
+[00:00:01.6890238]       Longest Processing Time: 00:00:00.0156214 (AiffLoopXASFalse)
+[00:00:01.6890238]       Average Processing Time: 0.007809925 seconds
+[00:00:01.6890238] Total Processing Time for All Types: 00:00:00.0312397
