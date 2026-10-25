@@ -39,3 +39,7 @@
 ## TextureCompiler 目标范围（2026-10-25 用户调整）
 
 用户明确要求剔除 Xbox 360。`recovery/texturecompiler-source` 的 TextureCompiler 后续还原及完成验收目标仅为 Win32/PC 与 PlayStation 3；Xbox 360/XenonBundler、专属纹理header/surface/tiling转换不再列为待办、验收门槛或完成阻塞，不为该平台新增实现或验证任务。已有原DLL/IL、历史证据与平台枚举兼容信息保留，不将排除范围写成已恢复。XGraphics 中仍服务于 PC/PS3 图像读取或公共处理的依赖继续按实际需要恢复，不能因名字涉及 Xbox 而误删公共路径。本调整仅适用于 TextureCompiler 项目。
+
+## TextureCompiler 集中验证（2026-10-26 用户反馈）
+
+用户指出“每次触发的测试个数太多了”。TextureCompiler 后续按 [TEXTURE_TESTING.md](recovery/TEXTURE_TESTING.md) 执行：普通检查点不启动 Windows 重测，完整能力组准备好后使用 [texture-test]；显式 SDK 里程碑使用 [texture-sdk]。只有一个自动入口 texture-validation.yml，按成功祖先证据和实际依赖选组，至多一个 Windows 作业顺序运行选中完整矩阵。原独立工作流保留手动入口，不再多路 push 触发。新增 helper/消费关系同步维护依赖表。旧文档里的多条自动触发安排以本条为准；不减少断言，不把探针、失败或缺失证据作为完成，未变成功组保留原 sourceCommit/runId。此规则仅针对 TextureCompiler。

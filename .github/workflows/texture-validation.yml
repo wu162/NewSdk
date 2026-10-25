@@ -4,6 +4,11 @@ on:
     branches: [recovery/texturecompiler-source]
     paths:
       - 'src/TextureCompiler/**'
+      - 'SDK/tools/**'
+      - 'SDK/Schemas/**'
+      - 'global.json'
+      - 'Directory.Build.*'
+      - 'NuGet.Config'
       - 'recovery/tests/Texture*'
       - 'recovery/tests/TestTextureSelection.py'
       - 'recovery/tests/fixtures/texture-main/**'

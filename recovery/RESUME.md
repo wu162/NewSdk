@@ -70,3 +70,7 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ## TextureCompiler 第四轮：PS3 cubic正式验收
 
 2026-10-25，单代理约40分钟。PS3 POT TGA自动cubic resize的float差异定位为归一化后中心tap残差；已在默认Managed项目接入。源码d9e496d5907fce28d38e9bf0268e7d3488d2e626，正式Debug/Release组件40209208060各1854组、实际入口40209208093各324组、真实SDK40209208221的无mip/有mip两profile各18资产全部通过，Original/Recovered/NoOriginal四产物及实际三缓冲区/cdata完全一致。此前隔离实验和拒绝该路径的说明属于历史状态。随后同族二维/体积mip归一化残差修正在fd7405d9提交，独立验收结果见[第四轮交接](TEXTURE_ROUND4_HANDOFF.md)。Xbox360/Xenon专用路径从恢复目标中剔除，保留PC/PS3共享依赖审计。下一步DXT、NPOT/PNG/JPEG、完整atlas、native生命周期；生产SDK DLL/config不替换。根因与证据见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)。
+
+## TextureCompiler 第五轮：PNG/BMP 与集中验证
+
+2026-10-26（北京时间）。单代理完成 POT PNG/BMP 解码及实际 Texture/OnDemandTexture、PC/PS3 raw/mip/volume 路由；保持原版调色板、灰度 alpha16、BMP bitfields 拒绝。PNG 核心5882例及98组全值采样(3684352像素)在14b22c15/40234341155通过；BMP4320例与最终入口9216例在e20a40cc/40235000007通过，均Debug/Release零差异。初始552资产四profile SDK 40232650147成功；新增RGB16的最终600资产/profile SDK待收取。当前准确状态及边界见 [TEXTURE_PNG_BMP.md](TEXTURE_PNG_BMP.md)。用户反馈测试触发太多后，已改 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)：普通检查点不跑Windows，完整组 [texture-test]，SDK [texture-sdk]，一个自动入口、至多一个Windows作业，未变成功组复用原锚点。禁止强推，Xbox360继续排除，生产SDK不替换。

@@ -7,7 +7,8 @@ Build managed code on Windows with .NET Framework 4.8 targeting support:
 
 ```powershell
 dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release
-./recovery/scripts/TestTexture.ps1
+# For CI, prepare a complete batch and commit with [texture-test].
+# SDK milestones use [texture-sdk]; see recovery/TEXTURE_TESTING.md.
 ```
 
 The test script additionally needs x86 MSVC (`/clr`) and .NET Framework csc.exe.
@@ -41,7 +42,7 @@ The differential tests deliberately load it as an independent oracle.
 
 ## Remaining work
 
-Full `LoadImageA` decoding/conversion beyond the declared TGA subset, DXT compression and unrecovered resampling paths,
+JPEG, ICC/APNG, NPOT D3DX resampling and other image profiles outside the declared TGA/PNG/BMP subsets; DXT compression and unrecovered resampling paths.
 Complete PC/PS3 plugin native lifecycle is not implemented. Xbox 360/Xenon
 conversion is excluded from the recovery target. TerrainTextureAtlas is not yet wired to a complete codec
 pipeline. Unsupported entry paths throw; there is no original-DLL fallback.
@@ -53,4 +54,8 @@ component's acceptance status.
 
 ## Second recovery stage
 
-The actual plugin now routes supported TGA groups through three exact raw DDS formats; Win32 GenerateMipMaps=true uses the independently validated triangle mip encoder. Volume strip/mip storage helpers and additional indexed/gray/16-bit TGA formats are available. Dedicated real SDK builds cover 18 assets with and without mips in original/recovered/no-original-target-DLL configurations; see recovery/TEXTURECOMPILER.md for immutable receipts and the workflow evidence-push limitation. DXT compression, NPOT/PS3 resizing, and full terrain-atlas compilation remain pending; Xbox 360/Xenon recovery is excluded.
+The actual plugin now routes supported TGA groups through three exact raw DDS formats; Win32 GenerateMipMaps=true uses the independently validated triangle mip encoder. Volume strip/mip storage helpers and additional indexed/gray/16-bit TGA formats are available. Dedicated real SDK builds cover 18 assets with and without mips in original/recovered/no-original-target-DLL configurations; see recovery/TEXTURECOMPILER.md for immutable receipts and the workflow evidence-push limitation. PS3 POT automatic cubic resizing is accepted. DXT compression, NPOT resampling and full terrain-atlas compilation remain pending; Xbox 360/Xenon recovery is excluded.
+
+## PNG/BMP and validation batches
+
+POT grayscale/RGB/RGBA PNG, including original RGB16 packing and exact gamma rounding, and BI_RGB 16/24/32 BMP now route through the actual PC/PS3 raw/mip/volume plugin. Original indexed and bitfields rejection behavior is retained. See recovery/TEXTURE_PNG_BMP.md for exact scope and source/run anchors. The production decoder uses recovered C# plus DeflateStream; System.Drawing is fixture-only. Ordinary checkpoints do not start Windows tests; recovery/TEXTURE_TESTING.md describes the one-workflow, one-Windows-job milestone policy. Final RGB16 SDK acceptance is pending collection.

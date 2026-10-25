@@ -4,6 +4,10 @@
 
 **DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收；PS3 POT TGA >256自动cubic缩放也已取得组件/入口/真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
+## 第五轮当前入口
+
+PNG/BMP 解码与实际入口组件已完成；最终含 RGB16 的四 profile SDK 批次待收取。精确格式边界、gamma/RGB16/BMP 原版语义、组件锚点及 SDK 状态见 [第五轮交接](TEXTURE_PNG_BMP.md)。新的测试触发规则见 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)，后续不再每次提交启动多条 Texture 工作流。
+
 ## 已验收范围
 
 | 能力 | 精确证据 |
@@ -30,7 +34,7 @@
 
 ## 当前入口与边界
 
-`TextureImageLoader`分派两个已验证TGA解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，二维mip由独立`TextureTriangleMipEncoder`/`TexturePs3MipEncoder`提供，体积编码由`TextureVolumeRawDdsEncoder`/`TextureVolumeMipEncoder`提供，插件按平台、Type和GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
+`TextureImageLoader`分派已验证的TGA、PNG和BMP解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，二维mip由独立`TextureTriangleMipEncoder`/`TexturePs3MipEncoder`提供，体积编码由`TextureVolumeRawDdsEncoder`/`TextureVolumeMipEncoder`提供，插件按平台、Type和GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
 
 NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3 mip固定三份payload已实现并验收；POT TGA >256的自动cubic resize已接入并验收，极端条带右移导致零轴时明确拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
 
@@ -49,7 +53,7 @@ NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直
 1. DXT1/DXT1A/DXT3/DXT5压缩核心仍缺，不把raw DDS或options恢复称为DXT恢复。
 2. Xbox360/XenonBundler专用恢复按用户要求剔除；共享PC/PS3 XGraphics调用及原native生命周期仍需审计；Volume raw/mip已接入并取得PC/PS3 SDK验收。
 3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
-4. PNG/JPEG、剩余TGA metadata和NPOT resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
+4. PNG/BMP 本轮声明范围见 TEXTURE_PNG_BMP.md；JPEG、剩余 TGA metadata 和 NPOT resize 继续独立取证，未支持路径保持明确拒绝，禁止隐藏原 DLL 回退。
 5. PS3自动cubic resize已正式验收，数值根因及精确锚点见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)；普通二维/体积mip残差修正状态见[第四轮交接](TEXTURE_ROUND4_HANDOFF.md)。NPOT D3DX resize仍未支持。
 
 详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
