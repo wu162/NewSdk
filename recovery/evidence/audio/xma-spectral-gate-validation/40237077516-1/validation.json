@@ -1,0 +1,40 @@
+{
+  "enableStates": 2,
+  "xmaEncoderRecovered": false,
+  "oracleSha256": "c0d8fe5927c6cafeb4d2121b84767d644cc8c0908996fa4a95eddef6c4941572",
+  "recordsPerConfiguration": 2400,
+  "modes": [
+    {
+      "records": 2400,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "candidateSafetyRejections": 11,
+      "summary": "PASS candidate XMA spectral gate: 2400 complete spectrum/HRESULT/state comparisons; five sizes, ten controls including200 boundary, both enable states, six band patterns, four inputs; eleven separate safety refusals; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "configuration": "Debug",
+      "recoveredSha256": "8b8ad153006154d0b26417146dea1a07a6bf141d28f0bd29b61503b85247e142"
+    },
+    {
+      "records": 2400,
+      "originalAbsentFromRecoveredHost": true,
+      "passed": true,
+      "candidateSafetyRejections": 11,
+      "summary": "PASS candidate XMA spectral gate: 2400 complete spectrum/HRESULT/state comparisons; five sizes, ten controls including200 boundary, both enable states, six band patterns, four inputs; eleven separate safety refusals; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "configuration": "Release",
+      "recoveredSha256": "090aaec0434776b194d7f0e6835bba7567f3812b9ec5570270f4e4df32df2f99"
+    }
+  ],
+  "bandPatterns": 6,
+  "inputPatterns": 4,
+  "physicalX87ControlWord": "0x027f",
+  "runAttempt": "1",
+  "status": "passed",
+  "sourceCommit": "5bc9328c415cf1ea0f57e65e0d28d6caaa703284",
+  "controls": 10,
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runId": "40237077516",
+  "originalCpuValidated": true,
+  "sizes": 5,
+  "audioFileXmaRouteEnabled": false,
+  "sdkValidated": false,
+  "scope": "Complete optional XMA spectral attenuation stage 0x855ef"
+}

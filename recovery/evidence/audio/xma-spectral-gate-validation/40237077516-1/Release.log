@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f
+PASS candidate XMA spectral gate: 2400 complete spectrum/HRESULT/state comparisons; five sizes, ten controls including200 boundary, both enable states, six band patterns, four inputs; eleven separate safety refusals; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance
