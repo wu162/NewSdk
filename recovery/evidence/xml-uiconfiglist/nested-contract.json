@@ -1,0 +1,1413 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "componentValidated": false,
+  "enums": {
+    "FactionType": {
+      "fallback": 0,
+      "entries": [
+        {
+          "name": "Allies",
+          "value": 0
+        },
+        {
+          "name": "Japan",
+          "value": 2
+        },
+        {
+          "name": "Neutral",
+          "value": 3
+        },
+        {
+          "name": "RANDOM",
+          "value": -1
+        },
+        {
+          "name": "Soviet",
+          "value": 1
+        }
+      ]
+    },
+    "AIDifficultyValue": {
+      "fallback": 3,
+      "entries": [
+        {
+          "name": "BRUTAL",
+          "value": 3
+        },
+        {
+          "name": "EASY",
+          "value": 0
+        },
+        {
+          "name": "HARD",
+          "value": 2
+        },
+        {
+          "name": "MEDIUM",
+          "value": 1
+        }
+      ]
+    },
+    "GameplayType": {
+      "fallback": 2,
+      "entries": [
+        {
+          "name": "CAH",
+          "value": 2
+        },
+        {
+          "name": "CTF",
+          "value": 3
+        },
+        {
+          "name": "KOTH",
+          "value": 1
+        },
+        {
+          "name": "SIEGE",
+          "value": 4
+        },
+        {
+          "name": "VERSUS",
+          "value": 0
+        }
+      ]
+    },
+    "SlotStateType": {
+      "fallback": 3,
+      "entries": [
+        {
+          "name": "AI",
+          "value": 3
+        },
+        {
+          "name": "CLOSED",
+          "value": 1
+        },
+        {
+          "name": "OPEN",
+          "value": 0
+        },
+        {
+          "name": "PRIVATE",
+          "value": 2
+        }
+      ]
+    },
+    "CareerStatType": {
+      "fallback": 1,
+      "entries": [
+        {
+          "name": "Float",
+          "value": 1
+        },
+        {
+          "name": "Int",
+          "value": 0
+        },
+        {
+          "name": "Time",
+          "value": 2
+        }
+      ]
+    },
+    "CareerStatOrder": {
+      "fallback": 33,
+      "entries": [
+        {
+          "name": "ActivatedCommanderPowers",
+          "value": 33
+        },
+        {
+          "name": "ActivatedUnitAbilities",
+          "value": 32
+        },
+        {
+          "name": "AvgGameLength",
+          "value": 8
+        },
+        {
+          "name": "AvgIncomePerMinute",
+          "value": 23
+        },
+        {
+          "name": "BridgesDestroyed",
+          "value": 17
+        },
+        {
+          "name": "CaptureRatio",
+          "value": 15
+        },
+        {
+          "name": "CareerLosses",
+          "value": 5
+        },
+        {
+          "name": "CareerWins",
+          "value": 6
+        },
+        {
+          "name": "CurrentLossStreak",
+          "value": 1
+        },
+        {
+          "name": "CurrentWinStreak",
+          "value": 0
+        },
+        {
+          "name": "EfficiencyRatio",
+          "value": 28
+        },
+        {
+          "name": "FormationPreviewUsed",
+          "value": 27
+        },
+        {
+          "name": "FriendlyFireIncidents",
+          "value": 31
+        },
+        {
+          "name": "LongestLosingStreak",
+          "value": 3
+        },
+        {
+          "name": "LongestWinStreak",
+          "value": 2
+        },
+        {
+          "name": "ResourcesGathered",
+          "value": 25
+        },
+        {
+          "name": "ResourcesSpent",
+          "value": 26
+        },
+        {
+          "name": "SecondsInLowPower",
+          "value": 24
+        },
+        {
+          "name": "StructuresBuilt",
+          "value": 10
+        },
+        {
+          "name": "StructuresCaptured",
+          "value": 13
+        },
+        {
+          "name": "StructuresCapturedByEnemy",
+          "value": 14
+        },
+        {
+          "name": "StructuresDestroyed",
+          "value": 12
+        },
+        {
+          "name": "StructuresInfiltrated",
+          "value": 34
+        },
+        {
+          "name": "StructuresLost",
+          "value": 11
+        },
+        {
+          "name": "StructuresSold",
+          "value": 18
+        },
+        {
+          "name": "SuperWeaponsBuilt",
+          "value": 16
+        },
+        {
+          "name": "TotalMatchesPlayed",
+          "value": 4
+        },
+        {
+          "name": "TotalTimePlayed",
+          "value": 9
+        },
+        {
+          "name": "UnitKillLostRatio",
+          "value": 22
+        },
+        {
+          "name": "UnitsBuilt",
+          "value": 19
+        },
+        {
+          "name": "UnitsKilled",
+          "value": 21
+        },
+        {
+          "name": "UnitsLost",
+          "value": 20
+        },
+        {
+          "name": "ValueOfUnitsKilled",
+          "value": 30
+        },
+        {
+          "name": "ValueOfUnitsLost",
+          "value": 29
+        },
+        {
+          "name": "WinLossRatio",
+          "value": 7
+        }
+      ]
+    },
+    "PostGameStatType": {
+      "fallback": 10,
+      "entries": [
+        {
+          "name": "AvgIncomePerMinute",
+          "value": 10
+        },
+        {
+          "name": "AvgIncomePerSecond",
+          "value": 11
+        },
+        {
+          "name": "CommanderPowersUsed",
+          "value": 16
+        },
+        {
+          "name": "EfficiencyRatio",
+          "value": 13
+        },
+        {
+          "name": "EnemyStructuresInfiltrated",
+          "value": 14
+        },
+        {
+          "name": "ResourcesGathered",
+          "value": 12
+        },
+        {
+          "name": "SessionLength",
+          "value": 0
+        },
+        {
+          "name": "StructuresCaptured",
+          "value": 4
+        },
+        {
+          "name": "StructuresCreated",
+          "value": 1
+        },
+        {
+          "name": "StructuresDestroyed",
+          "value": 3
+        },
+        {
+          "name": "StructuresLost",
+          "value": 2
+        },
+        {
+          "name": "StructuresSold",
+          "value": 5
+        },
+        {
+          "name": "UnitAbilitiesUsed",
+          "value": 15
+        },
+        {
+          "name": "UnitKillDeathRatio",
+          "value": 9
+        },
+        {
+          "name": "UnitsCreated",
+          "value": 6
+        },
+        {
+          "name": "UnitsKilled",
+          "value": 8
+        },
+        {
+          "name": "UnitsLost",
+          "value": 7
+        }
+      ]
+    },
+    "ShadowType": {
+      "fallback": 3,
+      "entries": [
+        {
+          "name": "ADDITIVE_DECAL",
+          "value": 3
+        },
+        {
+          "name": "ADDITIVE_DECAL_DYNAMIC",
+          "value": 5
+        },
+        {
+          "name": "ALPHA_DECAL",
+          "value": 2
+        },
+        {
+          "name": "ALPHA_DECAL_DYNAMIC",
+          "value": 4
+        },
+        {
+          "name": "DECAL",
+          "value": 1
+        },
+        {
+          "name": "MERGE_DECAL",
+          "value": 6
+        },
+        {
+          "name": "NONE",
+          "value": 0
+        }
+      ]
+    },
+    "JoyPadButtonType": {
+      "fallback": 6,
+      "entries": [
+        {
+          "name": "A",
+          "value": 6
+        },
+        {
+          "name": "B",
+          "value": 7
+        },
+        {
+          "name": "BACK",
+          "value": 11
+        },
+        {
+          "name": "D_PAD",
+          "value": 10
+        },
+        {
+          "name": "GUIDE",
+          "value": 13
+        },
+        {
+          "name": "LEFT_BUMPER",
+          "value": 2
+        },
+        {
+          "name": "LEFT_STICK",
+          "value": 0
+        },
+        {
+          "name": "LEFT_TRIGGER",
+          "value": 1
+        },
+        {
+          "name": "RIGHT_BUMPER",
+          "value": 5
+        },
+        {
+          "name": "RIGHT_STICK",
+          "value": 3
+        },
+        {
+          "name": "RIGHT_TRIGGER",
+          "value": 4
+        },
+        {
+          "name": "START",
+          "value": 12
+        },
+        {
+          "name": "X",
+          "value": 8
+        },
+        {
+          "name": "Y",
+          "value": 9
+        }
+      ]
+    },
+    "JoyPadActionType": {
+      "fallback": 2,
+      "entries": [
+        {
+          "name": "CLICK",
+          "value": 2
+        },
+        {
+          "name": "DOUBLE_CLICK",
+          "value": 3
+        },
+        {
+          "name": "DOWN",
+          "value": 11
+        },
+        {
+          "name": "HOLD",
+          "value": 1
+        },
+        {
+          "name": "LEFT",
+          "value": 8
+        },
+        {
+          "name": "LEFT_OR_RIGHT",
+          "value": 12
+        },
+        {
+          "name": "LINK_WITH_NEXT",
+          "value": 14
+        },
+        {
+          "name": "MOVE",
+          "value": 7
+        },
+        {
+          "name": "ON_GROUND",
+          "value": 4
+        },
+        {
+          "name": "ON_TARGET",
+          "value": 5
+        },
+        {
+          "name": "ON_UNIT_TYPE",
+          "value": 6
+        },
+        {
+          "name": "PRESS",
+          "value": 0
+        },
+        {
+          "name": "RIGHT",
+          "value": 9
+        },
+        {
+          "name": "UP",
+          "value": 10
+        },
+        {
+          "name": "UP_OR_DOWN",
+          "value": 13
+        }
+      ]
+    }
+  },
+  "types": {
+    "AIDifficultySetting": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:AIDifficultyValue",
+          "default": null
+        }
+      ]
+    },
+    "TeamSetting": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null
+        }
+      ]
+    },
+    "RankedOptionSetting": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null
+        }
+      ]
+    },
+    "GameplayTypeSetting": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:GameplayType",
+          "default": null
+        },
+        {
+          "name": "AvailableWithAI",
+          "offset": 12,
+          "kind": "bool",
+          "default": "false"
+        }
+      ]
+    },
+    "GameTimeSetting": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null
+        },
+        {
+          "name": "Default",
+          "offset": 16,
+          "kind": "bool",
+          "default": "false"
+        },
+        {
+          "name": "MinGameTimeValue",
+          "offset": 12,
+          "kind": "int",
+          "default": "0"
+        }
+      ]
+    },
+    "GameResourcesSetting": {
+      "bytes": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false"
+        }
+      ]
+    },
+    "GamePointsSetting": {
+      "bytes": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false"
+        }
+      ]
+    },
+    "GameFlagsSetting": {
+      "bytes": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false"
+        }
+      ]
+    },
+    "SlotState": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:SlotStateType",
+          "default": null
+        },
+        {
+          "name": "AvailableInRanked",
+          "offset": 12,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "AvailableInModerated",
+          "offset": 13,
+          "kind": "bool",
+          "default": "true"
+        }
+      ]
+    },
+    "CareerStatData": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "StatType",
+          "offset": 0,
+          "kind": "enum:CareerStatType",
+          "default": null
+        },
+        {
+          "name": "StatLabel",
+          "offset": 4,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "IsRatio",
+          "offset": 20,
+          "kind": "bool",
+          "default": "false"
+        },
+        {
+          "name": "NoSummary",
+          "offset": 21,
+          "kind": "bool",
+          "default": "false"
+        },
+        {
+          "name": "RatioNumerator",
+          "offset": 12,
+          "kind": "enum:CareerStatOrder",
+          "default": null
+        },
+        {
+          "name": "RatioDenominator",
+          "offset": 16,
+          "kind": "enum:CareerStatOrder",
+          "default": null
+        }
+      ]
+    },
+    "PostGameStatData": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "StatType",
+          "offset": 0,
+          "kind": "enum:PostGameStatType",
+          "default": null
+        },
+        {
+          "name": "StatLabel",
+          "offset": 4,
+          "kind": "string",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentTickerGroup": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "Name",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "HTTPAddress",
+          "offset": 8,
+          "kind": "string",
+          "default": null
+        }
+      ]
+    },
+    "FontDesc": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "Name",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Size",
+          "offset": 8,
+          "kind": "uint",
+          "default": null
+        },
+        {
+          "name": "Bold",
+          "offset": 12,
+          "kind": "bool",
+          "default": "false"
+        }
+      ]
+    },
+    "RGBColor": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "float",
+          "default": null
+        },
+        {
+          "name": "G",
+          "offset": 4,
+          "kind": "float",
+          "default": null
+        },
+        {
+          "name": "B",
+          "offset": 8,
+          "kind": "float",
+          "default": null
+        }
+      ]
+    },
+    "Vector2": {
+      "bytes": 8,
+      "fields": [
+        {
+          "name": "x",
+          "offset": 0,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "y",
+          "offset": 4,
+          "kind": "float",
+          "default": "0.0"
+        }
+      ]
+    },
+    "ArchivableMovie": {
+      "bytes": 32,
+      "fields": [
+        {
+          "name": "ProgressLock",
+          "offset": 0,
+          "kind": "uint",
+          "default": "0"
+        },
+        {
+          "name": "MovieImage",
+          "offset": 4,
+          "kind": "ref",
+          "default": null
+        },
+        {
+          "name": "FileName",
+          "offset": 8,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "OnScreenName",
+          "offset": 16,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Description",
+          "offset": 24,
+          "kind": "string",
+          "default": null
+        }
+      ]
+    },
+    "RadiusDecalComponent": {
+      "bytes": 64,
+      "fields": [
+        {
+          "name": "Texture",
+          "offset": 0,
+          "kind": "ref",
+          "default": null
+        },
+        {
+          "name": "Texture2",
+          "offset": 4,
+          "kind": "ref",
+          "default": null
+        },
+        {
+          "name": "Style",
+          "offset": 8,
+          "kind": "enum:ShadowType",
+          "default": null
+        },
+        {
+          "name": "OpacityMin",
+          "offset": 12,
+          "kind": "percent",
+          "default": "1.0"
+        },
+        {
+          "name": "OpacityMax",
+          "offset": 16,
+          "kind": "percent",
+          "default": "1.0"
+        },
+        {
+          "name": "OpacityPulsesPerSecond",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "RotationMin",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "RotationMax",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "RotationDegreesPerSecond",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "MinRadius",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.0"
+        },
+        {
+          "name": "MaxRadius",
+          "offset": 40,
+          "kind": "float",
+          "default": "1.0"
+        },
+        {
+          "name": "RadiusPulsesPerSecond",
+          "offset": 44,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "PositionOffsetMin",
+          "offset": 48,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "PositionOffsetMax",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.0"
+        },
+        {
+          "name": "PositionOffsetPulsesPerSecond",
+          "offset": 56,
+          "kind": "float",
+          "default": "0.0"
+        }
+      ],
+      "children": [
+        {
+          "name": "Color",
+          "offset": 60,
+          "kind": "inline",
+          "type": "ColorTag"
+        }
+      ]
+    },
+    "DefaultValues": {
+      "bytes": 72,
+      "fields": [
+        {
+          "name": "Difficulty",
+          "offset": 0,
+          "kind": "int",
+          "default": "1"
+        },
+        {
+          "name": "Gamma",
+          "offset": 4,
+          "kind": "float",
+          "default": "1.30"
+        },
+        {
+          "name": "Brightness",
+          "offset": 8,
+          "kind": "float",
+          "default": "0.50"
+        },
+        {
+          "name": "Contrast",
+          "offset": 12,
+          "kind": "float",
+          "default": "1.30"
+        },
+        {
+          "name": "VolumeMusic",
+          "offset": 16,
+          "kind": "float",
+          "default": "0.45"
+        },
+        {
+          "name": "VolumeFX",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.70"
+        },
+        {
+          "name": "VolumeVoice",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.70"
+        },
+        {
+          "name": "VolumeAmbient",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.50"
+        },
+        {
+          "name": "VolumeMovie",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.70"
+        },
+        {
+          "name": "ScrollSpeed",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.00"
+        },
+        {
+          "name": "ScrollMagnetism",
+          "offset": 40,
+          "kind": "int",
+          "default": "2"
+        },
+        {
+          "name": "ButtonIcon",
+          "offset": 60,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "ShowCommandList",
+          "offset": 61,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "HealthBars",
+          "offset": 62,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "HighlightPads",
+          "offset": 63,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "ToolTips",
+          "offset": 64,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "Subtitles",
+          "offset": 65,
+          "kind": "bool",
+          "default": "false"
+        },
+        {
+          "name": "InvertRotate",
+          "offset": 66,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "Telemetry",
+          "offset": 67,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "DefaultFaction",
+          "offset": 44,
+          "kind": "int",
+          "default": "-1"
+        },
+        {
+          "name": "VisionCamVisible",
+          "offset": 68,
+          "kind": "bool",
+          "default": "true"
+        },
+        {
+          "name": "VisionCamZoom",
+          "offset": 48,
+          "kind": "int",
+          "default": "1"
+        },
+        {
+          "name": "ScrollSpeedMin",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.2"
+        },
+        {
+          "name": "ScrollSpeedMax",
+          "offset": 56,
+          "kind": "float",
+          "default": "2.0"
+        }
+      ]
+    },
+    "InputButton": {
+      "bytes": 8,
+      "fields": [
+        {
+          "name": "ButtonName",
+          "offset": 0,
+          "kind": "enum:JoyPadButtonType",
+          "default": null
+        },
+        {
+          "name": "ButtonAction",
+          "offset": 4,
+          "kind": "enum:JoyPadActionType",
+          "default": null
+        }
+      ]
+    },
+    "SingleCommandList": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "CategoryName",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        }
+      ],
+      "children": [
+        {
+          "name": "CommandLine",
+          "offset": 8,
+          "kind": "list",
+          "type": "SingleCommandLine"
+        }
+      ]
+    },
+    "SingleCommandLine": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "Purpose",
+          "offset": 0,
+          "kind": "string",
+          "default": null
+        },
+        {
+          "name": "Description",
+          "offset": 8,
+          "kind": "string",
+          "default": null
+        }
+      ],
+      "children": [
+        {
+          "name": "Input",
+          "offset": 16,
+          "kind": "list",
+          "type": "InputButton"
+        }
+      ]
+    },
+    "ColorTag": {
+      "bytes": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255"
+        }
+      ]
+    },
+    "RadiusDecalTemplate": {
+      "bytes": 8,
+      "fields": [],
+      "children": [
+        {
+          "name": "Component",
+          "offset": 0,
+          "kind": "list",
+          "type": "RadiusDecalComponent"
+        }
+      ]
+    },
+    "ArchiveMovieList": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "Faction",
+          "offset": 0,
+          "kind": "enum:FactionType",
+          "default": "Soviet"
+        }
+      ],
+      "children": [
+        {
+          "name": "Movie",
+          "offset": 4,
+          "kind": "list",
+          "type": "ArchivableMovie"
+        }
+      ]
+    },
+    "MultiplayerLobbyData": {
+      "bytes": 48,
+      "fields": [],
+      "children": [
+        {
+          "name": "LobbyTitleLabelSpec",
+          "offset": 0,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "UnmoderatedLobbyTitleTemplateSpec",
+          "offset": 8,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "ModeratedLobbyTitleTemplateSpec",
+          "offset": 16,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "PlayerNameLabelSpec",
+          "offset": 24,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "SlotLabelSpec",
+          "offset": 32,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "SlotState",
+          "offset": 40,
+          "kind": "list",
+          "type": "SlotState"
+        }
+      ]
+    },
+    "SkirmishLobbyData": {
+      "bytes": 24,
+      "fields": [],
+      "children": [
+        {
+          "name": "LoadMusic",
+          "offset": 0,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "SlotLabelSpec",
+          "offset": 8,
+          "kind": "inline",
+          "type": "String"
+        },
+        {
+          "name": "SlotState",
+          "offset": 16,
+          "kind": "list",
+          "type": "SlotState"
+        }
+      ]
+    },
+    "FactionType": {
+      "bytes": 4,
+      "fields": [],
+      "text": true,
+      "textKind": "enum:FactionType"
+    },
+    "AssetId": {
+      "bytes": 8,
+      "fields": [],
+      "text": true,
+      "textKind": "string"
+    },
+    "String": {
+      "bytes": 8,
+      "fields": [],
+      "text": true,
+      "textKind": "string"
+    },
+    "TypedAssetId": {
+      "bytes": 4,
+      "fields": [],
+      "text": true,
+      "textKind": "hash"
+    },
+    "ObjectFilter": {
+      "bytes": 112,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "hash",
+          "offset": 0,
+          "default": null
+        },
+        {
+          "name": "Rule",
+          "kind": "objectfilter-rule",
+          "offset": 4,
+          "default": "NONE"
+        },
+        {
+          "name": "Relationship",
+          "kind": "objectfilter-relationship-flags",
+          "offset": 8,
+          "default": null
+        },
+        {
+          "name": "Alignment",
+          "kind": "objectfilter-alignment",
+          "offset": 12,
+          "default": "NONE"
+        },
+        {
+          "name": "Include",
+          "kind": "kindof-flags",
+          "offset": 16,
+          "default": null
+        },
+        {
+          "name": "Exclude",
+          "kind": "kindof-flags",
+          "offset": 52,
+          "default": null
+        },
+        {
+          "name": "StatusBitFlags",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 88,
+          "default": null
+        },
+        {
+          "name": "StatusBitFlagsExclude",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 92,
+          "default": null
+        }
+      ],
+      "children": [
+        {
+          "name": "IncludeThing",
+          "offset": 96,
+          "kind": "list",
+          "type": "TypedAssetId"
+        },
+        {
+          "name": "ExcludeThing",
+          "offset": 104,
+          "kind": "list",
+          "type": "TypedAssetId"
+        }
+      ]
+    }
+  },
+  "sizes": {
+    "AIDifficultySetting": 12,
+    "TeamSetting": 12,
+    "RankedOptionSetting": 12,
+    "GameplayTypeSetting": 16,
+    "GameTimeSetting": 20,
+    "GameResourcesSetting": 8,
+    "GamePointsSetting": 8,
+    "GameFlagsSetting": 8,
+    "SlotState": 16,
+    "CareerStatData": 24,
+    "PostGameStatData": 12,
+    "UIComponentTickerGroup": 16,
+    "FontDesc": 16,
+    "RGBColor": 12,
+    "Vector2": 8,
+    "ArchivableMovie": 32,
+    "RadiusDecalComponent": 64,
+    "DefaultValues": 72,
+    "InputButton": 8,
+    "RadiusDecalTemplate": 8,
+    "ArchiveMovieList": 12,
+    "ObjectFilter": 112,
+    "FactionType": 4,
+    "MultiplayerLobbyData": 48,
+    "SkirmishLobbyData": 24,
+    "ColorTag": 4,
+    "AssetId": 8,
+    "String": 8,
+    "TypedAssetId": 4,
+    "SingleCommandList": 16,
+    "SingleCommandLine": 24
+  }
+}

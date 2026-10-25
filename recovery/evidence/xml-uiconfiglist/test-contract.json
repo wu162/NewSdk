@@ -1,0 +1,5103 @@
+{
+  "sourceBlob": "2d2f471c8008b7c2e1f78e39752d0726da395cea",
+  "scope": "Source-derived fixture/layout descriptors, not runtime validation",
+  "components": {
+    "UIComponentMovieArchive": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "MissionSpec",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "FactionMovieArchive",
+          "mode": "child",
+          "offset": 16,
+          "kind": "list",
+          "dependency": "ArchiveMovieList",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentMovie": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "MovieComponentName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MaxNumberOfStream",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": "3"
+        }
+      ]
+    },
+    "UIComponentObjectSelector": {
+      "bytes": 116,
+      "fields": [
+        {
+          "name": "ShowAllHealthBars",
+          "mode": "attr",
+          "offset": 112,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": "true"
+        },
+        {
+          "name": "PortraitName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": "true"
+        },
+        {
+          "name": "UnitAbility",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": "true"
+        },
+        {
+          "name": "StatusTextNothingSelected",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "StatusTextSelectedAcrossMap",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "StatusTextSelectedAcrossScreen",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AllArmyImageGDI",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AllArmyImageNOD",
+          "mode": "attr",
+          "offset": 52,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AllArmyImageAlien",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ClockImage",
+          "mode": "attr",
+          "offset": 60,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AssaultTargetForceFeedback",
+          "mode": "attr",
+          "offset": 64,
+          "kind": "nullableHash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AlienHighlightDecal",
+          "mode": "child",
+          "offset": 68,
+          "kind": "list",
+          "dependency": "RadiusDecalComponent",
+          "wrapper": "Component",
+          "default": null
+        },
+        {
+          "name": "GDIHighlightDecal",
+          "mode": "child",
+          "offset": 76,
+          "kind": "list",
+          "dependency": "RadiusDecalComponent",
+          "wrapper": "Component",
+          "default": null
+        },
+        {
+          "name": "NODHighlightDecal",
+          "mode": "child",
+          "offset": 84,
+          "kind": "inline",
+          "dependency": "RadiusDecalTemplate",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ShortcutObjects",
+          "mode": "child",
+          "offset": 92,
+          "kind": "list",
+          "dependency": "ObjectFilter",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SupportObjects",
+          "mode": "child",
+          "offset": 100,
+          "kind": "list",
+          "dependency": "ObjectFilter",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ClockColor",
+          "mode": "child",
+          "offset": 108,
+          "kind": "inline",
+          "dependency": "ColorTag",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOnlineLobbyList": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "LobbyNameAptTokenSpec",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentKeyboard": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "EditableTextLabelPrefix",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentAptMediator": {
+      "bytes": 104,
+      "fields": [
+        {
+          "name": "AptGlobalLoadVarName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptEventHandlerName",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptFSCommandHandlerName",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenDelimiters",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NewSkoolIndicator",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "FunctionSeparator",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ValueSeparator",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "InputParameterSeparator",
+          "mode": "attr",
+          "offset": 64,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ParameterNameSeparator",
+          "mode": "attr",
+          "offset": 72,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ParameterStartIndicator",
+          "mode": "attr",
+          "offset": 80,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SubObjectSeparator",
+          "mode": "attr",
+          "offset": 88,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "OutputParameterSeparator",
+          "mode": "attr",
+          "offset": 96,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentPlayerTechStore": {
+      "bytes": 32,
+      "fields": [
+        {
+          "name": "HighlightButtonSoundName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SelectButtonSoundName",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CancelButtonSoundName",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentCommandList": {
+      "bytes": 56,
+      "fields": [
+        {
+          "name": "AptTokenLeftTrigger",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenRightTrigger",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenAButton",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenBButton",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenXButton",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenYButton",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentStats": {
+      "bytes": 32,
+      "fields": [
+        {
+          "name": "PlayerToken",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TitleToken",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DataToken",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentAptJoypad": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "RelayLeftStickPosition",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": "false"
+        },
+        {
+          "name": "RelayRightStickPosition",
+          "mode": "attr",
+          "offset": 9,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": "false"
+        }
+      ]
+    },
+    "UIComponentOptionsSettingsNetwork": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "LoadVarQueryReturnToken",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOptions": {
+      "bytes": 112,
+      "fields": [
+        {
+          "name": "ControlsToken",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SaveFileName",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ControlsText",
+          "mode": "child",
+          "offset": 24,
+          "kind": "list",
+          "dependency": "String",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultValues",
+          "mode": "child",
+          "offset": 32,
+          "kind": "inline",
+          "dependency": "DefaultValues",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CommandList",
+          "mode": "child",
+          "offset": 104,
+          "kind": "list",
+          "dependency": "SingleCommandList",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentFormation": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "MaxDragLength",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOptionsSettingsGraphics": {
+      "bytes": 212,
+      "fields": [
+        {
+          "name": "LoadVarQueryReturnToken",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultBrightness",
+          "mode": "child",
+          "offset": 16,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "PresetsAptTokenSpec",
+          "mode": "child",
+          "offset": 20,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "PresetsStrLookupSpec",
+          "mode": "child",
+          "offset": 28,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ResolutionAptTokenSpec",
+          "mode": "child",
+          "offset": 36,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AntialiasingAptTokenSpec",
+          "mode": "child",
+          "offset": 44,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AntialiasingOffStrLookupSpec",
+          "mode": "child",
+          "offset": 52,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AntialiasingOnStrLookupSpec",
+          "mode": "child",
+          "offset": 60,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TerrainDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 68,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TerrainDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 76,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "WaterDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 84,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "WaterDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 92,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ModelDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 100,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ModelDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 108,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TextureQualityAptTokenSpec",
+          "mode": "child",
+          "offset": 116,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TextureQualityStrLookupSpec",
+          "mode": "child",
+          "offset": 124,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ShaderDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 132,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ShaderDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 140,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "VFXDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 148,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "VFXDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 156,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ShadowDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 164,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ShadowDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 172,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AnimationDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 180,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AnimationDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 188,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DecalDetailAptTokenSpec",
+          "mode": "child",
+          "offset": 196,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DecalDetailStrLookupSpec",
+          "mode": "child",
+          "offset": 204,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentMapList": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "MapListLabelPrefix",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentCareerStats": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "DefaultRankImage",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CareerStat",
+          "mode": "child",
+          "offset": 12,
+          "kind": "list",
+          "dependency": "CareerStatData",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentBootup": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "RenderImageName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "LoadingTextImageName",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentChat": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "ChatTextLocalLabelPrefix",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ChatTextGlobalLabelPrefix",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOptionsSettingsGeneral": {
+      "bytes": 36,
+      "fields": [
+        {
+          "name": "LoadVarQueryReturnToken",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MinTooltipDelayMS",
+          "mode": "child",
+          "offset": 16,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MaxTooltipDelayMS",
+          "mode": "child",
+          "offset": 20,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultTooltipDelayMS",
+          "mode": "child",
+          "offset": 24,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultMouseSensitivity",
+          "mode": "child",
+          "offset": 28,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultAlternateMouse",
+          "mode": "child",
+          "offset": 32,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultShowNews",
+          "mode": "child",
+          "offset": 33,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultShowAds",
+          "mode": "child",
+          "offset": 34,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentCommandBar": {
+      "bytes": 184,
+      "fields": [
+        {
+          "name": "HomeButtonImageName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": "CbarHome"
+        },
+        {
+          "name": "ButtonSlotImageBaseName",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": "CbarSlot"
+        },
+        {
+          "name": "GeneralButtonImageBaseName",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": "CbarGeneral"
+        },
+        {
+          "name": "RenderClockName",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ClockScale",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ClockImage",
+          "mode": "attr",
+          "offset": 44,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "UnitCapFlashSeconds",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "UnitCapFinalWarningAmount",
+          "mode": "attr",
+          "offset": 52,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "UnitCapInitialWarningAmount",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "UnitCapNoMoreCP",
+          "mode": "attr",
+          "offset": 60,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "UnitCapAlmostNoMoreCP",
+          "mode": "attr",
+          "offset": 68,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollPowersSoundName",
+          "mode": "attr",
+          "offset": 76,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "OpenUISoundName",
+          "mode": "attr",
+          "offset": 84,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CloseUISoundName",
+          "mode": "attr",
+          "offset": 92,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HighlightButtonSoundName",
+          "mode": "attr",
+          "offset": 100,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HighlightButtonForceFeedback",
+          "mode": "attr",
+          "offset": 108,
+          "kind": "nullableHash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TransitionForceFeedback",
+          "mode": "attr",
+          "offset": 112,
+          "kind": "nullableHash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SelectButtonSoundName",
+          "mode": "attr",
+          "offset": 116,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ZoomInSoundName",
+          "mode": "attr",
+          "offset": 124,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ZoomOutSoundName",
+          "mode": "attr",
+          "offset": 132,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CycleSoundName",
+          "mode": "attr",
+          "offset": 140,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenTitle",
+          "mode": "attr",
+          "offset": 148,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenCost",
+          "mode": "attr",
+          "offset": 156,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenTime",
+          "mode": "attr",
+          "offset": 164,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenEnergy",
+          "mode": "attr",
+          "offset": 172,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ClockColor",
+          "mode": "child",
+          "offset": 180,
+          "kind": "inline",
+          "dependency": "ColorTag",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOnlinePlayerList": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "PlayerNameAptTokenSpec",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentRadar": {
+      "bytes": 44,
+      "fields": [
+        {
+          "name": "RadarWidth",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": "128"
+        },
+        {
+          "name": "RadarHeight",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": "128"
+        },
+        {
+          "name": "OrientationArrowSize",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "OrientationArrowImage",
+          "mode": "attr",
+          "offset": 20,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "StatusTextInfiltration",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "LeftStickMultiplier",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "0.035"
+        },
+        {
+          "name": "RightStickMultiplier",
+          "mode": "attr",
+          "offset": 36,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "350.0"
+        },
+        {
+          "name": "LeftTriggerTolerance",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": "900"
+        }
+      ]
+    },
+    "UIComponentLobby": {
+      "bytes": 264,
+      "fields": [
+        {
+          "name": "RandomStringLabel",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "FactionLabelSpec",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AIPersonalityLabelSpec",
+          "mode": "child",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AIDifficultyLabelSpec",
+          "mode": "child",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TeamLabelSpec",
+          "mode": "child",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MapListSpec",
+          "mode": "child",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameplayTypeSpec",
+          "mode": "child",
+          "offset": 56,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameTimeLimitSpec",
+          "mode": "child",
+          "offset": 64,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameResourcesSpec",
+          "mode": "child",
+          "offset": 72,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HillTimeSpec",
+          "mode": "child",
+          "offset": 80,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CapturePointsSpec",
+          "mode": "child",
+          "offset": 88,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "BarrierTimeSpec",
+          "mode": "child",
+          "offset": 96,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CaptureFlagsSpec",
+          "mode": "child",
+          "offset": 104,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Faction",
+          "mode": "child",
+          "offset": 112,
+          "kind": "list",
+          "dependency": "FactionType",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AIDifficulty",
+          "mode": "child",
+          "offset": 120,
+          "kind": "list",
+          "dependency": "AIDifficultySetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Team",
+          "mode": "child",
+          "offset": 128,
+          "kind": "list",
+          "dependency": "TeamSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameType",
+          "mode": "child",
+          "offset": 136,
+          "kind": "list",
+          "dependency": "GameplayTypeSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameTime",
+          "mode": "child",
+          "offset": 144,
+          "kind": "list",
+          "dependency": "GameTimeSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameResources",
+          "mode": "child",
+          "offset": 152,
+          "kind": "list",
+          "dependency": "GameResourcesSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HillTime",
+          "mode": "child",
+          "offset": 160,
+          "kind": "list",
+          "dependency": "GameTimeSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "BarrierTime",
+          "mode": "child",
+          "offset": 168,
+          "kind": "list",
+          "dependency": "GameTimeSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CapturePoints",
+          "mode": "child",
+          "offset": 176,
+          "kind": "list",
+          "dependency": "GamePointsSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "CaptureFlags",
+          "mode": "child",
+          "offset": 184,
+          "kind": "list",
+          "dependency": "GameFlagsSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MultiplayerLobbySettings",
+          "mode": "child",
+          "offset": 192,
+          "kind": "inline",
+          "dependency": "MultiplayerLobbyData",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SkirmishLobbySettings",
+          "mode": "child",
+          "offset": 240,
+          "kind": "inline",
+          "dependency": "SkirmishLobbyData",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentSUDs": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "TechPointAwardedSound",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "nullableRef",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOnlineInvite": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "MaxNumberLoggedInvites",
+          "mode": "child",
+          "offset": 8,
+          "kind": "uint",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "InviteNameAptTokenSpec",
+          "mode": "child",
+          "offset": 12,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentSpecialPowers": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "PowerTimerImage",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "PowerTimerFlashImageName",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentCoopCommander": {
+      "bytes": 88,
+      "fields": [
+        {
+          "name": "AssaultButtonName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AssaultButtonDesc",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AssaultButtonCommandBarButtonTemplate",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NormalButtonName",
+          "mode": "attr",
+          "offset": 28,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NormalButtonDesc",
+          "mode": "attr",
+          "offset": 36,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NormalButtonCommandBarButtonTemplate",
+          "mode": "attr",
+          "offset": 44,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldPosButtonName",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldPosButtonDesc",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldPosButtonCommandBarButtonTemplate",
+          "mode": "attr",
+          "offset": 64,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldObjButtonName",
+          "mode": "attr",
+          "offset": 68,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldObjButtonDesc",
+          "mode": "attr",
+          "offset": 76,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoldObjButtonCommandBarButtonTemplate",
+          "mode": "attr",
+          "offset": 84,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentGameInfo": {
+      "bytes": 120,
+      "fields": [
+        {
+          "name": "GameScoreDisplayToken",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScorePlayerToken",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "FactionLabelToken",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameScoreXLocWS",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameScoreXLoc",
+          "mode": "attr",
+          "offset": 36,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameScoreYLocWS",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameScoreYLoc",
+          "mode": "attr",
+          "offset": 44,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player1ScoreXLocWS",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player1ScoreXLoc",
+          "mode": "attr",
+          "offset": 52,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player1ScoreYLocWS",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player1ScoreYLoc",
+          "mode": "attr",
+          "offset": 60,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player2ScoreXLocWS",
+          "mode": "attr",
+          "offset": 64,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player2ScoreXLoc",
+          "mode": "attr",
+          "offset": 68,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player2ScoreYLocWS",
+          "mode": "attr",
+          "offset": 72,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player2ScoreYLoc",
+          "mode": "attr",
+          "offset": 76,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player3ScoreXLocWS",
+          "mode": "attr",
+          "offset": 80,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player3ScoreXLoc",
+          "mode": "attr",
+          "offset": 84,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player3ScoreYLocWS",
+          "mode": "attr",
+          "offset": 88,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player3ScoreYLoc",
+          "mode": "attr",
+          "offset": 92,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player4ScoreXLocWS",
+          "mode": "attr",
+          "offset": 96,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player4ScoreXLoc",
+          "mode": "attr",
+          "offset": 100,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player4ScoreYLocWS",
+          "mode": "attr",
+          "offset": 104,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "Player4ScoreYLoc",
+          "mode": "attr",
+          "offset": 108,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "FactionValue",
+          "mode": "child",
+          "offset": 112,
+          "kind": "list",
+          "dependency": "AssetId",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentInGameText": {
+      "bytes": 168,
+      "fields": [
+        {
+          "name": "AdjustFactor",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TextIndent",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TooltipAppearDelayMS",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "uint",
+          "dependency": "",
+          "wrapper": "",
+          "default": "3000"
+        },
+        {
+          "name": "TooltipDisappearDelayMS",
+          "mode": "attr",
+          "offset": 20,
+          "kind": "uint",
+          "dependency": "",
+          "wrapper": "",
+          "default": "3000"
+        },
+        {
+          "name": "AptTokenTitle",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenPrereq",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenCost",
+          "mode": "attr",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenTime",
+          "mode": "attr",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenEnergy",
+          "mode": "attr",
+          "offset": 56,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenShortDesc",
+          "mode": "attr",
+          "offset": 64,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AptTokenLongDesc",
+          "mode": "attr",
+          "offset": 72,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextConstruction",
+          "mode": "attr",
+          "offset": 80,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextUpgrade",
+          "mode": "attr",
+          "offset": 88,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextRecruit",
+          "mode": "attr",
+          "offset": 96,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextScale",
+          "mode": "attr",
+          "offset": 104,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SubtitleStringLabelPrefix",
+          "mode": "attr",
+          "offset": 108,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SubtitleStringLabelSuffix",
+          "mode": "attr",
+          "offset": 116,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SubtitleStringExclusionChar",
+          "mode": "attr",
+          "offset": 124,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "StatusTextPosition",
+          "mode": "child",
+          "offset": 132,
+          "kind": "inline",
+          "dependency": "Vector2",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextColor",
+          "mode": "child",
+          "offset": 140,
+          "kind": "inline",
+          "dependency": "RGBColor",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ProductionTextFont",
+          "mode": "child",
+          "offset": 152,
+          "kind": "inline",
+          "dependency": "FontDesc",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentProfileManager": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "ProfileListLabelPrefix",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOnlineGameList": {
+      "bytes": 28,
+      "fields": [
+        {
+          "name": "GameNameAptTokenSpec",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameMapNameAptTokenSpec",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameListRefreshInterval",
+          "mode": "child",
+          "offset": 24,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentComlinkNotification": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "MessageTokenSpec",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentShell": {
+      "bytes": 28,
+      "fields": [
+        {
+          "name": "LoadMusic",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "LogoRenderImage",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "LogoTexture",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentPlayerPowers": {
+      "bytes": 12,
+      "fields": [
+        {
+          "name": "ClockImage",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "hash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentCursor": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "AptEventCursorChanged",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "rawhash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "HoverSelectForceFeedback",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "nullableHash",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOptionsSettingsAudio": {
+      "bytes": 20,
+      "fields": [
+        {
+          "name": "LoadVarQueryReturnToken",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultVoipEnable",
+          "mode": "child",
+          "offset": 16,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultVoipBoostMicGain",
+          "mode": "child",
+          "offset": 17,
+          "kind": "bool",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentTicker": {
+      "bytes": 40,
+      "fields": [
+        {
+          "name": "CustomRenderName",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NumberOfTickerDisplays",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "int",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollSpeedPixelPerSec",
+          "mode": "attr",
+          "offset": 20,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "NumberOfPixelsBetweenHeadline",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TickerColor",
+          "mode": "child",
+          "offset": 28,
+          "kind": "inline",
+          "dependency": "ColorTag",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TickerGroup",
+          "mode": "child",
+          "offset": 32,
+          "kind": "list",
+          "dependency": "UIComponentTickerGroup",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentSaveLoad": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "FileToken",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentOnlineBuddyList": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "BuddyNameAptTokenSpec",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "BuddyLocAptTokenSpec",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentGameViewJoypad": {
+      "bytes": 116,
+      "fields": [
+        {
+          "name": "LeftStickMultiplier",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "100.0"
+        },
+        {
+          "name": "RightStickMultiplier",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "0.25"
+        },
+        {
+          "name": "ObjectAttractivityForce",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "20.0"
+        },
+        {
+          "name": "MinAttractDistance",
+          "mode": "attr",
+          "offset": 20,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "40.0"
+        },
+        {
+          "name": "MinAttractDistanceZoomed",
+          "mode": "attr",
+          "offset": 24,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "40.0"
+        },
+        {
+          "name": "MaxAttractiveForce",
+          "mode": "attr",
+          "offset": 28,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "0.6"
+        },
+        {
+          "name": "KindOfExemptFromAttraction",
+          "mode": "attr",
+          "offset": 32,
+          "kind": "flags",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollSpeedMin",
+          "mode": "attr",
+          "offset": 68,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollSpeedMax",
+          "mode": "attr",
+          "offset": 72,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollSpeedMaxCutoff",
+          "mode": "attr",
+          "offset": 76,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "ScrollSpeedMinCutoff",
+          "mode": "attr",
+          "offset": 80,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "InternalZoomInValue",
+          "mode": "attr",
+          "offset": 84,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "InternalZoomOutValue",
+          "mode": "attr",
+          "offset": 88,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "RapidScrollMultiplier",
+          "mode": "attr",
+          "offset": 92,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "2.0"
+        },
+        {
+          "name": "MagnetismTuning_LOW_Strength",
+          "mode": "attr",
+          "offset": 96,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "1.1"
+        },
+        {
+          "name": "MagnetismTuning_LOW_Distance",
+          "mode": "attr",
+          "offset": 100,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "0.6"
+        },
+        {
+          "name": "MagnetismTuning_HIGH_Strength",
+          "mode": "attr",
+          "offset": 104,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "1.5"
+        },
+        {
+          "name": "MagnetismTuning_HIGH_Distance",
+          "mode": "attr",
+          "offset": 108,
+          "kind": "float",
+          "dependency": "",
+          "wrapper": "",
+          "default": "1.25"
+        },
+        {
+          "name": "MagnetismObjectFilter",
+          "mode": "child",
+          "offset": 112,
+          "kind": "nullable",
+          "dependency": "ObjectFilter",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentPostGame": {
+      "bytes": 32,
+      "fields": [
+        {
+          "name": "AlliesFactionImage",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "SovietFactionImage",
+          "mode": "attr",
+          "offset": 12,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "JapanFactionImage",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DefaultImage",
+          "mode": "attr",
+          "offset": 20,
+          "kind": "ref",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "PostGameStat",
+          "mode": "child",
+          "offset": 24,
+          "kind": "list",
+          "dependency": "PostGameStatData",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentLanLobby": {
+      "bytes": 40,
+      "fields": [
+        {
+          "name": "PlayerlistMinUpdateFreq",
+          "mode": "child",
+          "offset": 8,
+          "kind": "uint",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GamelistMinUpdateFreq",
+          "mode": "child",
+          "offset": 12,
+          "kind": "uint",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "PlayerNameAptTokenSpec",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameNameAptTokenSpec",
+          "mode": "child",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "LocalPlayerNameAptTokenSpec",
+          "mode": "child",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentShellMultiplayer": {
+      "bytes": 72,
+      "fields": [
+        {
+          "name": "OfficialMapList",
+          "mode": "child",
+          "offset": 8,
+          "kind": "list",
+          "dependency": "TypedAssetId",
+          "wrapper": "Map",
+          "default": null
+        },
+        {
+          "name": "MatchOptionsRankedLabelSpec",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MatchOptionsMatchTypeLabelSpec",
+          "mode": "child",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "MatchOptionsPlayersLabelSpec",
+          "mode": "child",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "AnyOptionLabelSpec",
+          "mode": "child",
+          "offset": 40,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TACLineLabelSpec",
+          "mode": "child",
+          "offset": 48,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "GameType",
+          "mode": "child",
+          "offset": 56,
+          "kind": "list",
+          "dependency": "GameplayTypeSetting",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "RankedOption",
+          "mode": "child",
+          "offset": 64,
+          "kind": "list",
+          "dependency": "RankedOptionSetting",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentVictoryDefeat": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "PostEndGameMusic",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "EndGameMusicAlias",
+          "mode": "child",
+          "offset": 16,
+          "kind": "list",
+          "dependency": "String",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentObjectives": {
+      "bytes": 24,
+      "fields": [
+        {
+          "name": "AptStringNewBonusObjective",
+          "mode": "attr",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": ""
+        },
+        {
+          "name": "AptStringObjectiveCompleted",
+          "mode": "attr",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": ""
+        }
+      ]
+    },
+    "UIComponentOptionsSettingsHotkeys": {
+      "bytes": 16,
+      "fields": [
+        {
+          "name": "LoadVarQueryReturnToken",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    },
+    "UIComponentPcSaveLoad": {
+      "bytes": 40,
+      "fields": [
+        {
+          "name": "MapPrefix",
+          "mode": "child",
+          "offset": 8,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DescriptionPrefix",
+          "mode": "child",
+          "offset": 16,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "TimePrefix",
+          "mode": "child",
+          "offset": 24,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        },
+        {
+          "name": "DatePrefix",
+          "mode": "child",
+          "offset": 32,
+          "kind": "string",
+          "dependency": "",
+          "wrapper": "",
+          "default": null
+        }
+      ]
+    }
+  },
+  "nestedRoutes": [
+    {
+      "branch": "UIComponentMovieArchive",
+      "path": "FactionMovieArchive",
+      "steps": "L16",
+      "type": "ArchiveMovieList",
+      "size": 12,
+      "fields": [
+        {
+          "name": "Faction",
+          "offset": 0,
+          "kind": "enum:FactionType",
+          "default": "Soviet",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentMovieArchive",
+      "path": "FactionMovieArchive/Movie",
+      "steps": "L16/L4",
+      "type": "ArchivableMovie",
+      "size": 32,
+      "fields": [
+        {
+          "name": "ProgressLock",
+          "offset": 0,
+          "kind": "uint",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "MovieImage",
+          "offset": 4,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "FileName",
+          "offset": 8,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "OnScreenName",
+          "offset": 16,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Description",
+          "offset": 24,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "AlienHighlightDecal/Component",
+      "steps": "L68",
+      "type": "RadiusDecalComponent",
+      "size": 64,
+      "fields": [
+        {
+          "name": "Texture",
+          "offset": 0,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Texture2",
+          "offset": 4,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Style",
+          "offset": 8,
+          "kind": "enum:ShadowType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMin",
+          "offset": 12,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMax",
+          "offset": 16,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityPulsesPerSecond",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMin",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMax",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationDegreesPerSecond",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MinRadius",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MaxRadius",
+          "offset": 40,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RadiusPulsesPerSecond",
+          "offset": 44,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMin",
+          "offset": 48,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMax",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetPulsesPerSecond",
+          "offset": 56,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "AlienHighlightDecal/Component/Color",
+      "steps": "L68/I60",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "GDIHighlightDecal/Component",
+      "steps": "L76",
+      "type": "RadiusDecalComponent",
+      "size": 64,
+      "fields": [
+        {
+          "name": "Texture",
+          "offset": 0,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Texture2",
+          "offset": 4,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Style",
+          "offset": 8,
+          "kind": "enum:ShadowType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMin",
+          "offset": 12,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMax",
+          "offset": 16,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityPulsesPerSecond",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMin",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMax",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationDegreesPerSecond",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MinRadius",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MaxRadius",
+          "offset": 40,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RadiusPulsesPerSecond",
+          "offset": 44,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMin",
+          "offset": 48,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMax",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetPulsesPerSecond",
+          "offset": 56,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "GDIHighlightDecal/Component/Color",
+      "steps": "L76/I60",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "NODHighlightDecal",
+      "steps": "I84",
+      "type": "RadiusDecalTemplate",
+      "size": 8,
+      "fields": []
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "NODHighlightDecal/Component",
+      "steps": "I84/L0",
+      "type": "RadiusDecalComponent",
+      "size": 64,
+      "fields": [
+        {
+          "name": "Texture",
+          "offset": 0,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Texture2",
+          "offset": 4,
+          "kind": "ref",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Style",
+          "offset": 8,
+          "kind": "enum:ShadowType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMin",
+          "offset": 12,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityMax",
+          "offset": 16,
+          "kind": "percent",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "OpacityPulsesPerSecond",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMin",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationMax",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RotationDegreesPerSecond",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MinRadius",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "MaxRadius",
+          "offset": 40,
+          "kind": "float",
+          "default": "1.0",
+          "mode": "attr"
+        },
+        {
+          "name": "RadiusPulsesPerSecond",
+          "offset": 44,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMin",
+          "offset": 48,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetMax",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "PositionOffsetPulsesPerSecond",
+          "offset": 56,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "NODHighlightDecal/Component/Color",
+      "steps": "I84/L0/I60",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "ShortcutObjects",
+      "steps": "L92",
+      "type": "ObjectFilter",
+      "size": 112,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "hash",
+          "offset": 0,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Rule",
+          "kind": "enum:ObjectFilterRule",
+          "offset": 4,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Relationship",
+          "kind": "objectfilter-relationship-flags",
+          "offset": 8,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Alignment",
+          "kind": "enum:ObjectFilterAlignment",
+          "offset": 12,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Include",
+          "kind": "kindof-flags",
+          "offset": 16,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Exclude",
+          "kind": "kindof-flags",
+          "offset": 52,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlags",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 88,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlagsExclude",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 92,
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "ShortcutObjects/IncludeThing",
+      "steps": "L92/L96",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "ShortcutObjects/ExcludeThing",
+      "steps": "L92/L104",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "SupportObjects",
+      "steps": "L100",
+      "type": "ObjectFilter",
+      "size": 112,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "hash",
+          "offset": 0,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Rule",
+          "kind": "enum:ObjectFilterRule",
+          "offset": 4,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Relationship",
+          "kind": "objectfilter-relationship-flags",
+          "offset": 8,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Alignment",
+          "kind": "enum:ObjectFilterAlignment",
+          "offset": 12,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Include",
+          "kind": "kindof-flags",
+          "offset": 16,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Exclude",
+          "kind": "kindof-flags",
+          "offset": 52,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlags",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 88,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlagsExclude",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 92,
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "SupportObjects/IncludeThing",
+      "steps": "L100/L96",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "SupportObjects/ExcludeThing",
+      "steps": "L100/L104",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "path": "ClockColor",
+      "steps": "I108",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentOptions",
+      "path": "ControlsText",
+      "steps": "L24",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentOptions",
+      "path": "DefaultValues",
+      "steps": "I32",
+      "type": "DefaultValues",
+      "size": 72,
+      "fields": [
+        {
+          "name": "Difficulty",
+          "offset": 0,
+          "kind": "int",
+          "default": "1",
+          "mode": "attr"
+        },
+        {
+          "name": "Gamma",
+          "offset": 4,
+          "kind": "float",
+          "default": "1.30",
+          "mode": "attr"
+        },
+        {
+          "name": "Brightness",
+          "offset": 8,
+          "kind": "float",
+          "default": "0.50",
+          "mode": "attr"
+        },
+        {
+          "name": "Contrast",
+          "offset": 12,
+          "kind": "float",
+          "default": "1.30",
+          "mode": "attr"
+        },
+        {
+          "name": "VolumeMusic",
+          "offset": 16,
+          "kind": "float",
+          "default": "0.45",
+          "mode": "attr"
+        },
+        {
+          "name": "VolumeFX",
+          "offset": 20,
+          "kind": "float",
+          "default": "0.70",
+          "mode": "attr"
+        },
+        {
+          "name": "VolumeVoice",
+          "offset": 24,
+          "kind": "float",
+          "default": "0.70",
+          "mode": "attr"
+        },
+        {
+          "name": "VolumeAmbient",
+          "offset": 28,
+          "kind": "float",
+          "default": "0.50",
+          "mode": "attr"
+        },
+        {
+          "name": "VolumeMovie",
+          "offset": 32,
+          "kind": "float",
+          "default": "0.70",
+          "mode": "attr"
+        },
+        {
+          "name": "ScrollSpeed",
+          "offset": 36,
+          "kind": "float",
+          "default": "1.00",
+          "mode": "attr"
+        },
+        {
+          "name": "ScrollMagnetism",
+          "offset": 40,
+          "kind": "int",
+          "default": "2",
+          "mode": "attr"
+        },
+        {
+          "name": "ButtonIcon",
+          "offset": 60,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "ShowCommandList",
+          "offset": 61,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "HealthBars",
+          "offset": 62,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "HighlightPads",
+          "offset": 63,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "ToolTips",
+          "offset": 64,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "Subtitles",
+          "offset": 65,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "InvertRotate",
+          "offset": 66,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "Telemetry",
+          "offset": 67,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "DefaultFaction",
+          "offset": 44,
+          "kind": "int",
+          "default": "-1",
+          "mode": "attr"
+        },
+        {
+          "name": "VisionCamVisible",
+          "offset": 68,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "VisionCamZoom",
+          "offset": 48,
+          "kind": "int",
+          "default": "1",
+          "mode": "attr"
+        },
+        {
+          "name": "ScrollSpeedMin",
+          "offset": 52,
+          "kind": "float",
+          "default": "0.2",
+          "mode": "attr"
+        },
+        {
+          "name": "ScrollSpeedMax",
+          "offset": 56,
+          "kind": "float",
+          "default": "2.0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentOptions",
+      "path": "CommandList",
+      "steps": "L104",
+      "type": "SingleCommandList",
+      "size": 16,
+      "fields": [
+        {
+          "name": "CategoryName",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentOptions",
+      "path": "CommandList/CommandLine",
+      "steps": "L104/L8",
+      "type": "SingleCommandLine",
+      "size": 24,
+      "fields": [
+        {
+          "name": "Purpose",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Description",
+          "offset": 8,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentOptions",
+      "path": "CommandList/CommandLine/Input",
+      "steps": "L104/L8/L16",
+      "type": "InputButton",
+      "size": 8,
+      "fields": [
+        {
+          "name": "ButtonName",
+          "offset": 0,
+          "kind": "enum:JoyPadButtonType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "ButtonAction",
+          "offset": 4,
+          "kind": "enum:JoyPadActionType",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentCareerStats",
+      "path": "CareerStat",
+      "steps": "L12",
+      "type": "CareerStatData",
+      "size": 24,
+      "fields": [
+        {
+          "name": "StatType",
+          "offset": 0,
+          "kind": "enum:CareerStatType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatLabel",
+          "offset": 4,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "IsRatio",
+          "offset": 20,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "NoSummary",
+          "offset": 21,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "RatioNumerator",
+          "offset": 12,
+          "kind": "enum:CareerStatOrder",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "RatioDenominator",
+          "offset": 16,
+          "kind": "enum:CareerStatOrder",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentCommandBar",
+      "path": "ClockColor",
+      "steps": "I180",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "Faction",
+      "steps": "L112",
+      "type": "FactionType",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "enum:FactionType",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "AIDifficulty",
+      "steps": "L120",
+      "type": "AIDifficultySetting",
+      "size": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:AIDifficultyValue",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "Team",
+      "steps": "L128",
+      "type": "TeamSetting",
+      "size": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "GameType",
+      "steps": "L136",
+      "type": "GameplayTypeSetting",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:GameplayType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableWithAI",
+          "offset": 12,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "GameTime",
+      "steps": "L144",
+      "type": "GameTimeSetting",
+      "size": 20,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 16,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "MinGameTimeValue",
+          "offset": 12,
+          "kind": "int",
+          "default": "0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "GameResources",
+      "steps": "L152",
+      "type": "GameResourcesSetting",
+      "size": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "HillTime",
+      "steps": "L160",
+      "type": "GameTimeSetting",
+      "size": 20,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 16,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "MinGameTimeValue",
+          "offset": 12,
+          "kind": "int",
+          "default": "0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "BarrierTime",
+      "steps": "L168",
+      "type": "GameTimeSetting",
+      "size": 20,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 16,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        },
+        {
+          "name": "MinGameTimeValue",
+          "offset": 12,
+          "kind": "int",
+          "default": "0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "CapturePoints",
+      "steps": "L176",
+      "type": "GamePointsSetting",
+      "size": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "CaptureFlags",
+      "steps": "L184",
+      "type": "GameFlagsSetting",
+      "size": 8,
+      "fields": [
+        {
+          "name": "Value",
+          "offset": 0,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Default",
+          "offset": 4,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings",
+      "steps": "I192",
+      "type": "MultiplayerLobbyData",
+      "size": 48,
+      "fields": []
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/LobbyTitleLabelSpec",
+      "steps": "I192/I0",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/UnmoderatedLobbyTitleTemplateSpec",
+      "steps": "I192/I8",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/ModeratedLobbyTitleTemplateSpec",
+      "steps": "I192/I16",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/PlayerNameLabelSpec",
+      "steps": "I192/I24",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/SlotLabelSpec",
+      "steps": "I192/I32",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "MultiplayerLobbySettings/SlotState",
+      "steps": "I192/L40",
+      "type": "SlotState",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:SlotStateType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableInRanked",
+          "offset": 12,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableInModerated",
+          "offset": 13,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "SkirmishLobbySettings",
+      "steps": "I240",
+      "type": "SkirmishLobbyData",
+      "size": 24,
+      "fields": []
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "SkirmishLobbySettings/LoadMusic",
+      "steps": "I240/I0",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "SkirmishLobbySettings/SlotLabelSpec",
+      "steps": "I240/I8",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentLobby",
+      "path": "SkirmishLobbySettings/SlotState",
+      "steps": "I240/L16",
+      "type": "SlotState",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:SlotStateType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableInRanked",
+          "offset": 12,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableInModerated",
+          "offset": 13,
+          "kind": "bool",
+          "default": "true",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentGameInfo",
+      "path": "FactionValue",
+      "steps": "L112",
+      "type": "AssetId",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentInGameText",
+      "path": "StatusTextPosition",
+      "steps": "I132",
+      "type": "Vector2",
+      "size": 8,
+      "fields": [
+        {
+          "name": "x",
+          "offset": 0,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        },
+        {
+          "name": "y",
+          "offset": 4,
+          "kind": "float",
+          "default": "0.0",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentInGameText",
+      "path": "ProductionTextColor",
+      "steps": "I140",
+      "type": "RGBColor",
+      "size": 12,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "float",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 4,
+          "kind": "float",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 8,
+          "kind": "float",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentInGameText",
+      "path": "ProductionTextFont",
+      "steps": "I152",
+      "type": "FontDesc",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Name",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Size",
+          "offset": 8,
+          "kind": "uint",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Bold",
+          "offset": 12,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentTicker",
+      "path": "TickerColor",
+      "steps": "I28",
+      "type": "ColorTag",
+      "size": 4,
+      "fields": [
+        {
+          "name": "R",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "G",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "B",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "0",
+          "mode": "attr"
+        },
+        {
+          "name": "A",
+          "offset": 0,
+          "kind": "packed-byte",
+          "default": "255",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentTicker",
+      "path": "TickerGroup",
+      "steps": "L32",
+      "type": "UIComponentTickerGroup",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Name",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "HTTPAddress",
+          "offset": 8,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentGameViewJoypad",
+      "path": "MagnetismObjectFilter",
+      "steps": "N112",
+      "type": "ObjectFilter",
+      "size": 112,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "hash",
+          "offset": 0,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Rule",
+          "kind": "enum:ObjectFilterRule",
+          "offset": 4,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Relationship",
+          "kind": "objectfilter-relationship-flags",
+          "offset": 8,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Alignment",
+          "kind": "enum:ObjectFilterAlignment",
+          "offset": 12,
+          "default": "NONE",
+          "mode": "attr"
+        },
+        {
+          "name": "Include",
+          "kind": "kindof-flags",
+          "offset": 16,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Exclude",
+          "kind": "kindof-flags",
+          "offset": 52,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlags",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 88,
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatusBitFlagsExclude",
+          "kind": "objectstatus-nullable-flags",
+          "offset": 92,
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentGameViewJoypad",
+      "path": "MagnetismObjectFilter/IncludeThing",
+      "steps": "N112/L96",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentGameViewJoypad",
+      "path": "MagnetismObjectFilter/ExcludeThing",
+      "steps": "N112/L104",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentPostGame",
+      "path": "PostGameStat",
+      "steps": "L24",
+      "type": "PostGameStatData",
+      "size": 12,
+      "fields": [
+        {
+          "name": "StatType",
+          "offset": 0,
+          "kind": "enum:PostGameStatType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "StatLabel",
+          "offset": 4,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "path": "OfficialMapList/Map",
+      "steps": "L8",
+      "type": "TypedAssetId",
+      "size": 4,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "hash",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "path": "GameType",
+      "steps": "L56",
+      "type": "GameplayTypeSetting",
+      "size": 16,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "enum:GameplayType",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "AvailableWithAI",
+          "offset": 12,
+          "kind": "bool",
+          "default": "false",
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "path": "RankedOption",
+      "steps": "L64",
+      "type": "RankedOptionSetting",
+      "size": 12,
+      "fields": [
+        {
+          "name": "Label",
+          "offset": 0,
+          "kind": "string",
+          "default": null,
+          "mode": "attr"
+        },
+        {
+          "name": "Value",
+          "offset": 8,
+          "kind": "int",
+          "default": null,
+          "mode": "attr"
+        }
+      ]
+    },
+    {
+      "branch": "UIComponentVictoryDefeat",
+      "path": "EndGameMusicAlias",
+      "steps": "L16",
+      "type": "String",
+      "size": 8,
+      "fields": [
+        {
+          "name": "$text",
+          "kind": "string",
+          "mode": "text",
+          "offset": 0,
+          "default": null
+        }
+      ]
+    }
+  ],
+  "growthRoutes": [
+    {
+      "branch": "UIComponentMovieArchive",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "FactionMovieArchive",
+      "offset": 16,
+      "type": "ArchiveMovieList",
+      "size": 12
+    },
+    {
+      "branch": "UIComponentMovieArchive",
+      "parentPath": "FactionMovieArchive",
+      "parentSteps": "L16",
+      "name": "Movie",
+      "offset": 4,
+      "type": "ArchivableMovie",
+      "size": 32
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "AlienHighlightDecal",
+      "parentSteps": "",
+      "name": "Component",
+      "offset": 68,
+      "type": "RadiusDecalComponent",
+      "size": 64
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "GDIHighlightDecal",
+      "parentSteps": "",
+      "name": "Component",
+      "offset": 76,
+      "type": "RadiusDecalComponent",
+      "size": 64
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "NODHighlightDecal",
+      "parentSteps": "I84",
+      "name": "Component",
+      "offset": 0,
+      "type": "RadiusDecalComponent",
+      "size": 64
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "ShortcutObjects",
+      "offset": 92,
+      "type": "ObjectFilter",
+      "size": 112
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "ShortcutObjects",
+      "parentSteps": "L92",
+      "name": "IncludeThing",
+      "offset": 96,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "ShortcutObjects",
+      "parentSteps": "L92",
+      "name": "ExcludeThing",
+      "offset": 104,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "SupportObjects",
+      "offset": 100,
+      "type": "ObjectFilter",
+      "size": 112
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "SupportObjects",
+      "parentSteps": "L100",
+      "name": "IncludeThing",
+      "offset": 96,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentObjectSelector",
+      "parentPath": "SupportObjects",
+      "parentSteps": "L100",
+      "name": "ExcludeThing",
+      "offset": 104,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentOptions",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "ControlsText",
+      "offset": 24,
+      "type": "String",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentOptions",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "CommandList",
+      "offset": 104,
+      "type": "SingleCommandList",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentOptions",
+      "parentPath": "CommandList",
+      "parentSteps": "L104",
+      "name": "CommandLine",
+      "offset": 8,
+      "type": "SingleCommandLine",
+      "size": 24
+    },
+    {
+      "branch": "UIComponentOptions",
+      "parentPath": "CommandList/CommandLine",
+      "parentSteps": "L104/L8",
+      "name": "Input",
+      "offset": 16,
+      "type": "InputButton",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentCareerStats",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "CareerStat",
+      "offset": 12,
+      "type": "CareerStatData",
+      "size": 24
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "Faction",
+      "offset": 112,
+      "type": "FactionType",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "AIDifficulty",
+      "offset": 120,
+      "type": "AIDifficultySetting",
+      "size": 12
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "Team",
+      "offset": 128,
+      "type": "TeamSetting",
+      "size": 12
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "GameType",
+      "offset": 136,
+      "type": "GameplayTypeSetting",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "GameTime",
+      "offset": 144,
+      "type": "GameTimeSetting",
+      "size": 20
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "GameResources",
+      "offset": 152,
+      "type": "GameResourcesSetting",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "HillTime",
+      "offset": 160,
+      "type": "GameTimeSetting",
+      "size": 20
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "BarrierTime",
+      "offset": 168,
+      "type": "GameTimeSetting",
+      "size": 20
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "CapturePoints",
+      "offset": 176,
+      "type": "GamePointsSetting",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "CaptureFlags",
+      "offset": 184,
+      "type": "GameFlagsSetting",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "MultiplayerLobbySettings",
+      "parentSteps": "I192",
+      "name": "SlotState",
+      "offset": 40,
+      "type": "SlotState",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentLobby",
+      "parentPath": "SkirmishLobbySettings",
+      "parentSteps": "I240",
+      "name": "SlotState",
+      "offset": 16,
+      "type": "SlotState",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentGameInfo",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "FactionValue",
+      "offset": 112,
+      "type": "AssetId",
+      "size": 8
+    },
+    {
+      "branch": "UIComponentTicker",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "TickerGroup",
+      "offset": 32,
+      "type": "UIComponentTickerGroup",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentGameViewJoypad",
+      "parentPath": "MagnetismObjectFilter",
+      "parentSteps": "N112",
+      "name": "IncludeThing",
+      "offset": 96,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentGameViewJoypad",
+      "parentPath": "MagnetismObjectFilter",
+      "parentSteps": "N112",
+      "name": "ExcludeThing",
+      "offset": 104,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentPostGame",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "PostGameStat",
+      "offset": 24,
+      "type": "PostGameStatData",
+      "size": 12
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "parentPath": "OfficialMapList",
+      "parentSteps": "",
+      "name": "Map",
+      "offset": 8,
+      "type": "TypedAssetId",
+      "size": 4
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "GameType",
+      "offset": 56,
+      "type": "GameplayTypeSetting",
+      "size": 16
+    },
+    {
+      "branch": "UIComponentShellMultiplayer",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "RankedOption",
+      "offset": 64,
+      "type": "RankedOptionSetting",
+      "size": 12
+    },
+    {
+      "branch": "UIComponentVictoryDefeat",
+      "parentPath": "",
+      "parentSteps": "",
+      "name": "EndGameMusicAlias",
+      "offset": 16,
+      "type": "String",
+      "size": 8
+    }
+  ]
+}

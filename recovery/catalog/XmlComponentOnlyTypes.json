@@ -305,6 +305,9 @@
     ],
     "gamemap": [
       "GameMap"
+    ],
+    "uiconfig": [
+      "UIConfigList"
     ]
   },
   "roots": [
@@ -1751,6 +1754,14 @@
       "typeHash": 4100291602,
       "schemaGlobal": true,
       "group": "gamemap",
+      "sdkValidated": false
+    },
+    {
+      "name": "UIConfigList",
+      "typeId": 3072160547,
+      "typeHash": 3852040349,
+      "schemaGlobal": true,
+      "group": "uiconfig",
       "sdkValidated": false
     }
   ],

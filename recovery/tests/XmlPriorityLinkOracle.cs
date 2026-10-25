@@ -312,6 +312,7 @@ class XmlPriorityLinkOracle
         new Root("MapMetaData", 1603703110u, false),
         new Root("GameScriptList", 3737094024u, false),
         new Root("GameMap", 3575309793u, false),
+        new Root("UIConfigList", 3072160547u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -360,7 +361,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 288 || supplied.Count != 288) throw new Exception("Exactly 288 recovered entries are required");
+        if (Roots.Length != 289 || supplied.Count != 289) throw new Exception("Exactly 289 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -387,7 +388,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 288) throw new Exception("Metadata preflight did not resolve all 288 entries");
+        if (Methods.Count != 289) throw new Exception("Metadata preflight did not resolve all 289 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -492,6 +493,8 @@ class XmlPriorityLinkOracle
         Test(original, Array.Find(Roots, r => r.Name == "W3DHierarchy"), platform, "<Pivot Name='Bone' Parent='-1'><Translation X='1' Y='2' Z='3'/></Pivot>");
         Test(original, Array.Find(Roots, r => r.Name == "MapMetaData"), platform, "<MapMetaData/>");
         Test(original, Array.Find(Roots, r => r.Name == "GameScriptList"), platform, "<ScriptSet/>");
+        Test(original, Array.Find(Roots, r => r.Name == "GameMap"), platform, "<Unit Faction='Allies' ThingTemplate='Unit\\2'><Position x='1' y='2'/></Unit><WorldDict><AssetIdListProperty Key='Assets' Value='one two'/><BoolProperty Value='true'/></WorldDict><EnvironmentData Cloud='Cloud\\3'/><MapAnalysis WaterAreas='1'><WaterAreaType>INTERIOR</WaterAreaType></MapAnalysis>");
+        Test(original, Array.Find(Roots, r => r.Name == "UIConfigList"), platform, "<UIDynamicConfig Name='MixedCase' Type='SHELL'><ComponentList><Anything TypeId='133731258' MovieComponentName='intro' MaxNumberOfStream='7'/><Anything TypeId='1498808370'><DefaultBrightness>0.5</DefaultBrightness></Anything></ComponentList></UIDynamicConfig>");
     }
     static int Main(string[] args)
     {
@@ -511,12 +514,12 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=288 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} types=289 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 1152 || comparisons != 3456 || completionFixtures != 200 || completionComparisons != 600 || Methods.Count != 288) throw new Exception("Incomplete priority smoke matrix");
+            if (fixtures != 1156 || comparisons != 3468 || completionFixtures != 208 || completionComparisons != 624 || Methods.Count != 289) throw new Exception("Incomplete priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=288 fixtures=1152 comparisons=3456 completionFixtures=200 completionComparisons=600 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink types=289 fixtures=1156 comparisons=3468 completionFixtures=208 completionComparisons=624 platforms=0/1/2/99; link smoke only");
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();
