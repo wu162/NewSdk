@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "runId": "40235430314",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-Ps3NoMip",
+    "sdk-Ps3Mips"
+  ],
+  "groups": [
+    {
+      "group": "sdk-PcNoMip",
+      "passed": true
+    },
+    {
+      "group": "sdk-PcMips",
+      "passed": true
+    },
+    {
+      "group": "sdk-Ps3NoMip",
+      "passed": true
+    },
+    {
+      "group": "sdk-Ps3Mips",
+      "passed": true
+    }
+  ],
+  "sourceCommit": "9ba02841cf320083c6ec3c571744f3c4c36e401b",
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "sourceCommit": "9ba02841cf320083c6ec3c571744f3c4c36e401b",
+  "selected": [
+    "sdk-PcNoMip",
+    "sdk-PcMips",
+    "sdk-Ps3NoMip",
+    "sdk-Ps3Mips"
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ],
+  "details": {
+    "base": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336961",
+      "receipt": "recovery/evidence/texture/validation/40232336961-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "tga": {
+      "sourceCommit": "0cd42405f5b757c72383040d2f1ff820c31d29bf",
+      "runId": "40195290786",
+      "receipt": "recovery/evidence/texture/tga/40195290786-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "52e8d6d4189a21b82a01fa88a67687e8557f7d16",
+      "runId": "40198138775",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40198138775-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "sourceCommit": "3b7eac919422044cbb7e8deebd9381d809f14527",
+      "runId": "40197368504",
+      "receipt": "recovery/evidence/texture/stage2/Volume/40197368504-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raw": {
+      "sourceCommit": "3b7eac919422044cbb7e8deebd9381d809f14527",
+      "runId": "40197368508",
+      "receipt": "recovery/evidence/texture/stage2/Raw/40197368508-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mips": {
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761398",
+      "receipt": "recovery/evidence/texture/stage2/Mips/40209761398-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "ps3-mips": {
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761399",
+      "receipt": "recovery/evidence/texture/stage2/Ps3Mips/40209761399-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-dds": {
+      "sourceCommit": "0f012b991ae28a2f86559c6d628ad36bb2d84911",
+      "runId": "40202402535",
+      "receipt": "recovery/evidence/texture/stage2/VolumeDds/40202402535-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mips": {
+      "sourceCommit": "fd7405d9b5b2b1dda3cb253f7f940ef6a5295c76",
+      "runId": "40209761393",
+      "receipt": "recovery/evidence/texture/stage2/VolumeMips/40209761393-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "cubic": {
+      "sourceCommit": "274b29061d340295e274a74e416159f085f335d2",
+      "runId": "40233890070",
+      "receipt": "recovery/evidence/texture/stage2/CubicResize/40233890070-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336956",
+      "receipt": "recovery/evidence/texture/images/40232336956-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "mip-images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336933",
+      "receipt": "recovery/evidence/texture/mip-images/40232336933-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "ps3-mip-images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336846",
+      "receipt": "recovery/evidence/texture/ps3-mip-images/40232336846-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336926",
+      "receipt": "recovery/evidence/texture/volume-images/40232336926-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-mip-images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232337041",
+      "receipt": "recovery/evidence/texture/volume-mip-images/40232337041-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "ps3-resize-images": {
+      "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+      "runId": "40232336829",
+      "receipt": "recovery/evidence/texture/ps3-resize-images/40232336829-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "png": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f",
+      "runId": "40235000007",
+      "receipt": "recovery/evidence/texture/bmp/40235000007-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f",
+      "runId": "40235000007",
+      "receipt": "recovery/evidence/texture/raster-images/40235000007-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "sdk-PcNoMip": {
+      "reason": "changed inputs: recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    "sdk-PcMips": {
+      "reason": "changed inputs: recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    "sdk-Ps3NoMip": {
+      "reason": "changed inputs: recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    "sdk-Ps3Mips": {
+      "reason": "changed inputs: recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    "png-ranges": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png-ranges/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    }
+  }
+}
