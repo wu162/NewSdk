@@ -63,6 +63,8 @@ foreach ($mode in @('Debug', 'Release')) {
 $inputs = @('SDK/tools/Mvp.Xml.dll','SDK/tools/BinaryAssetBuilder.Core.dll')
 $fingerprints = @($inputs | ForEach-Object { @{ path = $_; sha256 = (Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant() } })
 $sourceFiles = @(Get-ChildItem recovery/src/Managed/MvpXml -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' })
+$sourceFiles += @(Get-Item recovery/tests/MvpXmlOracle.cs,recovery/scripts/TestMvpXml.ps1,.github/workflows/recover-mvp-xml.yml)
+$sourceFiles += @(Get-ChildItem recovery/tools/MvpXmlMetadata -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' })
 $sourceFingerprints = @($sourceFiles | Sort-Object FullName | ForEach-Object { @{ path = [IO.Path]::GetRelativePath($root, $_.FullName).Replace('\', '/'); sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() } })
 @{
     sourceCommit = (git rev-parse HEAD).Trim(); runId = $env:GITHUB_RUN_ID; runAttempt = $env:GITHUB_RUN_ATTEMPT

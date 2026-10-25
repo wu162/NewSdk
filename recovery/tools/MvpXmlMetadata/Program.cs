@@ -13,6 +13,10 @@ static class Program {
             foreach(var type in assembly.MainModule.Types)
                 foreach(var method in type.Methods)
                     if(method.Name.Contains("_002D")) {method.Name=method.Name.Replace("_002D","-");count++;}
+            int aliases=0;
+            foreach(var type in assembly.MainModule.Types)
+                foreach(var method in type.Methods) if(method.Name.Contains("-")) aliases++;
+            if(aliases!=51) throw new InvalidOperationException("Expected all 51 original EXSLT aliases, found "+aliases);
             if(count!=0) assembly.Write(path,new WriterParameters{WriteSymbols=symbols});
         }
         Console.WriteLine("Restored "+count+" EXSLT CLR method names");return 0;

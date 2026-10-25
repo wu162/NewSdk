@@ -49,7 +49,7 @@ public class MvpXmlOracle {
         public readonly Dictionary<string,byte[]> Files=new Dictionary<string,byte[]>();
         public List<string> Calls=new List<string>();
         public override ICredentials Credentials {set{}}
-        public void Add(string name,string data) { Files[FixtureUri+name]=Encoding.UTF8.GetBytes(data);File.WriteAllBytes(Path.Combine(FixturePath,name),Files[FixtureUri+name]); }
+        public void Add(string name,string data) { Files[FixtureUri+name]=Encoding.UTF8.GetBytes(data);if(!File.Exists(Path.Combine(FixturePath,name))) File.WriteAllBytes(Path.Combine(FixturePath,name),Files[FixtureUri+name]); }
         public override object GetEntity(Uri uri,string role,Type type) {
             Calls.Add(uri.AbsoluteUri); byte[] data;
             if(!Files.TryGetValue(uri.AbsoluteUri,out data)) throw new FileNotFoundException("fixture missing: "+uri.AbsoluteUri);
