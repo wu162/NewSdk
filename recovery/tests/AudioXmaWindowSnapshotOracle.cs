@@ -19,12 +19,12 @@ internal static class AudioXmaWindowSnapshotOracle
     [DllImport("kernel32.dll")]static extern bool FlushInstructionCache(IntPtr process,IntPtr address,UIntPtr size);
     [DllImport("kernel32.dll")]static extern IntPtr VirtualAlloc(IntPtr address,UIntPtr size,uint allocation,uint protection);
     [DllImport("kernel32.dll")]static extern bool VirtualFree(IntPtr address,UIntPtr size,uint kind);
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotConfigure")]static extern void Configure(uint next);
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotHook")]static extern IntPtr Hook();
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotSetCase")]static extern void SetCase(uint channels);
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotCount")]static extern int Count();
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotRecord")]static extern IntPtr Record(int index);
-    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="_SnapshotSize")]static extern int Size();
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotConfigure")]static extern void Configure(uint next);
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotHook")]static extern IntPtr Hook();
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotSetCase")]static extern void SetCase(uint channels);
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotCount")]static extern int Count();
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotRecord")]static extern IntPtr Record(int index);
+    [DllImport("AudioXmaSnapshotNative.dll",CallingConvention=CallingConvention.Cdecl,ExactSpelling=true,EntryPoint="SnapshotSize")]static extern int Size();
     static IntPtr At(IntPtr p,int n){return new IntPtr(unchecked(p.ToInt32()+n));}
     static void Need(bool b,string message){if(!b)throw new Exception(message);}
     static string Hash(byte[] bytes){using(SHA256 h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}

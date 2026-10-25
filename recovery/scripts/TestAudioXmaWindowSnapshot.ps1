@@ -21,7 +21,7 @@ try {
  if($LASTEXITCODE -ne 0){Get-Content "$out/native-helper-build.log";throw 'Native bounded snapshot helper build failed'}
  & dumpbin.exe /nologo /exports "$work/AudioXmaSnapshotNative.dll" *> "$out/native-helper-exports.log"
  if($LASTEXITCODE -ne 0){throw 'Native snapshot helper export audit failed'}
- foreach($entry in @('_SnapshotConfigure','_SnapshotHook','_SnapshotSetCase','_SnapshotCount','_SnapshotRecord','_SnapshotSize')){if(!(Select-String -Path "$out/native-helper-exports.log" -SimpleMatch $entry -Quiet)){throw "Missing exact x86 C export $entry"}}
+ foreach($entry in @('SnapshotConfigure','SnapshotHook','SnapshotSetCase','SnapshotCount','SnapshotRecord','SnapshotSize')){if(!(Select-String -Path "$out/native-helper-exports.log" -SimpleMatch $entry -Quiet)){throw "Missing exact x86 C export $entry"}}
  $state.nativeHelperSha256=(Get-FileHash "$work/AudioXmaSnapshotNative.dll").Hash.ToLowerInvariant()
  & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /main:AudioXmaWindowSnapshotOracle /out:"$work/AudioXmaWindowSnapshotOracle.exe" (Resolve-Path recovery/tests/AudioXmaRawOracle.cs).Path (Resolve-Path recovery/tests/AudioXmaWindowSnapshotOracle.cs).Path *> "$out/oracle-build.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/oracle-build.log";throw 'XMA window snapshot oracle build failed'}
