@@ -1,0 +1,72 @@
+{
+  "sourceFiles": [
+    {
+      "sha256": "c36a7401b373f276aa9fb9a1522f51c20b729d5444b287d43953e8bb2a89aa63",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "0c07bd1edaae466e71b1520e25504334cf4f6f3eae365e3bb3d0fde4f4b50489",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "72e22503e250481b39c4af7059ef610d943ece563fbe09bd5719046c8dbb3278",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "a85438c3f854f8ff962fb56d5b9ffe05c05526d5210a7547d02e8930575e8f97",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "f093447f1f6f3dcc0f3a3cafed0b0ce3759a686a0a0a75ae5cdeb21178a3469f",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "25ced37ba13bfdb71dea0e2308502da992d0395e8a778599457da1c010202174",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "72473f33395c37e94109209639ccafe70d788f5fbc3435c4591c340e392c5605",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    }
+  ],
+  "group": "Formats",
+  "runId": "40198138775",
+  "configurations": [
+    {
+      "summary": [
+        "PASS Texture TGA additional formats: fixtures=4534; decodedMatches=2606; rejectionMatches=1928; originalFailures=1928; mismatches=0; no old-format rerun; no SDK claim"
+      ],
+      "configuration": "Debug",
+      "passed": true
+    },
+    {
+      "summary": [
+        "PASS Texture TGA additional formats: fixtures=4534; decodedMatches=2606; rejectionMatches=1928; originalFailures=1928; mismatches=0; no old-format rerun; no SDK claim"
+      ],
+      "configuration": "Release",
+      "passed": true
+    }
+  ],
+  "runAttempt": "1",
+  "probeOnly": false,
+  "sdkValidated": false,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "status": "passed",
+  "sourceCommit": "52e8d6d4189a21b82a01fa88a67687e8557f7d16"
+}
