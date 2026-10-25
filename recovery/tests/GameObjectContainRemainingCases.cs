@@ -5,7 +5,7 @@ partial class GameObjectOracle {
     static string RestXML(int g,string attrs="",string children="") {return "<Behaviors><ObjectSMCHelper TypeId='"+RestTypes[g]+"' id='Rest' "+attrs+">"+children+"</ObjectSMCHelper></Behaviors>";}
     static string[] RestSamples(Field f) {
         if(f.Kind=="StringHash" || f.Kind=="NullableStringHash")return ControlSamples(new Field(f.Name,"AssetId"));
-        if(f.Kind=="Bits")return KindNames;if(f.Kind=="ObjectStatus")return WeaponSetStatusValues;
+        if(f.Kind=="Bits"){var values=new List<string>(KindNames);values.AddRange(new[]{""," ","ALL","all","UNKNOWN","unknown","not-a-kind","ALL -UNKNOWN","-UNKNOWN -UNKNOWN +UNKNOWN","+","-","-ALL","ALL -ALL +UNKNOWN"});return values.ToArray();}if(f.Kind=="ObjectStatus")return WeaponSetStatusValues;
         if(f.Kind=="Enum")return RestEnums[f.Name];return ControlSamples(f);
     }
     static uint RestDefault(int g,int o) {
@@ -27,7 +27,7 @@ partial class GameObjectOracle {
             else if(value!=at+off)throw new Exception("Independent remaining Contain direct Token offset");
         }
     }
-    static void RestTokens(byte[] b,int g,bool big){RestTokenTree(b,"containRest"+"containRest"+RestNames[g],MotionTable(b,big),LifecycleAt(b,big),big);}
+    static void RestTokens(byte[] b,int g,bool big){RestTokenTree(b,"containRest"+RestNames[g],MotionTable(b,big),LifecycleAt(b,big),big);}
     static void ContainRemainingFamily(IAssetBuilderPlugin original,TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;
         for(int g=0;g<5;++g){byte[] b=Check(original,p,"",RestXML(g)).InstanceData;int at=LifecycleAt(b,big);if(b.Length!=at+RestSizes[g] || Word(b,at,big)!=uint.Parse(RestTypes[g]))throw new Exception("Independent remaining Contain native size/type");

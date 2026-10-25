@@ -22,8 +22,10 @@ def generate():
  def method(op,n):
   return next(v for k,v in bodies.items() if k.startswith('internal unsafe static void '+op+'(') and (' '+n+'* @object,') in k)
  lines=['// Generated complete remaining Contain contracts; original blob '+BLOB+'.']
- for n,unknown,bits in [('InfiltratorEffectType',1,0),('FormationType',0,0),('LocomotorSetType',12,0),('ModelConditionFlagType',233,0),('KindOfType',0,284)]:
+ for n,unknown,bits in [('InfiltratorEffectType',1,0),('FormationType',0,0),('LocomotorSetType',12,0),('ModelConditionFlagType',233,0),('KindOfType',149,284)]:
   values=m['peEnums'][n]
+  if n=='KindOfType':
+   kb,_=next(v for k,v in bodies.items() if k.startswith('internal unsafe static void Marshaler_002EMarshal_003Cenum_0020KindOfType_002C284_003E('));assert 'num5 = 149;' in kb
   if not bits:
    eb,_=next(v for k,v in bodies.items() if k.startswith('internal unsafe static void Marshaler_002EMarshal_003Cenum_0020'+n+'_002Cclass_0020Relo_003A_003ATracker_003E('))
    assert ('? '+str(unknown)+' :' in eb) or (': '+str(unknown)+');' in eb),(n,unknown)

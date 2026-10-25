@@ -784,7 +784,7 @@ const EnumNameValue containRestKindOfTypeNames[] = {
     { "WORKING_PASSENGER", 100 },
     { "WORLDBUILDER_SNAP_TO_GRID", 156 },
 };
-const AIEnum containRestKindOfType = { containRestKindOfTypeNames, 284u, 0, 284u };
+const AIEnum containRestKindOfType = { containRestKindOfTypeNames, 284u, 149, 284u };
 const ModuleField containRestInitialPayloadFields[] = {
     { "Name", 0u, ModuleValue::AssetId, nullptr, nullptr },
     { "Count", 4u, ModuleValue::Signed, nullptr, nullptr },
