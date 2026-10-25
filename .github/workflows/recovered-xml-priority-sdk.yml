@@ -49,6 +49,8 @@ jobs:
           ./recovery/scripts/TestXmlPrioritySdk.ps1
           $result = Get-Content recovery/evidence/xml-priority-sdk/validation.json -Raw | ConvertFrom-Json
           if (!$result.succeeded -or !$result.originalDllUnchanged -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) { throw 'Missing or mismatched SDK validation evidence' }
+          python recovery/scripts/SummarizeXmlSdkAcceptance.py --evidence-root recovery/evidence/xml-priority-sdk --output recovery/evidence/xml-priority-sdk/acceptance.json
+          if ($LASTEXITCODE -ne 0) { throw 'SDK evidence aggregation failed' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:

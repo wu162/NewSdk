@@ -193,7 +193,10 @@ try {
         $trace=Join-Path $profileReport 'trace'
         if (Test-Path $trace) { Remove-Item $trace -Recurse -Force }
         foreach ($mode in @('Original','Recovered')) {
-            $sdk=Join-Path $work ($profile+'-'+$mode)
+            # BAB embeds resolved DataBlob paths in some assets. Both modes must
+            # therefore compile at the same absolute path, each from a fresh copy.
+            $sdk=Join-Path $work ($profile+'-SDK')
+            if(Test-Path $sdk){Remove-Item $sdk -Recurse -Force}
             Copy-Item (Join-Path $root 'SDK') $sdk -Recurse
             $mod=Join-Path $sdk "Mods/$modName/Data/Mod.xml"
             if ($fullMymod) {
