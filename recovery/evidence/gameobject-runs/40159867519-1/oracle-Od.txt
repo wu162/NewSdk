@@ -1,0 +1,5 @@
+System.Exception: <Behaviors><ObjectSMCHelper TypeId='1409388128' id='DrawBeam' TextureIndex='2147483648'></ObjectSMCHelper></Behaviors> instance byte 2772: 255 != 0
+   at GameObjectOracle.Equal(Byte[] a, Byte[] b, String label, Boolean bufferComparison)
+   at GameObjectOracle.Check(IAssetBuilderPlugin original, TargetPlatform platform, String attrs, String children)
+   at GameObjectOracle.DrawBeamFamily(IAssetBuilderPlugin original, TargetPlatform p)
+   at GameObjectOracle.Main(String[] args)
