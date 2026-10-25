@@ -24,9 +24,15 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Compare PathMusic and MP3 handlers and collect codec probes
+        env:
+          AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
         shell: pwsh
         run: |
-          ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3
+          if ($env:AUDIO_AIFF_ONLY -eq 'true') {
+            ./recovery/scripts/TestAudioPlugin.ps1 -Groups formats,aiffloops
+          } else {
+            ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3
+          }
       - name: Build standalone source project
         if: always()
         shell: pwsh
@@ -36,16 +42,23 @@ jobs:
           dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release
           if ($LASTEXITCODE -ne 0) { throw "Release project build failed" }
       - name: Compare PCM encoder component
-        if: always()
+        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare XAS encoder component
-        if: always()
+        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare original and recovered SDK builds
+        env:
+          AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
         shell: pwsh
-        run: ./recovery/scripts/TestAudioSdk.ps1
+        run: |
+          if ($env:AUDIO_AIFF_ONLY -eq 'true') {
+            ./recovery/scripts/TestAudioSdk.ps1 -AiffLoopsOnly
+          } else {
+            ./recovery/scripts/TestAudioSdk.ps1
+          }
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -580,3 +580,92 @@ Segment block final flag and padding [0x2dbaa, 0x2dcab)
 0002dc9f  e87cc30000               call     0x3a020
 0002dca4  8a442457                 mov      al, byte ptr [esp + 0x57]
 0002dca8  83c428                   add      esp, 0x28
+
+AIFF INST sustain mode and marker IDs [0x384a6, 0x384fc)
+000384a6  8b5510                   mov      edx, dword ptr [ebp + 0x10]
+000384a9  57                       push     edi
+000384aa  8d4c244c                 lea      ecx, [esp + 0x4c]
+000384ae  51                       push     ecx
+000384af  52                       push     edx
+000384b0  e83b1a0000               call     0x39ef0
+000384b5  8d44245e                 lea      eax, [esp + 0x5e]
+000384b9  6a02                     push     2
+000384bb  50                       push     eax
+000384bc  e8ff130000               call     0x398c0
+000384c1  8d4c2468                 lea      ecx, [esp + 0x68]
+000384c5  8bf0                     mov      esi, eax
+000384c7  6a02                     push     2
+000384c9  51                       push     ecx
+000384ca  89742448                 mov      dword ptr [esp + 0x48], esi
+000384ce  e8ed130000               call     0x398c0
+000384d3  8d54246c                 lea      edx, [esp + 0x6c]
+000384d7  6a02                     push     2
+000384d9  52                       push     edx
+000384da  89442448                 mov      dword ptr [esp + 0x48], eax
+000384de  e8dd130000               call     0x398c0
+000384e3  89838c050000             mov      dword ptr [ebx + 0x58c], eax
+000384e9  8b442448                 mov      eax, dword ptr [esp + 0x48]
+000384ed  83c424                   add      esp, 0x24
+000384f0  89b390050000             mov      dword ptr [ebx + 0x590], esi
+000384f6  898394050000             mov      dword ptr [ebx + 0x594], eax
+
+AIFF MARK sustain start and exclusive-end conversion [0x38740, 0x387d2)
+00038740  8d6e02                   lea      ebp, [esi + 2]
+00038743  6a04                     push     4
+00038745  55                       push     ebp
+00038746  e875110000               call     0x398c0
+0003874b  83c408                   add      esp, 8
+0003874e  3b8318020000             cmp      eax, dword ptr [ebx + 0x218]
+00038754  0f8f35010000             jg       0x3888f
+0003875a  6a04                     push     4
+0003875c  55                       push     ebp
+0003875d  e85e110000               call     0x398c0
+00038762  83c408                   add      esp, 8
+00038765  85c0                     test     eax, eax
+00038767  0f8c22010000             jl       0x3888f
+0003876d  8d542450                 lea      edx, [esp + 0x50]
+00038771  6a02                     push     2
+00038773  52                       push     edx
+00038774  e847110000               call     0x398c0
+00038779  83c408                   add      esp, 8
+0003877c  83f801                   cmp      eax, 1
+0003877f  7551                     jne      0x387d2
+00038781  6a02                     push     2
+00038783  56                       push     esi
+00038784  e837110000               call     0x398c0
+00038789  83c408                   add      esp, 8
+0003878c  3b44242c                 cmp      eax, dword ptr [esp + 0x2c]
+00038790  7516                     jne      0x387a8
+00038792  6a04                     push     4
+00038794  55                       push     ebp
+00038795  e826110000               call     0x398c0
+0003879a  83c408                   add      esp, 8
+0003879d  8344241801               add      dword ptr [esp + 0x18], 1
+000387a2  89831c020000             mov      dword ptr [ebx + 0x21c], eax
+000387a8  6a02                     push     2
+000387aa  56                       push     esi
+000387ab  e810110000               call     0x398c0
+000387b0  83c408                   add      esp, 8
+000387b3  3b442424                 cmp      eax, dword ptr [esp + 0x24]
+000387b7  7519                     jne      0x387d2
+000387b9  6a04                     push     4
+000387bb  55                       push     ebp
+000387bc  e8ff100000               call     0x398c0
+000387c1  83e801                   sub      eax, 1
+000387c4  83c408                   add      esp, 8
+000387c7  8344241801               add      dword ptr [esp + 0x18], 1
+000387cc  898320020000             mov      dword ptr [ebx + 0x220], eax
+
+AIFF Pascal marker names [0x38894, 0x388be)
+00038894  0fb64606                 movzx    eax, byte ptr [esi + 6]
+00038898  8b542434                 mov      edx, dword ptr [esp + 0x34]
+0003889c  8d48ff                   lea      ecx, [eax - 1]
+0003889f  83e101                   and      ecx, 1
+000388a2  03c8                     add      ecx, eax
+000388a4  8b442438                 mov      eax, dword ptr [esp + 0x38]
+000388a8  83c001                   add      eax, 1
+000388ab  83c704                   add      edi, 4
+000388ae  3b02                     cmp      eax, dword ptr [edx]
+000388b0  8d740e07                 lea      esi, [esi + ecx + 7]
+000388b4  89442438                 mov      dword ptr [esp + 0x38], eax
+000388b8  0f8c82feffff             jl       0x38740

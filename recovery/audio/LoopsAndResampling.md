@@ -140,3 +140,31 @@ pass-band constants 0.5 and binary32 0.95, and different filter shape codes
 The accompanying `Native/LoopPcmEncoder.cs` candidate composes existing PCM/XAS
 segment encoding with the recovered loop header and truncation rules. It passed the 216-fixture `AudioLoopProbeCases.cs` original-plugin matrix in Debug/Release and the dedicated SDK loop subset at source `ad37841d5bf7fba3cbdede2bdae60da2b49d9639`, run `40197878572` attempt1. Resampling remains unimplemented. Production SDK binaries
 and configuration were not modified by this investigation.
+
+
+## AIFF sustain-loop candidate batch
+
+The independent `AudioAiffLoopReader.cs` candidate implements the observed
+single forward sustain loop. Original INST parsing at `0x384a6`..`0x384fc`
+reads BE16 playMode at INST body+8, begin marker ID at +10 and end marker ID
+at +12. It does not read the release-loop fields at +14/+16/+18. The MARK
+resolution branch only sets native loop positions when sustain playMode is 1
+(`0x3876d`..`0x3877f`). Each MARK record is BE16 ID, BE32 frame position, and
+a Pascal name padded such that its one-byte length plus name occupies an even
+number of bytes (`0x38894`..`0x388b0`). The start uses the marker position;
+the end subtracts one, producing an inclusive end for the common encoder.
+
+The candidate deliberately restricts this to FORM/AIFF, one standard 20-byte
+INST chunk, one MARK chunk with exactly two distinct matching positive IDs,
+forward sustain playMode 1, no release loop, and nonempty valid loop points.
+It rejects duplicate chunks/IDs, missing markers, extra markers, alternate
+modes, release loops and truncated names rather than broadening support based
+on unchecked assumptions. Actual source-frame bounds are checked by the
+shared loop encoder. AIFC is not enabled by this batch.
+
+`AudioAiffLoopCases.cs` contributes 200 full plugin fixtures: signed PCM8/16/24,
+mono/stereo, start 0/129, loop lengths 1/127/129/2041, PCM/XAS, RAM/streamed,
+and reversed chunk/marker order. `AudioAiffLoopReaderOracle.cs` adds 16
+candidate safety checks, separately from original equivalence. The batch is
+pending its original-plugin and real SDK differential; these investigation
+notes alone do not certify it.

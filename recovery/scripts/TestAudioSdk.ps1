@@ -1,4 +1,4 @@
-param([string]$OutputDirectory,[int]$TimeoutSeconds=300,[string[]]$RealAudioFiles=@())
+param([string]$OutputDirectory,[int]$TimeoutSeconds=300,[string[]]$RealAudioFiles=@(),[switch]$AiffLoopsOnly)
 $ErrorActionPreference='Stop'
 if($RealAudioFiles.Count -eq 0){$RealAudioFiles=@('recovery/fixtures/audio/main/real-0.wav','recovery/fixtures/audio/main/real-1.wav')}
 $root=(Resolve-Path "$PSScriptRoot/../..").Path;Set-Location $root
@@ -15,9 +15,10 @@ dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Releas
 if($LASTEXITCODE -ne 0){Get-Content "$out/library-build.log" -Tail 60;throw 'Recovered audio SDK library build failed'}
 & $csc /nologo /target:library /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$sdk/tools/AudioSdkProbe.dll" (Resolve-Path recovery/tests/AudioSdkTracingPlugin.cs).Path *> "$out/tracer-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/tracer-build.log";throw 'SDK tracing adapter build failed'}
-& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /out:"$build/AudioSdkSupport.exe" (Resolve-Path recovery/tests/AudioSdkSupport.cs).Path (Resolve-Path recovery/tests/AudioMp3Fixtures.cs).Path (Resolve-Path recovery/tests/AudioInputFormatCases.cs).Path (Resolve-Path recovery/tests/AudioLoopProbeCases.cs).Path *> "$out/support-build.log"
+& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /out:"$build/AudioSdkSupport.exe" (Resolve-Path recovery/tests/AudioSdkSupport.cs).Path (Resolve-Path recovery/tests/AudioMp3Fixtures.cs).Path (Resolve-Path recovery/tests/AudioInputFormatCases.cs).Path (Resolve-Path recovery/tests/AudioLoopProbeCases.cs).Path (Resolve-Path recovery/tests/AudioAiffLoopCases.cs).Path *> "$out/support-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/support-build.log";throw 'SDK support host build failed'}
-& "$build/AudioSdkSupport.exe" create $sdk "$out/expected-assets.tsv" @RealAudioFiles *> "$out/schema.log"
+$createMode=if($AiffLoopsOnly){'create-aiff-loops'}else{'create'}
+& "$build/AudioSdkSupport.exe" $createMode $sdk "$out/expected-assets.tsv" @RealAudioFiles *> "$out/schema.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/schema.log";throw 'Full original CnC3Types schema validation failed; BAB not started'}
 Copy-Item "$build/Recovered.AudioCompiler.dll" "$sdk/tools"
 Copy-Item "$sdk/tools/BinaryAssetBuilder.AudioCompiler.dll" "$build/original-audio.dll"
@@ -32,7 +33,7 @@ $inputs=@(Get-ChildItem "$sdk/Mods/AudioRecoveryProbe" -Recurse -File|ForEach-Ob
 $inputs|ConvertTo-Json -Depth 6|Set-Content "$out/inputs.json"
 $realInputs=@($RealAudioFiles | ForEach-Object {@{path=(Resolve-Path $_).Path;sha256=(Get-FileHash $_).Hash.ToLowerInvariant()}})
 $realInputs|ConvertTo-Json -Depth 4|Set-Content "$out/real-inputs.json"
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkStarted=$false;succeeded=$false;scope='Fresh original and original-free recovered BAB case5 basic-data build; all five routes, generated WAVE/AIFF and main real audio assets; same temporary SDK path avoids PathMusicTrack absolute-path differences';runs=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkStarted=$false;succeeded=$false;scope='Fresh original and original-free recovered BAB case5 basic-data build; same temporary SDK root';profile=$createMode;runs=@()}
 $savedSide=$env:AUDIO_SDK_IMPLEMENTATION;$savedTrace=$env:AUDIO_SDK_TRACE
 try{
  foreach($side in @('Original','Recovered')){
@@ -56,7 +57,8 @@ try{
    Copy-Item $file "$out/$side-mod.$ext";$files+=@{name="mod.$ext";bytes=(Get-Item $file).Length;sha256=(Get-FileHash $file).Hash.ToLowerInvariant()}
   }
   $custom=@(Get-ChildItem $output -Recurse -Filter '*.cdata'|Sort-Object FullName|ForEach-Object{"$($_.FullName.Substring($output.Length+1))`t$((Get-FileHash $_.FullName).Hash.ToLowerInvariant())"})
-  if($custom.Count -lt 8){throw "$side emitted fewer than eight expected custom-data files"}
+  $expectedCustom = @(Get-Content "$out/expected-assets.tsv" | Where-Object { $_ -notmatch '^PathMusic(Map|Event)\s' }).Count
+  if($custom.Count -ne $expectedCustom){throw "$side emitted $($custom.Count) custom-data files; expected $expectedCustom"}
   $custom|Set-Content "$out/$side-custom.tsv";$state.runs+=@{mode=$side;exitCode=$process.ExitCode;outputs=$files;customFiles=$custom.Count}
  }
  foreach($ext in @('bin','manifest','imp','relo')){if((Get-FileHash "$out/Original-mod.$ext").Hash -ne (Get-FileHash "$out/Recovered-mod.$ext").Hash){throw "Audio SDK output differs: mod.$ext"}}

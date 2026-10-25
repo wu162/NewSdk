@@ -183,6 +183,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "pcm8") Pcm8Probe();
                 else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
                 else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
+                else if (args[4] == "aiffloops") AudioAiffLoopCases.Run(root, Run);
                 else
                 {
                     ParseProbe();

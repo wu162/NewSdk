@@ -39,6 +39,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             catch (UnauthorizedAccessException) { return null; }
             int loopStart, loopEnd;
             bool hasLoop = LoopPcmEncoder.TryReadWaveLoop(wave, out loopStart, out loopEnd);
+            if (!hasLoop) hasLoop = AudioAiffLoopReader.TryRead(wave, out loopStart, out loopEnd);
             Pcm16Encoder.PcmWaveInput input = AudioPcmInputReader.Read(wave, hasLoop);
             XmlAttribute requested = attrs[prefix + "SampleRate"];
             if (requested != null)

@@ -18,7 +18,7 @@ internal static class AudioSdkSupport
             for(int i=0;i<frames*channels;i++)b.Write(values[i%values.Length]);
         }
     }
-    private static void Create(string sdk,string expected,string[] realFiles)
+    private static void Create(string sdk,string expected,string[] realFiles,bool aiffLoopsOnly)
     {
         string mod=Path.Combine(sdk,"Mods/AudioRecoveryProbe"),data=Path.Combine(mod,"Data"),audio=Path.Combine(mod,"Audio");
         Directory.CreateDirectory(data);Directory.CreateDirectory(audio);Directory.CreateDirectory(Path.Combine(audio,"sounds"));Directory.CreateDirectory(Path.Combine(audio,"music"));
@@ -52,7 +52,18 @@ internal static class AudioSdkSupport
         AudioInputFormatCases.WriteExtensible(Path.Combine(audio,"extensible.wav"),24,2,2041,true);
         foreach(string codec in new string[]{"NONE","XAS"})
             xml.Append("<AudioFile id='Extensible"+codec+"' File='../Audio/extensible.wav' PCCompression='"+codec+"' IsStreamedOnPC='false'/>");
+        AudioAiffLoopCases.Write(Path.Combine(audio,"aiff-loop.aiff"),16,2,4096,129,4094,false);
+        foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
+            xml.Append("<AudioFile id='AiffLoop"+codec+streamed+"' File='../Audio/aiff-loop.aiff' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
         xml.Append("<AudioFile id='AudioDefaultSounds' File='../Audio/sounds/default.wav'/><AudioFile id='AudioDefaultMusic' File='../Audio/music/default.wav'/></AssetDeclaration>");
+        if(aiffLoopsOnly) {
+            var selected=new XmlDocument(); selected.LoadXml(xml.ToString());
+            var remove=new List<XmlNode>();
+            foreach(XmlElement child in selected.DocumentElement.ChildNodes)
+                if(child.HasAttribute("id") && !child.GetAttribute("id").StartsWith("AiffLoop",StringComparison.Ordinal))remove.Add(child);
+            foreach(XmlNode child in remove)selected.DocumentElement.RemoveChild(child);
+            xml.Length=0;xml.Append(selected.OuterXml);
+        }
         string path=Path.Combine(data,"Mod.xml");File.WriteAllText(path,xml.ToString());
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();schemas.Add(Ns,Path.Combine(sdk,"Schemas/xsd/CnC3Types.xsd"));schemas.Compile();
         var settings=new XmlReaderSettings();settings.Schemas=schemas;settings.ValidationType=ValidationType.Schema;
@@ -61,8 +72,8 @@ internal static class AudioSdkSupport
         var document=new XmlDocument();document.Load(path);var ids=new List<string>();
         foreach(XmlElement child in document.DocumentElement.ChildNodes)if(child.HasAttribute("id"))ids.Add(child.LocalName+"\t"+child.GetAttribute("id"));
         ids.Sort(StringComparer.Ordinal);File.WriteAllLines(expected,ids.ToArray());
-        if(ids.Count<10)throw new Exception("Expected 10 audio SDK assets");
-        Console.WriteLine("PASS Audio SDK input schema: "+ids.Count+" assets covering all five audio plugin routes; "+realFiles.Length+" real input files");
+        if(ids.Count<(aiffLoopsOnly?4:10))throw new Exception("Missing expected audio SDK assets");
+        Console.WriteLine("PASS Audio SDK input schema: "+ids.Count+" assets; "+realFiles.Length+" real input files");
     }
     private static void Compare(string first,string second,string expected)
     {
@@ -75,7 +86,7 @@ internal static class AudioSdkSupport
     }
     private static int Main(string[] args)
     {
-        try{if(args.Length>=3 && args[0]=="create"){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real);return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
+        try{if(args.Length>=3 && (args[0]=="create" || args[0]=="create-aiff-loops")){string[] real=new string[args.Length-3];Array.Copy(args,3,real,0,real.Length);Create(args[1],args[2],real,args[0]=="create-aiff-loops");return 0;}if(args.Length==4 && args[0]=="compare"){Compare(args[1],args[2],args[3]);return 0;}throw new Exception("Usage: AudioSdkSupport create sdk expected | compare originalTrace recoveredTrace expected");}
         catch(Exception ex){Console.Error.WriteLine(ex);return 1;}
     }
 }

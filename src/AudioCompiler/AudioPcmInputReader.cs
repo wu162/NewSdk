@@ -8,7 +8,7 @@ namespace BinaryAssetBuilder.AudioCompiler
     // deliberately accepts only uncompressed, integral, mono/stereo input.
     internal static class AudioPcmInputReader
     {
-        internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowWaveLoop = false)
+        internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowLoop = false)
         {
             if (bytes == null) throw new ArgumentNullException("bytes");
             if (bytes.Length < 12) throw new InvalidDataException("Truncated audio file");
@@ -72,7 +72,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                     // the raw SSND size for the frame calculation at 0x38907.
                     dataOffset = body + 8; dataLength = checked((int)size - 8);
                 }
-                else if ((wave && tag == "smpl" && !allowWaveLoop) || (aiff && (tag == "INST" || tag == "MARK")))
+                else if ((wave && tag == "smpl" && !allowLoop) || (aiff && (tag == "INST" || tag == "MARK") && !allowLoop))
                     throw new NotSupportedException("Audio loop and marker metadata has not been recovered");
                 at = next + (size & 1);
             }
