@@ -1,0 +1,248 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sdkValidated": false,
+  "sourceFiles": [
+    {
+      "sha256": "c36a7401b373f276aa9fb9a1522f51c20b729d5444b287d43953e8bb2a89aa63",
+      "path": "src/TextureCompiler/Managed/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "bde675af0eed5d44372c2185cef77c36d558b17843a755e3f1e4c463552fcc0a",
+      "path": "src/TextureCompiler/Managed/Plugin.Images.cs"
+    },
+    {
+      "sha256": "72e22503e250481b39c4af7059ef610d943ece563fbe09bd5719046c8dbb3278",
+      "path": "src/TextureCompiler/Managed/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "4a9bb8990084335f2e1f2a51c05dbd0dfd3cbf3d86e87712c8dc4e5f7899c455",
+      "path": "src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj"
+    },
+    {
+      "sha256": "a85438c3f854f8ff962fb56d5b9ffe05c05526d5210a7547d02e8930575e8f97",
+      "path": "src/TextureCompiler/Managed/TextureCatalog.cs"
+    },
+    {
+      "sha256": "f093447f1f6f3dcc0f3a3cafed0b0ce3759a686a0a0a75ae5cdeb21178a3469f",
+      "path": "src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "44807a0dddbc6e9287187496572cbd6eea9519de20758773cba2ea6f0a07e49a",
+      "path": "src/TextureCompiler/Managed/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "25ced37ba13bfdb71dea0e2308502da992d0395e8a778599457da1c010202174",
+      "path": "src/TextureCompiler/Managed/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "72473f33395c37e94109209639ccafe70d788f5fbc3435c4591c340e392c5605",
+      "path": "src/TextureCompiler/Managed/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "4d203e1fa3cddef9094c7452c3ff4ae9c971eb26b1f104e7fa8914d21cd0d85b",
+      "path": "src/TextureCompiler/Managed/TextureVolume.cs"
+    },
+    {
+      "sha256": "e3e38408b85cae3fd8f714fb7813997f7170b9a1b288564eebd37387d10a369a",
+      "path": "src/TextureCompiler/Native/TextureSupport.cpp"
+    },
+    {
+      "sha256": "aa0103a2178cf4c06f1e6750cf62c685ea31b2ff55706ea7a252ab5ad3657f52",
+      "path": "src/TextureCompiler/Native/TextureSupport.h"
+    },
+    {
+      "sha256": "1718a3552d85cb6bddc96fb600332a5ea780474bfb47024098f1cd3c0e8a1dff",
+      "path": "src/TextureCompiler/README.md"
+    }
+  ],
+  "runAttempt": "1",
+  "status": "passed",
+  "sourceCommit": "45b360542de2a6d5db00d96009d61b5a3c57c1ac",
+  "configurations": [
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Debug",
+      "passed": true
+    },
+    {
+      "withoutOriginalTextureCompiler": true,
+      "configuration": "Release",
+      "passed": true
+    }
+  ],
+  "realTextureFixtures": {
+    "sourceBranch": "main",
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "selection": "smallest representative of every DDS FourCC/mipmap-count/caps2 and TGA type/depth/descriptor/footer signature group",
+    "files": [
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Common/PackedImages_097_EP1.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/PackedImages_097_EP1.dds",
+        "blobSha": "cead32e02203775b90e059d786ac0364186017ff",
+        "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17",
+        "bytes": 131200
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Specific/LURomania_vol.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/LURomania_vol.dds",
+        "blobSha": "81ec09cb85768ec3337b9a814667203152c2199d",
+        "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4",
+        "bytes": 640
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Harbinger Gunship/FXAlliedFutureLaser.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/FXAlliedFutureLaser.dds",
+        "blobSha": "5bb353d9c7ff3588615289d2c61afe9eaa3e2a32",
+        "sha256": "995f7ef1ecc41be00ce3d4e2a933128988b4f37a814f8e2500ff4c40a0adaa36",
+        "bytes": 22024
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Allied Engineer/FXYurikoShieldFadeLUT.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/FXYurikoShieldFadeLUT.dds",
+        "blobSha": "1fb395ca7f8e86dd0d5e82f94a42ca51bd0bb154",
+        "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c",
+        "bytes": 392
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/EXJapanArrow.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/EXJapanArrow.dds",
+        "blobSha": "fafc2886c0ec078cb182a536f16b55f8d9e3414a",
+        "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c",
+        "bytes": 11080
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUArcherInfantry.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/JUArcherInfantry.dds",
+        "blobSha": "579ccc36cdb4c9c649cdfb619b767a1044ed3746",
+        "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea",
+        "bytes": 22000
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/Target_Japan_ArcherBarrage.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/Target_Japan_ArcherBarrage.dds",
+        "blobSha": "feac8bb66a69ec1771fbd24bec77ea8bd9e1c217",
+        "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323",
+        "bytes": 65664
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULegionnaireInfantry.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/AULegionnaireInfantry.dds",
+        "blobSha": "21be86940f62c2fcbbf089e5cca68997fea8c5f7",
+        "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf",
+        "bytes": 11064
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMortarCycle.dds",
+        "fixture": "recovery/tests/fixtures/texture-main/SUMortarCycle.dds",
+        "blobSha": "b371807744ebbe89ba6cc1cfde479a89ea52dcbf",
+        "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85",
+        "bytes": 349680
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Data/AptUI/TacticalHUDBuildQueuePage/art/Textures/apt_tacticalhudbuildqueuepage_1.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/apt_tacticalhudbuildqueuepage_1.tga",
+        "blobSha": "0159b803f8d7acff252c5246c5dde6c7011fd7b3",
+        "sha256": "37f7348cb10d39f1ec9ae1024eee2e4b909e63d18fcee5fa837547439e2a665f",
+        "bytes": 2098213
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Data/AptUI/TacticalHUDMainCommandBar/art/Textures/apt_tacticalhudmaincommandbar_1.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/apt_tacticalhudmaincommandbar_1.tga",
+        "blobSha": "6f917bc7452ccfbf7d7bcad2116f521fdee84ff2",
+        "sha256": "d4b50f26b6914b6d78fe74406bf0ff9fd49b45df82a87370b2b5532eaab59c37",
+        "bytes": 524838
+      },
+      {
+        "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+        "sourcePath": "SDK/Mods/Upheaval/Misc/Data/Maps/Official/map_mp_2_feasel10_ep1/map_mp_2_feasel10_ep1_art.tga",
+        "fixture": "recovery/tests/fixtures/texture-main/map_mp_2_feasel10_ep1_art.tga",
+        "blobSha": "23a2eb75492a86b70006e6bf3e0aec2fdccf5d4c",
+        "sha256": "5d453e31e4a5cf6e5fa30cc8ed234448e3dd98177f58a519023e464a55b3bee9",
+        "bytes": 786476
+      }
+    ]
+  },
+  "scope": "partial recovery: metadata, image rules, native buffer, PC/PS3/unknown DDS paths only",
+  "runId": "40198277826",
+  "groups": [
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Debug-metadata",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Debug-image",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Debug-packer",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "group": "Debug-dds",
+      "passed": true
+    },
+    {
+      "group": "Debug-native",
+      "passed": true
+    },
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Release-metadata",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Release-image",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "runAttempt": "1",
+      "passed": true,
+      "group": "Release-packer",
+      "runId": "40193344145",
+      "reused": true,
+      "sourceCommit": "ece235ac79fd7216777073ea8cc9416dd0018f47"
+    },
+    {
+      "group": "Release-dds",
+      "passed": true
+    },
+    {
+      "group": "Release-native",
+      "passed": true
+    }
+  ]
+}
