@@ -26,7 +26,7 @@ try{
         if(!(Test-Path "$out/$mode-transcript.txt")){Set-Content "$out/$mode-transcript.txt" "Native format controls; see oracle log"}
         $summary = @(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE Texture)'})
         $counts=@{}
-        foreach($metric in @('fixtures','decodedMatches','originalFailures','mismatches','assertions')){
+        foreach($metric in @('fixtures','decodedMatches','originalFailures','rejectionMatches','unsupportedCount','mismatches','assertions')){
             $m=[regex]::Match(($summary -join ' '),$metric+'=(\d+)')
             if($m.Success){$counts[$metric]=[int]$m.Groups[1].Value}
         }

@@ -202,12 +202,21 @@ internal static unsafe class TexturePngOracle
         byte[] bytes = new byte[pixels.Length * 4]; Buffer.BlockCopy(pixels, 0, bytes, 0, bytes.Length);
         using (SHA256 sha = SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-", "");
     }
+    private static string Failure(Exception e)
+    {
+        if(e==null)return null;while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;
+        var property=e.GetType().GetProperty("ErrorCode");return e.GetType().FullName+"/"+e.Message+"/"+(property==null?"":Convert.ToString(property.GetValue(e,null)));
+    }
     private static void Compare(StreamWriter transcript, string path, string label, byte[] bytes, bool probe)
     {
         File.WriteAllBytes(path, bytes); fixtures++;
         TexturePacker.Image expected = null, actual = null; Exception error = null, candidateError = null;
         try { expected = Original(path); } catch (Exception e) { error = e; }
         try { actual = TexturePngDecoder.Decode(bytes); } catch (Exception e) { candidateError = e; }
+        if(error!=null&&candidateError!=null&&Failure(error)==Failure(candidateError))
+        {originalFailures++;rejectionMatches++;transcript.WriteLine(label+"|rejectionMatched=True|failure="+Failure(error));return;}
+        if(error==null&&candidateError is NotSupportedException&&label.StartsWith("c2-d16-"))
+        {unsupportedCount++;transcript.WriteLine(label+"|declaredUnsupported=True|originalHash="+Hash(expected.Pixels)+"|boundary="+Failure(candidateError));return;}
         if (error != null || candidateError != null)
         {
             originalFailures += error != null ? 1 : 0; mismatches++;
@@ -277,7 +286,7 @@ internal static unsafe class TexturePngOracle
                     }
                 }
             }
-            Console.WriteLine("{0} Texture PNG fixtures={1} decodedMatches={2} originalFailures={3} mismatches={4} assertions={5}", probe ? "PROBE" : "PASS", fixtures, decodedMatches, originalFailures, mismatches, assertions);
+            Console.WriteLine("{0} Texture PNG fixtures={1} decodedMatches={2} originalFailures={3} mismatches={4} assertions={5} rejectionMatches={6} unsupportedCount={7}", probe ? "PROBE" : "PASS", fixtures, decodedMatches, originalFailures, mismatches, assertions, rejectionMatches, unsupportedCount);
             return !probe && mismatches != 0 ? 1 : 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }

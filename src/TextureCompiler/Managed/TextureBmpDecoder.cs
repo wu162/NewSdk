@@ -22,9 +22,15 @@ namespace Recovered.Compiler.Texture
             if((long)width*height>16777216)throw Invalid();
             if(depth!=1&&depth!=4&&depth!=8&&depth!=16&&depth!=24&&depth!=32)throw Invalid();
             if((width&(width-1))!=0||(height&(height-1))!=0)throw new NotSupportedException("Original D3DX power-of-two BMP resampling has not been recovered.");
+            if(depth<=8)throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
             int stride=checked(((width*depth+31)/32)*4);
             int paletteEntries=depth<=8?(colors==0?1<<depth:checked((int)colors)):0;
             if(paletteEntries>(1<<Math.Min(depth,8))||offset<54+paletteEntries*4||offset>data.Length||(long)stride*height>data.Length-offset)throw Invalid();
+            // Legacy D3DX BI_RGB consumes pixels directly after the DIB, ignoring
+            // the BMP file header's bfOffBits (including an extra file gap).
+            offset=54;
+            bool hasAlpha=depth==24;
+            if(depth==32)for(int y=0;y<height;y++)for(int x=0;x<width;x++)if(data[(int)offset+y*stride+x*4+3]!=0)hasAlpha=true;
             uint[] pixels=new uint[width*height];
             for(int y=0;y<height;y++)for(int x=0;x<width;x++)
             {
@@ -38,15 +44,15 @@ namespace Recovered.Compiler.Texture
                 else if(depth==16)
                 {
                     int v=U16(data,row+x*2),rv=(v>>10)&31,gv=(v>>5)&31,bv=v&31;
-                    r=(uint)((rv<<3)|(rv>>2));g=(uint)((gv<<3)|(gv>>2));b=(uint)((bv<<3)|(bv>>2));
+                    r=(uint)((rv*255+15)/31);g=(uint)((gv*255+15)/31);b=(uint)((bv*255+15)/31);
                 }
                 else
                 {
-                    int p=row+x*(depth/8);b=data[p];g=data[p+1];r=data[p+2];if(depth==32)a=data[p+3];
+                    int p=row+x*(depth/8);b=data[p];g=data[p+1];r=data[p+2];if(depth==32&&hasAlpha)a=data[p+3];
                 }
                 pixels[y*width+x]=r|g<<8|b<<16|a<<24;
             }
-            return new TexturePacker.Image(width,height,pixels,depth==32);
+            return new TexturePacker.Image(width,height,pixels,hasAlpha);
         }
     }
 }

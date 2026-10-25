@@ -25,7 +25,7 @@ try{
         Run "$mode-oracle" {& "$work/TextureBmpOracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" "$work/fixtures-$mode" $probeFlag}
         $summary = @(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE Texture)'})
         $counts=@{}
-        foreach($metric in @('fixtures','decodedMatches','originalFailures','mismatches','assertions')){
+        foreach($metric in @('fixtures','decodedMatches','originalFailures','rejectionMatches','unsupportedCount','mismatches','assertions')){
             $m=[regex]::Match(($summary -join ' '),$metric+'=(\d+)')
             if($m.Success){$counts[$metric]=[int]$m.Groups[1].Value}
         }

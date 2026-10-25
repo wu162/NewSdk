@@ -109,6 +109,11 @@ internal static unsafe class TextureBmpOracle
             return s.ToArray();
         }
     }
+    private static string Failure(Exception e)
+    {
+        if(e==null)return null;while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;
+        var property=e.GetType().GetProperty("ErrorCode");return e.GetType().FullName+"/"+e.Message+"/"+(property==null?"":Convert.ToString(property.GetValue(e,null)));
+    }
     private static string Hash(uint[] pixels)
     {
         byte[] b=new byte[pixels.Length*4];Buffer.BlockCopy(pixels,0,b,0,b.Length);
@@ -128,12 +133,13 @@ internal static unsafe class TextureBmpOracle
                 TexturePacker.Image a=null,b=null;Exception ea=null,eb=null;
                 try{a=Original(path);}catch(Exception e){ea=e;}
                 try{b=TextureBmpDecoder.Decode(bytes);}catch(Exception e){eb=e;}
+                if(ea!=null&&eb!=null&&Failure(ea)==Failure(eb)){originalFailures++;rejectionMatches++;log.WriteLine(label+"|rejectionMatched=True|failure="+Failure(ea));continue;}
                 bool equal=ea==null&&eb==null&&a.Width==b.Width&&a.Height==b.Height&&a.HasAlpha==b.HasAlpha&&Hash(a.Pixels)==Hash(b.Pixels);
                 int first=-1;if(a!=null&&b!=null)for(int i=0;i<Math.Min(a.Pixels.Length,b.Pixels.Length);i++)if(a.Pixels[i]!=b.Pixels[i]){first=i;break;}
                 log.WriteLine(label+"|equal="+equal+"|original="+(a==null?ea.ToString():a.Width+"x"+a.Height+" alpha="+a.HasAlpha+" hash="+Hash(a.Pixels))+"|candidate="+(b==null?eb.ToString():b.Width+"x"+b.Height+" alpha="+b.HasAlpha+" hash="+Hash(b.Pixels))+"|first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));
                 if(equal)decodedMatches++;else{mismatches++;if(ea!=null)originalFailures++;if(mismatches<=12)Console.WriteLine("DIFFERENCE "+label+" alpha="+(a==null?"error":a.HasAlpha.ToString())+"/"+(b==null?"error":b.HasAlpha.ToString())+" first="+first+(first<0?"":" expected="+a.Pixels[first].ToString("X8")+" actual="+b.Pixels[first].ToString("X8")));if(!probe)throw new Exception("BMP difference "+label);}
             }
-            Console.WriteLine((probe?"PROBE":"PASS")+" Texture BMP fixtures="+fixtures+" decodedMatches="+decodedMatches+" originalFailures="+originalFailures+" mismatches="+mismatches+" assertions="+assertions);return 0;
+            Console.WriteLine((probe?"PROBE":"PASS")+" Texture BMP fixtures="+fixtures+" decodedMatches="+decodedMatches+" originalFailures="+originalFailures+" mismatches="+mismatches+" assertions="+assertions+" rejectionMatches="+rejectionMatches);return 0;
         }catch(Exception e){Console.Error.WriteLine(e);return 1;}
         finally { if(owner!=null)owner.Dispose(); }
     }

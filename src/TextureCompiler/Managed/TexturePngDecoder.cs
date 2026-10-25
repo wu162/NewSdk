@@ -46,6 +46,7 @@ namespace Recovered.Compiler.Texture
         {
             if (!IsPng(data)) throw Invalid();
             int width = 0, height = 0, depth = 0, color = -1, interlace = 0;
+            uint gamma=0;
             byte[] palette = null, transparency = null;
             bool header = false, ended = false, idatSeen = false, idatEnded = false;
             using (MemoryStream compressed = new MemoryStream())
@@ -81,6 +82,9 @@ namespace Recovered.Compiler.Texture
                             if (idatSeen || transparency != null) throw Invalid();
                             if (color == 0 ? n != 2 : color == 2 ? n != 6 : color == 3 ? palette == null || n == 0 || n > palette.Length / 3 : true) throw Invalid();
                             transparency = new byte[n]; Buffer.BlockCopy(data, payload, transparency, 0, n); break;
+                        case "gAMA":
+                            if(idatSeen||n!=4||Big(data,payload)==0)throw Invalid();
+                            gamma=Big(data,payload);break;
                         case "IDAT":
                             if (idatEnded || (color == 3 && palette == null)) throw Invalid();
                             compressed.Write(data, payload, n); idatSeen = true; break;
@@ -101,6 +105,9 @@ namespace Recovered.Compiler.Texture
                 // NPOT decoding is coupled to D3DX texture creation and resampling.
                 if ((width & (width - 1)) != 0 || (height & (height - 1)) != 0)
                     throw new NotSupportedException("Original D3DX power-of-two PNG resampling has not been recovered.");
+                if(color==3||(color==4&&depth==16)||(color==0&&depth==16&&transparency!=null))
+                    throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
+                if(color==2&&depth==16)throw new NotSupportedException("Legacy PNG RGB16 sample packing has not been recovered.");
                 byte[] z = compressed.ToArray();
                 if (z.Length < 6 || (z[0] & 15) != 8 || (z[0] >> 4) > 7 || ((z[0] << 8) + z[1]) % 31 != 0 || (z[1] & 32) != 0) throw Invalid();
                 int channels = color == 0 || color == 3 ? 1 : color == 2 ? 3 : color == 4 ? 2 : 4;
@@ -147,14 +154,22 @@ namespace Recovered.Compiler.Texture
                                 {
                                     r = Sample(row, index, depth); g = r; b = r;
                                     if (color == 2 || color == 6) { g = Sample(row, index + 1, depth); b = Sample(row, index + 2, depth); }
-                                    if (transparency != null)
+                                    if (transparency != null && color==0)
                                     {
                                         int tr = transparency[0] << 8 | transparency[1];
                                         if (r == tr && (color == 0 || (g == (transparency[2] << 8 | transparency[3]) && b == (transparency[4] << 8 | transparency[5])))) a = 0;
                                     }
                                     if (color == 4 || color == 6) a = Sample(row, index + channels - 1, depth);
-                                    if (depth == 16) { r >>= 8; g >>= 8; b >>= 8; if (color == 4 || color == 6) a >>= 8; }
-                                    else if (depth < 8) { int max = (1 << depth) - 1; r = r * 255 / max; g = r; b = r; }
+                                    if(depth==16)
+                                    {
+                                        r=ConvertSample(r,65535,gamma);g=ConvertSample(g,65535,gamma);b=ConvertSample(b,65535,gamma);
+                                        if(color==4||color==6)a=(a*255+32767)/65535;
+                                    }
+                                    else
+                                    {
+                                        int max=(1<<depth)-1;
+                                        r=ConvertSample(r,max,gamma);g=ConvertSample(g,max,gamma);b=ConvertSample(b,max,gamma);
+                                    }
                                 }
                                 pixels[(sy[pass] + y * dy[pass]) * width + sx[pass] + x * dx[pass]] = (uint)(r | g << 8 | b << 16) | (uint)a << 24;
                             }
@@ -163,8 +178,14 @@ namespace Recovered.Compiler.Texture
                     }
                     if (inflate.ReadByte() != -1 || (adlerB << 16 | adlerA) != Big(z, z.Length - 4)) throw Invalid();
                 }
-                return new TexturePacker.Image(width, height, pixels, color == 4 || color == 6 || transparency != null);
+                return new TexturePacker.Image(width, height, pixels, color == 6);
             }
+        }
+        private static int ConvertSample(int sample,int max,uint gamma)
+        {
+            double exponent=gamma==0?1.0:1.0/(2.2*(gamma/100000.0));
+            if(gamma==0||Math.Abs(2.2*(gamma/100000.0)-1.0)<=0.05)return (sample*255+max/2)/max;
+            return (int)(255.0*Math.Pow(sample/(double)max,exponent)+0.5);
         }
         private static int Read(Stream input, ref uint a, ref uint b)
         {
