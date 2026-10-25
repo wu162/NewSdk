@@ -2,7 +2,7 @@
 
 2026-10-25。分支 `recovery/texturecompiler-source`；源码全部在根目录 [src/TextureCompiler](../src/TextureCompiler)。原DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。原始IL、metadata/native清单仍在 `evidence/texture/runs/40191971356-1`，不把反编译导出冒充完整可构建还原。
 
-**DLL尚未完整还原；已具备TGA到三种raw DDS的实际编译路径，Win32支持完整triangle mip链。** 生产SDK DLL/config未替换，源码仍在独立分支。
+**DLL尚未完整还原；TGA到三种raw DDS已支持二维Win32完整/PS3限三级mip，以及PC/PS3体积raw与递归mip，均取得专用MOD真实SDK验收。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
 ## 已验收范围
 
@@ -30,16 +30,27 @@
 
 ## 当前入口与边界
 
-`TextureImageLoader`分派两个已验证TGA解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，完整mip由独立`TextureTriangleMipEncoder`提供，Win32插件按GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
+`TextureImageLoader`分派两个已验证TGA解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，二维mip由独立`TextureTriangleMipEncoder`/`TexturePs3MipEncoder`提供，体积编码由`TextureVolumeRawDdsEncoder`/`TextureVolumeMipEncoder`提供，插件按平台、Type和GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
 
-NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3无mip仅支持已验证且不触发自动resize的输入；PS3 mip限三级语义、>256自动resize仍拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
+NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3无mip仅支持已验证且不触发自动resize的输入；PS3 mip固定三份payload已实现并验收；>256自动resize仍拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
+
+## 第三轮新增：PS3 mip、体积 DDS 与体积 mip
+
+详见 [TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。二维PS3核心279组、体积raw核心1200组、体积mip核心2832组均Debug/Release完整DDS字节对照；实际volume入口各2610组，PC/PS3/unknown99三buffer及完整cdata一致。源码仍全部在根src/TextureCompiler。
+
+- PS3二维mip、PC/PS3无mipvolume SDK：源码31f45e04b20ce7a307906009cbc7dd16c16e1e1a，运行40202575350成功，3个profile各三组18资产。
+- PC/PS3体积mip SDK：源码75f302ef802499fb319c77a5da7e0f454a30ca68，运行40203176308成功，2个profile各三组18资产。
+- 五个profile分别比较原版/恢复版/移除原目标DLL恢复版四份stream产物和全部实际调用buffer/cdata；通过BAB显式选择PC/PS3。只证明专用MOD范围，生产SDK/tools和config不替换，没有合入其他分支。
+- PS3二维固定写3份payload，小图仍重复末级，头级数为min(XY自然数,3)。体积mip递归先合并Z再滤波XY，头自然mip数不考虑深度；不能照搬二维base-relative算法或现代通用DDS头。
+- 最终75f302ef实际入口/受影响回归见专门文档；不变旧核心及成功SDK保留原锚点，不重跑。并发证据普通push已添加rebase与有限重试，禁止强推。
 
 ## 下一轮
 
 1. DXT1/DXT1A/DXT3/DXT5压缩核心仍缺，不把raw DDS或options恢复称为DXT恢复。
-2. XenonBundler/XGraphics完整surface/header/tiling转换、原native生命周期仍缺；Volume helper已恢复但未接volume DDS编码。
+2. XenonBundler/XGraphics完整surface/header/tiling转换、原native生命周期仍缺；Volume raw/mip已接入并取得PC/PS3 SDK验收。
 3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
 4. PNG/JPEG、剩余TGA metadata和NPOT/PS3 resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
-5. 如需继续mip适配PS3，需单独验证options[104]=3与级数/endianness；不能照搬Win32成功。
+5. PS3 mip已单独验收；下一步为>256的PS3 cubic resize与NPOT D3DX resize，不能把当前关闭resize的成功外推。
 
 详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
+

@@ -61,3 +61,4 @@ TextureVolumeOracle.exe SDK/tools/BinaryAssetBuilder.TextureCompiler.dll
 条带矩阵覆盖height=0/1/2/3/4/5/7/8/16/31/32/63/64，depth=0/1/2/3/5/7，两种像素pattern；额外加入不能整除的width、0×uint.MaxValue空slice。目标预先填入非空volume，检验成功时resize和失败时不修改目标。所有成功slice逐像素比较，不抽样；错误比较类型及消息。单独断言超大extent、短storage、null storage显式拒绝和uint.MaxValue自动mip数。
 
 本页不是成功收据，运行结论须绑定实际sourceCommit/runId，组件成功不能称为nvDDS或SDK体积纹理编译已通过。
+

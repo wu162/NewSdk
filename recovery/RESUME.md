@@ -59,3 +59,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ### TextureCompiler 第二轮续接（2026-10-25）
 
 根src/TextureCompiler新增raw三格式编码、Win32完整triangle mip、Volume helper与4534组TGA额外格式，并接ProcessInstance。无mip真实SDK40199309214成功；mip SDK40199691305编译/三组逐字节比较成功，workflow最后因证据推送并发冲突failure，收据与原artifact链接另存，不冒充整workflow成功。两个18资产profile均原版/恢复版/无原目标DLL三组4产物及真实Core调用buffer/cdata一致。仍缺DXT/Xenon/NPOT与PS3 resize/完整atlas，详细锚点与边界见TEXTURECOMPILER.md。
+
+
+### TextureCompiler 第三轮续接（2026-10-25）
+
+本轮单代理完成二维PS3三份mip payload、PC/PS3体积raw DDS及递归体积mip，并接入实际ProcessInstance。PS3/volume raw SDK源码31f45e04，运行40202575350三profile成功；volume mip SDK源码75f302ef，运行40203176308两profile成功。每profile原/恢复/无原目标DLL三组18资产，四产物与全部Core实际调用buffer/cdata一致。Debug/Release核心矩阵279/1200/2832组，volume入口各2610组；最终路由受影响回归全部通过。不变已验收组保留原锚点。PS3标准纹理>256自动resize、NPOT、DXT、Xenon、完整atlas仍未支持；生产SDK DLL/config不替换，分支未合入。精确规则/锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)，当前任务入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。
