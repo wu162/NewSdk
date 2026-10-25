@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.AudioCompiler</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net20</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>..\..\..\..\SDK\tools\BinaryAssetBuilder.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EALA.Hash">
+      <HintPath>..\..\..\..\SDK\tools\EALA.Hash.dll</HintPath>
+    </Reference>
+    <Reference Include="EALA.ProcessUtility" />
+    <Reference Include="EALA.Metrics">
+      <HintPath>..\..\..\..\SDK\tools\EALA.Metrics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.AudioVideoPlayback" />
+    <Reference Include="Microsoft.DirectX.Diagnostics" />
+    <Reference Include="Microsoft.DirectX.Direct3D" />
+    <Reference Include="Microsoft.DirectX.DirectDraw" />
+    <Reference Include="Microsoft.DirectX.DirectInput" />
+    <Reference Include="Microsoft.DirectX.DirectPlay" />
+    <Reference Include="Microsoft.DirectX.DirectSound" />
+    <Reference Include="Microsoft.DirectX" />
+    <Reference Include="Microsoft.DirectX.Direct3DX" />
+    <Reference Include="Microsoft.VisualC" />
+  </ItemGroup>
+</Project>
