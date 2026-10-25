@@ -90,14 +90,14 @@ namespace BinaryAssetBuilder.AudioCompiler
             if (frames == 0 || frames > 0x1fffffff) throw new ArgumentOutOfRangeException("interleaved");
             byte[] header = CreateHeader(channels, sampleRate, frames, streamed);
             List<byte> data = new List<byte>();
-            int maxFrames = streamed ? 1020 / channels : frames;
+            int maxFrames = streamed ? NativeBlockFrames(sampleRate * channels * 2.0f, sampleRate) : frames;
             for (int frame = 0; frame < frames; )
             {
                 int count = Math.Min(maxFrames, frames - frame);
                 bool last = frame + count == frames;
                 int bytes = checked(8 + count * channels * 2);
                 int padding = streamed && last ? 64 - ((data.Count + bytes) % 64) : 0;
-                AddBE(data, (uint)(bytes + padding) | (last ? 0x80000000u : 0u));
+                AddBE(data, (uint)(bytes + padding) | (last && streamed ? 0x80000000u : 0u));
                 AddBE(data, (uint)count);
                 for (int i = frame * channels; i < (frame + count) * channels; ++i)
                 {
@@ -134,6 +134,30 @@ namespace BinaryAssetBuilder.AudioCompiler
             AddBE(result, ((uint)codec << 24) | ((uint)(channels - 1) << 18) | (uint)rate);
             AddBE(result, (streamed ? 0x40000000u : 0u) | (uint)frames);
             return result.ToArray();
+        }
+
+        // RVA 0x2dac5: x87 2040 / bytesPerSecond * sampleRate, then
+        // truncation to integer. Extended-precision rounding matters: 22050 Hz
+        // mono PCM yields 1019 frames rather than the algebraic 1020.
+        internal static int NativeBlockFrames(float bytesPerSecond, int rate)
+        {
+            decimal scale = 1m;
+            // A direct float-to-decimal cast keeps only seven decimal digits
+            // on the CLR; reconstruct the exact binary value instead.
+            int bits = BitConverter.ToInt32(BitConverter.GetBytes(bytesPerSecond), 0);
+            decimal denominator = (bits & 0x7fffff) | 0x800000;
+            int exponent = ((bits >> 23) & 255) - 150;
+            while (exponent > 0) { denominator *= 2m; --exponent; }
+            while (exponent < 0) { denominator /= 2m; ++exponent; }
+            const decimal Two63 = 9223372036854775808m;
+            const decimal Two64 = 18446744073709551616m;
+            while (2040m * scale / denominator < Two63) scale *= 2m;
+            decimal quotient = Decimal.Round(2040m * scale / denominator, 0, MidpointRounding.ToEven);
+            decimal product = quotient * rate;
+            decimal roundingScale = 1m;
+            while (product / roundingScale >= Two64) roundingScale *= 2m;
+            product = Decimal.Round(product / roundingScale, 0, MidpointRounding.ToEven) * roundingScale;
+            return (int)Decimal.Truncate(product / scale);
         }
 
         private static void AddBE(List<byte> output, uint value)

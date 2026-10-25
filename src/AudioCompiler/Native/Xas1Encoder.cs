@@ -104,7 +104,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             List<byte> data = new List<byte>();
             List<float> pending = new List<float>();
             int frameOffset = 0;
-            int maximum = streamed ? (int)(2040.0 / (sampleRate * channels * 0.59375f) * sampleRate) : frames;
+            int maximum = streamed ? Pcm16Encoder.NativeBlockFrames(sampleRate * channels * 0.59375f, sampleRate) : frames;
             while (frameOffset < frames)
             {
                 int count = Math.Min(maximum, frames - frameOffset);
@@ -131,7 +131,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 }
                 int bytes = payload.Count + 8;
                 int padding = streamed && last ? 64 - ((data.Count + bytes) % 64) : 0;
-                WriteBE(data, (uint)(bytes + padding) | (last ? 0x80000000u : 0u));
+                WriteBE(data, (uint)(bytes + padding) | (last && streamed ? 0x80000000u : 0u));
                 WriteBE(data, (uint)encodedFrames);
                 data.AddRange(payload);
                 for (int i = 0; i < padding; ++i) data.Add(0);

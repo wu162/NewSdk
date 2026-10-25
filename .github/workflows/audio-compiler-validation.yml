@@ -23,10 +23,18 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Compare PathMusic handlers and collect codec probes
+      - name: Compare PathMusic and MP3 handlers and collect codec probes
         shell: pwsh
         run: |
-          ./recovery/scripts/TestAudioPlugin.ps1
+          ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3
+      - name: Build standalone source project
+        if: always()
+        shell: pwsh
+        run: |
+          dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Debug
+          if ($LASTEXITCODE -ne 0) { throw "Debug project build failed" }
+          dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release
+          if ($LASTEXITCODE -ne 0) { throw "Release project build failed" }
       - name: Compare PCM encoder component
         if: always()
         shell: pwsh

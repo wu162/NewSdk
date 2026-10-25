@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>BinaryAssetBuilder.AudioCompiler</AssemblyName>
     <RootNamespace>BinaryAssetBuilder.AudioCompiler</RootNamespace>
-    <TargetFramework>net20</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>10.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

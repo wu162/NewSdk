@@ -32,7 +32,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                 case 0:
                     switch (value)
                     {
-                        case -1: representation = sounds ? 1 : 29; break;
+                        case -1: representation = sounds ? 29 : 1; break;
                         case 0: representation = 1; break;
                         case 1: representation = 29; break;
                         case 2: representation = 1; warning = true; break;

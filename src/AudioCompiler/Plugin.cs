@@ -13,7 +13,7 @@ namespace BinaryAssetBuilder.AudioCompiler
 
     // PathMusic business handlers and metadata are recovered. The original
     // Initialize's native RenderWare codec registry is deliberately not created:
-    // AudioFile requires an explicit recovered backend, and MP3 remains rejected.
+    // AudioFile uses the recovered PCM16 WAVE backend; MPEG validation uses bundled NLayer.
     public class Plugin : IAssetBuilderPlugin, IDisposable
     {
         private readonly Tracer m_Tracer = Tracer.GetTracer("AudioCompiler", "Provides Audio processing functionality");
@@ -21,7 +21,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         private TargetPlatform m_Platform = TargetPlatform.Win32;
         private readonly IAudioFileCompiler audioCompiler;
 
-        public Plugin() { }
+        public Plugin() : this(new PcmWaveAudioCompiler()) { }
         public Plugin(IAudioFileCompiler compiler) { audioCompiler = compiler; }
 
         public virtual void Initialize(object configSection, TargetPlatform platform)
@@ -74,7 +74,37 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public AssetBuffer ProcessAudioFileMP3PassthroughInstance(InstanceDeclaration declaration)
         {
-            throw new NotSupportedException("AudioFileMP3Passthrough SIMEX identification and stream metadata have not been recovered.");
+            XmlAttributeCollection attrs = declaration.XmlNode.Attributes;
+            string file = attrs["File"].Value;
+            byte[] data;
+            try { data = File.ReadAllBytes(file); }
+            catch (IOException) { return null; }
+            catch (UnauthorizedAccessException) { return null; }
+            int first = MpegPassthrough.IsContainer(data) ? -1 : MpegPassthrough.FindFirstFrame(data);
+            if (first < 0)
+            {
+                Console.WriteLine("Warning: Passthrough is for MP3 format only.  Cannot process \"{0}\"", file);
+                return null;
+            }
+            byte channels;
+            try { channels = MpegPassthrough.Validate(data, first); }
+            catch (Exception exception)
+            {
+                if (!(exception is InvalidDataException) && !(exception is EndOfStreamException) &&
+                    !(exception is IndexOutOfRangeException) && !(exception is ArgumentException)) throw;
+                throw new BinaryAssetBuilderException((ErrorCode)1,
+                    "Internal error reading element {0} of \"{1}\" (SIMEX_info(): {2}).", 0, file, "Error decoding MPEG Layer 123 data.");
+            }
+            PathMusicBuilder builder = new PathMusicBuilder(16, m_Platform == TargetPlatform.Xbox360);
+            string subtitle = attrs["SubtitleStringName"] == null ?
+                "DIALOGEVENT:" + Path.GetFileNameWithoutExtension(file) + "SubTitle" : attrs["SubtitleStringName"].Value;
+            builder.String(4, subtitle);
+            builder.Byte(12, channels);
+            string streamed = attrs["IsStreamed"] == null ? "true" : attrs["IsStreamed"].Value;
+            builder.Byte(13, (byte)(streamed.Length != 0 && (streamed[0] == '1' || streamed[0] == 't' || streamed[0] == 'T') ? 1 : 0));
+            if (File.Exists(declaration.CustomDataPath)) File.Delete(declaration.CustomDataPath);
+            File.Copy(file, declaration.CustomDataPath);
+            return builder.Finish();
         }
 
         public AssetBuffer ProcessPathMusicMapInstance(InstanceDeclaration declaration)

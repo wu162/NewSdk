@@ -57,6 +57,16 @@ internal static class AudioPluginOracle
         }
         if ((label.StartsWith("map") || label.StartsWith("track") || label.StartsWith("event")) && !result.StartsWith("BUFFER:"))
             throw new Exception("Required PathMusic fixture failed: " + label + " platform=" + platform + " result=" + result);
+        if ((label.StartsWith("pcm-") || label.StartsWith("xas-") || label.StartsWith("default-")) && (!result.StartsWith("BUFFER:") || !File.Exists(custom)))
+            throw new Exception("Required AudioFile fixture failed: " + label + " platform=" + platform + " result=" + result);
+        bool validMp3 = label.StartsWith("mp3-mono.") || label.StartsWith("mp3-stereo.") || label.StartsWith("mp3-subtitle-");
+        if (validMp3)
+        {
+            if (!result.StartsWith("BUFFER:") || !File.Exists(custom)) throw new Exception("Required valid MP3 fixture failed: " + label + " result=" + result);
+            var source = new XmlDocument(); source.LoadXml(xml);
+            byte[] expected = File.ReadAllBytes(source.DocumentElement.Attributes["File"].Value);
+            if (!expected.SequenceEqual(File.ReadAllBytes(custom))) throw new Exception("MP3 custom data did not preserve the exact input bytes: " + label);
+        }
         result += ":CUSTOM:" + (File.Exists(custom) ? Data(File.ReadAllBytes(custom)) : "<absent>");
         writer.WriteLine(label + ":" + platform + ":" + (direct ? "direct" : "dispatch") + ":" + result); writer.Flush(); count++;
     }
@@ -111,11 +121,21 @@ internal static class AudioPluginOracle
             }
         }
     }
+    private static void DefaultProbe()
+    {
+        foreach (string directory in new string[] { "sounds", "music" })
+        {
+            string folder=Path.Combine(root,directory); Directory.CreateDirectory(folder);
+            string wave=Path.Combine(folder,"default.wav"); Wav(wave,directory=="sounds"?2:1,257);
+            foreach(bool direct in new bool[]{false,true})
+                Run("default-"+directory,0,Element("AudioFile","File='"+Esc(wave)+"' PCQuality='75' XenonQuality='75' PS3Quality='75'"),direct);
+        }
+    }
     private static int Main(string[] args)
     {
         try
         {
-            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas");
+            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults");
             if (IntPtr.Size != 4) throw new Exception("x86 CLR required");
             bool original = args[1] == "original";
             string originalName = "BinaryAssetBuilder.AudioCompiler";
@@ -126,6 +146,7 @@ internal static class AudioPluginOracle
             using (writer = new StreamWriter(args[3], false, new UTF8Encoding(false)))
             {
                 if (args[4] == "pcm" || args[4] == "xas") NativeProbe(args[4] == "xas");
+                else if (args[4] == "defaults") DefaultProbe();
                 else
                 {
                     ParseProbe();

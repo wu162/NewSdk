@@ -1,4 +1,4 @@
-param([string]$OutputDirectory, [switch]$OriginalOnly)
+param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3)
 $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 if (!$env:RUNNER_TEMP) { $env:RUNNER_TEMP = [IO.Path]::GetTempPath() }
@@ -23,7 +23,9 @@ $sourceCommit = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
 $receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic map/track/event ProcessInstance/direct-handler component differential; MP3 original evidence only'}
 try {
-    $businessScope = if ($OriginalOnly) { 'business' } else { 'pathmusic' }
+    $businessScope = if ($OriginalOnly -or $IncludeMp3) { 'business' } else { 'pathmusic' }
+    $receipt.mp3Validated = [bool]$IncludeMp3
+    if ($IncludeMp3) { $receipt.scope = 'PathMusic map/track/event and MP3 passthrough ProcessInstance/direct-handler component differential' }
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/original.txt" $businessScope *> "$out/original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log"; throw 'Original business oracle failed' }
     # Full raw PCM native evidence is retained separately and is not counted as recovered acceptance.
@@ -31,6 +33,8 @@ try {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/pcm-original.log"; throw 'Original PCM probe failed' }
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/xas-original.txt" xas *> "$out/xas-original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/xas-original.log"; throw 'Original XAS probe failed' }
+    & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/defaults-original.txt" defaults *> "$out/defaults-original.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/defaults-original.log"; throw 'Original AudioFile defaults probe failed' }
     Get-ChildItem $fixtures -Filter '*.wav' | Copy-Item -Destination $out
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     $baseline = (Get-FileHash "$out/original.txt").Hash
@@ -44,18 +48,31 @@ try {
         & $csc /nologo /unsafe /target:library /platform:x86 $optimize /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$library" $sources *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
-        & "$candidate/AudioPluginOracle.exe" $library recovered $fixtures "$out/$mode.txt" pathmusic *> "$out/$mode.log"
-        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode.log"; throw "$mode business oracle failed" }
-        $actual = (Get-FileHash "$out/$mode.txt").Hash
-        if ($actual -ne $baseline) {
-            Compare-Object (Get-Content "$out/original.txt") (Get-Content "$out/$mode.txt") | Out-String -Width 2000 | Set-Content "$out/$mode-difference.txt"
-            Get-Content "$out/$mode-difference.txt" -First 30
-            throw "$mode business transcript differs"
+        foreach ($group in @('business','pcm','xas','defaults')) {
+            $scope = if ($group -eq 'business') { $businessScope } else { $group }
+            $expectedFile = if ($group -eq 'business') { "$out/original.txt" } else { "$out/$group-original.txt" }
+            $actualFile = "$out/$mode-$group.txt"
+            & "$candidate/AudioPluginOracle.exe" $library recovered $fixtures $actualFile $scope *> "$out/$mode-$group.log"
+            if ($LASTEXITCODE -ne 0) {
+                Get-Content "$out/$mode-$group.log" -Tail 25
+                $receipt.configurations += @{configuration=$mode;group=$group;passed=$false;error='oracle failed'}
+                continue
+            }
+            $actual = (Get-FileHash $actualFile).Hash
+            $expectedHash = (Get-FileHash $expectedFile).Hash
+            if ($actual -ne $expectedHash) {
+                Compare-Object (Get-Content $expectedFile) (Get-Content $actualFile) | Out-String -Width 2000 | Set-Content "$out/$mode-$group-difference.txt"
+                Get-Content "$out/$mode-$group-difference.txt" -First 25
+                $receipt.configurations += @{configuration=$mode;group=$group;passed=$false;error='transcript differs'}
+                continue
+            }
+            $count = @(Get-Content $actualFile).Count
+            $receipt.configurations += @{configuration=$mode;group=$group;passed=$true;records=$count;transcriptSha256=$actual.ToLowerInvariant();recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant();originalAbsentFromRecoveredHost=$true}
+            Write-Host "PASS Audio plugin $mode $group`: $count identical three-buffer/custom-data records"
         }
-        $count = @(Get-Content "$out/$mode.txt").Count
-        $receipt.configurations += @{configuration=$mode; passed=$true; records=$count; transcriptSha256=$actual.ToLowerInvariant(); recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant(); originalAbsentFromRecoveredHost=$true}
-        Write-Host "PASS Audio plugin $mode`: $count identical three-buffer/custom-data records"
     }
+    if (@($receipt.configurations | Where-Object { !$_.passed }).Count -gt 0) { $receipt.status='failed'; throw 'Audio plugin groups failed; see individual difference files' }
+    $receipt.nativeAudioFileValidated=$true
     $receipt.status='passed'
 } finally {
     $receipt | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json"
