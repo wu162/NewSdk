@@ -26,7 +26,14 @@ jobs:
       - name: Compare isolated resampler FFT component
         if: "!contains(github.event.head_commit.message, '[audio-native-probe]') && !contains(github.event.head_commit.message, '[audio-aiff]')"
         shell: pwsh
-        run: ./recovery/scripts/TestAudioFft.ps1
+        env:
+          AUDIO_NATIVE_CPU_ONLY: ${{ contains(github.event.head_commit.message, '[native-cpu-only]') }}
+        run: |
+          if ($env:AUDIO_NATIVE_CPU_ONLY -eq 'true') {
+            ./recovery/scripts/TestAudioFft.ps1 -OriginalCpuOnly
+          } else {
+            ./recovery/scripts/TestAudioFft.ps1
+          }
       - name: Compare PathMusic and MP3 handlers and collect codec probes
         if: "!contains(github.event.head_commit.message, '[audio-fft]')"
         env:
