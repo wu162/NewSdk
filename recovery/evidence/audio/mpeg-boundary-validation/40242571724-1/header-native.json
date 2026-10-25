@@ -1,0 +1,8 @@
+{
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "nativeRva": "0x44d40",
+  "records": 32783,
+  "transcriptSha256": "046f8fc54eb9d00eb7e3398614c7b8b1de64fc6dbda6c934c3e5f923efe2a229",
+  "emulator": "Unicorn x86; initialized SINFO; x87 control 0x037f",
+  "scope": "MPEG header return payload and channel mutation only; not decoder acceptance"
+}

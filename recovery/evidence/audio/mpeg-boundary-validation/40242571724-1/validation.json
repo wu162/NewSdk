@@ -1,0 +1,2898 @@
+{
+  "fixtures": [
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "length": 0,
+      "name": "empty"
+    },
+    {
+      "sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "length": 4096,
+      "name": "junk"
+    },
+    {
+      "sha256": "a6e5d9e8986cf231a44206130b724f117da305eb1a4b1ae28ae4748a2ef441df",
+      "length": 1462,
+      "name": "mono-broken-sync-0"
+    },
+    {
+      "sha256": "c63b4dcc23339bec24d6402400a0da45a3a07145845d11ea84120b128c4e6b7a",
+      "length": 1462,
+      "name": "mono-broken-sync-3"
+    },
+    {
+      "sha256": "9ff05c8ffa37f0160365f0fba687265a8c78493f65733aa7cfde97198c66675d",
+      "length": 1462,
+      "name": "mono-broken-sync-6"
+    },
+    {
+      "sha256": "cd01870c9db2f8d878db545abfd08014b78879076edb93ef0658bfeae080e6bc",
+      "length": 1466,
+      "name": "mono-container-fLaC"
+    },
+    {
+      "sha256": "fb18e98b3384dba39857f6609d29ddf6cb69275880e5adfa523dcfbf625fc5d3",
+      "length": 1466,
+      "name": "mono-container-FORM"
+    },
+    {
+      "sha256": "b7be820539e3b5ad9f44ca0081a10571e2f1660556def619041785df90904c22",
+      "length": 1466,
+      "name": "mono-container-OggS"
+    },
+    {
+      "sha256": "42e1fd6b3f5764e4f808b03ab536c55c4bb5e8a34ccf464015ab1acbb5e11154",
+      "length": 1466,
+      "name": "mono-container-RIFF"
+    },
+    {
+      "sha256": "35ab3f06103528ef1378d9cf372760fa51c8961800c583e4cfd06012b11db781",
+      "length": 1466,
+      "name": "mono-container-SCHl"
+    },
+    {
+      "sha256": "18ad6f63ca7a578c64a999663032451f528011170cd3734006a51456febf3932",
+      "length": 4,
+      "name": "mono-frames1-lastpayload0"
+    },
+    {
+      "sha256": "b858e56168d1d703c6b35d274de0631838716f8865d0434e352b6702dceba39d",
+      "length": 5,
+      "name": "mono-frames1-lastpayload1"
+    },
+    {
+      "sha256": "4a732340e875a6baec3d83b7ba3d2e275fdb6ffd33471a6873e2fc951bd52362",
+      "length": 108,
+      "name": "mono-frames1-lastpayload104"
+    },
+    {
+      "sha256": "0c2445f8ba00b65b063ad5df262f6d9aa15455c7b698ff6654d31e2170ebf52d",
+      "length": 208,
+      "name": "mono-frames1-lastpayload204"
+    },
+    {
+      "sha256": "3aba26428950c8a767e3199b59bb65c5bf9d34a9ad7310499d84be5ab41dcab6",
+      "length": 1048,
+      "name": "mono-frames6-lastpayload0"
+    },
+    {
+      "sha256": "7edcee542622c64be9b1e77ae49cee055c54f85747bfbf8c6d4e980b0e28ad59",
+      "length": 1049,
+      "name": "mono-frames6-lastpayload1"
+    },
+    {
+      "sha256": "2e15fc8d1d2413f38559bfc7ce15b7b0f632efdf3bc90c74fd4a89915574f584",
+      "length": 1152,
+      "name": "mono-frames6-lastpayload104"
+    },
+    {
+      "sha256": "5dfb1c4c6dc135fa07d0730532b88041000e8747b9cdebe986bfb8c6759525d3",
+      "length": 1253,
+      "name": "mono-frames6-lastpayload205"
+    },
+    {
+      "sha256": "57ae9382eeef25e020ebcbdd61c5062f277d24339481a63adf2883dc7217ae83",
+      "length": 1257,
+      "name": "mono-frames7-lastpayload0"
+    },
+    {
+      "sha256": "19ca460872d957e7514b216422862d026729324952c4a126d61a524ae2f49a6b",
+      "length": 1258,
+      "name": "mono-frames7-lastpayload1"
+    },
+    {
+      "sha256": "7c4924d0ecf3fc2fb8322cb94941c8ecf744ced7d88c56ce5442efc09cf2511f",
+      "length": 1361,
+      "name": "mono-frames7-lastpayload104"
+    },
+    {
+      "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+      "length": 1462,
+      "name": "mono-frames7-lastpayload205"
+    },
+    {
+      "sha256": "ff25c01b5c84e1c48dbc0bb030639b7e5a7f40df151cfa9cd66fea54c553df54",
+      "length": 1590,
+      "name": "mono-id3v1"
+    },
+    {
+      "sha256": "2fb24c7caf896ddb034b67429d55a3f379fab0b3520221a8431b201755204657",
+      "length": 1472,
+      "name": "mono-id3v2"
+    },
+    {
+      "sha256": "2f8332957af549a3fa46fce7ed2da52017ff8f29bfb153d3127833413862199e",
+      "length": 1462,
+      "name": "mono-payload-fill-0"
+    },
+    {
+      "sha256": "814c8b603c4ea11829231b22b67d04bb44ccee2c5d2ca1573818cd4b8f7e6f33",
+      "length": 1462,
+      "name": "mono-payload-fill-255"
+    },
+    {
+      "sha256": "3fece45ebff47d2fdbf7059b84e45d86fc7701d67d3f74faf275ebede3892608",
+      "length": 1463,
+      "name": "mono-prefix-1"
+    },
+    {
+      "sha256": "764a7667409b33bd29ea7767ca505c2290bde0336d3ca5de0688ce886e1793fb",
+      "length": 1472,
+      "name": "mono-prefix-10"
+    },
+    {
+      "sha256": "18bec81f07bedd42a807992c81f2678acefd1f04229d8810d6d64ef45e9e0ba2",
+      "length": 2486,
+      "name": "mono-prefix-1024"
+    },
+    {
+      "sha256": "8d14532b64f3851b133dc3cc86e70cceea8d054cec524aa8e8944cd470d086d1",
+      "length": 1589,
+      "name": "mono-prefix-127"
+    },
+    {
+      "sha256": "49a4a38a878b9095609d43630bc2f4c8161b354ca6df8bc68e5da1b93350b5ed",
+      "length": 1465,
+      "name": "mono-prefix-3"
+    },
+    {
+      "sha256": "6fbcc16a338088cfeecbde9010a56ab171cd6b881df435ac0411eab890e9cf9a",
+      "length": 3133,
+      "name": "mono-stereo"
+    },
+    {
+      "sha256": "49540add5254bf36eb49fcf7d3477bd04b371ad3ffc600684cfe309c4c119973",
+      "length": 1463,
+      "name": "mono-suffix-1"
+    },
+    {
+      "sha256": "2fb6182a752513ede432ff5fad73f4142514d196dd4189df5d4a3fd5cc6c1631",
+      "length": 1589,
+      "name": "mono-suffix-127"
+    },
+    {
+      "sha256": "919125ba9597aceb88eb8f61c850e169d5ddb7444bdd959aef059293f18b6aee",
+      "length": 1590,
+      "name": "mono-suffix-128"
+    },
+    {
+      "sha256": "a7aeaa6de7951b1a5face973b586033e60cb2e49642c6fb1e2492e0f6784dc2a",
+      "length": 1465,
+      "name": "mono-suffix-3"
+    },
+    {
+      "sha256": "7ccf6dee00a3a4d02d56d8846651975cd2e4c4069e59dcc36350942ccb945424",
+      "length": 1466,
+      "name": "mono-suffix-4"
+    },
+    {
+      "sha256": "a47a9072ef874c7c566725be603674c70210ed41efbffe25a78d3cd0f50f2de4",
+      "length": 1466,
+      "name": "mono-tail-free-mode0"
+    },
+    {
+      "sha256": "6b345d695cd482f41aee1694e8bfc533d47d5e5e91495897ab3641dc3d67af95",
+      "length": 1466,
+      "name": "mono-tail-free-mode3"
+    },
+    {
+      "sha256": "dd0a5c61f59f04b6e536ae6aee30531e6a7476c70af7bf3c86d1faaaa03b54d3",
+      "length": 1466,
+      "name": "mono-tail-reserved-bitrate-mode0"
+    },
+    {
+      "sha256": "6b715ee31ba7c1ac20765a6efa4543c40b9e715dc0d2148502bfad2fb1c3a664",
+      "length": 1466,
+      "name": "mono-tail-reserved-bitrate-mode3"
+    },
+    {
+      "sha256": "9627dd6343d49864420c066db582059aa5d9ca1b21892eb166a75f765c1a679e",
+      "length": 1466,
+      "name": "mono-tail-reserved-rate-mode0"
+    },
+    {
+      "sha256": "d7307aa94e656333fd258dd70cf0e05c7eb487a156d9a14ab0252ba5cf045dd2",
+      "length": 1466,
+      "name": "mono-tail-reserved-rate-mode3"
+    },
+    {
+      "sha256": "1dec55f792fc262ca8aac907fbc650db618e200e192d11c669824f57117ab506",
+      "length": 1466,
+      "name": "mono-tail-reserved-version-mode0"
+    },
+    {
+      "sha256": "a384bd5cf725bbfbb00ef314a4aa06ed8f9438ce694d6a119e96e88166719941",
+      "length": 1466,
+      "name": "mono-tail-reserved-version-mode3"
+    },
+    {
+      "sha256": "9488860d6fea90bbcecabfad73d7578c72b4469d2c27a37b0b720e6c43003d26",
+      "length": 1462,
+      "name": "mono-valid"
+    },
+    {
+      "sha256": "34b1b865c0c10224117899755975abddc46e177cdad793fb2071ff37c2bf30a5",
+      "length": 1671,
+      "name": "stereo-broken-sync-0"
+    },
+    {
+      "sha256": "1931386f76e3c77350605519b19c576fd402771b52cce41f4b7775fc31c9d007",
+      "length": 1671,
+      "name": "stereo-broken-sync-3"
+    },
+    {
+      "sha256": "98f16c9c74e6bef6f256c984f1690c01f73e03eb9bdbf5e4611c1f454ac45815",
+      "length": 1671,
+      "name": "stereo-broken-sync-6"
+    },
+    {
+      "sha256": "f1f2a1bc6b4fd9e6134902c04c69389d3e975a3d8279f68e8c314feab64399ec",
+      "length": 1671,
+      "name": "stereo-broken-sync-7"
+    },
+    {
+      "sha256": "a622eb98053499a6297dc40367f41bc382fa66fbb5e2c782b3233f8c308be12f",
+      "length": 1675,
+      "name": "stereo-container-fLaC"
+    },
+    {
+      "sha256": "59085afee3e9e6e4e6e83d818276643c82147c62789d14f57221b6ba57c1a480",
+      "length": 1675,
+      "name": "stereo-container-FORM"
+    },
+    {
+      "sha256": "a84d98ead76654a349d57219ad00270229b0460639c0c12af38fd0fa232055cc",
+      "length": 1675,
+      "name": "stereo-container-OggS"
+    },
+    {
+      "sha256": "f40ff1ccac1e5fee5e0f521319f104daa85294be0a52eba9b399280fff914ac3",
+      "length": 1675,
+      "name": "stereo-container-RIFF"
+    },
+    {
+      "sha256": "d4e74823b16aa7c3d6997b4414500636d09a467592944eb2df7728b26694df74",
+      "length": 1675,
+      "name": "stereo-container-SCHl"
+    },
+    {
+      "sha256": "1650c0dcee6e58d58cc6d9c4dd43efd35bc70fc0dd4b2f57177ba7f662bbc73e",
+      "length": 4,
+      "name": "stereo-frames1-lastpayload0"
+    },
+    {
+      "sha256": "9f31f0c6e100f75d213f228fb36c0f98defa0a55f485fd37e5939a98733b463e",
+      "length": 5,
+      "name": "stereo-frames1-lastpayload1"
+    },
+    {
+      "sha256": "7a1b47b8175afd13049da04a9e39a716b1d8a4f45492a6bc0bcd22393b5dc97c",
+      "length": 108,
+      "name": "stereo-frames1-lastpayload104"
+    },
+    {
+      "sha256": "112d90313846eaab379f6b784e52520c62e3c8d6678f3c3a2bf4b92f00283bd5",
+      "length": 208,
+      "name": "stereo-frames1-lastpayload204"
+    },
+    {
+      "sha256": "7dcf78ef72336f2a4f66fb6a069d4c25c6bb44e974fbdcf1dae72673b157c77d",
+      "length": 1048,
+      "name": "stereo-frames6-lastpayload0"
+    },
+    {
+      "sha256": "5fd71b53ba2780a60947e6b3f27b9cfd4f05ad427f7cd29b93952b4e5bbcaa81",
+      "length": 1049,
+      "name": "stereo-frames6-lastpayload1"
+    },
+    {
+      "sha256": "5de9ee8d04aa81bd7c05a00b8d1d0ddcfc0bbe850814cb09f6d7b16765d8fcc5",
+      "length": 1152,
+      "name": "stereo-frames6-lastpayload104"
+    },
+    {
+      "sha256": "9dc3f41a0935da1b25902ea5f5551674c0bfa20854e4d169620108d8624988c3",
+      "length": 1253,
+      "name": "stereo-frames6-lastpayload205"
+    },
+    {
+      "sha256": "42aba04e4a9f7a3f1e5077075c5377adb6a247e545428151a0afbe7016de0d8b",
+      "length": 1257,
+      "name": "stereo-frames7-lastpayload0"
+    },
+    {
+      "sha256": "fefcf270f3686443d3f567c1117d08d45b0fa4b5b1cf916ea43a18d33ca42d91",
+      "length": 1258,
+      "name": "stereo-frames7-lastpayload1"
+    },
+    {
+      "sha256": "7df34155d064e05645cb3df6faa247ecabc07900337b81e5e65e405966761252",
+      "length": 1361,
+      "name": "stereo-frames7-lastpayload104"
+    },
+    {
+      "sha256": "6e44001aa6c17bb9c5c20e796abe9a2933e265d3abbceddc49aaea8aec81e4f2",
+      "length": 1462,
+      "name": "stereo-frames7-lastpayload205"
+    },
+    {
+      "sha256": "7986f619500748e7f9d6381da4bfc13257c1a005b5381443603816701f755f4a",
+      "length": 1466,
+      "name": "stereo-frames8-lastpayload0"
+    },
+    {
+      "sha256": "8c1ba062b0bc564087ca5d16256546bc3189a9aeeb64fb9fd6941ec78130a14f",
+      "length": 1467,
+      "name": "stereo-frames8-lastpayload1"
+    },
+    {
+      "sha256": "0ee7d5f03685741b9bd1a9e2b912a8749fa9d64f40ec105813a868ce940873d1",
+      "length": 1570,
+      "name": "stereo-frames8-lastpayload104"
+    },
+    {
+      "sha256": "c89878dbab2e4e9e3d0b9a3c9fcae441d28207b38ead567d526153cba635fd18",
+      "length": 1671,
+      "name": "stereo-frames8-lastpayload205"
+    },
+    {
+      "sha256": "15714f1c89f3ee409e2f87a5ead300b3f7441aa835240b1e806e5ddcafadeb17",
+      "length": 1799,
+      "name": "stereo-id3v1"
+    },
+    {
+      "sha256": "df8804c8b5a2027c260158cd484cefd9787e59a4bff0d5c807d73365b9c456cf",
+      "length": 1681,
+      "name": "stereo-id3v2"
+    },
+    {
+      "sha256": "28de2ee92e5792203088ab9819b400ac7e277e62555b463e52843d9a9c866f35",
+      "length": 3133,
+      "name": "stereo-mono"
+    },
+    {
+      "sha256": "f7c2978fbe01c45c5bebd1025b9d99dbb24bc11c185e310f69de36f67cab426d",
+      "length": 1671,
+      "name": "stereo-payload-fill-0"
+    },
+    {
+      "sha256": "3d478b6f344ae21698ee4e7c35853001c0990b05da42230a5d47d8b2d365ed46",
+      "length": 1671,
+      "name": "stereo-payload-fill-255"
+    },
+    {
+      "sha256": "968fe6ea7797e91b1d4bbf947a380136464fe60d8580e27ef3a4bea449d89574",
+      "length": 1672,
+      "name": "stereo-prefix-1"
+    },
+    {
+      "sha256": "1fee71878e78523c3175230ea72402ad68fa1a21a4d626923aedb89f39ec4cc3",
+      "length": 1681,
+      "name": "stereo-prefix-10"
+    },
+    {
+      "sha256": "5effd610f023745e68024cf8705fce36698352846b9002c26012321ce12240e4",
+      "length": 2695,
+      "name": "stereo-prefix-1024"
+    },
+    {
+      "sha256": "140448f9d1e37271cd1db35aba174454f536aa83e1f6bd4a25c72f8372101da2",
+      "length": 1798,
+      "name": "stereo-prefix-127"
+    },
+    {
+      "sha256": "ab7eff64879f5ef61358bfdc7e7f0a3f5634787facdc4d5f579075fffb6dd491",
+      "length": 1674,
+      "name": "stereo-prefix-3"
+    },
+    {
+      "sha256": "785096ee80400239dd0f1276d2ec777bc11c8b5c63591250abb85c55f809dd02",
+      "length": 1672,
+      "name": "stereo-suffix-1"
+    },
+    {
+      "sha256": "d755788a470f1e054a64f2393130eb81f34a4443732ed536da1f2d739da3a425",
+      "length": 1798,
+      "name": "stereo-suffix-127"
+    },
+    {
+      "sha256": "d9f2327762a858641264eca5f08328d3fa2f5b2cec560c2a972b325621fe2bb4",
+      "length": 1799,
+      "name": "stereo-suffix-128"
+    },
+    {
+      "sha256": "2bbb7be445b3103bb730d6616d636b4b53b43f539ace801585638ccbb7866c96",
+      "length": 1674,
+      "name": "stereo-suffix-3"
+    },
+    {
+      "sha256": "b9745b85f6904acbb5ebc1728f16a1c6429638116e219bb10c43e0ee56d132e1",
+      "length": 1675,
+      "name": "stereo-suffix-4"
+    },
+    {
+      "sha256": "a57e5d57989dc545334041c01304f4656ec2d429e84b96b1f14af2470d25c6ee",
+      "length": 1675,
+      "name": "stereo-tail-free-mode0"
+    },
+    {
+      "sha256": "35c5d5292db665c263d062e98d4f5e6195b9dceb430e65dc9c5390f0d8334c8e",
+      "length": 1675,
+      "name": "stereo-tail-free-mode3"
+    },
+    {
+      "sha256": "c48231cf520a75f04f7a73f940deb66908e9f0e2ac363c26d23fb0d203503d71",
+      "length": 1675,
+      "name": "stereo-tail-reserved-bitrate-mode0"
+    },
+    {
+      "sha256": "4ad556498e0a142d88c98409f5febb488f87235542fa0dae58c01324356ad550",
+      "length": 1675,
+      "name": "stereo-tail-reserved-bitrate-mode3"
+    },
+    {
+      "sha256": "c0e28a1ee598104971e528c3f3598f7f65cc2d1e2875b7de1c2a2d8bc16a1fef",
+      "length": 1675,
+      "name": "stereo-tail-reserved-rate-mode0"
+    },
+    {
+      "sha256": "78ad79144ea07ba86ecdfb064414984f210c5b80efcc418c036ae536cf68f38a",
+      "length": 1675,
+      "name": "stereo-tail-reserved-rate-mode3"
+    },
+    {
+      "sha256": "93afacb174413f4855d2565774c74fcc5319c9a27efb8dce023440406061a3ce",
+      "length": 1675,
+      "name": "stereo-tail-reserved-version-mode0"
+    },
+    {
+      "sha256": "2befd2015f23a0876516c32a510f4484f197f62b84c9b696818d59f3fceceb0d",
+      "length": 1675,
+      "name": "stereo-tail-reserved-version-mode3"
+    },
+    {
+      "sha256": "c89878dbab2e4e9e3d0b9a3c9fcae441d28207b38ead567d526153cba635fd18",
+      "length": 1671,
+      "name": "stereo-valid"
+    }
+  ],
+  "sdkValidated": false,
+  "originalCases": [
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "c4b4dd0502e418eed5490cdb2705a82491bf2f3aa217c94f0e6fd94e1602b474",
+      "name": "mono-valid"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "c2f82ce5a1b25e02381428d9937c33c1932440ffa9e0ab84f37e746b75b8b369",
+      "name": "mono-prefix-1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "885fb560300c190a8ce3e412e56374d4708b9ba34e6d31949c523f6649dc6358",
+      "name": "mono-prefix-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "d80e994794d775b7e30c7b96823b36ad7b6d441cba9fc7e1de7c7e5775854531",
+      "name": "mono-prefix-10"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "083b2e0617033e93139d10f34fcc5b7d2a8bf6baed6cff36fd43321e26181607",
+      "name": "mono-prefix-127"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "1fdde53a2ef0cc42b9b253677455623354f58578a60e6bbbb7f5a1af11fb8fe2",
+      "name": "mono-prefix-1024"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "c7aee137bc27967d3b640262e30616bd6ac6c4510fa372550b94039e35042eb6",
+      "name": "mono-suffix-1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "84beed80e23563c9c78dd00cd925b4431ab1daa4c2faa4f59cc712456ad0278c",
+      "name": "mono-suffix-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "b5f132930cc45050a2f176b50c66df62d6931a9537725c0daba98612ea81c5cc",
+      "name": "mono-suffix-4"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "e2d173687ac54cbc3b087ab20245116cf393680678e3a8621573b67443546521",
+      "name": "mono-suffix-127"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "a374a1d6c1e80069243124606aeeec3b11bdf692b690349956d6fdd107c6a5c2",
+      "name": "mono-suffix-128"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "52aae63d8d4e0abfb936c1afcaecba8d917168fd1d6d3d48a96e9a017e0d5522",
+      "name": "mono-id3v2"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "f5fe7152df3821195a964f7ce5b80a07900b448889dbd05d853500d2ca91c211",
+      "name": "mono-id3v1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "fc0d0c57400c225a9ae67d7210e75b9009d517fd87e27f1d9091d7e0a099da22",
+      "name": "mono-tail-free-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "50d87618f400bc7412c7ff2bffd8a207abb7bf4ffd4619c073bef7905ca07ceb",
+      "name": "mono-tail-reserved-bitrate-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "56bf478ede16e109609f34e891664c0a81b577f8b5344f3e6ff002663ad6f6d5",
+      "name": "mono-tail-reserved-rate-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "4a4aed28ac5c7d6ebfc3a1211d6e7d9771251b29599ed57cd4dc79307f3c4d55",
+      "name": "mono-tail-reserved-version-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "50a212542956f6c3cd79533897e1939139a345a5ba9f531a00d2c7d7890ccfdf",
+      "name": "mono-tail-free-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "45f6a90e4e43288fae0ab9cfe408e639e63a66cb28cdbd0b1dbdea059c6db259",
+      "name": "mono-tail-reserved-bitrate-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "63b0e82149a048c8dc085faecf6e79ad18cf83577c1615bdc804b2b8f72bc148",
+      "name": "mono-tail-reserved-rate-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "46e797e1c3fcec3c937b9d514621fa66cde0539ebce1b29025c4f74a3a656a92",
+      "name": "mono-tail-reserved-version-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "1efa88eb32addf80fd681bc97475b90bb176995425f747bddcd2dd65ec80e16a",
+      "name": "mono-frames1-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "a9e76d60ffc87cc23c31cd6e404d521d28de88906ec5ba3ec8b5d865986f836d",
+      "name": "mono-frames1-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "6d27d2f828b3e605cff9da295c0eb8d830095a38f1c0a2bd7c000d5afa1c11ec",
+      "name": "mono-frames1-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "53dc1a93718bbc5f9254ac64f461b7cb77f40154833a9a6275fa60a6d60efd2f",
+      "name": "mono-frames1-lastpayload204"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "3320d392cec5882b53f8bf7e75fc1c70eadf77e239e2c3ed9513beac7ab8bed6",
+      "name": "mono-frames6-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "00a2651509165ca0ff04f2ba7e46c3a62c70a6c03a964377a5b1187cb7f7852a",
+      "name": "mono-frames6-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "319dbc3539d2d85d7ff92669faaa38f543aa68889cf567dcd96b7f5da99f8499",
+      "name": "mono-frames6-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "58b2de5c93f10707878f1bbbddecc6c816391ad367ac88884b3fb17addbb5e96",
+      "name": "mono-frames6-lastpayload205"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "f7aa3fbfc27933b291e70f265271f84747ac5f29d61fe0062dc1880d776b0f0a",
+      "name": "mono-frames7-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "8b3f6899da9609eea70718c7b7831eb29a9667a303e1918314d840a7a9daa8c8",
+      "name": "mono-frames7-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "e231201b340c8a589f600f686e964b89fe4ca386dd39f9b27d780bde5c930c6a",
+      "name": "mono-frames7-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "2d6714fb5f55a62cee980fac19ba80ceb3c29bc49c7963da2b674de03607e830",
+      "name": "mono-frames7-lastpayload205"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "0ab80e76e242372dfee037962518334be146c0b53f67fea12f569a7fd8d0f67b",
+      "name": "mono-broken-sync-0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "7ed8086783b3605d8882f7c77d4cb6401538fd748986c3ce6eaa367ec3f5542e",
+      "name": "mono-broken-sync-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "eaeaae3b9d890311a0b4e8b0a4a2c0497e04eb10186a8b9f8c489c62627279a8",
+      "name": "mono-broken-sync-6"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "8aae16fc37e63b639088cbc13279458924af0d97ffb64975400d4da140c46e95",
+      "name": "mono-payload-fill-0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "3d8b2d9ea578e21be41886f1c00ece3e1d80f5b3d2efa9924400afacfb8bcc6d",
+      "name": "mono-payload-fill-255"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "42fe711275ef7e3e32293240bf794ad4e00f91efdf613fdc4309d842582b449f",
+      "name": "mono-container-RIFF"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "d3670e6d0c72098e116480e284a943a377085c544b6c8d8c896a3dda32840a48",
+      "name": "mono-container-FORM"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "71846f110a48b1dfee515404574da90b7d56493d0ac472c83143d9b28710b611",
+      "name": "mono-container-OggS"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "c0620f023494232ac14daf962965d65e3b2dac3603fbbf137fb1663f35d2400a",
+      "name": "mono-container-fLaC"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "4bf50c63ac61f31f411870d6e8923b0a249abba768296aa6fa1bf8745a97d657",
+      "name": "mono-container-SCHl"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "a55746d3d8ae29dcd105510b84837bf1e0a8c90c128f9c5cc1400ced681f28ba",
+      "name": "stereo-valid"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "d8043d26c0331d54353868557873f85482f5f95030036acb0058fa16c4ad5476",
+      "name": "stereo-prefix-1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "ee9be46d76b3dfec9017f6394cdd88df808b95a67a84872f164934481ce814f4",
+      "name": "stereo-prefix-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "713d953e8a2cd4491f458b084a2b2354837876824f43f925f5a4b3c801d40d62",
+      "name": "stereo-prefix-10"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "27955c40ad0909f8eb62b12def2b931bddbe934cba53d9f9bc2fb893eac01977",
+      "name": "stereo-prefix-127"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "33bd9f390ed577ed0d65d80347a521aa967599af2717e327243ef10f12d7ba64",
+      "name": "stereo-prefix-1024"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "f03a0b23c03770f3f4784db74b5df49e791b5dda764d6462b7af553f99e47aa4",
+      "name": "stereo-suffix-1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "cab4f09fae5096e9559139809625feb23a67d4d1507aaf564283a28c226d0ac3",
+      "name": "stereo-suffix-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "4b5ca8c119f783321d1e467636fa87101ef647ae7a75ae96f6312903d72b07e8",
+      "name": "stereo-suffix-4"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "145bfadc2ef219da85fd9db8c819185f84a5a760385c79a819d1c8cb0b8c46bc",
+      "name": "stereo-suffix-127"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "903dc0032680bbc1e5623fd023eae5710b259d9e9cbf54cffaa933edab0a9360",
+      "name": "stereo-suffix-128"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "47b36eb8fae60d116b0e9bede8a13a784d09ae688eb4f65cff88ccf849f1d91f",
+      "name": "stereo-id3v2"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "6e96aef21907577bc80dba299806008554000126a2fdd136cc99c6bbbe128c6b",
+      "name": "stereo-id3v1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "ac35310f81e2aaf1af5feb9f7b26798a9be3206adc8308cab5ec6e3b0638e3dd",
+      "name": "stereo-tail-free-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "03b1c00fa4c26deac68ba2f838aa351472c165d41ecaeafa70f899e78104ba00",
+      "name": "stereo-tail-reserved-bitrate-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "8891cb3fcca3e9018212b161d1d5c5d181f0359e653472c81b0baf5010de881e",
+      "name": "stereo-tail-reserved-rate-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "646d84f062494a2e6ee715cfddde69e2096d2c22b08b7aeccda1e2808c45aa13",
+      "name": "stereo-tail-reserved-version-mode0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "8fa7c66176ccd762ac86e4904ccede1640fda58a70f1ee181618ad5ad8dfcf86",
+      "name": "stereo-tail-free-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "3b7ff0d4fe317d264213a881d6f7e45b09c1dfc91f50622a1a875eb618bd8211",
+      "name": "stereo-tail-reserved-bitrate-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "8de5cbf70c0fd5e684052dd4ac185c21f6961de7feda7631a4ecac2e12b22dac",
+      "name": "stereo-tail-reserved-rate-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "68581e7159797fe4ce55eec195a8258af123c6483da269e4a203968cb569aaa9",
+      "name": "stereo-tail-reserved-version-mode3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "3ab5ee875d53dc105ac8b3ffc498a3a41d2b6306eddd301c7671566b3ffcd395",
+      "name": "stereo-frames1-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "951b7478716d6a1f17c214422a423255d3d56195e4b486477d9885d979478ad2",
+      "name": "stereo-frames1-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "5d36bd091779ee31699b2ca4072c517a5106f7866b938075cd782b27bb8646b7",
+      "name": "stereo-frames1-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "125d04896bac92c0611992b1a1247fd3e4180c0b8a776018b74160d876442d08",
+      "name": "stereo-frames1-lastpayload204"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "7335ed0e0caf3939f85777c4eb5bbcd8bb5b0a9a753156c1a534ceb8a9e97487",
+      "name": "stereo-frames6-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "ab67addd04ab581bd28a4561816bd0bd349f1084be29e86f582b99426b8d7f94",
+      "name": "stereo-frames6-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "b7ae3f2693eb490cb5944a004adab426491c555d0b8ba693afde071a668b44fd",
+      "name": "stereo-frames6-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "2c8808a6dbf90214dfc8ddbb5c9f22a49efcc91df600d6022d8439524daf5d0c",
+      "name": "stereo-frames6-lastpayload205"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "ef28644b9274ca335e9f4a49ff168729a1b1eb0fd5e1fb26a63aadfd677c9a48",
+      "name": "stereo-frames7-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "312208bd52fded3aa536ccb5117a56e40232a9dee1b658b1d7c71900c4fc20dc",
+      "name": "stereo-frames7-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "a5fb7770d092c6b9b435ef06b7e63d93f3d18ded8bfc7de08c3b5f9799581187",
+      "name": "stereo-frames7-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "171e55bdb0f356e7817e03c02bbe27879bdd0f4fd75dcfe46a28b22814b294bd",
+      "name": "stereo-frames7-lastpayload205"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "b38640dbc2db69e1fe9153c7ccc9ee83152ead4a557267e5f69999a76c84ed01",
+      "name": "stereo-frames8-lastpayload0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "93707f9d0b4b5045e2e4ae8049c8f5c44748d26340d6070444e3e5f35d21399f",
+      "name": "stereo-frames8-lastpayload1"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "77b09602e912b7fa8daf2fd5deb8aceff7f2e3c483f858ce9df26010279b4866",
+      "name": "stereo-frames8-lastpayload104"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "a7cedd2234e096d903933e4dc50b6a7adbfe37d767f6e34c8e89851305057fae",
+      "name": "stereo-frames8-lastpayload205"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "b90328a50eb1cd6f01178ee80e080f977b8c74b7f7b5e2041511dae949ca81f3",
+      "name": "stereo-broken-sync-0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "3eaf063de2b982bcd8c97fffb19b5ca09ce11088f2d455da21a48fc12d0a3190",
+      "name": "stereo-broken-sync-3"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "86bb37b68f947b59de61dcef03b855fc66be3e63b32d4394db18809ff0d8bfa7",
+      "name": "stereo-broken-sync-6"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "c02350742fc7c9dc7e8ea92b81da35e32a67d7ccbd3200f25dcadc6f56d7f824",
+      "name": "stereo-broken-sync-7"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "6c925dfbce3d00a989bf6c8390ac6398dc628af801f57e811ba58b270e47cb4d",
+      "name": "stereo-payload-fill-0"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "870edb3f35a1291dc9d63b8f97b5001637f3621d65293e7d9700757ea4c4c62d",
+      "name": "stereo-payload-fill-255"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "09adc8d5853d1b5b84e049125c947951feb18128468dab69b091f57fbd75a3b2",
+      "name": "stereo-container-RIFF"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "b5c30b8182fd109caa996a8d35a45504672695ccc069b370addd4168024c107c",
+      "name": "stereo-container-FORM"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "b62c17387808195cfa7d6189640d3feb5a592fbf7ef8e56d2d839d0a80211aae",
+      "name": "stereo-container-OggS"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "072fc0e4e20da3c386743082162dcfff6ca17dcf44f6a2092921a2baf80dc13d",
+      "name": "stereo-container-fLaC"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "e1d79a61d26f9663814d00a7d181ccdee745e4e78b33981544a6775491badcbc",
+      "name": "stereo-container-SCHl"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "251209b06683b5d242cf33a042df6a9ee93bd94b757896184832d9bf205804a7",
+      "name": "mono-stereo"
+    },
+    {
+      "status": "recorded",
+      "accepted": 4,
+      "records": 4,
+      "transcriptSha256": "ccc48ef180adf5ec480a593a871f2d47c74810386a5a79bb208077417b5ea7bc",
+      "name": "stereo-mono"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "4c72e4f4a8001aacf09269ea437846deddc2a261609a8e00d50a9e7e9f9af49e",
+      "name": "empty"
+    },
+    {
+      "status": "recorded",
+      "accepted": 0,
+      "records": 4,
+      "transcriptSha256": "9a7f12e9ed56cb4630af23bebd6530556a4f5a3a33392cbff909c85f2c7254f2",
+      "name": "junk"
+    }
+  ],
+  "fixtureCount": 95,
+  "runAttempt": "1",
+  "status": "differences-found",
+  "originalProcessFailures": 0,
+  "headerNative": {
+    "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+    "nativeRva": "0x44d40",
+    "records": 32783,
+    "transcriptSha256": "046f8fc54eb9d00eb7e3398614c7b8b1de64fc6dbda6c934c3e5f923efe2a229",
+    "emulator": "Unicorn x86; initialized SINFO; x87 control 0x037f",
+    "scope": "MPEG header return payload and channel mutation only; not decoder acceptance"
+  },
+  "runId": "40242571724",
+  "sourceCommit": "40ebb67064c813649d9ae1b54ecc6fe1be2be839",
+  "scope": "Win32 MPEG Layer3 prefix/suffix/truncation/synchronization/container-priority acceptance; experimental cases recorded separately from established baseline",
+  "error": "MPEG boundary differences found; inspect per-case receipts before changing production support",
+  "configurations": [
+    {
+      "differences": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "identificationBoundaryChecks": 15,
+      "recoveredSha256": "c1fda07127203325bad7985306903cd326daefaa67828accce35af288eac520a",
+      "passed": false,
+      "cases": [
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-valid",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-10",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-1024",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-4",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-128",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-id3v2",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-id3v1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-free-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-bitrate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-rate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-version-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-free-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-bitrate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-rate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-version-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload204",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-6",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-payload-fill-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-payload-fill-255",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-RIFF",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-FORM",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-OggS",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-fLaC",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-SCHl",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-valid",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-10",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-1024",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-4",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-128",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-id3v2",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-id3v1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-free-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-bitrate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-rate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-version-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-free-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-bitrate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-rate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-version-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload204",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-6",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-7",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-payload-fill-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-payload-fill-255",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-RIFF",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-FORM",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-OggS",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-fLaC",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-SCHl",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-stereo",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-mono",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "empty",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "junk",
+          "equal": true
+        }
+      ],
+      "headerNativeRecords": 32783,
+      "configuration": "Debug"
+    },
+    {
+      "differences": 12,
+      "originalAbsentFromRecoveredHost": true,
+      "identificationBoundaryChecks": 15,
+      "recoveredSha256": "e30e284632e4cc224c1765405b238ee684d6c7c3fc2bab5550822441756ecabc",
+      "passed": false,
+      "cases": [
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-valid",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-10",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-prefix-1024",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-4",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-suffix-128",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-id3v2",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-id3v1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-free-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-bitrate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-rate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-version-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-free-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-bitrate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-rate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-tail-reserved-version-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames1-lastpayload204",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames6-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-frames7-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-broken-sync-6",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-payload-fill-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-payload-fill-255",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-RIFF",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-FORM",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-OggS",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-fLaC",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-container-SCHl",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-valid",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-10",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-prefix-1024",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-4",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-127",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-suffix-128",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-id3v2",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-id3v1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-free-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-bitrate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-rate-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-version-mode0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-free-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-bitrate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-rate-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-tail-reserved-version-mode3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames1-lastpayload204",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames6-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames7-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload1",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload104",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-frames8-lastpayload205",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-3",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-6",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-broken-sync-7",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-payload-fill-0",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-payload-fill-255",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-RIFF",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-FORM",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-OggS",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-fLaC",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-container-SCHl",
+          "equal": false
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "mono-stereo",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 4,
+          "candidateAccepted": 4,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "stereo-mono",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "empty",
+          "equal": true
+        },
+        {
+          "originalStatus": "recorded",
+          "originalAccepted": 0,
+          "candidateAccepted": 0,
+          "candidateStatus": "recorded",
+          "records": 4,
+          "name": "junk",
+          "equal": true
+        }
+      ],
+      "headerNativeRecords": 32783,
+      "configuration": "Release"
+    }
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+}

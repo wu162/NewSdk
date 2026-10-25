@@ -1,0 +1,30 @@
+{
+  "sourceTree": "240a3507d5fa2ae0f5e234ed61447b8ec5491336",
+  "sourceCommit": "40ebb67064c813649d9ae1b54ecc6fe1be2be839",
+  "supportedPlatforms": [
+    "Win32"
+  ],
+  "runId": "40242571724",
+  "status": "passed",
+  "scope": "Whole recovered AudioCompiler source project builds only",
+  "coreReferenceSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+  "modCompiled": false,
+  "runAttempt": "1",
+  "modes": [
+    {
+      "log": "Debug-build.log",
+      "libraryBytes": 136704,
+      "librarySha256": "ffb7b2f9ad83f83054a2f2519b26d515f5fe0d08084106decdfeff8fb539f9f2",
+      "configuration": "Debug",
+      "passed": true
+    },
+    {
+      "log": "Release-build.log",
+      "libraryBytes": 123392,
+      "librarySha256": "ad60abb02f5afcdffed035d573867234c6b637727c1eb3eb51da2d698f1f4f72",
+      "configuration": "Release",
+      "passed": true
+    }
+  ],
+  "sdkStarted": false
+}
