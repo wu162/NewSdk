@@ -1,0 +1,3 @@
+PASS W3X standalone route=animation fixtures=675
+PASS W3X standalone route=mesh fixtures=666
+PASS W3X standalone replay fixtures=1341 threeBufferComparisons=4023 comparedBytes=540216; routes=animation,mesh; originalW3XLoaded=false; SDK not run

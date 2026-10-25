@@ -1,0 +1,61 @@
+{
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "runAttempt": "1",
+  "failures": [],
+  "scope": "independent native tests; original mesh converter, AdaptiveDelta and Timecoded IL differential; mesh vertex-data and complete mesh/animation ProcessInstance three-buffer differential; SDK not accepted",
+  "sourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "succeeded": true,
+  "modes": [
+    {
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "componentWithoutOriginalReplay": true,
+      "independentComponentTests": {
+        "W3xAnimationCompilerTests": true,
+        "W3xMeshAssetTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xTimecodedTests": true,
+        "W3xShaderTests": true
+      },
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "converterOriginalDifferential": true,
+      "mode": "Od",
+      "animationThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true
+    },
+    {
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "completeMeshThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "componentWithoutOriginalReplay": true,
+      "independentComponentTests": {
+        "W3xAnimationCompilerTests": true,
+        "W3xMeshAssetTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xTimecodedTests": true,
+        "W3xShaderTests": true
+      },
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "converterOriginalDifferential": true,
+      "mode": "O2",
+      "animationThreeBufferOriginalDifferential": true,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true
+    }
+  ],
+  "completeAnimationBuffersValidated": true,
+  "completeMeshBuffersValidated": true,
+  "componentWithoutOriginalReplay": true,
+  "sdkValidated": false,
+  "runId": "40169489711"
+}

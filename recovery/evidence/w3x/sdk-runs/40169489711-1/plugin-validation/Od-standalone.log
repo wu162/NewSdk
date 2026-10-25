@@ -1,0 +1,3 @@
+PASS W3X native plugin route=animation fixtures=675 standalone=True
+PASS W3X native plugin route=mesh fixtures=666 standalone=True
+PASS W3X native plugin ProcessInstance fixtures=1341 threeBufferComparisons=4029; standalone=True; routes=animation,mesh; SDK not run

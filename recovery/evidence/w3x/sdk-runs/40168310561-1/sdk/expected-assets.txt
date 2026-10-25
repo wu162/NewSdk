@@ -1,0 +1,12 @@
+W3DAnimation	W3xRecoveryBothDisabled
+W3DAnimation	W3xRecoveryDefault
+W3DAnimation	W3xRecoveryDeltaFallbackError
+W3DAnimation	W3xRecoveryDeltaOnly
+W3DAnimation	W3xRecoveryExplicitDefaults
+W3DAnimation	W3xRecoveryReduction
+W3DAnimation	W3xRecoverySingleFrame
+W3DAnimation	W3xRecoveryTimecodedOnly
+W3DMesh	W3xRecoveryCameraAligned
+W3DMesh	W3xRecoveryCameraOriented
+W3DMesh	W3xRecoveryNormal
+W3DMesh	W3xRecoverySkin

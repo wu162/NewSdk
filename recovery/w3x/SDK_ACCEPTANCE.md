@@ -1,0 +1,19 @@
+# W3X SDK acceptance gate
+
+`recovered-w3x-sdk.yml` has read-only repository permissions and uploads immutable run artifacts. It runs only on explicit dispatch or a `[sdk-w3x]` push affecting `SDK_READY.json`/its workflow. Ordinary source pushes do not start the SDK.
+
+Before any BAB process starts, `VerifyW3xSdkGate.ps1` requires an explicit ready closure audit, exactly both routed types, zero outstanding defined-behavior families, prior run/source provenance, the audit SHA-256, and identical current/previously validated Git trees. Required gate properties are `ready`, `supportedTypes`, `validatedSourceCommit`, `validatedRunId`, `validatedRunAttempt`, `unrecoveredDefinedBehaviorCount`, `explicitUndefinedBehaviorExclusions`, `closureSha256`, `srcTreeHash`, `testsTreeHash`, `modsTreeHash`, `scriptsTreeHash`, `workflowsTreeHash`, `sdkToolsTreeHash`, and `schemasTreeHash`. Tree locations are defined in the verifier. The gate is now populated with the completed type closure and successful prerequisite provenance; changing a bound input still requires revalidation.
+
+The same SDK job must then pass the complete native differential/standalone matrix and both-mode loadable-plugin ProcessInstance/standalone validation for its current commit. `TestW3xSdk.ps1` rechecks those results and the tested O2 plugin/bridge hashes before validating all probe XML against the complete original `CnC3Types.xsd` schema.
+
+Only then does it launch the BAB stage from `SDK/defaultscript.cs` `executeModBuildStep` case 5, the stage selected by EALAModStudio's build script. It does not start the GUI or unrelated packaging stages. The `SDK/Mods/W3xRecovery` probe contains eight animations, four meshes, a two-pivot hierarchy and a texture dependency. Shipped reference manifests remain intact. Three disposable SDK trees use fresh derived caches and the same test input: original plugin, recovered plugin, and recovered plugin with the original W3X DLL physically absent. Only the two-type W3X route changes; other plugin routes stay original.
+
+Acceptance requires exact `.bin`, `.manifest`, `.imp`, and `.relo` equality in all three runs, every expected W3X asset reaching the traced ProcessInstance backend, all actual SDK trace buffers matching original-handler replay, emitted instance bytes appearing in final `mod.bin`, and original-free SDK/recovered trace replay. Evidence retains input/tool/config hashes, precise commands, stdout/stderr, actual preprocessed XML plus buffers in trace fixtures, output files and hashes, and source/run identity. This covers the dedicated probe MOD, not a complete unrelated `mymod` build or arbitrary public native-pointer ABI compatibility.
+
+Closure SHA-256 uses UTF-8 text without BOM and LF line endings so Windows Git CRLF checkout cannot alter the audit identity. The seven Git tree hashes still bind the original validated implementation, scripts, MODs, workflow, tools and schemas. A mismatched audit blocks SDK before any BAB process.
+
+## Accepted run (2026-10-25)
+
+Source `ceeef68df4c032309154214f6746322e0a65e2ec`, run `40169489711` attempt1: all prerequisite and SDK steps succeeded. All three fresh SDK builds emitted identical four outputs; recovered and original-free builds each traced all 12 expected W3X assets and passed 36 actual three-buffer replay comparisons. Downloaded artifact source/run/state and all twelve output files were independently checked. Immutable reports and replay/output archive: `../evidence/w3x/sdk-runs/40169489711-1`. Exact hashes and remaining scope are in RESUME.md.
+
+The earlier original-baseline failure (`40168310561`) was a probe input path error, fixed by making the Texture File relative to its declaring Data XML (`../Art/W3xRecoveryTexture.tga`). The schema host now checks that dependency before BAB. Source `6930e9fb09bfa47ed77835f3670c8ae67135be4c` passed all prerequisite steps in run `40169265269` before the final SDK gate was certified.

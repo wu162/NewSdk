@@ -1,0 +1,30 @@
+{
+  "scope": "managed plugin metadata, lifecycle and dispatch shell; no native handler or SDK acceptance",
+  "modes": [
+    {
+      "mode": "unoptimized",
+      "succeeded": true,
+      "recoveredSha256": "d76d3d70ca533700a5aa930bf789b313ac4c47adedd32b483be5a94beead5181"
+    },
+    {
+      "mode": "optimized",
+      "succeeded": true,
+      "recoveredSha256": "d78305575f70b60832ff10979d846d10d5acec7588d26be4444665d9e427c8ee"
+    }
+  ],
+  "runAttempt": "1",
+  "platforms": [
+    0,
+    1,
+    2,
+    99,
+    -1,
+    -2147483648,
+    2147483647
+  ],
+  "sdkValidated": false,
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "runId": "40163729737",
+  "sourceCommit": "ff3450e5aac32561c9feb69ba92136aa0e76263d",
+  "nativeHandlersValidated": false
+}

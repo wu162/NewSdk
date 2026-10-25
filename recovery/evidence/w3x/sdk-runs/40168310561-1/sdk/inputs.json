@@ -1,0 +1,42 @@
+[
+  {
+    "bytes": 7053,
+    "path": "SDK/Mods/W3xRecovery/coverage.json",
+    "sha256": "6861e48bb2cc6862cda4d79be867d796631a281a9d6e4a2d4874d0d6fb7205e3"
+  },
+  {
+    "bytes": 3785,
+    "path": "SDK/Mods/W3xRecovery/README.md",
+    "sha256": "307ad14fab3bd7653d484904e1abd1c2394766404391be2baf47aad02b48e337"
+  },
+  {
+    "bytes": 5986,
+    "path": "SDK/Mods/W3xRecovery/static-xsd-validation.json",
+    "sha256": "299b434bdf47fce3ba2a98b5d1f61b91daabd6c87577241ae7faee5a25a69ada"
+  },
+  {
+    "bytes": 3116,
+    "path": "SDK/Mods/W3xRecovery/Art/W3xRecoveryTexture.tga",
+    "sha256": "9935d98cb8260cffb59acdc3f626498f95ef158ab9222a2b96d1f9d77ac287b8"
+  },
+  {
+    "bytes": 58183,
+    "path": "SDK/Mods/W3xRecovery/Data/Animations.xml",
+    "sha256": "bef33d84dc663bbff77190ab4eba30eeecc69ea5fab71f77ae8d4222a36f5d27"
+  },
+  {
+    "bytes": 928,
+    "path": "SDK/Mods/W3xRecovery/Data/Dependencies.xml",
+    "sha256": "2eeb89494bd3086124a8533f1afb8601cc9e7906cf94ed2406f677393d60678f"
+  },
+  {
+    "bytes": 6570,
+    "path": "SDK/Mods/W3xRecovery/Data/Meshes.xml",
+    "sha256": "00cd4c500d1a263ca6b6ebd8c8659bf11bd18cfc103750f82fa24e2096814b1d"
+  },
+  {
+    "bytes": 518,
+    "path": "SDK/Mods/W3xRecovery/Data/Mod.xml",
+    "sha256": "bc0940463a498a363fb24de8dc4514217b5fb854ca6ca92c8e1c77627ddabcfe"
+  }
+]

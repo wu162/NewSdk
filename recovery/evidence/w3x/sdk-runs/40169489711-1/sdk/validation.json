@@ -1,0 +1,11 @@
+{
+  "sdkStarted": true,
+  "scope": "W3DAnimation/W3DMesh test MOD; Win32 SDK only",
+  "runAttempt": "1",
+  "sourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "runId": "40169489711",
+  "componentSourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "succeeded": true,
+  "pluginSourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "status": "Original/recovered/original-free fresh SDK builds; four exact outputs and actual plugin three-buffer/asset coverage verified"
+}

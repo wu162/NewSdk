@@ -1,0 +1,8 @@
+{
+  "sdkStarted": false,
+  "scope": "PowerShell parsing, SDK oracle compilation and complete original CnC3Types XSD validation only; no BAB execution",
+  "succeeded": true,
+  "runId": "40169265269",
+  "runAttempt": "1",
+  "sourceCommit": "6930e9fb09bfa47ed77835f3670c8ae67135be4c"
+}

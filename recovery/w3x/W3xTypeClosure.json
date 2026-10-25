@@ -1,0 +1,684 @@
+{
+  "schemaVersion": 1,
+  "scope": "W3X defined behavior of BAB IAssetBuilderPlugin routes; not public native object ABI drop-in replacement",
+  "sdkAssetTypes": [
+    "W3DAnimation",
+    "W3DMesh"
+  ],
+  "original": {
+    "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+    "extractionRun": "40162934653-1",
+    "inventoryTypes": 202,
+    "inventoryMethods": 342,
+    "methodOwners": {
+      "<Module>": 318,
+      "BinaryAssetBuilder.W3XCompiler.Plugin": 16,
+      "gcroot<System::Xml::XmlNamespaceManager ^>": 2,
+      "gcroot<System::Xml::XPath::XPathNavigator ^>": 2,
+      "gcroot<System::String ^>": 2,
+      "gcroot<System::Xml::XPath::XPathNodeIterator ^>": 2
+    },
+    "inventoryCountsAreNotRemainingTaskCounts": true
+  },
+  "xsdSource": "SDK/Schemas/xsd/AssetTypeW3D.xsd",
+  "allNamedXsdTypesAccountedFor": true,
+  "namedXsdTypes": [
+    {
+      "name": "BaseRenderAssetType",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh inherited base",
+      "originalTokens": [
+        "0x06000059"
+      ],
+      "sourceBasenames": [
+        "MeshAsset.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "W3DVector2",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh texture coordinates",
+      "originalTokens": [
+        "0x06000041",
+        "0x0600007B"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshBuilder.cpp"
+      ]
+    },
+    {
+      "name": "W3DVector3",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh vectors/bounds/triangles",
+      "originalTokens": [
+        "0x0600003F",
+        "0x06000040",
+        "0x06000079"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp",
+        "MeshConverters.cpp"
+      ]
+    },
+    {
+      "name": "W3DVector4",
+      "status": "unused_by_w3x_routed_input_and_output",
+      "xsdTypeGroup": null,
+      "reason": "Independent schema support type; W3X source uses Quaternion and RGBAColor records instead"
+    },
+    {
+      "name": "W3DQuaternion",
+      "status": "implemented_defined_behavior",
+      "role": "Animation frames",
+      "originalTokens": [
+        "0x06000042",
+        "0x06000077"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp",
+        "Timecoded.cpp"
+      ]
+    },
+    {
+      "name": "MeshGeometryType",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh enum",
+      "originalTokens": [
+        "0x06000085"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "BoneInfluence",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh bone streams",
+      "originalTokens": [
+        "0x0600003D",
+        "0x0600007C",
+        "0x060000CB"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshBuilder.cpp"
+      ]
+    },
+    {
+      "name": "Triangle",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh indices/normals/distance",
+      "originalTokens": [
+        "0x0600004F",
+        "0x06000084",
+        "0x06000086"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "RenderingSortLevel",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh root byte",
+      "originalTokens": [
+        "0x06000059"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "BoxMinMax",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh bounds",
+      "originalTokens": [
+        "0x0600004E"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "Sphere",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh sphere",
+      "originalTokens": [
+        "0x0600004D"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderConstant",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader polymorphic base",
+      "originalTokens": [
+        "0x0600003E",
+        "0x06000048",
+        "0x0600004A"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderConstantTexture",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader texture import",
+      "originalTokens": [
+        "0x06000054",
+        "0x0600006C",
+        "0x06000065"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderConstantFloat",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader 1..4 float list",
+      "originalTokens": [
+        "0x0600006A",
+        "0x0600008F",
+        "0x06000050"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderConstantInt",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader signed int",
+      "originalTokens": [
+        "0x06000051",
+        "0x06000052",
+        "0x0600006D"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderConstantBool",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader bool",
+      "originalTokens": [
+        "0x06000043",
+        "0x0600006B"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "FXShaderMaterial",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh shader material",
+      "originalTokens": [
+        "0x06000049",
+        "0x0600004B"
+      ],
+      "sourceBasenames": [
+        "Shader.cpp",
+        "MeshCompiler.cpp"
+      ]
+    },
+    {
+      "name": "AABTree",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh node children/polys",
+      "originalTokens": [
+        "0x06000044",
+        "0x06000045",
+        "0x06000046",
+        "0x06000047",
+        "0x06000067",
+        "0x06000069"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp"
+      ]
+    },
+    {
+      "name": "W3DMeshPipelineVertexData",
+      "status": "implemented_defined_behavior",
+      "role": "Mesh second marshaling pass/anonymous streams",
+      "originalTokens": [
+        "0x06000055",
+        "0x0600007D",
+        "0x0600007E",
+        "0x0600007F",
+        "0x06000090",
+        "0x06000091",
+        "0x06000092"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshBuilder.cpp",
+        "MeshSerialization.cpp"
+      ]
+    },
+    {
+      "name": "W3DMesh",
+      "status": "implemented_defined_behavior",
+      "role": "SDK routed asset",
+      "originalTokens": [
+        "0x06000059",
+        "0x0600005A",
+        "0x06000146"
+      ],
+      "sourceBasenames": [
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp",
+        "MeshBuilder.cpp",
+        "MeshConverters.cpp",
+        "Shader.cpp"
+      ]
+    },
+    {
+      "name": "RenderSubObjectReference",
+      "status": "outside_w3x_sdk_routes",
+      "xsdTypeGroup": null,
+      "reason": "Xml plugin routed container/hierarchy/collision structures or their subobjects; not another W3X compiler asset type"
+    },
+    {
+      "name": "SubObject",
+      "status": "outside_w3x_sdk_routes",
+      "xsdTypeGroup": null,
+      "reason": "Xml plugin routed container/hierarchy/collision structures or their subobjects; not another W3X compiler asset type"
+    },
+    {
+      "name": "W3DContainer",
+      "status": "outside_w3x_sdk_routes",
+      "xsdTypeGroup": "Xml",
+      "reason": "Xml plugin routed container/hierarchy/collision structures or their subobjects; not another W3X compiler asset type"
+    },
+    {
+      "name": "W3DHierarchy",
+      "status": "outside_w3x_sdk_routes",
+      "xsdTypeGroup": "Xml",
+      "reason": "Xml plugin routed container/hierarchy/collision structures or their subobjects; not another W3X compiler asset type"
+    },
+    {
+      "name": "AnimationChannelType",
+      "status": "implemented_defined_behavior",
+      "role": "Animation enum",
+      "originalTokens": [
+        "0x06000073"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelBase",
+      "status": "implemented_defined_behavior",
+      "role": "Animation polymorphic base",
+      "originalTokens": [
+        "0x0600004C",
+        "0x06000057",
+        "0x06000093"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelScalar",
+      "status": "implemented_defined_behavior",
+      "role": "Animation scalar source/Frame/BinaryMove",
+      "originalTokens": [
+        "0x06000053",
+        "0x06000076",
+        "0x06000081"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelQuaternion",
+      "status": "implemented_defined_behavior",
+      "role": "Animation quaternion source/Frame/BinaryMove",
+      "originalTokens": [
+        "0x06000042",
+        "0x06000077",
+        "0x06000082"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelBaseRuntime",
+      "status": "implemented_defined_behavior",
+      "role": "Generated runtime channel header",
+      "originalTokens": [
+        "0x06000010",
+        "0x06000015"
+      ],
+      "sourceBasenames": [
+        "Timecoded.cpp",
+        "AdaptiveDelta.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelTimecoded",
+      "status": "implemented_defined_behavior",
+      "role": "Generated runtime Timecoded36",
+      "originalTokens": [
+        "0x0600000E",
+        "0x0600000F",
+        "0x06000010"
+      ],
+      "sourceBasenames": [
+        "Timecoded.cpp"
+      ]
+    },
+    {
+      "name": "AnimationChannelDelta",
+      "status": "implemented_defined_behavior",
+      "role": "Generated runtime Delta44",
+      "originalTokens": [
+        "0x06000011",
+        "0x06000012",
+        "0x06000014",
+        "0x06000015"
+      ],
+      "sourceBasenames": [
+        "AdaptiveDelta.cpp"
+      ]
+    },
+    {
+      "name": "W3DAnimationRuntime",
+      "status": "implemented_defined_behavior",
+      "role": "Generated runtime root24; Xml standalone route excluded",
+      "originalTokens": [
+        "0x06000145"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp"
+      ]
+    },
+    {
+      "name": "W3DAnimation",
+      "status": "implemented_defined_behavior",
+      "role": "SDK routed asset/CompressionSettings/Channels",
+      "originalTokens": [
+        "0x06000056",
+        "0x06000058",
+        "0x06000145"
+      ],
+      "sourceBasenames": [
+        "AnimationCompiler.cpp",
+        "AnimationPipeline.cpp",
+        "Timecoded.cpp",
+        "AdaptiveDelta.cpp"
+      ]
+    },
+    {
+      "name": "W3DCollisionBox",
+      "status": "outside_w3x_sdk_routes",
+      "xsdTypeGroup": "Xml",
+      "reason": "Xml plugin routed container/hierarchy/collision structures or their subobjects; not another W3X compiler asset type"
+    }
+  ],
+  "additionalReferencedSupportTypes": [
+    {
+      "name": "BaseAssetType",
+      "role": "BAB identity/base fields, no extra W3X payload"
+    },
+    {
+      "name": "AssetReference",
+      "originalTokens": [
+        "0x06000065",
+        "0x06000080"
+      ],
+      "implementation": "shared ResourceMarshaling + preprocessed name/backslash/importIndex contract"
+    },
+    {
+      "name": "RGBAColor",
+      "originalTokens": [
+        "0x0600003C",
+        "0x0600007A"
+      ],
+      "implementation": "mesh XML colors and converter"
+    }
+  ],
+  "algorithmGroups": [
+    {
+      "name": "Animation expand/defaults/settings/select/runtime root",
+      "tokens": [
+        "0x06000145",
+        "0x06000056",
+        "0x06000058"
+      ],
+      "sources": [
+        "AnimationPipeline.cpp",
+        "AnimationCompiler.cpp"
+      ]
+    },
+    {
+      "name": "Quaternion multiplication/Slerp/packet removal/Timecoded",
+      "tokens": [
+        "0x06000008",
+        "0x06000009",
+        "0x0600000C",
+        "0x0600000D",
+        "0x0600000E",
+        "0x0600000F",
+        "0x06000010"
+      ],
+      "sources": [
+        "Timecoded.cpp"
+      ]
+    },
+    {
+      "name": "AdaptiveDelta table/frame/filter/4-8bit/compress/estimate/write",
+      "tokens": [
+        "0x0600000A",
+        "0x0600000B",
+        "0x06000011",
+        "0x06000012",
+        "0x06000013",
+        "0x06000014",
+        "0x06000015"
+      ],
+      "sources": [
+        "AdaptiveDelta.cpp"
+      ]
+    },
+    {
+      "name": "Eight mesh converters and all three platform handler tables",
+      "tokenRange": "0x060000C2..0x060000C8 plus 0x060000D2",
+      "sources": [
+        "MeshConverters.cpp"
+      ]
+    },
+    {
+      "name": "Mesh contents/layout/bone remap/declaration/build vertex data",
+      "tokens": [
+        "0x060000C9",
+        "0x060000CA",
+        "0x060000CB",
+        "0x060000CD",
+        "0x060000CE",
+        "0x060000E2",
+        "0x060000E3"
+      ],
+      "sources": [
+        "MeshBuilder.cpp",
+        "MeshSerialization.cpp"
+      ],
+      "note": "RNA name/code lookup behavior is folded into handler table/declaration generation rather than reintroducing unused exported helper APIs"
+    },
+    {
+      "name": "All root/schema scalar/list/polymorphic marshaling and endian",
+      "tokenRanges": [
+        "0x0600003C..0x0600005A",
+        "0x06000063..0x06000086",
+        "0x0600008D..0x06000093"
+      ],
+      "sources": [
+        "AnimationCompiler.cpp",
+        "MeshCompiler.cpp",
+        "MeshAsset.cpp",
+        "Shader.cpp",
+        "ScalarParsing.cpp",
+        "ResourceMarshaling.cpp"
+      ],
+      "note": "enum/list/template helpers and record layouts are implemented behaviorally; no fake one-class-per-original-template completion count"
+    },
+    {
+      "name": "Tracker allocation/finalization/reference and three-buffer bridge",
+      "tokens": [
+        "0x06000006",
+        "0x06000007",
+        "0x06000035",
+        "0x06000036",
+        "0x06000037",
+        "0x06000038",
+        "0x06000039",
+        "0x06000144"
+      ],
+      "sources": [
+        "Relocation.cpp",
+        "AnimationCompiler.cpp",
+        "MeshSerialization.cpp",
+        "MeshAsset.cpp"
+      ],
+      "note": "serialized behavior implemented; original pointer-object ABI explicitly outside configured SDK interface contract"
+    },
+    {
+      "name": "Plugin metadata/lifecycle/dispatch",
+      "tokenRange": "0x0600013F..0x0600014E",
+      "sources": [
+        "Plugin.cs",
+        "W3xCatalog.cs"
+      ],
+      "note": "formal default backend integration is a separate gate; do not count rejected ProcessInstance backend as SDK support"
+    },
+    {
+      "name": "XML Node/List/Value adapters",
+      "tokenRange": "0x060000A3..0x060000C1",
+      "sources": [
+        "XmlNodeAdapter.h",
+        "AnimationCompiler.cpp",
+        "MeshCompiler.cpp"
+      ],
+      "note": "uses managed navigator adapter/value parsing; compiler-generated destructors and gcroot methods replaced by normal managed lifetimes"
+    }
+  ],
+  "notBusinessRestorationTasks": [
+    "EASTL vector/tree/iterator allocator mechanics replaced by standard containers",
+    "CRT malloc/new/delete/atof imports and module startup/atexit/security cookie plumbing",
+    "C++ exception and gcroot compiler-generated helpers",
+    "PE constant arrays and layout-only records are data evidence, not 202 independent compiler types"
+  ],
+  "safeRejectOriginalUndefinedBehavior": [
+    {
+      "case": "AdaptiveDelta finite adjacent sample difference overflows binary32, nonfinite sample, or no finite candidate",
+      "originalEvidence": "0x06000012 sets selected filter=-1 and only assigns when error < FLT_MAX; then calls 0x06000011 which reads filtertable[filter]. scale=+Inf forces reconstructed NaN for all positive finite filters. Do not reproduce table[-1] read.",
+      "recoveredBehavior": "explicit exception before invalid original read"
+    },
+    {
+      "case": "FirstFrame + source frame count beyond NumFrames",
+      "originalEvidence": "0x06000145 unchecked vector element writes",
+      "recoveredBehavior": "safe range rejection"
+    },
+    {
+      "case": "NumFrames=0 with at least one channel",
+      "originalEvidence": "0x06000010 reads first frame despite empty source vector",
+      "recoveredBehavior": "safe empty-channel serialization rejection"
+    },
+    {
+      "case": "No vertex stream or attribute stream shorter than original vertex count",
+      "originalEvidence": "0x060000C9/CE dereference first stream/strided data without semantic size guards",
+      "recoveredBehavior": "safe missing/short stream rejection"
+    },
+    {
+      "case": "Excessive vertex declaration text >=512 bytes",
+      "originalEvidence": "0x060000CD original stack char[512] formatting",
+      "recoveredBehavior": "safe length rejection"
+    },
+    {
+      "case": "32-bit allocation-size/vector arithmetic overflow",
+      "originalEvidence": "all original pointer/vector sizes are uint32/x86",
+      "recoveredBehavior": "safe size rejection"
+    }
+  ],
+  "currentRoundBoundaryFix": {
+    "name": "AdaptiveDelta maxError IEEE values",
+    "behavior": "NaN and positive infinity do not set excess; negative infinity always sets excess for finite error; no blanket finite maxError gate",
+    "sourceChanged": true,
+    "localO0O2": "PASS 14295 checks each",
+    "originalOracleAdded": "147456 frame fixtures + 648 channel fixtures; WriteOut includes all successful new cases and existing512 raw chunks",
+    "remoteAcceptance": {
+      "succeeded": true,
+      "sourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+      "runId": "40168123437",
+      "runAttempt": 1,
+      "modes": [
+        "Od",
+        "O2"
+      ]
+    }
+  },
+  "finalizeTrackerSdkRequirement": {
+    "originalPublicPointerAbiRequiredBySdk": false,
+    "evidence": [
+      "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core/IAssetBuilderPlugin.cs: only ProcessInstance/GetAllTypesHash/GetVersionNumber/GetExtendedTypeInformation",
+      "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder/IAssetBuilderPluginBase.cs: only Initialize/ReInitialize",
+      "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder/PluginDescriptor.cs Initialize: Type.GetType + Activator.CreateInstance + interface cast",
+      "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core/PluginRegistry.cs: registration as IAssetBuilderPlugin keyed by configured assetTypes",
+      "recovery/decompiled/BinaryAssetBuilder.Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs:1106-1107 calls plugin.ProcessInstance via interface",
+      "SDK/tools/BinaryAssetBuilder.exe.config: assetTypes=W3DAnimation,W3DMesh; targetType=Plugin,Assembly"
+    ],
+    "separateUnmetClaim": "same-name assembly/public VC8 native pointer ABI drop-in compatibility, only needed if claiming arbitrary external direct callers remain binary compatible"
+  },
+  "sdkReady": true,
+  "sdkPreconditions": [
+    "new source/extended boundary component matrix PASS with exact sourceCommit",
+    "formal configured plugin default backend resolves both recovered handlers; original metadata/unknown ID/lifecycle remain verified",
+    "parameterless Activator.CreateInstance plugin load through Core + same preprocessing/type IDs/reference imports as original",
+    "configured recovered plugin independent directory can process both types without original W3X assembly",
+    "then authorized SDK/MOD actual integration validation; no SDK success inferred from this audit"
+  ],
+  "noOtherUnmappedDefinedBusinessFamilyFound": true,
+  "qualification": "family-level closure audit, not exhaustive proof of every arbitrary input; final acceptance comes from expanded original-DLL/SDK gates and retains original-UB safety rejections",
+  "sdkPrerequisiteAcceptance": {
+    "sourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+    "runId": "40168123437",
+    "runAttempt": 1,
+    "nativeOriginalDifferential": true,
+    "loadableDefaultBackendOriginalDifferential": true,
+    "loadableDefaultBackendWithoutOriginal": true,
+    "fullOriginalXsdDocuments": 4,
+    "animationSdkFixtures": 8,
+    "meshSdkFixtures": 4,
+    "sdkStartedInPrerequisiteRun": false
+  }
+}

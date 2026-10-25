@@ -1,0 +1,55 @@
+{
+  "sdkValidated": false,
+  "completeMeshBuffersValidated": false,
+  "sourceCommit": "4085f0a0073a1be1f8e2ac622e6ffed5489980d9",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "failures": [
+    "Od/animation-bridge failed: animation bridge build failed",
+    "O2/animation-bridge failed: animation bridge build failed"
+  ],
+  "scope": "independent native tests; original mesh converter, AdaptiveDelta CompressFrame/Compress/Estimate and Timecoded Compress/Estimate/WriteOut IL differential; mesh vertex-data and ProcessInstance animation three-buffer differential; full mesh ProcessInstance and SDK not accepted",
+  "runId": "40165527804",
+  "runAttempt": "1",
+  "modes": [
+    {
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "independentComponentTests": {
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xTimecodedTests": true
+      },
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "converterOriginalDifferential": true,
+      "animationThreeBufferOriginalDifferential": false,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "mode": "Od"
+    },
+    {
+      "adaptiveDeltaCompressFrameOriginalDifferential": true,
+      "sourceBuildSucceeded": true,
+      "independentComponentTests": {
+        "W3xMeshBuilderTests": true,
+        "W3xMeshConvertersTests": true,
+        "W3xAdaptiveDeltaTests": true,
+        "W3xAnimationCompilerTests": true,
+        "W3xMeshSerializationTests": true,
+        "W3xAnimationPipelineTests": true,
+        "W3xTimecodedTests": true
+      },
+      "timecodedCompressEstimateWriteOutOriginalDifferential": true,
+      "meshVertexDataThreeBufferOriginalDifferential": true,
+      "converterOriginalDifferential": true,
+      "animationThreeBufferOriginalDifferential": false,
+      "adaptiveDeltaCompressAndEstimateOriginalDifferential": true,
+      "mode": "O2"
+    }
+  ],
+  "succeeded": false,
+  "completeAnimationBuffersValidated": false
+}

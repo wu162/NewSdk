@@ -1,0 +1,8 @@
+FAIL converter=0 count=3 srcPitch=20
+dstPitch=20 BE=True byte=22
+original=C2 recovered=82
+input bits A89A8620 76D882FF
+input bits 54863452 1C1A4789
+System.Exception: Original converter byte differential failed
+   at ?A0xac41fab4.Test(Assembly assembly, Int32 converter, Single* values, Int32 count, Int32 sourcePitch, Int32 destinationPitch, Boolean big, Int32 alignment)
+   at main(String[] args)

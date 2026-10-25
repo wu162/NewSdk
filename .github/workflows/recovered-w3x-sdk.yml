@@ -1,0 +1,44 @@
+name: Recovered W3X SDK acceptance
+on:
+  workflow_dispatch:
+  push:
+    branches: [recovery/w3xcompiler-source]
+    paths:
+      - 'recovery/w3x/SDK_READY.json'
+      - '.github/workflows/recovered-w3x-sdk.yml'
+permissions:
+  contents: read
+concurrency:
+  group: w3x-sdk-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  sdk:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sdk-w3x]')
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify explicit complete-type closure gate before any SDK work
+        shell: pwsh
+        run: ./recovery/scripts/VerifyW3xSdkGate.ps1
+      - name: Require complete native original differential and original-free components
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xNative.ps1 -OutputDirectory "recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/native-components"
+      - name: Require formal plugin original differential and original-free replay
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xPlugin.ps1 -CaptureDirectory "${{ github.workspace }}/recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/native-components" -OutputDirectory "recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/plugin-validation"
+      - name: Run real SDK only after complete closure and both current-source gates
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xSdk.ps1 -ComponentDirectory "recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/native-components" -PluginValidationDirectory "recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/plugin-validation" -OutputDirectory "recovery/evidence/w3x/sdk-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/sdk"
+      - name: Preserve all SDK and prerequisite evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w3x-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/w3x/sdk-runs/${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 30

@@ -1,0 +1,2 @@
+PASS W3X Timecoded original CLR conv.u4 reduction limits=175
+PASS W3X Timecoded original differential channels=5072 serializedChunks=8864 comparedBytes=2003008; Compress/Estimate/WriteOut; SDK not run

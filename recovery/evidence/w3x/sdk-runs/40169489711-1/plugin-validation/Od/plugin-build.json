@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "bridgeAnimationSha256": "084374ef4d559810c917f3cf239d5c0bba755a7bd83cd720ec4b64318d25ca9d",
+  "originalW3xPresent": false,
+  "sdkValidated": false,
+  "mode": "Od",
+  "bridgeMeshSha256": "24ae427f8a3a623aee1a24f9d2f79d98a6acb34ed29da320463acb7c7bdb0739",
+  "pluginSha256": "5ecf8f235f9aa2d3b41f00f70c5845cb097d91d11bb98d2adf5086af68821c0f"
+}

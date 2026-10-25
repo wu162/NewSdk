@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "runId": "40169489711",
+  "runAttempt": 1,
+  "conclusion": "success",
+  "jobId": 121097257454,
+  "artifactId": 12589017584,
+  "originalArtifactSha256": "3505be53de52f6bffb620505563a0602cad2e7a5b4c288257fa29ed66d63337e",
+  "archive": "acceptance-evidence.zip",
+  "archiveSha256": "3479e4768dffb3de93df3c05c502dddf2b8c091326bdc8f8c58d2da90b12b175",
+  "archiveScope": "All SDK inputs fingerprints, command/config/outputs/trace fixtures/logs; component/plugin JSON and runtime logs. Build binaries and compiler build logs remain in original workflow artifact.",
+  "archivedFiles": 100
+}

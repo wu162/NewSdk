@@ -1,0 +1,10 @@
+{
+  "succeeded": false,
+  "status": "failed",
+  "sdkStarted": true,
+  "scope": "W3DAnimation/W3DMesh test MOD; Win32 SDK only",
+  "runAttempt": "1",
+  "runId": "40168310561",
+  "sourceCommit": "34dfd46bf509cdf3e3e35767d310d61d5cabcf90",
+  "error": "Original SDK failed: -1"
+}

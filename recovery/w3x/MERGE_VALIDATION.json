@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "operation": "Merge compiler-source into W3X source branch to prepare pull request",
+  "mergeBase": "c66339e49e32cfe3f44aa2f9f1757f9993bbac7a",
+  "sourceHead": "848482b076312f317753c0c7ccb40fa7237f8a83",
+  "targetHead": "af714b3989e161affca033035ce01cbcf74e9788",
+  "conflicts": [
+    "recovery/RESUME.md"
+  ],
+  "resolution": "Preserve target GameObject and XmlCompiler navigation/status and append independently accepted W3X status. All source-only tree entries retained unchanged; all target-only changes retained.",
+  "sharedDependencies": [
+    {
+      "path": "recovery/src/Native/Relocation.cpp",
+      "unchanged": true,
+      "source": "253495718222efb593ece65b0ef86aaf7bd4ce75",
+      "target": "253495718222efb593ece65b0ef86aaf7bd4ce75"
+    },
+    {
+      "path": "recovery/src/Native/Relocation.h",
+      "unchanged": true,
+      "source": "687e387bcfbd4674bf01f0d5d4c9856c0613bfbc",
+      "target": "687e387bcfbd4674bf01f0d5d4c9856c0613bfbc"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.cpp",
+      "unchanged": true,
+      "source": "01df5c53313fdad361150fb9d3a0d4a5de1f064f",
+      "target": "01df5c53313fdad361150fb9d3a0d4a5de1f064f"
+    },
+    {
+      "path": "recovery/src/Native/ScalarParsing.h",
+      "unchanged": true,
+      "source": "fc041c59449241260a566dacec616d387f02e679",
+      "target": "fc041c59449241260a566dacec616d387f02e679"
+    },
+    {
+      "path": "recovery/src/Native/ResourceMarshaling.cpp",
+      "unchanged": true,
+      "source": "37b6209a34f1b31713c6da12ae5cd8c9a768a44d",
+      "target": "37b6209a34f1b31713c6da12ae5cd8c9a768a44d"
+    },
+    {
+      "path": "recovery/src/Native/ResourceMarshaling.h",
+      "unchanged": true,
+      "source": "9bf76c534f1ff7bba5fce0511859658828bbc26a",
+      "target": "9bf76c534f1ff7bba5fce0511859658828bbc26a"
+    },
+    {
+      "path": "recovery/src/Bridge/XmlNodeAdapter.h",
+      "unchanged": true,
+      "source": "26d74a33bd0c166ed98dd05c69b000ed55036f2f",
+      "target": "26d74a33bd0c166ed98dd05c69b000ed55036f2f"
+    },
+    {
+      "path": "SDK/tools",
+      "unchanged": true,
+      "source": "10a9b868c74db96976c9c306dc587ec5de62965f",
+      "target": "10a9b868c74db96976c9c306dc587ec5de62965f"
+    },
+    {
+      "path": "SDK/Schemas",
+      "unchanged": true,
+      "source": "62e1c5684ee0ea4407430f0a343a37431be6c03c",
+      "target": "62e1c5684ee0ea4407430f0a343a37431be6c03c"
+    }
+  ],
+  "validation": {
+    "w3xSourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+    "w3xSdkRunId": "40169489711",
+    "w3xSdkRunAttempt": 1,
+    "w3xSdkResult": "success",
+    "newComponentOrSdkExecution": false,
+    "reason": "No W3X implementation or actual shared dependencies changed; historical source/run anchors retained. This is not a combined multi-plugin SDK acceptance.",
+    "sdkReadyGate": "Historical whole-tree fingerprint remains unchanged. New merged whole tree requires explicit recertification before a future SDK dispatch; no prior validation is relabelled as current-source execution."
+  }
+}

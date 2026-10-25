@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Includes>
+    <Include type="reference" source="DATA:static.xml"/>
+    <Include type="reference" source="DATA:global.xml"/>
+    <Include type="reference" source="DATA:audio.xml"/>
+    <Include type="all" source="Dependencies.xml"/>
+    <Include type="all" source="Animations.xml"/>
+    <Include type="all" source="Meshes.xml"/>
+  </Includes>
+</AssetDeclaration>

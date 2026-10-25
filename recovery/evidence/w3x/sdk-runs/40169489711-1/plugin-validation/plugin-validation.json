@@ -1,0 +1,40 @@
+{
+  "sourceCommit": "ceeef68df4c032309154214f6746322e0a65e2ec",
+  "scope": "loadable recovered plugin configuration identity/default constructor, both ProcessInstance backends and public handles, original three-buffer differential, standalone captured fixture replay without original W3X compiler; SDK not run",
+  "withoutOriginalReplay": true,
+  "componentValidation": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\native-components\\validation.json",
+  "modes": [
+    {
+      "pluginSha256": "5ecf8f235f9aa2d3b41f00f70c5845cb097d91d11bb98d2adf5086af68821c0f",
+      "processInstanceOriginalDifferential": true,
+      "meshFixtures": 666,
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\plugin-validation\\Od",
+      "succeeded": true,
+      "animationFixtures": 675,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "mode": "Od",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "withoutOriginalReplay": true
+    },
+    {
+      "pluginSha256": "2f3e91a2cc4307f219f0a839378ff7d95bbcf3205a443b79254de241802f4a4e",
+      "processInstanceOriginalDifferential": true,
+      "meshFixtures": 666,
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\sdk-runs\\40169489711-1\\plugin-validation\\O2",
+      "succeeded": true,
+      "animationFixtures": 675,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "mode": "O2",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "withoutOriginalReplay": true
+    }
+  ],
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "failures": [],
+  "runId": "40169489711",
+  "succeeded": true,
+  "processInstanceOriginalDifferential": true,
+  "sdkValidated": false,
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "runAttempt": "1"
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "ready": true,
+  "supportedTypes": [
+    "W3DAnimation",
+    "W3DMesh"
+  ],
+  "validatedSourceCommit": "6930e9fb09bfa47ed77835f3670c8ae67135be4c",
+  "validatedRunId": "40169265269",
+  "validatedRunAttempt": 1,
+  "unrecoveredDefinedBehaviorCount": 0,
+  "explicitUndefinedBehaviorExclusions": [
+    {
+      "case": "AdaptiveDelta finite adjacent sample difference overflows binary32, nonfinite sample, or no finite candidate",
+      "originalEvidence": "0x06000012 sets selected filter=-1 and only assigns when error < FLT_MAX; then calls 0x06000011 which reads filtertable[filter]. scale=+Inf forces reconstructed NaN for all positive finite filters. Do not reproduce table[-1] read.",
+      "recoveredBehavior": "explicit exception before invalid original read"
+    },
+    {
+      "case": "FirstFrame + source frame count beyond NumFrames",
+      "originalEvidence": "0x06000145 unchecked vector element writes",
+      "recoveredBehavior": "safe range rejection"
+    },
+    {
+      "case": "NumFrames=0 with at least one channel",
+      "originalEvidence": "0x06000010 reads first frame despite empty source vector",
+      "recoveredBehavior": "safe empty-channel serialization rejection"
+    },
+    {
+      "case": "No vertex stream or attribute stream shorter than original vertex count",
+      "originalEvidence": "0x060000C9/CE dereference first stream/strided data without semantic size guards",
+      "recoveredBehavior": "safe missing/short stream rejection"
+    },
+    {
+      "case": "Excessive vertex declaration text >=512 bytes",
+      "originalEvidence": "0x060000CD original stack char[512] formatting",
+      "recoveredBehavior": "safe length rejection"
+    },
+    {
+      "case": "32-bit allocation-size/vector arithmetic overflow",
+      "originalEvidence": "all original pointer/vector sizes are uint32/x86",
+      "recoveredBehavior": "safe size rejection"
+    }
+  ],
+  "closureSha256": "1ae31607febf9cd6cdfd612577761595b2aaa6a1dece4063e6d193fbc0a6d1c9",
+  "srcTreeHash": "eb892aefa713857c76df3a130063defd02804fc3",
+  "testsTreeHash": "1421d33b30ddd9aa6c09399bd636e984348a9d1e",
+  "modsTreeHash": "1fa64cc1c1a94ef069206ce168a3dec1ae92bfe5",
+  "scriptsTreeHash": "805500a71e617a906115a5bde2b3e790420ec5ec",
+  "workflowsTreeHash": "4a14d68920b41092139690806324a85126d126b6",
+  "sdkToolsTreeHash": "10a9b868c74db96976c9c306dc587ec5de62965f",
+  "schemasTreeHash": "62e1c5684ee0ea4407430f0a343a37431be6c03c",
+  "closureFingerprintFormat": "UTF-8 without BOM, LF line endings"
+}
