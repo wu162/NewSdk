@@ -35,14 +35,14 @@ class OriginalKernel(OriginalResampler):
     def __init__(self, dll):
         super().__init__(dll)
         self.cpu.mem_map(0x30200000, 0x1000000)
-        for rva in (0x39630, 0x39690, 0x4ec40, 0x4ec80, 0x26fd0):
+        for rva in (0x39630, 0x39690, 0x26fd0):
             self.cpu.hook_add(UC_HOOK_CODE, self.service, begin=0x10000000 + rva, end=0x10000000 + rva)
         self.allocation = 0x30200000
 
     def service(self, cpu, address, size, data):
         # Only host-service calls are replaced. All signal processing instructions
         # (including original FFT, FCOS, interpolation and FISTP) run unchanged.
-        if address not in (0x10039630, 0x10039690, 0x1004ec40, 0x1004ec80, 0x10026fd0):
+        if address not in (0x10039630, 0x10039690, 0x10026fd0):
             return
         esp = cpu.reg_read(UC_X86_REG_ESP)
         ret = struct.unpack('<I', cpu.mem_read(esp, 4))[0]
@@ -51,13 +51,6 @@ class OriginalKernel(OriginalResampler):
             count = struct.unpack('<I', cpu.mem_read(esp + 4, 4))[0]
             target = self.allocate(count)
             cpu.reg_write(UC_X86_REG_EAX, target)
-        elif address == 0x1004ec40:
-            order = struct.unpack('<I', cpu.mem_read(esp + 4, 4))[0]
-            if order != 13:
-                raise ValueError('Unexpected FFT order')
-            instance = cpu.reg_read(UC_X86_REG_ECX)
-            cpu.mem_write(instance, struct.pack('<3I', self.allocate(32768), self.allocate(32768), order))
-            pop = 8
         cpu.reg_write(UC_X86_REG_ESP, esp + pop)
         cpu.reg_write(UC_X86_REG_EIP, ret)
 

@@ -1,4 +1,4 @@
-param([string]$OutputDirectory)
+param([string]$OutputDirectory,[string]$OracleInput)
 $ErrorActionPreference='Stop'
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
 if(!$env:RUNNER_TEMP){$env:RUNNER_TEMP=[IO.Path]::GetTempPath()}
@@ -9,23 +9,40 @@ $out=(Resolve-Path $OutputDirectory).Path
 $work=Join-Path $env:RUNNER_TEMP ('audio-resampler-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $work|Out-Null
 $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-python recovery/scripts/GenerateAudioResamplerWindow.py
-if($LASTEXITCODE -ne 0){throw 'Original window constants differ from source'}
-$oracleInput=Join-Path $out 'original.tsv.gz'
-python recovery/scripts/GenerateAudioResamplerOracle.py --output $oracleInput
-if($LASTEXITCODE -ne 0){throw 'Original native oracle generation failed'}
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='Isolated resampling kernel exact-byte differential, including original Windows x86 CPU cross-check';sdkValidated=$false;audioFileRouteEnabled=$false;nativeOracleSha256=(Get-FileHash $oracleInput).Hash.ToLowerInvariant();modes=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='Isolated resampling kernel exact-byte differential, including original Windows x86 CPU cross-check';sdkValidated=$false;audioFileRouteEnabled=$false;nativeOracleSha256=$null;modes=@()}
 try {
+ $inputFile=Join-Path $out 'original.tsv.gz'
+ if($OracleInput) { Copy-Item (Resolve-Path $OracleInput).Path $inputFile }
+ else {
+  python recovery/scripts/GenerateAudioResamplerWindow.py
+  if($LASTEXITCODE -ne 0){throw 'Original window constants differ from source'}
+  python recovery/scripts/GenerateAudioResamplerOracle.py --output $inputFile
+  if($LASTEXITCODE -ne 0){throw 'Original native oracle generation failed'}
+ }
+ $oracleInput=$inputFile
+ $state.nativeOracleSha256=(Get-FileHash $oracleInput).Hash.ToLowerInvariant()
+ $emulatorInput=$oracleInput
  $original=Join-Path $work 'original'
  New-Item -ItemType Directory $original|Out-Null
  Copy-Item SDK/tools/*.dll $original
  & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$original/AudioNativeResamplerOracle.exe" /main:AudioNativeResamplerOracle (Resolve-Path recovery/tests/AudioResamplerKernelOracle.cs).Path (Resolve-Path recovery/tests/AudioNativeResamplerOracle.cs).Path *> "$out/native-oracle-build.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/native-oracle-build.log";throw 'Original CPU resampler host build failed'}
  '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/AudioNativeResamplerOracle.exe.config"
- & "$original/AudioNativeResamplerOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" $oracleInput *> "$out/original-cpu.log"
- if($LASTEXITCODE -ne 0){Get-Content "$out/original-cpu.log";throw 'Real original CPU resampler differs from machine-code oracle'}
+ & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$original/AudioNativeWindowOracle.exe" (Resolve-Path recovery/tests/AudioNativeWindowOracle.cs).Path *> "$out/window-oracle-build.log"
+ if($LASTEXITCODE -ne 0){Get-Content "$out/window-oracle-build.log";throw 'Original CPU window host build failed'}
+ Copy-Item "$original/AudioNativeResamplerOracle.exe.config" "$original/AudioNativeWindowOracle.exe.config"
+ & "$original/AudioNativeWindowOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" (Resolve-Path src/AudioCompiler/Native/ResamplerCoefficients.cs).Path "$out/actual-window.bin" *> "$out/original-window.log"
+ $windowExitCode=$LASTEXITCODE
+ Get-Content "$out/original-window.log"
+ $state.windowSourceValidated=($windowExitCode -eq 0)
+ & "$original/AudioNativeResamplerOracle.exe" "$original/BinaryAssetBuilder.AudioCompiler.dll" $emulatorInput "$out/original-cpu.tsv.gz" *> "$out/original-cpu.log"
+ if($LASTEXITCODE -ne 0){Get-Content "$out/original-cpu.log";throw 'Real original CPU resampler evidence collection failed'}
  Get-Content "$out/original-cpu.log"
- $state.originalCpuValidated=$true
+ $state.originalCpuCollected=$true
+ $state.referenceBackend='original-windows-x86-cpu'
+ $oracleInput=Join-Path $out 'original-cpu.tsv.gz'
+ $state.originalCpuOracleSha256=(Get-FileHash $oracleInput).Hash.ToLowerInvariant()
+ if($windowExitCode -ne 0){throw 'Embedded window constants differ from actual original CPU; CPU evidence saved'}
  & $csc /nologo /platform:x86 /r:System.Core.dll /out:"$work/AudioResamplerKernelOracle.exe" (Resolve-Path recovery/tests/AudioResamplerKernelOracle.cs).Path *> "$out/oracle-build.log"
  if($LASTEXITCODE -ne 0){Get-Content "$out/oracle-build.log";throw 'Resampler oracle host build failed'}
  foreach($mode in @('Debug','Release')) {

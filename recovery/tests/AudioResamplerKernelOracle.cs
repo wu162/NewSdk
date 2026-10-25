@@ -11,6 +11,10 @@ using System.Collections.Generic;
 internal static class AudioResamplerKernelOracle
 {
     private const int N = 8192;
+    private static bool Collect;
+    private static StreamWriter Collector;
+    private static int EmulatorComparisonDifferences;
+    private static long EmulatorComparisonDifferingBytes;
     private const string Sha = "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139";
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     private static extern IntPtr GetModuleHandle(string module);
@@ -29,8 +33,15 @@ internal static class AudioResamplerKernelOracle
     private static void Equal(string label, byte[] expected, byte[] actual)
     {
         if (expected.Length != actual.Length) throw new Exception(label + " length differs");
+        int first = -1; long differingBytes = 0;
         for (int i = 0; i < expected.Length; ++i)
-            if (expected[i] != actual[i]) throw new Exception(label + " float=" + (i / 4) + " byte=" + i + " expected=" + expected[i] + " actual=" + actual[i]);
+            if (expected[i] != actual[i]) { if (first < 0) first = i; ++differingBytes; }
+        if (first >= 0)
+        {
+            if (!Collect) throw new Exception(label + " float=" + (first / 4) + " byte=" + first + " expected=" + expected[first] + " actual=" + actual[first]);
+            ++EmulatorComparisonDifferences; EmulatorComparisonDifferingBytes += differingBytes;
+            if (EmulatorComparisonDifferences <= 20) Console.WriteLine("EMULATOR_DIFFERENCE " + label + " buffers=" + EmulatorComparisonDifferences + " firstByte=" + first + " differingBytes=" + differingBytes);
+        }
     }
     private static void Emit(List<byte> code, byte opcode, int value)
     { code.Add(opcode); code.AddRange(BitConverter.GetBytes(value)); }
@@ -109,6 +120,7 @@ internal static class AudioResamplerKernelOracle
             }
             else actual = Bytes((float[])coefficientsMethod.Invoke(null, new object[] { factor, frequencies, amplitudes, gain, invert }));
             Equal(f[0] + ":" + f[1], Convert.FromBase64String(f[3]), actual);
+            if (Collect) f[3] = Convert.ToBase64String(actual);
         }
         else
         {
@@ -136,6 +148,7 @@ internal static class AudioResamplerKernelOracle
                 actual = new byte[result.Length * 2]; System.Buffer.BlockCopy(result, 0, actual, 0, actual.Length);
             }
             Equal(f[0] + ":" + f[1], expected, actual);
+            if (Collect) f[4] = Convert.ToBase64String(actual);
         }
     }
     private static void CheckCoverage(HashSet<string> coverage)
@@ -163,10 +176,19 @@ internal static class AudioResamplerKernelOracle
     private static int Main(string[] args) { return Run("candidate", args); }
     internal static int Run(string mode, string[] args)
     {
+        string authoritativePath = null, partialPath = null;
+        Collect = false; Collector = null; EmulatorComparisonDifferences = 0; EmulatorComparisonDifferingBytes = 0;
         try
         {
-            if (args.Length != 2) throw new Exception("Usage: AudioResamplerKernelOracle assembly.dll filter.tsv.gz");
             bool original = mode == "original";
+            if (args.Length != 2 && !(original && args.Length == 3)) throw new Exception("Usage: AudioResamplerKernelOracle assembly.dll original.tsv.gz [authoritative.tsv.gz (original CPU only)]");
+            Collect = original && args.Length == 3;
+            if (Collect)
+            {
+                authoritativePath = Path.GetFullPath(args[2]); partialPath = authoritativePath + ".partial";
+                if (File.Exists(authoritativePath) || File.Exists(partialPath)) throw new Exception("Refusing to overwrite authoritative CPU evidence");
+                Collector = new StreamWriter(new GZipStream(new FileStream(partialPath, FileMode.CreateNew, FileAccess.Write), CompressionMode.Compress));
+            }
             IntPtr module = IntPtr.Zero;
             ControlFp control = null; uint before = 0;
             MethodInfo fill = null, process = null, derivatives = null, coefficientsMethod = null, kernelMethod = null;
@@ -199,13 +221,20 @@ internal static class AudioResamplerKernelOracle
                     bool fingerprint = false; string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        if (line.StartsWith("#")) { fingerprint = line.Contains("originalDllSha256=" + Sha) && line.Contains("fpuControl=0x027f") && line.Contains("nativeRvas=0x41f40,0x41fa0,0x42250,0x41a90,0x42480"); continue; }
+                        if (line.StartsWith("#"))
+                        {
+                            fingerprint = line.Contains("originalDllSha256=" + Sha) && line.Contains("fpuControl=0x027f") && line.Contains("nativeRvas=0x41f40,0x41fa0,0x42250,0x41a90,0x42480");
+                            if (!original && !line.Contains("authoritativeOracle=real-windows-x86-cpu")) throw new Exception("Candidate must consume authoritative real CPU evidence");
+                            if (Collect) Collector.WriteLine(line + "; authoritativeOracle=real-windows-x86-cpu");
+                            continue;
+                        }
                         if (!fingerprint) throw new Exception("Evidence fingerprint/FPU missing");
                         if (original && (control(0x10000, 0x30300) & 0x30300) != 0x10000) throw new Exception("Could not set 53-bit nearest rounding");
                         string[] f = line.Split('\t');
                         if (f[0] == "coefficients" || f[0] == "kernel")
                         {
                             CheckKernelFixture(f, original, module, coefficientsMethod, kernelMethod, coverage);
+                            if (Collect) Collector.WriteLine(String.Join("\t", f));
                             counts[f[0]] = counts.ContainsKey(f[0]) ? counts[f[0]] + 1 : 1;
                             continue;
                         }
@@ -230,6 +259,7 @@ internal static class AudioResamplerKernelOracle
                                 fill.Invoke(null, new object[] { source, position, factor, output }); actual = Bytes(output);
                             }
                             Equal(label, Convert.FromBase64String(f[5]), actual);
+                            if (Collect) f[5] = Convert.ToBase64String(actual);
                         }
                         else if (f[0] == "process")
                         {
@@ -254,6 +284,7 @@ internal static class AudioResamplerKernelOracle
                                 process.Invoke(null, new object[] { real, imaginary, coeff, factor }); actual = Bytes(real); actualImag = Bytes(imaginary);
                             }
                             Equal(label + " real", Convert.FromBase64String(f[7]), actual); Equal(label + " imaginary", Convert.FromBase64String(f[8]), actualImag);
+                            if (Collect) { f[7] = Convert.ToBase64String(actual); f[8] = Convert.ToBase64String(actualImag); }
                         }
                         else if (f[0] == "derivatives")
                         {
@@ -266,8 +297,10 @@ internal static class AudioResamplerKernelOracle
                             }
                             else { float[] output = Sentinel(); derivatives.Invoke(null, new object[] { Floats(a), position, output }); actual = Bytes(output); }
                             Equal(label, Convert.FromBase64String(f[5]), actual);
+                            if (Collect) f[5] = Convert.ToBase64String(actual);
                         }
                         else throw new Exception("Unknown fixture type");
+                        if (Collect) Collector.WriteLine(String.Join("\t", f));
                         counts[f[0]] = counts.ContainsKey(f[0]) ? counts[f[0]] + 1 : 1;
                     }
                 }
@@ -276,9 +309,17 @@ internal static class AudioResamplerKernelOracle
                 if (!original) CheckSafety(fill, process, derivatives);
             }
             finally { if (control != null) control(before, 0x30300); }
-            Console.WriteLine("PASS " + mode + " native resampler filter bit differential: 48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; " + (original ? "real original x86 CPU; 53-bit nearest" : "five safety rejections; original DLL not loaded"));
+            if (Collect)
+            {
+                Collector.Dispose(); Collector = null;
+                File.Move(partialPath, authoritativePath);
+                Console.WriteLine("emulatorComparisonDifferences=" + EmulatorComparisonDifferences + " emulatorComparisonDifferingBytes=" + EmulatorComparisonDifferingBytes);
+                Console.WriteLine("AUTHORITATIVE_REAL_CPU " + authoritativePath + " fixtures=258 fpuControl=0x027f");
+            }
+            Console.WriteLine((Collect ? "PASS original CPU oracle collection (emulator differences reported separately): " : "PASS " + mode + " native resampler bit differential: ") + "48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; " + (original ? "real original x86 CPU; 53-bit nearest" : "five safety rejections; original DLL not loaded"));
             return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
+        finally { if (Collector != null) { Collector.Dispose(); Collector = null; } }
     }
 }

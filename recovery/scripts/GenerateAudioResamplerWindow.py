@@ -5,8 +5,11 @@ The original RVA 0x41d05..0x41d20 computes:
     binary53((FCOS(binary53(binary53(i * binary32(pi)) / support)) + 1) * 0.5)
 Support is 256 or 512. The scratch thunk uses equivalent x87 integer-memory
 operands for these exactly representable bounded integers, then stores the
-original 53-bit result as binary64. No host math.cos or candidate window
-algorithm is used. This is an emulator/source consistency check; real original
+original 53-bit result as binary64. The script does not call Python math.cos,
+but Unicorn 2.1.4 helper_fcos_x86_64 internally converts floatx80 to float64
+and calls the host cos function. Thus Linux/Windows emulator results can
+differ, and this is only a pinned-host emulator/source consistency check.
+No candidate window algorithm is used. Real original
 Windows CPU and plugin differential acceptance are recorded separately.
 """
 import argparse
