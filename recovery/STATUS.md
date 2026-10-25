@@ -829,3 +829,16 @@ OCL的UpgradeOCL项为4字节OCL强引用，完整bool名RegisterObjectsWithSpec
 所有失败、取消与修正记录保留在RESUME及Git历史；15分钟累计上限不足，改30分钟且不减测试。原KindOf未知149、Tracer/Stream Marshal与Token父层差异、TextureIndex signed CRT、Shader未知type0均有原方法证据。validation.scope旧尾句13拒绝暂存，实际剩余5拒绝已核对，后续实现批次顺带改标签。
 
 只剩ScriptedModel/Spotlight/Tank/Dynamics/Truck五类模型Draw继续拒绝。GAMEOBJECT_DRAW_MODEL_NEXT.md保存完整父层与结构方法/stride；不能把原证据283方法/17PE表当实现完成。完整编译器与正式SDK/mymod集成独立验收。下一轮先读RESUME。
+
+
+## 2026-10-25：最后五类Draw完成，322/322模块与真实SDK验收
+
+五个子代理分担模型条件、动画、Dynamics、测试和SDK接入，主代理完成Scripted/Spotlight/Tank/Truck与整合；代码已普通快进到recovery/compiler-source，未强推。完整新增五类及依赖见GAMEOBJECT_DRAW_MODEL.md。
+
+首轮模块source d5daae74/run40162286167 success；含CrusherInfo pipelineOnly id修复的最新完整source8939717b0a8af4435e41eb2da430977b8c945084/run40162645578 success，/Od/O2各1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性，平台0/1/2/99。两模式实际日志、不可变validation身份核对成功，共享根同步不可变40162645578-1树。322/322已知Marshal模块已验收，58 Token-only回退保留。
+
+正式GameObject插件与SDK/Mods/recoverydraw七资产已新增，按EALAModStudio defaultscript.cs case5提取的BAB基础数据命令执行。最终SDK sourcef8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，基础40162947146 success；自建mod七调用+完整mymod三调用，四产物逐字节一致、全部实际三缓冲区和无原DLL重放通过；原始zip再次解码独立比较所有八对文件及XSD日志通过，bin分别54936/209548字节。SDK归档SHA25615a1112127592f74c4b5a186cde3cee70fd82a71db2d3fef34bf26d0779666ef。
+
+SDK依次暴露csc相对路径误解析、CrusherInfo.id pipelineOnly误拒绝、XInclude注入xml:base误拒绝，均精确修复并新增回归，失败40162286198/40162402496/40162645592保留。实际捕获XML证明头灯/升级XIncludes携带xml:base，非猜测放宽。正式SDK主目录仍保留原DLL和配置；不宣称XmlCompiler另分支或两个完整替代DLL完成。
+
+用户明确允许长时间等待Actions时交接停止，最终XML上下文适配完整累计f8726d62/run40162947222仍in_progress，不提前标通过；下次只收取终态及证据，不重复已通过SDK和矩阵。RESUME保存精确续接步骤。本轮复用原方法/公共依赖与集中验收；无账号额度数据，不能量化额度节省。

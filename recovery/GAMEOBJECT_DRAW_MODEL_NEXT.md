@@ -1,3 +1,5 @@
+> 本设计清单已完成实现和模块验收；当前结果及最终XML上下文回归待收取状态见 [RESUME.md](RESUME.md) 和 [GAMEOBJECT_DRAW_MODEL.md](GAMEOBJECT_DRAW_MODEL.md)。以下保留原取证设计。
+
 # 下一完整组：W3D模型渲染5类（仍拒绝，未实现）
 
 本轮已实现的Laser/Tracer/Stream与此组分开验收；先以RESUME.md的最终sourceCommit/runId核实已通过范围，不能把draw-source证据数量计为实现数量。

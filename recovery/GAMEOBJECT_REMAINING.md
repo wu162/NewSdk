@@ -1,13 +1,7 @@
-# 剩余模块清单：317/322已验收，剩余5类
+# GameObject模块：322/322已知Marshal类型已验收
 
-最终source ffd4e0aa440dbb6a8742b283bf0b7c455a50115f，run40160094730 success；/Od与/O2完整累计、平台0/1/2/99、原DLL三缓冲区逐字节差分、拒绝与不变性均已通过。新增完整8类已验收，不含SDK集成；58 Token-only回退保留。
+剩余已知Marshal模块：0。最后ScriptedModel216、Spotlight224、Tank228、Dynamics252、Truck396及全部依赖已完整实现。58 Token-only类型保留原未知Marshal回退，未扩展为有Marshal支持的类型。
 
-| TypeId | 类型 | native |
-|---:|---|---:|
-|1121390653|W3DSpotlightDrawModuleData|224|
-|1322199627|W3DScriptedModelDrawModuleData|216|
-|2323717438|W3DTankDrawModuleData|228|
-|2615586235|W3DDynamicsDrawModuleData|252|
-|2756454809|W3DTruckDrawModuleData|396|
+最新完整成功source8939717b0a8af4435e41eb2da430977b8c945084/run40162645578；/Od/O2每模式1382372 fixtures、4147116三缓冲区比较、24940拒绝、4168不变性，四平台0/1/2/99。
 
-这5类继续显式拒绝。完整下一组入口、原方法和结构大小见GAMEOBJECT_DRAW_MODEL_NEXT.md；原证据283方法/17张PE表不是实现数量。完整编译器、两替代DLL、正式SDK与完整mymod集成仍是独立验收门槛。
+真实SDK sourcef8726d624b0a74ea0927705bca352027cbf76e30/run40162947209 success，自建recoverydraw和完整mymod均通过；最终XML上下文适配的累计run40162947222仍待收取，见RESUME.md。模块完成、SDK成功和该最终累计回归状态分别记录，不宣称两份完整替代DLL已完成。
