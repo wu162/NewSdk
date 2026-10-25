@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "runId": "40236621021",
+  "patterns": 3,
+  "oracleSha256": "d7a9b536ede464af8dc29eac8eef83abab8954bd66f4b803213784095af9d205",
+  "ratios": 10,
+  "audioFileXmaRouteEnabled": false,
+  "sizes": 6,
+  "tailPolicies": 2,
+  "scope": "Complete bounded XMA signal transform 0x97b00 with folding, DCT, masks and 256 weights",
+  "physicalX87ControlWord": "0x027f",
+  "originalCpuValidated": true,
+  "recordsPerConfiguration": 5760,
+  "sourceCommit": "93ba818ef53b6eb23a94a2f847409aadb31f4c44",
+  "sdkValidated": false,
+  "curveModes": 4,
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "modes": [
+    {
+      "recoveredSha256": "56866b10cf518526a9a5a5b5ed3c1cb4a46519722ba7e666a3d60fa794fd4e0e",
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "records": 5760,
+      "candidateSafetyRejections": 13,
+      "summary": "PASS candidate XMA signal transform: 5760 complete spectrum/HRESULT/shift comparisons; six sizes, four codec-version values, ten ratios around half ties, two tail policies, four gain-curve modes, three input patterns; thirteen separate safety refusals; recovered DCT/FFT; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "configuration": "Debug"
+    },
+    {
+      "recoveredSha256": "fcf20e2ae6cdb50597cea74174a075c8285984e3ecd62fd5aefe24eaba9ab497",
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "records": 5760,
+      "candidateSafetyRejections": 13,
+      "summary": "PASS candidate XMA signal transform: 5760 complete spectrum/HRESULT/shift comparisons; six sizes, four codec-version values, ten ratios around half ties, two tail policies, four gain-curve modes, three input patterns; thirteen separate safety refusals; recovered DCT/FFT; original DLL absent; no quantization/entropy/XMA-route/SDK acceptance",
+      "configuration": "Release"
+    }
+  ],
+  "versions": 4
+}

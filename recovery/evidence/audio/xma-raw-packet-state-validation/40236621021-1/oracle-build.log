@@ -1,0 +1,9 @@
+recovery\tests\AudioXmaRawPacketStateOracle.cs(87,49): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedFile.path' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaRawPacketStateOracle.cs(87,65): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedFile.bytes' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaRawPacketStateOracle.cs(87,85): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedFile.sha256' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,49): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.name' is never assigned to, and will always have its default value null
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,65): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.channels' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,74): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.frames' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,81): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.sampleRate' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,92): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.blockBytes' is never assigned to, and will always have its default value 0
+recovery\tests\AudioXmaRawPacketStateOracle.cs(88,122): warning CS0649: Field 'AudioXmaRawPacketStateOracle.SavedCase.files' is never assigned to, and will always have its default value null

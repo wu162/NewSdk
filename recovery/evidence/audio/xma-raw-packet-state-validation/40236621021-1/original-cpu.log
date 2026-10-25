@@ -1,0 +1,3 @@
+PASS native packet state capture seeded-wide-stereo-ram observations=59 all3 allocations unchanged
+PASS native packet state capture seeded-wide-stereo-stream observations=33 all3 allocations unchanged
+PASS actual raw packet lifecycle states: 92 (header=63,next=29,padding=0);2 long original encodes; all3 allocations unchanged
