@@ -1,0 +1,55 @@
+name: Audio complete Upheaval milestone
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-upheaval-validation.yml'
+      - 'recovery/scripts/TestAudioUpheavalSdk.ps1'
+permissions:
+  contents: write
+concurrency:
+  group: audio-upheaval-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: contains(github.event.head_commit.message, '[audio-input-upheaval]')
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 068643219fded09a05fb7b75c6507b769c430316
+          path: upheaval-input
+          sparse-checkout: SDK/Mods/Upheaval
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Complete pinned Upheaval original and audio replacement
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioUpheavalSdk.ps1 -ModSourcePath upheaval-input/SDK/Mods/Upheaval
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-upheaval-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/audio/upheaval-sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+      - name: Preserve exact milestone evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $path = "recovery/evidence/audio/upheaval-sdk-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (!(Test-Path $path)) { throw 'No Upheaval receipt' }
+          git add -- $path
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve complete Upheaval milestone evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes need resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }

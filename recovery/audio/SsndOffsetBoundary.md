@@ -2,9 +2,15 @@
 
 Original DLL SHA256:
 `a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139`.
-PC / Win32 only. This describes the proposed implementation/test contract;
-it is **not a successful validation receipt**. Exact run/commit acceptance
-must be recorded after validation. SDK remains separate.
+PC / Win32 only. Original-first evidence passed at source
+`49b1842e85bef9f7b06c74df5dc4a32781a4413a`, run
+[40242356374](https://github.com/wu162/NewSdk/actions/runs/40242356374):
+2704 complete records and1352 shifted-vs-zero comparisons. Its precise
+`ssnd-offset-validation/40242356374-1/validation.json` status is
+`original-evidence-only`, with no candidate configurations and SDK false.
+The overall run failed in an unrelated MPEG fixture tool; this is a
+successful offset substep, not an overall run success. Candidate validation
+is still pending until a separate Debug/Release receipt exists.
 
 ## Original instruction contract
 
@@ -70,3 +76,19 @@ The caller must run affected existing format/AIFC/ADP4/SSND regressions because
 the common input reader changes. Numerical kernels do not change. This does
 not establish production SDK/full Upheaval acceptance, and adds no non-PC
 support or additional loop/MPEG metadata semantics.
+
+## Native ADP4 byte-consumption proof
+
+`GenerateAudioAiffOffsetReadOracle.py` executes the original0x3b970 mono
+and0x3bab0 stereo stream readers, retaining the original0x48500 nibble
+decoder, with Unicorn2.1.4. Only the file-read callback is modeled; it supplies
+exactly the requested initialized bytes. For72 cases (2 channels options,
+12 frame counts spanning the512/1024 block boundaries,3 byte patterns),
+the total is ceil(F/2) mono or F stereo bytes, with read blocks no larger
+than512. Native sample-byte loads are checked to stay inside the initialized
+read buffer, all2*F*C output bytes must be written, and planar output guards
+and cdecl return-stack balance are checked. The extraction passed locally;
+[original read requests](../evidence/audio/native-ssnd-offset/original-adp4-read-requests.tsv)
+preserve the original fingerprint and raw request sequences. This machine-code
+evidence substantiates the byte bound; it does not substitute for the real
+Windows plugin or SDK batch.

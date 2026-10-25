@@ -84,3 +84,36 @@ The overall workflow failed in a subsequent independent MPEG probe; this is
 a successful original-loop evidence step, not overall workflow or recovered
 acceptance. SDK was not run. The independent candidate reader assertions were
 added after this original-only source and are not covered by that receipt.
+
+## Optional metadata follow-up under investigation
+
+Additional [instruction excerpts](loop-optional-metadata-disassembly.txt)
+show the initialized no-loop contract:
+
+- `0x26350..0x263b1` clears the entire SSOUND and explicitly sets start/end
+  to -1. `0x38315` sets marker-group count to zero. With an INST but no MARK,
+  `0x3863f..0x38649` skips marker resolution completely. Thus standard
+  INST-only input cannot install a loop, including sustain modes0/1/2.
+- An explicit INST plus an empty MARK, or with neither selected ID present,
+  also leaves both endpoints -1. These form a complete initialized no-loop
+  domain suitable for a separate original/candidate canonical differential.
+- Marker-only input is different: selected IDs default to -1 in the importer
+  prologue, but the local INST playMode bytes read at `0x3876d` were not
+  initialized. Even though zero-extended16-bit IDs cannot match -1, retain
+  this conservative refusal rather than claiming an initialized native path.
+- Only one selected ID present remains refused. In particular, end-only
+  metadata must not simply be treated as absent: filter120 rescales both
+  indices when the end is positive (`0x42b4d..0x42b81`), so an initial start-1
+  can become0 at some ratios. Start-only causes the writer to use end+1=0.
+- The original skips marker positions signed-negative or above COMM's frame
+  count before checking IDs (`0x3874e..0x38767`). Auxiliary records that match
+  neither selected ID cannot change the final range. Their positions may be
+  ignored by the candidate while their structural/name bounds remain checked.
+
+The draft `AudioLoopMetadataOptionalCases.cs` contains3,888 records and1,944
+canonical comparisons: AIFF/AIFC NONE/raw ADP4, PCM8/16/24 mono/stereo,
+NONE/XAS RAM/streamed, and unchanged/downsample/upsample rates. Nine variants
+cover INST-only and empty-MARK modes0/1/2, neither selected ID, auxiliary
+positions beyond the source extent, and signed-negative auxiliary positions.
+This draft is not part of source40ebb670's already running matrix and has not
+yet been accepted or enabled.

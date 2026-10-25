@@ -1,3 +1,5 @@
+# Original DLL SHA256 a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139
+# RVA disassembly extracted with Capstone 5.0.7; no candidate code
 
 AIFF read wrapper
 000389a0 push       ebp

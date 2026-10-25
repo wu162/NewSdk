@@ -9,7 +9,7 @@ internal static class AudioMpegHeaderOracle
     private static int Main(string[] args)
     {
         try {
-            if (args.Length!=2) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv");
+            if (args.Length!=3) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv identifier.tsv");
             Assembly library=Assembly.LoadFrom(Path.GetFullPath(args[0]));
             Type type=library.GetType("BinaryAssetBuilder.AudioCompiler.MpegPassthrough",true);
             MethodInfo parse=type.GetMethod("ParseHeader",BindingFlags.Static|BindingFlags.NonPublic);
@@ -26,6 +26,14 @@ internal static class AudioMpegHeaderOracle
                 count++;
             }
             if (count!=32783) throw new Exception("Incomplete native header matrix: "+count);
+            int identifiers=0;
+            foreach (string line in File.ReadLines(args[2])) {
+                string[] fields=line.Split('\t');
+                int actual=(int)find.Invoke(null,new object[] {Convert.FromBase64String(fields[2])});
+                if (actual!=int.Parse(fields[1])) throw new Exception("Original MPEG identifier mismatch: "+fields[0]+" expected="+fields[1]+" actual="+actual);
+                identifiers++;
+            }
+            if (identifiers!=441) throw new Exception("Incomplete original identifier matrix: "+identifiers);
             byte[] header={255,251,80,196}; object[] valid={header,0,(byte)0};
             int stride=4+(int)parse.Invoke(null,valid);
             int checks=0;
@@ -39,7 +47,7 @@ internal static class AudioMpegHeaderOracle
                 if (actual!=expected) throw new Exception("MPEG seven-header boundary mismatch");
                 checks++;
             }
-            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+checks+" identification boundaries"); return 0;
+            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+identifiers+" native identifier records; "+checks+" identification boundaries"); return 0;
         } catch (Exception error) { Console.Error.WriteLine(error);return 1; }
     }
 }

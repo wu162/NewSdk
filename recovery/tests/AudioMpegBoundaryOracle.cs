@@ -34,6 +34,12 @@ internal static class AudioMpegBoundaryOracle
             while (pos <= data.Length - 4) { starts.Add(pos); pos += FrameSize(data,pos); }
             if (starts.Count < 7) throw new Exception("Need at least seven fixture frames");
             Add(name+"-valid",data);
+            foreach (string poison in new[] {"ffe4e800","ffe4d800","ffe4c800","ffe4e000"}) foreach (int prefix in new[] {0,1,127})
+            {
+                byte[] header=Enumerable.Range(0,4).Select(n=>Convert.ToByte(poison.Substring(n*2,2),16)).ToArray();
+                Add(name+"-eof-stop-"+poison+"-prefix"+prefix,Join(Enumerable.Repeat((byte)0x55,prefix).ToArray(),header,data));
+            }
+
             foreach (int prefix in new[] { 1,3,10,127,1024 }) Add(name+"-prefix-"+prefix,Join(Enumerable.Repeat((byte)0x55,prefix).ToArray(),data));
             foreach (int suffix in new[] { 1,3,4,127,128 }) Add(name+"-suffix-"+suffix,Join(data,Enumerable.Repeat((byte)0x55,suffix).ToArray()));
             Add(name+"-id3v2",Join(new byte[] { 73,68,51,4,0,0,0,0,0,0 },data));

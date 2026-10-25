@@ -58,7 +58,7 @@ try {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log" -Tail 50;throw "$mode MPEG project build failed" }
         Copy-Item "$original/AudioMpegBoundaryOracle.exe*" $candidate
         Copy-Item "$original/AudioMpegHeaderOracle.exe" $candidate
-        & "$candidate/AudioMpegHeaderOracle.exe" "$candidate/Recovered.AudioCompiler.dll" "$out/header-native.tsv" *> "$out/$mode-header.log"
+        & "$candidate/AudioMpegHeaderOracle.exe" "$candidate/Recovered.AudioCompiler.dll" "$out/header-native.tsv" "$out/header-native-identifier.tsv" *> "$out/$mode-header.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-header.log";throw "$mode MPEG header differential failed" }
         Get-Content "$out/$mode-header.log"
         $actual=@(Run-Corpus $candidate "$candidate/Recovered.AudioCompiler.dll" $mode)
@@ -72,7 +72,7 @@ try {
             }
         }
         $differences=@($comparisons|Where-Object { !$_.equal }).Count
-        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;headerNativeRecords=32783;identificationBoundaryChecks=15;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
+        $receipt.configurations+=@{configuration=$mode;passed=($differences -eq 0);differences=$differences;cases=$comparisons;headerNativeRecords=32783;identifierNativeRecords=441;identificationBoundaryChecks=15;originalAbsentFromRecoveredHost=$true;recoveredSha256=(Get-FileHash "$candidate/Recovered.AudioCompiler.dll").Hash.ToLowerInvariant()}
         Write-Host "MPEG $mode`: $($cases.Count-$differences)/$($cases.Count) matching isolated cases; $differences differences"
     }
     if (@($receipt.configurations|Where-Object { !$_.passed }).Count -gt 0) { $receipt.status='differences-found';throw 'MPEG boundary differences found; inspect per-case receipts before changing production support' }

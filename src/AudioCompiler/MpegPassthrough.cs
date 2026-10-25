@@ -53,6 +53,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         // Original MP3 identifier RVA 0x2F6F0 searches byte by byte until seven
         // consecutive parsable MPEG frame headers are found; it does not require
         // the final frame payload to be within the file during identification.
+        // Any short header read ends the entire scan (RVA 0x2F7AB), including
+        // when an earlier candidate's declared frame span seeks beyond EOF.
         internal static int FindFirstFrame(byte[] data)
         {
             for (int candidate = 0; candidate <= data.Length - 4; ++candidate)
@@ -60,8 +62,9 @@ namespace BinaryAssetBuilder.AudioCompiler
                 long position = candidate;
                 byte ignored = 0;
                 int frames = 0;
-                while (frames != 7 && position <= data.Length - 4)
+                while (frames != 7)
                 {
+                    if (position > data.Length - 4) return -1;
                     int payload = ParseHeader(data, (int)position, ref ignored);
                     if (payload == 0) break;
                     position += 4L + payload;

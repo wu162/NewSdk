@@ -1,0 +1,127 @@
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10026350 <.text+0x25350>:
+10026350:	53                   	push   ebx
+10026351:	56                   	push   esi
+10026352:	8b 74 24 0c          	mov    esi,DWORD PTR [esp+0xc]
+10026356:	68 a0 05 00 00       	push   0x5a0
+1002635b:	33 db                	xor    ebx,ebx
+1002635d:	53                   	push   ebx
+1002635e:	56                   	push   esi
+1002635f:	e8 4a 37 fe ff       	call   0x10009aae
+10026364:	83 c8 ff             	or     eax,0xffffffff
+10026367:	89 46 40             	mov    DWORD PTR [esi+0x40],eax
+1002636a:	89 46 44             	mov    DWORD PTR [esi+0x44],eax
+1002636d:	b9 7f 00 00 00       	mov    ecx,0x7f
+10026372:	88 8e e1 01 00 00    	mov    BYTE PTR [esi+0x1e1],cl
+10026378:	88 8e e3 01 00 00    	mov    BYTE PTR [esi+0x1e3],cl
+1002637e:	c6 86 ef 01 00 00 3c 	mov    BYTE PTR [esi+0x1ef],0x3c
+10026385:	c6 86 e8 01 00 00 40 	mov    BYTE PTR [esi+0x1e8],0x40
+1002638c:	88 8e eb 01 00 00    	mov    BYTE PTR [esi+0x1eb],cl
+10026392:	88 86 f3 01 00 00    	mov    BYTE PTR [esi+0x1f3],al
+10026398:	88 8e ee 01 00 00    	mov    BYTE PTR [esi+0x1ee],cl
+1002639e:	c6 86 f0 01 00 00 40 	mov    BYTE PTR [esi+0x1f0],0x40
+100263a5:	88 86 f5 01 00 00    	mov    BYTE PTR [esi+0x1f5],al
+100263ab:	89 86 1c 02 00 00    	mov    DWORD PTR [esi+0x21c],eax
+100263b1:	89 86 20 02 00 00    	mov    DWORD PTR [esi+0x220],eax
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+100381c0 <.text+0x371c0>:
+100381c0:	81 ec bc 04 00 00    	sub    esp,0x4bc
+100381c6:	83 c8 ff             	or     eax,0xffffffff
+100381c9:	83 bc 24 c8 04 00 00 	cmp    DWORD PTR [esp+0x4c8],0x0
+100381d0:	00 
+100381d1:	56                   	push   esi
+100381d2:	8b b4 24 c8 04 00 00 	mov    esi,DWORD PTR [esp+0x4c8]
+100381d9:	c6 44 24 07 00       	mov    BYTE PTR [esp+0x7],0x0
+100381de:	89 44 24 20          	mov    DWORD PTR [esp+0x20],eax
+100381e2:	89 44 24 18          	mov    DWORD PTR [esp+0x18],eax
+100381e6:	c7 06 00 00 00 00    	mov    DWORD PTR [esi],0x0
+100381ec:	74 17                	je     0x10038205
+100381ee:	68 40 6e 0b 10       	push   0x100b6e40
+100381f3:	e8 38 ee fe ff       	call   0x10027030
+100381f8:	83 c4 04             	add    esp,0x4
+100381fb:	33 c0                	xor    eax,eax
+100381fd:	5e                   	pop    esi
+100381fe:	81 c4 bc 04 00 00    	add    esp,0x4bc
+10038204:	c3                   	ret
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10038315 <.text+0x37315>:
+10038315:	33 c0                	xor    eax,eax
+10038317:	89 83 70 05 00 00    	mov    DWORD PTR [ebx+0x570],eax
+1003831d:	89 44 24 3c          	mov    DWORD PTR [esp+0x3c],eax
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1003863b <.text+0x3763b>:
+1003863b:	33 c0                	xor    eax,eax
+1003863d:	33 ed                	xor    ebp,ebp
+1003863f:	39 83 70 05 00 00    	cmp    DWORD PTR [ebx+0x570],eax
+10038645:	89 6c 24 28          	mov    DWORD PTR [esp+0x28],ebp
+10038649:	0f 8e a9 02 00 00    	jle    0x100388f8
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1002cc5c <.text+0x2bc5c>:
+1002cc5c:	8b be 1c 02 00 00    	mov    edi,DWORD PTR [esi+0x21c]
+1002cc62:	33 d2                	xor    edx,edx
+1002cc64:	85 ff                	test   edi,edi
+1002cc66:	0f 9d c2             	setge  dl
+1002cc69:	6a 01                	push   0x1
+1002cc6b:	8d 4c 24 54          	lea    ecx,[esp+0x54]
+1002cc6f:	52                   	push   edx
+1002cc70:	e8 2b fa ff ff       	call   0x1002c6a0
+1002cc75:	85 ff                	test   edi,edi
+1002cc77:	6a 1d                	push   0x1d
+1002cc79:	7c 0c                	jl     0x1002cc87
+1002cc7b:	8b 86 20 02 00 00    	mov    eax,DWORD PTR [esi+0x220]
+1002cc81:	83 c0 01             	add    eax,0x1
+1002cc84:	50                   	push   eax
+1002cc85:	eb 07                	jmp    0x1002cc8e
+1002cc87:	8b 8e 18 02 00 00    	mov    ecx,DWORD PTR [esi+0x218]
+1002cc8d:	51                   	push   ecx
+1002cc8e:	8d 4c 24 58          	lea    ecx,[esp+0x58]
+1002cc92:	e8 09 fa ff ff       	call   0x1002c6a0
+
+SDK/tools/BinaryAssetBuilder.AudioCompiler.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10042b40 <.text+0x41b40>:
+10042b40:	04 3b                	add    al,0x3b
+10042b42:	e9 7c 9b f3 0f       	jmp    0x1ff7c6c3
+10042b47:	10 1d 88 c8 0a 10    	adc    BYTE PTR ds:0x100ac888,bl
+10042b4d:	8b 86 20 02 00 00    	mov    eax,DWORD PTR [esi+0x220]
+10042b53:	85 c0                	test   eax,eax
+10042b55:	7e 30                	jle    0x10042b87
+10042b57:	f3 0f 2a 8e 1c 02 00 	cvtsi2ss xmm1,DWORD PTR [esi+0x21c]
+10042b5e:	00 
+10042b5f:	f3 0f 59 c8          	mulss  xmm1,xmm0
+10042b63:	f3 0f 58 cb          	addss  xmm1,xmm3
+10042b67:	f3 0f 2c d1          	cvttss2si edx,xmm1
+10042b6b:	f3 0f 2a c8          	cvtsi2ss xmm1,eax
+10042b6f:	f3 0f 59 c8          	mulss  xmm1,xmm0
+10042b73:	f3 0f 58 cb          	addss  xmm1,xmm3
+10042b77:	f3 0f 2c c1          	cvttss2si eax,xmm1
+10042b7b:	89 96 1c 02 00 00    	mov    DWORD PTR [esi+0x21c],edx
+10042b81:	89 86 20 02 00 00    	mov    DWORD PTR [esi+0x220],eax
