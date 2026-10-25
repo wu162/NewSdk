@@ -31,6 +31,23 @@ static readonly string[] ModelConditionFlagTypeNames={"ABOUT_TO_HIT","ACCELERATE
 static readonly int[] ModelConditionFlagTypeValues={233,236,169,171,380,175,282,278,280,281,279,425,454,323,345,342,343,346,347,348,349,350,341,344,261,64,66,65,153,167,2,157,267,427,93,94,95,96,97,211,443,377,378,177,180,178,179,217,219,328,324,327,326,325,218,192,149,430,158,10,420,419,152,223,222,221,334,3,251,448,449,450,451,452,453,252,253,254,255,444,445,446,447,215,8,237,311,265,244,242,245,243,62,9,329,154,181,183,182,188,187,186,185,189,184,104,103,105,106,108,107,109,110,112,111,113,114,116,115,117,118,120,119,121,122,262,144,146,145,227,367,366,358,364,357,365,361,362,353,355,356,359,360,369,354,352,368,363,67,235,234,78,79,80,81,82,73,74,75,76,77,83,84,85,86,87,263,164,213,16,1,428,20,257,191,190,414,418,415,416,417,330,424,275,276,277,274,321,226,431,435,432,436,433,434,437,21,-1,332,331,370,429,197,198,266,166,19,373,258,264,405,404,400,401,402,399,397,391,396,390,393,398,395,394,403,392,156,388,389,407,408,409,410,259,143,150,14,208,199,202,203,204,205,206,207,174,18,17,379,126,125,124,123,130,129,128,127,134,133,132,131,138,137,136,135,142,141,140,139,168,193,293,294,295,296,297,212,426,7,6,209,210,68,69,70,71,72,224,200,322,333,172,173,220,159,268,269,270,271,272,273,4,88,89,90,91,92,421,260,312,313,314,315,316,317,318,319,320,5,151,376,375,374,162,163,256,423,196,176,15,11,301,302,303,304,305,306,307,308,309,225,13,371,298,299,300,60,59,56,61,58,57,231,216,12,229,228,230,455,335,43,44,45,161,155,165,232,382,383,384,385,386,387,0,194,195,238,240,239,241,336,338,339,337,340,372,381,170,201,351,283,292,284,285,286,287,288,289,290,291,406,310,98,99,100,101,102,413,411,412,160,148,422,147,246,249,250,247,248,33,41,34,23,32,24,42,25,26,27,35,36,37,38,39,40,31,28,29,30,22,51,52,53,54,55,438,439,440,441,442,49,50,46,48,47,63,214};
 
  static void Cases(IAssetBuilderPlugin original,TargetPlatform platform){bool big=platform!=TargetPlatform.Win32;UiCases(original,platform);FontCases(original,platform);
+ // Schema-valid positive metadata fixtures: AI info has required Heuristic/Manager.
+ // Original DLL confirms that this type's optional id is not a binary field.
+ var noIdentity=Test(original,0,"AI identity absent","",AI("Heuristic='MOVEMENT' Manager='SKIRMISH_AI'",""),platform);
+ foreach(string id in new[]{"AI_Metadata","MiXeD_Identity"}) {
+  var withIdentity=Test(original,0,"AI identity "+id,"",AI("id='"+id+"' Heuristic='MOVEMENT' Manager='SKIRMISH_AI'",""),platform);
+  Equal("AI pipeline id instance invariance",noIdentity.InstanceData,withIdentity.InstanceData);
+  Equal("AI pipeline id relocations invariance",noIdentity.RelocationData,withIdentity.RelocationData);
+  Equal("AI pipeline id imports invariance",noIdentity.ImportsData,withIdentity.ImportsData);
+ }
+ Reject(0,Xml("LogicCommand","","<AISpecialPowerInfo xmlns:f='urn:foreign' f:id='foreign' Heuristic='MOVEMENT' Manager='SKIRMISH_AI'/>"));
+ // ObjectFilter.id has different semantics: keep its original hashed payload.
+ var filterA=Test(original,0,"filter payload id A","",AI("Heuristic='MOVEMENT' Manager='SKIRMISH_AI'","<ObjectFilter id='FilterA'/>"),platform);
+ var filterB=Test(original,0,"filter payload id B","",AI("Heuristic='MOVEMENT' Manager='SKIRMISH_AI'","<ObjectFilter id='FilterB'/>"),platform);
+ bool identityChanged=false;
+ for(int i=0;i<filterA.InstanceData.Length;++i)if(filterA.InstanceData[i]!=filterB.InstanceData[i]){identityChanged=true;break;}
+ if(!identityChanged)throw new Exception("ObjectFilter.id must remain a serialized hash");
+
  for(int root=0;root<Roots.Length;++root){var expected=Test(original,root,"prefix-canonical","","",platform);var prefixed=new XmlDocument();prefixed.LoadXml(Xml(Roots[root],"", ""));prefixed.DocumentElement.Prefix="ea";prefixed.DocumentElement.SetAttribute("xmlns:ea",Ns);var got=Recovered(prefixed,root,platform,true);Equal("prefix-instance",expected.InstanceData,got.InstanceData);Equal("prefix-relo",expected.RelocationData,got.RelocationData);Equal("prefix-imp",expected.ImportsData,got.ImportsData);++layouts;var wrong=new XmlDocument();wrong.LoadXml(Xml(Roots[(root+1)%Roots.Length],"",""));bool refused=false;try{Recovered(wrong,root,platform,false);}catch(NotSupportedException){refused=true;++rejections;}if(!refused)throw new Exception("Wrong Handle TypeId accepted");}
  foreach(string f in new[]{"Allies","Soviet","Japan","Neutral","RANDOM","","unknown","allies","Japan "}){var b=Test(original,5,"store-faction:"+f,"Faction='"+f+"'","",platform);uint v=f=="Soviet"?1u:f=="Japan"?2u:f=="Neutral"?3u:f=="RANDOM"?UInt32.MaxValue:0u;if(Word(b.InstanceData,4,big)!=v)throw new Exception("Faction layout");}
  foreach(int count in new[]{0,1,2,3,5,27,28,29,64,257}){

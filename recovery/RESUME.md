@@ -24,3 +24,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ## Core / Remote / EALABuild 独立还原分支（2026-10-25）
 
 分支 `recovery/core-remote-ealabuild` 从 `c61aa003be605a7169fba6305311f2c96d88896c` 拉出，三个完整 ILSpy 工程已放入 `src/Managed/Core`、`src/Managed/Remote`、`src/Managed/EALABuild`，共 98 个 C# 文件。验收源码 `939080072f73d2eff92c563fcd04ab9dbe056aa5`，运行 40171944143 attempt1 成功：三个工程 Debug/Release 构建通过，原版/恢复版类型成员、资源及组件样本转录相同。两个已审计的现代编译器初始化元数据差异详见 [BUILD_INFRASTRUCTURE.md](BUILD_INFRASTRUCTURE.md)。未替换 SDK DLL/config，未执行完整 MOD 的真实 SDK 集成编译，未合入 compiler-source；既有其他编译器验收锚点保持不变。
+
+
+## Upheaval ID 修复及公开源码经验已合入（2026-10-25）
+
+从 validation/upheaval-recovered-apt-global 的固定提交 068643219fded09a05fb7b75c6507b769c430316 选择性合入：4个实现文件、6个回归测试文件、821份XSD的ID审计工具与清单、定向/SDK脚本、根因及公开用例经验文档、精简成功证据。修复嵌套AI状态与BuildDelayRange、GameDependency、ArmorSet/LocomotorSet、ObjectVisionRange及AISpecialPowerInfo身份属性边界，保留真正序列化ID和外来命名空间拒绝。源码和测试子树逐SHA与已验证来源一致，SDK工具/Schema/基础资源不变。组件40175816790、40177066058、40180066600以及SDK40178403660、40182719547沿用原sourceCommit/runId，未冒充合入提交新跑SDK。17资产SDK批次10次调用成功、20组四产物一致。源码输入与大型轨迹继续留在验证分支，本分支不引入整套Upheaval素材；运行SDK脚本前须按文档取回对应输入。详见[合入核对](UPHEAVAL_FIXES_MERGE.md)、[根因与门槛](ID_METADATA_ROOT_CAUSE.md)、[公开用例经验](PUBLIC_MOD_CASES.md)。当前请求范围已验收，无新增编译器阻塞。

@@ -12,6 +12,14 @@ internal static class XmlaiPersonalityCases
     static string Item(string name,string attrs) { return "<"+name+(attrs.Length==0?"":" "+attrs)+"/>"; }
     public static IEnumerable<string> Cases() {
         yield return Root("");
+        // These schema-valid child IDs are inheritance/pipeline metadata,
+        // not fields in the original compiled payload. Test the original DLL.
+        foreach (string child in new[]{"StrategicState","BudgetState","BuildState"})
+        {
+            yield return Root("<"+child+" id='StateMetadata' State='Resource\\\\3'/>");
+            yield return Root("<"+child+" id='' State='Resource\\\\3'/>");
+        }
+        yield return Root("<BuildDelayRange id='DelayMetadata' MinDelay='250ms'/>");
         string[] names = {"PersonalityMap","UnitCap","BuildDelay","BuildDelayRange","UnitBuilderUnitChoiceStrategy","UnitBuilderUnitChoiceStrategyAdaptive","UnitBuilderEvaluationDelayRange","ResourceMultiplierCheat","StrategicDirectiveFeedback","SkirmishGameEventFeedback","PowerChoice","OpeningMove","StrategicState","BudgetState","BuildState","SpecificUnitCap","UnitModifier","FeedbackEntry"};
         string[] full = {
             "Side='Resource\\3' Personality='Resource\\3'",

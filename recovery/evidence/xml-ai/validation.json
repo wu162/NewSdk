@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "092bb95c06647f95891c7f62b4b6fbc875c4c07a",
-  "runId": "40158416072",
+  "sourceCommit": "d859b61cd7bb66d9beca7c6a8d0a83bb8bc7a103",
+  "runId": "40175816790",
   "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
   "scope": "XmlCompiler AI component; six root attributes, MicroManager, State heuristics, Budget; explicit remaining child boundaries",
   "modes": [
@@ -11,29 +11,29 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 1,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 2,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 99,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         }
@@ -46,29 +46,29 @@
       "platforms": [
         {
           "platform": 0,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 1,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 2,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         },
         {
           "platform": 99,
-          "fixtures": 1978,
-          "arrayComparisons": 11865,
+          "fixtures": 1985,
+          "arrayComparisons": 11907,
           "rejections": 52,
           "layoutAssertions": 321
         }

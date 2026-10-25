@@ -1,0 +1,86 @@
+{
+  "targetBase": "ddf7ff6dac82b8f3e5331899d493e3847f46efb3",
+  "validationHead": "068643219fded09a05fb7b75c6507b769c430316",
+  "selection": "fixes, regression tests, audit/scripts/docs and compact successful evidence; SDK/Mods and bulk traces excluded",
+  "validatedSourceSubtree": "ca162af8d8dd70b5e9183348cdb8e1234a0641c5",
+  "validatedTestSubtree": "a7d3c4516c84d1d70a7677cb75d5c0bc6958ce49",
+  "implementationBlobs": [
+    {
+      "path": "recovery/src/Bridge/GameObjectCompiler.cpp",
+      "sha": "c328a2a12b3be29a5319bb9e97e420e5cfa961ec"
+    },
+    {
+      "path": "recovery/src/Native/Xmlai.cpp",
+      "sha": "af4a7eb8f766e7494de548948030c2238b0a4fc5"
+    },
+    {
+      "path": "recovery/src/Native/Xmlpowers.cpp",
+      "sha": "8ed69934caf562cab4dfb0bdbac46ccc20799f19"
+    },
+    {
+      "path": "recovery/src/Native/Xmlprogression.cpp",
+      "sha": "c3452bae9c76e552a6527653fcb5c141df1b8ec1"
+    }
+  ],
+  "testBlobs": [
+    {
+      "path": "recovery/tests/GameObjectAIUpdateCases.cs",
+      "sha": "b4af662d034062741af6609a5c725aae77a4d9aa"
+    },
+    {
+      "path": "recovery/tests/GameObjectOracle.cs",
+      "sha": "30b15a3f7ff62875dadb2fd35050b8ab11079c26"
+    },
+    {
+      "path": "recovery/tests/GameObjectWeaponSetCases.cs",
+      "sha": "8d68006c269e7989dda75eff3efa7e9fdffb4f6d"
+    },
+    {
+      "path": "recovery/tests/XmlaiPersonalityCases.cs",
+      "sha": "a4da8786917e410d2560457ba7922e1815bf11f4"
+    },
+    {
+      "path": "recovery/tests/XmlpowersOracle.cs",
+      "sha": "c563f514b610a0a9db1943515b81f6ffff6bc3d7"
+    },
+    {
+      "path": "recovery/tests/XmlprogressionCases.cs",
+      "sha": "34b442c6af6ca39a5c2d7295a41461a910fa3cf4"
+    }
+  ],
+  "schemaAudit": {
+    "result": "PASS",
+    "schemaFiles": 821,
+    "explicitIdTypes": 22,
+    "nestedIdentityTypes": 6
+  },
+  "existingValidation": [
+    {
+      "scope": "AI component",
+      "sourceCommit": "d859b61cd7bb66d9beca7c6a8d0a83bb8bc7a103",
+      "runId": 40175816790
+    },
+    {
+      "scope": "powers component",
+      "sourceCommit": "9fa6d8dc9f62bc4453b88891e16d0e3cfcb3ca5f",
+      "runId": 40177066058
+    },
+    {
+      "scope": "schema and progression component",
+      "sourceCommit": "3d32896d2d2607f4819cfd81c044a240dd278e46",
+      "runId": 40180066600
+    },
+    {
+      "scope": "original Upheaval SDK stages 3/4/5",
+      "sourceCommit": "0afc6eb49d81b61b9840e21d0edd840d5f0f0de3",
+      "runId": 40178403660
+    },
+    {
+      "scope": "Upheaval plus 17 active public assets, SDK stages 3/4/5",
+      "sourceCommit": "5d1a1e4ba1b80ebca401df425c6c744d4859f944",
+      "runId": 40182719547
+    }
+  ],
+  "newSdkExecutionClaimed": false,
+  "sdkInputsAndBulkEvidence": "https://github.com/wu162/NewSdk/tree/068643219fded09a05fb7b75c6507b769c430316"
+}

@@ -181,7 +181,13 @@ struct Builder {
         if(!node.value.empty()&&node.value.find_first_not_of(" \t\r\n")!=std::string::npos)
             throw std::invalid_argument("Unexpected Xmlai text.");
         for(const auto& a:node.attributes){
-            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||a.first=="TypeId")continue;
+            // These children extend BaseAssetType or declare pipelineOnly id.
+            // Their IDs survive BAB inheritance but original Marshal ignores them.
+            const bool childPipelineId = a.first=="id" &&
+                (name=="AIStrategicState" || name=="AIBudgetState" ||
+                 name=="AIBuildState" || name=="AIBuildDelayRange");
+            if((XmlaiTypeId(name)&&(a.first=="id"||a.first=="inheritFrom"))||
+               a.first=="TypeId"||childPipelineId)continue;
             bool found=false;for(const auto& f:layout.fields)if(a.first==f.name){found=true;break;}
             if(!found)throw std::invalid_argument("Unknown Xmlai attribute: "+a.first);
         }

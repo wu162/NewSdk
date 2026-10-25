@@ -1,0 +1,1367 @@
+{
+  "sourceCommit": "5d1a1e4ba1b80ebca401df425c6c744d4859f944",
+  "sdkStatus": "accepted",
+  "method": "Static schema-guided outgoing refs by name, with xas:refType fields and id declarations excluded. Includes checked separately. SDK original compile remains authoritative. Model-local symbols and weak references are distinguished from global asset links.",
+  "references": [
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/@ButtonImage",
+      "refType": "ImageWeakRef",
+      "value": "Button_SovietPowerPlantAdv_small",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:button_sovietpowerplantadv_small"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/@SelectPortrait",
+      "refType": "ImageWeakRef",
+      "value": "Portrait_SovietPowerPlantAdv_big",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:portrait_sovietpowerplantadv_big"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/@Side",
+      "refType": "PlayerTemplateWeakRef",
+      "value": "Soviet",
+      "resolution": "stock",
+      "stockCandidates": [
+        "playertemplate:soviet",
+        "campaigntemplate:soviet"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/@CommandSet",
+      "refType": "LogicCommandSetWeakRef",
+      "value": "PublicHello_SovietPowerPlantAdvancedCommandSet",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/ArmorSet/@Armor",
+      "refType": "ArmorTemplateRef",
+      "value": "SovietAdvancedPowerPlantArmor",
+      "resolution": "stock",
+      "stockCandidates": [
+        "armortemplate:sovietadvancedpowerplantarmor"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/ArmorSet/@DamageFX",
+      "refType": "DamageFXRef",
+      "value": "FactionStructureDamageFX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "damagefx:factionstructuredamagefx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/GameDependency/RequiredObject",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietRefinery",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietrefinery"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:sbpowerplantadvanced_skn"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:sbpowerplantadvanced_skn"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "SBBuilding_Holes",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:sbbuilding_holes"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "SBBuilding_FP",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:sbbuilding_fp"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "SBBuilding_Filler",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:sbbuilding_filler"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "SBBuilding_FP",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:sbbuilding_fp"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_IDLA",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:sbpowerplantadvanced_idla"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/FXEvent/@Effect",
+      "refType": "FXListRef",
+      "value": "FX_SovietPPSpark",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_sovietppspark"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:sbpowerplantadvanced_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:sbpowerplantadvanced_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Con_Large",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:con_large"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Con_Lights",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:con_lights"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Con_Flash",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:con_flash"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_Platform",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform",
+        "w3dcontainer:sbpowerplantadvanced_platform"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_IDLA",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:sbpowerplantadvanced_idla"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantWaterBuildupFroth",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantwaterbuildupfroth"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantWaterBuildupMist",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantwaterbuildupmist"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "ABAirBaseWakeSplash",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:abairbasewakesplash"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantBuildupFlashes",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantbuildupflashes"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantBuildupSparksSeed",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantbuildupsparksseed"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantWaterBuildupFroth",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantwaterbuildupfroth"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedPowerPlantWaterBuildupMist",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedpowerplantwaterbuildupmist"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "ABAirBaseWakeSplash",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:abairbasewakesplash"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Platform_BLD",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_platform_bld",
+        "w3danimation:sbpowerplantadvanced_platform_bld",
+        "w3dcontainer:sbpowerplantadvanced_platform_bld"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_Scaffold",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_scaffold",
+        "w3danimation:sbpowerplantadvanced_scaffold",
+        "w3dcontainer:sbpowerplantadvanced_scaffold"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_Scaffold",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_scaffold",
+        "w3danimation:sbpowerplantadvanced_scaffold",
+        "w3dcontainer:sbpowerplantadvanced_scaffold"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Scaffold",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_scaffold",
+        "w3danimation:sbpowerplantadvanced_scaffold",
+        "w3dcontainer:sbpowerplantadvanced_scaffold"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "SBPowerPlantAdvanced_Scaffold",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_scaffold",
+        "w3danimation:sbpowerplantadvanced_scaffold",
+        "w3dcontainer:sbpowerplantadvanced_scaffold"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_FX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_fx",
+        "w3dcontainer:sbpowerplantadvanced_fx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerGlow",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowerglow"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowersmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerGlow",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowerglow"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowersmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerGlow",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowerglow"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "SovietPowerSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:sovietpowersmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_FX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_fx",
+        "w3dcontainer:sbpowerplantadvanced_fx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_FX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_fx",
+        "w3dcontainer:sbpowerplantadvanced_fx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_FX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_fx",
+        "w3dcontainer:sbpowerplantadvanced_fx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatesmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatefire"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "SBPowerPlantAdvanced_FX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dhierarchy:sbpowerplantadvanced_fx",
+        "w3dcontainer:sbpowerplantadvanced_fx"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatesmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatefire"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatesmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatefire"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatesmoke"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Draws/ScriptedModelDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "GenericDStateFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:genericdstatefire"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/@AssociatedModule",
+      "refType": "ModuleDataRef",
+      "value": "ModuleTag_Draw",
+      "resolution": "object-local-module",
+      "stockCandidates": [],
+      "note": "AssociatedModule names an existing draw module in this same GameObject."
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/@FillerMesh",
+      "refType": "SubObjectRef",
+      "value": "NEWSKIN_FILL",
+      "resolution": "model-local-symbol",
+      "stockCandidates": [],
+      "note": "SubObjectRef is a model symbol, not a global AssetDeclaration asset."
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/Item/@FX",
+      "refType": "FXListRef",
+      "value": "SovietRefineryHit",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:sovietrefineryhit"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/Item/@CreationObject",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietPowerPlant_Debris",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietpowerplant_debris"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/@AssociatedModule",
+      "refType": "ModuleDataRef",
+      "value": "ModuleTag_Draw_Scaffold",
+      "resolution": "object-local-module",
+      "stockCandidates": [],
+      "note": "AssociatedModule names an existing draw module in this same GameObject."
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/BuildingDestructionBehavior/Item/@FX",
+      "refType": "FXListRef",
+      "value": "SovietRefineryHit",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:sovietrefineryhit"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/FXListBehavior/Event/@FX",
+      "refType": "FXListRef",
+      "value": "FX_YU_Hotel02_Explode",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_yu_hotel02_explode"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/FXListBehavior/Event/@FX",
+      "refType": "FXListRef",
+      "value": "FX_LargeBuildingDieExplosionRumble",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_largebuildingdieexplosionrumble"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/FXListBehavior/Event/@FX",
+      "refType": "FXListRef",
+      "value": "FX_LargeBuildingDieExplosion",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_largebuildingdieexplosion"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/CreateObjectDie/@CreationList",
+      "refType": "ObjectCreationListRef",
+      "value": "SBPowerPlantAdvanced_Die_OCL",
+      "resolution": "stock",
+      "stockCandidates": [
+        "objectcreationlist:sbpowerplantadvanced_die_ocl"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/CreateObjectDie/@CreationList",
+      "refType": "ObjectCreationListRef",
+      "value": "SBPowerPlantAdvancedPlatform_Die_OCL",
+      "resolution": "stock",
+      "stockCandidates": [
+        "objectcreationlist:sbpowerplantadvancedplatform_die_ocl"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/PowerUpgrade/TriggeredBy",
+      "refType": "UpgradeTemplateWeakRef",
+      "value": "Upgrade_PowerPlantTurbine",
+      "resolution": "intentionally-unresolved-weak",
+      "stockCandidates": [],
+      "note": "Upgrade_PowerPlantTurbine is absent from stock manifests; unchanged hook also exists in SDK/SageXml/Soviet/Structures/SovietPowerPlantAdvanced.xml. Preserve original weak-reference behavior; do not invent asset."
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/FireWeaponWhenDead/@DeathWeapon",
+      "refType": "WeaponRef",
+      "value": "SovietPowerPlantAdvancedDeathWeapon",
+      "resolution": "stock",
+      "stockCandidates": [
+        "weapontemplate:sovietpowerplantadvanceddeathweapon"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/ReplaceSelfSpecialAbility/@SpecialPowerTemplate",
+      "refType": "SpecialPowerTemplateRef",
+      "value": "SpecialPower_PackReplaceSelf",
+      "resolution": "stock",
+      "stockCandidates": [
+        "specialpowertemplate:specialpower_packreplaceself"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/Behaviors/ReplaceSelfSpecialAbility/ReplacementTemplate",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietAntiInfantryInfantry",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietantiinfantryinfantry"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "SOV_SuperReactor_Select",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:sov_superreactor_select"
+      ]
+    },
+    {
+      "path": "HelloSovietPowerPlantAdvanced.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "Amb_TurbineWind",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:amb_turbinewind"
+      ]
+    },
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_AttackMove",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_attackmove"
+      ]
+    },
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_Stop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_stop"
+      ]
+    },
+    {
+      "path": "LogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "Command_MoveToPositionAndCollect",
+      "resolution": "stock",
+      "stockCandidates": [
+        "logiccommand:command_movetopositionandcollect"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@SelectPortrait",
+      "refType": "ImageWeakRef",
+      "value": "Portrait_AlliedAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:portrait_alliedantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@ButtonImage",
+      "refType": "ImageWeakRef",
+      "value": "Button_AlliedAntiVehicleVehicleTech1_on",
+      "resolution": "stock",
+      "stockCandidates": [
+        "packedtextureimage:button_alliedantivehiclevehicletech1_on"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@Side",
+      "refType": "PlayerTemplateWeakRef",
+      "value": "Allies",
+      "resolution": "stock",
+      "stockCandidates": [
+        "playertemplate:allies",
+        "campaigntemplate:allies"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/@CommandSet",
+      "refType": "LogicCommandSetWeakRef",
+      "value": "PublicYuri_ChaosDroneCommandSet",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "GameObject.xml/GameObject/@UnitIntro",
+      "refType": "UnitIntroRef",
+      "value": "Allied_GuardianTank_UnitIntro",
+      "resolution": "stock",
+      "stockCandidates": [
+        "unitintro:allied_guardiantank_unitintro"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ArmorSet/@Armor",
+      "refType": "ArmorTemplateRef",
+      "value": "AlliedAntiVehicleVehicleTech1Armor",
+      "resolution": "stock",
+      "stockCandidates": [
+        "armortemplate:alliedantivehiclevehicletech1armor"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ArmorSet/@DamageFX",
+      "refType": "DamageFXRef",
+      "value": "VehicleDamageFX",
+      "resolution": "stock",
+      "stockCandidates": [
+        "damagefx:vehicledamagefx"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/LocomotorSet/@Locomotor",
+      "refType": "LocomotorTemplateRef",
+      "value": "TestReactiveLocomotorTANK",
+      "resolution": "stock",
+      "stockCandidates": [
+        "locomotortemplate:testreactivelocomotortank"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/@TrackMarks",
+      "refType": "TextureRef",
+      "value": "EXTnkTrack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:extnktrack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/TreadTerrainParticles",
+      "refType": "TerrainParticleMappingRef",
+      "value": "DefaultTankTerrainParticleMapping",
+      "resolution": "stock",
+      "stockCandidates": [
+        "terrainparticlemapping:defaulttankterrainparticlemapping"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1_D",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1_d"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefire"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFireLight",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefirelight"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "Allied_Target_Laser",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:allied_target_laser"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Model/@Name",
+      "refType": "RenderObjectRef",
+      "value": "AUAntiVehicleVehicleTech1_SKN",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3dcontainer:auantivehiclevehicletech1_skn"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@Original",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/Texture/@New",
+      "refType": "TextureRef",
+      "value": "AUAntiVehicleVehicleTech1_D",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:auantivehiclevehicletech1_d"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFire",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefire"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageFireLight",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagefirelight"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/ModelConditionState/ParticleSysBone/@FXParticleSystemTemplate",
+      "refType": "FXParticleSystemRef",
+      "value": "AlliedVehicleDamageSmoke",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxparticlesystemtemplate:alliedvehicledamagesmoke"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Draws/TruckDraw/AnimationState/Animation/@AnimationName",
+      "refType": "W3DAnimationRef",
+      "value": "AUAntiVehicleVehicleTech1_MOVA",
+      "resolution": "stock",
+      "stockCandidates": [
+        "w3danimation:auantivehiclevehicletech1_mova"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/WeaponSetUpdate/WeaponSlotTurret/Weapon/@Template",
+      "refType": "WeaponRef",
+      "value": "PublicYuri_ChaosDroneGasAura",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/CreateObjectDie/@CreationList",
+      "refType": "ObjectCreationListRef",
+      "value": "AUAntiVehicleVehicleTech1_Die_OCL",
+      "resolution": "stock",
+      "stockCandidates": [
+        "objectcreationlist:auantivehiclevehicletech1_die_ocl"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/Behaviors/FXListBehavior/Event/@FX",
+      "refType": "FXListRef",
+      "value": "FX_AlliedChieftanDie",
+      "resolution": "stock",
+      "stockCandidates": [
+        "fxlist:fx_alliedchieftandie"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_GuardianTank_VoiceShrunken",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardiantank_voiceshrunken"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionSoundSelectorClientBehavior/Override/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceAttackPaintTarget",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceattackpainttarget"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_PainterWeaponLoop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_painterweaponloop"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/ClientBehaviors/ModelConditionAudioLoopClientBehavior/ModelConditionSound/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_PainterWeaponStart",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_painterweaponstart"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceAttack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceattack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceCreate",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicecreate"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceMoveAttack",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicemoveattack"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceMove",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voicemove"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceRetreat",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_voiceretreat"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectms"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectBattleMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectbattlems"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArrayVoice/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_VoiceSelectBattleMS",
+      "resolution": "stock",
+      "stockCandidates": [
+        "multisound:all_guardian_voiceselectbattlems"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "ALL_Guardian_MoveStart",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:all_guardian_movestart"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "VehicleCrush",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:vehiclecrush"
+      ]
+    },
+    {
+      "path": "GameObject.xml/GameObject/AudioArraySound/AudioEntry/@Sound",
+      "refType": "AudioEventInfoRef",
+      "value": "Tank_Land_MoveLoop",
+      "resolution": "stock",
+      "stockCandidates": [
+        "audioevent:tank_land_moveloop"
+      ]
+    },
+    {
+      "path": "ReCoreSovietAIRapidTechnology.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietPowerPlantAdvanced",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietpowerplantadvanced"
+      ]
+    },
+    {
+      "path": "ReCoreSovietAIRapidTechnology.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietTechStructure",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:soviettechstructure"
+      ]
+    },
+    {
+      "path": "FXParticleSystemTemplate.xml/FXParticleSystemTemplate/@ParticleTexture",
+      "refType": "TextureRef",
+      "value": "FXDustCloud",
+      "resolution": "stock",
+      "stockCandidates": [
+        "texture:fxdustcloud"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietNavalYard",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietnavalyard"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietWarFactory",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietwarfactory"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "AlliedNavalYard",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:alliednavalyard"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "AlliedWarFactory",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:alliedwarfactory"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "SovietNavalYard",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:sovietnavalyard"
+      ]
+    },
+    {
+      "path": "ReCoreAITeShuMapBuild.xml/AIBuildStateDefinition/BuildEntry/@Build",
+      "refType": "GameObjectWeakRef",
+      "value": "AlliedNavalYard",
+      "resolution": "stock",
+      "stockCandidates": [
+        "gameobject:alliednavalyard"
+      ]
+    },
+    {
+      "path": "FXList.xml/FXList/NuggetList/ParticleSystem/@Particle",
+      "refType": "FXParticleSystemRef",
+      "value": "PublicYuri_ChaosDroneGasRing",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "HelloLogicCommandSet.xml/LogicCommandSet/Cmd",
+      "refType": "LogicCommandRef",
+      "value": "PublicHello_Command_PackSovietMCV",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "HelloLogicCommand.xml/LogicCommand/SpecialPower",
+      "refType": "SpecialPowerTemplateRef",
+      "value": "SpecialPower_PackReplaceSelf",
+      "resolution": "stock",
+      "stockCandidates": [
+        "specialpowertemplate:specialpower_packreplaceself"
+      ]
+    },
+    {
+      "path": "LogicCommand.xml/LogicCommand/Object",
+      "refType": "GameObjectRef",
+      "value": "PublicYuri_ChaosDrone",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "WeaponTemplate.xml/WeaponTemplate/@FireFX",
+      "refType": "FXListRef",
+      "value": "PublicYuri_FX_ChaosDroneGasRing",
+      "resolution": "local",
+      "stockCandidates": []
+    },
+    {
+      "path": "WeaponTemplate.xml/WeaponTemplate/Nuggets/AttributeModifierNugget/@AttributeModifierName",
+      "refType": "AttributeModifierRef",
+      "value": "PublicYuri_AttributeModifier_Hallucinate",
+      "resolution": "local",
+      "stockCandidates": []
+    }
+  ],
+  "sdkAcceptance": {
+    "sourceCommit": "5d1a1e4ba1b80ebca401df425c6c744d4859f944",
+    "runId": 40182719547,
+    "attempt": 1,
+    "succeeded": true,
+    "originalBaselinePassed": true,
+    "successfulInvocations": 10,
+    "identicalOutputPairs": 20,
+    "allSeventeenAssetsInRecoveredManifest": true,
+    "tracedNonWeaponAssets": 16
+  }
+}

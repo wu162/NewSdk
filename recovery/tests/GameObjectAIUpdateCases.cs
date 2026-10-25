@@ -33,7 +33,7 @@ partial class GameObjectOracle {
     static void AIUpdateSentinel(byte[] b,int table,int count) {for(int i=0;i<12;++i)if(b[table+12*count+i]!=0)throw new Exception("Independent AI Update Token sentinel");}
     static void AIUpdateFamily(IAssetBuilderPlugin original,TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;int[] sizes={76,100,76,116,76,116,144,92},tokens={17,10,1,14,1,11,5,8};
-        string chooser="<UnitAITargetChooserData TargetingCompareList='T\\23' CheckVisionRange='true' CanPickDynamicTargetType='ALL'><ObjectVisionRange Range='25%'><Filter Include='ALL' StatusBitFlags='ALL'><IncludeThing>A</IncludeThing><ExcludeThing>B</ExcludeThing></Filter></ObjectVisionRange><ObjectVisionRange Range='75'><Filter/></ObjectVisionRange></UnitAITargetChooserData>";
+        string chooser="<UnitAITargetChooserData TargetingCompareList='T\\23' CheckVisionRange='true' CanPickDynamicTargetType='ALL'><ObjectVisionRange id='Vision_Metadata' Range='25%'><Filter Include='ALL' StatusBitFlags='ALL'><IncludeThing>A</IncludeThing><ExcludeThing>B</ExcludeThing></Filter></ObjectVisionRange><ObjectVisionRange id='Vision_Metadata' Range='75'><Filter/></ObjectVisionRange></UnitAITargetChooserData>";
         for(int group=0;group<8;++group) {
             byte[] b=Check(original,p,"",AIUpdateXML(group)).InstanceData;int at=LifecycleAt(b,big),table=MotionTable(b,big);
             if(b.Length!=at+sizes[group] || Word(b,at,big)!=uint.Parse(AIUpdateTypes[group]))throw new Exception("Independent AI Update native type/size");
@@ -53,7 +53,7 @@ partial class GameObjectOracle {
             int aiTable=MotionTable(b,big);if(group!=0)aiTable=(int)Word(b,aiTable+8,big);int ct=(int)Word(b,Token(b,aiTable,607907585u,big)+8,big);AIUpdateSentinel(b,ct,2);
             if(Word(b,ct,big)!=1 || Word(b,ct+4,big)!=2856512412u)throw new Exception("Independent UnitChooser BaseChooser token parent");
             foreach(int count in new[]{0,1,2,27,28,29,65}) {
-                string body="";for(int i=0;i<count;++i)body+="<ObjectVisionRange Range='25%'><Filter Include='ALL' StatusBitFlags='ALL'><IncludeThing>A"+i+"</IncludeThing></Filter></ObjectVisionRange>";
+                string body="";for(int i=0;i<count;++i)body+="<ObjectVisionRange id='Vision_Metadata' Range='25%'><Filter Include='ALL' StatusBitFlags='ALL'><IncludeThing>A"+i+"</IncludeThing></Filter></ObjectVisionRange>";
                 Check(original,p,"Browser='a bb'",AIUpdateXML(group,"AttackPriority='a bb' SpecialContactPoints='one two three'","<UnitAITargetChooserData>"+body+"</UnitAITargetChooserData>"));
                 string modules="";for(int i=0;i<count;++i)modules+="<ObjectSMCHelper TypeId='"+AIUpdateTypes[group]+"' id='A"+i+"' AttackPriority='a bb' SpecialContactPoints='One Two'>"+chooser+"</ObjectSMCHelper>";
                 Check(original,p,"Browser='a bb'","<Behaviors>"+modules+"<FireWeaponUpdate TypeId='2995535186'><FireWeaponNugget WeaponName='W\\23'><Offset/></FireWeaponNugget></FireWeaponUpdate></Behaviors>");
@@ -61,7 +61,7 @@ partial class GameObjectOracle {
             foreach(var f in WeaponSetTurretFields)if(f.Name.StartsWith("chooser:") && f.Name!="chooser:ActiveWhenPerformingSpecialAbility" && f.Name!="chooser:CanAcquireDynamicIfAssignedOutOfRange" && f.Name!="chooser:CanPickTargetsOutOfTurretAngle") {
                 string field=f.Name.Substring(8);foreach(string value in AIUpdateSamples(f))Check(original,p,"",AIUpdateXML(group,"","<UnitAITargetChooserData "+field+"='"+Escape(value)+"'/>"));
             }
-            foreach(string value in AIUpdateSamples(new Field("Range","Percent")))Check(original,p,"",AIUpdateXML(group,"","<UnitAITargetChooserData><ObjectVisionRange Range='"+Escape(value)+"'/></UnitAITargetChooserData>"));
+            foreach(string value in AIUpdateSamples(new Field("Range","Percent")))Check(original,p,"",AIUpdateXML(group,"","<UnitAITargetChooserData><ObjectVisionRange id='Vision_Metadata' Range='"+Escape(value)+"'/></UnitAITargetChooserData>"));
             foreach(string path in new[]{"UnitAITargetChooserData","UnitAITargetChooserData/ObjectVisionRange","UnitAITargetChooserData/ObjectVisionRange/Filter"}) {
                 string[] parts=path.Split('/');string before="",after="";for(int i=0;i<parts.Length-1;++i){before+="<"+parts[i]+">";after="</"+parts[i]+">"+after;}
                 string name=parts[parts.Length-1];Check(original,p,"",AIUpdateXML(group,"",before+"<"+name+"/>"+after));

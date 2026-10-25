@@ -1,5 +1,5 @@
-PASS platform=0 fixtures=1978 arrayComparisons=11865 rejections=52 layoutAssertions=321
-PASS platform=1 fixtures=1978 arrayComparisons=11865 rejections=52 layoutAssertions=321
-PASS platform=2 fixtures=1978 arrayComparisons=11865 rejections=52 layoutAssertions=321
-PASS platform=99 fixtures=1978 arrayComparisons=11865 rejections=52 layoutAssertions=321
-PASS total fixtures=7912 arrayComparisons=47460 rejections=208 layoutAssertions=1284
+PASS platform=0 fixtures=1985 arrayComparisons=11907 rejections=52 layoutAssertions=321
+PASS platform=1 fixtures=1985 arrayComparisons=11907 rejections=52 layoutAssertions=321
+PASS platform=2 fixtures=1985 arrayComparisons=11907 rejections=52 layoutAssertions=321
+PASS platform=99 fixtures=1985 arrayComparisons=11907 rejections=52 layoutAssertions=321
+PASS total fixtures=7940 arrayComparisons=47628 rejections=208 layoutAssertions=1284

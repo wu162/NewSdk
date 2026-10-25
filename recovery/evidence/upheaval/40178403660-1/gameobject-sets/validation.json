@@ -1,0 +1,26 @@
+{
+  "runId": "40178403660",
+  "succeeded": true,
+  "modes": [
+    {
+      "platformSummaries": [
+        "PASS vision-metadata platform=0 fixtures=10821 comparisons=32463 rejections=284",
+        "PASS vision-metadata platform=1 fixtures=21642 comparisons=64926 rejections=568",
+        "PASS vision-metadata platform=2 fixtures=32463 comparisons=97389 rejections=852",
+        "PASS vision-metadata platform=99 fixtures=43284 comparisons=129852 rejections=1136"
+      ],
+      "mode": "Od"
+    },
+    {
+      "platformSummaries": [
+        "PASS vision-metadata platform=0 fixtures=10821 comparisons=32463 rejections=284",
+        "PASS vision-metadata platform=1 fixtures=21642 comparisons=64926 rejections=568",
+        "PASS vision-metadata platform=2 fixtures=32463 comparisons=97389 rejections=852",
+        "PASS vision-metadata platform=99 fixtures=43284 comparisons=129852 rejections=1136"
+      ],
+      "mode": "O2"
+    }
+  ],
+  "scope": "vision-metadata",
+  "sourceCommit": "0afc6eb49d81b61b9840e21d0edd840d5f0f0de3"
+}
