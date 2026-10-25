@@ -1,0 +1,27 @@
+name: Extract remaining W3D Draw original contracts
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - 'recovery/scripts/ExportW3DDrawMethods.py'
+      - '.github/workflows/w3d-draw-source.yml'
+permissions:
+  contents: read
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python recovery/scripts/ExportW3DDrawMethods.py
+      - name: Emit original method archive
+        run: |
+          python - <<'PYCODE'
+          import json,pathlib
+          p=pathlib.Path('recovery/evidence/gameobject-modules/draw-source')
+          print('DRAW_METHOD_ARCHIVE='+json.dumps({str(f):f.read_text() for f in sorted(p.iterdir())}))
+          PYCODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: original-w3d-draw-source
+          path: recovery/evidence/gameobject-modules/draw-source
