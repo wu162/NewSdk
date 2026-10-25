@@ -1,0 +1,112 @@
+{
+  "originalCpuValidated": true,
+  "xmaEncodingRecovered": false,
+  "audioFileXmaRouteEnabled": false,
+  "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sdkValidated": false,
+  "actualEncoderStates": 0,
+  "oracleSha256": "277fadf94d9106c7d3875eced6bd0523e40c04738c0ae945a3a2de221a2d97c7",
+  "runAttempt": "1",
+  "scope": "Complete bounded raw XMA packet lifecycle and native bitsplice, synthetic codec states and real original CPU",
+  "nativeRvas": [
+    "0x5dc70",
+    "0x5dcf0",
+    "0x5ddb0",
+    "0x5c270",
+    "0x5c390",
+    "0x5c3b0"
+  ],
+  "status": "passed",
+  "modes": [
+    {
+      "candidateSafetyRejections": 15,
+      "summary": "PASS candidate raw XMA packet lifecycle and bitsplice: 1106 exact cases (1098 synthetic states:960 copy,24 header,60 next,30 padding,12 set/clear,12 complete two-packet sequences;8 accepted real raw payload inputs); full state/stream-slot/packet bytes, source immutability and guards; actualEncoderStates=0; no encoding support; 15 pre-write safety rejections",
+      "records": 1106,
+      "configuration": "Debug",
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "5526e644344bb47423560e2fd243ec7965cbc298bca790d49abc9d0645b8099f"
+    },
+    {
+      "candidateSafetyRejections": 15,
+      "summary": "PASS candidate raw XMA packet lifecycle and bitsplice: 1106 exact cases (1098 synthetic states:960 copy,24 header,60 next,30 padding,12 set/clear,12 complete two-packet sequences;8 accepted real raw payload inputs); full state/stream-slot/packet bytes, source immutability and guards; actualEncoderStates=0; no encoding support; 15 pre-write safety rejections",
+      "records": 1106,
+      "configuration": "Release",
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "1fabfcba76a4eed1edecc085ed0e0cbadf8309920218ee2dfb2ccb7909a6e0f2"
+    }
+  ],
+  "rawInputs": [
+    {
+      "case": "xma-1-257-ram",
+      "sha256": "748172eda8832b8e2ada4ec9075f64b4f6e63e0bd0a560431f913076861ac6f9",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-1-257-stream",
+      "sha256": "748172eda8832b8e2ada4ec9075f64b4f6e63e0bd0a560431f913076861ac6f9",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-1-4096-ram",
+      "sha256": "4898badafaaf0a49b1ba2002652147deea9fb52f5f1bd6a85fce0acc1fe95fd7",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-1-4096-stream",
+      "sha256": "4898badafaaf0a49b1ba2002652147deea9fb52f5f1bd6a85fce0acc1fe95fd7",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-2-257-ram",
+      "sha256": "f03bd2749092eea75a04824347e5e9b48e76ceaa60a2a5944270dbca8f31ab58",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-2-257-stream",
+      "sha256": "f03bd2749092eea75a04824347e5e9b48e76ceaa60a2a5944270dbca8f31ab58",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-2-4096-ram",
+      "sha256": "eaad2219e663e81c9f628bb4459e93044137fe2ea0d107c63276c92a501365ea",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    },
+    {
+      "case": "xma-2-4096-stream",
+      "sha256": "eaad2219e663e81c9f628bb4459e93044137fe2ea0d107c63276c92a501365ea",
+      "runId": "40232525056",
+      "runAttempt": "1",
+      "sourceCommit": "cd66d9a2c821bc41f1f975aac8ac0a5bac6a6499",
+      "length": 2048
+    }
+  ],
+  "runId": "40236037500",
+  "syntheticStateRecords": 1098,
+  "rawCodecReceiptSha256": "3ee425fb3ad857154c8673d717268dc514435686301240469553cd3c2685841b",
+  "realRawPacketInputs": 8,
+  "completeTwoPacketSequences": 12
+}

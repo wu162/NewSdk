@@ -1,0 +1,2 @@
+x87 physicalCW=0x027f originalPhysicalCW=0x027f
+PASS original table-backed XMA DCT-IV: 360 synthetic output-bit/HRESULT/shift comparisons; realSnapshots=111; six sizes64..2048 domain; actual original CPU and original FFT; no wrapper/quantizer/codec/SDK acceptance

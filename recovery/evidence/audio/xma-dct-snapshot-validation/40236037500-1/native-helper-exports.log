@@ -1,0 +1,30 @@
+
+Dump of file D:\a\_temp\audio-xma-dct-snapshot-3e1f5d602a924259bf02b795afa0536f\AudioXmaDctSnapshotNative.dll
+
+File Type: DLL
+
+  Section contains the following exports for AudioXmaDctSnapshotNative.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+           6 number of functions
+           6 number of names
+
+    ordinal hint RVA      name
+
+          1    0 000011D0 DctConfigure
+          2    1 000011E0 DctCount
+          3    2 00001200 DctHook
+          4    3 00001210 DctRecord
+          5    4 00001240 DctSetCase
+          6    5 00001250 DctSize
+
+  Summary
+
+      407000 .data
+        1000 .fptable
+        7000 .rdata
+        1000 .reloc
+        D000 .text

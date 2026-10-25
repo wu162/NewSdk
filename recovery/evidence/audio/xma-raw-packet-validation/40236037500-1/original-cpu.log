@@ -1,0 +1,1 @@
+PASS original raw XMA packet lifecycle and bitsplice: 1106 exact cases (1098 synthetic states:960 copy,24 header,60 next,30 padding,12 set/clear,12 complete two-packet sequences;8 accepted real raw payload inputs); full state/stream-slot/packet bytes, source immutability and guards; actualEncoderStates=0; no encoding support

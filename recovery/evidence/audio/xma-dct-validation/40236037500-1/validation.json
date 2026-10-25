@@ -1,0 +1,43 @@
+{
+  "sizes": 6,
+  "realSnapshotInputsAndOutputsVerified": true,
+  "patterns": 6,
+  "audioFileXmaRouteEnabled": false,
+  "sourceCommit": "d3f96009e64b44c4d9482421cc5922b3309320bc",
+  "sdkValidated": false,
+  "status": "passed",
+  "realOnly": false,
+  "scales": 10,
+  "realSnapshotsReplayed": 111,
+  "recordsPerConfiguration": 360,
+  "scope": "Complete table-backed XMA DCT-IV 0xa81db sizes64..2048 powers of two",
+  "xmaEncoderRecovered": false,
+  "runAttempt": "1",
+  "oracleSha256": "2bd4244ac56cc4b0cde8d964d706adc7decacb8d4db1d79309667981ea8cf3fd",
+  "originalCpuValidated": true,
+  "snapshotsDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\audio\\xma-dct-snapshot-validation\\40236037500-1\\transforms",
+  "physicalX87ControlWord": "0x027f",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "modes": [
+    {
+      "summary": "PASS candidate table-backed XMA DCT-IV: 360 synthetic output-bit/HRESULT/shift comparisons; realSnapshots=111; six sizes64..2048 domain; nine separate safety refusals; recovered FFT; original DLL absent; no wrapper/quantizer/codec/SDK acceptance",
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "passed": true,
+      "records": 360,
+      "candidateSafetyRejections": 9,
+      "recoveredSha256": "fbcb128a41488074bb7997601a5a54de14359323eb32fe4432bd549611ca6e3b"
+    },
+    {
+      "summary": "PASS candidate table-backed XMA DCT-IV: 360 synthetic output-bit/HRESULT/shift comparisons; realSnapshots=111; six sizes64..2048 domain; nine separate safety refusals; recovered FFT; original DLL absent; no wrapper/quantizer/codec/SDK acceptance",
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "passed": true,
+      "records": 360,
+      "candidateSafetyRejections": 9,
+      "recoveredSha256": "b0713ae1b7b9dfcb8baa97e3596b9be0dc25e5089de560fd7ede7eab77213a5a"
+    }
+  ],
+  "runId": "40236037500",
+  "realSnapshotsExpected": 111
+}
