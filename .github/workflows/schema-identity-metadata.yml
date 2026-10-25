@@ -1,0 +1,48 @@
+name: Schema identity metadata audit and affected component differential
+on:
+  push:
+    branches: [validation/upheaval-recovered-apt-global]
+    paths:
+      - '.github/workflows/schema-identity-metadata.yml'
+      - 'recovery/scripts/AuditSchemaIdentityMetadata.py'
+      - 'recovery/catalog/SchemaIdentityMetadata.json'
+      - 'recovery/src/Native/Xmlprogression.cpp'
+      - 'recovery/tests/XmlprogressionCases.cs'
+permissions:
+  contents: write
+jobs:
+  metadata:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Audit all schema ID declarations and nested identity inheritance
+        shell: pwsh
+        run: python recovery/scripts/AuditSchemaIdentityMetadata.py --check recovery/catalog/SchemaIdentityMetadata.json
+      - name: Compare affected progression components with original DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestXmlprogression.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: identity-metadata-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/xml-progression
+            recovery/catalog/SchemaIdentityMetadata.json
+      - name: Preserve component evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add recovery/evidence/xml-progression
+          if(git diff --cached --quiet){exit 0}
+          git commit -m "Record identity metadata component evidence for $env:GITHUB_SHA"
+          if($LASTEXITCODE -ne 0){throw 'Evidence commit failed'}
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if($LASTEXITCODE -ne 0){throw 'Concurrent update; artifact retained'}
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if($LASTEXITCODE -ne 0){throw 'Evidence push failed'}

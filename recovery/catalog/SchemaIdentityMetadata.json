@@ -1,0 +1,295 @@
+{
+  "schemaFiles": 821,
+  "namedComplexTypes": 1349,
+  "schemaFingerprintLf": "792d79706a1533971b4e76b2ef6a463af750e6cbd8ea51f21695ecda0799cf61",
+  "scope": "ID declaration/inheritance coverage; not runtime acceptance or a global ignore list",
+  "explicitIdPolicies": [
+    {
+      "type": "AIBuildDelayRange",
+      "file": "SkirmishAI/AssetTypeAIPersonalityDefinition.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "AISpecialPowerInfo",
+      "file": "SkirmishAI/AssetTypeAISpecialPower.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "AIStateTactic",
+      "file": "SkirmishAI/AssetTypeAIStateDefinition.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "ArmorTemplateSet",
+      "file": "AssetTypeGameObject.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "BaseAssetType",
+      "file": "Base/AssetBase.xsd",
+      "base": null,
+      "policy": "asset-identity",
+      "pipelineOnly": false
+    },
+    {
+      "type": "CrusherInfo",
+      "file": "AssetTypeGameObject.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "GameDependencyType",
+      "file": "Includes/GameDependency.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "GameScript",
+      "file": "AssetTypeGameScriptList.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "GameScriptGroup",
+      "file": "AssetTypeGameScriptList.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "LocomotorSet",
+      "file": "AssetTypeGameObject.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "MapObject",
+      "file": "AssetTypeGameMap.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "MetaDataObject",
+      "file": "Includes/MetaDataCommon.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "ModelConditionState",
+      "file": "Modules/BaseModules.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "ModuleData",
+      "file": "Modules/BaseModules.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "ObjectFilter",
+      "file": "Includes/ObjectFilter.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "ParticleSysBone",
+      "file": "Modules/BaseModules.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "RoadObject",
+      "file": "AssetTypeGameMap.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "TerrainAsset",
+      "file": "AssetTypeTerrainAsset.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    },
+    {
+      "type": "TestModuleA",
+      "file": "AssetTypePipelineTestType.xsd",
+      "base": null,
+      "policy": "excluded-test-schema",
+      "pipelineOnly": false
+    },
+    {
+      "type": "TestModuleB",
+      "file": "AssetTypePipelineTestType.xsd",
+      "base": null,
+      "policy": "excluded-test-schema",
+      "pipelineOnly": false
+    },
+    {
+      "type": "WeaponEffectNugget",
+      "file": "AssetTypeWeaponTemplate.xsd",
+      "base": null,
+      "policy": "flow-identity",
+      "pipelineOnly": true
+    },
+    {
+      "type": "WeatherData",
+      "file": "AssetTypeWeather.xsd",
+      "base": null,
+      "policy": "preserve-serializer-field",
+      "pipelineOnly": false
+    }
+  ],
+  "nestedAssetIdentityUses": [
+    {
+      "element": "BudgetState",
+      "type": "AIBudgetState",
+      "file": "SkirmishAI/AssetTypeAIPersonalityDefinition.xsd"
+    },
+    {
+      "element": "BuildState",
+      "type": "AIBuildState",
+      "file": "SkirmishAI/AssetTypeAIPersonalityDefinition.xsd"
+    },
+    {
+      "element": "StrategicState",
+      "type": "AIStrategicState",
+      "file": "SkirmishAI/AssetTypeAIPersonalityDefinition.xsd"
+    },
+    {
+      "element": "GameStatsModeData",
+      "type": "GameStatsModeData",
+      "file": "AssetTypeMultiplayerSettings.xsd"
+    },
+    {
+      "element": "LivingWorldMicSettings",
+      "type": "MicrophoneSettings",
+      "file": "Includes/AudioSettings.xsd"
+    },
+    {
+      "element": "ShellMicSettings",
+      "type": "MicrophoneSettings",
+      "file": "Includes/AudioSettings.xsd"
+    },
+    {
+      "element": "TacticalMicSettings",
+      "type": "MicrophoneSettings",
+      "file": "Includes/AudioSettings.xsd"
+    },
+    {
+      "element": "ObjectVisionRange",
+      "type": "ObjectVisionRangeItem",
+      "file": "Modules/UnitAITargetChooser.xsd"
+    }
+  ],
+  "allPipelineOnlyDeclarations": [
+    {
+      "type": "AIBuildDelayRange",
+      "attribute": "id",
+      "file": "SkirmishAI/AssetTypeAIPersonalityDefinition.xsd"
+    },
+    {
+      "type": "AISpecialPowerInfo",
+      "attribute": "id",
+      "file": "SkirmishAI/AssetTypeAISpecialPower.xsd"
+    },
+    {
+      "type": "ArmorTemplateSet",
+      "attribute": "id",
+      "file": "AssetTypeGameObject.xsd"
+    },
+    {
+      "type": "CrusherInfo",
+      "attribute": "id",
+      "file": "AssetTypeGameObject.xsd"
+    },
+    {
+      "type": "GameDependencyType",
+      "attribute": "id",
+      "file": "Includes/GameDependency.xsd"
+    },
+    {
+      "type": "LocomotorSet",
+      "attribute": "id",
+      "file": "AssetTypeGameObject.xsd"
+    },
+    {
+      "type": "OnDemandTexture",
+      "attribute": "AllowAutomaticResize",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "OnDemandTexture",
+      "attribute": "File",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "OnDemandTexture",
+      "attribute": "GenerateMipMaps",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "OnDemandTexture",
+      "attribute": "OutputFormat",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "StringHashTable",
+      "attribute": "Version",
+      "file": "AssetTypeStringHashTable.xsd"
+    },
+    {
+      "type": "Texture",
+      "attribute": "AllowAutomaticResize",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "Texture",
+      "attribute": "GenerateMipMaps",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "Texture",
+      "attribute": "OutputFormat",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "Texture",
+      "attribute": "Type",
+      "file": "AssetTypeTexture.xsd"
+    },
+    {
+      "type": "WeaponEffectNugget",
+      "attribute": "id",
+      "file": "AssetTypeWeaponTemplate.xsd"
+    }
+  ],
+  "rules": [
+    "Keep unqualified ID handling type-specific; qualified foreign attributes stay rejected.",
+    "Check XSD inheritance separately from global compiler/root registration.",
+    "A pipeline-only value may affect compilation even if it is not a runtime struct member.",
+    "Never strip ObjectFilter/ModuleData/AIStateTactic/model-state IDs globally.",
+    "Positive integration fixtures must include required nested identity attributes.",
+    "Run changed metadata paths against original DLL first; then one SDK batch if needed."
+  ]
+}
+
