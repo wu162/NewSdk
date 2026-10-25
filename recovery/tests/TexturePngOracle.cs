@@ -215,6 +215,30 @@ internal static unsafe class TexturePngOracle
             if (!probe) throw new InvalidDataException("PNG pixels/alpha differ: " + label);
         }
     }
+    private static void FormatControls(string work)
+    {
+        Directory.CreateDirectory(work);
+        using (var bitmap = new System.Drawing.Bitmap(16, 8))
+        {
+            for (int y=0;y<8;y++)for(int x=0;x<16;x++)bitmap.SetPixel(x,y,System.Drawing.Color.FromArgb((x*37+y*17)&255,x*17,y*31,71));
+            bitmap.Save(Path.Combine(work,"system.png"),System.Drawing.Imaging.ImageFormat.Png);
+            bitmap.Save(Path.Combine(work,"system.bmp"),System.Drawing.Imaging.ImageFormat.Bmp);
+            bitmap.Save(Path.Combine(work,"system.jpg"),System.Drawing.Imaging.ImageFormat.Jpeg);
+            bitmap.Save(Path.Combine(work,"system.gif"),System.Drawing.Imaging.ImageFormat.Gif);
+        }
+        File.WriteAllBytes(Path.Combine(work,"generated.png"),Fixture(16,8,8,6,0,0,0,0));
+        File.WriteAllBytes(Path.Combine(work,"generated.tga"),Fixture(16,8,8,6,0,0,0,0));
+        byte[] tga=new byte[18+16*8*4];tga[2]=2;tga[12]=16;tga[14]=8;tga[16]=32;tga[17]=40;
+        for(int n=18;n<tga.Length;n++)tga[n]=(byte)(n*13);
+        File.WriteAllBytes(Path.Combine(work,"control.tga"),tga);
+        foreach(string file in Directory.GetFiles(work))
+        {
+            try { var result=Original(file); Console.WriteLine("FORMAT "+Path.GetFileName(file)+" accepted="+result.Width+"x"+result.Height+" alpha="+result.HasAlpha+" pixels="+Hash(result.Pixels)); }
+            catch(Exception e){while(e is TargetInvocationException&&e.InnerException!=null)e=e.InnerException;Console.WriteLine("FORMAT "+Path.GetFileName(file)+" rejected="+e.GetType().FullName+"/"+e.Message);}
+        }
+        File.Copy(Path.Combine(work,"system.png"),Path.Combine(Path.GetDirectoryName(work),"system.png"),true);
+        Console.WriteLine("PROBE Texture native format controls complete");
+    }
     private static int Main(string[] args)
     {
         try
@@ -224,6 +248,7 @@ internal static unsafe class TexturePngOracle
             AppDomain.CurrentDomain.AssemblyResolve += delegate(object sender, ResolveEventArgs e) { string p = Path.Combine(directory, new AssemblyName(e.Name).Name + ".dll"); return File.Exists(p) ? Assembly.LoadFrom(p) : null; };
             Check(IntPtr.Size == 4, "x86 process required"); Bind(Assembly.LoadFrom(input), input);
             Directory.CreateDirectory(args[2]);
+            if(args.Length>3 && args[3]=="--formats"){FormatControls(args[2]);return 0;}
             using (StreamWriter transcript = new StreamWriter(args[1]))
             {
                 foreach (int color in new int[] { 0, 2, 3, 4, 6 }) foreach (int depth in new int[] { 1, 2, 4, 8, 16 })

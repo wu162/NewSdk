@@ -19,10 +19,11 @@ try{
         Copy-Item "$work/build-$mode/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $work -Force
         $dll="$work/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
         $optimize=if($mode -eq 'Release'){'/optimize+'}else{'/optimize-'}
-        Run "$mode-oracle-build" {& $csc /nologo /unsafe /platform:x86 $optimize /r:$dll /out:"$work/TexturePngOracle.exe" (Resolve-Path recovery/tests/TexturePngOracle.cs).Path}
+        Run "$mode-oracle-build" {& $csc /nologo /unsafe /platform:x86 $optimize /r:System.Drawing.dll /r:$dll /out:"$work/TexturePngOracle.exe" (Resolve-Path recovery/tests/TexturePngOracle.cs).Path}
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$work/TexturePngOracle.exe.config"
-        $probeFlag=if($ProbeOnly){'--probe'}else{'--strict'}
+        $probeFlag=if($ProbeOnly){'--formats'}else{'--strict'}
         Run "$mode-oracle" {& "$work/TexturePngOracle.exe" "$work/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-transcript.txt" "$work/fixtures-$mode" $probeFlag}
+        if(!(Test-Path "$out/$mode-transcript.txt")){Set-Content "$out/$mode-transcript.txt" "Native format controls; see oracle log"}
         $summary = @(Get-Content "$out/$mode-oracle.log" | Where-Object {$_ -match '^(PASS|PROBE Texture)'})
         $counts=@{}
         foreach($metric in @('fixtures','decodedMatches','originalFailures','mismatches','assertions')){
@@ -31,6 +32,7 @@ try{
         }
         $receipt.configurations+=@{configuration=$mode;passed=(!$ProbeOnly);probeCompleted=[bool]$ProbeOnly;summary=$summary;counts=$counts;transcriptSha256=(Get-FileHash "$out/$mode-transcript.txt").Hash.ToLowerInvariant()}
     }
+    if($ProbeOnly){Copy-Item "$work/system.png" "$out/system.png"}
     Compress-Archive -Path "$out/*-transcript.txt" -DestinationPath "$out/transcripts.zip"
     Remove-Item "$out/*-transcript.txt"
     $receipt.status=if($ProbeOnly){'probe-only'}else{'passed'}
