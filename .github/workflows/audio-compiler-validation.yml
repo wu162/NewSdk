@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: "!contains(github.event.head_commit.message, '[audio-resampler]')"
+    if: "!contains(github.event.head_commit.message, '[audio-resampler]') && !contains(github.event.head_commit.message, '[audio-xma-packet]')"
     runs-on: windows-2022
     timeout-minutes: 25
     steps:
