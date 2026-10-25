@@ -1,0 +1,1 @@
+<PlayerTech id="PlayerTech_Allied_ChronoRift_Rank1" TechPointsRequired="1" TypeId="2131237081" xmlns="uri:ea.com:eala:asset"><TechDependency TypeId="3686731743">PlayerTech_Allied_SatelliteSweep\0</TechDependency><TechDependency TypeId="3686731743">PlayerTech_Generic_Rank_2\1</TechDependency></PlayerTech>

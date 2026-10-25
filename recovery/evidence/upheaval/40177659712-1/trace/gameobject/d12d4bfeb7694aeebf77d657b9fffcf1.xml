@@ -1,0 +1,4 @@
+<GameObject id="BaseObject" TypeId="2486173485" xmlns="uri:ea.com:eala:asset"><Behaviors TypeId="620546786"><!-- SMC = Special Model Condition, any object wishing to have a timed model condition
+				 must have one of these modules --><ObjectSMCHelper id="ObjectSMCHelper" TypeId="2138239554" /><!-- The defection system needs to be redone, at which point
+				 this should be moved to a base object further down the 
+				 inheritance tree --><ObjectDefectionHelper id="ObjectDefectionHelper" TypeId="413409423" /></Behaviors><Body TypeId="2947372788"><ActiveBody id="DefaultBody" TypeId="1510882715" /></Body></GameObject>

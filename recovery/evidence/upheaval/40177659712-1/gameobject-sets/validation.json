@@ -1,0 +1,26 @@
+{
+  "scope": "locomotor-sets",
+  "runId": "40177659712",
+  "sourceCommit": "2ba2c5feb2d23a4c0854d41797dd8bb869d98f51",
+  "succeeded": true,
+  "modes": [
+    {
+      "mode": "Od",
+      "platformSummaries": [
+        "PASS locomotor-sets platform=0 fixtures=170 comparisons=510 rejections=6",
+        "PASS locomotor-sets platform=1 fixtures=340 comparisons=1020 rejections=12",
+        "PASS locomotor-sets platform=2 fixtures=510 comparisons=1530 rejections=18",
+        "PASS locomotor-sets platform=99 fixtures=680 comparisons=2040 rejections=24"
+      ]
+    },
+    {
+      "mode": "O2",
+      "platformSummaries": [
+        "PASS locomotor-sets platform=0 fixtures=170 comparisons=510 rejections=6",
+        "PASS locomotor-sets platform=1 fixtures=340 comparisons=1020 rejections=12",
+        "PASS locomotor-sets platform=2 fixtures=510 comparisons=1530 rejections=18",
+        "PASS locomotor-sets platform=99 fixtures=680 comparisons=2040 rejections=24"
+      ]
+    }
+  ]
+}
