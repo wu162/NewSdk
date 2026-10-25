@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.Utility</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net20</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BinaryAssetBuilder.Utility/**/*.cs" />
+    <Compile Include="AssetStream/*.cs" />
+    <Compile Include="Properties/AssemblyInfo.cs" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Target Name="RestoreCppCliIdentity" AfterTargets="Build">
+    <Exec Command="dotnet run --project &quot;$(MSBuildThisFileDirectory)../../../tools/UtilityIdentity/UtilityIdentity.csproj&quot; --configuration Release -- &quot;$(TargetPath)&quot; &quot;$(MSBuildThisFileDirectory)../../../../SDK/tools/BinaryAssetBuilder.Utility.dll&quot;" />
+  </Target>
+</Project>
