@@ -220,6 +220,8 @@ class XmlpowersOracle
     {
         string filter = "<ObjectFilter Rule='ALL' Relationship='ALLIES' Include='INFANTRY' StatusBitFlags='UNSELECTABLE'><IncludeThing>Tank</IncludeThing><ExcludeThing>Jet</ExcludeThing></ObjectFilter>";
         Test("power/full-filters", Power("", filter + filter.Replace("ObjectFilter", "ForbiddenObjectFilter")), platform);
+        foreach(string id in new[]{"Dependency_Metadata","MiXeD_Id",""})
+            Test("power/dependency-pipeline-id/"+id, Power("", "<GameDependency id='"+id+"'><RequiredObject>Tank</RequiredObject></GameDependency>"), platform);
         Test("power/dependency", Power("", "<GameDependency RequiredModelConditionsAny='MOVING' ForbiddenModelConditions='DAMAGED' RequiredObjectStatusAny='UNSELECTABLE'><RequiredObject>Tank</RequiredObject><RequiredObject>tank</RequiredObject><ForbiddenUpgrade>Upg</ForbiddenUpgrade><NeededUpgrade>Other</NeededUpgrade>" + filter + "</GameDependency><ForbiddenPlayerTech>Tech\\3</ForbiddenPlayerTech><ForbiddenPlayerTech>Tech\\0</ForbiddenPlayerTech>"), platform);
         foreach (string attr in new string[] { "RequiredModelConditionsAny", "ForbiddenModelConditions", "RequiredObjectStatusAny" })
             foreach (string value in new string[] { "", "ALL", "unknown", "+MOVING -MOVING -MOVING" })

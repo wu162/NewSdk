@@ -47,6 +47,8 @@ public ref class GameObjectCompiler abstract sealed {
         auto a=node->Clone();
         if(a->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(a) || (a->NamespaceURI->Length==0 && a->LocalName=="TypeId")) continue;
+            // GameDependencyType.id is pipelineOnly, not a Token/native field.
+            if(a->NamespaceURI->Length==0 && a->LocalName=="id") continue;
             if(a->NamespaceURI->Length!=0 || Array::IndexOf<String^>(allowed,a->LocalName)<0) throw gcnew NotSupportedException("Unsupported GameDependency attribute.");
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         } while(a->MoveToNextAttribute());
@@ -235,7 +237,9 @@ public ref class GameObjectCompiler abstract sealed {
         if((kind==278 && path=="CanEnterFilter") || (kind>=280 && kind<=282 && (path=="FadeFilter" || path=="PassengerFilter" || path=="PassengerData/Filter")) || (kind>=270 && kind<=277 && (path=="PassengerFilter" || path=="PassengerData/Filter" || (kind==277 && path=="CanAlwaysEnterObjectFilter"))) || (kind==254 && (path=="InstaKillObjectFilter" || path=="CollidesWithOnTeleport")) || (kind==256 && path=="Filter") || (kind==259 && (path=="Filter" || path=="KillFilter")) || (kind==262 && path=="ObjectEffectTuple/ObjectFilter") || (kind==247 && (path=="AllowFilter" || path=="ContainerFilter")) || (kind==249 && path=="Queries/ObjectFilter") || (kind==250 && (path=="TauntAndPointExcluded" || path=="AfraidOf" || path=="AlwaysAfraidOf" || path=="PointAt")) || (kind==224 && path=="PreventEnteringFilter") || (kind==217 && path=="ReplaceObjectNugget/TargetObjectFilter") || (kind==218 && (path=="ObjectFilter" || path=="IgnoreInsideToInsideCheck")) || (kind==214 && (path=="NearestSecondaryObjectFilter" || path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || (kind==206 && path=="AttributeModifierAffects") || (kind==207 && path=="AcceptanceFilter") || (kind==198 && path=="NearestSecondaryObjectFilter") || (((kind>=198 && kind<=199) || (kind>=162 && kind<=190)) && (path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || ((kind>=165 && kind<=187) && (path=="CombineWithObjectFilter" || path=="AcceptObjectFilter")) || ((kind>=162 && kind<=190) && (path=="AttributeModifierAffects" || path=="RequirementsFilterMP" || path=="RequirementsFilterStrategic")) || (kind==119 && (path=="HintObject/ObjectFilter" || path=="PlacementRestriction/RestrictedObjectFilter")) || (kind==120 && path=="RequirementObjectFilter") || ((kind==112 || kind==115 || kind==116) && path=="ForVoiceRetreatThisIsASafeHarborToObjectFilter") || (kind==118 && path=="Filter") || path=="ObjectFilter" || path=="BroadcastObjectFilter" || path=="ProductionModifier/ModifierFilter" || (kind==103 && path=="BlockingUnits") || (kind==129 && path=="CanParkHereFilter") || (kind==137 && path=="ConnectingObjectFilter") || (kind==141 && path=="AcceptableFriends") || (kind==146 && path=="RequiresNearbyObjectFilter") || (kind==149 && (path=="DamageFilter" || path=="HealFilter")) || (kind==151 && path=="Filter") || (kind==161 && path=="KeepAliveObjectFilter") || ((kind==91 || (kind>=104 && kind<=111)) && path.size()>=7 && path.substr(path.size()-7)=="/Filter")) {auto filter=ReadDependencyFilter(node);filter.name=marshal_as<std::string>(node->LocalName);return filter;}
         auto attrs=node->Clone();if(attrs->MoveToFirstAttribute()) do {
             if(IsXmlContextAttribute(attrs) || (attrs->NamespaceURI->Length==0 && attrs->LocalName=="TypeId")) continue;
-            if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectModuleNodeAttribute(kind,path,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException("Unsupported Upgrade nested attribute.");
+            // Shared chooser ObjectVisionRangeItem inherits BaseAssetType.id identity metadata; original Marshal ignores it.
+            if(node->LocalName=="ObjectVisionRange" && attrs->NamespaceURI->Length==0 && attrs->LocalName=="id") continue;
+            if(attrs->NamespaceURI->Length!=0 || !Native::GameObjectModuleNodeAttribute(kind,path,marshal_as<std::string>(attrs->LocalName))) throw gcnew NotSupportedException(String::Format("Unsupported module nested attribute: kind={0} path={1} attribute={2}",kind,gcnew String(path.c_str()),attrs->LocalName));
             result.attributes[marshal_as<std::string>(attrs->LocalName)]=marshal_as<std::string>(attrs->Value);
         }while(attrs->MoveToNextAttribute());
         auto seen=gcnew System::Collections::Generic::HashSet<String^>();auto children=node->SelectChildren(XPathNodeType::Element);
@@ -364,6 +368,8 @@ public:
                 if(IsXmlContextAttribute(a)) continue;
                 if(a->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject child attribute.");
                 if(a->LocalName=="TypeId") continue;
+                // ArmorTemplateSet.id and LocomotorSet.id are pipelineOnly in AssetTypeGameObject.xsd.
+                if((name=="ArmorSet" || name=="LocomotorSet") && a->LocalName=="id") continue;
                 bool allowed=(name=="AutoResolveArmor" && a->LocalName=="Armor") || (name=="AutoResolveWeapon" && a->LocalName=="Weapon") || (name=="DisplayColor" && (a->LocalName=="R" || a->LocalName=="G" || a->LocalName=="B" || a->LocalName=="A")) ||
                     (name=="Flammability" && (a->LocalName=="Fuel" || a->LocalName=="MaxBurnRate" || a->LocalName=="Decay" || a->LocalName=="Resistance")) ||
                     (name=="LiveCameraOffset" && (a->LocalName=="x" || a->LocalName=="y" || a->LocalName=="z")) ||
@@ -371,7 +377,7 @@ public:
                     (name=="LocomotorSet" && (a->LocalName=="Speed" || a->LocalName=="Condition" || a->LocalName=="Locomotor"));
                 allowed=allowed || Native::GameObjectLeafAttributeSupported(item.name,marshal_as<std::string>(a->LocalName));
                 if(!allowed)
-                    throw gcnew NotSupportedException("Unsupported GameObject child attribute.");
+                    throw gcnew NotSupportedException("Unsupported GameObject child attribute: "+name+"."+a->LocalName);
                 item.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
             } while(a->MoveToNextAttribute());
             if((name=="ReplaceModule" || name=="InheritableModule" || name=="DisplayColor" || name=="Flammability" || name=="LiveCameraOffset" || name=="ArmorSet" || name=="LocomotorSet" || name=="FormationPreviewDecal" || name=="FormationPreviewItemDecal" || name=="ShadowInfo" || name=="VisionInfo" || name=="AutoResolveInfo") && child->Value->Trim()->Length!=0) throw gcnew NotSupportedException("Unexpected text in structured GameObject child.");

@@ -171,7 +171,7 @@ struct Builder {
  }
  void Dependency(const XmlpowersNode* n,unsigned char* field){
  if(!n)return;
- for(const auto& a:n->attributes)Check(In(a.first,"RequiredModelConditionsAny|ForbiddenModelConditions|RequiredObjectStatusAny"),"Unknown dependency attribute");
+ for(const auto& a:n->attributes)Check(In(a.first,"id|RequiredModelConditionsAny|ForbiddenModelConditions|RequiredObjectStatusAny"),"Unknown dependency attribute");
  Check(White(n->text),"Unexpected dependency text");
  for(const auto& c:n->children)Check(In(c.name,"RequiredObject|ForbiddenUpgrade|NeededUpgrade|ObjectFilter"),"Unknown dependency child");
  auto p=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(field),40,1));
