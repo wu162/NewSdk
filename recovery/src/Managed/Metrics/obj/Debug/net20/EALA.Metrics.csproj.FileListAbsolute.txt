@@ -1,0 +1,8 @@
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\bin\Debug\net20\EALA.Metrics.dll
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\bin\Debug\net20\EALA.Metrics.pdb
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.csproj.AssemblyReference.cache
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.GeneratedMSBuildEditorConfig.editorconfig
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.csproj.CoreCompileInputs.cache
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.sourcelink.json
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.dll
+D:\a\NewSdk\NewSdk\recovery\src\Managed\Metrics\obj\Debug\net20\EALA.Metrics.pdb
