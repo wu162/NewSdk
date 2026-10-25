@@ -13,6 +13,18 @@ function Run-Checked([string]$Label, [scriptblock]$Action) {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$Label.log" -Tail 100; throw "$Label failed ($LASTEXITCODE)" }
     Get-Content "$out/$Label.log" | Where-Object { $_ -match '^PASS' }
 }
+$script:failureList = @()
+$receipt.groups = @()
+function Invoke-Group([string]$Name, [scriptblock]$Action) {
+    try {
+        & $Action
+        $receipt.groups += @{group=$Name; passed=$true}
+    } catch {
+        $script:failureList += $Name
+        $receipt.groups += @{group=$Name; passed=$false; error=$_.ToString()}
+        Write-Warning "$Name failed; collecting other independent component results: $_"
+    }
+}
 function Host-Config([string]$Executable) {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$Executable.config"
 }
@@ -39,30 +51,39 @@ try {
         $dll = "$rebuilt/Recovered.BinaryAssetBuilder.TextureCompiler.dll"
         Copy-Item "$work/build-$mode/Recovered.BinaryAssetBuilder.TextureCompiler.dll" $dll
         Copy-Item "$original/TextureDdsOracle.exe*" $rebuilt
-        Run-Checked "$mode-metadata" { & "$original/TextureMetadataOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" $dll }
+        Invoke-Group "$mode-metadata" { Run-Checked "$mode-metadata" { & "$original/TextureMetadataOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" $dll } }
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
+        Invoke-Group "$mode-image" {
         Run-Checked "$mode-image-build" { & $csc /nologo /unsafe /platform:x86 $optimize /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/TextureImageRulesOracle-$mode.exe" (Resolve-Path "recovery/tests/TextureImageRulesOracle.cs").Path (Resolve-Path "src/TextureCompiler/Managed/TextureImageRules.cs").Path }
         Host-Config "$original/TextureImageRulesOracle-$mode.exe"
         Run-Checked "$mode-image" { & "$original/TextureImageRulesOracle-$mode.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" "$out/$mode-image.txt" }
+        }
         if (Test-Path "$rebuilt/BinaryAssetBuilder.TextureCompiler.dll") { throw 'Original target DLL present in recovered host' }
+        Invoke-Group "$mode-packer" {
         Run-Checked "$mode-packer-build" { & $csc /nologo /unsafe /platform:x86 $optimize /r:$dll /out:"$original/TexturePackerOracle-$mode.exe" (Resolve-Path recovery/tests/TexturePackerOracle.cs).Path }
         Copy-Item $dll $original -Force
         Host-Config "$original/TexturePackerOracle-$mode.exe"
         Run-Checked "$mode-packer" { & "$original/TexturePackerOracle-$mode.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
+        }
+        Invoke-Group "$mode-dds" {
         Run-Checked "$mode-dds" { & "$rebuilt/TextureDdsOracle.exe" $dll 'Recovered.Compiler.Texture.Plugin' "$out/$mode-dds.txt" "$work/fixtures" }
         if ((Get-FileHash "$out/original-dds.txt").Hash -ne (Get-FileHash "$out/$mode-dds.txt").Hash) {
             Compare-Object (Get-Content "$out/original-dds.txt") (Get-Content "$out/$mode-dds.txt") | Select-Object -First 12 | Out-String -Width 500 | Set-Content "$out/$mode-dds-difference.txt"
             Get-Content "$out/$mode-dds-difference.txt"; throw "$mode DDS differential mismatch"
         }
+        }
         Push-Location $rebuilt
         try {
             $nativeOpt = if ($mode -eq 'Release') { '/O2' } else { '/Od' }
+            Invoke-Group "$mode-native" {
             Run-Checked "$mode-native-build" { cl /nologo /clr /EHsc /std:c++17 $nativeOpt $nativeOracle $nativeSupport /Fe:TextureSupportOracle.exe }
             Host-Config "$rebuilt/TextureSupportOracle.exe"
             Run-Checked "$mode-native" { & "$rebuilt/TextureSupportOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
+            }
         } finally { Pop-Location }
-        $receipt.configurations += @{configuration=$mode; passed=$true; ddsRecords=@(Get-Content "$out/$mode-dds.txt").Count; ddsSha256=(Get-FileHash "$out/$mode-dds.txt").Hash.ToLowerInvariant(); withoutOriginalTextureCompiler=$true; packerDifferential=$true; nativeDifferential=$true; imageRulesDifferential=$true; metadataDifferential=$true}
+        $receipt.configurations += @{configuration=$mode; passed=(@($script:failureList | Where-Object {$_ -like "$mode-*"}).Count -eq 0); withoutOriginalTextureCompiler=$true}
     }
+    if ($script:failureList.Count -ne 0) { $receipt.status='failed'; throw ('Failed component groups: ' + ($script:failureList -join ', ')) }
     Compress-Archive -Path "$out/original-dds.txt","$out/Debug-image.txt","$out/Release-image.txt" -DestinationPath "$out/transcripts.zip"
     Remove-Item "$out/original-dds.txt","$out/Debug-dds.txt","$out/Release-dds.txt","$out/Debug-image.txt","$out/Release-image.txt"
     $receipt.status='passed'

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Recovered.Compiler.Texture;
 
 // x86 CLR4 /unsafe. Reflection invokes original managed IL using native image
@@ -9,10 +10,33 @@ using Recovered.Compiler.Texture;
 // pack/padding/sort, without D3D, file decoding, nvDXT or SDK compilation.
 internal unsafe static class TexturePackerOracle
 {
-    [DllImport("msvcr80.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "malloc")]
-    private static extern IntPtr Malloc(UIntPtr size);
-    [DllImport("msvcr80.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "free")]
-    private static extern void Free(IntPtr memory);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate IntPtr MallocFunction(UIntPtr size);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void FreeFunction(IntPtr memory);
+    private static MallocFunction Malloc;
+    private static FreeFunction Free;
+    private static void BindOriginalAllocator(Assembly original, string input)
+    {
+        string hash;
+        using (SHA256 sha = SHA256.Create())
+            hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(input))).Replace("-", "").ToLowerInvariant();
+        if (hash != "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e")
+            throw new InvalidDataException("Original TextureCompiler SHA256 does not match guarded allocator thunk RVAs.");
+        IntPtr imageBase = Marshal.GetHINSTANCE(original.ManifestModule);
+        if (imageBase == IntPtr.Zero || imageBase == new IntPtr(-1))
+            throw new InvalidOperationException("Original mixed-mode module has no native image base.");
+        // These JMP [IAT] thunks already use the CRT selected by the original
+        // module's SxS activation context. A bare msvcr80.dll DllImport would
+        // try resolving the CRT in this host's different activation context.
+        IntPtr mallocThunk = IntPtr.Add(imageBase, 0x4E74C);
+        IntPtr freeThunk = IntPtr.Add(imageBase, 0x4E758);
+        if (Marshal.ReadByte(mallocThunk) != 0xFF || Marshal.ReadByte(mallocThunk, 1) != 0x25 ||
+            Marshal.ReadByte(freeThunk) != 0xFF || Marshal.ReadByte(freeThunk, 1) != 0x25)
+            throw new InvalidDataException("Original CRT thunk instruction signatures differ.");
+        Malloc = (MallocFunction)Marshal.GetDelegateForFunctionPointer(mallocThunk, typeof(MallocFunction));
+        Free = (FreeFunction)Marshal.GetDelegateForFunctionPointer(freeThunk, typeof(FreeFunction));
+    }
     static MethodInfo packOriginal, destroyOriginal;
     static int assertions, fixtures;
     static IntPtr Allocate(int bytes)
@@ -161,6 +185,7 @@ internal unsafe static class TexturePackerOracle
                 return File.Exists(file) ? Assembly.LoadFrom(file) : null;
             };
             Assembly assembly = Assembly.LoadFrom(input);
+            BindOriginalAllocator(assembly, input);
             // Resolve known original MethodDefs: reflection may hide the
             // special global <Module> type from Assembly.GetType.
             packOriginal = (MethodInfo)assembly.ManifestModule.ResolveMethod(0x06000024);
