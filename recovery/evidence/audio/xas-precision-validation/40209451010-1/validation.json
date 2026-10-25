@@ -1,0 +1,27 @@
+{
+  "modes": [
+    {
+      "records": 264,
+      "configuration": "Debug",
+      "passed": true,
+      "precisionRegressions": 2,
+      "recoveredSha256": "e60ccc4664be6b3563296ca0ac45050b88bfab4970c64f070124789e5fc90244",
+      "originalAbsentFromRecoveredHost": true
+    },
+    {
+      "records": 264,
+      "configuration": "Release",
+      "passed": true,
+      "precisionRegressions": 2,
+      "recoveredSha256": "68d6688543e76c650eba25bb49c4c773c040f61994598cc594a4bb933466deb1",
+      "originalAbsentFromRecoveredHost": true
+    }
+  ],
+  "oracleSha256": "235b085d3c8b3afb12c8a50828b618754909f964a60949d4c622245778350d7b",
+  "runAttempt": "1",
+  "scope": "Full original XAS block matrix plus binary32 quantization regression; unchanged block-size scalar matrix reused from prior acceptance",
+  "sourceCommit": "684e3310004853455dd0b5b4e53287afb067e93c",
+  "status": "passed",
+  "sdkValidated": false,
+  "runId": "40209451010"
+}
