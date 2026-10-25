@@ -1,0 +1,8 @@
+PASS managed metadata platform 0
+PASS managed metadata platform 1
+PASS managed metadata platform 2
+PASS managed metadata platform 99
+PASS managed metadata platform -1
+PASS managed metadata platform -2147483648
+PASS managed metadata platform 2147483647
+PASS W3X managed: 28709 type records, 201054 assertions, 8 backend dispatch checks; native outputs and SDK not validated

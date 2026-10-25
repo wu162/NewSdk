@@ -1,0 +1,30 @@
+{
+  "runId": "40170259351",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "sourceCommit": "23dce102769d458f46705b7ee2ed4a0f5446c4d3",
+  "modes": [
+    {
+      "recoveredSha256": "da324ab0a79747adc89a6fcd80afeb14b9a8607c1b43dde3af9348a050d15521",
+      "mode": "unoptimized",
+      "succeeded": true
+    },
+    {
+      "recoveredSha256": "efc703a4b0cb2f3077408cbbd348f4cce7f6c5dc2aa5b7b60fb099dc4b862403",
+      "mode": "optimized",
+      "succeeded": true
+    }
+  ],
+  "sdkValidated": false,
+  "nativeHandlersValidated": false,
+  "runAttempt": "1",
+  "scope": "managed plugin metadata, lifecycle and dispatch shell; no native handler or SDK acceptance",
+  "platforms": [
+    0,
+    1,
+    2,
+    99,
+    -1,
+    -2147483648,
+    2147483647
+  ]
+}
