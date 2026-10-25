@@ -1,0 +1,60 @@
+param([string]$OutputDirectory, [switch]$OriginalOnly)
+$ErrorActionPreference = 'Stop'
+Set-Location (Resolve-Path "$PSScriptRoot/../..")
+if (!$env:RUNNER_TEMP) { $env:RUNNER_TEMP = [IO.Path]::GetTempPath() }
+if (!$OutputDirectory) {
+    $suffix = if ($env:GITHUB_RUN_ID) { "$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" } else { 'local-' + [Guid]::NewGuid().ToString('N') }
+    $OutputDirectory = "recovery/evidence/audio/plugin-validation/$suffix"
+}
+if (Test-Path $OutputDirectory) { throw "Refusing to overwrite evidence: $OutputDirectory" }
+New-Item -ItemType Directory $OutputDirectory -Force | Out-Null
+$out = (Resolve-Path $OutputDirectory).Path
+$csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+$work = Join-Path $env:RUNNER_TEMP ('audio-plugin-' + [Guid]::NewGuid().ToString('N'))
+$original = Join-Path $work 'original'; $fixtures = Join-Path $work 'fixtures'
+New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
+Copy-Item SDK/tools/*.dll $original
+$core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
+$hostExe = Join-Path $original 'AudioPluginOracle.exe'
+& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path *> "$out/oracle-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
+'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$hostExe.config"
+$sourceCommit = (git rev-parse HEAD).Trim()
+if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
+$receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic map/track/event ProcessInstance/direct-handler component differential; MP3 original evidence only'}
+try {
+    $businessScope = if ($OriginalOnly) { 'business' } else { 'pathmusic' }
+    & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/original.txt" $businessScope *> "$out/original.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log"; throw 'Original business oracle failed' }
+    # Full raw PCM native evidence is retained separately and is not counted as recovered acceptance.
+    & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/pcm-original.txt" pcm *> "$out/pcm-original.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/pcm-original.log"; throw 'Original PCM probe failed' }
+    Get-ChildItem $fixtures -Filter '*.wav' | Copy-Item -Destination $out
+    if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
+    $baseline = (Get-FileHash "$out/original.txt").Hash
+    foreach ($mode in @('Debug', 'Release')) {
+        $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
+        Get-ChildItem SDK/tools -Filter '*.dll' | Where-Object Name -ne 'BinaryAssetBuilder.AudioCompiler.dll' | Copy-Item -Destination $candidate
+        $library = Join-Path $candidate 'Recovered.AudioCompiler.dll'
+        $sources = @(Get-ChildItem src/AudioCompiler -Filter '*.cs' -Recurse | ForEach-Object FullName)
+        if ($sources.Count -lt 2) { throw 'Recovered AudioCompiler implementation is missing' }
+        $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
+        & $csc /nologo /unsafe /target:library /platform:x86 $optimize /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$library" $sources *> "$out/$mode-build.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
+        Copy-Item "$original/AudioPluginOracle.exe*" $candidate
+        & "$candidate/AudioPluginOracle.exe" $library recovered $fixtures "$out/$mode.txt" pathmusic *> "$out/$mode.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode.log"; throw "$mode business oracle failed" }
+        $actual = (Get-FileHash "$out/$mode.txt").Hash
+        if ($actual -ne $baseline) {
+            Compare-Object (Get-Content "$out/original.txt") (Get-Content "$out/$mode.txt") | Out-String -Width 2000 | Set-Content "$out/$mode-difference.txt"
+            Get-Content "$out/$mode-difference.txt" -First 30
+            throw "$mode business transcript differs"
+        }
+        $count = @(Get-Content "$out/$mode.txt").Count
+        $receipt.configurations += @{configuration=$mode; passed=$true; records=$count; transcriptSha256=$actual.ToLowerInvariant(); recoveredSha256=(Get-FileHash $library).Hash.ToLowerInvariant(); originalAbsentFromRecoveredHost=$true}
+        Write-Host "PASS Audio plugin $mode`: $count identical three-buffer/custom-data records"
+    }
+    $receipt.status='passed'
+} finally {
+    $receipt | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json"
+}

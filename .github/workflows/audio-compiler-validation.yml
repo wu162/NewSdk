@@ -1,0 +1,50 @@
+name: Audio compiler validation
+on:
+  push:
+    branches: [recovery/audio-compiler-source]
+    paths:
+      - '.github/workflows/audio-compiler-validation.yml'
+      - 'src/AudioCompiler/**'
+      - 'recovery/scripts/TestAudio*.ps1'
+      - 'recovery/tests/Audio*.cs'
+      - 'SDK/tools/BinaryAssetBuilder.AudioCompiler.dll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: audio-validation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Compare metadata and collect native PCM probe
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioMetadata.ps1
+          ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/audio/metadata-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve successful validation
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- recovery/evidence/audio/metadata-validation recovery/evidence/audio/plugin-validation
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "audio: preserve metadata validation and original PCM probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes require resolution' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

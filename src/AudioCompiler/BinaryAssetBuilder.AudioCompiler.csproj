@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.AudioCompiler</AssemblyName>
+    <RootNamespace>BinaryAssetBuilder.AudioCompiler</RootNamespace>
+    <TargetFramework>net20</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
