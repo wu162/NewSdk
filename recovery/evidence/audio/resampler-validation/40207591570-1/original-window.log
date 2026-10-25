@@ -1,0 +1,11 @@
+Window difference index=2 CPU=3fefffb10b4d7fb5 source=3fefffb10b4d7fb4
+Window difference index=3 CPU=3fefff4e5a2502f1 source=3fefff4e5a2502f2
+Window difference index=5 CPU=3feffe128ef71d47 source=3feffe128ef71d46
+Window difference index=7 CPU=3feffc38ed6a3a15 source=3feffc38ed6a3a16
+Window difference index=11 CPU=3feff6ac76528565 source=3feff6ac76528566
+Window difference index=13 CPU=3feff2f9d78af50d source=3feff2f9d78af50c
+Window difference index=17 CPU=3fefe9bc89fc40c9 source=3fefe9bc89fc40ca
+Window difference index=18 CPU=3fefe70afe9f8ba7 source=3fefe70afe9f8ba8
+Original CPU window: 512 binary64 values; differences=195; sha256=605c69534025d105b254107d80806e5e6b07bd8feb36ae0de3cadfc6a9813d87
+System.Exception: Original CPU windows differ from embedded candidate values; evidence saved
+   at AudioNativeWindowOracle.Main(String[] args)

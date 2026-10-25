@@ -1,0 +1,3 @@
+emulatorComparisonDifferences=0 emulatorComparisonDifferingBytes=0
+AUTHORITATIVE_REAL_CPU D:\a\NewSdk\NewSdk\recovery\evidence\audio\resampler-validation\40207591570-1\original-cpu.tsv.gz fixtures=258 fpuControl=0x027f
+PASS original CPU oracle collection (emulator differences reported separately): 48 source, 16 complex filter, 96 derivative, 18 coefficient, 80 whole kernel fixtures; real original x86 CPU; 53-bit nearest
