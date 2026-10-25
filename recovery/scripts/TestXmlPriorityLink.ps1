@@ -298,16 +298,83 @@ $expectedRootTypeIds = [ordered]@{
     MapMetaData = [uint32]1603703110
     GameScriptList = [uint32]3737094024
 }
+# XML_LINK_ROOTS is a JSON array, independent of the complete exported-route manifest.
+# Unset means all roots for direct/manual use; [] performs metadata preflight without behavioral tests.
+$selectedRootNames = @($expectedRootTypeIds.Keys)
+if (Test-Path Env:XML_LINK_ROOTS) {
+    $selection = ConvertFrom-Json -InputObject $env:XML_LINK_ROOTS -NoEnumerate
+    if ($selection -isnot [System.Array]) { throw 'XML_LINK_ROOTS must be a JSON array of root names' }
+    $selectedRootNames = @($selection)
+}
+$selectedRoots = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+foreach ($selectedName in $selectedRootNames) {
+    if ($selectedName -isnot [string] -or -not (@($expectedRootTypeIds.Keys) -ccontains $selectedName) -or -not $selectedRoots.Add($selectedName)) { throw "Unknown or duplicate selected root: $selectedName" }
+}
+$selectedArgument = if ($selectedRootNames.Count -eq 0) { '[]' } else { $selectedRootNames -join ',' }
+$completionFixturesPerPlatform = @{
+    FXParticleSystemTemplate = 9
+    FXList = 1
+    GameplayConditionData = 1
+    TargetingCompareList = 1
+    EvaEvent = 1
+    HealthBarSettings = 1
+    UnitOverlayIconSettings = 1
+    ObjectFilterAsset = 1
+    InvisibilityManagerSettings = 1
+    StanceTemplate = 1
+    ProjectilePath = 1
+    ForceFeedbackEvent = 1
+    EngagingContentGroup = 1
+    AutoParticleSystemSettings = 1
+    CrowdResponse = 1
+    UIRadarObjectsLayer = 1
+    W3DDeviceSettings = 1
+    Credits = 1
+    CommandSet = 1
+    ShaderOverride = 1
+    ImageSequence = 1
+    OnlineChatColors = 1
+    ArchiveMovieList = 1
+    GraphicsHardware = 1
+    TutorialMapData = 1
+    LocalBuildListMonitor = 1
+    DynamicsContactTagMapping = 1
+    ConnectionLineManager = 1
+    RedAlertTemplate = 1
+    ConquerCardPrebuiltDeck = 1
+    ArmyDefinition = 1
+    DLContent = 1
+    MeshInstanceTemplate = 1
+    AptGeometryData = 1
+    AudioFileRuntime = 1
+    Mouse = 1
+    UnitAbilityButtonTemplate = 1
+    TestTextureCollection = 1
+    TerrainTextureAtlasRuntime = 1
+    W3DHierarchy = 1
+    MapMetaData = 1
+    GameScriptList = 1
+    GameMap = 1
+    UIConfigList = 1
+}
+$expectedFixtures = 4 * $selectedRoots.Count
+$expectedComparisons = 3 * $expectedFixtures
+$expectedCompletionFixtures = 0
+foreach ($selectedName in $selectedRootNames) {
+    if ($completionFixturesPerPlatform.ContainsKey($selectedName)) { $expectedCompletionFixtures += 4 * $completionFixturesPerPlatform[$selectedName] }
+}
+$expectedCompletionComparisons = 3 * $expectedCompletionFixtures
 $sourceCommit = $env:GITHUB_SHA
 if (-not $sourceCommit) { $sourceCommit = (& git rev-parse HEAD).Trim(); if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve sourceCommit' } }
 $runId = $env:GITHUB_RUN_ID
 if (-not $runId) { $runId = 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $validation = [ordered]@{
     succeeded = $false; sourceCommit = $sourceCommit; runId = $runId
-    scope = 'Combined XmlCompiler priority link/default-root and completion smoke only; group full matrices and SDK acceptance remain separate'
+    scope = 'Complete exported-route metadata preflight and selected-root default/completion smoke only; group full matrices and SDK acceptance remain separate'
     expectedRootTypeIds = $expectedRootTypeIds; expectedTypes = 289
-    expectedFixturesPerMode = 1148; expectedComparisonsPerMode = 3444
-    expectedCompletionFixturesPerMode = 200; expectedCompletionComparisonsPerMode = 600
+    fullMetadataRoutes = 289; testedTypes = $selectedRoots.Count; testedRootNames = @($selectedRootNames)
+    expectedFixturesPerMode = $expectedFixtures; expectedComparisonsPerMode = $expectedComparisons
+    expectedCompletionFixturesPerMode = $expectedCompletionFixtures; expectedCompletionComparisonsPerMode = $expectedCompletionComparisons
     platforms = @(0,1,2,99); modes = @(); processExits = @(); status = 'started'
 }
 $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
@@ -348,7 +415,7 @@ try {
         Copy-Item SDK/tools/*.dll $modeOut -Force
         & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.XmlCompilerPriority.dll" @sources *> "$evidence/$mode-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-build.txt"; throw "$mode combined XmlCompiler C++/CLI link failed" }
-        & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlPriorityLinkOracle.exe" $oracleSource *> "$evidence/$mode-host-build.txt"
+        & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlPriorityLinkOracle.exe" $oracleSource *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode priority link oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$modeOut/XmlPriorityLinkOracle.exe.config"
         $dllPath = Join-Path $modeOut 'Recovered.XmlCompilerPriority.dll'
@@ -356,7 +423,7 @@ try {
         $artifactDirectory = Join-Path $evidence $mode
         New-Item -ItemType Directory -Force $artifactDirectory | Out-Null
         Copy-Item $dllPath (Join-Path $artifactDirectory 'Recovered.XmlCompilerPriority.dll') -Force
-        & "$modeOut/XmlPriorityLinkOracle.exe" $originalPath $dllPath "$evidence/$mode-result.json" $manifestPath $sourceCommit $runId *> "$evidence/$mode-oracle.txt"
+        & "$modeOut/XmlPriorityLinkOracle.exe" $originalPath $dllPath "$evidence/$mode-result.json" $manifestPath $sourceCommit $runId $selectedArgument *> "$evidence/$mode-oracle.txt"
         $code = $LASTEXITCODE
         # Preserve the real child-process status before any later command or parsing.
         $exitCodeHex = '0x' + [BitConverter]::ToUInt32([BitConverter]::GetBytes([int32]$code), 0).ToString('X8')
@@ -370,15 +437,22 @@ try {
         "PROCESS EXIT mode=$mode exitCode=$code exitCodeHex=$exitCodeHex" | Add-Content "$evidence/$mode-oracle.txt"
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
         Get-Content "$evidence/$mode-oracle.txt"
-        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); all 289 types and a clean process exit are required" }
+        if ($code -ne 0) { throw "$mode combined priority default-root smoke failed: exitCode=$code ($exitCodeHex); 289 metadata routes, selected root tests and a clean process exit are required" }
         $result = Get-Content "$evidence/$mode-result.json" -Raw | ConvertFrom-Json
-        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 289 -or $result.fixtures -ne 1156 -or $result.comparisons -ne 3468 -or $result.completionFixtures -ne 208 -or $result.completionComparisons -ne 624 -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
+        if (-not $result.succeeded -or $result.sourceCommit -ne $sourceCommit -or $result.runId -ne $runId -or $result.types -ne 289 -or $result.fullMetadataRoutes -ne 289 -or $result.testedTypes -ne $selectedRoots.Count -or $result.fixtures -ne $expectedFixtures -or $result.comparisons -ne $expectedComparisons -or $result.completionFixtures -ne $expectedCompletionFixtures -or $result.completionComparisons -ne $expectedCompletionComparisons -or $result.expectedFixtures -ne $expectedFixtures -or $result.expectedComparisons -ne $expectedComparisons -or $result.expectedCompletionFixtures -ne $expectedCompletionFixtures -or $result.expectedCompletionComparisons -ne $expectedCompletionComparisons -or ($result.platforms -join ',') -ne '0,1,2,99') { throw "$mode incomplete or mismatched priority smoke result" }
         if (@($result.typeCoverage.PSObject.Properties).Count -ne 289) { throw "$mode incomplete per-type coverage" }
+        $reportedSelectedRoots = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach ($reportedName in @($result.testedRootNames)) {
+            if ($reportedName -isnot [string] -or -not $selectedRoots.Contains($reportedName) -or -not $reportedSelectedRoots.Add($reportedName)) { throw "$mode selected root names mismatch" }
+        }
+        if ($reportedSelectedRoots.Count -ne $selectedRoots.Count) { throw "$mode selected root names mismatch" }
         foreach ($entry in $expectedRootTypeIds.GetEnumerator()) {
-            if ($result.typeCoverage.($entry.Key) -ne 4 -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
+            $expectedCoverage = if ($selectedRoots.Contains($entry.Key)) { 4 } else { 0 }
+            if ($result.typeCoverage.($entry.Key) -ne $expectedCoverage -or $result.rootTypeIds.($entry.Key) -ne $entry.Value) { throw "$mode missing type coverage or incorrect TypeId: $($entry.Key)" }
         }
         $validation.modes += [ordered]@{
             mode = $mode; succeeded = $true; exitCode = [int32]$code; exitCodeHex = $exitCodeHex; types = $result.types
+            fullMetadataRoutes = $result.fullMetadataRoutes; testedTypes = $result.testedTypes; testedRootNames = $result.testedRootNames
             fixtures = $result.fixtures; comparisons = $result.comparisons
             completionFixtures = $result.completionFixtures; completionComparisons = $result.completionComparisons
             platforms = $result.platforms; typeCoverage = $result.typeCoverage
@@ -390,7 +464,7 @@ try {
         $validation | ConvertTo-Json -Depth 12 | Set-Content "$evidence/validation.json"
     }
     $validation.succeeded = $true
-    $validation.status = 'All 289 exact compiler routes linked; default-root and 208 completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance'
+    $validation.status = "All 289 exact compiler routes linked; $($selectedRoots.Count) selected roots, $expectedFixtures default and $expectedCompletionFixtures completion fixtures passed three-array smoke on Od/O2, platforms 0/1/2/99; not full group or SDK acceptance"
 } catch {
     $validation.status = $_.Exception.Message
     throw

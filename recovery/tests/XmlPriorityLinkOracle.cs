@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+using System.Web.Script.Serialization;
 using BinaryAssetBuilder.Core;
 
 // Combined assembly smoke. Group differential matrices remain mandatory.
@@ -320,6 +321,84 @@ class XmlPriorityLinkOracle
     static int fixtures, comparisons, completionFixtures, completionComparisons;
     static string current = "metadata preflight";
 
+    // Default to the full manual smoke; workflow callers select affected roots explicitly.
+    static readonly HashSet<string> SelectedRoots = new HashSet<string>(StringComparer.Ordinal);
+    static int ExpectedCompletionPerPlatform(string name)
+    {
+        switch (name) {
+        case "FXParticleSystemTemplate": return 9;
+        case "FXList": return 1;
+        case "GameplayConditionData": return 1;
+        case "TargetingCompareList": return 1;
+        case "EvaEvent": return 1;
+        case "HealthBarSettings": return 1;
+        case "UnitOverlayIconSettings": return 1;
+        case "ObjectFilterAsset": return 1;
+        case "InvisibilityManagerSettings": return 1;
+        case "StanceTemplate": return 1;
+        case "ProjectilePath": return 1;
+        case "ForceFeedbackEvent": return 1;
+        case "EngagingContentGroup": return 1;
+        case "AutoParticleSystemSettings": return 1;
+        case "CrowdResponse": return 1;
+        case "UIRadarObjectsLayer": return 1;
+        case "W3DDeviceSettings": return 1;
+        case "Credits": return 1;
+        case "CommandSet": return 1;
+        case "ShaderOverride": return 1;
+        case "ImageSequence": return 1;
+        case "OnlineChatColors": return 1;
+        case "ArchiveMovieList": return 1;
+        case "GraphicsHardware": return 1;
+        case "TutorialMapData": return 1;
+        case "LocalBuildListMonitor": return 1;
+        case "DynamicsContactTagMapping": return 1;
+        case "ConnectionLineManager": return 1;
+        case "RedAlertTemplate": return 1;
+        case "ConquerCardPrebuiltDeck": return 1;
+        case "ArmyDefinition": return 1;
+        case "DLContent": return 1;
+        case "MeshInstanceTemplate": return 1;
+        case "AptGeometryData": return 1;
+        case "AudioFileRuntime": return 1;
+        case "Mouse": return 1;
+        case "UnitAbilityButtonTemplate": return 1;
+        case "TestTextureCollection": return 1;
+        case "TerrainTextureAtlasRuntime": return 1;
+        case "W3DHierarchy": return 1;
+        case "MapMetaData": return 1;
+        case "GameScriptList": return 1;
+        case "GameMap": return 1;
+        case "UIConfigList": return 1;
+        default: return 0;
+        }
+    }
+    static int ExpectedCompletionFixtures()
+    {
+        int count = 0;
+        foreach (string name in SelectedRoots) count += ExpectedCompletionPerPlatform(name);
+        return count * Platforms.Length;
+    }
+    static void SelectRoots(string specification)
+    {
+        IEnumerable<string> requested;
+        if (specification == null) {
+            List<string> all = new List<string>();
+            foreach (Root root in Roots) all.Add(root.Name);
+            requested = all;
+        } else if (specification.TrimStart().StartsWith("[", StringComparison.Ordinal)) {
+            requested = new JavaScriptSerializer().Deserialize<string[]>(specification);
+            if (requested == null) throw new Exception("Selected root JSON must be an array");
+        } else {
+            if (specification.Length == 0) throw new Exception("Use [] for metadata-only validation");
+            requested = specification.Split(',');
+        }
+        foreach (string name in requested) {
+            bool known = false;
+            foreach (Root root in Roots) if (String.Equals(root.Name, name, StringComparison.Ordinal)) { known = true; break; }
+            if (!known || !SelectedRoots.Add(name)) throw new Exception("Unknown or duplicate selected root: " + name);
+        }
+    }
     static string Json(string value)
     {
         if (value == null) return "null";
@@ -330,7 +409,19 @@ class XmlPriorityLinkOracle
         StringBuilder text = new StringBuilder();
         text.Append("{\"succeeded\":").Append(succeeded ? "true" : "false");
         text.Append(",\"sourceCommit\":").Append(Json(sourceCommit)).Append(",\"runId\":").Append(Json(runId));
-        text.Append(",\"scope\":\"combined link/default-root and completion smoke only\"");
+        text.Append(",\"scope\":\"all-route metadata preflight and selected-root default/completion smoke only\"");
+        text.Append(",\"fullMetadataRoutes\":").Append(Methods.Count);
+        text.Append(",\"testedTypes\":").Append(SelectedRoots.Count);
+        text.Append(",\"testedRootNames\":[");
+        bool firstSelected = true;
+        foreach (Root route in Roots) if (SelectedRoots.Contains(route.Name)) {
+            if (!firstSelected) text.Append(','); firstSelected = false; text.Append(Json(route.Name));
+        }
+        text.Append(']');
+        text.Append(",\"expectedFixtures\":").Append(SelectedRoots.Count * Platforms.Length);
+        text.Append(",\"expectedComparisons\":").Append(SelectedRoots.Count * Platforms.Length * 3);
+        text.Append(",\"expectedCompletionFixtures\":").Append(ExpectedCompletionFixtures());
+        text.Append(",\"expectedCompletionComparisons\":").Append(ExpectedCompletionFixtures() * 3);
         text.Append(",\"types\":").Append(Methods.Count).Append(",\"fixtures\":").Append(fixtures);
         text.Append(",\"comparisons\":").Append(comparisons).Append(",\"platforms\":[0,1,2,99]");
         text.Append(",\"completionFixtures\":").Append(completionFixtures).Append(",\"completionComparisons\":").Append(completionComparisons);
@@ -412,6 +503,9 @@ class XmlPriorityLinkOracle
     }
     static void Test(IAssetBuilderPlugin original, Root root, int platform, string body = null, string attributes = "")
     {
+        if (root == null) throw new Exception("Completion root is missing from the route manifest");
+        // The guard covers every default and completion path before any XML/original DLL invocation.
+        if (!SelectedRoots.Contains(root.Name)) return;
         bool completion = body != null;
         current = root.Name + (completion ? " completion" : " defaults") + " platform=" + platform;
         XmlDocument xml = new XmlDocument();
@@ -501,25 +595,31 @@ class XmlPriorityLinkOracle
         bool succeeded = false;
         string failure = null;
         try {
-            if (args.Length != 6) throw new Exception("Usage: XmlPriorityLinkOracle original.dll recovered.dll result.json expected.tsv sourceCommit runId");
+            if (args.Length != 6 && args.Length != 7) throw new Exception("Usage: XmlPriorityLinkOracle original.dll recovered.dll result.json expected.tsv sourceCommit runId [selected-roots CSV/JSON]");
             if (IntPtr.Size != 4) throw new Exception("Priority link oracle requires an x86 process");
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             Manifest(args[3]);
+            SelectRoots(args.Length == 7 ? args[6] : null);
             Assembly recovered = Assembly.LoadFrom(args[1]);
             Preflight(recovered);
-            Assembly source = Assembly.LoadFrom(args[0]);
-            Type pluginType = source.GetType("BinaryAssetBuilder.XmlCompiler.Plugin", true, false);
-            IAssetBuilderPlugin original = (IAssetBuilderPlugin)Activator.CreateInstance(pluginType);
+            IAssetBuilderPlugin original = null;
+            if (SelectedRoots.Count != 0) {
+                Assembly source = Assembly.LoadFrom(args[0]);
+                Type pluginType = source.GetType("BinaryAssetBuilder.XmlCompiler.Plugin", true, false);
+                original = (IAssetBuilderPlugin)Activator.CreateInstance(pluginType);
+            }
             foreach (int platform in Platforms) {
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
-                Completion(original, platform);
-                Console.WriteLine("PASS platform={0} types=289 fixtures={1} comparisons={2}", platform, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                if (SelectedRoots.Count != 0) Completion(original, platform);
+                Console.WriteLine("PASS platform={0} metadataRoutes=289 testedTypes={1} fixtures={2} comparisons={3}", platform, SelectedRoots.Count, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
-            if (fixtures != 1156 || comparisons != 3468 || completionFixtures != 208 || completionComparisons != 624 || Methods.Count != 289) throw new Exception("Incomplete priority smoke matrix");
-            foreach (Root root in Roots) if (Coverage[root.Name] != 4) throw new Exception("Incomplete root coverage: " + root.Name);
+            int expectedFixtures = SelectedRoots.Count * Platforms.Length;
+            int expectedCompletion = ExpectedCompletionFixtures();
+            if (fixtures != expectedFixtures || comparisons != expectedFixtures * 3 || completionFixtures != expectedCompletion || completionComparisons != expectedCompletion * 3 || Methods.Count != 289) throw new Exception("Incomplete selected-root priority smoke matrix");
+            foreach (Root root in Roots) if (Coverage[root.Name] != (SelectedRoots.Contains(root.Name) ? 4 : 0)) throw new Exception("Incorrect selected/unselected root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink types=289 fixtures=1156 comparisons=3468 completionFixtures=208 completionComparisons=624 platforms=0/1/2/99; link smoke only");
+            Console.WriteLine("PASS XmlPriorityLink metadataRoutes=289 testedTypes={0} fixtures={1} comparisons={2} completionFixtures={3} completionComparisons={4} platforms=0/1/2/99; selected-root link smoke only", SelectedRoots.Count, fixtures, comparisons, completionFixtures, completionComparisons);
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();
