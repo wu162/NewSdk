@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "configurations": [
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=9216 errors=4416 unsupportedRgb16=0 comparedBytes=19891368; PC/PS3; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=9216 errors=4416 unsupportedRgb16=0 comparedBytes=19891368; PC/PS3; PNG/BMP format/depth/interlace/orientation group; standard/volume and no-mip/mips; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "scope": "PNG/BMP actual ProcessInstance; PC/PS3 standard/volume; raw/mips; three buffers/full cdata",
+  "runId": "40235000007",
+  "runAttempt": "1",
+  "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f"
+}

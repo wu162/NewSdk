@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "groups": [
+    {
+      "group": "bmp",
+      "passed": true
+    },
+    {
+      "group": "raster-images",
+      "passed": true
+    }
+  ],
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "png-ranges"
+  ],
+  "selected": [
+    "bmp",
+    "raster-images"
+  ],
+  "runId": "40235000007",
+  "runAttempt": "1",
+  "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f"
+}
