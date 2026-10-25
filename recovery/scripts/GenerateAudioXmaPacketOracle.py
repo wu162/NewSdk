@@ -150,7 +150,9 @@ def real_fixtures(oracle):
     # Trace the existing SIMEX/SNR container, rather than treating CustomData as
     # a raw codec API return. RAM: SNR8 + block8. Stream: block8 in CustomData.
     path=pathlib.Path('recovery/evidence/audio/plugin-validation/40199000936-1/xma-original.txt')
-    transcript=path.read_bytes()
+    # Git text checkout may use CRLF on Windows. Pin canonical LF text;
+    # the base64-decoded original packet bytes remain unchanged.
+    transcript=path.read_bytes().replace(b'\r\n', b'\n')
     if hashlib.sha256(transcript).hexdigest() != 'e7b2befa6c59fc0cce64ed7959d1b65f83cb1adeed5e6cb100758d68583a35d0': raise ValueError('Original XMA transcript changed')
     lines=transcript.decode().splitlines()
     if len(lines) != 8: raise ValueError('Expected eight original XMA cases')
