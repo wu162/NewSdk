@@ -66,10 +66,12 @@ namespace Recovered.Compiler.Texture
                         // for >256 textures before encoding. Do not silently omit it.
                         if (_Platform == TargetPlatform.PlayStation3 && resize && (image.Width > 256 || image.Height > 256))
                             throw new NotSupportedException("PS3 automatic image resizing has not been recovered.");
-                        if (mipmaps && _Platform != TargetPlatform.Win32)
-                            throw new NotSupportedException("Raw mip encoding is accepted only for the Win32 option profile.");
+                        if (mipmaps && _Platform != TargetPlatform.Win32 && _Platform != TargetPlatform.PlayStation3)
+                            throw new NotSupportedException("Raw mip encoding is accepted only for Win32 and PS3 option profiles.");
                         byte[] dds = mipmaps
-                            ? TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
+                            ? (_Platform == TargetPlatform.PlayStation3
+                                ? TexturePs3MipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format)
+                                : TextureTriangleMipEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format))
                             : TextureRawDdsEncoder.Encode((uint)image.Width, (uint)image.Height, rgba, format, false);
                         result = EmbedDds(dds, !onDemand, _Platform);
                         break;
@@ -91,3 +93,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

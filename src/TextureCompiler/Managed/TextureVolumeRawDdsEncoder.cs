@@ -26,7 +26,7 @@ namespace Recovered.Compiler.Texture
             byte[] result = new byte[checked(128 + payload * (int)depth)];
             Buffer.BlockCopy(first, 0, result, 0, first.Length);
             Put(result, 8, 0x00881007u); Put(result, 24, depth);
-            Put(result, 108, 0x1008); Put(result, 112, 0x00200000);
+            Put(result, 108, 0x1000); Put(result, 112, 0x00200000);
             for (uint z = 1; z < depth; z++)
             {
                 Buffer.BlockCopy(rgba, checked((int)z * sliceBytes), slice, 0, sliceBytes);

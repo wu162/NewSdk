@@ -78,11 +78,37 @@ internal static unsafe class TextureVolumeDdsDifferential
         byte[] source=Pixels(width,height*depth,pattern),borrowed=(byte[])source.Clone();
         byte[] expected=Original(compress,plugin,optionsMethod,width,height,depth,borrowed,format);
         Check(Hash(borrowed)==Hash(source),"original source changed");
-        byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,depth,source,format,false});
+        byte[] recoveredSource=(byte[])source.Clone();
+        byte[] actual=(byte[])encode.Invoke(null,new object[]{width,height,depth,recoveredSource,format,false});
+        Check(Hash(recoveredSource)==Hash(source),"recovered source changed");
         string label=format+" "+width+"x"+height+"x"+depth+" pattern="+pattern;
         if(expected.Length!=actual.Length)throw new Exception("length "+label+" expected="+expected.Length+" actual="+actual.Length+" header="+Convert.ToBase64String(expected,0,Math.Min(128,expected.Length)));
         for(int i=0;i<expected.Length;i++)if(expected[i]!=actual[i])throw new Exception("byte "+i+" "+label+" expected="+expected[i]+" actual="+actual[i]+" header="+Convert.ToBase64String(expected,0,128));
         checks+=expected.Length;fixtures++;transcript.WriteLine(label+"|"+String.Join(";",calls.ToArray())+"|"+Convert.ToBase64String(actual));
+    }
+    private static void Rejections(MethodInfo encode)
+    {
+        object[][] inputs={
+            new object[]{1u,1u,1u,null,"D3DFMT_A8R8G8B8",false},
+            new object[]{0u,1u,1u,new byte[0],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,0u,1u,new byte[0],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,1u,0u,new byte[0],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,1u,3u,new byte[12],"D3DFMT_A8R8G8B8",false},
+            new object[]{0x80000000u,0x80000000u,0x80000000u,new byte[0],"D3DFMT_A8R8G8B8",false},
+            new object[]{256u,256u,256u,new byte[0],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,1u,1u,new byte[3],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,1u,1u,new byte[5],"D3DFMT_A8R8G8B8",false},
+            new object[]{1u,1u,1u,new byte[4],"D3DFMT_DXT1",false},
+            new object[]{1u,1u,1u,new byte[4],"unknown",false},
+            new object[]{1u,1u,1u,new byte[4],null,false},
+            new object[]{1u,1u,1u,new byte[4],"D3DFMT_A8R8G8B8",true}
+        };
+        Type[] errors={typeof(ArgumentNullException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentException),typeof(ArgumentOutOfRangeException),typeof(ArgumentOutOfRangeException),typeof(ArgumentException),typeof(ArgumentException),typeof(NotSupportedException),typeof(NotSupportedException),typeof(NotSupportedException),typeof(NotSupportedException)};
+        for(int i=0;i<inputs.Length;i++)
+        {
+            bool rejected=false;try{encode.Invoke(null,inputs[i]);}catch(TargetInvocationException e){Check(e.InnerException.GetType()==errors[i],"rejection type "+i);rejected=true;}
+            Check(rejected,"missing rejection "+i);
+        }
     }
     private static int Main(string[] args)
     {
@@ -112,7 +138,7 @@ internal static unsafe class TextureVolumeDdsDifferential
             {
                 Type recovered=Assembly.LoadFrom(Path.GetFullPath(args[2])).GetType("Recovered.Compiler.Texture.TextureVolumeRawDdsEncoder",true);
                 encode=recovered.GetMethod("Encode",new Type[]{typeof(uint),typeof(uint),typeof(uint),typeof(byte[]),typeof(string),typeof(bool)});
-                Check(encode!=null,"recovered Encode contract missing");
+                Check(encode!=null,"recovered Encode contract missing");Rejections(encode);
 
             }
             string[] formats={"D3DFMT_A8R8G8B8","D3DFMT_X8R8G8B8","D3DFMT_R5G6B5"};
