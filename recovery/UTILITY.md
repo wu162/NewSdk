@@ -15,7 +15,7 @@
 
 `std::map<int,int>` 换成托管字典，键仍然是原版的 `String.GetHashCode()`：不同字符串哈希碰撞、同名引用改变 isPatch 都复用首偏移。不得误改为按字符串去重。Manifest 的原大小端细节（包括读取时未交换 Tokenized 字段）、读取一次即使用的短流行为、写流失败后未恢复 Swap 的状态均按原 IL 保留。
 
-C++ 模板基类名 `StructWrapper<AssetStream::...>` 及涉及内部原生结构的公开指针签名无法直接用 C# 表达。构建后工具 `tools/UtilityIdentity` 使用固定 Mono.Cecil 0.11.6 恢复原名、类型标志、原生结构可见性和 Dispose 虚拟/final 标志。工具只从原 DLL 读取这些元数据，不复制或调用原方法体；业务实现均来自源码。使用 .NET SDK 8 构建会自动执行此步骤，首次构建需要 NuGet。
+C++ 模板基类名 `StructWrapper<AssetStream::...>` 及涉及内部原生结构的公开指针签名无法直接用 C# 表达。构建后工具 `tools/UtilityIdentity` 使用固定 Mono.Cecil 0.11.6 恢复原名、类型标志、原生结构可见性、方法标志和签名自定义修饰符。GetErrorString 的 uint 参数带原 C++ `modopt(IsLong)`；省略它会使已编译调用者抛 MissingMethodException，因此也显式恢复并差分核对。工具只从原 DLL 读取这些元数据，不复制或调用原方法体；业务实现均来自源码。使用 .NET SDK 8 构建会自动执行此步骤，首次构建需要 NuGet。
 
 ```powershell
 dotnet build recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj -c Release

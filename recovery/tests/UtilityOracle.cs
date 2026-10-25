@@ -36,18 +36,20 @@ class UtilityOracle
         }
         r.Sort(StringComparer.Ordinal);return String.Join("|",r.ToArray());
     }
+    static string Mods(Type[] types) { var a=new List<string>();foreach(var t in types)a.Add(t.FullName);return String.Join(",",a.ToArray()); }
     static string Sig(MethodBase m) {
-        var a=new List<string>();foreach(var p in m.GetParameters())a.Add(N(p.ParameterType.ToString()));
-        return m.Name+"("+String.Join(",",a.ToArray())+")"+(m is MethodInfo?":"+N(((MethodInfo)m).ReturnType.ToString()):"");
+        var a=new List<string>();foreach(var p in m.GetParameters())a.Add(N(p.ParameterType.ToString())+":"+p.Attributes+":opt="+Mods(p.GetOptionalCustomModifiers())+":req="+Mods(p.GetRequiredCustomModifiers()));
+        return m.Name+"("+String.Join(",",a.ToArray())+")"+(m is MethodInfo?":"+N(((MethodInfo)m).ReturnType.ToString())+":opt="+Mods(((MethodInfo)m).ReturnParameter.GetOptionalCustomModifiers())+":req="+Mods(((MethodInfo)m).ReturnParameter.GetRequiredCustomModifiers()):"");
     }
     static void Contract() {
         var a=typeof(U.Manifest).Assembly; Row("assembly",a.GetName().Name+":"+a.GetName().Version);
         foreach(var t in a.GetExportedTypes()) {
             if(t.Namespace!="BinaryAssetBuilder.Utility" && t.Namespace!="AssetStream")continue;
-            Row("api:type",N(t.FullName)+":"+N(t.BaseType==null?"":t.BaseType.ToString()));
-            foreach(var m in t.GetMethods(Decl))Row("api:method",N(t.FullName)+":"+Sig(m)+":"+m.IsStatic);
-            foreach(var c in t.GetConstructors(Decl))Row("api:ctor",N(t.FullName)+":"+Sig(c));
-            foreach(var f in t.GetFields(Decl))Row("api:field",N(t.FullName)+":"+f.Name+":"+N(f.FieldType.ToString()));
+            Row("api:type",N(t.FullName)+":"+N(t.BaseType==null?"":t.BaseType.ToString())+":"+t.Attributes);
+            foreach(var i in t.GetInterfaces())Row("api:interface",N(t.FullName)+":"+N(i.ToString()));
+            foreach(var m in t.GetMethods(Decl))Row("api:method",N(t.FullName)+":"+Sig(m)+":"+m.Attributes);
+            foreach(var c in t.GetConstructors(Decl))Row("api:ctor",N(t.FullName)+":"+Sig(c)+":"+c.Attributes);
+            foreach(var f in t.GetFields(Decl))Row("api:field",N(t.FullName)+":"+f.Name+":"+N(f.FieldType.ToString())+":"+f.Attributes);
         }
     }
     static string SaveName(U.NameBuffer n) { using(var s=new MemoryStream()){n.SaveToStream(s);return Bytes(s.ToArray());} }

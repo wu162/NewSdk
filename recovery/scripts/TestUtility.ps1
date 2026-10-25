@@ -7,6 +7,9 @@ $work = Join-Path $env:RUNNER_TEMP ('utility-validation-' + [Guid]::NewGuid().To
 New-Item -ItemType Directory -Force $work,$out | Out-Null
 $out = (Resolve-Path $out).Path
 $receipt = @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; status='started'; sdkValidated=$false; configurations=@(); originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.Utility.dll -Algorithm SHA256).Hash.ToLowerInvariant() }
+$receipt.scope = 'Utility public API and behavior component differential; no full SDK compilation'
+$receipt.inputs = @(Get-ChildItem SDK/builtmods -Recurse -Filter *.manifest | Sort-Object FullName | ForEach-Object { @{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/'); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} })
+$receipt.sourceFiles = @(Get-ChildItem recovery/src/Managed/Utility,recovery/tools/UtilityIdentity -Recurse -File | Where-Object {$_.FullName -notmatch '[\\/](bin|obj)[\\/]'} | Sort-Object FullName | ForEach-Object { @{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/'); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} })
 try {
     $original = "$work/original"
     New-Item -ItemType Directory -Force $original | Out-Null
