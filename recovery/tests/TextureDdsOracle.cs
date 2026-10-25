@@ -47,7 +47,7 @@ internal static class TextureDdsOracle
     {
         try
         {
-            if (args.Length != 4) throw new Exception("Usage: TextureDdsOracle plugin.dll pluginType transcript.txt workDirectory");
+            if (args.Length != 4 && args.Length != 5) throw new Exception("Usage: TextureDdsOracle plugin.dll pluginType transcript.txt workDirectory");
             if (IntPtr.Size != 4) throw new Exception("x86 host required");
             string path = Path.GetFullPath(args[0]), folder = Path.GetDirectoryName(path);
             AppDomain.CurrentDomain.AssemblyResolve += delegate(object s, ResolveEventArgs e)
@@ -70,6 +70,16 @@ internal static class TextureDdsOracle
                     if (File.Exists(cdata)) File.Delete(cdata);
                     if (existing) { byte[] old = new byte[2048]; for (int i=0;i<old.Length;i++) old[i]=(byte)(i*19); File.WriteAllBytes(cdata,old); }
                     Run(plugin, output, platform+"/"+root+"/"+kind+"/"+format+"/"+length+"/"+existing, Declaration(root,file,kind,format,cdata));
+                }
+                if (args.Length == 5)
+                {
+                    string[] real = Directory.GetFiles(args[4], "*.dds"); Array.Sort(real, StringComparer.Ordinal);
+                    foreach (string texture in real)
+                    foreach (string root in new string[] { "Texture", "OnDemandTexture" })
+                    {
+                        if (File.Exists(cdata)) File.Delete(cdata);
+                        Run(plugin,output,platform+"/real/"+root+"/"+Path.GetFileName(texture),Declaration(root,texture,"StandardTexture","DXT1",cdata));
+                    }
                 }
                 foreach (string root in new string[] { "Texture", "OnDemandTexture" })
                 {

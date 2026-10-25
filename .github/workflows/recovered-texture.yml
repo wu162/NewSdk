@@ -10,6 +10,7 @@ on:
       - 'src/TextureCompiler/Managed/*.csproj'
       - 'src/TextureCompiler/Native/**'
       - 'recovery/tests/TextureDdsOracle.cs'
+      - 'recovery/tests/fixtures/texture-main/**'
       - 'recovery/tests/TextureImageRulesOracle.cs'
       - 'recovery/tests/TextureMetadataOracle.cs'
       - 'recovery/tests/TexturePackerOracle.cs'

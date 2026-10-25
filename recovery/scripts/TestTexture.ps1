@@ -8,6 +8,8 @@ $out = (Resolve-Path $out).Path
 $receipt = @{ sourceCommit=(git rev-parse HEAD).Trim(); runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; status='started'; sdkValidated=$false; configurations=@(); originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant(); scope='partial recovery: metadata, image rules, native buffer, PC/PS3/unknown DDS paths only' }
 if ($receipt.originalSha256 -ne '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e') { throw 'Original TextureCompiler changed' }
 $receipt.sourceFiles = @(Get-ChildItem src/TextureCompiler -Recurse -File | Where-Object {$_.FullName -notmatch '[\\/](bin|obj)[\\/]'} | Sort-Object FullName | ForEach-Object { @{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/'); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} })
+$receipt.realTextureFixtures = Get-Content recovery/tests/fixtures/texture-main/manifest.json -Raw | ConvertFrom-Json
+foreach ($fixture in $receipt.realTextureFixtures.files) { if ((Get-FileHash $fixture.fixture -Algorithm SHA256).Hash.ToLowerInvariant() -ne $fixture.sha256) { throw ('Real fixture hash changed: ' + $fixture.fixture) } }
 function Run-Checked([string]$Label, [scriptblock]$Action) {
     & $Action *> "$out/$Label.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$Label.log" -Tail 100; throw "$Label failed ($LASTEXITCODE)" }
@@ -16,7 +18,7 @@ function Run-Checked([string]$Label, [scriptblock]$Action) {
 $script:failureList = @()
 $receipt.groups = @()
 function Try-ReuseGroup([string]$Name) {
-    $priorPath = 'recovery/evidence/texture/validation/40193344145-1'
+    $priorPath = Join-Path $root 'recovery/evidence/texture/validation/40193344145-1'
     $prior = Get-Content "$priorPath/validation.json" -Raw | ConvertFrom-Json
     $group = @($prior.groups | Where-Object {$_.group -eq $Name -and $_.passed})
     if ($group.Count -ne 1) { return $false }
@@ -58,7 +60,7 @@ try {
     $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
     Run-Checked 'dds-oracle-build' { & $csc /nologo /platform:x86 /r:System.Xml.dll /r:"$original/BinaryAssetBuilder.Core.dll" /r:"$original/BinaryAssetBuilder.Utility.dll" /out:"$original/TextureDdsOracle.exe" (Resolve-Path "recovery/tests/TextureDdsOracle.cs").Path }
     Host-Config "$original/TextureDdsOracle.exe"
-    Run-Checked 'original-dds' { & "$original/TextureDdsOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" 'BinaryAssetBuilder.TextureCompiler.Plugin' "$out/original-dds.txt" "$work/fixtures" }
+    Run-Checked 'original-dds' { & "$original/TextureDdsOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" 'BinaryAssetBuilder.TextureCompiler.Plugin' "$out/original-dds.txt" "$work/fixtures" "$root/recovery/tests/fixtures/texture-main" }
     Run-Checked 'contract-build' { & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /out:"$original/TexturePluginContractOracle.exe" (Resolve-Path "recovery/tests/TexturePluginContractOracle.cs").Path }
     Host-Config "$original/TexturePluginContractOracle.exe"
     Run-Checked 'contract' { & "$original/TexturePluginContractOracle.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" "$out/plugin-contract.json" }
@@ -89,7 +91,7 @@ try {
         Run-Checked "$mode-packer" { & "$original/TexturePackerOracle-$mode.exe" "$original/BinaryAssetBuilder.TextureCompiler.dll" }
         }
         Invoke-Group "$mode-dds" {
-        Run-Checked "$mode-dds" { & "$rebuilt/TextureDdsOracle.exe" $dll 'Recovered.Compiler.Texture.Plugin' "$out/$mode-dds.txt" "$work/fixtures" }
+        Run-Checked "$mode-dds" { & "$rebuilt/TextureDdsOracle.exe" $dll 'Recovered.Compiler.Texture.Plugin' "$out/$mode-dds.txt" "$work/fixtures" "$root/recovery/tests/fixtures/texture-main" }
         if ((Get-FileHash "$out/original-dds.txt").Hash -ne (Get-FileHash "$out/$mode-dds.txt").Hash) {
             Compare-Object (Get-Content "$out/original-dds.txt") (Get-Content "$out/$mode-dds.txt") | Select-Object -First 12 | Out-String -Width 500 | Set-Content "$out/$mode-dds-difference.txt"
             Get-Content "$out/$mode-dds-difference.txt"; throw "$mode DDS differential mismatch"
