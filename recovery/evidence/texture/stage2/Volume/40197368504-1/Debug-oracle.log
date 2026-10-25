@@ -1,0 +1,1 @@
+PASS TextureVolume original differential fixtures=290 checks=389991 pixels=381195; resize/capacities/retained RGBA/strip slices; native compression and SDK not validated
