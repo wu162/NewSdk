@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "b020465ea968c9baa7e70b3954ecdbc91b1c4886",
+  "records": 270,
+  "sdkValidated": false,
+  "transcriptSha256": "3fef4b1e4b15d88be483bd23894f66f00f3f1fdd26ea53577573b90c5a34d57b",
+  "status": "original-evidence-only",
+  "runId": "40198443312",
+  "scope": "test-only numeric trace; runtime hook must preserve all original 270 DDS records; no mip encoder acceptance",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runAttempt": "1"
+}
