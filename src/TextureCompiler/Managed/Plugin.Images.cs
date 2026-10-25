@@ -60,7 +60,10 @@ namespace Recovered.Compiler.Texture
                         throw new BinaryAssetBuilderException(null, ErrorCode.InvalidArgument,
                             "CubeTexture is not currently supported.  Create the cube texture as a DDS with the D3D Texture tool in the meantime.", new object[0]);
                     case "VolumeTexture":
-                        throw new NotSupportedException("Volume texture encoding has not been accepted by the plugin pipeline.");
+                        if (mipmaps) throw new NotSupportedException("Volume mip filtering has not been recovered.");
+                        result = EmbedDds(TextureVolumeRawDdsEncoder.EncodeStrip((uint)image.Width,
+                            (uint)image.Height, rgba, format, false), !onDemand, _Platform);
+                        break;
                     case "StandardTexture":
                         // PS3's automatic resizing modifies dimensions and filtering
                         // for >256 textures before encoding. Do not silently omit it.

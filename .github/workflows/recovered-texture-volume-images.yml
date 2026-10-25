@@ -1,0 +1,41 @@
+name: Recovered Texture volume plugin pipeline
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs'
+      - 'src/TextureCompiler/Managed/TextureImageLoader.cs'
+      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
+      - 'recovery/tests/TextureVolumePipelineOracle.cs'
+      - 'recovery/scripts/TestTextureVolumeImages.ps1'
+      - '.github/workflows/recovered-texture-volume-images.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  differential:
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [VolumeImages]
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run newly recovered component only
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestTextureVolumeImages.ps1
+      - name: Preserve group results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-stage2-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/volume-images/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save immutable group evidence
+        shell: pwsh
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/volume-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"

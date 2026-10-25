@@ -35,6 +35,23 @@ namespace Recovered.Compiler.Texture
             }
             return result;
         }
+        public static byte[] EncodeStrip(uint width, uint height, byte[] rgba, string format, bool generateMipMaps)
+        {
+            if (rgba == null) throw new ArgumentNullException("rgba");
+            if ((rgba.Length & 3) != 0) throw new ArgumentException("RGBA byte count must be divisible by four.", "rgba");
+            uint[] pixels = new uint[rgba.Length / 4];
+            Buffer.BlockCopy(rgba, 0, pixels, 0, rgba.Length);
+            TextureVolume volume = new TextureVolume();
+            volume.CreateVolumeRGBAImage(width, height, pixels);
+            byte[] ordered = new byte[rgba.Length];
+            int offset = 0;
+            foreach (TextureVolume.Slice slice in volume.Levels[0].Slices)
+            {
+                int bytes = checked((int)slice.PixelCount * 4);
+                Buffer.BlockCopy(slice.Pixels, 0, ordered, offset, bytes); offset += bytes;
+            }
+            return Encode(height, height, checked(width / height), ordered, format, generateMipMaps);
+        }
         private static void Put(byte[] data, int offset, uint value)
         {
             data[offset] = (byte)value; data[offset + 1] = (byte)(value >> 8);

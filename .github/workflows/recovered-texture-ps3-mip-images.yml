@@ -38,14 +38,4 @@ jobs:
       - name: Save immutable group evidence
         shell: pwsh
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "recovery/evidence/texture/ps3-mip-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if (git diff --cached --quiet) { exit 0 }
-          git commit -m "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
-          git pull --rebase origin $env:GITHUB_REF_NAME
-          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
-          git push origin "HEAD:$env:GITHUB_REF_NAME"
-          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }
-
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/ps3-mip-images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
