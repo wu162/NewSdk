@@ -1,0 +1,42 @@
+{
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "png-ranges"
+  ],
+  "groups": [
+    {
+      "passed": false,
+      "group": "bmp",
+      "error": "Debug-oracle failed"
+    },
+    {
+      "passed": false,
+      "group": "raster-images",
+      "error": "Debug-oracle failed"
+    }
+  ],
+  "selected": [
+    "bmp",
+    "raster-images"
+  ],
+  "status": "failed",
+  "runId": "40234664909",
+  "runAttempt": "1",
+  "sourceCommit": "2cbff863e36bf7c8f2578f3f0ce0a54ef652a1e7"
+}

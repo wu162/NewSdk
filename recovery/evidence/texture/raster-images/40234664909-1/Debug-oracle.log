@@ -1,0 +1,3 @@
+System.Exception: 0/bmp565/c0d16i0t0/Texture/A8R8G8B8/False/StandardTexture/False errors original=BinaryAssetBuilder.BinaryAssetBuilderException/BadTextureFile/D3DX cannot load the texture from disk. recovered=
+   at TextureRasterPipelineOracle.Case(IAssetBuilderPlugin original, IAssetBuilderPlugin recovered, String work, String label, String root, String file, String kind, String format, Boolean stale, Boolean mips)
+   at TextureRasterPipelineOracle.Main(String[] args)

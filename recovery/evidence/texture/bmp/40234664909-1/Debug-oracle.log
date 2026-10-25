@@ -1,0 +1,4 @@
+DIFFERENCE bitfields0-1x1-topFalse-p0-gap0 alpha=error/False first=-1
+System.Exception: BMP difference bitfields0-1x1-topFalse-p0-gap0
+   at TextureBmpOracle.CompareBmp(StreamWriter log, String path, String label, Byte[] bytes, Boolean probe)
+   at TextureBmpOracle.Main(String[] args)
