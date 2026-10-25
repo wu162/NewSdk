@@ -133,7 +133,7 @@ const ModuleField drawBeamW3DTracerDrawModuleDataFields[] = {
     { "TextureIndex", 68u, ModuleValue::Unsigned, nullptr, nullptr },
 };
 const ModuleToken drawBeamW3DTracerDrawModuleDataTokens[] = {
-    { 1u, 402003752u, 0u, &dieModuleData, 0u, 0u },
+    { 1u, 402003752u, 0u, &drawBeamDrawModuleData, 0u, 0u },
     { 3831657100u, 1683514611u, 8u, nullptr, 0u, 0u },
     { 1039421983u, 1683514611u, 12u, nullptr, 0u, 0u },
     { 2801412506u, 1683514611u, 16u, nullptr, 0u, 0u },

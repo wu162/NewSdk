@@ -29,7 +29,10 @@ def generate():
    if syms:actual.append((lits[syms[0]],lits[syms[1]] if len(syms)>1 else None))
   assert actual==[(n,d) for n,o,k,d,e in fields]+[(n,None) for n,o,mode,nest,stride in children],(n,actual)
   if fields:lines+=['const ModuleField drawBeam'+n+'Fields[] = {']+['    { %s, %du, ModuleValue::%s, %s, %s },'%(json.dumps(n),o,k,'nullptr' if d is None else json.dumps(d),'nullptr' if e is None else '&drawBeam'+e) for n,o,k,d,e in fields]+['};']
-  tb,_=direct('Tokenizer_002ETokenize',n);chunks=tb.split('ptr = (ProcTableElement*)((byte*)ptr + 12);');records=[]
+  tb,_=direct('Tokenizer_002ETokenize',n)
+  if parent:
+   parentType={'&dieModuleData':'ModuleData','&drawBeamDrawModuleData':'DrawModuleData','&drawBeamFXShaderConstant':'FXShaderConstant'}[parent];assert '('+parentType+'*)@object, state);' in tb,(n,parentType)
+  chunks=tb.split('ptr = (ProcTableElement*)((byte*)ptr + 12);');records=[]
   for c in chunks[:-1]:
    key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',c)[1])&0xffffffff;typ=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',c)[1])&0xffffffff
    o=re.search(r'\(byte\*\)@object \+ (\d+)',c);scalar=re.search(r'\((?:float|int|\w+Type)\*\)@object \+ (\d+)',c);off=int(o[1]) if o else 4*int(scalar[1]) if scalar else 0
@@ -49,7 +52,7 @@ def generate():
  pm=next(v for k,v in bodies.items() if k.startswith('internal unsafe static void Marshaler_002EMarshal_003Cstruct_0020SageBinaryData_003A_003AParticleSystemList_003E('))
  emit('ParticleSystemList',[],[('ParticleSys',0,3,'nullptr',0)],marshal=pm)
  emit('FXShaderMaterial',SHADER,[('Constants',16,10,'nullptr',0)])
- for n,fs,cs,parent in zip(NAMES,FIELDS,CHILDREN,['&drawBeamDrawModuleData','&dieModuleData','&drawBeamDrawModuleData']):emit(n,fs,cs,parent)
+ for n,fs,cs,parent in zip(NAMES,FIELDS,CHILDREN,['&drawBeamDrawModuleData','&drawBeamDrawModuleData','&drawBeamDrawModuleData']):emit(n,fs,cs,parent)
  lines+=['const ModuleFieldSet drawBeamFieldSets[] = {']+[f'    {{ drawBeam{n}Fields, {len(fs)}u }},' for n,fs in zip(NAMES,FIELDS)]+['};','const ModuleChoice drawBeamChoices[] = {']
  for i,n in enumerate(NAMES):
   meta=next(x for x in m['modules'] if x['name']==n);lines+=[f'    {{ {meta["typeId"]}u, &drawBeam{n}, {meta["nativeSize"]}u, {283+i}u }},']
