@@ -53,7 +53,84 @@ internal static class AudioInputFormatCases
                     "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
             }
         }
+        RunMetadata(root, run);
     }
+    // Complete ignored-extension group, separate from the already accepted
+    // canonical format fixtures above. Every source still contains integral
+    // PCM8/16/24 bytes regardless of its extension's declared GUID/valid bits.
+    internal static readonly string[] MetadataVariants = {
+        "cb0", "cb1", "cb21", "cb23", "cb65535",
+        "valid0", "valid1", "valid-minus1", "valid-plus1", "valid65535",
+        "mask1", "mask4", "maskffffffff",
+        "guid-float", "guid-zero", "guid-ones", "guid-tail",
+        "all-garbage", "fmt42", "fmt64"
+    };
+
+    internal static void RunMetadata(string root, Action<string, int, string, bool> run)
+    {
+        foreach (int bits in new int[] { 8, 16, 24 })
+        foreach (int channels in new int[] { 1, 2 })
+        foreach (int frames in new int[] { 7, 129 })
+        foreach (string variant in MetadataVariants)
+        {
+            string name = "metadata-" + bits + "-" + channels + "-" + frames + "-" + variant;
+            string path = Path.Combine(root, name + ".wav");
+            WriteMetadataExtension(path, bits, channels, frames, variant);
+            foreach (string codec in new string[] { "NONE", "XAS" })
+            foreach (bool streamed in new bool[] { false, true })
+            foreach (int platform in new int[] { 0, 1, 2 })
+            {
+                if ((platform == 1 && codec != "NONE") || (platform == 2 && codec != "XAS")) continue;
+                string flag = streamed.ToString().ToLowerInvariant();
+                string attrs = "File='" + System.Security.SecurityElement.Escape(path) + "' PCCompression='" + codec +
+                    "' XenonCompression='NONE' PS3Compression='XAS' PCQuality='75' XenonQuality='75' PS3Quality='75'" +
+                    " IsStreamedOnPC='" + flag + "' IsStreamedOnXenon='" + flag + "' IsStreamedOnPS3='" + flag + "'";
+                run("pcm-" + name + "-" + codec + "-" + streamed, platform,
+                    "<AudioFile xmlns='uri:ea.com:eala:asset' id='Fixture' " + attrs + "/>", false);
+            }
+        }
+    }
+
+    internal static void WriteMetadataExtension(string path, int bits, int channels, int frames, string variant)
+    {
+        WriteExtensible(path, bits, channels, frames, true);
+        byte[] data = File.ReadAllBytes(path);
+        if (variant.StartsWith("cb", StringComparison.Ordinal)) Set16(data, 36, int.Parse(variant.Substring(2)));
+        else if (variant.StartsWith("valid", StringComparison.Ordinal))
+        {
+            int value = variant == "valid-minus1" ? bits - 1 : variant == "valid-plus1" ? bits + 1 : int.Parse(variant.Substring(5));
+            Set16(data, 38, value);
+        }
+        else if (variant.StartsWith("mask", StringComparison.Ordinal))
+        {
+            uint mask = variant == "maskffffffff" ? uint.MaxValue : uint.Parse(variant.Substring(4));
+            for (int i = 0; i < 4; ++i) data[40 + i] = (byte)(mask >> (8 * i));
+        }
+        else if (variant == "guid-float") data[44] = 3;
+        else if (variant == "guid-zero" || variant == "guid-ones")
+            for (int i = 44; i < 60; ++i) data[i] = variant == "guid-zero" ? (byte)0 : (byte)255;
+        else if (variant == "guid-tail") data[59] ^= 1;
+        else if (variant == "all-garbage")
+            for (int i = 36; i < 60; ++i) data[i] = (byte)(0xa5 ^ (i * 7));
+        else if (variant == "fmt42" || variant == "fmt64")
+        {
+            int extra = variant == "fmt42" ? 2 : 24;
+            byte[] extended = new byte[data.Length + extra];
+            Array.Copy(data, 0, extended, 0, 60);
+            for (int i = 0; i < extra; ++i) extended[60 + i] = (byte)(0x70 + i);
+            Array.Copy(data, 60, extended, 60 + extra, data.Length - 60);
+            data = extended;
+            Set32(data, 4, (uint)(data.Length - 8)); Set32(data, 16, (uint)(40 + extra));
+        }
+        else throw new ArgumentException("Unknown WAVE metadata fixture: " + variant);
+        File.WriteAllBytes(path, data);
+    }
+
+    private static void Set16(byte[] bytes, int at, int value)
+    { bytes[at] = (byte)value; bytes[at + 1] = (byte)(value >> 8); }
+    private static void Set32(byte[] bytes, int at, uint value)
+    { for (int i = 0; i < 4; ++i) bytes[at + i] = (byte)(value >> (8 * i)); }
+
     private static void BE(BinaryWriter b, uint value, int bytes)
     { for (int i = bytes - 1; i >= 0; --i) b.Write((byte)(value >> (i * 8))); }
     internal static void Write(string path, bool aiff, int bits, int channels, int frames)

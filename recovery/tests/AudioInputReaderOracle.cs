@@ -7,7 +7,7 @@ using System.Reflection;
 internal static class AudioInputReaderOracle
 {
     private static MethodInfo read;
-    private static int count;
+    private static int count, accepted;
     private static void Reject(string name, byte[] data)
     {
         try { read.Invoke(null, new object[] { data, false }); }
@@ -19,6 +19,25 @@ internal static class AudioInputReaderOracle
         }
         throw new Exception("Unsupported input accepted: " + name);
     }
+    private static void Equivalent(string name, byte[] canonical, byte[] altered)
+    {
+        object expected = read.Invoke(null, new object[] { canonical, false });
+        object actual = read.Invoke(null, new object[] { altered, false });
+        Type type = expected.GetType();
+        BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        foreach (string field in new string[] { "Channels", "SampleRate" })
+            if (!type.GetField(field, flags).GetValue(expected).Equals(type.GetField(field, flags).GetValue(actual)))
+                throw new Exception("Ignored WAVE metadata changed " + field + ": " + name);
+        float[] a = (float[])type.GetField("Samples", flags).GetValue(expected);
+        float[] b = (float[])type.GetField("Samples", flags).GetValue(actual);
+        if (a.Length != b.Length) throw new Exception("Ignored WAVE metadata changed frame count: " + name);
+        byte[] ab = new byte[a.Length * 4], bb = new byte[b.Length * 4];
+        Buffer.BlockCopy(a, 0, ab, 0, ab.Length); Buffer.BlockCopy(b, 0, bb, 0, bb.Length);
+        for (int i = 0; i < ab.Length; ++i) if (ab[i] != bb[i])
+            throw new Exception("Ignored WAVE metadata changed sample bits: " + name);
+        Console.WriteLine("PASS ignored extension " + name); ++accepted;
+    }
+
     private static int Main(string[] args)
     {
         try
@@ -42,12 +61,20 @@ internal static class AudioInputReaderOracle
             copy = (byte[])valid.Clone(); copy[53] = 1; Reject("AIFF-SSND-block-size", copy);
             copy = (byte[])valid.Clone(); copy[38] = (byte)'I'; copy[39] = (byte)'N'; copy[40] = (byte)'S'; copy[41] = (byte)'T'; Reject("AIFF-loop", copy);
             AudioInputFormatCases.WriteExtensible(path, 24, 2, 129, true); valid = File.ReadAllBytes(path);
-            copy = (byte[])valid.Clone(); copy[36] = 0; Reject("extensible-missing-extension", copy);
-            copy = (byte[])valid.Clone(); copy[36] = 24; Reject("extensible-extra-extension", copy);
-            copy = (byte[])valid.Clone(); copy[38] = 20; Reject("extensible-partial-validbits", copy);
-            copy = (byte[])valid.Clone(); copy[44] = 3; Reject("extensible-float-GUID", copy);
-            copy = (byte[])valid.Clone(); copy[59] ^= 1; Reject("extensible-unknown-GUID", copy);
-            copy = (byte[])valid.Clone(); copy[40] = 4; Reject("extensible-nonstandard-mask", copy);
+            copy = (byte[])valid.Clone(); copy[16] = 38; Reject("extensible-short38", copy);
+            copy = (byte[])valid.Clone(); copy[16] = 39; Reject("extensible-short39", copy);
+            foreach (int bits in new int[] { 8, 16, 24 })
+            foreach (int channels in new int[] { 1, 2 })
+            {
+                AudioInputFormatCases.WriteExtensible(path, bits, channels, 129, true);
+                byte[] canonical = File.ReadAllBytes(path);
+                foreach (string variant in AudioInputFormatCases.MetadataVariants)
+                {
+                    AudioInputFormatCases.WriteMetadataExtension(path, bits, channels, 129, variant);
+                    Equivalent(bits + "-" + channels + "-" + variant, canonical, File.ReadAllBytes(path));
+                }
+            }
+            Console.WriteLine("PASS Audio ignored-extension sample invariants: " + accepted);
             Console.WriteLine("PASS Audio input rejection boundaries: " + count); return 0;
         }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }

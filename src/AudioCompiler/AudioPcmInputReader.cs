@@ -37,15 +37,13 @@ namespace BinaryAssetBuilder.AudioCompiler
                     bits = U16(bytes, body + 14, false);
                     if (format == 0xfffe)
                     {
-                        // Native 0x37335..37369 rereads 40 format bytes but
-                        // ignores all extension metadata. Enable the canonical
-                        // integer PCM subset; do not reinterpret other GUIDs.
-                        if (size < 40 || U16(bytes, body + 16, false) != 22 ||
-                            U16(bytes, body + 18, false) != bits || !PcmGuid(bytes, body + 24))
-                            throw new NotSupportedException("Only canonical PCM WAVE extensible input with full valid bits is supported");
-                        uint mask = U32(bytes, body + 20, false);
-                        if (mask != 0 && mask != (channels == 1 ? 4u : 3u))
-                            throw new NotSupportedException("Nonstandard WAVE extensible channel masks have not been recovered");
+                        // Native 0x37335..37369 rereads the 40-byte format
+                        // prefix, then selects the integral decoder only from
+                        // channels/container bits. cbSize, validBits, mask and
+                        // all GUID bytes are ignored, even a float GUID. Do not
+                        // reinterpret the payload according to that metadata.
+                        if (size < 40)
+                            throw new InvalidDataException("Truncated WAVE extensible format");
                         format = 1;
                     }
                 }
@@ -103,12 +101,6 @@ namespace BinaryAssetBuilder.AudioCompiler
             return new Pcm16Encoder.PcmWaveInput { Samples = samples, Channels = channels, SampleRate = rate };
         }
         private static string Tag(byte[] b, int at) { return Encoding.ASCII.GetString(b, at, 4); }
-        private static bool PcmGuid(byte[] b, int at)
-        {
-            byte[] pcm = { 1, 0, 0, 0, 0, 0, 0x10, 0, 0x80, 0, 0, 0xaa, 0, 0x38, 0x9b, 0x71 };
-            for (int i = 0; i < pcm.Length; ++i) if (b[at + i] != pcm[i]) return false;
-            return true;
-        }
         private static int U16(byte[] b, int at, bool be) { return be ? (b[at] << 8) | b[at + 1] : b[at] | (b[at + 1] << 8); }
         private static uint U32(byte[] b, int at, bool be)
         {
