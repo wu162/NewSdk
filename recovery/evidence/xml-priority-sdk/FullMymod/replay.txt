@@ -160,4 +160,4 @@ PASS original SDK replay MiscAudio/RecoverySoundMiscNonDefault, bytes=384
 PASS original SDK replay LargeGroupAudioMap/RecoverySoundMapDefault, bytes=76
 PASS original SDK replay LargeGroupAudioMap/RecoverySoundMapNonDefault, bytes=296
 PASS original SDK replay LargeGroupAudioMap/RecoverySoundMapInherited, bytes=324
-PASS replay: 162 SDK calls, 486 exact buffer comparisons, 159 required assets across 80 recovered global types, isolated=False
+PASS replay: 162 SDK calls, 486 exact buffer comparisons, 159 required assets across 80 root types, isolated=False

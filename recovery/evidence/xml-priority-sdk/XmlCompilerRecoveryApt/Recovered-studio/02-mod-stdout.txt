@@ -1,0 +1,61 @@
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\Mods\XmlCompilerRecoveryApt\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryApt\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryApt\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryApt\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\Mods\XmlCompilerRecoveryApt\Data\Mod.xml /od:D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods /iod:D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\XmlCompilerRecoveryApt\Art;.\Mods;.\Art /audio:.;.\Mods\XmlCompilerRecoveryApt\Audio;.\Mods;.\Audio /data:.;.\Mods\XmlCompilerRecoveryApt\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2500522] Cached session data not available.
+[00:00:00.2500522] Session caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2656482] Network caching enabled ('D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods\cache').
+[00:00:00.2812449] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\mods\xmlcompilerrecoveryapt\data\mod.xml'.
+[00:00:00.2969058] Stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\mods\xmlcompilerrecoveryapt\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.2969058] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods\static.manifest, file not found
+[00:00:00.2969058] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\static.xml'.
+[00:00:00.3125260] Stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\mods\xmlcompilerrecoveryapt\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3125260] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods\global.manifest, file not found
+[00:00:00.3125260] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\global.xml'.
+[00:00:00.3281397] Stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\mods\xmlcompilerrecoveryapt\data\mod.xml references stream d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.3281397] Warning: Could not load precompiled manifest D:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\XmlCompilerRecoveryApt-SDK\builtmods\audio.manifest, file not found
+[00:00:00.3281397] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\audio.xml'.
+[00:00:00.3281397] Loading 'file://d:\a\_temp\ra3-xml-priority-sdk-50a61909a67d4ac9a3b8bcf0e77cb106\xmlcompilerrecoveryapt-sdk\mods\xmlcompilerrecoveryapt\data\fixturesapt.xml'.
+[00:00:00.3437869] fixturesapt.xml: Compiling AptAptData:XmlRecoveryApt_AptAptData_defaults [6c41e6dc:0e25f323]
+[00:00:00.4062659] fixturesapt.xml: Compiling AptAptData:XmlRecoveryApt_AptAptData_rich [6c41e6dc:9d9f9c34]
+[00:00:00.4218628] fixturesapt.xml: Compiling AptAptData:XmlRecoveryApt_AptAptData_repeat [6c41e6dc:8c8fe101]
+[00:00:00.4218628] fixturesapt.xml: Compiling AptConstData:XmlRecoveryApt_AptConstData_defaults [3a9ce0b0:31e30b2b]
+[00:00:00.4218628] fixturesapt.xml: Compiling AptConstData:XmlRecoveryApt_AptConstData_rich [3a9ce0b0:b4d6ef59]
+[00:00:00.4218628] fixturesapt.xml: Compiling AptConstData:XmlRecoveryApt_AptConstData_repeat [3a9ce0b0:67d38efe]
+[00:00:00.4218628] fixturesapt.xml: Compiling AptDatData:XmlRecoveryApt_AptDatData_defaults [423395e1:f8656c8f]
+[00:00:00.4375185] fixturesapt.xml: Compiling AptDatData:XmlRecoveryApt_AptDatData_rich [423395e1:2e3d2c73]
+[00:00:00.4375185] fixturesapt.xml: Compiling AptDatData:XmlRecoveryApt_AptDatData_repeat [423395e1:b2b00812]
+[00:00:00.4375185] fixturesapt.xml: Compiling AptGeometryData:XmlRecoveryApt_AptGeometryData_defaults [3daa8c20:29450c77]
+[00:00:00.4375185] fixturesapt.xml: Compiling AptGeometryData:XmlRecoveryApt_AptGeometryData_rich [3daa8c20:b4879b84]
+[00:00:00.4531226] fixturesapt.xml: Compiling AptGeometryData:XmlRecoveryApt_AptGeometryData_repeat [3daa8c20:f4b58ab0]
+[00:00:00.4531226] Resolving references: mods\xmlcompilerrecoveryapt\data\mod
+[00:00:00.4531226] Stable sorting assets
+[00:00:00.4531226] Sorting by schema dependencies
+[00:00:00.4531226] Sorting by asset dependencies
+[00:00:00.4531226] Generating stream: mods\xmlcompilerrecoveryapt\data\mod
+[00:00:00.4687666] Slow asset clean-up (expected: 12, actual: 12, old: 0, current: 12)
+[00:00:00.4687666] mods\xmlcompilerrecoveryapt\data\mod Linking binary data
+[00:00:00.4687666] mods\xmlcompilerrecoveryapt\data\mod Linking import data
+[00:00:00.4687666] mods\xmlcompilerrecoveryapt\data\mod Linking relocation data
+[00:00:00.4687666] mods\xmlcompilerrecoveryapt\data\mod Stream complete
+[00:00:00.4843720] BinaryAssetBuilder complete
+[00:00:00.4843720] AptConstData:
+[00:00:00.4843720]       Instances Processed: 3
+[00:00:00.4843720]       Total Processing Time: 00:00:00
+[00:00:00.4843720]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4843720]       Average Processing Time: 0 seconds
+[00:00:00.4843720] AptGeometryData:
+[00:00:00.4843720]       Instances Processed: 3
+[00:00:00.4843720]       Total Processing Time: 00:00:00
+[00:00:00.4843720]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4843720]       Average Processing Time: 0 seconds
+[00:00:00.4843720] AptDatData:
+[00:00:00.4843720]       Instances Processed: 3
+[00:00:00.4843720]       Total Processing Time: 00:00:00
+[00:00:00.4843720]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4843720]       Average Processing Time: 0 seconds
+[00:00:00.4843720] AptAptData:
+[00:00:00.4843720]       Instances Processed: 3
+[00:00:00.4843720]       Total Processing Time: 00:00:00.0780759
+[00:00:00.4843720]       Longest Processing Time: 00:00:00.0624790 (XmlRecoveryApt_AptAptData_defaults)
+[00:00:00.4843720]       Average Processing Time: 0.0260253 seconds
+[00:00:00.4843720] Total Processing Time for All Types: 00:00:00.0780759
