@@ -90,6 +90,20 @@ internal static class AudioMpegBoundaryOracle
                 Add(name+"-wave-format-"+format,Enclose("RIFF","WAVE",Join(fmt,data),false));
                 Add(name+"-wave-junk-format-"+format,Enclose("RIFF","WAVE",Join(Encoding.ASCII.GetBytes("JUNK"),new byte[] {1,0,0,0,0},fmt,data),false));
             }
+
+            foreach (int format in new[] {1,0xfffe,3,0x55}) foreach (int declared in new[] {16,32}) foreach (int actual in new[] {2,3,15})
+            {
+                byte[] fmt=new byte[8+actual]; Encoding.ASCII.GetBytes("fmt ").CopyTo(fmt,0);BitConverter.GetBytes(declared).CopyTo(fmt,4);fmt[8]=(byte)format;fmt[9]=(byte)(format>>8);
+                byte[] junk=Join(Encoding.ASCII.GetBytes("JUNK"),BitConverter.GetBytes(data.Length),data);
+                Add(name+"-wave-partial-"+format+"-"+declared+"-"+actual,Enclose("RIFF","WAVE",Join(junk,fmt),false));
+            }
+            foreach (string compression in new[] {"NONE","ADP4","sowt"}) foreach (int declared in new[] {22,24,64}) foreach (int actual in new[] {22,23,24})
+            {
+                byte[] comm=new byte[8+actual]; Encoding.ASCII.GetBytes("COMM").CopyTo(comm,0);comm[7]=(byte)declared;Encoding.ASCII.GetBytes(compression).CopyTo(comm,26);
+                byte[] length=BitConverter.GetBytes(data.Length);Array.Reverse(length);
+                byte[] junk=Join(Encoding.ASCII.GetBytes("JUNK"),length,data,new byte[data.Length & 1]);
+                Add(name+"-aifc-partial-"+compression+"-"+declared+"-"+actual,Enclose("FORM","AIFC",Join(junk,comm),true));
+            }
             Add(name+"-wave-no-fmt",Enclose("RIFF","WAVE",data,false));
             Add(name+"-riff-other-type",Enclose("RIFF","AVI ",data,false));
             Add(name+"-aiff-type",Enclose("FORM","AIFF",data,true));
@@ -121,7 +135,7 @@ internal static class AudioMpegBoundaryOracle
         try {
             if ((args.Length != 4 && args.Length != 5) || IntPtr.Size != 4) throw new ArgumentException("Usage (x86): AudioMpegBoundaryOracle assembly fixtures output original|recovered");
             string root=Path.GetFullPath(args[1]); Directory.CreateDirectory(root); CreateCases();
-            if (cases.Count!=169) throw new Exception("Incomplete MPEG fixture corpus: "+cases.Count);
+            if (cases.Count!=271) throw new Exception("Incomplete MPEG fixture corpus: "+cases.Count);
             if (args[3]=="list") {
                 foreach (var pair in cases) File.WriteAllBytes(Path.Combine(root,pair.Key+".mp3"),pair.Value);
                 File.WriteAllLines(args[2],cases.Keys); return 0;

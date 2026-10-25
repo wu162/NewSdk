@@ -37,6 +37,9 @@ def main():
     cpu.mem_map(0x20000000, 0x10000)
     cpu.mem_map(0x30000000, 0x10000)
     cpu.mem_map(0x40000000, 0x1000)
+    cpu.mem_map(0x50000000, 0x1000)
+    # Deterministic CRT memcmp hook used by enclosing-format identifiers.
+    cpu.mem_write(0x100ab19c, struct.pack("<I", 0x50000000))
     words = []
     # All return/channel-affecting header fields. All four mode values matter
     # even though only mode3 is mono. CRC/private/copyright/original/emphasis
@@ -73,7 +76,7 @@ def main():
     def file_hook(machine, address, size, unused):
         if address in (0x1003bc00, 0x1002fa80, 0x100404e0):
             raise ValueError("MPEG info unexpectedly entered a PCM sample-read path")
-        if address not in (0x1003a300, 0x1003a310, 0x1003a1c0, 0x10039ef0, 0x100398c0, 0x10039630, 0x10009aae):
+        if address not in (0x1003a300, 0x1003a310, 0x1003a1c0, 0x10039ef0, 0x100398c0, 0x100398f0, 0x10039630, 0x10009aae, 0x50000000):
             return
         stack = machine.reg_read(UC_X86_REG_ESP)
         ret, a, b, c = struct.unpack("<4I", machine.mem_read(stack, 16))
@@ -88,10 +91,12 @@ def main():
             if result:
                 machine.mem_write(b, state["data"][state["position"]:state["position"] + result])
             state["position"] += result
-        elif address == 0x100398c0:
-            if b != 4:
+        elif address in (0x100398c0, 0x100398f0):
+            if b not in (2, 4):
                 raise ValueError("Unexpected original header endian read")
-            result = int.from_bytes(machine.mem_read(a, b), "big")
+            result = int.from_bytes(machine.mem_read(a, b), "little" if address == 0x100398f0 else "big")
+        elif address == 0x50000000:
+            result = 0 if machine.mem_read(a, c) == machine.mem_read(b, c) else 1
         elif address == 0x10039630:
             result = state["heap"]
             state["heap"] += (a + 15) & ~15
@@ -177,16 +182,59 @@ def main():
         info_rows.append(f"{label}\t{prefix}\t{channels}\t{base64.b64encode(data).decode('ascii')}\t{sample_count}\n")
     info_path = output.with_name(output.stem + "-info.tsv")
     info_path.write_text("".join(info_rows), encoding="ascii")
+    container_inputs = []
+
+    def enclose(magic, kind, payload, big):
+        return magic + struct.pack(">I" if big else "<I", len(payload) + 4) + kind + payload
+
+    wave_junk = b"JUNK" + struct.pack("<I", len(valid)) + valid
+    aifc_junk = b"JUNK" + struct.pack(">I", len(valid)) + valid
+    for fmt, declared, actual in itertools.product((1, 0xfffe, 3, 0x55), (16, 32), (2, 3, 15, 16, 32)):
+        body = struct.pack("<H", fmt) + bytes(actual - 2)
+        data = enclose(b"RIFF", b"WAVE", wave_junk + b"fmt " + struct.pack("<I", declared) + body, False)
+        container_inputs.append((f"wave-partial-{fmt}-{declared}-{actual}", data))
+    for compression, declared, actual in itertools.product((b"NONE", b"ADP4", b"sowt"), (22, 24, 64), (22, 23, 24)):
+        body = bytes(18) + compression + bytes(actual - 22)
+        data = enclose(b"FORM", b"AIFC", aifc_junk + b"COMM" + struct.pack(">I", declared) + body, True)
+        container_inputs.append((f"aifc-partial-{compression.decode()}-{declared}-{actual}", data))
+    for magic in (b"RIFF", b"FORM", b"OggS", b"fLaC", b"SCHl"):
+        container_inputs.append((f"magic-{magic.decode()}", magic + valid))
+    container_rows = []
+    for label, data in container_inputs:
+        scores = []
+        for rva in (0x370d0, 0x38010):
+            sentinel_scores = []
+            for sentinel in (0, 0xa5):
+                state.update(data=bytes(data), position=0)
+                # Initialize scratch stack as well: original bounded partial reads
+                # must depend only on bytes actually read, never prior stack data.
+                cpu.mem_write(0x20000000, bytes([sentinel]) * 0x10000)
+                cpu.mem_write(0x20008000, struct.pack("<5I", 0x40000000, 0, 0, 0, 0x30000600))
+                cpu.reg_write(UC_X86_REG_ESP, 0x20008000)
+                cpu.reg_write(UC_X86_REG_FPCW, 0x37f)
+                cpu.emu_start(0x10000000 + rva, 0x40000000, count=1000000)
+                if cpu.reg_read(UC_X86_REG_ESP) != 0x20008004:
+                    raise ValueError("Original container identifier did not return normally")
+                sentinel_scores.append(cpu.reg_read(UC_X86_REG_EAX))
+            if len(set(sentinel_scores)) != 1:
+                raise ValueError("Container identification depends on unread stack data")
+            scores.append(sentinel_scores[0])
+        blocked = int(max(scores) > 75)
+        container_rows.append(f"{label}\t{blocked}\t{base64.b64encode(data).decode('ascii')}\t{scores[0]}\t{scores[1]}\n")
+    container_path = output.with_name(output.stem + "-container.tsv")
+    container_path.write_text("".join(container_rows), encoding="ascii")
     receipt = dict(originalSha256=EXPECTED_SHA, nativeRva="0x44d40", records=len(rows),
                    transcriptSha256=hashlib.sha256(output.read_bytes()).hexdigest(),
                    identifierRva="0x2f6f0", identifierRecords=len(identifier_rows),
                    identifierSha256=hashlib.sha256(identifier_path.read_bytes()).hexdigest(),
                    infoDispatchRva="0x25490", infoCallbackRva="0x2f8c0", infoRecords=len(info_rows),
                    infoSha256=hashlib.sha256(info_path.read_bytes()).hexdigest(),
+                   containerIdentifierRvas=["0x370d0", "0x38010"], containerRecords=len(container_rows), containerStackPatterns=[0, 165],
+                   containerSha256=hashlib.sha256(container_path.read_bytes()).hexdigest(),
                    emulator="Unicorn x86; initialized SINFO; x87 control 0x037f",
                    scope="MPEG header return/channel, raw identification and SIMEX_info payload independence; no PCM decoder path")
     output.with_suffix(".json").write_text(json.dumps(receipt, indent=2) + "\n")
-    print(f"PASS original MPEG machine-code oracle: {len(rows)} header, {len(identifier_rows)} identifier and {len(info_rows)} SIMEX_info records")
+    print(f"PASS original MPEG machine-code oracle: {len(rows)} header, {len(identifier_rows)} identifier, {len(info_rows)} SIMEX_info and {len(container_rows)} container records")
 
 
 if __name__ == "__main__":

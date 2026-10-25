@@ -9,12 +9,13 @@ internal static class AudioMpegHeaderOracle
     private static int Main(string[] args)
     {
         try {
-            if (args.Length!=4) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv identifier.tsv info.tsv");
+            if (args.Length!=5) throw new ArgumentException("Usage: AudioMpegHeaderOracle candidate.dll native.tsv identifier.tsv info.tsv container.tsv");
             Assembly library=Assembly.LoadFrom(Path.GetFullPath(args[0]));
             Type type=library.GetType("BinaryAssetBuilder.AudioCompiler.MpegPassthrough",true);
             MethodInfo parse=type.GetMethod("ParseHeader",BindingFlags.Static|BindingFlags.NonPublic);
             MethodInfo find=type.GetMethod("FindFirstFrame",BindingFlags.Static|BindingFlags.NonPublic);
             MethodInfo info=type.GetMethod("Validate",BindingFlags.Static|BindingFlags.NonPublic);
+            MethodInfo container=type.GetMethod("IsContainer",BindingFlags.Static|BindingFlags.NonPublic);
             int count=0;
             foreach (string line in File.ReadLines(args[1])) {
                 string[] fields=line.Split('\t');
@@ -43,6 +44,14 @@ internal static class AudioMpegHeaderOracle
                 infos++;
             }
             if (infos!=324) throw new Exception("Incomplete original SIMEX_info matrix: "+infos);
+            int containers=0;
+            foreach (string line in File.ReadLines(args[4])) {
+                string[] fields=line.Split('\t');
+                bool actual=(bool)container.Invoke(null,new object[] {Convert.FromBase64String(fields[2])});
+                if (actual!=(fields[1]=="1")) throw new Exception("Original container priority mismatch: "+fields[0]);
+                containers++;
+            }
+            if (containers!=72) throw new Exception("Incomplete original container matrix: "+containers);
             byte[] header={255,251,80,196}; object[] valid={header,0,(byte)0};
             int stride=4+(int)parse.Invoke(null,valid);
             int checks=0;
@@ -56,7 +65,7 @@ internal static class AudioMpegHeaderOracle
                 if (actual!=expected) throw new Exception("MPEG seven-header boundary mismatch");
                 checks++;
             }
-            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+identifiers+" native identifier records; "+infos+" native SIMEX_info records; "+checks+" identification boundaries"); return 0;
+            Console.WriteLine("PASS MPEG header: "+count+" native return/channel records; "+identifiers+" native identifier records; "+infos+" native SIMEX_info records; "+containers+" native container records; "+checks+" identification boundaries"); return 0;
         } catch (Exception error) { Console.Error.WriteLine(error);return 1; }
     }
 }

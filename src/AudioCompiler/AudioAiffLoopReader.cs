@@ -19,7 +19,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             long limit = 8L + U32(bytes, 4);
             if (limit < 12 || limit > bytes.Length)
                 throw new InvalidDataException("Truncated AIFF container");
-            int instrument = -1;
+            int instrument = -1, declaredFrames = 0;
             var markerChunks = new List<int>();
             var markerSizes = new List<int>();
             for (long cursor = 12; cursor < limit; )
@@ -29,7 +29,14 @@ namespace BinaryAssetBuilder.AudioCompiler
                 uint size = U32(bytes, at + 4);
                 long next = cursor + 8 + size;
                 if (next > limit) throw new InvalidDataException("Truncated AIFF chunk");
-                if (Tag(bytes, at, "INST"))
+                if (Tag(bytes, at, "COMM"))
+                {
+                    if (size < 18) throw new InvalidDataException("Truncated AIFF common chunk");
+                    // Native assigns SSOUND+0x218 on every COMM, before it
+                    // resolves MARK and before SSND length correction.
+                    declaredFrames = unchecked((int)U32(bytes, at + 10));
+                }
+                else if (Tag(bytes, at, "INST"))
                 {
                     if (size != 20) throw new NotSupportedException("Only the standard AIFF instrument chunk has been recovered");
                     instrument = at + 8;
@@ -71,15 +78,14 @@ namespace BinaryAssetBuilder.AudioCompiler
                     int at = checked((int)record);
                     int id = U16(bytes, at), nameLength = bytes[at + 6];
                     uint position = U32(bytes, at + 2);
-                    bool selected = mode == 1 && (id == beginId || id == endId);
-                    if (selected && position > int.MaxValue)
-                        throw new NotSupportedException("AIFF selected marker position is out of range");
-                    // Unselected auxiliary positions never change the runtime
-                    // loop, including native signed-negative/out-of-range values.
-                    // Both native comparisons are independent; selected IDs are distinct.
-                    // Every later matching record replaces the previous position.
-                    if (mode == 1 && id == beginId) first = position;
-                    if (mode == 1 && id == endId) final = position;
+                    int signedPosition = unchecked((int)position);
+                    // Native 0x3874e/0x38765 uses signed comparisons. Invalid
+                    // records are skipped before matching IDs, so they cannot
+                    // replace an earlier valid duplicate. COMM itself is also
+                    // interpreted signed here, before later SSND correction.
+                    bool eligible = signedPosition >= 0 && signedPosition <= declaredFrames;
+                    if (eligible && mode == 1 && id == beginId) first = position;
+                    if (eligible && mode == 1 && id == endId) final = position;
                     record += 6 + ((nameLength + 2) & ~1);
                     if (record > markerLimit) throw new InvalidDataException("Truncated AIFF marker name");
                 }

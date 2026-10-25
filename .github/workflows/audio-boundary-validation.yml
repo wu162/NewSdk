@@ -37,6 +37,7 @@ jobs:
           if ('${{ contains(github.event.head_commit.message, '[audio-input-boundary]') }}' -eq 'true') {
             ./recovery/scripts/TestAudioLoopMetadata.ps1
             ./recovery/scripts/TestAudioLoopOptionalMetadata.ps1
+            ./recovery/scripts/TestAudioAiffMarkerRange.ps1
           } else {
             ./recovery/scripts/TestAudioLoopMetadata.ps1 -OriginalOnly
           }
@@ -68,9 +69,14 @@ jobs:
           ./recovery/scripts/TestAudioAiffSsnd.ps1 -SkipLoopRegression
           ./recovery/scripts/BuildAudioSource.ps1
       - name: Dedicated real SDK PC input milestone
-        if: success() && contains(github.event.head_commit.message, '[audio-sdk-inputs]') && contains(github.event.head_commit.message, '[audio-input-boundary]')
+        if: success() && (contains(github.event.head_commit.message, '[audio-sdk-inputs]') || contains(github.event.head_commit.message, '[audio-sdk-markers]')) && contains(github.event.head_commit.message, '[audio-input-boundary]')
         shell: pwsh
-        run: ./recovery/scripts/TestAudioSdk.ps1 -PcInputsOnly
+        run: |
+          if ('${{ contains(github.event.head_commit.message, '[audio-sdk-markers]') }}' -eq 'true') {
+            ./recovery/scripts/TestAudioSdk.ps1 -MarkerRangeOnly
+          } else {
+            ./recovery/scripts/TestAudioSdk.ps1 -PcInputsOnly
+          }
       - name: Upload exact batch evidence
         if: always()
         uses: actions/upload-artifact@v4

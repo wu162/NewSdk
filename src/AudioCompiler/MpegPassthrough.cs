@@ -87,7 +87,10 @@ namespace BinaryAssetBuilder.AudioCompiler
                     int offset = (int)at;
                     if (Matches(data, "fmt ", offset))
                     {
-                        if (at > data.Length - 24) return false;
+                        // Native read24 tests only nonzero bytes read and then
+                        // inspects the two format bytes. Ten initialized bytes
+                        // suffice even when the rest of fmt is truncated.
+                        if (at > data.Length - 10) return false;
                         int format = data[offset + 8] | (data[offset + 9] << 8);
                         return format == 1 || format == 0xfffe;
                     }
@@ -108,7 +111,10 @@ namespace BinaryAssetBuilder.AudioCompiler
                 long padded = size + (size & 1L);
                 if (Matches(data, "COMM", offset))
                 {
-                    if (size < 22 || at + 8 + padded > data.Length) return false;
+                    // Native reads the declared body, but identification only
+                    // inspects its first22 bytes (compression at body+18).
+                    // Short reads >=22 bytes remain deterministic.
+                    if (size < 22 || at > data.Length - 30) return false;
                     return Matches(data, "NONE", offset + 26) || Matches(data, "ADP4", offset + 26);
                 }
                 consumed += 8 + padded;

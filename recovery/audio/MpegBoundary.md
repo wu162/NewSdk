@@ -28,7 +28,7 @@ not a second bitrate formula.
 - The identifier at RVA `0x2f6f0` requires seven successive parsable headers.
   The seventh header needs four bytes; its payload need not fit during
   identification. Fifteen candidate tests cover zero/one/six/seven/eight headers
-  with three prefix lengths. Identification and decoding acceptance are separate.
+  with three prefix lengths. Identification and header metadata extraction are separate.
 
 The original machine-code generator completed locally with all 32,783 records;
 a local formula cross-check found no difference. Actual Debug/Release candidate
@@ -92,6 +92,18 @@ of NONE or ADP4 and rounds skipped chunk sizes to even lengths. These bounded
 recognizers outrank score75 raw MPEG. A magic string alone does not suffice.
 OggS/fLaC/SCHl prefix-only rejection had no original-code evidence and is removed.
 
+The bounded partial-metadata extension follows actual read dependencies: WAVE
+needs the chunk header and two initialized format bytes (10 bytes total), not
+all24 bytes requested by the identifier. AIFC needs22 initialized COMM body bytes,
+not the complete declared length. The generator executes both original driver
+identifiers on72 full/partial-format cases, twice with distinct stack fill bytes
+(0 and0xa5), and requires identical decisions across stack fills. Its expected
+score100/score0 decisions verify the recovered bounded priority. An additional
+102 plugin fixtures cover partial WAVE format1/EXTENSIBLE/float/MPEG with declared
+16/32-byte bodies and actual2/3/15-byte bodies, plus AIFC NONE/ADP4/sowt with
+22/24/64-byte declarations and22/23/24 actual bytes. Earlier JUNK chunks contain
+complete MPEG streams, so incorrect container rejection/acceptance is visible.
+
 The recovered recognizers never read beyond the available file. Truncated
 enclosing metadata that makes the original examine uninitialized bytes remains
 outside the deterministic contract; universal malformed-container equivalence
@@ -99,7 +111,7 @@ is not claimed.
 
 ## Decoder acceptance probe
 
-`AudioMpegBoundaryOracle.cs` creates 169 fixtures from existing mono MPEG1 and
+`AudioMpegBoundaryOracle.cs` creates 271 fixtures from existing mono MPEG1 and
 stereo MPEG2 Layer3 fixtures: plain files; junk/ID3 prefixes and suffixes;
 one/six/seven/eight-frame boundaries with missing or partial final payload;
 broken synchronization; five constant and four seeded payload patterns; enclosing-format signatures;
@@ -111,7 +123,7 @@ exercise WAVE format1/EXTENSIBLE/float/MPEG, odd skipped chunks, RIFF other type
 AIFF type priority, AIFC NONE/ADP4/sowt, skipped odd chunks and absent fmt/COMM.
 
 Each fixture exercises Win32 `ProcessInstance` and the direct handler with both
-streaming flags (676 complete records). Tests record all three buffers, error
+streaming flags (1,084 complete records). Tests record all three buffers, error
 type/message and CustomData. Accepted assets must copy the entire input exactly;
 the two plain valid controls must succeed. Each fixture runs in a separate x86
 process with a 15-second bound, making native crash/timeout an explicit case

@@ -139,3 +139,14 @@ cross-implementation equivalence. This run remains failed, not accepted.
 The corrected candidate requires a fresh full loop differential; the new
 independent assertions explicitly cover both trailing-invisible and
 preceding-visible samplers for odd-sized sources.
+
+## COMM correction required after the first batches
+
+The original filters every marker against the last COMM's **signed declared**
+frame count before later SSND length correction. This affects selected markers
+as well as auxiliary records. The initial candidate incorrectly tested only
+integer representability and actual-source bounds; mismatched COMM counts
+could therefore install a different loop. The corrected implementation and
+complete new group are described in [AiffMarkerRangeBoundary](AiffMarkerRangeBoundary.md).
+Until that group's exact source/run receipt succeeds, older successes do not
+certify general COMM-mismatch loop behavior.
