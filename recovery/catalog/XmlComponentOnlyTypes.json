@@ -302,6 +302,9 @@
     ],
     "gamescripts": [
       "GameScriptList"
+    ],
+    "gamemap": [
+      "GameMap"
     ]
   },
   "roots": [
@@ -1740,6 +1743,14 @@
       "typeId": 3737094024,
       "typeHash": 2724763994,
       "schemaGlobal": true,
+      "sdkValidated": false
+    },
+    {
+      "name": "GameMap",
+      "typeId": 3575309793,
+      "typeHash": 4100291602,
+      "schemaGlobal": true,
+      "group": "gamemap",
       "sdkValidated": false
     }
   ],

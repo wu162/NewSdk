@@ -9,3 +9,7 @@
 下一轮完整组：UIConfigList70分派（XML_UI_CONFIG_NEXT.md）或GameMap80根及WorldDict/MapAnalysis（XML_GAME_MAP_NEXT.md），两者都没有半根实现/登记。另11个Joypad根及TestGameObject属原排除项，合计剩14，不能称301完成。非完整Tokenizer/自定义编译器替代；若仍禁SDK继续组件层。
 
 保留所有失败/修复/并发父提交与Actions证据。每10–15分钟保存检查点，GitHub插件正常推送，禁止强推；不重做已验证组，不删完整原DLL差分/独立ABI/拒绝边界。详见主交接的ANSI、ALL控制流、Time舍入、文件blob与原真实no-op边界。
+
+## 当前进行中检查点
+
+GameMap完整根/依赖、差分测试和联合路由已编写，Windows矩阵待运行；正式验收仍为上面的287入口，不能把288路由登记视为验收通过。见XML_GAME_MAP.md。本轮SDK真实编译0次。下项UIConfigList70个内部分派；排除12个独立根不变。
