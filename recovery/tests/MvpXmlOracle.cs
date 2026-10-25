@@ -28,7 +28,7 @@ public class MvpXmlOracle {
     static void Contract() {
         Assembly a=typeof(XIncludingReader).Assembly;
         Check(String.Equals(Path.GetFullPath(a.Location),Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Mvp.Xml.dll"),StringComparison.OrdinalIgnoreCase));
-        Rows.Add(new[]{"assembly",a.GetName().FullName});
+        Rows.Add(new[]{"assembly",a.GetName().Name+":"+a.GetName().Version});
         var entries=new List<string>();
         foreach(Type t in a.GetTypes()) {
             // Compiler data blobs have a GUID in the VS2005 parent name and no GUID in Roslyn.

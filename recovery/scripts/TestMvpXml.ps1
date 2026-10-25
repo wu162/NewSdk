@@ -20,7 +20,7 @@ if (!$msbuild) { throw "Full .NET Framework MSBuild is required for net20 ResGen
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:System.Web.Extensions.dll /r:"$original/Mvp.Xml.dll" /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/MvpXmlOracle.exe" (Resolve-Path 'recovery/tests/MvpXmlOracle.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Oracle compilation failed' }
-'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup><runtime><bypassTrustedAppStrongNames enabled="true" /></runtime></configuration>' | Set-Content "$original/MvpXmlOracle.exe.config"
+'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$original/MvpXmlOracle.exe.config"
 & "$original/MvpXmlOracle.exe" "$out/original.json" *> "$out/original.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log"; throw 'Original oracle failed' }
 Get-Content "$out/original.log"
@@ -39,9 +39,13 @@ foreach ($mode in @('Debug', 'Release')) {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-$name-build.log"; throw "$mode $name build failed" }
         $dll = Join-Path $build "Mvp.Xml.dll"
         Copy-Item $dll $rebuilt
-        $libraries += @{ assembly = $name; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant() }
+        $libraries += @{ assembly = $name; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant(); identity = [Reflection.AssemblyName]::GetAssemblyName($dll).FullName }
     }
-    Copy-Item "$original/MvpXmlOracle.exe*" $rebuilt
+    # Compile the identical source against the rebuilt unsigned assembly, so the
+    # host does not request the original vendor public key token.
+    & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:System.Web.Extensions.dll /r:"$rebuilt/Mvp.Xml.dll" /r:"$rebuilt/BinaryAssetBuilder.Core.dll" /out:"$rebuilt/MvpXmlOracle.exe" (Resolve-Path 'recovery/tests/MvpXmlOracle.cs').Path *> "$out/$mode-oracle-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-oracle-build.log"; throw "$mode oracle compilation failed" }
+    Copy-Item "$original/MvpXmlOracle.exe.config" $rebuilt
     & "$rebuilt/MvpXmlOracle.exe" "$out/$mode.json" *> "$out/$mode.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode.log"; throw "$mode oracle failed" }
     if ((Get-FileHash "$out/$mode.json" -Algorithm SHA256).Hash -ne $baseline) {
@@ -72,7 +76,7 @@ $sourceFingerprints = @($sourceFiles | Sort-Object FullName | ForEach-Object { @
     casesPerConfiguration = @(Get-Content "$out/original.json" -Raw | ConvertFrom-Json).Count
     inputs = $fingerprints; sourceFiles = $sourceFingerprints; configurations = $results
     cultures = @('en-US', 'de-DE', 'tr-TR'); networkValidated = $false
-    sdkValidated = $false
+    sdkValidated = $false; signed = $false; originalIdentity = [Reflection.AssemblyName]::GetAssemblyName((Resolve-Path 'SDK/tools/Mvp.Xml.dll')).FullName
 } | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"
 Compress-Archive -Path "$out/original.json", "$out/Debug.json", "$out/Release.json" -DestinationPath "$out/transcripts.zip"
 Remove-Item "$out/original.json", "$out/Debug.json", "$out/Release.json"
