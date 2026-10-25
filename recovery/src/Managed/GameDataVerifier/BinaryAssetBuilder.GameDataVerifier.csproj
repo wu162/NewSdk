@@ -5,7 +5,8 @@
     <TargetFramework>net20</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>12.0</LangVersion>
+    <!-- Preserve the original type inventory: C# 11+ adds ref-safety compatibility types. -->
+    <LangVersion>10.0</LangVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup />
