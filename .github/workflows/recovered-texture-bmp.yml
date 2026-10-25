@@ -1,0 +1,34 @@
+name: Recovered Texture BMP decoder
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/Managed/TextureBmpDecoder.cs'
+      - 'recovery/tests/TextureBmpOracle.cs'
+      - 'recovery/scripts/TestTextureBmp.ps1'
+      - '.github/workflows/recovered-texture-bmp.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bmp:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Validate declared BMP decoding and rejection boundaries
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureBmp.ps1 -ProbeOnly
+      - name: Preserve pixel evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-bmp-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/bmp/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Commit BMP subset validation evidence
+        shell: pwsh
+        run: |
+          ./recovery/scripts/SaveTextureEvidence.ps1 -Path "recovery/evidence/texture/bmp/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Message "texture: record bmp component probe $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"

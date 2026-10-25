@@ -16,6 +16,7 @@ internal static unsafe class TexturePngOracle
     private static MallocFunction malloc;
     private static FreeFunction free;
     private static MethodInfo construct, destroy, load;
+    private static IDisposable owner;
     private static int fixtures, mismatches, assertions, unsupportedCount, originalFailures, rejectionMatches, decodedMatches;
     private static object PointerArg(MethodInfo method, int index, void* value)
     { return Pointer.Box(value, method.GetParameters()[index].ParameterType); }
@@ -40,6 +41,15 @@ internal static unsafe class TexturePngOracle
         destroy = (MethodInfo)original.ManifestModule.ResolveMethod(0x0600002d);
         Check(load.Name == "BinaryAssetBuilder.TextureCompiler.LoadImageA", "Original LoadImageA token");
         Check(construct.Name == "nvImage<rgba_t>.{ctor}" && destroy.Name == "nvImage<rgba_t>.{dtor}", "Original nvImage tokens");
+        Type pluginType = original.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true);
+        object plugin = Activator.CreateInstance(pluginType);
+        MethodInfo initialize = pluginType.GetMethod("Initialize");
+        Type platform = initialize.GetParameters()[1].ParameterType;
+        initialize.Invoke(plugin, new object[] { null, Enum.ToObject(platform, 0) });
+        owner = (IDisposable)plugin;
+        byte[] sanity = new byte[34]; sanity[2]=2;sanity[12]=2;sanity[14]=2;sanity[16]=32;sanity[17]=40;
+        string sanityPath=Path.Combine(Path.GetDirectoryName(input),"sanity.tga");File.WriteAllBytes(sanityPath,sanity);
+        Check(Original(sanityPath).Width==2,"Initialized native TGA positive control");
     }
     private static TexturePacker.Image Original(string path)
     {
@@ -202,7 +212,7 @@ internal static unsafe class TexturePngOracle
         {
             originalFailures += error != null ? 1 : 0; mismatches++;
             transcript.WriteLine(label + "|originalError=" + error + "|candidateError=" + candidateError);
-            Console.WriteLine("DIFFERENCE " + label + " original=" + (error == null ? "success" : error.ToString()) + " candidate=" + candidateError);
+            if(mismatches<=12)Console.WriteLine("DIFFERENCE " + label + " original=" + (error == null ? "success" : error.ToString()) + " candidate=" + candidateError);
             if (!probe) throw new InvalidDataException("PNG load failed: " + label);
             return;
         }
@@ -271,5 +281,6 @@ internal static unsafe class TexturePngOracle
             return !probe && mismatches != 0 ? 1 : 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }
+        finally { if(owner!=null)owner.Dispose(); }
     }
 }
