@@ -6,6 +6,10 @@ on:
       - '.github/workflows/recover-build-infrastructure.yml'
       - 'recovery/scripts/RecoverBuildInfrastructure.ps1'
       - 'recovery/tests/BuildInfrastructureContract.cs'
+      - 'recovery/scripts/TestBuildInfrastructure.ps1'
+      - 'recovery/src/Managed/Core/**'
+      - 'recovery/src/Managed/Remote/**'
+      - 'recovery/src/Managed/EALABuild/**'
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,6 +25,9 @@ jobs:
       - name: Export and build all three assemblies
         shell: pwsh
         run: ./recovery/scripts/RecoverBuildInfrastructure.ps1
+      - name: Compare original and source-built contracts and behavior
+        shell: pwsh
+        run: ./recovery/scripts/TestBuildInfrastructure.ps1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
