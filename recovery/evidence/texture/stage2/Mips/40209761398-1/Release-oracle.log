@@ -1,0 +1,1 @@
+PASS TextureMipDdsDifferential fixtures=282 checks=5039424 recoveredCompared=true mipmapsAccepted=Win32DefaultChain
