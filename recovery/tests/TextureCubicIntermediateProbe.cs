@@ -114,6 +114,10 @@ internal static unsafe class TextureCubicIntermediateProbe
                 row.Append(" worker=").Append((Marshal.ReadIntPtr(vtable,kind==0?0x48:kind==4?0x50:0x4c).ToInt32()-hookAddress.ToInt32()+0x5d870).ToString("X8"));
             if(kind==6 && count>=0 && count<=128 && source!=IntPtr.Zero)
             {
+                int column=Marshal.ReadInt32(stack,8),y=Marshal.ReadInt32(stack,12);
+                IntPtr rows=Marshal.ReadIntPtr(factory,12);
+                if(column<0 || column>128 || y<0 || y>128){traceError="row bounds";return;}
+                source=new IntPtr(Marshal.ReadIntPtr(rows,y*4).ToInt32()+column*16);
                 row.Append(" sourceRGBA=");
                 for(int k=0;k<count*4;k++)row.Append(Marshal.ReadInt32(source,k*4).ToString("X8")).Append(',');
             }
