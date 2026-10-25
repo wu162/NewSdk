@@ -25,6 +25,13 @@ internal static class W3xSdkOracle
             settings.ValidationEventHandler+=delegate(object sender,ValidationEventArgs e){throw new Exception(path+": "+e.Message);};
             using(var reader=XmlReader.Create(path,settings)) while(reader.Read()){}
             var xml=new XmlDocument();xml.Load(path);var ns=new XmlNamespaceManager(xml.NameTable);ns.AddNamespace("ea",Ns);
+            // BAB resolves unaliased FileReference values relative to the declaring
+            // document (Core.FileNameResolver.ResolvePath), not /art search paths.
+            foreach(XmlElement texture in xml.SelectNodes("//ea:Texture[@File]",ns)) {
+                string file=texture.GetAttribute("File");
+                if(file.IndexOf(':')<0 && !File.Exists(Path.GetFullPath(Path.Combine(Path.GetDirectoryName(path),file))))
+                    throw new Exception(path+": missing document-relative Texture file: "+file);
+            }
             foreach(XmlElement asset in xml.SelectNodes("//ea:W3DAnimation|//ea:W3DMesh",ns)) {
                 string key=asset.LocalName+"\t"+asset.GetAttribute("id");
                 if(asset.GetAttribute("id").Length==0 || !expected.Add(key)) throw new Exception("Missing/duplicate W3X asset id: "+key);

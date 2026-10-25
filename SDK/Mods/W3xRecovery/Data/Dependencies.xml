@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Texture id="W3xRecoveryTexture" File="W3xRecoveryTexture.tga" GenerateMipMaps="false" OutputFormat="A8R8G8B8"/>
+  <Texture id="W3xRecoveryTexture" File="../Art/W3xRecoveryTexture.tga" GenerateMipMaps="false" OutputFormat="A8R8G8B8"/>
   <W3DHierarchy id="W3xRecoveryHierarchy">
     <Pivot Name="RecoveryRoot" Parent="-1">
       <Translation X="0" Y="0" Z="0"/>

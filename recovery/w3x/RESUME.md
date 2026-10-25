@@ -1,3 +1,11 @@
+# 续接：修复真实SDK原版基线的纹理依赖（2026-10-25）
+
+最新远程SDK run `40168310561` / source `34dfd46bf509cdf3e3e35767d310d61d5cabcf90`：闭合门槛、完整原生双模式、正式插件双模式及无原DLL组件重放均成功。真实BAB已启动，但Original在Texture:W3xRecoveryTexture报文件不存在，恢复版尚未启动，不能宣称SDK成功。
+
+原因经原Core.FileNameResolver.ResolvePath及AssetDeclarationDocument.HandleFileReferenceType确认：Dependencies.xml中的无别名前缀File按Data目录解析，纹理实际在Art目录。现改为../Art/W3xRecoveryTexture.tga，并给完整XSD前置宿主加入文档相对纹理存在性检查；保留全部对照门槛。当前改动待Windows验证，通过后更新SDK_READY的来源与七树指纹再集中运行三份SDK。
+
+---
+
 # 本轮已闭合各类型，已授权启动SDK对照（2026-10-25）
 
 用户最新指令：完成各类型还原后才启动SDK真实验证，本轮最多一小时。新增合法数值域补全、34个命名XSD类型归类和默认可加载NativePlugin。源码 `bb2de50446b1012b5107613a88a4ce3b36e42e16` / run `40167490640` attempt1 原生双模式、正式插件原版及无原DLL对照、完整原SDK XSD四文档前置检查全部success；上一轮门槛不再代表尚未还原。SDK_READY.json已绑定此真实成功源码、七个依赖树和closure指纹。下一工作流先重核同一业务代码/依赖并重跑当前源门槛，再运行三份真实SDK；尚未宣称SDK通过。
