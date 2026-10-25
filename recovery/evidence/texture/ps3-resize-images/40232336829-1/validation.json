@@ -1,0 +1,24 @@
+{
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=324 errors=0 unsupportedResampling=0 comparedBytes=24597016; PS3 auto cubic resize=true (mips=false/true); real main TGA; three buffers and full cdata; no SDK acceptance"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=324 errors=0 unsupportedResampling=0 comparedBytes=24597016; PS3 auto cubic resize=true (mips=false/true); real main TGA; three buffers and full cdata; no SDK acceptance"
+      ]
+    }
+  ],
+  "sdkValidated": false,
+  "sourceCommit": "f6276dda8027c98fe483625d5330303535161704",
+  "status": "passed",
+  "scope": "actual ProcessInstance image entry; supported TGA to raw automatic cubic resize DDS (PS3, mips=false/true); three buffers/full cdata",
+  "runId": "40232336829"
+}
