@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "sourceCommit": "d9e496d5907fce28d38e9bf0268e7d3488d2e626",
+  "sdkValidated": false,
+  "runId": "40209208158",
+  "configurations": [
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=522 errors=6 unsupportedResampling=18 comparedBytes=56009676; PC/PS3/unknown; real main TGA; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "summary": [
+        "PASS Texture image ProcessInstance differential fixtures=522 errors=6 unsupportedResampling=18 comparedBytes=56009676; PC/PS3/unknown; real main TGA; three buffers and full cdata; no SDK acceptance"
+      ],
+      "configuration": "Release"
+    }
+  ],
+  "runAttempt": "1",
+  "scope": "actual ProcessInstance image entry; supported TGA to raw no-mip DDS; three buffers/full cdata"
+}
