@@ -12,6 +12,8 @@ using System.Xml.XPath;
 using Mvp.Xml.XInclude;
 
 public class MvpXmlOracle {
+    static string FixturePath;
+    static string FixtureUri;
     static readonly List<string[]> Rows=new List<string[]>();
     static readonly BindingFlags All=BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|BindingFlags.Static|BindingFlags.DeclaredOnly;
     static void Check(bool ok) { if(!ok) throw new InvalidOperationException("Oracle invariant failed"); }
@@ -47,7 +49,7 @@ public class MvpXmlOracle {
         public readonly Dictionary<string,byte[]> Files=new Dictionary<string,byte[]>();
         public List<string> Calls=new List<string>();
         public override ICredentials Credentials {set{}}
-        public void Add(string name,string data) { Files["file:///fixture/"+name]=Encoding.UTF8.GetBytes(data); }
+        public void Add(string name,string data) { Files[FixtureUri+name]=Encoding.UTF8.GetBytes(data);File.WriteAllBytes(Path.Combine(FixturePath,name),Files[FixtureUri+name]); }
         public override object GetEntity(Uri uri,string role,Type type) {
             Calls.Add(uri.AbsoluteUri); byte[] data;
             if(!Files.TryGetValue(uri.AbsoluteUri,out data)) throw new FileNotFoundException("fixture missing: "+uri.AbsoluteUri);
@@ -75,7 +77,7 @@ public class MvpXmlOracle {
         res.Add("cycle.xml","<cycle xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='cycle.xml'/></cycle>");
         res.Add("broken.xml","<broken>");
         string xml="<root xmlns:xi='http://www.w3.org/2001/XInclude' xml:lang='en'>"+body+"</root>";
-        using(XmlReader input=XmlReader.Create(new StringReader(xml),new XmlReaderSettings(),"file:///fixture/root.xml")) {
+        using(XmlReader input=XmlReader.Create(new StringReader(xml),new XmlReaderSettings(),FixtureUri+"root.xml")) {
             XmlReader r;
             if(wrapper) {
                 BinaryAssetBuilder.Core.XIncludingReaderWrapper.LoadAssembly();
@@ -122,7 +124,7 @@ public class MvpXmlOracle {
         Case("core-reflection-route",delegate {string s=Include(bodies[0],true);Check(s.Contains("汉字"));return s;});
     }
     static int Main(string[] args) {
-        try {Contract();Includes();Extras();File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
+        try {FixturePath=Environment.GetEnvironmentVariable("MVP_XML_FIXTURE");Directory.CreateDirectory(FixturePath);FixtureUri=new Uri(FixturePath+Path.DirectorySeparatorChar).AbsoluteUri;Contract();Includes();Extras();File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
         catch(Exception e) {Console.Error.WriteLine(e);return 1;}
     }
     static string Nodes(XPathNodeIterator it) {

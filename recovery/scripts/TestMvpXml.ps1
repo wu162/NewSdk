@@ -11,6 +11,7 @@ if (Test-Path $OutputDirectory) { throw "Refusing to overwrite validation: $Outp
 New-Item -ItemType Directory -Force $OutputDirectory | Out-Null
 $out = (Resolve-Path $OutputDirectory).Path
 $work = Join-Path $env:RUNNER_TEMP ('mvp-xml-tests-' + [Guid]::NewGuid().ToString('N'))
+$env:MVP_XML_FIXTURE = Join-Path $work "fixtures"
 $original = Join-Path $work 'original'
 New-Item -ItemType Directory -Force $original | Out-Null
 Copy-Item SDK/tools/*.dll $original
@@ -36,7 +37,7 @@ foreach ($mode in @('Debug', 'Release')) {
         $build = Join-Path $work "build-$mode-$name"
         & $msbuild $project /restore /nologo /p:Configuration=$mode /p:PlatformTarget=x86 /p:OutputPath="$build/" *> "$out/$mode-$name-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-$name-build.log"; throw "$mode $name build failed" }
-        $dll = Join-Path $build "Mvp.Xml.dll"
+        $dll = Join-Path $build "net20/Mvp.Xml.dll"
         Copy-Item $dll $rebuilt
         $libraries += @{ assembly = $name; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant() }
     }
