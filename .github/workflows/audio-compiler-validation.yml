@@ -26,15 +26,18 @@ jobs:
       - name: Compare PathMusic and MP3 handlers and collect codec probes
         env:
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
+          AUDIO_NATIVE_PROBE: ${{ contains(github.event.head_commit.message, '[audio-native-probe]') }}
         shell: pwsh
         run: |
-          if ($env:AUDIO_AIFF_ONLY -eq 'true') {
+          if ($env:AUDIO_NATIVE_PROBE -eq 'true') {
+            ./recovery/scripts/TestAudioPlugin.ps1 -OriginalOnly -Groups xma,resample
+          } elseif ($env:AUDIO_AIFF_ONLY -eq 'true') {
             ./recovery/scripts/TestAudioPlugin.ps1 -Groups formats,aiffloops
           } else {
             ./recovery/scripts/TestAudioPlugin.ps1 -IncludeMp3
           }
       - name: Build standalone source project
-        if: always()
+        if: always() && !contains(github.event.head_commit.message, '[audio-native-probe]')
         shell: pwsh
         run: |
           dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Debug
@@ -42,14 +45,15 @@ jobs:
           dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release
           if ($LASTEXITCODE -ne 0) { throw "Release project build failed" }
       - name: Compare PCM encoder component
-        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]')
+        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare XAS encoder component
-        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]')
+        if: always() && !contains(github.event.head_commit.message, '[audio-aiff]') && !contains(github.event.head_commit.message, '[audio-native-probe]')
         shell: pwsh
         run: ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory "recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: Compare original and recovered SDK builds
+        if: success() && !contains(github.event.head_commit.message, '[audio-native-probe]')
         env:
           AUDIO_AIFF_ONLY: ${{ contains(github.event.head_commit.message, '[audio-aiff]') }}
         shell: pwsh

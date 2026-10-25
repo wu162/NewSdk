@@ -184,6 +184,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
                 else if (args[4] == "loops") AudioLoopProbeCases.Run(root, Run);
                 else if (args[4] == "aiffloops") AudioAiffLoopCases.Run(root, Run);
+                else if (args[4] == "resample" || args[4] == "xma") AudioUnrecoveredProbeCases.Run(root, Run, args[4] == "xma");
                 else
                 {
                     ParseProbe();
