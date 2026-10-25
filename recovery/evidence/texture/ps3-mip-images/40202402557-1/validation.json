@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=246 errors=2 unsupportedResampling=6 comparedBytes=24864504; PS3 mip=true (resize=false); real main TGA; three buffers and full cdata; no SDK acceptance"
+      ],
+      "passed": true,
+      "configuration": "Debug"
+    },
+    {
+      "summary": [
+        "PASS Texture mip ProcessInstance differential fixtures=246 errors=2 unsupportedResampling=6 comparedBytes=24864504; PS3 mip=true (resize=false); real main TGA; three buffers and full cdata; no SDK acceptance"
+      ],
+      "passed": true,
+      "configuration": "Release"
+    }
+  ],
+  "sourceCommit": "0f012b991ae28a2f86559c6d628ad36bb2d84911",
+  "runId": "40202402557",
+  "sdkValidated": false,
+  "scope": "actual ProcessInstance image entry; supported TGA to raw three-payload mip DDS (PS3 only, resize=false); three buffers/full cdata",
+  "status": "passed",
+  "runAttempt": "1"
+}
