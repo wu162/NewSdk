@@ -1,0 +1,22 @@
+{
+  "sdkValidated": false,
+  "sourceCommit": "28346dd7c39fdb2f7da4836b81745a70b151b4d1",
+  "assemblies": [
+    {
+      "originalSha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac",
+      "project": "recovery/src/Managed/ExpressionEval/BinaryAssetBuilder.ExpressionEval.csproj",
+      "sources": 6,
+      "assembly": "BinaryAssetBuilder.ExpressionEval"
+    },
+    {
+      "originalSha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0",
+      "project": "recovery/src/Managed/GameDataVerifier/BinaryAssetBuilder.GameDataVerifier.csproj",
+      "sources": 2,
+      "assembly": "BinaryAssetBuilder.GameDataVerifier"
+    }
+  ],
+  "ilspyVersion": "9.1.0.7988",
+  "scope": "Complete ILSpy project export; validation follows separately",
+  "runId": "40170744056",
+  "runAttempt": "1"
+}

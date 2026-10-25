@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.ExpressionEval</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net20</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="BinaryAssetBuilder.Core">
+      <HintPath>../../../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="antlr.runtime">
+      <HintPath>../../../../SDK/tools/antlr.runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
