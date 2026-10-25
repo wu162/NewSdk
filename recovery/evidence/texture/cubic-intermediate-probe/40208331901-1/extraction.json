@@ -1,0 +1,11 @@
+{
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40208331901",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "f5e4b5c1542a3ac1a9949d8ebe89c868999750bd",
+  "transcriptSha256": "203e227fe1fa647e6c3c7be9dc3116d967861ac2907c3b901cdd6870073a9f47",
+  "records": 270,
+  "status": "original-evidence-only",
+  "scope": "test-only float4 horizontal inputs/weights and FPU-state trace; runtime hook must preserve 270 same-run unmodified original cubic resize DDS/callback records; no recovered acceptance"
+}
