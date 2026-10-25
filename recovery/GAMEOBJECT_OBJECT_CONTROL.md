@@ -1,6 +1,6 @@
-# 剩余对象交互完整组（待Windows累计验收）
+# 剩余对象交互完整组（已通过Windows累计验收）
 
-本轮新增13类，当前只是实现/测试及源检查完成，未计入验收数。固定原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`，原PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。`object-control-source/manifest.json`保存166完整原方法、13张原PE表；ExportObjectControlMethods.py核对精确类型闭包及稳定编号，GenerateObjectControlFields.py核对全部literal/default/Token和父层。
+本轮新增13类，已通过完整Windows累计矩阵，计入309已验收数。固定原Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`，原PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。`object-control-source/manifest.json`保存166完整原方法、13张原PE表；ExportObjectControlMethods.py核对精确类型闭包及稳定编号，GenerateObjectControlFields.py核对全部literal/default/Token和父层。
 
 | 类型 | TypeId/native | 完整关键合同 |
 |---|---|---|
@@ -24,6 +24,8 @@ ShadowInfo60：Type enum0无默认；Texture4/AdditionalTexture8强引用；Size
 
 测试GameObjectObjectControlCases.cs覆盖全部根/子结构字段、父层、PE枚举及未知回退、全默认/padding/native/Token key/type/offset、结构列表8/20/120步长、强引用/弱ID/nullable/inline过滤器、nested UpgradeSelf列表、字符串对齐和schema分配顺序、0/1/2/27/28/29/65边界及拒绝/不变性。旧/Od/O2、四平台0/1/2/99、三缓冲区完整差分不变。真实SDK未运行、原DLL/正式路由未改；组件成功不能冒充正式集成。
 
-第二次累计矩阵40143597761发现上述四个可空引用布局错误，已按原Marshal/Token修正；缺省指针0、空/非空属性分配4字节、Token指向pointee及引用后缀均独立覆盖。完整复验前不计验收。
+第二次累计矩阵40143597761发现上述四个可空引用布局错误，已按原Marshal/Token修正；缺省指针0、空/非空属性分配4字节、Token指向pointee及引用后缀均独立覆盖。已于最终run40145009538完整复验。
 
-run40144757033发现CaptureAndGiveUpgrade Marshal继承Capture但Token继承UnifiedControl，少36字节父表；已修正映射并增加精确父表/继承UnificationType断言，失败证据保留，待重新完整矩阵。
+run40144757033发现CaptureAndGiveUpgrade Marshal继承Capture但Token继承UnifiedControl，少36字节父表；已修正映射并增加精确父表/继承UnificationType断言，失败证据保留，最终run40145009538完整矩阵成功。
+
+最终验收source9c138e8f182c4dac7c2732c42133e0a789925c01，run40145009538 success；/Od、/O2各1212528 fixtures、3637584三缓冲区比较、23056拒绝、3976不变性，平台0/1/2/99。基础40145009445 success。原失败记录保留；SDK0次。

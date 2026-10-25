@@ -1,4 +1,4 @@
-# 完整SlowDeath与建筑销毁组（待Windows验收）
+# 完整SlowDeath与建筑销毁组（已通过Windows验收）
 
 固定Tokenizer blob `6e40a9ed6c9f961d294d49768d911e6a6f354619`、原PE SHA256 `ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603`。slow-death-source保存130完整原方法及5张PE表，ExportSlowDeathMethods.py/GenerateSlowDeathFields.py固定全文指纹、枚举、literal/default/Token及关键列表步长；本地检查不能代替Windows验收。
 
@@ -17,3 +17,5 @@ GeometryInfo48与GameObject根的raw Geometry28是不同合同，不可复用猜
 主实现GameObjectSlowDeath.h/GameObjectSlowDeathRuntime.h；GameObjectSlowDeathCases.cs覆盖全部父层/根属性/子结构字段、原PE literal与未知回退、默认/native/padding/Token、phase内外列表/字符串/强引用/nullable模型状态/几何多层分配顺序及不变性和非法输入。完整/Od/O2、平台0/1/2/99、旧回归及三缓冲区逐字节比较保留。SDK未运行，原DLL和正式路由未改。
 
 前一对象交互run40142578135失败来自独立Topple百分比默认期望：原版与恢复版一致，`20.0f * 0.01f`为0x3e4ccccc，不能用字面量0.2f的0x3e4ccccd；已固定精确IEEE值，不改恢复逻辑、不弱化差分，合并本整组后统一完整复验。
+
+最终验收source9c138e8f182c4dac7c2732c42133e0a789925c01，run40145009538 success；/Od、/O2各1212528 fixtures、3637584三缓冲区比较、23056拒绝、3976不变性，平台0/1/2/99。基础40145009445 success。原失败记录保留；SDK0次。

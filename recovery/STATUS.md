@@ -1,5 +1,12 @@
 # Compiler source recovery — historical session records
 
+## 2026-10-25：本轮新增26类，309/322累计验收完成
+
+完成对象交互13类、SlowDeath/Destruction5类、Contain核心8类，完整父层和依赖结构、原方法/PE证据、默认/Token/分配顺序独立检查及拒绝/不变性全保留。最终source9c138e8f182c4dac7c2732c42133e0a789925c01，GameObject run40145009538、基础run40145009445均success；/Od、/O2各1212528 fixtures、3637584三缓冲区比较、23056拒绝、3976不变性，平台0/1/2/99。实际两模式原日志与不可变validation已核对，共享根快照同步evidence/gameobject-runs/40145009538-1树。
+
+失败40142578135（Topple独立float期望）、40143597761（四nullable引用）、40144757033（CaptureAndGiveUpgrade Token父层UnifiedControl，Marshal父层Capture）均保留并修正后完整通过。剩余Contain5+复杂Draw8，下一轮入口RESUME.md/GAMEOBJECT_CONTAIN_NEXT.md。真实SDK0次、原DLL/正式路由保留；309模块组件成功不代表两个完整DLL或正式SDK/mymod集成完成。无强推，保留并发自动证据。
+
+
 ## 2026-10-24：三完整组新增17类型，最终矩阵通过
 
 本轮从46推进至63/322已知Marshal类型，剩余259明确拒绝，58 Token-only保持原未知Marshal路径；根仍88属性/38子节点。完成四声音/EVA选择器、六生命周期Update、七共享Die/DieMux模块。最终source379bed90fede179cb9270a1566ce989fe48fb5df，GameObject run40019863862、基础run40019863876均success；每/Od、/O2模式130,596 fixtures、391,788三缓冲区逐字节比较、8,688拒绝、300不变性比较，平台0/1/2/99。两模式783,576次缓冲区比较。SDK0次，原路由保留，组件不冒充正式插件。
