@@ -1,0 +1,1 @@
+<AttributeModifier id="AttributeModifier_SovietDesolatorInfantryBlatSlowdown" Duration="10.0s" ObjectStatusToSet="IRRADIATED" TypeId="3319822471" xmlns="uri:ea.com:eala:asset"><Modifier Type="SPEED" Value="50%" TypeId="2490122672" /></AttributeModifier>

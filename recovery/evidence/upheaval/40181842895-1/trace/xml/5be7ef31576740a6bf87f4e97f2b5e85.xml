@@ -1,0 +1,1 @@
+<LogicCommand Type="SPECIAL_POWER" id="Command_UnPackJapanFortressShipEgg" TypeId="2101756272" xmlns="uri:ea.com:eala:asset"><SpecialPower TypeId="2934454408">SpecialPower_UnpackReplaceSelf\0</SpecialPower><AISpecialPowerInfo Heuristic="UNPACK" Manager="TACTIC" TypeId="3416703170"></AISpecialPowerInfo></LogicCommand>

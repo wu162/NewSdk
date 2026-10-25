@@ -1,0 +1,1 @@
+<UnitAbilityButtonTemplate id="MouseButtonJapanFortressShipEggUnpack" LogicCommand="Command_UnPackJapanFortressShipEgg\0" TypeId="3517887782" xmlns="uri:ea.com:eala:asset"><Data TypeId="1323159685"><Unpack StateData="ButtonStateAbilityJapanFortressShipEggUnpack\1" TypeId="2708328405" /></Data></UnitAbilityButtonTemplate>

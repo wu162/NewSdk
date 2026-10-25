@@ -1,0 +1,1 @@
+<LogicCommand Type="SPECIAL_POWER" id="Command_ToggleDesolatorWeaponMode" TypeId="2101756272" xmlns="uri:ea.com:eala:asset"><SpecialPower TypeId="2934454408">SpecialPower_DesolatorWeaponMode\0</SpecialPower><AISpecialPowerInfo Heuristic="TOGGLE" Manager="MICRO_MANAGER" TypeId="3416703170"></AISpecialPowerInfo></LogicCommand>

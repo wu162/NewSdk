@@ -1,0 +1,1 @@
+<LogicCommandSet id="AlliedFutureTankCommandSet" TypeId="3959844197" xmlns="uri:ea.com:eala:asset"><Cmd TypeId="3772950554">Command_AlliedFutureTankLaserWeapon\0</Cmd><Cmd TypeId="3772950554">Command_AttackMove\1</Cmd><Cmd TypeId="3772950554">Command_MoveToPositionAndCollect\2</Cmd></LogicCommandSet>

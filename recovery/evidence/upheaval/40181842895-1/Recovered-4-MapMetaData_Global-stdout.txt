@@ -1,0 +1,80 @@
+Command Line: D:\a\_temp\upheaval-40181842895-1\Recovered\Mods\Upheaval\Data\AdditionalMaps\MapMetaData_Global.xml /od:D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods /iod:D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\upheaval-40181842895-1\Recovered\Mods\Upheaval\Data\AdditionalMaps\MapMetaData_Global.xml /od:D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods /iod:D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2343593] Loading previous string hash file from D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods\StringHashes.xml
+[00:00:00.2499559] Loading XML cache
+[00:00:00.2499559] Session cache age is 0 days, 0 hours, 0 minutes.
+[00:00:00.2499559] Checking 106 files for updates.
+[00:00:00.2499559] Cached session data available.
+[00:00:00.2655817] Session caching enabled ('D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2655817] Network caching enabled ('D:\a\_temp/upheaval-40181842895-1/Recovered/builtmods\cache').
+[00:00:00.2812179] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\mapmetadata_global.xml'.
+[00:00:00.3124622] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\specific.xml'.
+[00:00:00.3124622] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\specific\credits.xml'.
+[00:00:00.3593371] credits.xml: Compiling Credits:RA3Credits [ed226ae9:65a0aa8f]
+[00:00:00.4218540] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\specific\video.xml'.
+[00:00:00.4218540] video.xml: Compiling Video:EALogoMovie [230236f6:51c3c17e]
+[00:00:00.4218540] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\specific\videoeventlist.xml'.
+[00:00:00.4374580] videoeventlist.xml: Compiling VideoEventList:RA3_EA_logo [564a9693:f442ef87]
+[00:00:00.4374580] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\common.xml'.
+[00:00:00.4374580] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\common\aipersonalitydefinition.xml'.
+[00:00:00.4374580] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:1AlliedBalanced [d6d4f18e:a98a4dd2]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:2AlliedSquadronLeader [d6d4f18e:013eb023]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:3AlliedSpecialForces [d6d4f18e:ea743d68]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:1JapanBalanced [d6d4f18e:49d84bad]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:2JapanMechaWarfare [d6d4f18e:5a85f134]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:3JapanFleetCommand [d6d4f18e:239cbed1]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:1SovietBalanced [d6d4f18e:7b9da0e6]
+[00:00:00.4530816] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:2SovietShockSpecialist [d6d4f18e:004605c1]
+[00:00:00.4687042] aipersonalitydefinition.xml: Compiling AIPersonalityDefinition:3SovietAirMarshall [d6d4f18e:8482d064]
+[00:00:00.4687042] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\common\healthbarsettings.xml'.
+[00:00:00.4687042] healthbarsettings.xml: Compiling HealthBarSettings:HealthBarSettings [e99cb24b:6c405f10]
+[00:00:00.4687042] Loading 'file://d:\a\_temp\upheaval-40181842895-1\recovered\mods\upheaval\data\additionalmaps\global\common\healthbartemplate.xml'.
+[00:00:00.4687042] healthbartemplate.xml: Compiling HealthBarTemplate:Short_Mod [59da7b59:69b01332]
+[00:00:00.4687042] healthbartemplate.xml: Compiling HealthBarTemplate:Medium_Mod [59da7b59:2153d6c2]
+[00:00:00.4843318] healthbartemplate.xml: Compiling HealthBarTemplate:Long_Mod [59da7b59:822f2371]
+[00:00:00.4843318] healthbartemplate.xml: Compiling HealthBarTemplate:LargeUnit_Mod [59da7b59:38e7606d]
+[00:00:00.4843318] healthbartemplate.xml: Compiling HealthBarTemplate:VeryLargeUnit_Mod [59da7b59:8539d0eb]
+[00:00:00.4843318] healthbartemplate.xml: Compiling HealthBarTemplate:Structure_Mod [59da7b59:9e6cddbf]
+[00:00:00.4843318] Resolving references: mods\upheaval\data\additionalmaps\mapmetadata_global
+[00:00:00.4843318] Stable sorting assets
+[00:00:00.4843318] Sorting by schema dependencies
+[00:00:00.4843318] Sorting by asset dependencies
+[00:00:00.4999576] Generating stream: mods\upheaval\data\additionalmaps\mapmetadata_global
+[00:00:00.4999576] Slow asset clean-up (expected: 19, actual: 19, old: 0, current: 19)
+[00:00:00.4999576] mods\upheaval\data\additionalmaps\mapmetadata_global Linking binary data
+[00:00:00.5155828] mods\upheaval\data\additionalmaps\mapmetadata_global Linking import data
+[00:00:00.5155828] mods\upheaval\data\additionalmaps\mapmetadata_global Linking relocation data
+[00:00:00.5155828] mods\upheaval\data\additionalmaps\mapmetadata_global Stream complete
+[00:00:00.5155828] BinaryAssetBuilder complete
+[00:00:00.5155828] Video:
+[00:00:00.5155828]       Instances Processed: 1
+[00:00:00.5155828]       Total Processing Time: 00:00:00
+[00:00:00.5155828]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5155828]       Average Processing Time: 0 seconds
+[00:00:00.5155828] VideoEventList:
+[00:00:00.5155828]       Instances Processed: 1
+[00:00:00.5155828]       Total Processing Time: 00:00:00
+[00:00:00.5155828]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5155828]       Average Processing Time: 0 seconds
+[00:00:00.5155828] HealthBarTemplate:
+[00:00:00.5155828]       Instances Processed: 6
+[00:00:00.5155828]       Total Processing Time: 00:00:00
+[00:00:00.5155828]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5155828]       Average Processing Time: 0 seconds
+[00:00:00.5155828] AIPersonalityDefinition:
+[00:00:00.5155828]       Instances Processed: 9
+[00:00:00.5155828]       Total Processing Time: 00:00:00.0312462
+[00:00:00.5155828]       Longest Processing Time: 00:00:00.0156236 (1AlliedBalanced)
+[00:00:00.5155828]       Average Processing Time: 0.0034718 seconds
+[00:00:00.5155828] HealthBarSettings:
+[00:00:00.5155828]       Instances Processed: 1
+[00:00:00.5155828]       Total Processing Time: 00:00:00
+[00:00:00.5155828]       Longest Processing Time: 00:00:00 ()
+[00:00:00.5155828]       Average Processing Time: 0 seconds
+[00:00:00.5155828] Credits:
+[00:00:00.5155828]       Instances Processed: 1
+[00:00:00.5155828]       Total Processing Time: 00:00:00.0625169
+[00:00:00.5155828]       Longest Processing Time: 00:00:00.0625169 (RA3Credits)
+[00:00:00.5312069]       Average Processing Time: 0.0625169 seconds
+[00:00:00.5312069] Total Processing Time for All Types: 00:00:00.0937631

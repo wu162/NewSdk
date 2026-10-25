@@ -1,0 +1,1 @@
+<SpecialPowerTemplate id="SpecialPower_TriggerLaserGlaiveBlast" ReloadTime="15s" TargetType="LOCATION" Flags="WATER_OK" ForbiddenObjectRange="15" WaypointModeTerminal="false" NameOfVoiceNameToUseAsInitiateIntendToDoVoice="voiceGlaiveBlast" TypeId="2178440954" xmlns="uri:ea.com:eala:asset" />
