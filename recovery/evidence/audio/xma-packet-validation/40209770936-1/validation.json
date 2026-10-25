@@ -1,0 +1,16 @@
+{
+  "error": "Debug XMA packet helpers differ from original",
+  "sourceCommit": "100f765a5948afb03f639d48621b03b95a8bade0",
+  "oracleSha256": "8f64dfaf0c179e00613fd397c81122fb0cd78c6fb9eeac3e5d1b3005db01e0bf",
+  "realEaBlocks": 8,
+  "status": "failed",
+  "xmaEncoderRecovered": false,
+  "originalCpuValidated": true,
+  "runAttempt": "1",
+  "runId": "40209770936",
+  "rawCodecPackets": 0,
+  "sdkValidated": false,
+  "audioFileXmaRouteEnabled": false,
+  "modes": [],
+  "scope": "Bounded integer XMA packet helpers only, original real CPU and candidate exact-byte comparison"
+}
