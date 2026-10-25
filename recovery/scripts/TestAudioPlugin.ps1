@@ -1,4 +1,4 @@
-param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','xma')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
+param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full','xma')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
 $ErrorActionPreference = 'Stop'
 if (!$OriginalOnly -and (@($Groups | Where-Object { $_ -in @('resample','xma') }).Count -gt 0)) { throw 'Unrecovered native groups are original-only evidence, not candidate validation' }
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
@@ -17,7 +17,7 @@ New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
-& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioAiffLoopCases.cs').Path (Resolve-Path 'recovery/tests/AudioUnrecoveredProbeCases.cs').Path *> "$out/oracle-build.log"
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path (Resolve-Path 'recovery/tests/AudioLoopProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioAiffLoopCases.cs').Path (Resolve-Path 'recovery/tests/AudioUnrecoveredProbeCases.cs').Path (Resolve-Path 'recovery/tests/AudioResampleCases.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
 & $csc /nologo /platform:x86 /out:"$original/AudioInputReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioInputReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/reader-oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/reader-oracle-build.log"; throw 'Audio reader boundary oracle build failed' }
@@ -43,7 +43,7 @@ try {
     $receipt.selectedGroups = @($Groups)
     $receipt.scope = $(if ($OriginalOnly) { 'Original-only evidence: ' } else { 'Component differential: ' }) + ($Groups -join ',')
     $receipt.realMainProvenanceSha256=(Get-FileHash recovery/fixtures/audio/main/provenance.json).Hash.ToLowerInvariant()
-    Get-ChildItem $fixtures -Filter '*.wav' | Copy-Item -Destination $out
+    Get-ChildItem $fixtures -File | Where-Object { $_.Extension -in @('.wav','.aiff') } | Copy-Item -Destination $out
     if ($OriginalOnly) { $receipt.status='original-evidence-only'; return }
     foreach ($mode in @('Debug', 'Release')) {
         $candidate = Join-Path $work $mode; New-Item -ItemType Directory $candidate | Out-Null
@@ -56,6 +56,7 @@ try {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
         Copy-Item "$original/AudioInputReaderOracle.exe" $candidate
+        if ($Groups -notcontains 'resample-full' -or $Groups.Count -ne 1) {
         & "$candidate/AudioInputReaderOracle.exe" $library $fixtures *> "$out/$mode-reader-boundaries.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-reader-boundaries.log"; throw "$mode input rejection boundaries failed" }
         Get-Content "$out/$mode-reader-boundaries.log" -Tail 1
@@ -67,6 +68,7 @@ try {
         & "$candidate/AudioAiffLoopReaderOracle.exe" $library *> "$out/$mode-aiff-loop-boundaries.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-aiff-loop-boundaries.log"; throw "$mode AIFF loop boundaries failed" }
         Get-Content "$out/$mode-aiff-loop-boundaries.log" -Tail 1
+        }
         foreach ($group in $Groups) {
             $scope = if ($group -eq 'business') { $businessScope } else { $group }
             $expectedFile = if ($group -eq 'business') { "$out/original.txt" } else { "$out/$group-original.txt" }
