@@ -37,7 +37,7 @@ foreach ($mode in @('Debug', 'Release')) {
         $build = Join-Path $work "build-$mode-$name"
         & $msbuild $project /restore /nologo /p:Configuration=$mode /p:PlatformTarget=x86 /p:OutputPath="$build/" *> "$out/$mode-$name-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-$name-build.log"; throw "$mode $name build failed" }
-        $dll = Join-Path $build "net20/Mvp.Xml.dll"
+        $dll = Join-Path $build "Mvp.Xml.dll"
         Copy-Item $dll $rebuilt
         $libraries += @{ assembly = $name; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant() }
     }

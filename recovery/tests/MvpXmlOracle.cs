@@ -30,7 +30,8 @@ public class MvpXmlOracle {
         Rows.Add(new[]{"assembly",a.GetName().FullName});
         var entries=new List<string>();
         foreach(Type t in a.GetTypes()) {
-            if(t.Name.StartsWith("<")||t.Namespace=="System.Runtime.CompilerServices") continue;
+            // Compiler data blobs have a GUID in the VS2005 parent name and no GUID in Roslyn.
+            if(t.FullName.Contains("<")||t.Namespace=="System.Runtime.CompilerServices") continue;
             entries.Add("type:"+t.FullName+":"+t.BaseType);
             foreach(Type i in t.GetInterfaces()) entries.Add(t.FullName+":interface:"+i.FullName);
             foreach(FieldInfo f in t.GetFields(All)) entries.Add(t.FullName+":field:"+f.Name+":"+f.FieldType+":"+(f.IsLiteral?Convert.ToString(f.GetRawConstantValue(),CultureInfo.InvariantCulture):""));
@@ -123,8 +124,12 @@ public class MvpXmlOracle {
         Check(Include(bodies[5],false).Contains("fallback"));
         Case("core-reflection-route",delegate {string s=Include(bodies[0],true);Check(s.Contains("汉字"));return s;});
     }
+    static void RequireSuccess(string name) {
+        foreach(var r in Rows) if(r[0]==name) {Check(r[1].StartsWith("OK:"));return;}
+        Check(false);
+    }
     static int Main(string[] args) {
-        try {FixturePath=Environment.GetEnvironmentVariable("MVP_XML_FIXTURE");Directory.CreateDirectory(FixturePath);FixtureUri=new Uri(FixturePath+Path.DirectorySeparatorChar).AbsoluteUri;Contract();Includes();Extras();File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
+        try {FixturePath=Environment.GetEnvironmentVariable("MVP_XML_FIXTURE");Directory.CreateDirectory(FixturePath);FixtureUri=new Uri(FixturePath+Path.DirectorySeparatorChar).AbsoluteUri;Contract();Includes();Extras();foreach(string n in new[]{"core-reflection-route","xslt:False","xslt:True","xslt-hyphen-alias","serializer-cache","iterator-clone"}) RequireSuccess(n);File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
         catch(Exception e) {Console.Error.WriteLine(e);return 1;}
     }
     static string Nodes(XPathNodeIterator it) {
@@ -171,6 +176,14 @@ public class MvpXmlOracle {
             t.Transform(new Mvp.Xml.Common.Xsl.XmlInput(Nav()),null,new Mvp.Xml.Common.Xsl.XmlOutput(w));
             Check(w.ToString().Contains(">3</out>"));return w.ToString();
         });}
+        Case("xslt-hyphen-alias",delegate {
+            var t=new Mvp.Xml.Common.Xsl.MvpXslTransform();
+            string style="<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:str='http://exslt.org/strings' xmlns:date='http://exslt.org/dates-and-times'><xsl:output method='text'/><xsl:template match='/'><xsl:value-of select=\"str:encode-uri('a b',true())\"/><xsl:text>|</xsl:text><xsl:value-of select=\"date:leap-year('2000-02-29')\"/></xsl:template></xsl:stylesheet>";
+            using(var r=XmlReader.Create(new StringReader(style))) t.Load(r);
+            var w=new StringWriter(CultureInfo.InvariantCulture);t.Transform(new Mvp.Xml.Common.Xsl.XmlInput(Nav()),null,new Mvp.Xml.Common.Xsl.XmlOutput(w));
+            Check(w.ToString()=="a%20b|true");return w.ToString();
+        });
+        foreach(double seed in new[]{-42.0,0.0,123.0,2147483648.0}) {double v=seed;Case("random-seeded:"+seed,delegate{return Nodes(new Mvp.Xml.Exslt.ExsltRandom().randomSequence(5,v));});}
         Case("serializer-cache",delegate{
             using(var c=new Mvp.Xml.Common.Serialization.XmlSerializerCache()) {
                 var a=c.GetSerializer(typeof(Data),(string)null);var b=c.GetSerializer(typeof(Data),(string)null);Check(Object.ReferenceEquals(a,b));
