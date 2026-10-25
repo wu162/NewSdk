@@ -33,21 +33,26 @@ void StoreFloat(unsigned char* p, float v, bool be) {
         ((bits<<8)&0x00ff0000U) | (bits<<24);
     Store32(p,QuietNaNBits(bits),false);
 }
-// C++ casts of a negative FP value to unsigned are undefined. The original
-// CLR x86 conv.u4 truncates and keeps the low 32 bits in this finite range.
-// Nonfinite/large overflow cases await original-runtime characterization.
+// Original CLR4 x86 conv.u4 uses a truncating signed-64 conversion and
+// keeps its low 32 bits. Invalid conversion returns integer indefinite
+// (0x8000000000000000), whose low32 are zero. This also defines NaN/Inf and
+// finite float extrema after the original double-precision arithmetic.
+// Explicit bounds avoid C++ FP-to-integer undefined behavior.
 std::uint32_t ConvU4(double v) {
-    if (!std::isfinite(v) || v < -2147483648.0 || v >= 4294967296.0)
-        throw std::domain_error("W3X conv.u4 overflow boundary is not recovered");
+    if (!std::isfinite(v) || v < -9223372036854775808.0 || v >= 9223372036854775808.0)
+        return 0;
     return static_cast<std::uint32_t>(static_cast<std::int64_t>(v));
 }
+double R8(double v) { volatile double d=v; return d; }
 float Clamp(float v,float lo,float hi) { return v < lo ? lo : (v > hi ? hi : v); }
 std::uint32_t QuantizeColor(float v) {
     v=Clamp(v,0.0f,1.0f);
     const float scaled=R4(static_cast<double>(v)*255.0);
     const float rounded=R4(static_cast<double>(scaled)+(scaled < 0 ? -0.5 : 0.5));
-    if (!std::isfinite(rounded))
-        throw std::domain_error("W3X color NaN conversion is not recovered");
+    // NaN survives both original unordered clamp comparisons. conv.i4
+    // produces INT_MIN; conv.r4/conv.u4 then yield 0x80000000. The component
+    // stores only the low byte, which is zero for either NaN sign/payload.
+    if (std::isnan(rounded)) return 0;
     // Original conv.i4 -> conv.r4 -> conv.u4, all exact on [0,255].
     return static_cast<std::uint32_t>(static_cast<std::int32_t>(rounded));
 }
@@ -98,7 +103,7 @@ void ConvertMeshStream(MeshConversion kind, int count,
             *dst=static_cast<unsigned char>(c.inverseBoneMapping[index]); break;
         }
         case MeshConversion::ConvertBlendWeight:
-            *dst=static_cast<unsigned char>(ConvU4(static_cast<double>(Load<float>(src))*255.0+0.5) & 255U); break;
+            *dst=static_cast<unsigned char>(ConvU4(R8(R8(static_cast<double>(Load<float>(src))*255.0)+0.5)) & 255U); break;
         case MeshConversion::CompressNormalizedDirection: {
             const float x=R4(static_cast<double>(Clamp(Load<float>(src),-1.0f,1.0f))*1023.0);
             const float y=R4(static_cast<double>(Clamp(Load<float>(src+4),-1.0f,1.0f))*1023.0);

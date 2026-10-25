@@ -225,7 +225,8 @@ int main(array<String^>^ args) {
         MethodInfo^ compress=Resolve(a,0x06000012,3);
         MethodInfo^ estimate=Resolve(a,0x06000014,1);
         const float scales[]={0.0f,1.0f,Float(0x00000001u),Float(0x3e124925u)};
-        const float errors[]={0.0f,0.03125f,100.0f};
+        const float errors[]={0.0f,0.03125f,100.0f,
+            std::numeric_limits<float>::infinity(),-std::numeric_limits<float>::infinity(),Float(0x7fc12345u)};
         // Finite binary boundaries still force original conv.i4 overflow/NaN
         // internally when a zero/subnormal quantization step is selected.
         const std::uint32_t boundary[]={0,0x80000000u,1,0x80000001u,0x007fffffu,0x00800000u,
@@ -245,7 +246,7 @@ int main(array<String^>^ args) {
             for(unsigned bits=4;bits<=8;bits+=4)
                 for(unsigned filter=0;filter<256;++filter)
                     for(unsigned scale=0;scale<4;++scale)
-                        for(unsigned error=0;error<3;++error) {
+                        for(unsigned error=0;error<sizeof(errors)/sizeof(errors[0]);++error) {
                             // Alternate null output pointers, and both initial
                             // bool values, without multiplying identical work.
                             const unsigned pointers=(pattern+filter+scale+error)&7u;
@@ -265,6 +266,9 @@ int main(array<String^>^ args) {
                     ChannelCase(a,compress,estimate,samples,0.0f);
                     ChannelCase(a,compress,estimate,samples,0.03f);
                     ChannelCase(a,compress,estimate,samples,1.0f);
+                    ChannelCase(a,compress,estimate,samples,std::numeric_limits<float>::infinity());
+                    ChannelCase(a,compress,estimate,samples,-std::numeric_limits<float>::infinity());
+                    ChannelCase(a,compress,estimate,samples,Float(0x7fc12345u));
                 }
         // Drive the ACTUAL original WriteOut with known compressed native
         // layouts, including finite words that become sNaN/qNaN/Inf only after

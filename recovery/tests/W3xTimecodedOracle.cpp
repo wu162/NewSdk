@@ -5,12 +5,44 @@
 #include <cmath>
 #include <stdexcept>
 #include <vector>
+#include <limits>
 #using <System.dll>
 using namespace System;
 using namespace System::Reflection;
+using namespace System::Reflection::Emit;
 using namespace Recovered::W3x;
 static int channels, serialized;
 static long long comparedBytes;
+static int reductionLimits;
+static void TestReductionLimits() {
+    // Probe the exact CLR4 x86 opcode used by original Compress, rather than
+    // inferring unchecked floating/integer casts from the host C++ compiler.
+    array<Type^>^ parameters=gcnew array<Type^>(1);parameters[0]=Double::typeid;
+    DynamicMethod^ method=gcnew DynamicMethod("OriginalConvU4",UInt32::typeid,parameters);
+    ILGenerator^ il=method->GetILGenerator();
+    il->Emit(OpCodes::Ldarg_0);il->Emit(OpCodes::Conv_U4);il->Emit(OpCodes::Ret);
+    const std::uint32_t counts[]={0u,1u,3u,33u,16777217u,0x7fffffffu,0xffffffffu};
+    const float rates[]={-std::numeric_limits<float>::max(),-1e30f,-9223372036854775808.f,
+        -4294967296.f,-2147483648.f,-2.f,-1.f,-.5f,-.01f,-0.f,0.f,.5f,1.f,2.f,
+        2147483520.f,2147483648.f,4294967040.f,4294967296.f,
+        9223371487098961920.f,9223372036854775808.f,1e30f,std::numeric_limits<float>::max(),
+        std::numeric_limits<float>::infinity(),-std::numeric_limits<float>::infinity(),
+        std::numeric_limits<float>::quiet_NaN()};
+    for(unsigned ci=0;ci<sizeof(counts)/sizeof(counts[0]);++ci)
+    for(unsigned ri=0;ri<sizeof(rates)/sizeof(rates[0]);++ri) {
+        volatile double product=double(float(counts[ci]))*double(rates[ri]);
+        array<Object^>^ args=gcnew array<Object^>(1);args[0]=Double(product);
+        std::uint32_t expected=safe_cast<UInt32>(method->Invoke(nullptr,args));
+        if(expected<1u) expected=1u;
+        const std::uint32_t actual=TimecodedReductionLimit(counts[ci],rates[ri]);
+        if(expected!=actual) {
+            Console::Error->WriteLine("FAIL Timecoded conv.u4 count={0} rate={1:R}",counts[ci],rates[ri]);
+            Console::Error->WriteLine("original={0:X8} recovered={1:X8}",expected,actual);
+            throw gcnew Exception("Timecoded original CLR conv.u4 target mismatch");
+        }
+        ++reductionLimits;
+    }
+}
 static MethodInfo^ Resolve(Assembly^ a,int token,int count) {
     MethodInfo^ m=dynamic_cast<MethodInfo^>(a->ManifestModule->ResolveMethod(token));
     if(!m || m->GetParameters()->Length!=count) throw gcnew Exception("Original Timecoded signature changed");
@@ -118,6 +150,7 @@ int main(array<String^>^ args) {
     try {
         if(IntPtr::Size!=4 || args->Length!=1) throw gcnew Exception("Usage: x86 W3xTimecodedOracle original.dll");
         Assembly^ a=Assembly::LoadFrom(args[0]);
+        TestReductionLimits();
         const int counts[]={0,1,2,3,9,33};const float errors[]={0.f,.001f,-1.f,.5f};const float rates[]={0.f,.5f,1.f,2.f};
         for(unsigned type=0;type<5;++type) for(int ci=0;ci<6;++ci)
         for(int pattern=0;pattern<4;++pattern) for(int base=0;base<2;++base)
@@ -145,6 +178,43 @@ int main(array<String^>^ args) {
             TimecodedFrame frame={0,std::vector<float>(1,value),false};
             Test(a,0,std::vector<TimecodedFrame>(1,frame),-1.f,1.f);
         }
+        // xs:float has no ForceReductionRate/error range restriction. Numeric
+        // XML such as 1e39 also becomes infinity after atof(double)->float.
+        const float boundaryRates[]={-.01f,-.5f,-1.f,-2.f,-1e30f,
+            4294967296.f,9223372036854775808.f,std::numeric_limits<float>::max(),
+            std::numeric_limits<float>::infinity(),-std::numeric_limits<float>::infinity(),
+            std::numeric_limits<float>::quiet_NaN()};
+        const float boundaryErrors[]={-std::numeric_limits<float>::max(),-1.f,0.f,
+            std::numeric_limits<float>::max(),std::numeric_limits<float>::infinity(),
+            -std::numeric_limits<float>::infinity(),std::numeric_limits<float>::quiet_NaN()};
+        for(unsigned type=0;type<5;++type)
+        for(unsigned ri=0;ri<sizeof(boundaryRates)/sizeof(boundaryRates[0]);++ri)
+        for(unsigned ei=0;ei<sizeof(boundaryErrors)/sizeof(boundaryErrors[0]);++ei) {
+            std::vector<TimecodedFrame> input;
+            for(unsigned i=0;i<9;++i) {
+                TimecodedFrame frame;frame.index=i;frame.binaryMove=i==5;
+                frame.values=type==3?std::vector<float>{0.f,0.f,0.f,1.f}:
+                    std::vector<float>(1,float(i)*.25f);
+                input.push_back(frame);
+            }
+            Test(a,type,input,boundaryErrors[ei],boundaryRates[ri]);
+        }
+        const std::uint32_t valueWords[]={0x7f7fffffu,0xff7fffffu,0x7f800000u,
+            0xff800000u,0x7fc00001u,0xffc12345u,0x7f800001u,0xff800001u};
+        for(unsigned type=0;type<5;++type)
+        for(unsigned wi=0;wi<sizeof(valueWords)/sizeof(valueWords[0]);++wi)
+        for(unsigned ei=0;ei<sizeof(boundaryErrors)/sizeof(boundaryErrors[0]);++ei)
+        for(unsigned n=1;n<4;++n) {
+            std::vector<TimecodedFrame> input(n);
+            for(unsigned i=0;i<n;++i) {
+                input[i].index=i;input[i].binaryMove=false;
+                input[i].values.resize(type==3?4:1);
+                for(unsigned j=0;j<input[i].values.size();++j)
+                    std::memcpy(&input[i].values[j],&valueWords[wi],4);
+            }
+            Test(a,type,input,boundaryErrors[ei],1.f);
+        }
+        Console::WriteLine("PASS W3X Timecoded original CLR conv.u4 reduction limits={0}",reductionLimits);
         Console::WriteLine("PASS W3X Timecoded original differential channels={0} serializedChunks={1} comparedBytes={2}; Compress/Estimate/WriteOut; SDK not run",channels,serialized,comparedBytes);
         return 0;
     }catch(Exception^ e){Console::Error->WriteLine(e);return 1;}

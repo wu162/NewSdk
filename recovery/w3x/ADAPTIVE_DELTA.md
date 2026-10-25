@@ -10,10 +10,14 @@
 
 本地 `W3xAdaptiveDeltaTests.cpp` 在g++ `-std=c++11 -ffp-contract=off` 的O0、O2各通过14288项检查，包括固定整数差值、正负饱和、zero scale、1–4分量/2–34帧、endian字段、固定signed nibble编码、随机独立解码误差约束，实际经过4位27组、8位37组及null56组。测试不依赖`assert`，优化模式不关闭断言。这些本地检查与原版动态矩阵分开记账；最终组件与无原DLL重放验收锚点统一见 [RESUME.md](RESUME.md)，不构成SDK声明。
 
-已验证：Windows原DLL的全部256 filter输出、内部conv.i4/float舍入矩阵、完整Compress/WriteOut三缓冲区，以及上层动画选择/Tracker连接；实际范围见RESUME.md。编译时不得启用fast-math或FMA重排；已有本地测试参数明确关闭float contraction。当前完整压缩接口对非有限输入/maxError、分量不一致/超过4、32位长度溢出、相邻float差溢出及无有限filter显式抛错，未将这些未验证边界默默转发给原版。原版少于2样本返回null的检查先于其他输入检查，恢复版保留这个顺序。正式路由仍保持原有未支持状态。
+已验证：Windows原DLL的全部256 filter输出、内部conv.i4/float舍入矩阵、完整Compress/WriteOut三缓冲区，以及上层动画选择/Tracker连接；实际范围见RESUME.md。编译时不得启用fast-math或FMA重排；已有本地测试参数明确关闭float contraction。当前完整压缩接口对非有限样本输入、分量不一致/超过4、32位长度溢出、相邻float差溢出及无有限filter显式抛错，未将这些未验证边界默默转发给原版。原版少于2样本返回null的检查先于其他输入检查，恢复版保留这个顺序。正式路由仍保持原有未支持状态。
 
 新增 `tests/W3xAdaptiveDeltaOracle.cpp` 是独立x86 CLR4原版动态差分宿主，按固定token调用原始 `CompressFrame(0x06000011)`、`Compress(0x06000012)` 和 `EstimateSize(0x06000014)`，无需运行SDK。73728个frame fixtures遍历全部256filter、4/8位、0/subnormal/normal scale、三个误差、十二种样本模式；比较17字节frame/前后canary、previous/error的float位、excess bool与canary，并检查原对象/样本不变。另324个完整压缩fixtures覆盖1–4分量、0/1/2/15/16/17/31/32/33个样本、三种曲线/误差；逐字节比较原始压缩对象字段、初值数组、全部17字节frame及estimate，包含null结果。输入手工建立已确认的EASTL布局，输出由原MSVCR80分配的小内存保留至该独立测试进程退出，避免跨CRT释放。原版宿主已完成双模式Windows运行；精确锚点见RESUME.md。
 
 首轮Windows组件差分发现原CLR4 x86在交换float字节后重新加载float local时，会将交换后形成的signalingNaN quiet；即使交换前是有限float也会发生。AdaptiveDelta `WriteOut` 的scale路径原IL `IL_015b/IL_015d` 与initial路径 `IL_0266/IL_0268` 均是交换后的float local重载再`stind.r4`，因此编码仅对这两类浮点字段保留此语义，整数不变。新增有限float fixture：scale位`0080807F`输出BE字节`00 80 C0 7F`，initial位`76D882FF`输出BE字节`76 D8 C2 FF`；同位整数与LE浮点保持原值。本地O0/O2各通过更新后的14292项检查；这一修改已由原WriteOut及完整动画双模式矩阵确认。
 
 `W3xAdaptiveDeltaOracle.cpp` 随后补齐实际原 `WriteOut(0x06000015)` 和原Tracker `MakeRelocatable(0x06000038)` 三缓冲区对照：每个成功Compress结果都在LE/BE序列化比较；另用确认的compressed52布局手工构造512份原WriteOut产物（8种scale位×8种initial位×4/8位×1/4维×LE/BE），其中有限scale/initial交换后形成sNaN/qNaN/Inf，直接检验浮点写出而不靠本地预期值。整数Type `0100807F` 同时用于证明整数交换不quiet。使用原Tracker/Chunk析构释放序列化内存，值模型侧复用shared `Relo::Tracker`；该探针已在最终双模式矩阵通过，精确锚点见RESUME.md。
+
+本轮合法边界审计补齐maxError的IEEE行为：移除不必要的finite门槛，NaN/+Inf在原`deviation > maxError`比较中不触发超限，-Inf触发所有有限误差并使两种精度返回null。XSD直接`INF`/`NaN`字面经VC8 parser成为0；但合法xs:float十进制`1e39`会经过atof(double)再cast float得到Inf，因此不能依靠XSD验证声称这一分支不可达。更新的原版差分扩为147456个frame fixtures与648个完整channel fixtures（新增三种IEEE maxError），local O0/O2各14295项通过；待本轮新源码Windows结果验收。
+
+极大有限相邻样本相减溢出则不是一个缺失的有定义压缩分支：原`0x06000012`得到scale=Inf，全部256个正filter均产生非有限累计误差，初始化为-1的filter没有被严格小于FLT_MAX的候选替换，随后`0x06000011`读取filtertable[-1]。非有限source/无有限候选同样可能落此表外读取。恢复版保持明确安全拒绝，不伪造一个可用filter或模拟原模块邻接内存；typed nonfinite样本原UB及32位分配/range UB不计为未恢复的有定义业务。完整SDK类型/算法闭合分类与Core插件入口证据见`W3xTypeClosure.json`。

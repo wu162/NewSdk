@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstring>
+#include <limits>
 using namespace Recovered::W3x;
 namespace {
 TimecodedFrame Scalar(unsigned index,float value,bool binary=false) {
@@ -58,6 +59,29 @@ int main() {
     le=EncodeTimecoded(c,false);
     assert(be.values[0]==0xf6 && be.values[1]==0xd8 && be.values[2]==0xc2 && be.values[3]==0xff);
     assert(le.values[0]==0xff && le.values[1]==0x82 && le.values[2]==0xd8 && le.values[3]==0xf6);
+    assert(TimecodedReductionLimit(3,-1.f)==0xfffffffdu);
+    assert(TimecodedReductionLimit(3,-.5f)==0xffffffffu);
+    assert(TimecodedReductionLimit(1,4294967296.f)==1);
+    assert(TimecodedReductionLimit(3,std::numeric_limits<float>::max())==1);
+    assert(TimecodedReductionLimit(3,std::numeric_limits<float>::infinity())==1);
+    assert(TimecodedReductionLimit(0,std::numeric_limits<float>::infinity())==1);
+    assert(TimecodedReductionLimit(3,std::numeric_limits<float>::quiet_NaN())==1);
+    c=Compress(0,{Scalar(0,0.f),Scalar(1,5.f),Scalar(2,10.f)},-1.f,-1.f);
+    assert(c.frames.size()==3);
+    c=Compress(0,{Scalar(0,0.f),Scalar(1,5.f),Scalar(2,10.f)},-1.f,
+        std::numeric_limits<float>::max());
+    assert(c.frames.size()==1);
+    c=Compress(0,{Scalar(0,std::numeric_limits<float>::infinity()),
+        Scalar(1,-std::numeric_limits<float>::infinity())},0.f);
+    assert(c.frames.size()==1);
+    // Raw signaling NaNs are not required by textual atof inputs, but the
+    // original float-return helper quiets them before endian conversion.
+    c=Compress(0,{Scalar(0,0.f)},-1.f);
+    specialBits=0x7f800001u;
+    std::memcpy(&c.frames[0].values[0],&specialBits,4);
+    le=EncodeTimecoded(c,false);be=EncodeTimecoded(c,true);
+    assert(le.values[0]==1 && le.values[1]==0 && le.values[2]==0xc0 && le.values[3]==0x7f);
+    assert(be.values[0]==0x7f && be.values[1]==0xc0 && be.values[2]==0 && be.values[3]==1);
     TimecodedChannel empty=Compress(0,{});
     assert(EstimateTimecodedSize(empty)==0);
     bool rejected=false;

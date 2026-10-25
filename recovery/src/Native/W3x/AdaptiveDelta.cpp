@@ -107,7 +107,6 @@ bool CompressAdaptiveDelta(std::uint32_t type,std::uint16_t pivot,
     if (width==0 || width>4) throw std::invalid_argument("Adaptive delta supports one to four components");
     if (samples.size()>static_cast<std::size_t>(std::numeric_limits<std::int32_t>::max()/24)-15u)
         throw std::length_error("Adaptive delta source exceeds original 32-bit vector range");
-    if (!std::isfinite(maxError)) throw std::invalid_argument("Nonfinite adaptive delta maxError is unverified");
     float greatest=0.0f;
     for (std::size_t i=0;i<samples.size();++i) {
         if (samples[i].size()!=width) throw std::invalid_argument("Inconsistent adaptive delta sample widths");

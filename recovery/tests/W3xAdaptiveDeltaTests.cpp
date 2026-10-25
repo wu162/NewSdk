@@ -134,7 +134,11 @@ int main() {
         Check(four && eight && rejected,"Must exercise 4 bit, 8 bit and null paths");
         Throws([&] { CompressAdaptiveDelta(0,0,{{1},{2,3}},0,sentinel); });
         Throws([&] { CompressAdaptiveDelta(0,0,{{1},{std::numeric_limits<float>::infinity()}},0,sentinel); });
-        Throws([&] { CompressAdaptiveDelta(0,0,{{1},{2}},std::numeric_limits<float>::quiet_NaN(),sentinel); });
+        AdaptiveDeltaChannel unlimited;
+        Check(CompressAdaptiveDelta(0,0,{{1},{2}},std::numeric_limits<float>::quiet_NaN(),unlimited) && unlimited.bits==4,"NaN maxError disables excess comparison");
+        Check(CompressAdaptiveDelta(0,0,{{1},{2}},std::numeric_limits<float>::infinity(),unlimited) && unlimited.bits==4,"Positive infinite maxError disables excess comparison");
+        Check(!CompressAdaptiveDelta(0,0,{{1},{2}},-std::numeric_limits<float>::infinity(),unlimited),"Negative infinite maxError rejects both precisions");
+        Throws([&] { CompressAdaptiveDelta(0,0,{{std::numeric_limits<float>::max()},{-std::numeric_limits<float>::max()}},0,sentinel); });
         Throws([&] { CompressAdaptiveDelta(0,0,{{},{}} ,0,sentinel); });
         std::cout << "PASS AdaptiveDelta " << checks << " checks, 4bit=" << four << " 8bit=" << eight << " null=" << rejected << "\n";
     } catch(const std::exception& e) { std::cerr << "FAIL " << e.what() << "\n"; return 1; }

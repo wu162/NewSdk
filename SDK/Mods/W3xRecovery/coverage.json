@@ -1,0 +1,265 @@
+{
+  "mod": "W3xRecovery",
+  "entry": "SDK/Mods/W3xRecovery/Data/Mod.xml",
+  "sdkExecuted": false,
+  "baseReferenceManifests": [
+    "Static.manifest",
+    "Global.manifest",
+    "Audio.manifest"
+  ],
+  "dependencies": [
+    {
+      "type": "W3DHierarchy",
+      "id": "W3xRecoveryHierarchy",
+      "pivots": 2
+    },
+    {
+      "type": "Texture",
+      "id": "W3xRecoveryTexture",
+      "file": "Art/W3xRecoveryTexture.tga",
+      "provenance": "SDK/Art/W3/W3XView.tga copied unchanged"
+    }
+  ],
+  "assets": [
+    {
+      "asset": "W3xRecoveryDefault",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 17,
+      "firstFrame": 0,
+      "binaryMove": false,
+      "settings": "omitted"
+    },
+    {
+      "asset": "W3xRecoveryExplicitDefaults",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 17,
+      "firstFrame": 0,
+      "binaryMove": false,
+      "settings": {}
+    },
+    {
+      "asset": "W3xRecoveryTimecodedOnly",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 17,
+      "firstFrame": 3,
+      "binaryMove": true,
+      "settings": {
+        "AllowTimeCoded": "true",
+        "AllowAdaptiveDelta": "false"
+      }
+    },
+    {
+      "asset": "W3xRecoveryDeltaOnly",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 65,
+      "firstFrame": 0,
+      "binaryMove": false,
+      "settings": {
+        "AllowTimeCoded": "false",
+        "AllowAdaptiveDelta": "true",
+        "MaxAdaptiveDeltaError": ".03"
+      }
+    },
+    {
+      "asset": "W3xRecoveryBothDisabled",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 9,
+      "firstFrame": 1,
+      "binaryMove": true,
+      "settings": {
+        "AllowTimeCoded": "false",
+        "AllowAdaptiveDelta": "false"
+      }
+    },
+    {
+      "asset": "W3xRecoveryReduction",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 33,
+      "firstFrame": 0,
+      "binaryMove": false,
+      "settings": {
+        "AllowTimeCoded": "true",
+        "AllowAdaptiveDelta": "true",
+        "ForceReductionRate": 2,
+        "MaxTranslationError": ".003",
+        "MaxRotationError": ".005",
+        "MaxVisibilityError": ".025",
+        "MaxAdaptiveDeltaError": ".002"
+      }
+    },
+    {
+      "asset": "W3xRecoverySingleFrame",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 1,
+      "firstFrame": 1,
+      "binaryMove": false,
+      "settings": {
+        "AllowTimeCoded": "true",
+        "AllowAdaptiveDelta": "false"
+      }
+    },
+    {
+      "asset": "W3xRecoveryDeltaFallbackError",
+      "type": "W3DAnimation",
+      "channels": [
+        "XTranslation",
+        "YTranslation",
+        "ZTranslation",
+        "Visibility",
+        "Orientation"
+      ],
+      "frames": 33,
+      "firstFrame": 2,
+      "binaryMove": true,
+      "settings": {
+        "AllowTimeCoded": "false",
+        "AllowAdaptiveDelta": "true",
+        "MaxAdaptiveDeltaError": -1
+      }
+    },
+    {
+      "asset": "W3xRecoveryNormal",
+      "type": "W3DMesh",
+      "geometry": "Normal",
+      "fullStreams": false,
+      "positions": 1,
+      "normals": 0,
+      "texCoords": 0,
+      "boneInfluences": 0,
+      "aabTree": false,
+      "shaderKinds": [],
+      "ignoredUnpairedTangent": false,
+      "ignoredUnpairedBinormal": false
+    },
+    {
+      "asset": "W3xRecoverySkin",
+      "type": "W3DMesh",
+      "geometry": "Skin",
+      "fullStreams": true,
+      "positions": 2,
+      "normals": 2,
+      "texCoords": 2,
+      "boneInfluences": 2,
+      "aabTree": true,
+      "shaderKinds": [
+        "Bool",
+        "Int",
+        "Float",
+        "Texture"
+      ],
+      "ignoredUnpairedTangent": false,
+      "ignoredUnpairedBinormal": false
+    },
+    {
+      "asset": "W3xRecoveryCameraAligned",
+      "type": "W3DMesh",
+      "geometry": "CameraAligned",
+      "fullStreams": false,
+      "positions": 1,
+      "normals": 0,
+      "texCoords": 0,
+      "boneInfluences": 0,
+      "aabTree": false,
+      "shaderKinds": [],
+      "ignoredUnpairedTangent": true,
+      "ignoredUnpairedBinormal": false
+    },
+    {
+      "asset": "W3xRecoveryCameraOriented",
+      "type": "W3DMesh",
+      "geometry": "CameraOriented",
+      "fullStreams": false,
+      "positions": 1,
+      "normals": 0,
+      "texCoords": 0,
+      "boneInfluences": 0,
+      "aabTree": false,
+      "shaderKinds": [],
+      "ignoredUnpairedTangent": false,
+      "ignoredUnpairedBinormal": true
+    }
+  ],
+  "files": {
+    "Art/W3xRecoveryTexture.tga": {
+      "sha256": "9935d98cb8260cffb59acdc3f626498f95ef158ab9222a2b96d1f9d77ac287b8",
+      "bytes": 3116
+    },
+    "Data/Animations.xml": {
+      "sha256": "fb8092f221b5b54a5e30beed49e5497e11ff32ae8e1b1bdbf710f4b1af0fb46e",
+      "bytes": 57101
+    },
+    "Data/Dependencies.xml": {
+      "sha256": "4846acb1bda23468ca60188c8dc2637697a596731755e50582ecc096ee595dc1",
+      "bytes": 912
+    },
+    "Data/Meshes.xml": {
+      "sha256": "e23738ba724c3c31cecfb6a323a146fd7d8c4fc3d4348ed86e91ab27d168459f",
+      "bytes": 6322
+    },
+    "Data/Mod.xml": {
+      "sha256": "6e1e72c9cec35ddec38cf88b6522c8ea4fa1558a367a22fcffda8e2865b7fd4a",
+      "bytes": 507
+    }
+  },
+  "expectations": [
+    "W3X calls: eight W3DAnimation and four W3DMesh",
+    "Hierarchy references resolved by BAB to real local hierarchy",
+    "Shader Texture_0 resolved by BAB to real local Texture",
+    "TimecodedOnly/SingleFrame force Timecoded; DeltaOnly exercises adaptive delta when original compressor succeeds; capture runtime channel type to confirm",
+    "DeltaFallbackError uses XSD-legal MaxAdaptiveDeltaError=-1 to force original adaptive compression failure and Timecoded fallback even with AllowTimeCoded=false; BinaryMove alone does not disable delta"
+  ],
+  "validation": {
+    "staticXsd": "PASS reachable original SDK type definitions; 4 XML documents; 2 negative controls",
+    "windowsFullCnC3Types": "pending",
+    "sdk": "not run"
+  }
+}

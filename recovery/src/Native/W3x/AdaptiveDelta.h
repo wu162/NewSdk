@@ -28,7 +28,8 @@ struct AdaptiveDeltaEncoded {
 };
 // Returns false for the original null result (<2 source samples or failure at
 // both 4 and 8 bits); output remains unchanged. Dimensions outside 1..4,
-// inconsistent sample widths, nonfinite values, and oversized input throw.
+// inconsistent sample widths, nonfinite samples, and oversized input throw.
+// maxError uses original IEEE comparisons, including NaN and +/-infinity.
 bool CompressAdaptiveDelta(std::uint32_t type, std::uint16_t pivot,
     const std::vector<std::vector<float> >& samples, float maxError,
     AdaptiveDeltaChannel& output);

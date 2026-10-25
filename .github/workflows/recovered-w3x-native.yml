@@ -16,6 +16,16 @@ on:
       - 'recovery/tests/W3xStandaloneReplay.cs'
       - 'recovery/scripts/TestW3xNative.ps1'
       - 'SDK/tools/BinaryAssetBuilder.W3XCompiler.dll'
+      - 'SDK/tools/BinaryAssetBuilder.Core.dll'
+      - 'recovery/src/Plugin/W3x/NativePlugin.cs'
+      - 'recovery/tests/W3xPluginOracle.cs'
+      - 'recovery/scripts/BuildW3xPlugin.ps1'
+      - 'recovery/scripts/TestW3xPlugin.ps1'
+      - 'recovery/scripts/TestW3xSdkPreparation.ps1'
+      - 'recovery/scripts/TestW3xSdk.ps1'
+      - 'recovery/scripts/VerifyW3xSdkGate.ps1'
+      - 'recovery/tests/W3xSdkOracle.cs'
+      - 'SDK/Mods/W3xRecovery/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,10 +44,23 @@ jobs:
       - name: Build both native modes and compare original converter IL
         shell: pwsh
         run: ./recovery/scripts/TestW3xNative.ps1
+      - name: Verify loadable plugin and standalone plugin replay
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xPlugin.ps1 -CaptureDirectory "${{ github.workspace }}/recovery/evidence/w3x/native-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -OutputDirectory "recovery/evidence/w3x/plugin-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Parse SDK facilities and validate complete MOD schema without running SDK
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xSdkPreparation.ps1
       - name: Publish results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: w3x-native-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/plugin-validation.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/plugin-build.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered.W3x*.dll
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 30

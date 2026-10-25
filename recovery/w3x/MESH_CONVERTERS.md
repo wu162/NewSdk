@@ -17,9 +17,9 @@
 
 half算法保留原 `shr.un` 的32位计数掩码、tie-to-even、过大/Inf/NaN映射sign\|0x7fff。不能用标准IEEE binary16替代：例如源位模式0x08800000（2^-110）输出0x0400，而标准转换会变为0。零仍正确输出0，负零保留符号。
 
-为避免C++浮点转unsigned的未定义行为，有限范围conv.u4使用先截断int64再取uint32。原CLR x86转换的部分溢出已采集为独立PROBE，但未将完整溢出域纳入恢复支持：本接口显式拒绝BlendWeight变换结果不在[-2^31,2^32)或非有限值，以及color/normal的NaN。颜色/方向的正负Inf会被夹紧；half和直接拷贝仍接受非有限值。**这些拒绝是尚未恢复边界，不代表原版拒绝。** 不应将该能力组写为所有合法XSD float输入均已支持。
+conv.u4数值域已按原CLR4 x86行为补全：先按binary64分别round乘法与加法，截断到signed64后取低32位；NaN、Inf或变换结果不在[-2^63,2^63)时返回原integer-indefinite的低32位0。显式范围分支避免C++浮点转整数的未定义行为。Color的NaN经原conv.i4→float→conv.u4得到低byte0；NormalizedDirection的NaN分量打包为0，正负Inf仍按原比较夹紧。所有float位模式均有定义，不再把合法XSD float值仅因数值范围或NaN拒绝。结构性非法缓冲区/计数、inverse映射越界以及CopyDirect的原BE断言继续拒绝。
 
-本地测试：`tests/W3xMeshConvertersTests.cpp`，g++ C++11 `-O0`/`-O2 -Wall -Wextra -Werror`各461断言PASS，含独立golden位模式、rounding、符号、夹紧、wrap、stride0/负stride、endian、padding/canary、inverse越界和显式拒绝。ASan/UBSan在禁用当前受限环境不支持的LeakSanitizer后同样PASS。此处是本地定向检查，**不是原 DLL 动态差分或 SDK 验收**；动态oracle由本轮统一能力组运行记录。
+本地测试：`tests/W3xMeshConvertersTests.cpp`，g++ C++11 `-O0`/`-O2 -Wall -Wextra -Werror`各716断言PASS，含独立golden位模式、rounding、符号、夹紧、wrap、stride0/负stride、endian、padding/canary、inverse越界和显式拒绝。ASan/UBSan在禁用当前受限环境不支持的LeakSanitizer后同样PASS。此处是本地定向检查，**不是原 DLL 动态差分或 SDK 验收**；动态oracle由本轮统一能力组运行记录。
 
 
 ## 首轮原版差分发现并修复的浮点存储差异
@@ -27,3 +27,10 @@ half算法保留原 `shr.un` 的32位计数掩码、tie-to-even、过大/Inf/NaN
 Windows run `40165200024`、source `b6dd6bd3` 的 `/Od` 全部7组本地组件检查通过，但原版converter动态差分失败，未被当作验收成功。失败为 CopyTexCoord、BE、输入v位模式 `0x76d882ff`：double计算再round float后 `1-v` 是 `0xf6d882ff`；原版先把交换字节后的 `0xff82d8f6` 写入float局部，最后 `ldloc/stind.r4` 在CLR4 x86将该 signaling NaN quiet为 `0xffc2d8f6`。旧恢复版直接按整数写目标字节，遗漏了这一浮点存储效果。
 
 修复后的 `StoreFloat` 显式保留原float load/store的NaN quiet位、符号与payload处理，尤其是**字节交换后的float存储**，因此该finite输入目标字节为 `f6 d8 c2 ff`。增加上述失败fixture和u分量交换后产生sNaN的独立golden断言，本地O0/O2各461断言通过。差分断言未改；修复后的完整原版矩阵已双模式通过，包含直接memcpy构造的原始sNaN用例；精确范围和成功锚点统一见 [RESUME.md](RESUME.md)，未复用失败source的状态。
+
+
+## 2026-10-25 数值域收尾（待本轮完整动态矩阵）
+
+复用 `40166287709-1/artifact.zip` 中 `/Od`、`/O2` 的728条原版独立PROBE，未重复启动相同取证。548条BlendWeight记录含234种去重输入位模式，全部符合binary64算术、signed64截断再取低位模型。对同样原输入用精确有理数模拟53bit与64bit内部精度：53bit模型0差异，64bit模型24差异，因此实现明确使用double round，不能保留x87扩展精度的半单位误差。此前尚未纳入差分的98条Color和82条Direction记录也纳入本轮正常双边比较。
+
+本地golden现新增上述234种原版Weight输出和24项raw NaN转换断言，O0/O2各716断言通过；原有断言与canary均保留。`W3xNativeOracle` 删除旧Supported筛选，原728条输入现在直接比较原/恢复两边；另增12288项sign/exponent/mantissa结构矩阵和50项转换阈值邻近float测试，所有新样本仍检查原source不变、目标padding与完整160字节。此处实现与本地通过不能代替本轮Windows动态矩阵成功；最新sourceCommit/runId由本轮入口统一记录。

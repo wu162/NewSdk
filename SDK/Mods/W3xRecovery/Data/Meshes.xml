@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <W3DMesh id="W3xRecoveryNormal" GeometryType="Normal" Hidden="false" CastShadow="false" SortLevel="0">
+    <BoundingBox>
+      <Min X="0" Y="0" Z="0"/>
+      <Max X="1" Y="1" Z="0"/>
+    </BoundingBox>
+    <BoundingSphere Radius=".707106781">
+      <Center X=".5" Y=".5" Z="0"/>
+    </BoundingSphere>
+    <Vertices>
+      <V X="0" Y="0" Z="0"/>
+      <V X="1" Y="0" Z="0"/>
+      <V X="1" Y="1" Z="0"/>
+      <V X="0" Y="1" Z="0"/>
+    </Vertices>
+    <Triangles>
+      <T>
+        <V>0</V>
+        <V>1</V>
+        <V>2</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+      <T>
+        <V>0</V>
+        <V>2</V>
+        <V>3</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+    </Triangles>
+    <FXShader ShaderName="Simple.fx" TechniqueIndex="0"/>
+  </W3DMesh>
+  <W3DMesh id="W3xRecoverySkin" GeometryType="Skin" Hidden="false" CastShadow="true" SortLevel="32">
+    <BoundingBox>
+      <Min X="0" Y="0" Z="0"/>
+      <Max X="1" Y="1" Z="0"/>
+    </BoundingBox>
+    <BoundingSphere Radius=".707106781">
+      <Center X=".5" Y=".5" Z="0"/>
+    </BoundingSphere>
+    <Vertices>
+      <V X="0" Y="0" Z="0"/>
+      <V X="1" Y="0" Z="0"/>
+      <V X="1" Y="1" Z="0"/>
+      <V X="0" Y="1" Z="0"/>
+    </Vertices>
+    <Vertices>
+      <V X="0" Y="0" Z="0"/>
+      <V X="1" Y="0" Z="0"/>
+      <V X="1" Y="1" Z="0"/>
+      <V X="0" Y="1" Z="0"/>
+    </Vertices>
+    <Normals>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+    </Normals>
+    <Normals>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+      <N X="0" Y="0" Z="1"/>
+    </Normals>
+    <Tangents>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+    </Tangents>
+    <Binormals>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+    </Binormals>
+    <VertexColors>
+      <C R="1" G="0" B="0" A="1"/>
+      <C R="0" G="1" B="0" A="0.5"/>
+      <C R="0" G="0" B="1" A="0"/>
+      <C R="0.25" G="0.5" B="0.75" A="1"/>
+    </VertexColors>
+    <TexCoords>
+      <T X="0" Y="0"/>
+      <T X="1" Y="0"/>
+      <T X="1" Y="1"/>
+      <T X="0" Y="1"/>
+    </TexCoords>
+    <TexCoords>
+      <T X="0" Y="1"/>
+      <T X="1" Y="1"/>
+      <T X="1" Y="0"/>
+      <T X="0" Y="0"/>
+    </TexCoords>
+    <BoneInfluences>
+      <I Weight="1" Bone="0"/>
+      <I Weight="0.75" Bone="0"/>
+      <I Weight="0.25" Bone="0"/>
+      <I Weight="0" Bone="0"/>
+    </BoneInfluences>
+    <BoneInfluences>
+      <I Weight="0" Bone="1"/>
+      <I Weight="0.25" Bone="1"/>
+      <I Weight="0.75" Bone="1"/>
+      <I Weight="1" Bone="1"/>
+    </BoneInfluences>
+    <ShadeIndices>
+      <I>0</I>
+      <I>1</I>
+      <I>2</I>
+      <I>3</I>
+    </ShadeIndices>
+    <Triangles>
+      <T>
+        <V>0</V>
+        <V>1</V>
+        <V>2</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+      <T>
+        <V>0</V>
+        <V>2</V>
+        <V>3</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+    </Triangles>
+    <FXShader ShaderName="Simple.fx" TechniqueIndex="0">
+      <Constants>
+        <Bool Name="AlphaTestEnable">
+          <Value>true</Value>
+        </Bool>
+        <Int Name="RecoveryInt">
+          <Value>-2147483648</Value>
+        </Int>
+        <Float Name="ColorEmissive">
+          <Value>1</Value>
+          <Value>0.5</Value>
+          <Value>0.25</Value>
+          <Value>0</Value>
+        </Float>
+        <Texture Name="Texture_0">
+          <Value>W3xRecoveryTexture</Value>
+        </Texture>
+      </Constants>
+    </FXShader>
+    <AABTree>
+      <PolyIndices>
+        <P>0</P>
+        <P>1</P>
+      </PolyIndices>
+      <Node>
+        <Min X="0" Y="0" Z="0"/>
+        <Max X="1" Y="1" Z="0"/>
+        <Children Front="1" Back="2"/>
+      </Node>
+      <Node>
+        <Min X="0" Y="0" Z="0"/>
+        <Max X="1" Y="1" Z="0"/>
+        <Polys Begin="0" Count="1"/>
+      </Node>
+      <Node>
+        <Min X="0" Y="0" Z="0"/>
+        <Max X="1" Y="1" Z="0"/>
+        <Polys Begin="1" Count="1"/>
+      </Node>
+    </AABTree>
+  </W3DMesh>
+  <W3DMesh id="W3xRecoveryCameraAligned" GeometryType="CameraAligned" Hidden="true" CastShadow="false" SortLevel="0">
+    <BoundingBox>
+      <Min X="0" Y="0" Z="0"/>
+      <Max X="1" Y="1" Z="0"/>
+    </BoundingBox>
+    <BoundingSphere Radius=".707106781">
+      <Center X=".5" Y=".5" Z="0"/>
+    </BoundingSphere>
+    <Vertices>
+      <V X="0" Y="0" Z="0"/>
+      <V X="1" Y="0" Z="0"/>
+      <V X="1" Y="1" Z="0"/>
+      <V X="0" Y="1" Z="0"/>
+    </Vertices>
+    <Tangents>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+      <T X="1" Y="0" Z="0"/>
+    </Tangents>
+    <Triangles>
+      <T>
+        <V>0</V>
+        <V>1</V>
+        <V>2</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+      <T>
+        <V>0</V>
+        <V>2</V>
+        <V>3</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+    </Triangles>
+    <FXShader ShaderName="Simple.fx" TechniqueIndex="0"/>
+  </W3DMesh>
+  <W3DMesh id="W3xRecoveryCameraOriented" GeometryType="CameraOriented" Hidden="false" CastShadow="false" SortLevel="0">
+    <BoundingBox>
+      <Min X="0" Y="0" Z="0"/>
+      <Max X="1" Y="1" Z="0"/>
+    </BoundingBox>
+    <BoundingSphere Radius=".707106781">
+      <Center X=".5" Y=".5" Z="0"/>
+    </BoundingSphere>
+    <Vertices>
+      <V X="0" Y="0" Z="0"/>
+      <V X="1" Y="0" Z="0"/>
+      <V X="1" Y="1" Z="0"/>
+      <V X="0" Y="1" Z="0"/>
+    </Vertices>
+    <Binormals>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+      <B X="0" Y="1" Z="0"/>
+    </Binormals>
+    <Triangles>
+      <T>
+        <V>0</V>
+        <V>1</V>
+        <V>2</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+      <T>
+        <V>0</V>
+        <V>2</V>
+        <V>3</V>
+        <Nrm X="0" Y="0" Z="1"/>
+        <Dist>0</Dist>
+      </T>
+    </Triangles>
+    <FXShader ShaderName="Simple.fx" TechniqueIndex="0"/>
+  </W3DMesh>
+</AssetDeclaration>

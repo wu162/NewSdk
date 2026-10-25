@@ -11,7 +11,7 @@ using namespace System;
 using namespace System::Reflection;
 using namespace Recovered::W3x;
 
-static int fixtures, comparisons, probes;
+static int fixtures, comparisons;
 static MethodInfo^ Method(Assembly^ a, int token) {
     MethodInfo^ m = dynamic_cast<MethodInfo^>(a->ManifestModule->ResolveMethod(token));
     if (!m || m->GetParameters()->Length != 6)
@@ -29,19 +29,6 @@ static void Original(MethodInfo^ m, int count, void* src, int srcPitch,
     catch (TargetInvocationException^ e) { throw e->InnerException; }
 }
 static float Float(std::uint32_t bits) { float v; std::memcpy(&v,&bits,4); return v; }
-static bool Supported(MeshConversion kind, const float* v) {
-    if (kind==MeshConversion::Vector4ToUByte4N) {
-        for (int i=0;i<4;++i) if (std::isnan(v[i])) return false;
-    }
-    if (kind==MeshConversion::CompressNormalizedDirection) {
-        for (int i=0;i<3;++i) if (std::isnan(v[i])) return false;
-    }
-    if (kind==MeshConversion::ConvertBlendWeight) {
-        double x=static_cast<double>(v[0])*255.0+0.5;
-        return std::isfinite(x) && x>=-2147483648.0 && x<4294967296.0;
-    }
-    return true;
-}
 static void Test(Assembly^ assembly, int converter, const float* values,
                  int count, int sourcePitch, int destinationPitch, bool big, int alignment=0) {
     static const int tokens[]={0x060000c2,0x060000c3,0x060000c4,0x060000c5,
@@ -80,14 +67,6 @@ static void Test(Assembly^ assembly, int converter, const float* values,
         throw gcnew Exception("Original converter mutated source data");
     for (int i=0;i<160;++i) if (!written[i] && expected[i]!=0xa7)
         throw gcnew Exception("Original converter wrote outside declared destination widths");
-    if (!Supported(kind,values)) {
-        // Characterize CLR conversion overflow separately. These probes are
-        // explicitly excluded from supported/differential fixture totals.
-        Console::Write("PROBE converter={0} big={1} inputBits={2:X8} output=",converter,big,
-            BitConverter::ToUInt32(BitConverter::GetBytes(values[0]),0));
-        for (int i=0;i<16;++i) Console::Write("{0:X2}",static_cast<int>(expected[destinationBase+i]));
-        Console::WriteLine(); ++probes; return;
-    }
     ConvertMeshStream(kind,count,source+sourceBase,sourcePitch,actual+destinationBase,destinationPitch,c);
     if (std::memcmp(source,sourceBefore,sizeof(source)))
         throw gcnew Exception("Recovered converter mutated source data");
@@ -119,6 +98,37 @@ int main(array<String^>^ args) {
             float values[4];std::memcpy(values,raw[i],sizeof(values));
             Test(original,0,values,1,16,16,be!=0);
         }
+        // All float exponent/sign families and mantissa endpoints now reach
+        // BOTH implementations. These used to be original-only PROBE records.
+        const std::uint32_t mantissas[]={0,1,0x003fffffU,0x007fffffU};
+        for(unsigned exponent=0;exponent<256;++exponent)
+            for(unsigned sign=0;sign<2;++sign)
+                for(unsigned mantissa=0;mantissa<4;++mantissa) {
+                    std::uint32_t rawBits[4];
+                    for(unsigned component=0;component<4;++component)
+                        rawBits[component]=(sign<<31)|(exponent<<23)|mantissas[(mantissa+component)%4];
+                    float values[4];std::memcpy(values,rawBits,sizeof(values));
+                    for(int be=0;be<2;++be) {
+                        Test(original,2,values,3,20,20,be!=0,1);
+                        Test(original,5,values,3,20,20,be!=0,1);
+                        Test(original,6,values,3,20,20,be!=0,1);
+                    }
+                }
+        // Float neighbors of binary64 arithmetic/conversion boundaries:
+        // transformed signed64 limits, former signed32/u32 guard limits,
+        // and the loss of +0.5 at binary64's 53-bit precision boundary.
+        const std::uint32_t weightBoundaries[]={
+            0x5b00807fU,0x5b008080U,0x5b008081U,0x5b008082U,0x5b008083U,
+            0xdb00807fU,0xdb008080U,0xdb008081U,0xdb008082U,0xdb008083U,
+            0xcb00807fU,0xcb008080U,0xcb008081U,0xcb008082U,0xcb008083U,
+            0x4b80807fU,0x4b808080U,0x4b808081U,0x4b808082U,0x4b808083U,
+            0x5600807fU,0x56008080U,0x56008081U,0x56008082U,0x56008083U};
+        for(unsigned i=0;i<sizeof(weightBoundaries)/sizeof(weightBoundaries[0]);++i) {
+            std::uint32_t rawBits[4]={weightBoundaries[i],0,0,0};
+            float values[4];std::memcpy(values,rawBits,sizeof(values));
+            Test(original,5,values,3,0,20,false);
+            Test(original,5,values,3,-20,-20,true,1);
+        }
         const std::uint32_t bits[]={0,0x80000000,1,0x80000001,0x007fffff,0x00800000,
             0x33000000,0x33800000,0x387fffff,0x38800000,0x3effffff,0x3f000000,
             0x3f000001,0x3f7fffff,0x3f800000,0x3f800001,0xbf000000,0xbf800000,
@@ -148,7 +158,7 @@ int main(array<String^>^ args) {
                 }
                 float zero[4]={0,0,0,0}; Test(original,converter,zero,0,0,0,be!=0);
             }
-        Console::WriteLine("PASS W3X converter original differential fixtures={0} comparedBytes={1} boundaryProbes={2}; SDK not run",fixtures,comparisons,probes);
+        Console::WriteLine("PASS W3X converter original differential fixtures={0} comparedBytes={1} allFormer728BoundaryProbesIncluded=true; SDK not run",fixtures,comparisons);
         return 0;
     } catch (Exception^ e) { Console::Error->WriteLine(e); return 1; }
       catch (const std::exception& e) { Console::Error->WriteLine(gcnew String(e.what())); return 1; }

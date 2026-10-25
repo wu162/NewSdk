@@ -1,0 +1,226 @@
+{
+  "scope": "unchanged reachable SDK definitions; unrelated root choice branches omitted",
+  "fullWindowsCnC3TypesValidation": "required before SDK execution",
+  "documents": [
+    {
+      "path": "Data/Animations.xml",
+      "sha256": "fb8092f221b5b54a5e30beed49e5497e11ff32ae8e1b1bdbf710f4b1af0fb46e"
+    },
+    {
+      "path": "Data/Dependencies.xml",
+      "sha256": "4846acb1bda23468ca60188c8dc2637697a596731755e50582ecc096ee595dc1"
+    },
+    {
+      "path": "Data/Meshes.xml",
+      "sha256": "e23738ba724c3c31cecfb6a323a146fd7d8c4fc3d4348ed86e91ab27d168459f"
+    },
+    {
+      "path": "Data/Mod.xml",
+      "sha256": "6e1e72c9cec35ddec38cf88b6522c8ea4fa1558a367a22fcffda8e2865b7fd4a"
+    }
+  ],
+  "definitions": [
+    {
+      "kind": "complexType",
+      "name": "Tag",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "Include",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "Define",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "Texture",
+      "source": "SDK/Schemas/xsd/AssetTypeTexture.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DMesh",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DHierarchy",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DAnimation",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "BaseAssetType",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "AnimationChannelScalar",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "AnimationChannelQuaternion",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "AssetReference",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "AnimationChannelBase",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DQuaternion",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "AnimationChannelType",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "InstanceId",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "HashCode",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "BuildRule",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DVector3",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "Poid",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "BaseRenderAssetType",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "BoxMinMax",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "Sphere",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "RGBAColor",
+      "source": "SDK/Schemas/xsd/Includes/Base.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "W3DVector2",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "BoneInfluence",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "Triangle",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderMaterial",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "AABTree",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "MeshGeometryType",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "RenderingSortLevel",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderConstantTexture",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderConstantFloat",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderConstantInt",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderConstantBool",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "complexType",
+      "name": "FXShaderConstant",
+      "source": "SDK/Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "FileReference",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "TextureType",
+      "source": "SDK/Schemas/xsd/AssetTypeTexture.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "SageBool",
+      "source": "SDK/Schemas/xsd/Includes/Base.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "TextureOutputFormatType",
+      "source": "SDK/Schemas/xsd/AssetTypeTexture.xsd"
+    },
+    {
+      "kind": "simpleType",
+      "name": "IncludeType",
+      "source": "SDK/Schemas/xsd/Base/AssetBase.xsd"
+    }
+  ],
+  "negativeControls": 2,
+  "sdkExecuted": false
+}

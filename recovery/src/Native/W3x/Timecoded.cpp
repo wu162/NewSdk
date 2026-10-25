@@ -16,9 +16,6 @@ void Validate(const TimecodedChannel& channel) {
     for (const TimecodedFrame& frame : channel.frames) {
         if (frame.values.size() != width)
             throw std::invalid_argument("Timecoded inconsistent source dimension");
-        for (float value : frame.values)
-            if (!std::isfinite(value))
-                throw std::invalid_argument("Timecoded nonfinite source");
     }
 }
 std::array<float,4> Slerp(const std::vector<float>& p,
@@ -117,6 +114,10 @@ void Put32(unsigned char* p, std::uint32_t value, bool be) {
     for (unsigned i=0;i<4;++i) p[be?3-i:i]=static_cast<unsigned char>(value>>(i*8));
 }
 void PutFloat(unsigned char* p, std::uint32_t bits, bool be) {
+    // The original ldind.r4/call float helper quiets a source sNaN before
+    // either the native-endian return or the byte-swap branch.
+    if ((bits&0x7f800000u)==0x7f800000u && (bits&0x007fffffu)!=0)
+        bits|=0x00400000u;
     Put32(p,bits,be);
     if (be) {
         // WriteOut calls the original float-returning EndianToPlatform helper.
@@ -130,16 +131,25 @@ void PutFloat(unsigned char* p, std::uint32_t bits, bool be) {
     }
 }
 }
+std::uint32_t TimecodedReductionLimit(std::uint32_t sourceCount,float forceRate) {
+    // The original IL first rounds the count to r4, multiplies as r8, then
+    // uses CLR4 x86 conv.u4: signed64 truncation followed by low32 bits.
+    // Nonfinite/out-of-signed64 values produce integer-indefinite, low32=0.
+    // Reuse the established converter oracle model without a C++ UB cast.
+    volatile double roundedProduct=double(float(sourceCount))*double(forceRate);
+    const double target=roundedProduct;
+    std::uint32_t converted=0;
+    if (std::isfinite(target) && target>=-9223372036854775808.0 &&
+        target<9223372036854775808.0)
+        converted=static_cast<std::uint32_t>(static_cast<std::int64_t>(target));
+    return converted<1u?1u:converted;
+}
 TimecodedChannel CompressTimecoded(std::uint32_t type, std::uint16_t pivot,
     const std::vector<TimecodedFrame>& frames, float translationError,
     float rotationError, float visibilityError, float forceRate) {
     TimecodedChannel output={type,pivot,frames};
     Validate(output);
-    const double target=double(float(std::uint32_t(frames.size())))*double(forceRate);
-    if (!std::isfinite(target) || target<0.0 || target>4294967295.0)
-        throw std::invalid_argument("Timecoded force reduction rate outside defined conversion range");
-    std::uint32_t minimum=static_cast<std::uint32_t>(target);
-    if (minimum<1) minimum=1;
+    const std::uint32_t minimum=TimecodedReductionLimit(static_cast<std::uint32_t>(frames.size()),forceRate);
     float error= type==3 ? rotationError : type==4 ? visibilityError : translationError;
     while (output.frames.size()>minimum || error>=0.f) {
         const int index=type==3 ? FindQuaternion(output.frames,error) : FindScalar(output.frames,error);

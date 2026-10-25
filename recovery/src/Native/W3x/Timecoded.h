@@ -25,4 +25,7 @@ TimecodedChannel CompressTimecoded(std::uint32_t type, std::uint16_t pivot,
     float maxRotationError, float maxVisibilityError, float forceReductionRate);
 std::uint32_t EstimateTimecodedSize(const TimecodedChannel& channel);
 TimecodedEncoded EncodeTimecoded(const TimecodedChannel& channel, bool bigEndian);
+// Original CLR x86 conv.u4 reduction target, including negative, overflowing
+// and nonfinite rates. Exposed for direct original-runtime boundary probes.
+std::uint32_t TimecodedReductionLimit(std::uint32_t sourceCount,float forceRate);
 }}
