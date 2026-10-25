@@ -16,16 +16,18 @@ New-Item -ItemType Directory $original, $fixtures -Force | Out-Null
 Copy-Item SDK/tools/*.dll $original
 $core = Join-Path $original 'BinaryAssetBuilder.Core.dll'
 $hostExe = Join-Path $original 'AudioPluginOracle.exe'
-& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path *> "$out/oracle-build.log"
+& $csc /nologo /unsafe /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$hostExe" (Resolve-Path 'recovery/tests/AudioPluginOracle.cs').Path (Resolve-Path 'recovery/tests/AudioMp3Fixtures.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Audio plugin oracle build failed' }
+& $csc /nologo /platform:x86 /out:"$original/AudioInputReaderOracle.exe" (Resolve-Path 'recovery/tests/AudioInputReaderOracle.cs').Path (Resolve-Path 'recovery/tests/AudioInputFormatCases.cs').Path *> "$out/reader-oracle-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$out/reader-oracle-build.log"; throw 'Audio reader boundary oracle build failed' }
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$hostExe.config"
 $sourceCommit = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
-$receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic map/track/event ProcessInstance/direct-handler component differential; MP3 original evidence only'}
+$receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic and AudioFile PCM8/16/24 WAVE, AIFF8/16/24 NONE/XAS component differential'}
 try {
     $businessScope = if ($OriginalOnly -or $IncludeMp3) { 'business' } else { 'pathmusic' }
     $receipt.mp3Validated = [bool]$IncludeMp3
-    if ($IncludeMp3) { $receipt.scope = 'PathMusic map/track/event and MP3 passthrough ProcessInstance/direct-handler component differential' }
+    if ($IncludeMp3) { $receipt.scope += '; MP3 passthrough ProcessInstance/direct-handler differential' }
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/original.txt" $businessScope *> "$out/original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/original.log"; throw 'Original business oracle failed' }
     # Full raw PCM native evidence is retained separately and is not counted as recovered acceptance.
@@ -38,7 +40,7 @@ try {
     & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/rates-original.txt" rates *> "$out/rates-original.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/rates-original.log"; throw 'Original rate boundary probe failed' }
     $env:AUDIO_TEST_REAL_DIRECTORY = (Resolve-Path recovery/fixtures/audio/main).Path
-    foreach ($extraGroup in @('main','pcm8')) {
+    foreach ($extraGroup in @('main','pcm8','formats')) {
         & $hostExe "$original/BinaryAssetBuilder.AudioCompiler.dll" original $fixtures "$out/$extraGroup-original.txt" $extraGroup *> "$out/$extraGroup-original.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$extraGroup-original.log"; throw "Original $extraGroup probe failed" }
     }
@@ -56,7 +58,11 @@ try {
         & dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
-        foreach ($group in @('business','pcm','xas','defaults','rates','main','pcm8')) {
+        Copy-Item "$original/AudioInputReaderOracle.exe" $candidate
+        & "$candidate/AudioInputReaderOracle.exe" $library $fixtures *> "$out/$mode-reader-boundaries.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-reader-boundaries.log"; throw "$mode input rejection boundaries failed" }
+        Get-Content "$out/$mode-reader-boundaries.log" -Tail 1
+        foreach ($group in @('business','pcm','xas','defaults','rates','main','pcm8','formats')) {
             $scope = if ($group -eq 'business') { $businessScope } else { $group }
             $expectedFile = if ($group -eq 'business') { "$out/original.txt" } else { "$out/$group-original.txt" }
             $actualFile = "$out/$mode-$group.txt"
@@ -70,7 +76,7 @@ try {
             $expectedHash = (Get-FileHash $expectedFile).Hash
             if ($actual -ne $expectedHash) {
                 Compare-Object (Get-Content $expectedFile) (Get-Content $actualFile) | Out-String -Width 2000 | Set-Content "$out/$mode-$group-difference.txt"
-                Get-Content "$out/$mode-$group-difference.txt" -First 25
+                Write-Host "FAIL Audio plugin $mode $group`: transcript differs; full buffers saved to $mode-$group-difference.txt"
                 $receipt.configurations += @{configuration=$mode;group=$group;passed=$false;error='transcript differs'}
                 continue
             }

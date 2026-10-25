@@ -40,6 +40,12 @@ internal static class AudioSdkSupport
             if(extension==".mp3")xml.Append("<AudioFileMP3Passthrough id='RealMp3"+index+"' File='../Audio/"+target+"' IsStreamed='true'/>");
             else foreach(string codec in new string[]{"NONE","XAS"})xml.Append("<AudioFile id='RealWave"+index+codec+"' File='../Audio/"+target+"' PCCompression='"+codec+"' IsStreamedOnPC='false'/>");
         }
+        foreach(bool aiff in new bool[]{false,true}) {
+            string name=aiff?"generated.aiff":"generated24.wav";
+            AudioInputFormatCases.Write(Path.Combine(audio,name),aiff,aiff?16:24,2,2041);
+            foreach(string codec in new string[]{"NONE","XAS"})foreach(bool streamed in new bool[]{false,true})
+                xml.Append("<AudioFile id='Format"+(aiff?"Aiff":"Wave24")+codec+streamed+"' File='../Audio/"+name+"' PCCompression='"+codec+"' IsStreamedOnPC='"+streamed.ToString().ToLowerInvariant()+"'/>");
+        }
         xml.Append("<AudioFile id='AudioDefaultSounds' File='../Audio/sounds/default.wav'/><AudioFile id='AudioDefaultMusic' File='../Audio/music/default.wav'/></AssetDeclaration>");
         string path=Path.Combine(data,"Mod.xml");File.WriteAllText(path,xml.ToString());
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();schemas.Add(Ns,Path.Combine(sdk,"Schemas/xsd/CnC3Types.xsd"));schemas.Compile();

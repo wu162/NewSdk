@@ -4,7 +4,7 @@ This audit uses the checked-in original `SDK/tools/BinaryAssetBuilder.AudioCompi
 
 ## Original execution path
 
-`Plugin.ProcessAudioFileInstance` is managed IL at RVA `0x5974`. Its imported helpers call statically linked SIMEX and RenderWare AudioCore implementations. No external audio codec DLL appears in the PE import table. The original plugin accepts SIMEX format IDs 0 and 1 (WAVE and AIFF), and creates output format 39 (SNR/SNS).
+`Plugin.ProcessAudioFileInstance` is managed IL at RVA `0x5974`. Its imported helpers call statically linked SIMEX and RenderWare AudioCore implementations. No external audio codec DLL appears in the PE import table. The original plugin accepts SIMEX format IDs 0 and 1 (AIFF and WAVE), and creates output format 39 (SNR/SNS).
 
 | Function | RVA |
 |---|---:|
@@ -47,7 +47,9 @@ PCM input samples normalize as `signed16 / 32768.0f`. The encoder uses `truncate
 
 Unsigned PCM8 input uses the original registry ID `P8U0` (entry at RVA `0xf9448`), whose decoder at `0x10390` zero-extends each byte, subtracts 128, converts to float and multiplies by the float constant at `0xac984` = 0.0078125 (exactly 1/128). The original instructions at `0x10450` and `0x104d0` establish normalization as `(unsignedByte - 128) / 128.0f`. Relevant disassembly is preserved in `pcm8-decoder-disassembly.txt`. This extends input normalization only; PCM16BE/XAS1 output encoders do not change.
 
-The block limit is computed using x87 extended arithmetic as `truncate(2040 / bytesPerSecond * sampleRate)`, not by simplifying that expression. At 22050 Hz this yields 1019 mono PCM frames or 509 stereo frames. `NativeBlockFrames` emulates 64-bit significand rounding using decimal arithmetic and the exact binary32 bitrate value. The original encoded payload buffers are sized for this calculation.
+The block limit is computed as `truncate(2040 / bytesPerSecond * sampleRate)`, without simplifying that expression. The original x87 instructions execute with the CLR's **53-bit significand** control word (`0x027f`), so division and multiplication round to binary64. The earlier candidate incorrectly emulated reset 64-bit x87 precision (`0x037f`): at 400 Hz mono PCM it produced 1020 instead of 1019 frames, and at 431 Hz it produced 1019 instead of 1020. At 22050 Hz both precisions happen to yield 1019 mono PCM frames, so the earlier single-rate fixtures did not distinguish them. `NativeBlockFrames` now forces binary64 rounding after both operations using BitConverter stores.
+
+`GenerateAudioBlockFramesOracle.py` executes original RVAs `0x2dad1..0x2dae2`, including the original `_ftol` helper, with `fpuControl=0x027f`. It records 1008 scalar outputs (504 each PCM/XAS), mono/stereo across 252 rates including every 400..512 Hz rate, standard rates, seeded random rates and format boundaries. `native-block-frames/original.tsv` is replayed by `AudioBlockFramesOracle.cs` in Debug/Release. Independent Python binary64 arithmetic matched all 1008 original machine-code outputs; this replay does not replace the Windows C# and plugin validation. Original full-plugin evidence in run `40196506962` independently establishes the 400/431 Hz outputs. The original encoded payload buffers are sized for this calculation.
 
 Original PCM evidence: `recovery/evidence/audio/plugin-validation/40192722185-1/pcm-original.txt` and four adjacent WAV files. There are sixteen cases: mono/stereo, 3/20001 frames, RAM/stream, PC/Xenon NONE. An independent Python replay of the recovered arithmetic/container matched all sixteen HeaderData/CustomData outputs. The C# implementation still requires the recorded Windows component validation before acceptance is claimed.
 

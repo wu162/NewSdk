@@ -146,28 +146,19 @@ namespace BinaryAssetBuilder.AudioCompiler
             return result.ToArray();
         }
 
-        // RVA 0x2dac5: x87 2040 / bytesPerSecond * sampleRate, then
-        // truncation to integer. Extended-precision rounding matters: 22050 Hz
-        // mono PCM yields 1019 frames rather than the algebraic 1020.
+        // RVA 0x2dad1 divides 2040 by the binary32 encoder bitrate, then
+        // multiplies by the rate. The CLR's x87 control word has 53-bit
+        // precision (0x027f), not the reset 64-bit precision (0x037f).
+        // Both operations therefore round to binary64 before truncation.
+        // Force those stores even on legacy x86 JITs that retain temporaries
+        // in extended registers: 400 Hz mono PCM yields 1019, 431 yields 1020.
         internal static int NativeBlockFrames(float bytesPerSecond, int rate)
         {
-            decimal scale = 1m;
-            // A direct float-to-decimal cast keeps only seven decimal digits
-            // on the CLR; reconstruct the exact binary value instead.
-            int bits = BitConverter.ToInt32(BitConverter.GetBytes(bytesPerSecond), 0);
-            decimal denominator = (bits & 0x7fffff) | 0x800000;
-            int exponent = ((bits >> 23) & 255) - 150;
-            while (exponent > 0) { denominator *= 2m; --exponent; }
-            while (exponent < 0) { denominator /= 2m; ++exponent; }
-            const decimal Two63 = 9223372036854775808m;
-            const decimal Two64 = 18446744073709551616m;
-            while (2040m * scale / denominator < Two63) scale *= 2m;
-            decimal quotient = Decimal.Round(2040m * scale / denominator, 0, MidpointRounding.ToEven);
-            decimal product = quotient * rate;
-            decimal roundingScale = 1m;
-            while (product / roundingScale >= Two64) roundingScale *= 2m;
-            product = Decimal.Round(product / roundingScale, 0, MidpointRounding.ToEven) * roundingScale;
-            return (int)Decimal.Truncate(product / scale);
+            double quotient = BitConverter.Int64BitsToDouble(
+                BitConverter.DoubleToInt64Bits(2040.0 / bytesPerSecond));
+            double product = BitConverter.Int64BitsToDouble(
+                BitConverter.DoubleToInt64Bits(quotient * rate));
+            return (int)product;
         }
 
         private static void AddBE(List<byte> output, uint value)

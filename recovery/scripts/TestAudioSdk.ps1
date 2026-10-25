@@ -15,7 +15,7 @@ dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Releas
 if($LASTEXITCODE -ne 0){Get-Content "$out/library-build.log" -Tail 60;throw 'Recovered audio SDK library build failed'}
 & $csc /nologo /target:library /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:"$core" /out:"$sdk/tools/AudioSdkProbe.dll" (Resolve-Path recovery/tests/AudioSdkTracingPlugin.cs).Path *> "$out/tracer-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/tracer-build.log";throw 'SDK tracing adapter build failed'}
-& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /out:"$build/AudioSdkSupport.exe" (Resolve-Path recovery/tests/AudioSdkSupport.cs).Path (Resolve-Path recovery/tests/AudioMp3Fixtures.cs).Path *> "$out/support-build.log"
+& $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /out:"$build/AudioSdkSupport.exe" (Resolve-Path recovery/tests/AudioSdkSupport.cs).Path (Resolve-Path recovery/tests/AudioMp3Fixtures.cs).Path (Resolve-Path recovery/tests/AudioInputFormatCases.cs).Path *> "$out/support-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/support-build.log";throw 'SDK support host build failed'}
 & "$build/AudioSdkSupport.exe" create $sdk "$out/expected-assets.tsv" @RealAudioFiles *> "$out/schema.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/schema.log";throw 'Full original CnC3Types schema validation failed; BAB not started'}
@@ -32,7 +32,7 @@ $inputs=@(Get-ChildItem "$sdk/Mods/AudioRecoveryProbe" -Recurse -File|ForEach-Ob
 $inputs|ConvertTo-Json -Depth 6|Set-Content "$out/inputs.json"
 $realInputs=@($RealAudioFiles | ForEach-Object {@{path=(Resolve-Path $_).Path;sha256=(Get-FileHash $_).Hash.ToLowerInvariant()}})
 $realInputs|ConvertTo-Json -Depth 4|Set-Content "$out/real-inputs.json"
-$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkStarted=$false;succeeded=$false;scope='Fresh original and original-free recovered BAB case5 basic-data build; ten audio assets; same temporary SDK path avoids PathMusicTrack absolute-path differences';runs=@()}
+$state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';sdkStarted=$false;succeeded=$false;scope='Fresh original and original-free recovered BAB case5 basic-data build; all five routes, generated WAVE/AIFF and main real audio assets; same temporary SDK path avoids PathMusicTrack absolute-path differences';runs=@()}
 $savedSide=$env:AUDIO_SDK_IMPLEMENTATION;$savedTrace=$env:AUDIO_SDK_TRACE
 try{
  foreach($side in @('Original','Recovered')){

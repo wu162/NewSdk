@@ -166,7 +166,7 @@ internal static class AudioPluginOracle
     {
         try
         {
-            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults|rates|main|pcm8");
+            if (args.Length != 5) throw new ArgumentException("Usage: AudioPluginOracle assembly.dll original|recovered fixtures output.txt business|pathmusic|pcm|xas|defaults|rates|main|pcm8|formats");
             if (IntPtr.Size != 4) throw new Exception("x86 CLR required");
             bool original = args[1] == "original";
             string originalName = "BinaryAssetBuilder.AudioCompiler";
@@ -181,6 +181,7 @@ internal static class AudioPluginOracle
                 else if (args[4] == "rates") RateProbe();
                 else if (args[4] == "main") MainProbe();
                 else if (args[4] == "pcm8") Pcm8Probe();
+                else if (args[4] == "formats") AudioInputFormatCases.Run(root, Run);
                 else
                 {
                     ParseProbe();

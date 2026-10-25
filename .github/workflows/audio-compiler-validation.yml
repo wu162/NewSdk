@@ -61,7 +61,10 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- recovery/evidence/audio/plugin-validation recovery/evidence/audio/pcm-validation recovery/evidence/audio/xas-validation recovery/evidence/audio/sdk-validation
+          $evidencePaths = @('plugin-validation','pcm-validation','xas-validation','sdk-validation') | ForEach-Object { "recovery/evidence/audio/$_" } | Where-Object { Test-Path $_ }
+          if ($evidencePaths.Count -eq 0) { throw 'No audio validation evidence was produced' }
+          git add -- $evidencePaths
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
           if (git diff --cached --quiet) { exit 0 }
           git commit -m "audio: preserve component validation evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }

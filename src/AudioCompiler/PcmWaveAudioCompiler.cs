@@ -37,7 +37,7 @@ namespace BinaryAssetBuilder.AudioCompiler
             try { wave = File.ReadAllBytes(file); }
             catch (IOException) { return null; }
             catch (UnauthorizedAccessException) { return null; }
-            Pcm16Encoder.PcmWaveInput input = Pcm16Encoder.ReadWave(wave);
+            Pcm16Encoder.PcmWaveInput input = AudioPcmInputReader.Read(wave);
             XmlAttribute requested = attrs[prefix + "SampleRate"];
             if (requested != null)
             {

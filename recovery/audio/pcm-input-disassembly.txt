@@ -1,0 +1,440 @@
+Original DLL SHA256 a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139
+PE image base 0x10000000; addresses below are RVAs.
+
+WAVE format selection
+00037321 lea        edx, [esp + 0x20]
+00037325 push       2
+00037327 push       edx
+00037328 call       0x398f0
+0003732d add        esp, 8
+00037330 cmp        eax, 1
+00037333 je         0x37399
+00037335 lea        eax, [esp + 0x20]
+00037339 push       2
+0003733b push       eax
+0003733c call       0x398f0
+00037341 add        esp, 8
+00037344 cmp        eax, 0xfffe
+00037349 jne        0x37383
+0003734b mov        ecx, dword ptr [esi + 0x10]
+0003734e push       ebx
+0003734f push       edi
+00037350 push       ecx
+00037351 call       0x3a1c0
+00037356 mov        eax, dword ptr [esi + 0x10]
+00037359 push       0x30
+0003735b lea        edx, [esp + 0x28]
+0003735f push       edx
+00037360 push       eax
+00037361 call       0x39ef0
+00037366 add        esp, 0x18
+00037369 test       eax, eax
+0003736b jne        0x37399
+0003736d push       0x100b76b4
+00037372 call       0x27030
+00037377 add        esp, 4
+0003737a xor        eax, eax
+0003737c pop        edi
+0003737d pop        esi
+0003737e pop        ebx
+0003737f mov        esp, ebp
+00037381 pop        ebp
+00037382 ret        
+00037383 push       0x100b87a4
+00037388 call       0x27030
+0003738d add        esp, 4
+00037390 xor        eax, eax
+00037392 pop        edi
+00037393 pop        esi
+00037394 pop        ebx
+00037395 mov        esp, ebp
+00037397 pop        ebp
+00037398 ret        
+
+WAVE sample representation/count
+000374e9 lea        eax, [esp + 0x24]
+000374ed push       4
+000374ef push       eax
+000374f0 call       0x398f0
+000374f5 lea        ecx, [esp + 0x1c]
+000374f9 push       4
+000374fb push       ecx
+000374fc mov        dword ptr [edi + 0x214], eax
+00037502 call       0x398f0
+00037507 movsx      ecx, byte ptr [edi + 0x1f6]
+0003750e xor        edx, edx
+00037510 div        ecx
+00037512 lea        edx, [esp + 0x3e]
+00037516 push       2
+00037518 push       edx
+00037519 mov        dword ptr [edi + 0x218], eax
+0003751f call       0x398f0
+00037524 add        esp, 0x18
+00037527 cmp        eax, 8
+0003752a jne        0x37535
+0003752c mov        byte ptr [edi + 0x1f5], 0xb
+00037533 jmp        0x375a6
+00037535 lea        eax, [esp + 0x2e]
+00037539 push       2
+0003753b push       eax
+0003753c call       0x398f0
+00037541 add        esp, 8
+00037544 cmp        eax, 0x10
+00037547 jne        0x3755d
+00037549 mov        eax, dword ptr [edi + 0x218]
+0003754f cdq        
+00037550 sub        eax, edx
+00037552 mov        byte ptr [edi + 0x1f5], 0
+00037559 sar        eax, 1
+0003755b jmp        0x375a0
+0003755d lea        ecx, [esp + 0x2e]
+00037561 push       2
+00037563 push       ecx
+00037564 call       0x398f0
+00037569 add        esp, 8
+0003756c cmp        eax, 0x10
+0003756f je         0x37549
+00037571 lea        edx, [esp + 0x2e]
+00037575 push       2
+00037577 push       edx
+00037578 call       0x398f0
+0003757d add        esp, 8
+00037580 cmp        eax, 0x18
+00037583 jne        0x375c4
+00037585 mov        ecx, dword ptr [edi + 0x218]
+0003758b mov        eax, 0x55555556
+00037590 imul       ecx
+00037592 mov        eax, edx
+00037594 shr        eax, 0x1f
+00037597 mov        byte ptr [edi + 0x1f5], 0x13
+0003759e add        eax, edx
+000375a0 mov        dword ptr [edi + 0x218], eax
+000375a6 mov        ecx, dword ptr [esi + 0x10]
+000375a9 push       ecx
+000375aa call       0x3a310
+000375af mov        dword ptr [edi + 0x40], eax
+000375b2 add        esp, 4
+000375b5 mov        dword ptr [edi + 0x44], edx
+000375b8 mov        eax, 1
+000375bd pop        edi
+000375be pop        esi
+000375bf pop        ebx
+000375c0 mov        esp, ebp
+000375c2 pop        ebp
+000375c3 ret        
+000375c4 push       0x100b876c
+000375c9 call       0x27030
+000375ce add        esp, 4
+000375d1 pop        edi
+000375d2 pop        esi
+000375d3 xor        eax, eax
+000375d5 pop        ebx
+000375d6 mov        esp, ebp
+000375d8 pop        ebp
+
+AIFF padded chunk length
+00038321 mov        eax, dword ptr [ebp + 0x10]
+00038324 push       8
+00038326 lea        ecx, [esp + 0x20]
+0003832a push       ecx
+0003832b push       eax
+0003832c call       0x39ef0
+00038331 add        esp, 0xc
+00038334 test       eax, eax
+00038336 jg         0x3833c
+00038338 xor        edi, edi
+0003833a jmp        0x38354
+0003833c lea        edx, [esp + 0x20]
+00038340 push       4
+00038342 push       edx
+00038343 call       0x398c0
+00038348 add        esp, 8
+0003834b test       al, 1
+0003834d je         0x38352
+0003834f add        eax, 1
+00038352 mov        edi, eax
+
+AIFF COMM rate/width
+0003837f movzx      eax, byte ptr [esp + 0xa8]
+00038387 movzx      edx, byte ptr [esp + 0xa9]
+0003838f shl        eax, 8
+00038392 mov        ecx, 0x401e
+00038397 sub        ecx, eax
+00038399 movzx      eax, byte ptr [esp + 0xaa]
+000383a1 sub        ecx, edx
+000383a3 movzx      edx, byte ptr [esp + 0xab]
+000383ab shl        eax, 8
+000383ae add        eax, edx
+000383b0 movzx      edx, byte ptr [esp + 0xac]
+000383b8 shl        eax, 8
+000383bb add        eax, edx
+000383bd movzx      edx, byte ptr [esp + 0xad]
+000383c5 shl        eax, 8
+000383c8 add        eax, edx
+000383ca shr        eax, cl
+000383cc push       2
+000383ce mov        dword ptr [ebx + 0x214], eax
+000383d4 lea        eax, [esp + 0xa4]
+000383db push       eax
+000383dc call       0x398c0
+000383e1 lea        ecx, [esp + 0xaa]
+000383e8 push       4
+000383ea push       ecx
+000383eb mov        byte ptr [ebx + 0x1f6], al
+000383f1 call       0x398c0
+000383f6 lea        edx, [esp + 0xb6]
+000383fd push       2
+000383ff push       edx
+00038400 mov        dword ptr [ebx + 0x218], eax
+00038406 call       0x398c0
+0003840b add        esp, 0x24
+0003840e cmp        eax, 8
+00038411 jne        0x3841c
+00038413 mov        byte ptr [ebx + 0x1f5], 2
+0003841a jmp        0x3845e
+0003841c lea        eax, [esp + 0x9a]
+00038423 push       2
+00038425 push       eax
+00038426 call       0x398c0
+0003842b add        esp, 8
+0003842e cmp        eax, 0x10
+00038431 jne        0x3843c
+00038433 mov        byte ptr [ebx + 0x1f5], 1
+0003843a jmp        0x3845e
+0003843c lea        ecx, [esp + 0x9a]
+00038443 push       2
+00038445 push       ecx
+00038446 call       0x398c0
+0003844b add        esp, 8
+0003844e cmp        eax, 0x18
+00038451 jne        0x3865b
+00038457 mov        byte ptr [ebx + 0x1f5], 0x15
+0003845e cmp        byte ptr [esp + 0x13], 0
+00038463 je         0x38625
+00038469 push       4
+0003846b lea        edx, [esp + 0xaa]
+00038472 push       0x100b88b8
+00038477 push       edx
+00038478 call       esi
+0003847a add        esp, 0xc
+0003847d test       eax, eax
+0003847f jne        0x38625
+00038485 mov        byte ptr [ebx + 0x1f5], 0xd
+
+AIFF SSND-derived frame count
+000388f8 lea        edx, [esp + 0x9a]
+000388ff push       2
+00038901 push       edx
+00038902 call       0x398c0
+00038907 mov        edi, dword ptr [esp + 0x44]
+0003890b mov        esi, eax
+0003890d movsx      eax, byte ptr [ebx + 0x1f6]
+00038914 imul       eax, dword ptr [ebx + 0x218]
+0003891b shr        esi, 3
+0003891e imul       eax, esi
+00038921 add        eax, 8
+00038924 add        esp, 8
+00038927 cmp        eax, edi
+00038929 je         0x3894f
+0003892b push       0x100b8908
+00038930 call       0x26fe0
+00038935 movsx      ecx, byte ptr [ebx + 0x1f6]
+0003893c imul       ecx, esi
+0003893f lea        eax, [edi - 8]
+00038942 xor        edx, edx
+00038944 add        esp, 4
+00038947 div        ecx
+00038949 mov        dword ptr [ebx + 0x218], eax
+0003894f pop        edi
+00038950 pop        ebp
+00038951 pop        ebx
+00038952 mov        eax, 1
+00038957 pop        esi
+00038958 add        esp, 0x4bc
+0003895e ret        
+
+signed8 sample normalization
+000105a0 mov        edi, dword ptr [esp + 0x24]
+000105a4 movzx      ebp, word ptr [edi + 0xe]
+000105a8 mov        edi, dword ptr [edi + 4]
+000105ab imul       ebp, edx
+000105ae mov        ecx, dword ptr [esp + 0x18]
+000105b2 lea        ebp, [edi + ebp*4]
+000105b5 add        ecx, edx
+000105b7 xor        edi, edi
+000105b9 cmp        eax, 4
+000105bc jl         0x1062a
+000105be lea        esi, [eax - 4]
+000105c1 shr        esi, 2
+000105c4 add        esi, 1
+000105c7 lea        edx, [ebp + 8]
+000105ca lea        edi, [esi*4]
+000105d1 movsx      ebx, byte ptr [ecx]
+000105d4 cvtsi2ss   xmm1, ebx
+000105d8 mulss      xmm1, xmm0
+000105dc movss      dword ptr [edx - 8], xmm1
+000105e1 movsx      ebx, byte ptr [ecx + 1]
+000105e5 cvtsi2ss   xmm1, ebx
+000105e9 mulss      xmm1, xmm0
+000105ed movss      dword ptr [edx - 4], xmm1
+000105f2 movsx      ebx, byte ptr [ecx + 2]
+000105f6 cvtsi2ss   xmm1, ebx
+000105fa mulss      xmm1, xmm0
+000105fe movss      dword ptr [edx], xmm1
+00010602 movsx      ebx, byte ptr [ecx + 3]
+00010606 cvtsi2ss   xmm1, ebx
+0001060a mulss      xmm1, xmm0
+0001060e movss      dword ptr [edx + 4], xmm1
+00010613 add        ecx, 4
+00010616 add        edx, 0x10
+00010619 sub        esi, 1
+0001061c jne        0x105d1
+0001061e mov        ebx, dword ptr [esp + 0x10]
+00010622 mov        esi, dword ptr [esp + 0x20]
+00010626 mov        edx, dword ptr [esp + 0x14]
+0001062a cmp        edi, eax
+0001062c jae        0x1064f
+0001062e mov        edi, edi
+00010630 movsx      ebx, byte ptr [ecx]
+00010633 cvtsi2ss   xmm1, ebx
+00010637 mulss      xmm1, xmm0
+0001063b movss      dword ptr [ebp + edi*4], xmm1
+00010641 add        edi, 1
+00010644 add        ecx, 1
+00010647 cmp        edi, eax
+00010649 jb         0x10630
+0001064b mov        ebx, dword ptr [esp + 0x10]
+
+LE24 sample normalization
+000106d8 movss      xmm0, dword ptr [0x100ac990]
+000106e0 push       ebx
+000106e1 push       esi
+000106e2 mov        dword ptr [esp + 0x28], ecx
+000106e6 jmp        0x106f0
+000106e8 lea        esp, [esp]
+000106ef nop        
+000106f0 mov        esi, dword ptr [esp + 0x24]
+000106f4 movzx      ebx, word ptr [esi + 0xe]
+000106f8 imul       ebx, edx
+000106fb mov        edx, dword ptr [esi + 4]
+000106fe lea        edx, [edx + ebx*4]
+00010701 xor        esi, esi
+00010703 cmp        ebp, 4
+00010706 mov        dword ptr [esp + 0x18], edx
+0001070a jl         0x107c1
+00010710 lea        edi, [ebp - 4]
+00010713 shr        edi, 2
+00010716 add        edx, 8
+00010719 add        edi, 1
+0001071c lea        esi, [edi*4]
+00010723 xor        eax, eax
+00010725 mov        ah, byte ptr [ecx + 2]
+00010728 movzx      ebx, byte ptr [ecx]
+0001072b add        ecx, 0xc
+0001072e add        edx, 0x10
+00010731 mov        al, byte ptr [ecx - 0xb]
+00010734 shl        eax, 8
+00010737 or         eax, ebx
+00010739 shl        eax, 8
+0001073c cvtsi2ss   xmm1, eax
+00010740 xor        eax, eax
+00010742 mulss      xmm1, xmm0
+00010746 movss      dword ptr [edx - 0x18], xmm1
+0001074b mov        ah, byte ptr [ecx - 7]
+0001074e movzx      ebx, byte ptr [ecx - 9]
+00010752 mov        al, byte ptr [ecx - 8]
+00010755 shl        eax, 8
+00010758 or         eax, ebx
+0001075a shl        eax, 8
+0001075d cvtsi2ss   xmm1, eax
+00010761 xor        eax, eax
+00010763 mulss      xmm1, xmm0
+00010767 movss      dword ptr [edx - 0x14], xmm1
+0001076c mov        ah, byte ptr [ecx - 4]
+0001076f movzx      ebx, byte ptr [ecx - 6]
+00010773 mov        al, byte ptr [ecx - 5]
+00010776 shl        eax, 8
+00010779 or         eax, ebx
+0001077b shl        eax, 8
+0001077e cvtsi2ss   xmm1, eax
+00010782 xor        eax, eax
+00010784 mulss      xmm1, xmm0
+00010788 movss      dword ptr [edx - 0x10], xmm1
+0001078d mov        ah, byte ptr [ecx - 1]
+00010790 movzx      ebx, byte ptr [ecx - 3]
+00010794 mov        al, byte ptr [ecx - 2]
+00010797 shl        eax, 8
+0001079a or         eax, ebx
+0001079c shl        eax, 8
+0001079f sub        edi, 1
+000107a2 cvtsi2ss   xmm1, eax
+000107a6 mulss      xmm1, xmm0
+000107aa movss      dword ptr [edx - 0xc], xmm1
+
+BE24 sample normalization
+00010898 movss      xmm0, dword ptr [0x100ac990]
+000108a0 push       ebx
+000108a1 push       esi
+000108a2 mov        dword ptr [esp + 0x28], ecx
+000108a6 jmp        0x108b0
+000108a8 lea        esp, [esp]
+000108af nop        
+000108b0 mov        esi, dword ptr [esp + 0x24]
+000108b4 movzx      ebx, word ptr [esi + 0xe]
+000108b8 imul       ebx, edx
+000108bb mov        edx, dword ptr [esi + 4]
+000108be lea        edx, [edx + ebx*4]
+000108c1 xor        esi, esi
+000108c3 cmp        ebp, 4
+000108c6 mov        dword ptr [esp + 0x18], edx
+000108ca jl         0x10981
+000108d0 lea        edi, [ebp - 4]
+000108d3 shr        edi, 2
+000108d6 add        edx, 8
+000108d9 add        edi, 1
+000108dc lea        esi, [edi*4]
+000108e3 xor        eax, eax
+000108e5 mov        ah, byte ptr [ecx]
+000108e7 movzx      ebx, byte ptr [ecx + 2]
+000108eb add        ecx, 0xc
+000108ee add        edx, 0x10
+000108f1 mov        al, byte ptr [ecx - 0xb]
+000108f4 shl        eax, 8
+000108f7 or         eax, ebx
+000108f9 shl        eax, 8
+000108fc cvtsi2ss   xmm1, eax
+00010900 xor        eax, eax
+00010902 mulss      xmm1, xmm0
+00010906 movss      dword ptr [edx - 0x18], xmm1
+0001090b mov        ah, byte ptr [ecx - 9]
+0001090e movzx      ebx, byte ptr [ecx - 7]
+00010912 mov        al, byte ptr [ecx - 8]
+00010915 shl        eax, 8
+00010918 or         eax, ebx
+0001091a shl        eax, 8
+0001091d cvtsi2ss   xmm1, eax
+00010921 xor        eax, eax
+00010923 mulss      xmm1, xmm0
+00010927 movss      dword ptr [edx - 0x14], xmm1
+0001092c mov        ah, byte ptr [ecx - 6]
+0001092f movzx      ebx, byte ptr [ecx - 4]
+00010933 mov        al, byte ptr [ecx - 5]
+00010936 shl        eax, 8
+00010939 or         eax, ebx
+0001093b shl        eax, 8
+0001093e cvtsi2ss   xmm1, eax
+00010942 xor        eax, eax
+00010944 mulss      xmm1, xmm0
+00010948 movss      dword ptr [edx - 0x10], xmm1
+0001094d mov        ah, byte ptr [ecx - 3]
+00010950 movzx      ebx, byte ptr [ecx - 1]
+00010954 mov        al, byte ptr [ecx - 2]
+00010957 shl        eax, 8
+0001095a or         eax, ebx
+0001095c shl        eax, 8
+0001095f sub        edi, 1
+00010962 cvtsi2ss   xmm1, eax
+00010966 mulss      xmm1, xmm0
+0001096a movss      dword ptr [edx - 0xc], xmm1
+
+Normalization constants: RVA 0xac984 = 0.0078125; RVA 0xac990 = 4.656612873077393e-10
