@@ -1,0 +1,15 @@
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(169,42): error CS1026: ) expected
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(169,51): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(169,51): error CS1525: Invalid expression term ')'
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(169,52): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(182,17): error CS1525: Invalid expression term 'else'
+src\AudioCompiler\ThirdParty\NLayer\MpegFrameDecoder.cs(182,21): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(260,99): error CS1525: Invalid expression term 'int'
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(260,104): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(260,104): error CS1525: Invalid expression term ')'
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,99): error CS1525: Invalid expression term 'int'
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,106): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,106): error CS1525: Invalid expression term ')'
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,107): error CS1002: ; expected
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,107): error CS1525: Invalid expression term ')'
+src\AudioCompiler\ThirdParty\NLayer\Decoder\ID3Frame.cs(261,108): error CS1002: ; expected
