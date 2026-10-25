@@ -50,7 +50,7 @@ NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直
 2. XenonBundler/XGraphics完整surface/header/tiling转换、原native生命周期仍缺；Volume raw/mip已接入并取得PC/PS3 SDK验收。
 3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
 4. PNG/JPEG、剩余TGA metadata和NPOT/PS3 resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
-5. PS3 mip已单独验收；下一步为>256的PS3 cubic resize与NPOT D3DX resize，不能把当前关闭resize的成功外推。
+5. PS3 mip已单独验收；>256的PS3 cubic resize实验及浮点阻塞见[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)，候选隔离在src/TextureCompiler/Experiments，不编入默认DLL。NPOT D3DX resize仍未支持。
 
 详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
 

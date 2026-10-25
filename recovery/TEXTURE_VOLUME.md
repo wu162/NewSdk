@@ -62,3 +62,5 @@ TextureVolumeOracle.exe SDK/tools/BinaryAssetBuilder.TextureCompiler.dll
 
 本页不是成功收据，运行结论须绑定实际sourceCommit/runId，组件成功不能称为nvDDS或SDK体积纹理编译已通过。
 
+
+2026-10-25第三轮补充：本页纯IL helper不变，独立TextureVolumeRawDdsEncoder/TextureVolumeMipEncoder已接入插件并取得PC/PS3真实SDK三组逐字节对照；精确范围、算法及锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)。

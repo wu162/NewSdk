@@ -64,3 +64,5 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ### TextureCompiler 第三轮续接（2026-10-25）
 
 本轮单代理完成二维PS3三份mip payload、PC/PS3体积raw DDS及递归体积mip，并接入实际ProcessInstance。PS3/volume raw SDK源码31f45e04，运行40202575350三profile成功；volume mip SDK源码75f302ef，运行40203176308两profile成功。每profile原/恢复/无原目标DLL三组18资产，四产物与全部Core实际调用buffer/cdata一致。Debug/Release核心矩阵279/1200/2832组，volume入口各2610组；最终路由受影响回归全部通过。不变已验收组保留原锚点。PS3标准纹理>256自动resize、NPOT、DXT、Xenon、完整atlas仍未支持；生产SDK DLL/config不替换，分支未合入。精确规则/锚点见[TEXTURE_PS3_VOLUME.md](TEXTURE_PS3_VOLUME.md)，当前任务入口[TEXTURECOMPILER.md](TEXTURECOMPILER.md)。
+
+第三轮末段补充：PS3 cubic自动resize仅完成原版279组DDS取证40203552957与保持270组原输出不变的float探针40204552902。完整恢复差分未通过；候选已隔离在根src/TextureCompiler/Experiments，默认Managed 16份输入逐blob与75f302ef SDK验收源码完全相同。当前插件仍明确拒绝该路径，未跑resize SDK。下一轮先读[TEXTURE_CUBIC_RESIZE.md](TEXTURE_CUBIC_RESIZE.md)处理末级float边界，不要把实验workflow failure误当已验收PS3/volume回归失败。
