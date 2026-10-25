@@ -17,7 +17,7 @@
 
 half算法保留原 `shr.un` 的32位计数掩码、tie-to-even、过大/Inf/NaN映射sign\|0x7fff。不能用标准IEEE binary16替代：例如源位模式0x08800000（2^-110）输出0x0400，而标准转换会变为0。零仍正确输出0，负零保留符号。
 
-为避免C++浮点转unsigned的未定义行为，有限范围conv.u4使用先截断int64再取uint32。原CLR x86转换的全部溢出语义尚待动态差分：本接口显式拒绝BlendWeight变换结果不在[-2^31,2^32)或非有限值，以及color/normal的NaN。颜色/方向的正负Inf会被夹紧；half和直接拷贝仍接受非有限值。**这些拒绝是尚未恢复边界，不代表原版拒绝。** 不应将该能力组写为所有合法XSD float输入均已支持。
+为避免C++浮点转unsigned的未定义行为，有限范围conv.u4使用先截断int64再取uint32。原CLR x86转换的部分溢出已采集为独立PROBE，但未将完整溢出域纳入恢复支持：本接口显式拒绝BlendWeight变换结果不在[-2^31,2^32)或非有限值，以及color/normal的NaN。颜色/方向的正负Inf会被夹紧；half和直接拷贝仍接受非有限值。**这些拒绝是尚未恢复边界，不代表原版拒绝。** 不应将该能力组写为所有合法XSD float输入均已支持。
 
 本地测试：`tests/W3xMeshConvertersTests.cpp`，g++ C++11 `-O0`/`-O2 -Wall -Wextra -Werror`各461断言PASS，含独立golden位模式、rounding、符号、夹紧、wrap、stride0/负stride、endian、padding/canary、inverse越界和显式拒绝。ASan/UBSan在禁用当前受限环境不支持的LeakSanitizer后同样PASS。此处是本地定向检查，**不是原 DLL 动态差分或 SDK 验收**；动态oracle由本轮统一能力组运行记录。
 
@@ -26,4 +26,4 @@ half算法保留原 `shr.un` 的32位计数掩码、tie-to-even、过大/Inf/NaN
 
 Windows run `40165200024`、source `b6dd6bd3` 的 `/Od` 全部7组本地组件检查通过，但原版converter动态差分失败，未被当作验收成功。失败为 CopyTexCoord、BE、输入v位模式 `0x76d882ff`：double计算再round float后 `1-v` 是 `0xf6d882ff`；原版先把交换字节后的 `0xff82d8f6` 写入float局部，最后 `ldloc/stind.r4` 在CLR4 x86将该 signaling NaN quiet为 `0xffc2d8f6`。旧恢复版直接按整数写目标字节，遗漏了这一浮点存储效果。
 
-修复后的 `StoreFloat` 显式保留原float load/store的NaN quiet位、符号与payload处理，尤其是**字节交换后的float存储**，因此该finite输入目标字节为 `f6 d8 c2 ff`。增加上述失败fixture和u分量交换后产生sNaN的独立golden断言，本地O0/O2各461断言通过。差分断言未改；修复后的完整原版矩阵仍须实际重新运行，不能复用失败source的状态。
+修复后的 `StoreFloat` 显式保留原float load/store的NaN quiet位、符号与payload处理，尤其是**字节交换后的float存储**，因此该finite输入目标字节为 `f6 d8 c2 ff`。增加上述失败fixture和u分量交换后产生sNaN的独立golden断言，本地O0/O2各461断言通过。差分断言未改；修复后的完整原版矩阵已双模式通过，包含直接memcpy构造的原始sNaN用例；精确范围和成功锚点统一见 [RESUME.md](RESUME.md)，未复用失败source的状态。

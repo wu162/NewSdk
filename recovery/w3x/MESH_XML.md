@@ -8,4 +8,4 @@ Covered input: vertices/normals groups, optional tangents/binormals/colors, UV a
 
 Geometry enum mapping was checked against original PE enum-map entries and their pointed-to strings: CameraAligned=2, CameraOriented=3, Normal=0, Skin=1. Missing attribute leaves zero; an unrecognized present value selects2. Optional scalar attributes preserve zero initialization. An existing FXShader node receives the empty TechniqueName getter default; a missing FXShader does not invoke the writer. ShadeIndices only enters the original temporary pipeline tracker and is never read by BuildVertexData, so it has no serialized output.
 
-Validation: source contract review completed. C++/CLI compilation and complete original mesh three-buffer component differential are separate required gates. No SDK verification is claimed.
+Validation: C++/CLI builds, complete original mesh three-buffer component differential and original-absent component replay pass in both modes. Exact scope and evidence: [RESUME.md](RESUME.md). No SDK verification is claimed.

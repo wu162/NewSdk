@@ -10,4 +10,4 @@ MarshalString及TextureReference复用现有ResourceMarshaling.cpp匹配方法�
 
 EndianCorrect：根字符串length、constant count、TypeId、Name length、Int32与Float count/value按32位换序；bool/TechniqueIndex不变。Texture引用最终由Tracker处理，不能提前交换。Float数组原方法通过uint32 store换序，不走float-return EndianToPlatform，故不应用Timecoded发现的swap后sNaN quiet行为。
 
-本地GCC C++11 O2语法检查通过；x86三缓冲区/原版动态验收由本批完整Mesh oracle统一执行。未声明SDK集成或正式插件启用。独立函数CompileShaderMaterial可用于材质根28原版Marshal/EndianCorrect差分。
+本地GCC C++11语法检查、Windows双模式独立布局、完整Mesh原版三缓冲区矩阵及无原DLL组件重放已通过；实际范围和锚点统一见 [RESUME.md](RESUME.md)。未声明SDK集成或正式插件启用。独立函数CompileShaderMaterial可用于材质根28原版Marshal/EndianCorrect差分。

@@ -65,8 +65,8 @@ zero padding, pointer offsets, target endian, the empty imports buffer, and all
 13 pointer relocations plus sentinel. It specifically checks root relocation
 order 56,88,4, which follows allocation targets rather than ascending field
 offsets. Linux g++ C++11 -Wall/-Wextra/-Werror -O2 compilation and the explicit
-x64 ABI rejection pass; actual x86 assertions require the Windows runner.
+x64 ABI rejection pass; actual x86 assertions pass in both Windows optimization modes.
 The local environment lacks the 32-bit standard C++ headers, so no local x86
-execution is claimed. Full original ProcessInstance mesh three-buffer
-acceptance must be taken from the immutable Windows evidence, not this source
-review or the presence of tests. SDK validation was not run.
+execution is claimed. Full original ProcessInstance mesh three-buffer differential and original-absent
+component replay also pass. Exact evidence and limits are maintained in
+[RESUME.md](RESUME.md). SDK validation was not run.

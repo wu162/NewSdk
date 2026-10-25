@@ -1,4 +1,4 @@
-# W3X mesh vertex builder: source recovery, dynamic acceptance pending
+# W3X mesh vertex builder
 
 Source: `evidence/w3x/runs/40162934653-1/decompiled/-Module-.cs`, original
 DLL SHA-256 `bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1`.
@@ -93,6 +93,6 @@ pre-allocation constructor state, then the original Push allocates its root.
 zero/one/two normal streams, both/unpaired/no tangent lists, default/explicit
 colors, zero/one/three texture streams, and zero/one/two bone streams with
 sparse IDs including 65535. This oracle does not constitute complete
-HandleMesh, formal plugin integration, or SDK validation. Its actual Windows
-run status must be read from the immutable native validation evidence; source
-presence alone is not a passing result.
+HandleMesh, formal plugin integration, or SDK validation. The oracle passed both Windows modes; the later complete mesh component and
+original-absent replay also passed. Exact acceptance anchors and limits are
+maintained in [RESUME.md](RESUME.md).

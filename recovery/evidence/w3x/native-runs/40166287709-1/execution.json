@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "d98844353d680f1e2cf28e26dc3df3c4d8a04eed",
+  "runId": "40166287709",
+  "runAttempt": 1,
+  "jobId": 121087904913,
+  "artifactId": 12588731923,
+  "conclusion": "success",
+  "artifactZipSha256": "1deef30ca9c11bce9fb76ce700e1ee3db003cf560487a6c5f31eec90bbdac7eb",
+  "captureSha256": {
+    "O2-animation.fixtures": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+    "O2-mesh.fixtures": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+    "Od-animation.fixtures": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+    "Od-mesh.fixtures": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c"
+  },
+  "scope": "Complete Od/O2 component matrix plus original-absent replay. Per mode 675 animation + 666 mesh fixtures, 4023 replay buffer comparisons, 540216 replay bytes. No SDK, formal replacement or original pointer ABI acceptance."
+}
