@@ -1,0 +1,16 @@
+{
+  "ilspyVersion": "9.1.0.7988",
+  "runId": "40186176619",
+  "assemblies": [
+    {
+      "sources": 62,
+      "assembly": "BinaryAssetBuilder.Utility",
+      "originalSha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "project": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj"
+    }
+  ],
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "sourceCommit": "9edae6e28cb5c339b655842107d65b88149c7163",
+  "scope": "Complete ILSpy project export; validation follows separately"
+}
