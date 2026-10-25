@@ -212,7 +212,10 @@ if(std::strcmp(type,"SingleCommandList")==0){Validate(n,"CategoryName","CommandL
  if(std::strcmp(type,"AssetId")==0||std::strcmp(type,"String")==0){Validate(n,"","",false,true);Text(n.value,p);return;}
  if(std::strcmp(type,"TypedAssetId")==0){Validate(n,"","",false,true);Word(p,HashAssetId(n.value));return;}
  if(std::strcmp(type,"ObjectFilter")==0){
-  Validate(n,"id|Rule|Relationship|Alignment|Include|Exclude|StatusBitFlags|StatusBitFlagsExclude","IncludeThing|ExcludeThing");ObjectFilterInput input;for(const auto& a:n.attributes)if(a.first!="TypeId")input.attributes.insert(a);for(const auto& c:n.children){Validate(c,"","",false,true);(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.value);}auto object=reinterpret_cast<ObjectFilter*>(p);MarshalObjectFilter(input,object,t);
+  Validate(n,"id|Rule|Relationship|Alignment|Include|Exclude|StatusBitFlags|StatusBitFlagsExclude","IncludeThing|ExcludeThing");ObjectFilterInput input;
+  // Original scalar enum helpers63778/63789 compare C strings. Scope this adapter
+  // normalization to UIConfigList; shared ObjectFilter users retain their accepted input contract.
+  for(const auto& a:n.attributes)if(a.first!="TypeId")input.attributes[a.first]=(a.first=="Rule"||a.first=="Alignment")?std::string(a.second.c_str()):a.second;for(const auto& c:n.children){Validate(c,"","",false,true);(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.value);}auto object=reinterpret_cast<ObjectFilter*>(p);MarshalObjectFilter(input,object,t);
   for(unsigned at=0;at<88;at+=4)words.push_back(p+at);words.push_back(p+96);words.push_back(p+104);
   if(object->status)for(unsigned j=0;j<7;++j)words.push_back(object->status+j);if(object->statusExclude)for(unsigned j=0;j<7;++j)words.push_back(object->statusExclude+j);for(unsigned j=0;j<object->includeCount;++j)words.push_back(object->includeThings+j);for(unsigned j=0;j<object->excludeCount;++j)words.push_back(object->excludeThings+j);return;
  }

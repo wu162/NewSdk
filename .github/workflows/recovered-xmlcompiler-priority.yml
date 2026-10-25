@@ -103,8 +103,8 @@ jobs:
           path: recovery/evidence/xml-${{ matrix.group }}
           if-no-files-found: error
   link:
-    needs: inventory
-    if: needs.inventory.outputs.link_ready == 'true'
+    needs: [inventory, differential]
+    if: always() && needs.inventory.result == 'success' && needs.inventory.outputs.link_ready == 'true' && (needs.differential.result == 'success' || needs.differential.result == 'skipped')
     runs-on: windows-2022
     timeout-minutes: 15
     steps:
