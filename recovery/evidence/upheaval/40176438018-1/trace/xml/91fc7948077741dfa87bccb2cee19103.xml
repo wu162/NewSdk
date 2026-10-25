@@ -1,0 +1,1 @@
+<PlayerTech id="PlayerTech_Allied_HighTechnology" TechPointsRequired="1" TypeId="2131237081" xmlns="uri:ea.com:eala:asset"><TechDependency TypeId="3686731743">PlayerTech_Allied\0</TechDependency><TechDependency TypeId="3686731743">PlayerTech_Generic_Rank_1\1</TechDependency></PlayerTech>

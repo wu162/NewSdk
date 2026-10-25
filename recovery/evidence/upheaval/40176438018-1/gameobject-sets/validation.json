@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "edec51f3ab6c8b829fb2cfdcf59162479666aae7",
+  "scope": "Affected Armor/Locomotor set reader only, including pipeline id, all three buffers and existing enum/list/rejection cases",
+  "runId": "40176438018",
+  "modes": [
+    {
+      "mode": "Od",
+      "platformSummaries": [
+        "PASS locomotor-sets platform=0 fixtures=167 comparisons=501 rejections=6",
+        "PASS locomotor-sets platform=1 fixtures=334 comparisons=1002 rejections=12",
+        "PASS locomotor-sets platform=2 fixtures=501 comparisons=1503 rejections=18",
+        "PASS locomotor-sets platform=99 fixtures=668 comparisons=2004 rejections=24"
+      ]
+    },
+    {
+      "mode": "O2",
+      "platformSummaries": [
+        "PASS locomotor-sets platform=0 fixtures=167 comparisons=501 rejections=6",
+        "PASS locomotor-sets platform=1 fixtures=334 comparisons=1002 rejections=12",
+        "PASS locomotor-sets platform=2 fixtures=501 comparisons=1503 rejections=18",
+        "PASS locomotor-sets platform=99 fixtures=668 comparisons=2004 rejections=24"
+      ]
+    }
+  ],
+  "succeeded": true
+}

@@ -1,0 +1,5 @@
+TypeId=2178440954 platform=0
+System.NotSupportedException: Unknown dependency attribute
+   at Recovered.XmlpowersBridge.Compile(XmlNode node, XmlNamespaceManager namespaces, Boolean big, String type)
+   at Recovered.SpecialPowerTemplateCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at Recovered.XmlPriority.Plugin.ProcessInstance(InstanceDeclaration instance)
