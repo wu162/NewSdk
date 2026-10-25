@@ -89,7 +89,7 @@ internal static unsafe class TextureCubicResizeDifferential
         Check(Hash(recoveredSource)==Hash(source),"recovered source preservation "+name);
         Check(expected.Length==actual.Length,"DDS length "+format+" "+width+"x"+height+" "+name);
         for(int i=0;i<expected.Length;i++)
-            if(expected[i]!=actual[i]) throw new Exception("DDS byte "+i+" expected="+expected[i]+" actual="+actual[i]+" "+format+" "+width+"x"+height+" "+name);
+            if(expected[i]!=actual[i]) throw new Exception("mip="+mipmaps+" shift="+shift+" expectedDDS="+Convert.ToBase64String(expected)+" actualDDS="+Convert.ToBase64String(actual)+" DDS byte "+i+" expected="+expected[i]+" actual="+actual[i]+" "+format+" "+width+"x"+height+" "+name);
         checks+=expected.Length;
         transcript.WriteLine("dds|{0}|1|{1}|{2}|{3}|{4}|{5}",format,width,height,name,chunkInfo,Convert.ToBase64String(actual));
         fixtures++;

@@ -60,7 +60,7 @@ namespace Recovered.Compiler.Texture
                 for (int input = first; input <= last; input++)
                 {
                     double x = Math.Abs(input - center) / scale;
-                    double value = cubic ? (x < 1.0 ? (4.0 + x * x * (-6.0 + 3.0 * x)) / 6.0 : x < 2.0 ? Math.Pow(2.0 - x, 3.0) / 6.0 : 0.0) : 1.0 - x;
+                    double value = cubic ? (x < 1.0 ? (4.0 + x * x * (-6.0 + 3.0 * x)) / 6.0 : x < 2.0 ? ((2.0 - x) * (2.0 - x) * (2.0 - x)) / 6.0 : 0.0) : 1.0 - x;
                     // Keep zero end taps in contiguous storage. Zero products
                     // do not affect non-negative finite pixel accumulations.
                     weights.Add(value); sum += value;
