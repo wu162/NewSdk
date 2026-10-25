@@ -29,10 +29,10 @@ while queue:
  body=body_of(s,sig);bodies[sig]=body
  # Helper names are exact decorated names, not native size/name substring guesses.
  for helper in re.findall(r'\b((?:Marshaler_002EMarshal_|Marshaler_002EEndianCorrect_|Tokenizer_002ETokenize_)\w+)\(',body):queue.extend(signatures.get(helper,[]))
- for name in set(re.findall(r'\(([A-Za-z][A-Za-z0-9_]*)\*\)',body)):
+ for name in set(re.findall(r'\(([A-Za-z][A-Za-z0-9_]*)\*+\)',body)):
   for sigs in signatures.values():
    for direct in sigs:
-    if ('('+name+'* @object' in direct or ', '+name+'* @object' in direct) and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
+    if re.search(r'(?:\(|, )'+re.escape(name)+r'\*+ (?:@object|pointer)\b',direct) and any(direct.startswith('internal unsafe static void '+op) for op in ['Marshaler_002EMarshal(', 'Marshaler_002EEndianCorrect(', 'Tokenizer_002ETokenize(']):queue.append(direct)
 from GenerateUpgradeFields import enum_values
 pe=(ROOT/'SDK/tools/BinaryAssetBuilder.Tokenizer.dll').read_bytes();assert hashlib.sha256(pe).hexdigest()=='ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603'
 enumNames=sorted(set(re.findall(r'EnumNameGetter_0040W4([A-Za-z][A-Za-z0-9]*)_0040', '\n'.join(bodies.values()))))
@@ -46,7 +46,8 @@ manifest['durationConstantEvidence']=[line.strip() for line in s.splitlines() if
 if (E/'manifest.json').exists():
  old=json.loads((E/'manifest.json').read_text())
  order=[x['signature'] for x in old['methods']]
- assert set(order)==set(bodies), 'W3D direct dependency closure changed'
+ assert set(order)<=set(bodies), 'Previously captured W3D method disappeared'
+ order += sorted(set(bodies)-set(order))
  bodies={sig:bodies[sig] for sig in order}
 else:
  bodies=dict(sorted(bodies.items()))
