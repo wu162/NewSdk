@@ -1,0 +1,79 @@
+{
+  "scope": "PNG POT decoding versus native LoadImageA; production dispatch and SDK not yet validated",
+  "sdkValidated": false,
+  "status": "passed",
+  "runAttempt": "1",
+  "sourceFiles": [
+    {
+      "sha256": "acb15cd199d515ddce2eb61248063f27954ab3e2380a92725917b4d7f38e5986",
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176",
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs"
+    },
+    {
+      "sha256": "3d83ec1683b58e31b34b8ba29c046dfd9633aa46130d7ac6bce706d422fd8783",
+      "path": "recovery/tests/TexturePngOracle.cs"
+    },
+    {
+      "sha256": "877c515b558a8fecb21bab1b74d75f1a7dd588deee151d73b199b720d6f3330b",
+      "path": "recovery/scripts/TestTexturePng.ps1"
+    },
+    {
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll"
+    },
+    {
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll"
+    }
+  ],
+  "matrixVersion": 1,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "sourceCommit": "8a70300bf84ae60a5bb6ef00e6322c70fd27d91a",
+  "runId": "40232650075",
+  "probeOnly": false,
+  "configurations": [
+    {
+      "passed": true,
+      "probeCompleted": false,
+      "counts": {
+        "unsupportedCount": 392,
+        "rejectionMatches": 1984,
+        "fixtures": 5882,
+        "assertions": 11705,
+        "decodedMatches": 3506,
+        "originalFailures": 1984,
+        "mismatches": 0
+      },
+      "summary": [
+        "PASS Texture PNG fixtures=5882 decodedMatches=3506 originalFailures=1984 mismatches=0 assertions=11705 rejectionMatches=1984 unsupportedCount=392"
+      ],
+      "configuration": "Debug",
+      "transcriptSha256": "f14595a4ebf44c249b98c059fe32366eaa920bff770760343a2fa4308d646f31"
+    },
+    {
+      "passed": true,
+      "probeCompleted": false,
+      "counts": {
+        "unsupportedCount": 392,
+        "rejectionMatches": 1984,
+        "fixtures": 5882,
+        "assertions": 11705,
+        "decodedMatches": 3506,
+        "originalFailures": 1984,
+        "mismatches": 0
+      },
+      "summary": [
+        "PASS Texture PNG fixtures=5882 decodedMatches=3506 originalFailures=1984 mismatches=0 assertions=11705 rejectionMatches=1984 unsupportedCount=392"
+      ],
+      "configuration": "Release",
+      "transcriptSha256": "f14595a4ebf44c249b98c059fe32366eaa920bff770760343a2fa4308d646f31"
+    }
+  ]
+}
