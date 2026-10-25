@@ -357,7 +357,22 @@
   "dxt": {
     "implemented": false,
     "evidenceOnlyRunId": "40236386719",
-    "referenceSymbols": 223
+    "referenceSymbols": 223,
+    "originalBlockEvidence": {
+      "runId": "40237236370",
+      "sourceCommit": "23eaca15a66c665e111fe8e9ec486775e2eb709f",
+      "probeOnly": true,
+      "fixtures": 64,
+      "sourceModifiedCount": 0,
+      "pcPs3MatchingPairs": 31,
+      "totalPcPs3Pairs": 32,
+      "differingCase": {
+        "format": "D3DFMT_DXT1",
+        "pattern": 5,
+        "reason": "unresolved; compare existing captured options/header/block before further probes"
+      },
+      "sampleArchiveSha256": "4d7067c4791cfe5c22325d974eee71ff2c2302af5b0c7c40ca9e8d17c947fdad"
+    }
   },
   "next": [
     "DXT1/DXT1A/DXT3/DXT5",

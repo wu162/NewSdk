@@ -58,3 +58,5 @@ SDK 使用 EALAModStudio case5 的 BAB 基础数据流程，仅在临时 SDK/MOD
 本轮未量化账号额度节省；实际减少的是未变成功组重跑、多个 Windows 安装环境和 SDK 中间批次。运行环境末段变为不可用后，通过 GitHub 接口继续收取 Actions 和保存文档；远程源码与证据已持续提交。
 
 本轮末段运行环境失效后仍通过 GitHub/Actions 完成 SDK 收取与旧库符号采集。最终 SDK 和取证阶段每次仅一个 Windows 作业，取证运行明确只选 dxt-symbols，20 个已成功组件组全部复用。无源代码/行为变更后不再启动 Windows 重测。
+
+第五轮最后追加的原版 DXT 块取证 40237236370 成功：64例、输入未改写、只选 dxt-blocks、20个组件组复用。完整DDS/options/RGBA已留存；一对DXT1棋盘PC/PS3输出差异待解释，详见 DXT 入口文档。未宣称 DXT 已恢复，不为此重跑 PNG/BMP/SDK。

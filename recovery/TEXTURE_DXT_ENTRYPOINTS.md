@@ -46,3 +46,13 @@ SHA256：572aa5d1d3ff26050bdc101fddacf0a4f5af360bb5e2bbe1b6bc95a615d2524b。
 随后将参考库中 CodeRGBBlock/CodeAlphaBlock 等对象与原 DLL 原生函数匹配，先证明版本/路径，再还原量化、端点搜索与 alpha 分支。完整恢复后统一跑颜色/alpha/尺寸/mip/PC/PS3/volume 差分，再集中做 SDK；不要按每个 endpoint 变化反复触发全套 Windows 工作流。保留现有 raw 拒绝 DXT 的断言，直到对应路由有真正实现与验收。
 
 Xbox360/Xenon 专属路径不在本任务内。此次精确函数名搜索未找到可直接采用的核心源码；没有把库符号导出当作源码还原。
+
+## 第五轮末段追加：64 个原版块样本
+
+源码 23eaca15a66c665e111fe8e9ec486775e2eb709f，运行 [40237236370](https://github.com/wu162/NewSdk/actions/runs/40237236370) success/attempt1。仅选择 dxt-blocks，20 个组件组全部复用。使用原 2D native 入口、GetNVCompressionOptions 与 null rect，PC/PS3 × 四格式 × 八组 4x4 无 mip 输入，共64份完整DDS、1644字节options与源RGBA，全部借用现有原生harness契约；未执行恢复版压缩器。
+
+证据位于 evidence/texture/dxt-blocks/40237236370-1：validation.json、transcript.tsv、samples.zip；压缩包SHA256 4d7067c4791cfe5c22325d974eee71ff2c2302af5b0c7c40ca9e8d17c947fdad。DXT1/DXT1A为136字节DDS，DXT3/DXT5为144字节；回调分别为4+124+8/16，payload描述为0,4,4,0,1。64例输入调用前后hash均相同。
+
+**待解释的原版差异**：32个同输入/格式的PC与PS3配对中，31对完整DDS相同；D3DFMT_DXT1、pattern5 的8色不透明棋盘不同，源RGBA相同。PC SHA256为745bbfb70f3f7f73f20ea10e59d5ed2e9a2c753a48bfb68934fca8c6fb4c710a，PS3为3c550f55d4e16973bfacb60b5368fc8f9f45baa8780cdf08727111044bf70d7a。尚未将差异归因于平台、options或内部状态；不能擅自视为允许像素近似。
+
+下一轮先直接解包已有 samples.zip 比较该对 options、DDS头与8字节块，无须重跑本批。若现有数据不足以解释，再用同输入同options的重复调用/独立进程定向查明；不要先泛化“两个平台完全同码”或“压缩器非确定性”。随后再用已有64例作为实现起点；它们仍只是原版资料，不是恢复版差分通过。

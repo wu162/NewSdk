@@ -15,3 +15,5 @@
 ## 取证入口补充
 
 [texture-dxt-evidence] 显式选择 dxt-symbols，用同一个集中入口采集参考库 COFF 符号；该组 manual_only/evidence_only，普通回归与 SDK 不会自动选它。收据为 probe-only，绝不能作为 DXT 恢复验收或业务组件成功证据。40236386719 实测只选此组，复用全部20个已验收组件组；13项选择器检查包含旧依赖删除、实际非祖先提交、SDK完整三模式及取证非自动触发边界。
+
+[texture-dxt-blocks] 显式选择 dxt-blocks 采集原版小块样本；同样 manual_only/evidence_only，普通回归和SDK不自动执行。40237236370只运行此组，20个已验收组件组全部复用；其probe-only收据不能作为DXT实现完成证据。
