@@ -1,5 +1,6 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 const ModuleChoice* FindModule(U32 type) {
+    for(const auto& choice:containRestChoices) if(choice.type==type) return &choice;
     for(const auto& choice:containChoices) if(choice.type==type) return &choice;
     for(const auto& choice:slowChoices) if(choice.type==type) return &choice;
     for(const auto& choice:controlChoices) if(choice.type==type) return &choice;
@@ -82,6 +83,8 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         case ModuleValue::ObjectStatus:MarshalObjectStatus(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableObjectStatus:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),28,1));MarshalObjectStatus(value,words);data.Pop();}break;
+        case ModuleValue::StringHash:word=ExactStringHash(value);std::memcpy(at,&word,4);break;
+        case ModuleValue::NullableStringHash:{auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ExactStringHash(value);data.Pop();}break;
         case ModuleValue::AssetId:word=HashAssetId(value);std::memcpy(at,&word,4);break;
         case ModuleValue::ModelCondition:MarshalModelCondition(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableModelCondition:
@@ -166,7 +169,7 @@ void EndianModuleFieldSet(unsigned char* output,const ModuleFieldSet& fields) {
         else if(f.kind==ModuleValue::DeathBits) {Swap(at);Swap(at+4);}
         else if(f.kind==ModuleValue::NullableObjectStatus) {auto words=*reinterpret_cast<U32**>(at);if(words) for(unsigned j=0;j<7;++j) Swap(words+j);}
         else if(f.kind==ModuleValue::ObjectStatus) {for(unsigned j=0;j<7;++j) Swap(at+4*j);}
-        else if(f.kind==ModuleValue::NullableSigned || f.kind==ModuleValue::NullableAssetId) {auto word=*reinterpret_cast<U32**>(at);if(word) Swap(word);}
+        else if(f.kind==ModuleValue::NullableSigned || f.kind==ModuleValue::NullableAssetId || f.kind==ModuleValue::NullableStringHash) {auto word=*reinterpret_cast<U32**>(at);if(word) Swap(word);}
         else if(f.kind==ModuleValue::NullableModelCondition) {auto words=*reinterpret_cast<U32**>(at);if(words) for(unsigned j=0;j<15;++j) Swap(words+j);}
         else if(f.kind==ModuleValue::ModelCondition) {for(unsigned j=0;j<15;++j) Swap(at+4*j);}
         else if((f.kind==ModuleValue::NullablePositiveFloat || f.kind==ModuleValue::NullableFloat || f.kind==ModuleValue::NullableTime || f.kind==ModuleValue::NullableBits)) {auto value=*reinterpret_cast<float**>(at);if(value) Swap(value);}
@@ -179,6 +182,7 @@ template<std::size_t N>
 void EndianModuleFields(unsigned char* output,const ModuleField (&fields)[N]) {
     ModuleFieldSet set={fields,static_cast<unsigned>(N)};EndianModuleFieldSet(output,set);
 }
+
 
 
 

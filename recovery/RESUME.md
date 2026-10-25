@@ -1,3 +1,9 @@
+# 当前检查点：Contain剩余5类已实现，完整验证待完成
+
+2026-10-25：本轮从a1567339继续，新增完整Engineer/Infiltrator/Transport/HordeTransport/HordeContain源码、原证据生成器和独立累计测试。**尚未验收，已验证覆盖仍为309/322**。见GAMEOBJECT_CONTAIN_REMAINING.md；下一步收取完整Windows/Od/O2、四平台及三缓冲区差分，修复后以最终sourceCommit/runId验收。SDK本轮0次，正式路由不变。禁止把检查点计为314类成功。
+
+---
+
 # 编译器恢复：本轮已完成验收与交接
 
 更新：2026-10-25，北京时间。用户本轮要求继续约1小时；分支recovery/compiler-source，单代理、禁止强推、真实SDK本轮0次。
@@ -15,3 +21,4 @@
 下一轮剩余13类：Engineer/Infiltrator/Transport/HordeTransport/HordeContain及复杂W3D Draw8。详见GAMEOBJECT_REMAINING.md和GAMEOBJECT_CONTAIN_NEXT.md（包括Marshal与Token父层差异、原方法入口）。下一轮以本成功source为起点，完整能力组统一验证，不拆减回归。已验证275/260中间证据与原失败记录均保留。
 
 SDK本轮0次，原DLL和正式插件路由保持；完整GameObject、两个完整替代DLL、正式SDK及完整mymod验收仍是独立门槛。XmlCompiler另一恢复分支不在本轮范围。先读AGENTS.md、EFFICIENCY.md、STAGE_DURATION.md；GitHub插件操作仓库、普通提交推送、保留并发自动证据。自动证据只发布不可变run目录，共享根快照必须在完整成功后手动同步，核对sourceCommit/runId/modes/platforms。
+

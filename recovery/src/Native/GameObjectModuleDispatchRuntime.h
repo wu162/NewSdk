@@ -3,6 +3,7 @@ void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && choice->kind>=278 && choice->kind<=282) EndianContainRemaining(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=270 && choice->kind<=277) EndianContainCore(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=265 && choice->kind<=269) EndianSlowDeath(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=252 && choice->kind<=264) EndianObjectControl(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -81,6 +82,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && choice->kind>=278 && choice->kind<=282) MarshalContainRemaining(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=270 && choice->kind<=277) MarshalContainCore(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=265 && choice->kind<=269) MarshalSlowDeath(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=252 && choice->kind<=264) MarshalObjectControl(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -193,6 +195,7 @@ void TokenizeModuleList(NativeList* list,void** slot,Relo::Tracker& procedures) 
 }
 
 // Original AudioVoiceReferentialEntry hashes Name without asset-ID lowercasing.
+
 
 
 

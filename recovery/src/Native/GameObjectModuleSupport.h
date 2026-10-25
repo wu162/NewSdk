@@ -4,6 +4,11 @@ unsigned GameObjectSoundSelectorKind(const std::string& typeId) {
 }
 bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::string& attribute) {
     auto choice=FindModule(ParseUnsigned(typeId));if(!choice || !choice->kind) return false;
+    if(choice->kind>=278 && choice->kind<=282) {
+        const auto& own=containRestFieldSets[choice->kind-278];for(unsigned i=0;i<own.count;++i) if(attribute==own.fields[i].name) return true;
+        if(choice->kind>=280) {if(choice->kind!=280) for(const auto& f:containRestTransportContainModuleDataFields) if(attribute==f.name) return true;for(const auto& f:containOpenContainModuleDataFields) if(attribute==f.name) return true;}
+        return false;
+    }
     if(choice->kind>=270 && choice->kind<=277) {
         for(int index=static_cast<int>(choice->kind)-270;index>=0;index=containParents[index]) {const auto& set=containFieldSets[index];for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;}
         return false;
@@ -161,6 +166,20 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind>=278 && kind<=282) {
+        if(kind==278) {if(path=="CanEnterFilter") return 1;if(path=="CanEnterFilter/IncludeThing" || path=="CanEnterFilter/ExcludeThing") return 3;return 0;}
+        if(kind==279)return 0;
+        if(path=="InitialPayload" || path=="UpgradeCreationTrigger")return 2;
+        if(path=="ThrowOutPassengersVelocity" || path=="FadeFilter")return 1;
+        if(path=="FadeFilter/IncludeThing" || path=="FadeFilter/ExcludeThing")return 3;
+        if(kind==282) {
+            if(path=="RandomOffset" || path=="LeaderPosition" || path=="BannerCarrierPosition/Pos")return 1;
+            if(path=="RankInfo" || path=="RankInfo/Position" || path=="BannerCarrierPosition")return 2;
+            if(path=="RankThatStopsAdvance" || path=="RankToReleaseWhenAttacking" || path=="BannerCarriersAllowed" || path=="LeadersAllowed" || path=="AttributeModifier")return 3;
+            if(path=="BannerCarrierPosition/UnitType")return 4;
+        }
+        return GameObjectModuleNodeKind(270,path);
+    }
     if(kind>=270 && kind<=277) {
         if(path=="PassengerFilter" || path=="DieMuxData" || path=="PassengerData/Filter") return 1;
         if(path=="PassengerData" || path=="MemberTemplateStatusInfo") return 2;
@@ -394,6 +413,19 @@ bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& 
 }
 bool GameObjectMotionMovePaths(const std::string& typeId) {return ParseUnsigned(typeId)==3012512132u;}
 bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute) {
+    if(kind>=278 && kind<=282) {
+        if(kind==278)return false;
+        if(kind==279)return false;
+        const ModuleField* fields=nullptr;unsigned count=0;
+        if(path=="InitialPayload"){fields=containRestInitialPayloadFields;count=2;}
+        if(path=="UpgradeCreationTrigger"){fields=containRestUpgradeCreationFields;count=3;}
+        if(kind==282 && path=="RankInfo"){fields=containRestRankInfoTypeFields;count=2;}
+        if(kind==282 && path=="RankInfo/Position"){fields=containRestPositionAndLeaderTypeFields;count=4;}
+        for(unsigned i=0;i<count;++i)if(attribute==fields[i].name)return true;
+        if((kind==282 && (path=="RandomOffset" || path=="LeaderPosition" || path=="BannerCarrierPosition/Pos")))return attribute=="x" || attribute=="y";
+        if(path=="ThrowOutPassengersVelocity")return attribute=="x" || attribute=="y" || attribute=="z";
+        return GameObjectModuleNodeAttribute(270,path,attribute);
+    }
     if(kind>=270 && kind<=277) {
         if(path=="DieMuxData") {for(unsigned i=0;i<dieFieldSets[7].count;++i) if(attribute==dieFieldSets[7].fields[i].name) return true;}
         if(path=="PassengerData") {for(const auto& f:containPassengerDataTypeFields) if(attribute==f.name) return true;}
@@ -575,6 +607,7 @@ bool GameObjectModuleChildSupported(const std::string& parent,const std::string&
     for(const auto& entry:moduleChildNames) if(parent==entry.parent && child==entry.child) return true;
     return false;
 }
+
 
 
 
