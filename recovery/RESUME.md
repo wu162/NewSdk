@@ -34,3 +34,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ## EALA.Metrics 源码还原（2026-10-25）
 
 分支 `recovery/eala-metrics-source` 从 `7fc417546989ca94a18742b37965e9c6751a409e` 新建。完整工程位于 `recovery/src/Managed/Metrics`，13 个 C# 文件，保留原程序集身份和 net20 目标。验收源码 `2fc44710df27ea9baf4e73d183dcd7697a9a435d`，运行 [40186536173](https://github.com/wu162/NewSdk/actions/runs/40186536173) attempt1 成功，Debug/Release 各 1,197 条原版对照记录一致，恢复测试目录不含原目标 DLL。源码包括 SQL writer；仅验证离线行为，SQL 服务端与真实 SDK MOD 编译尚未验证。未替换 SDK DLL/config，合入追踪：[PR #7](https://github.com/wu162/NewSdk/pull/7)，目标 `recovery/compiler-source`。合并时目标分支新增内容仅为其他组件的验收证据，Metrics 源码、测试和原 DLL 输入未变，复用上述精确运行结果。详见 [METRICS.md](METRICS.md) 和 [验收收据](evidence/metrics/validation/40186536173-1/validation.json)。
+
+## Utility 源码还原（2026-10-25）
+
+分支 `recovery/utility-source` 从本分支 `7fc417546989ca94a18742b37965e9c6751a409e` 新建。原 C++/CLI Utility 的完整业务源码已重建到 `src/Managed/Utility`；原始 ILSpy 工程与 IL 保留在 `evidence/utility`。构建后恢复原模板类型身份及 C++ 签名修饰符（GetErrorString 的 IsLong），不调用原 DLL 业务实现。验收源码 `9c7b59036c0bc518727023331603e59bf16c48a4`，运行 [40186857933](https://github.com/wu162/NewSdk/actions/runs/40186857933) 成功：Debug/Release 各269,516条原版对照完全相同，恢复运行目录无原Utility DLL，七份真实manifest全资产读取通过。组件已验收，未替换SDK DLL/config、未跑完整MOD编译；通过 [PR #8](https://github.com/wu162/NewSdk/pull/8) 合入compiler-source，保留同期Metrics与其他组件验收证据；原版越界/未初始化内存/重复释放不属确定行为承诺，卷刷新成功路径未实际操作。详见 [UTILITY.md](UTILITY.md) 和 [验收收据](evidence/utility/validation/40186857933-1/validation.json)。
+

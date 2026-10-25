@@ -1,0 +1,13 @@
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Microsoft.VisualC;
+
+namespace std;
+
+[StructLayout(LayoutKind.Sequential, Size = 1)]
+[MiscellaneousBits(64)]
+[NativeCppClass]
+[DebugInfoInPDB]
+internal struct allocator_003Cstd_003A_003A_Tree_nod_003Cstd_003A_003A_Tmap_traits_003Cint_002Cint_002Cstd_003A_003Aless_003Cint_003E_002Cstd_003A_003Aallocator_003Cstd_003A_003Apair_003Cint_0020const_0020_002Cint_003E_0020_003E_002C0_003E_0020_003E_003A_003A_Node_003E
+{
+}

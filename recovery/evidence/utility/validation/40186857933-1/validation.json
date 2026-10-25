@@ -1,0 +1,147 @@
+{
+  "runAttempt": "1",
+  "configurations": [
+    {
+      "records": 269516,
+      "passed": true,
+      "withoutOriginalUtility": true,
+      "rebuiltSha256": "2902998d61a04ecaa3d3f4846843d8cf5263f7bd39a8979f50a6b37d619617c4",
+      "transcriptSha256": "1747257c9490ad818ba5c8a7690dd9e58bab51edc0a329b903d93b0327e2d72d",
+      "configuration": "Debug"
+    },
+    {
+      "records": 269516,
+      "passed": true,
+      "withoutOriginalUtility": true,
+      "rebuiltSha256": "ffd275efe9eb2ce0d3984e6c508f91bb739f293530df09c9e4b3d749d101cafb",
+      "transcriptSha256": "1747257c9490ad818ba5c8a7690dd9e58bab51edc0a329b903d93b0327e2d72d",
+      "configuration": "Release"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetEntry.cs",
+      "sha256": "51b6bf6cf724116f8b7c51950d5753545197fd778a2dc18b78514979288befc0"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetHeader.cs",
+      "sha256": "c3c9e5114534595e7098bf8925de83bc9bfbab17613bd4f2c215941c0ecef09f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/AssetId.cs",
+      "sha256": "d47db3b7ce3e8e5e65182053bff8e156c9c4f5e9eb75b972ddfacdda622af870"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/AssetStream/ManifestHeader.cs",
+      "sha256": "833a2d972e6d08c929649671aae9bb498dc02dedbf9883c991c7504496301563"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility.csproj",
+      "sha256": "fa116d1f6c21c0b3e479ef5f485014cf886d3be2d42d7e920cd1646cea614d91"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Asset.cs",
+      "sha256": "fe424625a5f70daad46d7fbedcabfec84aae3e848da72a9681961744f7cda177"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetEntry.cs",
+      "sha256": "55d44b663ee56bb1b6015ecabd10e4da04beef66615260789d6bca69567ee5cc"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHandle.cs",
+      "sha256": "9bc4ac5831a554d6aef0681a0f84547a7ffba0a7d3a33b48fb4ac3c50d16bb7d"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/AssetHeader.cs",
+      "sha256": "8c5e23ea96eff2f99a56daf9fe781f2ecf81978ec24ff00f1174950919815419"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/FileSystemUtils.cs",
+      "sha256": "09d008a676e52ba7987354c5170c391aa158a724041230880625c7ec3c257b8f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/Manifest.cs",
+      "sha256": "988d6fb4326e4583534daa932cc3bbd57d09c06493ccc361be42b0537aa8879f"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ManifestHeader.cs",
+      "sha256": "a181e93c8a73d2ccc43d130b4b782a3ac03a66844e40b38c92f258ab3f361d11"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/NameBuffer.cs",
+      "sha256": "e1dd93c891da00ff063f534e8c8f09dd1bde4aa94fc1d7b2acb7bd3f5f7f3e9a"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedFileBuffer.cs",
+      "sha256": "07da276f2491624afd2ee681bbd584a3dc8d9695664f476a18c018979884c950"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferencedManifest.cs",
+      "sha256": "b0c26aeaebbe0917ba96f89acea3cb7bd0acc7470a8a4007e67efa2f6c51a5b4"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/ReferenceHandle.cs",
+      "sha256": "0875ced3e78c9fc3f07789f4918e31df836ada6b58afff2ae37c2c6ea7a1a703"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/StructWrapper-AssetStream.cs",
+      "sha256": "ec08a2cc6b191b82677c548bc2a173f7968d5f51d621d1ea55044f3cb9dd976e"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UInt32Buffer.cs",
+      "sha256": "277f45b9420792fef1de96e6e7138b44c18bd464aff94f54b94bd1f08463f3c5"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/BinaryAssetBuilder.Utility/UtilityEndian.cs",
+      "sha256": "bbc6fdca840e77b3331a00f9a0821e9d42b9c7507c015b075f711af0678737c5"
+    },
+    {
+      "path": "recovery/src/Managed/Utility/Properties/AssemblyInfo.cs",
+      "sha256": "79041a46906f2cec9a47e8381dd07a856aba8725f659164b0c68968d8949c985"
+    },
+    {
+      "path": "recovery/tools/UtilityIdentity/Program.cs",
+      "sha256": "72a410a4ba88499d1eaec91f60bbbc859aceec3594574cf7b7d3a55b7a9cb44a"
+    },
+    {
+      "path": "recovery/tools/UtilityIdentity/UtilityIdentity.csproj",
+      "sha256": "eb88af8ba010e189af0fe301f2b55fb3893b8968f3d97f5e200069661c60dfaa"
+    }
+  ],
+  "originalSha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b",
+  "status": "passed",
+  "sourceCommit": "9c7b59036c0bc518727023331603e59bf16c48a4",
+  "sdkValidated": false,
+  "runId": "40186857933",
+  "inputs": [
+    {
+      "path": "SDK/builtmods/Audio.manifest",
+      "sha256": "2779fdd5f435d5ab75d56f52ac47eba99a50f6d7eb8636edece0da49eff55461"
+    },
+    {
+      "path": "SDK/builtmods/Global.manifest",
+      "sha256": "78a1be7d3b1f20cd2f80f2a83948b062f10645a6255b66ecdf7bac198fb7134e"
+    },
+    {
+      "path": "SDK/builtmods/sagexml/audio.manifest",
+      "sha256": "2779fdd5f435d5ab75d56f52ac47eba99a50f6d7eb8636edece0da49eff55461"
+    },
+    {
+      "path": "SDK/builtmods/sagexml/global.manifest",
+      "sha256": "78a1be7d3b1f20cd2f80f2a83948b062f10645a6255b66ecdf7bac198fb7134e"
+    },
+    {
+      "path": "SDK/builtmods/sagexml/static.manifest",
+      "sha256": "00300dd42042cbf37b5a7dadf4010f15a93302a2445f4e332d278e25e7c9b5e9"
+    },
+    {
+      "path": "SDK/builtmods/sagexml/Worldbuilder.manifest",
+      "sha256": "1f621187352425571d72a0761fa56ca11cba525b12220cca27c94345080eeedd"
+    },
+    {
+      "path": "SDK/builtmods/Static.manifest",
+      "sha256": "00300dd42042cbf37b5a7dadf4010f15a93302a2445f4e332d278e25e7c9b5e9"
+    }
+  ],
+  "scope": "Utility public API and behavior component differential; no full SDK compilation"
+}
