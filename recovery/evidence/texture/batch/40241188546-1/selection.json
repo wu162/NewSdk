@@ -1,0 +1,102 @@
+{
+  "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+  "selected": [
+    "base",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips"
+  ],
+  "reused": [
+    "tga",
+    "formats",
+    "png",
+    "bmp",
+    "png-ranges"
+  ],
+  "details": {
+    "base": {
+      "reason": "changed inputs: recovery/scripts/TestTexture.ps1, recovery/tests/TextureDdsOracle.cs, recovery/tests/TextureImageRulesOracle.cs, recovery/tests/TextureMetadataOracle.cs, recovery/tests/TexturePluginContractOracle.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    "tga": {
+      "sourceCommit": "0cd42405f5b757c72383040d2f1ff820c31d29bf",
+      "runId": "40195290786",
+      "receipt": "recovery/evidence/texture/tga/40195290786-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "formats": {
+      "sourceCommit": "52e8d6d4189a21b82a01fa88a67687e8557f7d16",
+      "runId": "40198138775",
+      "receipt": "recovery/evidence/texture/stage2/Formats/40198138775-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "volume-helper": {
+      "reason": "changed inputs: src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    "raw": {
+      "reason": "changed inputs: src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    "mips": {
+      "reason": "changed inputs: recovery/tests/TextureMipDdsDifferential.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    "volume-dds": {
+      "reason": "changed inputs: src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureVolumeRawDdsEncoder.cs"
+    },
+    "volume-mips": {
+      "reason": "changed inputs: recovery/tests/TextureVolumeMipDifferential.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "images": {
+      "reason": "changed inputs: recovery/tests/TextureImagePipelineOracle.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    "mip-images": {
+      "reason": "changed inputs: src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureTriangleMipEncoder.cs"
+    },
+    "volume-images": {
+      "reason": "changed inputs: recovery/scripts/TestTextureVolumeImages.ps1, recovery/tests/TextureVolumePipelineOracle.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs"
+    },
+    "volume-mip-images": {
+      "reason": "changed inputs: recovery/scripts/TestTextureVolumeMipImages.ps1, recovery/tests/TextureVolumeMipPipelineOracle.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageLoader.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "png": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "bmp": {
+      "sourceCommit": "e20a40cc175e3b15029b106b07f78d9e21990a2f",
+      "runId": "40235000007",
+      "receipt": "recovery/evidence/texture/bmp/40235000007-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "raster-images": {
+      "reason": "changed inputs: recovery/scripts/TestTextureRasterImages.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterPipelineOracle.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "sdk-PcNoMip": {
+      "reason": "changed inputs: recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "sdk-PcMips": {
+      "reason": "changed inputs: recovery/scripts/TestTextureRasterSdk.ps1, recovery/tests/TextureBmpOracle.cs, recovery/tests/TexturePngOracle.cs, recovery/tests/TextureRasterFixtureWriter.cs, src/TextureCompiler/Managed/Plugin.Dds.cs, src/TextureCompiler/Managed/Plugin.Images.cs, src/TextureCompiler/Managed/Plugin.Metadata.cs, src/TextureCompiler/Managed/TextureBmpDecoder.cs, src/TextureCompiler/Managed/TextureCatalog.cs, src/TextureCompiler/Managed/TextureCubicResizeEncoder.cs, src/TextureCompiler/Managed/TextureImageRules.cs, src/TextureCompiler/Managed/TexturePngDecoder.cs, src/TextureCompiler/Managed/TexturePs3MipEncoder.cs, src/TextureCompiler/Managed/TextureVolumeMipEncoder.cs"
+    },
+    "png-ranges": {
+      "sourceCommit": "14b22c15ba0b45351b55089681c72b913bc1e521",
+      "runId": "40234341155",
+      "receipt": "recovery/evidence/texture/png-ranges/40234341155-1/validation.json",
+      "reason": "unchanged complete successful inputs"
+    },
+    "dxt-symbols": {
+      "reason": "evidence collection requires explicit request"
+    },
+    "dxt-blocks": {
+      "reason": "evidence collection requires explicit request"
+    }
+  }
+}

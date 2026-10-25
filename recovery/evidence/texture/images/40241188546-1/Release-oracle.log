@@ -1,0 +1,1 @@
+PASS Texture image ProcessInstance differential fixtures=174 errors=2 unsupportedResampling=6 comparedBytes=18669892; PC; real main TGA; three buffers and full cdata; no SDK acceptance

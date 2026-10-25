@@ -1,0 +1,96 @@
+{
+  "sourceCommit": "0ae0efdb3381446c116d474f45643ae225840abb",
+  "runAttempt": "1",
+  "reused": [
+    "tga",
+    "formats",
+    "png",
+    "bmp",
+    "png-ranges"
+  ],
+  "groups": [
+    {
+      "group": "base",
+      "evidenceOnly": false,
+      "passed": false,
+      "error": "Failed component groups: Debug-native, Release-native"
+    },
+    {
+      "group": "volume-helper",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "raw",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "mips",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-dds",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-mips",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "mip-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "volume-mip-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "raster-images",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "sdk-PcNoMip",
+      "evidenceOnly": false,
+      "passed": true
+    },
+    {
+      "group": "sdk-PcMips",
+      "evidenceOnly": false,
+      "passed": true
+    }
+  ],
+  "status": "failed",
+  "selected": [
+    "base",
+    "volume-helper",
+    "raw",
+    "mips",
+    "volume-dds",
+    "volume-mips",
+    "images",
+    "mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "raster-images",
+    "sdk-PcNoMip",
+    "sdk-PcMips"
+  ],
+  "runId": "40241188546"
+}
