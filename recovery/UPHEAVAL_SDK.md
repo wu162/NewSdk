@@ -19,3 +19,9 @@
 运行40175382847、源码324c1e08da9c02c523680101348bb038bd991ac3：原版5入口成功；恢复版3个AptUI和全局数据成功，16份产物与原版SHA256一致。恢复版基础数据处理BasePersonality时拒绝嵌套StrategicState的id。错误堆栈为 BAB.DoBuildData -> Core.DocumentProcessor -> Core.AssetDeclarationDocument.CompileInstance -> Recovered.XmlPriority.Plugin -> Recovered.XmlaiCompiler，确认实际SDK调度。
 
 XSD SkirmishAI/AssetTypeAIPersonalityDefinition.xsd 中 AIStrategicState、AIBudgetState、AIBuildState 继承 BaseAssetType（含id），AIBuildDelayRange显式声明pipelineOnly id。恢复代码仅允许独立根id，误拒绝上述嵌套合法属性。本次仅为这四种结构接纳id，不将其他未知属性全部放行；已有AIStateTactic的id二进制Hash字段保持原处理。新增对应原DLL差分样例，先运行受影响AI组/Od、/O2和四平台矩阵，通过后再执行联合SDK。修复状态待实际运行证实。
+
+## AI 验证通过与 LocomotorSet 元数据修复
+
+运行40175816790、源码d859b61cd7bb66d9beca7c6a8d0a83bb8bc7a103：AI组/Od与/O2、平台0/1/2/99全部成功（各平台1985样例、11907缓冲区比较、52拒绝测试）；Upheaval恢复版全部AIPersonalityDefinition已编译成功。随后在GameObject:BaseMagneticSatelliteEffect的LocomotorSet上拒绝id。
+
+AssetTypeGameObject.xsd的LocomotorSet显式声明id为xas:pipelineOnly；桥接层仅为该节点忽略此属性，其余未知属性仍拒绝，并在错误中增加节点/属性名称。提交edec51f3ab6c8b829fb2cfdcf59162479666aae7加入原DLL差分样例和仅运行Armor/Locomotor集合读取的测试入口，不执行未受影响模块族。运行40176438018先跑受影响组/Od、/O2四平台，再运行真实SDK。AI成功证据沿用40175816790，未冒充为新源码重测。
