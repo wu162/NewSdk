@@ -42,16 +42,16 @@ $built=Get-Content "$build/plugin-build.json" -Raw | ConvertFrom-Json
 if($built.sourceCommit -ne $head -or $built.mode -ne 'O2' -or $built.bridgeAnimationSha256 -ne (Get-FileHash "$build/Recovered.W3x.Native.dll" -Algorithm SHA256).Hash.ToLowerInvariant() -or $built.bridgeMeshSha256 -ne (Get-FileHash "$build/Recovered.W3x.Mesh.dll" -Algorithm SHA256).Hash.ToLowerInvariant()){throw 'SDK blocked: tested O2 bridge binaries changed'}
 $work=Join-Path $env:RUNNER_TEMP ('w3x-sdk-'+[Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $work | Out-Null
-$host=Join-Path $work 'host'
-New-Item -ItemType Directory $host | Out-Null
-Copy-Item SDK/tools/*.dll $host
+$sdkOracleHost=Join-Path $work 'host'
+New-Item -ItemType Directory $sdkOracleHost | Out-Null
+Copy-Item SDK/tools/*.dll $sdkOracleHost
 $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
-& $csc /nologo /platform:x86 /optimize+ /r:System.Core.dll /r:System.Xml.dll /r:"$host/BinaryAssetBuilder.Core.dll" /out:"$host/W3xSdkOracle.exe" (Resolve-Path 'recovery/tests/W3xSdkOracle.cs').Path *> "$report/sdk-oracle-build.log"
+& $csc /nologo /platform:x86 /optimize+ /r:System.Core.dll /r:System.Xml.dll /r:"$sdkOracleHost/BinaryAssetBuilder.Core.dll" /out:"$sdkOracleHost/W3xSdkOracle.exe" (Resolve-Path 'recovery/tests/W3xSdkOracle.cs').Path *> "$report/sdk-oracle-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$report/sdk-oracle-build.log";throw 'SDK oracle host build failed'}
 $runtime='<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'
-$runtime | Set-Content "$host/W3xSdkOracle.exe.config"
+$runtime | Set-Content "$sdkOracleHost/W3xSdkOracle.exe.config"
 $expected=Join-Path $report 'expected-assets.txt'
-& "$host/W3xSdkOracle.exe" schema (Join-Path $root 'SDK') $ModName $expected *> "$report/schema.log"
+& "$sdkOracleHost/W3xSdkOracle.exe" schema (Join-Path $root 'SDK') $ModName $expected *> "$report/schema.log"
 if($LASTEXITCODE -ne 0){Get-Content "$report/schema.log";throw 'Full original CnC3Types XSD validation failed; BAB not started'}
 $inputs=@()
 foreach($file in Get-ChildItem (Join-Path $root "SDK/Mods/$ModName") -Recurse -File) {
@@ -122,11 +122,11 @@ try {
         }
         if($mode -ne 'Original') {
             $env:RECOVERED_W3X_TRACE_DIRECTORY=$null
-            Copy-Item "$host/W3xSdkOracle.exe" (Join-Path $sdk 'tools')
-            Copy-Item "$host/W3xSdkOracle.exe.config" (Join-Path $sdk 'tools')
-            $pluginFile=if($mode -eq 'Recovered'){Join-Path $host 'BinaryAssetBuilder.W3XCompiler.dll'}else{Join-Path $sdk 'tools/Recovered.W3x.Plugin.dll'}
+            Copy-Item "$sdkOracleHost/W3xSdkOracle.exe" (Join-Path $sdk 'tools')
+            Copy-Item "$sdkOracleHost/W3xSdkOracle.exe.config" (Join-Path $sdk 'tools')
+            $pluginFile=if($mode -eq 'Recovered'){Join-Path $sdkOracleHost 'BinaryAssetBuilder.W3XCompiler.dll'}else{Join-Path $sdk 'tools/Recovered.W3x.Plugin.dll'}
             $verb=if($mode -eq 'Recovered'){'buffers'}else{'isolated'}
-            $oracle=if($mode -eq 'Recovered'){Join-Path $host 'W3xSdkOracle.exe'}else{Join-Path $sdk 'tools/W3xSdkOracle.exe'}
+            $oracle=if($mode -eq 'Recovered'){Join-Path $sdkOracleHost 'W3xSdkOracle.exe'}else{Join-Path $sdk 'tools/W3xSdkOracle.exe'}
             & $oracle $verb $pluginFile $trace "$report/$mode-mod.bin" $expected "$report/$mode-calls.tsv" *> "$report/$mode-buffer-oracle.log"
             if($LASTEXITCODE -ne 0){Get-Content "$report/$mode-buffer-oracle.log";throw "$mode actual SDK buffer replay/coverage failed"}
             Get-Content "$report/$mode-buffer-oracle.log"

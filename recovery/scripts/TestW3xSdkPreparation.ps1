@@ -9,7 +9,12 @@ New-Item -ItemType Directory $OutputDirectory | Out-Null
 $out = (Resolve-Path $OutputDirectory).Path
 foreach ($name in @('VerifyW3xSdkGate.ps1','TestW3xSdk.ps1','BuildW3xPlugin.ps1','TestW3xPlugin.ps1')) {
     $tokens = $null; $parseErrors = $null
-    [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $name),[ref]$tokens,[ref]$parseErrors) | Out-Null
+    $scriptAst = [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $name),[ref]$tokens,[ref]$parseErrors)
+    $assignments = $scriptAst.FindAll({ param($node) $node -is [System.Management.Automation.Language.AssignmentStatementAst] -and $node.Left -is [System.Management.Automation.Language.VariableExpressionAst] },$true)
+    foreach ($assignment in $assignments) {
+        $variableName = $assignment.Left.VariablePath.UserPath
+        if (@('Host','PID','HOME','PSHOME','PSScriptRoot','PSCommandPath','PSVersionTable','true','false','null') -contains $variableName) { throw "Cannot assign reserved PowerShell variable $variableName in $name" }
+    }
     if ($parseErrors.Count) { $parseErrors | ForEach-Object { Write-Host ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message) }; throw "Invalid PowerShell source: $name" }
 }
 $hostDirectory = Join-Path $env:RUNNER_TEMP ('w3x-preparation-' + [Guid]::NewGuid().ToString('N'))
