@@ -1,0 +1,545 @@
+{
+  "sourceCommit": "324c1e08da9c02c523680101348bb038bd991ac3",
+  "runId": "40175382847",
+  "runAttempt": "1",
+  "succeeded": false,
+  "selectedSteps": [
+    3,
+    4,
+    5
+  ],
+  "sourceMain": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "upheavalTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "builds": [
+    {
+      "sha256": "32A3F564EBB79EDB90A2A290C28BF910A6D7EB5E9CC311D1793210F3FFEF6902",
+      "file": "D:\\a\\_temp/upheaval-40175382847-1/managed-Core/BinaryAssetBuilder.Core.dll",
+      "assembly": "BinaryAssetBuilder.Core"
+    },
+    {
+      "sha256": "AECEBE35A1B64E9E92D9F64FBA53A8EAE5C914BB0BED99D7077AE7598448D942",
+      "file": "D:\\a\\_temp/upheaval-40175382847-1/managed-Remote/BinaryAssetBuilder.Remote.dll",
+      "assembly": "BinaryAssetBuilder.Remote"
+    },
+    {
+      "sha256": "66C36956F0702CF015AAA3A1C739FFC83626B82C43AA2B0451569EC056C03094",
+      "file": "D:\\a\\_temp/upheaval-40175382847-1/managed-EALABuild/EALABuild.dll",
+      "assembly": "EALABuild"
+    },
+    {
+      "sha256": "A9A1C0C504754867F003BAAE832C01A56867D6B6F17E882464E9D39D5551ECAA",
+      "file": "D:\\a\\_temp/upheaval-40175382847-1/managed-ExpressionEval/BinaryAssetBuilder.ExpressionEval.dll",
+      "assembly": "BinaryAssetBuilder.ExpressionEval"
+    },
+    {
+      "sha256": "DD45BE18B2D9122479ECF8158EC1A3AE9484C8B0BBB276880AC851963B991D16",
+      "file": "D:\\a\\_temp/upheaval-40175382847-1/managed-GameDataVerifier/BinaryAssetBuilder.GameDataVerifier.dll",
+      "assembly": "BinaryAssetBuilder.GameDataVerifier"
+    }
+  ],
+  "invocations": [
+    {
+      "step": 3,
+      "mode": "Original",
+      "succeeded": true,
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Original\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDBuildQueuePage.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "succeeded": true,
+      "input": "TacticalHUDCommandListBox.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Original\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDCommandListBox.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "succeeded": true,
+      "input": "TacticalHUDMainCommandBar.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Original\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDMainCommandBar.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 4,
+      "mode": "Original",
+      "succeeded": true,
+      "input": "MapMetaData_Global.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Original\\Mods\\Upheaval\\Data\\AdditionalMaps\\MapMetaData_Global.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 5,
+      "mode": "Original",
+      "succeeded": true,
+      "input": "Mod.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Original\\Mods\\Upheaval\\Data\\Mod.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Original/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "succeeded": true,
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Recovered\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDBuildQueuePage.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "succeeded": true,
+      "input": "TacticalHUDCommandListBox.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Recovered\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDCommandListBox.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "succeeded": true,
+      "input": "TacticalHUDMainCommandBar.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Recovered\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDMainCommandBar.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "step": 4,
+      "mode": "Recovered",
+      "succeeded": true,
+      "input": "MapMetaData_Global.xml",
+      "exitCode": 0,
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Recovered\\Mods\\Upheaval\\Data\\AdditionalMaps\\MapMetaData_Global.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+    },
+    {
+      "timedOut": false,
+      "arguments": "\"D:\\a\\_temp\\upheaval-40175382847-1\\Recovered\\Mods\\Upheaval\\Data\\Mod.xml\" /od:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /iod:\"D:\\a\\_temp/upheaval-40175382847-1/Recovered/builtmods\" /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\" /audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\" /data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\"",
+      "mode": "Recovered",
+      "exitCode": -1,
+      "step": 5,
+      "input": "Mod.xml",
+      "succeeded": false
+    }
+  ],
+  "outputs": [
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "B08FB8E0FD2E818AD7897EDA5B983BA02AA4A5FA6163E14D567D487922D49936",
+      "bytes": 2142288,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "71B97A1D748A4DBE3BDA38045FE8FA3F2658C10ECA2E8977DBBADA207EA8742C",
+      "bytes": 4495,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "9B6AA18D2DD42BA4330319BE6AFD23E6251E22152CE516C264CE547F9EAC970F",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "5B5545C63CAABECCBCBA55A74F1F92DC8CBFF80BEBEFDDD64455BDC40E97E465",
+      "bytes": 380,
+      "extension": "relo"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "661D4489752CF4A04E05B8050FE17EF69E393ACC2927759E37BC5C35DE26C6DB",
+      "bytes": 7212,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "7A61F3C7ECD6DF1BFC1B92408C96021EF20745BF724CF608BBE3F5A7EF136744",
+      "bytes": 405,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "3E6EAF6A85FAD8D9D888773B230708893F43C7BFB969DBA355ECDE71D7E87794",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "D14E5ABDDDB5BA1A61622199285E9ECFAC8C5296FC6ED08568F1B7E5AAEC6926",
+      "bytes": 28,
+      "extension": "relo"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "69C250A41870A0E1A49EF75AEE4CD1116B0CC64B306256A0644BF29F1E26DFDA",
+      "bytes": 563608,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "A5A57AF9B0DE6989785DCF705A2197E2B619BC22BD868C610FFA296BF8D1A2F9",
+      "bytes": 4774,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "2C0566C8C4B10DB950BE8CC461C7BBFAAFFEB123712F52770EB2F733FFE289C9",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Original",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "29CF47A7A3C9AEFA6758C62A0DD1B5570B1B6B46C8C97C62ADC1F2DD1B30AFCE",
+      "bytes": 404,
+      "extension": "relo"
+    },
+    {
+      "step": 4,
+      "mode": "Original",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "6D4C8DAEDB06B6977594243565CBC97E715C748393A62194543D6B24F3978838",
+      "bytes": 47208,
+      "extension": "bin"
+    },
+    {
+      "step": 4,
+      "mode": "Original",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "9963A4335BFC1E58FF3C23407BD490BCC46B2D74F7742D01C4E4726B23177E1B",
+      "bytes": 2115,
+      "extension": "manifest"
+    },
+    {
+      "step": 4,
+      "mode": "Original",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "D8A62AE6DC4C9DC6636DCC98909D6DC730D2EAAA4CAEB8D970B0A10927F580BF",
+      "bytes": 32,
+      "extension": "imp"
+    },
+    {
+      "step": 4,
+      "mode": "Original",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "F561C0D95C1863C4AFBF645CB226696AA9347A20350C6DAF658C791ACF476B84",
+      "bytes": 7416,
+      "extension": "relo"
+    },
+    {
+      "step": 5,
+      "mode": "Original",
+      "input": "Mod.xml",
+      "sha256": "C07DA96A316CBEB4DC884B97007198830CC56C36EEA25A5515F4926B78EAF3C9",
+      "bytes": 32604736,
+      "extension": "bin"
+    },
+    {
+      "step": 5,
+      "mode": "Original",
+      "input": "Mod.xml",
+      "sha256": "1F471A87AE5BC7E59807E7DE74FC194FACEFA603A10DA88730B024BD1494B371",
+      "bytes": 412113,
+      "extension": "manifest"
+    },
+    {
+      "step": 5,
+      "mode": "Original",
+      "input": "Mod.xml",
+      "sha256": "C2F2897CEB8FBFED9656F515CE0439345394527C2A254DEF5BE97DF5B6955C8F",
+      "bytes": 29656,
+      "extension": "imp"
+    },
+    {
+      "step": 5,
+      "mode": "Original",
+      "input": "Mod.xml",
+      "sha256": "6D804A1CEB00458BC87A0A42D645F25696C6BF42AFC518372CE1AD3B12AE4C22",
+      "bytes": 655048,
+      "extension": "relo"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "B08FB8E0FD2E818AD7897EDA5B983BA02AA4A5FA6163E14D567D487922D49936",
+      "bytes": 2142288,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "71B97A1D748A4DBE3BDA38045FE8FA3F2658C10ECA2E8977DBBADA207EA8742C",
+      "bytes": 4495,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "9B6AA18D2DD42BA4330319BE6AFD23E6251E22152CE516C264CE547F9EAC970F",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "sha256": "5B5545C63CAABECCBCBA55A74F1F92DC8CBFF80BEBEFDDD64455BDC40E97E465",
+      "bytes": 380,
+      "extension": "relo"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "661D4489752CF4A04E05B8050FE17EF69E393ACC2927759E37BC5C35DE26C6DB",
+      "bytes": 7212,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "7A61F3C7ECD6DF1BFC1B92408C96021EF20745BF724CF608BBE3F5A7EF136744",
+      "bytes": 405,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "3E6EAF6A85FAD8D9D888773B230708893F43C7BFB969DBA355ECDE71D7E87794",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDCommandListBox.xml",
+      "sha256": "D14E5ABDDDB5BA1A61622199285E9ECFAC8C5296FC6ED08568F1B7E5AAEC6926",
+      "bytes": 28,
+      "extension": "relo"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "69C250A41870A0E1A49EF75AEE4CD1116B0CC64B306256A0644BF29F1E26DFDA",
+      "bytes": 563608,
+      "extension": "bin"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "A5A57AF9B0DE6989785DCF705A2197E2B619BC22BD868C610FFA296BF8D1A2F9",
+      "bytes": 4774,
+      "extension": "manifest"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "2C0566C8C4B10DB950BE8CC461C7BBFAAFFEB123712F52770EB2F733FFE289C9",
+      "bytes": 4,
+      "extension": "imp"
+    },
+    {
+      "step": 3,
+      "mode": "Recovered",
+      "input": "TacticalHUDMainCommandBar.xml",
+      "sha256": "29CF47A7A3C9AEFA6758C62A0DD1B5570B1B6B46C8C97C62ADC1F2DD1B30AFCE",
+      "bytes": 404,
+      "extension": "relo"
+    },
+    {
+      "step": 4,
+      "mode": "Recovered",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "6D4C8DAEDB06B6977594243565CBC97E715C748393A62194543D6B24F3978838",
+      "bytes": 47208,
+      "extension": "bin"
+    },
+    {
+      "step": 4,
+      "mode": "Recovered",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "9963A4335BFC1E58FF3C23407BD490BCC46B2D74F7742D01C4E4726B23177E1B",
+      "bytes": 2115,
+      "extension": "manifest"
+    },
+    {
+      "step": 4,
+      "mode": "Recovered",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "D8A62AE6DC4C9DC6636DCC98909D6DC730D2EAAA4CAEB8D970B0A10927F580BF",
+      "bytes": 32,
+      "extension": "imp"
+    },
+    {
+      "step": 4,
+      "mode": "Recovered",
+      "input": "MapMetaData_Global.xml",
+      "sha256": "F561C0D95C1863C4AFBF645CB226696AA9347A20350C6DAF658C791ACF476B84",
+      "bytes": 7416,
+      "extension": "relo"
+    }
+  ],
+  "comparisons": [
+    {
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "identical": true,
+      "extension": "bin",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "identical": true,
+      "extension": "manifest",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "identical": true,
+      "extension": "imp",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDBuildQueuePage.xml",
+      "identical": true,
+      "extension": "relo",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDCommandListBox.xml",
+      "identical": true,
+      "extension": "bin",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDCommandListBox.xml",
+      "identical": true,
+      "extension": "manifest",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDCommandListBox.xml",
+      "identical": true,
+      "extension": "imp",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDCommandListBox.xml",
+      "identical": true,
+      "extension": "relo",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDMainCommandBar.xml",
+      "identical": true,
+      "extension": "bin",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDMainCommandBar.xml",
+      "identical": true,
+      "extension": "manifest",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDMainCommandBar.xml",
+      "identical": true,
+      "extension": "imp",
+      "step": 3
+    },
+    {
+      "input": "TacticalHUDMainCommandBar.xml",
+      "identical": true,
+      "extension": "relo",
+      "step": 3
+    },
+    {
+      "input": "MapMetaData_Global.xml",
+      "identical": true,
+      "extension": "bin",
+      "step": 4
+    },
+    {
+      "input": "MapMetaData_Global.xml",
+      "identical": true,
+      "extension": "manifest",
+      "step": 4
+    },
+    {
+      "input": "MapMetaData_Global.xml",
+      "identical": true,
+      "extension": "imp",
+      "step": 4
+    },
+    {
+      "input": "MapMetaData_Global.xml",
+      "identical": true,
+      "extension": "relo",
+      "step": 4
+    },
+    {
+      "input": "Mod.xml",
+      "identical": false,
+      "extension": "bin",
+      "step": 5
+    },
+    {
+      "input": "Mod.xml",
+      "identical": false,
+      "extension": "manifest",
+      "step": 5
+    },
+    {
+      "input": "Mod.xml",
+      "identical": false,
+      "extension": "imp",
+      "step": 5
+    },
+    {
+      "input": "Mod.xml",
+      "identical": false,
+      "extension": "relo",
+      "step": 5
+    }
+  ],
+  "error": "Upheaval SDK invocation or output comparison failed"
+}

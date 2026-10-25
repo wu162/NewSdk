@@ -1,0 +1,130 @@
+Command Line: D:\a\_temp\upheaval-40175382847-1\Recovered\Mods\Upheaval\Data\Mod.xml /od:D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods /iod:D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\upheaval-40175382847-1\Recovered\Mods\Upheaval\Data\Mod.xml /od:D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods /iod:D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.1255538] Loading previous string hash file from D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\StringHashes.xml
+[00:00:00.1255538] Loading XML cache
+[00:00:00.1255538] Session cache age is 0 days, 0 hours, 0 minutes.
+[00:00:00.1255538] Checking 115 files for updates.
+[00:00:00.1255538] Cached session data available.
+[00:00:00.1412236] Session caching enabled ('D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.1412236] Network caching enabled ('D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\cache').
+[00:00:00.1412236] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod.xml'.
+[00:00:00.1568478] Stream d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod.xml references stream d:\a\_temp\upheaval-40175382847-1\recovered\static.xml which has not been compiled, attempting to use precompiled
+[00:00:00.1568478] Warning: Could not load precompiled manifest D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\static.manifest, file not found
+[00:00:00.1568478] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\static.xml'.
+[00:00:00.1724744] Stream d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod.xml references stream d:\a\_temp\upheaval-40175382847-1\recovered\global.xml which has not been compiled, attempting to use precompiled
+[00:00:00.1724744] Warning: Could not load precompiled manifest D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\global.manifest, file not found
+[00:00:00.1724744] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\global.xml'.
+[00:00:00.1724744] Stream d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod.xml references stream d:\a\_temp\upheaval-40175382847-1\recovered\audio.xml which has not been compiled, attempting to use precompiled
+[00:00:00.1724744] Warning: Could not load precompiled manifest D:\a\_temp/upheaval-40175382847-1/Recovered/builtmods\audio.manifest, file not found
+[00:00:00.1724744] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\audio.xml'.
+[00:00:00.1724744] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific.xml'.
+[00:00:00.1881207] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\ambientstream.xml'.
+[00:00:00.1881207] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\base\baseambientstream.xml'.
+[00:00:00.1881207] baseambientstream.xml: Compiling AmbientStream:BaseAmbientStream [ea2c2798:1f94056b]
+[00:00:00.2351290] ambientstream.xml: Compiling AmbientStream:AmbStream_FloatingFortress_Quad [ea2c2798:18c6d517]
+[00:00:00.2351290] ambientstream.xml: Compiling AmbientStream:AmbStream_GreatOutdoors_Quad [ea2c2798:9e3117c1]
+[00:00:00.2351290] ambientstream.xml: Compiling AmbientStream:AmbStream_MilitaryBase_Quad [ea2c2798:b1440c11]
+[00:00:00.2351290] ambientstream.xml: Compiling AmbientStream:AmbStream_RuralJapan_Quad [ea2c2798:6589299e]
+[00:00:00.2351290] ambientstream.xml: Compiling AmbientStream:AmbStream_TransylvaniaNight_Quad [ea2c2798:162366a7]
+[00:00:00.2351290] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\audioevent.xml'.
+[00:00:00.2351290] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\sagexml\sounds\basesoundeffect.xml'.
+[00:00:00.2351290] basesoundeffect.xml: Compiling AudioEvent:BaseSoundEffect [844d7b9f:03ec9c92]
+[00:00:00.2351290] basesoundeffect.xml: Compiling AudioEvent:BaseUnitResponse [844d7b9f:c35ee5dc]
+[00:00:00.2505949] basesoundeffect.xml: Compiling AudioEvent:BaseMissionDialogue [844d7b9f:81d4bd8a]
+[00:00:00.2505949] basesoundeffect.xml: Compiling AudioEvent:BaseQuickChatDialog [844d7b9f:808345de]
+[00:00:00.2522259] audioevent.xml: Compiling AudioEvent:Amb_FlyingFortress_Hovering [844d7b9f:8126a8ff]
+[00:00:00.2522259] audioevent.xml: Compiling AudioEvent:Amb_FlyingFortress_Floating [844d7b9f:3d74e23f]
+[00:00:00.2522259] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\audiofile.xml'.
+[00:00:00.2662471] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopa [166b084d:12b50208]
+[00:00:00.2662471] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopa [166b084d:12b50208]
+[00:00:00.2662471] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopb [166b084d:395454e3]
+[00:00:00.2819048] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopb [166b084d:395454e3]
+[00:00:00.2819048] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopc [166b084d:06a52740]
+[00:00:00.2819048] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopc [166b084d:06a52740]
+[00:00:00.2819048] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopd [166b084d:035a08d4]
+[00:00:00.2975287] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopd [166b084d:035a08d4]
+[00:00:00.2975287] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopWatera [166b084d:db8800ed]
+[00:00:00.2975287] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopWatera [166b084d:db8800ed]
+[00:00:00.2975287] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopWaterb [166b084d:acecd292]
+[00:00:00.3131566] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopWaterb [166b084d:acecd292]
+[00:00:00.3131566] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopWaterc [166b084d:6da60420]
+[00:00:00.3131566] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopWaterc [166b084d:6da60420]
+[00:00:00.3131566] audiofile.xml: Compiling AudioFile:JUPearl_ambiLoopWaterd [166b084d:b9686a98]
+[00:00:00.3287838] audiofile.xml: Submitting to cache AudioFile:JUPearl_ambiLoopWaterd [166b084d:b9686a98]
+[00:00:00.3287838] audiofile.xml: Compiling AudioFile:WAFloat_Fortress_quad [166b084d:8d2817fe]
+[00:00:00.4225291] audiofile.xml: Submitting to cache AudioFile:WAFloat_Fortress_quad [166b084d:8d2817fe]
+[00:00:00.4225291] audiofile.xml: Compiling AudioFile:WAGreat_Outdoors_quad [166b084d:380352c3]
+[00:00:00.4850346] audiofile.xml: Submitting to cache AudioFile:WAGreat_Outdoors_quad [166b084d:380352c3]
+[00:00:00.4850346] audiofile.xml: Compiling AudioFile:WAJapan_Rural_Quad [166b084d:c0301477]
+[00:00:00.5944036] audiofile.xml: Submitting to cache AudioFile:WAJapan_Rural_Quad [166b084d:c0301477]
+[00:00:00.5944036] audiofile.xml: Compiling AudioFile:WAMilit_Base_quad [166b084d:afa5b3bd]
+[00:00:00.6881598] audiofile.xml: Submitting to cache AudioFile:WAMilit_Base_quad [166b084d:afa5b3bd]
+[00:00:00.6881598] audiofile.xml: Compiling AudioFile:WANight_Transylvania_quad [166b084d:4d137260]
+[00:00:00.7980777] audiofile.xml: Submitting to cache AudioFile:WANight_Transylvania_quad [166b084d:4d137260]
+[00:00:00.7980777] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\gameobject.xml'.
+[00:00:00.7980777] gameobject.xml: Compiling GameObject:Amb_FlyingFortress_Floating [942fff2d:3d74e23f]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:Amb_FlyingFortress_Hovering [942fff2d:8126a8ff]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:AmbStream_FloatingFortress_Quad [942fff2d:18c6d517]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:AmbStream_GreatOutdoors_Quad [942fff2d:9e3117c1]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:AmbStream_MilitaryBase_Quad [942fff2d:b1440c11]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:AmbStream_RuralJapan_Quad [942fff2d:6589299e]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:AmbStream_TransylvaniaNight_Quad [942fff2d:162366a7]
+[00:00:00.8449382] gameobject.xml: Compiling GameObject:DesolatorField_DesolatorBomb_Map_EP1 [942fff2d:639ea0b5]
+[00:00:00.8605550] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\mapmetadata.xml'.
+[00:00:00.8605550] mapmetadata.xml: Compiling MapMetaData:UpheavalMapCache_Uprising [5f969146:be8fee8b]
+[00:00:00.8605550] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\ondemandtexture.xml'.
+[00:00:00.8761730] ondemandtexture.xml: Compiling OnDemandTexture:Mod_Logo [9312b9ac:22699617]
+[00:00:00.8917989] ondemandtexture.xml: Submitting to cache OnDemandTexture:Mod_Logo [9312b9ac:22699617]
+[00:00:00.8917989] ondemandtexture.xml: Compiling OnDemandTexture:Mod_Text [9312b9ac:c929c1cc]
+[00:00:00.8917989] ondemandtexture.xml: Submitting to cache OnDemandTexture:Mod_Text [9312b9ac:c929c1cc]
+[00:00:00.8917989] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\ondemandtextureimage.xml'.
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:BootupScreen [fe0e84bb:3f5d4923]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:BootupScreen_PC [fe0e84bb:4c5d833d]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:Logo [fe0e84bb:7ec775b4]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:PostBootupScreen [fe0e84bb:a2e4b61d]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:PostBootupScreen_ESRB [fe0e84bb:a6f69881]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:PostBootupScreen_NAFR [fe0e84bb:c76172b8]
+[00:00:00.8917989] ondemandtextureimage.xml: Compiling OnDemandTextureImage:RA3_MainMenu3D_logo [fe0e84bb:aa09e0bd]
+[00:00:00.8917989] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\specific\texture.xml'.
+[00:00:00.8917989] texture.xml: Compiling Texture:LURomania_vol [21e727da:85872319]
+[00:00:00.8917989] texture.xml: Submitting to cache Texture:LURomania_vol [21e727da:85872319]
+[00:00:00.9074193] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\common.xml'.
+[00:00:00.9699190] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\common\aibuildstatedefinition.xml'.
+[00:00:01.0963844] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedAmphibiousUnitBuildState_Upheaval [620c480b:1f7ca7c8]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedLandUnitBuildState_Upheaval [620c480b:b60c7639]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedAntiGroundAircraftBuildState_Upheaval [620c480b:140f99ce]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedAirfieldBuildState_RANDOM_Upheaval [620c480b:51241d61]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedBarracksBuildState_RANDOM_Upheaval [620c480b:4d7349b1]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedWarFactoryBuildState_RANDOM_Upheaval [620c480b:6c77065c]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:AlliedNeededUnits_Upheaval [620c480b:28e7dcbc]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanAmphibiousUnitBuildState_Upheaval [620c480b:6d15d203]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanLandUnitBuildState_Upheaval [620c480b:7ef0d0f9]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanBarracksBuildState_RANDOM_Upheaval [620c480b:d6b17b26]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanNavalYardBuildState_RANDOM_Upheaval [620c480b:10f1c31d]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanWarFactoryBuildState_RANDOM_Upheaval [620c480b:c8970996]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:JapanNeededUnits_Upheaval [620c480b:781f8cec]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:SovietAmphibiousUnitBuildState_Upheaval [620c480b:b3a5cf00]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:SovietLandUnitBuildState_Upheaval [620c480b:247ef7a8]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:SovietBarracksBuildState_RANDOM_Upheaval [620c480b:d8f1e27f]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:SovietWarFactoryBuildState_RANDOM_Upheaval [620c480b:c484d0f3]
+[00:00:01.1120204] aibuildstatedefinition.xml: Compiling AIBuildStateDefinition:SovietNeededUnits_Upheaval [620c480b:562b031e]
+[00:00:01.1276405] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\mod\common\aipersonalitydefinition.xml'.
+[00:00:01.1276405] Loading 'file://d:\a\_temp\upheaval-40175382847-1\recovered\mods\upheaval\data\base\baseaipersonalitydefinition.xml'.
+[00:00:01.1432720] baseaipersonalitydefinition.xml: Compiling AIPersonalityDefinition:BasePersonality [d6d4f18e:02e35827]
+[00:00:01.1589021] Error: System.NotSupportedException: Unknown Xmlai attribute: id
+   at Recovered.XmlaiCompiler.CompileXml(XmlNode node, XmlNamespaceManager namespaces, Boolean bigEndian)
+   at Recovered.XmlaiCompiler.ProcessInstance(InstanceDeclaration declaration, TargetPlatform platform)
+   at Recovered.XmlPriority.Plugin.ProcessInstance(InstanceDeclaration instance)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessInstances(OutputManager outputManager, Int32& instancesCompiledCount, Int32& instancesCopiedFromCacheCount)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at BinaryAssetBuilder.BinaryAssetBuilder.DoBuildData()

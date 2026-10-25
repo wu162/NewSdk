@@ -1,0 +1,42 @@
+Command Line: D:\a\_temp\upheaval-40175382847-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDCommandListBox.xml /od:D:\a\_temp/upheaval-40175382847-1/Original/builtmods /iod:D:\a\_temp/upheaval-40175382847-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+Command Line: D:\a\_temp\upheaval-40175382847-1\Original\Mods\Upheaval\Data\AptUI\TacticalHUDCommandListBox.xml /od:D:\a\_temp/upheaval-40175382847-1/Original/builtmods /iod:D:\a\_temp/upheaval-40175382847-1/Original/builtmods /csc:false /ls:true /osh:false /pc:true /res:true /slowclean:true /ss:true /art:.;.\Mods\Upheaval\Art;.\Mods;.\Art /audio:.;.\Mods\Upheaval\Audio;.\Mods;.\Audio /data:.;.\Mods\Upheaval\Data;.\Mods;.\SageXml 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.1874990] Loading previous string hash file from D:\a\_temp/upheaval-40175382847-1/Original/builtmods\StringHashes.xml
+[00:00:00.2812183] Loading XML cache
+[00:00:00.2812183] Session cache age is 0 days, 0 hours, 0 minutes.
+[00:00:00.2812183] Checking 49 files for updates.
+[00:00:00.2812183] Cached session data available.
+[00:00:00.2968702] Session caching enabled ('D:\a\_temp/upheaval-40175382847-1/Original/builtmods\BinaryAssetBuilder.SessionCache.xml').
+[00:00:00.2968702] Network caching enabled ('D:\a\_temp/upheaval-40175382847-1/Original/builtmods\cache').
+[00:00:00.2968702] Loading 'file://d:\a\_temp\upheaval-40175382847-1\original\mods\upheaval\data\aptui\tacticalhudcommandlistbox.xml'.
+[00:00:00.3125012] Loading 'file://d:\a\_temp\upheaval-40175382847-1\original\mods\upheaval\data\aptui\tacticalhudcommandlistbox\tacticalhudcommandlistbox.xml'.
+[00:00:00.3281264] tacticalhudcommandlistbox.xml: Compiling AptAptData:TacticalHUDCommandListBox_apt [6c41e6dc:e992750a]
+[00:00:00.3438067] tacticalhudcommandlistbox.xml: Compiling AptConstData:TacticalHUDCommandListBox_const [3a9ce0b0:f5a7d034]
+[00:00:00.3438067] tacticalhudcommandlistbox.xml: Compiling AptDatData:TacticalHUDCommandListBox_dat [423395e1:e6f48b57]
+[00:00:00.3593768] Resolving references: mods\upheaval\data\aptui\tacticalhudcommandlistbox
+[00:00:00.3593768] Stable sorting assets
+[00:00:00.3593768] Sorting by schema dependencies
+[00:00:00.3593768] Sorting by asset dependencies
+[00:00:00.3593768] Generating stream: mods\upheaval\data\aptui\tacticalhudcommandlistbox
+[00:00:00.3593768] Slow asset clean-up (expected: 3, actual: 3, old: 0, current: 3)
+[00:00:00.3593768] mods\upheaval\data\aptui\tacticalhudcommandlistbox Linking binary data
+[00:00:00.3593768] mods\upheaval\data\aptui\tacticalhudcommandlistbox Linking import data
+[00:00:00.3593768] mods\upheaval\data\aptui\tacticalhudcommandlistbox Linking relocation data
+[00:00:00.3593768] mods\upheaval\data\aptui\tacticalhudcommandlistbox Stream complete
+[00:00:00.3750003] BinaryAssetBuilder complete
+[00:00:00.3750003] AptConstData:
+[00:00:00.3750003]       Instances Processed: 1
+[00:00:00.3750003]       Total Processing Time: 00:00:00
+[00:00:00.3750003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.3750003]       Average Processing Time: 0 seconds
+[00:00:00.3750003] AptDatData:
+[00:00:00.3750003]       Instances Processed: 1
+[00:00:00.3750003]       Total Processing Time: 00:00:00
+[00:00:00.3750003]       Longest Processing Time: 00:00:00 ()
+[00:00:00.3750003]       Average Processing Time: 0 seconds
+[00:00:00.3750003] AptAptData:
+[00:00:00.3750003]       Instances Processed: 1
+[00:00:00.3750003]       Total Processing Time: 00:00:00.0156803
+[00:00:00.3750003]       Longest Processing Time: 00:00:00.0156803 (TacticalHUDCommandListBox_apt)
+[00:00:00.3750003]       Average Processing Time: 0.0156803 seconds
+[00:00:00.3750003] Total Processing Time for All Types: 00:00:00.0156803
