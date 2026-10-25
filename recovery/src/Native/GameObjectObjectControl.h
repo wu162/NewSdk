@@ -456,7 +456,7 @@ const ModuleField controlCaptureAndGiveUpgradeBehaviorModuleDataFields[] = {
     { "UnificationType", 20u, ModuleValue::Enum, "SAME_PLAYER", &controlUnifiedControlType },
 };
 const ModuleToken controlCaptureAndGiveUpgradeBehaviorModuleDataTokens[] = {
-    { 1u, 3179117790u, 0u, &visionCaptureBehaviorModuleData, 0u, 0u },
+    { 1u, 3179117790u, 0u, &visionUnifiedControlBehaviorModuleData, 0u, 0u },
     { 2224284762u, 2224284762u, 24u, &controlUpgradeMap, 1u, 8u },
 };
 const ModuleLayout controlCaptureAndGiveUpgradeBehaviorModuleData = { controlCaptureAndGiveUpgradeBehaviorModuleDataTokens, 2u };

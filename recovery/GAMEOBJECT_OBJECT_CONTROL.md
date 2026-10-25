@@ -7,7 +7,7 @@
 | ToppleUpdateModuleData | 115223906/44 | 两FX强引用8/12、StumpId弱GameObject ID16；InitialVelocityPercent20=20%、InitialAccelPercent24=1%、BounceVelocityPercent28=20%、MinimumToppleSpeed32=.5；五bool36–40=false，41–43 padding |
 | SuckUpObjectsUpdateModuleData | 415825860/140 | InitialDelay Time8=.5s、LiftVelocity12=1、DeathHeight16=420、Radius20=10、Duration Time24=10s；ObjectFilter inline112@28 |
 | TeleportStoredObjectsUpdateModuleData | 478930205/60 | TriggerFX8/TargetFX12引用；FadeInTime16/InitialDelayTime20/DelayTime24=0s；ScaleFadeInTimeByDistance28=0；Telefrag enum32=NONE0/未知1；SpecialPowerTemplate引用36、Shader可空引用指针40；DisabledTypesToProcess bits12@44=HELD(bit3)；InstaKillObjectFilter/CollidesWithOnTeleport nullable112@48/52；GetObjectsCurrentlyAtStorePosition bool56=false |
-| CaptureAndGiveUpgradeBehaviorModuleData | 513142359/32 | UnificationType enum20=SAME_PLAYER0/未知1；UpgradeMap重复结构List8@24，每项8（OwnershipAmount signed0、ProvidedUpgrade强Upgrade引用4）。先自身列表后完整Capture20。**原Token只保留Capture父记录及UpgradeMap，不含UnificationType标量**，不可自行补Token |
+| CaptureAndGiveUpgradeBehaviorModuleData | 513142359/32 | UnificationType enum20=SAME_PLAYER0/未知1；UpgradeMap重复结构List8@24，每项8（OwnershipAmount signed0、ProvidedUpgrade强Upgrade引用4）。先自身列表后完整Capture20。**原自身Token只保留UnifiedControl父记录及UpgradeMap；UnificationType在UnifiedControl父表**，不可自行补Token |
 | WeaponScatterEffectUpdateModuleData | 1052292566/136 | WeaponTemplate可空引用指针8；ScatterSettings inline8@12：ScatterAmount signed0=0、ScatterDelay Time4=0s；Filter inline112@20；RandomScatter3D bool132=false |
 | SwitchLocomotorUpdate | 1323283019/112 | LocomotorSet单枚举8无默认/未知12；UpdatePeriod12=1s、RevealShroudToAllPlayersRadius16=0、MinimumHealth百分比20=0%；ObjectStatusWhileActive inline223@24，ModelConditionWhileActive inline456@52 |
 | ConvergingLaserStateModuleData | 1601476857/136 | ConvergingAngle44无默认、AngleRotation48=0d、Radius52=10；SweepFXList56/VeteranSweepFXList60引用、SweepFXTimeout64=0s、SweepWeapon68引用、ModelConditions inline456@72、Lifetime132=1s；随后完整LaserState44（String8、两强粒子列表、nullable Vector3及validation56） |
@@ -25,3 +25,5 @@ ShadowInfo60：Type enum0无默认；Texture4/AdditionalTexture8强引用；Size
 测试GameObjectObjectControlCases.cs覆盖全部根/子结构字段、父层、PE枚举及未知回退、全默认/padding/native/Token key/type/offset、结构列表8/20/120步长、强引用/弱ID/nullable/inline过滤器、nested UpgradeSelf列表、字符串对齐和schema分配顺序、0/1/2/27/28/29/65边界及拒绝/不变性。旧/Od/O2、四平台0/1/2/99、三缓冲区完整差分不变。真实SDK未运行、原DLL/正式路由未改；组件成功不能冒充正式集成。
 
 第二次累计矩阵40143597761发现上述四个可空引用布局错误，已按原Marshal/Token修正；缺省指针0、空/非空属性分配4字节、Token指向pointee及引用后缀均独立覆盖。完整复验前不计验收。
+
+run40144757033发现CaptureAndGiveUpgrade Marshal继承Capture但Token继承UnifiedControl，少36字节父表；已修正映射并增加精确父表/继承UnificationType断言，失败证据保留，待重新完整矩阵。

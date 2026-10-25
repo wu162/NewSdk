@@ -41,7 +41,7 @@ partial class GameObjectOracle {
                 }
             }
         }
-        if(g==3 && ControlKeys[g].Length!=2)throw new Exception("Original CaptureAndGiveUpgrade intentionally omits UnificationType from Token table");
+        if(g==3) {if(ControlKeys[g].Length!=2)throw new Exception("Original CaptureAndGiveUpgrade own table has only parent and UpgradeMap");int pt=(int)Word(b,t+8,big);AIUpdateSentinel(b,pt,2);if(Word(b,pt,big)!=1 || Word(b,pt+4,big)!=4173638251u || Word(b,pt+12,big)!=799470543u || Word(b,pt+16,big)!=431396024u || Word(b,pt+20,big)!=at+20)throw new Exception("Independent CaptureAndGiveUpgrade UnifiedControl Token parent with inherited UnificationType");}
     }
     static void ObjectControlFamily(IAssetBuilderPlugin original,TargetPlatform p) {
         bool big=p!=TargetPlatform.Win32;

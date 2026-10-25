@@ -24,7 +24,7 @@ SCATTER=[('ScatterAmount',0,'Signed','0',None),('ScatterDelay',4,'Time','0s',Non
 PARTICLE=[('SourceBone',0,'String',None,None),('DestinationBone',8,'String',None,None),('ParticleSystem',16,'Reference',None,None)]
 SHADOW=[('Type',0,'Enum',None,'ShadowType'),('Texture',4,'Reference',None,None),('AdditionalTexture',8,'Reference',None,None)]+[(n,o,'Float','0.0',None) for n,o in [('SizeX',12),('SizeY',16),('OffsetX',20),('OffsetY',24)]]+[('OpacityStart',28,'Float','0',None),('OpacityFadeInTime',32,'Time','0s',None),('OpacityPeak',36,'Float','1',None),('OpacityFadeOutTime',40,'Time','0s',None),('OpacityEnd',44,'Float','0',None),('MaxHeight',48,'Float','20',None)]+[(n,o,'Boolean',d,None) for n,o,d in [('OverrideLODVisibility',56,'false'),('UseHouseColor',57,'false'),('IsRotatingWithObject',58,'true'),('LocalPlayerOnly',59,'false')]]+[('SunAngle',52,'Float','0.0',None)]
 VECTOR=[('x',0,'Float','0.0',None),('y',4,'Float','0.0',None),('z',8,'Float','0.0',None)]
-PARENTS=['&visionCaptureBehaviorModuleData' if i==3 else '&beamLaserStateModuleData' if i==6 else '&lifecycleBehaviorModuleData' if i in [10,11] else '&spawnUpdateModuleData' for i in range(13)]
+PARENTS=['&visionUnifiedControlBehaviorModuleData' if i==3 else '&beamLaserStateModuleData' if i==6 else '&lifecycleBehaviorModuleData' if i in [10,11] else '&spawnUpdateModuleData' for i in range(13)]
 
 def generate():
  m=json.loads((E/'manifest.json').read_text());assert m['sourceBlob']==BLOB and len(m['methods'])==166;bodies={}
@@ -51,7 +51,9 @@ def generate():
   if parent:assert ('Marshaler_002EMarshal(node, ('+('CaptureBehaviorModuleData' if index==3 else 'LaserStateModuleData' if index==6 else 'ModuleData')+'*)') in mb
   if fields:lines.extend(['const ModuleField control'+n+'Fields[] = {']+['    { %s, %du, ModuleValue::%s, %s, %s },'%(json.dumps(n),o,k,'nullptr' if d is None else json.dumps(d),'nullptr' if e is None else '&control'+e) for n,o,k,d,e in fields]+['};'])
   if n=='Vector3':return
-  tb,_=method('Tokenizer_002ETokenize',n);chunks=tb.split('ptr = (ProcTableElement*)((byte*)ptr + 12);');records=[]
+  tb,_=method('Tokenizer_002ETokenize',n)
+  if index==3:assert 'Tokenizer_002ETokenize((void**)((byte*)ptr + 8), (UnifiedControlBehaviorModuleData*)@object, state);' in tb
+  chunks=tb.split('ptr = (ProcTableElement*)((byte*)ptr + 12);');records=[]
   for c in chunks[:-1]:
    key=int(re.search(r'\*\(int\*\)ptr = (-?\d+);',c)[1])&0xffffffff;typ=int(re.search(r'\(\(int\*\)ptr\)\[1\] = (-?\d+);',c)[1])&0xffffffff;o=re.search(r'\(byte\*\)@object \+ (\d+)',c);off=int(o[1]) if o else 0;nested=parent if key==1 else 'nullptr';mode=0;stride=0
    for name,o,k,d,e in fields:
