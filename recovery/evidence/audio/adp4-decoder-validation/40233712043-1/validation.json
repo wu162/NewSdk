@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "runId": "40233712043",
+  "scope": "Bounded ADP4 raw-nibble integer decoder; original native0x48500 and audited mono/stereo nibble order",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "aifcAdp4RouteEnabled": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "configurations": [
+    {
+      "scalarRecords": 18067,
+      "safetyRefusals": 11,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "b8df52137877ccacd48305472107c7fc8a69fef749736cf0a4809975cf6aa0ca",
+      "configuration": "Debug",
+      "passed": true,
+      "records": 18243,
+      "initializedStreamSequences": 176
+    },
+    {
+      "scalarRecords": 18067,
+      "safetyRefusals": 11,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "13abbb23d9ef2e44218a0a9c927f5ca2191cbdca7c7f9333a49688d68528772a",
+      "configuration": "Release",
+      "passed": true,
+      "records": 18243,
+      "initializedStreamSequences": 176
+    }
+  ],
+  "oracleSha256": "2988520fc6d06ddb512628721fabca324176889957e957ea4373189b6b34c097",
+  "originalCpuValidated": true,
+  "status": "passed",
+  "pluginValidated": false
+}

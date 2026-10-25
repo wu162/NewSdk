@@ -1,0 +1,14 @@
+{
+  "runId": "40233712043",
+  "originalOnly": true,
+  "scope": "Original-only raw-nibble AIFC ADP4 plugin acceptance/determinism; not standard Apple ima4 packets or recovered support",
+  "originalRecords": 96,
+  "repeatedProcesses": 2,
+  "runAttempt": "1",
+  "sdkValidated": false,
+  "transcriptSha256": "e0633c07fd08cfbf10d7a8ce7ee5ee213b31f9d40c8020f9fa59ff81f684cee1",
+  "candidateValidated": false,
+  "status": "original-evidence-only",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1"
+}

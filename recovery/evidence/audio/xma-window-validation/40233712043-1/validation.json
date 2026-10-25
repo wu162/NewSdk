@@ -1,0 +1,38 @@
+{
+  "scope": "Six XMA integral PCM window/copy numeric leaves only",
+  "recordsPerConfiguration": 6888,
+  "runAttempt": "1",
+  "audioFileXmaRouteEnabled": false,
+  "copyCases": 168,
+  "runId": "40233712043",
+  "originalCpuValidated": true,
+  "physicalX87ControlWord": "0x027f",
+  "status": "passed",
+  "sdkValidated": false,
+  "xmaEncoderRecovered": false,
+  "oracleSha256": "ab2739edaacb8a18907ac45a7bdc404d47ea3f6ba72ab3f8d9d6e9a4e53ae765",
+  "outerWindowSchedulerRecovered": false,
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "originalDllSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "windowCases": 6720,
+  "modes": [
+    {
+      "configuration": "Debug",
+      "records": 6888,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "summary": "PASS candidate XMA integral PCM window/copy leaves: 6888 exact cases (6720 recurrence windows, 168 copies), 16/20/24-bit, all states/cursors/guards; 12 separate safe refusals; original DLL absent; no outer window scheduler or XMA codec acceptance",
+      "candidateSafetyRejections": 12,
+      "recoveredSha256": "327c212ea86e2127e8158f8f55602c42455b7cc3693d2b4db02f13a1c54d0cba"
+    },
+    {
+      "configuration": "Release",
+      "records": 6888,
+      "passed": true,
+      "originalAbsentFromRecoveredHost": true,
+      "summary": "PASS candidate XMA integral PCM window/copy leaves: 6888 exact cases (6720 recurrence windows, 168 copies), 16/20/24-bit, all states/cursors/guards; 12 separate safe refusals; original DLL absent; no outer window scheduler or XMA codec acceptance",
+      "candidateSafetyRejections": 12,
+      "recoveredSha256": "f3c7fdebc3017a1f617b92f69cb29ce7f5f6324fe72d1fb11fcad54d608f25db"
+    }
+  ]
+}

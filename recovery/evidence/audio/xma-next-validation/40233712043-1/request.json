@@ -1,0 +1,15 @@
+{
+  "xmaEncoderRecovered": false,
+  "sourceCommit": "579c95661d90f067ab414c4133f033c2571b96e1",
+  "runId": "40233712043",
+  "rawEvidenceIsOriginalOnly": true,
+  "requestedGroups": [
+    "corpus",
+    "window",
+    "numerical-dispatch",
+    "adp4-decoder",
+    "adp4-probe"
+  ],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runAttempt": "1"
+}
