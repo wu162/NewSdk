@@ -1,0 +1,1 @@
+Original uploaded artifact ZIP is preserved byte-for-byte as `artifact.zip` (SHA-256 recorded in execution.json). The extracted text logs committed earlier use normalized LF line endings; the archive retains their original bytes. No earlier evidence files were overwritten.

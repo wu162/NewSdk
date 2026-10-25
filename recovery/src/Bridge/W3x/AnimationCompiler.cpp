@@ -14,7 +14,8 @@ namespace Recovered { namespace W3x {
 // continues to reject animation until the full component gate has passed.
 public ref class AnimationCompiler abstract sealed {
     static std::string Text(String^ value) {
-        return marshal_as<std::string>(value == nullptr ? String::Empty : value);
+        String^ normalized = value == nullptr ? String::Empty : value;
+        return marshal_as<std::string>(normalized);
     }
     static std::uint32_t Unsigned(XmlNodeAdapter^ node, String^ name) {
         String^ value = node->Attribute(name, nullptr);

@@ -12,6 +12,7 @@ on:
       - 'recovery/tests/W3xMeshBuilderOracle.cpp'
       - 'recovery/tests/W3xTimecodedOracle.cpp'
       - 'recovery/tests/W3xAnimationOracle.cs'
+      - 'recovery/tests/W3xMeshAssetOracle.cs'
       - 'recovery/scripts/TestW3xNative.ps1'
       - 'SDK/tools/BinaryAssetBuilder.W3XCompiler.dll'
   workflow_dispatch:

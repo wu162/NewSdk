@@ -13,12 +13,13 @@ $originalHash = (Get-FileHash SDK/tools/BinaryAssetBuilder.W3XCompiler.dll -Algo
 if ($originalHash -ne 'bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1') { throw 'Original W3X DLL changed' }
 $sourceCommit = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
-$tests = @('W3xTimecodedTests', 'W3xAdaptiveDeltaTests', 'W3xMeshConvertersTests', 'W3xMeshBuilderTests', 'W3xAnimationPipelineTests', 'W3xAnimationCompilerTests', 'W3xMeshSerializationTests')
+$tests = @('W3xTimecodedTests', 'W3xAdaptiveDeltaTests', 'W3xMeshConvertersTests', 'W3xMeshBuilderTests', 'W3xAnimationPipelineTests', 'W3xAnimationCompilerTests', 'W3xMeshSerializationTests', 'W3xShaderTests', 'W3xMeshAssetTests')
 foreach ($test in $tests) { if (!(Test-Path "recovery/tests/$test.cpp")) { throw "Missing required component test $test" } }
 $sources = @(Get-ChildItem recovery/src/Native/W3x -Filter '*.cpp' | ForEach-Object FullName)
 if ($sources.Count -lt 5) { throw 'Expected five W3X algorithm source files' }
 $sources += (Resolve-Path 'recovery/src/Native/Relocation.cpp').Path
 $sources += (Resolve-Path 'recovery/src/Native/ScalarParsing.cpp').Path
+$sources += (Resolve-Path 'recovery/src/Native/ResourceMarshaling.cpp').Path
 $config = '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>'
 $results = @()
 $script:failures = [Collections.Generic.List[string]]::new()
@@ -90,6 +91,24 @@ foreach ($mode in @('Od','O2')) {
             Get-Content "$out/$mode-animation-oracle.log" | Where-Object { $_ -match '^PASS ' }
         }
     } else { $script:groupResults["$mode/W3xAnimationOracle"] = $false }
+    $meshBridge = Join-Path $work 'Recovered.W3x.Mesh.dll'
+    Invoke-ComponentGroup "$mode/mesh-bridge" {
+        & cl.exe /nologo /clr /LD /EHa /fp:precise "/$mode" /MD "/AI$work" "/Fe$meshBridge" "/Fo$work/MeshBridge.obj" (Resolve-Path 'recovery/src/Bridge/W3x/MeshCompiler.cpp').Path $objects.ToArray() *> "$out/$mode-mesh-bridge-build.log"
+        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-mesh-bridge-build.log"; throw 'mesh bridge build failed' }
+    }
+    if ($script:groupResults["$mode/mesh-bridge"]) {
+        Invoke-ComponentGroup "$mode/W3xMeshAssetOracle" {
+            $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+            $meshOracle = Join-Path $work 'W3xMeshAssetOracle.exe'
+            $optimize = if ($mode -eq 'O2') { '/optimize+' } else { '/optimize-' }
+            & $csc /nologo /platform:x86 $optimize /r:System.Xml.dll /r:"$work/BinaryAssetBuilder.Core.dll" /r:"$work/BinaryAssetBuilder.W3XCompiler.dll" /r:"$meshBridge" /out:"$meshOracle" (Resolve-Path 'recovery/tests/W3xMeshAssetOracle.cs').Path *> "$out/$mode-mesh-oracle-build.log"
+            if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-mesh-oracle-build.log"; throw 'mesh oracle build failed' }
+            $config | Set-Content "$meshOracle.config"
+            & $meshOracle *> "$out/$mode-mesh-oracle.log"
+            if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-mesh-oracle.log" | Select-Object -Last 50; throw 'original full mesh three-buffer differential failed' }
+            Get-Content "$out/$mode-mesh-oracle.log" | Where-Object { $_ -match '^PASS ' }
+        }
+    } else { $script:groupResults["$mode/W3xMeshAssetOracle"] = $false }
     $independent = @{}
     foreach ($test in $tests) { $independent[$test] = $script:groupResults["$mode/$test"] }
     $results += @{
@@ -100,15 +119,17 @@ foreach ($mode in @('Od','O2')) {
         timecodedCompressEstimateWriteOutOriginalDifferential=$script:groupResults["$mode/W3xTimecodedOracle"]
         meshVertexDataThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xMeshBuilderOracle"]
         animationThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xAnimationOracle"]
+        completeMeshThreeBufferOriginalDifferential=$script:groupResults["$mode/W3xMeshAssetOracle"]
     }
 }
 $allSucceeded = $script:failures.Count -eq 0
 @{
     succeeded=$allSucceeded
-    scope='independent native tests; original mesh converter, AdaptiveDelta CompressFrame/Compress/Estimate and Timecoded Compress/Estimate/WriteOut IL differential; mesh vertex-data and ProcessInstance animation three-buffer differential; full mesh ProcessInstance and SDK not accepted'
+    scope='independent native tests; original mesh converter, AdaptiveDelta and Timecoded IL differential; mesh vertex-data and complete mesh/animation ProcessInstance three-buffer differential; SDK not accepted'
     sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT
     originalSha256=$originalHash; modes=$results; failures=$script:failures.ToArray()
     completeAnimationBuffersValidated=($script:groupResults['Od/W3xAnimationOracle'] -eq $true -and $script:groupResults['O2/W3xAnimationOracle'] -eq $true)
-    completeMeshBuffersValidated=$false; sdkValidated=$false
+    completeMeshBuffersValidated=($script:groupResults['Od/W3xMeshAssetOracle'] -eq $true -and $script:groupResults['O2/W3xMeshAssetOracle'] -eq $true)
+    sdkValidated=$false
 } | ConvertTo-Json -Depth 8 | Set-Content "$out/validation.json"
 if (!$allSucceeded) { throw "W3X component matrix failed in $($script:failures.Count) groups; all independently runnable groups were attempted, see validation.json and logs" }

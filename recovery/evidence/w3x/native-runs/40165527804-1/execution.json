@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "4085f0a0073a1be1f8e2ac622e6ffed5489980d9",
+  "runId": "40165527804",
+  "runAttempt": 1,
+  "jobId": 121085668035,
+  "artifactId": 12587727785,
+  "conclusion": "failure",
+  "artifactZipSha256": "4e4f669c994991c60369164452e4c89c098bcd3b4063f2d4ec4811a0926dafc9",
+  "scope": "All independent native tests and all four native original differential groups passed Od/O2. Animation bridge compile failed C2664 before animation oracle; SDK not run."
+}

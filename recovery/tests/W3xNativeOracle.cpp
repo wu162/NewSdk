@@ -110,6 +110,15 @@ int main(array<String^>^ args) {
         if (IntPtr::Size!=4) throw gcnew Exception("x86 CLR host required");
         if (args->Length!=1) throw gcnew Exception("Usage: W3xNativeOracle original.dll");
         Assembly^ original=Assembly::LoadFrom(args[0]);
+        // Preserve raw signaling-NaN source bits: Float(bits)'s float return
+        // can itself quiet an x87 NaN before it reaches the tested converter.
+        const std::uint32_t raw[][4]={{0x7f800001U,0x3f000000U,0,0},
+            {0xff800001U,0x3f000000U,0,0},{0x7fa12345U,0x3f000000U,0,0},
+            {0x3f000000U,0x7f800001U,0,0},{0x3f000000U,0xff800001U,0,0}};
+        for(int i=0;i<5;++i) for(int be=0;be<2;++be) {
+            float values[4];std::memcpy(values,raw[i],sizeof(values));
+            Test(original,0,values,1,16,16,be!=0);
+        }
         const std::uint32_t bits[]={0,0x80000000,1,0x80000001,0x007fffff,0x00800000,
             0x33000000,0x33800000,0x387fffff,0x38800000,0x3effffff,0x3f000000,
             0x3f000001,0x3f7fffff,0x3f800000,0x3f800001,0xbf000000,0xbf800000,
