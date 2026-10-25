@@ -1,0 +1,75 @@
+{
+  "probeOnly": true,
+  "sourceFiles": [
+    {
+      "path": "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+      "sha256": "49405979a7de270cd0b33fb35c70228cc4da4937b5e357c67d5b8459da7c4d47"
+    },
+    {
+      "path": "src/TextureCompiler/Managed/TexturePacker.cs",
+      "sha256": "ef10fa2b810ef7a3865f9fec77c36dd0a36d5761793cc76dcd24d60e51a74176"
+    },
+    {
+      "path": "recovery/tests/TexturePngOracle.cs",
+      "sha256": "c8cc9950e4c493f9c96f44a51c85be634562977e1bb49c9969565f1ecf8e5c42"
+    },
+    {
+      "path": "recovery/scripts/TestTexturePng.ps1",
+      "sha256": "329216344b8bbc9b7c5ccf0fd3963f77e59557cf2a9811fd05910220a3252be2"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "path": "SDK/tools/BinaryAssetBuilder.Utility.dll",
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    }
+  ],
+  "configurations": [
+    {
+      "passed": false,
+      "configuration": "Debug",
+      "summary": [
+        "PROBE Texture PNG fixtures=4560 decodedMatches=0 originalFailures=4560 mismatches=4560 assertions=6"
+      ],
+      "transcriptSha256": "1fb25dcef5364530d5914d3075be6e11a1863a4ddf300cae0611b7b4eae1f85b",
+      "probeCompleted": true,
+      "counts": {
+        "decodedMatches": 0,
+        "mismatches": 4560,
+        "assertions": 6,
+        "fixtures": 4560,
+        "originalFailures": 4560
+      }
+    },
+    {
+      "passed": false,
+      "configuration": "Release",
+      "summary": [
+        "PROBE Texture PNG fixtures=4560 decodedMatches=0 originalFailures=4560 mismatches=4560 assertions=6"
+      ],
+      "transcriptSha256": "1fb25dcef5364530d5914d3075be6e11a1863a4ddf300cae0611b7b4eae1f85b",
+      "probeCompleted": true,
+      "counts": {
+        "decodedMatches": 0,
+        "mismatches": 4560,
+        "assertions": 6,
+        "fixtures": 4560,
+        "originalFailures": 4560
+      }
+    }
+  ],
+  "matrixVersion": 1,
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "runId": "40231257963",
+  "sourceCommit": "bdc93ea90df0def970835b87be164ec1e6fafd47",
+  "scope": "PNG POT decoding versus native LoadImageA; production dispatch and SDK not yet validated",
+  "sdkValidated": false,
+  "runAttempt": "1",
+  "status": "probe-only"
+}
