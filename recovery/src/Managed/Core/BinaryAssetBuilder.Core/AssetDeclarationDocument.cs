@@ -648,11 +648,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 			_Current.XmlReader = XmlReader.Create(_Current.SourcePath);
 		}
 		_Current.XmlDocument = new XmlDocument();
-		XmlReader xmlReader = XIncludingReaderWrapper.GetReader(_Current.XmlReader, xmlResolver);
-		if (xmlReader == null)
+		XmlReader xmlReader = new Mvp.Xml.XInclude.XIncludingReader(_Current.XmlReader)
 		{
-			xmlReader = _Current.XmlReader;
-		}
+			XmlResolver = xmlResolver
+		};
 		_Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
 		try
 		{

@@ -30,16 +30,17 @@ foreach ($mode in @('Debug', 'Release')) {
     $rebuilt = Join-Path $work $mode
     New-Item -ItemType Directory -Force $rebuilt | Out-Null
     # The original target assembly never enters this directory.
-    Get-ChildItem SDK/tools -Filter *.dll | Where-Object Name -notin @('Mvp.Xml.dll') | Copy-Item -Destination $rebuilt
+    Get-ChildItem SDK/tools -Filter *.dll | Where-Object Name -notin @('Mvp.Xml.dll','BinaryAssetBuilder.Core.dll') | Copy-Item -Destination $rebuilt
     $libraries = @()
-    foreach ($name in @('MvpXml')) {
-        $project = "recovery/src/Managed/$name/Mvp.Xml.csproj"
-        $build = Join-Path $work "build-$mode-$name"
-        & $msbuild $project /restore /nologo /p:Configuration=$mode /p:PlatformTarget=x86 /p:OutputPath="$build/" *> "$out/$mode-$name-build.log"
-        if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-$name-build.log"; throw "$mode $name build failed" }
-        $dll = Join-Path $build "Mvp.Xml.dll"
+    $build = Join-Path $work "build-$mode-Core"
+    & $msbuild recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj /restore /nologo /p:Configuration=$mode /p:PlatformTarget=x86 /p:OutputPath="$build/" *> "$out/$mode-Core-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-Core-build.log"; throw "$mode Core/MvpXml build failed" }
+    & "recovery/tools/MvpXmlMetadata/bin/$mode/net48/MvpXmlMetadata.exe" --check-core "$build/BinaryAssetBuilder.Core.dll" *> "$out/$mode-direct-calls.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-direct-calls.log"; throw "$mode direct-call IL audit failed" }
+    foreach ($assembly in @('Mvp.Xml','BinaryAssetBuilder.Core')) {
+        $dll = Join-Path $build "$assembly.dll"
         Copy-Item $dll $rebuilt
-        $libraries += @{ assembly = $name; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant(); identity = [Reflection.AssemblyName]::GetAssemblyName($dll).FullName }
+        $libraries += @{ assembly = $assembly; sha256 = (Get-FileHash $dll -Algorithm SHA256).Hash.ToLowerInvariant(); identity = [Reflection.AssemblyName]::GetAssemblyName($dll).FullName }
     }
     # Compile the identical source against the rebuilt unsigned assembly, so the
     # host does not request the original vendor public key token.
@@ -62,11 +63,11 @@ foreach ($mode in @('Debug', 'Release')) {
         throw "$mode differs from original"
     }
     Get-Content "$out/$mode.log"
-    $results += @{ configuration = $mode; succeeded = $true; withoutOriginalTargetDlls = $true; transcriptSha256 = $baseline.ToLowerInvariant(); libraries = $libraries }
+    $results += @{ configuration = $mode; succeeded = $true; withoutOriginalTargetDlls = $true; coreDirectCallsVerified = $true; transcriptSha256 = $baseline.ToLowerInvariant(); libraries = $libraries }
 }
 $inputs = @('SDK/tools/Mvp.Xml.dll','SDK/tools/BinaryAssetBuilder.Core.dll')
 $fingerprints = @($inputs | ForEach-Object { @{ path = $_; sha256 = (Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant() } })
-$sourceFiles = @(Get-ChildItem recovery/src/Managed/MvpXml -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' })
+$sourceFiles = @(Get-ChildItem recovery/src/Managed/MvpXml,recovery/src/Managed/Core -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' })
 $sourceFiles += @(Get-Item recovery/tests/MvpXmlOracle.cs,recovery/scripts/TestMvpXml.ps1,.github/workflows/recover-mvp-xml.yml)
 $sourceFiles += @(Get-ChildItem recovery/tools/MvpXmlMetadata -Recurse -File | Where-Object { $_.FullName -notmatch '[\\/](bin|obj)[\\/]' })
 $sourceFingerprints = @($sourceFiles | Sort-Object FullName | ForEach-Object { @{ path = [IO.Path]::GetRelativePath($root, $_.FullName).Replace('\', '/'); sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() } })
@@ -76,7 +77,7 @@ $sourceFingerprints = @($sourceFiles | Sort-Object FullName | ForEach-Object { @
     casesPerConfiguration = @(Get-Content "$out/original.json" -Raw | ConvertFrom-Json).Count
     inputs = $fingerprints; sourceFiles = $sourceFingerprints; configurations = $results
     cultures = @('en-US', 'de-DE', 'tr-TR'); networkValidated = $false
-    sdkValidated = $false; signed = $false; originalIdentity = [Reflection.AssemblyName]::GetAssemblyName((Resolve-Path 'SDK/tools/Mvp.Xml.dll')).FullName
+    sdkValidated = $false; sdkXmlLoaderValidated = $true; signed = $false; originalIdentity = [Reflection.AssemblyName]::GetAssemblyName((Resolve-Path 'SDK/tools/Mvp.Xml.dll')).FullName
 } | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"
 Compress-Archive -Path "$out/original.json", "$out/Debug.json", "$out/Release.json" -DestinationPath "$out/transcripts.zip"
 Remove-Item "$out/original.json", "$out/Debug.json", "$out/Release.json"

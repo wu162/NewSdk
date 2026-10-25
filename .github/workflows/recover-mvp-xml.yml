@@ -7,6 +7,7 @@ on:
       - 'recovery/scripts/TestMvpXml.ps1'
       - 'recovery/tests/MvpXmlOracle.cs'
       - 'recovery/src/Managed/MvpXml/**'
+      - 'recovery/src/Managed/Core/**'
       - 'recovery/tools/MvpXmlMetadata/**'
   workflow_dispatch:
 permissions:

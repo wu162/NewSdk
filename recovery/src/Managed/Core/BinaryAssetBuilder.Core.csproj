@@ -16,6 +16,7 @@
     <EmbeddedResource Include="BinaryAssetBuilderProject.xsd" LogicalName="BinaryAssetBuilderProject.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="../MvpXml/Mvp.Xml.csproj" />
     <Reference Include="System.Xml" />
     <Reference Include="BinaryAssetBuilder.Utility">
       <HintPath>../../../../SDK/tools/BinaryAssetBuilder.Utility.dll</HintPath>

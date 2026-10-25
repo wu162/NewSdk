@@ -130,7 +130,7 @@ public class MvpXmlOracle {
         Check(false);
     }
     static int Main(string[] args) {
-        try {FixturePath=Environment.GetEnvironmentVariable("MVP_XML_FIXTURE");Directory.CreateDirectory(FixturePath);FixtureUri=new Uri(FixturePath+Path.DirectorySeparatorChar).AbsoluteUri;Contract();Includes();Extras();foreach(string n in new[]{"core-reflection-route","xslt:False","xslt:True","xslt-hyphen-alias","serializer-cache","iterator-clone"}) RequireSuccess(n);File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
+        try {FixturePath=Environment.GetEnvironmentVariable("MVP_XML_FIXTURE");Directory.CreateDirectory(FixturePath);FixtureUri=new Uri(FixturePath+Path.DirectorySeparatorChar).AbsoluteUri;Contract();Includes();Extras();SdkLoader();foreach(string n in new[]{"core-reflection-route","xslt:False","xslt:True","xslt-hyphen-alias","serializer-cache","iterator-clone","sdk-loadxml"}) RequireSuccess(n);File.WriteAllText(args[0],new JavaScriptSerializer{MaxJsonLength=int.MaxValue}.Serialize(Rows),new UTF8Encoding(false));Console.WriteLine("PASS "+Rows.Count+" Mvp.Xml contract/resource/behavior rows");return 0;}
         catch(Exception e) {Console.Error.WriteLine(e);return 1;}
     }
     static string Nodes(XPathNodeIterator it) {
@@ -138,6 +138,32 @@ public class MvpXmlOracle {
     }
     static XPathNavigator Nav() {return new XPathDocument(new StringReader("<r xmlns:p='urn:p'><n>3</n><n>1</n><n>3</n><p:n>7</p:n></r>")).CreateNavigator();}
     public class Data {public string Name;public int Number;}
+    static void SdkLoader() {
+        Case("sdk-loadxml",delegate {
+            string main=Path.Combine(FixturePath,"sdk-root.xml");
+            string defs=Path.Combine(FixturePath,"sdk-defs.xml");
+            File.WriteAllText(main,"<AssetDeclaration xmlns='uri:ea.com:eala:asset' xmlns:xi='http://www.w3.org/2001/XInclude'><xi:include href='sdk-defs.xml'/></AssetDeclaration>");
+            File.WriteAllText(defs,"<Defines xmlns='uri:ea.com:eala:asset'><Define name='MVP_VALUE' value='42'/></Defines>");
+            Check(String.Equals(typeof(BinaryAssetBuilder.Core.AssetDeclarationDocument).Assembly.Location,Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"BinaryAssetBuilder.Core.dll"),StringComparison.OrdinalIgnoreCase));
+            var document=new BinaryAssetBuilder.Core.AssetDeclarationDocument();
+            Type stateType=typeof(BinaryAssetBuilder.Core.AssetDeclarationDocument).GetNestedType("CurrentState",BindingFlags.NonPublic);
+            object state=Activator.CreateInstance(stateType,true);
+            stateType.GetField("SourcePath").SetValue(state,main);
+            stateType.GetField("SourceDirectory").SetValue(state,FixturePath);
+            stateType.GetField("LogicalSourcePath").SetValue(state,"sdk-root.xml");
+            FieldInfo dependencies=stateType.GetField("DependentFiles");
+            dependencies.SetValue(state,Activator.CreateInstance(dependencies.FieldType));
+            typeof(BinaryAssetBuilder.Core.AssetDeclarationDocument).GetField("_Current",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(document,state);
+            // Exercise the real production XML loader, not a reader constructed by this test.
+            document.LoadXml(true);
+            XmlNode n=document.XmlDocument.SelectSingleNode("//*[local-name()='Define' and @name='MVP_VALUE']");
+            Check(n!=null && n.Attributes["value"].Value=="42");
+            var paths=(System.Collections.IEnumerable)dependencies.GetValue(state);
+            var names=new List<string>();foreach(object path in paths) names.Add(Convert.ToString(path));
+            Check(names.Count==1 && names[0].Contains("sdk-defs.xml"));
+            return document.XmlDocument.OuterXml+"|dependencies:"+String.Join(",",names.ToArray());
+        });
+    }
     static void Extras() {
         foreach(string culture in new[]{"en-US","de-DE","tr-TR"}) {
             Thread.CurrentThread.CurrentCulture=new CultureInfo(culture);
