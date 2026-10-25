@@ -7,6 +7,7 @@ $work=Join-Path $env:RUNNER_TEMP ('texture-stage2-'+[Guid]::NewGuid().ToString('
 New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;group=$Group;probeOnly=[bool]$ProbeOnly;status='started';sdkValidated=$false;configurations=@();originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant()}
+$r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Managed -File | Where-Object {$_.Extension -in '.cs','.csproj'} | Sort-Object FullName | ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 35;throw "$name failed"};Get-Content "$out/$name.log" | Where-Object {$_ -match '^(PASS|PROBE) '}}
 try{
  Copy-Item SDK/tools/*.dll $work

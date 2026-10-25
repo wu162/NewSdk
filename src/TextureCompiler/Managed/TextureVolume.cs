@@ -1,4 +1,5 @@
 using System;
+using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 
 namespace Recovered.Compiler.Texture
