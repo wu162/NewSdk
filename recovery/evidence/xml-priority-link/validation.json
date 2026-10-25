@@ -1,7 +1,7 @@
 {
   "succeeded": true,
-  "sourceCommit": "8049bde54b7870dca920b17272d0c6beb41da526",
-  "runId": "40159171331",
+  "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+  "runId": "40159834447",
   "scope": "Complete exported-route metadata preflight and selected-root default/completion smoke only; group full matrices and SDK acceptance remain separate",
   "expectedRootTypeIds": {
     "UIConfigList": 3072160547,
@@ -915,7 +915,7 @@
         "UIConfigList": "Recovered.UIConfigListCompiler"
       },
       "linkedAssembly": "Od/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "ee7afc6b94527dec373cefe05e993e9123742ed8e52a1ff2ca701f3fb7472094",
+      "linkedAssemblySha256": "03b458e883fc063165777d682ed6d1abbcc46aa782335091bfd8de691dd4a621",
       "log": "Od-oracle.txt"
     },
     {
@@ -1522,7 +1522,7 @@
         "UIConfigList": "Recovered.UIConfigListCompiler"
       },
       "linkedAssembly": "O2/Recovered.XmlCompilerPriority.dll",
-      "linkedAssemblySha256": "fd0bb0041bc7769834a7873c8288f15fb1000a23aaa09fcfe842f7dba57caa91",
+      "linkedAssemblySha256": "170c2218a27339bc8b262c8c6a528090ade1a23a3cfa6c0855294239c68b82ae",
       "log": "O2-oracle.txt"
     }
   ],
@@ -1531,16 +1531,16 @@
       "mode": "Od",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "8049bde54b7870dca920b17272d0c6beb41da526",
-      "runId": "40159171331",
+      "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+      "runId": "40159834447",
       "processSucceeded": true
     },
     {
       "mode": "O2",
       "exitCode": 0,
       "exitCodeHex": "0x00000000",
-      "sourceCommit": "8049bde54b7870dca920b17272d0c6beb41da526",
-      "runId": "40159171331",
+      "sourceCommit": "4401069feaf5df91043afadaad2410293c33b67e",
+      "runId": "40159834447",
       "processSucceeded": true
     }
   ],

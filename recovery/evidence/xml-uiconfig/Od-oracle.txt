@@ -1,11 +1,5 @@
-System.Exception: Field matrix failed: branch=UIComponentObjectSelector path=ShortcutObjects field=Rule kind=enum:ObjectFilterRule offset=4 default=NONE platform=0 owner=164 ---> System.Exception: UIComponentObjectSelector/ShortcutObjects/Rule platform=0 xml=<UIConfigList xmlns="uri:ea.com:eala:asset" id="Oracle"><UIDynamicConfig><ComponentList><Anything TypeId="216165117"><ShortcutObjects Rule="ANY&#x0;tail" /></Anything></ComponentList></UIDynamicConfig></UIConfigList> ---> System.Exception: UIComponentObjectSelector/ShortcutObjects/Rule/instance byte=168 original=2 recovered=1
-   at XmluiconfigOracle.Equal(String label, Byte[] a, Byte[] b)
-   at XmluiconfigOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   --- End of inner exception stack trace ---
-   at XmluiconfigOracle.TestDoc(String label, XmlDocument d, TargetPlatform p)
-   at XmluiconfigOracle.RoutesMatrix(Route[] routes, TargetPlatform p)
-   --- End of inner exception stack trace ---
-   at XmluiconfigOracle.RoutesMatrix(Route[] routes, TargetPlatform p)
-   at XmluiconfigOracle.Nested(TargetPlatform p)
-   at XmluiconfigOracle.Matrix(TargetPlatform p)
-   at XmluiconfigOracle.Main(String[] args)
+PASS platform=0 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=1 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=2 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS platform=99 fixtures=21398 arrayComparisons=128388 rejections=270 layoutAssertions=493697
+PASS complete UIConfigList fixtures=85592 arrayComparisons=513552 rejections=1080 layoutAssertions=1974789
