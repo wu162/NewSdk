@@ -1,0 +1,1 @@
+PASS original native FFT bit differential: 78 cases, both directions, orders 1..13, impulse/DC/complex noise; 9 candidate safety checks; no resampling/SDK acceptance
