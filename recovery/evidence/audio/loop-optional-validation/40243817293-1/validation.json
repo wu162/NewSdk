@@ -1,0 +1,32 @@
+{
+  "configurations": [
+    {
+      "readerAssertions": 328,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "canonicalPairInvariants": 1944,
+      "passed": true,
+      "recoveredSha256": "79a7dd250fee5a33b4e293055b21be858388ec4206b9e4fb32ced2d687f43fe0",
+      "records": 3888,
+      "transcriptSha256": "1842b6e4b6e981d40a7db5e48171204c8874d09ccaa5e47114a39fffb023ec31"
+    },
+    {
+      "readerAssertions": 328,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "canonicalPairInvariants": 1944,
+      "passed": true,
+      "recoveredSha256": "71b663231b84af2e7050811d87d2c91a4f0ccae03273b781b4b4f85f9a0c7159",
+      "records": 3888,
+      "transcriptSha256": "1842b6e4b6e981d40a7db5e48171204c8874d09ccaa5e47114a39fffb023ec31"
+    }
+  ],
+  "status": "passed",
+  "sdkValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+  "runAttempt": "1",
+  "scope": "Initialized optional AIFF/AIFC NONE/raw ADP4 loop metadata: INST-only/empty MARK modes0/1/2, neither selected ID, ignored out-of-range auxiliary positions; PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed, unchanged/downsample/upsample; canonical pair invariants",
+  "originalRecords": 3888,
+  "runId": "40243817293"
+}

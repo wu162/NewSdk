@@ -1,0 +1,11 @@
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\empty.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\truncated.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\invalid-first.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\wave.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\track.mus"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\empty.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\truncated.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\invalid-first.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\wave.mp3"
+Warning: Passthrough is for MP3 format only.  Cannot process "D:\a\_temp\audio-plugin-68a5939d71d048f4bb26ba78144fe56b\fixtures\track.mus"
+PASS Audio plugin oracle: 77 recorded cases; scope=business; output comparison follows separately

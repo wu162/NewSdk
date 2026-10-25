@@ -1,0 +1,4 @@
+stereo-eof-stop-ffe4e000-prefix0:False:False:NULL:CUSTOM:<absent>
+stereo-eof-stop-ffe4e000-prefix0:False:True:NULL:CUSTOM:<absent>
+stereo-eof-stop-ffe4e000-prefix0:True:False:NULL:CUSTOM:<absent>
+stereo-eof-stop-ffe4e000-prefix0:True:True:NULL:CUSTOM:<absent>

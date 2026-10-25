@@ -1,0 +1,4 @@
+stereo-aiff-type:False:False:NULL:CUSTOM:<absent>
+stereo-aiff-type:False:True:NULL:CUSTOM:<absent>
+stereo-aiff-type:True:False:NULL:CUSTOM:<absent>
+stereo-aiff-type:True:True:NULL:CUSTOM:<absent>

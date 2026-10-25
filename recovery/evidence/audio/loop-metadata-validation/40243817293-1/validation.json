@@ -1,0 +1,32 @@
+{
+  "configurations": [
+    {
+      "readerAssertions": 534,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Debug",
+      "canonicalPairInvariants": 2112,
+      "passed": true,
+      "recoveredSha256": "79a7dd250fee5a33b4e293055b21be858388ec4206b9e4fb32ced2d687f43fe0",
+      "records": 4224,
+      "transcriptSha256": "3297ff5f52925b5bc851a242bdab29584559efa3d7332a5a75175d5850dbe0c4"
+    },
+    {
+      "readerAssertions": 534,
+      "originalAbsentFromRecoveredHost": true,
+      "configuration": "Release",
+      "canonicalPairInvariants": 2112,
+      "passed": true,
+      "recoveredSha256": "71b663231b84af2e7050811d87d2c91a4f0ccae03273b781b4b4f85f9a0c7159",
+      "records": 4224,
+      "transcriptSha256": "3297ff5f52925b5bc851a242bdab29584559efa3d7332a5a75175d5850dbe0c4"
+    }
+  ],
+  "status": "passed",
+  "sdkValidated": false,
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "bb4a225fc5cc8e070044a01a24f87e425c612ccb",
+  "runAttempt": "1",
+  "scope": "Bounded loop metadata: first WAVE smpl/record ignoring type; AIFF/AIFC NONE/raw ADP4 extra/duplicate markers, multiple MARK/INST, ignored release and nonforward sustain; PCM8/16/24 mono/stereo PC NONE/XAS RAM/streamed and resampling; canonical pair invariants",
+  "originalRecords": 4224,
+  "runId": "40243817293"
+}

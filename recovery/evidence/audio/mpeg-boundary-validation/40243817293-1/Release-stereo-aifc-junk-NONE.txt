@@ -1,0 +1,4 @@
+stereo-aifc-junk-NONE:False:False:NULL:CUSTOM:<absent>
+stereo-aifc-junk-NONE:False:True:NULL:CUSTOM:<absent>
+stereo-aifc-junk-NONE:True:False:NULL:CUSTOM:<absent>
+stereo-aifc-junk-NONE:True:True:NULL:CUSTOM:<absent>
