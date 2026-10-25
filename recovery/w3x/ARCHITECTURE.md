@@ -13,6 +13,7 @@
 | `src/Native/ScalarParsing.*`、`DataInitializers.*` | 候选共用 | W3X 实际调用路径、词法/溢出/浮点位模式一致 |
 | `src/Native/ResourceMarshaling.*`、枚举/位集辅助 | 按原版使用情况共用 | 类型 hash、导入项、空值和未知枚举处理一致 |
 | `src/Bridge/XmlNodeAdapter.h` | 候选共用 | W3X 使用的命名空间、节点值、默认值和遍历顺序合同一致 |
+| `src/Native/GameObjectDrawBeam*.h` 的 Shader/常量能力 | 候选提取为共享 Shader 模块 | W3X 同名布局、Marshal、多态默认分派和导入顺序一致；两边完整回归 |
 | 已有 ProcessInstance/插件/SDK 测试脚本 | 借鉴构建、三缓冲区捕获、临时 SDK 和证据模式 | 不继承 Armor/Weapon 的 TypeId、版本号、Tokenized 标记和路由范围 |
 
 若公共逻辑需要扩展，优先增加小而明确的共享接口，将 W3X 特有语义留在调用侧；确属同一合同再合并实现。先列调用者和受影响测试，再改公共文件。不能为了让 W3X 通过而改变旧类型语义，也不能只运行 W3X 回归。

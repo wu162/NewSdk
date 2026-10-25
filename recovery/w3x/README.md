@@ -4,7 +4,7 @@
 
 目标是恢复 `SDK/tools/BinaryAssetBuilder.W3XCompiler.dll` 的真实托管、C++/CLI 与原生业务行为，最终恢复其 BAB 插件入口。`BinaryAssetBuilder.W3XCompiler.Plugin` 是配置指定的**类型名**，所在程序集是 `BinaryAssetBuilder.W3XCompiler`，不是第二个 DLL。不以机械反编译文件、接口壳或转发原 DLL 代替源码恢复。
 
-先读 [RESUME.md](RESUME.md)，再按需要读 [PLAN.md](PLAN.md)、[ARCHITECTURE.md](ARCHITECTURE.md) 和 [VALIDATION.md](VALIDATION.md)。本目录只保存项目说明、进度和规划；源码、测试、脚本及原始证据继续使用整个 recovery 的共同结构。
+先读 [RESUME.md](RESUME.md)，再按需要读 [BASELINE.md](BASELINE.md)、[PLAN.md](PLAN.md)、[ARCHITECTURE.md](ARCHITECTURE.md) 和 [VALIDATION.md](VALIDATION.md)。本目录只保存项目说明、进度和规划；源码、测试、脚本及原始证据继续使用整个 recovery 的共同结构。
 
 | 位置 | 用途 |
 | --- | --- |

@@ -7,6 +7,16 @@
 - 原 DLL 字符串中可定位 `HandleAnimation`、`HandleMesh`、`ProcessInstance`、`W3DMeshProcessor.BuildVertexData`、`DetermineVertexDataLayout`、`ComputeBoneMappingTable`、`CompressTexCoord`、`Vector3_To_Half4` 和 `DataHandlers_Windows/Xenon/PS3`。这些是调查线索，签名、代码种类、完整依赖和算法仍须由元数据、IL、原生代码及探针确认。
 - 尚无 W3X 恢复版处理逻辑、差分成功矩阵或真实 SDK 成功证明。旧 XmlCompiler/Tokenizer 的类型数和通过计数不适用于本项目。
 
+## 已定位的输入和复用入口
+
+`SDK/Schemas/xsd/AssetTypeW3D.xsd`（基点 blob `6fee2f746c22a4eb84af39c68a17593d62eadc78`）包含 mesh/pipeline vertex data、FXShader、AABTree、scalar/quaternion 输入通道与 timecoded/delta runtime 通道。W3DMesh、W3DAnimation 标为 W3D typeGroup；Hierarchy/Container/AnimationRuntime 等标为 Xml，不能直接扩大 W3X 插件路由。
+
+`SDK/Art/W3/W3XViewQuad.w3x`（blob `aa7b456c17afd50a5b527b04127459f1c0f3af4f`）是可分析的小网格，含4顶点、2三角形、法线、UV、ShadeIndices 和 FXShader；依赖 `ART:w3xview.xml`。作为候选基线，SDK 验证时保留其纹理/材质依赖并重新验证，不能声称已通过。`W3XViewLight.w3x` 和 `W3XViewBoneAxis.w3x` 可用于扩展调查，不一次性加载全部 Art。
+
+动画 XSD 明确包含 CompressionSettings 的 TimeCoded/AdaptiveDelta 开关、误差参数和 ForceReductionRate，以及每帧 BinaryMove。**XSD 默认值不一定等同于 Plugin 在缺少整个 CompressionSettings 节点时选择的默认值**；这一差异纳入原版探针。
+
+FXShader/多态常量已有 `src/Native/GameObjectDrawBeam.h`、`GameObjectDrawBeamRuntime.h` 与 `GAMEOBJECT_DRAW_BEAM.md` 可参考。先核对 W3X 同名结构和 Marshal 的实际合同；一致时考虑提取共享 Shader 模块并运行两边回归，不让 W3X 长期依赖整套 GameObject 业务编译器。
+
 ## 阶段 A：原版基线和边界合同
 
 运行 `ExtractW3x.ps1`：复用 MetadataInventory，固定 ILSpy 9.1.0.7988，保存方法 token/RVA/signature/IL、类型 layout、PE imports/exports、原生反汇编和插件公开合同。自动证据只写唯一 run/attempt 目录；反编译失败状态必须保留，不能将机械 C# 当可编译源代码。
