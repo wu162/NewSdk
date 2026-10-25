@@ -70,7 +70,21 @@ namespace Recovered.Compiler.Texture
                 double[] normalized = weights.ToArray();
                 // Multiply by one stored reciprocal. Per-item division differs
                 // at an observed float32 half-value boundary in the old library.
-                for (int i = 0; i < normalized.Length; i++) normalized[i] = normalized[i] * inverse;
+                double normalizedSum = 0;
+                for (int i = 0; i < normalized.Length; i++)
+                {
+                    normalized[i] = normalized[i] * inverse;
+                    normalizedSum += normalized[i];
+                }
+                // Original RVA 0x53930 sums the stored normalized doubles in
+                // order, then adds the exact residual to the central tap.
+                // Algebraically unit weights can sum to 1-2^-52; omitting this
+                // correction changes a later float32 half-value quantization.
+                if (normalizedSum != 1.0)
+                {
+                    int nearest = Math.Min(last, Math.Max(first, (int)Math.Floor(center + 0.5)));
+                    normalized[nearest - first] += 1.0 - normalizedSum;
+                }
                 result[output] = new Contribution { First = first, Weights = normalized };
             }
             return result;
@@ -149,3 +163,4 @@ namespace Recovered.Compiler.Texture
         }
     }
 }
+

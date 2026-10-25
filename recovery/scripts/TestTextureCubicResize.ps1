@@ -8,6 +8,8 @@ New-Item -ItemType Directory -Force $out,$work | Out-Null
 $out=(Resolve-Path $out).Path
 $r=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;group=$Group;experimental=$true;productionRouteEnabled=$false;probeOnly=[bool]$ProbeOnly;status='started';sdkValidated=$false;configurations=@();originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.TextureCompiler.dll -Algorithm SHA256).Hash.ToLowerInvariant()}
 $r.sourceFiles=@(Get-ChildItem src/TextureCompiler/Managed -File | Where-Object {$_.Extension -in '.cs','.csproj'} | Sort-Object FullName | ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
+$r.experimentalSource=@{path='src/TextureCompiler/Experiments/TextureCubicResizeEncoder.cs';sha256=(Get-FileHash src/TextureCompiler/Experiments/TextureCubicResizeEncoder.cs -Algorithm SHA256).Hash.ToLowerInvariant()}
+$r.oracleSource=@{path='recovery/tests/TextureCubicResizeDifferential.cs';sha256=(Get-FileHash recovery/tests/TextureCubicResizeDifferential.cs -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Checked([string]$name,[scriptblock]$code){& $code *> "$out/$name.log";if($LASTEXITCODE -ne 0){Get-Content "$out/$name.log" -Tail 35;throw "$name failed"};Get-Content "$out/$name.log" | Where-Object {$_ -match '^(PASS|PROBE) '}}
 try{
  Copy-Item SDK/tools/*.dll $work
@@ -33,4 +35,5 @@ try{
  if($files.Count -gt 0){Compress-Archive -Path $files.FullName -DestinationPath "$out/transcripts.zip";$files|Remove-Item}
  $r.status=if($ProbeOnly){'probe-only'}else{'passed'}
 }finally{$r | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"}
+
 
