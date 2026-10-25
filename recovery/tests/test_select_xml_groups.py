@@ -280,6 +280,47 @@ class SelectXmlGroupsTests(unittest.TestCase):
         self.repo.commit('remove alpha include dependency')
         self.assert_groups(['alpha'], self.select())
 
+    def test_digit_group_is_discovered_reused_and_invalidated(self):
+        self.repo.group('w3d', 3)
+        self.repo.source_commit = self.repo.commit('add digit-named component group')
+        self.repo.evidence('w3d')
+        self.repo.evidence('priority-link')
+        self.repo.commit('accept digit-named group')
+        result = self.select()
+        self.assertIn('w3d', self.selector.discover_groups(self.repo.root))
+        self.assertNotIn('w3d', result['groups'])
+        self.assertIn('w3d', [row['group'] for row in result['reused']])
+        result = self.changed('recovery/src/Native/Xmlw3d.cpp')
+        self.assert_groups(['w3d'], result)
+        self.assertEqual(['W3DRoot'], result['link_roots'])
+
+    def test_missing_platform_in_one_mode_is_not_reused(self):
+        path = self.repo.root / 'recovery/evidence/xml-alpha/validation.json'
+        evidence = json.loads(path.read_text())
+        evidence['modes'][1]['result']['platforms'].pop()
+        path.write_text(json.dumps(evidence))
+        self.repo.commit('truncate one platform from optimization mode')
+        self.assert_groups(['alpha'], self.select())
+
+    def test_duplicate_platform_cannot_substitute_unknown99(self):
+        path = self.repo.root / 'recovery/evidence/xml-alpha/validation.json'
+        evidence = json.loads(path.read_text())
+        evidence['modes'][0]['result']['platforms'][-1]['platform'] = 2
+        path.write_text(json.dumps(evidence))
+        self.repo.commit('duplicate platform replaces unknown99')
+        self.assert_groups(['alpha'], self.select())
+
+    def test_original_attribute_summary_format_is_reusable(self):
+        path = self.repo.root / 'recovery/evidence/xml-alpha/validation.json'
+        evidence = json.loads(path.read_text())
+        evidence['modes'] = [{'mode': mode, 'exitCode': 0, 'succeeded': True,
+                             'summaries': ['SUMMARY platform=%s fixtures=2' % platform
+                                           for platform in [0, 1, 2, 99]]}
+                            for mode in ['Od', 'O2']]
+        path.write_text(json.dumps(evidence))
+        self.repo.commit('preserve legacy successful summary evidence')
+        self.assert_groups([], self.select())
+
 
 if __name__ == '__main__':
     unittest.main()

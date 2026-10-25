@@ -19,6 +19,7 @@ class XmluiconfigOracle {
     static readonly string[] Numbers={"0","-0","1","-1","12.25","1e-7","1e30","16777217","2d1","2D-1","0x10","garbage",""," 25.75junk","25,5","100%","-12.5%","2147483648","-2147483649","4294967295","4294967296","077","0xff","1e400","-1e400"};
     static IAssetBuilderPlugin original;
     static int fixtures,comparisons,rejections,layouts;
+    static string abiContext="";
     static XmlDocument Parse(string text){XmlDocument d=new XmlDocument();d.LoadXml(text);return d;}
     static string Escape(string text){return text.Replace("&","&amp;").Replace("'","&apos;").Replace("<","&lt;").Replace("\"","&quot;");}
     static string Root(string type,string attrs,string children){return "<"+type+" xmlns='"+NS+"' id='Oracle' "+attrs+">"+children+"</"+type+">";}
@@ -35,7 +36,8 @@ class XmluiconfigOracle {
         if(a==null||b==null||a.Length!=b.Length)throw new Exception(label+" length original="+(a==null?-1:a.Length)+" recovered="+(b==null?-1:b.Length));
         for(int i=0;i<a.Length;++i)if(a[i]!=b[i])throw new Exception(label+" byte="+i+" original="+a[i]+" recovered="+b[i]);++comparisons;
     }
-    static void Check(bool test,string label){if(!test)throw new Exception(label);++layouts;}
+    static void Check(bool test,string label){if(!test)throw new Exception(label+(abiContext.Length==0?"":" ["+abiContext+"]"));++layouts;}
+    static void CheckWord(AssetBuffer buffer,int at,bool big,uint expected,string label){uint observed=Word(buffer.InstanceData,at,big);Check(observed==expected,label+" at="+at+" observed=0x"+observed.ToString("x8")+" expected=0x"+expected.ToString("x8"));}
     static uint Word(byte[] bytes,int offset,bool big){return big?((uint)bytes[offset]<<24)|((uint)bytes[offset+1]<<16)|((uint)bytes[offset+2]<<8)|bytes[offset+3]:BitConverter.ToUInt32(bytes,offset);}
     static AssetBuffer Call(Type type,string method,object[] args){try{return (AssetBuffer)type.GetMethod(method).Invoke(null,args);}catch(TargetInvocationException e){throw e.InnerException;}}
     static void SideArray(byte[] bytes,byte[] instance,bool big,bool relocation,string label){
@@ -324,15 +326,15 @@ new Route("UIComponentVictoryDefeat","EndGameMusicAlias","L16","String",8,new Fi
     static string[] Values(Field f){if(f.Kind=="string"||f.Kind=="hash"||f.Kind=="rawhash"||f.Kind=="nullableHash")return TextValues;if(f.Kind=="ref"||f.Kind=="nullableRef")return References;if(f.Kind=="bool")return BoolValues;if(f.Kind.StartsWith("enum:")){List<string> v=new List<string>();foreach(EnumCase e in EnumMaps[f.Kind.Substring(5)]){v.Add(e.Name);v.Add(e.Name.ToLowerInvariant());v.Add(e.Name+"\0tail");}v.AddRange(new string[]{"","UNKNOWN","-1","ALL"," leading","trailing "});return v.ToArray();}if(f.Kind.Contains("flags")||f.Kind=="flags")return new string[]{"","INFANTRY","VEHICLE STRUCTURE","UNKNOWN","ALL","ALL -INFANTRY","-INFANTRY","+INFANTRY","INFANTRY -INFANTRY -INFANTRY","INFANTRY\0 STRUCTURE","  INFANTRY  "};return Numbers;}
     static void FieldAbi(Field f,AssetBuffer b,int at,bool big,string value){at+=f.Offset;
         if(f.Kind=="string"){StringAbi(b,at,value,big);return;}
-        if(f.Kind=="int"){Check(Word(b.InstanceData,at,big)==unchecked((uint)-7),"independent signed field");return;}
-        if(f.Kind=="uint"){Check(Word(b.InstanceData,at,big)==17,"independent unsigned field");return;}
-        if(f.Kind=="float"||f.Kind=="percent"){Check(Word(b.InstanceData,at,big)==0x3f000000u,"independent float/percentage field");return;}
+        if(f.Kind=="int"){CheckWord(b,at,big,unchecked((uint)-7),"independent signed field");return;}
+        if(f.Kind=="uint"){CheckWord(b,at,big,17,"independent unsigned field");return;}
+        if(f.Kind=="float"||f.Kind=="percent"){CheckWord(b,at,big,0x3f000000u,"independent float/percentage field");return;}
         if(f.Kind=="bool"){Check(b.InstanceData[at]==1,"independent bool byte");return;}
-        if(f.Kind=="ref"){Check(Word(b.InstanceData,at,big)==8,"strong reference index+1");return;}
-        if(f.Kind=="hash"||f.Kind=="rawhash"){Check(Word(b.InstanceData,at,big)==RawHash(value,f.Kind=="hash"),"typed vs raw case-sensitive hash");return;}
+        if(f.Kind=="ref"){CheckWord(b,at,big,8,"strong reference index+1");return;}
+        if(f.Kind=="hash"||f.Kind=="rawhash"){CheckWord(b,at,big,RawHash(value,f.Kind=="hash"),"typed vs raw case-sensitive hash");return;}
         if(f.Kind=="nullableHash"||f.Kind=="nullableRef"){int target=(int)Word(b.InstanceData,at,big);Check(target>=32&&target%4==0&&target+4<=b.InstanceData.Length,"nullable scalar allocation4");Check(Word(b.InstanceData,target,big)==(f.Kind=="nullableRef"?8:RawHash(value,true)),"nullable scalar payload");return;}
-        if(f.Kind.StartsWith("enum:")){Check(Word(b.InstanceData,at,big)==EnumMaps[f.Kind.Substring(5)][0].Value,"independent enum value");return;}
-        if(f.Kind=="packed-byte"){int shift=f.Name=="A"?24:f.Name=="R"?16:f.Name=="G"?8:0;uint expected=f.Name=="A"?0x11000000u:0xff000000u|(17u<<shift);Check(Word(b.InstanceData,at,big)==expected,"packed ARGB component and alpha default");return;}
+        if(f.Kind.StartsWith("enum:")){CheckWord(b,at,big,EnumMaps[f.Kind.Substring(5)][0].Value,"independent enum value");return;}
+        if(f.Kind=="packed-byte"){int shift=f.Name=="A"?24:f.Name=="R"?16:f.Name=="G"?8:0;uint expected=f.Name=="A"?0x11000000u:0xff000000u|(17u<<shift);CheckWord(b,at,big,expected,"packed ARGB component and alpha default");return;}
         Check(at+4<=b.InstanceData.Length,"bitset field bounds");
     }
     static void DefaultAbi(Field f,AssetBuffer b,int at,bool big){at+=f.Offset;
@@ -340,13 +342,27 @@ new Route("UIComponentVictoryDefeat","EndGameMusicAlias","L16","String",8,new Fi
         if(f.Default==null){if(f.Kind=="bool")Check(b.InstanceData[at]==0,"absent bool zero");else if(f.Kind=="kindof-flags")for(int j=0;j<9;++j)Check(Word(b.InstanceData,at+4*j,big)==0,"absent kind flags all words zero");else Check(Word(b.InstanceData,at,big)==0,"absent scalar/pointer/flags zero");return;}
         if(f.Kind=="string"){StringAbi(b,at,f.Default,big);return;}
         if(f.Kind=="bool"){Check(b.InstanceData[at]==(f.Default=="true"?1:0),"explicit original bool default");return;}
-        if(f.Kind=="int"||f.Kind=="uint"){Check(Word(b.InstanceData,at,big)==unchecked((uint)Int32.Parse(f.Default,CultureInfo.InvariantCulture)),"explicit original integer default");return;}
-        if(f.Kind=="float"||f.Kind=="percent"){float v=Single.Parse(f.Default,CultureInfo.InvariantCulture);Check(Word(b.InstanceData,at,big)==BitConverter.ToUInt32(BitConverter.GetBytes(v),0),"explicit original float default");return;}
-        if(f.Kind.StartsWith("enum:")){uint expected=EnumFallbacks[f.Kind.Substring(5)];foreach(EnumCase e in EnumMaps[f.Kind.Substring(5)])if(e.Name==f.Default)expected=e.Value;Check(Word(b.InstanceData,at,big)==expected,"explicit original enum default");}
+        if(f.Kind=="int"||f.Kind=="uint"){CheckWord(b,at,big,unchecked((uint)Int32.Parse(f.Default,CultureInfo.InvariantCulture)),"explicit original integer default");return;}
+        if(f.Kind=="float"||f.Kind=="percent"){
+            float v=Single.Parse(f.Default,CultureInfo.InvariantCulture);
+            // Original Module60210 PercentageTag casts atof to float, then scales by 0.01f;
+            // this applies even without a % suffix. Literal default1.0 stores0x3c23d70a.
+            if(f.Kind=="percent")v=(float)((double)v*(double)0.01f);
+            CheckWord(b,at,big,BitConverter.ToUInt32(BitConverter.GetBytes(v),0),"explicit original "+f.Kind+" default");return;
+        }
+        if(f.Kind.StartsWith("enum:")){uint expected=EnumFallbacks[f.Kind.Substring(5)];foreach(EnumCase e in EnumMaps[f.Kind.Substring(5)])if(e.Name==f.Default)expected=e.Value;CheckWord(b,at,big,expected,"explicit original enum default");}
     }
     static void RoutesMatrix(Route[] routes,TargetPlatform p){bool big=p!=TargetPlatform.Win32;
         foreach(Route route in routes){XmlElement baseNode;XmlDocument baseDoc=RouteDoc(route,out baseNode);AssetBuffer baseline=TestDoc("nested/default/"+route.Branch+"/"+route.Path,baseDoc,p);int baseAt=RouteAt(route,baseline,big);
-            foreach(Field f in route.Fields){if(f.Mode!="text")DefaultAbi(f,baseline,baseAt,big);foreach(string v in Values(f)){XmlElement node;XmlDocument d=RouteDoc(route,out node);SetField(node,f,v);TestDoc(route.Branch+"/"+route.Path+"/"+f.Name,d,p);}XmlElement abiNode;XmlDocument abiDoc=RouteDoc(route,out abiNode);string canonical=Canonical(f);SetField(abiNode,f,canonical);AssetBuffer abi=TestDoc("field ABI/"+route.Branch+"/"+route.Path+"/"+f.Name,abiDoc,p);FieldAbi(f,abi,RouteAt(route,abi,big),big,canonical);}
+            foreach(Field f in route.Fields){
+                abiContext="branch="+route.Branch+" path="+route.Path+" field="+f.Name+" kind="+f.Kind+" offset="+f.Offset+" default="+(f.Default??"<absent>")+" platform="+(int)p;
+                try {
+                    if(f.Mode!="text")DefaultAbi(f,baseline,baseAt,big);
+                    foreach(string v in Values(f)){XmlElement node;XmlDocument d=RouteDoc(route,out node);SetField(node,f,v);TestDoc(route.Branch+"/"+route.Path+"/"+f.Name,d,p);}
+                    XmlElement abiNode;XmlDocument abiDoc=RouteDoc(route,out abiNode);string canonical=Canonical(f);SetField(abiNode,f,canonical);AssetBuffer abi=TestDoc("field ABI/"+route.Branch+"/"+route.Path+"/"+f.Name,abiDoc,p);FieldAbi(f,abi,RouteAt(route,abi,big),big,canonical);
+                } catch(Exception error) {throw new Exception("Field matrix failed: "+abiContext+" owner="+baseAt,error);}
+                finally {abiContext="";}
+            }
             XmlElement fullNode;XmlDocument full=RouteDoc(route,out fullNode);foreach(Field f in route.Fields)SetField(fullNode,f,Canonical(f));TestDoc("all scalar fields mixed/"+route.Branch+"/"+route.Path,full,p);
             if(route.Path.Length!=0){XmlElement badNode;XmlDocument bad=RouteDoc(route,out badNode);badNode.SetAttribute("Unexpected","1");Reject("nested unknown attr/"+route.Path,bad.OuterXml);badNode.RemoveAttribute("Unexpected");Add(badNode,"Unexpected");Reject("nested unknown child/"+route.Path,bad.OuterXml);}
         }

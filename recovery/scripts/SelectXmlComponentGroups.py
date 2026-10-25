@@ -26,7 +26,7 @@ def git(root, *args, check=True):
 
 def discover_groups(root):
     return sorted(p.stem[7:] for p in (root/'recovery/scripts').glob('TestXml*.ps1')
-                  if re.fullmatch(r'TestXml[a-z]+', p.stem)
+                  if re.fullmatch(r'TestXml[a-z][a-z0-9]*', p.stem)
                   and (root/f'recovery/tests/Xml{p.stem[7:]}Oracle.cs').is_file())
 
 def group_roots(root, group):
@@ -117,6 +117,16 @@ def valid_evidence(root, group, head="HEAD"):
     if len(modes) != 2 or labels != {'Od', 'O2'}:
         return None, 'incomplete optimization mode evidence'
     for mode in modes:
+        platforms = mode.get('result', {}).get('platforms', mode.get('platforms'))
+        if platforms is None:
+            platforms = [int(v) for line in mode.get('summaries', [])
+                         for v in re.findall(r'\bplatform=(\d+)\b', line)]
+        try:
+            values = [int(v['platform'] if isinstance(v, dict) else v) for v in platforms]
+        except (KeyError, TypeError, ValueError):
+            return None, 'invalid platform evidence'
+        if len(values) != 4 or set(values) != {0, 1, 2, 99}:
+            return None, 'incomplete four-platform mode evidence'
         if not (mode.get('succeeded') is True or ('exitCode' in mode and mode['exitCode'] == 0) or mode.get('result', {}).get('succeeded') is True):
             return None, 'optimization mode has no success attestation'
         if mode.get('succeeded') is False or mode.get('exitCode', 0) != 0 or mode.get('result', {}).get('succeeded') is False:
