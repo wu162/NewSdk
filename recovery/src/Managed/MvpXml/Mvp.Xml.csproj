@@ -11,13 +11,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Web" />
-    <!-- SR is part of the original resource name, not the Serbian culture. -->
-    <EmbeddedResource Update="*.resx">
-      <WithCulture>false</WithCulture>
-      <LogicalName>%(Filename).resources</LogicalName>
-    </EmbeddedResource>
-    <!-- ILSpy omits the original empty resource; preserve it byte for byte. -->
-    <EmbeddedResource Include="Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources" />
+    <!-- Embed original resources verbatim; keep .resx files as readable source.
+         net20 ResGen is unavailable in dotnet MSBuild. SR is not a culture. -->
+    <EmbeddedResource Remove="*.resx" />
+    <EmbeddedResource Include="*.resources" LogicalName="%(Filename)%(Extension)" />
   </ItemGroup>
   <Target Name="RestoreExsltClrNames" AfterTargets="Build">
     <MSBuild Projects="$(MSBuildThisFileDirectory)../../../tools/MvpXmlMetadata/MvpXmlMetadata.csproj"

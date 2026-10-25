@@ -15,8 +15,6 @@ $env:MVP_XML_FIXTURE = Join-Path $work "fixtures"
 $original = Join-Path $work 'original'
 New-Item -ItemType Directory -Force $original | Out-Null
 Copy-Item SDK/tools/*.dll $original
-$msbuild = & "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild/Current/Bin/MSBuild.exe | Select-Object -First 1
-if (!$msbuild) { throw "Full .NET Framework MSBuild is required for net20 ResGen" }
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:System.Web.Extensions.dll /r:"$original/Mvp.Xml.dll" /r:"$original/BinaryAssetBuilder.Core.dll" /out:"$original/MvpXmlOracle.exe" (Resolve-Path 'recovery/tests/MvpXmlOracle.cs').Path *> "$out/oracle-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$out/oracle-build.log"; throw 'Oracle compilation failed' }
@@ -33,7 +31,7 @@ foreach ($mode in @('Debug', 'Release')) {
     Get-ChildItem SDK/tools -Filter *.dll | Where-Object Name -notin @('Mvp.Xml.dll','BinaryAssetBuilder.Core.dll') | Copy-Item -Destination $rebuilt
     $libraries = @()
     $build = Join-Path $work "build-$mode-Core"
-    & $msbuild recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj /restore /nologo /p:Configuration=$mode /p:PlatformTarget=x86 /p:OutputPath="$build/" *> "$out/$mode-Core-build.log"
+    dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c $mode -p:PlatformTarget=x86 -o $build --nologo *> "$out/$mode-Core-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-Core-build.log"; throw "$mode Core/MvpXml build failed" }
     & "recovery/tools/MvpXmlMetadata/bin/$mode/net48/MvpXmlMetadata.exe" --check-core "$build/BinaryAssetBuilder.Core.dll" *> "$out/$mode-direct-calls.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-direct-calls.log"; throw "$mode direct-call IL audit failed" }
