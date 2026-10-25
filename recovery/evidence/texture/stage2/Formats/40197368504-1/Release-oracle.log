@@ -1,0 +1,1 @@
+PROBE Texture TGA additional formats: fixtures=4040; decodedMatches=320; rejectionMatches=0; originalFailures=1920; mismatches=3720; no old-format rerun; no SDK claim
