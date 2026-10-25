@@ -66,9 +66,9 @@ internal static class AudioLoopReaderOracle
             byte[] changed = (byte[])valid.Clone(); LE(changed, sampler + 36, 0);
             Accept(changed, false, -1, -1);
             changed = (byte[])valid.Clone(); LE(changed, sampler + 36, 2);
-            RejectRead(changed, typeof(NotSupportedException));
+            Accept(changed, true, 129, 4094);
             changed = (byte[])valid.Clone(); LE(changed, sampler + 48, 1);
-            RejectRead(changed, typeof(NotSupportedException));
+            Accept(changed, true, 129, 4094);
             changed = (byte[])valid.Clone(); LE(changed, sampler + 52, 5000);
             RejectRead(changed, typeof(NotSupportedException));
             changed = (byte[])valid.Clone(); LE(changed, sampler + 52, uint.MaxValue);
@@ -83,7 +83,7 @@ internal static class AudioLoopReaderOracle
             Array.Copy(valid, changed, valid.Length);
             Array.Copy(valid, sampler, changed, valid.Length, 68);
             LE(changed, 4, (uint)(changed.Length - 8));
-            RejectRead(changed, typeof(NotSupportedException));
+            Accept(changed, true, 129, 4094);
             Reject(delegate { encode.Invoke(null, new object[] {
                 new float[4], 1, 22050, false, 0, 4, false }); }, typeof(NotSupportedException));
             Reject(delegate { encode.Invoke(null, new object[] {

@@ -28,23 +28,21 @@ namespace BinaryAssetBuilder.AudioCompiler
                 long next = cursor + 8 + size;
                 if (next > riffEnd)
                     throw new InvalidDataException("Truncated RIFF chunk");
-                if (Tag(wave, at, "smpl"))
+                if (Tag(wave, at, "smpl") && !samplerSeen)
                 {
-                    if (samplerSeen)
-                        throw new NotSupportedException("Multiple WAVE sampler chunks have not been recovered");
+                    // The native chunk lookup returns the first smpl only.
                     samplerSeen = true;
                     if (size < 36)
                         throw new InvalidDataException("Truncated WAVE sampler header");
                     uint loops = ReadLE(wave, at + 8 + 28);
-                    if (loops > 1)
-                        throw new NotSupportedException("Multiple WAVE loops have not been recovered");
-                    if (loops == 1)
+                    if (loops > 0)
                     {
                         if (size < 60)
                             throw new InvalidDataException("Truncated WAVE loop record");
                         int record = at + 8 + 36;
-                        if (ReadLE(wave, record + 4) != 0)
-                            throw new NotSupportedException("Only forward WAVE loops have been recovered");
+                        // Native 0x37447..0x37483 ignores type, fraction, count
+                        // and later records: all types use the first range as
+                        // the existing forward runtime loop, not pingpong playback.
                         uint first = ReadLE(wave, record + 8), last = ReadLE(wave, record + 12);
                         if (first > int.MaxValue || last > int.MaxValue || last < first)
                             throw new NotSupportedException("Invalid WAVE loop points");

@@ -59,9 +59,9 @@ internal static class AudioAiffLoopReaderOracle
             Accept(plain, false, -1, -1);
             int instrument = valid.Length - 48, markers = valid.Length - 20;
             byte[] altered = (byte[])valid.Clone(); BE(altered, instrument + 8, 2, 2);
-            Reject(altered, typeof(NotSupportedException));
+            Accept(altered, false, -1, -1);
             altered = (byte[])valid.Clone(); BE(altered, instrument + 14, 1, 2);
-            Reject(altered, typeof(NotSupportedException));
+            Accept(altered, true, 129, 4094);
             altered = (byte[])valid.Clone(); BE(altered, instrument + 10, 0, 2);
             Reject(altered, typeof(NotSupportedException));
             altered = (byte[])valid.Clone(); BE(altered, markers + 2, 11, 2);
@@ -83,7 +83,7 @@ internal static class AudioAiffLoopReaderOracle
             BE(altered, 4, (uint)(altered.Length - 8), 4);
             Reject(altered, typeof(NotSupportedException));
             altered = (byte[])valid.Clone(); BE(altered, markers, 3, 2);
-            Reject(altered, typeof(NotSupportedException));
+            Reject(altered, typeof(InvalidDataException));
             altered = (byte[])valid.Clone(); BE(altered, 4, uint.MaxValue, 4);
             Reject(altered, typeof(InvalidDataException));
             Console.WriteLine("PASS AIFF loop candidate safety: " + count + " boundary checks; separate from original equivalence");
