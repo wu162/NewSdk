@@ -132,8 +132,10 @@ try {
             Get-Content "$report/$mode-buffer-oracle.log"
         }
     }
-    foreach($mode in @('Recovered','RecoveredWithoutOriginal'))foreach($ext in @('bin','manifest','imp','relo')) {
+    foreach($mode in @('Recovered','RecoveredWithoutOriginal')) {
+      foreach($ext in @('bin','manifest','imp','relo')) {
         if((Get-FileHash "$report/Original-mod.$ext" -Algorithm SHA256).Hash -ne (Get-FileHash "$report/$mode-mod.$ext" -Algorithm SHA256).Hash){throw "$mode SDK output differs: mod.$ext"}
+    }
     }
     $state.succeeded=$true;$state.status='Original/recovered/original-free fresh SDK builds; four exact outputs and actual plugin three-buffer/asset coverage verified';$state.componentSourceCommit=$component.sourceCommit;$state.pluginSourceCommit=$plugin.sourceCommit
 } catch {

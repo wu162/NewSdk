@@ -10,7 +10,7 @@ $out = (Resolve-Path $OutputDirectory).Path
 foreach ($name in @('VerifyW3xSdkGate.ps1','TestW3xSdk.ps1','BuildW3xPlugin.ps1','TestW3xPlugin.ps1')) {
     $tokens = $null; $parseErrors = $null
     [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $name),[ref]$tokens,[ref]$parseErrors) | Out-Null
-    if ($parseErrors.Count) { $parseErrors | Out-String | Write-Host; throw "Invalid PowerShell source: $name" }
+    if ($parseErrors.Count) { $parseErrors | ForEach-Object { Write-Host ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message) }; throw "Invalid PowerShell source: $name" }
 }
 $hostDirectory = Join-Path $env:RUNNER_TEMP ('w3x-preparation-' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory $hostDirectory | Out-Null
