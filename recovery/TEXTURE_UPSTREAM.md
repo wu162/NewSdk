@@ -54,10 +54,6 @@ https://github.com/jonwil/sagetools/blob/49373be5e922e8d7ae0b2caa2c74fa6c64d6cf4
 
 `ChimpsAtSea/Reach` 中相关API文件只是注释符号，未找到函数体；Microsoft `xtexconv/XboxDDSTextureLoader` 针对Xbox One，不能用来替代Xbox360布局。
 
-## 后续顺序
+## 后续入口
 
-1. 保留本轮已恢复DDS直通、纯image rules、atlas packing及native buffer的原版差分。
-2. 先用原LoadImageA取得像素和hasAlpha oracle，验收TGA24/32 raw/RLE，再扩PNG/JPEG。
-3. 区分“精确还原旧压缩器”和“提供新开源压缩后端”两个交付范围，分别记录输出差异；当前未默认切换到NVTT。
-4. 后续仅推进PC/PS3。Xbox360/Xenon专属恢复已按用户要求剔除；PC/PS3仍依赖的公共图像处理不因XGraphics命名而被排除。
-
+仅推进 Win32/PC 所需 DXT、图像读取和公共处理；当前能力及待办见 [TEXTURECOMPILER.md](TEXTURECOMPILER.md)。历史 Xbox/PS3 参考资料不产生实现或验收任务。

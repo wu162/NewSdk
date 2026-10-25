@@ -55,11 +55,11 @@ SDK 使用 EALAModStudio case5 的 BAB 基础数据流程，仅在临时 SDK/MOD
 
 用户反馈“每次触发的测试个数太多了”后已改为 [TEXTURE_TESTING.md](TEXTURE_TESTING.md)。普通检查点不启动 Windows；完整组提交加 [texture-test]，SDK 里程碑加 [texture-sdk]。仅一个自动入口、至多一个 Windows 作业；依赖选择器核对完整成功祖先证据。选择器最新 13 项边界检查通过（40236386719）；40233600075 为早期计划验证，未启动 Windows。PNG 新修改只运行 png/raster-images/png-ranges，BMP 更新只运行 bmp/raster-images，其余成功组保留原锚点。
 
-下一轮先读本页及 TEXTURECOMPILER.md。DXT 原生入口与旧参考库 223 行相关 COFF 符号已采集，见 [TEXTURE_DXT_ENTRYPOINTS.md](TEXTURE_DXT_ENTRYPOINTS.md)，仅属取证，不是 DXT 恢复完成。继续 DXT1/DXT1A/DXT3/DXT5 核心、JPEG/NPOT、剩余 TGA metadata、完整 atlas 入口或 PC/PS3 公共 native 生命周期。Xbox360/Xenon 专属实现与验收继续排除。公开参考为 W3C PNG 规范、Microsoft BITMAPINFOHEADER；旧压缩器复用核查见 TEXTURE_UPSTREAM.md。原版差分始终是行为基准。
+下一轮先读本页及 TEXTURECOMPILER.md。DXT 原生入口与旧参考库 223 行相关 COFF 符号已采集，见 [TEXTURE_DXT_ENTRYPOINTS.md](TEXTURE_DXT_ENTRYPOINTS.md)，仅属取证，不是 DXT 恢复完成。继续 DXT1/DXT1A/DXT3/DXT5 核心、JPEG/NPOT、剩余 TGA metadata、完整 atlas 入口或 PC 实际需要的 native 生命周期。后续 PS3/Xbox360 的实现与验收全部排除。公开参考为 W3C PNG 规范、Microsoft BITMAPINFOHEADER；旧压缩器复用核查见 TEXTURE_UPSTREAM.md。原版差分始终是行为基准。
 
 本轮未量化账号额度节省；实际减少的是未变成功组重跑、多个 Windows 安装环境和 SDK 中间批次。运行环境末段变为不可用后，通过 GitHub 接口继续收取 Actions 和保存文档；远程源码与证据已持续提交。
 
 本轮末段运行环境失效后仍通过 GitHub/Actions 完成 SDK 收取与旧库符号采集。最终 SDK 和取证阶段每次仅一个 Windows 作业，取证运行明确只选 dxt-symbols，20 个已成功组件组全部复用。无源代码/行为变更后不再启动 Windows 重测。
 
-第五轮最后追加的原版 DXT 块取证 40237236370 成功：64例、输入未改写、只选 dxt-blocks、20个组件组复用。完整DDS/options/RGBA已留存；一对DXT1棋盘PC/PS3输出差异待解释，详见 DXT 入口文档。未宣称 DXT 已恢复，不为此重跑 PNG/BMP/SDK。
+第五轮最后追加的原版 DXT 块取证 40237236370 成功：64例、输入未改写、只选 dxt-blocks、20个组件组复用。完整DDS/options/RGBA已留存；一对DXT1棋盘PC/PS3输出差异仅作历史观察，不再调查，详见 DXT 入口文档。未宣称 DXT 已恢复，不为此重跑 PNG/BMP/SDK。
 

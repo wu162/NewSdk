@@ -68,7 +68,7 @@ This support group does not restore those internal device/resource routines,
 
 Scope update (2026-10-25, user instruction): Xbox 360 / XenonBundler and
 Xbox-specific header/surface/tiling conversion are excluded from recovery and
-acceptance targets. Shared image/device/resource routines needed by PC/PS3
+acceptance targets. Shared image/device/resource routines needed by Win32/PC
 remain in scope, including any such routines exposed through XGraphics names. The two constant facades must not be interpreted as
 providing those larger algorithms or making a working graphics device.
 

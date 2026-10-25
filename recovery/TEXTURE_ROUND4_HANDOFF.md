@@ -46,11 +46,6 @@
 
 源码指纹核对在 `evidence/texture/handoffs/20261025-stage4/managed-inputs.json`：Managed共17份输入，d9→fd仅TriangleMipEncoder/VolumeMipEncoder两个blob改变；cubic类、Plugin.Images、raw/TGA及csproj均相同。因此cubic验收继续精确引用d9运行，普通mip用fd新运行，未变raw及旧子系统复用各自原锚点。文档提交不是新的SDK验收源码。
 
-## 下一轮按此继续
+## 后续入口
 
-先读本页、TEXTURECOMPILER.md、TEXTURE_CUBIC_RESIZE.md。cubic和普通mip本轮已闭合，不再追旧float阻塞，不无故重跑未改变的成功组。
-
-剩余主要工作：DXT1/DXT1A/DXT3/DXT5压缩核心；PNG/JPEG及NPOT D3DX重采样；剩余TGA特殊metadata边界；完整TerrainTextureAtlas压缩入口；原native生命周期以及PC/PS3共享XGraphics依赖审计。Xbox360专用tiling/header/XenonBundler不在任务内。先选一个可独立验收的能力批次，先固定原版安全输入和确定输出，再实现和组件/实际入口/真实SDK对照；不要把整DLL称为完整还原。
-
-本轮公开参考及原native取证过程见TEXTURE_CUBIC_RESIZE.md；两遍滤波参考实现的坐标和量化不等同于旧nvDDS，不能凭公开实现相似就跳过原版差分。所有历史失败和原取证artifact保留，不能以改摘要、放宽比较或隐藏回退掩盖差异。
-
+本页只保留第四轮历史结果。后续仅 PC，当前任务与验收状态统一见 [TEXTURECOMPILER.md](TEXTURECOMPILER.md)；不再维护 PS3 cubic 或其验证。

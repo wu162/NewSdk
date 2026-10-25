@@ -45,7 +45,7 @@ SHA256：572aa5d1d3ff26050bdc101fddacf0a4f5af360bb5e2bbe1b6bc95a615d2524b。
 
 先从 RGBAImage 的原生 harness 建立一个完整 4x4 无 mip 批次：四格式、固定单色/双色/渐变、alpha 0/255/交替/阈值附近。选项必须调用原 GetNVCompressionOptions；保存选项字节、callback 描述、DDS 头及完整 8/16 字节块，核对源数组是否被改写。该批次用新的显式取证入口，不能修改已验收 raw 编码来假装 DXT 成功。
 
-随后将参考库中 CodeRGBBlock/CodeAlphaBlock 等对象与原 DLL 原生函数匹配，先证明版本/路径，再还原量化、端点搜索与 alpha 分支。完整恢复后统一跑颜色/alpha/尺寸/mip/PC/PS3/volume 差分，再集中做 SDK；不要按每个 endpoint 变化反复触发全套 Windows 工作流。保留现有 raw 拒绝 DXT 的断言，直到对应路由有真正实现与验收。
+随后将参考库中 CodeRGBBlock/CodeAlphaBlock 等对象与原 DLL 原生函数匹配，先证明版本/路径，再还原量化、端点搜索与 alpha 分支。完整恢复后统一跑颜色/alpha/尺寸/mip/Win32/volume 差分，再集中做 SDK；不要按每个 endpoint 变化反复触发全套 Windows 工作流。保留现有 raw 拒绝 DXT 的断言，直到对应路由有真正实现与验收。
 
 Xbox360/Xenon 专属路径不在本任务内。此次精确函数名搜索未找到可直接采用的核心源码；没有把库符号导出当作源码还原。
 
@@ -55,6 +55,6 @@ Xbox360/Xenon 专属路径不在本任务内。此次精确函数名搜索未找
 
 证据位于 evidence/texture/dxt-blocks/40237236370-1：validation.json、transcript.tsv、samples.zip；压缩包SHA256 4d7067c4791cfe5c22325d974eee71ff2c2302af5b0c7c40ca9e8d17c947fdad。DXT1/DXT1A为136字节DDS，DXT3/DXT5为144字节；回调分别为4+124+8/16，payload描述为0,4,4,0,1。64例输入调用前后hash均相同。
 
-**待解释的原版差异**：32个同输入/格式的PC与PS3配对中，31对完整DDS相同；D3DFMT_DXT1、pattern5 的8色不透明棋盘不同，源RGBA相同。PC SHA256为745bbfb70f3f7f73f20ea10e59d5ed2e9a2c753a48bfb68934fca8c6fb4c710a，PS3为3c550f55d4e16973bfacb60b5368fc8f9f45baa8780cdf08727111044bf70d7a。尚未将差异归因于平台、options或内部状态；不能擅自视为允许像素近似。
+**历史跨平台观察（不再调查、不构成 PC 完成阻塞）**：32个同输入/格式的PC与PS3配对中，31对完整DDS相同；D3DFMT_DXT1、pattern5 的8色不透明棋盘不同，源RGBA相同。PC SHA256为745bbfb70f3f7f73f20ea10e59d5ed2e9a2c753a48bfb68934fca8c6fb4c710a，PS3为3c550f55d4e16973bfacb60b5368fc8f9f45baa8780cdf08727111044bf70d7a。尚未将差异归因于平台、options或内部状态；不能擅自视为允许像素近似。
 
 后续仅还原 Win32 压缩器。优先使用已有 PC 样本及其 options、DDS 头和压缩块；若需新取证，仅运行 PC。上述跨平台差异作为历史观察保留，不再是完成阻塞或验证任务。64 例仍只是原版资料，不是恢复版差分通过。

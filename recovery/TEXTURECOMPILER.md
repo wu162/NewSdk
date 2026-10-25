@@ -25,8 +25,13 @@
 5. 审计 PC 实际需要的原 native 初始化/释放及公共图像依赖。保留共享 helper，不为已排除平台补实现。
 6. 最终合入并接入新编译器。生产 SDK DLL/config 仍未替换，完整 DLL 尚未还原。
 
-## 本轮验证
+## 本轮验证（已完成）
 
-PC 专属清理的受影响组件及两个 PC SDK profile 待集中运行；本地静态检查和选择器结果见后续提交。不得把旧 PC/PS3 收据当作清理后源码的新验收。按 [TEXTURE_TESTING.md](TEXTURE_TESTING.md) 的单入口、至多一个 Windows 作业顺序运行；未变解码组保留原锚点，不频繁启动完整 SDK。
+- PC 清理源码 `0ae0efdb3381446c116d474f45643ae225840abb`，集中运行 [40241188546](https://github.com/wu162/NewSdk/actions/runs/40241188546)：10 个受影响组件组 Debug/Release 通过；PcNoMip / PcMips 各 Original/Recovered/NoOriginal 三模式、每模式 600 资产/实际 Core 调用，四份产物和全部 buffer/cdata 相同。TGA、formats、PNG、BMP、PNG ranges 五个未变组保留原验收锚点。
+- 该首轮 workflow 为 failure：基础组 native 检查缺少 `cl` 环境，不能写作整轮成功；其他成功组的精确收据仍有效。统一工作流补入 x86 MSVC 初始化，代码本身未再修改。
+- 基础组复验源码 `7786834f71bcb91bace593715de0efb49cb973ab`，运行 [40241581283](https://github.com/wu162/NewSdk/actions/runs/40241581283) completed/success。Debug/Release metadata 各 628 比较、image rules 各 13,797 记录/148,802 检查、DDS 各 695 例、native 各 264,429 检查全部通过；packer 精确沿用 `ece235ac79fd7216777073ea8cc9416dd0018f47` / 40193344145。复验只选 base，15 个组件组复用，未再次启动 SDK。
+- 元数据检查还验证非 Win32 Initialize/ReInitialize 明确拒绝且不改变原 PC 状态。选择器 13 项检查通过。生产 SDK 子树、原 DLL/IL 与历史证据不变。
+
+精确收据：`evidence/texture/batch/40241188546-1/validation.json`、`evidence/texture/validation/40241581283-1/validation.json`、`evidence/texture/sdk-rasters/{PcNoMip,PcMips}/40241188546-1/validation.json`。文档收尾提交没有修改业务代码，沿用以上源码锚点，不冒充新跑验收。本轮清理已完成，剩余 PC 能力仍按上节推进。
 
 历史格式/数值边界：[PNG/BMP](TEXTURE_PNG_BMP.md)、[TGA](TEXTURE_TGA.md)、[raw DDS](TEXTURE_RAW_DDS.md)、[triangle mip](TEXTURE_TRIANGLE_MIPS.md)、[volume](TEXTURE_VOLUME.md)。历史 PS3 文档仅留作证据索引，不产生后续工作。
