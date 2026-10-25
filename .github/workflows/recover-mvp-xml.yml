@@ -3,7 +3,7 @@ on:
   push:
     branches: [recovery/mvp-xml-source]
     paths:
-      - '.github/workflows/recover-eala-mvp-xml.yml'
+      - '.github/workflows/recover-mvp-xml.yml'
       - 'recovery/scripts/TestMvpXml.ps1'
       - 'recovery/tests/MvpXmlOracle.cs'
       - 'recovery/src/Managed/MvpXml/**'
