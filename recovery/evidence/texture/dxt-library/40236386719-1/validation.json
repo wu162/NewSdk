@@ -1,0 +1,57 @@
+{
+  "referencePath": "LIBS/lib/release/nvDXTlibMT.vc8.lib",
+  "dumpbinVersion": "14.44.35229.0",
+  "referenceSha256": "572aa5d1d3ff26050bdc101fddacf0a4f5af360bb5e2bbe1b6bc95a615d2524b",
+  "symbolArchiveSha256": "69fa91bb5fe40a7c9553c60fe85682e790c3e31adb933d2aae325094e3f0fbd5",
+  "referenceGitBlob": "48d8c74d9ca04798246242c4be3bf459ddcbbdfc",
+  "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "evidenceOnly": true,
+  "sourceCommit": "74e4ba8f0ddd45c6556ac0927ce1e5e2a80fdd01",
+  "referenceRepository": "Stehfyn/Legacy_DDS_Utilities",
+  "probeOnly": true,
+  "runAttempt": "1",
+  "status": "probe-only",
+  "referenceBytes": 1376370,
+  "scope": "Reference static-library COFF symbol inventory only; no DXT recovery/equivalence claim",
+  "sdkValidated": false,
+  "referenceCommit": "f0467589621354150acf2c623cb5cad44c8f35c1",
+  "originalEntrypoints": [
+    {
+      "token": "0x060000DB",
+      "name": "nvDDS.nvDXTcompress",
+      "rva": "0x00052950",
+      "kind": "Native",
+      "signature": "0004205911502080850F20611180D40F1180881B0104205911500F206101090F20611181240F010F20611108"
+    },
+    {
+      "token": "0x060000DC",
+      "name": "nvDDS.nvDXTcompress",
+      "rva": "0x00052B60",
+      "kind": "Native",
+      "signature": "0004205911502080850F20611180840F1180881B0104205911500F206101090F20611181240F010F20611108"
+    },
+    {
+      "token": "0x060000FB",
+      "name": "GetNVCompressionOptions",
+      "rva": "0x000025F0",
+      "kind": "IL",
+      "signature": "20031F80890F1180880F1180880E02"
+    },
+    {
+      "token": "0x06000101",
+      "name": "CompressAndEmbed",
+      "rva": "0x00005604",
+      "kind": "IL",
+      "signature": "2004012080850F11808C2080850F1180A02080850F1180842080850F118088"
+    },
+    {
+      "token": "0x06000102",
+      "name": "CompressAndEmbed3D",
+      "rva": "0x000056B8",
+      "kind": "IL",
+      "signature": "2004012080850F11808C2080850F1180A02080850F1180842080850F118088"
+    }
+  ],
+  "runId": "40236386719",
+  "selectedSymbolLines": 223
+}

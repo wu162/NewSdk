@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "passed": true,
+      "evidenceOnly": true,
+      "group": "dxt-symbols"
+    }
+  ],
+  "selected": [
+    "dxt-symbols"
+  ],
+  "runAttempt": "1",
+  "reused": [
+    "base",
+    "tga",
+    "formats",
+    "volume-helper",
+    "raw",
+    "mips",
+    "ps3-mips",
+    "volume-dds",
+    "volume-mips",
+    "cubic",
+    "images",
+    "mip-images",
+    "ps3-mip-images",
+    "volume-images",
+    "volume-mip-images",
+    "ps3-resize-images",
+    "png",
+    "bmp",
+    "raster-images",
+    "png-ranges"
+  ],
+  "status": "passed",
+  "sourceCommit": "74e4ba8f0ddd45c6556ac0927ce1e5e2a80fdd01",
+  "runId": "40236386719"
+}
