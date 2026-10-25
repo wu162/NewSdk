@@ -60,7 +60,7 @@ public class UInt32Buffer : IDisposable
 		}
 	}
 
-	public virtual sealed void Dispose()
+	public void Dispose()
 	{
 		Dispose(true);
 		GC.SuppressFinalize(this);

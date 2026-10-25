@@ -283,7 +283,14 @@ public class Manifest : IDisposable
 		Free();
 		m_FileName = Path.GetFullPath(fileName);
         byte[] bytes;
-        try { bytes = File.ReadAllBytes(fileName); }
+        try {
+            // CRT _wfopen uses _SH_DENYNO: a concurrent writer may retain a handle.
+            using (FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+                bytes = new byte[file.Length];
+                int position=0, read;
+                while(position<bytes.Length && (read=file.Read(bytes,position,bytes.Length-position))!=0) position+=read;
+            }
+        }
         catch (IOException) { return false; }
         catch (UnauthorizedAccessException) { return false; }
         m_pBuffer = (sbyte*)Marshal.AllocHGlobal(bytes.Length);
@@ -646,7 +653,7 @@ public class Manifest : IDisposable
 		}
 	}
 
-	public virtual sealed void Dispose()
+	public void Dispose()
 	{
 		Dispose(true);
 		GC.SuppressFinalize(this);

@@ -182,9 +182,41 @@ class UtilityOracle
         string[] files=Directory.GetFiles(Built,"*.manifest",SearchOption.AllDirectories);Array.Sort(files,StringComparer.OrdinalIgnoreCase);
         foreach(string p in files){string file=p;Case("sdk:"+N(file),delegate{Inspect("sdk:"+N(file),file,false);return "done";});}
     }
+    static void AdditionalManifestCases() {
+        string path=Path.Combine(Work,"operations.manifest");WriteManifest(path,6,false,false,null,false,2,false);
+        using(var m=U.Manifest.Create(path,null,false)) {
+            Row("create:three",m!=null);var a=m.Assets[0];Directory.CreateDirectory(Path.GetDirectoryName(a.FileBasePath));
+            File.WriteAllBytes(a.FileBasePath+".asset",new byte[]{1,2,3});a.Update();Row("asset:existing",Snapshot(a));
+            a.Delete();Row("asset:deleted",File.Exists(a.FileBasePath+".asset")+"|"+Snapshot(a));a.Update();Row("asset:repeatedupdate",Snapshot(a));a.Delete();Row("asset:repeateddelete",Snapshot(a));
+        }
+        using(var m=U.Manifest.Create(path))Row("create:one",Snapshot(m)+"|"+Assets(m));
+        using(var m=U.Manifest.Create(path,new string[0]))Row("create:two",Snapshot(m)+"|"+Assets(m));
+        using(var writer=new FileStream(path,FileMode.Open,FileAccess.Write,FileShare.ReadWrite))
+        using(var m=new U.Manifest())Row("load:sharedwriter",m.Load(path,false)+"|"+Assets(m));
+        Row("create:missing",U.Manifest.Create(Path.Combine(Work,"absent.manifest"))==null);
+        using(var m=new U.Manifest()) {
+            Row("load:one",m.Load(path)+"|"+Assets(m));Row("load:validatefalse",m.Load(path,false)+"|"+Assets(m));Row("load:paths",m.Load(path,new string[0])+"|"+Assets(m));
+            Case("load:null",delegate{return m.Load(null).ToString();});Case("load:empty",delegate{return m.Load("").ToString();});
+            m.LoadStringHashes(null);Row("hashes:null",m.StringFromHash(100));
+        }
+        string subdir=Path.Combine(Work,"patch-location"),search=Path.Combine(Work,"patch-search");Directory.CreateDirectory(subdir);Directory.CreateDirectory(search);
+        WriteManifest(Path.Combine(search,"search-base.manifest"),6,false,false,null,false,2,false);
+        string patch=Path.Combine(subdir,"search-patch.manifest");WriteManifest(patch,6,false,false,"search-base.manifest",true,2,true);
+        using(var m=U.Manifest.Create(patch,new[]{search},false))Row("patch:searchpaths",Snapshot(m)+"|"+Assets(m)+"|"+Assets(m.PatchManifest));
+        Type t=typeof(U.Manifest).Assembly.GetType("BinaryAssetBuilder.Utility.AssetHandle",true);
+        foreach(uint type in new uint[]{0,1,0x80000000,uint.MaxValue})foreach(uint id in new uint[]{0,1,0x80000000,uint.MaxValue}) {
+            object a=Activator.CreateInstance(t,new object[]{type,id});object copy=Activator.CreateInstance(t,new[]{a});
+            Row("handle:"+type+":"+id,Snapshot(a)+"|"+a.GetHashCode()+"|"+a.Equals(copy)+"|"+a.Equals(null));
+            Case("handle:wrongtype:"+type+":"+id,delegate{return a.Equals("wrong").ToString();});
+            Case("handle:nullcompare:"+type+":"+id,delegate{return V(t.GetMethod("CompareTo").Invoke(a,new object[]{null}));});
+            foreach(uint ot in new uint[]{0,1,0x80000000,uint.MaxValue})foreach(uint oi in new uint[]{0,1,0x80000000,uint.MaxValue}) {
+                object b=Activator.CreateInstance(t,new object[]{ot,oi});Row("handle:compare:"+type+":"+id+":"+ot+":"+oi,t.GetMethod("CompareTo").Invoke(a,new[]{b}));
+            }
+        }
+    }
     static int Main(string[] args) {
         Work=Path.GetFullPath(args[2]);Built=Path.GetFullPath(args[1]);Thread.CurrentThread.CurrentCulture=CultureInfo.InvariantCulture;
-        Contract();Buffers();Headers();Manifests();
+        Contract();Buffers();Headers();Manifests();AdditionalManifestCases();
         foreach(uint error in new uint[]{0,1,2,5,6,87,123,99999,uint.MaxValue}) {uint e=error;Case("win32:error:"+e,delegate{return U.FileSystemUtils.GetErrorString(e);});}
         foreach(char c in new[]{'\0','?','/','1'}){char drive=c;Case("win32:invaliddrive:"+(int)c,delegate{U.FileSystemUtils.FlushVolume(drive);return "unexpected-success";});}
         foreach(string path in new[]{null,"","base.manifest","../base.manifest"})foreach(bool patch in new[]{false,true}) {var r=new U.ReferencedManifest(path,patch);Row("referencedmanifest:"+V(path)+":"+patch,r.Path+"|"+r.IsPatch);}

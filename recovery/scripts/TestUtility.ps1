@@ -41,7 +41,10 @@ try {
         Get-Content "$out/$mode.log"
         $receipt.configurations += @{ configuration=$mode; passed=$true; records=@(Get-Content "$out/$mode.txt").Count; transcriptSha256=$actual.ToLowerInvariant(); rebuiltSha256=(Get-FileHash "$rebuilt/BinaryAssetBuilder.Utility.dll" -Algorithm SHA256).Hash.ToLowerInvariant(); withoutOriginalUtility=$true }
     }
-    $receipt.status='passed'
+    # Both matched transcripts are byte-identical; preserve one canonical copy.
+    Compress-Archive -Path "$out/original.txt" -DestinationPath "$out/transcript.zip"
+    Remove-Item "$out/original.txt", "$out/Debug.txt", "$out/Release.txt"
+    $receipt.status='passed' 
 } finally {
     $receipt | ConvertTo-Json -Depth 10 | Set-Content "$out/validation.json"
 }
