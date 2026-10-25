@@ -1,0 +1,78 @@
+name: Recover EALA Metrics
+on:
+  push:
+    branches: [recovery/eala-metrics-source]
+    paths:
+      - '.github/workflows/recover-eala-metrics.yml'
+      - 'recovery/scripts/TestMetrics.ps1'
+      - 'recovery/tests/MetricsOracle.cs'
+      - 'recovery/src/Managed/Metrics/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: eala-metrics-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Export complete original assembly
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $out = "recovery/evidence/metrics/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          New-Item -ItemType Directory -Force $out | Out-Null
+          if (!(Test-Path recovery/src/Managed/Metrics)) {
+            dotnet tool install ilspycmd --tool-path "$env:RUNNER_TEMP/metrics-ilspy" --version 9.1.0.7988
+            if ($LASTEXITCODE -ne 0) { throw 'ILSpy installation failed' }
+            & "$env:RUNNER_TEMP/metrics-ilspy/ilspycmd.exe" -p -o recovery/src/Managed/Metrics -r SDK/tools SDK/tools/EALA.Metrics.dll
+            if ($LASTEXITCODE -ne 0) { throw 'Decompilation failed' }
+            & "$env:RUNNER_TEMP/metrics-ilspy/ilspycmd.exe" -il SDK/tools/EALA.Metrics.dll > "$out/original.il"
+            if ($LASTEXITCODE -ne 0) { throw 'IL extraction failed' }
+            $path = 'recovery/src/Managed/Metrics/EALA.Metrics.csproj'
+            [xml]$project = Get-Content $path -Raw
+            foreach ($hint in @($project.SelectNodes('//HintPath'))) {
+              $hint.InnerText = '../../../../SDK/tools/' + [IO.Path]::GetFileName($hint.InnerText.Replace('\', '/'))
+            }
+            $pg = $project.CreateElement('PropertyGroup')
+            $lang = $project.CreateElement('LangVersion')
+            $lang.InnerText = '10.0'
+            [void]$pg.AppendChild($lang)
+            [void]$project.Project.AppendChild($pg)
+            $project.Save((Join-Path $PWD $path))
+          }
+          if (Test-Path recovery/scripts/TestMetrics.ps1) {
+            ./recovery/scripts/TestMetrics.ps1
+          } else {
+            foreach ($config in @('Debug','Release')) {
+              dotnet build recovery/src/Managed/Metrics/EALA.Metrics.csproj -c $config > "$out/$config-build.log"
+              if ($LASTEXITCODE -ne 0) { Get-Content "$out/$config-build.log"; throw 'Build failed' }
+            }
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: metrics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/src/Managed/Metrics
+            recovery/evidence/metrics
+      - name: Preserve source and evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- recovery/src/Managed/Metrics recovery/evidence/metrics
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "Recover EALA.Metrics source and preserve run $env:GITHUB_RUN_ID evidence"
+          if ($LASTEXITCODE -ne 0) { throw 'Commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Push failed' }
