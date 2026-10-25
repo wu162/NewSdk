@@ -1,0 +1,4 @@
+<AudioEvent id="BaseSoundEffect" Volume="100" MinVolume="0" ShrunkenPitchModifier="2.0" ShrunkenVolumeModifier="85" Priority="NORMAL" Limit="3" MinRange="300" MaxRange="1000" PlayPercent="100" Type="UI PLAYER" ReverbEffectLevel="100" ZoomedInOffscreenVolumePercent="50" ZoomedInOffscreenMinVolumePercent="100" ZoomedInOffscreenOcclusionPercent="20" TypeId="2219670431" xmlns="uri:ea.com:eala:asset"><!-- You might think the following was a good idea:
+			SubmixSlider ="SOUNDFX"
+			IT'S NOT. Doing this in the default sound will mess up the special 'use the speech slider if the
+			voice flag is present and no SubmixSlider entry was seen' code.		--></AudioEvent>
