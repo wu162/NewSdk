@@ -13,7 +13,12 @@ $head = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
 $closureFile='recovery/w3x/W3xTypeClosure.json'
 if (!(Test-Path $closureFile)) { throw 'SDK is blocked: type closure audit does not exist' }
-$closureHash=(Get-FileHash $closureFile -Algorithm SHA256).Hash.ToLowerInvariant()
+# Git's Windows checkout may expand LF to CRLF. Bind the audit's UTF-8/LF
+# content rather than the checkout line-ending representation.
+$closureText=[IO.File]::ReadAllText((Resolve-Path $closureFile).Path).Replace("`r`n","`n")
+$closureHasher=[Security.Cryptography.SHA256]::Create()
+try { $closureHash=[BitConverter]::ToString($closureHasher.ComputeHash([Text.Encoding]::UTF8.GetBytes($closureText))).Replace('-','').ToLowerInvariant() }
+finally { $closureHasher.Dispose() }
 if ($gate.closureSha256 -ne $closureHash) { throw 'SDK is blocked: type closure audit changed' }
 $closure=Get-Content $closureFile -Raw | ConvertFrom-Json
 if (!$closure.sdkReady -or !$closure.allNamedXsdTypesAccountedFor -or !$closure.noOtherUnmappedDefinedBusinessFamilyFound) { throw 'SDK is blocked: type closure audit is not ready' }
