@@ -1,0 +1,51 @@
+name: Recovered managed support validation
+on:
+  push:
+    branches: [recovery/compiler-source]
+    paths:
+      - '.github/workflows/recovered-managed-support.yml'
+      - 'recovery/src/Managed/ExpressionEval/**'
+      - 'recovery/src/Managed/GameDataVerifier/**'
+      - 'recovery/scripts/TestManagedSupport.ps1'
+      - 'recovery/tests/ManagedSupportOracle.cs'
+      - 'SDK/tools/BinaryAssetBuilder.ExpressionEval.dll'
+      - 'SDK/tools/BinaryAssetBuilder.GameDataVerifier.dll'
+      - 'SDK/tools/BinaryAssetBuilder.Core.dll'
+      - 'SDK/tools/antlr.runtime.dll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: managed-support-validation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build original-identity DLLs and compare complete support behavior
+        shell: pwsh
+        run: ./recovery/scripts/TestManagedSupport.ps1
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: managed-support-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save successful immutable validation
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/managed-support/validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "Preserve managed support validation $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update needs resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }
