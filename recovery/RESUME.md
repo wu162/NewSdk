@@ -24,3 +24,12 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ## Core / Remote / EALABuild 独立还原分支（2026-10-25）
 
 分支 `recovery/core-remote-ealabuild` 从 `c61aa003be605a7169fba6305311f2c96d88896c` 拉出，三个完整 ILSpy 工程已放入 `src/Managed/Core`、`src/Managed/Remote`、`src/Managed/EALABuild`，共 98 个 C# 文件。验收源码 `939080072f73d2eff92c563fcd04ab9dbe056aa5`，运行 40171944143 attempt1 成功：三个工程 Debug/Release 构建通过，原版/恢复版类型成员、资源及组件样本转录相同。两个已审计的现代编译器初始化元数据差异详见 [BUILD_INFRASTRUCTURE.md](BUILD_INFRASTRUCTURE.md)。未替换 SDK DLL/config，未执行完整 MOD 的真实 SDK 集成编译，未合入 compiler-source；既有其他编译器验收锚点保持不变。
+
+
+## Upheaval 联合真实 SDK 验证与 ID 根因审计（验证分支）
+
+本节仅说明 validation/upheaval-recovered-apt-global 分支成果，未合入 recovery/compiler-source。main 的真实 Upheaval 源码保持原样；恢复版 Core 与 XML/GameObject/Weapon/Armor/W3X 等组件在临时 SDK 联合接入。运行40178403660、源码0afc6eb49d81b61b9840e21d0edd840d5f0f0de3：Studio case3 AptUI、case4全局、case5基础数据全部成功，原版/恢复版共10次调用、20份四产物SHA256相同；未运行后处理与打包。XML记录1379次、GameObject121次、W3X Mesh134次/Animation194次实际调用。详见[UPHEAVAL_SDK.md](UPHEAVAL_SDK.md)。
+
+ID反复失败根因：把Marshal字段集合当作全部XML合法属性集合，并用全局根登记推断身份属性，漏掉嵌套XSD继承及pipelineOnly元数据；部分低层正例又省略嵌套必填id。已按全部821份XSD、22种显式ID类型与6种嵌套身份类型整理可重现审计门槛，保留ObjectFilter/ModuleData/AIStateTactic等真实二进制ID。详见[ID_METADATA_ROOT_CAUSE.md](ID_METADATA_ROOT_CAUSE.md)。
+
+静态汇总另发现未被Upheaval触发的AISpecialPowerInfo.id遗漏，已补齐并通过独立组件运行40180066600、源码3d32896d2d2607f4819cfd81c044a240dd278e46：/Od、/O2四平台，每模式每平台4165样例、12495原DLL三缓冲区比较及12495直接入口比较。全SDK未机械重跑，两个验收锚点不得交叉冒用。当前请求范围已完成；后续先汇总同组Schema/Marshal元数据边界、统一组件验证，再集中必要SDK批次。

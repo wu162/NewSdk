@@ -8,13 +8,13 @@ Upheaval原样取自main bacfc69fc3e71c8116d1f22b933b8b6173170ecf，目录树555
 
 验证收据、配置、DLL指纹、输入指纹、日志、输出和调用记录位于recovery/evidence/upheaval/40178403660-1/validation.json及同目录。恢复版Core/Remote/ExpressionEval/GameDataVerifier/EALABuild被放入临时SDK，XML/GameObject/Weapon/Armor/W3X按配置接入。未还原的其他类型仍使用原SDK插件。
 
-真实调用是BinaryAssetBuilder.exe -> 恢复版Core -> 已注册插件。XML插件实际记录1379次调用（39种根类型），GameObject记录121次调用；W3X trace记录见同目录trace/w3x。此处的EALABuild仅在SDK副本中替换，入口为提取Studio默认脚本的BAB调用，不宣称运行GUI调度；注册某DLL也不意味着本MOD覆盖该DLL所有能力。
+真实调用是BinaryAssetBuilder.exe -> 恢复版Core -> 已注册插件。XML插件实际记录1379次调用（39种根类型），GameObject记录121次调用；W3X实际记录134次Mesh与194次Animation调用，见同目录trace/w3x。此处的EALABuild仅在SDK副本中替换，入口为提取Studio默认脚本的BAB调用，不宣称运行GUI调度；注册某DLL也不意味着本MOD覆盖该DLL所有能力。
 
 ## 本轮发现与修复
 
 联合接入时单插件脚本的Tokenizer存在性检查不适合全部替换，改为三条路由原子注册。随后修复XSD合法的嵌套身份属性边界：AI Personality的三个State和BuildDelayRange、LocomotorSet、GameDependency（XML与GameObject）、ArmorSet、共享ObjectVisionRange。各次原DLL定向差分与历史失败证据保留。
 
-[根因审计](ID_METADATA_ROOT_CAUSE.md)区分XML合法属性、流程元数据与真正的序列化字段。新增全821份XSD审计清单和漂移检查。静态审计额外发现AISpecialPowerInfo.id可选属性遗漏，已汇总到独立组件补漏；其差分状态以recovery/evidence/xml-progression/validation.json为准，不将上述SDK成功锚点改写为新提交重跑。
+[根因审计](ID_METADATA_ROOT_CAUSE.md)区分XML合法属性、流程元数据与真正的序列化字段。新增全821份XSD审计清单和漂移检查。静态审计额外发现AISpecialPowerInfo.id可选属性遗漏，已汇总到独立组件补漏；补漏在运行40180066600、源码3d32896d2d2607f4819cfd81c044a240dd278e46通过/Od、/O2四平台组件差分：每模式每平台4165样例、12495次原版三缓冲区比较及12495次直接入口比较。没有再次触发完整SDK，也不将上述SDK成功锚点改写为新提交重跑。
 
 ## 运行策略
 
