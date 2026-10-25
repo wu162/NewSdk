@@ -366,8 +366,8 @@ public:
                 if(IsXmlContextAttribute(a)) continue;
                 if(a->NamespaceURI->Length!=0) throw gcnew NotSupportedException("Namespaced GameObject child attribute.");
                 if(a->LocalName=="TypeId") continue;
-                // LocomotorSet.id is explicitly pipelineOnly in AssetTypeGameObject.xsd.
-                if(name=="LocomotorSet" && a->LocalName=="id") continue;
+                // ArmorTemplateSet.id and LocomotorSet.id are pipelineOnly in AssetTypeGameObject.xsd.
+                if((name=="ArmorSet" || name=="LocomotorSet") && a->LocalName=="id") continue;
                 bool allowed=(name=="AutoResolveArmor" && a->LocalName=="Armor") || (name=="AutoResolveWeapon" && a->LocalName=="Weapon") || (name=="DisplayColor" && (a->LocalName=="R" || a->LocalName=="G" || a->LocalName=="B" || a->LocalName=="A")) ||
                     (name=="Flammability" && (a->LocalName=="Fuel" || a->LocalName=="MaxBurnRate" || a->LocalName=="Decay" || a->LocalName=="Resistance")) ||
                     (name=="LiveCameraOffset" && (a->LocalName=="x" || a->LocalName=="y" || a->LocalName=="z")) ||

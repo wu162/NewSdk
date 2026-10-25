@@ -199,6 +199,8 @@ partial class GameObjectOracle {
         }
         foreach(string id in new[]{"ModuleTag_Locomotor","MiXeD_Id",""})
             Check(original,p,"","<LocomotorSet id='"+id+"' Speed='50' Locomotor='L\\23'/>");
+        foreach(string id in new[]{"ModuleTag_Armor","MiXeD_Id",""})
+            Check(original,p,"","<ArmorSet id='"+id+"' Armor='A\\23' Conditions='VETERAN'/>");
         var emptyArmor=Check(original,p,"","<ArmorSet/>");var emptyLoco=Check(original,p,"","<LocomotorSet/>");
         foreach(var b in new[]{emptyArmor,emptyLoco}) {
             int root=(int)Word(b.InstanceData,8,big)-4;
