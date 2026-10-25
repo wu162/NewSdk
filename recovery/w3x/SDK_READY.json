@@ -5,8 +5,8 @@
     "W3DAnimation",
     "W3DMesh"
   ],
-  "validatedSourceCommit": "bb2de50446b1012b5107613a88a4ce3b36e42e16",
-  "validatedRunId": "40167490640",
+  "validatedSourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+  "validatedRunId": "40168123437",
   "validatedRunAttempt": 1,
   "unrecoveredDefinedBehaviorCount": 0,
   "explicitUndefinedBehaviorExclusions": [
@@ -41,12 +41,13 @@
       "recoveredBehavior": "safe size rejection"
     }
   ],
-  "closureSha256": "1f6c1d70ce4c1781fcc065087f6c29be83b2492495e1f7917def8a94e2cf1bfc",
+  "closureSha256": "1ae31607febf9cd6cdfd612577761595b2aaa6a1dece4063e6d193fbc0a6d1c9",
   "srcTreeHash": "eb892aefa713857c76df3a130063defd02804fc3",
   "testsTreeHash": "fc853337802069bd0f69405d7e610e8d24aa2b28",
   "modsTreeHash": "438626a8ddd0724e06115a5443efccaeba7b91dd",
-  "scriptsTreeHash": "1698edf61911dfc7023be58ca91f4dcbb0df1e90",
+  "scriptsTreeHash": "805500a71e617a906115a5bde2b3e790420ec5ec",
   "workflowsTreeHash": "4a14d68920b41092139690806324a85126d126b6",
   "sdkToolsTreeHash": "10a9b868c74db96976c9c306dc587ec5de62965f",
-  "schemasTreeHash": "62e1c5684ee0ea4407430f0a343a37431be6c03c"
+  "schemasTreeHash": "62e1c5684ee0ea4407430f0a343a37431be6c03c",
+  "closureFingerprintFormat": "UTF-8 without BOM, LF line endings"
 }

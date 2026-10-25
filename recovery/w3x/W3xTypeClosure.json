@@ -638,8 +638,8 @@
     "originalOracleAdded": "147456 frame fixtures + 648 channel fixtures; WriteOut includes all successful new cases and existing512 raw chunks",
     "remoteAcceptance": {
       "succeeded": true,
-      "sourceCommit": "bb2de50446b1012b5107613a88a4ce3b36e42e16",
-      "runId": "40167490640",
+      "sourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+      "runId": "40168123437",
       "runAttempt": 1,
       "modes": [
         "Od",
@@ -670,8 +670,8 @@
   "noOtherUnmappedDefinedBusinessFamilyFound": true,
   "qualification": "family-level closure audit, not exhaustive proof of every arbitrary input; final acceptance comes from expanded original-DLL/SDK gates and retains original-UB safety rejections",
   "sdkPrerequisiteAcceptance": {
-    "sourceCommit": "bb2de50446b1012b5107613a88a4ce3b36e42e16",
-    "runId": "40167490640",
+    "sourceCommit": "e10d57d1a9d09382d618d5c637a80c04497ae501",
+    "runId": "40168123437",
     "runAttempt": 1,
     "nativeOriginalDifferential": true,
     "loadableDefaultBackendOriginalDifferential": true,
