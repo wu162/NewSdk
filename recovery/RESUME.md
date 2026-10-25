@@ -34,3 +34,8 @@ W3X合并核对：唯一重叠编辑为本导航文档；W3X源码/测试/工作
 ## EALA.Metrics 源码还原（2026-10-25）
 
 分支 `recovery/eala-metrics-source` 从 `7fc417546989ca94a18742b37965e9c6751a409e` 新建。完整工程位于 `recovery/src/Managed/Metrics`，13 个 C# 文件，保留原程序集身份和 net20 目标。验收源码 `2fc44710df27ea9baf4e73d183dcd7697a9a435d`，运行 [40186536173](https://github.com/wu162/NewSdk/actions/runs/40186536173) attempt1 成功，Debug/Release 各 1,197 条原版对照记录一致，恢复测试目录不含原目标 DLL。源码包括 SQL writer；仅验证离线行为，SQL 服务端与真实 SDK MOD 编译尚未验证。未替换 SDK DLL/config，合入追踪：[PR #7](https://github.com/wu162/NewSdk/pull/7)，目标 `recovery/compiler-source`。合并时目标分支新增内容仅为其他组件的验收证据，Metrics 源码、测试和原 DLL 输入未变，复用上述精确运行结果。详见 [METRICS.md](METRICS.md) 和 [验收收据](evidence/metrics/validation/40186536173-1/validation.json)。
+
+
+## Mvp.Xml 独立还原分支（2026-10-25）
+
+分支 `recovery/mvp-xml-source` 从 `260f1d2c34d52910ff27d53ef070059c4b1c9785` 新建。完整工程位于 `recovery/src/Managed/MvpXml`，91 个 C# 文件，覆盖原库 XInclude/XPointer/XPath/EXSLT/XSLT/序列化能力。按用户要求只恢复功能，输出无签名 DLL；保留简单程序集名/版本，未替换 SDK 原 DLL。构建后恢复 51 个 EXSLT 原始 CLR 方法名，避免 ILSpy 的 C# 名称转义改变 XSLT 反射入口。验收源码 `fe38f6039f77a45a77ed53da93a53ac97e110da3`，运行 [40188365985](https://github.com/wu162/NewSdk/actions/runs/40188365985) attempt1 成功：Debug/Release 各 2,110 条原版对照记录一致，包含 Core 原包装方法实际调用，恢复宿主排除原目标 DLL；详细构建、签名边界与组件覆盖见 [MVP_XML.md](MVP_XML.md)。本分支未合入 compiler-source，未执行真实 MOD SDK 编译。
