@@ -1,55 +1,45 @@
 # TextureCompiler 当前交接
 
-2026-10-25。本轮从 `recovery/compiler-source` 的 `b122a54abe4405516b021e425b8fb9235d914a0e` 新建 `recovery/texturecompiler-source`。源码按用户要求全部放在根目录 [`src/TextureCompiler`](../src/TextureCompiler)，不是 `recovery/src`。测试/原始证据/交接仍在recovery。
+2026-10-25。分支 `recovery/texturecompiler-source`；源码全部在根目录 [src/TextureCompiler](../src/TextureCompiler)。原DLL SHA256 `4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。原始IL、metadata/native清单仍在 `evidence/texture/runs/40191971356-1`，不把反编译导出冒充完整可构建还原。
 
-**状态：部分能力恢复且组件验收通过，完整DLL尚未还原。** 没有替换生产SDK DLL/config、没有执行真实MOD SDK编译，也没有合入原分支。
+**DLL尚未完整还原；已具备TGA到三种raw DDS的实际编译路径，Win32支持完整triangle mip链。** 生产SDK DLL/config未替换，源码仍在独立分支。
 
-原DLL SHA256：`4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e`。完整类型/方法/原IL/native反汇编和ILSpy工程：[`evidence/texture/runs/40191971356-1`](evidence/texture/runs/40191971356-1)，原始取证运行40191971356。反编译导出是证据，不等同于可构建、已恢复的完整业务源码。
+## 已验收范围
 
-## 已验收组件
+| 能力 | 精确证据 |
+| --- | --- |
+| 元数据、image rules/options、内存图集packer、native buffer、DDS直通 | 前轮40194142827；不变metadata/image/packer分组精确复用40193344145，原收据与源码锚点保留 |
+| TGA24/32、RLE、方向/alpha、受限标准/DevIL扩展 | 源码0cd42405，40195290786；Debug/Release各1675：1421像素、252拒绝、2明确未支持 |
+| 真彩16、gray8、8bit索引/15-32bit palette及原拒绝边界 | 源码52e8d6d4，40198138775；各4534：2606像素、1928拒绝、零差异。旧1675未重跑 |
+| Volume条带切片、逐级尺寸、三级vector容量/保留RGBA | 源码3b7eac91，40197368504；各290组/389991检查/381195像素；后续Volume核对输入后复用 |
+| A8R8G8B8、X8R8G8B8、R5G6B5无mip DDS | 源码3b7eac91，40197368508；各135组/48157检查 |
+| Win32 raw triangle mip全链 | 源码f38ec9ac，40199020130；279组含随机/极端轴/impulse，11拒绝，完整DDS逐字节差分 |
+| 实际ProcessInstance图像入口 | 45b36054→aa2b2d80，40198277912/40199691250；三buffer及完整cdata，PC/PS3/unknown无mip；NPOT重采样明确排除 |
+| 实际ProcessInstance mip入口 | 源码aa2b2d80，40199691351；原Initialize后的Win32环境与恢复版逐字节对照 |
 
-| 能力 | 恢复实现 | 原版对照结果（Debug/Release各自） |
-| --- | --- | --- |
-| 三根元数据、版本、hash/platform状态 | Managed/Plugin.Metadata.cs、TextureCatalog.cs | 620项比较 |
-| alpha分类、格式推断、尺寸检查、1644字节options完整初始化 | Managed/TextureImageRules.cs | 13,995条记录、474,314次检查，平台0/1/2/99，三组padding初值 |
-| 内存图集排版、16px周期边框、normal alpha、原EASTL排序 | Managed/TexturePacker.cs | 64组、7,006项断言，比较全部atlas像素与坐标/重复ID次序，覆盖0..50数量边界 |
-| TGA24/32 raw/RLE、方向、alpha、受限标准/DevIL扩展 | Managed/TextureTgaDecoder.cs | 1,675样例；1,421完整像素匹配、252精确拒绝匹配、2明确未支持；包含main全部3张TGA |
-| SimpleBuffer、字节序及两项常量D3D facade | Native/TextureSupport.h/.cpp | 264,429次原native检查、633,920累计payload字节；/Od、/O2 |
-| Texture/OnDemandTexture的DDS直通 | Managed/Plugin.Dds.cs | 2,085组、三缓冲区和完整cdata逐字节对照，PC/PS3/unknown，含9个main真实DDS |
+精确sourceCommit、Debug/Release摘要和输入指纹，以 `evidence/texture/stage2/{Formats,Volume,Raw,Mips}`、`images`、`mip-images` 下对应runId收据为准；不能将文档合并提交写为新跑成功。原已成功且未变的分组使用祖先/输入核对后复用，不重新调用原DLL测试该组。
 
-组件成功收据：[`evidence/texture/validation/40194142827-1/validation.json`](evidence/texture/validation/40194142827-1/validation.json)，源码 `765cf26f418e4fe503603c9c7515ea16c8fc9e67`，运行 [40194142827](https://github.com/wu162/NewSdk/actions/runs/40194142827) attempt1成功。
+## 真实SDK验收
 
-元数据/image/packer的Debug及Release成功来自源码 `ece235ac79fd7216777073ea8cc9416dd0018f47`、运行40193344145；该运行整体因当时DDS枚举错误及native编译参数失败，不能写成整体成功。其每组成功日志/源指纹/原收据保存在 [`evidence/texture/validation/40193344145-1`](evidence/texture/validation/40193344145-1)。40194142827在核对祖先、原DLL/Core/Utility、项目、各组实现和oracle均未变化后精确复用这六组成功，另实际重跑修正后的DDS/native，不冒充所有组在新提交再次执行。
+专用MOD使用main固定提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf` 的3张真实TGA，每图×3种raw格式×Texture/OnDemandTexture，共18资产。另9个main真实DDS继续用于直通差分。原路径、blob/SHA256在 [fixture manifest](tests/fixtures/texture-main/manifest.json)，输入未重编码。
 
-DDS恢复宿主不含原TextureCompiler DLL。图像规则/packing/native oracle是同进程原版差分，测试中加载原DLL，但恢复业务代码本身不加载或转发给它。只有OnDemandTexture写cdata；普通Texture与Atlas的metadata不设置HasCustomData。DDS不重新压缩，原版即把非空.dds完整保留；大小、四字节padding和PS3/unknown混合endianness保留原行为。OnDemandTexture的Type枚举为Standard=0、Volume=1、Cube/未知=2，必须与原真实输出核对，不能按猜测互换Standard/Cube。
+- 无mip SDK：源码c733a1b5，运行 [40199309214](https://github.com/wu162/NewSdk/actions/runs/40199309214)成功，收据 `evidence/texture/sdk/40199309214-1/validation.json`。
+- 完整mip SDK：源码aa2b2d80，运行 [40199691305](https://github.com/wu162/NewSdk/actions/runs/40199691305) 的编译与比较步骤成功；最后证据推送并发ref冲突导致workflow failure。原始成功收据在 [sdk-mips/40199691305-1](evidence/texture/sdk-mips/40199691305-1/PERSISTENCE.md)，完整轨迹保持原Actions artifact，没有冒充整个workflow绿色。
 
-## 真实main样本
+两个profile均为原版/恢复版/恢复版移除原TextureCompiler.dll三组真实BAB编译，各组18个Core实际调用，四份stream文件、逐资产三buffer及完整cdata相同。使用EALAModStudio case5对应BAB参数，SDK原配置只在临时副本替换Texture路由；trace wrapper没有Main/手工驱动插件入口。移除原目标DLL的SDK组证明实际恢复路径无原Texture DLL回退。此验收只覆盖专用18资产MOD，不冒充整个Upheaval或其他编译器联合验收。
 
-来源main固定提交 `bacfc69fc3e71c8116d1f22b933b8b6173170ecf`。main的SDK/Mods发现115 DDS、30 TGA；选择各DDS FourCC/mipmap-count/caps2组合及TGA type/depth/descriptor/footer组合的最小代表，共9 DDS+3 TGA，4,023,271字节。保留原始blob，没有重编码/裁剪。
+## 当前入口与边界
 
-精确原路径、blob SHA、SHA256、字节数：[`tests/fixtures/texture-main/manifest.json`](tests/fixtures/texture-main/manifest.json)。不因文件名含`_vol`就断言其为volume；本轮DDS按实际头部字段分类。DDS样本已加入成功差分；TGA另有原像素probe和独立验收状态，不能混同。
+`TextureImageLoader`分派两个已验证TGA解码组；`Plugin.Images.cs`接到真正ProcessInstance；`TextureRawDdsEncoder`保留无mip API及显式true拒绝，完整mip由独立`TextureTriangleMipEncoder`提供，Win32插件按GenerateMipMaps选择。DDS输入仍逐字节直通；OnDemandTexture另写cdata，Standard/Volume/Cube枚举0/1/2，保留旧大小/endian/已有文件尾部行为。
 
-## TGA阶段
+NPOT真实图片会被旧D3DX自动重采样，不能把原始TGA像素尺寸直接套IsValidTexture并产出空pink数据。恢复插件对NPOT明确拒绝，直到重采样被精确恢复；未假装完成该路径。PS3无mip仅支持已验证且不触发自动resize的输入；PS3 mip限三级语义、>256自动resize仍拒绝。两个跨行RLE/footer原版误读像素边界保留明确未支持。
 
-独立源码 `Managed/TextureTgaDecoder.cs` 与 `tests/TextureTgaOracle.cs`。最终验收源码 `0cd42405f5b757c72383040d2f1ff820c31d29bf`，运行 [40195290786](https://github.com/wu162/NewSdk/actions/runs/40195290786) attempt1成功，收据位于 [`evidence/texture/tga/40195290786-1/validation.json`](evidence/texture/tga/40195290786-1/validation.json)。Debug/Release各1,675个完整保留样例：1,421组完整RGBA/hasAlpha匹配、252组原版拒绝的类型/消息/ErrorCode匹配、2个原版误读footer像素的异常边界明确未支持，不计入等价解码成功；mismatch=0。main三张真实TGA全部取得完整像素一致结果。
+## 下一轮
 
-恢复24/32位真彩raw与按行RLE、方向/ID、全零alpha规则，以及有明确渲染字段约束的标准495字节扩展链和507字节DevIL方言。最后一种能解释真实AptUI文件，不能泛化为任意TGA扩展均支持。没有把原版跨行run读取footer作为像素的异常行为复制成正常支持；这2项显式边界及其他未支持格式继续拒绝。可通过 `new TexturePacker(TextureTgaDecoder.Load)` 显式使用，不替换默认codec，也不等同于完整TextureCompiler入口或压缩能力。
+1. DXT1/DXT1A/DXT3/DXT5压缩核心仍缺，不把raw DDS或options恢复称为DXT恢复。
+2. XenonBundler/XGraphics完整surface/header/tiling转换、原native生命周期仍缺；Volume helper已恢复但未接volume DDS编码。
+3. 完整TerrainTextureAtlas入口/压缩未接；当前仅内存packer验收。
+4. PNG/JPEG、剩余TGA metadata和NPOT/PS3 resize继续独立取证，明确拒绝未支持，禁止隐藏原DLL回退。
+5. 如需继续mip适配PS3，需单独验证options[104]=3与级数/endianness；不能照搬Win32成功。
 
-历史probe运行40194142937（源码765cf26f）有430初始差异/252原版失败/2真实extension未支持，只证明取证完成；初次受限验收40194716161（源码806db41）仍有4明确未支持。最终阶段新增64个metadata矩阵并支持两个真实扩展文件，取得上述独立最终成功；历史证据未改写成新成功。详情与DevIL固定源码链接见 [`TEXTURE_TGA.md`](TEXTURE_TGA.md)。
-
-## 未还原范围与下一步
-
-- 原LoadImageA的完整D3DX/XGraphics图像解码/格式转换，尤其PNG/JPEG、其他TGA类型及扩展metadata。
-- `nvDDS::nvDXTcompress` 两重载、滤波/mipmap/resize及volume压缩本机核心。options已恢复不等于压缩器已恢复。
-- XenonBundler完整2D/3D/DDS转换、XG surface/header/descriptor和纹理布局。
-- 原Initialize/Dispose中的共享D3D/Xenon/64MiB buffer生命周期。托管插件仅恢复状态，不声称这些副作用已完成。
-- TerrainTextureAtlas完整入口与codec接线；当前只恢复内存packer，不把它宣称为完整atlas编译。
-- 未支持的Plugin业务入口明确抛NotSupportedException；不存在隐藏原DLL回退。正式SDK接线前须做完整组件与必要真实MOD编译，不把本轮组件成功冒充SDK验收。
-
-网上实现调查见 [`TEXTURE_UPSTREAM.md`](TEXTURE_UPSTREAM.md)：旧NVIDIA头与ABI吻合但核心仍为.lib；MIT新NVTT可做不同后端，不能默认为原压缩块等价；Xenia BSD源码可复用360地址/布局，不是完整XG API。没有直接复制这些项目的源码或二进制。
-
-## 运行与续接
-
-Windows x86 + VS2022 /clr + .NET Framework4.8；`dotnet build src/TextureCompiler/Managed/Recovered.TextureCompiler.csproj -c Release`。`TestTexture.ps1`运行相关组件，按可追溯输入检查复用已成功未变组；TGA使用独立`TestTextureTga.ps1`。测试原版CLR2 mixed assembly时必须CLR4 legacy activation。CRT内存必须经原模块已解析malloc/free thunk，不能裸PInvoke msvcr80或用另一CRT释放。
-
-本轮隔离了原零长度DDS异常路径的FileStream泄漏，测试不复用那个未关闭文件；恢复实现不复制异常资源泄漏。native /clr宿主需要/EHa，不能/EHsc。下轮不要重新触发未变化的已验收组；只对新增codec/接线及真实输入变化取得必要新结果。禁止强推。
+详见 [RAW_DDS](TEXTURE_RAW_DDS.md)、[TRIANGLE_MIPS](TEXTURE_TRIANGLE_MIPS.md)、[TGA_FORMATS](TEXTURE_TGA_FORMATS.md)、[VOLUME](TEXTURE_VOLUME.md)、[公开实现核查](TEXTURE_UPSTREAM.md)。Mip数值探针40198443312仅测试进程instrumentation，270原DDS输出不变；不链接恢复业务代码。Windows x86/CLR4 legacy activation/.NET Framework4.8；禁止强推。
