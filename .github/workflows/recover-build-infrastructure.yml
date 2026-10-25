@@ -1,0 +1,46 @@
+name: Recover Core Remote and EALABuild
+on:
+  push:
+    branches: [recovery/core-remote-ealabuild]
+    paths:
+      - '.github/workflows/recover-build-infrastructure.yml'
+      - 'recovery/scripts/RecoverBuildInfrastructure.ps1'
+      - 'recovery/tests/BuildInfrastructureContract.cs'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Export and build all three assemblies
+        shell: pwsh
+        run: ./recovery/scripts/RecoverBuildInfrastructure.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-infrastructure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/src/Managed/Core
+            recovery/src/Managed/Remote
+            recovery/src/Managed/EALABuild
+            recovery/evidence/build-infrastructure
+      - name: Save source and evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- recovery/src/Managed/Core recovery/src/Managed/Remote recovery/src/Managed/EALABuild recovery/evidence/build-infrastructure
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "Preserve Core Remote EALABuild source and build evidence"
+          if ($LASTEXITCODE -ne 0) { throw 'Commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Push failed; artifact retained' }
