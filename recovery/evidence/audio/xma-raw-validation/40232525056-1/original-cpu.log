@@ -1,0 +1,9 @@
+PASS xma-1-257-ram raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-1-257-stream raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-1-4096-ram raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-1-4096-stream raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-2-257-ram raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-2-257-stream raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-2-4096-ram raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS xma-2-4096-stream raw=2048 allocation2=44 allocation3=4 repeated twice exact
+PASS original-only raw XMA codec: 8 cases, 16 native encodes, three complete returned allocations and deterministic repeated outputs; no candidate encoder support
