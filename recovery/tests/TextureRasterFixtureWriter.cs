@@ -7,9 +7,8 @@ internal static class TextureRasterFixtureWriter
         try{
             string dir=Path.GetFullPath(args[0]);Directory.CreateDirectory(dir);int count=0;
             foreach(int color in new[]{0,2,4,6})foreach(int depth in new[]{1,2,4,8,16}){
-                if((color!=0&&depth<8)||(color==2&&depth==16)||(color==4&&depth==16))continue;
+                if((color!=0&&depth<8)||(color==4&&depth==16))continue;
                 foreach(int interlace in new[]{0,1})foreach(int meta in new[]{0,1}){
-                    // RGB16 is still an explicit unsupported native packing profile.
                     // Gray16+tRNS is an original rejection, not an SDK success input.
                     int metadata=color==0&&depth==16&&meta==1?5:meta;
                     string name="png-c"+color+"-d"+depth+"-i"+interlace+"-m"+metadata+".png";

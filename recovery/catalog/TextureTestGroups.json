@@ -511,6 +511,25 @@
       ],
       "evidence": "recovery/evidence/texture/sdk-rasters/Ps3Mips/*/validation.json",
       "sdk": true
+    },
+    "png-ranges": {
+      "script": "recovery/scripts/TestTexturePngRanges.ps1",
+      "arguments": {},
+      "dependencies": [
+        "Directory.Build.*",
+        "NuGet.Config",
+        "SDK/tools/*.dll",
+        "global.json",
+        "recovery/scripts/TestTexturePng.ps1",
+        "recovery/tests/TexturePngOracle.cs",
+        "src/TextureCompiler/Managed/*.csproj",
+        "src/TextureCompiler/Managed/TexturePacker.cs",
+        "src/TextureCompiler/Managed/TexturePngDecoder.cs",
+        "recovery/tests/TexturePngRangeOracle.cs",
+        "recovery/scripts/TestTexturePngRanges.ps1"
+      ],
+      "evidence": "recovery/evidence/texture/png-ranges/*/validation.json",
+      "sdk": false
     }
   }
 }

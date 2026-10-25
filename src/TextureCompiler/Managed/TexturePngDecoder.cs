@@ -107,7 +107,6 @@ namespace Recovered.Compiler.Texture
                     throw new NotSupportedException("Original D3DX power-of-two PNG resampling has not been recovered.");
                 if(color==3||(color==4&&depth==16)||(color==0&&depth==16&&transparency!=null))
                     throw new BinaryAssetBuilder.BinaryAssetBuilderException(null,BinaryAssetBuilder.ErrorCode.BadTextureFile,"D3DX cannot load the texture from disk.",new object[0]);
-                if(color==2&&depth==16)throw new NotSupportedException("Legacy PNG RGB16 sample packing has not been recovered.");
                 byte[] z = compressed.ToArray();
                 if (z.Length < 6 || (z[0] & 15) != 8 || (z[0] >> 4) > 7 || ((z[0] << 8) + z[1]) % 31 != 0 || (z[1] & 32) != 0) throw Invalid();
                 int channels = color == 0 || color == 3 ? 1 : color == 2 ? 3 : color == 4 ? 2 : 4;
@@ -160,6 +159,21 @@ namespace Recovered.Compiler.Texture
                                         if (r == tr && (color == 0 || (g == (transparency[2] << 8 | transparency[3]) && b == (transparency[4] << 8 | transparency[5])))) a = 0;
                                     }
                                     if (color == 4 || color == 6) a = Sample(row, index + channels - 1, depth);
+                                    if(color==2&&depth==16)
+                                    {
+                                        // Original creates X8R8G8B8 but copies width*4
+                                        // bytes from little-endian B16 G16 R16 FF00 rows.
+                                        // Consequently only the first half of source
+                                        // pixels survive, split across two output pixels.
+                                        int sourceX=sx[pass]+x*dx[pass],sourceY=sy[pass]+y*dy[pass],outputX=sourceX*2;
+                                        if(outputX<width)
+                                        {
+                                            r=Gamma16(r,gamma);g=Gamma16(g,gamma);b=Gamma16(b,gamma);
+                                            pixels[sourceY*width+outputX]=0xff000000u|(uint)(g&255)|(uint)(b>>8)<<8|(uint)(b&255)<<16;
+                                            if(outputX+1<width)pixels[sourceY*width+outputX+1]=0xff000000u|(uint)(r>>8)<<8|(uint)(r&255)<<16;
+                                        }
+                                        continue;
+                                    }
                                     if(depth==16)
                                     {
                                         r=ConvertSample(r,65535,gamma);g=ConvertSample(g,65535,gamma);b=ConvertSample(b,65535,gamma);
@@ -180,6 +194,11 @@ namespace Recovered.Compiler.Texture
                 }
                 return new TexturePacker.Image(width, height, pixels, color == 6);
             }
+        }
+        private static int Gamma16(int sample,uint gamma)
+        {
+            if(gamma==0||Math.Abs(2.2*(gamma/100000.0)-1.0)<=0.05)return sample;
+            return (int)(65535.0*Math.Pow(sample/65535.0,1.0/(2.2*(gamma/100000.0)))+0.5);
         }
         private static int ConvertSample(int sample,int max,uint gamma)
         {

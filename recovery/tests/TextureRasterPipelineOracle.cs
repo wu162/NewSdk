@@ -36,8 +36,6 @@ internal static class TextureRasterPipelineOracle
         AssetBuffer a=null,b=null;Exception ea=null,eb=null;
         try{a=original.ProcessInstance(Declaration(root,file,kind,format,oa,mips));}catch(Exception e){ea=e;}
         try{b=recovered.ProcessInstance(Declaration(root,file,kind,format,ra,mips));}catch(Exception e){eb=e;}
-        if(ea==null&&eb is NotSupportedException&&eb.Message=="Legacy PNG RGB16 sample packing has not been recovered."&&label.Contains("/png/c2d16"))
-        {unsupportedResampling++;fixtures++;return;}
         if(Error(ea)!=Error(eb))throw new Exception(label+" errors original="+Error(ea)+" recovered="+Error(eb));
         if(ea!=null)errors++;
         if(a!=null||b!=null){if(a==null||b==null)throw new Exception(label+" buffer presence");Equal(a.InstanceData,b.InstanceData,label+" instance");Equal(a.RelocationData,b.RelocationData,label+" relo");Equal(a.ImportsData,b.ImportsData,label+" imports");}

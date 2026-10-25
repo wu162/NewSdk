@@ -216,8 +216,6 @@ internal static unsafe class TexturePngOracle
         try { actual = TexturePngDecoder.Decode(bytes); } catch (Exception e) { candidateError = e; }
         if(error!=null&&candidateError!=null&&Failure(error)==Failure(candidateError))
         {originalFailures++;rejectionMatches++;transcript.WriteLine(label+"|rejectionMatched=True|failure="+Failure(error));return;}
-        if(error==null&&candidateError is NotSupportedException&&candidateError.Message=="Legacy PNG RGB16 sample packing has not been recovered."&&label.StartsWith("c2-d16-"))
-        {unsupportedCount++;transcript.WriteLine(label+"|declaredUnsupported=True|originalHash="+Hash(expected.Pixels)+"|boundary="+Failure(candidateError));return;}
         if (error != null || candidateError != null)
         {
             originalFailures += error != null ? 1 : 0; mismatches++;
