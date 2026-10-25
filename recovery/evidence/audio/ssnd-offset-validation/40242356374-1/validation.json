@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "49b1842e85bef9f7b06c74df5dc4a32781a4413a",
+  "originalRecords": 2704,
+  "sdkValidated": false,
+  "status": "original-evidence-only",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "runId": "40242356374",
+  "scope": "Bounded SSND offset:AIFF/AIFC NONE/raw ADP4/AIFF sustain loops; native raw-length frame count, in-chunk sample window; canonical0 exact full plugin comparison, no SDK",
+  "configurations": [],
+  "runAttempt": "1"
+}

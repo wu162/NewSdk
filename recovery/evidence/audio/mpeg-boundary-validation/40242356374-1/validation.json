@@ -1,0 +1,12 @@
+{
+  "error": "MPEG fixture creation failed",
+  "runId": "40242356374",
+  "sdkValidated": false,
+  "configurations": [],
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "49b1842e85bef9f7b06c74df5dc4a32781a4413a",
+  "status": "failed",
+  "scope": "Win32 MPEG Layer3 prefix/suffix/truncation/synchronization/container-priority acceptance; experimental cases recorded separately from established baseline",
+  "originalCases": [],
+  "runAttempt": "1"
+}
