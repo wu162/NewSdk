@@ -1,0 +1,50 @@
+name: Recovered Texture image plugin pipeline
+on:
+  push:
+    branches: [recovery/texturecompiler-source]
+    paths:
+      - 'src/TextureCompiler/Managed/Plugin.Images.cs'
+      - 'src/TextureCompiler/Managed/Plugin.Dds.cs'
+      - 'src/TextureCompiler/Managed/TextureRawDdsEncoder.cs'
+      - 'recovery/tests/TextureImagePipelineOracle.cs'
+      - 'recovery/scripts/TestTextureImages.ps1'
+      - '.github/workflows/recovered-texture-images.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  differential:
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [Images]
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run newly recovered component only
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestTextureImages.ps1
+      - name: Preserve group results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texture-stage2-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/texture/images/${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save immutable group evidence
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "recovery/evidence/texture/images/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (git diff --cached --quiet) { exit 0 }
+          git commit -m "texture: record ${{ matrix.group }} component run $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent update requires resolution' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed' }

@@ -12,8 +12,8 @@ namespace Recovered.Compiler.Texture
         {
             switch (declaration.Handle.TypeId)
             {
-                case TextureCatalog.TextureTypeId: return CompileDds(declaration, false);
-                case TextureCatalog.OnDemandTextureTypeId: return CompileDds(declaration, true);
+                case TextureCatalog.TextureTypeId: return CompileTexture(declaration, false);
+                case TextureCatalog.OnDemandTextureTypeId: return CompileTexture(declaration, true);
                 case TextureCatalog.TerrainTextureAtlasTypeId:
                     throw new NotSupportedException("Terrain texture atlas packing and compression have not been recovered.");
                 default:
@@ -67,8 +67,11 @@ namespace Recovered.Compiler.Texture
                 throw new BinaryAssetBuilderException(null, ErrorCode.BadTextureFile,
                     "Texture file has length 0", new object[0]);
             AssetBuffer result = EmbedDds(bytes, !onDemand, _Platform);
-            if (!onDemand) return result;
+            return onDemand ? FinishOnDemand(declaration, textureType, result) : result;
+        }
 
+        private AssetBuffer FinishOnDemand(InstanceDeclaration declaration, string textureType, AssetBuffer result)
+        {
             bool big = _Platform != TargetPlatform.Win32;
             // OnDemandTexture root has only a zero runtime pointer and an enum.
             // The original writes the enum directly without an endian conversion.

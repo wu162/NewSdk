@@ -18,7 +18,8 @@ function Run-Checked([string]$Label, [scriptblock]$Action) {
 $script:failureList = @()
 $receipt.groups = @()
 function Try-ReuseGroup([string]$Name) {
-    $priorPath = Join-Path $root 'recovery/evidence/texture/validation/40193344145-1'
+    $kind = $Name.Split('-')[1]
+    $priorPath = Join-Path $root $(if($kind -eq 'native'){'recovery/evidence/texture/validation/40194142827-1'}else{'recovery/evidence/texture/validation/40193344145-1'})
     $prior = Get-Content "$priorPath/validation.json" -Raw | ConvertFrom-Json
     $group = @($prior.groups | Where-Object {$_.group -eq $Name -and $_.passed})
     if ($group.Count -ne 1) { return $false }
@@ -28,6 +29,7 @@ function Try-ReuseGroup([string]$Name) {
         'metadata' { $inputs += @('src/TextureCompiler/Managed/Plugin.Metadata.cs','src/TextureCompiler/Managed/TextureCatalog.cs','recovery/tests/TextureMetadataOracle.cs') }
         'image' { $inputs += @('src/TextureCompiler/Managed/TextureImageRules.cs','recovery/tests/TextureImageRulesOracle.cs') }
         'packer' { $inputs += @('src/TextureCompiler/Managed/TexturePacker.cs','recovery/tests/TexturePackerOracle.cs') }
+        'native' { $inputs += @('src/TextureCompiler/Native/TextureSupport.cpp','src/TextureCompiler/Native/TextureSupport.h','recovery/tests/TextureSupportOracle.cpp') }
         default { return $false }
     }
     git merge-base --is-ancestor $prior.sourceCommit HEAD
