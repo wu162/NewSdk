@@ -21,7 +21,7 @@ try{
    if((Get-FileHash $f.fixture -Algorithm SHA256).Hash.ToLowerInvariant() -ne $f.sha256){throw 'Real TGA input hash differs'}
    $name=[IO.Path]::GetFileName($f.fixture);Copy-Item $f.fixture "$moddir/Art/$name"
    foreach($type in @('Texture','OnDemandTexture')){foreach($format in @('A8R8G8B8','X8R8G8B8','R5G6B5')){
-    $nodes+="<$type id='RecoveredTexture_$index' File='ART:$name' Type='StandardTexture' OutputFormat='$format' GenerateMipMaps='false' AllowAutomaticResize='false' />";$index++
+    $nodes+="<$type id='RecoveredTexture_$index' File='..\Art\$name' Type='StandardTexture' OutputFormat='$format' GenerateMipMaps='false' AllowAutomaticResize='false' />";$index++
    }}
   }
   "<?xml version='1.0'?><AssetDeclaration xmlns='uri:ea.com:eala:asset'><Tags />$($nodes -join "`n")</AssetDeclaration>"|Set-Content "$moddir/Data/Mod.xml" -Encoding utf8
