@@ -1,0 +1,1 @@
+PASS TexturePacker original differential fixtures=64 assertions=7006; all atlas pixels, metadata order and coordinates; no codec/nvDXT/SDK acceptance
