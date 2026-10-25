@@ -52,7 +52,7 @@ def inventory(schema_root):
         relative = file.relative_to(root).as_posix()
         # Git checkout may translate line endings; fingerprint canonical LF.
         source = file.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
-        digest.update(relative.encode() + b"\0" + source.encode() + b"\0")
+        digest.update(relative.encode() + b"\0" + ET.canonicalize(source, strip_text=True).encode() + b"\0")
         document = ET.fromstring(source)
         for node in document.findall(XS + "complexType"):
             name = node.get("name")
@@ -99,7 +99,7 @@ def inventory(schema_root):
         raise ValueError("Nested BaseAssetType inheritance changed; review metadata coverage")
     return {
         "schemaFiles": len(files), "namedComplexTypes": len(types),
-        "schemaFingerprintLf": digest.hexdigest(),
+        "schemaFingerprintXml": digest.hexdigest(),
         "scope": "ID declaration/inheritance coverage; not runtime acceptance or a global ignore list",
         "explicitIdPolicies": explicit,
         "nestedAssetIdentityUses": nested,
@@ -120,8 +120,13 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--output")
     group.add_argument("--check")
+    parser.add_argument("--report", help="Save actual inventory for diagnostics, even when the check fails")
     args = parser.parse_args()
     result = inventory(args.schema_root)
+    if args.report:
+        report = Path(args.report)
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if args.output:
         path = Path(args.output)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -129,7 +134,7 @@ def main():
     else:
         expected = json.loads(Path(args.check).read_text(encoding="utf-8"))
         if result != expected:
-            raise SystemExit("Schema metadata inventory changed: regenerate and review ID semantics")
+            raise SystemExit("Schema metadata inventory changed in: " + ", ".join(k for k in sorted(set(result) | set(expected)) if result.get(k) != expected.get(k)))
     print("PASS schema metadata coverage: files=%d explicitIdTypes=%d nestedIdentityTypes=%d" %
           (result["schemaFiles"], len(result["explicitIdPolicies"]), len(NESTED_BASE_ASSET)))
 

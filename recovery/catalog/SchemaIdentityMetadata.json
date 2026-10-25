@@ -1,7 +1,7 @@
 {
   "schemaFiles": 821,
   "namedComplexTypes": 1349,
-  "schemaFingerprintLf": "792d79706a1533971b4e76b2ef6a463af750e6cbd8ea51f21695ecda0799cf61",
+  "schemaFingerprintXml": "9514cb696a426b918670220c3e7e0a70bd4f4fa5dab7db52d3c583ca6e10ebf1",
   "scope": "ID declaration/inheritance coverage; not runtime acceptance or a global ignore list",
   "explicitIdPolicies": [
     {
@@ -292,4 +292,3 @@
     "Run changed metadata paths against original DLL first; then one SDK batch if needed."
   ]
 }
-
