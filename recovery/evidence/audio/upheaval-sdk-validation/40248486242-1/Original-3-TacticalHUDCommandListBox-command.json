@@ -1,0 +1,23 @@
+{
+  "arguments": [
+    "\"D:\\a\\_temp\\audio-upheaval-44944ee653c448399b4781d3922093bf\\SDK\\Mods\\Upheaval\\Data\\AptUI\\TacticalHUDCommandListBox.xml\"",
+    "/od:\"D:\\a\\_temp\\audio-upheaval-44944ee653c448399b4781d3922093bf\\SDK/builtmods\"",
+    "/iod:\"D:\\a\\_temp\\audio-upheaval-44944ee653c448399b4781d3922093bf\\SDK/builtmods\"",
+    "/csc:false",
+    "/ls:true",
+    "/osh:false",
+    "/pc:true",
+    "/res:true",
+    "/slowclean:true",
+    "/ss:true",
+    "/art:\".;.\\Mods\\Upheaval\\Art;.\\Mods;.\\Art\"",
+    "/audio:\".;.\\Mods\\Upheaval\\Audio;.\\Mods;.\\Audio\"",
+    "/data:\".;.\\Mods\\Upheaval\\Data;.\\Mods;.\\SageXml\""
+  ],
+  "source": "SDK/defaultscript.cs case3/4/5",
+  "mode": "Original",
+  "step": 3,
+  "input": "TacticalHUDCommandListBox.xml",
+  "executable": "D:\\a\\_temp\\audio-upheaval-44944ee653c448399b4781d3922093bf\\SDK/tools/BinaryAssetBuilder.exe",
+  "originalTargetPresent": true
+}
