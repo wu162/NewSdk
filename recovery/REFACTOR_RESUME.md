@@ -18,7 +18,7 @@
 1. 继续下一完整能力组，复用本轮原始成功证据及实际输入闭包；本轮 UI 扩展已成功并核对原始归档，不能把历史 sourceCommit 的收据改标为新提交重测。
 2. 另两份真实 UI 含纹理 CustomData；先扩展精确输出允许清单及原版比较器，再接入，不能删除 Texture 迁就现有四流断言。原混合 Texture DLL 的完整 Unicode 路径仍未验。
 3. 缓存、正式输出发布、完整业务 G3/SDK、P6/P7 仍未完成；旧不支持参数继续明确拒绝，当前输出仅隔离 staging。
-4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；尚未接入 Actions 自动下载/执行。旧 CLI-only 锚点须更新且调用严格闭包，不允许任意 workflow/build/env 变更。
+4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，独立轻量 CI 已通过，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；尚未接入 Actions 自动下载/执行。旧 CLI-only 锚点须更新且调用严格闭包，不允许任意 workflow/build/env 变更。
 
 ## 按任务读取，禁止启动时递归展开链接
 

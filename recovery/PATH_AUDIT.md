@@ -45,4 +45,4 @@
 
 已加入 CLI-only 严格 Git 输入闭包复用；生产/SDK/其他 fixture 变化会拒绝复用，旧结果保留原 sourceCommit。新增运行允许清单 bin 文件归档，供后续只改工具时核验复用，避免因缺二进制被迫重复链接；尚未实现自动下载/复用执行器。外部 CLI helper 已提取为共用构建脚本，并在 Native 长链接前廉价编译。生命周期作业稀疏检出仅排除历史 recovery/evidence（约 2GiB），隔离检出核对其余全部受跟踪文件存在；保留完整 Git 历史和全部验证步骤。不可用删断言、少平台或放宽差分来优化。
 
-独立 PrepareCompilerCliReuse.py 已通过16个闭包/篡改/ZIP/收据拒绝测试及两份真实成功归档核验，仅准备两配置各3文件并记录历史来源。它尚未接入工作流，不提供候选验收、不复制旧Texture部署，也不允许任意workflow steps/env/build变化通过闭包；后续必须重新绑定Texture并执行候选CLI/协议。
+独立 PrepareCompilerCliReuse.py 已通过16个闭包/篡改/ZIP/收据测试（本地及独立轻量 CI）及两份真实成功归档核验，仅准备两配置各3文件并记录历史来源。它尚未接入工作流，不提供候选验收、不复制旧Texture部署，也不允许任意workflow steps/env/build变化通过闭包；后续必须重新绑定Texture并执行候选CLI/协议。
