@@ -270,12 +270,40 @@ try {
             foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
             $businessReceipt.inputsUnchanged=$true;$businessReceipt.coldGroupOutputsIdentical=$true;$businessReceipt.originalFourOutputsIdentical=$true;$businessReceipt.succeeded=$true
         } finally {$businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"}
+        # Smallest complete original UI entry: its wrapper and three original
+        # APT/CONST/DAT payloads, without the other entries' Texture/cdata outputs.
+        $uiMod=Join-Path $modeWork 'real-ui'
+        $uiReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;scope='Original Upheaval TacticalHUDCommandListBox wrapper plus APT/CONST/DAT assets, actual current CLI and independent original BAB strict four-stream comparison only; not all three UIs, geometry/texture/cdata, runtime UI or full G3 acceptance'}
+        $modeState.realUi=$uiReceipt
+        try {
+            & python "$PSScriptRoot/PrepareCompilerCliUi.py" $uiMod --entry TacticalHUDCommandListBox *> "$modeOut/real-ui-prepare.log"
+            Need ($LASTEXITCODE -eq 0) 'Pinned original command-list UI fixture preparation failed'
+            $uiManifest=Join-Path $uiMod 'fixture-manifest.json'
+            Copy-Item -LiteralPath $uiManifest -Destination "$modeOut/real-ui-fixture.json"
+            $uiPrepared=Get-Content -LiteralPath $uiManifest -Raw|ConvertFrom-Json
+            Need ($uiPrepared.prepared -and !$uiPrepared.compiled -and $uiPrepared.xsdValidated -and $uiPrepared.entry -ceq 'TacticalHUDCommandListBox' -and @($uiPrepared.files).Count -eq 5 -and $uiPrepared.textureInputs -eq 0) 'Pinned command-list UI fixture receipt changed'
+            $uiReceipt.fixtureManifestSha256=Hash $uiManifest;$uiReceipt.originalSourceCommit=$uiPrepared.sourceCommit
+            $uiSnapshot=Snapshot $uiMod
+            $ui=RunCli 'real-ui-command-list' 'build' $uiMod $sdk 'apt' 0 1
+            Need (@($ui.report.plan.Tasks).Count -eq 1 -and $ui.report.plan.Tasks[0].Content -ceq 'apt') 'Real UI must compile exactly one selected APT task'
+            $task=$ui.report.plan.Tasks[0]
+            $prefix=Join-Path $ui.destination ('.build/'+$ui.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
+            foreach($artifact in $ui.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
+            Need ($outputs.Count -eq 4) 'Real command-list UI requires exactly four current CLI outputs'
+            $uiReceipt.baselineCases=@(@{name='mod-a';modRoot=$uiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope=$uiReceipt.scope})
+            @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$uiReceipt.baselineCases;scope=$uiReceipt.scope}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/real-ui-result.json"
+            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/real-ui-result.json" -OutputDirectory "$modeOut/real-ui-original-baseline" -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 1
+            Need ($LASTEXITCODE -eq 0) 'Independent original BAB complete command-list UI baseline failed'
+            Unchanged $uiMod $uiSnapshot
+            foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}
+            $uiReceipt.inputsUnchanged=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.succeeded=$true
+        } finally {$uiReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/real-ui-validation.json"}
         Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles; full SDK/cache/publishing remain separate'
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus original complete CommandListBox UI input and current original BAB comparison; full SDK/cache/publishing and the other two real UIs remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

@@ -3,7 +3,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$FixtureResult,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(15,600)][int]$TimeoutSeconds=180
+    [ValidateRange(15,600)][int]$TimeoutSeconds=180,
+    [ValidateRange(1,2)][int]$ExpectedCaseCount=2
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
@@ -83,15 +84,15 @@ function ArchiveStreams([string]$Directory,[string]$CaseOut,[string]$Prefix){
     $archived
 }
 $temporaryRoot=$null
-$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope='Small independent original BAB process oracle for two selected fixture stream inputs; exact four-stream comparison; not full SDK, production CLI or complete G3 acceptance'}
+$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope="Small independent original BAB process oracle for $ExpectedCaseCount selected fixture stream inputs; exact four-stream comparison; not full SDK, production CLI or complete G3 acceptance"}
 try {
     $source=(& git -C $root rev-parse HEAD).Trim()
     if($LASTEXITCODE -ne 0){throw 'Cannot determine current source commit'}
     $fixture=Get-Content -LiteralPath $FixtureResult -Raw|ConvertFrom-Json
     if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $state.runId){throw 'Backend fixture success/source/run identity mismatch'}
-    if(@($fixture.baselineCases).Count -ne 2){throw 'Expected two successful selected fixture stream oracle cases'}
+    if(@($fixture.baselineCases).Count -ne $ExpectedCaseCount){throw "Expected $ExpectedCaseCount successful selected fixture stream oracle cases"}
     $state.sourceCommit=$source
-    $state.fixtureScope=$fixture.scope
+    $state.fixtureScope=$fixture.scope;$state.expectedCaseCount=$ExpectedCaseCount
     $state.scriptSha256=Hash $PSCommandPath
     $state.backendSourceSha256=Hash (Join-Path $root 'recovery/src/App/Application/CoreStreamCompiler.cs')
     $state.fixtureSourceSha256=Hash (Join-Path $root 'recovery/tests/CompilerBackendLifecycle.cs')
@@ -220,7 +221,7 @@ try {
         if($caseState.passed){Write-Host "PASS IndependentBackendBaseline $($case.name): original BAB process, manifest/bin/imp/relo byte-identical"}
     }
     if((Hash $FixtureResult) -cne $state.fixtureResultSha256){throw 'Backend fixture result changed during independent baseline'}
-    $state.succeeded=$true;$state.status='passed two original BAB independent-process selected fixture baselines; all four files byte-identical in each case; full SDK/G3/production CLI remain separate'
+    $state.succeeded=$true;$state.status="passed $ExpectedCaseCount original BAB independent-process selected fixture baselines; all four files byte-identical in each case; full SDK/G3/production CLI remain separate"
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {
