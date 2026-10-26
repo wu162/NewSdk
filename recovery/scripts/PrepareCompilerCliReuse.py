@@ -31,6 +31,8 @@ FIXTURES = {'CompilerCorePaths', 'CompilerUnicodeSettings', 'CompilerCoreLifecyc
 # build recipes, other fixture suites or arbitrary future workflow changes.
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 ALLOWED = {
+    # Independent preparation-unit-test CI; never a production build driver.
+    '.github/workflows/refactor-cli-reuse.yml',
     'recovery/scripts/TestCompilerBackendBaseline.ps1',
     'recovery/scripts/TestCompilerCli.ps1',
     'recovery/scripts/BuildCompilerCliControl.ps1',

@@ -1,0 +1,30 @@
+name: MOD compiler CLI artifact reuse guards
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-cli-reuse.yml'
+      - 'recovery/scripts/PrepareCompilerCliReuse.py'
+      - 'recovery/tests/test_prepare_compiler_cli_reuse.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-cli-reuse-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /recovery/scripts/PrepareCompilerCliReuse.py
+            /recovery/tests/test_prepare_compiler_cli_reuse.py
+      - name: Source closure, archive identity and extraction rejection matrix
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s recovery/tests -p test_prepare_compiler_cli_reuse.py -v
