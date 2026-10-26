@@ -27,6 +27,8 @@ foreach($path in $all){
 $optimization=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
 $objects=@()
 $bridgeObjects=@()
+$bridgeGenerated=@()
+$bridgeUnityObject=Join-Path $objectsDirectory 'CompilerBridges.obj'
 $sourceRecords=@()
 $dependencyPaths=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
 function Add-LocalIncludes([string]$Path) {
@@ -69,7 +71,12 @@ foreach($kind in @('nativeSources','unmanagedSources','bridgeSources')) {
             $compileSource=Join-Path $generated ($id+'.cpp')
             [IO.File]::WriteAllText($compileSource,$text,[Text.UTF8Encoding]::new($false))
             $generatedHash=(Get-FileHash $compileSource -Algorithm SHA256).Hash.ToLowerInvariant()
-            $bridgeObjects+=$object
+            $object=$bridgeUnityObject
+            $bridgeGenerated+=$compileSource
+        }
+        if($kind -eq 'bridgeSources') {
+            $sourceRecords+=@{path=$relative;sha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant();generatedSha256=$generatedHash;object=$object;kind=$kind}
+            continue
         }
         $arguments=@('/nologo','/c','/MD','/std:c++17','/fp:precise',$optimization,('/Fo'+$object))
         if($kind -eq 'unmanagedSources'){$arguments+='/EHsc'}
@@ -82,9 +89,24 @@ foreach($kind in @('nativeSources','unmanagedSources','bridgeSources')) {
         $sourceRecords+=@{path=$relative;sha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant();generatedSha256=$generatedHash;object=$object;kind=$kind}
     }
 }
+# One C++/CLI translation unit is essential here. C# /addmodule cannot
+# merge std and vc.cppcli.modopts types emitted independently by many /clr
+# objects (CS0101). Native code remains separately compiled, and this unity
+# object contains the real bridge implementations, not a facade DLL.
+$bridgeUnity=Join-Path $generated 'CompilerBridges.cpp'
+$unityLines=@('// Explicit production Bridge unity translation unit.')
+foreach($path in $bridgeGenerated){$unityLines+=('#include "'+$path.Replace('\','/')+'"')}
+[IO.File]::WriteAllLines($bridgeUnity,[string[]]$unityLines,[Text.UTF8Encoding]::new($false))
+$unityArguments=@('/nologo','/c','/clr','/MD','/EHa','/std:c++17','/fp:precise',$optimization,('/AI'+[IO.Path]::GetDirectoryName($foundation)),('/Fo'+$bridgeUnityObject),$bridgeUnity)
+$unityLog=Join-Path $logs 'CompilerBridges.log'
+& cl.exe @unityArguments *> $unityLog
+if($LASTEXITCODE -ne 0){Get-Content $unityLog -Tail 100|ForEach-Object{Write-Host $_};throw 'Unified Bridge compilation failed'}
+$objects+=$bridgeUnityObject
+$bridgeObjects=@($bridgeUnityObject)
 $receipt=@{
     schemaVersion=1;configuration=$Configuration;manifestSha256=(Get-FileHash $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
     foundationSha256=(Get-FileHash $foundation -Algorithm SHA256).Hash.ToLowerInvariant()
+    bridgeTranslationUnit=@{path=$bridgeUnity;sha256=(Get-FileHash $bridgeUnity -Algorithm SHA256).Hash.ToLowerInvariant();sourceCount=$bridgeGenerated.Count}
     objects=$objects;bridgeObjects=$bridgeObjects;sources=$sourceRecords
     dependencies=@($dependencyPaths|Sort-Object|ForEach-Object{@{path=[IO.Path]::GetRelativePath($root,$_).Replace('\','/');sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()}})
     applicationSources=@($manifest.applicationSources);runtimeBackendLibraries=@();status='objects built; unified link and behavior validation required'
