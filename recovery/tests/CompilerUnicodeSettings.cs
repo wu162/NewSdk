@@ -112,11 +112,14 @@ internal static class CompilerUnicodeSettings
         Require(ShPath.RelativePathTo(root,true,included,false)==fileRelative,"Standalone shell relative path wrapper lost Unicode");
         Require(ShPath.RelativePathTo("C:\\one",true,"D:\\two.xml",false)==null,"Standalone shell cross-drive failure contract changed");
 
-        // Construct only the loader's state; the real LoadXml creates and runs the
-        // recovered XInclude reader and records dependencies through this resolver.
+        // Bind the isolated loader state to its real per-stream processor. The
+        // loader records actual XML parsing on this owner, just as production does.
+        var processor=new DocumentProcessor(Settings.Current,null,null);
+        Require(processor.XmlParseCount==0,"Fresh Unicode loader processor inherited an earlier parse count");
         var document=new AssetDeclarationDocument();
         Type stateType=typeof(AssetDeclarationDocument).GetNestedType("CurrentState",BindingFlags.NonPublic);
         object state=Activator.CreateInstance(stateType,true);
+        stateType.GetField("DocumentProcessor").SetValue(state,processor);
         stateType.GetField("SourcePath").SetValue(state,main);
         stateType.GetField("SourceDirectory").SetValue(state,root);
         stateType.GetField("LogicalSourcePath").SetValue(state,"根 文件.xml");
@@ -124,6 +127,7 @@ internal static class CompilerUnicodeSettings
         dependencies.SetValue(state,Activator.CreateInstance(dependencies.FieldType));
         typeof(AssetDeclarationDocument).GetField("_Current",BindingFlags.NonPublic|BindingFlags.Instance).SetValue(document,state);
         document.LoadXml(true);
+        Require(processor.XmlParseCount==1,"Real XML loader did not record exactly one parse on its fresh processor");
         XmlNode define=document.XmlDocument.SelectSingleNode("//*[local-name()='Define' and @name='UNICODE_INCLUDE']");
         Require(define!=null && define.Attributes["value"].Value=="42","Production XML loader did not expand XInclude");
         var names=new List<string>();

@@ -268,8 +268,8 @@ print('PASS session fixtures: XInclude declaration order, exact defines/expressi
 import json, re, sys
 sys.path.insert(0,sys.argv[1])
 import PrepareCompilerSessionReplay as p
-assert p.SOURCE=='4992236fc0659192d1ee50211617db67af23c15b'
-assert str(p.RUN)=='40405225193' and str(p.ATTEMPT)=='1'
+assert p.SOURCE=='f2ba141284469411d604d756f7916b0cf6aecf0a'
+assert str(p.RUN)=='40406049617' and str(p.ATTEMPT)=='1'
 assert re.fullmatch('[0-9a-f]{64}',p.SHA256) and int(p.ARTIFACT)>0
 p.closure(sys.argv[2],p.SOURCE,sys.argv[3])
 print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMPT),'sha256':p.SHA256,'artifactId':str(p.ARTIFACT)}))

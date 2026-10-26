@@ -9,45 +9,47 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
+import stat
+import tempfile
 import subprocess
 import sys
 import zipfile
 import PrepareCompilerCliReuse as guard
 
-SOURCE = '4992236fc0659192d1ee50211617db67af23c15b'
-RUN = 40405225193
+SOURCE = 'f2ba141284469411d604d756f7916b0cf6aecf0a'
+RUN = 40406049617
 ATTEMPT = 1
 # Set only from the completed fixed run's actual uploaded artifact metadata.
 # Zero/empty constants deliberately reject preparation before that evidence exists.
-ARTIFACT = 0
-SHA256 = ''
+ARTIFACT = 12692880009
+SHA256 = 'fa8d820ff40fb55139fbcf6ce6be970ddbc69a3f2fedd3c1c43cadfce05f8846'
 REPOSITORY = 'wu162/NewSdk'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 NAME = f'refactor-core-lifecycle-{RUN}-{ATTEMPT}'
 WORKFLOW_BYTES = {
-    'source': 'c15da43d21c9c92e8b2b33b5bd6a25fe08265495d0dc1da3b27ca296f7fca3ad',
-    # Exactly three test-only additions: invoke fixture preflight, check its exit,
-    # and upload its evidence. No setup/build/deployment command may change.
-    'candidate': 'a1e5436db10bffac0073cb1b90588c34fd5925ab2c99e97d81c16351c3f086a8',
+    'source': '887a15ccfe26b834c9ae9fccd545b35f27b3b70af79bffd8ae5aaefee529b2f8',
+    # This production build driver already contains the fixture preflight and
+    # SDK milestone. No subsequent recipe changes are admitted by this profile.
+    'candidate': '887a15ccfe26b834c9ae9fccd545b35f27b3b70af79bffd8ae5aaefee529b2f8',
 }
 ALLOWED = {
     '.github/workflows/refactor-session-replay.yml',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
     'recovery/scripts/TestCompilerSessionCache.ps1',
     'recovery/scripts/TestCompilerSdk.ps1',
+    'recovery/scripts/TestCompilerUnicodeReplay.ps1', 'recovery/tests/CompilerUnicodeSettings.cs',
+    'recovery/scripts/PublishCompiler.ps1', 'recovery/COMPILER_RELEASE.md',
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md',
 }
 # The exact failure set must be confirmed against the completed source run.
-FAILED_STEPS = {'Actual session-cache documents intermediate and CDATA reuse matrix'}
+FAILED_STEPS = {'Targeted real Core, backend and application pipeline in Debug and Release'}
 SUCCESS_STEPS = {
     'Standalone P2 application contracts in Debug',
     'Standalone P2 application contracts in Release',
     'Validate CLI scripts and output contracts before long Native linking',
     'Build managed Foundation inputs',
     'Build full production combination and verify deployment and route metadata',
-    'Targeted real Core, backend and application pipeline in Debug and Release',
-    'Isolated original BAB baseline for the two targeted backend cases',
-    'Validate actual application JSONL and reports against protocol schemas',
     'Host-bound Texture payload and deployment rejection in Debug and Release',
     'Real production CLI, cold processes and actual CtrlBreak cancellation',
     'Validate real production CLI protocol outputs',
@@ -55,6 +57,8 @@ SUCCESS_STEPS = {
     'Effective input roots and original BAB output differential',
     'Actual Audio CDATA and W3X build-cache payload replay',
     'Validate actual cache and input-root protocol outputs',
+    'Actual session-cache documents intermediate and CDATA reuse matrix',
+    'Validate actual session-cache protocol outputs',
     'Run actions/upload-artifact@v4',
 }
 require = guard.require
@@ -82,7 +86,7 @@ def closure(repo, source, candidate):
     if WORKFLOW in changed:
         for ref, key in ((source, 'source'), (candidate, 'candidate')):
             require(guard.digest(guard.git(repo, 'show', ref + ':' + WORKFLOW)) == WORKFLOW_BYTES[key],
-                    'Core workflow change exceeds the exact reviewed preflight additions')
+                    'Core production workflow changed from its fixed reviewed bytes')
     return changed
 
 
@@ -114,51 +118,146 @@ def metadata(run, artifact, jobs):
 
 def prepare(archive, candidate, output, repo):
     changed = closure(repo, SOURCE, candidate)
-    require(hashlib.sha256(Path(archive).read_bytes()).hexdigest() == SHA256, 'Fixed archive SHA256 mismatch')
-    with zipfile.ZipFile(archive) as z:
-        def document(path):
-            return json.loads(z.read(path).decode('utf-8-sig'))
-        for section in ('build-cache', 'input-roots', 'cache-payloads'):
-            base = f'evidence/refactor/{section}/{RUN}-{ATTEMPT}'
-            receipt = document(base + '/validation.json')
-            require(receipt.get('sourceCommit') == SOURCE and str(receipt.get('runId')) == str(RUN) and
-                    str(receipt.get('runAttempt')) == str(ATTEMPT) and receipt.get('succeeded') is True,
-                    'Independent cache/input-root receipt incomplete: ' + section)
-            guard.modes(receipt)
-            protocol = document(base + '/protocol.json')
-            require(protocol.get('sourceCommit') == SOURCE and protocol.get('status') == 'passed' and
-                    protocol.get('errorCount') == 0 and protocol.get('errors') == [], 'Independent protocol failed: ' + section)
-            require(len(protocol.get('matrix', [])) == 2 and {r.get('configuration') for r in protocol['matrix']} == guard.MODES,
-                    'Independent protocol configurations incomplete: ' + section)
-            require(protocol.get('validatedFiles'), 'Independent protocol has no input hashes')
-            for row in protocol['validatedFiles']:
-                relative = guard.safe_name(row['path'])
-                require(guard.digest(z.read(base + '/' + relative)) == row['sha256'], 'Independent protocol raw bytes differ')
-        for mode in sorted(guard.MODES):
-            base = f'artifacts/core-lifecycle-product/{mode}/bin/'
-            patch = document(base + 'BinaryAssetBuilder.TextureCompiler.dll.patch.json')
-            texture = guard.digest(z.read(base + 'BinaryAssetBuilder.TextureCompiler.dll'))
-            exe = guard.digest(z.read(base + 'NewModCompiler.exe'))
-            require(patch.get('patchedSha256') == texture and patch.get('targetExeSha256') == exe and
-                    patch.get('originalSha256') == '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e' and
-                    patch.get('protectedPeAudit', {}).get('status') == 'passed' and
-                    patch.get('protectedPeAudit', {}).get('outputSha256') == texture, 'Fixed EXE-bound Texture identity mismatch')
-    previous = guard.closure, guard.FIXTURES, guard.CLI_CASES
-    try:
-        guard.closure = lambda *args, **kwargs: changed
-        guard.FIXTURES = previous[1] | {'CompilerCacheContent', 'CompilerCacheBoundary', 'CompilerInputRoots'}
-        guard.CLI_CASES = (previous[2] - {'cache-rejected'}) | {'compressed-session-cache-rejected'}
-        receipt = guard.prepare(archive, SHA256, SOURCE, candidate, output, repo)
-    finally:
-        guard.closure, guard.FIXTURES, guard.CLI_CASES = previous
-    require(receipt['runId'] == str(RUN) and receipt['runAttempt'] == str(ATTEMPT), 'Fixed archive run identity mismatch')
-    receipt.update(binarySourceCommit=SOURCE, testSourceCommit=candidate, artifactId=ARTIFACT,
-                   productionSourcesUnchanged=True, sourceRunConclusion='failure', sourceFailedSteps=sorted(FAILED_STEPS),
-                   requiredNextSteps=['Run corrected session-cache tests and protocol validation', 'Run complete mymod original/production SDK comparison after session success'],
-                   scope='Only session test replay and subsequent SDK results are new; fixed production bytes, original failure and independent successful scopes retain source identities')
     target = Path(output)
-    (target / 'session-replay.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
-    (target / 'reuse.json').unlink()
+    require(not target.exists(), 'Refusing to overwrite replay output')
+    payload, files, validation_files, reused = {}, [], [], {}
+    def identity(d, attempt=True):
+        require(d.get('sourceCommit') == SOURCE and str(d.get('runId')) == str(RUN) and
+                (not attempt or str(d.get('runAttempt')) == str(ATTEMPT)), 'Original receipt identity mismatch')
+    with open(archive, 'rb') as stream:
+        require(hashlib.sha256(stream.read()).hexdigest() == SHA256, 'Fixed archive SHA256 mismatch')
+        stream.seek(0)
+        with zipfile.ZipFile(stream) as z:
+            folded = set()
+            for entry in z.infolist():
+                name = guard.safe_name(entry.orig_filename)
+                require(entry.orig_filename == entry.filename and name.casefold() not in folded and
+                        not stat.S_ISLNK(entry.external_attr >> 16) and not entry.flag_bits & 1, 'Unsafe or duplicate ZIP entry')
+                folded.add(name.casefold())
+            def read(path):
+                require(path in z.namelist(), 'Missing original archive path: ' + path)
+                return z.read(path)
+            def doc(path):
+                d = json.loads(read(path).decode('utf-8-sig'))
+                require(isinstance(d, dict), 'Receipt is not an object')
+                return d
+            def take(path, relative, runtime=False):
+                data = read(path); payload[relative] = data
+                row = {'path':relative, 'sha256':guard.digest(data)}
+                (files if runtime else validation_files).append(row)
+            def base(section):
+                return f'evidence/refactor/{section}/{RUN}-{ATTEMPT}'
+            def protocol(section, name='protocol.json'):
+                root = base(section); d = doc(root + '/' + name)
+                require(d.get('sourceCommit') == SOURCE and d.get('status') == 'passed' and d.get('errorCount') == 0 and
+                        d.get('errors') == [], 'Original protocol failed: ' + section)
+                require(len(d.get('matrix', [])) == 2 and {r.get('configuration') for r in d['matrix']} == guard.MODES and
+                        all(all(isinstance(r.get(k), int) and r[k] > 0 for k in ('reports','eventFiles','events')) for r in d['matrix']),
+                        'Original protocol configurations/coverage incomplete')
+                require(d.get('validatedFiles'), 'No protocol input hashes')
+                for row in d['validatedFiles']:
+                    require(guard.digest(read(root + '/' + guard.safe_name(row['path']))) == row['sha256'], 'Original protocol raw bytes changed')
+                take(root + '/' + name, 'original-evidence/' + section + '/' + name)
+                return d
+            receipts = {}
+            for section in ('core-lifecycle-deployment','core-lifecycle','core-lifecycle-texture','core-cli','build-cache','input-roots','cache-payloads','session-cache'):
+                path = base(section) + '/validation.json'; d = doc(path); identity(d)
+                take(path, 'original-evidence/' + section + '/validation.json'); receipts[section] = d
+            take(base('core-cli')+'/validation.json','accepted-cli.json')
+            dep, core, texture, cli = [receipts[k] for k in ('core-lifecycle-deployment','core-lifecycle','core-lifecycle-texture','core-cli')]
+            require(dep.get('status') == texture.get('status') == 'passed' and cli.get('succeeded') is True, 'Independent deployment/Texture/CLI scope failed')
+            dep_modes, tex_modes, cli_modes = guard.modes(dep), guard.modes(texture,'configurations'), guard.modes(cli)
+            require(core.get('succeeded') is False and core.get('status') == 'failed', 'Original partial Core terminal changed')
+            core_rows = core.get('modes', [])
+            require(len(core_rows) == 2 and {r.get('configuration') for r in core_rows} == guard.MODES, 'Partial Core modes incomplete')
+            core_modes = {r['configuration']:r for r in core_rows}
+            expected = guard.FIXTURES | {'CompilerCacheContent','CompilerCacheBoundary','CompilerInputRoots'}
+            for section in ('build-cache','input-roots','cache-payloads','session-cache'):
+                require(receipts[section].get('succeeded') is True, 'Independent scope failed: ' + section)
+                guard.modes(receipts[section]); reused[section] = protocol(section)
+            protocol('core-cli','cli-protocol.json')
+            for mode in sorted(guard.MODES):
+                cm = core_modes[mode]; rows = cm.get('fixtures', [])
+                require(cm.get('passed') is False and len(rows) == len(expected) and {r.get('name') for r in rows} == expected,
+                        'Partial Core fixture inventory mismatch')
+                require({r['name'] for r in rows if r.get('passed') is not True} == {'CompilerUnicodeSettings'}, 'Partial Core failure set differs')
+                successes = []
+                for row in rows:
+                    fixture = row['name']; root = base('core-lifecycle') + '/' + mode + '/' + fixture
+                    result = doc(root + '/result.json'); identity(result,False)
+                    source_bytes = guard.git(repo,'show',SOURCE+':recovery/tests/'+fixture+'.cs')
+                    # Windows checkout uses core.autocrlf. Permit only the exact
+                    # Git blob or that documented CRLF checkout transformation.
+                    source_hashes = {guard.digest(source_bytes), guard.digest(source_bytes.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'))}
+                    require(row.get('sourceSha256') in source_hashes, 'Original fixture source identity differs: ' + fixture)
+                    if fixture == 'CompilerUnicodeSettings':
+                        require(result.get('succeeded') is False and 'System.NullReferenceException' in result.get('error','') and
+                                'AssetDeclarationDocument.LoadXml' in result['error'], 'Original Unicode failure differs from identified fixture setup error')
+                    else:
+                        require(result.get('succeeded') is True and guard.digest(read(root+'/result.json')) == row.get('resultSha256') and
+                                guard.digest(read(root+'/runtime.log')) == row.get('runtimeLogSha256') and
+                                guard.digest(read(root+'/fixture.exe')) == row.get('fixtureExeSha256'), 'Successful original Core scope integrity failed')
+                        successes.append(fixture)
+                    take(root+'/result.json','original-evidence/core-lifecycle/'+mode+'/'+fixture+'/result.json')
+                reused[mode] = {'coreSuccessfulFixtures':successes, 'coreFailedFixtures':['CompilerUnicodeSettings']}
+                product = f'artifacts/core-lifecycle-product/{mode}/'; build = doc(product+'build.json')
+                host = doc(product+'validation/build.json'); recipe = doc(product+'link-inputs.json')
+                for d in (build,host,recipe):
+                    require(d.get('sourceCommit') == SOURCE and d.get('configuration') == mode, 'Build recipe source/configuration mismatch')
+                exe = guard.digest(read(product+'bin/NewModCompiler.exe')); host_exe = guard.digest(read(product+'validation/bin/NewModCompiler.exe'))
+                require(build.get('containsProbeOrTestSources') is False and build.get('backendIntegrated') is True and
+                        {exe,build.get('exeSha256'),dep_modes[mode].get('exeSha256'),cm.get('productExeSha256'),tex_modes[mode].get('exeSha256'),cli_modes[mode].get('exeSha256')} == {exe},
+                        'Product binary/test-isolation identity differs across independent scopes')
+                require(host.get('schemaVersion') == 2 and host.get('sameProductionObjects') is True and host.get('productionExeUnchanged') is True and
+                        host.get('productExeSha256') == exe and host.get('exeSha256') == host_exe == cm.get('validationHostSha256') and
+                        host.get('entryPoint') == 'NewModCompiler.Validation.ValidationEntry.Main' and
+                        host.get('linkRecipeSha256') == guard.digest(read(product+'link-inputs.json')), 'Archived validation host identity/recipe mismatch')
+                require([(r['kind'],r['path'],r['sha256']) for r in recipe['inputs'] if r['kind']!='entry'] ==
+                        [(r['kind'],r['path'],r['sha256']) for r in host['inputs']], 'Validation host differs from exact production object closure')
+                runtime = cli_modes[mode].get('runtimeInputs', {})
+                for name in guard.RUNTIME:
+                    data = read(product+'bin/'+name); sha = guard.digest(data)
+                    require([v for k,v in runtime.items() if k.replace('\\','/').lstrip('/') == name] == [sha], 'CLI runtime bytes differ')
+                    if name != 'NewModCompiler.exe':
+                        require([r.get('sha256') for r in host['runtimeFiles'] if r.get('name')==name] == [sha] and
+                                guard.digest(read(product+'validation/bin/'+name)) == sha and
+                                [r.get('sha256') for r in cm['runtimeFiles'] if r.get('name')==name] == [sha], 'Shared host/runtime dependency differs')
+                    take(product+'bin/'+name,mode+'/bin/'+name,True)
+                    take(product+'validation/bin/'+name,mode+'/validation/bin/'+name)
+                for name in ('build.json','validation/build.json','link-inputs.json'):
+                    take(product+name,mode+'/'+name)
+                patch = doc(product+'bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json'); tex = guard.digest(read(product+'bin/BinaryAssetBuilder.TextureCompiler.dll'))
+                require(patch.get('targetExeSha256') == exe and patch.get('patchedSha256') == tex and
+                        patch.get('originalSha256') == '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e' and
+                        patch.get('protectedPeAudit',{}).get('status') == 'passed' and patch['protectedPeAudit'].get('outputSha256') == tex,
+                        'Original EXE-bound Texture deployment differs')
+                for name in ('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json'):
+                    take(product+'bin/'+name,mode+'/bin/'+name)
+                cases = cli_modes[mode].get('cases', [])
+                wanted = (guard.CLI_CASES - {'cache-rejected','session-cache-rejected'}) | {'compressed-session-cache-rejected'}
+                require(wanted <= {r.get('name') for r in cases} and len(cases)==len({r.get('name') for r in cases}) and
+                        all(r.get('passed') is True for r in cases), 'Original production CLI cases incomplete')
+                for kind in ('business','realUi'):
+                    d = cli_modes[mode].get(kind,{}); identity(d,False)
+                    require(d.get('succeeded') is True and d.get('configuration') == mode, 'Original CLI business/UI acceptance incomplete')
+                for original in ('original-baseline','business-original-baseline','real-ui-original-baseline'):
+                    d = doc(base('core-cli')+'/'+mode+'/'+original+'/validation.json'); identity(d)
+                    require(d.get('succeeded') is True, 'Original CLI BAB baseline incomplete')
+    receipt = {'schemaVersion':1,'prepared':True,'candidateValidated':False,'sourceCommit':SOURCE,'candidateCommit':candidate,
+               'binarySourceCommit':SOURCE,'testSourceCommit':candidate,'runId':str(RUN),'runAttempt':str(ATTEMPT),'archiveSha256':SHA256,
+               'artifactId':ARTIFACT,'productionSourcesUnchanged':True,'changedPaths':changed,'files':files,'validationFiles':validation_files,
+               'sourceRunConclusion':'failure','sourceFailedSteps':sorted(FAILED_STEPS),'reusedScopes':reused,
+               'requiredNextSteps':['Run corrected Unicode fixture and fresh backend oracle input in both modes','Run skipped original BAB baseline','Run complete mymod SDK differential','Package and verify P6 runtime'],
+               'scope':'Fixed production and validation-host bytes; original nine successful Core groups and complete SC/CLI/cache/Texture evidence reused; original failed Core terminal preserved; no repeated SC or Native relink'}
+    target.parent.mkdir(parents=True,exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix=target.name+'-',dir=target.parent))
+    try:
+        for relative,data in payload.items():
+            path=temporary/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(data)
+        (temporary/'session-replay.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
+        temporary.rename(target)
+    finally:
+        if temporary.exists():shutil.rmtree(temporary)
     return receipt
 
 
