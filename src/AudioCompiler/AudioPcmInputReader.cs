@@ -5,7 +5,7 @@ using System.Text;
 namespace BinaryAssetBuilder.AudioCompiler
 {
     // SIMEX WAVE importer 0x37210 and AIFF importer 0x381c0. This reader
-    // accepts integral WAVE/AIFF and raw AIFC ADP4 mono/stereo input.
+    // accepts 1/2/4/6-channel integral WAVE and mono/stereo AIFF/AIFC input.
     internal static class AudioPcmInputReader
     {
         internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowLoop = false)
@@ -91,8 +91,8 @@ namespace BinaryAssetBuilder.AudioCompiler
                     throw new NotSupportedException("Audio loop and marker metadata has not been recovered");
                 at = next + (size & 1);
             }
-            if (format != 1 || (bits != 8 && bits != 16 && bits != 24) || (channels != 1 && channels != 2))
-                throw new NotSupportedException("Only mono/stereo integral PCM8/16/24 input is supported");
+            if (format != 1 || (bits != 8 && bits != 16 && bits != 24) || (channels != 1 && channels != 2 && (!wave || (channels != 4 && channels != 6))))
+                throw new NotSupportedException("Only mono/stereo AIFF/AIFC or 1/2/4/6-channel WAVE PCM8/16/24 input is supported");
             int width = bits / 8, frameSize = channels * width;
             if (rate <= 0 || rate > 0x3ffff || (!aiff && align != frameSize) || dataOffset < 0 || (!aiff && dataLength % frameSize != 0))
                 throw new InvalidDataException("Invalid PCM audio format");
@@ -135,6 +135,7 @@ namespace BinaryAssetBuilder.AudioCompiler
                     samples[i] = unchecked((short)high16) * (1.0f / 32768.0f);
                 }
             }
+            if (wave) Pcm16Encoder.RemapWaveChannels(samples, channels);
             return new Pcm16Encoder.PcmWaveInput { Samples = samples, Channels = channels, SampleRate = rate };
         }
         private static string Tag(byte[] b, int at) { return Encoding.ASCII.GetString(b, at, 4); }

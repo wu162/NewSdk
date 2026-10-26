@@ -1,14 +1,20 @@
 # PC 4/6-channel recovery boundary
 
-Status on 2026-10-26: **confirmed missing capability group; not implemented**.
-Production Audio remains mono/stereo at source tree
-`ee6074a096795aa66b682fcb363e360feabe4d2f`. This round preserves that accepted
-source for its full pinned Upheaval Audio-only merge. The original managed
-`ProcessAudioFileInstance` explicitly recognizes 1/2/4/6 channels; other counts
-produce a warning. This management-layer observation alone does not establish
-every importer/codec combination. Isolated original-DLL probe CI results and
-exact source/run/receipt anchors are to be appended by the SDK probe owner.
-No probe result or multichannel acceptance is claimed here.
+Status on 2026-10-26: **WAVE4/6 candidate implemented; full component/SDK acceptance pending**.
+The accepted stable Audio tree remains `ee6074a096795aa66b682fcb363e360feabe4d2f`
+(mono/stereo), with its full pinned Upheaval result retained unchanged in PR#10.
+This validation branch now contains a five-file WAVE-only candidate. AIFF,
+AIFC/NONE and ADP4 above stereo remain rejected. Do not merge or declare the
+candidate supported before the new complete component and real SDK run passes.
+
+Original-only run40249960201 (source48fa1f4d917e6cd6cdbcc10d942599d3ed379564)
+passed all96 cases /192 isolated invocations; each complete three-buffer/custom
+result repeated byte-identically. Channels1/2/4/6, integral WAVE8/16/24,
+constant/impulse, NONE/XAS and RAM/streamed were observed. Decoding all48 NONE
+outputs frame-by-frame confirmed output->input mappings4:[0,1,3,2] and
+6:[0,2,1,4,5,3]. This is original evidence, not candidate or SDK acceptance.
+Receipt: `../evidence/audio/multichannel-original/40249960201-1/validation.json`
+at evidence commit5a9308d588ed0eb2413283d9b603415d448d4654.
 
 ## Production changes needed as one group
 

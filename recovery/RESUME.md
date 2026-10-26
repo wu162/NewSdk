@@ -2,6 +2,10 @@
 
 2026-10-26（北京时间）；目标 `recovery/audio-compiler-source`；仅 PC / Win32。先读 AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推，非PC不再恢复。
 
+## 当前验证分支候选（尚未验收）
+
+本分支新增WAVE4/6声道候选，5个生产文件及1728用例完整组正在准备统一CI；当前不得宣称已支持。稳定PR[#10](https://github.com/wu162/NewSdk/pull/10)仍保留下述已验收源码。AIFF/AIFC/ADP4超过2声道仍拒绝。合入必须先PR并经用户明确批准，不能自行合并。
+
 ## 本轮已完成并通过
 
 最终源码 `2d64684742f9b19808d8fd721fbe31a549907c37`，源码树 `ee6074a096795aa66b682fcb363e360feabe4d2f`，运行 [40244825458](https://github.com/wu162/NewSdk/actions/runs/40244825458) attempt1 **success**：D/R loop4224、optional3888、COMM7776、offset2704、MPEG1084及旧受影响回归/整工程构建通过；新增1820资产SDK的实际三缓冲区、四产物及CustomData一致，恢复侧删除原AudioCompiler DLL。

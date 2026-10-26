@@ -22,8 +22,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static byte[] EncodeBlock128(float[] samples, int channels)
         {
             if (samples == null) throw new ArgumentNullException("samples");
-            if ((channels != 1 && channels != 2) || samples.Length != 128 * channels)
-                throw new ArgumentException("A mono or stereo block of exactly 128 frames is required");
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || samples.Length != 128 * channels)
+                throw new ArgumentException("A 1/2/4/6-channel block of exactly 128 frames is required");
             byte[] output = new byte[76 * channels];
             for (int channel = 0; channel < channels; ++channel)
             {
@@ -101,7 +101,7 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static PcmEncodingResult EncodeSamples(float[] samples, int channels, int sampleRate, bool streamed)
         {
             if (samples == null) throw new ArgumentNullException("samples");
-            if ((channels != 1 && channels != 2) || samples.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || samples.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             int frames = samples.Length / channels;
             if (frames == 0 || frames > 0x1fffffff) throw new ArgumentOutOfRangeException("samples");
