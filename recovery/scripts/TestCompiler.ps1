@@ -33,7 +33,7 @@ try {
         # original absolute paths; make all native/managed objects unavailable.
         if(!(Test-Path "$build/obj")){throw 'Missing product object directory to quarantine'}
         Move-Item "$build/obj" (Join-Path $work "$mode/quarantined-obj")
-        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file or subdirectory in clean production directory'}
         $exe=Join-Path $clean 'NewModCompiler.exe'
         & $inspector $exe (Join-Path $FoundationDirectory "$mode/Foundation.types.txt") (Join-Path $FoundationDirectory "$mode/resources.json") *> "$modeOut/metadata-runtime.log"
