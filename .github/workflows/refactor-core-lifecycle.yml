@@ -41,6 +41,8 @@ on:
       - 'recovery/scripts/TestCompilerBuildCache.ps1'
       - 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'
       - 'recovery/scripts/TestCompilerSessionCache.ps1'
+      - 'recovery/scripts/TestCompilerBig.ps1'
+      - 'recovery/scripts/ValidateCompilerBig.py'
       - 'recovery/scripts/TestCompilerSdk.ps1'
       - 'recovery/tests/CompilerCorePaths.cs'
       - 'recovery/tests/CompilerUnicodeSettings.cs'
@@ -138,6 +140,8 @@ jobs:
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
             if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
           }
+          ./recovery/scripts/TestCompilerBig.ps1 -Preflight -OutputDirectory recovery/artifacts/big-fixture-preflight
+          if($LASTEXITCODE -ne 0){throw 'BIG fixture/parser preflight failed'}
           ./recovery/scripts/TestCompilerSessionCache.ps1 -Preflight -OutputDirectory recovery/artifacts/session-fixture-preflight
           if($LASTEXITCODE -ne 0){throw 'Session-cache fixture preflight failed'}
           ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
@@ -229,6 +233,19 @@ jobs:
           $evidence="recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Actual session-cache protocol validation failed'}
+      - name: Production BIG apt maps selection and original MakeBig differential
+        id: big
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBig.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/big/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate actual BIG production protocol outputs
+        if: ${{ !cancelled() && steps.big.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/big/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Actual BIG production protocol validation failed'}
       - name: Validate actual cache and input-root protocol outputs
         if: ${{ !cancelled() && steps.cache.outcome == 'success' && steps.roots.outcome == 'success' && steps.payloads.outcome == 'success' }}
         shell: pwsh
@@ -238,8 +255,10 @@ jobs:
             python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/protocol.json"
             if($LASTEXITCODE -ne 0){throw "Actual $scope protocol validation failed"}
           }
+      # P7 only adds the explicit BIG apt/maps path; accepted P5/P6 full-mymod
+      # loose evidence is reused while all affected product/cache/CLI groups run.
       - name: Complete mymod original BAB and production SDK differential
-        if: ${{ success() && steps.session.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        if: ${{ success() && steps.session.outcome == 'success' && env.CLI_REUSE != 'true' && !contains(github.event.head_commit.message, '[refactor-p7-big]') }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
@@ -249,6 +268,8 @@ jobs:
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/big-fixture-preflight/**
             recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}

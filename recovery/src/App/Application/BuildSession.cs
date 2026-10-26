@@ -95,6 +95,16 @@ namespace NewModCompiler.Application
                 acceptingCoreTrace = false;
             }
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
+            if(code==ExitCode.Success && request.Command=="build" && request.PackageFormat=="big" && artifacts.Count!=0) {
+                try {
+                    StartStage("package");
+                    var packaged=BigPackage.Create(request,plan,staging,artifacts,cancellation);
+                    artifacts.Clear();artifacts.AddRange(packaged);
+                    foreach(var artifact in artifacts) events.Emit("ArtifactProduced",payload:artifact,stageId:"package");
+                    CompleteStage("succeeded",artifacts.Count);
+                } catch(OperationCanceledException e) {code=ExitCode.Cancelled;status="cancelled";Fail(e,status,"BUILD_CANCELLED","Build cancelled while packaging.");}
+                catch(Exception e) {code=ExitCode.Output;status="failed";Fail(e,status,"PACKAGE_FAILED",e.ToString());}
+            }
             // The compiler must release every stream and provider before publication.
             // Keep the previous generation until all required output channels close.
             if (code == ExitCode.Success && request.Command == "build" && artifacts.Count != 0) {

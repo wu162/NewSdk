@@ -47,7 +47,7 @@ namespace NewModCompiler.Cli
             }
             if (key == "package-format") {
                 value = value.ToLowerInvariant();
-                if (value != "loose") throw Bad("CLI_CAPABILITY", "Only loose output is implemented; BIG and postprocessing are unavailable.");
+                if (value != "loose" && value != "big") throw Bad("CLI_CAPABILITY", "Package format must be loose or big; BIG currently supports only apt/maps.");
             }
             if (key == "package-content") {
                 var content = value.Split(',').Select(x => x.Trim().ToLowerInvariant()).ToArray();
@@ -132,6 +132,7 @@ namespace NewModCompiler.Cli
                 }
             }
             request.Content = request.Options["package-content"].Value.Split(','); request.PackageFormat = request.Options["package-format"].Value;
+            BigPackage.ValidateRequest(request);
             return request;
         }
         static void Default(BuildRequest request, string key, string value) { if (!request.Options.ContainsKey(key)) request.Options[key] = new EffectiveOption { Value = value, Source = "default" }; }
@@ -164,10 +165,10 @@ namespace NewModCompiler.Cli
             } catch (BuildFailure) { throw; } catch (Exception e) { throw Bad("PROJECT_INVALID", "Invalid project preset: " + e.Message); }
         }
 #if NEWSdk_MONOLITHIC
-        const string RuntimeHelp = "Experimental Win32 in-process backend: loose output with independent opt-in /bc:true build-asset and /sc:true session-package caching. Session packages restore documents and intermediate/cdata assets, then regenerate linked outputs; mixed Texture inputs are rejected with /sc:true. Texture asset caching remains disabled. Cached builds require all resolved inputs within SDK, MOD or compiler-runtime roots. Successful nonempty builds replace the published directory under the output root; controlled finalization failures roll back. Empty optional selections preserve previous output. Compressed, partial and frozen session caches, legacy cache-directory overrides, and unsupported precompiled/output options are explicitly rejected. Plan performs discovery only. Doctor checks the environment without compiling a stream. BIG packaging is unavailable.";
+        const string RuntimeHelp = "Experimental Win32 in-process backend: loose output with independent opt-in /bc:true build-asset and /sc:true session-package caching. Session packages restore documents and intermediate/cdata assets, then regenerate linked outputs; mixed Texture inputs are rejected with /sc:true. Texture asset caching remains disabled. Cached builds require all resolved inputs within SDK, MOD or compiler-runtime roots. Successful nonempty builds replace the published directory under the output root; controlled finalization failures roll back. Empty optional selections preserve previous output. Compressed, partial and frozen session caches, legacy cache-directory overrides, and unsupported precompiled/output options are explicitly rejected. Plan performs discovery only. Doctor checks the environment without compiling a stream. BIG packaging supports apt/maps only and publishes an ASCII-named MOD_1.0.big plus skudef; base BIG requires the unrecovered LoDStreamBuilder and is rejected.";
 #else
         const string RuntimeHelp = "Standalone application skeleton: plan is available; build requires an integrated in-process backend. Legacy options are retained for backend validation, not proof of integrated capability.";
 #endif
-        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\n" + RuntimeHelp;
+        public const string Help = "NewModCompiler build|plan --mod <directory> --sdk-root <directory> --out <directory> [--package-content base,apt,maps] [--package-format loose|big] [--events <file>] [--report <file>]\nNewModCompiler doctor --sdk-root <directory>\n" + RuntimeHelp;
     }
 }
