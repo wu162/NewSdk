@@ -49,12 +49,9 @@ namespace NewModCompiler.Diagnostics
                     throw new IOException("Ambiguous or device diagnostic path component: " + part);
             }
         }
-        SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true,uint share=1)
+        SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true,uint share=1,uint access=0)
         {
-            // Metadata-only (access=0) opens do not establish the sharing
-            // exclusion needed here. FILE_READ_DATA / FILE_LIST_DIRECTORY makes
-            // the no-WRITE/DELETE share policy effective for files and parents.
-            var handle=CreateFile(path,1,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
+            var handle=CreateFile(path,access,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
             if (handle.IsInvalid) { handle.Dispose(); throw Error(path); }
             FileInformation information;
             if (!GetFileInformationByHandle(handle,out information)) { handle.Dispose(); throw Error(path); }
@@ -66,7 +63,7 @@ namespace NewModCompiler.Diagnostics
             // Permit the existing writer, but deny later delete/rename opens.
             // A path may have changed between rename and this open: compare the
             // inode before the first byte is written, never reopen a writer.
-            SafeFileHandle pinned=Open(path,false,false,3);
+            SafeFileHandle pinned=Open(path,false,false,3,1);
             FileInformation original, current;
             if (!GetFileInformationByHandle(expected,out original) || !GetFileInformationByHandle(pinned,out current)) throw Error(path);
             if (original.Volume!=current.Volume || original.IndexHigh!=current.IndexHigh || original.IndexLow!=current.IndexLow)
