@@ -1,0 +1,36 @@
+name: MOD compiler isolated probes
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-probes.yml'
+      - 'recovery/probes/**'
+      - 'recovery/build/**'
+      - 'recovery/src/App/**'
+      - 'recovery/tests/App/**'
+      - 'recovery/scripts/*SingleExeProbe.ps1'
+      - 'recovery/scripts/*ManagedFoundation.ps1'
+      - 'recovery/scripts/*App.ps1'
+      - 'recovery/scripts/TestTextureRedirect.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  link-probe:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]')
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Real Armor and Hash unified-link differential
+        shell: pwsh
+        run: ./recovery/scripts/TestSingleExeProbe.ps1 -OutputDirectory "recovery/evidence/refactor/g1/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Minimal
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-link-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
