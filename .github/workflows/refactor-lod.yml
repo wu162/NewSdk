@@ -19,6 +19,7 @@ jobs:
           sparse-checkout: |
             recovery/preparation/lod
             SDK/tools
+            SDK/builtmods
       - name: Build prepared in-process LoD component in both configurations
         shell: pwsh
         run: |
@@ -29,7 +30,7 @@ jobs:
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
             & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/LoDControl.exe" recovery/preparation/lod/LoDStreamBuilder.cs recovery/preparation/lod/LoDControl.cs
             if($LASTEXITCODE -ne 0){throw 'Prepared LoD component compilation failed'}
-            python recovery/preparation/lod/TestCompilerLoD.py --original SDK/tools/LoDStreamBuilder.exe --candidate "$out/LoDControl.exe" --output "$out/evidence"
+            python recovery/preparation/lod/TestCompilerLoD.py --original SDK/tools/LoDStreamBuilder.exe --candidate "$out/LoDControl.exe" --output "$out/evidence" --real-manifest SDK/builtmods/Static.manifest --real-manifest SDK/builtmods/sagexml/Worldbuilder.manifest
             if($LASTEXITCODE -ne 0){throw 'Original LoD component differential failed'}
           }
       - uses: actions/upload-artifact@v4

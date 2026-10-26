@@ -8,7 +8,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
 import struct
 import subprocess
 
@@ -37,20 +36,23 @@ def run(exe, manifest, directory, extra=()):
 def main():
     p=argparse.ArgumentParser()
     for n in ('original','candidate','output'):p.add_argument('--'+n,required=True)
+    p.add_argument('--real-manifest',action='append',default=[])
     a=p.parse_args();out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=False)
     original=Path(a.original).resolve();candidate=Path(a.candidate).resolve()
     state={'schemaVersion':1,'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
            'originalSha256':sha(original),'candidateSha256':sha(candidate),'succeeded':False,'cases':[],
            'scope':'Prepared RA3 PC v6 LoD component; original eight-output byte differential and rejection tests; production base BIG remains disabled'}
     try:
-        for count in (0,1,3,128):
-            case=out/f'assets-{count}';case.mkdir()
+        inputs=[(f'assets-{count}',fixture(count)) for count in (0,1,3,128)]
+        inputs += [('sdk-'+Path(file).stem,Path(file).read_bytes()) for file in a.real_manifest]
+        for name,data in inputs:
+            case=out/name;case.mkdir()
             for name in ('original','candidate'):
-                work=case/name;work.mkdir();(work/'mod.test.manifest').write_bytes(fixture(count))
+                work=case/name;work.mkdir();(work/'mod.test.manifest').write_bytes(data)
             expected=[]
             for suffix in ('_l','_m'):
                 for ext in ('.manifest','.bin','.imp','.relo'):expected.append('mod.test'+suffix+ext)
-            row={'name':case.name,'files':[]};state['cases'].append(row)
+            row={'name':case.name,'inputSha256':hashlib.sha256(data).hexdigest(),'files':[]};state['cases'].append(row)
             for name,exe in (('original',original),('candidate',candidate)):
                 work=case/name;before=sha(work/'mod.test.manifest')
                 code=run(exe,work/'mod.test.manifest',work)
@@ -59,7 +61,7 @@ def main():
                 assert {f.name for f in work.iterdir()}==set(expected+['mod.test.manifest','stdout.log','stderr.log']),'Output inventory differs'
             for file in expected:
                 left=case/'original'/file;right=case/'candidate'/file
-                assert left.read_bytes()==right.read_bytes(),f'Original/candidate raw bytes differ: {count}/{file}'
+                assert left.read_bytes()==right.read_bytes(),f'Original/candidate raw bytes differ: {case.name}/{file}'
                 row['files'].append({'path':file,'sha256':sha(left),'length':left.stat().st_size,'byteIdentical':True})
             row['passed']=True
         for name,mutate in (
