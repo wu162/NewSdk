@@ -1,3 +1,7 @@
+# AIFF/AIFC 4/6 下一组准备（未接线、未编译）
+
+本分支仅保存1728案例生成器及静态核对，不启用AIFF4/6，不冒充组件/SDK通过。先读[下一组接线说明](preparation/audio-aiff-multichannel/NEXT.md)。已验收WAVE来源仍为ed1a7bcb/run40250750964，完整原版AIFF证据为0d744a71/run40251368891。实际实现须从最新目标分支取基线并保留并行修改；PR及合并均按AGENTS.md执行，未经用户明确批准不得合并。
+
 # AudioCompiler 当前交接
 
 2026-10-26（北京时间）。仅PC/Win32；最终职责为Audio恢复及音频SDK验收。先读AGENTS.md、EFFICIENCY.md、[AUDIO_COMPILER.md](AUDIO_COMPILER.md)。禁止强推；合入必须先PR并经用户明确批准。
