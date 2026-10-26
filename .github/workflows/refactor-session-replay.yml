@@ -1,0 +1,81 @@
+name: MOD compiler fixed session replay and SDK milestone
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-session-replay.yml'
+      - 'recovery/scripts/PrepareCompilerSessionReplay.py'
+      - 'recovery/scripts/TestCompilerSessionCache.ps1'
+      - 'recovery/scripts/TestCompilerSdk.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: refactor-session-replay-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  replay:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-session-replay]')
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install pinned Texture audit and protocol dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: Validate current session fixtures before preparing historical bytes
+        shell: pwsh
+        run: |
+          foreach($path in @('recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          ./recovery/scripts/TestCompilerSessionCache.ps1 -Preflight -OutputDirectory recovery/artifacts/session-replay-preflight
+          if($LASTEXITCODE -ne 0){throw 'Corrected session fixture preflight failed'}
+      - name: Verify fixed original run and prepare unchanged production bytes
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerSessionReplay.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/session-replay-product --archive "$env:RUNNER_TEMP/session-replay.zip"
+          if($LASTEXITCODE -ne 0){throw 'Fixed production session replay rejected'}
+      - name: Replay corrected session cache matrix using the fixed production bytes
+        id: session
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerSessionCache.ps1 -CompilerDirectory recovery/artifacts/session-replay-product -OutputDirectory "recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Corrected session-cache matrix failed'}
+      - name: Validate new session-cache protocol evidence
+        id: protocol
+        shell: pwsh
+        run: |
+          $directory="recovery/evidence/refactor/session-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $directory --source-commit $env:GITHUB_SHA --output "$directory/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Session replay protocol failed'}
+      - name: Complete mymod original BAB and production SDK differential
+        if: ${{ success() && steps.session.outcome == 'success' && steps.protocol.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/session-replay-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -BinarySourceCommit 4992236fc0659192d1ee50211617db67af23c15b -TimeoutSeconds 600
+          if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-session-replay-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/session-replay-preflight/**
+            recovery/artifacts/session-replay-product/session-replay.json
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}

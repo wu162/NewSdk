@@ -1,13 +1,14 @@
 #requires -Version 7.0
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory=$true)][string]$CompilerDirectory,
+    [string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [ValidateRange(15,600)][int]$TimeoutSeconds=180
+    [ValidateRange(15,600)][int]$TimeoutSeconds=180,
+    [switch]$Preflight
 )
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
-$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
+if(!$Preflight){$CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path}
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite session-cache evidence: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=(New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP ('c'+[Guid]::NewGuid().ToString('N').Substring(0,8)))).FullName
@@ -106,7 +107,7 @@ function MakeMod([string]$Path,[string]$Probe){
     Put "$Path/Data/Armor.xml" $Probe
     Put "$Path/Data/Defs.xml" '<Defines xmlns="uri:ea.com:eala:asset"><Define name="SESSION_SCALE" value="83.25"/></Defines>'
     Put "$Path/Data/XArmor.xml" '<ArmorTemplate xmlns="uri:ea.com:eala:asset" id="SessionXIncludeArmor" Default="22.5%"/>'
-    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include href="Defs.xml"/><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="XArmor.xml"/><ArmorTemplate id="SessionExpressionArmor" DamageScalar="=$SESSION_SCALE"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>'
+    Put "$Path/Data/Mod.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude"><Includes><Include type="all" source="Armor.xml"/></Includes><xi:include href="Defs.xml"/><xi:include href="XArmor.xml"/><ArmorTemplate id="SessionExpressionArmor" DamageScalar="=$SESSION_SCALE"/><PathMusicEvent id="CacheEvent" PathfinderEventHeader="events.h" IsXferable="true"/></AssetDeclaration>'
     Put "$Path/Data/events.h" "#define PATH_EVENT_CacheEvent 0x12345678`r`n"
     Put "$Path/Data/AptUI/Payload.xml" '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><AptAptData id="SessionPayload" File="payload.bin"/></AssetDeclaration>'
     [IO.File]::WriteAllBytes("$Path/Data/AptUI/payload.bin",[byte[]](1,2,3,4,5,6,7))
@@ -220,15 +221,85 @@ function W3xMod([string]$Path){
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;modes=@();scope='Actual production /sc session-package disabled/cold/hot reuse, Include/XInclude defines/expressions/inheritance, complete intermediate and Audio CDATA/W3X, content invalidation, MOD isolation, corruption, cancellation/failure retries; exact raw streams, selected original BAB oracle; not complete P5/G3/SDK'}
 try{
     Need ($state.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Cannot identify source commit'
+    if($Preflight){
+        $probe=[IO.File]::ReadAllText("$root/SDK/Mods/mymod/Data/RecoveryArmorProbe.xml")
+        $preflightMod=Join-Path $short 'm';MakeMod $preflightMod $probe
+        AudioMod (Join-Path $short 'a');W3xMod (Join-Path $short 'w')
+        $check=@'
+import importlib.util, pathlib, sys
+from lxml import etree as E
+scripts=pathlib.Path(sys.argv[1]); work=pathlib.Path(sys.argv[2])
+spec=importlib.util.spec_from_file_location('session_schema', scripts/'GenerateXmlSdkModA.py')
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+schema=module.aggregate_schema(); ns={'ea':'uri:ea.com:eala:asset'}
+root=E.parse(str(work/'m/Data/Mod.xml')); root.xinclude()
+defines=root.xpath('/ea:AssetDeclaration/ea:Defines/ea:Define', namespaces=ns)
+assert len(defines)==1 and defines[0].get('name')=='SESSION_SCALE' and defines[0].get('value')=='83.25'
+expression=root.xpath('/ea:AssetDeclaration/ea:ArmorTemplate[@id="SessionExpressionArmor"]', namespaces=ns)[0]
+assert expression.get('DamageScalar')=='=$SESSION_SCALE'
+# Core evaluates expressions before XSD validation. Check that exact known
+# expression result, then source-XSD validation including declaration order.
+expression.set('DamageScalar',defines[0].get('value')); schema.assertValid(root)
+for name in ('m/Data/Armor.xml','m/Data/AptUI/Payload.xml','a/Data/Mod.xml','w/Data/Mod.xml','w/Data/W3x.xml'):
+    schema.assertValid(E.parse(str(work/name)))
+armor=E.parse(str(work/'m/Data/Armor.xml'))
+assert len(armor.xpath('/ea:AssetDeclaration/ea:ArmorTemplate[@inheritFrom="RecoveryArmorProbe_NonDefault"]',namespaces=ns))==1
+assert b'72.5%' in (work/'m/Data/Armor.xml').read_bytes()
+assert b'22.5%' in (work/'m/Data/XArmor.xml').read_bytes()
+assert b'0x12345678' in (work/'m/Data/events.h').read_bytes()
+assert b'FrameRate="30"' in (work/'w/Data/W3x.xml').read_bytes()
+assert len((work/'a/Audio/probe.wav').read_bytes())==44+4096*2*2
+config=(module.ROOT/'SDK/tools/BinaryAssetBuilder.exe.config').read_bytes()
+assert b'monitorPaths="..\\"' in config
+assert b'elementFormDefault="qualified"' in (module.S/'AssetTypeTexture.xsd').read_bytes()
+print('PASS session fixtures: XInclude declaration order, exact defines/expression, inheritance, source XSD, payload closure and mutation tokens')
+'@
+        & python -c $check $PSScriptRoot $short *> "$out/fixture-preflight.log"
+        Need ($LASTEXITCODE -eq 0) 'Session fixture preflight failed; inspect fixture-preflight.log'
+        $state.preflight=$true;$state.scope='Fixture source-XSD/known expression/closure and mutation-token preflight only; no production cache execution';$state.succeeded=$true;$global:LASTEXITCODE=0
+        return
+    }
     Need (!(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'reuse.json')) -and !(Test-Path -LiteralPath (Join-Path $CompilerDirectory 'candidate-replay.json'))) 'New session-cache acceptance requires current production EXE bytes'
     $state.binarySourceCommit=$state.sourceCommit;$state.testSourceCommit=$state.sourceCommit
+    $replayFiles=@{};$replayPath=Join-Path $CompilerDirectory 'session-replay.json'
+    if(Test-Path -LiteralPath $replayPath){
+        $replay=Get-Content -LiteralPath $replayPath -Raw|ConvertFrom-Json
+        $guard=@'
+import json, re, sys
+sys.path.insert(0,sys.argv[1])
+import PrepareCompilerSessionReplay as p
+assert p.SOURCE=='4992236fc0659192d1ee50211617db67af23c15b'
+assert str(p.RUN)=='40405225193' and str(p.ATTEMPT)=='1'
+assert re.fullmatch('[0-9a-f]{64}',p.SHA256) and int(p.ARTIFACT)>0
+p.closure(sys.argv[2],p.SOURCE,sys.argv[3])
+print(json.dumps({'source':p.SOURCE,'runId':str(p.RUN),'runAttempt':str(p.ATTEMPT),'sha256':p.SHA256,'artifactId':str(p.ARTIFACT)}))
+'@
+        & python -c $guard $PSScriptRoot $root $state.sourceCommit > "$out/replay-source-closure.json"
+        Need ($LASTEXITCODE -eq 0) 'Session replay actual production-source closure rejected'
+        $identity=Get-Content "$out/replay-source-closure.json" -Raw|ConvertFrom-Json
+        Need ($replay.prepared -eq $true -and $replay.candidateValidated -eq $false -and $replay.productionSourcesUnchanged -eq $true -and $replay.binarySourceCommit -ceq $identity.source -and $replay.testSourceCommit -ceq $state.sourceCommit -and [string]$replay.runId -ceq $identity.runId -and [string]$replay.runAttempt -ceq $identity.runAttempt -and $replay.archiveSha256 -ceq $identity.sha256 -and [string]$replay.artifactId -ceq $identity.artifactId) 'Session replay fixed identity or preparation contract differs'
+        $expectedFiles=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach($configuration in @('Debug','Release')){foreach($fileName in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){$null=$expectedFiles.Add($configuration+'/bin/'+$fileName)}}
+        Need (@($replay.files).Count -eq 6) 'Session replay requires exactly six runtime identities'
+        foreach($file in $replay.files){
+            Need ($expectedFiles.Remove([string]$file.path) -and $file.sha256 -cmatch '^[0-9a-f]{64}$') 'Unexpected or duplicate session replay runtime identity'
+            Need ((Hash (Join-Path $CompilerDirectory $file.path)) -ceq $file.sha256) 'Session replay production bytes differ from fixed archive'
+            $replayFiles[[string]$file.path]=[string]$file.sha256
+        }
+        Need ($expectedFiles.Count -eq 0) 'Session replay runtime set is incomplete'
+        $state.binarySourceCommit=$identity.source;$state.sessionReplay=$replay
+        $state.scope+='; fixed binarySourceCommit with separately recorded current testSourceCommit and checked actual source closure; not a current production rebuild or a change to the original run conclusion'
+    }
     $script:control=& "$PSScriptRoot/BuildCompilerCliControl.ps1" -OutputDirectory (Join-Path $out 'controller')
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSha256=Hash $control
     foreach($mode in @('Debug','Release')){
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
-        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
+        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){
+            Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime
+            if($replayFiles.Count -gt 0){Need ((Hash (Join-Path $runtime $file)) -ceq $replayFiles[$mode+'/bin/'+$file]) 'Copied session replay runtime identity differs'}
+        }
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
         & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'Session runtime Texture deployment failed'
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@();corruptions=@()};$state.modes+=,$modeState
@@ -281,6 +352,7 @@ try{
             $beforeDamage=RunCli ($kind+'-warm') $mod $damagedOut $true;Cache $beforeDamage 'cold';SameOutputs $plain $beforeDamage
             $modeState.corruptions+=,@{kind=$kind;entries=@(DamagePackage $damagedOut $kind)}
             $afterDamage=RunCli ($kind+'-damaged-cold') $mod $damagedOut $true;Cache $afterDamage 'cold';SameOutputs $plain $afterDamage
+            $repairedHot=RunCli ($kind+'-repaired-hot') $mod $damagedOut $true;Cache $repairedHot 'hot';SameOutputs $plain $repairedHot
         }
         $armorPath="$mod/Data/Armor.xml";$valid=[IO.File]::ReadAllBytes($armorPath);$confirmed=CacheFiles $cachedOut
         [IO.File]::WriteAllText($armorPath,'<AssetDeclaration>broken')
@@ -303,6 +375,7 @@ try{
             if($family -eq 'audio'){
                 $modeState.corruptions+=,@{kind='cdata';entries=@(DamagePackage $payloadCache 'cdata')}
                 $damaged=RunCli 'audio-missing-cdata-cold' $payloadMod $payloadCache $true;Cache $damaged 'cold';SameOutputs $before $damaged
+                $repairedHot=RunCli 'audio-repaired-cdata-hot' $payloadMod $payloadCache $true;Cache $repairedHot 'hot';SameOutputs $before $repairedHot
                 $input="$payloadMod/Audio/probe.wav";$stamp=[IO.File]::GetLastWriteTimeUtc($input);$bytes=[IO.File]::ReadAllBytes($input);$length=$bytes.Length
                 $bytes[44]=0x34;$bytes[45]=0x12;[IO.File]::WriteAllBytes($input,$bytes);[IO.File]::SetLastWriteTimeUtc($input,$stamp)
                 Need ((Get-Item -LiteralPath $input).Length -eq $length -and [IO.File]::GetLastWriteTimeUtc($input) -eq $stamp) 'Audio mutation failed to preserve length/mtime'
