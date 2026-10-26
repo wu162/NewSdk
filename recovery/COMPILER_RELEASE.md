@@ -43,3 +43,5 @@
 `PrepareCompilerRelease.py` 中 `REQUIRE_BASE_BIG` 必须与新的完整成功生产 source/run/archive 一起启用；不能仅改变开关使旧 APT/maps 归档变成 base 证据。启用后额外核查 base 与 base+apt+maps 两配置真实 CLI 用例、原始产品/原 MakeBig BIG 的完整清单与字节、原 LoD 新鲜八输出及其原始库存，同时强制核查 `all-with-additional`、原 CopyFolders 源码/运行身份、覆盖后的原始文件，以及产品/原 MakeBig BIG 的完整字节。此前已验收的 ZIP 保留原范围，后续候选不得沿用其验收标签。
 
 MakeBig 的恢复实现直接并入生产 EXE；原 SDK MakeBig 只在隔离验收中充当 oracle。AssetMerge 不在本次需求与发行必做项中。
+
+包含可选中立修复的新候选还必须通过显式 `--fix-neutral-assets true` 的真实 ZIP CLI、缺失参考拒绝及恢复重试。准备器核对原 HashFix→ModAssetResolver→LoD 工具与参考输入、实际非零哈希修正、零资产插入范围、原始输出及最终 MakeBig 全成员字节；不开启新候选的发行标签，除非该组同样成功。此验收仅涵盖已证明的零插入修复范围，不自动读取游戏目录，也不代表完整资产插入已支持。

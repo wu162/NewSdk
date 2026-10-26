@@ -20,7 +20,7 @@ RUN = 40415442552
 ATTEMPT = 1
 ARTIFACT = 12694779350
 SHA256 = '12c731a9a460ea57e7e0e18bcab29d03884796ec6874bcb5297a4bada0b66eac'
-# Set only together with a new fully successful base-capable production pin.
+# Enable only with a fully successful base/Additional/optional-neutral production pin.
 REQUIRE_BASE_BIG = False
 REPOSITORY = 'wu162/NewSdk'
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
@@ -33,9 +33,10 @@ RUNTIME = guard.RUNTIME + ('BinaryAssetBuilder.TextureCompiler.dll','BinaryAsset
 ALLOWED = {
     'recovery/scripts/PrepareCompilerRelease.py', '.github/workflows/refactor-release.yml',
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md', 'recovery/COMPILER_RELEASE.md',
-    'recovery/P7_PACKAGING.md', 'recovery/scripts/PublishCompiler.ps1',
+    'recovery/P7_PACKAGING.md', 'recovery/MAKEBIG_RECOVERY.md', 'recovery/scripts/PublishCompiler.ps1',
     'recovery/scripts/TestCompilerBig.ps1', 'recovery/scripts/ValidateCompilerBig.py',
     'recovery/scripts/ValidateCompilerLoD.py', 'recovery/scripts/PrepareCompilerAdditional.py',
+    'recovery/scripts/PrepareCompilerNeutral.py',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
     # Independent preparations are outside the production object/link closure.
     '.github/workflows/refactor-hashfix.yml', '.github/workflows/refactor-lod.yml',
@@ -274,6 +275,67 @@ def additional_big_receipt(archive, cli, repo):
     return {'succeeded':True,'explicitAdditional':True,'rawProductCopyFoldersAndMakeBig':checked}
 
 
+def neutral_big_receipt(archive, cli, repo):
+    """Require an actual opt-in hash repair and the original three-stage raw oracle."""
+    prefix=f'evidence/refactor/big/{RUN}-{ATTEMPT}'
+    validation=json.loads(archive.read(prefix+'/validation.json').decode('utf-8-sig'))
+    guard.modes(validation)
+    tools=('HashFix.exe','ModAssetResolver.exe','LoDStreamBuilder.exe',
+           'ModAssetResolver_TypeHashes.txt','ModAssetResolver_InstanceHashes.txt')
+    tool_hashes={name:guard.digest((Path(repo)/'SDK/tools'/name).read_bytes()) for name in tools}
+    makebig_sha=guard.digest((Path(repo)/'SDK/tools/MakeBig.exe').read_bytes())
+    checked=[]
+    with tempfile.TemporaryDirectory(prefix='release-neutral-big-') as work:
+        path=Path(work)/'accepted.big'
+        for mode in sorted(guard.MODES):
+            row=next(m for m in validation['modes'] if m['configuration']==mode)
+            accepted=next(m for m in cli['modes'] if m['configuration']==mode)
+            require(row.get('exeSha256')==accepted.get('exeSha256'), 'Neutral repair used another production EXE')
+            for name in ('base-with-neutral-repair','neutral-missing-reference','neutral-retry-after-reference-restored'):
+                cases=[c for c in row['cases'] if c.get('name')==name]
+                require(len(cases)==1 and cases[0].get('passed') is True, 'Required optional neutral case failed/missing: '+name)
+                arguments=cases[0]['arguments']
+                require('--fix-neutral-assets' in arguments and arguments[arguments.index('--fix-neutral-assets')+1]=='true', 'Neutral repair was not explicitly enabled')
+            comparison_path=f'{prefix}/{mode}/neutral-original-hashfix-resolver-lod-makebig'
+            comparison=json.loads(archive.read(comparison_path+'/comparison.json').decode('utf-8-sig'))
+            expected=json.loads(archive.read(comparison_path+'/expected.json').decode('utf-8-sig'))
+            accepted_comparison=[c for c in row['comparisons'] if c['name']=='neutral-original-hashfix-resolver-lod-makebig']
+            require(len(accepted_comparison)==1 and accepted_comparison[0]['originalExeSha256']==makebig_sha and
+                    comparison.get('succeeded') is True and comparison.get('exactMemberNamesAndRawContents') is True, 'Neutral original MakeBig comparison incomplete')
+            oracle_path=comparison_path+'/neutral-original'
+            oracle=json.loads(archive.read(oracle_path+'/validation.json').decode('utf-8-sig'))
+            inventory=json.loads(archive.read(oracle_path+'/inventory.json').decode('utf-8-sig'))
+            require(oracle.get('succeeded') is True and inventory.get('succeeded') is True and
+                    oracle.get('hashFixChanged') is True and oracle.get('hashFixChangedCount',0)>0 and
+                    inventory.get('hashFixChanged') is True and inventory.get('hashFixChangedCount')==oracle['hashFixChangedCount'] and
+                    oracle.get('resolverInsertedAssets')==0 and inventory.get('resolverInsertedAssets')==0 and oracle.get('originalTools')==tool_hashes,
+                    'Neutral chain lacks actual hash repair or exceeds accepted no-insertion scope')
+            for name,sha in tool_hashes.items():
+                require(guard.digest(archive.read(oracle_path+'/SDK/tools/'+name))==sha, 'Neutral original tool bytes differ')
+            references=oracle.get('referenceInputs',{})
+            require(references, 'Neutral original reference inventory missing')
+            for name,entry in references.items():
+                data=archive.read(oracle_path+'/SDK/BuiltMods/'+guard.safe_name(name))
+                require(len(data)==entry['bytes'] and guard.digest(data)==entry['sha256'], 'Neutral oracle reference inputs changed')
+            original={entry['name']:entry for entry in inventory['files']}
+            require(len(original)==len(inventory['files'])==len(expected) and {e['name'] for e in expected}==set(original), 'Neutral raw oracle inventory incomplete')
+            raw={}
+            for name,entry in original.items():
+                require(name.startswith('data\\'), 'Neutral oracle returned a non-data member')
+                data=archive.read(oracle_path+'/stream/'+guard.safe_name(name[5:].replace('\\','/')))
+                require(len(data)==entry['bytes'] and guard.digest(data)==entry['sha256'], 'Neutral original output raw bytes differ')
+                raw[name]=data
+            for name,kind in ((f'{prefix}/{mode}/base-with-neutral-repair/artifacts/business_1.0.big','product'),
+                              (comparison_path+'/original.big','originalMakeBig')):
+                data=archive.read(name);path.write_bytes(data);actual=big_contract.read_archive(path)
+                require(actual['sha256']==comparison[kind]['sha256'] and {m['name'] for m in actual['members']}==set(raw) and
+                        all(m['data']==raw[m['name']] for m in actual['members']), 'Neutral product/original BIG raw contents differ')
+            checked.append({'configuration':mode,'productSha256':comparison['product']['sha256'],'hashFixChangedCount':oracle['hashFixChangedCount'],
+                            'resolverInsertedAssets':0,'originalChainReceipt':oracle_path+'/validation.json'})
+    return {'succeeded':True,'explicitNeutralRepair':True,'scope':'Original HashFix -> ModAssetResolver -> LoD, actual hash correction and no resolver insertion',
+            'rawProductOriginalChainAndMakeBig':checked}
+
+
 def prepare(archive, sdk_archive, candidate, output, repo):
     changed=closure(repo,SOURCE,candidate)
     sdk_raw,sdk_scope=sdk_receipt(sdk_archive,repo,candidate)
@@ -296,6 +358,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         cli_path=f'evidence/refactor/core-cli/{RUN}-{ATTEMPT}/validation.json';cli=doc(cli_path)
         base_big=base_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
         additional_big=additional_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
+        neutral_big=neutral_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
         for section in ('build-cache','input-roots','cache-payloads','session-cache','big'):
             base=f'evidence/refactor/{section}/{RUN}-{ATTEMPT}';d=doc(base+'/validation.json')
             require(d.get('succeeded') is True and d.get('sourceCommit')==SOURCE and str(d.get('runId'))==str(RUN) and str(d.get('runAttempt'))==str(ATTEMPT), 'P7 affected receipt failed: '+section)
@@ -319,7 +382,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         take(cli_path,'accepted-cli.json')
     (target/'accepted-mymod.json').write_bytes(sdk_raw)
     receipt.update(binarySourceCommit=SOURCE,testSourceCommit=candidate,artifactId=ARTIFACT,productionSourcesUnchanged=True,
-                   aptVersionMarker=marker,baseBigAcceptance=base_big,additionalBigAcceptance=additional_big,reusedMymod=sdk_scope,
+                   aptVersionMarker=marker,baseBigAcceptance=base_big,additionalBigAcceptance=additional_big,neutralBigAcceptance=neutral_big,reusedMymod=sdk_scope,
                    requiredNextSteps=['Run P6 five-file ZIP deployment validation'+(' with -VerifyBigDeployment' if REQUIRE_BASE_BIG else ' only')],
                    scope='Current P7 production/cache/session/BIG acceptance plus historical f2/9d complete mymod scope; packaging preparation only, no new business execution')
     (target/'release-preparation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');(target/'reuse.json').unlink()

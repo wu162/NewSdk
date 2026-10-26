@@ -33,3 +33,7 @@ The shared emitter streams bounded chunks instead of allocating twice the larges
 Original standalone MakeBig emits UTF8 non-ASCII member names. This recovered component behavior does not establish game/runtime Unicode support, and the normal MOD packaging boundary remains restricted to its previously supported ASCII names.
 
 `recovery/preparation/makebig/TestCompilerMakeBig.py` compares original/recovered runs on the **same input directory**, including full archive bytes and parsed order/payloads. Cases cover recursive mixed-case and UTF8 files, complete absolute-path exclusion, repeated exclusions, unknown options, quiet/verbose, empty trees, force and original prompt/refusal behavior. Independent tests use a standalone control host; production contains no test entry point. App tests cover parser and bookmark boundaries, directory traversal, force/refusal and same-source logical aliases. Fresh Windows and production acceptance is required before marking this recovery complete.
+
+## Current validation
+
+Recovered MakeBig has passed all 15 original-tool cases in both Debug and Release at production candidate `5f81f664f4970176d104b1aaa725501beffac410` (workflow `40421719576`). Same-tree successful archives are fully byte-identical; refusal/force/prompt/help exits are separately checked. App contracts on the same candidate also passed. The full production Core/CLI/BIG and refreshed deployment remain separate gates; this component result does not mark the candidate fully accepted.
