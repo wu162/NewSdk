@@ -51,7 +51,7 @@ static int Run(string[] args)
     }
     catch (BackendUnavailableException ex) { Console.Error.WriteLine(ex.Message); return 4; }
     catch (ArgumentException ex) { Console.Error.WriteLine(ex.Message); return 2; }
-    catch (Exception ex) when (ex is IOException or NotSupportedException or UnauthorizedAccessException)
+    catch (Exception ex) when (ex is IOException or InvalidDataException or NotSupportedException or UnauthorizedAccessException)
     { Console.Error.WriteLine(ex.Message); return 3; }
     catch (Exception ex) { Console.Error.WriteLine(ex.Message); return 1; }
 }
