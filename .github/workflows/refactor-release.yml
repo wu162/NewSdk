@@ -1,0 +1,56 @@
+name: Accepted P7 runtime P6 release refresh
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-release.yml'
+      - 'recovery/scripts/PrepareCompilerRelease.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: refactor-release-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-release]')
+    runs-on: windows-2022
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install pinned release protocol dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/scripts/app-protocol-requirements.txt
+      - name: Prepare exact accepted P7 bytes and retain historical SDK scope
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerRelease.py --repo . --candidate-commit $env:GITHUB_SHA --output recovery/artifacts/release-product --archive "$env:RUNNER_TEMP/release-product.zip" --sdk-archive "$env:RUNNER_TEMP/accepted-mymod.zip"
+          if($LASTEXITCODE -ne 0){throw 'Accepted P7 release preparation rejected'}
+      - name: Package and verify the five-file runtime deployment
+        shell: pwsh
+        run: |
+          ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/release-product -AcceptanceReceipt recovery/artifacts/release-product/accepted-cli.json -OutputDirectory "recovery/artifacts/release-refresh/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'P7 release ZIP deployment validation failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/release-product/release-preparation.json
+            recovery/artifacts/release-product/accepted-cli.json
+            recovery/artifacts/release-product/accepted-mymod.json
+            recovery/artifacts/release-product/acceptance/**
