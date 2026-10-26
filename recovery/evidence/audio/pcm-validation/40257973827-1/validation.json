@@ -1,0 +1,25 @@
+{
+  "scope": "PCM encoder component only, original AudioFile HeaderData/CustomData versus static encoder",
+  "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+  "modes": [
+    {
+      "passed": true,
+      "configuration": "Debug",
+      "blockFrameRecords": 504,
+      "recoveredSha256": "b78ad7eeae67a4b87d8f5ecb9593da2a370b411268d52bb7eea2f217476cc931",
+      "records": 8
+    },
+    {
+      "passed": true,
+      "configuration": "Release",
+      "blockFrameRecords": 504,
+      "recoveredSha256": "a006b968e980e8d8dd25289f60dae29c5e3a5347b33fdc205fd04cea1faa1a6d",
+      "records": 8
+    }
+  ],
+  "pluginValidated": false,
+  "runAttempt": "1",
+  "runId": "40257973827",
+  "sdkValidated": false,
+  "originalEvidenceSha256": "b4796e12818135a543efaa9ac7f1002dd109c57d7399eb660db6798becbfaee6"
+}

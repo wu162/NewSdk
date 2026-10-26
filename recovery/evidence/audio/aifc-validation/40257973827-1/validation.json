@@ -1,0 +1,32 @@
+{
+  "scope": "AIFC NONE integral PCM8/16/24; COMM names, FVER, chunk order; mono/stereo; PC NONE/XAS; RAM/streamed",
+  "originalSha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139",
+  "sourceCommit": "7abc0505f6340504f32767b86de7a34b04ac3367",
+  "status": "passed",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "safetyRefusals": 10,
+      "passed": true,
+      "sampleBitInvariants": 60,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "202533717b0edaad0005b0687f11424d3998c6baf1c08c36cfaae79ab0a443cf",
+      "transcriptSha256": "b1d04722aaedd3e1a7c867429a0a1730fbed63dc73baef54d62124162016842d",
+      "records": 720
+    },
+    {
+      "configuration": "Release",
+      "safetyRefusals": 10,
+      "passed": true,
+      "sampleBitInvariants": 60,
+      "originalAbsentFromRecoveredHost": true,
+      "recoveredSha256": "595941a31216547d0761adf87bc5bef33f564bd2864cc661dba5e9c79eb9c58c",
+      "transcriptSha256": "b1d04722aaedd3e1a7c867429a0a1730fbed63dc73baef54d62124162016842d",
+      "records": 720
+    }
+  ],
+  "runAttempt": "1",
+  "runId": "40257973827",
+  "sdkValidated": false,
+  "originalRecords": 720
+}
