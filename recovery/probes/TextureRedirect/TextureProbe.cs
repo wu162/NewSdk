@@ -44,8 +44,12 @@ public static class TextureProbe
             if (exe)
                 foreach (string name in new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics" })
                     if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name + ".dll"))) throw new Exception("Forbidden compatibility DLL present: " + name);
+#if TEXTURE_ADAPTER_PROBE
+            object instance = NewModCompiler.Compatibility.LegacyTextureAdapter.Load();
+#else
             var pluginAssembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
             object instance = Activator.CreateInstance(pluginAssembly.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true));
+#endif
             var plugin = (IAssetBuilderPlugin)instance;
             string custom = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(args[1])), "texture-probe.custom");
             int successes = 0, errors = 0;
@@ -88,6 +92,12 @@ public static class TextureProbe
                 }
             }
             finally { ((IDisposable)instance).Dispose(); }
+#if TEXTURE_ADAPTER_PROBE
+            ((IDisposable)instance).Dispose(); // single-close contract: a second close is harmless
+            bool closed = false;
+            try { plugin.GetVersionNumber(); } catch (ObjectDisposedException) { closed = true; }
+            if (!closed) throw new Exception("Texture adapter remains callable after Dispose");
+#endif
             string trace = args[2] + ".assemblies.tsv";
             File.WriteAllLines(trace, AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).Select(a => a.FullName + "\t" + (a.IsDynamic ? "dynamic" : a.Location)).ToArray());
             if (exe && AppDomain.CurrentDomain.GetAssemblies().Any(a => new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics" }.Contains(a.GetName().Name))) throw new Exception("Old business assembly loaded");
