@@ -1,0 +1,48 @@
+name: Audio original multichannel discovery
+on:
+  push:
+    branches: [validation/audio-upheaval-win32]
+    paths:
+      - '.github/workflows/audio-multichannel-validation.yml'
+      - 'recovery/scripts/TestAudioMultichannelOriginal.ps1'
+      - 'recovery/tests/AudioMultichannelOriginalProbe.cs'
+permissions:
+  contents: write
+concurrency:
+  group: audio-multichannel-original-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  discover:
+    if: contains(github.event.head_commit.message, '[audio-multichannel-original]')
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Isolated original Win32 multichannel discovery
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioMultichannelOriginal.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-multichannel-original-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+      - name: Preserve exact original multichannel evidence
+        if: always()
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $path = "recovery/evidence/audio/multichannel-original/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if (!(Test-Path $path)) { throw 'No original multichannel receipt' }
+          git add -- $path
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence staging failed' }
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { exit 0 }
+          if ($LASTEXITCODE -ne 1) { throw 'Evidence diff failed' }
+          git commit -m "audio: preserve original multichannel evidence $env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence commit failed' }
+          git pull --rebase origin $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) { throw 'Concurrent changes need resolution; artifact retained' }
+          git push origin "HEAD:$env:GITHUB_REF_NAME"
+          if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact retained' }
