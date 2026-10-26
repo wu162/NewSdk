@@ -72,6 +72,7 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
             $sequence=0
             foreach($row in $rows){$sequence++;Need ($row.buildId -ceq $body.buildId -and $row.sequence -eq $sequence) 'Build ID/sequence changed within CLI execution'}
             Need ($rows[-1].payload.exitCode -eq $Expected -and $rows[-1].payload.status -ceq $body.status) 'Terminal event/report status disagree'
+            if($Cancel){Need ($audit.observedBuildStarted.payload.processId -eq $audit.processId -and $audit.observedBuildStarted.buildId -ceq $body.buildId -and $audit.observedStreamStarted.buildId -ceq $body.buildId -and $audit.observedStreamStarted.sequence -gt $audit.observedBuildStarted.sequence -and @($audit.previousBuildIds|Where-Object{$_ -ceq $body.buildId}).Count -eq 0) 'Cancellation did not observe the current process/build generation'}
             $streamStarts=@($rows|Where-Object{$_.eventType -eq 'StreamStarted'});$streamEnds=@($rows|Where-Object{$_.eventType -eq 'StreamCompleted'})
             if($Cancel){Need ($streamStarts.Count -ge 1 -and $streamStarts.Count -le @($body.plan.Tasks).Count) 'Cancellation did not observe an actual selected stream'}
             else{Need ($streamStarts.Count -eq $StreamCount) 'CLI stream selection count differs'}
@@ -382,8 +383,9 @@ try {
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache/publishing remain separate'
-    if($reuse){$state.scope+='; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate'
+    if($script:publicationEnabled){$state.scope+='; transactional published generation first/replacement, occupied output, compilation failure/cancellation preserving old generation and same-path retry passed; injected late-output rollback remains the separate controlled App lifecycle group'}
+    if($reuse){$state.scope+='; current transactional publication acceptance was not performed; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

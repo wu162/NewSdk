@@ -56,3 +56,19 @@
 第一组先实现第二、第三行并覆盖递归早退和正常成功；后续各作用域就绪后再扩展其他行。
 底层测试可反射检查私有状态，输出正确性与拒绝行为仍须走公开真实 Core 调用。
 完整 P5 还需计划规定的无/冷/热缓存、依赖变化、连续 MOD、取消/失败后重试及真实 SDK/G3 输出对照。
+
+## 下一组：实际缓存接入顺序与阻塞（2026-10-26）
+
+- `CacheInputSnapshot` 是未接入的 SDK/MOD/runtime 全量内容清单；`CanAuthorizeCacheReuse=false`。
+  它不能授权缓存命中；根外解析、环境与工具链契约尚未覆盖。下一轮优先完成实际功能，不继续增加未接入抽象。
+- Core 已追踪 XML/include，也经 `AssetDeclarationDocument.LoadXml` 的 resolver.Paths 追踪 XInclude，
+  经 `HandleFileReferenceType`/`UpdateDocumentHashes` 追踪 Schema 声明的文件引用；尚未证明覆盖所有插件旁路读文件。
+- 不能仅将每流 `new SessionCache` 移到会话入口：`ProcessDocumentInternal` 对 Complete 文档提前返回，
+  `AssetDeclarationDocument.Open` 还可能保留旧 processor。先确定快照/重置与新流输出来源，失败缓存必须丢弃。
+- `FileHashItem.IsDirty`、`SchemaSet.ReloadIfChanged` 依赖 mtime；必须补内容失效，覆盖同长度同时间戳修改。
+- 接入顺序：Initialize 确定新版本/实现/配置/平台/MOD 命名空间 → Compile 前加载与初始化 →
+  成功编译后写临时缓存 → 发布和必需日志收尾成功后确认；失败/取消丢弃。不得读取旧 BAB 命名空间。
+- 旧 `SaveCache` 的 .tmp/.old 写法尚未接入本次事务；SessionCache 的 LastOutputAssets 只记录资产身份/尺寸，
+  热复用还依赖 OutputManager 可访问的旧输出/中间资产/BuildCache；新隔离 staging 缺失这些内容会重新编译。
+- 整组验收保留无/冷/热、文档/XInclude/文件引用/Schema/配置/插件负载改变、两个 MOD、失败/取消后重试，
+  对照独立冷进程与原 BAB 原始四输出；Schema 单独复用即使完成，也不能当成 `/sc` 或完整缓存验收。

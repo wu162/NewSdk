@@ -44,17 +44,36 @@ public static class CompilerCliControl
         foreach(char c in text) { if(c=='\\') { slashes++; continue; } if(c=='\"') result.Append('\\',slashes*2+1); else result.Append('\\',slashes); result.Append(c); slashes=0; }
         return result.Append('\\',slashes*2).Append('"').ToString();
     }
-    static Dictionary<string,object> StreamStarted(string path)
+    static List<Dictionary<string,object>> ReadEvents(string path)
     {
-        if(!File.Exists(path)) return null;
-        using(var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite))
-        using(var reader=new StreamReader(input,Encoding.UTF8))
-        {
-            string line; while((line=reader.ReadLine())!=null)
-            {
-                try { var row=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(line); if((string)row["eventType"]=="StreamStarted") return row; }
-                catch(ArgumentException) { }
+        var rows=new List<Dictionary<string,object>>();
+        try {
+            // Product sinks replace stale files atomically. Observers must never
+            // prevent that replacement while scanning an earlier generation.
+            using(var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete))
+            using(var reader=new StreamReader(input,Encoding.UTF8)) {
+                string line; while((line=reader.ReadLine())!=null) {
+                    try { var row=new JavaScriptSerializer().Deserialize<Dictionary<string,object>>(line); if(row!=null)rows.Add(row); }
+                    catch(ArgumentException) { } // A not-yet-flushed final JSON line is retried.
+                }
             }
+        } catch(IOException) { } // Missing/replaced file is not a build observation.
+        return rows;
+    }
+    static Dictionary<string,object> StreamStarted(string path,uint expectedPid,HashSet<string> previousBuilds,out Dictionary<string,object> buildStarted)
+    {
+        buildStarted=null;
+        foreach(var row in ReadEvents(path)) {
+            object eventType,buildId,sequence;
+            if(!row.TryGetValue("eventType",out eventType) || !row.TryGetValue("buildId",out buildId) ||
+                !row.TryGetValue("sequence",out sequence) || string.IsNullOrEmpty(buildId as string))continue;
+            if((string)eventType=="BuildStarted") {
+                object payload,pid;
+                if(row.TryGetValue("payload",out payload) && payload is Dictionary<string,object> &&
+                    ((Dictionary<string,object>)payload).TryGetValue("processId",out pid) &&
+                    Convert.ToUInt32(pid)==expectedPid && !previousBuilds.Contains((string)buildId))buildStarted=row;
+            } else if((string)eventType=="StreamStarted" && buildStarted!=null &&
+                (string)buildId==(string)buildStarted["buildId"] && Convert.ToInt64(sequence)>Convert.ToInt64(buildStarted["sequence"]))return row;
         }
         return null;
     }
@@ -85,6 +104,9 @@ public static class CompilerCliControl
                 readLock=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);
                 state["readLockHeld"]=true;state["readLockPath"]=path;
             }
+            var previousBuilds=new HashSet<string>(StringComparer.Ordinal);
+            foreach(var row in ReadEvents(events)) {object id;if(row.TryGetValue("buildId",out id) && !string.IsNullOrEmpty(id as string))previousBuilds.Add((string)id);}
+            state["previousBuildIds"]=previousBuilds.ToArray();
             state["exe"]=exe;state["signalRequested"]=cancel;state["consoleInitiallyAttached"]=GetConsoleCP()!=0;
             if(GetConsoleCP()==0) { Check(AllocConsole(),"Cannot allocate a console; CtrlBreak remains unverified"); allocated=true; }
             state["allocatedConsole"]=allocated;
@@ -108,9 +130,10 @@ public static class CompilerCliControl
             {
                 Audit(child.Pid,descendants,observed);polls++;
                 if(cancel && !(bool)state["signalSent"]) {
-                    var started=StreamStarted(events);
+                    Dictionary<string,object> buildStarted;
+                    var started=StreamStarted(events,child.Pid,previousBuilds,out buildStarted);
                     if(started!=null) {
-                        state["streamStartedObserved"]=true;state["observedStreamStarted"]=started;state["signalAtMs"]=timer.ElapsedMilliseconds;
+                        state["observedBuildStarted"]=buildStarted;state["streamStartedObserved"]=true;state["observedStreamStarted"]=started;state["signalAtMs"]=timer.ElapsedMilliseconds;
                         bool sent=GenerateConsoleCtrlEvent(1,child.Pid);state["signalSent"]=sent;state["signalWin32Error"]=sent?0:Marshal.GetLastWin32Error();
                         Check(sent,"CTRL_BREAK_EVENT could not be sent; cancellation remains unverified");
                     }

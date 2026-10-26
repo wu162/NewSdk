@@ -143,6 +143,28 @@ namespace NewModCompiler.Tests
             Check(Run(request,compiler,sink)==ExitCode.Output,"first-generation late failure exit differs");
             Check(!Directory.Exists(Path.Combine(request.OutputRoot,"published")),"first-generation late failure left publication");
             FailedReport(request,ExitCode.Output,"RolledBack"); Clean(request,compiler);
+            // A locked newly committed generation can prevent rollback. Preserve the
+            // exact previous generation for explicit recovery instead of deleting it.
+            request=Request(Path.Combine(work,"rollback-failed"),mod,sdk); compiler=new Compiler(); sink=new Sink();
+            string oldGeneration=Path.Combine(request.OutputRoot,"published","previous.bin"); Put(oldGeneration,"recoverable previous generation");
+            FileStream rollbackLock=null;
+            sink.Writing=value=>{if ((string)value["eventType"]=="BuildFinished") {
+                rollbackLock=new FileStream(Path.Combine(request.OutputRoot,"published","base","Mod","payload.bin"),FileMode.Open,FileAccess.Read,FileShare.Read);
+                throw new IOException("injected output failure while new generation is held");
+            }};
+            try {
+                Check(Run(request,compiler,sink)==ExitCode.Output,"rollback failure did not return output/7");
+                FailedReport(request,ExitCode.Output,"RollbackFailed");
+                Check((string)Report(request)["status"]=="failed","rollback failure report succeeded");
+                var backups=Directory.GetDirectories(request.OutputRoot,".previous-*");
+                Check(backups.Length==1 && File.ReadAllText(Path.Combine(backups[0],"previous.bin"))=="recoverable previous generation","rollback failure lost the old generation");
+                Check(new JavaScriptSerializer().Serialize(Report(request)["diagnostics"]).Contains(backups[0].Replace("\\","\\\\")),"rollback failure report omitted exact backup location");
+            } finally { if (rollbackLock!=null) rollbackLock.Dispose(); }
+            // Manual recovery of this known backup is explicit; automatic crash or
+            // failed-rollback recovery is not claimed by this transaction design.
+            string recover=Directory.GetDirectories(request.OutputRoot,".previous-*").Single();
+            Directory.Delete(Path.Combine(request.OutputRoot,"published"),true); Directory.Move(recover,Path.Combine(request.OutputRoot,"published"));
+            Check(File.ReadAllText(oldGeneration)=="recoverable previous generation","explicit old-generation recovery failed");
             Console.WriteLine("PASS Session publication: "+assertions+" lifecycle assertions; controlled executor, no real compiler acceptance");
             return assertions;
         }
