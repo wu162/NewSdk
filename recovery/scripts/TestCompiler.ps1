@@ -6,7 +6,7 @@ New-Item -ItemType Directory -Force $OutputDirectory|Out-Null
 $out=(Resolve-Path $OutputDirectory).Path
 if(!$BuildDirectory){$BuildDirectory=Join-Path $root ('recovery/artifacts/compiler-tests/'+[Guid]::NewGuid().ToString('N'))}
 $buildRoot=[IO.Path]::GetFullPath($BuildDirectory)
-$state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='P3 clean production CLI/Foundation deployment; asset backend intentionally unavailable';modes=@()}
+$state=@{schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';scope='P4 clean unified production deployment and complete built-in route metadata; not component differential or MOD compilation';modes=@()}
 Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
@@ -17,6 +17,10 @@ try {
     $inspector=Join-Path $work 'CompilerDeployment.exe'
     & $csc /nologo /codepage:65001 /platform:x86 /r:System.Web.Extensions.dll "/out:$inspector" (Resolve-Path 'recovery/tests/CompilerDeployment.cs').Path *> "$out/inspector-build.log"
     if($LASTEXITCODE -ne 0){Get-Content "$out/inspector-build.log";throw 'Deployment metadata inspector compilation failed'}
+    $routeInspector=Join-Path $work 'CompilerRoutes.exe'
+    & $csc /nologo /codepage:65001 /platform:x86 /r:System.Web.Extensions.dll "/out:$routeInspector" (Resolve-Path 'recovery/tests/CompilerRoutes.cs').Path *> "$out/routes-build.log"
+    if($LASTEXITCODE -ne 0){Get-Content "$out/routes-build.log";throw 'Built-in route inspector compilation failed'}
+    '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>'|Set-Content "$routeInspector.config"
     foreach($mode in @('Debug','Release')) {
         $modeOut=Join-Path $out $mode;New-Item -ItemType Directory -Force $modeOut|Out-Null
         $build=Join-Path $buildRoot $mode
@@ -25,11 +29,19 @@ try {
         $clean=Join-Path $work "$mode/clean"
         New-Item -ItemType Directory -Force $clean|Out-Null
         Copy-Item "$build/bin/*" $clean
+        # An isolated copy must not resolve intermediate modules through their
+        # original absolute paths; make all native/managed objects unavailable.
+        if(!(Test-Path "$build/obj")){throw 'Missing product object directory to quarantine'}
+        Move-Item "$build/obj" (Join-Path $work "$mode/quarantined-obj")
         $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
-        if(@(Get-ChildItem $clean -File|Where-Object{$_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file in clean production directory'}
+        if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file or subdirectory in clean production directory'}
         $exe=Join-Path $clean 'NewModCompiler.exe'
         & $inspector $exe (Join-Path $FoundationDirectory "$mode/Foundation.types.txt") (Join-Path $FoundationDirectory "$mode/resources.json") *> "$modeOut/metadata-runtime.log"
         if($LASTEXITCODE -ne 0){Get-Content "$modeOut/metadata-runtime.log";throw 'Clean product metadata validation failed'}
+        Push-Location $clean
+        try { & $routeInspector $exe (Join-Path $root 'recovery/catalog/XmlSdkTypes.json') *> "$modeOut/routes-runtime.log"; $routeCode=$LASTEXITCODE }
+        finally { Pop-Location }
+        if($routeCode -ne 0){Get-Content "$modeOut/routes-runtime.log";throw 'Clean production built-in route validation failed'}
         & $exe --help *> "$modeOut/help.log"
         if($LASTEXITCODE -ne 0 -or !(Select-String -Path "$modeOut/help.log" -SimpleMatch '--mod' -Quiet)){throw 'Clean product help failed'}
         $fixture=Join-Path $work "$mode/MOD 中文 fixture"
@@ -50,15 +62,16 @@ try {
             if(@($report.plan.Tasks).Count -ne 3){throw 'Clean production CLI plan must contain all three selected content groups'}
             if($report.exitCode -ne $code -or @($events|Where-Object{$_.eventType -eq 'BuildFinished'}).Count -ne 1){throw 'Production event/report terminal status differs'}
             if($command -eq 'build' -and @($report.diagnostics|Where-Object{$_.code -eq 'BACKEND_NOT_INTEGRATED'}).Count -ne 1){throw 'Build did not explicitly reject missing backend'}
-            if(@($report.artifacts).Count -ne 0){throw 'P3 skeleton claimed compiled assets'}
+            if(@($report.artifacts).Count -ne 0){throw 'Unintegrated Core backend claimed compiled assets'}
             Copy-Item "$destination/build-report.json" "$modeOut/$command-report.json"
             Copy-Item "$destination/build.events.jsonl" "$modeOut/$command-events.jsonl"
         }
-        $state.modes+=@{configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;planExit=0;doctorExit=3;buildExit=3;modCompilationSupported=$false}
-        Write-Host "PASS production $mode clean directory: metadata/types/resources, help, plan/events/report, explicit unavailable backend"
+        $state.modes+=@{configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=6;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;modCompilationSupported=$false}
+        Write-Host "PASS production $mode clean directory: metadata/types/resources, all built-in routes/rejections, help, plan/events/report, explicit unavailable Core backend"
     }
     $state.status='passed'
     # Expected backend-unavailable probes returned 3. The harness itself passed.
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
+
