@@ -17,61 +17,6 @@ $sdk=Join-Path $work 'SDK'; $build=Join-Path $work 'build'
 New-Item -ItemType Directory $sdk,$build -Force | Out-Null
 $state=@{sourceCommit=(git rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;status='started';succeeded=$false;sdkStarted=$false;originalBaselinePassed=$false;modSourceCommit=$actualModCommit;expectedModSourceCommit=$expectedModCommit;scope='Complete pinned Upheaval/PublicCases input; original BAB case3/4/5; only AudioCompiler replaced; other compiler plugins use SDK baseline';fullCombinedRecoveredCompilerValidated=$false;finalExeIntegrated=$false;invocations=@();outputs=@();runs=@()}
 $savedSide=$env:AUDIO_SDK_IMPLEMENTATION; $savedTrace=$env:AUDIO_SDK_TRACE
-# Follow exactly the compilation include graph. Reference includes denote
-# already compiled dependencies and must not inflate expected plugin coverage.
-function Get-ReachableAudioDeclarations([string]$SdkRoot, [object[]]$Targets) {
-    $dataRoot=[IO.Path]::GetFullPath("$SdkRoot/Mods/Upheaval/Data")
-    $sdkPrefix=[IO.Path]::GetFullPath($SdkRoot)+[IO.Path]::DirectorySeparatorChar
-    $pending=New-Object 'System.Collections.Generic.Queue[string]'
-    $visited=New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
-    $declarations=@{}
-    foreach ($target in $Targets) {
-        $entries=@(Get-ChildItem "$dataRoot/$($target.folder)" -Filter $target.filter -File | Sort-Object Name)
-        if (!$entries.Count) { throw "Missing compilation input for step $($target.step)" }
-        foreach ($entry in $entries) { $pending.Enqueue($entry.FullName) }
-    }
-    while ($pending.Count -gt 0) {
-        $path=(Resolve-Path -LiteralPath $pending.Dequeue()).Path
-        if (!$visited.Add($path)) { continue }
-        if (!$path.StartsWith($sdkPrefix,[StringComparison]::OrdinalIgnoreCase)) { throw "Include escapes temporary SDK: $path" }
-        [xml]$document=Get-Content -LiteralPath $path -Raw
-        if ($document.DocumentElement.LocalName -ne 'AssetDeclaration' -or $document.DocumentElement.NamespaceURI -ne 'uri:ea.com:eala:asset') { throw "Unexpected compilation XML root: $path" }
-        foreach ($asset in $document.DocumentElement.ChildNodes) {
-            if ($asset -isnot [Xml.XmlElement] -or $asset.NamespaceURI -ne 'uri:ea.com:eala:asset') { continue }
-            if ($asset.LocalName -in @('AudioFile','AudioFileMP3Passthrough','PathMusicMap','PathMusicTrack','PathMusicEvent')) {
-                $id=$asset.GetAttribute('id')
-                if (!$id) { throw "Reachable audio declaration has no id: $path" }
-                $key=$asset.LocalName+"`t"+$id
-                if ($declarations.ContainsKey($key)) { throw "Ambiguous duplicate reachable audio declaration: $key" }
-                $declarations[$key]=@{type=$asset.LocalName;id=$id;source=$path.Substring($SdkRoot.Length+1).Replace('\','/')}
-            }
-        }
-        foreach ($include in $document.SelectNodes("/*[local-name()='AssetDeclaration']/*[local-name()='Includes']/*[local-name()='Include']")) {
-            $kind=$include.GetAttribute('type')
-            if ($kind -eq 'reference') { continue }
-            if ($kind -ne 'all') { throw "Unaudited include kind '$kind' in $path" }
-            $value=$include.GetAttribute('source')
-            if (!$value) { throw "Empty include source in $path" }
-            if ($value -match '^DATA:(.+)$') {
-                # Match the case3/4/5 /data search roots, in their declared order.
-                $tail=$Matches[1]
-                $candidates=@((Join-Path $SdkRoot $tail),(Join-Path $dataRoot $tail),(Join-Path "$SdkRoot/Mods" $tail),(Join-Path "$SdkRoot/SageXml" $tail))
-                $existingCandidates=@($candidates | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf })
-                if (!$existingCandidates.Count) { throw "Cannot resolve DATA include '$value' in $path" }
-                $next=$existingCandidates[0]
-            } elseif ($value -match '^[A-Za-z][A-Za-z0-9_]*:') {
-                throw "Unaudited include prefix '$value' in $path"
-            } else {
-                if ([IO.Path]::IsPathRooted($value)) { throw "Unaudited absolute include '$value' in $path" }
-                $next=Join-Path (Split-Path $path -Parent) $value
-            }
-            if ([IO.Path]::GetExtension($next) -ine '.xml') { throw "Unaudited non-XML all include '$value' in $path" }
-            if (!(Test-Path -LiteralPath $next -PathType Leaf)) { throw "Missing all include '$value' in $path" }
-            $pending.Enqueue([IO.Path]::GetFullPath($next))
-        }
-    }
-    return @{declarations=@($declarations.Values | Sort-Object type,id);xmlFiles=@($visited | Sort-Object)}
-}
 try {
     Get-ChildItem SDK -Force | Where-Object Name -notin @('Mods','builtmods') | Copy-Item -Destination $sdk -Recurse
     New-Item -ItemType Directory "$sdk/Mods" | Out-Null
@@ -96,13 +41,22 @@ try {
     if ($knownAudioIds.Count -ne 13 -or $knownAudioIds -notcontains 'JUPearl_ambiLoopa') { throw 'Pinned Upheaval reachable audio declarations changed' }
     $state.expectedSpecificAudioIds=$knownAudioIds
     $targets=@(@{step=3;folder='AptUI';filter='*.xml'},@{step=4;folder='AdditionalMaps';filter='mapmetadata_*.xml'},@{step=5;folder='';filter='Mod.xml'})
-    $reachable=Get-ReachableAudioDeclarations $sdk $targets
-    $expectedAudio=@($reachable.declarations)
-    if (!$expectedAudio.Count) { throw 'No reachable audio declarations in full compilation input' }
+    $csc="$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+    $closureHost="$sdk/tools/AudioUpheavalClosure.exe"
+    & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Xml.dll /r:System.Web.Extensions.dll /r:"$sdk/tools/BinaryAssetBuilder.Core.dll" /out:$closureHost (Resolve-Path recovery/tests/AudioUpheavalClosure.cs).Path *> "$out/closure-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/closure-build.log"; throw 'Original Core closure host build failed' }
+    '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$closureHost.config"
+    & $closureHost $sdk $out *> "$out/closure-validation.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/closure-validation.log" -Tail 60; throw 'Original Core input closure preflight failed; BAB not started' }
+    Get-Content "$out/closure-validation.log" -Tail 1
+    $closure=Get-Content "$out/closure-summary.json" -Raw | ConvertFrom-Json
+    $expectedAudio=@(Get-Content "$out/expected-audio.json" -Raw | ConvertFrom-Json)
+    $tentativeAudio=@(Get-Content "$out/tentative-audio.json" -Raw | ConvertFrom-Json)
+    if ($expectedAudio.Count -ne $closure.requiredAudio -or !$expectedAudio.Count) { throw 'Incomplete independent audio closure' }
     $state.expectedReachableAudioDeclarations=$expectedAudio.Count
-    $state.audioCoverageBasis='Five actual case3/4/5 entry XMLs and recursive type=all includes; reference includes excluded'
-    $expectedAudio | ConvertTo-Json -Depth 5 | Set-Content "$out/expected-audio.json"
-    $reachable.xmlFiles | ForEach-Object { $_.Substring($sdk.Length+1).Replace('\','/') } | Set-Content "$out/compiled-xml-closure.txt"
+    $state.tentativeAudioDeclarations=$tentativeAudio.Count
+    $state.audioCoverageBasis=$closure.semantics
+    $state.inputClosure=$closure
     dotnet build src/AudioCompiler/BinaryAssetBuilder.AudioCompiler.csproj -c Release -o $build -p:AssemblyName=Recovered.AudioCompiler --nologo *> "$out/library-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/library-build.log" -Tail 60; throw 'Recovered audio build failed' }
     Copy-Item "$build/Recovered.AudioCompiler.dll" "$sdk/tools"
@@ -211,8 +165,12 @@ try {
     $state.reachableAudioCoverage=@()
     foreach ($asset in $expectedAudio) {
         $called=$observedAudioKeys.ContainsKey($asset.type+"`t"+$asset.id)
-        $state.reachableAudioCoverage+=@{type=$asset.type;id=$asset.id;source=$asset.source;actualHandlerObserved=$called}
-        if (!$called) { throw "Reachable audio declaration never reached actual handler: $($asset.type):$($asset.id) from $($asset.source)" }
+        $state.reachableAudioCoverage+=@{type=$asset.type;id=$asset.id;sources=$asset.sources;actualHandlerObserved=$called}
+        if (!$called) { throw "Reachable audio declaration never reached actual handler: $($asset.type):$($asset.id) from $($asset.sources -join ",")" }
+    }
+    $state.tentativeAudioCoverage=@()
+    foreach ($asset in $tentativeAudio) {
+        $state.tentativeAudioCoverage+=@{type=$asset.type;id=$asset.id;sources=$asset.sources;actualHandlerObserved=$observedAudioKeys.ContainsKey($asset.type+"`t"+$asset.id)}
     }
     $state.actualUniqueAudioAssets=$observedAudioKeys.Count
     if (!$state.audioPluginExercised) { throw 'audioCalls=0: full MOD output compatibility cannot establish actual audio plugin coverage' }

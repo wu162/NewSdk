@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/audio-upheaval-validation.yml'
       - 'recovery/scripts/TestAudioUpheavalSdk.ps1'
+      - 'recovery/tests/AudioUpheavalClosure.cs'
 permissions:
   contents: write
 concurrency:
