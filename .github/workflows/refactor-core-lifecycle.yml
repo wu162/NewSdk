@@ -1,0 +1,64 @@
+name: MOD compiler Core lifecycle integration
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-core-lifecycle.yml'
+      - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
+      - 'recovery/tests/CompilerCoreLifecycle.cs'
+      - 'recovery/tests/CompilerResourceLifecycle.cs'
+      - 'recovery/tests/CompilerStateLifecycle.cs'
+      - 'recovery/src/Managed/Core/**'
+      - 'recovery/src/Managed/Metrics/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-core-lifecycle-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  lifecycle:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-core-lifecycle]')
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned mixed PE audit dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+      - name: Build managed Foundation inputs
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/core-lifecycle-foundation/$mode"
+          }
+      - name: Build full production combination and verify deployment and route metadata
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/core-lifecycle-foundation -BuildDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Real Core exception cleanup and resource lifecycle in Debug and Release
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/artifacts/core-lifecycle-foundation/**/build.json
+            recovery/artifacts/core-lifecycle-foundation/**/*.log
+            recovery/artifacts/core-lifecycle-product/**/build.json
+            recovery/artifacts/core-lifecycle-product/**/link-inputs.json
+            recovery/artifacts/core-lifecycle-product/**/*.log
+          if-no-files-found: error

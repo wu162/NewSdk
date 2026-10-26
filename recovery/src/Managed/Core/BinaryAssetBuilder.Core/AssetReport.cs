@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using System.Xml;
 
 namespace BinaryAssetBuilder.Core;
@@ -14,6 +15,8 @@ public static class AssetReport
 	public static readonly string TypeName = "AssetReportTable";
 
 	private static XmlWriter AssetRecordWriter = null;
+
+	private static Stream AssetRecordStream = null;
 
 	private static IDictionary<string, bool> RecordedAssets = null;
 
@@ -60,21 +63,36 @@ public static class AssetReport
 
 	private static void InitAssetRecordWriter()
 	{
-		if (!Directory.Exists(Settings.Current.SessionCacheDirectory))
+		XmlWriter writer = null;
+		Stream output = null;
+		FileNameFullyQualified = null;
+		RecordedAssets = null;
+		try
 		{
-			Directory.CreateDirectory(Settings.Current.SessionCacheDirectory);
+			if (!Directory.Exists(Settings.Current.SessionCacheDirectory))
+				Directory.CreateDirectory(Settings.Current.SessionCacheDirectory);
+			string path = Path.Combine(Settings.Current.SessionCacheDirectory, FileName);
+			output = new FileStream(path, FileMode.Create);
+			output = new BufferedStream(output);
+			XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+			xmlWriterSettings.CloseOutput = true;
+			xmlWriterSettings.Indent = true;
+			xmlWriterSettings.IndentChars = "\t";
+			writer = XmlWriter.Create(output, xmlWriterSettings);
+			writer.WriteStartElement("AssetDeclaration", "uri:ea.com:eala:asset");
+			writer.WriteStartElement(TypeName);
+			writer.WriteAttributeString("id", "TheAssetReportTable");
+			RecordedAssets = new SortedDictionary<string, bool>();
+			FileNameFullyQualified = path;
+			AssetRecordStream = output;
+			AssetRecordWriter = writer;
 		}
-		FileNameFullyQualified = Path.Combine(Settings.Current.SessionCacheDirectory, FileName);
-		RecordedAssets = new SortedDictionary<string, bool>();
-		BufferedStream output = new BufferedStream(new FileStream(FileNameFullyQualified, FileMode.Create));
-		XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-		xmlWriterSettings.CloseOutput = true;
-		xmlWriterSettings.Indent = true;
-		xmlWriterSettings.IndentChars = "\t";
-		AssetRecordWriter = XmlWriter.Create(output, xmlWriterSettings);
-		AssetRecordWriter.WriteStartElement("AssetDeclaration", "uri:ea.com:eala:asset");
-		AssetRecordWriter.WriteStartElement(TypeName);
-		AssetRecordWriter.WriteAttributeString("id", "TheAssetReportTable");
+		catch
+		{
+			try { if (writer != null) writer.Close(); } catch { }
+			try { if (output != null) output.Dispose(); } catch { }
+			throw;
+		}
 	}
 
 	public static string MakeAssetReportId(string typeId, string instanceId)
@@ -84,15 +102,30 @@ public static class AssetReport
 
 	public static void Close()
 	{
-		if (AssetRecordWriter != null)
+		XmlWriter writer = AssetRecordWriter;
+		Stream stream = AssetRecordStream;
+		AssetRecordWriter = null;
+		AssetRecordStream = null;
+		FileNameFullyQualified = null;
+		RecordedAssets = null;
+		Exception failure = null;
+		try
 		{
-			AssetRecordWriter.WriteEndDocument();
-			AssetRecordWriter.Flush();
-			AssetRecordWriter.Close();
-			AssetRecordWriter = null;
-			FileNameFullyQualified = null;
-			RecordedAssets = null;
+			if (writer != null)
+			{
+				writer.WriteEndDocument();
+				writer.Flush();
+			}
 		}
+		catch (Exception e) { failure = e; }
+		finally
+		{
+			try { if (writer != null) writer.Close(); }
+			catch (Exception e) { if (failure == null) failure = e; }
+			try { if (stream != null) stream.Dispose(); }
+			catch (Exception e) { if (failure == null) failure = e; }
+		}
+		if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
 	}
 
 	public static void WriteAssetReportInclude(XmlWriter writer)

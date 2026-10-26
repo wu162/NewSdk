@@ -218,153 +218,185 @@ public class DocumentProcessor
 
 	public void ProcessProjectDocument(string projectPath, bool generateOutput)
 	{
-		_CompilingProject = true;
-		_ProjectDefaultConfigurations = new Dictionary<string, string>();
 		Settings current = Settings.Current;
-		XmlSchema schema = XmlSchema.Read(Assembly.GetExecutingAssembly().GetManifestResourceStream("BinaryAssetBuilderProject.xsd"), null);
-		StreamReader streamReader = new StreamReader(projectPath);
-		XmlReader xmlReader = XmlReader.Create(projectPath);
-		xmlReader.Settings.Schemas.Add(schema);
-		BinaryAssetBuilderProject binaryAssetBuilderProject = null;
+		bool compilingProject = _CompilingProject;
+		Dictionary<string, string> defaultConfigurations = _ProjectDefaultConfigurations;
 		try
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(BinaryAssetBuilderProject));
-			binaryAssetBuilderProject = xmlSerializer.Deserialize(xmlReader) as BinaryAssetBuilderProject;
-		}
-		catch (InvalidOperationException ex)
-		{
-			_Tracer.TraceError("There is an error in '{0}': {1}\n", projectPath, ex.InnerException.Message);
-		}
-		streamReader.Close();
-		if (binaryAssetBuilderProject != null)
-		{
-			IDictionary<string, bool> dictionary = new SortedDictionary<string, bool>();
-			BinaryStream[] stream = binaryAssetBuilderProject.Stream;
-			foreach (BinaryStream binaryStream in stream)
+			_CompilingProject = true;
+			_ProjectDefaultConfigurations = new Dictionary<string, string>();
+			XmlSchema schema;
+			using (Stream schemaStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("BinaryAssetBuilderProject.xsd"))
 			{
-				string path = ((!Path.IsPathRooted(binaryStream.Source)) ? Path.Combine(Path.GetDirectoryName(projectPath), binaryStream.Source) : binaryStream.Source);
-				path = Path.GetFullPath(path).ToLower();
-				if (dictionary.TryGetValue(path, out var value) && value)
+				schema = XmlSchema.Read(schemaStream, null);
+			}
+			BinaryAssetBuilderProject binaryAssetBuilderProject = null;
+			using (XmlReader xmlReader = XmlReader.Create(projectPath))
+			{
+				xmlReader.Settings.Schemas.Add(schema);
+				try
 				{
-					_Tracer.TraceError("{0} was specified twice in {1}, skipping duplicates", path, projectPath);
+					XmlSerializer xmlSerializer = new XmlSerializer(typeof(BinaryAssetBuilderProject));
+					binaryAssetBuilderProject = xmlSerializer.Deserialize(xmlReader) as BinaryAssetBuilderProject;
 				}
-				else if (binaryStream.Configuration != null && binaryStream.Configuration.Length > 0)
+				catch (InvalidOperationException ex)
 				{
-					StreamConfiguration streamConfiguration = null;
-					StreamConfiguration[] configuration = binaryStream.Configuration;
-					foreach (StreamConfiguration streamConfiguration2 in configuration)
+					_Tracer.TraceError("There is an error in '{0}': {1}\n", projectPath, ex.InnerException.Message);
+				}
+			}
+			if (binaryAssetBuilderProject != null)
+			{
+				IDictionary<string, bool> dictionary = new SortedDictionary<string, bool>();
+				BinaryStream[] stream = binaryAssetBuilderProject.Stream;
+				foreach (BinaryStream binaryStream in stream)
+				{
+					string path = ((!Path.IsPathRooted(binaryStream.Source)) ? Path.Combine(Path.GetDirectoryName(projectPath), binaryStream.Source) : binaryStream.Source);
+					path = Path.GetFullPath(path).ToLower();
+					if (dictionary.TryGetValue(path, out var value) && value)
 					{
-						if (streamConfiguration2.Default)
+						_Tracer.TraceError("{0} was specified twice in {1}, skipping duplicates", path, projectPath);
+					}
+					else if (binaryStream.Configuration != null && binaryStream.Configuration.Length > 0)
+					{
+						StreamConfiguration streamConfiguration = null;
+						StreamConfiguration[] configuration = binaryStream.Configuration;
+						foreach (StreamConfiguration streamConfiguration2 in configuration)
 						{
-							if (streamConfiguration != null)
+							if (streamConfiguration2.Default)
 							{
-								_Tracer.TraceWarning("Stream {0} has multiple default configurations. Using {1}.", path, streamConfiguration.Name);
+								if (streamConfiguration != null)
+								{
+									_Tracer.TraceWarning("Stream {0} has multiple default configurations. Using {1}.", path, streamConfiguration.Name);
+								}
+								else
+								{
+									streamConfiguration = streamConfiguration2;
+								}
 							}
-							else
+						}
+						if (streamConfiguration == null)
+						{
+							_Tracer.TraceInfo("No default configuration specified for {0}. Using {1}", binaryStream.Source, binaryStream.Configuration[0].Name);
+							streamConfiguration = binaryStream.Configuration[0];
+						}
+						_ProjectDefaultConfigurations[path] = streamConfiguration.Name;
+						StreamConfiguration[] configuration2 = binaryStream.Configuration;
+						foreach (StreamConfiguration streamConfiguration3 in configuration2)
+						{
+							try
 							{
-								streamConfiguration = streamConfiguration2;
+								Settings.Current = SettingsLoader.GetSettingsForConfiguration(streamConfiguration3.Name);
+								Settings.Current.BuildConfigurationName = streamConfiguration3.Name;
+								ProcessOptions processOptions = new ProcessOptions();
+								processOptions.GenerateOutput = true;
+								processOptions.UsePrecompiled = true;
+								processOptions.Configuration = streamConfiguration3.Name;
+								processOptions.BasePatchStream = streamConfiguration3.PatchStream;
+								processOptions.BaseStreamSearchPaths = streamConfiguration3.BaseStreamSearchPath;
+								processOptions.RelativeBasePath = streamConfiguration3.RelativeBasePath;
+								if (streamConfiguration3.StreamReference != null)
+								{
+									processOptions.StreamReferences = streamConfiguration3.StreamReference;
+								}
+								ProcessDocumentInternal(path, path, null, processOptions);
+							}
+							finally
+							{
+								Settings.Current = current;
 							}
 						}
 					}
-					if (streamConfiguration == null)
+					else
 					{
-						_Tracer.TraceInfo("No default configuration specified for {0}. Using {1}", binaryStream.Source, binaryStream.Configuration[0].Name);
-						streamConfiguration = binaryStream.Configuration[0];
+						_ProjectDefaultConfigurations[path] = "";
+						ProcessOptions processOptions2 = new ProcessOptions();
+						processOptions2.GenerateOutput = true;
+						processOptions2.UsePrecompiled = true;
+						ProcessDocumentInternal(path, path, null, processOptions2);
 					}
-					_ProjectDefaultConfigurations[path] = streamConfiguration.Name;
-					StreamConfiguration[] configuration2 = binaryStream.Configuration;
-					foreach (StreamConfiguration streamConfiguration3 in configuration2)
-					{
-						Settings.Current = SettingsLoader.GetSettingsForConfiguration(streamConfiguration3.Name);
-						Settings.Current.BuildConfigurationName = streamConfiguration3.Name;
-						ProcessOptions processOptions = new ProcessOptions();
-						processOptions.GenerateOutput = true;
-						processOptions.UsePrecompiled = true;
-						processOptions.Configuration = streamConfiguration3.Name;
-						processOptions.BasePatchStream = streamConfiguration3.PatchStream;
-						processOptions.BaseStreamSearchPaths = streamConfiguration3.BaseStreamSearchPath;
-						processOptions.RelativeBasePath = streamConfiguration3.RelativeBasePath;
-						if (streamConfiguration3.StreamReference != null)
-						{
-							processOptions.StreamReferences = streamConfiguration3.StreamReference;
-						}
-						ProcessDocumentInternal(path, path, null, processOptions);
-						Settings.Current = current;
-					}
-				}
-				else
-				{
-					_ProjectDefaultConfigurations[path] = "";
-					ProcessOptions processOptions2 = new ProcessOptions();
-					processOptions2.GenerateOutput = true;
-					processOptions2.UsePrecompiled = true;
-					ProcessDocumentInternal(path, path, null, processOptions2);
 				}
 			}
 		}
-		_CompilingProject = false;
+		finally
+		{
+			Settings.Current = current;
+			_CompilingProject = compilingProject;
+			_ProjectDefaultConfigurations = defaultConfigurations;
+		}
 	}
 
 	public AssetDeclarationDocument ProcessDocumentInternal(string logicalPath, string sourcePath, OutputManager outputManager, ProcessOptions op)
 	{
 		DateTime now = DateTime.Now;
 		AssetDeclarationDocument assetDeclarationDocument = OpenDocument(sourcePath, logicalPath, op.GenerateOutput, op.Configuration);
-		if (op.GenerateOutput)
+		int documentDepth = _CurrentDocumentStack.Count;
+		int streamDepth = _CurrentStreamStack.Count;
+		int inclusionDepth = _DocumentStack.Count;
+		bool processing = assetDeclarationDocument.Processing;
+		try
 		{
-			if (Settings.Current.StreamHints && Cache.DirtyStreams != null && !Cache.DirtyStreams.Contains(sourcePath) && LoadPrecompiledReference(assetDeclarationDocument, GetExpectedOutputManifest(assetDeclarationDocument.SourcePath), op.BaseStreamSearchPaths))
+			if (op.GenerateOutput)
 			{
-				return assetDeclarationDocument;
-			}
-			if (assetDeclarationDocument.State == DocumentState.Complete)
-			{
-				return assetDeclarationDocument;
-			}
-			if (!Settings.Current.SingleFile && string.IsNullOrEmpty(assetDeclarationDocument.SourcePathFromRoot))
-			{
-				throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "{0} is a stream (.manifest) but does not have have {1} as its root!", sourcePath, Settings.Current.DataRoot);
-			}
-			string text = ShPath.Canonicalize(Path.Combine(Settings.Current.IntermediateOutputDirectory, assetDeclarationDocument.SourcePathFromRoot));
-			string text2 = ShPath.Canonicalize(Path.Combine(Settings.Current.OutputDirectory, assetDeclarationDocument.SourcePathFromRoot));
-			text2 = text2 + Settings.Current.StreamPostfix + Settings.Current.CustomPostfix;
-			text = text + Settings.Current.StreamPostfix + Settings.Current.CustomPostfix;
-			outputManager = new OutputManager(this, assetDeclarationDocument.LastOutputAssets, text2, text, op.BasePatchStream, op.RelativeBasePath, op.BaseStreamSearchPaths);
-			_CurrentStreamStack.Push(sourcePath);
-		}
-		string fileName = Path.GetFileName(sourcePath);
-		_CurrentDocumentStack.Push($"{fileName}:");
-		if (assetDeclarationDocument.State == DocumentState.Complete && assetDeclarationDocument.IsLoaded && assetDeclarationDocument.XmlDocument == null)
-		{
-			foreach (InstanceDeclaration instance in assetDeclarationDocument.Instances)
-			{
-				BinaryAsset binaryAsset = outputManager.GetBinaryAsset(instance, isOutputAsset: false);
-				if (binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
+				if (Settings.Current.StreamHints && Cache.DirtyStreams != null && !Cache.DirtyStreams.Contains(sourcePath) && LoadPrecompiledReference(assetDeclarationDocument, GetExpectedOutputManifest(assetDeclarationDocument.SourcePath), op.BaseStreamSearchPaths))
 				{
-					_Tracer.TraceInfo("Reloading 'file://{0}' for new stream", assetDeclarationDocument.SourcePath);
-					assetDeclarationDocument.State = DocumentState.Shallow;
-					break;
+					return assetDeclarationDocument;
+				}
+				if (assetDeclarationDocument.State == DocumentState.Complete)
+				{
+					return assetDeclarationDocument;
+				}
+				if (!Settings.Current.SingleFile && string.IsNullOrEmpty(assetDeclarationDocument.SourcePathFromRoot))
+				{
+					throw new BinaryAssetBuilderException(ErrorCode.IllegalPath, "{0} is a stream (.manifest) but does not have have {1} as its root!", sourcePath, Settings.Current.DataRoot);
+				}
+				string text = ShPath.Canonicalize(Path.Combine(Settings.Current.IntermediateOutputDirectory, assetDeclarationDocument.SourcePathFromRoot));
+				string text2 = ShPath.Canonicalize(Path.Combine(Settings.Current.OutputDirectory, assetDeclarationDocument.SourcePathFromRoot));
+				text2 = text2 + Settings.Current.StreamPostfix + Settings.Current.CustomPostfix;
+				text = text + Settings.Current.StreamPostfix + Settings.Current.CustomPostfix;
+				outputManager = new OutputManager(this, assetDeclarationDocument.LastOutputAssets, text2, text, op.BasePatchStream, op.RelativeBasePath, op.BaseStreamSearchPaths);
+				_CurrentStreamStack.Push(sourcePath);
+			}
+			string fileName = Path.GetFileName(sourcePath);
+			_CurrentDocumentStack.Push($"{fileName}:");
+			if (assetDeclarationDocument.State == DocumentState.Complete && assetDeclarationDocument.IsLoaded && assetDeclarationDocument.XmlDocument == null)
+			{
+				foreach (InstanceDeclaration instance in assetDeclarationDocument.Instances)
+				{
+					BinaryAsset binaryAsset = outputManager.GetBinaryAsset(instance, isOutputAsset: false);
+					if (binaryAsset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None)
+					{
+						_Tracer.TraceInfo("Reloading 'file://{0}' for new stream", assetDeclarationDocument.SourcePath);
+						assetDeclarationDocument.State = DocumentState.Shallow;
+						break;
+					}
 				}
 			}
+			if (assetDeclarationDocument.State == DocumentState.Shallow)
+			{
+				assetDeclarationDocument.Reinitialize(outputManager);
+			}
+			if (!assetDeclarationDocument.IsLoaded)
+			{
+				assetDeclarationDocument.ReloadIfRequired(_RequiredInheritFromSources);
+			}
+			_DocumentStack.Add(sourcePath);
+			assetDeclarationDocument.Processing = true;
+			_TotalPrepareSourceTime += DateTime.Now - now;
+			ProcessIncludedDocuments(assetDeclarationDocument, outputManager, op, op.UsePrecompiled);
+			if (assetDeclarationDocument.State != DocumentState.Complete)
+			{
+				ProcessDocumentContents(assetDeclarationDocument, outputManager, op, op.GenerateOutput);
+			}
+			_MaxTotalMemory = Math.Max(_MaxTotalMemory, GC.GetTotalMemory(forceFullCollection: false));
+			return assetDeclarationDocument;
 		}
-		if (assetDeclarationDocument.State == DocumentState.Shallow)
+		finally
 		{
-			assetDeclarationDocument.Reinitialize(outputManager);
+			assetDeclarationDocument.Processing = processing;
+			while (_DocumentStack.Count > inclusionDepth) _DocumentStack.RemoveAt(_DocumentStack.Count - 1);
+			while (_CurrentDocumentStack.Count > documentDepth) _CurrentDocumentStack.Pop();
+			while (_CurrentStreamStack.Count > streamDepth) _CurrentStreamStack.Pop();
 		}
-		if (!assetDeclarationDocument.IsLoaded)
-		{
-			assetDeclarationDocument.ReloadIfRequired(_RequiredInheritFromSources);
-		}
-		_DocumentStack.Add(sourcePath);
-		assetDeclarationDocument.Processing = true;
-		_TotalPrepareSourceTime += DateTime.Now - now;
-		ProcessIncludedDocuments(assetDeclarationDocument, outputManager, op, op.UsePrecompiled);
-		if (assetDeclarationDocument.State != DocumentState.Complete)
-		{
-			ProcessDocumentContents(assetDeclarationDocument, outputManager, op, op.GenerateOutput);
-		}
-		assetDeclarationDocument.Processing = false;
-		_CurrentDocumentStack.Pop();
-		_MaxTotalMemory = Math.Max(_MaxTotalMemory, GC.GetTotalMemory(forceFullCollection: false));
-		return assetDeclarationDocument;
 	}
 
 	private void ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool generateOutput)
@@ -417,11 +449,9 @@ public class DocumentProcessor
 				outputManager.CreateVersionFile(document, Settings.Current.CustomPostfix);
 			}
 			outputManager = null;
-			_CurrentStreamStack.Pop();
 			_Tracer.Message("{0} Stream complete", document.SourcePathFromRoot);
 			_TotalPrepareOutputTime += DateTime.Now - now3;
 		}
-		_DocumentStack.RemoveAt(_DocumentStack.Count - 1);
 		document.MakeComplete();
 		document.MakeCacheable();
 		Cache.SaveDocumentToCache(document.SourcePath, configuration, Settings.Current.TargetPlatform, document);

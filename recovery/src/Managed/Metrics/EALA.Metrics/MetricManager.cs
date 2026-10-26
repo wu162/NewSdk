@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 
 namespace EALA.Metrics;
 
@@ -11,6 +12,12 @@ public class MetricManager
 	private static ArrayList m_Listeners;
 
 	private static bool m_SessionOpen;
+
+	private static readonly object SessionLock = new object();
+
+	private static bool m_Transitioning;
+
+	private static bool m_Dispatching;
 
 	private static Dictionary<string, MetricDescriptor> _DescriptorMap;
 
@@ -41,38 +48,87 @@ public class MetricManager
 
 	public static void AddListener(IMetricsListener listener)
 	{
-		if (m_SessionOpen)
+		lock (SessionLock)
 		{
-			throw new ArgumentException("Cannot add a new listener while session is open.");
+			CheckListenerMutation();
+			if (listener == null) throw new ArgumentNullException(nameof(listener));
+			m_Listeners.Add(listener);
 		}
-		m_Listeners.Add(listener);
+	}
+
+	public static bool RemoveListener(IMetricsListener listener)
+	{
+		lock (SessionLock)
+		{
+			CheckListenerMutation();
+			int index = m_Listeners.IndexOf(listener);
+			if (index < 0) return false;
+			m_Listeners.RemoveAt(index);
+			return true;
+		}
+	}
+
+	private static void CheckListenerMutation()
+	{
+		if (m_SessionOpen || m_Transitioning || m_Dispatching)
+			throw new ArgumentException("Cannot change listeners while session is open or changing state.");
 	}
 
 	public static void OpenSession()
 	{
-		if (m_SessionOpen)
+		IMetricsListener[] listeners;
+		lock (SessionLock)
 		{
-			throw new ArgumentException("Session already opened.");
+			if (m_SessionOpen || m_Transitioning || m_Dispatching)
+				throw new ArgumentException("Session already opened or changing state.");
+			listeners = (IMetricsListener[])m_Listeners.ToArray(typeof(IMetricsListener));
+			m_Transitioning = true;
 		}
-		foreach (IMetricsListener listener in m_Listeners)
+		int attempted = 0;
+		try
 		{
-			listener.Open();
+			foreach (IMetricsListener listener in listeners)
+			{
+				attempted++;
+				listener.Open();
+			}
+			lock (SessionLock) { m_SessionOpen = true; m_Enabled = true; }
 		}
-		m_SessionOpen = true;
-		m_Enabled = true;
+		catch
+		{
+			// An Open callback may acquire resources before throwing. Include
+			// that listener in rollback, and preserve its original exception.
+			for (int i = attempted - 1; i >= 0; i--)
+			{
+				try { listeners[i].Close(); }
+				catch { }
+			}
+			throw;
+		}
+		finally { lock (SessionLock) { m_Transitioning = false; } }
 	}
 
 	public static void CloseSession()
 	{
-		if (!m_SessionOpen)
+		IMetricsListener[] listeners;
+		lock (SessionLock)
 		{
-			throw new ArgumentException("Session not opened.");
+			if (!m_SessionOpen || m_Transitioning || m_Dispatching)
+				throw new ArgumentException("Session not opened or changing state.");
+			listeners = (IMetricsListener[])m_Listeners.ToArray(typeof(IMetricsListener));
+			m_Transitioning = true;
 		}
-		foreach (IMetricsListener listener in m_Listeners)
+		Exception failure = null;
+		try
 		{
-			listener.Close();
+			foreach (IMetricsListener listener in listeners)
+			{
+				try { listener.Close(); }
+				catch (Exception e) { if (failure == null) failure = e; }
+			}
 		}
-		m_SessionOpen = false;
+		finally { lock (SessionLock) { m_SessionOpen = false; m_Transitioning = false; } }
+		if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
 	}
 
 	public static void Submit(string descriptorName, params object[] datalist)
@@ -94,27 +150,32 @@ public class MetricManager
 
 	private static void SubmitInternal(MetricDescriptor descriptor, params object[] samples)
 	{
-		if (!m_SessionOpen || !m_Enabled || samples.Length == 0)
+		IMetricsListener[] listeners;
+		lock (SessionLock)
 		{
-			return;
+			if (!m_SessionOpen || m_Transitioning || !m_Enabled || samples.Length == 0) return;
+			if (m_Dispatching) throw new InvalidOperationException("Metric listener submission cannot reenter itself.");
+			listeners = (IMetricsListener[])m_Listeners.ToArray(typeof(IMetricsListener));
+			m_Dispatching = true;
 		}
-		object obj = samples[0];
-		object obj2 = null;
-		samples[0] = descriptor.Type switch
+		try
 		{
-			MetricType.Count => Convert.ToInt32(obj), 
-			MetricType.Size => Convert.ToInt64(obj), 
-			MetricType.Duration => (obj.GetType() != typeof(TimeSpan)) ? ((object)Convert.ToDouble(obj)) : ((object)((TimeSpan)obj).TotalSeconds), 
-			MetricType.Enabled => Convert.ToBoolean(obj), 
-			MetricType.Success => Convert.ToBoolean(obj), 
-			MetricType.Name => Convert.ToString(obj), 
-			MetricType.Ratio => Convert.ToSingle(obj), 
-			_ => obj, 
-		};
-		foreach (IMetricsListener listener in m_Listeners)
-		{
-			listener.SubmitMetrics(new Metric(descriptor, samples));
+			object obj = samples[0];
+			samples[0] = descriptor.Type switch
+			{
+				MetricType.Count => Convert.ToInt32(obj),
+				MetricType.Size => Convert.ToInt64(obj),
+				MetricType.Duration => (obj.GetType() != typeof(TimeSpan)) ? ((object)Convert.ToDouble(obj)) : ((object)((TimeSpan)obj).TotalSeconds),
+				MetricType.Enabled => Convert.ToBoolean(obj),
+				MetricType.Success => Convert.ToBoolean(obj),
+				MetricType.Name => Convert.ToString(obj),
+				MetricType.Ratio => Convert.ToSingle(obj),
+				_ => obj,
+			};
+			foreach (IMetricsListener listener in listeners)
+				listener.SubmitMetrics(new Metric(descriptor, samples));
 		}
+		finally { lock (SessionLock) { m_Dispatching = false; } }
 	}
 
 	public static MetricDescriptor GetDescriptor(string name, MetricType type, string description)

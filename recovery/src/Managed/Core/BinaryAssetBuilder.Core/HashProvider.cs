@@ -31,6 +31,52 @@ public static class HashProvider
 
 	private static string _outputDirectory;
 
+    private static readonly object ScopeGate = new object();
+    private static StringHashScope _CurrentScope;
+    private static bool _PreparingState;
+
+    // Core uses process-wide hash tables. A stream owns them sequentially; nested
+    // scopes restore their exact parent tables, never publish output on disposal.
+    public static IDisposable BeginStringHashScope(string outputDirectory)
+    {
+        return PrepareStringHashes(outputDirectory, true);
+    }
+
+    private static void EnsureScopeThread()
+    {
+        if (_CurrentScope != null && _CurrentScope.ThreadId != System.Threading.Thread.CurrentThread.ManagedThreadId)
+            throw new InvalidOperationException("String hash scopes may only be used on their owning thread.");
+    }
+
+    private sealed class StringHashScope : IDisposable
+    {
+        internal readonly int ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+        private readonly StringHashScope parent = _CurrentScope;
+        private readonly IDictionary<string, string> schemaNames = _SchemaNameToBinName;
+        private readonly IDictionary<string, StringHashBin> bins = _StringHashBins;
+        private readonly string directory = _outputDirectory;
+        private readonly string fileName = StringHashesFile;
+        private bool disposed;
+
+        public void Dispose()
+        {
+            lock (ScopeGate)
+            {
+                if (disposed) return;
+                EnsureScopeThread();
+                if (_PreparingState) throw new InvalidOperationException("Cannot dispose a string hash scope during initialization.");
+                if (!Object.ReferenceEquals(_CurrentScope, this))
+                    throw new InvalidOperationException("String hash scopes must be disposed in reverse creation order.");
+                _SchemaNameToBinName = schemaNames;
+                _StringHashBins = bins;
+                _outputDirectory = directory;
+                StringHashesFile = fileName;
+                _CurrentScope = parent;
+                disposed = true;
+            }
+        }
+    }
+
 	public static string GetOutputDirectory()
 	{
 		return _outputDirectory;
@@ -71,69 +117,79 @@ public static class HashProvider
 		stringHashBin.RecordStringHash(GetTextHash(stringHashBin.IsCaseSensitive() ? str : str.ToLower()), str);
 	}
 
-	public static void InitializeStringHashes(string outputDir)
-	{
-		_outputDirectory = outputDir;
-		_SchemaNameToBinName = new Dictionary<string, string>();
-		_StringHashBins = new Dictionary<string, StringHashBin>();
-		StringHashesFile = StringHashesFileDefault;
-		_StringHashBins.Add(InstanceIdTableName, new StringHashBin(InstanceIdTableName, caseSensitive: false));
-		_StringHashBins.Add(TypeIdTableName, new StringHashBin(TypeIdTableName, caseSensitive: true));
-		StringHashBinDescriptor[] stringHashBinDescriptors = Settings.Current.StringHashBinDescriptors;
-		foreach (StringHashBinDescriptor stringHashBinDescriptor in stringHashBinDescriptors)
-		{
-			_SchemaNameToBinName.Add(stringHashBinDescriptor.SchemaTypeName, stringHashBinDescriptor.BinName);
-			_StringHashBins.Add(stringHashBinDescriptor.BinName, new StringHashBin(stringHashBinDescriptor.BinName, stringHashBinDescriptor.CaseSensitivity));
-		}
-		LoadPreviousStringHashes();
-	}
+    public static void InitializeStringHashes(string outputDir)
+    {
+        PrepareStringHashes(outputDir, false);
+    }
 
-	private static void LoadPreviousStringHashes()
-	{
-		string path = Path.Combine(_outputDirectory, StringHashesFile);
-		if (!File.Exists(path))
-		{
-			path = Path.Combine(_outputDirectory, StringHashesFileDefault);
-			if (!File.Exists(path))
-			{
-				return;
-			}
-		}
-		LoadPreviousStringHashes(path);
-	}
+    private static IDisposable PrepareStringHashes(string outputDirectory, bool createScope)
+    {
+        lock (ScopeGate)
+        {
+            EnsureScopeThread();
+            if (_PreparingState) throw new InvalidOperationException("String hash initialization cannot be concurrent or reentered.");
+            _PreparingState = true;
+        }
+        try
+        {
+            // IO and trace callbacks run outside ScopeGate. Reentrant or worker
+            // initialization is rejected by the marker instead of waiting for
+            // a callback which may itself be waiting for that worker.
+            var schemaNames = new Dictionary<string, string>();
+            var bins = new Dictionary<string, StringHashBin>();
+            bins.Add(InstanceIdTableName, new StringHashBin(InstanceIdTableName, caseSensitive: false));
+            bins.Add(TypeIdTableName, new StringHashBin(TypeIdTableName, caseSensitive: true));
+            foreach (StringHashBinDescriptor descriptor in Settings.Current.StringHashBinDescriptors)
+            {
+                schemaNames.Add(descriptor.SchemaTypeName, descriptor.BinName);
+                bins.Add(descriptor.BinName, new StringHashBin(descriptor.BinName, descriptor.CaseSensitivity));
+            }
+            LoadPreviousStringHashes(outputDirectory, StringHashesFileDefault, bins);
+            lock (ScopeGate)
+            {
+                // Snapshot only when the complete candidate is ready to install.
+                var scope = createScope ? new StringHashScope() : null;
+                _outputDirectory = outputDirectory;
+                _SchemaNameToBinName = schemaNames;
+                _StringHashBins = bins;
+                StringHashesFile = StringHashesFileDefault;
+                if (scope != null) _CurrentScope = scope;
+                return scope;
+            }
+        }
+        finally { lock (ScopeGate) { _PreparingState = false; } }
+    }
 
-	private static void LoadPreviousStringHashes(string path)
-	{
-		_Tracer.TraceInfo("Loading previous string hash file from {0}", path);
-		XmlDocument xmlDocument = new XmlDocument();
-		xmlDocument.Load(path);
-		try
-		{
-			foreach (XmlNode childNode in xmlDocument.DocumentElement.ChildNodes)
-			{
-				if (childNode.NodeType != XmlNodeType.Element || !childNode.Name.Equals(StringTableAssetName))
-				{
-					continue;
-				}
-				XmlElement xmlElement = (XmlElement)childNode;
-				string value = xmlElement.Attributes[StringBinEnumAttribute].Value;
-				StringHashBin value2 = null;
-				if (_StringHashBins.TryGetValue(value, out value2))
-				{
-					if (Convert.ToUInt32(xmlElement.Attributes["Version"].Value) == HashProviderVersion)
-					{
-						value2.ReadStringHashTable(xmlElement);
-						continue;
-					}
-					_Tracer.TraceInfo("Old string hash file is out of date.  If you encounter missing strings in the game (such as missing id's), please delete the session cache file in {0} and rebuild", Settings.Current.SessionCacheDirectory);
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-			_Tracer.TraceWarning("Did not successfully initialize previous string hashes, exception message: {0}", ex.ToString());
-		}
-	}
+    private static void LoadPreviousStringHashes(string outputDirectory, string fileName, IDictionary<string, StringHashBin> bins)
+    {
+        string path = Path.Combine(outputDirectory, fileName);
+        if (!File.Exists(path))
+        {
+            path = Path.Combine(outputDirectory, StringHashesFileDefault);
+            if (!File.Exists(path)) return;
+        }
+        _Tracer.TraceInfo("Loading previous string hash file from {0}", path);
+        XmlDocument document = new XmlDocument();
+        document.Load(path);
+        try
+        {
+            foreach (XmlNode child in document.DocumentElement.ChildNodes)
+            {
+                if (child.NodeType != XmlNodeType.Element || !child.Name.Equals(StringTableAssetName)) continue;
+                XmlElement element = (XmlElement)child;
+                StringHashBin bin;
+                if (!bins.TryGetValue(element.Attributes[StringBinEnumAttribute].Value, out bin)) continue;
+                if (Convert.ToUInt32(element.Attributes["Version"].Value) == HashProviderVersion)
+                    bin.ReadStringHashTable(element);
+                else
+                    _Tracer.TraceInfo("Old string hash file is out of date.  If you encounter missing strings in the game (such as missing id's), please delete the session cache file in {0} and rebuild", Settings.Current.SessionCacheDirectory);
+            }
+        }
+        catch (Exception exception)
+        {
+            _Tracer.TraceWarning("Did not successfully initialize previous string hashes, exception message: {0}", exception.ToString());
+        }
+    }
 
 	public static void FinalizeStringHashes()
 	{

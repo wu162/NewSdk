@@ -133,6 +133,55 @@ public class Tracer
 		_TraceMask = VerbosityLevels[level];
 	}
 
+    private static readonly object ScopeGate = new object();
+    private static TraceScope _CurrentScope;
+
+    // Replace rather than append the callback: one diagnostic must be delivered
+    // once, and the caller's exact mask/delegate must survive a failed stream.
+    public static IDisposable BeginScope(TraceWriteHandler writer, int traceLevel)
+    {
+        lock (ScopeGate)
+        {
+            TraceKind mask = VerbosityLevels[traceLevel];
+            EnsureScopeThread();
+            var scope = new TraceScope();
+            TraceWrite = writer;
+            _TraceMask = mask;
+            _CurrentScope = scope;
+            return scope;
+        }
+    }
+
+    private static void EnsureScopeThread()
+    {
+        if (_CurrentScope != null && _CurrentScope.ThreadId != Thread.CurrentThread.ManagedThreadId)
+            throw new InvalidOperationException("Trace scopes may only be used on their owning thread.");
+    }
+
+    private sealed class TraceScope : IDisposable
+    {
+        internal readonly int ThreadId = Thread.CurrentThread.ManagedThreadId;
+        private readonly TraceScope parent = _CurrentScope;
+        private readonly TraceWriteHandler writer = TraceWrite;
+        private readonly TraceKind mask = _TraceMask;
+        private bool disposed;
+
+        public void Dispose()
+        {
+            lock (ScopeGate)
+            {
+                if (disposed) return;
+                EnsureScopeThread();
+                if (!Object.ReferenceEquals(_CurrentScope, this))
+                    throw new InvalidOperationException("Trace scopes must be disposed in reverse creation order.");
+                TraceWrite = writer;
+                _TraceMask = mask;
+                _CurrentScope = parent;
+                disposed = true;
+            }
+        }
+    }
+
 	private static void OnWrite(string source, TraceEventType type, string message)
 	{
 		if (TraceWrite != null)
