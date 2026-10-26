@@ -16,9 +16,15 @@ namespace NewModCompiler.Cli
             try {
                 BuildRequest request = Options.Parse(args);
                 if (request.Command == "doctor") {
+#if NEWSdk_MONOLITHIC
+                    CoreStreamCompiler.ProbeEnvironment(request.SdkRoot);
+                    Console.WriteLine("CORE_ENVIRONMENT_OK: SDK configuration/schema, Win32 providers/verifier, ANTLR and EXE-bound texture initialized. No stream compiled.");
+                    return (int)ExitCode.Success;
+#else
                     Console.Error.WriteLine("SDK directory exists: " + request.SdkRoot);
-                    Console.Error.WriteLine("BACKEND_NOT_INTEGRATED: P2 application skeleton cannot validate runtime providers or compile assets.");
+                    Console.Error.WriteLine("BACKEND_NOT_INTEGRATED: Standalone application skeleton cannot validate runtime providers or compile assets.");
                     return (int)ExitCode.Environment;
+#endif
                 }
                 // Invalidate a previous report before opening any required output channels.
                 Reports.RemoveStale(request.ReportPath);
@@ -39,7 +45,14 @@ namespace NewModCompiler.Cli
             using (var cancellation = new CancellationTokenSource()) {
                 ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
                 Console.CancelKeyPress += handler;
-                try { return (int)new BuildSession(request,null,events).Run(cancellation.Token); }
+                BuildSession session = null;
+                IStreamCompiler compiler = null;
+#if NEWSdk_MONOLITHIC
+                if (request.Command == "build")
+                    compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message));
+#endif
+                session = new BuildSession(request,compiler,events);
+                try { return (int)session.Run(cancellation.Token); }
                 finally { Console.CancelKeyPress -= handler; }
             }
         }

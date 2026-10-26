@@ -6,6 +6,8 @@ on:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
+      - 'recovery/scripts/TestCompilerCli.ps1'
+      - 'recovery/tests/CompilerCliControl.cs'
       - 'recovery/scripts/ValidateAppProtocol.py'
       - 'recovery/scripts/app-protocol-requirements.txt'
       - 'recovery/protocol/**'
@@ -89,6 +91,19 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle-texture/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Real production CLI, cold processes and actual CtrlBreak cancellation
+        id: cli
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Validate real production CLI protocol outputs
+        if: ${{ !cancelled() && steps.cli.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $evidence="recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/cli-protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'Real production CLI protocol validation failed'}
       - name: Standalone P2 application contracts in Debug
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -126,6 +141,7 @@ jobs:
             recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

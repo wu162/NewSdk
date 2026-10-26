@@ -379,6 +379,22 @@ internal static class CompilerCoreLifecycle
         }
         finally { Settings.Current = oldSettings; }
     }
+    static void UnicodePathCase()
+    {
+        const string ascii = @"C:\Sdk Root\Data\Mod.xml";
+        Require(ShPath.Canonicalize(ascii) == ascii, "ASCII canonical path changed");
+        Require(ShPath.Canonicalize(@"C:\Sdk Root\Data\.\Child\..\Mod.xml") == ascii,
+            "ASCII dot-segment canonicalization changed");
+        Require(ShPath.RemoveFileSpec(ascii) == @"C:\Sdk Root\Data", "ASCII parent directory changed");
+        const string unicode = @"C:\SDK 中文\Mods\外部 MOD\Data\模组 文档.xml";
+        Require(ShPath.Canonicalize(unicode) == unicode, "Unicode canonical path changed under the process ANSI code page");
+        string normalized = ShPath.Canonicalize(@"C:\SDK 中文\Mods\外部 MOD\Data\.\贴图\..\模组 文档.xml");
+        Require(normalized == unicode, "Unicode/space/dot-segment path was damaged");
+        Require(ShPath.RemoveFileSpec(unicode) == @"C:\SDK 中文\Mods\外部 MOD\Data" &&
+            ShPath.RemoveFileSpec(normalized) == @"C:\SDK 中文\Mods\外部 MOD\Data",
+            "Unicode/space parent directory was damaged");
+        Tests.Add("Win32-shell-W-paths:ASCII-unchanged-Unicode-space-dot-segments-and-parent-preserved-existing-MAX_PATH-contract-only");
+    }
     static void ProjectCase(BuiltinCompilers plugins)
     {
         Settings s = Configure("project");
@@ -416,6 +432,7 @@ internal static class CompilerCoreLifecycle
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
+            UnicodePathCase();
             Require(typeof(DocumentProcessor).Assembly == typeof(BuiltinCompilers).Assembly, "Core is outside product assembly");
             // Configuration precedes built-in initialization, just as a real build requires.
             Configure("initialize");
@@ -426,12 +443,12 @@ internal static class CompilerCoreLifecycle
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }
-            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
+            result = new { succeeded=true, sourceCommit=args[2], runId=args[3], checks=checks, tests=Tests.ToArray(), longPathsValidated=false, scope="Real Core lifecycle only; production CLI backend, other global scopes, SDK/G3 and persistent cache not accepted" };
             Console.WriteLine("PASS CoreLifecycle: " + Tests.Count + " groups; " + checks + " checks");
         }
         catch (Exception e)
         {
-            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), error=e.ToString() };
+            code=1; result = new { succeeded=false, sourceCommit=args.Length>2?args[2]:null, runId=args.Length>3?args[3]:null, checks=checks, tests=Tests.ToArray(), longPathsValidated=false, error=e.ToString() };
             Console.Error.WriteLine(e);
         }
         finally { Settings.Current = original; }

@@ -48,8 +48,11 @@ public static class ShPath
 		[DllImport("shlwapi.dll")]
 		public static extern string PathBuildRoot(StringBuilder result, int drive);
 
-		[DllImport("shlwapi.dll")]
-		public static extern bool PathCanonicalize(StringBuilder result, string path);
+		// Core paths must retain Unicode independently of the Windows ANSI code page.
+        // The shell API still uses its existing MAX_PATH-sized buffers.
+        [DllImport("shlwapi.dll", EntryPoint = "PathCanonicalizeW", CharSet = CharSet.Unicode, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PathCanonicalize([Out] StringBuilder result, string path);
 
 		[DllImport("shlwapi.dll")]
 		public static extern IntPtr PathCombine(StringBuilder result, string directory, string file);
@@ -159,8 +162,9 @@ public static class ShPath
 		[DllImport("shlwapi.dll")]
 		public static extern void PathRemoveExtension(StringBuilder path);
 
-		[DllImport("shlwapi.dll")]
-		public static extern bool PathRemoveFileSpec(StringBuilder path);
+		[DllImport("shlwapi.dll", EntryPoint = "PathRemoveFileSpecW", CharSet = CharSet.Unicode, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PathRemoveFileSpec([In, Out] StringBuilder path);
 
 		[DllImport("shlwapi.dll")]
 		public static extern bool PathRenameExtension(StringBuilder path, string extension);

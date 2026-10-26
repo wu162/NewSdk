@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Threading;
@@ -55,14 +56,8 @@ namespace NewModCompiler.Application
                     throw new BuildFailure(ExitCode.Environment, "CORE_INPUT_ROOT_MISSING", "The SDK and MOD directories must exist.");
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
-                var configuration = new XmlDocument { XmlResolver = null };
-                configuration.Load(Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config"));
-                XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
-                if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
-                configurationXml = section.OuterXml;
+                LoadSdkConfiguration();
                 ReadSettings(); // Validate the real serialized contract before accepting the session.
-                if (!File.Exists(Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd")))
-                    throw new BuildFailure(ExitCode.Environment, "CORE_SCHEMA_MISSING", "The SDK CnC3Types schema is missing.");
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
@@ -72,6 +67,94 @@ namespace NewModCompiler.Application
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
             }
+        }
+
+        void LoadSdkConfiguration()
+        {
+            if (!Directory.Exists(sdkRoot)) throw new BuildFailure(ExitCode.Environment, "CORE_SDK_MISSING", "The SDK directory does not exist.");
+            string path = Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config");
+            if (!File.Exists(path)) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK BinaryAssetBuilder configuration is missing: " + path);
+            var configuration = new XmlDocument { XmlResolver = null };
+            configuration.Load(path);
+            XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
+            if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
+            configurationXml = section.OuterXml;
+            if (!File.Exists(Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd")))
+                throw new BuildFailure(ExitCode.Environment, "CORE_SCHEMA_MISSING", "The SDK CnC3Types schema is missing.");
+        }
+
+        // Read-only environment initialization, not a synthetic MOD build. The
+        // unique hash namespace is never created or finalized. Keep the lease
+        // until every scope and provider has restored the caller's process state.
+        public static void ProbeEnvironment(string sdkDirectory)
+        {
+            var probe = new CoreStreamCompiler();
+            lock (LeaseGate)
+            {
+                if (leaseOwner != null) throw new BuildFailure(ExitCode.Environment, "CORE_SESSION_BUSY", "A Core session already owns the process state.");
+                leaseOwner = probe;
+                probe.threadId = Thread.CurrentThread.ManagedThreadId;
+                probe.initializing = true;
+            }
+            Settings previousSettings = null;
+            bool previousMetrics = false, capturedState = false;
+            IDisposable tracing = null, state = null, report = null, hashes = null;
+            Exception failure = null;
+            try
+            {
+                previousSettings = Settings.Current;
+                previousMetrics = MetricManager.Enabled;
+                capturedState = true;
+                probe.sdkRoot = Path.GetFullPath(sdkDirectory);
+                probe.LoadSdkConfiguration();
+                Settings settings = probe.ReadSettings();
+                settings.DataRoot = probe.sdkRoot;
+                settings.SchemaPath = Path.Combine(probe.sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
+                settings.TargetPlatform = TargetPlatform.Win32;
+                settings.SessionCache = settings.BuildCache = settings.PartialSessionCache = settings.CompressedSessionCache = false;
+                settings.GuiMode = settings.Resident = settings.MetricsReporting = settings.OutputAssetReport = settings.OutputStringHashes = false;
+                settings.BuildConfigurationName = null;
+                Settings.Current = settings;
+                settings = SettingsLoader.GetSettingsForConfiguration(null);
+                settings.BigEndian = false;
+                Settings.Current = settings;
+                tracing = Tracer.BeginScope(null,3);
+                state = DocumentProcessor.BeginStateScope();
+                report = AssetReport.BeginScope();
+                string namespaceOnly = Path.Combine(Path.GetTempPath(), "NewModCompiler-doctor-" + Guid.NewGuid().ToString("N"));
+                settings.SessionCacheDirectory = namespaceOnly;
+                hashes = HashProvider.BeginStringHashScope(namespaceOnly);
+                MetricManager.Enabled = false;
+                VerifyAntlrRuntime();
+                new SchemaSet(settings.StableSort);
+                ExpressionEvaluatorWrapper.LoadAssembly();
+                XIncludingReaderWrapper.LoadAssembly();
+                probe.EnsureProviders(); // Includes the pinned, EXE-bound texture adapter and verifier.
+            }
+            catch (Exception error)
+            {
+                failure = error is BuildFailure ? error : Failure(ExitCode.Environment, "CORE_ENVIRONMENT_INVALID", error);
+            }
+            finally
+            {
+                try { probe.DisposeProviders(); } catch (Exception error) { AddCleanupFailure(ref failure,error,ExitCode.Environment,"CORE_ENVIRONMENT_CLEANUP_FAILED"); }
+                foreach (IDisposable scope in new[] {report,hashes,state,tracing})
+                    try { if (scope != null) scope.Dispose(); } catch (Exception error) { AddCleanupFailure(ref failure,error,ExitCode.Environment,"CORE_ENVIRONMENT_CLEANUP_FAILED"); }
+                if (capturedState) { Settings.Current = previousSettings; MetricManager.Enabled = previousMetrics; }
+                lock (LeaseGate) { probe.disposed = true; probe.initializing = false; probe.ReleaseLease(); }
+            }
+            if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
+        }
+
+        static void VerifyAntlrRuntime()
+        {
+            Assembly runtime = typeof(antlr.LLkParser).Assembly;
+            string expected = Path.Combine(Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location), "antlr.runtime.dll");
+            if (runtime.GetName().Name != "antlr.runtime" || !string.Equals(Path.GetFullPath(runtime.Location),Path.GetFullPath(expected),StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("ANTLR must load from the current compiler directory.");
+            using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(runtime.Location))
+                if (BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant() != "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a")
+                    throw new InvalidDataException("ANTLR runtime differs from the pinned compiler input.");
         }
 
         void ValidateOptions(BuildRequest candidate)
@@ -356,14 +439,15 @@ namespace NewModCompiler.Application
                 if (compiling || initializing) throw new InvalidOperationException("Cannot dispose a running or initializing Core session.");
                 disposed = true;
             }
-            var failures = new List<Exception>();
-            try
-            {
-                if (verifierDescriptors != null) foreach (PluginDescriptor descriptor in verifierDescriptors)
-                    try { var owned = descriptor.Plugin as IDisposable; if (owned != null) owned.Dispose(); } catch (Exception error) { failures.Add(error); }
-                try { if (compilers != null) compilers.Dispose(); } catch (Exception error) { failures.Add(error); }
-            }
+            try { DisposeProviders(); }
             finally { ReleaseLease(); }
+        }
+        void DisposeProviders()
+        {
+            var failures = new List<Exception>();
+            if (verifierDescriptors != null) foreach (PluginDescriptor descriptor in verifierDescriptors)
+                try { var owned = descriptor.Plugin as IDisposable; if (owned != null) owned.Dispose(); } catch (Exception error) { failures.Add(error); }
+            try { if (compilers != null) compilers.Dispose(); } catch (Exception error) { failures.Add(error); }
             if (failures.Count != 0) throw new AggregateException("Core provider cleanup failed.", failures);
         }
     }

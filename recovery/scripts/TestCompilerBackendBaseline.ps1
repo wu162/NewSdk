@@ -106,9 +106,17 @@ try {
         $input=(Resolve-Path -LiteralPath $case.inputPath).Path
         if(!(Contains $mod $input) -or (Contains $mod $caseOut) -or (Contains $sdk $caseOut)){throw 'Baseline source/output containment is invalid'}
         $tools=(Resolve-Path -LiteralPath (Join-Path $sdk 'tools')).Path
+        if($case.originalToolsRoot){
+            $requestedTools=(Resolve-Path -LiteralPath ([string]$case.originalToolsRoot)).Path
+            $repositoryTools=(Resolve-Path -LiteralPath (Join-Path $root 'SDK/tools')).Path
+            if(![IO.Path]::GetFullPath($requestedTools).TrimEnd([char[]]'\/').Equals([IO.Path]::GetFullPath($repositoryTools).TrimEnd([char[]]'\/'),[StringComparison]::OrdinalIgnoreCase)){
+                throw 'Only the repository original SDK/tools may override the independent oracle tool source'
+            }
+            $tools=$requestedTools
+        }
         $schemas=(Resolve-Path -LiteralPath (Join-Path $sdk 'Schemas/xsd')).Path
         $inputInventory=@(Inventory $mod);$toolInventory=@(Inventory $tools);$schemaInventory=@(Inventory $schemas)
-        $caseState=@{name=$case.name;passed=$false;inputPath=$input;modRoot=$mod;sdkRoot=$sdk;inputs=$inputInventory;originalTools=$toolInventory;schemaInputs=$schemaInventory;outputs=@()}
+        $caseState=@{name=$case.name;passed=$false;inputPath=$input;modRoot=$mod;sdkRoot=$sdk;originalToolsRoot=$tools;inputs=$inputInventory;originalTools=$toolInventory;schemaInputs=$schemaInventory;outputs=@()}
         $state.cases+=,$caseState
         # CLR2/Framework mixed-mode tools still use MAX_PATH internally. Keep all
         # writable native build paths short; retain the exact source MOD paths,
@@ -122,7 +130,11 @@ try {
             Copy-Item -Path (Join-Path $tools '*') -Destination $oracle -Recurse
             $exe=Join-Path $oracle 'BinaryAssetBuilder.exe';$configPath="$exe.config"
             if((Hash $exe) -cne (Hash (Join-Path $tools 'BinaryAssetBuilder.exe'))){throw 'Original BAB copy differs from fixed SDK input'}
-            [xml]$configuration=[IO.File]::ReadAllText($configPath)
+            # Effective SDK settings come from the actual case SDK, even when
+            # immutable original EXE/DLL bytes come from repository SDK/tools.
+            $caseConfig=Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config'
+            $caseState.sdkConfigSha256=Hash $caseConfig
+            [xml]$configuration=[IO.File]::ReadAllText($caseConfig)
             $section=$configuration.SelectSingleNode('/configuration/assetbuilder')
             if(!$section){throw 'Original BAB assetbuilder configuration missing'}
             $data=(Join-Path $mod 'Data')+';'+$section.GetAttribute('defaultDataPaths')

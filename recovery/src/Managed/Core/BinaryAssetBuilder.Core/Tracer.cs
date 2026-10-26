@@ -192,7 +192,10 @@ public class Tracer
 
 	private void Output(TraceEventType type, string format, params object[] args)
 	{
-		if (_TraceEnabled)
+		// An explicit build scope owns diagnostic delivery even for Tracers
+		// created earlier while the legacy BabEnableTrace switch was enabled.
+		// Keep that legacy branch unchanged when no scope is installed.
+		if (_TraceEnabled && _CurrentScope == null)
 		{
 			StringBuilder stringBuilder = new StringBuilder(new string(' ', IndentLevel * Trace.IndentSize));
 			stringBuilder.AppendFormat(format, args);
