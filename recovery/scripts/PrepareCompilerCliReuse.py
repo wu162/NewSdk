@@ -33,13 +33,14 @@ WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
 # Exact reviewed migration from legacy CLI-only source checks to pinned archive reuse.
 WORKFLOW_MIGRATION = (
     '49f2b553e62114f13507cae579c45cbb4482a526f276dceac53fd7c672747899',
-    'd6e465f98d7f4654a58075445940b9102e1491664a63b75a368021ac7217808f')
+    '98e999236c8436085d4d37338769d0a61d9f3318563af7c3ff9e0d5175fbdb15')
 ALLOWED = {
     # Independent preparation-unit-test CI; never a production build driver.
     '.github/workflows/refactor-cli-reuse.yml',
     'recovery/scripts/TestCompilerBackendBaseline.ps1',
     'recovery/scripts/TestCompilerCli.ps1',
     'recovery/scripts/CompilerCliOutputs.ps1',
+    'recovery/scripts/TestCompilerCliOutputs.ps1',
     'recovery/scripts/BuildCompilerCliControl.ps1',
     'recovery/scripts/PrepareCompilerCliBusiness.py',
     'recovery/scripts/PrepareCompilerCliUi.py',
@@ -97,7 +98,6 @@ def closure(repo, source, candidate):
         new = workflow_without_trigger_paths(git(repo, 'show', candidate + ':' + WORKFLOW))
         # One reviewed migration wires strict historical-runtime preparation.
         # Hash both complete normalized workflows, not a permissive step subset.
-
         require(old == new or (digest(old), digest(new)) == WORKFLOW_MIGRATION,
                 'Workflow change exceeds on.push.paths trigger list or pinned integration')
     return changed

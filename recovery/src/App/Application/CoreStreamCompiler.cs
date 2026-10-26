@@ -381,6 +381,14 @@ namespace NewModCompiler.Application
         }
         static IEnumerable<string> SafeFiles(string directory)
         {
+            // Check the root as well as discovered children. A caller-supplied
+            // junction must never turn an otherwise relative traversal into a
+            // scan of files outside this stream's output directory.
+            FileAttributes rootAttributes = File.GetAttributes(directory);
+            if ((rootAttributes & FileAttributes.ReparsePoint) != 0)
+                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "Core output contains a reparse point.");
+            if ((rootAttributes & FileAttributes.Directory) == 0)
+                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "Core output must be a directory.");
             foreach (string entry in Directory.GetFileSystemEntries(directory).OrderBy(x => x, StringComparer.Ordinal))
             {
                 FileAttributes attributes = File.GetAttributes(entry);
@@ -391,14 +399,17 @@ namespace NewModCompiler.Application
         }
         static IList<Artifact> CollectArtifacts(string output)
         {
+            output = Path.GetFullPath(output);
             var files = SafeFiles(output).ToArray();
             var result = new List<Artifact>();
             string[] manifests = files.Where(x => x.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase)).ToArray();
             if (manifests.Length == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");
             var accepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var customDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string manifest in manifests)
             {
                 string stem = manifest.Substring(0, manifest.Length - ".manifest".Length);
+                customDirectories.Add(Path.Combine(stem, "cdata"));
                 foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
                 {
                     string file = stem + extension;
@@ -408,14 +419,31 @@ namespace NewModCompiler.Application
             }
             foreach (string file in files)
             {
-                string relative = file.Substring(output.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                bool custom = relative.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Any(part => string.Equals(part, "cdata", StringComparison.OrdinalIgnoreCase));
-                if (!accepted.Contains(file) && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
+                // Stream directories may themselves be named cdata. Classify
+                // their four files by the exact stream paths first; a directory
+                // component alone says nothing about the artifact's role.
+                bool stream = accepted.Contains(file);
+                bool custom = !stream && customDirectories.Contains(Path.GetDirectoryName(file)) && IsCustomDataFileName(Path.GetFileName(file));
+                if (!stream && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
                 string sha;
                 using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
                 result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha });
             }
             return result;
+        }
+
+        static bool IsCustomDataFileName(string name)
+        {
+            // BinaryAsset/InstanceHandle.FileBase writes four 32-bit fields in
+            // this exact layout. This is a path/layout check, not a second
+            // manifest parser or proof that the payload matches its asset.
+            if (name.Length != 41 || !name.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase)) return false;
+            for (int index = 0; index < 35; index++)
+            {
+                if (index == 8 || index == 17 || index == 26) { if (name[index] != '.') return false; }
+                else if (!((name[index] >= '0' && name[index] <= '9') || (name[index] >= 'a' && name[index] <= 'f') || (name[index] >= 'A' && name[index] <= 'F'))) return false;
+            }
+            return true;
         }
 
         void CheckOwner()

@@ -34,6 +34,8 @@
 - Audio 文件读写使用 Core 预处理后的绝对路径和 .NET API，未找到当前文件路径 ANSI 转换；PathMusic 字段的 Encoding.Default 是格式内容兼容问题，需原版差分，不能直接换 UTF-8。
 - W3X 窄字符串用于 shader/technique/引用元数据，未找到 Native/W3X 直接打开外部文件，不能把它当已确认磁盘路径缺陷。
 - 原 Texture 混合 DLL 内部路径编码尚未验证，包装层自身用绝对路径和 .NET API；不能泛称纹理全 Unicode 已支持。
+- 产物收集器路径修复已准备、Windows 待验：原 `CollectArtifacts` 按任意 `cdata` 路径组件接纳文件，且将同名祖先目录下的四流文件误标为 `custom-data`。现优先按精确四流路径判角色，只允许已识别的每个 manifest 对应 `<stream stem>/cdata/<typeId>.<typeHash>.<instanceId>.<instanceHash>.cdata` 直接子文件（四段各8位十六进制），并拒绝输出根本身的重解析点。`CompilerCorePaths` 对实际私有收集方法增加两流/同名祖先/合法 cdata、伪目录、嵌套、错误字段与扩展、缺失四流成员、普通文件/空目录根、根与后代 junction 拒绝和目标保留回归。此层只审查布局，不解析 manifest 或证明 cdata 身份/内容；真实 UI 比较器仍须独立按 manifest 资产字段生成精确允许清单。生产源码已变，旧运行文件不能当作本次修复的候选验证。
+- Texture 对照必须在同一规范绝对输入路径先后执行原版与新实现；若 CustomData 嵌入源路径，不能拿 ASCII/Unicode 两个不同路径的字节差异证明编译器不同，更不能归一化产物消除差异。Unicode 路径能力应另列真实运行结果，不从 ASCII 对照推导。
 - 中文仓库根下 Native 生成 UTF-8 源码而 cl 未指定源编码，是未动态验证的开发构建边界；本轮 ASCII 仓库根未触发。
 - App.Paths.Contains 对正常驱动器根、UNC、同前缀兄弟目录及规范斜杠没有发现新误判；旧相对 art/data/iod 当前明确拒绝，不是静默按 CWD 执行。
 

@@ -53,7 +53,7 @@ def main():
     expected = 106 if args.entry == 'all' else (5 if args.entry == ENTRIES[1] else None)
     if not files or (expected is not None and len(files) != expected):
         raise ValueError('Pinned UI closure file count differs')
-    dependencies, roots = [], {}
+    dependencies, roots, textures = [], {}, []
     for key, item in files.items():
         if not key.endswith('.xml'):
             continue
@@ -63,6 +63,8 @@ def main():
             name = node.tag.split('}')[-1]
             if name != 'Includes':
                 counts[name] = counts.get(name, 0) + 1
+            if name == 'Texture':
+                textures.append({'entry': item['path'].split('/')[0], 'qualifiedName': 'Texture:' + node.attrib['id'], 'declaration': item['path']})
         roots[item['path']] = counts
         for node in document.iter():
             attribute = 'source' if node.tag.split('}')[-1] == 'Include' else 'File'
@@ -101,7 +103,7 @@ def main():
                'sourceCommit': SOURCE, 'sourceIsAncestor': True, 'entry': args.entry,
                'scope': 'Original APT/CONST/DAT/geometry/texture bytes and wrappers only; no compiler execution, output comparison, runtime UI or G3 acceptance',
                'files': [{k: v for k, v in item.items() if k != 'data'} for item in files.values()],
-               'dependencies': dependencies, 'assetRoots': roots,
+               'dependencies': dependencies, 'assetRoots': roots, 'textures': textures,
                'textureInputs': sum(name.endswith('.tga') for name in files),
                'expectedCustomDataBoundary': 'CommandListBox has no Texture; QueuePage/MainCommandBar each have one Texture and may emit cdata in addition to the four stream files'}
     (destination / 'fixture-manifest.json').write_text(json.dumps(receipt, indent=2) + '\n')

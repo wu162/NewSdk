@@ -2,6 +2,7 @@
 [CmdletBinding()]
 param([Parameter(Mandatory=$true)][string]$CompilerDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory,[ValidateRange(15,600)][int]$TimeoutSeconds=180)
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerCliOutputs.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite CLI acceptance evidence: $OutputDirectory"}
@@ -28,7 +29,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AptUI/Two.xml'),$Probe.Replace('Default="72.5%"','Default="32.5%"'))
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
-function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null){
+function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $destination=Join-Path $script:modeWork ('o'+$script:caseIndex);$script:caseIndex++
     New-Item -ItemType Directory -Path $destination|Out-Null
@@ -79,7 +80,8 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
             Need (@(Get-ChildItem -LiteralPath $destination -File -Recurse -Filter '*.tmp').Count -eq 0) 'Atomic report temporary file leaked'
             Need (@($body.externalTools).Count -eq 0) 'Production claimed external compiler tools'
             if($Expected -eq 0 -and $Command -eq 'build'){
-                Need (@($body.artifacts).Count -eq 4*$StreamCount) 'Expected four real linked files per selected task'
+                Need (@($body.artifacts).Count -eq 4*$StreamCount+$CustomDataCount) 'Expected exactly four linked files per task plus allowed Texture CustomData'
+                Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq $CustomDataCount) 'Reported CustomData count differs'
                 foreach($artifact in $body.artifacts){
                     Need ((Within (Join-Path $destination ('.build/'+$body.buildId)) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped this atomic isolated build staging'
                     Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.Sha256) 'Artifact identity differs from report'
@@ -113,10 +115,10 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if(Test-Path -LiteralPath $destination){Copy-Item -LiteralPath $destination -Destination (Join-Path $caseOut 'output') -Recurse}
     }
 }
-function TaskOutputs($Case,$Task){
+function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
     $prefix=Join-Path $Case.destination ('.build/'+$Case.report.buildId+'/'+$Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
     $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
-    Need ($map.Count -eq 4) 'Selected task does not own exactly four streams';$map
+    Need ($map.Count -eq 4+$CustomDataCount) 'Task output count differs from four streams plus allowed Texture CustomData';$map
 }
 # These fixtures have no runtime/manifest references. Decode the real source
 # table without normalizing or rewriting any produced byte.
@@ -153,6 +155,16 @@ $state=@{schemaVersion=1;succeeded=$false;sourceCommit=$null;runId=$env:GITHUB_R
 try {
     Push-Location $root
     $state.sourceCommit=(git rev-parse HEAD).Trim();Need ($LASTEXITCODE -eq 0) 'Cannot identify source commit'
+    & "$PSScriptRoot/TestCompilerCliOutputs.ps1" -OutputDirectory (Join-Path $out 'output-oracle-contracts')
+    Need ($LASTEXITCODE -eq 0) 'Manifest-bound CustomData oracle contract tests failed'
+    $state.testSourceCommit=$state.sourceCommit;$state.binarySourceCommit=$state.sourceCommit
+    $reuse=$null;$reusePath=Join-Path $CompilerDirectory 'reuse.json'
+    if(Test-Path -LiteralPath $reusePath){
+        $reuse=Get-Content -LiteralPath $reusePath -Raw|ConvertFrom-Json
+        Need ($reuse.prepared -eq $true -and $reuse.candidateValidated -eq $false -and $reuse.candidateCommit -ceq $state.sourceCommit -and $reuse.sourceCommit -cmatch '^[0-9a-f]{40}$') 'Historical CLI runtime preparation/source identity invalid'
+        $state.binarySourceCommit=$reuse.sourceCommit;$state.historicalRuntimeReuse=$reuse
+        $state.scope='Current CLI tests executing strictly verified historical production EXE bytes; historical binarySourceCommit and current testSourceCommit remain distinct; this is not a current production rebuild'
+    }
     $state.scriptSha256=Hash $PSCommandPath;$state.controllerSourceSha256=Hash "$root/recovery/tests/CompilerCliControl.cs"
     $sourceSdk=Join-Path $root 'SDK';$schemaSnapshot=Snapshot (Join-Path $sourceSdk 'Schemas/xsd')
     $configHash=Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config');$probeFile=Join-Path $sourceSdk 'Mods/mymod/Data/RecoveryArmorProbe.xml';$probeHash=Hash $probeFile;$probe=[IO.File]::ReadAllText($probeFile)
@@ -171,6 +183,12 @@ try {
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
         foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe';$exeHash=Hash $exe
+        if($reuse){
+            foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){
+                $runtimeIdentity=@($reuse.files|Where-Object{$_.path -ceq ($mode+'/bin/'+$file)})
+                Need ($runtimeIdentity.Count -eq 1 -and $runtimeIdentity[0].sha256 -ceq (Hash (Join-Path $runtime $file))) 'Historical runtime file differs from strict reuse receipt'
+            }
+        }
         & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log"
         Need ($LASTEXITCODE -eq 0) 'Production EXE texture preparation failed'
         $patchPath=Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json';$patch=Get-Content $patchPath -Raw|ConvertFrom-Json
@@ -270,40 +288,63 @@ try {
             foreach($inputFile in $prepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Business fixture source input changed'}
             $businessReceipt.inputsUnchanged=$true;$businessReceipt.coldGroupOutputsIdentical=$true;$businessReceipt.originalFourOutputsIdentical=$true;$businessReceipt.succeeded=$true
         } finally {$businessReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/business-validation.json"}
-        # Smallest complete original UI entry: its wrapper and three original
-        # APT/CONST/DAT payloads, without the other entries' Texture/cdata outputs.
+        # Complete fixed original UI source closure. Keep both original TGA
+        # textures and compare all bytes at the identical absolute input paths.
         $uiMod=Join-Path $modeWork 'real-ui'
-        $uiReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;scope='Original Upheaval TacticalHUDCommandListBox wrapper plus APT/CONST/DAT assets, actual current CLI and independent original BAB strict four-stream comparison only; not all three UIs, geometry/texture/cdata, runtime UI or full G3 acceptance'}
+        $uiReceipt=@{succeeded=$false;sourceCommit=$state.sourceCommit;runId=$state.runId;configuration=$mode;scope='All three original Upheaval UI wrappers and complete APT/CONST/DAT/geometry/TGA dependencies; current CLI combined/cold outputs and independent original BAB strict four-stream plus exact manifest-bound Texture CustomData comparison; runtime UI and full G3/SDK remain separate'}
         $modeState.realUi=$uiReceipt
         try {
-            & python "$PSScriptRoot/PrepareCompilerCliUi.py" $uiMod --entry TacticalHUDCommandListBox *> "$modeOut/real-ui-prepare.log"
-            Need ($LASTEXITCODE -eq 0) 'Pinned original command-list UI fixture preparation failed'
+            & python "$PSScriptRoot/PrepareCompilerCliUi.py" $uiMod --entry all *> "$modeOut/real-ui-prepare.log"
+            Need ($LASTEXITCODE -eq 0) 'Pinned complete original UI fixture preparation failed'
             $uiManifest=Join-Path $uiMod 'fixture-manifest.json'
             Copy-Item -LiteralPath $uiManifest -Destination "$modeOut/real-ui-fixture.json"
             $uiPrepared=Get-Content -LiteralPath $uiManifest -Raw|ConvertFrom-Json
-            Need ($uiPrepared.prepared -and !$uiPrepared.compiled -and $uiPrepared.xsdValidated -and $uiPrepared.entry -ceq 'TacticalHUDCommandListBox' -and @($uiPrepared.files).Count -eq 5 -and $uiPrepared.textureInputs -eq 0) 'Pinned command-list UI fixture receipt changed'
+            Need ($uiPrepared.prepared -and !$uiPrepared.compiled -and $uiPrepared.xsdValidated -and $uiPrepared.entry -ceq 'all' -and @($uiPrepared.files).Count -eq 106 -and $uiPrepared.textureInputs -eq 2 -and @($uiPrepared.textures).Count -eq 2) 'Pinned complete UI fixture receipt changed'
             $uiReceipt.fixtureManifestSha256=Hash $uiManifest;$uiReceipt.originalSourceCommit=$uiPrepared.sourceCommit
             $uiSnapshot=Snapshot $uiMod
-            $ui=RunCli 'real-ui-command-list' 'build' $uiMod $sdk 'apt' 0 1
-            Need (@($ui.report.plan.Tasks).Count -eq 1 -and $ui.report.plan.Tasks[0].Content -ceq 'apt') 'Real UI must compile exactly one selected APT task'
-            $task=$ui.report.plan.Tasks[0]
-            $prefix=Join-Path $ui.destination ('.build/'+$ui.report.buildId+'/'+$task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
-            foreach($artifact in $ui.report.artifacts){if(Within $prefix $artifact.Path){$outputs[[IO.Path]::GetExtension($artifact.Path).Substring(1)]=$artifact.Path}}
-            Need ($outputs.Count -eq 4) 'Real command-list UI requires exactly four current CLI outputs'
-            $uiReceipt.baselineCases=@(@{name='mod-a';modRoot=$uiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;scope=$uiReceipt.scope})
-            @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$uiReceipt.baselineCases;scope=$uiReceipt.scope}|ConvertTo-Json -Depth 8|Set-Content "$modeOut/real-ui-result.json"
-            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/real-ui-result.json" -OutputDirectory "$modeOut/real-ui-original-baseline" -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 1
-            Need ($LASTEXITCODE -eq 0) 'Independent original BAB complete command-list UI baseline failed'
+            $ui=RunCli 'real-ui-combined' 'build' $uiMod $sdk 'apt' 0 3 -CustomDataCount 2
+            Need (@($ui.report.plan.Tasks).Count -eq 3) 'Real UI must compile exactly three selected APT tasks'
+            $uiReceipt.baselineCases=@()
+            foreach($task in $ui.report.plan.Tasks){
+                $name=[IO.Path]::GetFileNameWithoutExtension($task.InputPath)
+                Need ($task.Content -ceq 'apt' -and $name -cin @('TacticalHUDBuildQueuePage','TacticalHUDCommandListBox','TacticalHUDMainCommandBar')) 'Unexpected original UI task'
+                $textures=@($uiPrepared.textures|Where-Object{$_.entry -ceq $name}|ForEach-Object{$_.qualifiedName})
+                $prefix=Join-Path $ui.destination ('.build/'+$ui.report.buildId+'/'+$task.Content+'/'+$name);$outputs=@{}
+                foreach($artifact in $ui.report.artifacts){if((Within $prefix $artifact.Path) -and $artifact.Kind -cne 'custom-data'){$extension=[IO.Path]::GetExtension($artifact.Path).Substring(1);Need (!$outputs.ContainsKey($extension)) 'Duplicate UI stream extension';$outputs[$extension]=$artifact.Path}}
+                Need ($outputs.Count -eq 4) 'Real UI requires exactly four current CLI stream outputs'
+                $custom=@(Get-CompilerCustomDataOutputs $outputs.manifest $textures)
+                $owned=@($ui.report.artifacts|Where-Object{Within $prefix $_.Path})
+                Need ($owned.Count -eq 4+$custom.Count) 'Unexpected file in selected UI task'
+                foreach($item in $custom){Need (@($owned|Where-Object{$_.Path -ceq $item.path -and $_.Kind -ceq 'custom-data'}).Count -eq 1) 'UI CustomData is not bound to the manifest Texture handle'}
+                $uiReceipt.baselineCases+=,@{name=$name;modRoot=$uiMod;inputPath=$task.InputPath;sdkRoot=$sdk;originalToolsRoot=(Join-Path $sourceSdk 'tools');stagingDirectory=$prefix;outputs=$outputs;expectedTextures=$textures;customOutputs=$custom;scope=$uiReceipt.scope}
+                # The same entry in a fresh process, using a filtered temporary
+                # source closure with byte-identical inputs at the SAME paths.
+                # Move only unselected top-level wrappers outside discovery;
+                # never edit XML or remove any dependency/Texture payload.
+                $hidden=Join-Path $modeWork ('ui-hidden-'+$name);New-Item -ItemType Directory -Path $hidden|Out-Null
+                $wrappers=@(Get-ChildItem -LiteralPath (Join-Path $uiMod 'Data/AptUI') -File -Filter '*.xml'|Where-Object{$_.BaseName -cne $name})
+                try {
+                    foreach($wrapper in $wrappers){Move-Item -LiteralPath $wrapper.FullName -Destination $hidden}
+                    $single=RunCli ('real-ui-cold-'+$name) 'build' $uiMod $sdk 'apt' 0 1 -CustomDataCount $custom.Count
+                    Need (@($single.report.plan.Tasks).Count -eq 1 -and $single.report.plan.Tasks[0].Id -ceq $task.Id) 'Cold UI task identity differs'
+                    $left=TaskOutputs $ui $task $custom.Count;$right=TaskOutputs $single $single.report.plan.Tasks[0] $custom.Count
+                    foreach($key in $left.Keys){Need ($right.ContainsKey($key) -and $left[$key] -ceq $right[$key]) 'Cold UI stream or CustomData bytes differ'}
+                } finally {foreach($wrapper in $wrappers){$saved=Join-Path $hidden $wrapper.Name;if(Test-Path -LiteralPath $saved){Move-Item -LiteralPath $saved -Destination $wrapper.FullName}}}
+            }
+            @{succeeded=$true;sourceCommit=$state.sourceCommit;runId=$state.runId;baselineCases=$uiReceipt.baselineCases;scope=$uiReceipt.scope}|ConvertTo-Json -Depth 10|Set-Content "$modeOut/real-ui-result.json"
+            & "$PSScriptRoot/TestCompilerBackendBaseline.ps1" -FixtureResult "$modeOut/real-ui-result.json" -OutputDirectory "$modeOut/real-ui-original-baseline" -TimeoutSeconds $TimeoutSeconds -ExpectedCaseCount 3
+            Need ($LASTEXITCODE -eq 0) 'Independent original BAB complete three-UI baseline failed'
             Unchanged $uiMod $uiSnapshot
             foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}
-            $uiReceipt.inputsUnchanged=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.succeeded=$true
-        } finally {$uiReceipt|ConvertTo-Json -Depth 12|Set-Content "$modeOut/real-ui-validation.json"}
+            $uiReceipt.inputsUnchanged=$true;$uiReceipt.coldOutputsIdentical=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.originalCustomDataIdentical=$true;$uiReceipt.succeeded=$true
+        } finally {$uiReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/real-ui-validation.json"}
         Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
-    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus original complete CommandListBox UI input and current original BAB comparison; full SDK/cache/publishing and the other two real UIs remain separate'
+    $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/Texture CustomData comparison; full SDK/cache/publishing remain separate'
+    if($reuse){$state.scope+='; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

@@ -8,6 +8,7 @@ on:
       - 'recovery/scripts/TestCompilerBackendBaseline.ps1'
       - 'recovery/scripts/TestCompilerCli.ps1'
       - 'recovery/scripts/CompilerCliOutputs.ps1'
+      - 'recovery/scripts/TestCompilerCliOutputs.ps1'
       - 'recovery/scripts/PrepareCompilerCliBusiness.py'
       - 'recovery/scripts/PrepareCompilerCliUi.py'
       - 'recovery/scripts/PrepareCompilerCliReuse.py'
@@ -61,7 +62,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-core-lifecycle]') || contains(github.event.head_commit.message, '[refactor-cli-product]')
     runs-on: windows-2022
     env:
-      CLI_REUSE: ${{ inputs.cli_only == true || contains(github.event.head_commit.message, '[refactor-cli-product]') }}
+      # An explicit full-candidate marker wins if a push contains both tags.
+      CLI_REUSE: ${{ (github.event_name == 'workflow_dispatch' && inputs.cli_only == true) || (github.event_name == 'push' && !contains(github.event.head_commit.message, '[refactor-core-lifecycle]') && contains(github.event.head_commit.message, '[refactor-cli-product]')) }}
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -120,9 +122,17 @@ jobs:
             throw
           }
           Get-Content "$directory/test-app.log" -Tail 30|Out-Host
-      - name: Compile CLI process controller before long Native linking
+      - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
-        run: ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
+        run: |
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
+            if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          ./recovery/scripts/TestCompilerCliOutputs.ps1 -OutputDirectory recovery/artifacts/cli-output-preflight
+          if($LASTEXITCODE -ne 0){throw 'CLI output contract preflight failed'}
+          ./recovery/scripts/BuildCompilerCliControl.ps1 -OutputDirectory recovery/artifacts/cli-controller-preflight
       - name: Build managed Foundation inputs
         if: ${{ env.CLI_REUSE != 'true' }}
         shell: pwsh
@@ -190,6 +200,7 @@ jobs:
             recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
             recovery/artifacts/core-cli-reuse-product/reuse.json
             recovery/artifacts/cli-controller-preflight/**
+            recovery/artifacts/cli-output-preflight/**
             recovery/artifacts/core-lifecycle-foundation/**/build.json
             recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json

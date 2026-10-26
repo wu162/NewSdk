@@ -4,9 +4,10 @@ param(
     [Parameter(Mandatory=$true)][string]$FixtureResult,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
-    [ValidateRange(1,2)][int]$ExpectedCaseCount=2
+    [ValidateRange(1,3)][int]$ExpectedCaseCount=2
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerCliOutputs.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $FixtureResult=(Resolve-Path -LiteralPath $FixtureResult).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite original backend baseline evidence: $OutputDirectory"}
@@ -84,7 +85,7 @@ function ArchiveStreams([string]$Directory,[string]$CaseOut,[string]$Prefix){
     $archived
 }
 $temporaryRoot=$null
-$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope="Small independent original BAB process oracle for $ExpectedCaseCount selected fixture stream inputs; exact four-stream comparison; not full SDK, production CLI or complete G3 acceptance"}
+$state=@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;fixtureResultSha256=(Hash $FixtureResult);cases=@();scope="Small independent original BAB process oracle for $ExpectedCaseCount selected fixture stream inputs; exact four-stream and manifest-bound Texture CustomData comparison; not full SDK, production CLI or complete G3 acceptance"}
 try {
     $source=(& git -C $root rev-parse HEAD).Trim()
     if($LASTEXITCODE -ne 0){throw 'Cannot determine current source commit'}
@@ -100,7 +101,7 @@ try {
     $state.temporaryRoot=$temporaryRoot
     $names=@{};$caseIndex=0
     foreach($case in $fixture.baselineCases){
-        if($case.name -notin @('mod-a','mod-b') -or $names.ContainsKey($case.name)){throw 'Duplicate or unexpected independent baseline case'}
+        if($case.name -notin @('mod-a','mod-b','TacticalHUDBuildQueuePage','TacticalHUDCommandListBox','TacticalHUDMainCommandBar') -or $names.ContainsKey($case.name)){throw 'Duplicate or unexpected independent baseline case'}
         $names[$case.name]=$true
         $caseOut=(New-Item -ItemType Directory -Path (Join-Path $out $case.name)).FullName
         $sdk=(Resolve-Path -LiteralPath $case.sdkRoot).Path
@@ -174,7 +175,17 @@ try {
             $caseState.effectiveSettings=@{schema=$schema;dataRoot=$sdk;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$false;resident=$false;linked=$true;stableSort=$false;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
-            if($actual.Count -ne 4){throw 'Original BAB did not emit exactly the four selected linked stream files'}
+            $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})
+            $custom=@()
+            $originalManifests=@($actual|Where-Object{$_.Extension -ceq '.manifest'})
+            if($originalManifests.Count -ne 1){throw 'Expected one unambiguous original manifest'}
+            $custom=@(Get-CompilerCustomDataOutputs $originalManifests[0].FullName $expectedTextures)
+            $backendCustom=@(Get-CompilerCustomDataOutputs ([string]$case.outputs.manifest) $expectedTextures)
+            $allowed=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+            foreach($item in $custom){if(!$allowed.Add([IO.Path]::GetFullPath($item.path))){throw 'Duplicate CustomData allowlist path'}}
+            foreach($file in $actual){if($file.Extension -cnotin @('.manifest','.bin','.imp','.relo') -and !$allowed.Contains($file.FullName)){throw "Original BAB unexpected output: $($file.FullName)"}}
+            if($actual.Count -ne 4+$custom.Count){throw 'Original BAB output count differs from exact four-stream plus Texture CustomData allowlist'}
+            if(@($case.customOutputs|Where-Object{$null -ne $_}).Count -ne $custom.Count -or $backendCustom.Count -ne $custom.Count){throw 'Backend Texture CustomData count differs'}
             foreach($extension in @('manifest','bin','imp','relo')){
                 $original=@($actual|Where-Object{$_.Extension -ceq ".$extension"})
                 if($original.Count -ne 1){throw "Original BAB emitted ambiguous/missing .$extension stream"}
@@ -186,6 +197,21 @@ try {
                 Copy-Item -LiteralPath $backend -Destination $backendArchive
                 $pair=@{extension=$extension;original=$original[0].FullName;backend=$backend;originalArchive=$originalArchive;backendArchive=$backendArchive;bytes=$original[0].Length;originalSha256=(Hash $originalArchive);backendSha256=(Hash $backendArchive);byteIdentical=$false}
                 $caseState.outputs+=,$pair
+                CompareBytes $originalArchive $backendArchive
+                $pair.byteIdentical=$true
+            }
+            $caseState.customOutputs=@()
+            for($index=0;$index -lt $custom.Count;$index++){
+                $original=$custom[$index]
+                $candidates=@($case.customOutputs|Where-Object{$_.qualifiedName -ceq $original.qualifiedName -and $_.relativePath -ceq $original.relativePath})
+                $bound=@($backendCustom|Where-Object{$_.qualifiedName -ceq $original.qualifiedName -and $_.relativePath -ceq $original.relativePath})
+                if($candidates.Count -ne 1 -or $bound.Count -ne 1 -or $candidates[0].path -cne $bound[0].path -or !(Contains $case.stagingDirectory $bound[0].path)){throw 'Backend CustomData identity/path differs from manifest allowlist'}
+                $originalArchive=Join-Path $caseOut ('original-'+[IO.Path]::GetFileName($original.path))
+                $backendArchive=Join-Path $caseOut ('backend-'+[IO.Path]::GetFileName($original.path))
+                Copy-Item -LiteralPath $original.path -Destination $originalArchive
+                Copy-Item -LiteralPath $bound[0].path -Destination $backendArchive
+                $pair=@{qualifiedName=$original.qualifiedName;typeId=$original.typeId;relativePath=$original.relativePath;original=$original.path;backend=$bound[0].path;originalArchive=$originalArchive;backendArchive=$backendArchive;originalSha256=(Hash $originalArchive);backendSha256=(Hash $backendArchive);byteIdentical=$false}
+                $caseState.customOutputs+=,$pair
                 CompareBytes $originalArchive $backendArchive
                 $pair.byteIdentical=$true
             }
@@ -218,10 +244,10 @@ try {
                 if($wasPassed){throw}
             }
         }
-        if($caseState.passed){Write-Host "PASS IndependentBackendBaseline $($case.name): original BAB process, manifest/bin/imp/relo byte-identical"}
+        if($caseState.passed){Write-Host "PASS IndependentBackendBaseline $($case.name): original BAB process, manifest/bin/imp/relo and $(@($caseState.customOutputs).Count) Texture CustomData byte-identical"}
     }
     if((Hash $FixtureResult) -cne $state.fixtureResultSha256){throw 'Backend fixture result changed during independent baseline'}
-    $state.succeeded=$true;$state.status="passed $ExpectedCaseCount original BAB independent-process selected fixture baselines; all four files byte-identical in each case; full SDK/G3/production CLI remain separate"
+    $state.succeeded=$true;$state.status="passed $ExpectedCaseCount original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate"
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {

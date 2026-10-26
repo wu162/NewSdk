@@ -5,6 +5,8 @@
 
 ## 当前状态（先读这里即可）
 
+- **本轮检查点：产物收集器路径修复与三份完整真实 UI 测试已准备，Windows 完整候选待验。** 收紧 manifest-stem/cdata 文件布局、修复同名目录误分类，补根/后代 junction 与拒绝回归；不能复用历史 EXE 冒充本次生产修复验证。24 个复用工具本地测试已过；新增 12 个 manifest 输出合同将在 Native 构建前执行。
+
 - **P4 已通过；P5 真实后端、路径、生产 CLI 定向组已通过，完整 P5/G3/SDK 未完成。** 生产入口保留实验性 Win32 loose/no-cache 后端；不能宣称完整 MOD 编译器或正式发布流程可用。
 - 本轮完整 Windows 候选两配置均通过：App 各355断言、Core 全7组（含 Unicode/空格/#/% XInclude、根边界、空搜索路径）、原版后端对照、真实 App 协议、当前 EXE 绑定 Texture 部署/payload。
 - 真实 CLI 各22个独立 PID 已过：单进程 job/no-child、冷分组、内外 MOD、实际 CTRL_BREAK/exit6/retry、真实日志锁/exit7/同路径重试、参数拒绝与协议。每配置19 reports/609 events；独立原版严格比较原始四输出，未归一化字节。
@@ -18,7 +20,7 @@
 1. 继续下一完整能力组，复用本轮原始成功证据及实际输入闭包；本轮 UI 扩展已成功并核对原始归档，不能把历史 sourceCommit 的收据改标为新提交重测。
 2. 另两份真实 UI 含纹理 CustomData；先扩展精确输出允许清单及原版比较器，再接入，不能删除 Texture 迁就现有四流断言。原混合 Texture DLL 的完整 Unicode 路径仍未验。
 3. 缓存、正式输出发布、完整业务 G3/SDK、P6/P7 仍未完成；旧不支持参数继续明确拒绝，当前输出仅隔离 staging。
-4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，独立轻量 CI 已通过，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；尚未接入 Actions 自动下载/执行。旧 CLI-only 锚点须更新且调用严格闭包，不允许任意 workflow/build/env 变更。
+4. CLI helper 已提前廉价编译；稀疏检出仅排除约2GiB历史 evidence，保留所有源码/SDK/Git历史与完整验证。新增 PrepareCompilerCliReuse.py 及16个负例/闭包测试，独立轻量 CI 已通过，已用两份真实成功归档核验，只提取两配置各3运行文件，保留历史来源、candidateValidated=false；已接入显式 CLI-only 自动下载/执行及固定工作流迁移校验，保留历史二进制与当前测试来源；本轮生产修复使历史复用失效，须完整构建。Windows 自动下载路径尚未运行。
 
 ## 按任务读取，禁止启动时递归展开链接
 
