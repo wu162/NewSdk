@@ -10,12 +10,14 @@ on:
       - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
       - 'recovery/scripts/PrepareCompilerXmlMatrices.py'
       - 'recovery/scripts/CheckW3xCaptureInputs.py'
+      - 'recovery/scripts/CheckCompilerXmlEvidence.py'
       - 'recovery/tests/TestCompiler*Guards.ps1'
       - 'recovery/tests/TestCompilerXmlSmokeReport.ps1'
       - 'recovery/tests/TestXmlProductOracleTransport.ps1'
       - 'recovery/tests/XmlProductOracleTransport.cs'
       - 'recovery/tests/test_prepare_compiler_xml_matrices.py'
       - 'recovery/tests/test_w3x_capture_inputs.py'
+      - 'recovery/tests/test_compiler_xml_evidence.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -64,3 +66,9 @@ jobs:
         run: |
           python -m unittest discover -s recovery/tests -p test_prepare_compiler_xml_matrices.py
           if ($LASTEXITCODE -ne 0) { throw 'XML fixture adaptation regression failed' }
+      - name: Archived XML receipt consistency guards
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p test_compiler_xml_evidence.py
+          if ($LASTEXITCODE -ne 0) { throw 'XML archived receipt regression failed' }
