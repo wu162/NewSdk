@@ -58,5 +58,7 @@ try {
         Write-Host "PASS production $mode clean directory: metadata/types/resources, help, plan/events/report, explicit unavailable backend"
     }
     $state.status='passed'
+    # Expected backend-unavailable probes returned 3. The harness itself passed.
+    $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json";Pop-Location}
