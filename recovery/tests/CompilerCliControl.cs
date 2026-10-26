@@ -91,7 +91,7 @@ public static class CompilerCliControl
     {
         var state=new Dictionary<string,object> { {"succeeded",false},{"controllerPid",Process.GetCurrentProcess().Id},{"singleProcessJobLimit",1},{"signalRequested",false},{"signalSent",false},{"streamStartedObserved",false} };
         IntPtr job=IntPtr.Zero,output=IntPtr.Zero,error=IntPtr.Zero,input=IntPtr.Zero;var child=new ProcessInfo();bool allocated=false,finished=false;
-        FileStream readLock=null;
+        FileStream readLock=null;FileSystemWatcher eventWatcher=null;int freshEvents=0;
         string resultPath=args.Length>1?args[1]:null;int code=1;
         try {
             if(args.Length!=2) throw new Exception("Expected request.json result.json");
@@ -107,6 +107,19 @@ public static class CompilerCliControl
             var previousBuilds=new HashSet<string>(StringComparer.Ordinal);
             foreach(var row in ReadEvents(events)) {object id;if(row.TryGetValue("buildId",out id) && !string.IsNullOrEmpty(id as string))previousBuilds.Add((string)id);}
             state["previousBuildIds"]=previousBuilds.ToArray();
+            bool existingEvents=File.Exists(events);state["freshEventsRequired"]=existingEvents;
+            if(existingEvents) {
+                // Never open the previous target concurrently with CreateFresh's
+                // replacement. Observe its file-name publication first; only then
+                // read this process's new writer with delete sharing enabled.
+                string expectedEvents=Path.GetFullPath(events);
+                eventWatcher=new FileSystemWatcher(Path.GetDirectoryName(expectedEvents),Path.GetFileName(expectedEvents));
+                eventWatcher.NotifyFilter=NotifyFilters.FileName;
+                FileSystemEventHandler created=(sender,change)=>{if(string.Equals(Path.GetFullPath(change.FullPath),expectedEvents,StringComparison.OrdinalIgnoreCase))Interlocked.Exchange(ref freshEvents,1);};
+                RenamedEventHandler renamed=(sender,change)=>{if(string.Equals(Path.GetFullPath(change.FullPath),expectedEvents,StringComparison.OrdinalIgnoreCase))Interlocked.Exchange(ref freshEvents,1);};
+                eventWatcher.Created+=created;eventWatcher.Renamed+=renamed;
+                eventWatcher.EnableRaisingEvents=true;
+            } else Interlocked.Exchange(ref freshEvents,1);
             state["exe"]=exe;state["signalRequested"]=cancel;state["consoleInitiallyAttached"]=GetConsoleCP()!=0;
             if(GetConsoleCP()==0) { Check(AllocConsole(),"Cannot allocate a console; CtrlBreak remains unverified"); allocated=true; }
             state["allocatedConsole"]=allocated;
@@ -129,11 +142,11 @@ public static class CompilerCliControl
             while(WaitForSingleObject(child.Process,0)!=0)
             {
                 Audit(child.Pid,descendants,observed);polls++;
-                if(cancel && !(bool)state["signalSent"]) {
+                if(cancel && !(bool)state["signalSent"] && Interlocked.CompareExchange(ref freshEvents,0,0)!=0) {
                     Dictionary<string,object> buildStarted;
                     var started=StreamStarted(events,child.Pid,previousBuilds,out buildStarted);
                     if(started!=null) {
-                        state["observedBuildStarted"]=buildStarted;state["streamStartedObserved"]=true;state["observedStreamStarted"]=started;state["signalAtMs"]=timer.ElapsedMilliseconds;
+                        state["freshEventsPathObserved"]=true;state["observedBuildStarted"]=buildStarted;state["streamStartedObserved"]=true;state["observedStreamStarted"]=started;state["signalAtMs"]=timer.ElapsedMilliseconds;
                         bool sent=GenerateConsoleCtrlEvent(1,child.Pid);state["signalSent"]=sent;state["signalWin32Error"]=sent?0:Marshal.GetLastWin32Error();
                         Check(sent,"CTRL_BREAK_EVENT could not be sent; cancellation remains unverified");
                     }
@@ -150,6 +163,7 @@ public static class CompilerCliControl
         finally {
             if(!finished && child.Process!=IntPtr.Zero) {if(job!=IntPtr.Zero)TerminateJobObject(job,252);TerminateProcess(child.Process,252);WaitForSingleObject(child.Process,5000);}
             foreach(IntPtr handle in new[] {child.Thread,child.Process,job,output,error,input})if(handle!=IntPtr.Zero && handle!=new IntPtr(-1))CloseHandle(handle);
+            if(eventWatcher!=null)eventWatcher.Dispose();
             if(readLock!=null)readLock.Dispose();
             if(allocated)FreeConsole();
             if(resultPath!=null)File.WriteAllText(resultPath,new JavaScriptSerializer {MaxJsonLength=Int32.MaxValue}.Serialize(state));
