@@ -94,6 +94,21 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
         return @{report=$body;events=$rows;destination=$destination;caseOut=$caseOut;mod=$Mod;sdk=$Sdk;name=$Name}
+    } catch {
+        # Surface bounded child-process diagnostics in Actions while retaining
+        # the full files and original failing assertion in the evidence archive.
+        try {
+            Write-Host "FAILED real CLI case: $Name"
+            if($audit.error){Write-Host ([string]$audit.error)}
+            foreach($logName in @('stdout.log','stderr.log','controller.log')){
+                $logPath=Join-Path $caseOut $logName
+                if(Test-Path -LiteralPath $logPath){
+                    Write-Host "$Name / $logName (last 30 lines)"
+                    Get-Content -LiteralPath $logPath -Tail 30|Out-Host
+                }
+            }
+        } catch {Write-Host "Could not read CLI failure log tail: $($_.Exception.Message)"}
+        throw
     } finally {
         if(Test-Path -LiteralPath $destination){Copy-Item -LiteralPath $destination -Destination (Join-Path $caseOut 'output') -Recurse}
     }
@@ -202,6 +217,9 @@ try {
         $fault=Join-Path $modeWork 'blocked-log.txt';[IO.File]::WriteAllText($fault,'held output')
         $logFault=RunCli 'required-log-fault' 'build' $mod $sdk 'base' 7 0 $false @('--log',$fault) $fault
         Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required-log fault truncated or replaced the held file'
+        $afterLogFault=RunCli 'retry-after-log-fault' 'build' $mod $sdk 'base' 0 1 $false @('--log',$fault)
+        EqualTask $combined $afterLogFault 'base'
+        Need ([IO.File]::ReadAllText($fault).Contains('BuildFinished')) 'Retry did not reuse the released required log path'
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1

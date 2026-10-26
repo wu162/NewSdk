@@ -79,6 +79,7 @@ namespace NewModCompiler.Application
                 }
                 acceptingCoreTrace = false;
             }
+            bool retainedStaging = code == ExitCode.Success && request.Command == "build";
             if (events.OutputFailed) { code=ExitCode.Output; status="failed"; }
             var report = new Dictionary<string, object> {
                 {"schemaVersion","1.0"},{"buildId",events.BuildId},{"status",status},{"exitCode",(int)code},
@@ -102,9 +103,17 @@ namespace NewModCompiler.Application
                 AddReportDiagnostic("EVENT_CLOSE_FAILED",events.CloseFailureMessage,"error",null,null,null,null);
                 try { Console.Error.WriteLine("EVENT_CLOSE_FAILED: " + events.CloseFailureMessage); } catch (Exception) { }
             }
+            // Output channels finalize after compilation cleanup. A late failure
+            // must revoke the successfully compiled artifacts as well as exit7.
+            bool revokedArtifacts = retainedStaging && code != ExitCode.Success;
+            if (revokedArtifacts) {
+                try { if (Directory.Exists(staging)) Directory.Delete(staging,true); }
+                catch (Exception e) { Diagnostic("STAGING_CLEANUP_FAILED",e.ToString()); ExportExceptionDetails(e); }
+                finally { artifacts.Clear(); }
+            }
             // The exit code and durable report must fail even if an earlier terminal event
             // was written successfully before an unavoidable close/flush failure.
-            if (events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"])) {
+            if (revokedArtifacts || events.CloseFailed || (int)code != Convert.ToInt32(report["exitCode"])) {
                 report["status"]=status; report["exitCode"]=(int)code;
                 report["diagnosticCounts"]=new {error=errorCount,warning=warningCount}; report["elapsedMs"]=events.ElapsedMilliseconds;
                 try { Reports.WriteAtomic(request.ReportPath,report); } catch { code=ExitCode.Output; }

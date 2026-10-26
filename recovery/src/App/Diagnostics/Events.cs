@@ -49,14 +49,25 @@ namespace NewModCompiler.Diagnostics
                     throw new IOException("Ambiguous or device diagnostic path component: " + part);
             }
         }
-        SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true)
+        SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true,uint share=1)
         {
-            var handle=CreateFile(path,0,1,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
+            var handle=CreateFile(path,0,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
             if (handle.IsInvalid) { handle.Dispose(); throw Error(path); }
             FileInformation information;
             if (!GetFileInformationByHandle(handle,out information)) { handle.Dispose(); throw Error(path); }
             if ((requireDirectory && (information.Attributes & 0x10)==0) || (!allowReparse && (information.Attributes & 0x400)!=0)) { handle.Dispose(); throw new IOException("Diagnostic path contains a reparse point or non-directory: " + path); }
             handles.Add(handle); return handle;
+        }
+        internal void PinPublishedFile(string path,SafeFileHandle expected)
+        {
+            // Permit the existing writer, but deny later delete/rename opens.
+            // A path may have changed between rename and this open: compare the
+            // inode before the first byte is written, never reopen a writer.
+            SafeFileHandle pinned=Open(path,false,false,3);
+            FileInformation original, current;
+            if (!GetFileInformationByHandle(expected,out original) || !GetFileInformationByHandle(pinned,out current)) throw Error(path);
+            if (original.Volume!=current.Volume || original.IndexHigh!=current.IndexHigh || original.IndexLow!=current.IndexLow)
+                throw new IOException("Diagnostic file changed during publication: " + path);
         }
         static string Physical(SafeFileHandle handle)
         {
@@ -133,6 +144,7 @@ namespace NewModCompiler.Diagnostics
                 // can replace the destination while retaining our already-open
                 // inode (FILE_SHARE_DELETE above); never close and reopen path.
                 if (!MoveFileEx(temporary,path,1)) throw new IOException("Cannot publish fresh diagnostic file: " + path,new Win32Exception(Marshal.GetLastWin32Error()));
+                guard.PinPublishedFile(path,stream.SafeFileHandle);
                 return stream;
             } catch {
                 try { if (stream!=null) stream.Dispose(); }

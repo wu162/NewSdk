@@ -132,7 +132,10 @@ public class SettingsLoader
 			{
 				try
 				{
-					string path = Path.Combine(Settings.Current.DataRoot, originalPath);
+					// Path.Combine accepts mixed Win32 separators, but the legacy
+					// shell canonicalizer only recognizes backslashes when removing
+					// dot components. Normalize before it sees relative/../input.
+					string path = Path.Combine(Settings.Current.DataRoot, originalPath).Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 					// The retained shell canonicalizer has a MAX_PATH contract; reject
 					// unsupported inputs rather than leaking null into later resolvers.
 					array[i] = path.Length < 260 ? ShPath.Canonicalize(path) : null;

@@ -74,6 +74,19 @@ namespace NewModCompiler.Tests
             Link(report,input); Reports.RemoveStale(report); Require(!File.Exists(report) && File.ReadAllText(input)==original,"stale report hard link modified input");
             Link(report,input); Reports.WriteAtomic(report,new Dictionary<string,object> {{"test","atomic"}}); Require(File.ReadAllText(input)==original,"atomic report hard link modified input");
             Require(File.ReadAllText(json).Contains("fresh inode") && File.ReadAllText(text).Contains("fresh inode") && File.ReadAllText(report).Contains("atomic"),"fresh outputs missing");
+            string active=Path.Combine(work,"active.jsonl");
+            using (var first=new JsonLineSink(active)) {
+                try { using (var second=new TextLogSink(active)) { } throw new Exception("Active sink was silently replaced"); } catch (IOException) { }
+                try { Reports.RemoveStale(active); throw new Exception("Active sink was removed as a stale report"); } catch (IOException) { }
+                try { Reports.WriteAtomic(active,new Dictionary<string,object>()); throw new Exception("Active sink was replaced by a report"); } catch (IOException) { }
+                using (var events=new EventDispatcher("active-path-test",new [] {first})) events.Emit("Diagnostic",message:"active writer retained");
+            }
+            Require(File.ReadAllText(active).Contains("active writer retained"),"active sink lost its directory entry");
+            string aliasOne=Path.Combine(work,"alias-one.log"), aliasTwo=Path.Combine(work,"alias-two.log"); Link(aliasOne,input); Link(aliasTwo,input);
+            using (var one=new JsonLineSink(aliasOne)) using (var two=new TextLogSink(aliasTwo)) {
+                using (var events=new EventDispatcher("hardlink-path-tests",new IBuildEventSink[] {one,two})) events.Emit("Diagnostic",message:"independent writers");
+            }
+            Require(File.ReadAllText(aliasOne).Contains("independent writers") && File.ReadAllText(aliasTwo).Contains("independent writers") && File.ReadAllText(input)==original,"distinct hardlink destinations did not become independent outputs");
             // A destination can become a directory after parsing. Failed atomic
             // publication must leave it intact and release every pinned parent.
             string failedParent=Path.Combine(work,"failed-publish"), failedTarget=Path.Combine(failedParent,"events.jsonl"), failedMoved=Path.Combine(work,"failed-publish-moved");

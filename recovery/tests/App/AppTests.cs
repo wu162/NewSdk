@@ -44,6 +44,16 @@ namespace NewModCompiler.Tests
             public void Write(IDictionary<string,object> value) { throw new IOException("injected output failure"); }
             public void Dispose() { }
         }
+        sealed class TerminalFailureSink : IBuildEventSink
+        {
+            public void Write(IDictionary<string,object> value) { if ((string)value["eventType"]=="BuildFinished") throw new IOException("injected terminal output failure"); }
+            public void Dispose() { }
+        }
+        sealed class ProbeFailureSink : IBuildEventSink
+        {
+            public void Write(IDictionary<string,object> value) { if ((string)value["eventType"]=="BackendProbe") throw new IOException("injected backend output failure"); }
+            public void Dispose() { }
+        }
         sealed class CloseFailureSink : IBuildEventSink
         {
             readonly string countPath;
@@ -75,6 +85,41 @@ namespace NewModCompiler.Tests
                 return new [] {new Artifact {Path=output,Kind="TestOnly"}};
             }
             public void Dispose() { Disposed=true; }
+        }
+        static void LateOutputFailures()
+        {
+            foreach (string failure in new [] {"report","terminal","close","swallowed"}) {
+                var request=Request("base"); request.Command="build";
+                var compiler=new Compiler(); var recorder=new Recorder();
+                bool swallowed=false;
+                var sinks=new List<IBuildEventSink> {recorder,new JsonLineSink(request.EventsPath),new TextLogSink(request.LogPath)};
+                if (failure=="report") compiler.OnCompile=context=>Directory.CreateDirectory(request.ReportPath);
+                if (failure=="terminal") sinks.Add(new TerminalFailureSink());
+                if (failure=="close") sinks.Add(new CloseFailureSink(Path.Combine(request.OutputRoot,"close-count.txt")));
+                if (failure=="swallowed") sinks.Add(new ProbeFailureSink());
+                using (var events=new EventDispatcher(Guid.NewGuid().ToString("N"),sinks)) {
+                    // A backend can catch a listener exception and still return
+                    // successfully. Required sink failure remains session-fatal.
+                    if(failure=="swallowed") compiler.OnCompile=context=>{
+                        try { events.Emit("BackendProbe"); }
+                        catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
+                    };
+                    Check(new BuildSession(request,compiler,events).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                }
+                if(failure=="swallowed") Check(swallowed,"Backend did not catch the required sink failure");
+                Check(compiler.Calls.Count==1 && compiler.Disposed,"Late "+failure+" did not complete actual controlled compilation");
+                Check(recorder.Values.Count(x=>(string)x["eventType"]=="ArtifactProduced")==1,"Late "+failure+" failed before accepting the compiled artifact");
+                Check(recorder.Values.Any(x=>(string)x["eventType"]=="StreamCompleted" && new JavaScriptSerializer().Serialize(x["payload"]).Contains("\"status\":\"succeeded\"")),"Late "+failure+" failed before successful stream completion");
+                Check(recorder.Values.Any(x=>(string)x["eventType"]=="StageCompleted" && (string)x["stageId"]=="compile" && new JavaScriptSerializer().Serialize(x["payload"]).Contains("\"status\":\"succeeded\"")),"Late "+failure+" failed before successful compile stage completion");
+                Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Late "+failure+" retained staging");
+                Check(recorder.Values.Count(x=>(string)x["eventType"]=="BuildFinished")==1,"Late "+failure+" repeated terminal event");
+                if(failure=="close") Check(File.ReadAllLines(Path.Combine(request.OutputRoot,"close-count.txt")).Length==1,"Late close sink disposed more than once");
+                if (failure!="report") {
+                    var report=Report(request);
+                    Check(Convert.ToInt32(report["exitCode"])==7 && (string)report["status"]=="failed","Late "+failure+" report did not fail");
+                    Check(new JavaScriptSerializer().Serialize(report["artifacts"])=="[]","Late "+failure+" report accepted artifacts");
+                }
+            }
         }
         static ExitCode Run(BuildRequest request,Compiler compiler,Recorder recorder,CancellationToken cancellation=default(CancellationToken),bool broken=false)
         {
@@ -138,6 +183,7 @@ namespace NewModCompiler.Tests
                 Check(Run(request,compiler,record,cancel.Token)==ExitCode.Cancelled,"Cancellation after safe stream boundary"); Protocol(request,record,ExitCode.Cancelled); Check(record.Values.Any(x=>(string)x["eventType"]=="StageCompleted" && (string)x["stageId"]=="compile" && new JavaScriptSerializer().Serialize(x["payload"]).Contains("cancelled")),"Cancelled compile stage completed"); Check(!Directory.Exists(Path.Combine(request.OutputRoot,".build",compiler.BuildId)),"Cancelled staging removed");
                 request=Request(); request.Command="build"; compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record,broken:true)==ExitCode.Output,"Required sink failure is fatal"); Check(Convert.ToInt32(Report(request)["exitCode"])==7,"Sink failure report");
                 request=Request(); request.ReportPath=Path.Combine(root,"report-as-directory"); Directory.CreateDirectory(request.ReportPath); record=new Recorder(); Check(Run(request,null,record)==ExitCode.Output,"Report write failure fatal"); Check(record.Values.Count(x=>(string)x["eventType"]=="BuildFinished")==1,"Report failure terminal once");
+                LateOutputFailures();
                 string saved=mod; mod=Path.Combine(root,"SDK","Mods","second 中文"); FileAt(Path.Combine(mod,"Data","Mod.xml"));
                 request=Request("base,apt,maps"); Check(Planner.Resolve(request).Skipped.Length==2,"Empty optional sets explicit"); request.Command="build"; compiler=new Compiler(); record=new Recorder(); Check(Run(request,compiler,record)==ExitCode.Success && compiler.Calls.Count==1,"Second MOD no stale streams"); Protocol(request,record,ExitCode.Success);
                 File.Delete(Path.Combine(mod,"Data","Mod.xml")); try { Planner.Resolve(Request("base")); throw new Exception("Missing base accepted"); } catch (BuildFailure e) { Check(e.Code=="PLAN_BASE_MISSING","Missing selected input"); }

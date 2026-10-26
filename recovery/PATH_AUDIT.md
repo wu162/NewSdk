@@ -1,6 +1,6 @@
 # 路径集中审计（2026-10-26 交接）
 
-本页为代码调用链审计；除已列 Windows 证据外，不把静态复现推导标成动态验证。默认 CLI 构建守卫已恢复，修完高影响问题再重新启用候选。本轮修复检查点仍保留该守卫；源码及新矩阵尚未取得 Windows 成功证据，不代表 plan/诊断风险已验收。
+本页为代码调用链审计；除已列 Windows 证据外，不把静态复现推导标成动态验证。本轮临时恢复 CLI 候选以取得完整 Windows 证据，未通过前不代表生产入口验收。首个候选的 App Debug/Release 路径矩阵已过；Core、真实 CLI、原版对照和协议仍以作业终态及原始收据为准。
 
 ## 已修复并取得定向证据
 
@@ -19,6 +19,14 @@
 | SettingsLoader.ProcessPaths | DefaultDataPaths=";" 被接受却得到空搜索集合；Canonicalize 失败的 null 继续流入下游 | 拒绝空集合/null，带原始路径报明确配置错误 |
 | Options.ResolveDiagnostic / 日志 sink | junction 指向 MOD/SDK，或外部日志 hardlink 到 Mod.xml，可绕过词法 Contains；FileMode.Create 会截断实际输入 | 写入前物理路径/重解析防护；日志原子新文件替换策略避免 hardlink 截断；Windows 链接回归 |
 | Options 诊断文件组合 | events=C:\out\a、report=C:\out\a\r.json 通过解析，先建目录再当文件打开，启动期失败 | 拒绝诊断文件间祖先/后代冲突及与 staging 的冲突 |
+
+## 本轮追加修复（后续集中验证检查点）
+
+- 日志首次 hardlink 替换在 Windows 真实矩阵暴露 File.Replace 与活动 writer 共享冲突；改同目录 MoveFileExW 保持原 writer，避免关闭重开写到输入 inode。首个候选两配置 App 矩阵通过。
+- 发布后持有不共享 DELETE 的元数据句柄并核对卷/文件身份，防第二 sink 静默替换活动日志；同路径冲突、不同路径 hardlink 独立输出及发布失败清理已有矩阵，待新候选 Windows 验证。
+- 诊断路径明确拒绝文件/目录类型冲突；CLI sink 故障改用真实持锁文件，目录参数拒绝和释放锁后同路径重试独立断言。
+- alias XInclude 由本地绝对路径构造 URI，不拼接 file://；真实 data/art/audio XInclude 增加中文、空格、#、%23 搜索根。
+- BuildSession 晚期报告/终态写入/关闭失败会晚改 exit7，原先清理阶段已结束；补撤销产物和 staging 的测试准备，不能把 plan-only close 测试当作已编译产物清理证据。
 
 ## 已区分的未验边界
 
