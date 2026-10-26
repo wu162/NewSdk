@@ -26,7 +26,7 @@ The parser supports `-h/--help`, `-q/--quiet`, `-v/--verbose`, `-f/--force`, `-x
 
 ## Embedding boundaries
 
-Original classes live under `NewModCompiler.Recovered.MakeBig`; `Program.Main` is exposed as `Program.Run` with supplied reader/writer channels, avoiding a second executable entry point. A fresh parser is used for every embedded call. No legacy prompt runner is invoked by normal MOD builds.
+Original classes live under `NewModCompiler.Packaging.MakeBigRecovery`; `Program.Main` is exposed as `Program.Run` with supplied reader/writer channels, avoiding a second executable entry point. A fresh parser is used for every embedded call. No legacy prompt runner is invoked by normal MOD builds.
 
 The shared emitter streams bounded chunks instead of allocating twice the largest input. It validates complete reads, supports cancellation and restores the final stream position after patching. Production retains its prior safe relative ASCII member names, deterministic ordering, no overwrite, case-collision/reparse/overflow checks and atomic cleanup. Unique member bookmark keys preserve production aliases of a single source file; the original directory runner retains original source-path bookmark keys. Directory discovery additionally refuses reparse points to avoid recursive cycles. These are integration adaptations, not claims that the old tool implemented those protections.
 

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using NewModCompiler.Recovered.MakeBig;
+using NewModCompiler.Packaging.MakeBigRecovery;
 namespace NewModCompiler.Tests
 {
     public static class MakeBigTests

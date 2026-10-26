@@ -10,7 +10,7 @@ using System.Threading;
 // Recovered from SDK/tools/MakeBig.exe (EA Los Angeles, 2007), pure managed
 // mscorlib/System 2.0. Method RVAs and intentional integration differences are
 // recorded in recovery/MAKEBIG_RECOVERY.md. No original MakeBig process is used.
-namespace NewModCompiler.Recovered.MakeBig
+namespace NewModCompiler.Packaging.MakeBigRecovery
 {
     sealed class FixupRecord:IComparable
     {

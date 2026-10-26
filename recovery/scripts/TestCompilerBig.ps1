@@ -41,6 +41,13 @@ function RuntimeUnchanged([string]$Directory,$Before){
     $after=RuntimeSnapshot $Directory;Need ($after.Count -eq $Before.Count) 'BIG test changed packaged runtime file count'
     foreach($name in $Before.Keys){Need ($after.ContainsKey($name) -and $after[$name] -ceq $Before[$name]) "BIG test changed packaged runtime bytes: $name"}
 }
+function TreeSnapshot([string]$Directory){
+    $result=@{};foreach($file in @(Get-ChildItem -LiteralPath $Directory -File -Recurse)){$result[[IO.Path]::GetRelativePath($Directory,$file.FullName)]=Hash $file.FullName};return $result
+}
+function TreeUnchanged([string]$Directory,$Before){
+    $after=TreeSnapshot $Directory;Need ($after.Count -eq $Before.Count) 'Neutral build changed source/reference file count'
+    foreach($name in $Before.Keys){Need ($after.ContainsKey($name) -and $after[$name] -ceq $Before[$name]) "Neutral build changed source/reference bytes: $name"}
+}
 function CacheFiles([string]$Destination){
     $files=@{};$cache=Join-Path $Destination '.cache'
     if(Test-Path -LiteralPath $cache){Get-ChildItem -LiteralPath $cache -File -Recurse|ForEach-Object{$files[$_.FullName.Substring($cache.Length)]=Hash $_.FullName}}
@@ -130,7 +137,7 @@ function ExpectedInventory($Loose){
         Need ($manifest.Count -eq 1) 'Base LoD oracle requires exactly one current manifest'
         $source=$Loose.files[[IO.Path]::GetRelativePath($published,$manifest[0].Path)]
         $lodOut=Join-Path $Loose.caseOut ('original-lod-'+[Guid]::NewGuid().ToString('N'))
-        & python "$PSScriptRoot/ValidateCompilerLoD.py" --manifest $source --original "$root/SDK/tools/LoDStreamBuilder.exe" --output $lodOut
+        & python "$PSScriptRoot/ValidateCompilerLoD.py" --manifest $source --original "$root/SDK/tools/LoDStreamBuilder.exe" --output $lodOut *> ($lodOut+'.log')
         Need ($LASTEXITCODE -eq 0) 'Original LoD failed for current production base stream'
         $lod=Get-Content -LiteralPath (Join-Path $lodOut 'inventory.json') -Raw|ConvertFrom-Json
         Need ($lod.succeeded -and @($lod.files).Count -eq 8) 'Original LoD did not produce exact eight-file inventory'
@@ -138,9 +145,15 @@ function ExpectedInventory($Loose){
     }
     return $expected
 }
-function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false){
+function CompareBig($Big,$Loose,[string]$Name,[bool]$Additional=$false,[string]$NeutralOracle=$null){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
-    $expected=@(ExpectedInventory $Loose)
+    if($NeutralOracle){
+        $neutral=Get-Content -LiteralPath (Join-Path $NeutralOracle 'inventory.json') -Raw|ConvertFrom-Json
+        Need ($neutral.succeeded -and $neutral.hashFixChanged -and $neutral.hashFixChangedCount -gt 0 -and $neutral.resolverInsertedAssets -eq 0) 'Original neutral oracle did not exercise actual hash repair'
+        $neutralArchive=Join-Path $caseOut 'neutral-original';Copy-Item -LiteralPath $NeutralOracle -Destination $neutralArchive -Recurse
+        $expected=@($neutral.files)
+        foreach($item in $expected){$item.source=Join-Path $neutralArchive ([IO.Path]::GetRelativePath($NeutralOracle,$item.source))}
+    }else{$expected=@(ExpectedInventory $Loose)}
     Need ($expected.Count -eq ($Loose.files.Count+@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'}).Count+8*@($Loose.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'}).Count) -and @($expected.name|Select-Object -Unique).Count -eq $expected.Count) 'BIG oracle inventory duplicates or omits current artifacts'
     $expected|ConvertTo-Json -Depth 6 -AsArray|Set-Content "$caseOut/expected.json"
     if($Additional){
@@ -230,13 +243,14 @@ try{
         PrepareFixture $mod "$modeOut/fixture.log"
         & python "$PSScriptRoot/PrepareCompilerAdditional.py" prepare --sdk-root $script:sdk --mod-root $mod --output "$modeOut/additional-fixture"
         Need ($LASTEXITCODE -eq 0) 'Additional SDK/MOD fixture preparation failed'
-        $combined=$null;$plain=$null
+        $combined=$null;$plain=$null;$baseLoose=$null
         foreach($selection in @('apt','maps','apt,maps','base','base,apt,maps')){
             $name=$selection.Replace(',','-');$script:expectedArtifacts=if($selection -ceq 'apt'){9}elseif($selection -ceq 'maps'){4}elseif($selection -ceq 'base'){5}elseif($selection -ceq 'apt,maps'){13}else{18}
             $loose=RunCli ($name+'-loose') $mod (Join-Path $modeWork ($name+'-loose')) $selection 'loose'
             $big=RunCli ($name+'-big') $mod (Join-Path $modeWork ($name+'-big')) $selection 'big'
             CompareBig $big $loose ($name+'-original-makebig')
             if($selection -ceq 'base,apt,maps'){$combined=$big;$plain=$loose}
+            if($selection -ceq 'base'){$baseLoose=$loose}
         }
         Need (@($plain.report.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq 2) 'BIG fixture did not exercise actual complete base and APT CDATAs'
         $destination=$combined.destination;$published=Join-Path $destination 'published'
@@ -254,6 +268,31 @@ try{
         $retry=RunCli 'retry-after-cancel' $mod $destination 'base,apt,maps' 'big';CompareBig $retry $plain 'cancel-retry-original'
         $additionalBig=RunCli 'all-with-additional' $mod (Join-Path $modeWork 'all-additional') 'base,apt,maps' 'big' 0 $false $null @('--include-additional','true')
         CompareBig $additionalBig $plain 'additional-original-copy-makebig' $true
+        $baseManifest=@($baseLoose.report.artifacts|Where-Object{[IO.Path]::GetExtension($_.Path) -ieq '.manifest'})
+        Need ($baseManifest.Count -eq 1) 'Neutral fixture requires one current base manifest'
+        $basePublished=Join-Path $baseLoose.destination 'published'
+        $baseSource=$baseLoose.files[[IO.Path]::GetRelativePath($basePublished,$baseManifest[0].Path)]
+        & python "$PSScriptRoot/PrepareCompilerNeutral.py" prepare --manifest $baseSource --sdk-root $script:sdk --output "$modeOut/neutral-fixture" *> "$modeOut/neutral-fixture.log"
+        Need ($LASTEXITCODE -eq 0) 'Neutral real-stream reference fixture failed'
+        $neutralOracle=Join-Path $short ('n'+[Guid]::NewGuid().ToString('N').Substring(0,8))
+        & python "$PSScriptRoot/PrepareCompilerNeutral.py" oracle --manifest $baseSource --sdk-root $script:sdk --output $neutralOracle *> "$modeOut/neutral-oracle.log"
+        Need ($LASTEXITCODE -eq 0) 'Original HashFix resolver LoD real-stream oracle failed'
+        $referenceRoot=Join-Path $script:sdk 'BuiltMods';$referenceBefore=TreeSnapshot $referenceRoot;$modBefore=TreeSnapshot $mod
+        $neutralDestination=Join-Path $modeWork 'neutral-base'
+        $neutralBig=RunCli 'base-with-neutral-repair' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets','true')
+        CompareBig $neutralBig $baseLoose 'neutral-original-hashfix-resolver-lod-makebig' $false $neutralOracle
+        TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
+        $neutralPublished=Join-Path $neutralDestination 'published';$neutralBefore=TreeSnapshot $neutralPublished
+        $missing=Join-Path $referenceRoot 'Worldbuilder.manifest';$saved=$missing+'.saved';Move-Item -LiteralPath $missing -Destination $saved
+        try{
+            $missingResult=RunCli 'neutral-missing-reference' $mod $neutralDestination 'base' 'big' 3 $false $null @('--fix-neutral-assets','true')
+            Need (@($missingResult.report.diagnostics|Where-Object{$_.code -ceq 'PACKAGE_NEUTRAL_REFERENCE_MISSING'}).Count -eq 1) 'Missing neutral reference did not emit its explicit diagnostic'
+            TreeUnchanged $neutralPublished $neutralBefore
+        }finally{Move-Item -LiteralPath $saved -Destination $missing}
+        TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
+        $neutralRetry=RunCli 'neutral-retry-after-reference-restored' $mod $neutralDestination 'base' 'big' 0 $false $null @('--fix-neutral-assets','true')
+        CompareBig $neutralRetry $baseLoose 'neutral-retry-original-makebig' $false $neutralOracle
+        TreeUnchanged $referenceRoot $referenceBefore;TreeUnchanged $mod $modBefore
         if($UsePackagedRuntime){RuntimeUnchanged $sourceBin $sourceBefore;RuntimeUnchanged $runtime $runtimeBefore;$modeState.packagedRuntimeUnchanged=$true;$modeState.runtimeFiles=$runtimeBefore}
         $modeState.passed=$true
     }

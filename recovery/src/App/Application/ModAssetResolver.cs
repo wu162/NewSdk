@@ -11,7 +11,11 @@ namespace NewModCompiler.Application
     {
         public static int Apply(string manifest,string builtMods,CancellationToken cancellation)
         {
-            return new Resolver(manifest,builtMods,cancellation).Run();
+            return Apply(manifest,builtMods,Path.Combine(builtMods,"Worldbuilder.manifest"),cancellation);
+        }
+        public static int Apply(string manifest,string builtMods,string worldbuilderManifest,CancellationToken cancellation)
+        {
+            return new Resolver(manifest,builtMods,worldbuilderManifest,cancellation).Run();
         }
         sealed class Resolver
         {
@@ -23,12 +27,12 @@ namespace NewModCompiler.Application
             readonly MemoryStream names=new MemoryStream(),sources=new MemoryStream(),bin=new MemoryStream(),imp=new MemoryStream(),relo=new MemoryStream();
             readonly HashSet<ulong> complete=new HashSet<ulong>(),active=new HashSet<ulong>();
             readonly string worldBin,worldImp,worldRelo;
-            public Resolver(string path,string builtMods,CancellationToken cancellation)
+            public Resolver(string path,string builtMods,string worldbuilderManifest,CancellationToken cancellation)
             {
                 this.path=path;this.cancellation=cancellation;cancellation.ThrowIfCancellationRequested();
                 mod=new Manifest(path);
                 external=new[]{new Manifest(Path.Combine(builtMods,"Static.manifest")),new Manifest(Path.Combine(builtMods,"Global.manifest")),new Manifest(Path.Combine(builtMods,"Audio.manifest"))};
-                world=new Manifest(Path.Combine(builtMods,"Worldbuilder.manifest"));
+                world=new Manifest(worldbuilderManifest);
                 worldBin=ValidatePayload(world,".bin",8);worldImp=ValidatePayload(world,".imp",10);worldRelo=ValidatePayload(world,".relo",9);
             }
             public int Run()

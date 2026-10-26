@@ -46,9 +46,9 @@ namespace NewModCompiler.Application
             inputs.Sort((a,b)=>StringComparer.Ordinal.Compare(a.Name,b.Name));
             uint total=CheckedArchiveSize(indexLength,payloadLength);
             Atomic(output,cancellation,stream=>{
-                var recovered=new List<NewModCompiler.Recovered.MakeBig.MakeBigInput>();
-                foreach(var input in inputs) recovered.Add(new NewModCompiler.Recovered.MakeBig.MakeBigInput {Name=input.Name,SourcePath=input.Path,BookmarkKey=input.Name,Length=input.Length});
-                NewModCompiler.Recovered.MakeBig.Lumpy.WriteArchive(stream,recovered,cancellation,RejectLinks);
+                var recovered=new List<NewModCompiler.Packaging.MakeBigRecovery.MakeBigInput>();
+                foreach(var input in inputs) recovered.Add(new NewModCompiler.Packaging.MakeBigRecovery.MakeBigInput {Name=input.Name,SourcePath=input.Path,BookmarkKey=input.Name,Length=input.Length});
+                NewModCompiler.Packaging.MakeBigRecovery.Lumpy.WriteArchive(stream,recovered,cancellation,RejectLinks);
                 if(stream.Position!=total) throw new IOException("BIG archive length differs from its header.");
             });
         }

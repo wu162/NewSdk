@@ -14,6 +14,7 @@ namespace NewModCompiler.Application
     {
         public static void ValidateRequest(BuildRequest request)
         {
+            if(request.FixNeutralAssets && (request.PackageFormat!="big" || request.Content==null || !request.Content.Contains("base"))) throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NEUTRAL_CONTENT","Neutral-asset repair requires BIG packaging with base content selected.");
             if(request.IncludeAdditional && request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_ADDITIONAL_FORMAT","Additional files require --package-format big.");
             if(request.PackageFormat==null || request.PackageFormat=="loose") return;
             if(request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"CLI_CAPABILITY","Package format must be loose or big.");
@@ -57,11 +58,21 @@ namespace NewModCompiler.Application
             }
             foreach(var pair in owners) if(pair.Value.Count!=4) throw new IOException("BIG packaging requires all four linked files for every selected stream.");
             // SDK/defaultscript.cs step 5 runs LoD directly when optional asset
-            // merge and neutral-asset repair are disabled. Those options remain
-            // unsupported; do not silently run HashFix/Resolver here.
+            // repair are disabled. Neutral repair is explicit and modifies only
+            // a private package copy, never Core/cache outputs.
             foreach(var task in plan.Tasks) if(task.Content=="base") {
                 cancellation.ThrowIfCancellationRequested();
                 string manifest=artifacts.Single(value=>string.Equals(Path.GetExtension(value.Path),".manifest",StringComparison.OrdinalIgnoreCase) && Paths.Contains(Path.Combine(staging,task.Content,Path.GetFileNameWithoutExtension(task.InputPath)),value.Path)).Path;
+                if(request.FixNeutralAssets) {
+                    string originalRoot=Path.GetDirectoryName(manifest);
+                    manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(staging,".package-neutral"),cancellation);
+                    string preparedStem=Path.Combine(Path.GetDirectoryName(manifest),"mod");
+                    foreach(var entry in entries) if(Paths.Contains(originalRoot,entry.SourcePath)) {
+                        string extension=Path.GetExtension(entry.SourcePath);
+                        entry.SourcePath=string.Equals(extension,".cdata",StringComparison.OrdinalIgnoreCase)
+                            ? Path.Combine(preparedStem,"cdata",Path.GetFileName(entry.SourcePath)) : preparedStem+extension.ToLowerInvariant();
+                    }
+                }
                 // Win32 resolves the existing Mod.manifest case-insensitively; the
                 // original script passes lowercase mod.manifest, which is also
                 // the exact embedded dependency name in both LoD manifests.
