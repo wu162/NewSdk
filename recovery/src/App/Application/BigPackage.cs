@@ -87,7 +87,7 @@ namespace NewModCompiler.Application
             string mod=Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
             string big=Path.Combine(staging,mod+"_1.0.big"),skudef=Path.Combine(staging,mod+"_1.0.skudef");
             if(request.IncludeAdditional) AdditionalFiles.Merge(request.SdkRoot,request.ModRoot,staging,entries,cancellation);
-            BigArchiveWriter.Write(big,entries,cancellation);
+            MakeBig.Write(big,entries,cancellation);
             BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation);
             foreach(var artifact in artifacts) Verify(artifact,staging);
             cancellation.ThrowIfCancellationRequested();

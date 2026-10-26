@@ -1,0 +1,49 @@
+name: Recovered managed MakeBig original differential
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-makebig.yml'
+      - 'recovery/src/App/Application/MakeBig.cs'
+      - 'recovery/src/App/Application/BigArchiveWriter.cs'
+      - 'recovery/preparation/makebig/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  makebig:
+    runs-on: windows-2022
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/preparation/makebig
+            recovery/src/App/Application
+            SDK/tools
+      - name: Compare original managed MakeBig and recovered source
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          $original=Join-Path $env:RUNNER_TEMP 'original-managed-makebig/MakeBig.exe'
+          New-Item -ItemType Directory -Force (Split-Path $original)|Out-Null
+          Copy-Item SDK/tools/MakeBig.exe $original
+          [IO.File]::WriteAllText(($original+'.config'),'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0"/></startup></configuration>')
+          $failed=@()
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/makebig/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/MakeBigControl.exe" recovery/src/App/Application/MakeBig.cs recovery/src/App/Application/BigArchiveWriter.cs recovery/preparation/makebig/MakeBigControl.cs
+            if($LASTEXITCODE -ne 0){throw 'Recovered MakeBig validation host compilation failed'}
+            python recovery/preparation/makebig/TestCompilerMakeBig.py --original $original --candidate "$out/MakeBigControl.exe" --output "$out/evidence"
+            if($LASTEXITCODE -ne 0){$failed+=$mode}
+          }
+          if($failed.Count -ne 0){throw ('Original MakeBig differential failed: '+($failed -join ','))}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovered-makebig-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/makebig/**
+          if-no-files-found: error

@@ -154,12 +154,17 @@ try {
         foreach($configuration in $state.configurations){
             $rows=@($big.modes|Where-Object{$_.configuration -ceq $configuration.configuration})
             Need ($rows.Count -eq 1 -and $rows[0].passed -eq $true -and $rows[0].packagedRuntimeUnchanged -eq $true -and $rows[0].exeSha256 -ceq $configuration.runtimeFiles[0].sha256) 'ZIP BIG acceptance used a different production EXE'
-            foreach($name in @('base-big','base-loose','base-apt-maps-big','base-apt-maps-loose')){Need (@($rows[0].cases|Where-Object{$_.name -ceq $name -and $_.passed -eq $true}).Count -eq 1) "ZIP BIG acceptance omitted $name"}
+            foreach($name in @('base-big','base-loose','base-apt-maps-big','base-apt-maps-loose','all-with-additional')){Need (@($rows[0].cases|Where-Object{$_.name -ceq $name -and $_.passed -eq $true}).Count -eq 1) "ZIP BIG acceptance omitted $name"}
+            $additionalCase=@($rows[0].cases|Where-Object{$_.name -ceq 'all-with-additional'})[0]
+            $additionalArguments=@($additionalCase.arguments);$additionalIndex=[Array]::IndexOf($additionalArguments,'--include-additional')
+            Need ($additionalIndex -ge 0 -and $additionalIndex+1 -lt $additionalArguments.Count -and $additionalArguments[$additionalIndex+1] -ceq 'true') 'ZIP Additional acceptance did not explicitly enable Additional'
+            $additionalComparison=@($rows[0].comparisons|Where-Object{$_.name -ceq 'additional-original-copy-makebig'})
+            Need ($additionalComparison.Count -eq 1 -and $additionalComparison[0].comparison.succeeded -eq $true -and $additionalComparison[0].comparison.exactMemberNamesAndRawContents -eq $true) 'ZIP Additional lacks original CopyFolders/MakeBig raw comparison'
             AssertInventory (Join-Path $deployedProduct ($configuration.configuration+'/bin')) $configuration.runtimeFiles
             AssertInventory (Join-Path $CompilerDirectory ($configuration.configuration+'/bin')) $configuration.runtimeFiles
         }
         $state.bigDeployment=@{succeeded=$true;receiptSha256=(Hash (Join-Path $bigEvidence 'validation.json'));sourceCommit=$big.sourceCommit;scope=$big.scope;packagedRuntime=$true}
-        $state.scope+='; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, CDATA and rollback/cancellation matrices'
+        $state.scope+='; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, CDATA and rollback/cancellation matrices'
     }
     Need ((Hash (Join-Path $mod 'Data/Mod.xml')) -ceq $state.probe.sha256 -and (Hash (Join-Path $sdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $state.probe.sdkConfigSha256) 'Release validation modified its MOD or SDK config inputs'
     foreach($schema in $state.probe.schemaInputs){Need ((Hash (Join-Path $sdk $schema.path)) -ceq $schema.sha256) 'Release validation modified an SDK schema input'}

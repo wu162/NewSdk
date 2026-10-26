@@ -1,27 +1,31 @@
 # P7：内建 BIG/SKUDEF
 
-状态：apt/maps 格式/成员/回滚主组已通过两配置，但收尾原Windows命令实证发现APT版本标记差异：旧脚本产生 `20 0d 0a`（空格+CRLF），旧候选只写 `0d 0a`。发行包刷新已被明确阻止。源码、App断言与CLI oracle已改为实测三字节，尚未重编译/验收；不能把旧主组成功冒认为这项修正版已通过。P5/P6已验收版本保持独立，base后处理仍未完成。
+状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional 和从原 C# MakeBig 恢复的代码，正在集中重建；这些候选尚不能当作已通过版本。P5/P6 既有验收保持独立。
 
 ```powershell
-./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content apt,maps --package-format big
+./NewModCompiler.exe build --sdk-root C:\NewSdk\SDK --mod C:\Mods\Example --out C:\Build\Example --package-content base,apt,maps --package-format big
 ```
 
-`apt`、`maps` 可单独或组合选择；`big` 必须显式排除 `base`。默认内容含base，因此仅添加 `--package-format big` 会明确拒绝。base 依赖的 LoDStreamBuilder 尚未恢复；不能把未后处理的 raw base 流打包后当作完整游戏 MOD。
+正常编译直接生成 manifest/bin/imp/relo 与 CDATA。原脚本 step5 在未启用可选修复时直接运行 LoD；HashFix→ModAssetResolver→LoD 不是默认必需链。**2026-10-27 用户确认不需要 AssetMerge：不纳入新流程，也不作为 P7 完成条件。** 已保存的独立恢复准备不代表产品需要或启用了它。
 
-成功非空构建的 `published` 目录只发布 `<MOD目录名>_1.0.big` 与同名 `.skudef`。SKUDEF 使用原脚本默认的 ASCII/CRLF：`mod-game 1.12` 和 `add-big <包名>`。当前版本/游戏版本为该固定默认，包名及成员限定受支持ASCII；没有启用未经原工具及游戏读取合同确认的Unicode编码。
+成功非空构建只发布 `<MOD目录名>_1.0.big` 与同名 `.skudef`。SKUDEF 保持默认 ASCII/CRLF 的 `mod-game 1.12`、`add-big <包名>`；游戏侧 Unicode 名称合同仍未启用。原 MakeBig 本身的 UTF-8 行为另见 `MAKEBIG_RECOVERY.md`。
 
 | 本次产物 | BIG 内路径 |
 | --- | --- |
-| APT四输出 | `data/aptui/<流名>.manifest/.bin/.imp/.relo` |
-| APT CustomData | `data/aptui/<流名>/cdata/<文件>.cdata` |
-| APT派生版本 | `data/aptui/<流名>.version`，原Windows命令实测三个字节空格+CRLF（`20 0d 0a`） |
-| MapMetaData四输出 | `data/additionalmaps/<流名>.manifest/.bin/.imp/.relo` |
-| maps CustomData | `data/additionalmaps/<流名>/cdata/<文件>.cdata` |
+| base 四输出与 CDATA | `data/mod.*`、`data/mod/cdata/*.cdata` |
+| base 派生 LoD 八输出 | `data/mod_l.*`、`data/mod_m.*`，内嵌依赖精确保留原参数 `mod.manifest` |
+| APT 四输出与 CDATA | `data/aptui/<流名>.*`、`data/aptui/<流名>/cdata/*.cdata` |
+| APT 派生版本 | `data/aptui/<流名>.version`，原命令实测 `20 0d 0a` |
+| maps 四输出与 CDATA | `data/additionalmaps/<流名>.*`、`data/additionalmaps/<流名>/cdata/*.cdata` |
 
-成员只来自本次已确认的流产物清单，APT版本由本次有效task精确派生；不扫描陈旧输出、intermediate、MOD Additional或预编译assets。空可选集合保留上一代，不生成空BIG。完整precompiled AssetMerge、HashFix→ModAssetResolver→LoD、额外文件打包尚需各自接入，不由此推断完成。
+默认成员仅来自本次已确认的流产物清单；不扫描陈旧输出、中间文件或缓存。base 不派生 `.version`。空可选集合保持上一代，不生成空 BIG。
 
-BIG4遵循原MakeBig端序、NUL路径、`L219`目录尾和连续原始payload；路径小写反斜线、case重复/遍历/歧义路径及32位长度溢出拒绝。Archive与SKUDEF在本次staging生成，再沿已有发布/缓存/必需渠道事务确认；取消和失败不替换上一代。生产不启动MakeBig或编译worker，外部原工具仅用于隔离验证。
+`--include-additional true` 默认关闭，且只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的显式行为。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
 
-验证入口为 `TestCompilerBig.ps1` 与 `ValidateCompilerBig.py`：真实单选/组合、完整CDATA、APT版本、SKUDEF原始字节、陈旧代替换、取消/发布失败重试，以及同清单原SDK MakeBig的结构/完整成员与内容对照。原工具的目录遍历顺序不稳定，不能错误要求两份archive整体字节顺序相同；每个成员内容仍逐字节核验。格式/路径/内容证据不等于实际启动游戏的运行验收。
+生产路径为 `BigPackage → Application.MakeBig → BigArchiveWriter` 严格清单/边界/原子保护 → **恢复的原 MakeBig.Lumpy/FixupBinaryWriter**。保持 BIG4、原端序、NUL 路径、L219 尾和连续 payload；不启动 MakeBig 或编译 worker。原目录发现/参数解析保留在恢复源码供差分，但生产只消费明确清单。
 
-下一组先重建并验收三字节版本修正，再按新的真实成功归档重新pin发布准备器及其原命令期望；旧二字节候选保持禁止刷新。然后优先恢复base必需LoD并核验旧脚本顺序，再扩展必要AssetMerge/额外文件及版本参数；不启动游戏、安装MOD或写CurrentMOD.ini。正式发行包必须在当前候选终验后刷新，旧P6包不自动包含本能力。
+`TestCompilerBig.ps1` 保留 APT/maps 原组，新增 base、完整组合、真实 base CDATA、显式 Additional、原 CopyFolders/LoD/MakeBig 原始内容对照，以及取消/发布故障/旧代替换和重试。原工具目录遍历顺序可能变化，跨目录归档比较成员内容；同输入目录 MakeBig 组件仍比较整包字节。原工具只在隔离验收中启动。
+
+原 LoD 在特定来源表长度上有已复现的末字节差异，详见 `P7_LOD_ORIGINAL_TAIL.md`：原始失败及重复探针保留，不能把其他输入的成功范围泛称完整 LoD/修复链通过。生产正确表复制未按异常样本盲改，也未放宽原始字节断言。
+
+候选真实主组通过后，按成功 source/run/archive 重 pin 发行准备器；独立解压五文件 ZIP 必须再通过 base/Additional BIG 和协议验收。先前已验收的包不会自动包含本候选。版本参数、可选中立资产修复与完整 UI/runtime 分别记录范围，不启动游戏、安装 MOD 或写 CurrentMOD.ini。

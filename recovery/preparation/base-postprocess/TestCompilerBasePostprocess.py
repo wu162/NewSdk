@@ -11,6 +11,7 @@ from pathlib import Path
 import shutil
 import struct
 import subprocess
+import traceback
 
 
 EXTENSIONS = ('.manifest', '.bin', '.imp', '.relo')
@@ -76,13 +77,14 @@ def compare(case, stage, stems):
             original = case / 'original' / name
             candidate = case / 'candidate' / name
             left, right = original.read_bytes(), candidate.read_bytes()
-            assert left == right, f'{case.name}/{stage}/{name}: original/candidate raw bytes differ'
-            rows.append({'path': name, 'bytes': len(left), 'sha256': sha(original), 'byteIdentical': True})
+            rows.append({'path': name, 'originalBytes': len(left), 'originalSha256': sha(original),
+                         'candidateBytes': len(right), 'candidateSha256': sha(candidate),
+                         'byteIdentical': left == right})
             for kind, source in (('original', original), ('candidate', candidate)):
                 archive = case / 'stages' / stage / kind
                 archive.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, archive / name)
-    return {'stage': stage, 'files': rows, 'passed': True}
+    return {'stage': stage, 'files': rows, 'passed': all(row['byteIdentical'] for row in rows)}
 
 
 def main():
@@ -110,7 +112,7 @@ def main():
         ('combined-hash-and-insertion', [asset(1, 1, 3, [(2, 2)])],
          [asset(1, 1, 7), asset(2, 2, 9, [(3, 3)]), asset(3, 3)], [], [], [], 2),
     ]
-    state = {'schemaVersion': 1, 'succeeded': False, 'cases': [],
+    state = {'schemaVersion': 1, 'succeeded': False, 'hashfixResolverSucceeded': False, 'lodSucceeded': False, 'cases': [],
              'sourceCommit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
              'originalTools': {stage: {'path': str(path), 'sha256': sha(path)} for stage, path in originals.items()},
              'candidateSha256': sha(candidate),
@@ -119,50 +121,76 @@ def main():
         for name, mod, wb, static, global_, audio, inserted in cases:
             case = out / name; case.mkdir()
             row = {'name': name, 'passed': False, 'stages': [], 'expectedInsertedAssets': inserted}; state['cases'].append(row)
-            for kind in ('original', 'candidate'):
-                work = case / kind; work.mkdir(); (work / 'tools').mkdir(); built = work / 'BuiltMods'; built.mkdir()
-                stream(work / 'mod', mod)
-                for stem, assets in (('Worldbuilder', wb), ('Static', static), ('Global', global_), ('Audio', audio)):
-                    # Original tools assume a nonempty reference asset table.
-                    # A unique nonmatching asset keeps the no-reference case
-                    # meaningful without exercising the original empty-WB bug.
-                    stream(built / stem, assets or [asset(0x70000001, 0x70000002)])
-                # Actual HashFix.exe reads BuiltMods/SageXml; Resolver.exe
-                # reads the BuiltMods root. Preserve the SAME WB manifest bytes
-                # in both explicit layouts; neither stage may mutate either.
-                sage = built / 'SageXml'; sage.mkdir()
-                shutil.copyfile(built / 'Worldbuilder.manifest', sage / 'Worldbuilder.manifest')
-                assert (built / 'Worldbuilder.manifest').read_bytes() == (sage / 'Worldbuilder.manifest').read_bytes()
-                (built / 'StringHashes.xml').write_text('<AssetDeclaration/>', encoding='utf-8')
-                # The original uses its isolated relative ../BuiltMods fallback.
-                # No machine registry or SDK input files are changed.
-                if kind == 'original':
-                    for stage, source in originals.items():
-                        shutil.copyfile(source, work / 'tools' / source.name)
-                    for file in ('ModAssetResolver_TypeHashes.txt', 'ModAssetResolver_InstanceHashes.txt'):
-                        shutil.copyfile(tools / file, work / 'tools' / file)
-            reference_before = {kind: snapshot(case / kind / 'BuiltMods') for kind in ('original', 'candidate')}
-            for stage in ('hashfix', 'resolver', 'lod'):
+            stage = 'setup'
+            try:
                 for kind in ('original', 'candidate'):
-                    work = case / kind; manifest = work / 'mod.manifest'; built = work / 'BuiltMods'
+                    work = case / kind; work.mkdir(); (work / 'tools').mkdir(); built = work / 'BuiltMods'; built.mkdir()
+                    stream(work / 'mod', mod)
+                    for stem, assets in (('Worldbuilder', wb), ('Static', static), ('Global', global_), ('Audio', audio)):
+                        # Original tools assume a nonempty reference asset table.
+                        # A unique nonmatching asset keeps the no-reference case
+                        # meaningful without exercising the original empty-WB bug.
+                        stream(built / stem, assets or [asset(0x70000001, 0x70000002)])
+                    # Actual HashFix.exe reads BuiltMods/SageXml; Resolver.exe
+                    # reads the BuiltMods root. Preserve the SAME WB manifest bytes
+                    # in both explicit layouts; neither stage may mutate either.
+                    sage = built / 'SageXml'; sage.mkdir()
+                    shutil.copyfile(built / 'Worldbuilder.manifest', sage / 'Worldbuilder.manifest')
+                    assert (built / 'Worldbuilder.manifest').read_bytes() == (sage / 'Worldbuilder.manifest').read_bytes()
+                    (built / 'StringHashes.xml').write_text('<AssetDeclaration/>', encoding='utf-8')
+                    # The original uses its isolated relative ../BuiltMods fallback.
+                    # No machine registry or SDK input files are changed.
                     if kind == 'original':
-                        completion = {'hashfix': b'Instance hashes fixed:',
-                                      'resolver': f'Assets prepended: {inserted}'.encode(), 'lod': None}[stage]
-                        invoke(work / 'tools' / originals[stage].name, [manifest], work / 'tools', work / stage, completion)
-                    else:
-                        extra = [built / 'SageXml' / 'Worldbuilder.manifest'] if stage == 'hashfix' else ([built] if stage == 'resolver' else [])
-                        result = invoke(candidate, [stage, manifest, *extra], work / 'tools', work / stage)
-                        if stage == 'resolver':
-                            assert result.strip() == str(inserted).encode(), ('Candidate insertion count differs', result)
-                        if stage == 'lod':
-                            assert result.strip() == b'8', ('Candidate LoD output count differs', result)
-                    assert snapshot(built) == reference_before[kind], f'{kind}/{stage} changed reference inputs'
-                row['stages'].append(compare(case, stage, ('mod', 'mod_l', 'mod_m') if stage == 'lod' else ('mod',)))
-            row['passed'] = True
-        state['succeeded'] = True
+                        for tool_stage, source in originals.items():
+                            shutil.copyfile(source, work / 'tools' / source.name)
+                        for file in ('ModAssetResolver_TypeHashes.txt', 'ModAssetResolver_InstanceHashes.txt'):
+                            shutil.copyfile(tools / file, work / 'tools' / file)
+                reference_before = {kind: snapshot(case / kind / 'BuiltMods') for kind in ('original', 'candidate')}
+                for stage in ('hashfix', 'resolver', 'lod'):
+                    for kind in ('original', 'candidate'):
+                        work = case / kind; manifest = work / 'mod.manifest'; built = work / 'BuiltMods'
+                        if kind == 'original':
+                            completion = {'hashfix': b'Instance hashes fixed:',
+                                          'resolver': f'Assets prepended: {inserted}'.encode(), 'lod': None}[stage]
+                            invoke(work / 'tools' / originals[stage].name, [manifest], work / 'tools', work / stage, completion)
+                        else:
+                            extra = [built / 'SageXml' / 'Worldbuilder.manifest'] if stage == 'hashfix' else ([built] if stage == 'resolver' else [])
+                            result = invoke(candidate, [stage, manifest, *extra], work / 'tools', work / stage)
+                            if stage == 'resolver':
+                                assert result.strip() == str(inserted).encode(), ('Candidate insertion count differs', result)
+                            if stage == 'lod':
+                                assert result.strip() == b'8', ('Candidate LoD output count differs', result)
+                        assert snapshot(built) == reference_before[kind], f'{kind}/{stage} changed reference inputs'
+                    comparison = compare(case, stage, ('mod', 'mod_l', 'mod_m') if stage == 'lod' else ('mod',))
+                    row['stages'].append(comparison)
+                    assert comparison['passed'], f'{case.name}/{stage}: original/candidate raw bytes differ'
+            except Exception as error:
+                row['error'] = str(error)
+                row['errorType'] = type(error).__name__
+                row['failedStage'] = stage
+                (case / 'error.log').write_text(traceback.format_exc(), encoding='utf-8')
+                completed = next((item for item in row['stages'] if item['stage'] == stage), None)
+                if completed is None:
+                    row['stages'].append({'stage': stage, 'passed': False, 'error': str(error)})
+                else:
+                    completed['error'] = str(error)
+                # Dependent later stages of this case are not run after a bad
+                # source. Every next case owns fresh inputs and still executes.
+            row['passed'] = len(row['stages']) == 3 and all(item['passed'] for item in row['stages'])
+        def every_stage_passed(stages):
+            return len(state['cases']) == len(cases) and all(
+                all(any(item['stage'] == stage and item['passed'] for item in row['stages']) for stage in stages)
+                for row in state['cases'])
+        state['hashfixResolverSucceeded'] = every_stage_passed(('hashfix', 'resolver'))
+        state['lodSucceeded'] = every_stage_passed(('lod',))
+        state['succeeded'] = all(row['passed'] for row in state['cases']) and len(state['cases']) == len(cases)
     finally:
         (out / 'validation.json').write_text(json.dumps(state, indent=2) + '\n', encoding='utf-8')
-    print(json.dumps({'succeeded': True, 'cases': len(cases), 'scope': state['scope']}))
+    print(json.dumps({'succeeded': state['succeeded'], 'cases': len(cases),
+                      'hashfixResolverSucceeded': state['hashfixResolverSucceeded'],
+                      'lodSucceeded': state['lodSucceeded'], 'scope': state['scope']}))
+    if not state['succeeded']:
+        raise SystemExit(1)
 
 
 if __name__ == '__main__':

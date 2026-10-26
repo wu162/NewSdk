@@ -13,10 +13,11 @@ namespace NewModCompiler.Application
     }
 
     // Uncompressed SAGE BIG archive. Callers supply the exact current build
-    // inventory; this writer never discovers files or invokes MakeBig.
+    // inventory; this writer never discovers files or starts a tool process.
+    // Format emission now executes the recovered MakeBig.Lumpy implementation.
     public static class BigArchiveWriter
     {
-        sealed class Input { public string Name, Path; public long Length; public byte[] Bytes; }
+        sealed class Input { public string Name, Path; public long Length; }
 
         public static void Write(string path, IEnumerable<BigArchiveEntry> entries, CancellationToken cancellation = default(CancellationToken))
         {
@@ -39,44 +40,16 @@ namespace NewModCompiler.Application
                 byte[] bytes=Encoding.ASCII.GetBytes(name);
                 indexLength=checked(indexLength+8L+bytes.Length+1L);payloadLength=checked(payloadLength+file.Length);
                 CheckedArchiveSize(indexLength,payloadLength);
-                inputs.Add(new Input {Name=name,Path=source,Length=file.Length,Bytes=bytes});
+                inputs.Add(new Input {Name=name,Path=source,Length=file.Length});
             }
             if(inputs.Count==0) throw new InvalidDataException("An empty BIG archive is not a published package.");
             inputs.Sort((a,b)=>StringComparer.Ordinal.Compare(a.Name,b.Name));
             uint total=CheckedArchiveSize(indexLength,payloadLength);
             Atomic(output,cancellation,stream=>{
-                using(var writer=new BinaryWriter(stream,Encoding.ASCII,true))
-                {
-                    writer.Write(Encoding.ASCII.GetBytes("BIG4"));
-                    writer.Write(total); // BIG archive total size is little endian.
-                    BigEndian(writer,(uint)inputs.Count);BigEndian(writer,(uint)indexLength);
-                    long offset=indexLength;
-                    foreach(var input in inputs)
-                    {
-                        cancellation.ThrowIfCancellationRequested();
-                        BigEndian(writer,(uint)offset);BigEndian(writer,(uint)input.Length);writer.Write(input.Bytes);writer.Write((byte)0);
-                        offset+=input.Length;
-                    }
-                    writer.Write(Encoding.ASCII.GetBytes("L219"));writer.Write(0u);
-                    var buffer=new byte[64*1024];
-                    foreach(var input in inputs)
-                    {
-                        cancellation.ThrowIfCancellationRequested();RejectLinks(input.Path);
-                        using(var source=new FileStream(input.Path,FileMode.Open,FileAccess.Read,FileShare.Read))
-                        {
-                            if(source.Length!=input.Length) throw new IOException("A BIG input changed length before it was copied: "+input.Name);
-                            long remaining=input.Length;
-                            while(remaining!=0)
-                            {
-                                cancellation.ThrowIfCancellationRequested();int read=source.Read(buffer,0,(int)Math.Min(buffer.Length,remaining));
-                                if(read==0) throw new EndOfStreamException("A BIG input ended before its listed size.");
-                                writer.Write(buffer,0,read);remaining-=read;
-                            }
-                            if(source.ReadByte()!=-1) throw new IOException("A BIG input grew while it was copied.");
-                        }
-                    }
-                    writer.Flush();if(stream.Position!=total) throw new IOException("BIG archive length differs from its header.");
-                }
+                var recovered=new List<NewModCompiler.Recovered.MakeBig.MakeBigInput>();
+                foreach(var input in inputs) recovered.Add(new NewModCompiler.Recovered.MakeBig.MakeBigInput {Name=input.Name,SourcePath=input.Path,BookmarkKey=input.Name,Length=input.Length});
+                NewModCompiler.Recovered.MakeBig.Lumpy.WriteArchive(stream,recovered,cancellation,RejectLinks);
+                if(stream.Position!=total) throw new IOException("BIG archive length differs from its header.");
             });
         }
 
@@ -122,7 +95,6 @@ namespace NewModCompiler.Application
             }
             finally { if(File.Exists(temporary)) File.Delete(temporary); }
         }
-        static void BigEndian(BinaryWriter writer,uint value) { writer.Write((byte)(value>>24));writer.Write((byte)(value>>16));writer.Write((byte)(value>>8));writer.Write((byte)value); }
         static void RejectLinks(string path)
         {
             for(var item=new DirectoryInfo(path);item!=null;item=item.Parent)

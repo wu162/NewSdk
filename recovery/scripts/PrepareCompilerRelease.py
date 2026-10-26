@@ -35,7 +35,7 @@ ALLOWED = {
     'recovery/REFACTOR_RESUME.md', 'recovery/P5_LIFECYCLE_AUDIT.md', 'recovery/COMPILER_RELEASE.md',
     'recovery/P7_PACKAGING.md', 'recovery/scripts/PublishCompiler.ps1',
     'recovery/scripts/TestCompilerBig.ps1', 'recovery/scripts/ValidateCompilerBig.py',
-    'recovery/scripts/ValidateCompilerLoD.py',
+    'recovery/scripts/ValidateCompilerLoD.py', 'recovery/scripts/PrepareCompilerAdditional.py',
     'recovery/scripts/PrepareCompilerSessionReplay.py',
     # Independent preparations are outside the production object/link closure.
     '.github/workflows/refactor-hashfix.yml', '.github/workflows/refactor-lod.yml',
@@ -216,6 +216,64 @@ def base_big_receipt(archive, cli, repo):
     return {'succeeded':True,'rawBaseAndCombinedArchives':checked,'requiredZipDeploymentGroups':['base','apt','maps']}
 
 
+def additional_big_receipt(archive, cli, repo):
+    """Bind explicit Additional execution to the original CopyFolders/MakeBig bytes."""
+    prefix=f'evidence/refactor/big/{RUN}-{ATTEMPT}'
+    validation=json.loads(archive.read(prefix+'/validation.json').decode('utf-8-sig'))
+    guard.modes(validation)
+    script_sha=guard.digest((Path(repo)/'SDK/defaultscript.cs').read_bytes())
+    source_sha=guard.digest((Path(repo)/'recovery/preparation/additional/AdditionalControl.cs').read_bytes())
+    control_sha=guard.digest(archive.read(prefix+'/AdditionalControl.exe'))
+    makebig_sha=guard.digest((Path(repo)/'SDK/tools/MakeBig.exe').read_bytes())
+    checked=[]
+    with tempfile.TemporaryDirectory(prefix='release-additional-big-') as work:
+        path=Path(work)/'accepted.big'
+        for mode in sorted(guard.MODES):
+            row=next(m for m in validation['modes'] if m['configuration']==mode)
+            accepted=next(m for m in cli['modes'] if m['configuration']==mode)
+            require(row.get('exeSha256')==accepted.get('exeSha256'), 'Additional BIG used another production EXE')
+            case=[c for c in row['cases'] if c.get('name')=='all-with-additional']
+            require(len(case)==1 and case[0].get('passed') is True, 'Explicit Additional CLI group failed/missing')
+            arguments=case[0]['arguments']
+            require('--include-additional' in arguments and arguments[arguments.index('--include-additional')+1]=='true', 'Additional CLI was not explicitly enabled')
+            comparison_path=f'{prefix}/{mode}/additional-original-copy-makebig'
+            comparison=json.loads(archive.read(comparison_path+'/comparison.json').decode('utf-8-sig'))
+            expected=json.loads(archive.read(comparison_path+'/expected.json').decode('utf-8-sig'))
+            accepted_comparison=[c for c in row['comparisons'] if c['name']=='additional-original-copy-makebig']
+            require(len(accepted_comparison)==1 and accepted_comparison[0]['originalExeSha256']==makebig_sha and
+                    comparison.get('succeeded') is True and comparison.get('exactMemberNamesAndRawContents') is True,
+                    'Additional original MakeBig comparison incomplete')
+            oracle_path=comparison_path+'/additional-original'
+            oracle=json.loads(archive.read(oracle_path+'/validation.json').decode('utf-8-sig'))
+            inventory=json.loads(archive.read(oracle_path+'/inventory.json').decode('utf-8-sig'))
+            require(oracle.get('succeeded') is True and oracle.get('processExitCode')==0 and inventory.get('succeeded') is True and
+                    oracle.get('scriptSha256')==script_sha and oracle.get('controlSourceSha256')==source_sha and oracle.get('controlSha256')==control_sha,
+                    'Exact original CopyFolders execution/source identity mismatch')
+            require({i['root'] for i in oracle.get('inputs',[])}=={'sdk','mod'}, 'Additional oracle omitted SDK or MOD overlay')
+            raw_members={}
+            for name in archive.namelist():
+                if name.startswith(oracle_path+'/input/') and not name.endswith('/'):
+                    relative=name[len(oracle_path+'/input/'):].replace('/','\\').lower()
+                    if not relative.endswith('.asset'):
+                        require(relative not in raw_members, 'Case-ambiguous original Additional member')
+                        raw_members[relative]=archive.read(name)
+            names={e['name'] for e in expected}
+            require(len(expected)==len(names) and names==set(raw_members) and names=={e['name'] for e in inventory['files']} and
+                    all(not n.endswith('.asset') for n in names), 'Additional original raw inventory incomplete')
+            for entry in expected:
+                raw=raw_members[entry['name']]
+                require(len(raw)==entry['bytes'] and guard.digest(raw)==entry['sha256'], 'Original Additional raw member differs from accepted inventory')
+            for name,kind in ((f'{prefix}/{mode}/all-with-additional/artifacts/business_1.0.big','product'),
+                              (comparison_path+'/original.big','originalMakeBig')):
+                data=archive.read(name);path.write_bytes(data)
+                actual=big_contract.read_archive(path)
+                require(actual['sha256']==comparison[kind]['sha256'] and {m['name'] for m in actual['members']}==names and
+                        all(m['data']==raw_members[m['name']] for m in actual['members']), 'Additional product/original BIG raw inventory/content differs')
+            checked.append({'configuration':mode,'productSha256':comparison['product']['sha256'],
+                            'originalMakeBigSha256':comparison['originalMakeBig']['sha256'],'originalCopyFoldersReceipt':oracle_path+'/validation.json'})
+    return {'succeeded':True,'explicitAdditional':True,'rawProductCopyFoldersAndMakeBig':checked}
+
+
 def prepare(archive, sdk_archive, candidate, output, repo):
     changed=closure(repo,SOURCE,candidate)
     sdk_raw,sdk_scope=sdk_receipt(sdk_archive,repo,candidate)
@@ -237,6 +295,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
             receipt['files'].append({'path':relative,'sha256':guard.digest(data)})
         cli_path=f'evidence/refactor/core-cli/{RUN}-{ATTEMPT}/validation.json';cli=doc(cli_path)
         base_big=base_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
+        additional_big=additional_big_receipt(z,cli,repo) if REQUIRE_BASE_BIG else None
         for section in ('build-cache','input-roots','cache-payloads','session-cache','big'):
             base=f'evidence/refactor/{section}/{RUN}-{ATTEMPT}';d=doc(base+'/validation.json')
             require(d.get('succeeded') is True and d.get('sourceCommit')==SOURCE and str(d.get('runId'))==str(RUN) and str(d.get('runAttempt'))==str(ATTEMPT), 'P7 affected receipt failed: '+section)
@@ -260,7 +319,7 @@ def prepare(archive, sdk_archive, candidate, output, repo):
         take(cli_path,'accepted-cli.json')
     (target/'accepted-mymod.json').write_bytes(sdk_raw)
     receipt.update(binarySourceCommit=SOURCE,testSourceCommit=candidate,artifactId=ARTIFACT,productionSourcesUnchanged=True,
-                   aptVersionMarker=marker,baseBigAcceptance=base_big,reusedMymod=sdk_scope,
+                   aptVersionMarker=marker,baseBigAcceptance=base_big,additionalBigAcceptance=additional_big,reusedMymod=sdk_scope,
                    requiredNextSteps=['Run P6 five-file ZIP deployment validation'+(' with -VerifyBigDeployment' if REQUIRE_BASE_BIG else ' only')],
                    scope='Current P7 production/cache/session/BIG acceptance plus historical f2/9d complete mymod scope; packaging preparation only, no new business execution')
     (target/'release-preparation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8');(target/'reuse.json').unlink()
