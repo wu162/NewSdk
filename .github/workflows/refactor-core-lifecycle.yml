@@ -135,7 +135,7 @@ jobs:
       - name: Validate CLI scripts and output contracts before long Native linking
         shell: pwsh
         run: |
-          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1')) {
+          foreach($path in @('recovery/scripts/CompilerCliOutputs.ps1','recovery/scripts/TestCompilerCliOutputs.ps1','recovery/scripts/TestCompilerCli.ps1','recovery/scripts/TestCompilerBackendBaseline.ps1','recovery/scripts/TestCompilerBuildCache.ps1','recovery/scripts/TestCompilerInputRoots.ps1','recovery/scripts/TestCompilerBuildCachePayloads.ps1','recovery/scripts/TestCompilerSessionCache.ps1','recovery/scripts/TestCompilerSdk.ps1','recovery/scripts/TestCompilerBig.ps1')) {
             $tokens=$null;$errors=$null
             $null=[Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $path),[ref]$tokens,[ref]$errors)
             if($errors.Count -ne 0){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
