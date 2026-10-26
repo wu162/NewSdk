@@ -1,0 +1,51 @@
+name: MOD compiler refactor gates
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-gates.yml'
+      - 'recovery/scripts/RefactorBaseline.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-baseline-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  baseline:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-baseline]')
+    runs-on: windows-2022
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 87cf54e254dfb44a129da087316fd04806ed2b10
+          path: baseline-source
+      - uses: actions/checkout@v4
+        with:
+          ref: 068643219fded09a05fb7b75c6507b769c430316
+          path: baseline-mod
+          sparse-checkout: SDK/Mods/Upheaval
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Validate fixed pre-refactor original and combined recovered SDK
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/RefactorBaseline.ps1'),[ref]$tokens,[ref]$errors) | Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+          ./recovery/scripts/RefactorBaseline.ps1 -SourceRoot baseline-source -ModSourcePath baseline-mod/SDK/Mods/Upheaval
+          $path="recovery/evidence/refactor/baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json"
+          $receipt=Get-Content $path -Raw|ConvertFrom-Json
+          if(!$receipt.succeeded -or !$receipt.originalBaselinePassed -or $receipt.sourceCommit -ne '87cf54e254dfb44a129da087316fd04806ed2b10' -or $receipt.harnessCommit -ne $env:GITHUB_SHA -or $receipt.runId -ne $env:GITHUB_RUN_ID -or !$receipt.customData.identical -or !$receipt.audioCalls.identical){throw 'Missing, unsuccessful or mismatched G0 evidence'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-baseline-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
