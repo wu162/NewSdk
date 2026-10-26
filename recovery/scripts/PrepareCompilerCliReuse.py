@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify a complete historical artifact and stage only its CLI runtime files.
 
-Not wired to Actions. This prepares historical binaries; it does not execute or
+Used by the opt-in CLI-only Actions job. This prepares historical binaries; it does not execute or
 accept the candidate. The caller must regenerate the EXE-bound texture deployment
 and run the candidate CLI/protocol validation, retaining both source identities.
 """
@@ -30,16 +30,23 @@ FIXTURES = {'CompilerCorePaths', 'CompilerUnicodeSettings', 'CompilerCoreLifecyc
 # Deliberately enumerate tools/docs. No wildcard permits production, SDK,
 # build recipes, other fixture suites or arbitrary future workflow changes.
 WORKFLOW = '.github/workflows/refactor-core-lifecycle.yml'
+# Exact reviewed migration from legacy CLI-only source checks to pinned archive reuse.
+WORKFLOW_MIGRATION = (
+    '49f2b553e62114f13507cae579c45cbb4482a526f276dceac53fd7c672747899',
+    'd6e465f98d7f4654a58075445940b9102e1491664a63b75a368021ac7217808f')
 ALLOWED = {
     # Independent preparation-unit-test CI; never a production build driver.
     '.github/workflows/refactor-cli-reuse.yml',
     'recovery/scripts/TestCompilerBackendBaseline.ps1',
     'recovery/scripts/TestCompilerCli.ps1',
+    'recovery/scripts/CompilerCliOutputs.ps1',
     'recovery/scripts/BuildCompilerCliControl.ps1',
     'recovery/scripts/PrepareCompilerCliBusiness.py',
     'recovery/scripts/PrepareCompilerCliUi.py',
     'recovery/scripts/ValidateAppProtocol.py',
     'recovery/scripts/PrepareCompilerCliReuse.py',
+    'recovery/scripts/DownloadCompilerCliReuse.py',
+    'recovery/tests/test_download_compiler_cli_reuse.py',
     'recovery/tests/CompilerCliControl.cs',
     'recovery/tests/test_prepare_compiler_cli_reuse.py',
     'recovery/REFACTOR_RESUME.md', 'recovery/PATH_AUDIT.md',
@@ -88,7 +95,11 @@ def closure(repo, source, candidate):
     if WORKFLOW in changed:
         old = workflow_without_trigger_paths(git(repo, 'show', source + ':' + WORKFLOW))
         new = workflow_without_trigger_paths(git(repo, 'show', candidate + ':' + WORKFLOW))
-        require(old == new, 'Workflow change exceeds on.push.paths trigger list')
+        # One reviewed migration wires strict historical-runtime preparation.
+        # Hash both complete normalized workflows, not a permissive step subset.
+
+        require(old == new or (digest(old), digest(new)) == WORKFLOW_MIGRATION,
+                'Workflow change exceeds on.push.paths trigger list or pinned integration')
     return changed
 
 
@@ -220,7 +231,7 @@ def prepare(archive, expected_sha256, source_commit, candidate_commit, output, r
                        'runId': run, 'runAttempt': attempt, 'archiveSha256': expected_sha256,
                        'changedPaths': changed, 'files': files,
                        'requiredNextSteps': ['Regenerate EXE-bound texture deployment', 'Run candidate CLI and protocol validation'],
-                       'scope': 'Historical runtime preparation only; no candidate execution or acceptance; not wired to Actions'}
+                       'scope': 'Historical runtime preparation only; no candidate execution or acceptance; current CLI/protocol tests required'}
             output = Path(output)
             require(not output.exists(), 'Refusing to replace existing output')
             output.parent.mkdir(parents=True, exist_ok=True)

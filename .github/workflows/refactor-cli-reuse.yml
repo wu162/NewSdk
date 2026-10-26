@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/refactor-cli-reuse.yml'
       - 'recovery/scripts/PrepareCompilerCliReuse.py'
+      - 'recovery/scripts/DownloadCompilerCliReuse.py'
+      - 'recovery/tests/test_download_compiler_cli_reuse.py'
       - 'recovery/tests/test_prepare_compiler_cli_reuse.py'
   workflow_dispatch:
 permissions:
@@ -23,8 +25,10 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /recovery/scripts/PrepareCompilerCliReuse.py
+            /recovery/scripts/DownloadCompilerCliReuse.py
+            /recovery/tests/test_download_compiler_cli_reuse.py
             /recovery/tests/test_prepare_compiler_cli_reuse.py
       - name: Source closure, archive identity and extraction rejection matrix
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-        run: python -m unittest discover -s recovery/tests -p test_prepare_compiler_cli_reuse.py -v
+        run: python -m unittest discover -s recovery/tests -p '*compiler_cli_reuse.py' -v

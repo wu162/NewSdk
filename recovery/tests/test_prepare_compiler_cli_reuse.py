@@ -6,6 +6,7 @@ import tempfile
 import unittest
 import warnings
 import zipfile
+from unittest.mock import patch
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'scripts' / 'PrepareCompilerCliReuse.py'
 spec = importlib.util.spec_from_file_location('cli_reuse', SCRIPT)
@@ -203,6 +204,18 @@ class CliReuseTests(unittest.TestCase):
                 self.workflow_change(lambda s: s.replace(old, new))
                 with self.assertRaisesRegex(ValueError, 'Workflow change exceeds'):
                     self.run_prepare()
+
+    def test_exact_pinned_integration_migration_and_further_changes(self):
+        self.workflow_change(lambda s: s.replace('compile-old', 'strict-archive-reuse'))
+        old = reuse.workflow_without_trigger_paths(reuse.git(self.repo, 'show', self.source + ':' + reuse.WORKFLOW))
+        new = reuse.workflow_without_trigger_paths(reuse.git(self.repo, 'show', self.candidate + ':' + reuse.WORKFLOW))
+        pinned = (reuse.digest(old), reuse.digest(new))
+        with patch.object(reuse, 'WORKFLOW_MIGRATION', pinned):
+            self.assertEqual(self.run_prepare()['changedPaths'], [reuse.WORKFLOW])
+            self.commit(reuse.WORKFLOW, (self.repo / reuse.WORKFLOW).read_text().replace('FLAGS: old', 'FLAGS: changed'))
+            self.candidate = self.git('rev-parse', 'HEAD').strip()
+            with self.assertRaisesRegex(ValueError, 'Workflow change exceeds'):
+                reuse.closure(self.repo, self.source, self.candidate)
 
     def test_baseline_tool_change_allowed_as_tool_only(self):
         self.commit('recovery/scripts/TestCompilerBackendBaseline.ps1', 'new baseline acceptance tool')
