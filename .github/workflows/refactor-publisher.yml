@@ -1,0 +1,52 @@
+name: MOD compiler transactional publisher contracts
+on:
+  push:
+    branches: [refactor/modcompiler-p0-p3]
+    paths:
+      - '.github/workflows/refactor-publisher.yml'
+      - 'recovery/src/App/Application/ArtifactPublisher.cs'
+      - 'recovery/tests/App/ArtifactPublisherTests.cs'
+      - 'recovery/tests/App/AppTests.cs'
+      - 'recovery/scripts/BuildApp.ps1'
+      - 'recovery/scripts/TestApp.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: refactor-publisher-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  publisher:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-publisher]')
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Build and verify transactional publisher and all App contracts
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            $directory="recovery/artifacts/publisher/$mode"
+            New-Item -ItemType Directory -Force $directory|Out-Null
+            try {
+              ./recovery/scripts/TestApp.ps1 -Configuration $mode -OutputDirectory $directory *> "$directory/test-app.log"
+              if($LASTEXITCODE -ne 0){throw 'Publisher/App contract validation failed'}
+            } catch {
+              Get-Content "$directory/test-app.log" -Tail 80|Out-Host
+              throw
+            }
+            Get-Content "$directory/test-app.log" -Tail 8|Out-Host
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refactor-publisher-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/artifacts/publisher/**
+          include-hidden-files: true
+          if-no-files-found: error
