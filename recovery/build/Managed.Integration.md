@@ -5,10 +5,13 @@ Prepared for P3; production source patch must only be applied after the pre-refa
 existing library projects do not define it and remain available for the isolated legacy oracle.
 
 `BuildManagedFoundation.ps1` compiles the manifest's full source closure with Roslyn 4.0.1, C# 10,
-.NET Framework 4.8 reference assemblies, x86, deterministic output, and only `antlr.runtime` as a
+.NET Framework 4.8 reference assemblies, AnyCPU build-time IL module, deterministic output, and only `antlr.runtime` as a
 business AssemblyRef. It excludes duplicate AssemblyInfo and old GUI classes. Core's ShPath UI
 helper is conditionally excluded in the production source patch. EALABuild/Remote are not inputs.
-No decompiled directory or original implementation DLL is compiled into the module.
+No decompiled directory or original implementation DLL is compiled into the module. Final MSVC
+link and test host remain strictly x86. G1 minimal run `40269733403` at `fafc306` proved
+AnyCPU intermediate modules avoid LNK1302 without altering unsafe attributes or IL; Debug and
+Release each matched 610 oracle rows. This is not evidence for the full Foundation combination.
 
 The module has no resources. `resources.json` contains absolute paths, logical names and SHA-256;
 the final MSVC linker must embed these exact five resources. Core schema uses a canonical CRLF

@@ -1,0 +1,11 @@
+# Build/runtime intermediates. Acceptance receipts remain tracked under evidence.
+/artifacts/
+/build/**/bin/
+/build/**/obj/
+/probes/**/bin/
+/probes/**/obj/
+/probes/**/__pycache__/
+/src/App/bin/
+/src/App/obj/
+/src/Managed/**/bin/
+/src/Managed/**/obj/

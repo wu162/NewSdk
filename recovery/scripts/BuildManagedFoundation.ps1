@@ -29,7 +29,7 @@ $files=@(foreach($sourceRoot in $manifest.sourceRoots){
 if($files.Count -lt 200){throw 'Foundation source inventory is unexpectedly incomplete'}
 $module=Join-Path $out $manifest.moduleName
 $opt=if($Configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
-$arguments=@('/nologo','/noconfig','/nostdlib+','/target:module','/platform:x86','/langversion:10.0','/unsafe+','/deterministic+', $opt, '/define:'+$manifest.define, '/out:"'+$module+'"')
+$arguments=@('/nologo','/noconfig','/nostdlib+','/target:module','/platform:anycpu','/langversion:10.0','/unsafe+','/deterministic+', $opt, ('/define:'+$manifest.define), ('/out:"'+$module+'"'))
 $arguments+=@($manifest.frameworkReferences|ForEach-Object {'/reference:"'+(Join-Path $framework ($_+'.dll'))+'"'})
 $arguments+='/reference:"'+(Join-Path $root 'SDK/tools/antlr.runtime.dll')+'"'
 $arguments+=@($files|ForEach-Object {'"'+$_.FullName+'"'})
@@ -57,7 +57,7 @@ $resources=@($manifest.resources|ForEach-Object {
 })
 ConvertTo-Json -InputObject $resources -Depth 5|Set-Content "$out/resources.json" -Encoding utf8
 $sources=@($files|ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
-@{formatVersion=1;configuration=$Configuration;sourceCommit=(git -C $root rev-parse HEAD).Trim();compiler='Microsoft.Net.Compilers.Toolset/4.0.1';target='net48/Win32';module=(Split-Path $module -Leaf);moduleSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();sourceFiles=$sources;resources=$resources;allowedBusinessReferences=@($manifest.allowedBusinessReferences);singleExeValidated=$false}|ConvertTo-Json -Depth 8|Set-Content "$out/build.json" -Encoding utf8
+@{formatVersion=1;configuration=$Configuration;sourceCommit=(git -C $root rev-parse HEAD).Trim();compiler='Microsoft.Net.Compilers.Toolset/4.0.1';target='net48/Win32';intermediateModulePlatform='AnyCPU';module=(Split-Path $module -Leaf);moduleSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();sourceFiles=$sources;resources=$resources;allowedBusinessReferences=@($manifest.allowedBusinessReferences);singleExeValidated=$false}|ConvertTo-Json -Depth 8|Set-Content "$out/build.json" -Encoding utf8
 Write-Host "PASS Foundation $Configuration module, $($files.Count) source files; resources deferred to final link"
 # Build artifact path only: other scripts may dot-source this script and use the result.
 Write-Output $out

@@ -60,6 +60,15 @@ internal static class Program
             var options = new NativeModuleWriterOptions(module, false) { KeepExtraPEData = true, KeepWin32Resources = true };
             options.MetadataOptions.Flags |= MetadataFlags.PreserveAll;
             options.PEHeadersOptions.TimeDateStamp = module.Metadata.PEImage.ImageNTHeaders.FileHeader.TimeDateStamp;
+            // PreserveAll does not include AssemblyRef RIDs. Pre-seed the table in
+            // original order before type/member initialization creates references.
+            var originalReferences = module.GetAssemblyRefs().OrderBy(a => a.Rid).ToArray();
+            options.WriterEvent += (sender, e) => {
+                if (e.Event != ModuleWriterEvent.MDAllocateTypeDefRids) return;
+                foreach (var reference in originalReferences)
+                    if (e.Writer.Metadata.GetToken(reference).Raw != reference.MDToken.Raw)
+                        throw new InvalidDataException("Cannot preserve AssemblyRef token " + reference.MDToken);
+            };
             module.NativeWrite(output, options);
             using var rewritten = ModuleDefMD.Load(output);
             if (!originalTypes.SequenceEqual(rewritten.GetTypeRefs().Select(t => t.MDToken.Raw + ":" + t.FullName)))
