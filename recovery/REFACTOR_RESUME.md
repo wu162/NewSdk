@@ -1,4 +1,4 @@
-# 新 MOD 编译器交接：下一轮 P4
+# 新 MOD 编译器交接：P4 实现与验收中
 
 工作与交付分支：`refactor/modcompiler-p0-p3`。目标分支：`recovery/compiler-source`。
 草稿 PR：#13，未经用户明确批准不得合入；禁止任何强推。
@@ -38,7 +38,16 @@
 生产 `build` 当前明确返回 `BACKEND_NOT_INTEGRATED`（退出码 3），`doctor` 同样说明后端限制。
 完整 Native 生产路由、真实 Core 执行器、缓存失效与输出提交尚需后续阶段；不得将探针成功等同于新入口完成真实 MOD 构建。
 
-## 下一轮只推进 P4
+## P4 检查点（2026-10-26）
+
+- 已加入 `build/Compiler.Native.json` 明确清单、`BuildCompilerNative.ps1` 及生产构建接线：87 Native、68 Bridge，共享实现只编译一次。
+- 已加入 `BuiltinCompilers`：6 个显式工厂、299 条路由（XML 267 全局／22 非全局），未知、重复、缺失及非 Win32 明确拒绝；可显式接入三条贴图路由。
+- 已加入贴图发行副本生成和 `LegacyTextureAdapter`，保护原 SDK；部署验证与适配器独立差分脚本已准备。
+- 已加入独立 `refactor-native.yml` 显式组件验证，不运行完整 SDK。生产 EXE 的 Armor/Hash 独立进程差分以及干净目录／路由检查已接入。
+- **尚未验收**：首轮全部 C++ 编译单元已编译到 Application 阶段，但 C# 同时 `/addmodule` 多个 Bridge 对象出现 `CS0101` 重复 C++ 元数据。需要修复构建期导入，不能删除业务类型或加入运行时 Backend DLL 掩盖。
+- 完整受影响组件的生产 EXE 差分仍需补齐；metadata 路由检查不等于 payload 或真实 MOD 验收。所有运行证据留在 Actions 产物，交接不新增公开编号／指纹。
+
+## 接续 P4 未完成工作
 
 - 从现有有效构建入口整理明确 Native／Bridge 源码清单，共享实现只编译一次，不递归无区别纳入 Draft 或重复实现。
 - 将 Tokenizer 三根、已声明 XML 路由和 W3X Native／Bridge 与 Application 包装统一链接进生产 EXE。
