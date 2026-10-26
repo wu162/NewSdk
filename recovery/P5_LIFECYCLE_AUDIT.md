@@ -38,4 +38,12 @@
 2. 向报告输出每流最终生效 DataRoot、data/art/audio 数组及来源；原始字符串仍保留在 effectiveOptions，不把 invocation-relative 路径预先套到旧搜索串。
 3. 明确根外引用：无缓存模式按原解析契约处理；若缓存模式无法覆盖新增根，必须明确拒绝或将全部新根纳入内容合同，不能静默读取旧缓存。
 4. 使用最小合法外部引用 MOD 核对路径优先级、原 BAB 原始四输出、失败和重试；同时检查最终生效根及来源报告。通过后再集中完成完整 P5/G3/SDK，并推进 P6/P7。
-5. 真实 session cache 仍待确定持久文档、LastOutputAssets 与中间资产来源；不能只跨流复用 Complete 或把 `/bc` 当成 `/sc` 完成。
+5. 真实 session cache 尚未接入，不能把 `/bc` 当成 `/sc` 完成。具体下一组如下。
+
+### 下一组 `/sc` 的实际接入点
+
+- 每流独立的新 `SessionPackage` 命名空间；在私有 staging 还原 `session.xml`、完整 intermediate 资产及 streams 下的 cdata。旧 linked 四输出不必恢复，由 Core 重建。
+- 每次新建 SessionCache，按 `LoadCache` → `InitializeCache` → 新 processor 顺序运行。Initialize 会 ResetState；Open 的 FromLast 创建新 Current 并绑定本次 processor，避免裸共享 Complete 文档提前跳过输出。
+- 成功后 `SaveCache(false)` 写本流私有包，仅打包新的 session.xml 和当前资产，排除 `.old/.tmp`；沿现有可逆缓存事务确认。坏 XML 包、缺损 intermediate/cdata 必须整包 miss 后冷编译，不能留下半恢复状态。
+- 为实际文档复用、XML 解析和实例编译增加独立计数；目录命中不代表 session 命中。保存包前检查本流实际处理的类型；三类混合 Texture 暂明确拒绝 `/sc`，`/sc:false` 仍可编译，不能复用未经证明的纹理中间资产。
+- 核验 include/XInclude、defines/表达式、inheritFrom 热路径、Audio/W3X cdata；保留关闭/冷/热、同 mtime 依赖变化、两个 MOD、多入口、失败/取消/收尾失败后重试及独立冷进程/原 BAB 原始输出对照。`/sc` 与 `/bc` 分别统计和确认；压缩、部分、冻结缓存保持显式拒绝，直至各自实现。

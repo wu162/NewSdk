@@ -54,6 +54,7 @@ try {
         @{path=[IO.Path]::GetRelativePath($sdk,$_.FullName).Replace('\','/');sha256=(Hash $_.FullName)}
     })
     if($state.schemaInputs.Count -eq 0){throw 'Real SDK schema input inventory is empty'}
+    $fixtureFailures=@()
     $fixtures=@(
         @{name='CompilerCacheContent';marker='PASS CacheContent:'},
         @{name='CompilerCacheBoundary';marker='PASS CacheBoundary:'},
@@ -131,6 +132,7 @@ try {
             $arguments+=$(if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'})
             foreach($name in $frameworkReferences){$arguments+=('/r:'+(Join-Path $refs ($name+'.dll')))}
             $arguments+=$source
+            try {
             & $csc @arguments *> "$fixtureOut/fixture-build.log"
             if($LASTEXITCODE -ne 0){Get-Content "$fixtureOut/fixture-build.log" -Tail 100|Out-Host;throw "$mode $($fixture.name) fixture compilation failed"}
             Copy-Item "$($run.exe).config" "$fixtureExe.config"
@@ -139,7 +141,6 @@ try {
             $fixtureHash=Hash $fixtureExe
             $timeout=if($fixture.timeoutSeconds){[int]$fixture.timeoutSeconds}else{$FixtureTimeoutSeconds}
             $resultPath=Join-Path $fixtureOut 'result.json'
-            try {
                 $processId=Invoke-LifecycleFixture $run.exe @($fixtureExe,$fixtureWork,$resultPath,$state.sourceCommit,$state.runId,$sdk) $clean "$fixtureOut/runtime.log" $timeout
                 if(!(Select-String -LiteralPath "$fixtureOut/runtime.log" -SimpleMatch $fixture.marker -Quiet)){throw 'Core lifecycle success marker missing'}
                 $result=Get-Content -LiteralPath $resultPath -Raw|ConvertFrom-Json
@@ -157,6 +158,15 @@ try {
                 }
                 $state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
                 Write-Host "PASS $mode $($fixture.name): targeted production-object lifecycle fixture"
+            } catch {
+                $fixtureError=$_.Exception.ToString()
+                $fixtureFailures+=($mode+' '+$fixture.name+': '+$fixtureError)
+                $modeState.fixtures+=,@{name=$fixture.name;passed=$false;error=$fixtureError;workRoot=$fixtureWork;sourceSha256=(Hash $source)}
+                # Each fixture is its own process. Keep collecting independent
+                # failures without converting any failed scope to a success.
+                Complete-CompilerValidationRun $run
+                $state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"
+                Write-Host "FAIL $mode $($fixture.name): $fixtureError"
             } finally {
                 # Preserve the small real XML/cache/output case tree on failures too.
                 if(Test-Path -LiteralPath $fixtureWork){Copy-Item -LiteralPath $fixtureWork -Destination (Join-Path $fixtureOut 'work') -Recurse}
@@ -165,11 +175,12 @@ try {
         Complete-CompilerValidationRun $run
         foreach($file in $run.runtimeFiles){if((Hash (Join-Path $runtimeOut $file.name)) -cne $file.sha256){throw 'Archived lifecycle runtime input changed'}}
         if($modeState.fixtures.Count -ne $fixtures.Count){throw 'Lifecycle fixture omitted'}
-        $modeState.passed=$true
+        $modeState.passed=(@($modeState.fixtures|Where-Object{$_.passed -ne $true}).Count -eq 0)
     }
     foreach($input in $state.schemaInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK schema input changed during lifecycle validation'}}
     foreach($input in $state.sdkFixtureInputs){if((Hash (Join-Path $sdk $input.path)) -cne $input.sha256){throw 'SDK fixture/config input changed during lifecycle validation'}}
     if((Hash $originalTexture) -cne $state.originalTextureSha256){throw 'Pinned original texture changed during backend lifecycle validation'}
+    if($fixtureFailures.Count -ne 0){throw ($fixtureFailures -join "`n")}
     $state.succeeded=$true;$state.status='passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate'
     $global:LASTEXITCODE=0
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}

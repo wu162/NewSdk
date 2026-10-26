@@ -68,6 +68,12 @@ public class FileHashItem : IXmlSerializable
 					else
 					{
 						_Hash = 0u;
+						// The missing-file result no longer has the previous
+						// content hash's identity. A same-time recreation must
+						// recompute FastHash rather than reuse this zero value.
+						_ContentHash = null;
+						_CurrentContentHash = null;
+						_LastDate = DateTime.MinValue;
 					}
 				}
 				_State |= FileState.HashValid;

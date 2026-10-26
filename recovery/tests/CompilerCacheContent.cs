@@ -80,9 +80,16 @@ public static class CompilerCacheContent
                 Require(loaded.Hash == LegacyHash(data), "Invalidation must update to the new legacy game hash");
                 Require(!loaded.IsDirty, "Changed content must establish a new clean baseline");
                 loaded.Reset(); Require(!loaded.IsDirty, "Repeated checks must use the updated baseline");
+                DateTime validTime = File.GetLastWriteTimeUtc(path);
                 File.Delete(path); loaded.Reset(); Require(!loaded.Exists && loaded.IsDirty && loaded.Hash == 0, "Deleted files must invalidate and hash as missing");
-                File.WriteAllBytes(path, data); loaded.Reset();
-                Require(loaded.Exists && loaded.Hash == LegacyHash(data), "Recreated files must be hashed correctly");
+                string missing = Serialize(loaded);
+                var missingXml = new XmlDocument(); missingXml.LoadXml(missing);
+                Require(!missingXml.DocumentElement.HasAttribute("sha256"), "A missing-file zero hash must not retain the previous content identity");
+                File.WriteAllBytes(path, data); File.SetLastWriteTimeUtc(path, validTime); loaded.Reset();
+                Require(File.GetLastWriteTimeUtc(path) == validTime, "Recreated fixture must preserve the original exact timestamp");
+                Require(loaded.Exists && loaded.IsDirty && loaded.Hash == LegacyHash(data), "Recreated files must be hashed correctly");
+                var missingRoundtrip = Deserialize(missing);
+                Require(missingRoundtrip.IsDirty && missingRoundtrip.Hash == LegacyHash(data), "A serialized missing-file result must not authorize zero hash reuse after recreation");
             }
         }
         tests.Add("real-FileHashItem-zero-small-and-multi-chunk-FastHash-equality-content-reset-XML-roundtrip-legacy-invalidation-delete-recreate");
