@@ -35,7 +35,7 @@ def main():
         for name,mod,wb,changed in cases:
             case=out/name;case.mkdir();row={'name':name,'expectedChanged':changed};state['cases'].append(row)
             for kind,exe in [('original',original),('candidate',candidate)]:
-                work=case/kind;work.mkdir();tools=work/'tools';tools.mkdir();builtmods=work/'BuiltMods';builtmods.mkdir()
+                work=case/kind;work.mkdir();tools=work/'tools';tools.mkdir();builtmods=work/'BuiltMods'/'SageXml';builtmods.mkdir(parents=True)
                 source=work/'mod.manifest';source.write_bytes(manifest(mod))
                 ref=builtmods/'Worldbuilder.manifest';ref.write_bytes(manifest(wb));before=sha(ref)
                 args=[str(exe),str(source)]+([str(ref)] if kind=='candidate' else [])
