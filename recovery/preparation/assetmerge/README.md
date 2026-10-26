@@ -1,0 +1,14 @@
+# AssetMerge component preparation
+
+Not enabled by the production CLI. `AssetMerge.Apply(stem, assetsDirectory, cancellation)` merges one directory into an **isolated staging** four-file linked stream. The caller must discard staging after a write failure. SDK/defaultscript.cs step 6 recursively invokes this once per directory containing `.asset`, before optional step 7 HashFix → ModAssetResolver and the final LoD stage.
+
+Source contract: Jonathan Wilson, cc3tools `assetmerge/assetmerge.cpp`, commit `ae47b0996927bcf3c43ba3494805afa37b8744de`:
+https://github.com/jonwil/cc3tools/blob/ae47b0996927bcf3c43ba3494805afa37b8744de/assetmerge/assetmerge.cpp
+
+The SDK executable imports CC3Tools.dll and its embedded PDB path is `c:\temp\cc3tools\release\assetmerge.pdb`; disassembly at `0x410eb1` confirms the source's forced `AllTypesHash=0x0a979693` constant. Compatibility code is GPL-3.0-or-later; copyright 2007 Jonathan Wilson, portions copyright 2007 booto. See COPYING. Other repository components retain their existing status.
+
+The implementation preserves defined legacy behavior: each `.asset` has eight uint32 header words, reference pairs, length-prefixed name/source and bin/relo/imp payloads; every incoming asset is prepended even with a duplicate identity; existing abstract texture references use the last matching incoming concrete texture; incoming references remain unchanged. All stream checksums survive, the type hash becomes the legacy constant, and the original incoming-instance-size bug updates all three maxima. Same-directory `.cdata` overwrites same-name staging CDATA and preserves other files. No `.asset` means no mutation.
+
+The original counts source-name bytes using pointer identity, but deduplicates writes by raw substring search. Repeated incoming source names, substring matches, and certain empty names can therefore produce uninitialized trailing bytes or buffer overruns. This component detects those layouts and rejects **before mutation**; it does not invent deterministic replacements or claim full legacy input coverage. Other restrictions are linked little-endian RA3 v6, complete valid bounded tables/payloads and plain asset files. Directory enumeration follows the native Windows enumeration, as in the old tool; no ID or name sorting is added.
+
+`TestCompilerAssetMerge.py --original SDK/tools/AssetMerge.exe --candidate <AssetMergeControl.exe> --output <fresh-dir>` compares all four raw output files and CDATA with the original tool in isolated inputs. Candidate-only checks cover cancellation, malformed input and undefined source-name layout refusal without changes. Windows/.NET compilation and original-tool differential remain mandatory before marking this component accepted. This preparation is not a statement that optional production merge, recursive merge selection or its cache input closure has been integrated.

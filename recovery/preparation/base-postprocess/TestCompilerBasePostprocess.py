@@ -123,7 +123,10 @@ def main():
                 work = case / kind; work.mkdir(); (work / 'tools').mkdir(); built = work / 'BuiltMods'; built.mkdir()
                 stream(work / 'mod', mod)
                 for stem, assets in (('Worldbuilder', wb), ('Static', static), ('Global', global_), ('Audio', audio)):
-                    stream(built / stem, assets)
+                    # Original tools assume a nonempty reference asset table.
+                    # A unique nonmatching asset keeps the no-reference case
+                    # meaningful without exercising the original empty-WB bug.
+                    stream(built / stem, assets or [asset(0x70000001, 0x70000002)])
                 # Actual HashFix.exe reads BuiltMods/SageXml; Resolver.exe
                 # reads the BuiltMods root. Preserve the SAME WB manifest bytes
                 # in both explicit layouts; neither stage may mutate either.
